@@ -1,0 +1,14 @@
+<?xml version="1.0"?>
+<package format="3">
+  <name>farm_sim_runtime</name><version>0.2.0</version>
+  <description>Farm project farm_sim_runtime; initial integration scaffold.</description>
+  <maintainer email="maintainer@example.com">Farm Team</maintainer>
+  <license>Proprietary</license>
+  <buildtool_depend>ament_python</buildtool_depend>
+  <exec_depend>farm_common</exec_depend>
+  <exec_depend>farm_sim_config</exec_depend>
+  <exec_depend>launch</exec_depend>
+  <exec_depend>launch_ros</exec_depend>
+  <exec_depend>farm_sim_devices</exec_depend>
+  <export><build_type>ament_python</build_type></export>
+</package>

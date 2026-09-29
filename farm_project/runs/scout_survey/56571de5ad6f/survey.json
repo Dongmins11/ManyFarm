@@ -1,0 +1,1189 @@
+{
+  "session_id": "56571de5ad6f",
+  "goal": {
+    "robot_id": "scout_01",
+    "task_id": "SCOUT_8dd81f4db1a2",
+    "section_ids": [
+      "BED_01"
+    ],
+    "map_id": "farm_map_v1",
+    "frame_id": "map",
+    "crop_type": "PAPRIKA",
+    "target_ripeness": "RIPE"
+  },
+  "config": {
+    "schema_version": 1,
+    "robot_id": "scout_01",
+    "map_id": "farm_map_v1",
+    "base_frame": "scout_01/base_footprint",
+    "vision_config": "robot/config/scout_vision.json",
+    "output_dir": "runs/scout_survey",
+    "goal_timeout_s": 300.0,
+    "arrival_tolerance_m": 0.08,
+    "heading_tolerance_rad": 0.12,
+    "settle_s": 0.8,
+    "overlap_fraction": 0.15,
+    "association_distance_m": 0.065,
+    "association_band_half_depth_m": 0.2,
+    "sections": {
+      "BED_01": {
+        "route_file": "sim/ros_ws/src/farm_sim_config/maps/graph.geojson",
+        "node_ids": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8
+        ],
+        "segment_id": "BED_01_BATCH",
+        "bed_plane_from_route_m": 1.14,
+        "evaluation_bed_prim": "/World/Vegetation/Bed_02",
+        "harvest": {
+          "heading_offset_rad": 3.141592653589793,
+          "mount_xy_base_m": [
+            0.19,
+            -0.185
+          ],
+          "work_offset_xy_base_m": [
+            0.0,
+            -0.25
+          ],
+          "height_reference_m": 0.703,
+          "height_offsets_m": [
+            -0.1,
+            0.35
+          ],
+          "width_m": 0.35,
+          "side_margin_m": 0.03,
+          "depth_m": 0.1,
+          "geometry_status": "PROVISIONAL: supplied arm_1_mount XY; reverse heading faces right-side arm toward bed; 0.25m work offset is a configured assumption. Not a validated harvest route or IK result."
+        }
+      }
+    },
+    "evaluation": {
+      "T_map_world": [
+        [
+          1,
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          1,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          1,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          1
+        ]
+      ],
+      "note": "Current scene/map share XY axes and initial robot coordinates. Change this independent registration if map origin/rotation changes; never fit to predictions."
+    },
+    "notes": [
+      "BED_01 is a temporary control alias for the previously tested route, not the USD prim name.",
+      "One batch per bed is temporarily represented by one segment. Confirm the production segment definition before replacing the test controller.",
+      "Survey covers the configured route extent and one facing side, not both sides of an entire USD bed.",
+      "Harvest stop route is a parallel line derived from mount/work offsets; collision and arm reachability are not verified. No harvest motion is sent."
+    ]
+  },
+  "vision_config": {
+    "schema_version": 1,
+    "shm_name": "farm_scout_01_rgbd",
+    "model": "robot/models/scout/model_yolo11_seg_ver1.0.pt",
+    "save_dir": "captures/scout_vision",
+    "max_fps": 15.0,
+    "max_frame_age_s": 2.0,
+    "preprocess": {
+      "edge_fraction": 0.05,
+      "camera_to_bed_plane_m": 1.14,
+      "height_band_m": [
+        0.603,
+        1.053
+      ],
+      "input_size": 640,
+      "pad_value": 114,
+      "vertical_margin_fraction": 0.1
+    },
+    "inference": {
+      "confidence": 0.25,
+      "iou": 0.7,
+      "max_detections": 100,
+      "minimum_mask_pixels": 6,
+      "half": false
+    },
+    "notes": [
+      "height_band_m는 제공된 harvest_robot 모델의 top_deck 기준 Z=0.703m에 [-0.10,+0.35]m를 더한 범위입니다. 상판 prim 기준이며 arm_base_link 기준과는 0.010m 차이가 있습니다. 농장 배치에 추가 Z 이동이나 스케일이 없고 지면 기준이 동일하다는 조건입니다.",
+      "B의 좌우 5% 제외와 상하 높이 양끝에서 공통 확보되는 관측 폭 계산을 이식했습니다.",
+      "기존 B는 모의 검출을 사용합니다. 640x640 크롭/패딩과 실제 YOLO 연결은 이번에 추가했습니다.",
+      "관측 설계 평면은 카메라 수평 시선에 수직이고 렌즈에서 1.14m 떨어졌다고 가정합니다. 정지하여 베드를 정면으로 보는 관측용이며 map상의 베드 위치 추정이 아닙니다.",
+      "카메라 K와 광학축 자세는 현재 프레임에서 읽습니다. 기존 B의 PyBullet 축이나 424x240 보정값을 복사하지 않습니다.",
+      "노이즈, 블러, 깊이 랜덤오차, 깊이 양자화는 추가하지 않습니다.",
+      "vertical_margin_fraction은 원래 투영 크롭 높이에 대한 위/아래 각각의 영상 여유 비율입니다. 원본 영상 경계에서 제한하며 회색 패딩과 구분합니다."
+    ]
+  },
+  "started_at": "2026-09-29T00:38:20.837835+00:00",
+  "status": "SUCCESS",
+  "sections": {
+    "BED_01": {
+      "design": {
+        "stops_s_m": [
+          0.9550532060235587,
+          2.2275266030117793,
+          3.4999999999999996,
+          4.77247339698822,
+          6.0449467939764405
+        ],
+        "relative_coverage_m": [
+          -0.9550532060235587,
+          0.9550532060235593
+        ],
+        "usable_width_m": 1.910106412047118,
+        "overlap_fraction": 0.15,
+        "route_length_m": 7.0
+      },
+      "status": "COMPLETE",
+      "survey": {
+        "fruits": [
+          {
+            "id": "56571de5ad6f_BED_01_F0001",
+            "position_map_m": [
+              -5.572119281386907,
+              9.261656137985081,
+              0.7755707519664207
+            ],
+            "class_name": "Yellow",
+            "confidence": 0.9478808641433716,
+            "seen_count": 1,
+            "first_stamp_ns": 107050005583,
+            "last_stamp_ns": 107050005583
+          },
+          {
+            "id": "56571de5ad6f_BED_01_F0002",
+            "position_map_m": [
+              -5.518271783630771,
+              8.646177122259262,
+              0.6460026093770199
+            ],
+            "class_name": "Red",
+            "confidence": 0.8706641793251038,
+            "seen_count": 1,
+            "first_stamp_ns": 107050005583,
+            "last_stamp_ns": 107050005583
+          },
+          {
+            "id": "56571de5ad6f_BED_01_F0003",
+            "position_map_m": [
+              -5.522402850387373,
+              7.6139952448838315,
+              1.0530987673937915
+            ],
+            "class_name": "Red",
+            "confidence": 0.8575672507286072,
+            "seen_count": 2,
+            "first_stamp_ns": 107050005583,
+            "last_stamp_ns": 127783339998
+          },
+          {
+            "id": "56571de5ad6f_BED_01_F0004",
+            "position_map_m": [
+              -5.488414448072829,
+              8.277406188385608,
+              0.7871187535953806
+            ],
+            "class_name": "Yellow",
+            "confidence": 0.8295613527297974,
+            "seen_count": 2,
+            "first_stamp_ns": 107050005583,
+            "last_stamp_ns": 127783339998
+          },
+          {
+            "id": "56571de5ad6f_BED_01_F0005",
+            "position_map_m": [
+              -5.568748996847231,
+              6.953766540817127,
+              0.8780134359995683
+            ],
+            "class_name": "Red",
+            "confidence": 0.9267097115516663,
+            "seen_count": 2,
+            "first_stamp_ns": 127783339998,
+            "last_stamp_ns": 149250007784
+          },
+          {
+            "id": "56571de5ad6f_BED_01_F0006",
+            "position_map_m": [
+              -5.549212673191895,
+              7.368739229521399,
+              0.9006164682599395
+            ],
+            "class_name": "Yellow",
+            "confidence": 0.850286602973938,
+            "seen_count": 1,
+            "first_stamp_ns": 127783339998,
+            "last_stamp_ns": 127783339998
+          },
+          {
+            "id": "56571de5ad6f_BED_01_F0007",
+            "position_map_m": [
+              -5.534988253614368,
+              5.718139531015002,
+              0.9332120034851026
+            ],
+            "class_name": "Yellow",
+            "confidence": 0.8990089893341064,
+            "seen_count": 2,
+            "first_stamp_ns": 149250007784,
+            "last_stamp_ns": 170583342230
+          },
+          {
+            "id": "56571de5ad6f_BED_01_F0008",
+            "position_map_m": [
+              -5.50359991268161,
+              5.7389229950550975,
+              0.6537518385954911
+            ],
+            "class_name": "Red",
+            "confidence": 0.6554663181304932,
+            "seen_count": 2,
+            "first_stamp_ns": 149250007784,
+            "last_stamp_ns": 170583342230
+          },
+          {
+            "id": "56571de5ad6f_BED_01_F0009",
+            "position_map_m": [
+              -5.5440072533704186,
+              6.270855717884709,
+              1.0163638552527434
+            ],
+            "class_name": "Red",
+            "confidence": 0.6081116795539856,
+            "seen_count": 1,
+            "first_stamp_ns": 149250007784,
+            "last_stamp_ns": 149250007784
+          },
+          {
+            "id": "56571de5ad6f_BED_01_F0010",
+            "position_map_m": [
+              -5.5555241901222185,
+              5.013208026770141,
+              0.9695258249913153
+            ],
+            "class_name": "Red",
+            "confidence": 0.9362459182739258,
+            "seen_count": 1,
+            "first_stamp_ns": 170583342230,
+            "last_stamp_ns": 170583342230
+          },
+          {
+            "id": "56571de5ad6f_BED_01_F0011",
+            "position_map_m": [
+              -5.52902504755948,
+              5.008757501462219,
+              0.6298615726914545
+            ],
+            "class_name": "Yellow",
+            "confidence": 0.5388631224632263,
+            "seen_count": 1,
+            "first_stamp_ns": 170583342230,
+            "last_stamp_ns": 170583342230
+          },
+          {
+            "id": "56571de5ad6f_BED_01_F0012",
+            "position_map_m": [
+              -5.5394157907271735,
+              3.2021674933797684,
+              1.0444810506611577
+            ],
+            "class_name": "Yellow",
+            "confidence": 0.8957019448280334,
+            "seen_count": 1,
+            "first_stamp_ns": 191850010006,
+            "last_stamp_ns": 191850010006
+          },
+          {
+            "id": "56571de5ad6f_BED_01_F0013",
+            "position_map_m": [
+              -5.533546369440888,
+              3.1844884587367126,
+              0.6358547299649973
+            ],
+            "class_name": "Red",
+            "confidence": 0.4011639654636383,
+            "seen_count": 1,
+            "first_stamp_ns": 191850010006,
+            "last_stamp_ns": 191850010006
+          }
+        ],
+        "windows": [
+          {
+            "task_id": 1,
+            "anchor_id": "56571de5ad6f_BED_01_F0002",
+            "member_ids": [
+              "56571de5ad6f_BED_01_F0002"
+            ],
+            "observed_ids": [
+              "56571de5ad6f_BED_01_F0002"
+            ],
+            "base_x": 1.188822877740738,
+            "base_y": 0.7049999999999998,
+            "arm_x": 0.9988228777407379,
+            "arm_y": 0.8899999999999999,
+            "arm_z": 0.703,
+            "window_x_min": 0.8238228777407379,
+            "window_x_max": 1.1738228777407378,
+            "window_y_min": 1.0899999999999999,
+            "window_y_max": 1.19,
+            "window_z_min": 0.603,
+            "window_z_max": 1.053,
+            "safe_x_min": 0.853822877740738,
+            "safe_x_max": 1.1438228777407378,
+            "base_yaw": 0.0,
+            "window_id": "56571de5ad6f_BED_01_W001",
+            "goal_pose": {
+              "frame_id": "map",
+              "position": [
+                -5.95,
+                8.311177122259263,
+                0.0
+              ],
+              "yaw": 1.5707963267948966
+            },
+            "corners_map_m": [
+              [
+                -5.565,
+                8.676177122259261,
+                0.603
+              ],
+              [
+                -5.565,
+                8.326177122259262,
+                0.603
+              ],
+              [
+                -5.465,
+                8.676177122259261,
+                0.603
+              ],
+              [
+                -5.465,
+                8.326177122259262,
+                0.603
+              ],
+              [
+                -5.565,
+                8.676177122259261,
+                1.053
+              ],
+              [
+                -5.565,
+                8.326177122259262,
+                1.053
+              ],
+              [
+                -5.465,
+                8.676177122259261,
+                1.053
+              ],
+              [
+                -5.465,
+                8.326177122259262,
+                1.053
+              ]
+            ],
+            "expected_count": 1
+          },
+          {
+            "task_id": 2,
+            "anchor_id": "56571de5ad6f_BED_01_F0004",
+            "member_ids": [
+              "56571de5ad6f_BED_01_F0004"
+            ],
+            "observed_ids": [
+              "56571de5ad6f_BED_01_F0004"
+            ],
+            "base_x": 1.5575938116143915,
+            "base_y": 0.7049999999999998,
+            "arm_x": 1.3675938116143915,
+            "arm_y": 0.8899999999999999,
+            "arm_z": 0.703,
+            "window_x_min": 1.1925938116143915,
+            "window_x_max": 1.5425938116143914,
+            "window_y_min": 1.0899999999999999,
+            "window_y_max": 1.19,
+            "window_z_min": 0.603,
+            "window_z_max": 1.053,
+            "safe_x_min": 1.2225938116143915,
+            "safe_x_max": 1.5125938116143913,
+            "base_yaw": 0.0,
+            "window_id": "56571de5ad6f_BED_01_W002",
+            "goal_pose": {
+              "frame_id": "map",
+              "position": [
+                -5.95,
+                7.9424061883856085,
+                0.0
+              ],
+              "yaw": 1.5707963267948966
+            },
+            "corners_map_m": [
+              [
+                -5.565,
+                8.307406188385608,
+                0.603
+              ],
+              [
+                -5.565,
+                7.957406188385608,
+                0.603
+              ],
+              [
+                -5.465,
+                8.307406188385608,
+                0.603
+              ],
+              [
+                -5.465,
+                7.957406188385608,
+                0.603
+              ],
+              [
+                -5.565,
+                8.307406188385608,
+                1.053
+              ],
+              [
+                -5.565,
+                7.957406188385608,
+                1.053
+              ],
+              [
+                -5.465,
+                8.307406188385608,
+                1.053
+              ],
+              [
+                -5.465,
+                7.957406188385608,
+                1.053
+              ]
+            ],
+            "expected_count": 1
+          },
+          {
+            "task_id": 3,
+            "anchor_id": "56571de5ad6f_BED_01_F0006",
+            "member_ids": [
+              "56571de5ad6f_BED_01_F0006"
+            ],
+            "observed_ids": [
+              "56571de5ad6f_BED_01_F0006"
+            ],
+            "base_x": 2.4662607704786015,
+            "base_y": 0.7049999999999998,
+            "arm_x": 2.2762607704786015,
+            "arm_y": 0.8899999999999999,
+            "arm_z": 0.703,
+            "window_x_min": 2.1012607704786013,
+            "window_x_max": 2.4512607704786014,
+            "window_y_min": 1.0899999999999999,
+            "window_y_max": 1.19,
+            "window_z_min": 0.603,
+            "window_z_max": 1.053,
+            "safe_x_min": 2.131260770478601,
+            "safe_x_max": 2.4212607704786016,
+            "base_yaw": 0.0,
+            "window_id": "56571de5ad6f_BED_01_W003",
+            "goal_pose": {
+              "frame_id": "map",
+              "position": [
+                -5.95,
+                7.033739229521398,
+                0.0
+              ],
+              "yaw": 1.5707963267948966
+            },
+            "corners_map_m": [
+              [
+                -5.565,
+                7.398739229521398,
+                0.603
+              ],
+              [
+                -5.565,
+                7.048739229521399,
+                0.603
+              ],
+              [
+                -5.465,
+                7.398739229521398,
+                0.603
+              ],
+              [
+                -5.465,
+                7.048739229521399,
+                0.603
+              ],
+              [
+                -5.565,
+                7.398739229521398,
+                1.053
+              ],
+              [
+                -5.565,
+                7.048739229521399,
+                1.053
+              ],
+              [
+                -5.465,
+                7.398739229521398,
+                1.053
+              ],
+              [
+                -5.465,
+                7.048739229521399,
+                1.053
+              ]
+            ],
+            "expected_count": 1
+          },
+          {
+            "task_id": 4,
+            "anchor_id": "56571de5ad6f_BED_01_F0009",
+            "member_ids": [
+              "56571de5ad6f_BED_01_F0009"
+            ],
+            "observed_ids": [
+              "56571de5ad6f_BED_01_F0009"
+            ],
+            "base_x": 3.5641442821152913,
+            "base_y": 0.7049999999999998,
+            "arm_x": 3.3741442821152914,
+            "arm_y": 0.8899999999999999,
+            "arm_z": 0.703,
+            "window_x_min": 3.199144282115291,
+            "window_x_max": 3.549144282115291,
+            "window_y_min": 1.0899999999999999,
+            "window_y_max": 1.19,
+            "window_z_min": 0.603,
+            "window_z_max": 1.053,
+            "safe_x_min": 3.229144282115291,
+            "safe_x_max": 3.5191442821152914,
+            "base_yaw": 0.0,
+            "window_id": "56571de5ad6f_BED_01_W004",
+            "goal_pose": {
+              "frame_id": "map",
+              "position": [
+                -5.95,
+                5.935855717884708,
+                0.0
+              ],
+              "yaw": 1.5707963267948966
+            },
+            "corners_map_m": [
+              [
+                -5.565,
+                6.300855717884708,
+                0.603
+              ],
+              [
+                -5.565,
+                5.950855717884709,
+                0.603
+              ],
+              [
+                -5.465,
+                6.300855717884708,
+                0.603
+              ],
+              [
+                -5.465,
+                5.950855717884709,
+                0.603
+              ],
+              [
+                -5.565,
+                6.300855717884708,
+                1.053
+              ],
+              [
+                -5.565,
+                5.950855717884709,
+                1.053
+              ],
+              [
+                -5.465,
+                6.300855717884708,
+                1.053
+              ],
+              [
+                -5.465,
+                5.950855717884709,
+                1.053
+              ]
+            ],
+            "expected_count": 1
+          },
+          {
+            "task_id": 5,
+            "anchor_id": "56571de5ad6f_BED_01_F0008",
+            "member_ids": [
+              "56571de5ad6f_BED_01_F0008",
+              "56571de5ad6f_BED_01_F0007"
+            ],
+            "observed_ids": [
+              "56571de5ad6f_BED_01_F0008",
+              "56571de5ad6f_BED_01_F0007"
+            ],
+            "base_x": 4.096077004944903,
+            "base_y": 0.7049999999999998,
+            "arm_x": 3.906077004944903,
+            "arm_y": 0.8899999999999999,
+            "arm_z": 0.703,
+            "window_x_min": 3.7310770049449027,
+            "window_x_max": 4.081077004944903,
+            "window_y_min": 1.0899999999999999,
+            "window_y_max": 1.19,
+            "window_z_min": 0.603,
+            "window_z_max": 1.053,
+            "safe_x_min": 3.7610770049449025,
+            "safe_x_max": 4.0510770049449025,
+            "base_yaw": 0.0,
+            "window_id": "56571de5ad6f_BED_01_W005",
+            "goal_pose": {
+              "frame_id": "map",
+              "position": [
+                -5.95,
+                5.403922995055097,
+                0.0
+              ],
+              "yaw": 1.5707963267948966
+            },
+            "corners_map_m": [
+              [
+                -5.565,
+                5.768922995055098,
+                0.603
+              ],
+              [
+                -5.565,
+                5.418922995055097,
+                0.603
+              ],
+              [
+                -5.465,
+                5.768922995055098,
+                0.603
+              ],
+              [
+                -5.465,
+                5.418922995055097,
+                0.603
+              ],
+              [
+                -5.565,
+                5.768922995055098,
+                1.053
+              ],
+              [
+                -5.565,
+                5.418922995055097,
+                1.053
+              ],
+              [
+                -5.465,
+                5.768922995055098,
+                1.053
+              ],
+              [
+                -5.465,
+                5.418922995055097,
+                1.053
+              ]
+            ],
+            "expected_count": 2
+          },
+          {
+            "task_id": 6,
+            "anchor_id": "56571de5ad6f_BED_01_F0010",
+            "member_ids": [
+              "56571de5ad6f_BED_01_F0010",
+              "56571de5ad6f_BED_01_F0011"
+            ],
+            "observed_ids": [
+              "56571de5ad6f_BED_01_F0010",
+              "56571de5ad6f_BED_01_F0011"
+            ],
+            "base_x": 4.821791973229859,
+            "base_y": 0.7049999999999998,
+            "arm_x": 4.631791973229858,
+            "arm_y": 0.8899999999999999,
+            "arm_z": 0.703,
+            "window_x_min": 4.456791973229858,
+            "window_x_max": 4.806791973229858,
+            "window_y_min": 1.0899999999999999,
+            "window_y_max": 1.19,
+            "window_z_min": 0.603,
+            "window_z_max": 1.053,
+            "safe_x_min": 4.486791973229859,
+            "safe_x_max": 4.776791973229858,
+            "base_yaw": 0.0,
+            "window_id": "56571de5ad6f_BED_01_W006",
+            "goal_pose": {
+              "frame_id": "map",
+              "position": [
+                -5.95,
+                4.678208026770141,
+                0.0
+              ],
+              "yaw": 1.5707963267948966
+            },
+            "corners_map_m": [
+              [
+                -5.565,
+                5.043208026770142,
+                0.603
+              ],
+              [
+                -5.565,
+                4.693208026770142,
+                0.603
+              ],
+              [
+                -5.465,
+                5.043208026770142,
+                0.603
+              ],
+              [
+                -5.465,
+                4.693208026770142,
+                0.603
+              ],
+              [
+                -5.565,
+                5.043208026770142,
+                1.053
+              ],
+              [
+                -5.565,
+                4.693208026770142,
+                1.053
+              ],
+              [
+                -5.465,
+                5.043208026770142,
+                1.053
+              ],
+              [
+                -5.465,
+                4.693208026770142,
+                1.053
+              ]
+            ],
+            "expected_count": 2
+          },
+          {
+            "task_id": 7,
+            "anchor_id": "56571de5ad6f_BED_01_F0012",
+            "member_ids": [
+              "56571de5ad6f_BED_01_F0012",
+              "56571de5ad6f_BED_01_F0013"
+            ],
+            "observed_ids": [
+              "56571de5ad6f_BED_01_F0012",
+              "56571de5ad6f_BED_01_F0013"
+            ],
+            "base_x": 6.632832506620232,
+            "base_y": 0.7049999999999998,
+            "arm_x": 6.442832506620231,
+            "arm_y": 0.8899999999999999,
+            "arm_z": 0.703,
+            "window_x_min": 6.267832506620231,
+            "window_x_max": 6.617832506620231,
+            "window_y_min": 1.0899999999999999,
+            "window_y_max": 1.19,
+            "window_z_min": 0.603,
+            "window_z_max": 1.053,
+            "safe_x_min": 6.297832506620232,
+            "safe_x_max": 6.587832506620231,
+            "base_yaw": 0.0,
+            "window_id": "56571de5ad6f_BED_01_W007",
+            "goal_pose": {
+              "frame_id": "map",
+              "position": [
+                -5.95,
+                2.8671674933797684,
+                0.0
+              ],
+              "yaw": 1.5707963267948966
+            },
+            "corners_map_m": [
+              [
+                -5.565,
+                3.2321674933797686,
+                0.603
+              ],
+              [
+                -5.565,
+                2.882167493379769,
+                0.603
+              ],
+              [
+                -5.465,
+                3.2321674933797686,
+                0.603
+              ],
+              [
+                -5.465,
+                2.882167493379769,
+                0.603
+              ],
+              [
+                -5.565,
+                3.2321674933797686,
+                1.053
+              ],
+              [
+                -5.565,
+                2.882167493379769,
+                1.053
+              ],
+              [
+                -5.465,
+                3.2321674933797686,
+                1.053
+              ],
+              [
+                -5.465,
+                2.882167493379769,
+                1.053
+              ]
+            ],
+            "expected_count": 2
+          }
+        ],
+        "holds": [
+          {
+            "anchor_id": "56571de5ad6f_BED_01_F0001",
+            "reason": "depth_out_of_range"
+          },
+          {
+            "anchor_id": "56571de5ad6f_BED_01_F0003",
+            "reason": "height_out_of_range"
+          },
+          {
+            "anchor_id": "56571de5ad6f_BED_01_F0005",
+            "reason": "depth_out_of_range"
+          }
+        ],
+        "observation_count": 5,
+        "harvest_task_count": 7,
+        "total_expected_count": 10,
+        "position_semantics": "first RGB-D visible surface sample, not fruit center/grasp point",
+        "identity_method": "B baseline greedy 3D one-to-one; identity errors remain possible"
+      },
+      "batch": [
+        {
+          "task_id": "56571de5ad6f_BED_01_TASK001",
+          "window_id": "56571de5ad6f_BED_01_W001",
+          "expected_count": 1
+        },
+        {
+          "task_id": "56571de5ad6f_BED_01_TASK002",
+          "window_id": "56571de5ad6f_BED_01_W002",
+          "expected_count": 1
+        },
+        {
+          "task_id": "56571de5ad6f_BED_01_TASK003",
+          "window_id": "56571de5ad6f_BED_01_W003",
+          "expected_count": 1
+        },
+        {
+          "task_id": "56571de5ad6f_BED_01_TASK004",
+          "window_id": "56571de5ad6f_BED_01_W004",
+          "expected_count": 1
+        },
+        {
+          "task_id": "56571de5ad6f_BED_01_TASK005",
+          "window_id": "56571de5ad6f_BED_01_W005",
+          "expected_count": 2
+        },
+        {
+          "task_id": "56571de5ad6f_BED_01_TASK006",
+          "window_id": "56571de5ad6f_BED_01_W006",
+          "expected_count": 2
+        },
+        {
+          "task_id": "56571de5ad6f_BED_01_TASK007",
+          "window_id": "56571de5ad6f_BED_01_W007",
+          "expected_count": 2
+        }
+      ]
+    }
+  },
+  "observations": [
+    {
+      "section": "BED_01",
+      "index": 1,
+      "stamp_ns": 107050005583,
+      "timings": {
+        "capture_to_result_ms": 59.602991000019756,
+        "preprocess_infer_depth_ms": 52.90218499999355
+      },
+      "valid_depth_detection_count": 4,
+      "depth_rejected_count": 0,
+      "section_accepted_count": 4,
+      "outside_section_count": 0
+    },
+    {
+      "section": "BED_01",
+      "index": 2,
+      "stamp_ns": 127783339998,
+      "timings": {
+        "capture_to_result_ms": 31.57856999996511,
+        "preprocess_infer_depth_ms": 21.258221000152844
+      },
+      "valid_depth_detection_count": 4,
+      "depth_rejected_count": 0,
+      "section_accepted_count": 4,
+      "outside_section_count": 0
+    },
+    {
+      "section": "BED_01",
+      "index": 3,
+      "stamp_ns": 149250007784,
+      "timings": {
+        "capture_to_result_ms": 37.716352000188635,
+        "preprocess_infer_depth_ms": 29.609042999709345
+      },
+      "valid_depth_detection_count": 4,
+      "depth_rejected_count": 0,
+      "section_accepted_count": 4,
+      "outside_section_count": 0
+    },
+    {
+      "section": "BED_01",
+      "index": 4,
+      "stamp_ns": 170583342230,
+      "timings": {
+        "capture_to_result_ms": 23.633263999727205,
+        "preprocess_infer_depth_ms": 22.972719999870606
+      },
+      "valid_depth_detection_count": 4,
+      "depth_rejected_count": 0,
+      "section_accepted_count": 4,
+      "outside_section_count": 0
+    },
+    {
+      "section": "BED_01",
+      "index": 5,
+      "stamp_ns": 191850010006,
+      "timings": {
+        "capture_to_result_ms": 28.046643999914522,
+        "preprocess_infer_depth_ms": 21.696358999633958
+      },
+      "valid_depth_detection_count": 2,
+      "depth_rejected_count": 0,
+      "section_accepted_count": 2,
+      "outside_section_count": 0
+    }
+  ],
+  "navigation": [
+    {
+      "goal_map": {
+        "x": -6.655,
+        "y": 9.5,
+        "yaw": -1.5707963267948966
+      },
+      "started_at": "2026-09-29T00:38:22.853143+00:00",
+      "status": "ARRIVED",
+      "nav2_status": 4,
+      "actual_map": {
+        "x": -6.633130682870085,
+        "y": 9.533329045369957,
+        "yaw": -1.6102244916732398
+      },
+      "position_error_m": 0.0398634205381504,
+      "heading_error_rad": 0.03942816487834321,
+      "position_tolerance_m": 0.08,
+      "heading_tolerance_rad": 0.12,
+      "accepted": true,
+      "stamp_ns": 88483337948,
+      "finished_at": "2026-09-29T00:39:01.181864+00:00"
+    },
+    {
+      "goal_map": {
+        "x": -6.655,
+        "y": 8.544946793976441,
+        "yaw": -1.5707963267948966
+      },
+      "started_at": "2026-09-29T00:39:01.224976+00:00",
+      "status": "ARRIVED",
+      "nav2_status": 4,
+      "actual_map": {
+        "x": -6.649104883510814,
+        "y": 8.592527303591545,
+        "yaw": -1.6017848828361319
+      },
+      "position_error_m": 0.047944314508125606,
+      "heading_error_rad": 0.030988556041235293,
+      "position_tolerance_m": 0.08,
+      "heading_tolerance_rad": 0.12,
+      "accepted": true,
+      "stamp_ns": 106983338913,
+      "finished_at": "2026-09-29T00:39:21.583525+00:00"
+    },
+    {
+      "goal_map": {
+        "x": -6.655,
+        "y": 7.272473396988221,
+        "yaw": -1.5707963267948966
+      },
+      "started_at": "2026-09-29T00:39:21.778605+00:00",
+      "status": "ARRIVED",
+      "nav2_status": 4,
+      "actual_map": {
+        "x": -6.6598827569433325,
+        "y": 7.321154374463121,
+        "yaw": -1.4988963462607046
+      },
+      "position_error_m": 0.04892523769262035,
+      "heading_error_rad": 0.071899980534192,
+      "position_tolerance_m": 0.08,
+      "heading_tolerance_rad": 0.12,
+      "accepted": true,
+      "stamp_ns": 127750006663,
+      "finished_at": "2026-09-29T00:39:44.611271+00:00"
+    },
+    {
+      "goal_map": {
+        "x": -6.655,
+        "y": 6.0,
+        "yaw": -1.5707963267948966
+      },
+      "started_at": "2026-09-29T00:39:44.720064+00:00",
+      "status": "ARRIVED",
+      "nav2_status": 4,
+      "actual_map": {
+        "x": -6.664947803961014,
+        "y": 6.048925113917129,
+        "yaw": -1.5469654697117676
+      },
+      "position_error_m": 0.049926201292014825,
+      "heading_error_rad": 0.02383085708312893,
+      "position_tolerance_m": 0.08,
+      "heading_tolerance_rad": 0.12,
+      "accepted": true,
+      "stamp_ns": 149183341114,
+      "finished_at": "2026-09-29T00:40:08.163249+00:00"
+    },
+    {
+      "goal_map": {
+        "x": -6.655,
+        "y": 4.72752660301178,
+        "yaw": -1.5707963267948966
+      },
+      "started_at": "2026-09-29T00:40:08.311457+00:00",
+      "status": "ARRIVED",
+      "nav2_status": 4,
+      "actual_map": {
+        "x": -6.6613428799438985,
+        "y": 4.780358864621602,
+        "yaw": -1.5304080875098396
+      },
+      "position_error_m": 0.053211652791389626,
+      "heading_error_rad": 0.04038823928505697,
+      "position_tolerance_m": 0.08,
+      "heading_tolerance_rad": 0.12,
+      "accepted": true,
+      "stamp_ns": 170550008895,
+      "finished_at": "2026-09-29T00:40:32.258434+00:00"
+    },
+    {
+      "goal_map": {
+        "x": -6.655,
+        "y": 3.4550532060235595,
+        "yaw": -1.5707963267948966
+      },
+      "started_at": "2026-09-29T00:40:32.346789+00:00",
+      "status": "ARRIVED",
+      "nav2_status": 4,
+      "actual_map": {
+        "x": -6.66673040199234,
+        "y": 3.5007764092979485,
+        "yaw": -1.5332928663202425
+      },
+      "position_error_m": 0.047203957975714216,
+      "heading_error_rad": 0.03750346047465403,
+      "position_tolerance_m": 0.08,
+      "heading_tolerance_rad": 0.12,
+      "accepted": true,
+      "stamp_ns": 191816676671,
+      "finished_at": "2026-09-29T00:40:55.773167+00:00"
+    },
+    {
+      "goal_map": {
+        "x": -6.655,
+        "y": 2.5,
+        "yaw": -1.5707963267948966
+      },
+      "started_at": "2026-09-29T00:40:55.862852+00:00",
+      "status": "ARRIVED",
+      "nav2_status": 4,
+      "actual_map": {
+        "x": -6.663400709701735,
+        "y": 2.5480314261291124,
+        "yaw": -1.5396369211770928
+      },
+      "position_error_m": 0.048760535471723425,
+      "heading_error_rad": 0.031159405617803726,
+      "position_tolerance_m": 0.08,
+      "heading_tolerance_rad": 0.12,
+      "accepted": true,
+      "stamp_ns": 210516677646,
+      "finished_at": "2026-09-29T00:41:16.992357+00:00"
+    }
+  ],
+  "navigation_preflight": {
+    "controller_node": "controller_server",
+    "checked_at": "2026-09-29T00:38:20.858161+00:00",
+    "parameters": {
+      "goal_checker_plugins": [
+        "general_goal_checker"
+      ],
+      "general_goal_checker.plugin": "nav2_controller::SimpleGoalChecker",
+      "general_goal_checker.xy_goal_tolerance": 0.05,
+      "general_goal_checker.yaw_goal_tolerance": 0.08,
+      "general_goal_checker.stateful": true,
+      "general_goal_checker.symmetric_yaw_tolerance": false
+    },
+    "status": "OK",
+    "checkers": [
+      {
+        "id": "general_goal_checker",
+        "xy_goal_tolerance": 0.05,
+        "yaw_goal_tolerance": 0.08,
+        "stateful": true
+      }
+    ]
+  },
+  "finished_at": "2026-09-29T00:41:17.459284+00:00",
+  "elapsed_wall_s": 176.62171775299998,
+  "completed_section_ids": [
+    "BED_01"
+  ],
+  "harvest_task_count": 7,
+  "total_expected_count": 10
+}

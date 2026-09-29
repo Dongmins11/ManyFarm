@@ -1,0 +1,14 @@
+{
+  "original_filename": "model_yolo11_seg_ver1.0(1).pt",
+  "sha256": "1793b24bb567c0ad29901813d50b77bf9059849086a5247b648c2b35983fbb61",
+  "checkpoint_metadata": {
+    "ultralytics_version": "8.4.156",
+    "task": "segment",
+    "imgsz": 640,
+    "names": {
+      "0": "Red",
+      "1": "Yellow"
+    }
+  },
+  "verification": "metadata inspected; model inference not executed in the authoring environment"
+}

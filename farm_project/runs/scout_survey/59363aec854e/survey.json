@@ -1,0 +1,932 @@
+{
+  "session_id": "59363aec854e",
+  "goal": {
+    "robot_id": "scout_01",
+    "task_id": "SCOUT_09f1e55cf815",
+    "section_ids": [
+      "BED_01"
+    ],
+    "map_id": "farm_map_v1",
+    "frame_id": "map",
+    "crop_type": "PAPRIKA",
+    "target_ripeness": "RIPE"
+  },
+  "config": {
+    "schema_version": 1,
+    "robot_id": "scout_01",
+    "map_id": "farm_map_v1",
+    "base_frame": "scout_01/base_footprint",
+    "vision_config": "robot/config/scout_vision.json",
+    "output_dir": "runs/scout_survey",
+    "goal_timeout_s": 300.0,
+    "arrival_tolerance_m": 0.08,
+    "heading_tolerance_rad": 0.12,
+    "settle_s": 0.8,
+    "overlap_fraction": 0.15,
+    "association_distance_m": 0.065,
+    "association_band_half_depth_m": 0.2,
+    "sections": {
+      "BED_01": {
+        "route_file": "sim/ros_ws/src/farm_sim_config/maps/graph.geojson",
+        "node_ids": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8
+        ],
+        "segment_id": "BED_01_BATCH",
+        "bed_plane_from_route_m": 1.14,
+        "evaluation_bed_prim": "/World/Vegetation/Bed_02",
+        "harvest": {
+          "heading_offset_rad": 3.141592653589793,
+          "mount_xy_base_m": [
+            0.19,
+            -0.185
+          ],
+          "work_offset_xy_base_m": [
+            0.0,
+            -0.25
+          ],
+          "height_reference_m": 0.703,
+          "height_offsets_m": [
+            -0.1,
+            0.35
+          ],
+          "width_m": 0.35,
+          "side_margin_m": 0.03,
+          "depth_m": 0.1,
+          "geometry_status": "PROVISIONAL: supplied arm_1_mount XY; reverse heading faces right-side arm toward bed; 0.25m work offset is a configured assumption. Not a validated harvest route or IK result."
+        }
+      }
+    },
+    "evaluation": {
+      "T_map_world": [
+        [
+          1,
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          1,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          1,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          1
+        ]
+      ],
+      "note": "Current scene/map share XY axes and initial robot coordinates. Change this independent registration if map origin/rotation changes; never fit to predictions."
+    },
+    "notes": [
+      "BED_01 is a temporary control alias for the previously tested route, not the USD prim name.",
+      "One batch per bed is temporarily represented by one segment. Confirm the production segment definition before replacing the test controller.",
+      "Survey covers the configured route extent and one facing side, not both sides of an entire USD bed.",
+      "Harvest stop route is a parallel line derived from mount/work offsets; collision and arm reachability are not verified. No harvest motion is sent."
+    ]
+  },
+  "vision_config": {
+    "schema_version": 1,
+    "shm_name": "farm_scout_01_rgbd",
+    "model": "robot/models/scout/model_yolo11_seg_ver1.0.pt",
+    "save_dir": "captures/scout_vision",
+    "max_fps": 15.0,
+    "max_frame_age_s": 2.0,
+    "preprocess": {
+      "edge_fraction": 0.05,
+      "camera_to_bed_plane_m": 1.14,
+      "height_band_m": [
+        0.603,
+        1.053
+      ],
+      "input_size": 640,
+      "pad_value": 114,
+      "vertical_margin_fraction": 0.1
+    },
+    "inference": {
+      "confidence": 0.25,
+      "iou": 0.7,
+      "max_detections": 100,
+      "minimum_mask_pixels": 6,
+      "half": false
+    },
+    "notes": [
+      "height_band_m는 제공된 harvest_robot 모델의 top_deck 기준 Z=0.703m에 [-0.10,+0.35]m를 더한 범위입니다. 상판 prim 기준이며 arm_base_link 기준과는 0.010m 차이가 있습니다. 농장 배치에 추가 Z 이동이나 스케일이 없고 지면 기준이 동일하다는 조건입니다.",
+      "B의 좌우 5% 제외와 상하 높이 양끝에서 공통 확보되는 관측 폭 계산을 이식했습니다.",
+      "기존 B는 모의 검출을 사용합니다. 640x640 크롭/패딩과 실제 YOLO 연결은 이번에 추가했습니다.",
+      "관측 설계 평면은 카메라 수평 시선에 수직이고 렌즈에서 1.14m 떨어졌다고 가정합니다. 정지하여 베드를 정면으로 보는 관측용이며 map상의 베드 위치 추정이 아닙니다.",
+      "카메라 K와 광학축 자세는 현재 프레임에서 읽습니다. 기존 B의 PyBullet 축이나 424x240 보정값을 복사하지 않습니다.",
+      "노이즈, 블러, 깊이 랜덤오차, 깊이 양자화는 추가하지 않습니다.",
+      "vertical_margin_fraction은 원래 투영 크롭 높이에 대한 위/아래 각각의 영상 여유 비율입니다. 원본 영상 경계에서 제한하며 회색 패딩과 구분합니다."
+    ]
+  },
+  "started_at": "2026-09-28T09:17:11.463167+00:00",
+  "status": "SUCCESS",
+  "sections": {
+    "BED_01": {
+      "design": {
+        "stops_s_m": [
+          0.9550532060235587,
+          2.2275266030117793,
+          3.4999999999999996,
+          4.77247339698822,
+          6.0449467939764405
+        ],
+        "relative_coverage_m": [
+          -0.9550532060235587,
+          0.9550532060235593
+        ],
+        "usable_width_m": 1.910106412047118,
+        "overlap_fraction": 0.15,
+        "route_length_m": 7.0
+      },
+      "status": "COMPLETE",
+      "survey": {
+        "fruits": [
+          {
+            "id": "59363aec854e_BED_01_F0001",
+            "position_map_m": [
+              -5.576847317125377,
+              9.263620213853503,
+              0.7726866598242443
+            ],
+            "class_name": "Yellow",
+            "confidence": 0.9488489031791687,
+            "seen_count": 1,
+            "first_stamp_ns": 282983348092,
+            "last_stamp_ns": 282983348092
+          },
+          {
+            "id": "59363aec854e_BED_01_F0002",
+            "position_map_m": [
+              -5.523875900705242,
+              8.645954308169124,
+              0.6454561665968597
+            ],
+            "class_name": "Red",
+            "confidence": 0.9360411763191223,
+            "seen_count": 1,
+            "first_stamp_ns": 282983348092,
+            "last_stamp_ns": 282983348092
+          },
+          {
+            "id": "59363aec854e_BED_01_F0003",
+            "position_map_m": [
+              -5.525397399326302,
+              7.6168466072866865,
+              1.0553125893538555
+            ],
+            "class_name": "Red",
+            "confidence": 0.8844022750854492,
+            "seen_count": 2,
+            "first_stamp_ns": 282983348092,
+            "last_stamp_ns": 304116682528
+          },
+          {
+            "id": "59363aec854e_BED_01_F0004",
+            "position_map_m": [
+              -5.494292229714627,
+              8.280530986647442,
+              0.7853671920750724
+            ],
+            "class_name": "Yellow",
+            "confidence": 0.8357460498809814,
+            "seen_count": 2,
+            "first_stamp_ns": 282983348092,
+            "last_stamp_ns": 304116682528
+          },
+          {
+            "id": "59363aec854e_BED_01_F0005",
+            "position_map_m": [
+              -5.5836716409384906,
+              6.943474148260292,
+              0.8781735031913087
+            ],
+            "class_name": "Red",
+            "confidence": 0.8934072256088257,
+            "seen_count": 2,
+            "first_stamp_ns": 304116682528,
+            "last_stamp_ns": 325583350314
+          },
+          {
+            "id": "59363aec854e_BED_01_F0006",
+            "position_map_m": [
+              -5.568759632710201,
+              7.356063962777241,
+              0.9045070467276984
+            ],
+            "class_name": "Yellow",
+            "confidence": 0.5896757245063782,
+            "seen_count": 1,
+            "first_stamp_ns": 304116682528,
+            "last_stamp_ns": 304116682528
+          },
+          {
+            "id": "59363aec854e_BED_01_F0007",
+            "position_map_m": [
+              -5.546056150737292,
+              5.714754193525063,
+              0.9345086980278925
+            ],
+            "class_name": "Yellow",
+            "confidence": 0.8986847996711731,
+            "seen_count": 2,
+            "first_stamp_ns": 325583350314,
+            "last_stamp_ns": 347516684791
+          },
+          {
+            "id": "59363aec854e_BED_01_F0008",
+            "position_map_m": [
+              -5.553300097228603,
+              6.26760055448719,
+              1.0183210445590216
+            ],
+            "class_name": "Red",
+            "confidence": 0.7968965172767639,
+            "seen_count": 1,
+            "first_stamp_ns": 325583350314,
+            "last_stamp_ns": 325583350314
+          },
+          {
+            "id": "59363aec854e_BED_01_F0009",
+            "position_map_m": [
+              -5.504644575786128,
+              5.0281260267279455,
+              0.6275156553157367
+            ],
+            "class_name": "Yellow",
+            "confidence": 0.6372278928756714,
+            "seen_count": 2,
+            "first_stamp_ns": 325583350314,
+            "last_stamp_ns": 347516684791
+          },
+          {
+            "id": "59363aec854e_BED_01_F0010",
+            "position_map_m": [
+              -5.511909980812345,
+              5.738181798007702,
+              0.6501672782380188
+            ],
+            "class_name": "Red",
+            "confidence": 0.27741047739982605,
+            "seen_count": 2,
+            "first_stamp_ns": 325583350314,
+            "last_stamp_ns": 347516684791
+          },
+          {
+            "id": "59363aec854e_BED_01_F0011",
+            "position_map_m": [
+              -5.558583397610882,
+              5.015145951684134,
+              0.9715836078285548
+            ],
+            "class_name": "Red",
+            "confidence": 0.9316543340682983,
+            "seen_count": 1,
+            "first_stamp_ns": 347516684791,
+            "last_stamp_ns": 347516684791
+          },
+          {
+            "id": "59363aec854e_BED_01_F0012",
+            "position_map_m": [
+              -5.529365942471562,
+              3.182710162567508,
+              1.04631060642874
+            ],
+            "class_name": "Yellow",
+            "confidence": 0.9106137156486511,
+            "seen_count": 1,
+            "first_stamp_ns": 368450019216,
+            "last_stamp_ns": 368450019216
+          },
+          {
+            "id": "59363aec854e_BED_01_F0013",
+            "position_map_m": [
+              -5.525011352474171,
+              3.1620472221409663,
+              0.6359539211620489
+            ],
+            "class_name": "Red",
+            "confidence": 0.4914361238479614,
+            "seen_count": 1,
+            "first_stamp_ns": 368450019216,
+            "last_stamp_ns": 368450019216
+          }
+        ],
+        "windows": [
+          {
+            "task_id": 1,
+            "anchor_id": "59363aec854e_BED_01_F0002",
+            "member_ids": [
+              "59363aec854e_BED_01_F0002"
+            ],
+            "observed_ids": [
+              "59363aec854e_BED_01_F0002"
+            ],
+            "base_x": 1.1890456918308763,
+            "base_y": 0.7049999999999998,
+            "arm_x": 0.9990456918308762,
+            "arm_y": 0.8899999999999999,
+            "arm_z": 0.703,
+            "window_x_min": 0.8240456918308763,
+            "window_x_max": 1.1740456918308761,
+            "window_y_min": 1.0899999999999999,
+            "window_y_max": 1.19,
+            "window_z_min": 0.603,
+            "window_z_max": 1.053,
+            "safe_x_min": 0.8540456918308763,
+            "safe_x_max": 1.1440456918308761,
+            "base_yaw": 0.0,
+            "window_id": "59363aec854e_BED_01_W001",
+            "goal_pose": {
+              "frame_id": "map",
+              "position": [
+                -5.95,
+                8.310954308169123,
+                0.0
+              ],
+              "yaw": 1.5707963267948966
+            },
+            "corners_map_m": [
+              [
+                -5.565,
+                8.675954308169123,
+                0.603
+              ],
+              [
+                -5.565,
+                8.325954308169123,
+                0.603
+              ],
+              [
+                -5.465,
+                8.675954308169123,
+                0.603
+              ],
+              [
+                -5.465,
+                8.325954308169123,
+                0.603
+              ],
+              [
+                -5.565,
+                8.675954308169123,
+                1.053
+              ],
+              [
+                -5.565,
+                8.325954308169123,
+                1.053
+              ],
+              [
+                -5.465,
+                8.675954308169123,
+                1.053
+              ],
+              [
+                -5.465,
+                8.325954308169123,
+                1.053
+              ]
+            ],
+            "expected_count": 1
+          },
+          {
+            "task_id": 2,
+            "anchor_id": "59363aec854e_BED_01_F0004",
+            "member_ids": [
+              "59363aec854e_BED_01_F0004"
+            ],
+            "observed_ids": [
+              "59363aec854e_BED_01_F0004"
+            ],
+            "base_x": 1.5544690133525583,
+            "base_y": 0.7049999999999998,
+            "arm_x": 1.3644690133525583,
+            "arm_y": 0.8899999999999999,
+            "arm_z": 0.703,
+            "window_x_min": 1.1894690133525583,
+            "window_x_max": 1.5394690133525581,
+            "window_y_min": 1.0899999999999999,
+            "window_y_max": 1.19,
+            "window_z_min": 0.603,
+            "window_z_max": 1.053,
+            "safe_x_min": 1.2194690133525583,
+            "safe_x_max": 1.5094690133525581,
+            "base_yaw": 0.0,
+            "window_id": "59363aec854e_BED_01_W002",
+            "goal_pose": {
+              "frame_id": "map",
+              "position": [
+                -5.95,
+                7.945530986647442,
+                0.0
+              ],
+              "yaw": 1.5707963267948966
+            },
+            "corners_map_m": [
+              [
+                -5.565,
+                8.310530986647441,
+                0.603
+              ],
+              [
+                -5.565,
+                7.960530986647441,
+                0.603
+              ],
+              [
+                -5.465,
+                8.310530986647441,
+                0.603
+              ],
+              [
+                -5.465,
+                7.960530986647441,
+                0.603
+              ],
+              [
+                -5.565,
+                8.310530986647441,
+                1.053
+              ],
+              [
+                -5.565,
+                7.960530986647441,
+                1.053
+              ],
+              [
+                -5.465,
+                8.310530986647441,
+                1.053
+              ],
+              [
+                -5.465,
+                7.960530986647441,
+                1.053
+              ]
+            ],
+            "expected_count": 1
+          },
+          {
+            "task_id": 3,
+            "anchor_id": "59363aec854e_BED_01_F0008",
+            "member_ids": [
+              "59363aec854e_BED_01_F0008"
+            ],
+            "observed_ids": [
+              "59363aec854e_BED_01_F0008"
+            ],
+            "base_x": 3.56739944551281,
+            "base_y": 0.7049999999999998,
+            "arm_x": 3.3773994455128102,
+            "arm_y": 0.8899999999999999,
+            "arm_z": 0.703,
+            "window_x_min": 3.20239944551281,
+            "window_x_max": 3.55239944551281,
+            "window_y_min": 1.0899999999999999,
+            "window_y_max": 1.19,
+            "window_z_min": 0.603,
+            "window_z_max": 1.053,
+            "safe_x_min": 3.2323994455128098,
+            "safe_x_max": 3.5223994455128103,
+            "base_yaw": 0.0,
+            "window_id": "59363aec854e_BED_01_W003",
+            "goal_pose": {
+              "frame_id": "map",
+              "position": [
+                -5.95,
+                5.932600554487189,
+                0.0
+              ],
+              "yaw": 1.5707963267948966
+            },
+            "corners_map_m": [
+              [
+                -5.565,
+                6.29760055448719,
+                0.603
+              ],
+              [
+                -5.565,
+                5.94760055448719,
+                0.603
+              ],
+              [
+                -5.465,
+                6.29760055448719,
+                0.603
+              ],
+              [
+                -5.465,
+                5.94760055448719,
+                0.603
+              ],
+              [
+                -5.565,
+                6.29760055448719,
+                1.053
+              ],
+              [
+                -5.565,
+                5.94760055448719,
+                1.053
+              ],
+              [
+                -5.465,
+                6.29760055448719,
+                1.053
+              ],
+              [
+                -5.465,
+                5.94760055448719,
+                1.053
+              ]
+            ],
+            "expected_count": 1
+          },
+          {
+            "task_id": 4,
+            "anchor_id": "59363aec854e_BED_01_F0010",
+            "member_ids": [
+              "59363aec854e_BED_01_F0010",
+              "59363aec854e_BED_01_F0007"
+            ],
+            "observed_ids": [
+              "59363aec854e_BED_01_F0010",
+              "59363aec854e_BED_01_F0007"
+            ],
+            "base_x": 4.096818201992299,
+            "base_y": 0.7049999999999998,
+            "arm_x": 3.906818201992299,
+            "arm_y": 0.8899999999999999,
+            "arm_z": 0.703,
+            "window_x_min": 3.7318182019922985,
+            "window_x_max": 4.081818201992299,
+            "window_y_min": 1.0899999999999999,
+            "window_y_max": 1.19,
+            "window_z_min": 0.603,
+            "window_z_max": 1.053,
+            "safe_x_min": 3.7618182019922983,
+            "safe_x_max": 4.051818201992298,
+            "base_yaw": 0.0,
+            "window_id": "59363aec854e_BED_01_W004",
+            "goal_pose": {
+              "frame_id": "map",
+              "position": [
+                -5.95,
+                5.403181798007701,
+                0.0
+              ],
+              "yaw": 1.5707963267948966
+            },
+            "corners_map_m": [
+              [
+                -5.565,
+                5.768181798007701,
+                0.603
+              ],
+              [
+                -5.565,
+                5.418181798007701,
+                0.603
+              ],
+              [
+                -5.465,
+                5.768181798007701,
+                0.603
+              ],
+              [
+                -5.465,
+                5.418181798007701,
+                0.603
+              ],
+              [
+                -5.565,
+                5.768181798007701,
+                1.053
+              ],
+              [
+                -5.565,
+                5.418181798007701,
+                1.053
+              ],
+              [
+                -5.465,
+                5.768181798007701,
+                1.053
+              ],
+              [
+                -5.465,
+                5.418181798007701,
+                1.053
+              ]
+            ],
+            "expected_count": 2
+          },
+          {
+            "task_id": 5,
+            "anchor_id": "59363aec854e_BED_01_F0009",
+            "member_ids": [
+              "59363aec854e_BED_01_F0009",
+              "59363aec854e_BED_01_F0011"
+            ],
+            "observed_ids": [
+              "59363aec854e_BED_01_F0009",
+              "59363aec854e_BED_01_F0011"
+            ],
+            "base_x": 4.8068739732720545,
+            "base_y": 0.7049999999999998,
+            "arm_x": 4.616873973272054,
+            "arm_y": 0.8899999999999999,
+            "arm_z": 0.703,
+            "window_x_min": 4.441873973272054,
+            "window_x_max": 4.791873973272054,
+            "window_y_min": 1.0899999999999999,
+            "window_y_max": 1.19,
+            "window_z_min": 0.603,
+            "window_z_max": 1.053,
+            "safe_x_min": 4.4718739732720545,
+            "safe_x_max": 4.761873973272054,
+            "base_yaw": 0.0,
+            "window_id": "59363aec854e_BED_01_W005",
+            "goal_pose": {
+              "frame_id": "map",
+              "position": [
+                -5.95,
+                4.6931260267279455,
+                0.0
+              ],
+              "yaw": 1.5707963267948966
+            },
+            "corners_map_m": [
+              [
+                -5.565,
+                5.058126026727946,
+                0.603
+              ],
+              [
+                -5.565,
+                4.708126026727946,
+                0.603
+              ],
+              [
+                -5.465,
+                5.058126026727946,
+                0.603
+              ],
+              [
+                -5.465,
+                4.708126026727946,
+                0.603
+              ],
+              [
+                -5.565,
+                5.058126026727946,
+                1.053
+              ],
+              [
+                -5.565,
+                4.708126026727946,
+                1.053
+              ],
+              [
+                -5.465,
+                5.058126026727946,
+                1.053
+              ],
+              [
+                -5.465,
+                4.708126026727946,
+                1.053
+              ]
+            ],
+            "expected_count": 2
+          },
+          {
+            "task_id": 6,
+            "anchor_id": "59363aec854e_BED_01_F0012",
+            "member_ids": [
+              "59363aec854e_BED_01_F0012",
+              "59363aec854e_BED_01_F0013"
+            ],
+            "observed_ids": [
+              "59363aec854e_BED_01_F0012",
+              "59363aec854e_BED_01_F0013"
+            ],
+            "base_x": 6.652289837432492,
+            "base_y": 0.7049999999999998,
+            "arm_x": 6.4622898374324915,
+            "arm_y": 0.8899999999999999,
+            "arm_z": 0.703,
+            "window_x_min": 6.287289837432492,
+            "window_x_max": 6.637289837432491,
+            "window_y_min": 1.0899999999999999,
+            "window_y_max": 1.19,
+            "window_z_min": 0.603,
+            "window_z_max": 1.053,
+            "safe_x_min": 6.317289837432492,
+            "safe_x_max": 6.607289837432491,
+            "base_yaw": 0.0,
+            "window_id": "59363aec854e_BED_01_W006",
+            "goal_pose": {
+              "frame_id": "map",
+              "position": [
+                -5.95,
+                2.847710162567508,
+                0.0
+              ],
+              "yaw": 1.5707963267948966
+            },
+            "corners_map_m": [
+              [
+                -5.565,
+                3.2127101625675083,
+                0.603
+              ],
+              [
+                -5.565,
+                2.8627101625675087,
+                0.603
+              ],
+              [
+                -5.465,
+                3.2127101625675083,
+                0.603
+              ],
+              [
+                -5.465,
+                2.8627101625675087,
+                0.603
+              ],
+              [
+                -5.565,
+                3.2127101625675083,
+                1.053
+              ],
+              [
+                -5.565,
+                2.8627101625675087,
+                1.053
+              ],
+              [
+                -5.465,
+                3.2127101625675083,
+                1.053
+              ],
+              [
+                -5.465,
+                2.8627101625675087,
+                1.053
+              ]
+            ],
+            "expected_count": 2
+          }
+        ],
+        "holds": [
+          {
+            "anchor_id": "59363aec854e_BED_01_F0001",
+            "reason": "depth_out_of_range"
+          },
+          {
+            "anchor_id": "59363aec854e_BED_01_F0003",
+            "reason": "height_out_of_range"
+          },
+          {
+            "anchor_id": "59363aec854e_BED_01_F0006",
+            "reason": "depth_out_of_range"
+          },
+          {
+            "anchor_id": "59363aec854e_BED_01_F0005",
+            "reason": "depth_out_of_range"
+          }
+        ],
+        "observation_count": 5,
+        "harvest_task_count": 6,
+        "total_expected_count": 9,
+        "position_semantics": "first RGB-D visible surface sample, not fruit center/grasp point",
+        "identity_method": "B baseline greedy 3D one-to-one; identity errors remain possible"
+      },
+      "batch": [
+        {
+          "task_id": "59363aec854e_BED_01_TASK001",
+          "window_id": "59363aec854e_BED_01_W001",
+          "expected_count": 1
+        },
+        {
+          "task_id": "59363aec854e_BED_01_TASK002",
+          "window_id": "59363aec854e_BED_01_W002",
+          "expected_count": 1
+        },
+        {
+          "task_id": "59363aec854e_BED_01_TASK003",
+          "window_id": "59363aec854e_BED_01_W003",
+          "expected_count": 1
+        },
+        {
+          "task_id": "59363aec854e_BED_01_TASK004",
+          "window_id": "59363aec854e_BED_01_W004",
+          "expected_count": 2
+        },
+        {
+          "task_id": "59363aec854e_BED_01_TASK005",
+          "window_id": "59363aec854e_BED_01_W005",
+          "expected_count": 2
+        },
+        {
+          "task_id": "59363aec854e_BED_01_TASK006",
+          "window_id": "59363aec854e_BED_01_W006",
+          "expected_count": 2
+        }
+      ]
+    }
+  },
+  "observations": [
+    {
+      "section": "BED_01",
+      "index": 1,
+      "stamp_ns": 282983348092,
+      "timings": {
+        "capture_to_result_ms": 38.25746400980279,
+        "preprocess_infer_depth_ms": 36.14096203818917
+      },
+      "valid_depth_detection_count": 4,
+      "depth_rejected_count": 0,
+      "section_accepted_count": 4,
+      "outside_section_count": 0
+    },
+    {
+      "section": "BED_01",
+      "index": 2,
+      "stamp_ns": 304116682528,
+      "timings": {
+        "capture_to_result_ms": 31.20711602969095,
+        "preprocess_infer_depth_ms": 24.99935298692435
+      },
+      "valid_depth_detection_count": 4,
+      "depth_rejected_count": 0,
+      "section_accepted_count": 4,
+      "outside_section_count": 0
+    },
+    {
+      "section": "BED_01",
+      "index": 3,
+      "stamp_ns": 325583350314,
+      "timings": {
+        "capture_to_result_ms": 34.89725198596716,
+        "preprocess_infer_depth_ms": 31.691259006038308
+      },
+      "valid_depth_detection_count": 5,
+      "depth_rejected_count": 0,
+      "section_accepted_count": 5,
+      "outside_section_count": 0
+    },
+    {
+      "section": "BED_01",
+      "index": 4,
+      "stamp_ns": 347516684791,
+      "timings": {
+        "capture_to_result_ms": 35.926658019889146,
+        "preprocess_infer_depth_ms": 31.280893017537892
+      },
+      "valid_depth_detection_count": 4,
+      "depth_rejected_count": 0,
+      "section_accepted_count": 4,
+      "outside_section_count": 0
+    },
+    {
+      "section": "BED_01",
+      "index": 5,
+      "stamp_ns": 368450019216,
+      "timings": {
+        "capture_to_result_ms": 28.749034041538835,
+        "preprocess_infer_depth_ms": 18.34947697352618
+      },
+      "valid_depth_detection_count": 2,
+      "depth_rejected_count": 0,
+      "section_accepted_count": 2,
+      "outside_section_count": 0
+    }
+  ],
+  "finished_at": "2026-09-28T09:19:38.369691+00:00",
+  "elapsed_wall_s": 146.90675352100516,
+  "completed_section_ids": [
+    "BED_01"
+  ],
+  "harvest_task_count": 6,
+  "total_expected_count": 9
+}

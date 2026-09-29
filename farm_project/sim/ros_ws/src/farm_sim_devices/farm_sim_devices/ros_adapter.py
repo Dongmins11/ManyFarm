@@ -1,0 +1,147 @@
+"""ROS 환경에서만 실행. Isaac 데이터/명령을 동일한 로봇 ROS 토픽으로 연결."""
+import json
+import math
+import time
+from pathlib import Path
+import rclpy
+from rclpy.node import Node
+from rclpy.clock import Clock,ClockType
+from rclpy.executors import ExternalShutdownException
+from rclpy.qos import qos_profile_sensor_data
+from geometry_msgs.msg import Twist,TwistStamped,TransformStamped
+from nav_msgs.msg import Odometry
+from sensor_msgs.msg import LaserScan,JointState
+from rosgraph_msgs.msg import Clock as ClockMessage
+from tf2_ros import TransformBroadcaster,StaticTransformBroadcaster
+from farm_sim_devices.wire import LocalDatagrams
+
+
+def stamp_message(stamp,ns):
+    stamp.sec=int(ns)//1000000000
+    stamp.nanosec=int(ns)%1000000000
+
+
+def finite_vector(value,size):
+    return isinstance(value,list) and len(value)==size and all(type(v) in (int,float) and math.isfinite(v) for v in value)
+
+
+class SimRosAdapter(Node):
+    def __init__(self):
+        super().__init__('sim_devices')
+        self.declare_parameter('config_file','')
+        self.declare_parameter('cmd_vel_type','twist')
+        path=self.get_parameter('config_file').value
+        self.config=json.loads(Path(path).read_text())
+        rt=self.config['runtime']
+        self.transport=LocalDatagrams(rt['telemetry_port'],rt['command_port'])
+        self.session=None;self.last_packet=-1;self.last_stamp=-1;self.last_seen=-math.inf
+        self.cmd_seq=0;self.static_sent=False;self.link_lost=False
+        self.odom_pub=self.create_publisher(Odometry,'odom',10)
+        self.scan_pub=self.create_publisher(LaserScan,'scan',qos_profile_sensor_data)
+        self.joint_pub=self.create_publisher(JointState,'joint_states',10)
+        self.clock_pub=self.create_publisher(ClockMessage,'/clock',10)
+        self.tf=TransformBroadcaster(self);self.static_tf=StaticTransformBroadcaster(self)
+        kind=self.get_parameter('cmd_vel_type').value
+        if kind=='twist':
+            self.subscription=self.create_subscription(Twist,'cmd_vel',self.command,10)
+        elif kind=='twist_stamped':
+            self.subscription=self.create_subscription(TwistStamped,'cmd_vel',lambda msg:self.command(msg.twist),10)
+        else:raise ValueError('cmd_vel_type은 twist 또는 twist_stamped이어야 합니다.')
+        self.timer=self.create_timer(.005,self.poll,clock=Clock(clock_type=ClockType.STEADY_TIME))
+        self.get_logger().info('Isaac Sim 연결 대기. 속도 명령은 연결 이후에만 전달합니다.')
+
+    def command(self,msg):
+        if self.session is None or time.monotonic()-self.last_seen>self.config['runtime']['transport_timeout_s']:
+            return
+        if not math.isfinite(msg.linear.x) or not math.isfinite(msg.angular.z):return
+        self.cmd_seq=time.monotonic_ns()
+        self.transport.send(dict(kind='cmd',session=self.session,seq=self.cmd_seq,sent=time.monotonic(),
+                                 linear=float(msg.linear.x),angular=float(msg.angular.z)))
+
+    def valid(self,m):
+        if m.get('kind')!='state' or not isinstance(m.get('session'),str):return False
+        if type(m.get('seq')) is not int or type(m.get('stamp_ns')) is not int or m['stamp_ns']<0:return False
+        if not finite_vector(m.get('odom'),5):return False
+        if not finite_vector(m.get('joint_positions'),2) or not finite_vector(m.get('joint_velocities'),2):return False
+        sent=m.get('sent')
+        if type(sent) not in (float,int) or not math.isfinite(sent):return False
+        if not 0<=time.monotonic()-sent<=self.config['runtime']['transport_timeout_s']:return False
+        scan=m.get('scan')
+        if scan is not None and (not isinstance(scan,list) or len(scan)!=self.config['lidar']['samples'] or
+                any(v is not None and (type(v) not in (float,int) or not math.isfinite(v) or v<0) for v in scan)):
+            return False
+        transforms=m.get('static_tf')
+        if not isinstance(transforms,list) or len(transforms)!=3:return False
+        for t in transforms:
+            if not isinstance(t,dict) or not isinstance(t.get('parent'),str) or not isinstance(t.get('child'),str):return False
+            if not finite_vector(t.get('translation'),3) or not finite_vector(t.get('rotation_xyzw'),4):return False
+        return True
+
+    def poll(self):
+        for m in self.transport.receive():
+            if not self.valid(m):continue
+            if m['session']!=self.session:
+                if self.session is not None and time.monotonic()-self.last_seen<self.config['runtime']['transport_timeout_s']:
+                    continue
+                self.session=m['session'];self.last_packet=-1;self.last_stamp=-1;self.static_sent=False
+                self.get_logger().info('Isaac Sim 연결됨. odom 원점은 시작 위치입니다; map 위치추정은 별도입니다.')
+            if m['seq']<=self.last_packet or m['stamp_ns']<=self.last_stamp:continue
+            self.last_packet,self.last_stamp=m['seq'],m['stamp_ns'];self.last_seen=time.monotonic()
+            self.link_lost=False
+            self.publish_state(m)
+        if self.session is not None and time.monotonic()-self.last_seen>self.config['runtime']['transport_timeout_s'] and not self.link_lost:
+            self.get_logger().warning('시뮬레이션 데이터가 멈췄습니다. 새 속도 명령 전달을 중단합니다.')
+            self.link_lost=True
+
+    def publish_state(self,m):
+        ns=m['stamp_ns'];frames=self.config['frames']
+        clock=ClockMessage();stamp_message(clock.clock,ns);self.clock_pub.publish(clock)
+        x,y,yaw,v,w=m['odom']
+        odom=Odometry();stamp_message(odom.header.stamp,ns)
+        odom.header.frame_id=frames['odom'];odom.child_frame_id=frames['base_footprint']
+        odom.pose.pose.position.x=x;odom.pose.pose.position.y=y
+        odom.pose.pose.orientation.z=math.sin(yaw/2);odom.pose.pose.orientation.w=math.cos(yaw/2)
+        odom.twist.twist.linear.x=v;odom.twist.twist.angular.z=w
+        # 초기 보수적 가정. 실제 센서/주행 시험으로 조정할 값입니다.
+        for i,value in enumerate([.0025,.0025,1e6,1e6,1e6,.01]):odom.pose.covariance[i*7]=value
+        for i,value in enumerate([.01,1e6,1e6,1e6,1e6,.04]):odom.twist.covariance[i*7]=value
+        self.odom_pub.publish(odom)
+        tf=TransformStamped();tf.header=odom.header;tf.child_frame_id=odom.child_frame_id
+        tf.transform.translation.x=x;tf.transform.translation.y=y
+        tf.transform.rotation=odom.pose.pose.orientation;self.tf.sendTransform(tf)
+        if not self.static_sent:
+            transforms=[]
+            for entry in m['static_tf']:
+                t=TransformStamped();stamp_message(t.header.stamp,ns)
+                t.header.frame_id=entry['parent'];t.child_frame_id=entry['child']
+                t.transform.translation.x,t.transform.translation.y,t.transform.translation.z=entry['translation']
+                t.transform.rotation.x,t.transform.rotation.y,t.transform.rotation.z,t.transform.rotation.w=entry['rotation_xyzw']
+                transforms.append(t)
+            self.static_tf.sendTransform(transforms);self.static_sent=True
+        joints=JointState();stamp_message(joints.header.stamp,ns)
+        joints.header.frame_id=frames['base_link'];joints.name=self.config['base']['wheel_joints']
+        joints.position=m['joint_positions'];joints.velocity=m['joint_velocities'];self.joint_pub.publish(joints)
+        if m['scan'] is not None:
+            cfg=self.config['lidar'];scan=LaserScan();stamp_message(scan.header.stamp,ns)
+            scan.header.frame_id=frames['scan'];scan.angle_min=-math.pi
+            scan.angle_increment=2*math.pi/cfg['samples'];scan.angle_max=scan.angle_min+(cfg['samples']-1)*scan.angle_increment
+            scan.time_increment=0.0;scan.scan_time=1.0/cfg['fps']
+            scan.range_min=float(cfg['range_min_m']);scan.range_max=float(cfg['range_max_m'])
+            scan.ranges=[math.inf if v is None else float(v) for v in m['scan']]
+            self.scan_pub.publish(scan)
+
+    def close(self):
+        if self.session is not None:self.command(Twist())
+        self.transport.close()
+        self.destroy_node()
+
+
+def main(args=None):
+    rclpy.init(args=args)
+    node=None
+    try:
+        node=SimRosAdapter();rclpy.spin(node)
+    except (KeyboardInterrupt,ExternalShutdownException):pass
+    finally:
+        if node is not None:node.close()
+        if rclpy.ok():rclpy.shutdown()

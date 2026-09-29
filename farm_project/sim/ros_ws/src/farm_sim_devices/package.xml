@@ -1,0 +1,17 @@
+<?xml version="1.0"?>
+<package format="3">
+  <name>farm_sim_devices</name><version>0.2.0</version>
+  <description>Farm project farm_sim_devices; initial integration scaffold.</description>
+  <maintainer email="maintainer@example.com">Farm Team</maintainer>
+  <license>Proprietary</license>
+  <buildtool_depend>ament_python</buildtool_depend>
+  <exec_depend>rclpy</exec_depend>
+  <exec_depend>geometry_msgs</exec_depend>
+  <exec_depend>nav_msgs</exec_depend>
+  <exec_depend>sensor_msgs</exec_depend>
+  <exec_depend>rosgraph_msgs</exec_depend>
+  <exec_depend>tf2_ros</exec_depend>
+  <exec_depend>farm_common</exec_depend>
+  <exec_depend>python3-numpy</exec_depend>
+  <export><build_type>ament_python</build_type></export>
+</package>

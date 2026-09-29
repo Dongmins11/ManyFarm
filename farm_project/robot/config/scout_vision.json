@@ -1,0 +1,35 @@
+{
+  "schema_version": 1,
+  "shm_name": "farm_scout_01_rgbd",
+  "model": "robot/models/scout/model_yolo11_seg_ver1.0.pt",
+  "save_dir": "captures/scout_vision",
+  "max_fps": 15.0,
+  "max_frame_age_s": 2.0,
+  "preprocess": {
+    "edge_fraction": 0.05,
+    "camera_to_bed_plane_m": 1.14,
+    "height_band_m": [
+      0.603,
+      1.053
+    ],
+    "input_size": 640,
+    "pad_value": 114,
+    "vertical_margin_fraction": 0.1
+  },
+  "inference": {
+    "confidence": 0.25,
+    "iou": 0.7,
+    "max_detections": 100,
+    "minimum_mask_pixels": 6,
+    "half": false
+  },
+  "notes": [
+    "height_band_m는 제공된 harvest_robot 모델의 top_deck 기준 Z=0.703m에 [-0.10,+0.35]m를 더한 범위입니다. 상판 prim 기준이며 arm_base_link 기준과는 0.010m 차이가 있습니다. 농장 배치에 추가 Z 이동이나 스케일이 없고 지면 기준이 동일하다는 조건입니다.",
+    "B의 좌우 5% 제외와 상하 높이 양끝에서 공통 확보되는 관측 폭 계산을 이식했습니다.",
+    "기존 B는 모의 검출을 사용합니다. 640x640 크롭/패딩과 실제 YOLO 연결은 이번에 추가했습니다.",
+    "관측 설계 평면은 카메라 수평 시선에 수직이고 렌즈에서 1.14m 떨어졌다고 가정합니다. 정지하여 베드를 정면으로 보는 관측용이며 map상의 베드 위치 추정이 아닙니다.",
+    "카메라 K와 광학축 자세는 현재 프레임에서 읽습니다. 기존 B의 PyBullet 축이나 424x240 보정값을 복사하지 않습니다.",
+    "노이즈, 블러, 깊이 랜덤오차, 깊이 양자화는 추가하지 않습니다.",
+    "vertical_margin_fraction은 원래 투영 크롭 높이에 대한 위/아래 각각의 영상 여유 비율입니다. 원본 영상 경계에서 제한하며 회색 패딩과 구분합니다."
+  ]
+}

@@ -1,0 +1,1493 @@
+<?xml version="1.0"?>
+<robot name="manyfarm_transport_robot">
+  <material name="black">
+    <color rgba="0.0 0.0 0.0 1.0" />
+  </material>
+  <material name="dark">
+    <color rgba="0.3 0.3 0.3 1.0" />
+  </material>
+  <material name="light_black">
+    <color rgba="0.4 0.4 0.4 1.0" />
+  </material>
+  <material name="blue">
+    <color rgba="0.0 0.0 0.8 1.0" />
+  </material>
+  <material name="green">
+    <color rgba="0.0 0.8 0.0 1.0" />
+  </material>
+  <material name="grey">
+    <color rgba="0.5 0.5 0.5 1.0" />
+  </material>
+  <material name="orange">
+    <color rgba="1.0 0.4235 0.0392 1.0" />
+  </material>
+  <material name="brown">
+    <color rgba="0.8706 0.8118 0.7647 1.0" />
+  </material>
+  <material name="red">
+    <color rgba="0.8 0.0 0.0 1.0" />
+  </material>
+  <material name="white">
+    <color rgba="1.0 1.0 1.0 1.0" />
+  </material>
+  <link name="base_footprint" />
+  <joint name="base_joint" type="fixed">
+    <parent link="base_footprint" />
+    <child link="base_link" />
+    <origin xyz="0 0 0.010" rpy="0 0 0" />
+  </joint>
+  <link name="base_link">
+    <visual>
+      <origin xyz="-0.064 0 0.0" rpy="0 0 0" />
+      <geometry>
+        <mesh filename="package://smartfarm_description/meshes/transport/waffle_base.stl" scale="0.001 0.001 0.001" />
+      </geometry>
+      <material name="light_black" />
+    </visual>
+    <collision>
+      <origin xyz="-0.064 0 0.047" rpy="0 0 0" />
+      <geometry>
+        <box size="0.266 0.266 0.094" />
+      </geometry>
+    </collision>
+    <inertial>
+      <origin xyz="0 0 0" rpy="0 0 0" />
+      <mass value="1.3729096e+00" />
+      <inertia ixx="8.7002718e-03" ixy="-4.7576583e-05" ixz="1.1160499e-04" iyy="8.6195418e-03" iyz="-3.5422299e-06" izz="1.4612727e-02" />
+    </inertial>
+  </link>
+  <joint name="wheel_left_joint" type="continuous">
+    <parent link="base_link" />
+    <child link="wheel_left_link" />
+    <origin xyz="0.0 0.144 0.023" rpy="-1.57 0 0" />
+    <axis xyz="0 0 1" />
+  </joint>
+  <link name="wheel_left_link">
+    <visual>
+      <origin xyz="0 0 0" rpy="1.57 0 0" />
+      <geometry>
+        <mesh filename="package://smartfarm_description/meshes/transport/left_tire.stl" scale="0.001 0.001 0.001" />
+      </geometry>
+      <material name="dark" />
+    </visual>
+    <collision>
+      <origin xyz="0 0 0" rpy="0 0 0" />
+      <geometry>
+        <cylinder length="0.018" radius="0.033" />
+      </geometry>
+    </collision>
+    <inertial>
+      <origin xyz="0 0 0" />
+      <mass value="2.8498940e-02" />
+      <inertia ixx="1.1175580e-05" ixy="-4.2369783e-11" ixz="-5.9381719e-09" iyy="1.1192413e-05" iyz="-1.4400107e-11" izz="2.0712558e-05" />
+    </inertial>
+  </link>
+  <joint name="wheel_right_joint" type="continuous">
+    <parent link="base_link" />
+    <child link="wheel_right_link" />
+    <origin xyz="0.0 -0.144 0.023" rpy="-1.57 0 0" />
+    <axis xyz="0 0 1" />
+  </joint>
+  <link name="wheel_right_link">
+    <visual>
+      <origin xyz="0 0 0" rpy="1.57 0 0" />
+      <geometry>
+        <mesh filename="package://smartfarm_description/meshes/transport/right_tire.stl" scale="0.001 0.001 0.001" />
+      </geometry>
+      <material name="dark" />
+    </visual>
+    <collision>
+      <origin xyz="0 0 0" rpy="0 0 0" />
+      <geometry>
+        <cylinder length="0.018" radius="0.033" />
+      </geometry>
+    </collision>
+    <inertial>
+      <origin xyz="0 0 0" />
+      <mass value="2.8498940e-02" />
+      <inertia ixx="1.1175580e-05" ixy="-4.2369783e-11" ixz="-5.9381719e-09" iyy="1.1192413e-05" iyz="-1.4400107e-11" izz="2.0712558e-05" />
+    </inertial>
+  </link>
+  <joint name="caster_back_right_joint" type="fixed">
+    <parent link="base_link" />
+    <child link="caster_back_right_link" />
+    <origin xyz="-0.177 -0.064 -0.004" rpy="-1.57 0 0" />
+  </joint>
+  <link name="caster_back_right_link">
+    <collision>
+      <origin xyz="0 0.001 0" rpy="0 0 0" />
+      <geometry>
+        <box size="0.030 0.009 0.020" />
+      </geometry>
+    </collision>
+    <inertial>
+      <origin xyz="0 0 0" />
+      <mass value="0.005" />
+      <inertia ixx="0.001" ixy="0.0" ixz="0.0" iyy="0.001" iyz="0.0" izz="0.001" />
+    </inertial>
+  </link>
+  <joint name="caster_back_left_joint" type="fixed">
+    <parent link="base_link" />
+    <child link="caster_back_left_link" />
+    <origin xyz="-0.177 0.064 -0.004" rpy="-1.57 0 0" />
+  </joint>
+  <link name="caster_back_left_link">
+    <collision>
+      <origin xyz="0 0.001 0" rpy="0 0 0" />
+      <geometry>
+        <box size="0.030 0.009 0.020" />
+      </geometry>
+    </collision>
+    <inertial>
+      <origin xyz="0 0 0" />
+      <mass value="0.005" />
+      <inertia ixx="0.001" ixy="0.0" ixz="0.0" iyy="0.001" iyz="0.0" izz="0.001" />
+    </inertial>
+  </link>
+  <joint name="imu_joint" type="fixed">
+    <parent link="base_link" />
+    <child link="imu_link" />
+    <origin xyz="0.0 0 0.068" rpy="0 0 0" />
+  </joint>
+  <link name="imu_link" />
+  <joint name="scan_joint" type="fixed">
+    <parent link="base_link" />
+    <child link="base_scan" />
+    <origin xyz="-0.064 0 0.122" rpy="0 0 0" />
+  </joint>
+  <link name="base_scan">
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0" />
+      <geometry>
+        <mesh filename="package://smartfarm_description/meshes/transport/lds.stl" scale="0.001 0.001 0.001" />
+      </geometry>
+      <material name="dark" />
+    </visual>
+    <collision>
+      <origin xyz="0.015 0 -0.0065" rpy="0 0 0" />
+      <geometry>
+        <cylinder length="0.0315" radius="0.055" />
+      </geometry>
+    </collision>
+    <inertial>
+      <mass value="0.114" />
+      <origin xyz="0 0 0" />
+      <inertia ixx="0.001" ixy="0.0" ixz="0.0" iyy="0.001" iyz="0.0" izz="0.001" />
+    </inertial>
+  </link>
+  <material name="cargo">
+    <color rgba="0.20 0.64 0.43 1" />
+  </material>
+  <material name="lid">
+    <color rgba="0.84 0.91 0.87 1" />
+  </material>
+  <material name="metal">
+    <color rgba="0.55 0.59 0.64 1" />
+  </material>
+  <material name="servo">
+    <color rgba="0.16 0.20 0.28 1" />
+  </material>
+  <material name="gear">
+    <color rgba="0.95 0.62 0.14 1" />
+  </material>
+  <link name="cargo_support">
+    <visual>
+      <origin xyz="-0.164 -0.1 0.16525" rpy="0 0 0" />
+      <geometry>
+        <box size="0.016 0.016 0.1475" />
+      </geometry>
+      <material name="metal" />
+    </visual>
+    <collision>
+      <origin xyz="-0.164 -0.1 0.16525" rpy="0 0 0" />
+      <geometry>
+        <box size="0.016 0.016 0.1475" />
+      </geometry>
+    </collision>
+    <visual>
+      <origin xyz="-0.164 0.1 0.16525" rpy="0 0 0" />
+      <geometry>
+        <box size="0.016 0.016 0.1475" />
+      </geometry>
+      <material name="metal" />
+    </visual>
+    <collision>
+      <origin xyz="-0.164 0.1 0.16525" rpy="0 0 0" />
+      <geometry>
+        <box size="0.016 0.016 0.1475" />
+      </geometry>
+    </collision>
+    <visual>
+      <origin xyz="0.036 -0.1 0.16525" rpy="0 0 0" />
+      <geometry>
+        <box size="0.016 0.016 0.1475" />
+      </geometry>
+      <material name="metal" />
+    </visual>
+    <collision>
+      <origin xyz="0.036 -0.1 0.16525" rpy="0 0 0" />
+      <geometry>
+        <box size="0.016 0.016 0.1475" />
+      </geometry>
+    </collision>
+    <visual>
+      <origin xyz="0.036 0.1 0.16525" rpy="0 0 0" />
+      <geometry>
+        <box size="0.016 0.016 0.1475" />
+      </geometry>
+      <material name="metal" />
+    </visual>
+    <collision>
+      <origin xyz="0.036 0.1 0.16525" rpy="0 0 0" />
+      <geometry>
+        <box size="0.016 0.016 0.1475" />
+      </geometry>
+    </collision>
+    <visual>
+      <origin xyz="-0.064 0 0.242" rpy="0 0 0" />
+      <geometry>
+        <box size="0.3 0.3 0.006" />
+      </geometry>
+      <material name="metal" />
+    </visual>
+    <collision>
+      <origin xyz="-0.064 0 0.242" rpy="0 0 0" />
+      <geometry>
+        <box size="0.3 0.3 0.006" />
+      </geometry>
+    </collision>
+    <inertial>
+      <origin xyz="-0.064 0 0.17" />
+      <mass value="0.65" />
+      <inertia ixx="0.006176354166666668" iyy="0.006176354166666668" izz="0.00975" ixy="0" ixz="0" iyz="0" />
+    </inertial>
+  </link>
+  <joint name="cargo_support_joint" type="fixed">
+    <parent link="base_link" />
+    <child link="cargo_support" />
+    <origin xyz="0 0 0" />
+  </joint>
+  <link name="cargo_box">
+    <visual>
+      <origin xyz="-0.15 0 0.0015" rpy="0 0 0" />
+      <geometry>
+        <box size="0.3 0.3 0.003" />
+      </geometry>
+      <material name="cargo" />
+    </visual>
+    <collision>
+      <origin xyz="-0.15 0 0.0015" rpy="0 0 0" />
+      <geometry>
+        <box size="0.3 0.3 0.003" />
+      </geometry>
+    </collision>
+    <visual>
+      <origin xyz="-0.2985 0 0.0965" rpy="0 0 0" />
+      <geometry>
+        <box size="0.003 0.3 0.187" />
+      </geometry>
+      <material name="cargo" />
+    </visual>
+    <collision>
+      <origin xyz="-0.2985 0 0.0965" rpy="0 0 0" />
+      <geometry>
+        <box size="0.003 0.3 0.187" />
+      </geometry>
+    </collision>
+    <visual>
+      <origin xyz="-0.1485 -0.1485 0.0965" rpy="0 0 0" />
+      <geometry>
+        <box size="0.297 0.003 0.187" />
+      </geometry>
+      <material name="cargo" />
+    </visual>
+    <collision>
+      <origin xyz="-0.1485 -0.1485 0.0965" rpy="0 0 0" />
+      <geometry>
+        <box size="0.297 0.003 0.187" />
+      </geometry>
+    </collision>
+    <visual>
+      <origin xyz="-0.1485 0.1485 0.0965" rpy="0 0 0" />
+      <geometry>
+        <box size="0.297 0.003 0.187" />
+      </geometry>
+      <material name="cargo" />
+    </visual>
+    <collision>
+      <origin xyz="-0.1485 0.1485 0.0965" rpy="0 0 0" />
+      <geometry>
+        <box size="0.297 0.003 0.187" />
+      </geometry>
+    </collision>
+    <inertial>
+      <origin xyz="-0.15 0 0.095" />
+      <mass value="1.0" />
+      <inertia ixx="0.010508333333333333" iyy="0.010508333333333333" izz="0.015" ixy="0" ixz="0" iyz="0" />
+    </inertial>
+  </link>
+  <joint name="box_tilt_joint" type="revolute">
+    <parent link="base_link" />
+    <child link="cargo_box" />
+    <origin xyz="0.086 0 0.245" />
+    <axis xyz="0 1 0" />
+    <limit lower="0" upper="0.7853981633974483" effort="20" velocity="0.25" />
+    <dynamics damping="0.05" friction="0.01" />
+  </joint>
+  <link name="side_lid">
+    <visual>
+      <origin xyz="-0.0015 0 -0.0935" rpy="0 0 0" />
+      <geometry>
+        <box size="0.003 0.294 0.187" />
+      </geometry>
+      <material name="lid" />
+    </visual>
+    <collision>
+      <origin xyz="-0.0015 0 -0.0935" rpy="0 0 0" />
+      <geometry>
+        <box size="0.003 0.294 0.187" />
+      </geometry>
+    </collision>
+    <inertial>
+      <origin xyz="-0.0015 0 -0.0935" />
+      <mass value="0.18" />
+      <inertia ixx="0.001821075" iyy="0.00052467" izz="0.0012966749999999995" ixy="0" ixz="0" iyz="0" />
+    </inertial>
+  </link>
+  <joint name="side_lid_joint" type="revolute">
+    <parent link="cargo_box" />
+    <child link="side_lid" />
+    <origin xyz="0 0 0.19" />
+    <axis xyz="0 -1 0" />
+    <limit lower="0" upper="1.5707963267948966" effort="1" velocity="1" />
+    <dynamics damping="0.05" friction="0.01" />
+  </joint>
+  <link name="side_mg996r">
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0" />
+      <geometry>
+        <box size="0.0407 0.0197 0.0429" />
+      </geometry>
+      <material name="servo" />
+    </visual>
+    <collision>
+      <origin xyz="0 0 0" rpy="0 0 0" />
+      <geometry>
+        <box size="0.0407 0.0197 0.0429" />
+      </geometry>
+    </collision>
+    <inertial>
+      <origin xyz="0 0 0" />
+      <mass value="0.055" />
+      <inertia ixx="1.0213958333333334e-05" iyy="1.6027458333333334e-05" izz="9.370991666666666e-06" ixy="0" ixz="0" iyz="0" />
+    </inertial>
+  </link>
+  <joint name="side_mg996r_joint" type="fixed">
+    <parent link="cargo_box" />
+    <child link="side_mg996r" />
+    <origin xyz="-0.02 -0.165 0.17" />
+  </joint>
+  <link name="tilt_motor_5840_31zy">
+    <visual>
+      <origin xyz="0 0 0" rpy="1.570796327 0 0" />
+      <geometry>
+        <cylinder radius="0.02" length="0.07" />
+      </geometry>
+      <material name="servo" />
+    </visual>
+    <collision>
+      <origin xyz="0 0 0" rpy="1.570796327 0 0" />
+      <geometry>
+        <cylinder radius="0.02" length="0.07" />
+      </geometry>
+    </collision>
+    <inertial>
+      <origin xyz="0 0 0" />
+      <mass value="0.25" />
+      <inertia ixx="0.0001354166666666667" iyy="6.666666666666667e-05" izz="0.0001354166666666667" ixy="0" ixz="0" iyz="0" />
+    </inertial>
+  </link>
+  <joint name="tilt_motor_mount" type="fixed">
+    <parent link="cargo_support" />
+    <child link="tilt_motor_5840_31zy" />
+    <origin xyz="0.086 0.185 0.245" />
+  </joint>
+  <link name="lid_drive_mount">
+    <visual>
+      <origin xyz="-0.022 0 0" rpy="0 0 0" />
+      <geometry>
+        <box size="0.01 0.075 0.13" />
+      </geometry>
+      <material name="metal" />
+    </visual>
+    <collision>
+      <origin xyz="-0.022 0 0" rpy="0 0 0" />
+      <geometry>
+        <box size="0.01 0.075 0.13" />
+      </geometry>
+    </collision>
+    <inertial>
+      <origin xyz="0 0 0" />
+      <mass value="0.12" />
+      <inertia ixx="0.00022525" iyy="0.00017" izz="5.725e-05" ixy="0" ixz="0" iyz="0" />
+    </inertial>
+  </link>
+  <joint name="lid_drive_mount_joint" type="fixed">
+    <parent link="cargo_box" />
+    <child link="lid_drive_mount" />
+    <origin xyz="-0.325 0 0.126" />
+  </joint>
+  <link name="top_mg996r">
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0" />
+      <geometry>
+        <box size="0.0429 0.0407 0.0197" />
+      </geometry>
+      <material name="servo" />
+    </visual>
+    <collision>
+      <origin xyz="0 0 0" rpy="0 0 0" />
+      <geometry>
+        <box size="0.0429 0.0407 0.0197" />
+      </geometry>
+    </collision>
+    <inertial>
+      <origin xyz="0 0 0" />
+      <mass value="0.055" />
+      <inertia ixx="9.370991666666666e-06" iyy="1.0213958333333334e-05" izz="1.6027458333333334e-05" ixy="0" ixz="0" iyz="0" />
+    </inertial>
+  </link>
+  <joint name="top_mg996r_joint" type="fixed">
+    <parent link="lid_drive_mount" />
+    <child link="top_mg996r" />
+    <origin xyz="-0.048 0 0" />
+  </joint>
+  <link name="lid_pinion">
+    <visual>
+      <origin xyz="0 0 0" rpy="0 1.570796327 0" />
+      <geometry>
+        <cylinder radius="0.048" length="0.01" />
+      </geometry>
+      <material name="gear" />
+    </visual>
+    <visual>
+      <origin xyz="0 0 0.05" rpy="-0 0 0" />
+      <geometry>
+        <box size="0.01 0.004 0.004" />
+      </geometry>
+      <material name="gear" />
+    </visual>
+    <visual>
+      <origin xyz="0 0.007821723252 0.04938441703" rpy="-0.1570796327 0 0" />
+      <geometry>
+        <box size="0.01 0.004 0.004" />
+      </geometry>
+      <material name="gear" />
+    </visual>
+    <visual>
+      <origin xyz="0 0.01545084972 0.04755282581" rpy="-0.3141592654 0 0" />
+      <geometry>
+        <box size="0.01 0.004 0.004" />
+      </geometry>
+      <material name="gear" />
+    </visual>
+    <visual>
+      <origin xyz="0 0.02269952499 0.04455032621" rpy="-0.471238898 0 0" />
+      <geometry>
+        <box size="0.01 0.004 0.004" />
+      </geometry>
+      <material name="gear" />
+    </visual>
+    <visual>
+      <origin xyz="0 0.02938926261 0.04045084972" rpy="-0.6283185307 0 0" />
+      <geometry>
+        <box size="0.01 0.004 0.004" />
+      </geometry>
+      <material name="gear" />
+    </visual>
+    <visual>
+      <origin xyz="0 0.03535533906 0.03535533906" rpy="-0.7853981634 0 0" />
+      <geometry>
+        <box size="0.01 0.004 0.004" />
+      </geometry>
+      <material name="gear" />
+    </visual>
+    <visual>
+      <origin xyz="0 0.04045084972 0.02938926261" rpy="-0.9424777961 0 0" />
+      <geometry>
+        <box size="0.01 0.004 0.004" />
+      </geometry>
+      <material name="gear" />
+    </visual>
+    <visual>
+      <origin xyz="0 0.04455032621 0.02269952499" rpy="-1.099557429 0 0" />
+      <geometry>
+        <box size="0.01 0.004 0.004" />
+      </geometry>
+      <material name="gear" />
+    </visual>
+    <visual>
+      <origin xyz="0 0.04755282581 0.01545084972" rpy="-1.256637061 0 0" />
+      <geometry>
+        <box size="0.01 0.004 0.004" />
+      </geometry>
+      <material name="gear" />
+    </visual>
+    <visual>
+      <origin xyz="0 0.04938441703 0.007821723252" rpy="-1.413716694 0 0" />
+      <geometry>
+        <box size="0.01 0.004 0.004" />
+      </geometry>
+      <material name="gear" />
+    </visual>
+    <visual>
+      <origin xyz="0 0.05 3.061616998e-18" rpy="-1.570796327 0 0" />
+      <geometry>
+        <box size="0.01 0.004 0.004" />
+      </geometry>
+      <material name="gear" />
+    </visual>
+    <visual>
+      <origin xyz="0 0.04938441703 -0.007821723252" rpy="-1.727875959 0 0" />
+      <geometry>
+        <box size="0.01 0.004 0.004" />
+      </geometry>
+      <material name="gear" />
+    </visual>
+    <visual>
+      <origin xyz="0 0.04755282581 -0.01545084972" rpy="-1.884955592 0 0" />
+      <geometry>
+        <box size="0.01 0.004 0.004" />
+      </geometry>
+      <material name="gear" />
+    </visual>
+    <visual>
+      <origin xyz="0 0.04455032621 -0.02269952499" rpy="-2.042035225 0 0" />
+      <geometry>
+        <box size="0.01 0.004 0.004" />
+      </geometry>
+      <material name="gear" />
+    </visual>
+    <visual>
+      <origin xyz="0 0.04045084972 -0.02938926261" rpy="-2.199114858 0 0" />
+      <geometry>
+        <box size="0.01 0.004 0.004" />
+      </geometry>
+      <material name="gear" />
+    </visual>
+    <visual>
+      <origin xyz="0 0.03535533906 -0.03535533906" rpy="-2.35619449 0 0" />
+      <geometry>
+        <box size="0.01 0.004 0.004" />
+      </geometry>
+      <material name="gear" />
+    </visual>
+    <visual>
+      <origin xyz="0 0.02938926261 -0.04045084972" rpy="-2.513274123 0 0" />
+      <geometry>
+        <box size="0.01 0.004 0.004" />
+      </geometry>
+      <material name="gear" />
+    </visual>
+    <visual>
+      <origin xyz="0 0.02269952499 -0.04455032621" rpy="-2.670353756 0 0" />
+      <geometry>
+        <box size="0.01 0.004 0.004" />
+      </geometry>
+      <material name="gear" />
+    </visual>
+    <visual>
+      <origin xyz="0 0.01545084972 -0.04755282581" rpy="-2.827433388 0 0" />
+      <geometry>
+        <box size="0.01 0.004 0.004" />
+      </geometry>
+      <material name="gear" />
+    </visual>
+    <visual>
+      <origin xyz="0 0.007821723252 -0.04938441703" rpy="-2.984513021 0 0" />
+      <geometry>
+        <box size="0.01 0.004 0.004" />
+      </geometry>
+      <material name="gear" />
+    </visual>
+    <visual>
+      <origin xyz="0 6.123233996e-18 -0.05" rpy="-3.141592654 0 0" />
+      <geometry>
+        <box size="0.01 0.004 0.004" />
+      </geometry>
+      <material name="gear" />
+    </visual>
+    <visual>
+      <origin xyz="0 -0.007821723252 -0.04938441703" rpy="-3.298672286 0 0" />
+      <geometry>
+        <box size="0.01 0.004 0.004" />
+      </geometry>
+      <material name="gear" />
+    </visual>
+    <visual>
+      <origin xyz="0 -0.01545084972 -0.04755282581" rpy="-3.455751919 0 0" />
+      <geometry>
+        <box size="0.01 0.004 0.004" />
+      </geometry>
+      <material name="gear" />
+    </visual>
+    <visual>
+      <origin xyz="0 -0.02269952499 -0.04455032621" rpy="-3.612831552 0 0" />
+      <geometry>
+        <box size="0.01 0.004 0.004" />
+      </geometry>
+      <material name="gear" />
+    </visual>
+    <visual>
+      <origin xyz="0 -0.02938926261 -0.04045084972" rpy="-3.769911184 0 0" />
+      <geometry>
+        <box size="0.01 0.004 0.004" />
+      </geometry>
+      <material name="gear" />
+    </visual>
+    <visual>
+      <origin xyz="0 -0.03535533906 -0.03535533906" rpy="-3.926990817 0 0" />
+      <geometry>
+        <box size="0.01 0.004 0.004" />
+      </geometry>
+      <material name="gear" />
+    </visual>
+    <visual>
+      <origin xyz="0 -0.04045084972 -0.02938926261" rpy="-4.08407045 0 0" />
+      <geometry>
+        <box size="0.01 0.004 0.004" />
+      </geometry>
+      <material name="gear" />
+    </visual>
+    <visual>
+      <origin xyz="0 -0.04455032621 -0.02269952499" rpy="-4.241150082 0 0" />
+      <geometry>
+        <box size="0.01 0.004 0.004" />
+      </geometry>
+      <material name="gear" />
+    </visual>
+    <visual>
+      <origin xyz="0 -0.04755282581 -0.01545084972" rpy="-4.398229715 0 0" />
+      <geometry>
+        <box size="0.01 0.004 0.004" />
+      </geometry>
+      <material name="gear" />
+    </visual>
+    <visual>
+      <origin xyz="0 -0.04938441703 -0.007821723252" rpy="-4.555309348 0 0" />
+      <geometry>
+        <box size="0.01 0.004 0.004" />
+      </geometry>
+      <material name="gear" />
+    </visual>
+    <visual>
+      <origin xyz="0 -0.05 -9.184850994e-18" rpy="-4.71238898 0 0" />
+      <geometry>
+        <box size="0.01 0.004 0.004" />
+      </geometry>
+      <material name="gear" />
+    </visual>
+    <visual>
+      <origin xyz="0 -0.04938441703 0.007821723252" rpy="-4.869468613 0 0" />
+      <geometry>
+        <box size="0.01 0.004 0.004" />
+      </geometry>
+      <material name="gear" />
+    </visual>
+    <visual>
+      <origin xyz="0 -0.04755282581 0.01545084972" rpy="-5.026548246 0 0" />
+      <geometry>
+        <box size="0.01 0.004 0.004" />
+      </geometry>
+      <material name="gear" />
+    </visual>
+    <visual>
+      <origin xyz="0 -0.04455032621 0.02269952499" rpy="-5.183627878 0 0" />
+      <geometry>
+        <box size="0.01 0.004 0.004" />
+      </geometry>
+      <material name="gear" />
+    </visual>
+    <visual>
+      <origin xyz="0 -0.04045084972 0.02938926261" rpy="-5.340707511 0 0" />
+      <geometry>
+        <box size="0.01 0.004 0.004" />
+      </geometry>
+      <material name="gear" />
+    </visual>
+    <visual>
+      <origin xyz="0 -0.03535533906 0.03535533906" rpy="-5.497787144 0 0" />
+      <geometry>
+        <box size="0.01 0.004 0.004" />
+      </geometry>
+      <material name="gear" />
+    </visual>
+    <visual>
+      <origin xyz="0 -0.02938926261 0.04045084972" rpy="-5.654866776 0 0" />
+      <geometry>
+        <box size="0.01 0.004 0.004" />
+      </geometry>
+      <material name="gear" />
+    </visual>
+    <visual>
+      <origin xyz="0 -0.02269952499 0.04455032621" rpy="-5.811946409 0 0" />
+      <geometry>
+        <box size="0.01 0.004 0.004" />
+      </geometry>
+      <material name="gear" />
+    </visual>
+    <visual>
+      <origin xyz="0 -0.01545084972 0.04755282581" rpy="-5.969026042 0 0" />
+      <geometry>
+        <box size="0.01 0.004 0.004" />
+      </geometry>
+      <material name="gear" />
+    </visual>
+    <visual>
+      <origin xyz="0 -0.007821723252 0.04938441703" rpy="-6.126105675 0 0" />
+      <geometry>
+        <box size="0.01 0.004 0.004" />
+      </geometry>
+      <material name="gear" />
+    </visual>
+    <inertial>
+      <origin xyz="0 0 0" />
+      <mass value="0.06" />
+      <inertia ixx="0.0001" iyy="5.050000000000001e-05" izz="5.050000000000001e-05" ixy="0" ixz="0" iyz="0" />
+    </inertial>
+  </link>
+  <joint name="lid_pinion_joint" type="revolute">
+    <parent link="cargo_box" />
+    <child link="lid_pinion" />
+    <origin xyz="-0.325 0 0.126" />
+    <axis xyz="-1 0 0" />
+    <limit lower="0" upper="3.0999999999999996" effort="1" velocity="1" />
+    <dynamics damping="0.05" friction="0.01" />
+  </joint>
+  <link name="top_lid_left">
+    <visual>
+      <origin xyz="-0.15 0.075 0.1915" rpy="0 0 0" />
+      <geometry>
+        <box size="0.3 0.15 0.003" />
+      </geometry>
+      <material name="lid" />
+    </visual>
+    <collision>
+      <origin xyz="-0.15 0.075 0.1915" rpy="0 0 0" />
+      <geometry>
+        <box size="0.3 0.15 0.003" />
+      </geometry>
+    </collision>
+    <visual>
+      <origin xyz="-0.325 0 0.18" rpy="0 0 0" />
+      <geometry>
+        <box size="0.01 0.34 0.006" />
+      </geometry>
+      <material name="lid" />
+    </visual>
+    <visual>
+      <origin xyz="-0.325 -0.168 0.176" rpy="0 0 0" />
+      <geometry>
+        <box size="0.01 0.003 0.003" />
+      </geometry>
+      <material name="gear" />
+    </visual>
+    <visual>
+      <origin xyz="-0.325 -0.16 0.176" rpy="0 0 0" />
+      <geometry>
+        <box size="0.01 0.003 0.003" />
+      </geometry>
+      <material name="gear" />
+    </visual>
+    <visual>
+      <origin xyz="-0.325 -0.152 0.176" rpy="0 0 0" />
+      <geometry>
+        <box size="0.01 0.003 0.003" />
+      </geometry>
+      <material name="gear" />
+    </visual>
+    <visual>
+      <origin xyz="-0.325 -0.144 0.176" rpy="0 0 0" />
+      <geometry>
+        <box size="0.01 0.003 0.003" />
+      </geometry>
+      <material name="gear" />
+    </visual>
+    <visual>
+      <origin xyz="-0.325 -0.136 0.176" rpy="0 0 0" />
+      <geometry>
+        <box size="0.01 0.003 0.003" />
+      </geometry>
+      <material name="gear" />
+    </visual>
+    <visual>
+      <origin xyz="-0.325 -0.128 0.176" rpy="0 0 0" />
+      <geometry>
+        <box size="0.01 0.003 0.003" />
+      </geometry>
+      <material name="gear" />
+    </visual>
+    <visual>
+      <origin xyz="-0.325 -0.12 0.176" rpy="0 0 0" />
+      <geometry>
+        <box size="0.01 0.003 0.003" />
+      </geometry>
+      <material name="gear" />
+    </visual>
+    <visual>
+      <origin xyz="-0.325 -0.112 0.176" rpy="0 0 0" />
+      <geometry>
+        <box size="0.01 0.003 0.003" />
+      </geometry>
+      <material name="gear" />
+    </visual>
+    <visual>
+      <origin xyz="-0.325 -0.104 0.176" rpy="0 0 0" />
+      <geometry>
+        <box size="0.01 0.003 0.003" />
+      </geometry>
+      <material name="gear" />
+    </visual>
+    <visual>
+      <origin xyz="-0.325 -0.096 0.176" rpy="0 0 0" />
+      <geometry>
+        <box size="0.01 0.003 0.003" />
+      </geometry>
+      <material name="gear" />
+    </visual>
+    <visual>
+      <origin xyz="-0.325 -0.088 0.176" rpy="0 0 0" />
+      <geometry>
+        <box size="0.01 0.003 0.003" />
+      </geometry>
+      <material name="gear" />
+    </visual>
+    <visual>
+      <origin xyz="-0.325 -0.08 0.176" rpy="0 0 0" />
+      <geometry>
+        <box size="0.01 0.003 0.003" />
+      </geometry>
+      <material name="gear" />
+    </visual>
+    <visual>
+      <origin xyz="-0.325 -0.072 0.176" rpy="0 0 0" />
+      <geometry>
+        <box size="0.01 0.003 0.003" />
+      </geometry>
+      <material name="gear" />
+    </visual>
+    <visual>
+      <origin xyz="-0.325 -0.064 0.176" rpy="0 0 0" />
+      <geometry>
+        <box size="0.01 0.003 0.003" />
+      </geometry>
+      <material name="gear" />
+    </visual>
+    <visual>
+      <origin xyz="-0.325 -0.056 0.176" rpy="0 0 0" />
+      <geometry>
+        <box size="0.01 0.003 0.003" />
+      </geometry>
+      <material name="gear" />
+    </visual>
+    <visual>
+      <origin xyz="-0.325 -0.048 0.176" rpy="0 0 0" />
+      <geometry>
+        <box size="0.01 0.003 0.003" />
+      </geometry>
+      <material name="gear" />
+    </visual>
+    <visual>
+      <origin xyz="-0.325 -0.04 0.176" rpy="0 0 0" />
+      <geometry>
+        <box size="0.01 0.003 0.003" />
+      </geometry>
+      <material name="gear" />
+    </visual>
+    <visual>
+      <origin xyz="-0.325 -0.032 0.176" rpy="0 0 0" />
+      <geometry>
+        <box size="0.01 0.003 0.003" />
+      </geometry>
+      <material name="gear" />
+    </visual>
+    <visual>
+      <origin xyz="-0.325 -0.024 0.176" rpy="0 0 0" />
+      <geometry>
+        <box size="0.01 0.003 0.003" />
+      </geometry>
+      <material name="gear" />
+    </visual>
+    <visual>
+      <origin xyz="-0.325 -0.016 0.176" rpy="0 0 0" />
+      <geometry>
+        <box size="0.01 0.003 0.003" />
+      </geometry>
+      <material name="gear" />
+    </visual>
+    <visual>
+      <origin xyz="-0.325 -0.008 0.176" rpy="0 0 0" />
+      <geometry>
+        <box size="0.01 0.003 0.003" />
+      </geometry>
+      <material name="gear" />
+    </visual>
+    <visual>
+      <origin xyz="-0.325 0 0.176" rpy="0 0 0" />
+      <geometry>
+        <box size="0.01 0.003 0.003" />
+      </geometry>
+      <material name="gear" />
+    </visual>
+    <visual>
+      <origin xyz="-0.325 0.008 0.176" rpy="0 0 0" />
+      <geometry>
+        <box size="0.01 0.003 0.003" />
+      </geometry>
+      <material name="gear" />
+    </visual>
+    <visual>
+      <origin xyz="-0.325 0.016 0.176" rpy="0 0 0" />
+      <geometry>
+        <box size="0.01 0.003 0.003" />
+      </geometry>
+      <material name="gear" />
+    </visual>
+    <visual>
+      <origin xyz="-0.325 0.024 0.176" rpy="0 0 0" />
+      <geometry>
+        <box size="0.01 0.003 0.003" />
+      </geometry>
+      <material name="gear" />
+    </visual>
+    <visual>
+      <origin xyz="-0.325 0.032 0.176" rpy="0 0 0" />
+      <geometry>
+        <box size="0.01 0.003 0.003" />
+      </geometry>
+      <material name="gear" />
+    </visual>
+    <visual>
+      <origin xyz="-0.325 0.04 0.176" rpy="0 0 0" />
+      <geometry>
+        <box size="0.01 0.003 0.003" />
+      </geometry>
+      <material name="gear" />
+    </visual>
+    <visual>
+      <origin xyz="-0.325 0.048 0.176" rpy="0 0 0" />
+      <geometry>
+        <box size="0.01 0.003 0.003" />
+      </geometry>
+      <material name="gear" />
+    </visual>
+    <visual>
+      <origin xyz="-0.325 0.056 0.176" rpy="0 0 0" />
+      <geometry>
+        <box size="0.01 0.003 0.003" />
+      </geometry>
+      <material name="gear" />
+    </visual>
+    <visual>
+      <origin xyz="-0.325 0.064 0.176" rpy="0 0 0" />
+      <geometry>
+        <box size="0.01 0.003 0.003" />
+      </geometry>
+      <material name="gear" />
+    </visual>
+    <visual>
+      <origin xyz="-0.325 0.072 0.176" rpy="0 0 0" />
+      <geometry>
+        <box size="0.01 0.003 0.003" />
+      </geometry>
+      <material name="gear" />
+    </visual>
+    <visual>
+      <origin xyz="-0.325 0.08 0.176" rpy="0 0 0" />
+      <geometry>
+        <box size="0.01 0.003 0.003" />
+      </geometry>
+      <material name="gear" />
+    </visual>
+    <visual>
+      <origin xyz="-0.325 0.088 0.176" rpy="0 0 0" />
+      <geometry>
+        <box size="0.01 0.003 0.003" />
+      </geometry>
+      <material name="gear" />
+    </visual>
+    <visual>
+      <origin xyz="-0.325 0.096 0.176" rpy="0 0 0" />
+      <geometry>
+        <box size="0.01 0.003 0.003" />
+      </geometry>
+      <material name="gear" />
+    </visual>
+    <visual>
+      <origin xyz="-0.325 0.104 0.176" rpy="0 0 0" />
+      <geometry>
+        <box size="0.01 0.003 0.003" />
+      </geometry>
+      <material name="gear" />
+    </visual>
+    <visual>
+      <origin xyz="-0.325 0.112 0.176" rpy="0 0 0" />
+      <geometry>
+        <box size="0.01 0.003 0.003" />
+      </geometry>
+      <material name="gear" />
+    </visual>
+    <visual>
+      <origin xyz="-0.325 0.12 0.176" rpy="0 0 0" />
+      <geometry>
+        <box size="0.01 0.003 0.003" />
+      </geometry>
+      <material name="gear" />
+    </visual>
+    <visual>
+      <origin xyz="-0.325 0.128 0.176" rpy="0 0 0" />
+      <geometry>
+        <box size="0.01 0.003 0.003" />
+      </geometry>
+      <material name="gear" />
+    </visual>
+    <visual>
+      <origin xyz="-0.325 0.136 0.176" rpy="0 0 0" />
+      <geometry>
+        <box size="0.01 0.003 0.003" />
+      </geometry>
+      <material name="gear" />
+    </visual>
+    <visual>
+      <origin xyz="-0.325 0.144 0.176" rpy="0 0 0" />
+      <geometry>
+        <box size="0.01 0.003 0.003" />
+      </geometry>
+      <material name="gear" />
+    </visual>
+    <visual>
+      <origin xyz="-0.325 0.152 0.176" rpy="0 0 0" />
+      <geometry>
+        <box size="0.01 0.003 0.003" />
+      </geometry>
+      <material name="gear" />
+    </visual>
+    <visual>
+      <origin xyz="-0.325 0.16 0.176" rpy="0 0 0" />
+      <geometry>
+        <box size="0.01 0.003 0.003" />
+      </geometry>
+      <material name="gear" />
+    </visual>
+    <visual>
+      <origin xyz="-0.325 0.168 0.176" rpy="0 0 0" />
+      <geometry>
+        <box size="0.01 0.003 0.003" />
+      </geometry>
+      <material name="gear" />
+    </visual>
+    <visual>
+      <origin xyz="-0.325 0.14 0.185" rpy="0 0 0" />
+      <geometry>
+        <box size="0.01 0.01 0.01" />
+      </geometry>
+      <material name="metal" />
+    </visual>
+    <collision>
+      <origin xyz="-0.325 0.14 0.185" rpy="0 0 0" />
+      <geometry>
+        <box size="0.01 0.01 0.01" />
+      </geometry>
+    </collision>
+    <visual>
+      <origin xyz="-0.3125 0.14 0.193" rpy="0 0 0" />
+      <geometry>
+        <box size="0.035 0.012 0.006" />
+      </geometry>
+      <material name="metal" />
+    </visual>
+    <collision>
+      <origin xyz="-0.3125 0.14 0.193" rpy="0 0 0" />
+      <geometry>
+        <box size="0.035 0.012 0.006" />
+      </geometry>
+    </collision>
+    <inertial>
+      <origin xyz="-0.15 0.075 0.19" />
+      <mass value="0.2" />
+      <inertia ixx="0.00038541666666666667" iyy="0.0015104166666666666" izz="0.001875" ixy="0" ixz="0" iyz="0" />
+    </inertial>
+  </link>
+  <joint name="top_lid_left_joint" type="prismatic">
+    <parent link="cargo_box" />
+    <child link="top_lid_left" />
+    <origin xyz="0 0 0" />
+    <axis xyz="0 1 0" />
+    <limit lower="0" upper="0.155" effort="20" velocity="0.05" />
+    <dynamics damping="0.05" friction="0.01" />
+    <mimic joint="lid_pinion_joint" multiplier="0.05" offset="0" />
+  </joint>
+  <link name="top_lid_right">
+    <visual>
+      <origin xyz="-0.15 -0.075 0.1915" rpy="0 0 0" />
+      <geometry>
+        <box size="0.3 0.15 0.003" />
+      </geometry>
+      <material name="lid" />
+    </visual>
+    <collision>
+      <origin xyz="-0.15 -0.075 0.1915" rpy="0 0 0" />
+      <geometry>
+        <box size="0.3 0.15 0.003" />
+      </geometry>
+    </collision>
+    <visual>
+      <origin xyz="-0.325 0 0.072" rpy="0 0 0" />
+      <geometry>
+        <box size="0.01 0.34 0.006" />
+      </geometry>
+      <material name="lid" />
+    </visual>
+    <visual>
+      <origin xyz="-0.325 -0.168 0.076" rpy="0 0 0" />
+      <geometry>
+        <box size="0.01 0.003 0.003" />
+      </geometry>
+      <material name="gear" />
+    </visual>
+    <visual>
+      <origin xyz="-0.325 -0.16 0.076" rpy="0 0 0" />
+      <geometry>
+        <box size="0.01 0.003 0.003" />
+      </geometry>
+      <material name="gear" />
+    </visual>
+    <visual>
+      <origin xyz="-0.325 -0.152 0.076" rpy="0 0 0" />
+      <geometry>
+        <box size="0.01 0.003 0.003" />
+      </geometry>
+      <material name="gear" />
+    </visual>
+    <visual>
+      <origin xyz="-0.325 -0.144 0.076" rpy="0 0 0" />
+      <geometry>
+        <box size="0.01 0.003 0.003" />
+      </geometry>
+      <material name="gear" />
+    </visual>
+    <visual>
+      <origin xyz="-0.325 -0.136 0.076" rpy="0 0 0" />
+      <geometry>
+        <box size="0.01 0.003 0.003" />
+      </geometry>
+      <material name="gear" />
+    </visual>
+    <visual>
+      <origin xyz="-0.325 -0.128 0.076" rpy="0 0 0" />
+      <geometry>
+        <box size="0.01 0.003 0.003" />
+      </geometry>
+      <material name="gear" />
+    </visual>
+    <visual>
+      <origin xyz="-0.325 -0.12 0.076" rpy="0 0 0" />
+      <geometry>
+        <box size="0.01 0.003 0.003" />
+      </geometry>
+      <material name="gear" />
+    </visual>
+    <visual>
+      <origin xyz="-0.325 -0.112 0.076" rpy="0 0 0" />
+      <geometry>
+        <box size="0.01 0.003 0.003" />
+      </geometry>
+      <material name="gear" />
+    </visual>
+    <visual>
+      <origin xyz="-0.325 -0.104 0.076" rpy="0 0 0" />
+      <geometry>
+        <box size="0.01 0.003 0.003" />
+      </geometry>
+      <material name="gear" />
+    </visual>
+    <visual>
+      <origin xyz="-0.325 -0.096 0.076" rpy="0 0 0" />
+      <geometry>
+        <box size="0.01 0.003 0.003" />
+      </geometry>
+      <material name="gear" />
+    </visual>
+    <visual>
+      <origin xyz="-0.325 -0.088 0.076" rpy="0 0 0" />
+      <geometry>
+        <box size="0.01 0.003 0.003" />
+      </geometry>
+      <material name="gear" />
+    </visual>
+    <visual>
+      <origin xyz="-0.325 -0.08 0.076" rpy="0 0 0" />
+      <geometry>
+        <box size="0.01 0.003 0.003" />
+      </geometry>
+      <material name="gear" />
+    </visual>
+    <visual>
+      <origin xyz="-0.325 -0.072 0.076" rpy="0 0 0" />
+      <geometry>
+        <box size="0.01 0.003 0.003" />
+      </geometry>
+      <material name="gear" />
+    </visual>
+    <visual>
+      <origin xyz="-0.325 -0.064 0.076" rpy="0 0 0" />
+      <geometry>
+        <box size="0.01 0.003 0.003" />
+      </geometry>
+      <material name="gear" />
+    </visual>
+    <visual>
+      <origin xyz="-0.325 -0.056 0.076" rpy="0 0 0" />
+      <geometry>
+        <box size="0.01 0.003 0.003" />
+      </geometry>
+      <material name="gear" />
+    </visual>
+    <visual>
+      <origin xyz="-0.325 -0.048 0.076" rpy="0 0 0" />
+      <geometry>
+        <box size="0.01 0.003 0.003" />
+      </geometry>
+      <material name="gear" />
+    </visual>
+    <visual>
+      <origin xyz="-0.325 -0.04 0.076" rpy="0 0 0" />
+      <geometry>
+        <box size="0.01 0.003 0.003" />
+      </geometry>
+      <material name="gear" />
+    </visual>
+    <visual>
+      <origin xyz="-0.325 -0.032 0.076" rpy="0 0 0" />
+      <geometry>
+        <box size="0.01 0.003 0.003" />
+      </geometry>
+      <material name="gear" />
+    </visual>
+    <visual>
+      <origin xyz="-0.325 -0.024 0.076" rpy="0 0 0" />
+      <geometry>
+        <box size="0.01 0.003 0.003" />
+      </geometry>
+      <material name="gear" />
+    </visual>
+    <visual>
+      <origin xyz="-0.325 -0.016 0.076" rpy="0 0 0" />
+      <geometry>
+        <box size="0.01 0.003 0.003" />
+      </geometry>
+      <material name="gear" />
+    </visual>
+    <visual>
+      <origin xyz="-0.325 -0.008 0.076" rpy="0 0 0" />
+      <geometry>
+        <box size="0.01 0.003 0.003" />
+      </geometry>
+      <material name="gear" />
+    </visual>
+    <visual>
+      <origin xyz="-0.325 0 0.076" rpy="0 0 0" />
+      <geometry>
+        <box size="0.01 0.003 0.003" />
+      </geometry>
+      <material name="gear" />
+    </visual>
+    <visual>
+      <origin xyz="-0.325 0.008 0.076" rpy="0 0 0" />
+      <geometry>
+        <box size="0.01 0.003 0.003" />
+      </geometry>
+      <material name="gear" />
+    </visual>
+    <visual>
+      <origin xyz="-0.325 0.016 0.076" rpy="0 0 0" />
+      <geometry>
+        <box size="0.01 0.003 0.003" />
+      </geometry>
+      <material name="gear" />
+    </visual>
+    <visual>
+      <origin xyz="-0.325 0.024 0.076" rpy="0 0 0" />
+      <geometry>
+        <box size="0.01 0.003 0.003" />
+      </geometry>
+      <material name="gear" />
+    </visual>
+    <visual>
+      <origin xyz="-0.325 0.032 0.076" rpy="0 0 0" />
+      <geometry>
+        <box size="0.01 0.003 0.003" />
+      </geometry>
+      <material name="gear" />
+    </visual>
+    <visual>
+      <origin xyz="-0.325 0.04 0.076" rpy="0 0 0" />
+      <geometry>
+        <box size="0.01 0.003 0.003" />
+      </geometry>
+      <material name="gear" />
+    </visual>
+    <visual>
+      <origin xyz="-0.325 0.048 0.076" rpy="0 0 0" />
+      <geometry>
+        <box size="0.01 0.003 0.003" />
+      </geometry>
+      <material name="gear" />
+    </visual>
+    <visual>
+      <origin xyz="-0.325 0.056 0.076" rpy="0 0 0" />
+      <geometry>
+        <box size="0.01 0.003 0.003" />
+      </geometry>
+      <material name="gear" />
+    </visual>
+    <visual>
+      <origin xyz="-0.325 0.064 0.076" rpy="0 0 0" />
+      <geometry>
+        <box size="0.01 0.003 0.003" />
+      </geometry>
+      <material name="gear" />
+    </visual>
+    <visual>
+      <origin xyz="-0.325 0.072 0.076" rpy="0 0 0" />
+      <geometry>
+        <box size="0.01 0.003 0.003" />
+      </geometry>
+      <material name="gear" />
+    </visual>
+    <visual>
+      <origin xyz="-0.325 0.08 0.076" rpy="0 0 0" />
+      <geometry>
+        <box size="0.01 0.003 0.003" />
+      </geometry>
+      <material name="gear" />
+    </visual>
+    <visual>
+      <origin xyz="-0.325 0.088 0.076" rpy="0 0 0" />
+      <geometry>
+        <box size="0.01 0.003 0.003" />
+      </geometry>
+      <material name="gear" />
+    </visual>
+    <visual>
+      <origin xyz="-0.325 0.096 0.076" rpy="0 0 0" />
+      <geometry>
+        <box size="0.01 0.003 0.003" />
+      </geometry>
+      <material name="gear" />
+    </visual>
+    <visual>
+      <origin xyz="-0.325 0.104 0.076" rpy="0 0 0" />
+      <geometry>
+        <box size="0.01 0.003 0.003" />
+      </geometry>
+      <material name="gear" />
+    </visual>
+    <visual>
+      <origin xyz="-0.325 0.112 0.076" rpy="0 0 0" />
+      <geometry>
+        <box size="0.01 0.003 0.003" />
+      </geometry>
+      <material name="gear" />
+    </visual>
+    <visual>
+      <origin xyz="-0.325 0.12 0.076" rpy="0 0 0" />
+      <geometry>
+        <box size="0.01 0.003 0.003" />
+      </geometry>
+      <material name="gear" />
+    </visual>
+    <visual>
+      <origin xyz="-0.325 0.128 0.076" rpy="0 0 0" />
+      <geometry>
+        <box size="0.01 0.003 0.003" />
+      </geometry>
+      <material name="gear" />
+    </visual>
+    <visual>
+      <origin xyz="-0.325 0.136 0.076" rpy="0 0 0" />
+      <geometry>
+        <box size="0.01 0.003 0.003" />
+      </geometry>
+      <material name="gear" />
+    </visual>
+    <visual>
+      <origin xyz="-0.325 0.144 0.076" rpy="0 0 0" />
+      <geometry>
+        <box size="0.01 0.003 0.003" />
+      </geometry>
+      <material name="gear" />
+    </visual>
+    <visual>
+      <origin xyz="-0.325 0.152 0.076" rpy="0 0 0" />
+      <geometry>
+        <box size="0.01 0.003 0.003" />
+      </geometry>
+      <material name="gear" />
+    </visual>
+    <visual>
+      <origin xyz="-0.325 0.16 0.076" rpy="0 0 0" />
+      <geometry>
+        <box size="0.01 0.003 0.003" />
+      </geometry>
+      <material name="gear" />
+    </visual>
+    <visual>
+      <origin xyz="-0.325 0.168 0.076" rpy="0 0 0" />
+      <geometry>
+        <box size="0.01 0.003 0.003" />
+      </geometry>
+      <material name="gear" />
+    </visual>
+    <visual>
+      <origin xyz="-0.325 -0.14 0.131" rpy="0 0 0" />
+      <geometry>
+        <box size="0.01 0.01 0.118" />
+      </geometry>
+      <material name="metal" />
+    </visual>
+    <collision>
+      <origin xyz="-0.325 -0.14 0.131" rpy="0 0 0" />
+      <geometry>
+        <box size="0.01 0.01 0.118" />
+      </geometry>
+    </collision>
+    <visual>
+      <origin xyz="-0.3125 -0.14 0.193" rpy="0 0 0" />
+      <geometry>
+        <box size="0.035 0.012 0.006" />
+      </geometry>
+      <material name="metal" />
+    </visual>
+    <collision>
+      <origin xyz="-0.3125 -0.14 0.193" rpy="0 0 0" />
+      <geometry>
+        <box size="0.035 0.012 0.006" />
+      </geometry>
+    </collision>
+    <inertial>
+      <origin xyz="-0.15 -0.075 0.19" />
+      <mass value="0.2" />
+      <inertia ixx="0.00038541666666666667" iyy="0.0015104166666666666" izz="0.001875" ixy="0" ixz="0" iyz="0" />
+    </inertial>
+  </link>
+  <joint name="top_lid_right_joint" type="prismatic">
+    <parent link="cargo_box" />
+    <child link="top_lid_right" />
+    <origin xyz="0 0 0" />
+    <axis xyz="0 -1 0" />
+    <limit lower="0" upper="0.155" effort="20" velocity="0.05" />
+    <dynamics damping="0.05" friction="0.01" />
+    <mimic joint="lid_pinion_joint" multiplier="0.05" offset="0" />
+  </joint>
+</robot>

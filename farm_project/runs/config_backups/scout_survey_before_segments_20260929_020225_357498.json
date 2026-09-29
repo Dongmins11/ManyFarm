@@ -1,0 +1,90 @@
+{
+  "schema_version": 1,
+  "robot_id": "scout_01",
+  "map_id": "farm_map_v1",
+  "base_frame": "scout_01/base_footprint",
+  "vision_config": "robot/config/scout_vision.json",
+  "output_dir": "runs/scout_survey",
+  "goal_timeout_s": 300.0,
+  "arrival_tolerance_m": 0.08,
+  "heading_tolerance_rad": 0.12,
+  "settle_s": 0.8,
+  "overlap_fraction": 0.15,
+  "association_distance_m": 0.065,
+  "association_band_half_depth_m": 0.2,
+  "sections": {
+    "BED_01": {
+      "route_file": "sim/ros_ws/src/farm_sim_config/maps/graph.geojson",
+      "node_ids": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8
+      ],
+      "segment_id": "BED_01_BATCH",
+      "bed_plane_from_route_m": 1.14,
+      "evaluation_bed_prim": "/World/Vegetation/Bed_02",
+      "harvest": {
+        "heading_offset_rad": 3.141592653589793,
+        "mount_xy_base_m": [
+          0.19,
+          -0.185
+        ],
+        "work_offset_xy_base_m": [
+          0.0,
+          -0.25
+        ],
+        "height_reference_m": 0.703,
+        "height_offsets_m": [
+          -0.1,
+          0.35
+        ],
+        "width_m": 0.35,
+        "side_margin_m": 0.03,
+        "depth_m": 0.1,
+        "geometry_status": "PROVISIONAL: supplied arm_1_mount XY; reverse heading faces right-side arm toward bed; 0.25m work offset is a configured assumption. Not a validated harvest route or IK result.",
+        "range_tolerance_m": 0.02,
+        "membership_margin_m": 0.0
+      }
+    }
+  },
+  "evaluation": {
+    "T_map_world": [
+      [
+        1,
+        0,
+        0,
+        0
+      ],
+      [
+        0,
+        1,
+        0,
+        0
+      ],
+      [
+        0,
+        0,
+        1,
+        0
+      ],
+      [
+        0,
+        0,
+        0,
+        1
+      ]
+    ],
+    "note": "Current scene/map share XY axes and initial robot coordinates. Change this independent registration if map origin/rotation changes; never fit to predictions."
+  },
+  "notes": [
+    "BED_01 is a temporary control alias for the previously tested route, not the USD prim name.",
+    "One batch per bed is temporarily represented by one segment. Confirm the production segment definition before replacing the test controller.",
+    "Survey covers the configured route extent and one facing side, not both sides of an entire USD bed.",
+    "Harvest stop route is a parallel line derived from mount/work offsets; collision and arm reachability are not verified. No harvest motion is sent."
+  ]
+}

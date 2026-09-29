@@ -1,0 +1,210 @@
+{
+  "source_session": "56571de5ad6f",
+  "section": {
+    "route_file": "sim/ros_ws/src/farm_sim_config/maps/graph.geojson",
+    "node_ids": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8
+    ],
+    "segment_id": "BED_01_BATCH",
+    "bed_plane_from_route_m": 1.14,
+    "evaluation_bed_prim": "/World/Vegetation/Bed_02",
+    "harvest": {
+      "heading_offset_rad": 3.141592653589793,
+      "mount_xy_base_m": [
+        0.19,
+        -0.185
+      ],
+      "work_offset_xy_base_m": [
+        0.0,
+        -0.25
+      ],
+      "height_reference_m": 0.703,
+      "height_offsets_m": [
+        -0.1,
+        0.35
+      ],
+      "width_m": 0.35,
+      "side_margin_m": 0.03,
+      "depth_m": 0.1,
+      "geometry_status": "PROVISIONAL: supplied arm_1_mount XY; reverse heading faces right-side arm toward bed; 0.25m work offset is a configured assumption. Not a validated harvest route or IK result."
+    }
+  },
+  "fruits": [
+    {
+      "id": "56571de5ad6f_BED_01_F0001",
+      "position_map_m": [
+        -5.572119281386907,
+        9.261656137985081,
+        0.7755707519664207
+      ],
+      "class_name": "Yellow",
+      "confidence": 0.9478808641433716,
+      "seen_count": 1,
+      "first_stamp_ns": 107050005583,
+      "last_stamp_ns": 107050005583
+    },
+    {
+      "id": "56571de5ad6f_BED_01_F0002",
+      "position_map_m": [
+        -5.518271783630771,
+        8.646177122259262,
+        0.6460026093770199
+      ],
+      "class_name": "Red",
+      "confidence": 0.8706641793251038,
+      "seen_count": 1,
+      "first_stamp_ns": 107050005583,
+      "last_stamp_ns": 107050005583
+    },
+    {
+      "id": "56571de5ad6f_BED_01_F0003",
+      "position_map_m": [
+        -5.522402850387373,
+        7.6139952448838315,
+        1.0530987673937915
+      ],
+      "class_name": "Red",
+      "confidence": 0.8575672507286072,
+      "seen_count": 2,
+      "first_stamp_ns": 107050005583,
+      "last_stamp_ns": 127783339998
+    },
+    {
+      "id": "56571de5ad6f_BED_01_F0004",
+      "position_map_m": [
+        -5.488414448072829,
+        8.277406188385608,
+        0.7871187535953806
+      ],
+      "class_name": "Yellow",
+      "confidence": 0.8295613527297974,
+      "seen_count": 2,
+      "first_stamp_ns": 107050005583,
+      "last_stamp_ns": 127783339998
+    },
+    {
+      "id": "56571de5ad6f_BED_01_F0005",
+      "position_map_m": [
+        -5.568748996847231,
+        6.953766540817127,
+        0.8780134359995683
+      ],
+      "class_name": "Red",
+      "confidence": 0.9267097115516663,
+      "seen_count": 2,
+      "first_stamp_ns": 127783339998,
+      "last_stamp_ns": 149250007784
+    },
+    {
+      "id": "56571de5ad6f_BED_01_F0006",
+      "position_map_m": [
+        -5.549212673191895,
+        7.368739229521399,
+        0.9006164682599395
+      ],
+      "class_name": "Yellow",
+      "confidence": 0.850286602973938,
+      "seen_count": 1,
+      "first_stamp_ns": 127783339998,
+      "last_stamp_ns": 127783339998
+    },
+    {
+      "id": "56571de5ad6f_BED_01_F0007",
+      "position_map_m": [
+        -5.534988253614368,
+        5.718139531015002,
+        0.9332120034851026
+      ],
+      "class_name": "Yellow",
+      "confidence": 0.8990089893341064,
+      "seen_count": 2,
+      "first_stamp_ns": 149250007784,
+      "last_stamp_ns": 170583342230
+    },
+    {
+      "id": "56571de5ad6f_BED_01_F0008",
+      "position_map_m": [
+        -5.50359991268161,
+        5.7389229950550975,
+        0.6537518385954911
+      ],
+      "class_name": "Red",
+      "confidence": 0.6554663181304932,
+      "seen_count": 2,
+      "first_stamp_ns": 149250007784,
+      "last_stamp_ns": 170583342230
+    },
+    {
+      "id": "56571de5ad6f_BED_01_F0009",
+      "position_map_m": [
+        -5.5440072533704186,
+        6.270855717884709,
+        1.0163638552527434
+      ],
+      "class_name": "Red",
+      "confidence": 0.6081116795539856,
+      "seen_count": 1,
+      "first_stamp_ns": 149250007784,
+      "last_stamp_ns": 149250007784
+    },
+    {
+      "id": "56571de5ad6f_BED_01_F0010",
+      "position_map_m": [
+        -5.5555241901222185,
+        5.013208026770141,
+        0.9695258249913153
+      ],
+      "class_name": "Red",
+      "confidence": 0.9362459182739258,
+      "seen_count": 1,
+      "first_stamp_ns": 170583342230,
+      "last_stamp_ns": 170583342230
+    },
+    {
+      "id": "56571de5ad6f_BED_01_F0011",
+      "position_map_m": [
+        -5.52902504755948,
+        5.008757501462219,
+        0.6298615726914545
+      ],
+      "class_name": "Yellow",
+      "confidence": 0.5388631224632263,
+      "seen_count": 1,
+      "first_stamp_ns": 170583342230,
+      "last_stamp_ns": 170583342230
+    },
+    {
+      "id": "56571de5ad6f_BED_01_F0012",
+      "position_map_m": [
+        -5.5394157907271735,
+        3.2021674933797684,
+        1.0444810506611577
+      ],
+      "class_name": "Yellow",
+      "confidence": 0.8957019448280334,
+      "seen_count": 1,
+      "first_stamp_ns": 191850010006,
+      "last_stamp_ns": 191850010006
+    },
+    {
+      "id": "56571de5ad6f_BED_01_F0013",
+      "position_map_m": [
+        -5.533546369440888,
+        3.1844884587367126,
+        0.6358547299649973
+      ],
+      "class_name": "Red",
+      "confidence": 0.4011639654636383,
+      "seen_count": 1,
+      "first_stamp_ns": 191850010006,
+      "last_stamp_ns": 191850010006
+    }
+  ]
+}

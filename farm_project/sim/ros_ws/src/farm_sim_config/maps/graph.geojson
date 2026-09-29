@@ -1,0 +1,5129 @@
+{
+  "type": "FeatureCollection",
+  "features": [
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -6.655,
+          9.5
+        ]
+      },
+      "properties": {
+        "id": 1,
+        "frame": "map"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -6.655,
+          8.5
+        ]
+      },
+      "properties": {
+        "id": 2,
+        "frame": "map"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -6.655,
+          7.5
+        ]
+      },
+      "properties": {
+        "id": 3,
+        "frame": "map"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -6.655,
+          6.5
+        ]
+      },
+      "properties": {
+        "id": 4,
+        "frame": "map"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -6.655,
+          5.5
+        ]
+      },
+      "properties": {
+        "id": 5,
+        "frame": "map"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -6.655,
+          4.5
+        ]
+      },
+      "properties": {
+        "id": 6,
+        "frame": "map"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -6.655,
+          3.5
+        ]
+      },
+      "properties": {
+        "id": 7,
+        "frame": "map"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -6.655,
+          2.5
+        ]
+      },
+      "properties": {
+        "id": 8,
+        "frame": "map"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "MultiLineString",
+        "coordinates": [
+          [
+            [
+              -6.655,
+              9.5
+            ],
+            [
+              -6.655,
+              8.5
+            ]
+          ]
+        ]
+      },
+      "properties": {
+        "id": 100,
+        "startid": 1,
+        "endid": 2,
+        "cost": 1.0,
+        "overridable": true
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "MultiLineString",
+        "coordinates": [
+          [
+            [
+              -6.655,
+              8.5
+            ],
+            [
+              -6.655,
+              7.5
+            ]
+          ]
+        ]
+      },
+      "properties": {
+        "id": 101,
+        "startid": 2,
+        "endid": 3,
+        "cost": 1.0,
+        "overridable": true
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "MultiLineString",
+        "coordinates": [
+          [
+            [
+              -6.655,
+              7.5
+            ],
+            [
+              -6.655,
+              6.5
+            ]
+          ]
+        ]
+      },
+      "properties": {
+        "id": 102,
+        "startid": 3,
+        "endid": 4,
+        "cost": 1.0,
+        "overridable": true
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "MultiLineString",
+        "coordinates": [
+          [
+            [
+              -6.655,
+              6.5
+            ],
+            [
+              -6.655,
+              5.5
+            ]
+          ]
+        ]
+      },
+      "properties": {
+        "id": 103,
+        "startid": 4,
+        "endid": 5,
+        "cost": 1.0,
+        "overridable": true
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "MultiLineString",
+        "coordinates": [
+          [
+            [
+              -6.655,
+              5.5
+            ],
+            [
+              -6.655,
+              4.5
+            ]
+          ]
+        ]
+      },
+      "properties": {
+        "id": 104,
+        "startid": 5,
+        "endid": 6,
+        "cost": 1.0,
+        "overridable": true
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "MultiLineString",
+        "coordinates": [
+          [
+            [
+              -6.655,
+              4.5
+            ],
+            [
+              -6.655,
+              3.5
+            ]
+          ]
+        ]
+      },
+      "properties": {
+        "id": 105,
+        "startid": 6,
+        "endid": 7,
+        "cost": 1.0,
+        "overridable": true
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "MultiLineString",
+        "coordinates": [
+          [
+            [
+              -6.655,
+              3.5
+            ],
+            [
+              -6.655,
+              2.5
+            ]
+          ]
+        ]
+      },
+      "properties": {
+        "id": 106,
+        "startid": 7,
+        "endid": 8,
+        "cost": 1.0,
+        "overridable": true
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": 201,
+        "frame": "map",
+        "section_id": "BED_02"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -3.345,
+          2.5
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": 202,
+        "frame": "map",
+        "section_id": "BED_02"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -3.345,
+          3.5
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": 203,
+        "frame": "map",
+        "section_id": "BED_02"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -3.345,
+          4.5
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": 204,
+        "frame": "map",
+        "section_id": "BED_02"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -3.345,
+          5.5
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": 205,
+        "frame": "map",
+        "section_id": "BED_02"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -3.345,
+          6.5
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": 206,
+        "frame": "map",
+        "section_id": "BED_02"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -3.345,
+          7.5
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": 207,
+        "frame": "map",
+        "section_id": "BED_02"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -3.345,
+          8.5
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": 208,
+        "frame": "map",
+        "section_id": "BED_02"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -3.345,
+          9.5
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": 10200,
+        "startid": 201,
+        "endid": 202,
+        "cost": 1.0,
+        "overridable": true,
+        "section_id": "BED_02"
+      },
+      "geometry": {
+        "type": "MultiLineString",
+        "coordinates": [
+          [
+            [
+              -3.345,
+              2.5
+            ],
+            [
+              -3.345,
+              3.5
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": 10201,
+        "startid": 202,
+        "endid": 203,
+        "cost": 1.0,
+        "overridable": true,
+        "section_id": "BED_02"
+      },
+      "geometry": {
+        "type": "MultiLineString",
+        "coordinates": [
+          [
+            [
+              -3.345,
+              3.5
+            ],
+            [
+              -3.345,
+              4.5
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": 10202,
+        "startid": 203,
+        "endid": 204,
+        "cost": 1.0,
+        "overridable": true,
+        "section_id": "BED_02"
+      },
+      "geometry": {
+        "type": "MultiLineString",
+        "coordinates": [
+          [
+            [
+              -3.345,
+              4.5
+            ],
+            [
+              -3.345,
+              5.5
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": 10203,
+        "startid": 204,
+        "endid": 205,
+        "cost": 1.0,
+        "overridable": true,
+        "section_id": "BED_02"
+      },
+      "geometry": {
+        "type": "MultiLineString",
+        "coordinates": [
+          [
+            [
+              -3.345,
+              5.5
+            ],
+            [
+              -3.345,
+              6.5
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": 10204,
+        "startid": 205,
+        "endid": 206,
+        "cost": 1.0,
+        "overridable": true,
+        "section_id": "BED_02"
+      },
+      "geometry": {
+        "type": "MultiLineString",
+        "coordinates": [
+          [
+            [
+              -3.345,
+              6.5
+            ],
+            [
+              -3.345,
+              7.5
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": 10205,
+        "startid": 206,
+        "endid": 207,
+        "cost": 1.0,
+        "overridable": true,
+        "section_id": "BED_02"
+      },
+      "geometry": {
+        "type": "MultiLineString",
+        "coordinates": [
+          [
+            [
+              -3.345,
+              7.5
+            ],
+            [
+              -3.345,
+              8.5
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": 10206,
+        "startid": 207,
+        "endid": 208,
+        "cost": 1.0,
+        "overridable": true,
+        "section_id": "BED_02"
+      },
+      "geometry": {
+        "type": "MultiLineString",
+        "coordinates": [
+          [
+            [
+              -3.345,
+              8.5
+            ],
+            [
+              -3.345,
+              9.5
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": 301,
+        "frame": "map",
+        "section_id": "BED_03"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -3.655,
+          9.5
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": 302,
+        "frame": "map",
+        "section_id": "BED_03"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -3.655,
+          8.5
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": 303,
+        "frame": "map",
+        "section_id": "BED_03"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -3.655,
+          7.5
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": 304,
+        "frame": "map",
+        "section_id": "BED_03"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -3.655,
+          6.5
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": 305,
+        "frame": "map",
+        "section_id": "BED_03"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -3.655,
+          5.5
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": 306,
+        "frame": "map",
+        "section_id": "BED_03"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -3.655,
+          4.5
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": 307,
+        "frame": "map",
+        "section_id": "BED_03"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -3.655,
+          3.5
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": 308,
+        "frame": "map",
+        "section_id": "BED_03"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -3.655,
+          2.5
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": 10300,
+        "startid": 301,
+        "endid": 302,
+        "cost": 1.0,
+        "overridable": true,
+        "section_id": "BED_03"
+      },
+      "geometry": {
+        "type": "MultiLineString",
+        "coordinates": [
+          [
+            [
+              -3.655,
+              9.5
+            ],
+            [
+              -3.655,
+              8.5
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": 10301,
+        "startid": 302,
+        "endid": 303,
+        "cost": 1.0,
+        "overridable": true,
+        "section_id": "BED_03"
+      },
+      "geometry": {
+        "type": "MultiLineString",
+        "coordinates": [
+          [
+            [
+              -3.655,
+              8.5
+            ],
+            [
+              -3.655,
+              7.5
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": 10302,
+        "startid": 303,
+        "endid": 304,
+        "cost": 1.0,
+        "overridable": true,
+        "section_id": "BED_03"
+      },
+      "geometry": {
+        "type": "MultiLineString",
+        "coordinates": [
+          [
+            [
+              -3.655,
+              7.5
+            ],
+            [
+              -3.655,
+              6.5
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": 10303,
+        "startid": 304,
+        "endid": 305,
+        "cost": 1.0,
+        "overridable": true,
+        "section_id": "BED_03"
+      },
+      "geometry": {
+        "type": "MultiLineString",
+        "coordinates": [
+          [
+            [
+              -3.655,
+              6.5
+            ],
+            [
+              -3.655,
+              5.5
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": 10304,
+        "startid": 305,
+        "endid": 306,
+        "cost": 1.0,
+        "overridable": true,
+        "section_id": "BED_03"
+      },
+      "geometry": {
+        "type": "MultiLineString",
+        "coordinates": [
+          [
+            [
+              -3.655,
+              5.5
+            ],
+            [
+              -3.655,
+              4.5
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": 10305,
+        "startid": 306,
+        "endid": 307,
+        "cost": 1.0,
+        "overridable": true,
+        "section_id": "BED_03"
+      },
+      "geometry": {
+        "type": "MultiLineString",
+        "coordinates": [
+          [
+            [
+              -3.655,
+              4.5
+            ],
+            [
+              -3.655,
+              3.5
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": 10306,
+        "startid": 307,
+        "endid": 308,
+        "cost": 1.0,
+        "overridable": true,
+        "section_id": "BED_03"
+      },
+      "geometry": {
+        "type": "MultiLineString",
+        "coordinates": [
+          [
+            [
+              -3.655,
+              3.5
+            ],
+            [
+              -3.655,
+              2.5
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": 401,
+        "frame": "map",
+        "section_id": "BED_04"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -0.345,
+          2.5
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": 402,
+        "frame": "map",
+        "section_id": "BED_04"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -0.345,
+          3.5
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": 403,
+        "frame": "map",
+        "section_id": "BED_04"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -0.345,
+          4.5
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": 404,
+        "frame": "map",
+        "section_id": "BED_04"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -0.345,
+          5.5
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": 405,
+        "frame": "map",
+        "section_id": "BED_04"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -0.345,
+          6.5
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": 406,
+        "frame": "map",
+        "section_id": "BED_04"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -0.345,
+          7.5
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": 407,
+        "frame": "map",
+        "section_id": "BED_04"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -0.345,
+          8.5
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": 408,
+        "frame": "map",
+        "section_id": "BED_04"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -0.345,
+          9.5
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": 10400,
+        "startid": 401,
+        "endid": 402,
+        "cost": 1.0,
+        "overridable": true,
+        "section_id": "BED_04"
+      },
+      "geometry": {
+        "type": "MultiLineString",
+        "coordinates": [
+          [
+            [
+              -0.345,
+              2.5
+            ],
+            [
+              -0.345,
+              3.5
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": 10401,
+        "startid": 402,
+        "endid": 403,
+        "cost": 1.0,
+        "overridable": true,
+        "section_id": "BED_04"
+      },
+      "geometry": {
+        "type": "MultiLineString",
+        "coordinates": [
+          [
+            [
+              -0.345,
+              3.5
+            ],
+            [
+              -0.345,
+              4.5
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": 10402,
+        "startid": 403,
+        "endid": 404,
+        "cost": 1.0,
+        "overridable": true,
+        "section_id": "BED_04"
+      },
+      "geometry": {
+        "type": "MultiLineString",
+        "coordinates": [
+          [
+            [
+              -0.345,
+              4.5
+            ],
+            [
+              -0.345,
+              5.5
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": 10403,
+        "startid": 404,
+        "endid": 405,
+        "cost": 1.0,
+        "overridable": true,
+        "section_id": "BED_04"
+      },
+      "geometry": {
+        "type": "MultiLineString",
+        "coordinates": [
+          [
+            [
+              -0.345,
+              5.5
+            ],
+            [
+              -0.345,
+              6.5
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": 10404,
+        "startid": 405,
+        "endid": 406,
+        "cost": 1.0,
+        "overridable": true,
+        "section_id": "BED_04"
+      },
+      "geometry": {
+        "type": "MultiLineString",
+        "coordinates": [
+          [
+            [
+              -0.345,
+              6.5
+            ],
+            [
+              -0.345,
+              7.5
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": 10405,
+        "startid": 406,
+        "endid": 407,
+        "cost": 1.0,
+        "overridable": true,
+        "section_id": "BED_04"
+      },
+      "geometry": {
+        "type": "MultiLineString",
+        "coordinates": [
+          [
+            [
+              -0.345,
+              7.5
+            ],
+            [
+              -0.345,
+              8.5
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": 10406,
+        "startid": 407,
+        "endid": 408,
+        "cost": 1.0,
+        "overridable": true,
+        "section_id": "BED_04"
+      },
+      "geometry": {
+        "type": "MultiLineString",
+        "coordinates": [
+          [
+            [
+              -0.345,
+              8.5
+            ],
+            [
+              -0.345,
+              9.5
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": 501,
+        "frame": "map",
+        "section_id": "BED_05"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          0.345,
+          9.5
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": 502,
+        "frame": "map",
+        "section_id": "BED_05"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          0.345,
+          8.5
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": 503,
+        "frame": "map",
+        "section_id": "BED_05"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          0.345,
+          7.5
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": 504,
+        "frame": "map",
+        "section_id": "BED_05"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          0.345,
+          6.5
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": 505,
+        "frame": "map",
+        "section_id": "BED_05"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          0.345,
+          5.5
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": 506,
+        "frame": "map",
+        "section_id": "BED_05"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          0.345,
+          4.5
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": 507,
+        "frame": "map",
+        "section_id": "BED_05"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          0.345,
+          3.5
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": 508,
+        "frame": "map",
+        "section_id": "BED_05"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          0.345,
+          2.5
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": 10500,
+        "startid": 501,
+        "endid": 502,
+        "cost": 1.0,
+        "overridable": true,
+        "section_id": "BED_05"
+      },
+      "geometry": {
+        "type": "MultiLineString",
+        "coordinates": [
+          [
+            [
+              0.345,
+              9.5
+            ],
+            [
+              0.345,
+              8.5
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": 10501,
+        "startid": 502,
+        "endid": 503,
+        "cost": 1.0,
+        "overridable": true,
+        "section_id": "BED_05"
+      },
+      "geometry": {
+        "type": "MultiLineString",
+        "coordinates": [
+          [
+            [
+              0.345,
+              8.5
+            ],
+            [
+              0.345,
+              7.5
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": 10502,
+        "startid": 503,
+        "endid": 504,
+        "cost": 1.0,
+        "overridable": true,
+        "section_id": "BED_05"
+      },
+      "geometry": {
+        "type": "MultiLineString",
+        "coordinates": [
+          [
+            [
+              0.345,
+              7.5
+            ],
+            [
+              0.345,
+              6.5
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": 10503,
+        "startid": 504,
+        "endid": 505,
+        "cost": 1.0,
+        "overridable": true,
+        "section_id": "BED_05"
+      },
+      "geometry": {
+        "type": "MultiLineString",
+        "coordinates": [
+          [
+            [
+              0.345,
+              6.5
+            ],
+            [
+              0.345,
+              5.5
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": 10504,
+        "startid": 505,
+        "endid": 506,
+        "cost": 1.0,
+        "overridable": true,
+        "section_id": "BED_05"
+      },
+      "geometry": {
+        "type": "MultiLineString",
+        "coordinates": [
+          [
+            [
+              0.345,
+              5.5
+            ],
+            [
+              0.345,
+              4.5
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": 10505,
+        "startid": 506,
+        "endid": 507,
+        "cost": 1.0,
+        "overridable": true,
+        "section_id": "BED_05"
+      },
+      "geometry": {
+        "type": "MultiLineString",
+        "coordinates": [
+          [
+            [
+              0.345,
+              4.5
+            ],
+            [
+              0.345,
+              3.5
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": 10506,
+        "startid": 507,
+        "endid": 508,
+        "cost": 1.0,
+        "overridable": true,
+        "section_id": "BED_05"
+      },
+      "geometry": {
+        "type": "MultiLineString",
+        "coordinates": [
+          [
+            [
+              0.345,
+              3.5
+            ],
+            [
+              0.345,
+              2.5
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": 601,
+        "frame": "map",
+        "section_id": "BED_06"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          3.655,
+          2.5
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": 602,
+        "frame": "map",
+        "section_id": "BED_06"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          3.655,
+          3.5
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": 603,
+        "frame": "map",
+        "section_id": "BED_06"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          3.655,
+          4.5
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": 604,
+        "frame": "map",
+        "section_id": "BED_06"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          3.655,
+          5.5
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": 605,
+        "frame": "map",
+        "section_id": "BED_06"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          3.655,
+          6.5
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": 606,
+        "frame": "map",
+        "section_id": "BED_06"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          3.655,
+          7.5
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": 607,
+        "frame": "map",
+        "section_id": "BED_06"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          3.655,
+          8.5
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": 608,
+        "frame": "map",
+        "section_id": "BED_06"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          3.655,
+          9.5
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": 10600,
+        "startid": 601,
+        "endid": 602,
+        "cost": 1.0,
+        "overridable": true,
+        "section_id": "BED_06"
+      },
+      "geometry": {
+        "type": "MultiLineString",
+        "coordinates": [
+          [
+            [
+              3.655,
+              2.5
+            ],
+            [
+              3.655,
+              3.5
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": 10601,
+        "startid": 602,
+        "endid": 603,
+        "cost": 1.0,
+        "overridable": true,
+        "section_id": "BED_06"
+      },
+      "geometry": {
+        "type": "MultiLineString",
+        "coordinates": [
+          [
+            [
+              3.655,
+              3.5
+            ],
+            [
+              3.655,
+              4.5
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": 10602,
+        "startid": 603,
+        "endid": 604,
+        "cost": 1.0,
+        "overridable": true,
+        "section_id": "BED_06"
+      },
+      "geometry": {
+        "type": "MultiLineString",
+        "coordinates": [
+          [
+            [
+              3.655,
+              4.5
+            ],
+            [
+              3.655,
+              5.5
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": 10603,
+        "startid": 604,
+        "endid": 605,
+        "cost": 1.0,
+        "overridable": true,
+        "section_id": "BED_06"
+      },
+      "geometry": {
+        "type": "MultiLineString",
+        "coordinates": [
+          [
+            [
+              3.655,
+              5.5
+            ],
+            [
+              3.655,
+              6.5
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": 10604,
+        "startid": 605,
+        "endid": 606,
+        "cost": 1.0,
+        "overridable": true,
+        "section_id": "BED_06"
+      },
+      "geometry": {
+        "type": "MultiLineString",
+        "coordinates": [
+          [
+            [
+              3.655,
+              6.5
+            ],
+            [
+              3.655,
+              7.5
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": 10605,
+        "startid": 606,
+        "endid": 607,
+        "cost": 1.0,
+        "overridable": true,
+        "section_id": "BED_06"
+      },
+      "geometry": {
+        "type": "MultiLineString",
+        "coordinates": [
+          [
+            [
+              3.655,
+              7.5
+            ],
+            [
+              3.655,
+              8.5
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": 10606,
+        "startid": 607,
+        "endid": 608,
+        "cost": 1.0,
+        "overridable": true,
+        "section_id": "BED_06"
+      },
+      "geometry": {
+        "type": "MultiLineString",
+        "coordinates": [
+          [
+            [
+              3.655,
+              8.5
+            ],
+            [
+              3.655,
+              9.5
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": 701,
+        "frame": "map",
+        "section_id": "BED_07"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          3.345,
+          9.5
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": 702,
+        "frame": "map",
+        "section_id": "BED_07"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          3.345,
+          8.5
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": 703,
+        "frame": "map",
+        "section_id": "BED_07"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          3.345,
+          7.5
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": 704,
+        "frame": "map",
+        "section_id": "BED_07"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          3.345,
+          6.5
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": 705,
+        "frame": "map",
+        "section_id": "BED_07"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          3.345,
+          5.5
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": 706,
+        "frame": "map",
+        "section_id": "BED_07"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          3.345,
+          4.5
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": 707,
+        "frame": "map",
+        "section_id": "BED_07"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          3.345,
+          3.5
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": 708,
+        "frame": "map",
+        "section_id": "BED_07"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          3.345,
+          2.5
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": 10700,
+        "startid": 701,
+        "endid": 702,
+        "cost": 1.0,
+        "overridable": true,
+        "section_id": "BED_07"
+      },
+      "geometry": {
+        "type": "MultiLineString",
+        "coordinates": [
+          [
+            [
+              3.345,
+              9.5
+            ],
+            [
+              3.345,
+              8.5
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": 10701,
+        "startid": 702,
+        "endid": 703,
+        "cost": 1.0,
+        "overridable": true,
+        "section_id": "BED_07"
+      },
+      "geometry": {
+        "type": "MultiLineString",
+        "coordinates": [
+          [
+            [
+              3.345,
+              8.5
+            ],
+            [
+              3.345,
+              7.5
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": 10702,
+        "startid": 703,
+        "endid": 704,
+        "cost": 1.0,
+        "overridable": true,
+        "section_id": "BED_07"
+      },
+      "geometry": {
+        "type": "MultiLineString",
+        "coordinates": [
+          [
+            [
+              3.345,
+              7.5
+            ],
+            [
+              3.345,
+              6.5
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": 10703,
+        "startid": 704,
+        "endid": 705,
+        "cost": 1.0,
+        "overridable": true,
+        "section_id": "BED_07"
+      },
+      "geometry": {
+        "type": "MultiLineString",
+        "coordinates": [
+          [
+            [
+              3.345,
+              6.5
+            ],
+            [
+              3.345,
+              5.5
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": 10704,
+        "startid": 705,
+        "endid": 706,
+        "cost": 1.0,
+        "overridable": true,
+        "section_id": "BED_07"
+      },
+      "geometry": {
+        "type": "MultiLineString",
+        "coordinates": [
+          [
+            [
+              3.345,
+              5.5
+            ],
+            [
+              3.345,
+              4.5
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": 10705,
+        "startid": 706,
+        "endid": 707,
+        "cost": 1.0,
+        "overridable": true,
+        "section_id": "BED_07"
+      },
+      "geometry": {
+        "type": "MultiLineString",
+        "coordinates": [
+          [
+            [
+              3.345,
+              4.5
+            ],
+            [
+              3.345,
+              3.5
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": 10706,
+        "startid": 707,
+        "endid": 708,
+        "cost": 1.0,
+        "overridable": true,
+        "section_id": "BED_07"
+      },
+      "geometry": {
+        "type": "MultiLineString",
+        "coordinates": [
+          [
+            [
+              3.345,
+              3.5
+            ],
+            [
+              3.345,
+              2.5
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": 801,
+        "frame": "map",
+        "section_id": "BED_08"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          6.655,
+          2.5
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": 802,
+        "frame": "map",
+        "section_id": "BED_08"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          6.655,
+          3.5
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": 803,
+        "frame": "map",
+        "section_id": "BED_08"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          6.655,
+          4.5
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": 804,
+        "frame": "map",
+        "section_id": "BED_08"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          6.655,
+          5.5
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": 805,
+        "frame": "map",
+        "section_id": "BED_08"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          6.655,
+          6.5
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": 806,
+        "frame": "map",
+        "section_id": "BED_08"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          6.655,
+          7.5
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": 807,
+        "frame": "map",
+        "section_id": "BED_08"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          6.655,
+          8.5
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": 808,
+        "frame": "map",
+        "section_id": "BED_08"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          6.655,
+          9.5
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": 10800,
+        "startid": 801,
+        "endid": 802,
+        "cost": 1.0,
+        "overridable": true,
+        "section_id": "BED_08"
+      },
+      "geometry": {
+        "type": "MultiLineString",
+        "coordinates": [
+          [
+            [
+              6.655,
+              2.5
+            ],
+            [
+              6.655,
+              3.5
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": 10801,
+        "startid": 802,
+        "endid": 803,
+        "cost": 1.0,
+        "overridable": true,
+        "section_id": "BED_08"
+      },
+      "geometry": {
+        "type": "MultiLineString",
+        "coordinates": [
+          [
+            [
+              6.655,
+              3.5
+            ],
+            [
+              6.655,
+              4.5
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": 10802,
+        "startid": 803,
+        "endid": 804,
+        "cost": 1.0,
+        "overridable": true,
+        "section_id": "BED_08"
+      },
+      "geometry": {
+        "type": "MultiLineString",
+        "coordinates": [
+          [
+            [
+              6.655,
+              4.5
+            ],
+            [
+              6.655,
+              5.5
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": 10803,
+        "startid": 804,
+        "endid": 805,
+        "cost": 1.0,
+        "overridable": true,
+        "section_id": "BED_08"
+      },
+      "geometry": {
+        "type": "MultiLineString",
+        "coordinates": [
+          [
+            [
+              6.655,
+              5.5
+            ],
+            [
+              6.655,
+              6.5
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": 10804,
+        "startid": 805,
+        "endid": 806,
+        "cost": 1.0,
+        "overridable": true,
+        "section_id": "BED_08"
+      },
+      "geometry": {
+        "type": "MultiLineString",
+        "coordinates": [
+          [
+            [
+              6.655,
+              6.5
+            ],
+            [
+              6.655,
+              7.5
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": 10805,
+        "startid": 806,
+        "endid": 807,
+        "cost": 1.0,
+        "overridable": true,
+        "section_id": "BED_08"
+      },
+      "geometry": {
+        "type": "MultiLineString",
+        "coordinates": [
+          [
+            [
+              6.655,
+              7.5
+            ],
+            [
+              6.655,
+              8.5
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": 10806,
+        "startid": 807,
+        "endid": 808,
+        "cost": 1.0,
+        "overridable": true,
+        "section_id": "BED_08"
+      },
+      "geometry": {
+        "type": "MultiLineString",
+        "coordinates": [
+          [
+            [
+              6.655,
+              8.5
+            ],
+            [
+              6.655,
+              9.5
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": 901,
+        "frame": "map",
+        "section_id": "BED_09"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -6.655,
+          -2.5
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": 902,
+        "frame": "map",
+        "section_id": "BED_09"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -6.655,
+          -3.5
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": 903,
+        "frame": "map",
+        "section_id": "BED_09"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -6.655,
+          -4.5
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": 904,
+        "frame": "map",
+        "section_id": "BED_09"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -6.655,
+          -5.5
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": 905,
+        "frame": "map",
+        "section_id": "BED_09"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -6.655,
+          -6.5
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": 906,
+        "frame": "map",
+        "section_id": "BED_09"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -6.655,
+          -7.5
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": 907,
+        "frame": "map",
+        "section_id": "BED_09"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -6.655,
+          -8.5
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": 908,
+        "frame": "map",
+        "section_id": "BED_09"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -6.655,
+          -9.5
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": 10900,
+        "startid": 901,
+        "endid": 902,
+        "cost": 1.0,
+        "overridable": true,
+        "section_id": "BED_09"
+      },
+      "geometry": {
+        "type": "MultiLineString",
+        "coordinates": [
+          [
+            [
+              -6.655,
+              -2.5
+            ],
+            [
+              -6.655,
+              -3.5
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": 10901,
+        "startid": 902,
+        "endid": 903,
+        "cost": 1.0,
+        "overridable": true,
+        "section_id": "BED_09"
+      },
+      "geometry": {
+        "type": "MultiLineString",
+        "coordinates": [
+          [
+            [
+              -6.655,
+              -3.5
+            ],
+            [
+              -6.655,
+              -4.5
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": 10902,
+        "startid": 903,
+        "endid": 904,
+        "cost": 1.0,
+        "overridable": true,
+        "section_id": "BED_09"
+      },
+      "geometry": {
+        "type": "MultiLineString",
+        "coordinates": [
+          [
+            [
+              -6.655,
+              -4.5
+            ],
+            [
+              -6.655,
+              -5.5
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": 10903,
+        "startid": 904,
+        "endid": 905,
+        "cost": 1.0,
+        "overridable": true,
+        "section_id": "BED_09"
+      },
+      "geometry": {
+        "type": "MultiLineString",
+        "coordinates": [
+          [
+            [
+              -6.655,
+              -5.5
+            ],
+            [
+              -6.655,
+              -6.5
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": 10904,
+        "startid": 905,
+        "endid": 906,
+        "cost": 1.0,
+        "overridable": true,
+        "section_id": "BED_09"
+      },
+      "geometry": {
+        "type": "MultiLineString",
+        "coordinates": [
+          [
+            [
+              -6.655,
+              -6.5
+            ],
+            [
+              -6.655,
+              -7.5
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": 10905,
+        "startid": 906,
+        "endid": 907,
+        "cost": 1.0,
+        "overridable": true,
+        "section_id": "BED_09"
+      },
+      "geometry": {
+        "type": "MultiLineString",
+        "coordinates": [
+          [
+            [
+              -6.655,
+              -7.5
+            ],
+            [
+              -6.655,
+              -8.5
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": 10906,
+        "startid": 907,
+        "endid": 908,
+        "cost": 1.0,
+        "overridable": true,
+        "section_id": "BED_09"
+      },
+      "geometry": {
+        "type": "MultiLineString",
+        "coordinates": [
+          [
+            [
+              -6.655,
+              -8.5
+            ],
+            [
+              -6.655,
+              -9.5
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": 1001,
+        "frame": "map",
+        "section_id": "BED_10"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -3.345,
+          -9.5
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": 1002,
+        "frame": "map",
+        "section_id": "BED_10"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -3.345,
+          -8.5
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": 1003,
+        "frame": "map",
+        "section_id": "BED_10"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -3.345,
+          -7.5
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": 1004,
+        "frame": "map",
+        "section_id": "BED_10"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -3.345,
+          -6.5
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": 1005,
+        "frame": "map",
+        "section_id": "BED_10"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -3.345,
+          -5.5
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": 1006,
+        "frame": "map",
+        "section_id": "BED_10"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -3.345,
+          -4.5
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": 1007,
+        "frame": "map",
+        "section_id": "BED_10"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -3.345,
+          -3.5
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": 1008,
+        "frame": "map",
+        "section_id": "BED_10"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -3.345,
+          -2.5
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": 11000,
+        "startid": 1001,
+        "endid": 1002,
+        "cost": 1.0,
+        "overridable": true,
+        "section_id": "BED_10"
+      },
+      "geometry": {
+        "type": "MultiLineString",
+        "coordinates": [
+          [
+            [
+              -3.345,
+              -9.5
+            ],
+            [
+              -3.345,
+              -8.5
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": 11001,
+        "startid": 1002,
+        "endid": 1003,
+        "cost": 1.0,
+        "overridable": true,
+        "section_id": "BED_10"
+      },
+      "geometry": {
+        "type": "MultiLineString",
+        "coordinates": [
+          [
+            [
+              -3.345,
+              -8.5
+            ],
+            [
+              -3.345,
+              -7.5
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": 11002,
+        "startid": 1003,
+        "endid": 1004,
+        "cost": 1.0,
+        "overridable": true,
+        "section_id": "BED_10"
+      },
+      "geometry": {
+        "type": "MultiLineString",
+        "coordinates": [
+          [
+            [
+              -3.345,
+              -7.5
+            ],
+            [
+              -3.345,
+              -6.5
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": 11003,
+        "startid": 1004,
+        "endid": 1005,
+        "cost": 1.0,
+        "overridable": true,
+        "section_id": "BED_10"
+      },
+      "geometry": {
+        "type": "MultiLineString",
+        "coordinates": [
+          [
+            [
+              -3.345,
+              -6.5
+            ],
+            [
+              -3.345,
+              -5.5
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": 11004,
+        "startid": 1005,
+        "endid": 1006,
+        "cost": 1.0,
+        "overridable": true,
+        "section_id": "BED_10"
+      },
+      "geometry": {
+        "type": "MultiLineString",
+        "coordinates": [
+          [
+            [
+              -3.345,
+              -5.5
+            ],
+            [
+              -3.345,
+              -4.5
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": 11005,
+        "startid": 1006,
+        "endid": 1007,
+        "cost": 1.0,
+        "overridable": true,
+        "section_id": "BED_10"
+      },
+      "geometry": {
+        "type": "MultiLineString",
+        "coordinates": [
+          [
+            [
+              -3.345,
+              -4.5
+            ],
+            [
+              -3.345,
+              -3.5
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": 11006,
+        "startid": 1007,
+        "endid": 1008,
+        "cost": 1.0,
+        "overridable": true,
+        "section_id": "BED_10"
+      },
+      "geometry": {
+        "type": "MultiLineString",
+        "coordinates": [
+          [
+            [
+              -3.345,
+              -3.5
+            ],
+            [
+              -3.345,
+              -2.5
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": 1101,
+        "frame": "map",
+        "section_id": "BED_11"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -3.655,
+          -2.5
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": 1102,
+        "frame": "map",
+        "section_id": "BED_11"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -3.655,
+          -3.5
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": 1103,
+        "frame": "map",
+        "section_id": "BED_11"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -3.655,
+          -4.5
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": 1104,
+        "frame": "map",
+        "section_id": "BED_11"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -3.655,
+          -5.5
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": 1105,
+        "frame": "map",
+        "section_id": "BED_11"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -3.655,
+          -6.5
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": 1106,
+        "frame": "map",
+        "section_id": "BED_11"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -3.655,
+          -7.5
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": 1107,
+        "frame": "map",
+        "section_id": "BED_11"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -3.655,
+          -8.5
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": 1108,
+        "frame": "map",
+        "section_id": "BED_11"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -3.655,
+          -9.5
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": 11100,
+        "startid": 1101,
+        "endid": 1102,
+        "cost": 1.0,
+        "overridable": true,
+        "section_id": "BED_11"
+      },
+      "geometry": {
+        "type": "MultiLineString",
+        "coordinates": [
+          [
+            [
+              -3.655,
+              -2.5
+            ],
+            [
+              -3.655,
+              -3.5
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": 11101,
+        "startid": 1102,
+        "endid": 1103,
+        "cost": 1.0,
+        "overridable": true,
+        "section_id": "BED_11"
+      },
+      "geometry": {
+        "type": "MultiLineString",
+        "coordinates": [
+          [
+            [
+              -3.655,
+              -3.5
+            ],
+            [
+              -3.655,
+              -4.5
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": 11102,
+        "startid": 1103,
+        "endid": 1104,
+        "cost": 1.0,
+        "overridable": true,
+        "section_id": "BED_11"
+      },
+      "geometry": {
+        "type": "MultiLineString",
+        "coordinates": [
+          [
+            [
+              -3.655,
+              -4.5
+            ],
+            [
+              -3.655,
+              -5.5
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": 11103,
+        "startid": 1104,
+        "endid": 1105,
+        "cost": 1.0,
+        "overridable": true,
+        "section_id": "BED_11"
+      },
+      "geometry": {
+        "type": "MultiLineString",
+        "coordinates": [
+          [
+            [
+              -3.655,
+              -5.5
+            ],
+            [
+              -3.655,
+              -6.5
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": 11104,
+        "startid": 1105,
+        "endid": 1106,
+        "cost": 1.0,
+        "overridable": true,
+        "section_id": "BED_11"
+      },
+      "geometry": {
+        "type": "MultiLineString",
+        "coordinates": [
+          [
+            [
+              -3.655,
+              -6.5
+            ],
+            [
+              -3.655,
+              -7.5
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": 11105,
+        "startid": 1106,
+        "endid": 1107,
+        "cost": 1.0,
+        "overridable": true,
+        "section_id": "BED_11"
+      },
+      "geometry": {
+        "type": "MultiLineString",
+        "coordinates": [
+          [
+            [
+              -3.655,
+              -7.5
+            ],
+            [
+              -3.655,
+              -8.5
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": 11106,
+        "startid": 1107,
+        "endid": 1108,
+        "cost": 1.0,
+        "overridable": true,
+        "section_id": "BED_11"
+      },
+      "geometry": {
+        "type": "MultiLineString",
+        "coordinates": [
+          [
+            [
+              -3.655,
+              -8.5
+            ],
+            [
+              -3.655,
+              -9.5
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": 1201,
+        "frame": "map",
+        "section_id": "BED_12"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -0.345,
+          -9.5
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": 1202,
+        "frame": "map",
+        "section_id": "BED_12"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -0.345,
+          -8.5
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": 1203,
+        "frame": "map",
+        "section_id": "BED_12"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -0.345,
+          -7.5
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": 1204,
+        "frame": "map",
+        "section_id": "BED_12"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -0.345,
+          -6.5
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": 1205,
+        "frame": "map",
+        "section_id": "BED_12"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -0.345,
+          -5.5
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": 1206,
+        "frame": "map",
+        "section_id": "BED_12"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -0.345,
+          -4.5
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": 1207,
+        "frame": "map",
+        "section_id": "BED_12"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -0.345,
+          -3.5
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": 1208,
+        "frame": "map",
+        "section_id": "BED_12"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -0.345,
+          -2.5
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": 11200,
+        "startid": 1201,
+        "endid": 1202,
+        "cost": 1.0,
+        "overridable": true,
+        "section_id": "BED_12"
+      },
+      "geometry": {
+        "type": "MultiLineString",
+        "coordinates": [
+          [
+            [
+              -0.345,
+              -9.5
+            ],
+            [
+              -0.345,
+              -8.5
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": 11201,
+        "startid": 1202,
+        "endid": 1203,
+        "cost": 1.0,
+        "overridable": true,
+        "section_id": "BED_12"
+      },
+      "geometry": {
+        "type": "MultiLineString",
+        "coordinates": [
+          [
+            [
+              -0.345,
+              -8.5
+            ],
+            [
+              -0.345,
+              -7.5
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": 11202,
+        "startid": 1203,
+        "endid": 1204,
+        "cost": 1.0,
+        "overridable": true,
+        "section_id": "BED_12"
+      },
+      "geometry": {
+        "type": "MultiLineString",
+        "coordinates": [
+          [
+            [
+              -0.345,
+              -7.5
+            ],
+            [
+              -0.345,
+              -6.5
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": 11203,
+        "startid": 1204,
+        "endid": 1205,
+        "cost": 1.0,
+        "overridable": true,
+        "section_id": "BED_12"
+      },
+      "geometry": {
+        "type": "MultiLineString",
+        "coordinates": [
+          [
+            [
+              -0.345,
+              -6.5
+            ],
+            [
+              -0.345,
+              -5.5
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": 11204,
+        "startid": 1205,
+        "endid": 1206,
+        "cost": 1.0,
+        "overridable": true,
+        "section_id": "BED_12"
+      },
+      "geometry": {
+        "type": "MultiLineString",
+        "coordinates": [
+          [
+            [
+              -0.345,
+              -5.5
+            ],
+            [
+              -0.345,
+              -4.5
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": 11205,
+        "startid": 1206,
+        "endid": 1207,
+        "cost": 1.0,
+        "overridable": true,
+        "section_id": "BED_12"
+      },
+      "geometry": {
+        "type": "MultiLineString",
+        "coordinates": [
+          [
+            [
+              -0.345,
+              -4.5
+            ],
+            [
+              -0.345,
+              -3.5
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": 11206,
+        "startid": 1207,
+        "endid": 1208,
+        "cost": 1.0,
+        "overridable": true,
+        "section_id": "BED_12"
+      },
+      "geometry": {
+        "type": "MultiLineString",
+        "coordinates": [
+          [
+            [
+              -0.345,
+              -3.5
+            ],
+            [
+              -0.345,
+              -2.5
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": 1301,
+        "frame": "map",
+        "section_id": "BED_13"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          0.345,
+          -2.5
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": 1302,
+        "frame": "map",
+        "section_id": "BED_13"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          0.345,
+          -3.5
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": 1303,
+        "frame": "map",
+        "section_id": "BED_13"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          0.345,
+          -4.5
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": 1304,
+        "frame": "map",
+        "section_id": "BED_13"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          0.345,
+          -5.5
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": 1305,
+        "frame": "map",
+        "section_id": "BED_13"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          0.345,
+          -6.5
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": 1306,
+        "frame": "map",
+        "section_id": "BED_13"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          0.345,
+          -7.5
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": 1307,
+        "frame": "map",
+        "section_id": "BED_13"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          0.345,
+          -8.5
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": 1308,
+        "frame": "map",
+        "section_id": "BED_13"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          0.345,
+          -9.5
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": 11300,
+        "startid": 1301,
+        "endid": 1302,
+        "cost": 1.0,
+        "overridable": true,
+        "section_id": "BED_13"
+      },
+      "geometry": {
+        "type": "MultiLineString",
+        "coordinates": [
+          [
+            [
+              0.345,
+              -2.5
+            ],
+            [
+              0.345,
+              -3.5
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": 11301,
+        "startid": 1302,
+        "endid": 1303,
+        "cost": 1.0,
+        "overridable": true,
+        "section_id": "BED_13"
+      },
+      "geometry": {
+        "type": "MultiLineString",
+        "coordinates": [
+          [
+            [
+              0.345,
+              -3.5
+            ],
+            [
+              0.345,
+              -4.5
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": 11302,
+        "startid": 1303,
+        "endid": 1304,
+        "cost": 1.0,
+        "overridable": true,
+        "section_id": "BED_13"
+      },
+      "geometry": {
+        "type": "MultiLineString",
+        "coordinates": [
+          [
+            [
+              0.345,
+              -4.5
+            ],
+            [
+              0.345,
+              -5.5
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": 11303,
+        "startid": 1304,
+        "endid": 1305,
+        "cost": 1.0,
+        "overridable": true,
+        "section_id": "BED_13"
+      },
+      "geometry": {
+        "type": "MultiLineString",
+        "coordinates": [
+          [
+            [
+              0.345,
+              -5.5
+            ],
+            [
+              0.345,
+              -6.5
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": 11304,
+        "startid": 1305,
+        "endid": 1306,
+        "cost": 1.0,
+        "overridable": true,
+        "section_id": "BED_13"
+      },
+      "geometry": {
+        "type": "MultiLineString",
+        "coordinates": [
+          [
+            [
+              0.345,
+              -6.5
+            ],
+            [
+              0.345,
+              -7.5
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": 11305,
+        "startid": 1306,
+        "endid": 1307,
+        "cost": 1.0,
+        "overridable": true,
+        "section_id": "BED_13"
+      },
+      "geometry": {
+        "type": "MultiLineString",
+        "coordinates": [
+          [
+            [
+              0.345,
+              -7.5
+            ],
+            [
+              0.345,
+              -8.5
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": 11306,
+        "startid": 1307,
+        "endid": 1308,
+        "cost": 1.0,
+        "overridable": true,
+        "section_id": "BED_13"
+      },
+      "geometry": {
+        "type": "MultiLineString",
+        "coordinates": [
+          [
+            [
+              0.345,
+              -8.5
+            ],
+            [
+              0.345,
+              -9.5
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": 1401,
+        "frame": "map",
+        "section_id": "BED_14"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          3.655,
+          -9.5
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": 1402,
+        "frame": "map",
+        "section_id": "BED_14"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          3.655,
+          -8.5
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": 1403,
+        "frame": "map",
+        "section_id": "BED_14"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          3.655,
+          -7.5
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": 1404,
+        "frame": "map",
+        "section_id": "BED_14"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          3.655,
+          -6.5
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": 1405,
+        "frame": "map",
+        "section_id": "BED_14"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          3.655,
+          -5.5
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": 1406,
+        "frame": "map",
+        "section_id": "BED_14"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          3.655,
+          -4.5
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": 1407,
+        "frame": "map",
+        "section_id": "BED_14"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          3.655,
+          -3.5
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": 1408,
+        "frame": "map",
+        "section_id": "BED_14"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          3.655,
+          -2.5
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": 11400,
+        "startid": 1401,
+        "endid": 1402,
+        "cost": 1.0,
+        "overridable": true,
+        "section_id": "BED_14"
+      },
+      "geometry": {
+        "type": "MultiLineString",
+        "coordinates": [
+          [
+            [
+              3.655,
+              -9.5
+            ],
+            [
+              3.655,
+              -8.5
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": 11401,
+        "startid": 1402,
+        "endid": 1403,
+        "cost": 1.0,
+        "overridable": true,
+        "section_id": "BED_14"
+      },
+      "geometry": {
+        "type": "MultiLineString",
+        "coordinates": [
+          [
+            [
+              3.655,
+              -8.5
+            ],
+            [
+              3.655,
+              -7.5
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": 11402,
+        "startid": 1403,
+        "endid": 1404,
+        "cost": 1.0,
+        "overridable": true,
+        "section_id": "BED_14"
+      },
+      "geometry": {
+        "type": "MultiLineString",
+        "coordinates": [
+          [
+            [
+              3.655,
+              -7.5
+            ],
+            [
+              3.655,
+              -6.5
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": 11403,
+        "startid": 1404,
+        "endid": 1405,
+        "cost": 1.0,
+        "overridable": true,
+        "section_id": "BED_14"
+      },
+      "geometry": {
+        "type": "MultiLineString",
+        "coordinates": [
+          [
+            [
+              3.655,
+              -6.5
+            ],
+            [
+              3.655,
+              -5.5
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": 11404,
+        "startid": 1405,
+        "endid": 1406,
+        "cost": 1.0,
+        "overridable": true,
+        "section_id": "BED_14"
+      },
+      "geometry": {
+        "type": "MultiLineString",
+        "coordinates": [
+          [
+            [
+              3.655,
+              -5.5
+            ],
+            [
+              3.655,
+              -4.5
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": 11405,
+        "startid": 1406,
+        "endid": 1407,
+        "cost": 1.0,
+        "overridable": true,
+        "section_id": "BED_14"
+      },
+      "geometry": {
+        "type": "MultiLineString",
+        "coordinates": [
+          [
+            [
+              3.655,
+              -4.5
+            ],
+            [
+              3.655,
+              -3.5
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": 11406,
+        "startid": 1407,
+        "endid": 1408,
+        "cost": 1.0,
+        "overridable": true,
+        "section_id": "BED_14"
+      },
+      "geometry": {
+        "type": "MultiLineString",
+        "coordinates": [
+          [
+            [
+              3.655,
+              -3.5
+            ],
+            [
+              3.655,
+              -2.5
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": 1501,
+        "frame": "map",
+        "section_id": "BED_15"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          3.345,
+          -2.5
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": 1502,
+        "frame": "map",
+        "section_id": "BED_15"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          3.345,
+          -3.5
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": 1503,
+        "frame": "map",
+        "section_id": "BED_15"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          3.345,
+          -4.5
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": 1504,
+        "frame": "map",
+        "section_id": "BED_15"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          3.345,
+          -5.5
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": 1505,
+        "frame": "map",
+        "section_id": "BED_15"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          3.345,
+          -6.5
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": 1506,
+        "frame": "map",
+        "section_id": "BED_15"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          3.345,
+          -7.5
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": 1507,
+        "frame": "map",
+        "section_id": "BED_15"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          3.345,
+          -8.5
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": 1508,
+        "frame": "map",
+        "section_id": "BED_15"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          3.345,
+          -9.5
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": 11500,
+        "startid": 1501,
+        "endid": 1502,
+        "cost": 1.0,
+        "overridable": true,
+        "section_id": "BED_15"
+      },
+      "geometry": {
+        "type": "MultiLineString",
+        "coordinates": [
+          [
+            [
+              3.345,
+              -2.5
+            ],
+            [
+              3.345,
+              -3.5
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": 11501,
+        "startid": 1502,
+        "endid": 1503,
+        "cost": 1.0,
+        "overridable": true,
+        "section_id": "BED_15"
+      },
+      "geometry": {
+        "type": "MultiLineString",
+        "coordinates": [
+          [
+            [
+              3.345,
+              -3.5
+            ],
+            [
+              3.345,
+              -4.5
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": 11502,
+        "startid": 1503,
+        "endid": 1504,
+        "cost": 1.0,
+        "overridable": true,
+        "section_id": "BED_15"
+      },
+      "geometry": {
+        "type": "MultiLineString",
+        "coordinates": [
+          [
+            [
+              3.345,
+              -4.5
+            ],
+            [
+              3.345,
+              -5.5
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": 11503,
+        "startid": 1504,
+        "endid": 1505,
+        "cost": 1.0,
+        "overridable": true,
+        "section_id": "BED_15"
+      },
+      "geometry": {
+        "type": "MultiLineString",
+        "coordinates": [
+          [
+            [
+              3.345,
+              -5.5
+            ],
+            [
+              3.345,
+              -6.5
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": 11504,
+        "startid": 1505,
+        "endid": 1506,
+        "cost": 1.0,
+        "overridable": true,
+        "section_id": "BED_15"
+      },
+      "geometry": {
+        "type": "MultiLineString",
+        "coordinates": [
+          [
+            [
+              3.345,
+              -6.5
+            ],
+            [
+              3.345,
+              -7.5
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": 11505,
+        "startid": 1506,
+        "endid": 1507,
+        "cost": 1.0,
+        "overridable": true,
+        "section_id": "BED_15"
+      },
+      "geometry": {
+        "type": "MultiLineString",
+        "coordinates": [
+          [
+            [
+              3.345,
+              -7.5
+            ],
+            [
+              3.345,
+              -8.5
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": 11506,
+        "startid": 1507,
+        "endid": 1508,
+        "cost": 1.0,
+        "overridable": true,
+        "section_id": "BED_15"
+      },
+      "geometry": {
+        "type": "MultiLineString",
+        "coordinates": [
+          [
+            [
+              3.345,
+              -8.5
+            ],
+            [
+              3.345,
+              -9.5
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": 1601,
+        "frame": "map",
+        "section_id": "BED_16"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          6.655,
+          -9.5
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": 1602,
+        "frame": "map",
+        "section_id": "BED_16"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          6.655,
+          -8.5
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": 1603,
+        "frame": "map",
+        "section_id": "BED_16"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          6.655,
+          -7.5
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": 1604,
+        "frame": "map",
+        "section_id": "BED_16"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          6.655,
+          -6.5
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": 1605,
+        "frame": "map",
+        "section_id": "BED_16"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          6.655,
+          -5.5
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": 1606,
+        "frame": "map",
+        "section_id": "BED_16"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          6.655,
+          -4.5
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": 1607,
+        "frame": "map",
+        "section_id": "BED_16"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          6.655,
+          -3.5
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": 1608,
+        "frame": "map",
+        "section_id": "BED_16"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          6.655,
+          -2.5
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": 11600,
+        "startid": 1601,
+        "endid": 1602,
+        "cost": 1.0,
+        "overridable": true,
+        "section_id": "BED_16"
+      },
+      "geometry": {
+        "type": "MultiLineString",
+        "coordinates": [
+          [
+            [
+              6.655,
+              -9.5
+            ],
+            [
+              6.655,
+              -8.5
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": 11601,
+        "startid": 1602,
+        "endid": 1603,
+        "cost": 1.0,
+        "overridable": true,
+        "section_id": "BED_16"
+      },
+      "geometry": {
+        "type": "MultiLineString",
+        "coordinates": [
+          [
+            [
+              6.655,
+              -8.5
+            ],
+            [
+              6.655,
+              -7.5
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": 11602,
+        "startid": 1603,
+        "endid": 1604,
+        "cost": 1.0,
+        "overridable": true,
+        "section_id": "BED_16"
+      },
+      "geometry": {
+        "type": "MultiLineString",
+        "coordinates": [
+          [
+            [
+              6.655,
+              -7.5
+            ],
+            [
+              6.655,
+              -6.5
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": 11603,
+        "startid": 1604,
+        "endid": 1605,
+        "cost": 1.0,
+        "overridable": true,
+        "section_id": "BED_16"
+      },
+      "geometry": {
+        "type": "MultiLineString",
+        "coordinates": [
+          [
+            [
+              6.655,
+              -6.5
+            ],
+            [
+              6.655,
+              -5.5
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": 11604,
+        "startid": 1605,
+        "endid": 1606,
+        "cost": 1.0,
+        "overridable": true,
+        "section_id": "BED_16"
+      },
+      "geometry": {
+        "type": "MultiLineString",
+        "coordinates": [
+          [
+            [
+              6.655,
+              -5.5
+            ],
+            [
+              6.655,
+              -4.5
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": 11605,
+        "startid": 1606,
+        "endid": 1607,
+        "cost": 1.0,
+        "overridable": true,
+        "section_id": "BED_16"
+      },
+      "geometry": {
+        "type": "MultiLineString",
+        "coordinates": [
+          [
+            [
+              6.655,
+              -4.5
+            ],
+            [
+              6.655,
+              -3.5
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": 11606,
+        "startid": 1607,
+        "endid": 1608,
+        "cost": 1.0,
+        "overridable": true,
+        "section_id": "BED_16"
+      },
+      "geometry": {
+        "type": "MultiLineString",
+        "coordinates": [
+          [
+            [
+              6.655,
+              -3.5
+            ],
+            [
+              6.655,
+              -2.5
+            ]
+          ]
+        ]
+      }
+    }
+  ],
+  "survey_sections": {
+    "BED_01": {
+      "node_ids": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8
+      ],
+      "bed_plane_from_route_m": 1.14,
+      "evaluation_bed_prim": "/World/Vegetation/Bed_02",
+      "physical_bed_center_map_m": [
+        -5,
+        6
+      ],
+      "survey_side": "west"
+    },
+    "BED_02": {
+      "node_ids": [
+        201,
+        202,
+        203,
+        204,
+        205,
+        206,
+        207,
+        208
+      ],
+      "bed_plane_from_route_m": 1.14,
+      "evaluation_bed_prim": "/World/Vegetation/Bed_02",
+      "physical_bed_center_map_m": [
+        -5,
+        6
+      ],
+      "survey_side": "east"
+    },
+    "BED_03": {
+      "node_ids": [
+        301,
+        302,
+        303,
+        304,
+        305,
+        306,
+        307,
+        308
+      ],
+      "bed_plane_from_route_m": 1.14,
+      "evaluation_bed_prim": "/World/Vegetation/Bed_04",
+      "physical_bed_center_map_m": [
+        -2,
+        6
+      ],
+      "survey_side": "west"
+    },
+    "BED_04": {
+      "node_ids": [
+        401,
+        402,
+        403,
+        404,
+        405,
+        406,
+        407,
+        408
+      ],
+      "bed_plane_from_route_m": 1.14,
+      "evaluation_bed_prim": "/World/Vegetation/Bed_04",
+      "physical_bed_center_map_m": [
+        -2,
+        6
+      ],
+      "survey_side": "east"
+    },
+    "BED_05": {
+      "node_ids": [
+        501,
+        502,
+        503,
+        504,
+        505,
+        506,
+        507,
+        508
+      ],
+      "bed_plane_from_route_m": 1.14,
+      "evaluation_bed_prim": "/World/Vegetation/Bed_06",
+      "physical_bed_center_map_m": [
+        2,
+        6
+      ],
+      "survey_side": "west"
+    },
+    "BED_06": {
+      "node_ids": [
+        601,
+        602,
+        603,
+        604,
+        605,
+        606,
+        607,
+        608
+      ],
+      "bed_plane_from_route_m": 1.14,
+      "evaluation_bed_prim": "/World/Vegetation/Bed_06",
+      "physical_bed_center_map_m": [
+        2,
+        6
+      ],
+      "survey_side": "east"
+    },
+    "BED_07": {
+      "node_ids": [
+        701,
+        702,
+        703,
+        704,
+        705,
+        706,
+        707,
+        708
+      ],
+      "bed_plane_from_route_m": 1.14,
+      "evaluation_bed_prim": "/World/Vegetation/Bed_08",
+      "physical_bed_center_map_m": [
+        5,
+        6
+      ],
+      "survey_side": "west"
+    },
+    "BED_08": {
+      "node_ids": [
+        801,
+        802,
+        803,
+        804,
+        805,
+        806,
+        807,
+        808
+      ],
+      "bed_plane_from_route_m": 1.14,
+      "evaluation_bed_prim": "/World/Vegetation/Bed_08",
+      "physical_bed_center_map_m": [
+        5,
+        6
+      ],
+      "survey_side": "east"
+    },
+    "BED_09": {
+      "node_ids": [
+        901,
+        902,
+        903,
+        904,
+        905,
+        906,
+        907,
+        908
+      ],
+      "bed_plane_from_route_m": 1.14,
+      "evaluation_bed_prim": "/World/Vegetation/Bed_01",
+      "physical_bed_center_map_m": [
+        -5,
+        -6
+      ],
+      "survey_side": "west"
+    },
+    "BED_10": {
+      "node_ids": [
+        1001,
+        1002,
+        1003,
+        1004,
+        1005,
+        1006,
+        1007,
+        1008
+      ],
+      "bed_plane_from_route_m": 1.14,
+      "evaluation_bed_prim": "/World/Vegetation/Bed_01",
+      "physical_bed_center_map_m": [
+        -5,
+        -6
+      ],
+      "survey_side": "east"
+    },
+    "BED_11": {
+      "node_ids": [
+        1101,
+        1102,
+        1103,
+        1104,
+        1105,
+        1106,
+        1107,
+        1108
+      ],
+      "bed_plane_from_route_m": 1.14,
+      "evaluation_bed_prim": "/World/Vegetation/Bed_03",
+      "physical_bed_center_map_m": [
+        -2,
+        -6
+      ],
+      "survey_side": "west"
+    },
+    "BED_12": {
+      "node_ids": [
+        1201,
+        1202,
+        1203,
+        1204,
+        1205,
+        1206,
+        1207,
+        1208
+      ],
+      "bed_plane_from_route_m": 1.14,
+      "evaluation_bed_prim": "/World/Vegetation/Bed_03",
+      "physical_bed_center_map_m": [
+        -2,
+        -6
+      ],
+      "survey_side": "east"
+    },
+    "BED_13": {
+      "node_ids": [
+        1301,
+        1302,
+        1303,
+        1304,
+        1305,
+        1306,
+        1307,
+        1308
+      ],
+      "bed_plane_from_route_m": 1.14,
+      "evaluation_bed_prim": "/World/Vegetation/Bed_05",
+      "physical_bed_center_map_m": [
+        2,
+        -6
+      ],
+      "survey_side": "west"
+    },
+    "BED_14": {
+      "node_ids": [
+        1401,
+        1402,
+        1403,
+        1404,
+        1405,
+        1406,
+        1407,
+        1408
+      ],
+      "bed_plane_from_route_m": 1.14,
+      "evaluation_bed_prim": "/World/Vegetation/Bed_05",
+      "physical_bed_center_map_m": [
+        2,
+        -6
+      ],
+      "survey_side": "east"
+    },
+    "BED_15": {
+      "node_ids": [
+        1501,
+        1502,
+        1503,
+        1504,
+        1505,
+        1506,
+        1507,
+        1508
+      ],
+      "bed_plane_from_route_m": 1.14,
+      "evaluation_bed_prim": "/World/Vegetation/Bed_07",
+      "physical_bed_center_map_m": [
+        5,
+        -6
+      ],
+      "survey_side": "west"
+    },
+    "BED_16": {
+      "node_ids": [
+        1601,
+        1602,
+        1603,
+        1604,
+        1605,
+        1606,
+        1607,
+        1608
+      ],
+      "bed_plane_from_route_m": 1.14,
+      "evaluation_bed_prim": "/World/Vegetation/Bed_07",
+      "physical_bed_center_map_m": [
+        5,
+        -6
+      ],
+      "survey_side": "east"
+    }
+  },
+  "survey_note": "Local map metres, not WGS84. Eight physical beds, two survey sides each. West side travels -Y; east side +Y. Camera faces robot left. No inter-section graph edges; Nav2 plans transfers on occupancy map."
+}

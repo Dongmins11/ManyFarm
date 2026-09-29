@@ -1,0 +1,819 @@
+{
+  "schema_version": 1,
+  "robot_id": "scout_01",
+  "map_id": "farm_map_v1",
+  "base_frame": "scout_01/base_footprint",
+  "vision_config": "robot/config/scout_vision.json",
+  "output_dir": "runs/scout_survey",
+  "goal_timeout_s": 300.0,
+  "arrival_tolerance_m": 0.08,
+  "heading_tolerance_rad": 0.12,
+  "settle_s": 0.8,
+  "overlap_fraction": 0.15,
+  "association_distance_m": 0.065,
+  "association_band_half_depth_m": 0.2,
+  "sections": {
+    "BED_01": {
+      "route_file": "sim/ros_ws/src/farm_sim_config/maps/graph.geojson",
+      "node_ids": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8
+      ],
+      "bed_plane_from_route_m": 1.14,
+      "evaluation_bed_prim": "/World/Vegetation/Bed_02",
+      "harvest": {
+        "heading_offset_rad": 3.141592653589793,
+        "mount_xy_base_m": [
+          0.19,
+          -0.185
+        ],
+        "work_offset_xy_base_m": [
+          0.0,
+          -0.25
+        ],
+        "height_reference_m": 0.703,
+        "height_offsets_m": [
+          -0.1,
+          0.35
+        ],
+        "width_m": 0.35,
+        "side_margin_m": 0.03,
+        "depth_m": 0.1,
+        "geometry_status": "PROVISIONAL: supplied arm_1_mount XY; reverse heading faces right-side arm toward bed; 0.25m work offset is a configured assumption. Not a validated harvest route or IK result.",
+        "range_tolerance_m": 0.02,
+        "membership_margin_m": 0.0
+      },
+      "segmentation": {
+        "mode": "auto",
+        "id_prefix": "BED_01_S",
+        "overlap_fraction": 0.15
+      },
+      "finish_at": "last_segment",
+      "physical_bed_center_map_m": [
+        -5,
+        6
+      ],
+      "survey_side": "west"
+    },
+    "BED_02": {
+      "route_file": "sim/ros_ws/src/farm_sim_config/maps/graph.geojson",
+      "node_ids": [
+        201,
+        202,
+        203,
+        204,
+        205,
+        206,
+        207,
+        208
+      ],
+      "bed_plane_from_route_m": 1.14,
+      "evaluation_bed_prim": "/World/Vegetation/Bed_02",
+      "harvest": {
+        "heading_offset_rad": 3.141592653589793,
+        "mount_xy_base_m": [
+          0.19,
+          -0.185
+        ],
+        "work_offset_xy_base_m": [
+          0.0,
+          -0.25
+        ],
+        "height_reference_m": 0.703,
+        "height_offsets_m": [
+          -0.1,
+          0.35
+        ],
+        "width_m": 0.35,
+        "side_margin_m": 0.03,
+        "depth_m": 0.1,
+        "geometry_status": "PROVISIONAL: supplied arm_1_mount XY; reverse heading faces right-side arm toward bed; 0.25m work offset is a configured assumption. Not a validated harvest route or IK result.",
+        "range_tolerance_m": 0.02,
+        "membership_margin_m": 0.0
+      },
+      "segmentation": {
+        "mode": "auto",
+        "id_prefix": "BED_02_S",
+        "overlap_fraction": 0.15
+      },
+      "finish_at": "last_segment",
+      "physical_bed_center_map_m": [
+        -5,
+        6
+      ],
+      "survey_side": "east"
+    },
+    "BED_03": {
+      "route_file": "sim/ros_ws/src/farm_sim_config/maps/graph.geojson",
+      "node_ids": [
+        301,
+        302,
+        303,
+        304,
+        305,
+        306,
+        307,
+        308
+      ],
+      "bed_plane_from_route_m": 1.14,
+      "evaluation_bed_prim": "/World/Vegetation/Bed_04",
+      "harvest": {
+        "heading_offset_rad": 3.141592653589793,
+        "mount_xy_base_m": [
+          0.19,
+          -0.185
+        ],
+        "work_offset_xy_base_m": [
+          0.0,
+          -0.25
+        ],
+        "height_reference_m": 0.703,
+        "height_offsets_m": [
+          -0.1,
+          0.35
+        ],
+        "width_m": 0.35,
+        "side_margin_m": 0.03,
+        "depth_m": 0.1,
+        "geometry_status": "PROVISIONAL: supplied arm_1_mount XY; reverse heading faces right-side arm toward bed; 0.25m work offset is a configured assumption. Not a validated harvest route or IK result.",
+        "range_tolerance_m": 0.02,
+        "membership_margin_m": 0.0
+      },
+      "segmentation": {
+        "mode": "auto",
+        "id_prefix": "BED_03_S",
+        "overlap_fraction": 0.15
+      },
+      "finish_at": "last_segment",
+      "physical_bed_center_map_m": [
+        -2,
+        6
+      ],
+      "survey_side": "west"
+    },
+    "BED_04": {
+      "route_file": "sim/ros_ws/src/farm_sim_config/maps/graph.geojson",
+      "node_ids": [
+        401,
+        402,
+        403,
+        404,
+        405,
+        406,
+        407,
+        408
+      ],
+      "bed_plane_from_route_m": 1.14,
+      "evaluation_bed_prim": "/World/Vegetation/Bed_04",
+      "harvest": {
+        "heading_offset_rad": 3.141592653589793,
+        "mount_xy_base_m": [
+          0.19,
+          -0.185
+        ],
+        "work_offset_xy_base_m": [
+          0.0,
+          -0.25
+        ],
+        "height_reference_m": 0.703,
+        "height_offsets_m": [
+          -0.1,
+          0.35
+        ],
+        "width_m": 0.35,
+        "side_margin_m": 0.03,
+        "depth_m": 0.1,
+        "geometry_status": "PROVISIONAL: supplied arm_1_mount XY; reverse heading faces right-side arm toward bed; 0.25m work offset is a configured assumption. Not a validated harvest route or IK result.",
+        "range_tolerance_m": 0.02,
+        "membership_margin_m": 0.0
+      },
+      "segmentation": {
+        "mode": "auto",
+        "id_prefix": "BED_04_S",
+        "overlap_fraction": 0.15
+      },
+      "finish_at": "last_segment",
+      "physical_bed_center_map_m": [
+        -2,
+        6
+      ],
+      "survey_side": "east"
+    },
+    "BED_05": {
+      "route_file": "sim/ros_ws/src/farm_sim_config/maps/graph.geojson",
+      "node_ids": [
+        501,
+        502,
+        503,
+        504,
+        505,
+        506,
+        507,
+        508
+      ],
+      "bed_plane_from_route_m": 1.14,
+      "evaluation_bed_prim": "/World/Vegetation/Bed_06",
+      "harvest": {
+        "heading_offset_rad": 3.141592653589793,
+        "mount_xy_base_m": [
+          0.19,
+          -0.185
+        ],
+        "work_offset_xy_base_m": [
+          0.0,
+          -0.25
+        ],
+        "height_reference_m": 0.703,
+        "height_offsets_m": [
+          -0.1,
+          0.35
+        ],
+        "width_m": 0.35,
+        "side_margin_m": 0.03,
+        "depth_m": 0.1,
+        "geometry_status": "PROVISIONAL: supplied arm_1_mount XY; reverse heading faces right-side arm toward bed; 0.25m work offset is a configured assumption. Not a validated harvest route or IK result.",
+        "range_tolerance_m": 0.02,
+        "membership_margin_m": 0.0
+      },
+      "segmentation": {
+        "mode": "auto",
+        "id_prefix": "BED_05_S",
+        "overlap_fraction": 0.15
+      },
+      "finish_at": "last_segment",
+      "physical_bed_center_map_m": [
+        2,
+        6
+      ],
+      "survey_side": "west"
+    },
+    "BED_06": {
+      "route_file": "sim/ros_ws/src/farm_sim_config/maps/graph.geojson",
+      "node_ids": [
+        601,
+        602,
+        603,
+        604,
+        605,
+        606,
+        607,
+        608
+      ],
+      "bed_plane_from_route_m": 1.14,
+      "evaluation_bed_prim": "/World/Vegetation/Bed_06",
+      "harvest": {
+        "heading_offset_rad": 3.141592653589793,
+        "mount_xy_base_m": [
+          0.19,
+          -0.185
+        ],
+        "work_offset_xy_base_m": [
+          0.0,
+          -0.25
+        ],
+        "height_reference_m": 0.703,
+        "height_offsets_m": [
+          -0.1,
+          0.35
+        ],
+        "width_m": 0.35,
+        "side_margin_m": 0.03,
+        "depth_m": 0.1,
+        "geometry_status": "PROVISIONAL: supplied arm_1_mount XY; reverse heading faces right-side arm toward bed; 0.25m work offset is a configured assumption. Not a validated harvest route or IK result.",
+        "range_tolerance_m": 0.02,
+        "membership_margin_m": 0.0
+      },
+      "segmentation": {
+        "mode": "auto",
+        "id_prefix": "BED_06_S",
+        "overlap_fraction": 0.15
+      },
+      "finish_at": "last_segment",
+      "physical_bed_center_map_m": [
+        2,
+        6
+      ],
+      "survey_side": "east"
+    },
+    "BED_07": {
+      "route_file": "sim/ros_ws/src/farm_sim_config/maps/graph.geojson",
+      "node_ids": [
+        701,
+        702,
+        703,
+        704,
+        705,
+        706,
+        707,
+        708
+      ],
+      "bed_plane_from_route_m": 1.14,
+      "evaluation_bed_prim": "/World/Vegetation/Bed_08",
+      "harvest": {
+        "heading_offset_rad": 3.141592653589793,
+        "mount_xy_base_m": [
+          0.19,
+          -0.185
+        ],
+        "work_offset_xy_base_m": [
+          0.0,
+          -0.25
+        ],
+        "height_reference_m": 0.703,
+        "height_offsets_m": [
+          -0.1,
+          0.35
+        ],
+        "width_m": 0.35,
+        "side_margin_m": 0.03,
+        "depth_m": 0.1,
+        "geometry_status": "PROVISIONAL: supplied arm_1_mount XY; reverse heading faces right-side arm toward bed; 0.25m work offset is a configured assumption. Not a validated harvest route or IK result.",
+        "range_tolerance_m": 0.02,
+        "membership_margin_m": 0.0
+      },
+      "segmentation": {
+        "mode": "auto",
+        "id_prefix": "BED_07_S",
+        "overlap_fraction": 0.15
+      },
+      "finish_at": "last_segment",
+      "physical_bed_center_map_m": [
+        5,
+        6
+      ],
+      "survey_side": "west"
+    },
+    "BED_08": {
+      "route_file": "sim/ros_ws/src/farm_sim_config/maps/graph.geojson",
+      "node_ids": [
+        801,
+        802,
+        803,
+        804,
+        805,
+        806,
+        807,
+        808
+      ],
+      "bed_plane_from_route_m": 1.14,
+      "evaluation_bed_prim": "/World/Vegetation/Bed_08",
+      "harvest": {
+        "heading_offset_rad": 3.141592653589793,
+        "mount_xy_base_m": [
+          0.19,
+          -0.185
+        ],
+        "work_offset_xy_base_m": [
+          0.0,
+          -0.25
+        ],
+        "height_reference_m": 0.703,
+        "height_offsets_m": [
+          -0.1,
+          0.35
+        ],
+        "width_m": 0.35,
+        "side_margin_m": 0.03,
+        "depth_m": 0.1,
+        "geometry_status": "PROVISIONAL: supplied arm_1_mount XY; reverse heading faces right-side arm toward bed; 0.25m work offset is a configured assumption. Not a validated harvest route or IK result.",
+        "range_tolerance_m": 0.02,
+        "membership_margin_m": 0.0
+      },
+      "segmentation": {
+        "mode": "auto",
+        "id_prefix": "BED_08_S",
+        "overlap_fraction": 0.15
+      },
+      "finish_at": "last_segment",
+      "physical_bed_center_map_m": [
+        5,
+        6
+      ],
+      "survey_side": "east"
+    },
+    "BED_09": {
+      "route_file": "sim/ros_ws/src/farm_sim_config/maps/graph.geojson",
+      "node_ids": [
+        901,
+        902,
+        903,
+        904,
+        905,
+        906,
+        907,
+        908
+      ],
+      "bed_plane_from_route_m": 1.14,
+      "evaluation_bed_prim": "/World/Vegetation/Bed_01",
+      "harvest": {
+        "heading_offset_rad": 3.141592653589793,
+        "mount_xy_base_m": [
+          0.19,
+          -0.185
+        ],
+        "work_offset_xy_base_m": [
+          0.0,
+          -0.25
+        ],
+        "height_reference_m": 0.703,
+        "height_offsets_m": [
+          -0.1,
+          0.35
+        ],
+        "width_m": 0.35,
+        "side_margin_m": 0.03,
+        "depth_m": 0.1,
+        "geometry_status": "PROVISIONAL: supplied arm_1_mount XY; reverse heading faces right-side arm toward bed; 0.25m work offset is a configured assumption. Not a validated harvest route or IK result.",
+        "range_tolerance_m": 0.02,
+        "membership_margin_m": 0.0
+      },
+      "segmentation": {
+        "mode": "auto",
+        "id_prefix": "BED_09_S",
+        "overlap_fraction": 0.15
+      },
+      "finish_at": "last_segment",
+      "physical_bed_center_map_m": [
+        -5,
+        -6
+      ],
+      "survey_side": "west"
+    },
+    "BED_10": {
+      "route_file": "sim/ros_ws/src/farm_sim_config/maps/graph.geojson",
+      "node_ids": [
+        1001,
+        1002,
+        1003,
+        1004,
+        1005,
+        1006,
+        1007,
+        1008
+      ],
+      "bed_plane_from_route_m": 1.14,
+      "evaluation_bed_prim": "/World/Vegetation/Bed_01",
+      "harvest": {
+        "heading_offset_rad": 3.141592653589793,
+        "mount_xy_base_m": [
+          0.19,
+          -0.185
+        ],
+        "work_offset_xy_base_m": [
+          0.0,
+          -0.25
+        ],
+        "height_reference_m": 0.703,
+        "height_offsets_m": [
+          -0.1,
+          0.35
+        ],
+        "width_m": 0.35,
+        "side_margin_m": 0.03,
+        "depth_m": 0.1,
+        "geometry_status": "PROVISIONAL: supplied arm_1_mount XY; reverse heading faces right-side arm toward bed; 0.25m work offset is a configured assumption. Not a validated harvest route or IK result.",
+        "range_tolerance_m": 0.02,
+        "membership_margin_m": 0.0
+      },
+      "segmentation": {
+        "mode": "auto",
+        "id_prefix": "BED_10_S",
+        "overlap_fraction": 0.15
+      },
+      "finish_at": "last_segment",
+      "physical_bed_center_map_m": [
+        -5,
+        -6
+      ],
+      "survey_side": "east"
+    },
+    "BED_11": {
+      "route_file": "sim/ros_ws/src/farm_sim_config/maps/graph.geojson",
+      "node_ids": [
+        1101,
+        1102,
+        1103,
+        1104,
+        1105,
+        1106,
+        1107,
+        1108
+      ],
+      "bed_plane_from_route_m": 1.14,
+      "evaluation_bed_prim": "/World/Vegetation/Bed_03",
+      "harvest": {
+        "heading_offset_rad": 3.141592653589793,
+        "mount_xy_base_m": [
+          0.19,
+          -0.185
+        ],
+        "work_offset_xy_base_m": [
+          0.0,
+          -0.25
+        ],
+        "height_reference_m": 0.703,
+        "height_offsets_m": [
+          -0.1,
+          0.35
+        ],
+        "width_m": 0.35,
+        "side_margin_m": 0.03,
+        "depth_m": 0.1,
+        "geometry_status": "PROVISIONAL: supplied arm_1_mount XY; reverse heading faces right-side arm toward bed; 0.25m work offset is a configured assumption. Not a validated harvest route or IK result.",
+        "range_tolerance_m": 0.02,
+        "membership_margin_m": 0.0
+      },
+      "segmentation": {
+        "mode": "auto",
+        "id_prefix": "BED_11_S",
+        "overlap_fraction": 0.15
+      },
+      "finish_at": "last_segment",
+      "physical_bed_center_map_m": [
+        -2,
+        -6
+      ],
+      "survey_side": "west"
+    },
+    "BED_12": {
+      "route_file": "sim/ros_ws/src/farm_sim_config/maps/graph.geojson",
+      "node_ids": [
+        1201,
+        1202,
+        1203,
+        1204,
+        1205,
+        1206,
+        1207,
+        1208
+      ],
+      "bed_plane_from_route_m": 1.14,
+      "evaluation_bed_prim": "/World/Vegetation/Bed_03",
+      "harvest": {
+        "heading_offset_rad": 3.141592653589793,
+        "mount_xy_base_m": [
+          0.19,
+          -0.185
+        ],
+        "work_offset_xy_base_m": [
+          0.0,
+          -0.25
+        ],
+        "height_reference_m": 0.703,
+        "height_offsets_m": [
+          -0.1,
+          0.35
+        ],
+        "width_m": 0.35,
+        "side_margin_m": 0.03,
+        "depth_m": 0.1,
+        "geometry_status": "PROVISIONAL: supplied arm_1_mount XY; reverse heading faces right-side arm toward bed; 0.25m work offset is a configured assumption. Not a validated harvest route or IK result.",
+        "range_tolerance_m": 0.02,
+        "membership_margin_m": 0.0
+      },
+      "segmentation": {
+        "mode": "auto",
+        "id_prefix": "BED_12_S",
+        "overlap_fraction": 0.15
+      },
+      "finish_at": "last_segment",
+      "physical_bed_center_map_m": [
+        -2,
+        -6
+      ],
+      "survey_side": "east"
+    },
+    "BED_13": {
+      "route_file": "sim/ros_ws/src/farm_sim_config/maps/graph.geojson",
+      "node_ids": [
+        1301,
+        1302,
+        1303,
+        1304,
+        1305,
+        1306,
+        1307,
+        1308
+      ],
+      "bed_plane_from_route_m": 1.14,
+      "evaluation_bed_prim": "/World/Vegetation/Bed_05",
+      "harvest": {
+        "heading_offset_rad": 3.141592653589793,
+        "mount_xy_base_m": [
+          0.19,
+          -0.185
+        ],
+        "work_offset_xy_base_m": [
+          0.0,
+          -0.25
+        ],
+        "height_reference_m": 0.703,
+        "height_offsets_m": [
+          -0.1,
+          0.35
+        ],
+        "width_m": 0.35,
+        "side_margin_m": 0.03,
+        "depth_m": 0.1,
+        "geometry_status": "PROVISIONAL: supplied arm_1_mount XY; reverse heading faces right-side arm toward bed; 0.25m work offset is a configured assumption. Not a validated harvest route or IK result.",
+        "range_tolerance_m": 0.02,
+        "membership_margin_m": 0.0
+      },
+      "segmentation": {
+        "mode": "auto",
+        "id_prefix": "BED_13_S",
+        "overlap_fraction": 0.15
+      },
+      "finish_at": "last_segment",
+      "physical_bed_center_map_m": [
+        2,
+        -6
+      ],
+      "survey_side": "west"
+    },
+    "BED_14": {
+      "route_file": "sim/ros_ws/src/farm_sim_config/maps/graph.geojson",
+      "node_ids": [
+        1401,
+        1402,
+        1403,
+        1404,
+        1405,
+        1406,
+        1407,
+        1408
+      ],
+      "bed_plane_from_route_m": 1.14,
+      "evaluation_bed_prim": "/World/Vegetation/Bed_05",
+      "harvest": {
+        "heading_offset_rad": 3.141592653589793,
+        "mount_xy_base_m": [
+          0.19,
+          -0.185
+        ],
+        "work_offset_xy_base_m": [
+          0.0,
+          -0.25
+        ],
+        "height_reference_m": 0.703,
+        "height_offsets_m": [
+          -0.1,
+          0.35
+        ],
+        "width_m": 0.35,
+        "side_margin_m": 0.03,
+        "depth_m": 0.1,
+        "geometry_status": "PROVISIONAL: supplied arm_1_mount XY; reverse heading faces right-side arm toward bed; 0.25m work offset is a configured assumption. Not a validated harvest route or IK result.",
+        "range_tolerance_m": 0.02,
+        "membership_margin_m": 0.0
+      },
+      "segmentation": {
+        "mode": "auto",
+        "id_prefix": "BED_14_S",
+        "overlap_fraction": 0.15
+      },
+      "finish_at": "last_segment",
+      "physical_bed_center_map_m": [
+        2,
+        -6
+      ],
+      "survey_side": "east"
+    },
+    "BED_15": {
+      "route_file": "sim/ros_ws/src/farm_sim_config/maps/graph.geojson",
+      "node_ids": [
+        1501,
+        1502,
+        1503,
+        1504,
+        1505,
+        1506,
+        1507,
+        1508
+      ],
+      "bed_plane_from_route_m": 1.14,
+      "evaluation_bed_prim": "/World/Vegetation/Bed_07",
+      "harvest": {
+        "heading_offset_rad": 3.141592653589793,
+        "mount_xy_base_m": [
+          0.19,
+          -0.185
+        ],
+        "work_offset_xy_base_m": [
+          0.0,
+          -0.25
+        ],
+        "height_reference_m": 0.703,
+        "height_offsets_m": [
+          -0.1,
+          0.35
+        ],
+        "width_m": 0.35,
+        "side_margin_m": 0.03,
+        "depth_m": 0.1,
+        "geometry_status": "PROVISIONAL: supplied arm_1_mount XY; reverse heading faces right-side arm toward bed; 0.25m work offset is a configured assumption. Not a validated harvest route or IK result.",
+        "range_tolerance_m": 0.02,
+        "membership_margin_m": 0.0
+      },
+      "segmentation": {
+        "mode": "auto",
+        "id_prefix": "BED_15_S",
+        "overlap_fraction": 0.15
+      },
+      "finish_at": "last_segment",
+      "physical_bed_center_map_m": [
+        5,
+        -6
+      ],
+      "survey_side": "west"
+    },
+    "BED_16": {
+      "route_file": "sim/ros_ws/src/farm_sim_config/maps/graph.geojson",
+      "node_ids": [
+        1601,
+        1602,
+        1603,
+        1604,
+        1605,
+        1606,
+        1607,
+        1608
+      ],
+      "bed_plane_from_route_m": 1.14,
+      "evaluation_bed_prim": "/World/Vegetation/Bed_07",
+      "harvest": {
+        "heading_offset_rad": 3.141592653589793,
+        "mount_xy_base_m": [
+          0.19,
+          -0.185
+        ],
+        "work_offset_xy_base_m": [
+          0.0,
+          -0.25
+        ],
+        "height_reference_m": 0.703,
+        "height_offsets_m": [
+          -0.1,
+          0.35
+        ],
+        "width_m": 0.35,
+        "side_margin_m": 0.03,
+        "depth_m": 0.1,
+        "geometry_status": "PROVISIONAL: supplied arm_1_mount XY; reverse heading faces right-side arm toward bed; 0.25m work offset is a configured assumption. Not a validated harvest route or IK result.",
+        "range_tolerance_m": 0.02,
+        "membership_margin_m": 0.0
+      },
+      "segmentation": {
+        "mode": "auto",
+        "id_prefix": "BED_16_S",
+        "overlap_fraction": 0.15
+      },
+      "finish_at": "last_segment",
+      "physical_bed_center_map_m": [
+        5,
+        -6
+      ],
+      "survey_side": "east"
+    }
+  },
+  "evaluation": {
+    "T_map_world": [
+      [
+        1,
+        0,
+        0,
+        0
+      ],
+      [
+        0,
+        1,
+        0,
+        0
+      ],
+      [
+        0,
+        0,
+        1,
+        0
+      ],
+      [
+        0,
+        0,
+        0,
+        1
+      ]
+    ],
+    "note": "Current scene/map share XY axes and initial robot coordinates. Change this independent registration if map origin/rotation changes; never fit to predictions."
+  },
+  "notes": [
+    "Survey covers the configured route extent and one facing side, not both sides of an entire USD bed.",
+    "Harvest stop route is a parallel line derived from mount/work offsets; collision and arm reachability are not verified. No harvest motion is sent.",
+    "BED_01..BED_16 are survey sides of eight physical beds; evaluation_bed_prim identifies the physical bed. Each side completes and publishes its own batch."
+  ]
+}
