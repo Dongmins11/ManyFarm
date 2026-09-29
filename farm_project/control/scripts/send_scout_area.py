@@ -42,8 +42,7 @@ def main():
         obj={'kind':kind,'received_at':datetime.now(timezone.utc).isoformat(),'data':dict(message_to_ordereddict(msg))}
         with path.open('a') as f:f.write(json.dumps(obj,ensure_ascii=False)+'\n')
         if kind=='feedback':
-            print(f'{msg.phase}: {msg.section_id} / segment={msg.segment_id or "-"} / completed_segments={msg.completed_segment_count} / tasks={len(msg.harvest_tasks)}',flush=True)
-            if msg.phase=='FINISHING':print('  촬영 완료. 설정에 따라 경로 끝까지 추가 이동 중입니다.',flush=True)
+            print(f'{msg.phase}: {msg.section_id} / segment={msg.segment_id or "-"} / segment_expected_count={msg.segment_expected_count} / completed_segments={msg.completed_segment_count} / tasks={len(msg.harvest_tasks)}',flush=True)
             if msg.phase=='SECTION_COMPLETE':print('  베드 완료: 전체 수확 작업 목록을 수신했습니다.',flush=True)
             for task in msg.harvest_tasks:print(f'  {task.window_id}: segment={task.segment_id}, fruits={task.expected_count}, goal=({task.goal_pose.position.x:.3f},{task.goal_pose.position.y:.3f}), yaw={task.goal_pose.yaw:.3f}',flush=True)
         else:print(json.dumps(obj,ensure_ascii=False,indent=2),flush=True)

@@ -44,6 +44,9 @@ def main():
         stage.SetEditTarget(stage.GetSessionLayer())
         if abs(UsdGeom.GetStageMetersPerUnit(stage)-1.0)>1e-9 or UsdGeom.GetStageUpAxis(stage)!='Z':
             raise RuntimeError('현재 연결부는 metersPerUnit=1, Z-up 씬을 요구합니다.')
+        from farm_sim_runtime.bed_collisions import ensure_bed_collisions
+        bed_collision_report=ensure_bed_collisions(stage)
+        print('[farm_sim] bed collision: '+json.dumps(bed_collision_report,ensure_ascii=False),flush=True)
         binding=config['scene_binding'];robot_path=binding['robot_prim'].rstrip('/')
         def prim(relative):
             p=stage.GetPrimAtPath(robot_path+'/'+relative)

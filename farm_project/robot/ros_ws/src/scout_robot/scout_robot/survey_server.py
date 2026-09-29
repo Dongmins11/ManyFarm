@@ -245,10 +245,11 @@ class SurveyServer(Node):
     def stationary_now(self):
         with self.odom_lock:m=self.odom;age=time.monotonic()-self.odom_wall
         return bool(m and age<.5 and abs(m.twist.twist.linear.x)<.005 and abs(m.twist.twist.angular.z)<.02)
-    def feedback(self,g,section,phase,tasks,completed,segments,segment_id=''):
+    def feedback(self,g,section,phase,tasks,completed,segments,segment_id,segment_expected_count):
         f=ScoutArea.Feedback();f.robot_id=g.request.robot_id;f.task_id=g.request.task_id
         f.phase=phase;f.section_id=section;f.segment_id=segment_id
         f.completed_section_count=completed;f.completed_segment_count=segments;f.timestamp=utc();f.harvest_tasks=tasks
+        f.segment_expected_count=int(segment_expected_count)
         g.publish_feedback(f)
     def show(self,survey):
         array=MarkerArray();clear=Marker();clear.action=Marker.DELETEALL;array.markers.append(clear)
@@ -299,7 +300,6 @@ class SurveyServer(Node):
             camera_session=None
             for section in g.request.section_ids:
                 bed=self.beds[section];survey=Survey(bed,session+'_'+section,self.cfg['association_distance_m'])
-                self.feedback(g,section,'MOVING',[],len(completed),completed_segments)
                 stamp=self.navigate(bed.origin,bed.yaw)
                 info=worker.call('info',self.check,after_stamp_ns=stamp,session=camera_session)
                 meta=info['metadata'];camera_session=meta['session']
@@ -312,7 +312,6 @@ class SurveyServer(Node):
                     sid=segment['segment_id'];s=segment['offset_m'];segment_start=time.monotonic()
                     current_segment=dict(segment,status='MOVING',started_at=utc())
                     report['sections'][section]['segments'].append(current_segment)
-                    self.feedback(g,section,'MOVING',[],len(completed),completed_segments,sid)
                     self.get_logger().info(f'{section}/{sid}: 촬영 지점 {index+1}/{len(design["segments"])} 이동 s={s:.2f}m')
                     stamp=self.navigate(bed.world(s,0),bed.yaw)
                     current_segment['navigation_wall_s']=time.monotonic()-segment_start
@@ -328,9 +327,12 @@ class SurveyServer(Node):
                             ignored.append(dict(d,position_map_m=q,reason='outside_section_or_bed_band'));continue
                         accepted.append(dict(d,position_map_m=q,stamp_ns=int(meta['stamp_ns'])))
                     ids=survey.ingest(accepted,segment_id=sid)
+                    # Count this capture, not cumulative IDs or window/task membership.
+                    segment_expected_count=len(set(ids))
+                    current_segment['segment_expected_count']=segment_expected_count
                     report['observations'].append({'section':section,'segment_id':sid,'index':index+1,'stamp_ns':int(meta['stamp_ns']),
                         'timings':response['timings'],'valid_depth_detection_count':len(response['detections']),
-                        'depth_rejected_count':len(response['rejected']),'section_accepted_count':len(accepted),
+                        'depth_rejected_count':len(response['rejected']),'section_accepted_count':len(accepted),'segment_expected_count':segment_expected_count,
                         'outside_section_count':len(ignored)})
                     for d,fruit_id in zip(accepted,ids):labels.append({'id':fruit_id,'box':d['mask_box_original_xyxy']})
                     worker.call('annotate',self.check,stamp_ns=int(meta['stamp_ns']),T_map_odom=T.tolist(),labels=labels,
@@ -344,19 +346,11 @@ class SurveyServer(Node):
                     report['completed_segments'].append({'section_id':section,'segment_id':sid})
                     report['completed_segment_count']=completed_segments
                     report['sections'][section]['survey']=survey.record();write_json(folder/'survey.json',report);self.show(survey)
-                    self.feedback(g,section,'SEGMENT_COMPLETE',[],len(completed),completed_segments,sid)
+                    # The last segment sends its one feedback together with the bed batch below.
+                    if index+1<len(design['segments']):
+                        self.feedback(g,section,'SEGMENT_COMPLETE',[],len(completed),completed_segments,sid,segment_expected_count)
                     self.get_logger().info(f'{sid} 완료: 누적 segment={completed_segments}, 촬영·처리·저장 {current_segment["observation_wall_s"]:.3f}s')
                     current_segment=None
-                tail_start=time.monotonic()
-                tail={'finish_at':design['finish_at'],'started_at':utc(),'status':'SKIPPED'}
-                report['sections'][section]['post_capture_navigation']=tail
-                if design['finish_at']=='route_end' and design['segments'][-1]['offset_m']<bed.length-1e-6:
-                    tail['status']='MOVING'
-                    self.feedback(g,section,'FINISHING',[],len(completed),completed_segments)
-                    self.get_logger().info(f'{section}: 모든 촬영 완료. 경로 끝까지 추가 주행 {bed.length-design["segments"][-1]["offset_m"]:.3f}m')
-                    self.navigate(bed.world(bed.length,0),bed.yaw);tail['status']='ARRIVED'
-                else:self.get_logger().info(f'{section}: 마지막 segment 촬영 완료. 추가 주행 없이 결과 정리')
-                tail.update(finished_at=utc(),elapsed_wall_s=time.monotonic()-tail_start)
                 self.check();batch_start=time.monotonic()
                 tasks=[]
                 for w in survey.windows():
@@ -369,9 +363,19 @@ class SurveyServer(Node):
                 # Durable detail before the one feedback containing this bed's task list.
                 write_json(folder/'survey.json',report)
                 completed.append(section);total_tasks+=len(tasks);total_fruits+=sum(t.expected_count for t in tasks)
-                self.feedback(g,section,'SECTION_COMPLETE',tasks,len(completed),completed_segments)
+                self.feedback(g,section,'SECTION_COMPLETE',tasks,len(completed),completed_segments,sid,segment_expected_count)
                 report['sections'][section]['batch_finalize_wall_s']=time.monotonic()-batch_start
                 self.get_logger().info(f'{section} 완료: {len(survey.fruits)} IDs, {len(tasks)} tasks, {len(survey.plan.holds)} holds')
+                # Optional transit is after survey completion; no extra feedback.
+                tail_start=time.monotonic()
+                tail={'finish_at':design['finish_at'],'started_at':utc(),'status':'SKIPPED'}
+                report['sections'][section]['post_capture_navigation']=tail
+                if design['finish_at']=='route_end' and design['segments'][-1]['offset_m']<bed.length-1e-6:
+                    tail['status']='MOVING'
+                    self.get_logger().info(f'{section}: 모든 촬영 완료. 경로 끝까지 추가 주행 {bed.length-design["segments"][-1]["offset_m"]:.3f}m')
+                    self.navigate(bed.world(bed.length,0),bed.yaw);tail['status']='ARRIVED'
+                else:self.get_logger().info(f'{section}: 마지막 segment 촬영 완료. 추가 주행 없이 결과 정리')
+                tail.update(finished_at=utc(),elapsed_wall_s=time.monotonic()-tail_start)
             result.result_code='SUCCESS';result.error_code='NONE';report['status']='SUCCESS';g.succeed()
         except Exception as e:
             canceled=isinstance(e,MissionCanceled)

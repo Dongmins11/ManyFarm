@@ -75,7 +75,7 @@ class SegmentTests(unittest.TestCase):
         self.assertEqual(survey.fruits[0]['first_segment_id'],'S001')
         self.assertEqual(survey.fruits[0]['observed_segment_ids'],['S001','S002','S003'])
 
-    def run_mission(self,finish='last_segment',failure_at=None,cancel=False,two_beds=False):
+    def run_mission(self,finish='last_segment',failure_at=None,cancel=False,two_beds=False,detections=None,tail_failure=False):
         node=server();node.beds={'BED_01':bed(finish=finish)}
         if two_beds:node.beds['BED_02']=bed(finish=finish)
         node.cfg.update(vision_config='unused.json',association_distance_m=.065,
@@ -85,7 +85,12 @@ class SegmentTests(unittest.TestCase):
         node.lookup=lambda *_:np.eye(4)
         node.stationary_now=lambda:True;node.show=lambda _:None
         moves=[];feedback=[];terminal=[];captures=[]
-        def navigate(xy,yaw):moves.append(list(xy));return 100
+        def navigate(xy,yaw):
+            moves.append(list(xy))
+            if tail_failure and len(moves)==7:
+                self.assertEqual(len(feedback),5) # Last capture feedback is already delivered.
+                raise RuntimeError('test tail navigation failure')
+            return 100
         node.navigate=navigate
         request=NS(robot_id='scout_01',task_id='test',section_ids=list(node.beds),
                    map_id='farm_map_v1',frame_id='map',crop_type='PAPRIKA',target_ripeness='RIPE')
@@ -106,9 +111,10 @@ class SegmentTests(unittest.TestCase):
                             action.is_cancel_requested=True
                             raise MissionCanceled('test cancellation')
                         raise RuntimeError('test capture failure')
+                    points=[(2.,1.14,.8)] if detections is None else detections
                     return {'metadata':meta,'timings':{},'rejected':[],
-                            'detections':[{'position_odom_m':node.beds['BED_01'].world(2.,1.14,.8),
-                                           'class_name':'Red','confidence':.9,'mask_box_original_xyxy':[10,10,20,20]}]}
+                            'detections':[{'position_odom_m':node.beds['BED_01'].world(*p),
+                                           'class_name':'Red','confidence':.9,'mask_box_original_xyxy':[10,10,20,20]} for p in points]}
                 if op=='annotate':return {'saved':kwargs['directory']}
                 raise AssertionError(op)
             def close(self):pass
@@ -129,11 +135,15 @@ class SegmentTests(unittest.TestCase):
         self.assertEqual(result.completed_segment_count,5)
         self.assertEqual(len(moves),6) # Approach plus five captures, no end goal.
         phases=[f.phase for f in feedback]
-        self.assertEqual(phases.count('SEGMENT_COMPLETE'),5)
+        self.assertEqual(phases,['SEGMENT_COMPLETE']*4+['SECTION_COMPLETE'])
+        self.assertEqual(len(feedback),5)
         self.assertEqual(phases.count('SECTION_COMPLETE'),1)
         self.assertNotIn('FINISHING',phases)
         completed=[f for f in feedback if f.phase=='SEGMENT_COMPLETE']
-        self.assertEqual([f.completed_segment_count for f in completed],[1,2,3,4,5])
+        self.assertEqual([f.completed_segment_count for f in feedback],[1,2,3,4,5])
+        self.assertEqual([f.segment_expected_count for f in feedback],[1]*5)
+        self.assertEqual([f.completed_section_count for f in feedback],[0,0,0,0,1])
+        self.assertEqual([f.segment_id for f in feedback],[f'BED_01_S{i:03d}' for i in range(1,6)])
         self.assertTrue(all(not f.harvest_tasks for f in completed))
         batch=[f for f in feedback if f.phase=='SECTION_COMPLETE'][0]
         self.assertEqual(len(batch.harvest_tasks),1)
@@ -141,12 +151,13 @@ class SegmentTests(unittest.TestCase):
         self.assertEqual(report['sections']['BED_01']['post_capture_navigation']['status'],'SKIPPED')
         self.assertEqual(terminal,['success'])
 
-    def test_route_end_policy_keeps_tail_goal_and_announces_it(self):
+    def test_route_end_policy_keeps_tail_goal_without_extra_feedback(self):
         result,report,feedback,moves,_=self.run_mission(finish='route_end')
         self.assertEqual(result.result_code,'SUCCESS')
         self.assertEqual(len(moves),7)
         self.assertAlmostEqual(moves[-1][1],2.5)
-        self.assertEqual([f.phase for f in feedback].count('FINISHING'),1)
+        self.assertEqual(len(feedback),5)
+        self.assertNotIn('FINISHING',[f.phase for f in feedback])
         self.assertEqual(report['sections']['BED_01']['post_capture_navigation']['status'],'ARRIVED')
 
     def test_failure_counts_only_completed_segments_and_sends_no_batch(self):
@@ -154,6 +165,7 @@ class SegmentTests(unittest.TestCase):
         self.assertEqual(result.result_code,'FAILED')
         self.assertEqual(result.completed_segment_count,2)
         self.assertEqual(result.completed_section_ids,[])
+        self.assertEqual(len(feedback),2)
         self.assertFalse(any(f.phase=='SECTION_COMPLETE' for f in feedback))
         self.assertEqual(report['sections']['BED_01']['segments'][-1]['status'],'FAILED')
         self.assertEqual(terminal,['abort'])
@@ -167,10 +179,39 @@ class SegmentTests(unittest.TestCase):
     def test_counts_across_two_beds_and_independent_segment_ids(self):
         result,report,feedback,moves,_=self.run_mission(two_beds=True)
         self.assertEqual(result.completed_segment_count,10)
+        self.assertEqual(len(feedback),10)
+        self.assertEqual([f.segment_expected_count for f in feedback],[1]*10)
         self.assertEqual(result.completed_section_ids,['BED_01','BED_02'])
         batches=[f for f in feedback if f.phase=='SECTION_COMPLETE']
         self.assertEqual(len(batches),2)
         self.assertEqual(batches[1].harvest_tasks[0].segment_id,'BED_02_S001')
+
+    def test_zero_detections_still_send_one_feedback_per_segment(self):
+        result,report,feedback,_,_=self.run_mission(detections=[])
+        self.assertEqual(len(feedback),5)
+        self.assertEqual([f.segment_expected_count for f in feedback],[0]*5)
+        self.assertEqual(feedback[-1].phase,'SECTION_COMPLETE')
+        self.assertEqual(feedback[-1].harvest_tasks,[])
+        self.assertEqual(result.harvest_task_count,0)
+
+    def test_segment_count_includes_held_fruit_but_excludes_other_bed(self):
+        # One normal fruit, one out-of-work-height fruit, one other-side detection.
+        result,report,feedback,_,_=self.run_mission(detections=[(2.,1.14,.8),(4.,1.14,1.3),(3.,3.,.8)])
+        self.assertEqual([f.segment_expected_count for f in feedback],[2]*5)
+        self.assertEqual(result.total_expected_count,1) # Unique window members, not per-capture sum.
+        section=report['sections']['BED_01']
+        self.assertEqual([s['segment_expected_count'] for s in section['segments']],[2]*5)
+        self.assertEqual([o['segment_expected_count'] for o in report['observations']],[2]*5)
+
+    def test_tail_failure_does_not_erase_completed_survey_or_duplicate_feedback(self):
+        result,report,feedback,_,terminal=self.run_mission(finish='route_end',tail_failure=True)
+        self.assertEqual(result.result_code,'FAILED')
+        self.assertEqual(result.completed_section_ids,['BED_01'])
+        self.assertEqual(len(feedback),5)
+        self.assertEqual(feedback[-1].phase,'SECTION_COMPLETE')
+        self.assertEqual(report['sections']['BED_01']['status'],'COMPLETE')
+        self.assertEqual(report['sections']['BED_01']['post_capture_navigation']['status'],'FAILED')
+        self.assertEqual(terminal,['abort'])
 
     def test_config_migration_preserves_existing_manual_settings(self):
         spec=importlib.util.spec_from_file_location('segment_patch',ROOT/'scripts/apply_scout_segment_config.py')

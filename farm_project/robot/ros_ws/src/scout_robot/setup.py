@@ -1,6 +1,6 @@
 from glob import glob
 from setuptools import setup, find_packages
-setup(name='scout_robot', version='0.5.4', packages=find_packages(),
+setup(name='scout_robot', version='0.5.5', packages=find_packages(),
     data_files=[('share/ament_index/resource_index/packages', ['resource/scout_robot']),
                 ('share/scout_robot', ['package.xml']),
                 ('share/scout_robot/config', glob('config/*'))],

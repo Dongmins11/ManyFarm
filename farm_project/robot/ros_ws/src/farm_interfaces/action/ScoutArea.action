@@ -28,5 +28,7 @@ string section_id
 string segment_id
 int32 completed_section_count
 int32 completed_segment_count
+# Valid in-section fruit detections in this completed capture (not cumulative).
+int32 segment_expected_count
 farm_interfaces/HarvestTask[] harvest_tasks
 string timestamp

@@ -37,10 +37,10 @@ class BedRoutes(unittest.TestCase):
                 usd,cx,cy=PHYSICAL[i//2];west=i%2==0
                 self.assertEqual(s['evaluation_bed_prim'],f'/World/Vegetation/Bed_{usd:02d}')
                 r=load_route(GRAPH,s['node_ids']);b=StraightBed(r,CFG['sections'][sid])
-                self.assertEqual(len(r),8);self.assertAlmostEqual(b.length,7.)
+                self.assertEqual(len(r),8);self.assertAlmostEqual(b.length,8.)
                 self.assertAlmostEqual(b.yaw,-math.pi/2 if west else math.pi/2)
                 self.assertGreater(np.dot(np.array([cx,cy])-b.origin,b.n),0)
-                plane=b.world(3.5,b.bed_n)
+                plane=b.world(4.,b.bed_n)
                 self.assertAlmostEqual(plane[0],cx+(-.515 if west else .515))
                 self.assertAlmostEqual(plane[1],cy)
                 planned=plan_segments(b,sid,K,C,640,384,PRE,.15)
@@ -50,11 +50,11 @@ class BedRoutes(unittest.TestCase):
                 ids.extend(s['node_ids'])
         self.assertEqual(len(set(ids)),128);self.assertEqual(len(segments),80)
 
-    def test_original_bed_01_coordinates_preserved(self):
+    def test_bed_01_full_length_endpoints_and_interior_nodes(self):
         r=load_route(GRAPH,list(range(1,9)))
         for i,(n,x,y,yaw) in enumerate(r):
             self.assertEqual(n,i+1);self.assertAlmostEqual(x,-6.655)
-            self.assertAlmostEqual(y,9.5-i);self.assertAlmostEqual(yaw,-math.pi/2)
+            self.assertAlmostEqual(y,10. if i==0 else 2. if i==7 else 9.5-i);self.assertAlmostEqual(yaw,-math.pi/2)
 
     def test_box_geometry_rotates_for_all_sides(self):
         for sid,s in CFG['sections'].items():
