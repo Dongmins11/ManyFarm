@@ -1,0 +1,211 @@
+{
+  "source_snapshot": "farm_project_stage1 + farm_scout_routes_8m_v0.5.7; original Bed_Edge and scout camera assets",
+  "unit_tests_passed": 12,
+  "unit_tests_skipped": 0,
+  "fruit_labels": {
+    "yellow": 96,
+    "red": 96
+  },
+  "physical_beds": 8,
+  "sampled_camera_poses": 1600,
+  "max_perpendicular_distance_error_m": 2.220446049250313e-16,
+  "source_camera": {
+    "prim_path": "/turtlebot3_burger_portable/base_link/scout_camera",
+    "world_height_m": 0.6000000887831655,
+    "pitch_deg": 1.2722218725854067e-14,
+    "focalLength": 1.8799999952316284,
+    "horizontalAperture": 3.5,
+    "verticalAperture": 2.0999999046325684,
+    "horizontalApertureOffset": 0.0,
+    "verticalApertureOffset": 0.0,
+    "clippingRange": [
+      0.009999999776482582,
+      100.0
+    ]
+  },
+  "sections": [
+    {
+      "section_id": "BED_01",
+      "physical_bed": 2,
+      "side": "west",
+      "n": 100,
+      "bed_size_m": [
+        0.9999998100101948,
+        8.0
+      ]
+    },
+    {
+      "section_id": "BED_02",
+      "physical_bed": 2,
+      "side": "east",
+      "n": 100,
+      "bed_size_m": [
+        0.9999998100101948,
+        8.0
+      ]
+    },
+    {
+      "section_id": "BED_03",
+      "physical_bed": 4,
+      "side": "west",
+      "n": 100,
+      "bed_size_m": [
+        0.9999999292194843,
+        8.0
+      ]
+    },
+    {
+      "section_id": "BED_04",
+      "physical_bed": 4,
+      "side": "east",
+      "n": 100,
+      "bed_size_m": [
+        0.9999999292194843,
+        8.0
+      ]
+    },
+    {
+      "section_id": "BED_05",
+      "physical_bed": 6,
+      "side": "west",
+      "n": 100,
+      "bed_size_m": [
+        0.9999999292194843,
+        8.0
+      ]
+    },
+    {
+      "section_id": "BED_06",
+      "physical_bed": 6,
+      "side": "east",
+      "n": 100,
+      "bed_size_m": [
+        0.9999999292194843,
+        8.0
+      ]
+    },
+    {
+      "section_id": "BED_07",
+      "physical_bed": 8,
+      "side": "west",
+      "n": 100,
+      "bed_size_m": [
+        0.9999998100101948,
+        8.0
+      ]
+    },
+    {
+      "section_id": "BED_08",
+      "physical_bed": 8,
+      "side": "east",
+      "n": 100,
+      "bed_size_m": [
+        0.9999998100101948,
+        8.0
+      ]
+    },
+    {
+      "section_id": "BED_09",
+      "physical_bed": 1,
+      "side": "west",
+      "n": 100,
+      "bed_size_m": [
+        0.9999998100101948,
+        8.0
+      ]
+    },
+    {
+      "section_id": "BED_10",
+      "physical_bed": 1,
+      "side": "east",
+      "n": 100,
+      "bed_size_m": [
+        0.9999998100101948,
+        8.0
+      ]
+    },
+    {
+      "section_id": "BED_11",
+      "physical_bed": 3,
+      "side": "west",
+      "n": 100,
+      "bed_size_m": [
+        0.9999999292194843,
+        8.0
+      ]
+    },
+    {
+      "section_id": "BED_12",
+      "physical_bed": 3,
+      "side": "east",
+      "n": 100,
+      "bed_size_m": [
+        0.9999999292194843,
+        8.0
+      ]
+    },
+    {
+      "section_id": "BED_13",
+      "physical_bed": 5,
+      "side": "west",
+      "n": 100,
+      "bed_size_m": [
+        0.9999999292194843,
+        8.0
+      ]
+    },
+    {
+      "section_id": "BED_14",
+      "physical_bed": 5,
+      "side": "east",
+      "n": 100,
+      "bed_size_m": [
+        0.9999999292194843,
+        8.0
+      ]
+    },
+    {
+      "section_id": "BED_15",
+      "physical_bed": 7,
+      "side": "west",
+      "n": 100,
+      "bed_size_m": [
+        0.9999998100101948,
+        8.0
+      ]
+    },
+    {
+      "section_id": "BED_16",
+      "physical_bed": 7,
+      "side": "east",
+      "n": 100,
+      "bed_size_m": [
+        0.9999998100101948,
+        8.0
+      ]
+    }
+  ],
+  "runtime_capture_test": "not run: Isaac Sim RTX runtime unavailable",
+  "scene_render_dependencies": "full external vegetation assets not present in this authoring workspace; production capture checks mesh references before rendering",
+  "postprocess": "reference-guided initial preset, not a calibrated camera model",
+  "version": "0.6.1",
+  "label_scope": "16 survey sections: physical bed AND side",
+  "section_fruit_counts": {
+    "BED_01": 13,
+    "BED_02": 11,
+    "BED_03": 12,
+    "BED_04": 12,
+    "BED_05": 13,
+    "BED_06": 11,
+    "BED_07": 13,
+    "BED_08": 11,
+    "BED_09": 12,
+    "BED_10": 12,
+    "BED_11": 10,
+    "BED_12": 14,
+    "BED_13": 14,
+    "BED_14": 10,
+    "BED_15": 13,
+    "BED_16": 11
+  }
+}

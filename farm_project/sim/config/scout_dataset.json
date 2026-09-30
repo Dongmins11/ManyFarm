@@ -1,0 +1,54 @@
+{
+  "schema_version": 1,
+  "scene": "sim/assets/envs/output/farm_with_plants_v5.usd",
+  "graph": "sim/ros_ws/src/farm_sim_config/maps/graph.geojson",
+  "output_dir": "runs/scout_dataset",
+  "seed": 930,
+  "frames_per_section": 100,
+  "sections": "all",
+  "class_names": ["Red", "Yellow"],
+  "fruit_rotation": {
+    "max_degrees": 30.0,
+    "seed": 734
+  },
+  "camera": {
+    "source_prim": "auto",
+    "resolution": [1280, 720],
+    "intrinsics_mode": "source_horizontal_fov",
+    "K": null,
+    "distance_from_outer_edge_m": 1.14,
+    "world_height_m": null,
+    "height_jitter_m": 0.0,
+    "yaw_jitter_deg": 0.0,
+    "pitch_jitter_deg": 0.0,
+    "end_margin_m": 0.0
+  },
+  "capture": {
+    "warmup_frames": 24,
+    "rt_subframes": 8,
+    "max_attempts_per_image": 20,
+    "skip_empty": true,
+    "min_visible_pixels": 8,
+    "polygon_epsilon_px": 0.25,
+    "save_raw_rgb": true,
+    "save_gt_masks": true,
+    "overlay_every": 1,
+    "validation_physical_beds": [7, 8]
+  },
+  "postprocess": {
+    "enabled": true,
+    "reference": "rgb2.png dominant; image.png occasional stronger defocus",
+    "gaussian_sigma_px": [0.35, 0.70],
+    "strong_blur_probability": 0.10,
+    "strong_gaussian_sigma_px": [0.80, 1.15],
+    "motion_blur_probability": 0.10,
+    "motion_kernel_px": 3,
+    "read_noise_sigma_8bit": [0.5, 1.3],
+    "signal_noise_sigma_8bit": [0.3, 0.8],
+    "chroma_noise_sigma_8bit": [0.15, 0.40],
+    "gain": [0.96, 1.04],
+    "gamma": [0.97, 1.03],
+    "jpeg_probability": 0.20,
+    "jpeg_quality": [92, 99]
+  }
+}
