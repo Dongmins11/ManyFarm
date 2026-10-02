@@ -10,7 +10,7 @@ if __name__ == '__main__':
         from farm_vision.live import main
         args=sys.argv[1:]
         if not any(a == '--config' or a.startswith('--config=') for a in args):
-            args=['--config',str(ROOT/'robot/config/scout_vision.json'),*args]
+            args=['--config',str(ROOT/'robot/config/vision/scout.json'),*args]
         main(args,project_root=ROOT)
     except ImportError as error:
         raise SystemExit(f'추론 환경의 의존성을 확인하세요: {error}. docs/vision_stage.md 참고.')

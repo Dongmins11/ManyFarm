@@ -9,4 +9,5 @@ setup(name='scout_robot', version='0.5.5', packages=find_packages(),
     description='Common scout route preview and explicit navigation client', license='Proprietary',
     entry_points={'console_scripts': ['route_preview = scout_robot.route_preview:main',
                                      'drive_route = scout_robot.drive_route:main',
-                                     'survey_server = scout_robot.survey_server:main']})
+                                     'survey_server = scout_robot.survey_server:main',
+                                     'scout_node = scout_new.scout_node:main']})

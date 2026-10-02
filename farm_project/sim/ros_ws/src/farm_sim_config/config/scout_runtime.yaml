@@ -1,0 +1,26 @@
+# 현재 그래프는 베드별 16개 비연결 성분입니다. 연결 검증 전에는 기존 목적지 이동을 유지합니다.
+# 연결된 그래프와 경로 위 시작 위치를 준비한 뒤 navigation.mode: follow_path로 선택하세요.
+schema_version: 1
+configured: true
+mode: sim
+robot_id: scout_01
+map_id: farm_map_v1
+map_yaml: sim/ros_ws/src/farm_sim_config/maps/farm_map.yaml
+route_graph: sim/ros_ws/src/farm_sim_config/maps/graph.geojson
+nav_params: sim/ros_ws/src/farm_sim_config/config/nav2_scout.yaml
+survey_config: sim/ros_ws/src/farm_sim_config/config/scout_survey.json
+device_config: sim/ros_ws/src/farm_sim_config/config/scout.json
+navigation:
+  base_frame: scout_01/base_footprint
+  goal_timeout_s: 300.0
+  arrival_tolerance_m: 0.08
+  heading_tolerance_rad: 0.12
+  settle_s: 0.8
+  mode: navigate_to_pose
+  map_frame: map
+  controller_id: FollowPath
+  goal_checker_id: general_goal_checker
+  progress_checker_id: progress_checker
+  max_start_distance_m: 0.1
+  max_goal_distance_m: 0.02
+  path_spacing_m: 0.04

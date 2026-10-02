@@ -45,8 +45,8 @@
 | 구분 | 설정 파일 |
 |---|---|
 | sim | `sim/ros_ws/src/farm_sim_config/config/scout_survey.json` |
-| real | `robot/config/scout_survey_real.json` |
-| 실물 담당자용 양식 | `robot/config/scout_survey_real.example.json` |
+| real | `robot/config/survey/scout_real.json` |
+| 실물 담당자용 양식 | `robot/config/survey/scout_real.example.json` |
 
 공통 `scout_survey.launch.py`가 mode에 따라 파일을 선택합니다.
 `survey_config:=/사용할/파일.json`으로 직접 지정할 수도 있습니다.

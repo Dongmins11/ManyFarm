@@ -1,4 +1,6 @@
 """Sensor-only B survey geometry. No USD, ground truth or ROS imports."""
+from . import survey_policy
+from .survey_policy import SurveyPolicy
 import math
 import numpy as np
 from .b_planner import Config, Fruit, PlanResult, extend_plan
@@ -94,7 +96,10 @@ class StraightBed:
 
 
 class Survey:
-    def __init__(self, bed, prefix, association_distance):
+    def __init__(self, bed, prefix, association_distance, *, policy: SurveyPolicy | None = None):
+        self._policy = survey_policy.ACTIVE_SURVEY_POLICY if policy is None else policy
+        if not isinstance(self._policy, SurveyPolicy):
+            raise ValueError("policy는 SurveyPolicy 타입이어야 합니다.")
         self.bed=bed;self.prefix=prefix;self.distance=float(association_distance)
         if not 0<self.distance<.5: raise ValueError('Invalid association distance')
         self.fruits=[];self.plan=PlanResult();self.observations=0
@@ -102,7 +107,7 @@ class Survey:
 
     def ingest(self,detections,segment_id=None):
         segment_id=segment_id or f'{self.prefix}_S{self.observations+1:03d}'
-        # Associate against fused positions; preserve one-to-one ownership per capture.
+        # 선택한 방식의 대표 좌표와 일대일 매칭합니다. 거리 매칭 자체는 두 방식이 같습니다.
         pairs=[]
         for i,d in enumerate(detections):
             p=np.asarray(d['position_map_m'],float)
@@ -127,13 +132,17 @@ class Survey:
                 'position_map_m':list(d['position_map_m']),'confidence':float(d['confidence']),
                 'segment_id':segment_id})
             samples=np.array([sample['position_map_m'] for sample in f['position_samples']])
-            f['position_map_m']=np.median(samples,axis=0).tolist()
+            if self._policy is SurveyPolicy.MEDIAN_REVALIDATE:
+                f['position_map_m']=np.median(samples,axis=0).tolist()
+            else:
+                # 최신 좌표·관측 이력은 아래에서 계속 갱신하되 대표 좌표는 고정합니다.
+                f['position_map_m']=list(f['position_first_map_m'])
             f['position_latest_map_m']=list(d['position_map_m'])
             f['position_span_m']=np.ptp(samples,axis=0).tolist()
         # Recheck corrected coordinates against fixed windows before dispatch.
         observed=[Fruit(f['id'],*self.bed.local(f['position_map_m'])) for f in self.fruits]
         # Exclude out-of-section/context detections before calling ingest in server.
-        self.plan=extend_plan(self.plan,observed,self.bed.plan_cfg,revalidate=True);self.observations+=1
+        self.plan=extend_plan(self.plan,observed,self.bed.plan_cfg,revalidate=self._policy is SurveyPolicy.MEDIAN_REVALIDATE);self.observations+=1
         for task in self.plan.tasks:self.window_segments.setdefault(task.task_id,segment_id)
         return [self.fruits[assigned[i]]['id'] for i in range(len(detections))]
 
@@ -159,8 +168,10 @@ class Survey:
         return {'fruits':self.fruits,'windows':self.windows(),'holds':[vars(h) for h in self.plan.holds],
                 'observation_count':self.observations,'harvest_task_count':len(self.windows()),
                 'total_expected_count':sum(len(t.member_ids) for t in self.plan.tasks),
-                'position_semantics':'componentwise median of associated map-frame RGB-D surface samples, not fruit center/grasp point',
-                'position_fusion':'componentwise_median_all_observations; two observations use their midpoint',
+                'survey_policy':self._policy.value,
+                'position_semantics':'map-frame RGB-D surface position, not fruit center/grasp point',
+                'position_fusion':('componentwise_median_all_observations; two observations use their midpoint'
+                    if self._policy is SurveyPolicy.MEDIAN_REVALIDATE else 'first_observation_position'),
                 'range_tolerance_m':self.bed.plan_cfg.range_tolerance,
                 'membership_margin_m':self.bed.plan_cfg.membership_margin,
                 'reserved_empty_window_count':sum(not t.member_ids for t in self.plan.tasks),

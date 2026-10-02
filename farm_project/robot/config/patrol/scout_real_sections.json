@@ -1,0 +1,29 @@
+{
+  "schema_version": 1,
+  "robot_id": "scout_01",
+  "map_id": "many_farm_v1",
+  "route_graph": "robot/config/maps/many_farm/graph.geojson",
+  "sections": {
+    "SEC_01": {
+      "segments": [
+        {
+          "segment_id": "SEG_01",
+          "observation_node_id": 4
+        },
+        {
+          "segment_id": "SEG_02",
+          "observation_node_id": 6
+        },
+        {
+          "segment_id": "SEG_03",
+          "observation_node_id": 8
+        }
+      ],
+      "on_complete": "WAIT_FOR_COMMAND"
+    }
+  },
+  "notes": [
+    "실행에는 SEC_01의 실제 베드·카메라 설정이 필요합니다.",
+    "1번으로 자동 복귀하지 않습니다. 별도 복귀 명령을 기다립니다."
+  ]
+}

@@ -1,0 +1,534 @@
+{
+  "frame_id": "map",
+  "units": "m",
+  "status": "layout_confirmed",
+  "nodes": [
+    {
+      "id": 0,
+      "right_cm": 50.0,
+      "down_cm": 99.3,
+      "map_xy_m": [
+        0.5189999999999999,
+        -0.009000000000000341
+      ],
+      "kind": "graph_entry"
+    },
+    {
+      "id": 1,
+      "right_cm": 125.0,
+      "down_cm": 99.3,
+      "map_xy_m": [
+        0.5189999999999999,
+        -0.7590000000000003
+      ],
+      "kind": "station_centre_exit_on_scout_route_only"
+    },
+    {
+      "id": 2,
+      "right_cm": 150.0,
+      "down_cm": 99.3,
+      "map_xy_m": [
+        0.5189999999999999,
+        -1.0090000000000003
+      ],
+      "kind": "bed_start_junction"
+    },
+    {
+      "id": 3,
+      "right_cm": 175.0,
+      "down_cm": 99.3,
+      "map_xy_m": [
+        0.5189999999999999,
+        -1.2590000000000003
+      ],
+      "kind": "station_centre_exit_on_scout_route_only"
+    },
+    {
+      "id": 4,
+      "right_cm": 221.075718173137,
+      "down_cm": 99.3,
+      "map_xy_m": [
+        0.5189999999999999,
+        -1.7197571817313704
+      ],
+      "kind": "scout_observation_candidate"
+    },
+    {
+      "id": 5,
+      "right_cm": 241.075718173137,
+      "down_cm": 99.3,
+      "map_xy_m": [
+        0.5189999999999999,
+        -1.9197571817313706
+      ],
+      "kind": "junction_not_observation"
+    },
+    {
+      "id": 6,
+      "right_cm": 325.0,
+      "down_cm": 99.3,
+      "map_xy_m": [
+        0.5189999999999999,
+        -2.7590000000000003
+      ],
+      "kind": "scout_observation_candidate"
+    },
+    {
+      "id": 7,
+      "right_cm": 376.96214091343154,
+      "down_cm": 99.3,
+      "map_xy_m": [
+        0.5189999999999999,
+        -3.2786214091343155
+      ],
+      "kind": "junction_not_observation"
+    },
+    {
+      "id": 8,
+      "right_cm": 428.924281826863,
+      "down_cm": 99.3,
+      "map_xy_m": [
+        0.5189999999999999,
+        -3.7982428182686307
+      ],
+      "kind": "scout_observation_candidate"
+    },
+    {
+      "id": 9,
+      "right_cm": 500.0,
+      "down_cm": 99.3,
+      "map_xy_m": [
+        0.5189999999999999,
+        -4.509
+      ],
+      "kind": "bed_end_route_candidate"
+    },
+    {
+      "id": 10,
+      "right_cm": 50.0,
+      "down_cm": 167.79999999999998,
+      "map_xy_m": [
+        1.204,
+        -0.009000000000000341
+      ],
+      "kind": "harvest_route"
+    },
+    {
+      "id": 11,
+      "right_cm": 150.0,
+      "down_cm": 167.79999999999998,
+      "map_xy_m": [
+        1.204,
+        -1.0090000000000003
+      ],
+      "kind": "harvest_route"
+    },
+    {
+      "id": 12,
+      "right_cm": 241.075718173137,
+      "down_cm": 167.79999999999998,
+      "map_xy_m": [
+        1.204,
+        -1.9197571817313706
+      ],
+      "kind": "harvest_junction"
+    },
+    {
+      "id": 13,
+      "right_cm": 376.96214091343154,
+      "down_cm": 167.79999999999998,
+      "map_xy_m": [
+        1.204,
+        -3.2786214091343155
+      ],
+      "kind": "harvest_junction"
+    },
+    {
+      "id": 14,
+      "right_cm": 500.0,
+      "down_cm": 167.79999999999998,
+      "map_xy_m": [
+        1.204,
+        -4.509
+      ],
+      "kind": "harvest_route"
+    },
+    {
+      "id": 15,
+      "right_cm": 241.075718173137,
+      "down_cm": 27.25,
+      "map_xy_m": [
+        -0.2015,
+        -1.9197571817313706
+      ],
+      "kind": "transport_junction"
+    },
+    {
+      "id": 16,
+      "right_cm": 376.96214091343154,
+      "down_cm": 27.25,
+      "map_xy_m": [
+        -0.2015,
+        -3.2786214091343155
+      ],
+      "kind": "transport_junction"
+    },
+    {
+      "id": 17,
+      "right_cm": 419.5,
+      "down_cm": 27.25,
+      "map_xy_m": [
+        -0.2015,
+        -3.7040000000000006
+      ],
+      "kind": "graph_endpoint_external_docking"
+    }
+  ],
+  "edges": [
+    {
+      "source": 7,
+      "target": 13,
+      "kind": "vertical_connection",
+      "direction": "directed",
+      "centerline_free": true,
+      "bidirectional_pair": true
+    },
+    {
+      "source": 13,
+      "target": 7,
+      "kind": "vertical_connection",
+      "direction": "directed",
+      "centerline_free": true,
+      "bidirectional_pair": true
+    },
+    {
+      "source": 16,
+      "target": 7,
+      "kind": "vertical_connection",
+      "direction": "directed",
+      "centerline_free": true,
+      "bidirectional_pair": true
+    },
+    {
+      "source": 7,
+      "target": 16,
+      "kind": "vertical_connection",
+      "direction": "directed",
+      "centerline_free": true,
+      "bidirectional_pair": true
+    },
+    {
+      "source": 5,
+      "target": 12,
+      "kind": "vertical_connection",
+      "direction": "directed",
+      "centerline_free": true,
+      "bidirectional_pair": true
+    },
+    {
+      "source": 12,
+      "target": 5,
+      "kind": "vertical_connection",
+      "direction": "directed",
+      "centerline_free": true,
+      "bidirectional_pair": true
+    },
+    {
+      "source": 15,
+      "target": 5,
+      "kind": "vertical_connection",
+      "direction": "directed",
+      "centerline_free": true,
+      "bidirectional_pair": true
+    },
+    {
+      "source": 5,
+      "target": 15,
+      "kind": "vertical_connection",
+      "direction": "directed",
+      "centerline_free": true,
+      "bidirectional_pair": true
+    },
+    {
+      "source": 0,
+      "target": 1,
+      "kind": "scout_route",
+      "direction": "directed",
+      "centerline_free": true,
+      "bidirectional_pair": true
+    },
+    {
+      "source": 1,
+      "target": 0,
+      "kind": "scout_route",
+      "direction": "directed",
+      "centerline_free": true,
+      "bidirectional_pair": true
+    },
+    {
+      "source": 1,
+      "target": 2,
+      "kind": "scout_route",
+      "direction": "directed",
+      "centerline_free": true,
+      "bidirectional_pair": true
+    },
+    {
+      "source": 2,
+      "target": 1,
+      "kind": "scout_route",
+      "direction": "directed",
+      "centerline_free": true,
+      "bidirectional_pair": true
+    },
+    {
+      "source": 2,
+      "target": 3,
+      "kind": "scout_route",
+      "direction": "directed",
+      "centerline_free": true,
+      "bidirectional_pair": true
+    },
+    {
+      "source": 3,
+      "target": 2,
+      "kind": "scout_route",
+      "direction": "directed",
+      "centerline_free": true,
+      "bidirectional_pair": true
+    },
+    {
+      "source": 3,
+      "target": 4,
+      "kind": "scout_route",
+      "direction": "directed",
+      "centerline_free": true,
+      "bidirectional_pair": true
+    },
+    {
+      "source": 4,
+      "target": 3,
+      "kind": "scout_route",
+      "direction": "directed",
+      "centerline_free": true,
+      "bidirectional_pair": true
+    },
+    {
+      "source": 4,
+      "target": 5,
+      "kind": "scout_route",
+      "direction": "directed",
+      "centerline_free": true,
+      "bidirectional_pair": true
+    },
+    {
+      "source": 5,
+      "target": 4,
+      "kind": "scout_route",
+      "direction": "directed",
+      "centerline_free": true,
+      "bidirectional_pair": true
+    },
+    {
+      "source": 5,
+      "target": 6,
+      "kind": "scout_route",
+      "direction": "directed",
+      "centerline_free": true,
+      "bidirectional_pair": true
+    },
+    {
+      "source": 6,
+      "target": 5,
+      "kind": "scout_route",
+      "direction": "directed",
+      "centerline_free": true,
+      "bidirectional_pair": true
+    },
+    {
+      "source": 6,
+      "target": 7,
+      "kind": "scout_route",
+      "direction": "directed",
+      "centerline_free": true,
+      "bidirectional_pair": true
+    },
+    {
+      "source": 7,
+      "target": 6,
+      "kind": "scout_route",
+      "direction": "directed",
+      "centerline_free": true,
+      "bidirectional_pair": true
+    },
+    {
+      "source": 7,
+      "target": 8,
+      "kind": "scout_route",
+      "direction": "directed",
+      "centerline_free": true,
+      "bidirectional_pair": true
+    },
+    {
+      "source": 8,
+      "target": 7,
+      "kind": "scout_route",
+      "direction": "directed",
+      "centerline_free": true,
+      "bidirectional_pair": true
+    },
+    {
+      "source": 8,
+      "target": 9,
+      "kind": "scout_route",
+      "direction": "directed",
+      "centerline_free": true,
+      "bidirectional_pair": true
+    },
+    {
+      "source": 9,
+      "target": 8,
+      "kind": "scout_route",
+      "direction": "directed",
+      "centerline_free": true,
+      "bidirectional_pair": true
+    },
+    {
+      "source": 10,
+      "target": 11,
+      "kind": "harvest_route",
+      "direction": "directed",
+      "centerline_free": true,
+      "bidirectional_pair": true
+    },
+    {
+      "source": 11,
+      "target": 10,
+      "kind": "harvest_route",
+      "direction": "directed",
+      "centerline_free": true,
+      "bidirectional_pair": true
+    },
+    {
+      "source": 11,
+      "target": 12,
+      "kind": "harvest_route",
+      "direction": "directed",
+      "centerline_free": true,
+      "bidirectional_pair": true
+    },
+    {
+      "source": 12,
+      "target": 11,
+      "kind": "harvest_route",
+      "direction": "directed",
+      "centerline_free": true,
+      "bidirectional_pair": true
+    },
+    {
+      "source": 12,
+      "target": 13,
+      "kind": "harvest_route",
+      "direction": "directed",
+      "centerline_free": true,
+      "bidirectional_pair": true
+    },
+    {
+      "source": 13,
+      "target": 12,
+      "kind": "harvest_route",
+      "direction": "directed",
+      "centerline_free": true,
+      "bidirectional_pair": true
+    },
+    {
+      "source": 13,
+      "target": 14,
+      "kind": "harvest_route",
+      "direction": "directed",
+      "centerline_free": true,
+      "bidirectional_pair": true
+    },
+    {
+      "source": 14,
+      "target": 13,
+      "kind": "harvest_route",
+      "direction": "directed",
+      "centerline_free": true,
+      "bidirectional_pair": true
+    },
+    {
+      "source": 15,
+      "target": 16,
+      "kind": "transport_route",
+      "direction": "directed",
+      "centerline_free": true,
+      "bidirectional_pair": true
+    },
+    {
+      "source": 16,
+      "target": 15,
+      "kind": "transport_route",
+      "direction": "directed",
+      "centerline_free": true,
+      "bidirectional_pair": true
+    },
+    {
+      "source": 16,
+      "target": 17,
+      "kind": "transport_route",
+      "direction": "directed",
+      "centerline_free": true,
+      "bidirectional_pair": true
+    },
+    {
+      "source": 17,
+      "target": 16,
+      "kind": "transport_route",
+      "direction": "directed",
+      "centerline_free": true,
+      "bidirectional_pair": true
+    },
+    {
+      "source": 0,
+      "target": 10,
+      "kind": "station_connection",
+      "direction": "directed",
+      "centerline_free": true,
+      "bidirectional_pair": true
+    },
+    {
+      "source": 10,
+      "target": 0,
+      "kind": "station_connection",
+      "direction": "directed",
+      "centerline_free": true,
+      "bidirectional_pair": true
+    }
+  ],
+  "edge_representation": "two opposite directed edges per physical connection",
+  "visual_offset_cm": 1.8,
+  "parameters": {
+    "sorting_gap_cm": 15.0,
+    "sorting_gap_direction": "horizontal",
+    "transport_from_top_cm": 27.25,
+    "transport_from_top_status": "sorter_central_height_estimate",
+    "s01_left_shift_cm": 20.0,
+    "s01_left_shift_status": "temporary_interpretation_of_a_little_left",
+    "sorter_centre_from_top_cm": 27.25,
+    "sorter_centre_right_cm": 477.75,
+    "sorter_centre_status": "bounding_box_midpoint_of_map_shape_not_measured",
+    "docking_handoff_offset_cm": 15.0,
+    "docking_handoff_reference": "sorter_passage_face_outward_toward_stations",
+    "scope": "graph_geometry_only; docking implemented by another team member",
+    "station_exit_points_right_cm": [
+      125.0,
+      175.0
+    ]
+  },
+  "sorter_rightmost_contour_right_cm": 434.5,
+  "pending": [],
+  "note": "Transport line at sorter centre height; endpoint 15cm outside passage-facing contour toward stations; graph only, docking belongs to another module; S01 left shift 20cm provisional. Stations have no graph inside them. No footprint/traffic/turn validation. Heading depends on traversed edge, not a single fixed node yaw.",
+  "version": "many_farm_v1",
+  "validation_scope": "User-confirmed graph geometry. Physical clearances and localization require separate validation."
+}

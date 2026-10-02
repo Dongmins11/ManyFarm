@@ -1,0 +1,20 @@
+{
+  "backend": "realsense_legacy",
+  "worker_python": "~/pi_d435_setup/.venv/bin/python",
+  "legacy_directory": "~/bmany_fleet_ws/perception_worker",
+  "model": "model_yolo11_seg_ver1.2.pt",
+  "camera_frame": "camera_color_optical_frame",
+  "confidence": 0.6,
+  "preprocess": {},
+  "rpc_timeout_s": 180,
+  "startup_timeout_s": 300,
+  "camera": {
+    "width": 1280,
+    "height": 720,
+    "fps": 6,
+    "auto_white_balance": true,
+    "auto_exposure": true,
+    "warmup_frames": 120,
+    "warmup_timeout_s": 90
+  }
+}

@@ -3,7 +3,7 @@
   "robot_id": "scout_01",
   "map_id": "farm_map_v1",
   "base_frame": "scout_01/base_footprint",
-  "vision_config": "robot/config/scout_vision.json",
+  "vision_config": "robot/config/vision/scout.json",
   "output_dir": "runs/scout_survey",
   "goal_timeout_s": 300.0,
   "arrival_tolerance_m": 0.08,

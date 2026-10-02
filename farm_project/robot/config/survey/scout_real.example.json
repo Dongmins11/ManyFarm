@@ -4,7 +4,7 @@
   "robot_id": "scout_01",
   "map_id": "",
   "base_frame": "",
-  "vision_config": "robot/config/scout_vision_real.json",
+  "vision_config": "robot/config/vision/scout_real.json",
   "output_dir": "runs/scout_survey",
   "goal_timeout_s": 300.0,
   "arrival_tolerance_m": 0.08,
@@ -42,7 +42,7 @@
   },
   "notes": [
     "실물 담당자 작성용 템플릿입니다. 실제 지도·경로·카메라/팔 치수와 촬영 지점을 채운 후 configured를 true로 바꾸세요.",
-    "robot/config/scout_survey_real.json으로 저장하면 mode:=real에서 기본 선택됩니다. 빈 템플릿은 실행되지 않습니다.",
+    "robot/config/survey/scout_real.json으로 저장하면 mode:=real에서 기본 선택됩니다. 빈 템플릿은 실행되지 않습니다.",
     "segment offset_m은 해당 베드 경로 시작점부터 진행 방향으로 잰 거리(m)입니다. 개수와 위치는 실제 베드에 맞춰 정합니다.",
     "자동 배치를 쓰려면 segmentation을 mode=auto, id_prefix, overlap_fraction 형태로 바꾸세요.",
     "여기의 도착/ID 연결/허용 오차 값은 검토할 초기값입니다. real 장치 연결과 카메라 설정은 별도로 구현해야 합니다."

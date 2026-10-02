@@ -21,8 +21,8 @@ def setup(context):
         if path is None or not path.is_file():
             raise RuntimeError(f'{name}: 실제 존재하는 파일을 지정하세요. real 설정은 아직 준비되지 않았습니다.')
         selected[name] = str(path.absolute())
-    # scout_01 is the current device namespace; every TF frame is explicitly prefixed.
-    namespace = 'scout_01'
+    # 프레임 이름은 유지하고 실물 TF·센서 토픽을 장치 namespace에 연결합니다.
+    namespace = value('robot_id')
     params = ParameterFile(RewrittenYaml(
         source_file=selected['nav_params'], root_key=namespace,
         param_rewrites={'use_sim_time': 'true' if sim else 'false'},
@@ -41,6 +41,9 @@ def setup(context):
             remaps = [('cmd_vel', 'cmd_vel_nav')]
         elif name == 'velocity_smoother':
             remaps = [('cmd_vel', 'cmd_vel_nav'), ('cmd_vel_smoothed', 'cmd_vel')]
+        if not sim:
+            remaps += [('/'+topic, '/'+namespace+'/'+topic)
+                       for topic in ('tf', 'tf_static', 'scan', 'scan_filtered', 'odom', 'map')]
         actions.append(Node(package=package, executable=name, name=name,
                             namespace=namespace, output='screen',
                             parameters=[params, *extra], remappings=remaps))
@@ -56,12 +59,13 @@ def setup(context):
         actions.append(Node(package='rviz2', executable='rviz2', name='scout_rviz',
             output='screen', arguments=['-d', str(rviz)],
             parameters=[{'use_sim_time': sim}],
-            remappings=[('/initialpose', '/scout_01/initialpose')]))
+            remappings=[('/initialpose', f'/{namespace}/initialpose')]))
     return actions
 
 
 def generate_launch_description():
     return LaunchDescription([
+        DeclareLaunchArgument('robot_id', default_value='scout_01'),
         DeclareLaunchArgument('mode', default_value='sim', choices=['sim', 'real']),
         DeclareLaunchArgument('map', default_value=''),
         DeclareLaunchArgument('nav_params', default_value=''),

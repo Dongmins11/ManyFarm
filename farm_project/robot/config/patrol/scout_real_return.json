@@ -1,0 +1,15 @@
+{
+  "schema_version": 1,
+  "robot_id": "scout_01",
+  "map_id": "many_farm_v1",
+  "route_graph": "robot/config/maps/many_farm/graph.geojson",
+  "return_target": {
+    "node_id": 1
+  },
+  "trigger": "SEPARATE_CONTROL_COMMAND",
+  "notes": [
+    "설정 초안: 현재 런치·FSM·관제에는 연결하지 않았습니다.",
+    "관제의 별도 복귀 명령 시에만 사용하도록 계획한 목적지입니다.",
+    "1번 도착은 복귀 완료이며 정밀 도킹 완료를 의미하지 않습니다."
+  ]
+}

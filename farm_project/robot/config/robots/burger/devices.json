@@ -1,0 +1,28 @@
+{
+  "schema_version": 1,
+  "robot_id": "scout_01",
+  "map_id": "many_farm_v1",
+  "model": "burger",
+  "usb_port": "/dev/ttyACM0",
+  "lds_model": "LDS-02",
+  "camera_mount": {
+    "parent_frame": "base_footprint",
+    "link_frame": "bmany_camera_link",
+    "optical_frame": "camera_color_optical_frame",
+    "xyz_m": [
+      -0.02,
+      0,
+      0.6
+    ],
+    "rpy_rad": [
+      0,
+      0.03490658503988659,
+      1.5707963267948966
+    ],
+    "optical_rpy_rad": [
+      -1.5707963267948966,
+      0,
+      -1.5707963267948966
+    ]
+  }
+}

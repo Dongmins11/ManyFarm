@@ -21,9 +21,15 @@ def parse_args(argv=None):
     group.add_argument('--section',nargs='+',action='extend',help='예찰할 구역. 입력한 순서로 실행합니다.')
     group.add_argument('--all',action='store_true',help='선택한 survey config의 모든 구역을 순서대로 실행합니다.')
     p.add_argument('--survey-config',type=Path,default=Path(__file__).resolve().parents[2]/'sim/ros_ws/src/farm_sim_config/config/scout_survey.json')
-    p.add_argument('--map-id',default='farm_map_v1')
+    p.add_argument('--map-id',default=None)
+    p.add_argument('--robot-id',default=None)
     p.add_argument('--timeout',type=float,default=14400.,help='전체 작업 대기 제한(실제 시간 초), 기본 4시간')
     a=p.parse_args(argv)
+    try:
+        config=json.loads(a.survey_config.expanduser().read_text())
+    except (OSError,ValueError) as exc:p.error(f'survey config 읽기 실패: {exc}')
+    a.robot_id=a.robot_id or config['robot_id']
+    a.map_id=a.map_id or config['map_id']
     if a.all:
         try:a.section=list(json.loads(a.survey_config.expanduser().read_text())['sections'])
         except (OSError,ValueError,KeyError,TypeError) as exc:p.error(f'survey config 읽기 실패: {exc}')
@@ -35,7 +41,7 @@ def parse_args(argv=None):
 
 def main():
     a=parse_args();rclpy.init(signal_handler_options=SignalHandlerOptions.NO);node=Node('test_scout_control')
-    client=ActionClient(node,ScoutArea,'/scout_01/scout_area');stopped=[False];handle=None;pending=None;result_future=None
+    client=ActionClient(node,ScoutArea,f'/{a.robot_id}/scout_area');stopped=[False];handle=None;pending=None;result_future=None
     path=Path(__file__).resolve().parents[2]/'runs/control'/('SCOUT_'+uuid.uuid4().hex[:12]+'.jsonl')
     path.parent.mkdir(parents=True,exist_ok=True)
     def log(kind,msg):
@@ -56,7 +62,7 @@ def main():
         return future.result()
     try:
         if not client.wait_for_server(timeout_sec=10):raise RuntimeError('Start scout_survey.launch.py first')
-        g=ScoutArea.Goal();g.robot_id='scout_01';g.task_id=path.stem;g.section_ids=a.section
+        g=ScoutArea.Goal();g.robot_id=a.robot_id;g.task_id=path.stem;g.section_ids=a.section
         g.map_id=a.map_id;g.frame_id='map';g.crop_type='PAPRIKA';g.target_ripeness='RIPE';g.timestamp=datetime.now(timezone.utc).isoformat()
         log('goal',g);pending=client.send_goal_async(g,feedback_callback=lambda m:log('feedback',m.feedback))
         handle=wait(pending,15)

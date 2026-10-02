@@ -4,6 +4,7 @@ import math
 from pathlib import Path as FilePath
 import rclpy
 from rclpy.node import Node
+from rcl_interfaces.msg import ParameterDescriptor
 from rclpy.qos import QoSProfile, DurabilityPolicy
 from geometry_msgs.msg import Point, PoseStamped
 from nav_msgs.msg import Path
@@ -15,14 +16,19 @@ class RoutePreview(Node):
     def __init__(self):
         super().__init__('route_preview')
         self.declare_parameter('route_file', '')
-        self.declare_parameter('node_ids', list(range(1, 9)))
+        self.declare_parameter('node_ids', [], ParameterDescriptor(dynamic_typing=True))
         self.declare_parameter('show_all_sections', True)
         filename = self.get_parameter('route_file').value
-        sections = json.loads(FilePath(filename).read_text()).get('survey_sections', {})
+        graph = json.loads(FilePath(filename).read_text())
+        sections = graph.get('survey_sections', {})
         if self.get_parameter('show_all_sections').value and sections:
             self.routes = {sid: load_route(filename, cfg['node_ids']) for sid, cfg in sections.items()}
-        else:
+        elif self.get_parameter('node_ids').value:
             self.routes = {'selected': load_route(filename, self.get_parameter('node_ids').value)}
+        else:
+            # 다른 환경의 노드 번호를 가정하지 않고 그래프의 각 방향 엣지를 표시합니다.
+            edges = [f['properties'] for f in graph['features'] if f['geometry']['type'] in ('LineString', 'MultiLineString')]
+            self.routes = {f"edge_{i}": load_route(filename, [edge['startid'], edge['endid']]) for i, edge in enumerate(edges)}
         qos = QoSProfile(depth=1, durability=DurabilityPolicy.TRANSIENT_LOCAL)
         self.path_pub = self.create_publisher(Path, 'route_preview', qos)
         self.markers_pub = self.create_publisher(MarkerArray, 'route_markers', qos)

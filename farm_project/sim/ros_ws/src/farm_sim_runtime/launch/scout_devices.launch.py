@@ -13,7 +13,7 @@ from launch_ros.actions import Node
 def setup(context):
     import farm_common,farm_sim_devices,farm_sim_runtime
     value=lambda name:LaunchConfiguration(name).perform(context)
-    config=Path(get_package_share_directory('farm_sim_config'))/'config/scout.json'
+    config=Path(value('config_file')).expanduser() if value('config_file') else Path(get_package_share_directory('farm_sim_config'))/'config/scout.json'
     import json
     cfg=json.loads(config.read_text())
     adapter=Node(package='farm_sim_devices',executable='ros_adapter',namespace=cfg['robot_id'],
@@ -46,6 +46,7 @@ def setup(context):
 
 def generate_launch_description():
     return LaunchDescription([
+        DeclareLaunchArgument('config_file',default_value=''),
         DeclareLaunchArgument('assets_root',default_value=''),
         DeclareLaunchArgument('isaac_python',default_value=''),
         DeclareLaunchArgument('start_isaac',default_value='true'),

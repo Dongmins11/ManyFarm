@@ -11,6 +11,7 @@ for package in ('scout_robot','farm_vision','farm_common'):
     sys.path.insert(0,str(ROOT/'robot/ros_ws/src'/package))
 from scout_robot.survey_core import StraightBed,Survey,transform_points,matrix_from_pose
 from scout_robot.route import load_route
+from scout_robot.survey_policy import SurveyPolicy
 from farm_vision.survey_worker import surface_sample
 from farm_vision.preprocess import prepare
 
@@ -22,11 +23,27 @@ class SurveyTest(unittest.TestCase):
         self.cfg=json.loads((ROOT/'sim/ros_ws/src/farm_sim_config/config/scout_survey.json').read_text())
         self.c=self.cfg['sections']['BED_01'];self.route=load_route(ROOT/self.c['route_file'],self.c['node_ids'])
         self.bed=StraightBed(self.route,self.c)
-        self.pre=json.loads((ROOT/'robot/config/scout_vision.json').read_text())['preprocess']
+        self.pre=json.loads((ROOT/'robot/config/vision/scout.json').read_text())['preprocess']
         f=640*1.88/3.5;self.K=np.array([[f,0,320],[0,f,192],[0,0,1]])
         self.C=np.array([[1,0,0,0],[0,0,1,0],[0,-1,0,.6],[0,0,0,1]],float)
     def detection(self,s,n=1.14,z=.8):
         return dict(position_map_m=self.bed.world(s,n,z),class_name='Red',confidence=.9,stamp_ns=100)
+    def test_policy_position_and_new_fruit(self):
+        for policy in SurveyPolicy:
+            with self.subTest(policy=policy):
+                survey=Survey(self.bed,'policy',.065,policy=policy)
+                first=survey.ingest([self.detection(1)])
+                window=survey.windows()[0]['window_id']
+                ids=survey.ingest([self.detection(1.04),self.detection(1.12)])
+                self.assertEqual(first[0],ids[0])
+                self.assertNotEqual(ids[0],ids[1])
+                expected=1.02 if policy is SurveyPolicy.MEDIAN_REVALIDATE else 1.0
+                self.assertAlmostEqual(self.bed.local(survey.fruits[0]['position_map_m'])[0],expected)
+                self.assertEqual(survey.windows()[0]['window_id'],window)
+                self.assertEqual(survey.windows()[0]['expected_count'],2)
+                self.assertEqual(len(survey.fruits[0]['position_samples']),2)
+                self.assertEqual(survey.record()['survey_policy'],policy.value)
+
     def test_viewpoint_coverage(self):
         d=self.bed.viewpoints(self.K,self.C,640,384,self.pre,.15)
         stops=d['stops_s_m'];lo,hi=d['relative_coverage_m']

@@ -101,7 +101,7 @@ YOLO 결과 마스크에서 패딩 영역을 제외하며, 검출 위치를 원�
 
 ### 현재 가정 — 반드시 화면으로 확인
 
-설정: `robot/config/scout_vision.json`
+설정: `robot/config/vision/scout.json`
 
 ```json
 "preprocess": {
