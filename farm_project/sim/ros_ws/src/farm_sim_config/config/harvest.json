@@ -21,7 +21,7 @@
     "control_frame_yaw_rad": 3.141592653589793
   },
   "notes": [
-    "v0.8.5에서 검증에 사용한 수확 물리 자산/좌측 팔 논리 좌표계. 팔 구동은 생략."
+    "v0.8.5 수확 주행 자산을 유지하고 오른팔 arm_2의 물성·HOME·작업 좌표를 세션 설정으로 적용합니다. 수확 정책 실행은 후속 작업입니다."
   ],
   "base": {
     "wheel_joints": [
@@ -39,14 +39,15 @@
     "command_timeout_s": 0.5
   },
   "runtime": {
-    "physics_hz": 60,
+    "physics_hz": 480,
     "render_hz": 60,
     "realtime": true,
     "command_port": 17610,
     "telemetry_port": 17611,
     "telemetry_hz": 30,
     "transport_timeout_s": 2.0,
-    "drop_limit_m": 0.25
+    "drop_limit_m": 0.25,
+    "robotarm_physics_config": "sim/ros_ws/src/farm_sim_config/config/robotarm_physics.json"
   },
   "frames": {
     "odom": "harvest_01/odom",

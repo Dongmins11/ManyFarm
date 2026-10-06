@@ -55,6 +55,18 @@ def insert_boundary(graph: dict, node_id: str, xy: list[float]) -> None:
             graph['features'].append(part)
 
 
+def harvest_workspace(harvest: dict) -> dict:
+    """오른팔 장착점·작업 범위(m)로 논리 base_footprint 평가 상자를 계산합니다."""
+    mount, work = harvest['mount_xy_base_m'], harvest['work_offset_xy_base_m']
+    lower, upper = harvest['height_offsets_m']
+    return dict(
+        frame='base_footprint',
+        center_m=[round(mount[0] + work[0], 12), round(mount[1] + work[1], 12),
+                  round(harvest['height_reference_m'] + (lower + upper) / 2, 12)],
+        size_m=[harvest['width_m'], harvest['depth_m'], round(upper - lower, 12)],
+        boundary_epsilon_m=1e-6, source=harvest['geometry_status'])
+
+
 def build() -> dict[str, dict]:
     """미션 구현을 바꾸지 않고 route_file/node_ids와 patrol 계약에 맞춥니다."""
     task = yaml.safe_load((BASE / 'config/task.yaml').read_text())
@@ -93,6 +105,14 @@ def build() -> dict[str, dict]:
             'maps/harvest_graph.geojson': graphs['harvest'],
             'maps/transport_graph.geojson': graphs['transport'],
             'config/scout_survey.json': survey, 'config/scout_patrol.json': patrol}
+    if (BASE / 'config/harvest_audit.json').is_file():
+        # 예찰 목표 생성과 도착 평가가 같은 장착점·범위를 사용하도록 원본을 공유합니다.
+        workspaces = [harvest_workspace(section['harvest']) for section in task['sections'].values()]
+        if not workspaces or any(workspace != workspaces[0] for workspace in workspaces[1:]):
+            raise ValueError('수확 로봇 평가 상자는 모든 구역에서 같은 로봇 기하를 사용해야 합니다.')
+        audit = json.loads((BASE / 'config/harvest_audit.json').read_text())
+        audit['evaluation']['workspace'] = workspaces[0]
+        outputs['config/harvest_audit.json'] = audit
     if (BASE / 'config/nav2_harvest.yaml').is_file():
         harvest_nav = yaml.safe_load((BASE / 'config/nav2_harvest.yaml').read_text())
         harvest_station = task['stations']['harvest_01']

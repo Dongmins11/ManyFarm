@@ -49,21 +49,22 @@ sections:
     harvest:
       heading_offset_rad: 0.0
       mount_xy_base_m:
-      - -0.19
+      - 0.19
       - 0.185
       work_offset_xy_base_m:
       - 0.0
-      - 0.25
-      height_reference_m: 0.703
+      - 0.315
+      height_reference_m: 0.713
       height_offsets_m:
       - -0.1
       - 0.35
       width_m: 0.35
       side_margin_m: 0.03
       depth_m: 0.1
-      geometry_status: Left arm in logical driving frame (asset -X forward). Mount
-        XY (-0.19,+0.185); left work offset +0.25m. Workspace remains a provisional
-        cuboid, not IK.
+      geometry_status: 오른팔 arm_2/base_link의 논리 base_footprint 장착점은 (0.19,0.185,0.713)m,
+        yaw는 +pi/2다. 과실 root 후보 외곽 x=0.265..0.365, y=-0.175..0.175, z=-0.10..0.35m를
+        작업 상자로 환산했다. 18개 이산 후보의 성공률이나 전체 IK·충돌 회피를 보장하지 않는다.
+        예찰은 RGB-D 표면 좌표, 평가는 과실 중심 좌표를 사용하므로 root·파지점과 동일하지 않다.
       range_tolerance_m: 0.02
       membership_margin_m: 0.0
     finish_at: last_segment
@@ -106,21 +107,22 @@ sections:
     harvest:
       heading_offset_rad: 0.0
       mount_xy_base_m:
-      - -0.19
+      - 0.19
       - 0.185
       work_offset_xy_base_m:
       - 0.0
-      - 0.25
-      height_reference_m: 0.703
+      - 0.315
+      height_reference_m: 0.713
       height_offsets_m:
       - -0.1
       - 0.35
       width_m: 0.35
       side_margin_m: 0.03
       depth_m: 0.1
-      geometry_status: Left arm in logical driving frame (asset -X forward). Mount
-        XY (-0.19,+0.185); left work offset +0.25m. Workspace remains a provisional
-        cuboid, not IK.
+      geometry_status: 오른팔 arm_2/base_link의 논리 base_footprint 장착점은 (0.19,0.185,0.713)m,
+        yaw는 +pi/2다. 과실 root 후보 외곽 x=0.265..0.365, y=-0.175..0.175, z=-0.10..0.35m를
+        작업 상자로 환산했다. 18개 이산 후보의 성공률이나 전체 IK·충돌 회피를 보장하지 않는다.
+        예찰은 RGB-D 표면 좌표, 평가는 과실 중심 좌표를 사용하므로 root·파지점과 동일하지 않다.
       range_tolerance_m: 0.02
       membership_margin_m: 0.0
     finish_at: last_segment
@@ -163,21 +165,22 @@ sections:
     harvest:
       heading_offset_rad: 0.0
       mount_xy_base_m:
-      - -0.19
+      - 0.19
       - 0.185
       work_offset_xy_base_m:
       - 0.0
-      - 0.25
-      height_reference_m: 0.703
+      - 0.315
+      height_reference_m: 0.713
       height_offsets_m:
       - -0.1
       - 0.35
       width_m: 0.35
       side_margin_m: 0.03
       depth_m: 0.1
-      geometry_status: Left arm in logical driving frame (asset -X forward). Mount
-        XY (-0.19,+0.185); left work offset +0.25m. Workspace remains a provisional
-        cuboid, not IK.
+      geometry_status: 오른팔 arm_2/base_link의 논리 base_footprint 장착점은 (0.19,0.185,0.713)m,
+        yaw는 +pi/2다. 과실 root 후보 외곽 x=0.265..0.365, y=-0.175..0.175, z=-0.10..0.35m를
+        작업 상자로 환산했다. 18개 이산 후보의 성공률이나 전체 IK·충돌 회피를 보장하지 않는다.
+        예찰은 RGB-D 표면 좌표, 평가는 과실 중심 좌표를 사용하므로 root·파지점과 동일하지 않다.
       range_tolerance_m: 0.02
       membership_margin_m: 0.0
     finish_at: last_segment
@@ -220,21 +223,22 @@ sections:
     harvest:
       heading_offset_rad: 0.0
       mount_xy_base_m:
-      - -0.19
+      - 0.19
       - 0.185
       work_offset_xy_base_m:
       - 0.0
-      - 0.25
-      height_reference_m: 0.703
+      - 0.315
+      height_reference_m: 0.713
       height_offsets_m:
       - -0.1
       - 0.35
       width_m: 0.35
       side_margin_m: 0.03
       depth_m: 0.1
-      geometry_status: Left arm in logical driving frame (asset -X forward). Mount
-        XY (-0.19,+0.185); left work offset +0.25m. Workspace remains a provisional
-        cuboid, not IK.
+      geometry_status: 오른팔 arm_2/base_link의 논리 base_footprint 장착점은 (0.19,0.185,0.713)m,
+        yaw는 +pi/2다. 과실 root 후보 외곽 x=0.265..0.365, y=-0.175..0.175, z=-0.10..0.35m를
+        작업 상자로 환산했다. 18개 이산 후보의 성공률이나 전체 IK·충돌 회피를 보장하지 않는다.
+        예찰은 RGB-D 표면 좌표, 평가는 과실 중심 좌표를 사용하므로 root·파지점과 동일하지 않다.
       range_tolerance_m: 0.02
       membership_margin_m: 0.0
     finish_at: last_segment
@@ -277,21 +281,22 @@ sections:
     harvest:
       heading_offset_rad: 0.0
       mount_xy_base_m:
-      - -0.19
+      - 0.19
       - 0.185
       work_offset_xy_base_m:
       - 0.0
-      - 0.25
-      height_reference_m: 0.703
+      - 0.315
+      height_reference_m: 0.713
       height_offsets_m:
       - -0.1
       - 0.35
       width_m: 0.35
       side_margin_m: 0.03
       depth_m: 0.1
-      geometry_status: Left arm in logical driving frame (asset -X forward). Mount
-        XY (-0.19,+0.185); left work offset +0.25m. Workspace remains a provisional
-        cuboid, not IK.
+      geometry_status: 오른팔 arm_2/base_link의 논리 base_footprint 장착점은 (0.19,0.185,0.713)m,
+        yaw는 +pi/2다. 과실 root 후보 외곽 x=0.265..0.365, y=-0.175..0.175, z=-0.10..0.35m를
+        작업 상자로 환산했다. 18개 이산 후보의 성공률이나 전체 IK·충돌 회피를 보장하지 않는다.
+        예찰은 RGB-D 표면 좌표, 평가는 과실 중심 좌표를 사용하므로 root·파지점과 동일하지 않다.
       range_tolerance_m: 0.02
       membership_margin_m: 0.0
     finish_at: last_segment
@@ -334,21 +339,22 @@ sections:
     harvest:
       heading_offset_rad: 0.0
       mount_xy_base_m:
-      - -0.19
+      - 0.19
       - 0.185
       work_offset_xy_base_m:
       - 0.0
-      - 0.25
-      height_reference_m: 0.703
+      - 0.315
+      height_reference_m: 0.713
       height_offsets_m:
       - -0.1
       - 0.35
       width_m: 0.35
       side_margin_m: 0.03
       depth_m: 0.1
-      geometry_status: Left arm in logical driving frame (asset -X forward). Mount
-        XY (-0.19,+0.185); left work offset +0.25m. Workspace remains a provisional
-        cuboid, not IK.
+      geometry_status: 오른팔 arm_2/base_link의 논리 base_footprint 장착점은 (0.19,0.185,0.713)m,
+        yaw는 +pi/2다. 과실 root 후보 외곽 x=0.265..0.365, y=-0.175..0.175, z=-0.10..0.35m를
+        작업 상자로 환산했다. 18개 이산 후보의 성공률이나 전체 IK·충돌 회피를 보장하지 않는다.
+        예찰은 RGB-D 표면 좌표, 평가는 과실 중심 좌표를 사용하므로 root·파지점과 동일하지 않다.
       range_tolerance_m: 0.02
       membership_margin_m: 0.0
     finish_at: last_segment
@@ -391,21 +397,22 @@ sections:
     harvest:
       heading_offset_rad: 0.0
       mount_xy_base_m:
-      - -0.19
+      - 0.19
       - 0.185
       work_offset_xy_base_m:
       - 0.0
-      - 0.25
-      height_reference_m: 0.703
+      - 0.315
+      height_reference_m: 0.713
       height_offsets_m:
       - -0.1
       - 0.35
       width_m: 0.35
       side_margin_m: 0.03
       depth_m: 0.1
-      geometry_status: Left arm in logical driving frame (asset -X forward). Mount
-        XY (-0.19,+0.185); left work offset +0.25m. Workspace remains a provisional
-        cuboid, not IK.
+      geometry_status: 오른팔 arm_2/base_link의 논리 base_footprint 장착점은 (0.19,0.185,0.713)m,
+        yaw는 +pi/2다. 과실 root 후보 외곽 x=0.265..0.365, y=-0.175..0.175, z=-0.10..0.35m를
+        작업 상자로 환산했다. 18개 이산 후보의 성공률이나 전체 IK·충돌 회피를 보장하지 않는다.
+        예찰은 RGB-D 표면 좌표, 평가는 과실 중심 좌표를 사용하므로 root·파지점과 동일하지 않다.
       range_tolerance_m: 0.02
       membership_margin_m: 0.0
     finish_at: last_segment
@@ -448,21 +455,22 @@ sections:
     harvest:
       heading_offset_rad: 0.0
       mount_xy_base_m:
-      - -0.19
+      - 0.19
       - 0.185
       work_offset_xy_base_m:
       - 0.0
-      - 0.25
-      height_reference_m: 0.703
+      - 0.315
+      height_reference_m: 0.713
       height_offsets_m:
       - -0.1
       - 0.35
       width_m: 0.35
       side_margin_m: 0.03
       depth_m: 0.1
-      geometry_status: Left arm in logical driving frame (asset -X forward). Mount
-        XY (-0.19,+0.185); left work offset +0.25m. Workspace remains a provisional
-        cuboid, not IK.
+      geometry_status: 오른팔 arm_2/base_link의 논리 base_footprint 장착점은 (0.19,0.185,0.713)m,
+        yaw는 +pi/2다. 과실 root 후보 외곽 x=0.265..0.365, y=-0.175..0.175, z=-0.10..0.35m를
+        작업 상자로 환산했다. 18개 이산 후보의 성공률이나 전체 IK·충돌 회피를 보장하지 않는다.
+        예찰은 RGB-D 표면 좌표, 평가는 과실 중심 좌표를 사용하므로 root·파지점과 동일하지 않다.
       range_tolerance_m: 0.02
       membership_margin_m: 0.0
     finish_at: last_segment
@@ -505,21 +513,22 @@ sections:
     harvest:
       heading_offset_rad: 0.0
       mount_xy_base_m:
-      - -0.19
+      - 0.19
       - 0.185
       work_offset_xy_base_m:
       - 0.0
-      - 0.25
-      height_reference_m: 0.703
+      - 0.315
+      height_reference_m: 0.713
       height_offsets_m:
       - -0.1
       - 0.35
       width_m: 0.35
       side_margin_m: 0.03
       depth_m: 0.1
-      geometry_status: Left arm in logical driving frame (asset -X forward). Mount
-        XY (-0.19,+0.185); left work offset +0.25m. Workspace remains a provisional
-        cuboid, not IK.
+      geometry_status: 오른팔 arm_2/base_link의 논리 base_footprint 장착점은 (0.19,0.185,0.713)m,
+        yaw는 +pi/2다. 과실 root 후보 외곽 x=0.265..0.365, y=-0.175..0.175, z=-0.10..0.35m를
+        작업 상자로 환산했다. 18개 이산 후보의 성공률이나 전체 IK·충돌 회피를 보장하지 않는다.
+        예찰은 RGB-D 표면 좌표, 평가는 과실 중심 좌표를 사용하므로 root·파지점과 동일하지 않다.
       range_tolerance_m: 0.02
       membership_margin_m: 0.0
     finish_at: last_segment
@@ -562,21 +571,22 @@ sections:
     harvest:
       heading_offset_rad: 0.0
       mount_xy_base_m:
-      - -0.19
+      - 0.19
       - 0.185
       work_offset_xy_base_m:
       - 0.0
-      - 0.25
-      height_reference_m: 0.703
+      - 0.315
+      height_reference_m: 0.713
       height_offsets_m:
       - -0.1
       - 0.35
       width_m: 0.35
       side_margin_m: 0.03
       depth_m: 0.1
-      geometry_status: Left arm in logical driving frame (asset -X forward). Mount
-        XY (-0.19,+0.185); left work offset +0.25m. Workspace remains a provisional
-        cuboid, not IK.
+      geometry_status: 오른팔 arm_2/base_link의 논리 base_footprint 장착점은 (0.19,0.185,0.713)m,
+        yaw는 +pi/2다. 과실 root 후보 외곽 x=0.265..0.365, y=-0.175..0.175, z=-0.10..0.35m를
+        작업 상자로 환산했다. 18개 이산 후보의 성공률이나 전체 IK·충돌 회피를 보장하지 않는다.
+        예찰은 RGB-D 표면 좌표, 평가는 과실 중심 좌표를 사용하므로 root·파지점과 동일하지 않다.
       range_tolerance_m: 0.02
       membership_margin_m: 0.0
     finish_at: last_segment
@@ -619,21 +629,22 @@ sections:
     harvest:
       heading_offset_rad: 0.0
       mount_xy_base_m:
-      - -0.19
+      - 0.19
       - 0.185
       work_offset_xy_base_m:
       - 0.0
-      - 0.25
-      height_reference_m: 0.703
+      - 0.315
+      height_reference_m: 0.713
       height_offsets_m:
       - -0.1
       - 0.35
       width_m: 0.35
       side_margin_m: 0.03
       depth_m: 0.1
-      geometry_status: Left arm in logical driving frame (asset -X forward). Mount
-        XY (-0.19,+0.185); left work offset +0.25m. Workspace remains a provisional
-        cuboid, not IK.
+      geometry_status: 오른팔 arm_2/base_link의 논리 base_footprint 장착점은 (0.19,0.185,0.713)m,
+        yaw는 +pi/2다. 과실 root 후보 외곽 x=0.265..0.365, y=-0.175..0.175, z=-0.10..0.35m를
+        작업 상자로 환산했다. 18개 이산 후보의 성공률이나 전체 IK·충돌 회피를 보장하지 않는다.
+        예찰은 RGB-D 표면 좌표, 평가는 과실 중심 좌표를 사용하므로 root·파지점과 동일하지 않다.
       range_tolerance_m: 0.02
       membership_margin_m: 0.0
     finish_at: last_segment
@@ -676,21 +687,22 @@ sections:
     harvest:
       heading_offset_rad: 0.0
       mount_xy_base_m:
-      - -0.19
+      - 0.19
       - 0.185
       work_offset_xy_base_m:
       - 0.0
-      - 0.25
-      height_reference_m: 0.703
+      - 0.315
+      height_reference_m: 0.713
       height_offsets_m:
       - -0.1
       - 0.35
       width_m: 0.35
       side_margin_m: 0.03
       depth_m: 0.1
-      geometry_status: Left arm in logical driving frame (asset -X forward). Mount
-        XY (-0.19,+0.185); left work offset +0.25m. Workspace remains a provisional
-        cuboid, not IK.
+      geometry_status: 오른팔 arm_2/base_link의 논리 base_footprint 장착점은 (0.19,0.185,0.713)m,
+        yaw는 +pi/2다. 과실 root 후보 외곽 x=0.265..0.365, y=-0.175..0.175, z=-0.10..0.35m를
+        작업 상자로 환산했다. 18개 이산 후보의 성공률이나 전체 IK·충돌 회피를 보장하지 않는다.
+        예찰은 RGB-D 표면 좌표, 평가는 과실 중심 좌표를 사용하므로 root·파지점과 동일하지 않다.
       range_tolerance_m: 0.02
       membership_margin_m: 0.0
     finish_at: last_segment
@@ -733,21 +745,22 @@ sections:
     harvest:
       heading_offset_rad: 0.0
       mount_xy_base_m:
-      - -0.19
+      - 0.19
       - 0.185
       work_offset_xy_base_m:
       - 0.0
-      - 0.25
-      height_reference_m: 0.703
+      - 0.315
+      height_reference_m: 0.713
       height_offsets_m:
       - -0.1
       - 0.35
       width_m: 0.35
       side_margin_m: 0.03
       depth_m: 0.1
-      geometry_status: Left arm in logical driving frame (asset -X forward). Mount
-        XY (-0.19,+0.185); left work offset +0.25m. Workspace remains a provisional
-        cuboid, not IK.
+      geometry_status: 오른팔 arm_2/base_link의 논리 base_footprint 장착점은 (0.19,0.185,0.713)m,
+        yaw는 +pi/2다. 과실 root 후보 외곽 x=0.265..0.365, y=-0.175..0.175, z=-0.10..0.35m를
+        작업 상자로 환산했다. 18개 이산 후보의 성공률이나 전체 IK·충돌 회피를 보장하지 않는다.
+        예찰은 RGB-D 표면 좌표, 평가는 과실 중심 좌표를 사용하므로 root·파지점과 동일하지 않다.
       range_tolerance_m: 0.02
       membership_margin_m: 0.0
     finish_at: last_segment
@@ -790,21 +803,22 @@ sections:
     harvest:
       heading_offset_rad: 0.0
       mount_xy_base_m:
-      - -0.19
+      - 0.19
       - 0.185
       work_offset_xy_base_m:
       - 0.0
-      - 0.25
-      height_reference_m: 0.703
+      - 0.315
+      height_reference_m: 0.713
       height_offsets_m:
       - -0.1
       - 0.35
       width_m: 0.35
       side_margin_m: 0.03
       depth_m: 0.1
-      geometry_status: Left arm in logical driving frame (asset -X forward). Mount
-        XY (-0.19,+0.185); left work offset +0.25m. Workspace remains a provisional
-        cuboid, not IK.
+      geometry_status: 오른팔 arm_2/base_link의 논리 base_footprint 장착점은 (0.19,0.185,0.713)m,
+        yaw는 +pi/2다. 과실 root 후보 외곽 x=0.265..0.365, y=-0.175..0.175, z=-0.10..0.35m를
+        작업 상자로 환산했다. 18개 이산 후보의 성공률이나 전체 IK·충돌 회피를 보장하지 않는다.
+        예찰은 RGB-D 표면 좌표, 평가는 과실 중심 좌표를 사용하므로 root·파지점과 동일하지 않다.
       range_tolerance_m: 0.02
       membership_margin_m: 0.0
     finish_at: last_segment
@@ -847,21 +861,22 @@ sections:
     harvest:
       heading_offset_rad: 0.0
       mount_xy_base_m:
-      - -0.19
+      - 0.19
       - 0.185
       work_offset_xy_base_m:
       - 0.0
-      - 0.25
-      height_reference_m: 0.703
+      - 0.315
+      height_reference_m: 0.713
       height_offsets_m:
       - -0.1
       - 0.35
       width_m: 0.35
       side_margin_m: 0.03
       depth_m: 0.1
-      geometry_status: Left arm in logical driving frame (asset -X forward). Mount
-        XY (-0.19,+0.185); left work offset +0.25m. Workspace remains a provisional
-        cuboid, not IK.
+      geometry_status: 오른팔 arm_2/base_link의 논리 base_footprint 장착점은 (0.19,0.185,0.713)m,
+        yaw는 +pi/2다. 과실 root 후보 외곽 x=0.265..0.365, y=-0.175..0.175, z=-0.10..0.35m를
+        작업 상자로 환산했다. 18개 이산 후보의 성공률이나 전체 IK·충돌 회피를 보장하지 않는다.
+        예찰은 RGB-D 표면 좌표, 평가는 과실 중심 좌표를 사용하므로 root·파지점과 동일하지 않다.
       range_tolerance_m: 0.02
       membership_margin_m: 0.0
     finish_at: last_segment
@@ -904,21 +919,22 @@ sections:
     harvest:
       heading_offset_rad: 0.0
       mount_xy_base_m:
-      - -0.19
+      - 0.19
       - 0.185
       work_offset_xy_base_m:
       - 0.0
-      - 0.25
-      height_reference_m: 0.703
+      - 0.315
+      height_reference_m: 0.713
       height_offsets_m:
       - -0.1
       - 0.35
       width_m: 0.35
       side_margin_m: 0.03
       depth_m: 0.1
-      geometry_status: Left arm in logical driving frame (asset -X forward). Mount
-        XY (-0.19,+0.185); left work offset +0.25m. Workspace remains a provisional
-        cuboid, not IK.
+      geometry_status: 오른팔 arm_2/base_link의 논리 base_footprint 장착점은 (0.19,0.185,0.713)m,
+        yaw는 +pi/2다. 과실 root 후보 외곽 x=0.265..0.365, y=-0.175..0.175, z=-0.10..0.35m를
+        작업 상자로 환산했다. 18개 이산 후보의 성공률이나 전체 IK·충돌 회피를 보장하지 않는다.
+        예찰은 RGB-D 표면 좌표, 평가는 과실 중심 좌표를 사용하므로 root·파지점과 동일하지 않다.
       range_tolerance_m: 0.02
       membership_margin_m: 0.0
     finish_at: last_segment

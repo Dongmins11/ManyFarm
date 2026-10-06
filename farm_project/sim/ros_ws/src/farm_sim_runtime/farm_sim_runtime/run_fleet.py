@@ -18,20 +18,26 @@ def main():
     parser.add_argument('--module-path', action='append', default=[])
     parser.add_argument('--scene', type=Path)
     parser.add_argument('--headless', action='store_true')
+    parser.add_argument('--duration-s', type=float, help='검증용 실행 시간(시뮬레이션 초). 생략하면 계속 실행')
     args = parser.parse_args()
+    if args.duration_s is not None and (not math.isfinite(args.duration_s) or args.duration_s <= 0):
+        parser.error('--duration-s는 유한한 양수여야 합니다.')
     root = args.project_root.expanduser().resolve()
     for module_path in args.module_path:
         sys.path.insert(0, str(Path(module_path).resolve()))
     from farm_sim_runtime.fleet_config import load_fleet
     configs, task = load_fleet(root, args.fleet_config)
+    from farm_sim_runtime.harvest_physics import (
+        HarvestPhysics, PhysicsTicks, initialize_arm_home, load_physics_profile)
+    physics_profile = load_physics_profile(root, configs)
     assets = args.assets_root.resolve() if args.assets_root else root/'sim/assets'
     scene = args.scene.expanduser().resolve() if args.scene else assets/configs[0]['scene']
     if not scene.is_file():
         raise FileNotFoundError(scene)
     from isaacsim import SimulationApp
     sys.argv = [sys.argv[0]]
-    app = SimulationApp({'headless':args.headless, 'renderer':'RayTracedLighting'})
-    world, robots, clock_transport = None, [], None
+    app = SimulationApp({'headless':args.headless, 'renderer':'RayTracedLighting', 'fast_shutdown':False})
+    world, robots, clock_transport, harvest_physics = None, [], None, None
     try:
         import omni.usd
         from pxr import UsdGeom, UsdPhysics, Gf, Usd
@@ -53,6 +59,8 @@ def main():
             raise ValueError('Scene must use metres and Z-up')
         from farm_sim_runtime.bed_collisions import ensure_bed_collisions
         print('[farm_fleet] bed collisions: '+json.dumps(ensure_bed_collisions(stage)), flush=True)
+        if physics_profile is not None:
+            harvest_physics = HarvestPhysics(stage, root, physics_profile)
         cache = UsdGeom.XformCache()
         def matrix(prim):
             return np.asarray(cache.GetLocalToWorldTransform(prim), float).T
@@ -83,6 +91,8 @@ def main():
                 robot = UsdGeom.Xform.Define(stage,robot_path).GetPrim()
                 robot.GetReferences().AddReference(str(asset))
             stage.Load(robot_path)
+            if harvest_physics is not None and cfg['robot_id'] == task['harvest_robot']['robot_id']:
+                harvest_physics.configure_robot(robot_path)
             body = require(robot_path+'/'+binding['articulation_relative'])
             if not body.HasAPI(UsdPhysics.ArticulationRootAPI):
                 raise RuntimeError('Not an articulation root: '+str(body.GetPath()))
@@ -126,9 +136,12 @@ def main():
         if len(scenes) > 1:
             raise RuntimeError('Multiple PhysicsScene prims; select one scene before running')
         dt = 1./configs[0]['runtime']['physics_hz']
-        world = World(physics_dt=dt,rendering_dt=dt,stage_units_in_meters=1.,
+        ticks = PhysicsTicks(configs[0]['runtime']['physics_hz'], configs[0]['runtime']['render_hz'])
+        world = World(physics_dt=dt,rendering_dt=1./configs[0]['runtime']['render_hz'],stage_units_in_meters=1.,
                       physics_prim_path=scenes[0] if scenes else '/World/physicsScene',backend='numpy')
         session = uuid.uuid4().hex
+        if harvest_physics is not None:
+            harvest_physics.register(world, session)
         clock_transport = LocalDatagrams(task['clock']['command_port'], task['clock']['telemetry_port'])
         diagnostic = DriveDiagnostics(root/'sim/runs/drive_diagnostics'/session, session)
         for cfg,robot_path,body_path,static,T_scan,camera_path,T_camera,T_asset_control in bindings:
@@ -144,6 +157,8 @@ def main():
         for robot in robots:
             cfg, base = robot['cfg'], robot['base']
             base.initialize()
+            if harvest_physics is not None and robot['path'] in harvest_physics.arm_reports:
+                initialize_arm_home(base.robot, harvest_physics.arm_reports[robot['path']])
             from farm_sim_runtime.station_spawn import verify_station_pose
             position, orientation = base.pose()
             q = Gf.Quatd(float(orientation[0]), Gf.Vec3d(*map(float, orientation[1:])))
@@ -159,9 +174,12 @@ def main():
             if cfg['lidar']['enabled']:
                 robot['lidar']=LidarSim(cfg['lidar'],robot['path'],robot['T_scan'])
             print(f"[two_robot_sim] {cfg['robot_id']} at station {task['stations'][cfg['robot_id']]} using {robot['path']}",flush=True)
+        if harvest_physics is not None:
+            harvest_physics.initialize()
         hcfg = task['harvest_robot']
         truth = SceneTruth(stage,root/hcfg['scene_snapshot_file'],hcfg['robot_id'],task['map_id'],session,hcfg['workspace'])
         previous = float(world.current_time)
+        start_sim = previous
         last_truth = -math.inf
         while app.is_running():
             wall = time.monotonic()
@@ -176,7 +194,7 @@ def main():
             for robot in robots:
                 robot['applied_cmd'] = robot['gate'].value()
                 robot['base'].command(*robot['applied_cmd'])
-            world.step(render=True)
+            ticks.step(world, harvest_physics)
             now = float(world.current_time)
             if now <= previous:
                 raise RuntimeError('Simulation reset detected; restart both ROS and simulator test processes')
@@ -208,6 +226,11 @@ def main():
                 harvest=next(r for r in robots if r['cfg']['robot_id']==hcfg['robot_id'])
                 truth.capture(round(now*1e9),harvest['T_world_base']);last_truth=now
             previous=now
+            if args.duration_s is not None and now-start_sim >= args.duration_s:
+                print('[farm_fleet] bounded run complete: '+json.dumps(dict(simulated_s=now-start_sim,
+                    robots=[dict(robot_id=r['cfg']['robot_id'],camera_frames=r['camera_frames'],
+                                 telemetry_packets=r['seq']) for r in robots])),flush=True)
+                break
             if configs[0]['runtime'].get('realtime',True):
                 time.sleep(max(0.,dt-(time.monotonic()-wall)))
     except KeyboardInterrupt:
@@ -222,8 +245,23 @@ def main():
         if world:
             world.stop()
         if clock_transport is not None: clock_transport.close()
+        if harvest_physics is not None: harvest_physics.close()
         app.close()
 
 
 if __name__ == '__main__':
-    main()
+    import os
+    import traceback
+    exit_code = 0
+    try:
+        main()
+    except SystemExit as error:
+        exit_code = error.code if isinstance(error.code, int) else 1
+    except Exception:
+        traceback.print_exc()
+        exit_code = 1
+    finally:
+        # main의 장치/로그/app.close 정리 뒤 남는 Kit 스레드만 CLI 종료에서 끝낸다.
+        sys.stdout.flush()
+        sys.stderr.flush()
+        os._exit(exit_code)

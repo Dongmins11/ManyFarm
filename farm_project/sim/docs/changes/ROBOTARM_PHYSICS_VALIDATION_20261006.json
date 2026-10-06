@@ -1,0 +1,336 @@
+{
+  "schema_version": 1,
+  "base_commit": "068b42eb0ebe54b3b57cffe254a20b2f9e3b202e",
+  "date_kst": "2026-10-06",
+  "scope": "farm fruit/arm physics only; no policy inference or Nav2 motion",
+  "common_or_real_code_changed": false,
+  "unit_and_usd_tests": 62,
+  "skipped_tests": 0,
+  "planned_route_tests": 371,
+  "sim_build_packages": [
+    "farm_sim_config",
+    "farm_sim_devices",
+    "farm_sim_runtime"
+  ],
+  "physics_process_exit_code": 0,
+  "physics_started_at_utc": "2026-10-06T08:08:11.277933+00:00",
+  "physics_finished_at_utc": "2026-10-06T08:09:21.338585+00:00",
+  "physics_status": "PASSED",
+  "physics_checks": {
+    "wheel_authoring_preserved": true,
+    "base_authoring_preserved": true,
+    "home_initialized": true,
+    "masses_9g": true,
+    "no_spontaneous_detach": true,
+    "rest_displacement_bounded": true,
+    "base_displacement_bounded": true,
+    "wheel_displacement_bounded": true,
+    "finite_states": true,
+    "physics_tick_preserved": true,
+    "low_force_stays_attached": true,
+    "low_force_recovery_stays_attached": true,
+    "selected_physically_detached": true,
+    "detached_gravity_drop": true,
+    "source_scene_preserved": true
+  },
+  "selected_fruit": {
+    "index": 0,
+    "prim_path": "/World/Vegetation/Bed_01/Fruits/Pepper_0001_yellow",
+    "threshold_n": 2.390099939978847,
+    "mass_kg": 0.008999999612569809,
+    "initial_root_world_m": [
+      -5.463974952697754,
+      -3.945971965789795,
+      0.936995267868042
+    ],
+    "initial_root_orientation_wxyz": [
+      0.8424364328384399,
+      0.2920415997505188,
+      0.06660184264183044,
+      -0.44785818457603455
+    ],
+    "rest_orientation_wxyz": [
+      0.8424363136291504,
+      0.2920415699481964,
+      0.06660183519124985,
+      -0.44785818457603455
+    ],
+    "center_of_mass_local_m": [
+      0.0024933612439781427,
+      -0.0005642900941893458,
+      -0.0006603023502975702
+    ],
+    "inverse_inertia_body_kg_inv_m_inv2": [
+      [
+        192901.953125,
+        838.82421875,
+        -3247.529296875
+      ],
+      [
+        838.82421875,
+        193134.609375,
+        -4302.13671875
+      ],
+      [
+        -3247.529296875,
+        -4302.13671875,
+        213906.53125
+      ]
+    ],
+    "attachment_local_m": [
+      0.01752983375906352,
+      0.012588151126657617,
+      0.0375
+    ],
+    "anchor_world_m": [
+      -5.449245694178174,
+      -3.9738157438301434,
+      0.9667840792992672
+    ],
+    "tension_axis_world": [
+      -1.0,
+      0.0,
+      0.0
+    ],
+    "applied_force_location": "world_center_of_mass",
+    "fruit_threshold_seed": 713,
+    "tension_diagnostic": "tension_N는 복원력 상한 적용 후, raw_tension_N는 상한 적용 전 인장력입니다."
+  },
+  "rest": {
+    "simulated_s": 2.0,
+    "max_root_displacement_m": 0.020530160516500473,
+    "max_base_displacement_m": 9.645152022130787e-05,
+    "max_wheel_displacement_rad": 0.001376193598844111,
+    "final_home_rad": [
+      -6.538748948514694e-06,
+      -1.387459397315979,
+      0.7918955087661743,
+      0.6264744400978088,
+      0.04836289584636688,
+      1.0997663736343384
+    ],
+    "initial_base_position_m": [
+      3.299236652765103e-07,
+      4.758376803692954e-08,
+      0.00029999003163538873
+    ],
+    "initial_base_orientation_wxyz": [
+      1.0,
+      1.4312755425294199e-08,
+      -1.9132262423227075e-06,
+      1.350495313090505e-05
+    ],
+    "final_base_position_m": [
+      4.000740773335565e-06,
+      -8.472058965480755e-08,
+      0.00030007679015398026
+    ],
+    "fruit_count": 288,
+    "attached_count": 288,
+    "detached_count": 0,
+    "gravity_compensation": false,
+    "attachment_version": 4,
+    "stem_response_version": 5
+  },
+  "hold_probe": {
+    "prim_path": "/World/Vegetation/Bed_01/Fruits/Pepper_0001_yellow",
+    "hold": {
+      "force_n": 0.1,
+      "simulated_s": 1.0,
+      "threshold_n": 2.390099939978847,
+      "maxima": {
+        "extension_m": 0.006753861597303512,
+        "displacement_m": 0.013734790230091701,
+        "tension_n": 0.10944111871016364,
+        "raw_tension_n": 0.10944111871016364,
+        "sustained_s": 0.0
+      },
+      "maxima_scope": "attached_before_tick_including_detach_tick",
+      "maxima_sample_count": 480,
+      "selected_attached": true,
+      "attached_count_before": 288,
+      "attached_count_after": 288,
+      "detach_count": 0,
+      "initial_velocity": [
+        -4.435696155269397e-06,
+        -5.257850716589019e-05,
+        1.3316050171852112e-05,
+        7.677812391193584e-06,
+        -6.440471679525217e-06,
+        -4.5234801291371696e-06
+      ],
+      "final_velocity": [
+        5.283137215883471e-05,
+        -0.00036364159313961864,
+        -6.008893251419067e-06,
+        0.00024619983742013574,
+        0.00011376031034160405,
+        0.0002083033323287964
+      ]
+    },
+    "recovery": {
+      "force_n": 0.0,
+      "simulated_s": 0.5,
+      "threshold_n": 2.390099939978847,
+      "maxima": {
+        "extension_m": 0.005915255809417097,
+        "displacement_m": 0.013735386516851699,
+        "tension_n": 0.10000104707992916,
+        "raw_tension_n": 0.10000104707992916,
+        "sustained_s": 0.0
+      },
+      "maxima_scope": "attached_before_tick_including_detach_tick",
+      "maxima_sample_count": 240,
+      "selected_attached": true,
+      "attached_count_before": 288,
+      "attached_count_after": 288,
+      "detach_count": 0,
+      "initial_velocity": [
+        5.283137215883471e-05,
+        -0.00036364159313961864,
+        -6.008893251419067e-06,
+        0.00024619983742013574,
+        0.00011376031034160405,
+        0.0002083033323287964
+      ],
+      "final_velocity": [
+        0.013160967268049717,
+        0.0034564295783638954,
+        -0.0029766447842121124,
+        -0.012612441554665565,
+        -0.2773061990737915,
+        -0.21163451671600342
+      ]
+    }
+  },
+  "pull": {
+    "prim_path": "/World/Vegetation/Bed_01/Fruits/Pepper_0001_yellow",
+    "force_n": 3.0,
+    "detached": true,
+    "post_force_seconds": 0.6,
+    "detached_z_m": 0.947289764881134,
+    "detached_velocity": [
+      -2.9371516704559326,
+      -0.3718664050102234,
+      0.4641806483268738,
+      0.002541597932577133,
+      0.29619747400283813,
+      0.1846548467874527
+    ],
+    "final_z_m": 0.04281140863895416,
+    "peak_z_m": 0.957809329032898,
+    "peak_elapsed_s": 0.04583333572372794,
+    "minimum_vz_mps": -2.783210515975952,
+    "post_force_drop_m": 0.9044783562421799,
+    "drop_from_peak_m": 0.9149979203939438,
+    "ballistic_no_contact_z_m": -0.5400018461227418,
+    "ballistic_no_contact_vz_mps": -5.421819351673126,
+    "final_velocity": [
+      -0.12625907361507416,
+      0.07758721709251404,
+      -0.01354356948286295,
+      -0.8073803782463074,
+      -1.1695441007614136,
+      0.32785582542419434
+    ]
+  },
+  "detach_events": [
+    {
+      "prim_path": "/World/Vegetation/Bed_01/Fruits/Pepper_0001_yellow",
+      "event": "PHYSICAL_DETACH",
+      "sim_time_s": 3.5562501854728907,
+      "sustained_s": 0.041666666666666664,
+      "tension_N": 2.3793280110014114,
+      "raw_tension_N": 4.312936228421513,
+      "criteria": [
+        "force_and_min_pull",
+        "hook_opening",
+        "max_extension"
+      ],
+      "threshold_N": 2.390099939978847,
+      "extension_m": 0.1342040520386476,
+      "displacement_m": 0.13660911111182084
+    }
+  ],
+  "final": {
+    "fruit_count": 288,
+    "attached_count": 287,
+    "detached_count": 1,
+    "gravity_compensation": false,
+    "attachment_version": 4,
+    "stem_response_version": 5
+  },
+  "source_scene_preserved": true,
+  "source_scene_sha256": "1d9887539611d65ec9c284a810bcd0b8015493db0158147c7188b414f95395e7",
+  "observed_0p5N_hook_detach": {
+    "expected_hold_check_failed": true,
+    "physics_rules_unchanged": true,
+    "events": [
+      {
+        "prim_path": "/World/Vegetation/Bed_01/Fruits/Pepper_0001_yellow",
+        "event": "PHYSICAL_DETACH",
+        "sim_time_s": 2.116666777059436,
+        "sustained_s": 0.041666666666666664,
+        "tension_N": 0.5195503816524536,
+        "raw_tension_N": 0.5195503816524536,
+        "criteria": [
+          "hook_opening"
+        ],
+        "threshold_N": 2.390099939978847,
+        "extension_m": 0.0323187042530213,
+        "displacement_m": 0.034853464734315415
+      }
+    ],
+    "note": "25mm hook condition can detach below the 2..3N force gate; this is not a force-only threshold experiment"
+  },
+  "external_force_api_test": {
+    "case": "single1N, repeated1N+1N, single2N",
+    "masses": [
+      1.0,
+      1.0,
+      1.0
+    ],
+    "vx": [
+      0.0020833334419876337,
+      0.004166666883975267,
+      0.004166666883975267
+    ],
+    "expected_additive_vx": [
+      0.0020833333333333333,
+      0.004166666666666667,
+      0.004166666666666667
+    ],
+    "additive": true
+  },
+  "received_source_comparison": {
+    "samples": 96,
+    "seconds": 0.2,
+    "max_force_error_N": 2.78e-17,
+    "max_torque_error_Nm": 3.23e-10,
+    "max_tension_error_N": 2.78e-17,
+    "attached_and_timer_equal": true,
+    "source": "received harvest_rl/logic.py attachment_wrench and env.py rotational restoration",
+    "limits": "quaternion normalization yields rounding-scale torque difference; not full environment equivalence"
+  },
+  "logs_root": "sim/runs/robotarm/precommit_20261006",
+  "runtime_source_hashes": {
+    "sim/ros_ws/src/farm_sim_config/config/robotarm_physics.json": "3b4344fe8ea6e5510a31646a0d8a98252c2f06673e072dcfbb711439ec2a2303",
+    "sim/ros_ws/src/farm_sim_devices/farm_sim_devices/fruit_attachment.py": "394a4e912f97aac725fae7317e5eb88947022df33b361909ae35bb072fb3f33b",
+    "sim/ros_ws/src/farm_sim_devices/farm_sim_devices/stem_physics.py": "501a11e1a533314ecf25b6e3ba91e0bd0e344dd7c77cae6ea289e93eaa8cdf57",
+    "sim/ros_ws/src/farm_sim_runtime/farm_sim_runtime/fruit_asset_setup.py": "61eb1f2c1ff0e3c2c5db1dfba99465b2bc0f0f1a950a35ec96d7ed7130d30950",
+    "sim/ros_ws/src/farm_sim_runtime/farm_sim_runtime/harvest_physics.py": "91007c0a419899e1954e89eee42ad1dc934a20191561d6a16af6f88650c7d3ce",
+    "sim/ros_ws/src/farm_sim_runtime/farm_sim_runtime/robotarm_asset_setup.py": "54d93b3799fdc09722129aee53487df6fd3d2bf5800361cbcd46884de909d816",
+    "sim/ros_ws/src/farm_sim_runtime/farm_sim_runtime/run_fleet.py": "546775282d30997d027c73bb62a926c4b224b250d7606ea77b6c923c35daf7ea",
+    "sim/ros_ws/src/farm_sim_runtime/farm_sim_runtime/run_sim.py": "e0660e9c03aecd6793118427f96f34333897b39bf4b1319d461ae281ff5e962f",
+    "sim/ros_ws/src/farm_sim_runtime/launch/isaac.launch.py": "967000f8f7b60201015b844f20c8bcbfad66c750f3f2ea3412893cfa58f525d7",
+    "sim/tests/test_fruit_asset_setup.py": "cc4c317ae14fc1b18634a069add26432c3c6b2fcf354795daa4ad977412cf688",
+    "sim/tests/test_harvest_arm_geometry.py": "2538d33e509ea1f393c8deca02e6e748c71aae107c9bccbc16d690e1ab6381eb",
+    "sim/tests/test_harvest_physics_runtime.py": "b9b91691b8b010b28b0badaf8e07bef58f8916c5bdf98cea0b359a64af39f07b",
+    "sim/tests/test_robotarm_asset_setup.py": "2fca0f86c30436438d63bcc35cae3a97b32e787f31d7f966af91fa5937dfc526",
+    "sim/tests/test_stem_physics.py": "ae46fd3cfcee9f76110761c5d7bf173122187396593141a602a8ed1537c7f7a1",
+    "sim/tools/build_teacher_fruit_assets.py": "5424ccbf9f4c7cc60901d8c1446e8b03083b6948fe5d8d62806caed8cbc22b00",
+    "sim/tools/check_harvest_physics.py": "0252470887f698bb28c97af7372b55ee46e01e79c44294804278a0d5f1b61f12",
+    "sim/tools/rebuild_route_data.py": "782af1e711cdd9be962982af5de78fb7f92614c49681413bf3a1206eddc20b27"
+  },
+  "raw_result_sha256": "92300e988617dd4b64cd5568664efbdd9542148300718ac77f4b39a283d98a33"
+}

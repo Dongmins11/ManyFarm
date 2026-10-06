@@ -34,7 +34,8 @@ def setup(context) -> list:
     executable = executable.absolute()
     assets = Path(value('assets_root')).expanduser().resolve() if value('assets_root') else root / 'sim/assets'
     runner = Path(farm_sim_runtime.__file__).resolve().parent / 'run_sim.py'
-    command = [str(executable), str(runner), '--config', str(config), '--assets-root', str(assets)]
+    command = [str(executable), str(runner), '--project-root', str(root),
+               '--config', str(config), '--assets-root', str(assets)]
     if value('fleet_config'):
         from farm_sim_runtime.fleet_config import load_fleet
         fleet = (root / value('fleet_config')).resolve()

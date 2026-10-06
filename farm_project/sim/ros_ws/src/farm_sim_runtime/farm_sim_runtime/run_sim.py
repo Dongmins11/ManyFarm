@@ -11,6 +11,7 @@ import uuid
 
 def main():
     parser=argparse.ArgumentParser()
+    parser.add_argument('--project-root',type=Path,required=True)
     parser.add_argument('--config',type=Path,required=True)
     parser.add_argument('--assets-root',type=Path,required=True)
     parser.add_argument('--headless',action='store_true')
@@ -22,6 +23,10 @@ def main():
     from farm_sim_runtime.station_spawn import read_station
     station=read_station(args.config,config)
     root=args.assets_root.expanduser().resolve()
+    from farm_sim_runtime.harvest_physics import (
+        HarvestPhysics, PhysicsTicks, initialize_arm_home, load_physics_profile)
+    project_root=args.project_root.expanduser().resolve()
+    physics_profile=load_physics_profile(project_root,[config])
     scene=(root/config['scene']).resolve()
     if not scene.is_relative_to(root) or not scene.is_file():
         raise FileNotFoundError(f'농장 씬을 찾을 수 없습니다: {scene}')
@@ -29,12 +34,13 @@ def main():
     from farm_sim_devices.wire import LocalDatagrams,CommandGate
     from isaacsim import SimulationApp
     sys.argv=[sys.argv[0]]
-    app=SimulationApp({'headless':args.headless,'renderer':'RayTracedLighting'})
-    world=base=camera=transport=None
+    app=SimulationApp({'headless':args.headless,'renderer':'RayTracedLighting','fast_shutdown':False})
+    world=base=camera=transport=harvest_physics=None
     try:
         import omni.usd
         from pxr import UsdGeom,UsdPhysics,Gf
         from isaacsim.core.api import World
+        from isaacsim.core.prims import SingleArticulation
         from isaacsim.core.utils.stage import open_stage
         from farm_sim_devices.base_sim import BaseSim
         from farm_sim_devices.camera_sim import CameraSim
@@ -49,6 +55,14 @@ def main():
         from farm_sim_runtime.bed_collisions import ensure_bed_collisions
         bed_collision_report=ensure_bed_collisions(stage)
         print('[farm_sim] bed collision: '+json.dumps(bed_collision_report,ensure_ascii=False),flush=True)
+        if physics_profile is not None:
+            harvest_physics=HarvestPhysics(stage,project_root,physics_profile)
+            harvest_config=json.loads((project_root/physics_profile['harvest_device_config']).read_text())
+            harvest_binding=harvest_config['scene_binding']
+            for path in harvest_binding.get('robot_prim_candidates',[harvest_binding['robot_prim']]):
+                if stage.GetPrimAtPath(path).IsValid():
+                    harvest_physics.configure_robot(path)
+                    break
         binding=config['scene_binding'];robot_path=binding['robot_prim'].rstrip('/')
         def prim(relative):
             p=stage.GetPrimAtPath(robot_path+'/'+relative)
@@ -85,18 +99,30 @@ def main():
         scenes=[str(p.GetPath()) for p in stage.Traverse() if p.IsA(UsdPhysics.Scene)]
         if len(scenes)>1:raise RuntimeError('PhysicsScene이 여러 개입니다. 사용할 씬을 먼저 정리하세요.')
         dt=1.0/config['runtime']['physics_hz']
-        if config['runtime']['render_hz']!=config['runtime']['physics_hz']:
-            raise ValueError('이 초기 구현은 physics_hz와 render_hz가 같아야 합니다.')
-        world=World(physics_dt=dt,rendering_dt=dt,stage_units_in_meters=1.0,
+        ticks=PhysicsTicks(config['runtime']['physics_hz'],config['runtime']['render_hz'])
+        world=World(physics_dt=dt,rendering_dt=1./config['runtime']['render_hz'],stage_units_in_meters=1.0,
                     physics_prim_path=scenes[0] if scenes else '/World/physicsScene',backend='numpy')
         base=BaseSim(world,str(body.GetPath()),config['base'])
+        passive_arms=[]
+        if harvest_physics is not None:
+            for path,report in harvest_physics.arm_reports.items():
+                arm=world.scene.add(SingleArticulation(
+                    prim_path=path+'/'+harvest_binding['articulation_relative'],name='harvest_arm_hold'))
+                passive_arms.append((arm,report))
+        session=uuid.uuid4().hex
+        if harvest_physics is not None:
+            harvest_physics.register(world,session)
         world.reset()
         base.initialize()
+        for arm,report in passive_arms:
+            arm.initialize()
+            initialize_arm_home(arm,report)
+        if harvest_physics is not None:
+            harvest_physics.initialize()
         if station is not None:
             from farm_sim_runtime.station_spawn import verify_station_pose
             verify_station_pose(station,*base.pose())
             print('[farm_sim] station placement verified after physics reset',flush=True)
-        session=uuid.uuid4().hex
         gate=CommandGate(session,config['base']['command_timeout_s'])
         rt=config['runtime']
         transport=LocalDatagrams(rt['command_port'],rt['telemetry_port'])
@@ -120,7 +146,7 @@ def main():
                 time.sleep(.01)
                 continue
             base.command(*gate.value())
-            world.step(render=True)
+            ticks.step(world,harvest_physics)
             now=float(world.current_time)
             if now<=last_sim:
                 raise RuntimeError('시뮬레이션 시간 reset 감지. 연결 프로그램을 재시작하세요.')
@@ -162,8 +188,23 @@ def main():
         if world is not None:
             try:world.stop()
             except Exception:pass
+        if harvest_physics is not None:harvest_physics.close()
         app.close()
 
 
 if __name__=='__main__':
-    main()
+    import os
+    import traceback
+    exit_code=0
+    try:
+        main()
+    except SystemExit as error:
+        exit_code=error.code if isinstance(error.code,int) else 1
+    except Exception:
+        traceback.print_exc()
+        exit_code=1
+    finally:
+        # main의 장치/로그/app.close 정리 뒤 남는 Kit 스레드만 CLI 종료에서 끝낸다.
+        sys.stdout.flush()
+        sys.stderr.flush()
+        os._exit(exit_code)

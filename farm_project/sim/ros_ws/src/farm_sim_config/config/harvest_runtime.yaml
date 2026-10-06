@@ -10,8 +10,8 @@ device_config: sim/ros_ws/src/farm_sim_config/config/harvest.json
 navigation:
   base_frame: harvest_01/base_footprint
   goal_timeout_s: 300.0
-  arrival_tolerance_m: 0.08
-  heading_tolerance_rad: 0.12
+  arrival_tolerance_m: 0.02
+  heading_tolerance_rad: 0.05
   settle_s: 0.8
   mode: follow_path
   map_frame: map
@@ -19,7 +19,8 @@ navigation:
   goal_checker_id: goal_checker
   progress_checker_id: progress_checker
   max_start_distance_m: 0.2
-  max_goal_distance_m: 0.02
+  # 오른팔 작업 중심 변경 0.065m + 기존 연결 여유 0.02m. Path는 실제 Goal까지 유지합니다.
+  max_goal_distance_m: 0.09
   path_spacing_m: 0.04
 harvest_config: sim/ros_ws/src/farm_sim_config/config/harvest_task.json
 rviz_config: sim/ros_ws/src/farm_sim_config/config/harvest.rviz

@@ -1,0 +1,41 @@
+{
+  "source_bundle": "manyfarm_teacher_9g_20261006",
+  "source_cache": "outputs/harvest_rl/current_robot/82310b121a80b60a/harvest_current.usd",
+  "source_usd_sha256": "3354c11f3628660aab3d6140dbd277ff601122f53ca3f0769b680a75af0a12cf",
+  "description": "원본의 local box body 좌표로 변환한 4개 실제 tile mesh. 런타임 수신폴더 의존 없음.",
+  "tiles": [
+    {
+      "asset_prim": "/HarvestBoxFloor/Plus/Tile1",
+      "source_mesh": "/manyfarm_paprika_dual_so101/base_footprint/collisions/harvest_lid_lid_plus_tile_1/node_STL_BINARY_/mesh",
+      "source_stl": "src/smartfarm_description/meshes/sliding_lids_v3/harvest/lid_plus_tile_1.stl",
+      "source_stl_sha256": "e5c3b59ba49dabd340893347b7dd67857ca083731652dd04f12220deaf0dddb7",
+      "points": 5760,
+      "source_body": "box_bottom_left"
+    },
+    {
+      "asset_prim": "/HarvestBoxFloor/Plus/Tile2",
+      "source_mesh": "/manyfarm_paprika_dual_so101/base_footprint/collisions/harvest_lid_lid_plus_tile_2/node_STL_BINARY_/mesh",
+      "source_stl": "src/smartfarm_description/meshes/sliding_lids_v3/harvest/lid_plus_tile_2.stl",
+      "source_stl_sha256": "40649fd1236338fb65a1cd85c069a7c7f9715650404d791c43cbb8cb75802e38",
+      "points": 3852,
+      "source_body": "box_bottom_left"
+    },
+    {
+      "asset_prim": "/HarvestBoxFloor/Minus/Tile1",
+      "source_mesh": "/manyfarm_paprika_dual_so101/base_footprint/collisions/harvest_lid_lid_minus_tile_1/node_STL_BINARY_/mesh",
+      "source_stl": "src/smartfarm_description/meshes/sliding_lids_v3/harvest/lid_minus_tile_1.stl",
+      "source_stl_sha256": "0122d8b99637e1bfe2d0b442db18f4719599de0bf4554afd6883aa4fba2b1141",
+      "points": 5760,
+      "source_body": "box_bottom_right"
+    },
+    {
+      "asset_prim": "/HarvestBoxFloor/Minus/Tile2",
+      "source_mesh": "/manyfarm_paprika_dual_so101/base_footprint/collisions/harvest_lid_lid_minus_tile_2/node_STL_BINARY_/mesh",
+      "source_stl": "src/smartfarm_description/meshes/sliding_lids_v3/harvest/lid_minus_tile_2.stl",
+      "source_stl_sha256": "eeef6d889b8b229f307e336dfc00fcc58f9acbd97418e9d2350d14b4258a6005",
+      "points": 3852,
+      "source_body": "box_bottom_right"
+    }
+  ],
+  "asset_sha256": "47cae9b35d88a0e499d4424935ba0a004e47046f92813773d6c20ff3aa858143"
+}

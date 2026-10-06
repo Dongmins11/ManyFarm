@@ -1,0 +1,165 @@
+{
+  "schema_version": 1,
+  "source_manifest_sha256": "329c40595d04327689dd9ed644bc28b1d824069bbf464845fc34495f946c1895",
+  "source_description": "수신된 Pepper_RL_Demo/assets 원본. 실행 시 수신 폴더 의존 없음.",
+  "diameter_m": 0.07,
+  "height_m": 0.075,
+  "mass_kg": 0.009,
+  "static_friction": 1.0,
+  "dynamic_friction": 1.0,
+  "restitution": 0.02,
+  "contact_offset_m": 0.001,
+  "rest_offset_m": 0.0,
+  "linear_damping": 0.0,
+  "angular_damping": 0.02,
+  "max_linear_velocity_m_s": 3.0,
+  "max_angular_velocity_deg_s": 20.0,
+  "copied_files": [
+    {
+      "path": "source/Pepper_Green.usdc",
+      "sha256": "770f799fe2950e1b122395f590da3b78b34a55ef0cf39bac50e0bdf61cbd36bb",
+      "bytes": 143269
+    },
+    {
+      "path": "source/Pepper_Red.usdc",
+      "sha256": "09f43d3924b3e5841cffe18ec8ef519790f33fbc236942faaaca1a04c84e251f",
+      "bytes": 143269
+    },
+    {
+      "path": "source/Pepper_Yellow.usdc",
+      "sha256": "1978f235cc9294620a535fa99a6773177e2627b6e1e91f02cd26886067d319d4",
+      "bytes": 143269
+    },
+    {
+      "path": "source/textures/fruit_0.jpg",
+      "sha256": "b9f8761cb9343a1750ce9f3c6767ad1cb861d40bd47071550571b4af7a991df8",
+      "bytes": 457252
+    },
+    {
+      "path": "source/textures/fruit_1.jpg",
+      "sha256": "475fb5aa64713b19aa382630b4c8dece16065831097ba4ac5eb2ec62fed4e0b8",
+      "bytes": 479746
+    },
+    {
+      "path": "source/textures/fruit_2.png",
+      "sha256": "391c02e3e71c3fa6185da4bd3186850d9c398fd93e44d41edd8abedb229efa64",
+      "bytes": 2362394
+    },
+    {
+      "path": "source/textures/fruit_3.jpg",
+      "sha256": "62b7de1113dfbc5c8bc205a67b43791c80b3f2b5639f4fefbc3f9e403a3dd5b3",
+      "bytes": 466139
+    },
+    {
+      "path": "source/textures/fruit_4.jpg",
+      "sha256": "475fb5aa64713b19aa382630b4c8dece16065831097ba4ac5eb2ec62fed4e0b8",
+      "bytes": 479746
+    },
+    {
+      "path": "source/textures/fruit_5.png",
+      "sha256": "391c02e3e71c3fa6185da4bd3186850d9c398fd93e44d41edd8abedb229efa64",
+      "bytes": 2362394
+    },
+    {
+      "path": "source/textures/fruit_6.jpg",
+      "sha256": "4649d82ddc6d873fdf258aae06966fa4204fe40402cb2ff7eb4f06c32c230855",
+      "bytes": 483582
+    },
+    {
+      "path": "source/textures/fruit_7.jpg",
+      "sha256": "fc466b9ec4f13b62fcefe7f01beaa5fab7e6d012649adf40382723d8c5d43b46",
+      "bytes": 481567
+    },
+    {
+      "path": "source/textures/fruit_8.png",
+      "sha256": "02ac686906ebb2496564a0c82ab2bf09bb406a4abdd4d1530aeed1546ee914bd",
+      "bytes": 2390247
+    }
+  ],
+  "assets": {
+    "red": {
+      "file": "pepper_red.usd",
+      "sha256": "6e254b8333244b39e437fe4504093f7ef499f6cafb4054e88815acfa38816269",
+      "attachment_local_m": [
+        0.017529832318793216,
+        0.012588152566927921,
+        0.0375
+      ],
+      "source_scale": [
+        0.7732392312841195,
+        0.7732392312841195,
+        0.640755529534069
+      ],
+      "bounds_m": [
+        [
+          -0.03314181789755821,
+          -0.03500000014901161,
+          -0.03750000149011612
+        ],
+        [
+          0.03314181789755821,
+          0.03500000014901161,
+          0.03750000149011612
+        ]
+      ],
+      "points": 3562,
+      "source_asset": "source/Pepper_Red.usdc"
+    },
+    "yellow": {
+      "file": "pepper_yellow.usd",
+      "sha256": "233a0325b6a7e4d241f9b77908f4dff16dba5ce5f899a3e8a6465b4f2f6fe007",
+      "attachment_local_m": [
+        0.01752983375906352,
+        0.012588151126657617,
+        0.0375
+      ],
+      "source_scale": [
+        0.7732392312841195,
+        0.7732392312841195,
+        0.640755529534069
+      ],
+      "bounds_m": [
+        [
+          -0.03314181789755821,
+          -0.03500000014901161,
+          -0.03750000149011612
+        ],
+        [
+          0.03314181789755821,
+          0.03500000014901161,
+          0.03750000149011612
+        ]
+      ],
+      "points": 3562,
+      "source_asset": "source/Pepper_Yellow.usdc"
+    },
+    "green": {
+      "file": "pepper_green.usd",
+      "sha256": "99dbff74dc7e21d25978daa66e30e1400ff2d6a4a5098c01bad95cdf2e800309",
+      "attachment_local_m": [
+        0.01752983519933382,
+        0.012588151126657617,
+        0.0375
+      ],
+      "source_scale": [
+        0.7732392312841195,
+        0.7732392312841195,
+        0.640755529534069
+      ],
+      "bounds_m": [
+        [
+          -0.03314181789755821,
+          -0.03500000014901161,
+          -0.03750000149011612
+        ],
+        [
+          0.03314181789755821,
+          0.03500000014901161,
+          0.03750000149011612
+        ]
+      ],
+      "points": 3562,
+      "source_asset": "source/Pepper_Green.usdc"
+    }
+  }
+}
