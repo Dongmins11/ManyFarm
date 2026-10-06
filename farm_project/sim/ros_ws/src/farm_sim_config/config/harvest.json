@@ -1,0 +1,76 @@
+{
+  "schema_version": 1,
+  "robot_id": "harvest_01",
+  "map_id": "farm_map_v1",
+  "frame_id": "map",
+  "scene": "envs/output/farm_with_plants_v5.usd",
+  "map_yaml": "maps/count_test_farm_map.yaml",
+  "route": "maps/harvest_graph.geojson",
+  "use_sim_time": true,
+  "scene_binding": {
+    "robot_prim": "/World/harvest_robot",
+    "robot_prim_candidates": [
+      "/World/harvest_robot",
+      "/World/HarvestRobot/Model"
+    ],
+    "asset_file": "robots/harvest_count_test/harvest_robot.usd",
+    "articulation_relative": "base_footprint",
+    "base_link_relative": "base_link",
+    "lidar_relative": "lidar_mount",
+    "camera_relative": null,
+    "control_frame_yaw_rad": 3.141592653589793
+  },
+  "notes": [
+    "v0.8.5에서 검증에 사용한 수확 물리 자산/좌측 팔 논리 좌표계. 팔 구동은 생략."
+  ],
+  "base": {
+    "wheel_joints": [
+      "right_wheel_joint",
+      "left_wheel_joint"
+    ],
+    "wheel_signs": [
+      -1,
+      -1
+    ],
+    "wheel_radius_m": 0.0822,
+    "wheel_separation_m": 0.4288,
+    "max_linear_mps": 0.15,
+    "max_angular_rps": 0.6,
+    "command_timeout_s": 0.5
+  },
+  "runtime": {
+    "physics_hz": 60,
+    "render_hz": 60,
+    "realtime": true,
+    "command_port": 17610,
+    "telemetry_port": 17611,
+    "telemetry_hz": 30,
+    "transport_timeout_s": 2.0,
+    "drop_limit_m": 0.25
+  },
+  "frames": {
+    "odom": "harvest_01/odom",
+    "base_footprint": "harvest_01/base_footprint",
+    "base_link": "harvest_01/base_link",
+    "scan": "harvest_01/base_scan",
+    "camera_optical": "harvest_01/camera_optical_frame"
+  },
+  "camera": {
+    "enabled": false,
+    "width": 640,
+    "height": 384,
+    "fps": 15,
+    "shm_name": "farm_harvest_01_rgbd",
+    "depth_min_m": 0.1,
+    "depth_max_m": 5.0,
+    "odom_frame": "harvest_01/odom"
+  },
+  "lidar": {
+    "enabled": true,
+    "fps": 10,
+    "samples": 360,
+    "range_min_m": 0.12,
+    "range_max_m": 12.0
+  },
+  "publish_clock": false
+}

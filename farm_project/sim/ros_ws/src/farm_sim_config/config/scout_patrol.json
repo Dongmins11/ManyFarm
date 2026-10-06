@@ -1,0 +1,408 @@
+{
+  "schema_version": 1,
+  "robot_id": "scout_01",
+  "map_id": "farm_map_v1",
+  "route_graph": "sim/ros_ws/src/farm_sim_config/maps/graph.geojson",
+  "sections": {
+    "SEC01": {
+      "on_complete": "WAIT_FOR_COMMAND",
+      "segments": [
+        {
+          "segment_id": "SEC01_G01",
+          "observation_node_id": 10101
+        },
+        {
+          "segment_id": "SEC01_G02",
+          "observation_node_id": 10102
+        },
+        {
+          "segment_id": "SEC01_G03",
+          "observation_node_id": 10103
+        },
+        {
+          "segment_id": "SEC01_G04",
+          "observation_node_id": 10104
+        },
+        {
+          "segment_id": "SEC01_G05",
+          "observation_node_id": 10105
+        }
+      ]
+    },
+    "SEC02": {
+      "on_complete": "WAIT_FOR_COMMAND",
+      "segments": [
+        {
+          "segment_id": "SEC02_G01",
+          "observation_node_id": 10201
+        },
+        {
+          "segment_id": "SEC02_G02",
+          "observation_node_id": 10202
+        },
+        {
+          "segment_id": "SEC02_G03",
+          "observation_node_id": 10203
+        },
+        {
+          "segment_id": "SEC02_G04",
+          "observation_node_id": 10204
+        },
+        {
+          "segment_id": "SEC02_G05",
+          "observation_node_id": 10205
+        }
+      ]
+    },
+    "SEC03": {
+      "on_complete": "WAIT_FOR_COMMAND",
+      "segments": [
+        {
+          "segment_id": "SEC03_G01",
+          "observation_node_id": 10301
+        },
+        {
+          "segment_id": "SEC03_G02",
+          "observation_node_id": 10302
+        },
+        {
+          "segment_id": "SEC03_G03",
+          "observation_node_id": 10303
+        },
+        {
+          "segment_id": "SEC03_G04",
+          "observation_node_id": 10304
+        },
+        {
+          "segment_id": "SEC03_G05",
+          "observation_node_id": 10305
+        }
+      ]
+    },
+    "SEC04": {
+      "on_complete": "WAIT_FOR_COMMAND",
+      "segments": [
+        {
+          "segment_id": "SEC04_G01",
+          "observation_node_id": 10401
+        },
+        {
+          "segment_id": "SEC04_G02",
+          "observation_node_id": 10402
+        },
+        {
+          "segment_id": "SEC04_G03",
+          "observation_node_id": 10403
+        },
+        {
+          "segment_id": "SEC04_G04",
+          "observation_node_id": 10404
+        },
+        {
+          "segment_id": "SEC04_G05",
+          "observation_node_id": 10405
+        }
+      ]
+    },
+    "SEC05": {
+      "on_complete": "WAIT_FOR_COMMAND",
+      "segments": [
+        {
+          "segment_id": "SEC05_G01",
+          "observation_node_id": 10501
+        },
+        {
+          "segment_id": "SEC05_G02",
+          "observation_node_id": 10502
+        },
+        {
+          "segment_id": "SEC05_G03",
+          "observation_node_id": 10503
+        },
+        {
+          "segment_id": "SEC05_G04",
+          "observation_node_id": 10504
+        },
+        {
+          "segment_id": "SEC05_G05",
+          "observation_node_id": 10505
+        }
+      ]
+    },
+    "SEC06": {
+      "on_complete": "WAIT_FOR_COMMAND",
+      "segments": [
+        {
+          "segment_id": "SEC06_G01",
+          "observation_node_id": 10601
+        },
+        {
+          "segment_id": "SEC06_G02",
+          "observation_node_id": 10602
+        },
+        {
+          "segment_id": "SEC06_G03",
+          "observation_node_id": 10603
+        },
+        {
+          "segment_id": "SEC06_G04",
+          "observation_node_id": 10604
+        },
+        {
+          "segment_id": "SEC06_G05",
+          "observation_node_id": 10605
+        }
+      ]
+    },
+    "SEC07": {
+      "on_complete": "WAIT_FOR_COMMAND",
+      "segments": [
+        {
+          "segment_id": "SEC07_G01",
+          "observation_node_id": 10701
+        },
+        {
+          "segment_id": "SEC07_G02",
+          "observation_node_id": 10702
+        },
+        {
+          "segment_id": "SEC07_G03",
+          "observation_node_id": 10703
+        },
+        {
+          "segment_id": "SEC07_G04",
+          "observation_node_id": 10704
+        },
+        {
+          "segment_id": "SEC07_G05",
+          "observation_node_id": 10705
+        }
+      ]
+    },
+    "SEC08": {
+      "on_complete": "WAIT_FOR_COMMAND",
+      "segments": [
+        {
+          "segment_id": "SEC08_G01",
+          "observation_node_id": 10801
+        },
+        {
+          "segment_id": "SEC08_G02",
+          "observation_node_id": 10802
+        },
+        {
+          "segment_id": "SEC08_G03",
+          "observation_node_id": 10803
+        },
+        {
+          "segment_id": "SEC08_G04",
+          "observation_node_id": 10804
+        },
+        {
+          "segment_id": "SEC08_G05",
+          "observation_node_id": 10805
+        }
+      ]
+    },
+    "SEC09": {
+      "on_complete": "WAIT_FOR_COMMAND",
+      "segments": [
+        {
+          "segment_id": "SEC09_G01",
+          "observation_node_id": 10901
+        },
+        {
+          "segment_id": "SEC09_G02",
+          "observation_node_id": 10902
+        },
+        {
+          "segment_id": "SEC09_G03",
+          "observation_node_id": 10903
+        },
+        {
+          "segment_id": "SEC09_G04",
+          "observation_node_id": 10904
+        },
+        {
+          "segment_id": "SEC09_G05",
+          "observation_node_id": 10905
+        }
+      ]
+    },
+    "SEC10": {
+      "on_complete": "WAIT_FOR_COMMAND",
+      "segments": [
+        {
+          "segment_id": "SEC10_G01",
+          "observation_node_id": 11001
+        },
+        {
+          "segment_id": "SEC10_G02",
+          "observation_node_id": 11002
+        },
+        {
+          "segment_id": "SEC10_G03",
+          "observation_node_id": 11003
+        },
+        {
+          "segment_id": "SEC10_G04",
+          "observation_node_id": 11004
+        },
+        {
+          "segment_id": "SEC10_G05",
+          "observation_node_id": 11005
+        }
+      ]
+    },
+    "SEC11": {
+      "on_complete": "WAIT_FOR_COMMAND",
+      "segments": [
+        {
+          "segment_id": "SEC11_G01",
+          "observation_node_id": 11101
+        },
+        {
+          "segment_id": "SEC11_G02",
+          "observation_node_id": 11102
+        },
+        {
+          "segment_id": "SEC11_G03",
+          "observation_node_id": 11103
+        },
+        {
+          "segment_id": "SEC11_G04",
+          "observation_node_id": 11104
+        },
+        {
+          "segment_id": "SEC11_G05",
+          "observation_node_id": 11105
+        }
+      ]
+    },
+    "SEC12": {
+      "on_complete": "WAIT_FOR_COMMAND",
+      "segments": [
+        {
+          "segment_id": "SEC12_G01",
+          "observation_node_id": 11201
+        },
+        {
+          "segment_id": "SEC12_G02",
+          "observation_node_id": 11202
+        },
+        {
+          "segment_id": "SEC12_G03",
+          "observation_node_id": 11203
+        },
+        {
+          "segment_id": "SEC12_G04",
+          "observation_node_id": 11204
+        },
+        {
+          "segment_id": "SEC12_G05",
+          "observation_node_id": 11205
+        }
+      ]
+    },
+    "SEC13": {
+      "on_complete": "WAIT_FOR_COMMAND",
+      "segments": [
+        {
+          "segment_id": "SEC13_G01",
+          "observation_node_id": 11301
+        },
+        {
+          "segment_id": "SEC13_G02",
+          "observation_node_id": 11302
+        },
+        {
+          "segment_id": "SEC13_G03",
+          "observation_node_id": 11303
+        },
+        {
+          "segment_id": "SEC13_G04",
+          "observation_node_id": 11304
+        },
+        {
+          "segment_id": "SEC13_G05",
+          "observation_node_id": 11305
+        }
+      ]
+    },
+    "SEC14": {
+      "on_complete": "WAIT_FOR_COMMAND",
+      "segments": [
+        {
+          "segment_id": "SEC14_G01",
+          "observation_node_id": 11401
+        },
+        {
+          "segment_id": "SEC14_G02",
+          "observation_node_id": 11402
+        },
+        {
+          "segment_id": "SEC14_G03",
+          "observation_node_id": 11403
+        },
+        {
+          "segment_id": "SEC14_G04",
+          "observation_node_id": 11404
+        },
+        {
+          "segment_id": "SEC14_G05",
+          "observation_node_id": 11405
+        }
+      ]
+    },
+    "SEC15": {
+      "on_complete": "WAIT_FOR_COMMAND",
+      "segments": [
+        {
+          "segment_id": "SEC15_G01",
+          "observation_node_id": 11501
+        },
+        {
+          "segment_id": "SEC15_G02",
+          "observation_node_id": 11502
+        },
+        {
+          "segment_id": "SEC15_G03",
+          "observation_node_id": 11503
+        },
+        {
+          "segment_id": "SEC15_G04",
+          "observation_node_id": 11504
+        },
+        {
+          "segment_id": "SEC15_G05",
+          "observation_node_id": 11505
+        }
+      ]
+    },
+    "SEC16": {
+      "on_complete": "WAIT_FOR_COMMAND",
+      "segments": [
+        {
+          "segment_id": "SEC16_G01",
+          "observation_node_id": 11601
+        },
+        {
+          "segment_id": "SEC16_G02",
+          "observation_node_id": 11602
+        },
+        {
+          "segment_id": "SEC16_G03",
+          "observation_node_id": 11603
+        },
+        {
+          "segment_id": "SEC16_G04",
+          "observation_node_id": 11604
+        },
+        {
+          "segment_id": "SEC16_G05",
+          "observation_node_id": 11605
+        }
+      ]
+    }
+  }
+}

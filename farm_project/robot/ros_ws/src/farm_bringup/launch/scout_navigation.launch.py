@@ -70,6 +70,6 @@ def generate_launch_description():
         DeclareLaunchArgument('map', default_value=''),
         DeclareLaunchArgument('nav_params', default_value=''),
         DeclareLaunchArgument('route_file', default_value=''),
-        DeclareLaunchArgument('rviz', default_value='true', choices=['true', 'false']),
+        DeclareLaunchArgument('rviz', default_value='false', choices=['true', 'false']),
         OpaqueFunction(function=setup),
     ])

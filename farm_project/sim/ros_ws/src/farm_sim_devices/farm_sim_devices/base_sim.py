@@ -4,10 +4,10 @@ from farm_common.kinematics import wheel_targets,WheelOdometry
 
 
 class BaseSim:
-    def __init__(self,world,root_path,config):
+    def __init__(self,world,root_path,config,name='scout_drive'):
         from isaacsim.core.prims import SingleArticulation
         self.config=config
-        self.robot=world.scene.add(SingleArticulation(prim_path=root_path,name='scout_drive'))
+        self.robot=world.scene.add(SingleArticulation(prim_path=root_path,name=name))
         self.odometry=WheelOdometry(config['wheel_radius_m'],config['wheel_separation_m'])
 
     def initialize(self):

@@ -1,0 +1,95 @@
+{
+  "schema_version": 1,
+  "robot_id": "scout_01",
+  "map_id": "farm_map_v1",
+  "frame_id": "map",
+  "scene": "envs/output/farm_with_plants_v5.usd",
+  "map_yaml": "maps/count_test_farm_map.yaml",
+  "route": "maps/graph.geojson",
+  "use_sim_time": true,
+  "bed_1": {
+    "section_id": "SEC01",
+    "route_node_ids": [
+      "SEC01_START",
+      10101,
+      10102,
+      10103,
+      10104,
+      10105,
+      "SEC01_END"
+    ],
+    "expected_heading_rad": -1.5707963267948966,
+    "camera_look_direction_map": "+X",
+    "camera_side_robot": "left",
+    "camera_to_bed_edge_m": 1.14,
+    "segment_definition": "config/scout_patrol.json"
+  },
+  "scene_binding": {
+    "robot_prim": "/World/scout_robot_camera_fixed",
+    "articulation_relative": "base_footprint",
+    "base_link_relative": "base_link",
+    "camera_relative": "base_link/scout_camera",
+    "lidar_relative": "base_scan"
+  },
+  "notes": [
+    "카메라와 베드 가장자리 사이 1.14m는 사용자 제공값이며 USD에서 실측하지 않았습니다.",
+    "map_id는 PDF 예시 기반 임시값입니다. 실 관제 지도 ID와 대조해야 합니다.",
+    "USD 카메라는 base_link 위 0.59m이며 로봇 왼쪽(+Y)을 봅니다. 640x384는 USD의 5:3 aperture 비율이며 실물 카메라 보정값은 아닙니다.",
+    "odom은 바퀴 엔코더를 적분합니다. map→odom은 AMCL이 발행합니다.",
+    "task.yaml에서 생성한 station_spawn.json으로 시작 시 예찰로봇을 배치합니다. AMCL 초기 pose도 같은 station 값을 사용하며 odom은 바퀴 적분을 유지합니다."
+  ],
+  "base": {
+    "wheel_joints": [
+      "wheel_left_joint",
+      "wheel_right_joint"
+    ],
+    "wheel_signs": [
+      1,
+      1
+    ],
+    "wheel_radius_m": 0.033,
+    "wheel_separation_m": 0.16,
+    "max_linear_mps": 0.22,
+    "max_angular_rps": 1.5,
+    "command_timeout_s": 0.5
+  },
+  "runtime": {
+    "physics_hz": 60,
+    "render_hz": 60,
+    "realtime": true,
+    "command_port": 17600,
+    "telemetry_port": 17601,
+    "telemetry_hz": 30,
+    "transport_timeout_s": 2.0,
+    "drop_limit_m": 0.25
+  },
+  "frames": {
+    "odom": "scout_01/odom",
+    "base_footprint": "scout_01/base_footprint",
+    "base_link": "scout_01/base_link",
+    "scan": "scout_01/base_scan",
+    "camera_optical": "scout_01/camera_optical_frame"
+  },
+  "camera": {
+    "enabled": true,
+    "width": 640,
+    "height": 384,
+    "fps": 15,
+    "shm_name": "farm_scout_01_rgbd",
+    "depth_min_m": 0.1,
+    "depth_max_m": 5.0,
+    "odom_frame": "scout_01/odom"
+  },
+  "lidar": {
+    "enabled": true,
+    "fps": 10,
+    "samples": 360,
+    "range_min_m": 0.12,
+    "range_max_m": 12.0
+  },
+  "station_spawn": {
+    "enabled": true,
+    "config": "station_spawn.json"
+  },
+  "publish_clock": false
+}

@@ -59,7 +59,7 @@ class MissionContext:
 
     @property
     def section(self) -> str:
-        return self.goal.request.section_ids[self.section_index]
+        return self.goal.request.section_id
 
     @property
     def segment(self) -> JsonObject:

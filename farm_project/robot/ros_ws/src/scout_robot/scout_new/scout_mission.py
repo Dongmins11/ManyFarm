@@ -8,6 +8,7 @@ from typing import TYPE_CHECKING
 from farm_interfaces.action import ScoutArea
 from rclpy.action.server import ServerGoalHandle
 from scout_robot.survey_core import Survey
+from scout_robot.task_messages import tasks_from_windows, task_record
 
 from .mission_types import MissionContext
 from .observer import SurveyObserver
@@ -38,7 +39,7 @@ class ScoutMission:
         report = {
             'session_id': session,
             'goal': {key: getattr(goal.request, key) for key in (
-                'robot_id', 'task_id', 'section_ids', 'map_id',
+                'robot_id', 'task_id', 'section_id', 'map_id',
                 'frame_id', 'crop_type', 'target_ripeness',
             )},
             'config': self._node._cfg,
@@ -130,18 +131,27 @@ class ScoutMission:
         context.report['completed_segment_count'] = context.completed_segments
         context.report['sections'][context.section]['survey'] = context.survey.record()
 
-    def record_section(self) -> None:
-        """완료 State가 만든 작업 목록을 미션 전체 기록에 반영합니다."""
+    def save_segment(self) -> None:
+        """저장 성공한 관측까지만 Result용 부분 목록으로 확정합니다.
+
+        I/O 직렬 큐에서 저장 후 commit하므로 취소 정리도 이 작업 이후 실행됩니다.
+        """
         context = self.context
         section = context.report['sections'][context.section]
-        section['status'] = 'COMPLETE'
-        section['batch'] = [{
-            'task_id': task.task_id, 'window_id': task.window_id,
-            'segment_id': task.segment_id, 'expected_count': task.expected_count,
-        } for task in context.tasks]
+        windows = section['survey']['windows']
+        tasks = tasks_from_windows(windows)
+        section['batch'] = [dict(task_record(task), section_id=context.section,
+                                 segment_id=window.get('segment_id', ''), sequence=i + 1)
+                            for i, (task, window) in enumerate(zip(tasks, windows))]
+        self.save()
+        context.tasks = tasks
+
+    def record_section(self) -> None:
+        context = self.context
+        context.report['sections'][context.section]['status'] = 'COMPLETE'
         context.completed.append(context.section)
-        context.total_tasks += len(context.tasks)
-        context.total_fruits += sum(task.expected_count for task in context.tasks)
+        context.total_tasks = len(context.tasks)
+        context.total_fruits = sum(task.expected_count for task in context.tasks)
 
     def save(self) -> None:
         write_json(self.context.folder / 'survey.json', self.context.report)
@@ -167,17 +177,20 @@ class ScoutMission:
         if error is not None and type(error).__name__ == 'NavigationConfigurationError':
             result.error_code = 'NAV_CONFIG_MISMATCH'
         result.error_message = '' if error is None else str(error)
-        result.completed_section_ids = context.completed
+        result.section_id = context.section
+        result.harvest_tasks = list(context.tasks)
         result.completed_segment_count = context.completed_segments
-        result.harvest_task_count = context.total_tasks
-        result.total_expected_count = context.total_fruits
+        result.harvest_task_count = len(result.harvest_tasks)
+        result.total_expected_count = sum(task.expected_count for task in result.harvest_tasks)
         result.timestamp = utc()
         context.report.update(
             status=code, finished_at=utc(),
             elapsed_wall_s=time.monotonic() - context.started_wall,
             completed_section_ids=context.completed,
-            harvest_task_count=context.total_tasks,
-            total_expected_count=context.total_fruits,
+            section_id=context.section,
+            harvest_tasks=[task_record(task) for task in result.harvest_tasks],
+            harvest_task_count=result.harvest_task_count,
+            total_expected_count=result.total_expected_count,
         )
         if error is not None:
             context.report['error'] = str(error)

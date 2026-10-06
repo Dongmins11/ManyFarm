@@ -1,8 +1,8 @@
 {
   "schema_version": 1,
   "shm_name": "farm_scout_01_rgbd",
-  "model": "robot/models/scout/model_yolo11_seg_ver1.0.pt",
-  "save_dir": "captures/scout_vision",
+  "model": "robot/models/scout/yolo11_seg_2class_synth_and_sim_v2.0.pt",
+  "save_dir": "sim/runs/scout_vision",
   "max_fps": 15.0,
   "max_frame_age_s": 2.0,
   "preprocess": {

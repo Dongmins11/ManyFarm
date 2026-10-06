@@ -1,0 +1,124 @@
+Panels:
+- Class: rviz_common/Displays
+  Name: Displays
+Visualization Manager:
+  Class: ''
+  Global Options:
+    Background Color: 35; 35; 35
+    Fixed Frame: map
+    Frame Rate: 30
+  Displays:
+  - Class: rviz_default_plugins/Grid
+    Name: Grid
+    Enabled: true
+    Cell Size: 1.0
+    Plane: XY
+    Plane Cell Count: 40
+  - Class: rviz_default_plugins/Map
+    Name: Farm map
+    Enabled: true
+    Topic:
+      Value: /scout_01/map
+      Depth: 5
+      History Policy: Keep Last
+      Reliability Policy: Reliable
+      Durability Policy: Transient Local
+    Alpha: 0.75
+    Color Scheme: map
+  - Class: rviz_default_plugins/LaserScan
+    Name: LiDAR
+    Enabled: true
+    Topic:
+      Value: /scout_01/scan
+      Depth: 5
+      History Policy: Keep Last
+      Reliability Policy: Best Effort
+      Durability Policy: Volatile
+    Size (m): 0.035
+    Style: Points
+    Color Transformer: FlatColor
+    Color: 255; 40; 40
+  - Class: rviz_default_plugins/TF
+    Name: Frames
+    Enabled: true
+    Show Names: false
+    Show Axes: true
+    Show Arrows: false
+    Marker Scale: 0.4
+  - Class: rviz_default_plugins/Path
+    Name: Bed 1 route
+    Enabled: true
+    Topic:
+      Value: /scout_01/route_preview
+      Depth: 5
+      History Policy: Keep Last
+      Reliability Policy: Reliable
+      Durability Policy: Transient Local
+    Color: 0; 255; 255
+    Line Style: Billboards
+    Line Width: 0.03
+  - Class: rviz_default_plugins/MarkerArray
+    Name: Route and camera direction
+    Enabled: true
+    Marker Topic:
+      Value: /scout_01/route_markers
+      Depth: 5
+      History Policy: Keep Last
+      Reliability Policy: Reliable
+      Durability Policy: Transient Local
+  - Class: rviz_default_plugins/Path
+    Name: Nav2 plan
+    Enabled: true
+    Topic:
+      Value: /scout_01/plan
+      Depth: 5
+      History Policy: Keep Last
+      Reliability Policy: Reliable
+      Durability Policy: Volatile
+    Color: 0; 255; 0
+    Line Style: Billboards
+    Line Width: 0.02
+  - Class: rviz_default_plugins/Polygon
+    Name: Robot footprint
+    Enabled: true
+    Topic:
+      Value: /scout_01/local_costmap/published_footprint
+      Depth: 5
+      History Policy: Keep Last
+      Reliability Policy: Reliable
+      Durability Policy: Volatile
+    Color: 255; 0; 255
+  - Class: rviz_default_plugins/Map
+    Name: Local costmap
+    Enabled: false
+    Topic:
+      Value: /scout_01/local_costmap/costmap
+      Depth: 5
+      History Policy: Keep Last
+      Reliability Policy: Reliable
+      Durability Policy: Transient Local
+    Color Scheme: costmap
+    Alpha: 0.45
+  Tools:
+  - Class: rviz_default_plugins/Interact
+  - Class: rviz_default_plugins/MoveCamera
+  - Class: rviz_default_plugins/Select
+  - Class: rviz_default_plugins/SetInitialPose
+    Topic:
+      Value: /scout_01/initialpose
+      Depth: 5
+      History Policy: Keep Last
+      Reliability Policy: Reliable
+      Durability Policy: Volatile
+  Views:
+    Current:
+      Class: rviz_default_plugins/TopDownOrtho
+      Name: Current View
+      Scale: 32.0
+      X: -3.0
+      Y: 5.0
+      Angle: 0.0
+      Target Frame: map
+Window Geometry:
+  Width: 1200
+  Height: 900

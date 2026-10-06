@@ -1,0 +1,40 @@
+{
+  "robot_id": "scout_01",
+  "task_id": "SCOUT_101",
+  "phase": "SEGMENT_COMPLETE",
+  "section_id": "SEC_A01",
+  "segment_id": "SEG_A01",
+  "completed_segment_count": 1,
+  "harvest_tasks": [
+    {
+      "task_id": "HARVEST_201",
+      "window_id": "WIN_A01_01",
+      "goal_pose": {
+        "frame_id": "map",
+        "position": {
+          "x": 1.0,
+          "y": 1.5,
+          "z": 0.0
+        },
+        "yaw": 0.0
+      },
+      "expected_count": 2
+    },
+    {
+      "task_id": "HARVEST_202",
+      "window_id": "WIN_A01_02",
+      "goal_pose": {
+        "frame_id": "map",
+        "position": {
+          "x": 1.5,
+          "y": 1.5,
+          "z": 0.0
+        },
+        "yaw": 0.0
+      },
+      "expected_count": 3
+    }
+  ],
+  "timestamp": "2026-09-20T17:30:00+09:00",
+  "segment_expected_count": 5
+}

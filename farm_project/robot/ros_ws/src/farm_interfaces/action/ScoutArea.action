@@ -1,34 +1,33 @@
-# Goal
+# One Goal surveys exactly one Section. Tasks are registered from Result only.
 string robot_id
 string task_id
-string[] section_ids
+string section_id
 string map_id
 string frame_id
 string crop_type
 string target_ripeness
 string timestamp
 ---
-# Result
 string robot_id
 string task_id
 string result_code
-string[] completed_section_ids
+string section_id
 int32 completed_segment_count
 int32 harvest_task_count
 int32 total_expected_count
+# SUCCESS: final list; FAILED/CANCELED: stored partial list.
+farm_interfaces/HarvestTask[] harvest_tasks
 string error_code
 string error_message
 string timestamp
 ---
-# Feedback
+# Progress only. Task arrays here do not create dispatchable work.
 string robot_id
 string task_id
 string phase
 string section_id
 string segment_id
-int32 completed_section_count
 int32 completed_segment_count
-# Valid in-section fruit detections in this completed capture (not cumulative).
 int32 segment_expected_count
 farm_interfaces/HarvestTask[] harvest_tasks
 string timestamp

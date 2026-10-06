@@ -104,8 +104,8 @@ def main():
     p.add_argument('--tolerance',type=float,default=.03);a=p.parse_args()
     if not 0<a.tolerance<.5:raise ValueError('Invalid tolerance')
     if a.survey=='latest':
-        files=list((ROOT/'runs/scout_survey').glob('*/survey.json'))
-        if not files:raise SystemExit('No survey results')
+        files=list((ROOT/'sim/runs/scout_survey').glob('*/survey.json'))
+        if not files:raise SystemExit('sim/runs/scout_survey에 결과가 없습니다. 이전 결과는 --survey로 파일 경로를 지정하세요.')
         path=max(files,key=lambda p:p.stat().st_mtime)
     else:path=Path(a.survey)
     report=json.loads(path.read_text());truth=json.loads(Path(a.truth).read_text())

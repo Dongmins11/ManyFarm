@@ -1,0 +1,1027 @@
+# 연결 경로·관측점·station 원본. 수정 후 sim/tools/rebuild_route_data.py 실행.
+schema_version: 3
+robot_id: scout_01
+map_id: farm_map_v1
+base_frame: scout_01/base_footprint
+vision_config: sim/ros_ws/src/farm_sim_config/config/scout_vision.json
+output_dir: sim/runs/scout_survey
+goal_timeout_s: 300.0
+arrival_tolerance_m: 0.08
+heading_tolerance_rad: 0.12
+settle_s: 0.8
+overlap_fraction: 0.15
+association_distance_m: 0.065
+association_band_half_depth_m: 0.2
+evaluation:
+  T_map_world:
+  - - 1
+    - 0
+    - 0
+    - 0
+  - - 0
+    - 1
+    - 0
+    - 0
+  - - 0
+    - 0
+    - 1
+    - 0
+  - - 0
+    - 0
+    - 0
+    - 1
+  note: Current scene/map share XY axes and initial robot coordinates. Change this
+    independent registration if map origin/rotation changes; never fit to predictions.
+navigation_backend: graph_follow_path
+graph_file: sim/ros_ws/src/farm_sim_config/maps/scout_harvest.geojson
+graph_version: 2026-10-02.left-arm.same-direction.v4
+map_yaml: sim/ros_ws/src/farm_sim_config/maps/count_test_farm_map.yaml
+controller_id: RPP
+goal_checker_id: goal_checker
+progress_checker_id: progress_checker
+max_start_distance_m: 0.1
+max_goal_distance_m: 0.02
+path_spacing_m: 0.04
+sections:
+  SEC01:
+    bed_plane_from_route_m: 1.14
+    evaluation_bed_prim: /World/Vegetation/Bed_02
+    harvest:
+      heading_offset_rad: 0.0
+      mount_xy_base_m:
+      - -0.19
+      - 0.185
+      work_offset_xy_base_m:
+      - 0.0
+      - 0.25
+      height_reference_m: 0.703
+      height_offsets_m:
+      - -0.1
+      - 0.35
+      width_m: 0.35
+      side_margin_m: 0.03
+      depth_m: 0.1
+      geometry_status: Left arm in logical driving frame (asset -X forward). Mount
+        XY (-0.19,+0.185); left work offset +0.25m. Workspace remains a provisional
+        cuboid, not IK.
+      range_tolerance_m: 0.02
+      membership_margin_m: 0.0
+    finish_at: last_segment
+    physical_bed_center_map_m:
+    - -5
+    - 6
+    survey_side: west
+    survey_geometry:
+      start_xy_m:
+      - -6.655
+      - 10
+      end_xy_m:
+      - -6.655
+      - 2
+    observations:
+    - segment_id: SEC01_G01
+      node_id: 10101
+      yaw_rad: -1.5707963267948966
+    - segment_id: SEC01_G02
+      node_id: 10102
+      yaw_rad: -1.5707963267948966
+    - segment_id: SEC01_G03
+      node_id: 10103
+      yaw_rad: -1.5707963267948966
+    - segment_id: SEC01_G04
+      node_id: 10104
+      yaw_rad: -1.5707963267948966
+    - segment_id: SEC01_G05
+      node_id: 10105
+      yaw_rad: -1.5707963267948966
+    harvest_order: work_heading
+    harvest_route:
+      x_m: -5.955
+      heading_rad: -1.5707963267948966
+      entry_node_id: 20102
+      exit_node_id: 20100
+  SEC02:
+    bed_plane_from_route_m: 1.14
+    evaluation_bed_prim: /World/Vegetation/Bed_02
+    harvest:
+      heading_offset_rad: 0.0
+      mount_xy_base_m:
+      - -0.19
+      - 0.185
+      work_offset_xy_base_m:
+      - 0.0
+      - 0.25
+      height_reference_m: 0.703
+      height_offsets_m:
+      - -0.1
+      - 0.35
+      width_m: 0.35
+      side_margin_m: 0.03
+      depth_m: 0.1
+      geometry_status: Left arm in logical driving frame (asset -X forward). Mount
+        XY (-0.19,+0.185); left work offset +0.25m. Workspace remains a provisional
+        cuboid, not IK.
+      range_tolerance_m: 0.02
+      membership_margin_m: 0.0
+    finish_at: last_segment
+    physical_bed_center_map_m:
+    - -5
+    - 6
+    survey_side: east
+    survey_geometry:
+      start_xy_m:
+      - -3.345
+      - 2
+      end_xy_m:
+      - -3.345
+      - 10
+    observations:
+    - segment_id: SEC02_G01
+      node_id: 10201
+      yaw_rad: 1.5707963267948966
+    - segment_id: SEC02_G02
+      node_id: 10202
+      yaw_rad: 1.5707963267948966
+    - segment_id: SEC02_G03
+      node_id: 10203
+      yaw_rad: 1.5707963267948966
+    - segment_id: SEC02_G04
+      node_id: 10204
+      yaw_rad: 1.5707963267948966
+    - segment_id: SEC02_G05
+      node_id: 10205
+      yaw_rad: 1.5707963267948966
+    harvest_order: work_heading
+    harvest_route:
+      x_m: -4.045
+      heading_rad: 1.5707963267948966
+      entry_node_id: 20202
+      exit_node_id: 20200
+  SEC03:
+    bed_plane_from_route_m: 1.14
+    evaluation_bed_prim: /World/Vegetation/Bed_04
+    harvest:
+      heading_offset_rad: 0.0
+      mount_xy_base_m:
+      - -0.19
+      - 0.185
+      work_offset_xy_base_m:
+      - 0.0
+      - 0.25
+      height_reference_m: 0.703
+      height_offsets_m:
+      - -0.1
+      - 0.35
+      width_m: 0.35
+      side_margin_m: 0.03
+      depth_m: 0.1
+      geometry_status: Left arm in logical driving frame (asset -X forward). Mount
+        XY (-0.19,+0.185); left work offset +0.25m. Workspace remains a provisional
+        cuboid, not IK.
+      range_tolerance_m: 0.02
+      membership_margin_m: 0.0
+    finish_at: last_segment
+    physical_bed_center_map_m:
+    - -2
+    - 6
+    survey_side: west
+    survey_geometry:
+      start_xy_m:
+      - -3.655
+      - 10
+      end_xy_m:
+      - -3.655
+      - 2
+    observations:
+    - segment_id: SEC03_G01
+      node_id: 10301
+      yaw_rad: -1.5707963267948966
+    - segment_id: SEC03_G02
+      node_id: 10302
+      yaw_rad: -1.5707963267948966
+    - segment_id: SEC03_G03
+      node_id: 10303
+      yaw_rad: -1.5707963267948966
+    - segment_id: SEC03_G04
+      node_id: 10304
+      yaw_rad: -1.5707963267948966
+    - segment_id: SEC03_G05
+      node_id: 10305
+      yaw_rad: -1.5707963267948966
+    harvest_order: work_heading
+    harvest_route:
+      x_m: -2.955
+      heading_rad: -1.5707963267948966
+      entry_node_id: 20302
+      exit_node_id: 20300
+  SEC04:
+    bed_plane_from_route_m: 1.14
+    evaluation_bed_prim: /World/Vegetation/Bed_04
+    harvest:
+      heading_offset_rad: 0.0
+      mount_xy_base_m:
+      - -0.19
+      - 0.185
+      work_offset_xy_base_m:
+      - 0.0
+      - 0.25
+      height_reference_m: 0.703
+      height_offsets_m:
+      - -0.1
+      - 0.35
+      width_m: 0.35
+      side_margin_m: 0.03
+      depth_m: 0.1
+      geometry_status: Left arm in logical driving frame (asset -X forward). Mount
+        XY (-0.19,+0.185); left work offset +0.25m. Workspace remains a provisional
+        cuboid, not IK.
+      range_tolerance_m: 0.02
+      membership_margin_m: 0.0
+    finish_at: last_segment
+    physical_bed_center_map_m:
+    - -2
+    - 6
+    survey_side: east
+    survey_geometry:
+      start_xy_m:
+      - -0.345
+      - 2
+      end_xy_m:
+      - -0.345
+      - 10
+    observations:
+    - segment_id: SEC04_G01
+      node_id: 10401
+      yaw_rad: 1.5707963267948966
+    - segment_id: SEC04_G02
+      node_id: 10402
+      yaw_rad: 1.5707963267948966
+    - segment_id: SEC04_G03
+      node_id: 10403
+      yaw_rad: 1.5707963267948966
+    - segment_id: SEC04_G04
+      node_id: 10404
+      yaw_rad: 1.5707963267948966
+    - segment_id: SEC04_G05
+      node_id: 10405
+      yaw_rad: 1.5707963267948966
+    harvest_order: work_heading
+    harvest_route:
+      x_m: -1.045
+      heading_rad: 1.5707963267948966
+      entry_node_id: 20402
+      exit_node_id: 20400
+  SEC05:
+    bed_plane_from_route_m: 1.14
+    evaluation_bed_prim: /World/Vegetation/Bed_06
+    harvest:
+      heading_offset_rad: 0.0
+      mount_xy_base_m:
+      - -0.19
+      - 0.185
+      work_offset_xy_base_m:
+      - 0.0
+      - 0.25
+      height_reference_m: 0.703
+      height_offsets_m:
+      - -0.1
+      - 0.35
+      width_m: 0.35
+      side_margin_m: 0.03
+      depth_m: 0.1
+      geometry_status: Left arm in logical driving frame (asset -X forward). Mount
+        XY (-0.19,+0.185); left work offset +0.25m. Workspace remains a provisional
+        cuboid, not IK.
+      range_tolerance_m: 0.02
+      membership_margin_m: 0.0
+    finish_at: last_segment
+    physical_bed_center_map_m:
+    - 2
+    - 6
+    survey_side: west
+    survey_geometry:
+      start_xy_m:
+      - 0.345
+      - 10
+      end_xy_m:
+      - 0.345
+      - 2
+    observations:
+    - segment_id: SEC05_G01
+      node_id: 10501
+      yaw_rad: -1.5707963267948966
+    - segment_id: SEC05_G02
+      node_id: 10502
+      yaw_rad: -1.5707963267948966
+    - segment_id: SEC05_G03
+      node_id: 10503
+      yaw_rad: -1.5707963267948966
+    - segment_id: SEC05_G04
+      node_id: 10504
+      yaw_rad: -1.5707963267948966
+    - segment_id: SEC05_G05
+      node_id: 10505
+      yaw_rad: -1.5707963267948966
+    harvest_order: work_heading
+    harvest_route:
+      x_m: 1.045
+      heading_rad: -1.5707963267948966
+      entry_node_id: 20502
+      exit_node_id: 20500
+  SEC06:
+    bed_plane_from_route_m: 1.14
+    evaluation_bed_prim: /World/Vegetation/Bed_06
+    harvest:
+      heading_offset_rad: 0.0
+      mount_xy_base_m:
+      - -0.19
+      - 0.185
+      work_offset_xy_base_m:
+      - 0.0
+      - 0.25
+      height_reference_m: 0.703
+      height_offsets_m:
+      - -0.1
+      - 0.35
+      width_m: 0.35
+      side_margin_m: 0.03
+      depth_m: 0.1
+      geometry_status: Left arm in logical driving frame (asset -X forward). Mount
+        XY (-0.19,+0.185); left work offset +0.25m. Workspace remains a provisional
+        cuboid, not IK.
+      range_tolerance_m: 0.02
+      membership_margin_m: 0.0
+    finish_at: last_segment
+    physical_bed_center_map_m:
+    - 2
+    - 6
+    survey_side: east
+    survey_geometry:
+      start_xy_m:
+      - 3.655
+      - 2
+      end_xy_m:
+      - 3.655
+      - 10
+    observations:
+    - segment_id: SEC06_G01
+      node_id: 10601
+      yaw_rad: 1.5707963267948966
+    - segment_id: SEC06_G02
+      node_id: 10602
+      yaw_rad: 1.5707963267948966
+    - segment_id: SEC06_G03
+      node_id: 10603
+      yaw_rad: 1.5707963267948966
+    - segment_id: SEC06_G04
+      node_id: 10604
+      yaw_rad: 1.5707963267948966
+    - segment_id: SEC06_G05
+      node_id: 10605
+      yaw_rad: 1.5707963267948966
+    harvest_order: work_heading
+    harvest_route:
+      x_m: 2.955
+      heading_rad: 1.5707963267948966
+      entry_node_id: 20602
+      exit_node_id: 20600
+  SEC07:
+    bed_plane_from_route_m: 1.14
+    evaluation_bed_prim: /World/Vegetation/Bed_08
+    harvest:
+      heading_offset_rad: 0.0
+      mount_xy_base_m:
+      - -0.19
+      - 0.185
+      work_offset_xy_base_m:
+      - 0.0
+      - 0.25
+      height_reference_m: 0.703
+      height_offsets_m:
+      - -0.1
+      - 0.35
+      width_m: 0.35
+      side_margin_m: 0.03
+      depth_m: 0.1
+      geometry_status: Left arm in logical driving frame (asset -X forward). Mount
+        XY (-0.19,+0.185); left work offset +0.25m. Workspace remains a provisional
+        cuboid, not IK.
+      range_tolerance_m: 0.02
+      membership_margin_m: 0.0
+    finish_at: last_segment
+    physical_bed_center_map_m:
+    - 5
+    - 6
+    survey_side: west
+    survey_geometry:
+      start_xy_m:
+      - 3.345
+      - 10
+      end_xy_m:
+      - 3.345
+      - 2
+    observations:
+    - segment_id: SEC07_G01
+      node_id: 10701
+      yaw_rad: -1.5707963267948966
+    - segment_id: SEC07_G02
+      node_id: 10702
+      yaw_rad: -1.5707963267948966
+    - segment_id: SEC07_G03
+      node_id: 10703
+      yaw_rad: -1.5707963267948966
+    - segment_id: SEC07_G04
+      node_id: 10704
+      yaw_rad: -1.5707963267948966
+    - segment_id: SEC07_G05
+      node_id: 10705
+      yaw_rad: -1.5707963267948966
+    harvest_order: work_heading
+    harvest_route:
+      x_m: 4.045
+      heading_rad: -1.5707963267948966
+      entry_node_id: 20702
+      exit_node_id: 20700
+  SEC08:
+    bed_plane_from_route_m: 1.14
+    evaluation_bed_prim: /World/Vegetation/Bed_08
+    harvest:
+      heading_offset_rad: 0.0
+      mount_xy_base_m:
+      - -0.19
+      - 0.185
+      work_offset_xy_base_m:
+      - 0.0
+      - 0.25
+      height_reference_m: 0.703
+      height_offsets_m:
+      - -0.1
+      - 0.35
+      width_m: 0.35
+      side_margin_m: 0.03
+      depth_m: 0.1
+      geometry_status: Left arm in logical driving frame (asset -X forward). Mount
+        XY (-0.19,+0.185); left work offset +0.25m. Workspace remains a provisional
+        cuboid, not IK.
+      range_tolerance_m: 0.02
+      membership_margin_m: 0.0
+    finish_at: last_segment
+    physical_bed_center_map_m:
+    - 5
+    - 6
+    survey_side: east
+    survey_geometry:
+      start_xy_m:
+      - 6.655
+      - 2
+      end_xy_m:
+      - 6.655
+      - 10
+    observations:
+    - segment_id: SEC08_G01
+      node_id: 10801
+      yaw_rad: 1.5707963267948966
+    - segment_id: SEC08_G02
+      node_id: 10802
+      yaw_rad: 1.5707963267948966
+    - segment_id: SEC08_G03
+      node_id: 10803
+      yaw_rad: 1.5707963267948966
+    - segment_id: SEC08_G04
+      node_id: 10804
+      yaw_rad: 1.5707963267948966
+    - segment_id: SEC08_G05
+      node_id: 10805
+      yaw_rad: 1.5707963267948966
+    harvest_order: work_heading
+    harvest_route:
+      x_m: 5.955
+      heading_rad: 1.5707963267948966
+      entry_node_id: 20802
+      exit_node_id: 20800
+  SEC09:
+    bed_plane_from_route_m: 1.14
+    evaluation_bed_prim: /World/Vegetation/Bed_01
+    harvest:
+      heading_offset_rad: 0.0
+      mount_xy_base_m:
+      - -0.19
+      - 0.185
+      work_offset_xy_base_m:
+      - 0.0
+      - 0.25
+      height_reference_m: 0.703
+      height_offsets_m:
+      - -0.1
+      - 0.35
+      width_m: 0.35
+      side_margin_m: 0.03
+      depth_m: 0.1
+      geometry_status: Left arm in logical driving frame (asset -X forward). Mount
+        XY (-0.19,+0.185); left work offset +0.25m. Workspace remains a provisional
+        cuboid, not IK.
+      range_tolerance_m: 0.02
+      membership_margin_m: 0.0
+    finish_at: last_segment
+    physical_bed_center_map_m:
+    - -5
+    - -6
+    survey_side: west
+    survey_geometry:
+      start_xy_m:
+      - -6.655
+      - -2
+      end_xy_m:
+      - -6.655
+      - -10
+    observations:
+    - segment_id: SEC09_G01
+      node_id: 10901
+      yaw_rad: -1.5707963267948966
+    - segment_id: SEC09_G02
+      node_id: 10902
+      yaw_rad: -1.5707963267948966
+    - segment_id: SEC09_G03
+      node_id: 10903
+      yaw_rad: -1.5707963267948966
+    - segment_id: SEC09_G04
+      node_id: 10904
+      yaw_rad: -1.5707963267948966
+    - segment_id: SEC09_G05
+      node_id: 10905
+      yaw_rad: -1.5707963267948966
+    harvest_order: work_heading
+    harvest_route:
+      x_m: -5.955
+      heading_rad: -1.5707963267948966
+      entry_node_id: 20902
+      exit_node_id: 20900
+  SEC10:
+    bed_plane_from_route_m: 1.14
+    evaluation_bed_prim: /World/Vegetation/Bed_01
+    harvest:
+      heading_offset_rad: 0.0
+      mount_xy_base_m:
+      - -0.19
+      - 0.185
+      work_offset_xy_base_m:
+      - 0.0
+      - 0.25
+      height_reference_m: 0.703
+      height_offsets_m:
+      - -0.1
+      - 0.35
+      width_m: 0.35
+      side_margin_m: 0.03
+      depth_m: 0.1
+      geometry_status: Left arm in logical driving frame (asset -X forward). Mount
+        XY (-0.19,+0.185); left work offset +0.25m. Workspace remains a provisional
+        cuboid, not IK.
+      range_tolerance_m: 0.02
+      membership_margin_m: 0.0
+    finish_at: last_segment
+    physical_bed_center_map_m:
+    - -5
+    - -6
+    survey_side: east
+    survey_geometry:
+      start_xy_m:
+      - -3.345
+      - -10
+      end_xy_m:
+      - -3.345
+      - -2
+    observations:
+    - segment_id: SEC10_G01
+      node_id: 11001
+      yaw_rad: 1.5707963267948966
+    - segment_id: SEC10_G02
+      node_id: 11002
+      yaw_rad: 1.5707963267948966
+    - segment_id: SEC10_G03
+      node_id: 11003
+      yaw_rad: 1.5707963267948966
+    - segment_id: SEC10_G04
+      node_id: 11004
+      yaw_rad: 1.5707963267948966
+    - segment_id: SEC10_G05
+      node_id: 11005
+      yaw_rad: 1.5707963267948966
+    harvest_order: work_heading
+    harvest_route:
+      x_m: -4.045
+      heading_rad: 1.5707963267948966
+      entry_node_id: 21002
+      exit_node_id: 21000
+  SEC11:
+    bed_plane_from_route_m: 1.14
+    evaluation_bed_prim: /World/Vegetation/Bed_03
+    harvest:
+      heading_offset_rad: 0.0
+      mount_xy_base_m:
+      - -0.19
+      - 0.185
+      work_offset_xy_base_m:
+      - 0.0
+      - 0.25
+      height_reference_m: 0.703
+      height_offsets_m:
+      - -0.1
+      - 0.35
+      width_m: 0.35
+      side_margin_m: 0.03
+      depth_m: 0.1
+      geometry_status: Left arm in logical driving frame (asset -X forward). Mount
+        XY (-0.19,+0.185); left work offset +0.25m. Workspace remains a provisional
+        cuboid, not IK.
+      range_tolerance_m: 0.02
+      membership_margin_m: 0.0
+    finish_at: last_segment
+    physical_bed_center_map_m:
+    - -2
+    - -6
+    survey_side: west
+    survey_geometry:
+      start_xy_m:
+      - -3.655
+      - -2
+      end_xy_m:
+      - -3.655
+      - -10
+    observations:
+    - segment_id: SEC11_G01
+      node_id: 11101
+      yaw_rad: -1.5707963267948966
+    - segment_id: SEC11_G02
+      node_id: 11102
+      yaw_rad: -1.5707963267948966
+    - segment_id: SEC11_G03
+      node_id: 11103
+      yaw_rad: -1.5707963267948966
+    - segment_id: SEC11_G04
+      node_id: 11104
+      yaw_rad: -1.5707963267948966
+    - segment_id: SEC11_G05
+      node_id: 11105
+      yaw_rad: -1.5707963267948966
+    harvest_order: work_heading
+    harvest_route:
+      x_m: -2.955
+      heading_rad: -1.5707963267948966
+      entry_node_id: 21102
+      exit_node_id: 21100
+  SEC12:
+    bed_plane_from_route_m: 1.14
+    evaluation_bed_prim: /World/Vegetation/Bed_03
+    harvest:
+      heading_offset_rad: 0.0
+      mount_xy_base_m:
+      - -0.19
+      - 0.185
+      work_offset_xy_base_m:
+      - 0.0
+      - 0.25
+      height_reference_m: 0.703
+      height_offsets_m:
+      - -0.1
+      - 0.35
+      width_m: 0.35
+      side_margin_m: 0.03
+      depth_m: 0.1
+      geometry_status: Left arm in logical driving frame (asset -X forward). Mount
+        XY (-0.19,+0.185); left work offset +0.25m. Workspace remains a provisional
+        cuboid, not IK.
+      range_tolerance_m: 0.02
+      membership_margin_m: 0.0
+    finish_at: last_segment
+    physical_bed_center_map_m:
+    - -2
+    - -6
+    survey_side: east
+    survey_geometry:
+      start_xy_m:
+      - -0.345
+      - -10
+      end_xy_m:
+      - -0.345
+      - -2
+    observations:
+    - segment_id: SEC12_G01
+      node_id: 11201
+      yaw_rad: 1.5707963267948966
+    - segment_id: SEC12_G02
+      node_id: 11202
+      yaw_rad: 1.5707963267948966
+    - segment_id: SEC12_G03
+      node_id: 11203
+      yaw_rad: 1.5707963267948966
+    - segment_id: SEC12_G04
+      node_id: 11204
+      yaw_rad: 1.5707963267948966
+    - segment_id: SEC12_G05
+      node_id: 11205
+      yaw_rad: 1.5707963267948966
+    harvest_order: work_heading
+    harvest_route:
+      x_m: -1.045
+      heading_rad: 1.5707963267948966
+      entry_node_id: 21202
+      exit_node_id: 21200
+  SEC13:
+    bed_plane_from_route_m: 1.14
+    evaluation_bed_prim: /World/Vegetation/Bed_05
+    harvest:
+      heading_offset_rad: 0.0
+      mount_xy_base_m:
+      - -0.19
+      - 0.185
+      work_offset_xy_base_m:
+      - 0.0
+      - 0.25
+      height_reference_m: 0.703
+      height_offsets_m:
+      - -0.1
+      - 0.35
+      width_m: 0.35
+      side_margin_m: 0.03
+      depth_m: 0.1
+      geometry_status: Left arm in logical driving frame (asset -X forward). Mount
+        XY (-0.19,+0.185); left work offset +0.25m. Workspace remains a provisional
+        cuboid, not IK.
+      range_tolerance_m: 0.02
+      membership_margin_m: 0.0
+    finish_at: last_segment
+    physical_bed_center_map_m:
+    - 2
+    - -6
+    survey_side: west
+    survey_geometry:
+      start_xy_m:
+      - 0.345
+      - -2
+      end_xy_m:
+      - 0.345
+      - -10
+    observations:
+    - segment_id: SEC13_G01
+      node_id: 11301
+      yaw_rad: -1.5707963267948966
+    - segment_id: SEC13_G02
+      node_id: 11302
+      yaw_rad: -1.5707963267948966
+    - segment_id: SEC13_G03
+      node_id: 11303
+      yaw_rad: -1.5707963267948966
+    - segment_id: SEC13_G04
+      node_id: 11304
+      yaw_rad: -1.5707963267948966
+    - segment_id: SEC13_G05
+      node_id: 11305
+      yaw_rad: -1.5707963267948966
+    harvest_order: work_heading
+    harvest_route:
+      x_m: 1.045
+      heading_rad: -1.5707963267948966
+      entry_node_id: 21302
+      exit_node_id: 21300
+  SEC14:
+    bed_plane_from_route_m: 1.14
+    evaluation_bed_prim: /World/Vegetation/Bed_05
+    harvest:
+      heading_offset_rad: 0.0
+      mount_xy_base_m:
+      - -0.19
+      - 0.185
+      work_offset_xy_base_m:
+      - 0.0
+      - 0.25
+      height_reference_m: 0.703
+      height_offsets_m:
+      - -0.1
+      - 0.35
+      width_m: 0.35
+      side_margin_m: 0.03
+      depth_m: 0.1
+      geometry_status: Left arm in logical driving frame (asset -X forward). Mount
+        XY (-0.19,+0.185); left work offset +0.25m. Workspace remains a provisional
+        cuboid, not IK.
+      range_tolerance_m: 0.02
+      membership_margin_m: 0.0
+    finish_at: last_segment
+    physical_bed_center_map_m:
+    - 2
+    - -6
+    survey_side: east
+    survey_geometry:
+      start_xy_m:
+      - 3.655
+      - -10
+      end_xy_m:
+      - 3.655
+      - -2
+    observations:
+    - segment_id: SEC14_G01
+      node_id: 11401
+      yaw_rad: 1.5707963267948966
+    - segment_id: SEC14_G02
+      node_id: 11402
+      yaw_rad: 1.5707963267948966
+    - segment_id: SEC14_G03
+      node_id: 11403
+      yaw_rad: 1.5707963267948966
+    - segment_id: SEC14_G04
+      node_id: 11404
+      yaw_rad: 1.5707963267948966
+    - segment_id: SEC14_G05
+      node_id: 11405
+      yaw_rad: 1.5707963267948966
+    harvest_order: work_heading
+    harvest_route:
+      x_m: 2.955
+      heading_rad: 1.5707963267948966
+      entry_node_id: 21402
+      exit_node_id: 21400
+  SEC15:
+    bed_plane_from_route_m: 1.14
+    evaluation_bed_prim: /World/Vegetation/Bed_07
+    harvest:
+      heading_offset_rad: 0.0
+      mount_xy_base_m:
+      - -0.19
+      - 0.185
+      work_offset_xy_base_m:
+      - 0.0
+      - 0.25
+      height_reference_m: 0.703
+      height_offsets_m:
+      - -0.1
+      - 0.35
+      width_m: 0.35
+      side_margin_m: 0.03
+      depth_m: 0.1
+      geometry_status: Left arm in logical driving frame (asset -X forward). Mount
+        XY (-0.19,+0.185); left work offset +0.25m. Workspace remains a provisional
+        cuboid, not IK.
+      range_tolerance_m: 0.02
+      membership_margin_m: 0.0
+    finish_at: last_segment
+    physical_bed_center_map_m:
+    - 5
+    - -6
+    survey_side: west
+    survey_geometry:
+      start_xy_m:
+      - 3.345
+      - -2
+      end_xy_m:
+      - 3.345
+      - -10
+    observations:
+    - segment_id: SEC15_G01
+      node_id: 11501
+      yaw_rad: -1.5707963267948966
+    - segment_id: SEC15_G02
+      node_id: 11502
+      yaw_rad: -1.5707963267948966
+    - segment_id: SEC15_G03
+      node_id: 11503
+      yaw_rad: -1.5707963267948966
+    - segment_id: SEC15_G04
+      node_id: 11504
+      yaw_rad: -1.5707963267948966
+    - segment_id: SEC15_G05
+      node_id: 11505
+      yaw_rad: -1.5707963267948966
+    harvest_order: work_heading
+    harvest_route:
+      x_m: 4.045
+      heading_rad: -1.5707963267948966
+      entry_node_id: 21502
+      exit_node_id: 21500
+  SEC16:
+    bed_plane_from_route_m: 1.14
+    evaluation_bed_prim: /World/Vegetation/Bed_07
+    harvest:
+      heading_offset_rad: 0.0
+      mount_xy_base_m:
+      - -0.19
+      - 0.185
+      work_offset_xy_base_m:
+      - 0.0
+      - 0.25
+      height_reference_m: 0.703
+      height_offsets_m:
+      - -0.1
+      - 0.35
+      width_m: 0.35
+      side_margin_m: 0.03
+      depth_m: 0.1
+      geometry_status: Left arm in logical driving frame (asset -X forward). Mount
+        XY (-0.19,+0.185); left work offset +0.25m. Workspace remains a provisional
+        cuboid, not IK.
+      range_tolerance_m: 0.02
+      membership_margin_m: 0.0
+    finish_at: last_segment
+    physical_bed_center_map_m:
+    - 5
+    - -6
+    survey_side: east
+    survey_geometry:
+      start_xy_m:
+      - 6.655
+      - -10
+      end_xy_m:
+      - 6.655
+      - -2
+    observations:
+    - segment_id: SEC16_G01
+      node_id: 11601
+      yaw_rad: 1.5707963267948966
+    - segment_id: SEC16_G02
+      node_id: 11602
+      yaw_rad: 1.5707963267948966
+    - segment_id: SEC16_G03
+      node_id: 11603
+      yaw_rad: 1.5707963267948966
+    - segment_id: SEC16_G04
+      node_id: 11604
+      yaw_rad: 1.5707963267948966
+    - segment_id: SEC16_G05
+      node_id: 11605
+      yaw_rad: 1.5707963267948966
+    harvest_order: work_heading
+    harvest_route:
+      x_m: 5.955
+      heading_rad: 1.5707963267948966
+      entry_node_id: 21602
+      exit_node_id: 21600
+beds:
+  Bed_02:
+    section_ids:
+    - SEC01
+    - SEC02
+  Bed_04:
+    section_ids:
+    - SEC03
+    - SEC04
+  Bed_06:
+    section_ids:
+    - SEC05
+    - SEC06
+  Bed_08:
+    section_ids:
+    - SEC07
+    - SEC08
+  Bed_01:
+    section_ids:
+    - SEC09
+    - SEC10
+  Bed_03:
+    section_ids:
+    - SEC11
+    - SEC12
+  Bed_05:
+    section_ids:
+    - SEC13
+    - SEC14
+  Bed_07:
+    section_ids:
+    - SEC15
+    - SEC16
+stations:
+  scout_01:
+    node_id: 8001
+    xy_m:
+    - -5.0
+    - 13.25
+    yaw_rad: -1.5707963267948966
+  harvest_01:
+    node_id: 8002
+    xy_m:
+    - -2.0
+    - 13.25
+    yaw_rad: -1.5707963267948966
+  transport_01:
+    node_id: 8003
+    xy_m:
+    - 2.0
+    - 13.25
+    yaw_rad: null
+    status: DESIGN_PROPOSAL
+    source: sim_route_design_v1 / P3; coordinate matches latest graph
+  sorting_station:
+    node_id: 8004
+    xy_m:
+    - 5.0
+    - 13.25
+    yaw_rad: null
+    status: DESIGN_PROPOSAL
+    source: sim_route_design_v1 / P4; coordinate matches latest graph
+restoration:
+  source_archive: farm_scout_harvest_count_v0.8.5.zip
+  source_task_sha256: e86a812988bdebd82b6129c007ff11394118707e96ba9e7c13e813a9809911b9
+  source_graph_sha256: a1cef25a19e1f3b99b77433b9442e8a783629cb48e26a9e5d22d8499b6eb58a4
+  scope: route_and_station_data_only
+  station_runtime_status: 'SELECTED_ROBOT_AUTO_PLACEMENT: scout runtime places its
+    configured robot before physics initialization; harvest/transport runtime not
+    implemented'

@@ -1,0 +1,23 @@
+{
+  "output_dir": "sim/runs/harvest_motion",
+  "evaluation": {
+    "snapshot_file": "sim/runs/runtime/harvest_scene.json",
+    "workspace": {
+      "frame": "base_footprint",
+      "center_m": [
+        -0.19,
+        0.435,
+        0.828
+      ],
+      "size_m": [
+        0.35,
+        0.1,
+        0.45
+      ],
+      "boundary_epsilon_m": 1e-06,
+      "source": "Logical driving frame: asset -X forward, left arm mount (-0.19,+0.185), left work offset +0.25m; deck Z 0.703, height -0.10..+0.35m."
+    }
+  },
+  "robot_id": "harvest_01",
+  "map_id": "farm_map_v1"
+}

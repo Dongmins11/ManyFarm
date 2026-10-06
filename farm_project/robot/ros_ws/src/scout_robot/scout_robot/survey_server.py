@@ -28,6 +28,7 @@ from visualization_msgs.msg import Marker,MarkerArray
 from tf2_ros import Buffer,TransformListener
 from farm_interfaces.action import ScoutArea
 from farm_interfaces.msg import HarvestTask
+from .task_messages import tasks_from_windows, task_record
 from .route import load_route
 from .survey_core import StraightBed,Survey,matrix_from_pose,transform_points
 from .arrival import (NavigationConfigurationError,validate_goal_checkers,
@@ -125,8 +126,7 @@ class SurveyServer(Node):
     def accept(self,g):
         valid=(g.robot_id==self.cfg['robot_id'] and g.frame_id=='map' and g.map_id==self.cfg['map_id']
             and g.crop_type=='PAPRIKA' and g.target_ripeness=='RIPE' and bool(g.task_id)
-            and bool(g.section_ids) and len(set(g.section_ids))==len(g.section_ids)
-            and all(s in self.beds for s in g.section_ids))
+            and bool(g.section_id) and g.section_id in self.beds)
         with self.lock:
             if self.busy or self.shutdown_requested or not valid:
                 self.get_logger().error('Goal 거절: 실행 중이거나 robot/map/section/crop 규격 불일치')
@@ -248,7 +248,7 @@ class SurveyServer(Node):
     def feedback(self,g,section,phase,tasks,completed,segments,segment_id,segment_expected_count):
         f=ScoutArea.Feedback();f.robot_id=g.request.robot_id;f.task_id=g.request.task_id
         f.phase=phase;f.section_id=section;f.segment_id=segment_id
-        f.completed_section_count=completed;f.completed_segment_count=segments;f.timestamp=utc();f.harvest_tasks=tasks
+        f.completed_segment_count=segments;f.timestamp=utc();f.harvest_tasks=tasks
         f.segment_expected_count=int(segment_expected_count)
         g.publish_feedback(f)
     def show(self,survey):
@@ -283,11 +283,11 @@ class SurveyServer(Node):
         self.active_goal=g;worker=None;survey=None;section=None;started_wall=time.monotonic()
         session=uuid.uuid4().hex[:12];folder=self.root/self.cfg['output_dir']/session
         folder.mkdir(parents=True,exist_ok=False)
-        report={'session_id':session,'goal':{k:getattr(g.request,k) for k in ['robot_id','task_id','section_ids','map_id','frame_id','crop_type','target_ripeness']},
+        report={'session_id':session,'goal':{k:getattr(g.request,k) for k in ['robot_id','task_id','section_id','map_id','frame_id','crop_type','target_ripeness']},
                 'config':self.cfg,'vision_config':self.vcfg,'started_at':utc(),'status':'RUNNING','sections':{},'observations':[]}
         self.navigation_log=[];report['navigation']=self.navigation_log
         result=ScoutArea.Result();result.robot_id=g.request.robot_id;result.task_id=g.request.task_id
-        completed=[];total_tasks=0;total_fruits=0;completed_segments=0;current_segment=None
+        completed=[];total_tasks=0;total_fruits=0;completed_segments=0;current_segment=None;stored_tasks=[]
         report['completed_segments']=[];report['completed_segment_count']=0
         try:
             self.preflight_navigation(report)
@@ -298,7 +298,7 @@ class SurveyServer(Node):
             worker=Worker(command,folder/'vision_worker.log')
             if not worker.receive(self.check,120).get('ready'):raise RuntimeError('Vision worker failed to initialize')
             camera_session=None
-            for section in g.request.section_ids:
+            for section in [g.request.section_id]:
                 bed=self.beds[section];survey=Survey(bed,session+'_'+section,self.cfg['association_distance_m'])
                 stamp=self.navigate(bed.origin,bed.yaw)
                 info=worker.call('info',self.check,after_stamp_ns=stamp,session=camera_session)
@@ -345,25 +345,23 @@ class SurveyServer(Node):
                     completed_segments+=1
                     report['completed_segments'].append({'section_id':section,'segment_id':sid})
                     report['completed_segment_count']=completed_segments
-                    report['sections'][section]['survey']=survey.record();write_json(folder/'survey.json',report);self.show(survey)
-                    # The last segment sends its one feedback together with the bed batch below.
-                    if index+1<len(design['segments']):
-                        self.feedback(g,section,'SEGMENT_COMPLETE',[],len(completed),completed_segments,sid,segment_expected_count)
+                    report['sections'][section]['survey']=survey.record()
+                    pending_tasks=tasks_from_windows(report['sections'][section]['survey']['windows'])
+                    report['sections'][section]['batch']=[task_record(t) for t in pending_tasks]
+                    write_json(folder/'survey.json',report)
+                    stored_tasks=pending_tasks
+                    self.show(survey)
+                    self.feedback(g,section,'SEGMENT_COMPLETE',[],len(completed),completed_segments,sid,segment_expected_count)
                     self.get_logger().info(f'{sid} 완료: 누적 segment={completed_segments}, 촬영·처리·저장 {current_segment["observation_wall_s"]:.3f}s')
                     current_segment=None
                 self.check();batch_start=time.monotonic()
-                tasks=[]
-                for w in survey.windows():
-                    m=HarvestTask();m.task_id=w['window_id'].replace('_W','_TASK');m.window_id=w['window_id']
-                    m.section_id=section;m.segment_id=w['segment_id'];m.sequence=len(tasks)+1
-                    m.goal_pose.frame_id='map';m.goal_pose.position=Point(x=w['goal_pose']['position'][0],y=w['goal_pose']['position'][1],z=0.)
-                    m.goal_pose.yaw=w['goal_pose']['yaw'];m.expected_count=w['expected_count'];tasks.append(m)
+                tasks=list(stored_tasks)
                 report['sections'][section]['status']='COMPLETE'
-                report['sections'][section]['batch']=[{'task_id':t.task_id,'window_id':t.window_id,'segment_id':t.segment_id,'expected_count':t.expected_count} for t in tasks]
+                report['sections'][section]['batch']=[task_record(t) for t in tasks]
                 # Durable detail before the one feedback containing this bed's task list.
                 write_json(folder/'survey.json',report)
                 completed.append(section);total_tasks+=len(tasks);total_fruits+=sum(t.expected_count for t in tasks)
-                self.feedback(g,section,'SECTION_COMPLETE',tasks,len(completed),completed_segments,sid,segment_expected_count)
+                self.feedback(g,section,'SECTION_COMPLETE',[],len(completed),completed_segments,'',0)
                 report['sections'][section]['batch_finalize_wall_s']=time.monotonic()-batch_start
                 self.get_logger().info(f'{section} 완료: {len(survey.fruits)} IDs, {len(tasks)} tasks, {len(survey.plan.holds)} holds')
                 # Optional transit is after survey completion; no extra feedback.
@@ -405,10 +403,13 @@ class SurveyServer(Node):
             if worker:worker.close()
             report['worker_cleanup_wall_s']=time.monotonic()-cleanup_start
             self.get_logger().info(f'추론 프로세스 정리: {report["worker_cleanup_wall_s"]:.3f}s')
-            result.completed_section_ids=completed;result.completed_segment_count=completed_segments
+            result.section_id=g.request.section_id;result.completed_segment_count=completed_segments
+            result.harvest_tasks=list(stored_tasks)
+            total_tasks=len(stored_tasks);total_fruits=sum(t.expected_count for t in stored_tasks)
             result.harvest_task_count=total_tasks;result.total_expected_count=total_fruits;result.timestamp=utc()
             report['finished_at']=utc();report['elapsed_wall_s']=time.monotonic()-started_wall;report['completed_section_ids']=completed
             report['harvest_task_count']=total_tasks;report['total_expected_count']=total_fruits
+            report['section_id']=g.request.section_id;report['harvest_tasks']=[task_record(t) for t in stored_tasks]
             try:write_json(folder/'survey.json',report)
             finally:
                 self.get_logger().info(f'결과 저장: {folder}/survey.json')

@@ -27,9 +27,9 @@ class SectionCompleteState(MissionState):
     def _on_section_saved(self, result: None) -> None:
         context = self._mission.context
         self._mission.node._communication.feedback(
-            context.goal, context.section, 'SECTION_COMPLETE', context.tasks,
+            context.goal, context.section, 'SECTION_COMPLETE', [],
             len(context.completed), context.completed_segments,
-            context.segment_id, context.segment_expected_count,
+            '', 0,
         )
         context.section_reported = True
         context.tail_started = time.monotonic()
@@ -50,13 +50,5 @@ class SectionCompleteState(MissionState):
         self._advance_section()
 
     def _advance_section(self) -> None:
-        context = self._mission.context
-        if context.section_index + 1 >= len(context.goal.request.section_ids):
-            self._controller.complete(self)
-            return
-        context.section_index += 1
-        self._mission.select_section()
-        from .navigation_move_state import NavigationMoveState
-        self._controller.request_transition(
-            self, NavigationMoveState(self._mission, self._controller, 'section_start'),
-        )
+        # 한 Action은 정확히 한 Section만 담당합니다. 다음 Section은 관제가 보냅니다.
+        self._controller.complete(self)

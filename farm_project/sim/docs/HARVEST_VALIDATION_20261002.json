@@ -1,0 +1,18 @@
+{
+  "date": "2026-10-02",
+  "sim_tests": 22,
+  "existing_launch_tests": 9,
+  "existing_route_plans": 371,
+  "harvest_interior_route_plans": 48,
+  "ros_isaac_colcon_run": false,
+  "shared_changed_files": [
+    "robot/ros_ws/src/harvest_robot/**",
+    "robot/ros_ws/src/farm_bringup/launch/harvest.launch.py",
+    "robot/ros_ws/src/farm_bringup/package.xml",
+    "robot/ros_ws/src/farm_interfaces/action/HarvestTask.action",
+    "robot/ros_ws/src/farm_interfaces/CMakeLists.txt"
+  ],
+  "common_server_package": "harvest_robot",
+  "sim_evaluator_only": true,
+  "real_hardware_implemented": false
+}

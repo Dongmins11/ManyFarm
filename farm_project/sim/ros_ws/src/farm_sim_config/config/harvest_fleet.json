@@ -1,0 +1,13 @@
+{
+  "schema_version": 1,
+  "station_config": "sim/ros_ws/src/farm_sim_config/config/station_spawn.json",
+  "device_configs": [
+    "sim/ros_ws/src/farm_sim_config/config/scout_fleet.json",
+    "sim/ros_ws/src/farm_sim_config/config/harvest.json"
+  ],
+  "evaluation_config": "sim/ros_ws/src/farm_sim_config/config/harvest_audit.json",
+  "clock": {
+    "command_port": 17690,
+    "telemetry_port": 17691
+  }
+}

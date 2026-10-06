@@ -1,0 +1,18 @@
+{
+  "mode": "follow_path",
+  "controller": "RPP",
+  "navigation_matches_real_except_base_frame": true,
+  "controller_and_smoother_match_except_sim_time_and_odom": true,
+  "inflation_matches_real": true,
+  "checker_validation": [
+    {
+      "id": "goal_checker",
+      "xy_goal_tolerance": 0.03,
+      "yaw_goal_tolerance": 0.05236,
+      "stateful": true
+    }
+  ],
+  "station_tests_passed": 6,
+  "planned_routes_passed": 371,
+  "isaac_or_ros_runtime_tested": false
+}

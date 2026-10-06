@@ -19,6 +19,8 @@ def main():
     for path in args.module_path:
         sys.path.insert(0,str(Path(path).resolve()))
     config=json.loads(args.config.read_text())
+    from farm_sim_runtime.station_spawn import read_station
+    station=read_station(args.config,config)
     root=args.assets_root.expanduser().resolve()
     scene=(root/config['scene']).resolve()
     if not scene.is_relative_to(root) or not scene.is_file():
@@ -55,6 +57,10 @@ def main():
         body=prim(binding['articulation_relative'])
         if not body.HasAPI(UsdPhysics.ArticulationRootAPI):
             raise RuntimeError(f'ArticulationRoot가 아닙니다: {body.GetPath()}')
+        if station is not None:
+            from farm_sim_runtime.station_spawn import place_at_station
+            report=place_at_station(stage,binding,station)
+            print('[farm_sim] station placement: '+json.dumps(report,ensure_ascii=False),flush=True)
         link=prim(binding['base_link_relative']);scan_prim=prim(binding['lidar_relative'])
         camera_prim=prim(binding['camera_relative'])
         if not camera_prim.IsA(UsdGeom.Camera):raise RuntimeError('지정한 camera prim이 Camera가 아닙니다.')
@@ -86,6 +92,10 @@ def main():
         base=BaseSim(world,str(body.GetPath()),config['base'])
         world.reset()
         base.initialize()
+        if station is not None:
+            from farm_sim_runtime.station_spawn import verify_station_pose
+            verify_station_pose(station,*base.pose())
+            print('[farm_sim] station placement verified after physics reset',flush=True)
         session=uuid.uuid4().hex
         gate=CommandGate(session,config['base']['command_timeout_s'])
         rt=config['runtime']

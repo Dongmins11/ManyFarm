@@ -1,12 +1,24 @@
 <?xml version="1.0"?>
 <package format="3">
-  <name>farm_interfaces</name><version>0.5.5</version>
-  <description>Draft scout_area contract based on supplied PDF.</description>
-  <maintainer email="maintainer@example.com">Farm Team</maintainer><license>Proprietary</license>
+  <name>farm_interfaces</name>
+  <version>0.1.0</version>
+  <description>Draft ROS 2 interfaces for smart farm scouting and harvest tasks.</description>
+  <!-- 배포 전 실제 프로젝트 담당자 및 라이선스로 바꾼다. -->
+  <maintainer email="replace-me@example.com">Project maintainer</maintainer>
+  <license>TODO</license>
+
   <buildtool_depend>ament_cmake</buildtool_depend>
-  <build_depend>rosidl_default_generators</build_depend>
-  <depend>geometry_msgs</depend><depend>action_msgs</depend>
+  <buildtool_depend>rosidl_default_generators</buildtool_depend>
   <exec_depend>rosidl_default_runtime</exec_depend>
+  <depend>geometry_msgs</depend>
+  <depend>action_msgs</depend>
+
+  <!-- examples/verify_interfaces.py 실행에 사용. -->
+  <exec_depend>rclpy</exec_depend>
+  <exec_depend>rosidl_runtime_py</exec_depend>
+
   <member_of_group>rosidl_interface_packages</member_of_group>
-  <export><build_type>ament_cmake</build_type></export>
+  <export>
+    <build_type>ament_cmake</build_type>
+  </export>
 </package>

@@ -4,26 +4,25 @@
   "map_id": "farm_map_v1",
   "frame_id": "map",
   "scene": "envs/output/farm_with_plants_v5.usd",
-  "map_yaml": "maps/farm_map.yaml",
+  "map_yaml": "maps/count_test_farm_map.yaml",
   "route": "maps/graph.geojson",
   "use_sim_time": true,
   "bed_1": {
-    "section_id": null,
+    "section_id": "SEC01",
     "route_node_ids": [
-      1,
-      2,
-      3,
-      4,
-      5,
-      6,
-      7,
-      8
+      "SEC01_START",
+      10101,
+      10102,
+      10103,
+      10104,
+      10105,
+      "SEC01_END"
     ],
     "expected_heading_rad": -1.5707963267948966,
     "camera_look_direction_map": "+X",
     "camera_side_robot": "left",
     "camera_to_bed_edge_m": 1.14,
-    "segment_definition": null
+    "segment_definition": "config/scout_patrol.json"
   },
   "scene_binding": {
     "robot_prim": "/World/scout_robot_camera_fixed",
@@ -34,11 +33,10 @@
   },
   "notes": [
     "카메라와 베드 가장자리 사이 1.14m는 사용자 제공값이며 USD에서 실측하지 않았습니다.",
-    "section_id는 관제 명칭 확인 후 지정합니다. bed_1과 SEC_A01을 임의로 동일시하지 않습니다.",
-    "route_node_ids는 경로 노드입니다. 관측 정차점은 카메라 FOV 확인 후 별도 계산합니다.",
     "map_id는 PDF 예시 기반 임시값입니다. 실 관제 지도 ID와 대조해야 합니다.",
     "USD 카메라는 base_link 위 0.59m이며 로봇 왼쪽(+Y)을 봅니다. 640x384는 USD의 5:3 aperture 비율이며 실물 카메라 보정값은 아닙니다.",
-    "odom은 바퀴 엔코더를 적분합니다. map→odom은 AMCL이 발행합니다."
+    "odom은 바퀴 엔코더를 적분합니다. map→odom은 AMCL이 발행합니다.",
+    "task.yaml에서 생성한 station_spawn.json으로 시작 시 예찰로봇을 배치합니다. AMCL 초기 pose도 같은 station 값을 사용하며 odom은 바퀴 적분을 유지합니다."
   ],
   "base": {
     "wheel_joints": [
@@ -88,5 +86,9 @@
     "samples": 360,
     "range_min_m": 0.12,
     "range_max_m": 12.0
+  },
+  "station_spawn": {
+    "enabled": true,
+    "config": "station_spawn.json"
   }
 }

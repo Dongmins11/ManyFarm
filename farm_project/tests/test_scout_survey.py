@@ -23,7 +23,7 @@ class SurveyTest(unittest.TestCase):
         self.cfg=json.loads((ROOT/'sim/ros_ws/src/farm_sim_config/config/scout_survey.json').read_text())
         self.c=self.cfg['sections']['BED_01'];self.route=load_route(ROOT/self.c['route_file'],self.c['node_ids'])
         self.bed=StraightBed(self.route,self.c)
-        self.pre=json.loads((ROOT/'robot/config/vision/scout.json').read_text())['preprocess']
+        self.pre=json.loads((ROOT/self.cfg['vision_config']).read_text())['preprocess']
         f=640*1.88/3.5;self.K=np.array([[f,0,320],[0,f,192],[0,0,1]])
         self.C=np.array([[1,0,0,0],[0,0,1,0],[0,-1,0,.6],[0,0,0,1]],float)
     def detection(self,s,n=1.14,z=.8):

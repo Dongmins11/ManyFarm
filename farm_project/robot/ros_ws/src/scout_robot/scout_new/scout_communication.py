@@ -33,7 +33,7 @@ class ScoutCommunication:
         logger.info(
             f'ScoutArea Goal 수신: task_id={goal.task_id!r}, '
             f'robot_id={goal.robot_id!r}, map_id={goal.map_id!r}, '
-            f'frame_id={goal.frame_id!r}, section_ids={list(goal.section_ids)!r}, '
+            f'frame_id={goal.frame_id!r}, section_id={goal.section_id!r}, '
             f'crop_type={goal.crop_type!r}, target_ripeness={goal.target_ripeness!r}, '
             f'timestamp={goal.timestamp!r}'
         )
@@ -51,14 +51,9 @@ class ScoutCommunication:
                 reasons.append(f'{field} 불일치: received={received!r}, expected={expected!r}')
         if not goal.task_id:
             reasons.append('task_id가 비어 있음')
-        if not goal.section_ids:
-            reasons.append('section_ids가 비어 있음')
-        if len(set(goal.section_ids)) != len(goal.section_ids):
-            reasons.append('section_ids에 중복된 구역이 있음')
-        unknown_sections = [section for section in goal.section_ids if section not in node._beds]
-        if unknown_sections:
+        if not goal.section_id or goal.section_id not in node._beds:
             reasons.append(
-                f'등록되지 않은 구역: received={unknown_sections!r}, '
+                f'등록되지 않은 구역: received={goal.section_id!r}, '
                 f'available={list(node._beds)!r}'
             )
         if node._readiness_error:
@@ -102,7 +97,14 @@ class ScoutCommunication:
             result = ScoutArea.Result()
             result.robot_id = goal.request.robot_id
             result.task_id = goal.request.task_id
-            result.result_code = 'FAILED'
+            result.section_id = goal.request.section_id
+            result.result_code = 'CANCELED' if goal.is_cancel_requested else 'FAILED'
+            context = getattr(self._node._mission, '_context', None)
+            if context is not None and context.goal is goal:
+                result.harvest_tasks = list(context.tasks)
+                result.completed_segment_count = context.completed_segments
+                result.harvest_task_count = len(context.tasks)
+                result.total_expected_count = sum(task.expected_count for task in context.tasks)
             result.error_code = 'STATE_CONTROLLER_FAILED'
             result.error_message = str(error)
             result.timestamp = utc()
@@ -127,7 +129,6 @@ class ScoutCommunication:
         feedback.phase = phase
         feedback.section_id = section
         feedback.segment_id = segment_id
-        feedback.completed_section_count = completed
         feedback.completed_segment_count = segments
         feedback.segment_expected_count = segment_expected_count
         feedback.harvest_tasks = tasks

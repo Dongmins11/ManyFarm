@@ -39,7 +39,7 @@ class SimRosAdapter(Node):
         self.odom_pub=self.create_publisher(Odometry,'odom',10)
         self.scan_pub=self.create_publisher(LaserScan,'scan',qos_profile_sensor_data)
         self.joint_pub=self.create_publisher(JointState,'joint_states',10)
-        self.clock_pub=self.create_publisher(ClockMessage,'/clock',10)
+        self.clock_pub=self.create_publisher(ClockMessage,'/clock',10) if self.config.get('publish_clock', True) else None
         self.tf=TransformBroadcaster(self);self.static_tf=StaticTransformBroadcaster(self)
         kind=self.get_parameter('cmd_vel_type').value
         if kind=='twist':
@@ -71,10 +71,17 @@ class SimRosAdapter(Node):
                 any(v is not None and (type(v) not in (float,int) or not math.isfinite(v) or v<0) for v in scan)):
             return False
         transforms=m.get('static_tf')
-        if not isinstance(transforms,list) or len(transforms)!=3:return False
+        # 카메라 없는 로봇은 base/link와 lidar의 고정 TF 두 개만 보냅니다.
+        frames=self.config['frames']
+        expected={(frames['base_footprint'],frames['base_link']),
+                  (frames['base_link'],frames['scan'])}
+        if self.config['camera']['enabled']:
+            expected.add((frames['base_link'],frames['camera_optical']))
+        if not isinstance(transforms,list) or len(transforms)!=len(expected):return False
         for t in transforms:
             if not isinstance(t,dict) or not isinstance(t.get('parent'),str) or not isinstance(t.get('child'),str):return False
             if not finite_vector(t.get('translation'),3) or not finite_vector(t.get('rotation_xyzw'),4):return False
+        if {(t['parent'],t['child']) for t in transforms} != expected:return False
         return True
 
     def poll(self):
@@ -95,7 +102,8 @@ class SimRosAdapter(Node):
 
     def publish_state(self,m):
         ns=m['stamp_ns'];frames=self.config['frames']
-        clock=ClockMessage();stamp_message(clock.clock,ns);self.clock_pub.publish(clock)
+        if self.clock_pub is not None:
+            clock=ClockMessage();stamp_message(clock.clock,ns);self.clock_pub.publish(clock)
         x,y,yaw,v,w=m['odom']
         odom=Odometry();stamp_message(odom.header.stamp,ns)
         odom.header.frame_id=frames['odom'];odom.child_frame_id=frames['base_footprint']

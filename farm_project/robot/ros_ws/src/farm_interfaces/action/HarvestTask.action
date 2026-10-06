@@ -1,0 +1,28 @@
+# 2026-10-02 수확로봇 통신 프로토콜. /harvest_01/harvest_task
+# Goal: 예찰에서 받은 Window 작업 한 개를 중첩 메시지로 전달한다.
+string robot_id
+string map_id
+farm_interfaces/HarvestTask harvest_task
+string timestamp
+---
+# Result: 실패/취소에서도 실제 수확 성공/실패 수량을 보존한다.
+string robot_id
+string task_id
+string window_id
+# SUCCESS / FAILED / CANCELED, ROS 종료 상태와 함께 확인.
+string result_code
+# 예찰의 원본 예상값. 실제 수확량으로 덮어쓰지 않는다.
+int32 expected_count
+int32 harvested_count
+int32 failed_count
+string error_code
+string error_message
+string timestamp
+---
+# Feedback: 수확 시작 및 대상 한 개 처리 완료 때 누적 수량을 보고한다.
+# phase/detected_count/processed_count/progress_ratio 필드는 없다.
+string robot_id
+string task_id
+int32 success_count
+int32 failed_count
+string timestamp
