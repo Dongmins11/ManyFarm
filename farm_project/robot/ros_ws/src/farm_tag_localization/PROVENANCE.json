@@ -1,0 +1,10 @@
+{
+  "baseline": "pinky_tag_amcl_20261006 + pinky_amcl_timing_fix_20261006",
+  "ported_files": {
+    "tag_localization/observer.py": "6c76a4c89b7f40750ef09bd13c65153c26687ac0a005823139c6a483b9900f5c",
+    "tag_localization/geometry.py": "1c53909aa1e749e64ba2a0ac6a6b4b0a0493ce1510cae10750d36a169c7d06ae",
+    "tag_adapter.py": "63804dce241990ee451df6201d6692753e7d74a196856b3f99c207bf592327ad"
+  },
+  "changes": "ROS packaging; explicit journal input; task lease independent of image recording; compute worker keeps TF callbacks responsive; no CI estimator or TF takeover",
+  "physical_accuracy_validated": false
+}

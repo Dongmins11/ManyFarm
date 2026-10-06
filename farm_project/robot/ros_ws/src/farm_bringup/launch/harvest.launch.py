@@ -6,7 +6,7 @@ from launch.actions import DeclareLaunchArgument, IncludeLaunchDescription, Opaq
 from launch.launch_description_sources import PythonLaunchDescriptionSource
 from launch.substitutions import LaunchConfiguration
 from launch_ros.actions import Node
-from farm_navigation.configuration import load_environment, resolve_file
+from farm_navigation.configuration import load_environment, resolve_file, read_mapping
 
 
 def setup(context) -> list:
@@ -30,6 +30,19 @@ def setup(context) -> list:
     def include(package: str, name: str, arguments: dict):
         path = Path(get_package_share_directory(package))/'launch'/name
         return IncludeLaunchDescription(PythonLaunchDescriptionSource(str(path)), launch_arguments=arguments.items())
+    tag_on = value('tag_correction') == 'true'
+    tag_path = None
+    if tag_on:
+        from farm_tag_localization.runtime import validate_binding
+        tag_path = resolve_file(root, profile['tag_localization_config'])
+        if tag_path.is_relative_to(root/'sim') != (mode == 'sim'):
+            raise ValueError('태그 설정의 sim/real 경로 불일치')
+        validate_binding(read_mapping(tag_path), profile, root)
+        if not value('capture_directory'):
+            raise ValueError('tag_correction=true에는 현재 capture_directory가 필요합니다.')
+    tf_remaps = [] if mode == 'sim' else [
+        ('/tf', '/' + profile['robot_id'] + '/tf'),
+        ('/tf_static', '/' + profile['robot_id'] + '/tf_static')]
     actions = []
     if value('devices') == 'true':
         actions.append(include('farm_sim_runtime','scout_devices.launch.py',
@@ -39,8 +52,14 @@ def setup(context) -> list:
             dict(mode=mode,robot_id=profile['robot_id'],map=profile['map_yaml'],nav_params=profile['nav_params'],
                  route_file=profile['route_graph'],rviz='false')))
     actions.append(Node(package='harvest_robot',executable='harvest_node',namespace=profile['robot_id'],
-        output='screen',sigterm_timeout='60',sigkill_timeout='5',parameters=[dict(
-            project_root=str(root),environment_config=str(environment),mode=mode,use_sim_time=mode=='sim')]))
+        output='screen',sigterm_timeout='60',sigkill_timeout='5',remappings=tf_remaps,parameters=[dict(
+            project_root=str(root),environment_config=str(environment),mode=mode,use_sim_time=mode=='sim',
+            tag_correction=tag_on)]))
+    if tag_on:
+        actions.append(Node(package='farm_tag_localization',executable='tag_amcl_adapter',
+            namespace=profile['robot_id'],output='screen',remappings=tf_remaps,parameters=[dict(
+                project_root=str(root),config_file=str(tag_path),
+                capture_directory=value('capture_directory'),use_sim_time=mode=='sim')]))
     return actions
 
 
@@ -51,4 +70,7 @@ def generate_launch_description() -> LaunchDescription:
         DeclareLaunchArgument('environment_config',default_value=''),
         DeclareLaunchArgument('devices',default_value='true',choices=['true','false']),
         DeclareLaunchArgument('navigation',default_value='true',choices=['true','false']),
+        DeclareLaunchArgument('tag_correction',default_value='false',choices=['true','false']),
+        DeclareLaunchArgument('capture_directory',default_value=''),
         OpaqueFunction(function=setup)])
+

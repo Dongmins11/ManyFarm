@@ -12,9 +12,12 @@ class HarvestMission:
 
     def run(self) -> dict:
         task = self.goal.harvest_task
+        control = getattr(self.node, 'tag_control', None)
         try:
             self.node.check()
             self.node.navigator.preflight_navigation()
+            if control is not None:
+                control.begin()
             result = self.node.navigator.navigate(
                 [task.goal_pose.position.x, task.goal_pose.position.y], task.goal_pose.yaw)
             self.node.check()
@@ -27,3 +30,6 @@ class HarvestMission:
                 self.node.blocked = True
                 raise RuntimeError('CANCEL_UNCONFIRMED: ' + str(error))
             raise
+        finally:
+            if control is not None:
+                control.end()

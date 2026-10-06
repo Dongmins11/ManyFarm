@@ -16,6 +16,7 @@ from farm_navigation.motion_monitor import MotionMonitor
 from farm_navigation.nav2_client import Nav2Client
 from farm_navigation.navigator import Navigator
 from .mission import MissionCanceled
+from .tag_control import TagControl
 from std_msgs.msg import String
 from rclpy.qos import QoSProfile, ReliabilityPolicy, DurabilityPolicy
 from .communication import HarvestCommunication
@@ -34,6 +35,9 @@ class HarvestNode(Node):
         if (self.config['robot_id'] != profile['robot_id'] or self.config['map_id'] != profile['map_id']
                 or self.config.get('completion_policy') != 'ARRIVAL_ONLY_NO_HARVEST'):
             raise ValueError('수확 환경 또는 이동 전용 완료 정책 불일치')
+        self.declare_parameter('tag_correction', False)
+        self.tag_control = (TagControl(self, profile['robot_id'], profile['map_id'])
+                            if self.get_parameter('tag_correction').value else None)
         self.callbacks = ReentrantCallbackGroup()
         self.lock = threading.Lock()
         self.active_goal = None
@@ -79,8 +83,11 @@ def main(args=None) -> None:
         while rclpy.ok() and (not node.stopping or node.busy):
             executor.spin_once(timeout_sec=.1)
     finally:
+        if node.tag_control is not None:
+            node.tag_control.end()
         executor.shutdown()
         node.motion.close()
         node.poses.close()
         node.destroy_node()
         if rclpy.ok(): rclpy.shutdown()
+

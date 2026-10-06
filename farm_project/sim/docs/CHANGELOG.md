@@ -270,3 +270,17 @@
 - 문서/증거: `ROBOTARM_PHYSICS_20261006.md` §10, PROJECT_STATE §16, `sim/docs/changes/ROBOTARM_PHYSICS_VALIDATION_20261006.json`. 원본 로그 `sim/runs/robotarm/precommit_20261006/`. 최초 격리 빌드의 underlay 의존경로 누락은 기존 install을 지정한 최종3패키지 빌드로 해결했으며 실패/성공 로그 모두 보존.
 - 경계: 받은9g 평가 환경을 적용했으며 원 체크포인트의35g 학습조건 전체 재현·학습정책 적용·실물 파괴력 측정으로 해석하지 않는다. 정밀Nav2 이동·정책 파지·적재는 미실행.
 - 복원:019 물성은 유지하고 이번 진단/검사 도구 추가만 별도로 되돌릴 수 있다. 기존 사용자 파일과 받은 원본은 삭제하지 않는다. commit/push는 이번 사용자 요청으로 승인됐으며 실행 결과는 최종Git 원격 일치로 확인한다.
+
+
+
+## COMMON-TAG-20261006-001 — 선택적 태그 AMCL 연결
+
+- 승인: 사용자 “이 브랜치에서 태그보정 패키지 연결작업 진행해줘”(2026-10-06). `feat/apriltag-localization`, main `1666a23bf47dc7f0e8a6f2dfafbc1d41e190f6cd` 기준.
+- 이유: 성공한 실물 태그 기하·타이밍 보상을 기존 수확 미션에 연결하되 보정 준비/기록 대기로 주행을 막지 않음.
+- 공통 변경: `harvest_robot/node.py`, `mission.py`, 새 `tag_control.py`; `farm_bringup/launch/harvest.launch.py`, `farm_bringup/package.xml`. 새 `farm_tag_localization` 패키지와 `robot/config/localization` 참고 자산 추가.
+- 동작: 기본 OFF. 선택 시 미션 이동 시작·종료 신호와 독립 initialpose 어댑터 연결. AMCL 단독 TF 유지. real harvest TF remap을 기존 namespaced Nav2와 일치시킴. 기존 구동·취소·장애물 처리·경로·속도·시뮬 자산은 변경하지 않음.
+- 새 맵 자산 등록은 미완료이며 configured=false. 이전 태그 좌표를 새 맵에 확정하지 않음. 실물 장치 실행기나 mini_fleet 코드를 이식하지 않음.
+- 검증: 계약 시험 17개, Python 컴파일 통과. 이전 성공 기록 982행 재생에서 기하 채택 41행의 q/p 동일(1e-12 허용오차, 같은 OpenCV 5.0.0).
+- 미검증: ROS/colcon 빌드, 실제 통신·주행·새 맵 정확도. 로컬 ROS 설치 없음.
+- 복원: 실행 시 tag_correction:=false로 선택 기능 제외. 코드 복원은 이 변경 커밋을 revert하여 공통 수정과 추가 패키지를 함께 되돌림.
+- 상세 설정/입력 계약: `robot/ros_ws/src/farm_tag_localization/README.md`.

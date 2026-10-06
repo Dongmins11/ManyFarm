@@ -1,0 +1,12 @@
+# 새 맵 정합 전에는 활성화하지 않는다. 기존 성공본은 별도 보존한다.
+configured: false
+robot_id: harvest_01
+map_id: REPLACE_AFTER_MAP_REGISTRATION
+assets_file: robot/config/localization/reference_20261006/assets.candidate.json
+model_file: robot/config/localization/reference_20261006/observation_model.json
+# 값은 파일 SHA256을 기록한다. 새 맵/설정 혼용을 발견하기 위한 식별자다.
+map_yaml_sha256: REPLACE_AFTER_MAP_REGISTRATION
+map_image_sha256: REPLACE_AFTER_MAP_REGISTRATION
+map_frame: map
+odom_frame: odom
+base_frame: base_footprint
