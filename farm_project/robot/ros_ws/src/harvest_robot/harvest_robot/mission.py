@@ -15,17 +15,23 @@ class HarvestMission:
         control = getattr(self.node, 'tag_control', None)
         try:
             self.node.check()
-            self.node.navigator.preflight_navigation()
+            staged = getattr(self.node, "staged_navigation", None)
+            if staged is None:
+                self.node.navigator.preflight_navigation()
             if control is not None:
                 control.begin()
-            result = self.node.navigator.navigate(
-                [task.goal_pose.position.x, task.goal_pose.position.y], task.goal_pose.yaw)
+            xy = (task.goal_pose.position.x, task.goal_pose.position.y)
+            if staged is not None:
+                result = staged.navigate(self.goal.section_id, xy, task.goal_pose.yaw)
+            else:
+                result = self.node.navigator.navigate(xy, task.goal_pose.yaw)
             self.node.check()
             return asdict(result)
         except Exception:
             # 진행 함수가 반환한 뒤 취소/정지를 확인합니다. 실패하면 다음 Goal을 거절합니다.
             try:
-                self.node.navigator.cancel_nav()
+                executor = getattr(self.node, "staged_navigation", None) or self.node.navigator
+                executor.cancel_nav()
             except Exception as error:
                 self.node.blocked = True
                 raise RuntimeError('CANCEL_UNCONFIRMED: ' + str(error))

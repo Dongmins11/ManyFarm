@@ -21,7 +21,8 @@ class Navigator:
     def __init__(self, node: Node, settings: NavigationSettings, client: Nav2Client,
                  poses: PoseProvider, motion: MotionMonitor, check: Callable[[],None],
                  graph: RouteGraph | None = None,
-                 record: Callable[[dict[str,Any]],None] | None = None) -> None:
+                 record: Callable[[dict[str,Any]],None] | None = None,
+                 route_planner: Any = None) -> None:
         self._node=node
         self._settings=settings
         self._client=client
@@ -29,11 +30,12 @@ class Navigator:
         self._motion=motion
         self._check=check
         self._graph=graph
+        self._route_planner=route_planner
         self._record=record
         self._lock=threading.Lock()
         self._status=NavigationStatus()
         self._needs_stop_confirmation=False
-        if settings.mode=='follow_path' and graph is None:
+        if settings.mode=='follow_path' and graph is None and route_planner is None:
             raise ValueError('follow_path 모드에는 경로 그래프가 필요합니다.')
 
     @property
@@ -48,8 +50,10 @@ class Navigator:
         """명령을 보내지 않고 경로만 계산합니다. pose 모드는 Nav2가 계획합니다."""
         self._check()
         if self._settings.mode=='navigate_to_pose': return None
-        assert self._graph is not None
         actual=self._poses.current(self._check)
+        if self._route_planner is not None:
+            return self._route_planner.plan((float(actual[0,3]),float(actual[1,3])),xy,self._check)
+        assert self._graph is not None
         return self._graph.plan((float(actual[0,3]),float(actual[1,3])),xy,
                                 self._settings.max_start_distance_m,self._settings.max_goal_distance_m)
 
@@ -108,6 +112,8 @@ class Navigator:
         if not self._lock.acquire(blocking=False):
             raise RuntimeError('진행 중 I/O가 취소를 확인하고 반환한 뒤 정리해야 합니다.')
         try:
+            if self._route_planner is not None:
+                self._route_planner.cancel()
             self._client.cancel()
             if self._needs_stop_confirmation:
                 self._status=NavigationStatus(self._status.request_id,'STOPPING',self._status.plan_id)

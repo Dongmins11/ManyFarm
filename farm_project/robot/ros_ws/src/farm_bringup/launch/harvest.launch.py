@@ -60,6 +60,23 @@ def setup(context) -> list:
         actions.append(include('farm_bringup','scout_navigation.launch.py',
             dict(mode=mode,robot_id=profile['robot_id'],map=profile['map_yaml'],nav_params=profile['nav_params'],
                  route_file=profile['route_graph'],rviz='false')))
+    harvest_config = read_mapping(resolve_file(root, profile['harvest_config']))
+    if value('navigation') == 'true' and harvest_config.get('movement_mode') == 'route_then_pose':
+        route_params = resolve_file(root, profile['route_server_params'])
+        from launch_ros.descriptions import ParameterFile
+        from nav2_common.launch import RewrittenYaml
+        parameters = ParameterFile(RewrittenYaml(source_file=str(route_params),
+            root_key=profile['robot_id'], param_rewrites={'use_sim_time': 'true' if mode == 'sim' else 'false'},
+            convert_types=True), allow_substs=False)
+        actions.append(Node(package='nav2_route', executable='route_server', name='route_server',
+            namespace=profile['robot_id'], output='screen', remappings=tf_remaps,
+            parameters=[parameters, {'graph_filepath': profile['route_graph'],
+                'route_frame': profile['navigation'].get('map_frame', 'map'),
+                'base_frame': profile['navigation'].get('base_frame', 'base_footprint')}]))
+        actions.append(Node(package='nav2_lifecycle_manager', executable='lifecycle_manager',
+            name='route_lifecycle_manager', namespace=profile['robot_id'], output='screen',
+            parameters=[{'use_sim_time': mode == 'sim', 'autostart': True,
+                'node_names': ['route_server'], 'bond_timeout': 10.0}]))
     actions.append(Node(package='harvest_robot',executable='harvest_node',namespace=profile['robot_id'],
         output='screen',sigterm_timeout='60',sigkill_timeout='5',remappings=tf_remaps,parameters=[dict(
             project_root=str(root),environment_config=str(environment),mode=mode,use_sim_time=mode=='sim',
@@ -90,5 +107,3 @@ def generate_launch_description() -> LaunchDescription:
         DeclareLaunchArgument('capture_directory',default_value=''),
         DeclareLaunchArgument('tag_camera',default_value='auto',choices=['auto','true','false']),
         OpaqueFunction(function=setup)])
-
-

@@ -3,6 +3,8 @@
 string robot_id
 string map_id
 farm_interfaces/HarvestTask harvest_task
+# 화단 진입 경로 선택. 관제는 ScoutArea.Result.section_id를 전달한다.
+string section_id
 string timestamp
 ---
 # Result: 실패/취소에서도 실제 수확 성공/실패 수량을 보존한다.

@@ -3,6 +3,8 @@ from pathlib import Path
 import signal
 import threading
 import json
+from dataclasses import replace
+from .staged_navigation import StagedNavigation, load_sections
 import rclpy
 from rclpy.node import Node
 from rclpy.callback_groups import ReentrantCallbackGroup
@@ -52,6 +54,30 @@ class HarvestNode(Node):
         self.client = Nav2Client(self, settings, self.callbacks)
         self.navigator = Navigator(self, settings, self.client, self.poses, self.motion, self.check,
             RouteGraph(profile['route_graph']), record=lambda item: self.navigation_log.append(item))
+        self.staged_navigation = None
+        self.route_planner = None
+        self.work_client = None
+        movement_mode = self.config.get('movement_mode', 'graph_only')
+        if movement_mode not in ('graph_only', 'route_then_pose'):
+            raise ValueError('알 수 없는 movement_mode')
+        if movement_mode == 'route_then_pose':
+            from .route_server import RouteServerPlanner
+            graph = RouteGraph(profile['route_graph'])
+            sections = load_sections(self.config, graph)
+            self.route_planner = RouteServerPlanner(self, settings, self.callbacks, graph.revision)
+            self.navigator = Navigator(self, settings, self.client, self.poses, self.motion,
+                self.check, record=lambda item: self.navigation_log.append(item),
+                route_planner=self.route_planner)
+            work_settings = replace(settings, mode='navigate_to_pose')
+            self.work_client = Nav2Client(self, work_settings, self.callbacks)
+            work = Navigator(self, work_settings, self.work_client, self.poses, self.motion,
+                self.check, record=lambda item: self.navigation_log.append(item))
+            def current_xy() -> tuple[float, float]:
+                transform = self.poses.current(self.check)
+                return float(transform[0,3]), float(transform[1,3])
+            self.staged_navigation = StagedNavigation(self.navigator, work, sections,
+                current_xy, self.check, lambda item: self.navigation_log.append(item),
+                settings.max_start_distance_m)
         self.events = self.create_publisher(String, 'task_events', QoSProfile(
             depth=100, reliability=ReliabilityPolicy.RELIABLE, durability=DurabilityPolicy.TRANSIENT_LOCAL))
         self.communication = HarvestCommunication(self)
@@ -86,8 +112,12 @@ def main(args=None) -> None:
         if node.tag_control is not None:
             node.tag_control.end()
         executor.shutdown()
+        if node.route_planner is not None:
+            node.route_planner.close()
+        if node.work_client is not None:
+            node.work_client.close()
+        node.client.close()
         node.motion.close()
         node.poses.close()
         node.destroy_node()
         if rclpy.ok(): rclpy.shutdown()
-

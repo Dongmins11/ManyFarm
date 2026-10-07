@@ -306,3 +306,13 @@
 - sim 영향: 기존 sim 장치 실행 및 외부 capture_directory 경로 유지. 실물 USB 자동 캡처는 sim에서 실행하지 않음. Isaac/RViz 자동 실행 없음.
 - 검증: 태그 계약30개, 지도 해시·모델 생성·10→13 경로 및 controller/goal checker 일치, Python 컴파일. ROS/colcon/실물 주행은 미실행.
 - 복원: 이번 통합 커밋만 revert. 기존 1afa48a의 실험 수식/프로파일 반영과 main 변경은 유지.
+
+## 2026-10-07 — 승인 후 공통 적용: 수확 두 단계 이동
+
+- 승인 근거: 사용자가 화단 진입은 Route Server, 화단 작업은 예찰 goal_pose로 이동하는 구조를 승인하고 본인 feat/apriltag-localization 브랜치만 변경하도록 지시.
+- 대상: harvest_robot 미션/노드/계약/ComputeRoute 어댑터/시험, farm_navigation 선택적 planner 연결, HarvestTask.action section_id, harvest launch/의존성, 실물 수확 설정, 연결 시험/문서.
+- 전후: 단일 graph FollowPath → 접근 ComputeRoute+FollowPath 및 작업 NavigateToPose, 같은 화단 문맥 유지. 예찰 goal_pose 변환과 태그 모델은 그대로.
+- 실물 영향: 기존 A 시험 경계 11번 진입/이탈. 시험 그래프 범위를 임의 확장하지 않음. 예찰 지도 통일은 후속 환경 적용. Action 타입 변경으로 양쪽 재빌드 필요.
+- 시뮬 영향: 기존 graph_only 설정 유지. 새 로직 선택 시 시뮬 전용 화단/route 설정 필요. shared action 소비자는 재빌드 필요.
+- 검증: 신규 오프라인 30건 + 태그/launch 32건 통과. 실제 ROS/colcon/실물/Isaac 실행 미검증.
+- 복원: 본 커밋 revert 후 인터페이스와 의존 노드 재빌드. main에는 적용하지 않음.

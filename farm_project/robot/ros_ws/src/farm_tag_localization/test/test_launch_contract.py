@@ -8,13 +8,14 @@ import unittest
 ROOT=Path(__file__).resolve().parents[5]
 
 class LaunchContract(unittest.TestCase):
-    def setup_launch(self, enabled, *, camera="auto", folder="/capture/current", devices="false", mode="real"):
+    def setup_launch(self, enabled, *, camera="auto", folder="/capture/current", devices="false", mode="real", staged=False, navigation="true"):
         class Action:
             def __init__(self,*args,**kwargs):self.args=args;self.kwargs=kwargs
         class Config:
             def __init__(self,key):self.key=key
             def perform(self,context):return context[self.key]
         profile=dict(robot_id='harvest_01',map_id='m',harvest_config='robot/h.yaml',device_config=str(ROOT/'robot/d.yaml'),map_yaml=str(ROOT/'robot/m.yaml'),nav_params=str(ROOT/'robot/n.yaml'),route_graph=str(ROOT/'robot/g.json'),tag_localization_config='robot/t.yaml',tag_capture_config='robot/camera.yaml')
+        profile.update(navigation={'map_frame':'map','base_frame':'base_footprint'}, route_server_params='robot/route.yaml')
         if mode == 'sim':
             profile = {k: (v.replace('/robot/','/sim/').replace('robot/','sim/',1) if isinstance(v,str) and 'robot/' in v else v) for k,v in profile.items()}
         modules={}
@@ -26,13 +27,15 @@ class LaunchContract(unittest.TestCase):
         stub('launch.launch_description_sources',PythonLaunchDescriptionSource=Action)
         stub('launch.substitutions',LaunchConfiguration=Config)
         stub('launch_ros');stub('launch_ros.actions',Node=Action)
-        stub('farm_navigation');stub('farm_navigation.configuration',load_environment=lambda *a,**k:profile,resolve_file=lambda r,p:r/p,read_mapping=lambda p:{})
+        stub('launch_ros.descriptions',ParameterFile=Action)
+        stub('nav2_common');stub('nav2_common.launch',RewrittenYaml=Action)
+        stub('farm_navigation');stub('farm_navigation.configuration',load_environment=lambda *a,**k:profile,resolve_file=lambda r,p:r/p,read_mapping=lambda p:({'movement_mode':'route_then_pose'} if staged else {}))
         calls=[]
         stub('farm_tag_localization.runtime',validate_binding=lambda *a:calls.append(a))
         with patch.dict(sys.modules,modules):
             spec=importlib.util.spec_from_file_location('harvest_launch_contract',ROOT/'robot/ros_ws/src/farm_bringup/launch/harvest.launch.py')
             module=importlib.util.module_from_spec(spec);spec.loader.exec_module(module)
-            actions=module.setup(dict(mode=mode,devices=devices,navigation='true',project_root=str(ROOT),environment_config=('sim/e.yaml' if mode == 'sim' else 'robot/e.yaml'),tag_correction=str(enabled).lower(),capture_directory=folder,tag_camera=camera))
+            actions=module.setup(dict(mode=mode,devices=devices,navigation=navigation,project_root=str(ROOT),environment_config=('sim/e.yaml' if mode == 'sim' else 'robot/e.yaml'),tag_correction=str(enabled).lower(),capture_directory=folder,tag_camera=camera))
         return actions,calls
 
     def test_off_preserves_navigation_without_adapter(self):
@@ -85,3 +88,16 @@ class LaunchContract(unittest.TestCase):
         actions,calls=self.setup_launch(True,mode='sim')
         self.assertEqual(actions[-1].kwargs['executable'],'tag_amcl_adapter')
         self.assertEqual(actions[-1].kwargs['remappings'],[])
+
+    def test_staged_launch_has_route_server_with_same_graph_tf(self):
+        actions,_=self.setup_launch(False,staged=True)
+        server=next(a.kwargs for a in actions if a.kwargs.get('executable')=='route_server')
+        self.assertEqual(server['namespace'],'harvest_01')
+        self.assertEqual(server['parameters'][1]['graph_filepath'],str(ROOT/'robot/g.json'))
+        self.assertIn(('/tf','/harvest_01/tf'),server['remappings'])
+        lifecycle=next(a.kwargs for a in actions if a.kwargs.get('name')=='route_lifecycle_manager')
+        self.assertEqual(lifecycle['parameters'][0]['node_names'],['route_server'])
+
+    def test_external_navigation_does_not_duplicate_route_server(self):
+        actions,_=self.setup_launch(False,staged=True,navigation='false')
+        self.assertFalse(any(a.kwargs.get('executable')=='route_server' for a in actions))

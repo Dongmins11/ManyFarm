@@ -10,6 +10,9 @@ def validate_task(goal, config: dict) -> None:
         raise ValueError('task_id/window_id가 비어 있음')
     if goal.robot_id != config['robot_id'] or goal.map_id != config['map_id']:
         raise ValueError('robot_id/map_id 불일치')
+    if config.get("movement_mode") == "route_then_pose":
+        if getattr(goal, "section_id", "") not in config.get("sections", {}):
+            raise ValueError("등록된 section_id 필요; window_id에서 추측하지 않음")
     p, yaw = task.goal_pose.position, task.goal_pose.yaw
     if (task.goal_pose.frame_id != 'map' or task.expected_count < 0
             or not all(math.isfinite(v) for v in (p.x, p.y, p.z, yaw)) or abs(p.z) > .1):

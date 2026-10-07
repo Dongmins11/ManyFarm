@@ -2,5 +2,14 @@
   "schema_version": 1,
   "robot_id": "harvest_01",
   "map_id": "93f108470604e1afb2d320b8eb128df031e926875a032c03d0b98030c09e067c",
-  "completion_policy": "ARRIVAL_ONLY_NO_HARVEST"
+  "completion_policy": "ARRIVAL_ONLY_NO_HARVEST",
+  "movement_mode": "route_then_pose",
+  "sections": {
+    "SEC_01": {
+      "entry_node": 11,
+      "entry_heading_node": 12,
+      "exit_node": 11,
+      "exit_heading_node": 10
+    }
+  }
 }

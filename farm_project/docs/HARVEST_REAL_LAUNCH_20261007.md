@@ -1,5 +1,9 @@
 # Vic Pinky 통합 실행 — 이동 시험 + 선택적 태그 보정
 
+## 두 단계 이동 적용 후 변경
+
+2026-10-07 추가 승인으로 실물 기본 미션은 화단 접근 ComputeRoute+FollowPath, 작업 NavigateToPose로 나뉜다. [두 단계 이동과 메시지 변경](HARVEST_TWO_STAGE_NAVIGATION_20261007.md)을 먼저 읽는다. HarvestTask Goal에 section_id가 추가되어 양쪽 인터페이스 재빌드가 필요하다. 현재 SEC_01 진입점은 기존 A 시험 경계 11번이며, 시험 그래프 10~13을 전체 농장 접근 그래프로 오해하지 않는다.
+
 ## 범위
 
 예찰 `scout.launch.py`와 같이 `harvest.launch.py` 하나에서 실물 장치·Nav2·수확 이동 서버를 실행한다. `tag_correction:=true`이면 성공한 로봇 내부 카메라/검출 실행본과 태그→AMCL 어댑터도 자동 실행한다. 시작만으로 이동하지 않는다. 목표는 기존 HarvestTask Action으로 받는다.
@@ -69,4 +73,4 @@ Ctrl+C 시 태그 어댑터를 종료하고 기존 캡처 관리자가 카메라
 - 태그 패키지 계약 시험 30개 통과: 자동/외부 캡처, ON/OFF, 실물 장치 선택, 이중 캡처 거절, 현재 세션 폴더 선택, DDS 환경 분리, 자기 자식만 종료, 지도/모델/경로/goal checker 일치 등.
 - Python 컴파일 검사. 10→13 경로 계산 및 14번 제외 확인. 실험 지도 YAML/PGM 원본 SHA-256 일치.
 - ROS가 없는 환경에서 수행했다. colcon 빌드, 실제 ROS launch/DDS, 카메라 하드웨어, 실물 주행은 아직 미검증이다.
-- 새 실물 환경은 기존 FollowPath 모드를 유지한다. 자유 좌표 NavigateToPose로 전환하지 않는다.
+- 실물 접근은 Route Server+FollowPath, 작업 구간은 NavigateToPose를 사용한다. 아래 30개 검사는 이전 통합 시점 기록이며 두 단계 변경 검증은 별도 문서를 따른다.
