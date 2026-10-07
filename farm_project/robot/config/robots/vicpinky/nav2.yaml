@@ -1,3 +1,4 @@
+# 2026-10-07 Vic Pinky 태그 ON/OFF 실험 기준. 6도는 경로 정렬 기준이며 최종 도착 방향 허용치는 별개다.
 # 이전 mini_fleet/config/robots/vicpinky.yaml 기반 실물 주행 설정
 # 속도·크기·센서 설정은 기존 값을 보존합니다. 현재 하드웨어 연결에 맞춰 Twist를 사용합니다.
 # 지도는 런치에서 주입하며 초기 위치 정책은 원본을 유지합니다. 실물 재검증이 필요합니다.
@@ -80,8 +81,8 @@ controller_server:
     - RPP
     progress_checker:
       plugin: nav2_controller::SimpleProgressChecker
-      required_movement_radius: 0.5
-      movement_time_allowance: 10.0
+      required_movement_radius: 0.1
+      movement_time_allowance: 20.0
     general_goal_checker:
       stateful: true
       plugin: nav2_controller::SimpleGoalChecker
@@ -89,11 +90,11 @@ controller_server:
       yaw_goal_tolerance: 0.05236
     FollowPath:
       plugin: nav2_regulated_pure_pursuit_controller::RegulatedPurePursuitController
-      desired_linear_vel: 0.15
+      desired_linear_vel: 0.10
       lookahead_dist: 0.4
       use_velocity_scaled_lookahead_dist: false
       use_rotate_to_heading: true
-      rotate_to_heading_angular_vel: 0.35
+      rotate_to_heading_angular_vel: 0.10
       max_angular_accel: 1.0
       allow_reversing: false
       use_collision_detection: true
@@ -102,16 +103,16 @@ controller_server:
       regulated_linear_scaling_min_speed: 0.05
       min_approach_linear_velocity: 0.05
       approach_velocity_scaling_dist: 0.6
-      rotate_to_heading_min_angle: 0.05236
+      rotate_to_heading_min_angle: 0.10471975511965978
     progress_checker_plugins:
     - progress_checker
     RPP:
       plugin: nav2_regulated_pure_pursuit_controller::RegulatedPurePursuitController
-      desired_linear_vel: 0.15
+      desired_linear_vel: 0.10
       lookahead_dist: 0.4
       use_velocity_scaled_lookahead_dist: false
       use_rotate_to_heading: true
-      rotate_to_heading_angular_vel: 0.35
+      rotate_to_heading_angular_vel: 0.10
       max_angular_accel: 1.0
       allow_reversing: false
       use_collision_detection: true
@@ -120,7 +121,7 @@ controller_server:
       regulated_linear_scaling_min_speed: 0.05
       min_approach_linear_velocity: 0.05
       approach_velocity_scaling_dist: 0.6
-      rotate_to_heading_min_angle: 0.05236
+      rotate_to_heading_min_angle: 0.10471975511965978
     enable_stamped_cmd_vel: false
 local_costmap:
   local_costmap:
@@ -282,3 +283,4 @@ velocity_smoother:
     - 0.0
     velocity_timeout: 1.0
     enable_stamped_cmd_vel: false
+

@@ -284,3 +284,13 @@
 - 미검증: ROS/colcon 빌드, 실제 통신·주행·새 맵 정확도. 로컬 ROS 설치 없음.
 - 복원: 실행 시 tag_correction:=false로 선택 기능 제외. 코드 복원은 이 변경 커밋을 revert하여 공통 수정과 추가 패키지를 함께 되돌림.
 - 상세 설정/입력 계약: `robot/ros_ws/src/farm_tag_localization/README.md`.
+
+## 2026-10-07 — 사용자 브랜치 실물 AprilTag 결과 반영
+
+- 구분: 실물 Vic Pinky 설정 및 태그 패키지 진단/문서. 시뮬 실행 로직/설정 변경 없음.
+- 승인 근거: 사용자가 본인 브랜치에 실험 결과를 반영하도록 명시 요청.
+- 대상: robot/config/robots/vicpinky/nav2.yaml, robot/config/localization/harvest_real.yaml 및 reference_20261007, farm_tag_localization.
+- 변경: RPP/FollowPath 정렬3→6도, 전진0.15→0.10m/s, 회전0.35→0.10rad/s, 진행0.5m/10초→0.1m/20초. ROI60x80 의미를 진단에 명시. 새 실험지도 후보자산/해시 저장, 자동활성화없음.
+- 실물 영향: 해당YAML을선택해새로기동한환경에서 적용. 충돌감지·목표도착허용치·기존미션/지도/그래프 유지. 외부mini_fleet실험의실물성공과프로젝트통합완료를구분.
+- 검증: 계약19개, 동일환경검출3779행대조(q/p787행일치). ROS/Isaac/프로젝트실물E2E 미실행.
+- 복원: 이번커밋 revert. 태그변환/보정수식 변경없음. 상세 결과는 farm_tag_localization/FIELD_RESULTS_20261007.md.

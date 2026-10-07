@@ -17,7 +17,7 @@ from std_msgs.msg import String
 from rcl_interfaces.srv import GetParameters
 from tf2_ros import Buffer, TransformListener
 from .runtime import load_observer, Lease, Journal, time_valid
-from .tag_adapter import observe, transported, correction
+from .tag_adapter import observe, transported, correction, OBSERVATION_ROI
 
 
 def stamp_ns(stamp: object) -> int:
@@ -73,7 +73,8 @@ class TagAdapter(Node):
         self._count = 0
         self._timer = self.create_timer(.02, self._tick)
         self._owner_timer = self.create_timer(1.0, self._poll_owner)
-        self._log('start', tf_owner='AMCL', method='bounded_tag_initialpose', physical_accuracy_validated=False)
+        self._log('start', tf_owner='AMCL', method='bounded_tag_initialpose',
+            observation_roi=list(OBSERVATION_ROI), physical_accuracy_validated=False)
         self.get_logger().info('TAG_ADAPTER_RUNNING: 작업 신호 대기. AMCL TF 유지; 태그 누락은 주행을 취소하지 않습니다.')
 
     def _log(self, kind: str, **fields: object) -> None:
@@ -217,3 +218,4 @@ def main(args: list[str] | None = None) -> None:
             node.destroy_node()
         if rclpy.ok():
             rclpy.shutdown()
+

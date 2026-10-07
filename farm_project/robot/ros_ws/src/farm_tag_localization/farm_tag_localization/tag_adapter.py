@@ -3,6 +3,9 @@ import math
 import numpy as np
 from .roi import roi_accept
 
+# 실제 보정 ROI. 촬영 모니터의 가로/세로 60% roi60_candidate와 구분한다.
+OBSERVATION_ROI = (0.6, 0.8)
+
 def wrap(a):return math.atan2(math.sin(a),math.cos(a))
 def matrix(q):
  x,y,a=q;c=math.cos(a);s=math.sin(a)
@@ -27,9 +30,10 @@ def observe(observer,record):
  stamp=int(record['source_stamp_ns']);c=observer.context
  if record['frame_id']!=observer.camera.optical_frame:raise ValueError('optical_frame_mismatch')
  ds=[dict(family=d['family'],tag_id=d['id'],corners=d['corners_rectified'],corner_convention='apriltag_c_p_v1',decision_margin=d['decision_margin'],hamming=d['hamming']) for d in record['detections']]
- ds=[d for d in ds if roi_accept(d,(.6,.8))]
+ ds=[d for d in ds if roi_accept(d,OBSERVATION_ROI)]
  frame=dict(stamp_ns=stamp,camera_info_stamp_ns=stamp,image_size=[1280,720],optical_frame=observer.camera.optical_frame,calibration_version=c.calibration_version,rectified=True,session_id=c.session_id,epoch=0,image_uid='capture:'+str(stamp),capture_time_model_valid=True,capture_time_source='read_completion_experimental_assumption')
  result=observer.observe(frame,ds);packet=result['selected']
  if packet is None:return None,result
  if len(packet['usable_candidates'])!=1:return None,result
  return packet['usable_candidates'][0],result
+

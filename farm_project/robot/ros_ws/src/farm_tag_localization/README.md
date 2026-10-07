@@ -40,13 +40,13 @@ flowchart TD
 
 현재 촬영 폴더에는 `settings.json`의 `calibration_sha256`, 그리고 계속 추가되는 `detections.jsonl`이 필요합니다. 각 검출 행은 `source_stamp_ns`, `frame_id`, `detections`를 포함하며 검출은 `family`, `id`, `corners_rectified`, `decision_margin`, `hamming`을 포함합니다. 시작 전에 있던 행은 재생하지 않습니다. PNG 프레임 저장 개수/완료 여부를 요구하지 않습니다.
 
-`robot/config/localization/harvest_real.yaml`은 **새 맵 등록 전 초안**입니다. `reference_20261006` 자산은 계산 보존용이며 새 맵의 태그 좌표로 확정한 것이 아닙니다. 새 맵 완성 후:
+`robot/config/localization/harvest_real.yaml`은 2026-10-07 실험 지도 해시와 `reference_20261007` 후보 자산을 지정합니다. 프로젝트 실물 환경과 지도 파일 연결이 아직 완료되지 않아 `configured: false`를 유지합니다. `reference_20261006`은 이력으로 보존합니다. 실제 환경 연결 시:
 
 1. 실제 harvest 환경 설정에 `tag_localization_config: robot/config/localization/harvest_real.yaml`을 추가합니다.
 2. 동일 map 좌표계의 태그 중심·방향을 등록한 자산 파일을 지정합니다. 맵만 바뀌었다고 기존 좌표를 그대로 사용하지 않습니다.
 3. `robot_id`, `map_id`, TF frame 이름, map YAML/이미지 SHA-256을 환경 설정과 맞춘 뒤 `configured: true`로 설정합니다.
 
-이 저장소는 아직 harvest 실물 장치 자동 bringup을 구현하지 않았으므로 외부 장치 드라이버와 실제 harvest 환경 설정이 필요합니다. 현재 sim 환경이나 scout 실물 환경을 대체 설정으로 사용하지 않습니다. 기존 실물 Nav2 설정의 속도/진행 기준도 성공 실험값과 자동으로 같아지는 것은 아닙니다. 이 변경에서는 기존 주행 파라미터·지도·경로를 수정하지 않았습니다.
+이 저장소는 아직 harvest 실물 장치 자동 bringup을 구현하지 않았으므로 외부 장치 드라이버와 실제 harvest 환경 설정이 필요합니다. 현재 sim 환경이나 scout 실물 환경을 대체 설정으로 사용하지 않습니다. 기존 실물 Nav2 설정의 속도/진행 기준도 성공 실험값과 자동으로 같아지는 것은 아닙니다. 2026-10-07에는 Vic Pinky 실물 Nav2 프로파일만 아래 실험값으로 변경했습니다. 기존 지도·경로·시뮬 설정·도착 판정은 변경하지 않았습니다.
 
 ## 빌드 및 연결 예시
 
@@ -83,3 +83,14 @@ python3 -m unittest discover -s robot/ros_ws/src/farm_tag_localization/test -v
 ```
 
 원본 계산 파일 해시는 `PROVENANCE.json`에 기록했습니다. 외부 실험 기록과 기존 성공 실행 파일은 이 브랜치 작업으로 변경하지 않습니다.
+
+
+## 2026-10-07 실험 결과 반영
+
+- `robot/config/robots/vicpinky/nav2.yaml`의 `FollowPath`와 `RPP` 모두 경로 정렬 기준 6도(0.1047197551rad), 전진 0.10m/s, 정렬 회전 0.10rad/s입니다. 진행 기준은 0.10m/20초입니다.
+- 기존 충돌 감지와 최종 도착 위치/방향 허용치는 유지합니다. 6도는 최종 yaw 허용치가 아닙니다. 이 YAML을 선택한 환경에서 적용되며 실행 중 파라미터를 자동 변경하지 않습니다.
+- 기존 실험 스크립트는 종료 시 회전 0.35rad/s·진행 10초로 복원했지만, 프로젝트 YAML은 **실험 중 사용한 값**을 유지합니다.
+- 태그 보정 수식·방향 보정·촬영 시각 odom 보상·AMCL TF 소유는 유지합니다. 새 주행 READY 조건이나 태그 누락에 따른 정지를 추가하지 않습니다.
+- 실제 ROI는 가로60%×세로80%입니다. 모니터 `roi60_candidate`(60%×60%)를 보정 가능 여부로 해석하지 않습니다. 어댑터 시작 로그에 `observation_roi`를 기록합니다.
+- 결과와 한계: [FIELD_RESULTS_20261007.md](FIELD_RESULTS_20261007.md).
+- 검증: 계약 시험19개 통과. ON/OFF 여섯 주행 검출3,779행을 같은 로컬 OpenCV 환경에서 비교해 기존 실험 코드와 이식본의 채택 여부, 채택787행의 위치·공분산 일치(절대오차1e-12). ROS 없는 오프라인 검증이며 Git 프로젝트에서의 실물 실행 완료를 의미하지 않습니다.
