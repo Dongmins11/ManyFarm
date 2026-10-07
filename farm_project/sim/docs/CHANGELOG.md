@@ -294,3 +294,15 @@
 - 실물 영향: 해당YAML을선택해새로기동한환경에서 적용. 충돌감지·목표도착허용치·기존미션/지도/그래프 유지. 외부mini_fleet실험의실물성공과프로젝트통합완료를구분.
 - 검증: 계약19개, 동일환경검출3779행대조(q/p787행일치). ROS/Isaac/프로젝트실물E2E 미실행.
 - 복원: 이번커밋 revert. 태그변환/보정수식 변경없음. 상세 결과는 farm_tag_localization/FIELD_RESULTS_20261007.md.
+
+
+
+## REAL-COMMON-20261007-001 — 수확 실물 실행 통합 및 FSM 차이 검토
+
+- 승인: 2026-10-07 사용자 “예찰쪽 ... 참고해서 구조 맞춰서”, “내 브랜치 파일 수정”, “컨플루언스 ... FSM도 참고해서 ... 부족한 부분 파악”.
+- 대상: 공통 `farm_bringup/launch/harvest.launch.py`, 의존성; `farm_tag_localization`의 캡처 세션 실행기/설치/시험; 실물 harvest 환경·장치·카메라·지도 설정; 실행/FSM 문서.
+- 변경: 기존 real devices 미구현 오류를 기존 farm_real_devices의 vicpinky 분기로 연결. 성공 캡처 외부 실행본을 환경 설정으로 선택, 세션 폴더 자동 연결 및 자기 자식 종료. 태그 수식·미션·공통 Navigator는 유지.
+- 실물 영향: 수확 프로파일만 10/07 지도 원본/시험 경로 사용. 예찰 코드·지도·설정 미변경. 카메라 실행본은 별도 설치된 성공본 의존. capture 실패는 Nav2 취소로 연결하지 않음.
+- sim 영향: 기존 sim 장치 실행 및 외부 capture_directory 경로 유지. 실물 USB 자동 캡처는 sim에서 실행하지 않음. Isaac/RViz 자동 실행 없음.
+- 검증: 태그 계약30개, 지도 해시·모델 생성·10→13 경로 및 controller/goal checker 일치, Python 컴파일. ROS/colcon/실물 주행은 미실행.
+- 복원: 이번 통합 커밋만 revert. 기존 1afa48a의 실험 수식/프로파일 반영과 main 변경은 유지.

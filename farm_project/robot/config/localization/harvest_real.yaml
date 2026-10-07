@@ -1,6 +1,5 @@
-# 실험 자산은 등록했지만 프로젝트 실물 environment/map 연결은 아직 미완료다.
-# 실제 연결 지도 해시와 환경 식별자 확인 후 configured만 활성화한다.
-configured: false
+# 10/07 실험 지도 원본을 harvest_field_20261007에 연결. 실물 통합 검증 완료 의미 아님.
+configured: true
 robot_id: harvest_01
 map_id: 93f108470604e1afb2d320b8eb128df031e926875a032c03d0b98030c09e067c
 assets_file: robot/config/localization/reference_20261007/assets.candidate.json
@@ -10,3 +9,4 @@ map_image_sha256: a9f852637490aaff50c7115a543e2780a60ecf654747b3e777319251e15194
 map_frame: map
 odom_frame: odom
 base_frame: base_footprint
+

@@ -1,0 +1,26 @@
+# 10/07 성공 실험 지도·경로를 사용하는 이동 전용 환경. 실물 통합 검증은 별도.
+schema_version: 1
+configured: true
+mode: real
+robot_id: harvest_01
+map_id: 93f108470604e1afb2d320b8eb128df031e926875a032c03d0b98030c09e067c
+map_yaml: robot/config/maps/harvest_field_20261007/many_farm.yaml
+route_graph: robot/config/maps/harvest_field_20261007/graph.geojson
+nav_params: robot/config/robots/vicpinky/nav2.yaml
+device_config: robot/config/robots/vicpinky/devices.json
+harvest_config: robot/config/harvest/harvest_real.json
+tag_localization_config: robot/config/localization/harvest_real.yaml
+tag_capture_config: robot/config/cameras/harvest_tag_capture.yaml
+navigation:
+  mode: follow_path
+  map_frame: map
+  base_frame: base_footprint
+  controller_id: RPP
+  goal_checker_id: general_goal_checker
+  progress_checker_id: progress_checker
+  arrival_tolerance_m: 0.05
+  heading_tolerance_rad: 0.05236
+  goal_timeout_s: 300.0
+  max_start_distance_m: 0.1
+  max_goal_distance_m: 0.02
+  path_spacing_m: 0.04

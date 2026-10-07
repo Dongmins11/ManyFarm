@@ -34,42 +34,22 @@ flowchart TD
 
 방향 보정을 임의로 제거하지 않았습니다. 요청 발행은 실제 물리 오차 개선의 증명이 아닙니다. `tag_correction_requested`와 후속 `amcl_after_request`를 함께 기록합니다.
 
-## 이번 연결 범위와 남은 설정
+## 통합 실행 (2026-10-07)
 
-이번 버전은 **기존에 성공한 카메라/검출 실행을 그대로 사용하는 파일 입력 어댑터**입니다. 카메라 실행 파일을 이 패키지가 설치·기동하지 않습니다. 카메라와 어댑터는 같은 로봇에서 실행하며 카메라의 로컬 Domain 178 기록을 읽습니다. 어댑터는 기존 주행 Domain 156에 연결합니다. PC로 영상 전송하지 않습니다.
-
-현재 촬영 폴더에는 `settings.json`의 `calibration_sha256`, 그리고 계속 추가되는 `detections.jsonl`이 필요합니다. 각 검출 행은 `source_stamp_ns`, `frame_id`, `detections`를 포함하며 검출은 `family`, `id`, `corners_rectified`, `decision_margin`, `hamming`을 포함합니다. 시작 전에 있던 행은 재생하지 않습니다. PNG 프레임 저장 개수/완료 여부를 요구하지 않습니다.
-
-`robot/config/localization/harvest_real.yaml`은 2026-10-07 실험 지도 해시와 `reference_20261007` 후보 자산을 지정합니다. 프로젝트 실물 환경과 지도 파일 연결이 아직 완료되지 않아 `configured: false`를 유지합니다. `reference_20261006`은 이력으로 보존합니다. 실제 환경 연결 시:
-
-1. 실제 harvest 환경 설정에 `tag_localization_config: robot/config/localization/harvest_real.yaml`을 추가합니다.
-2. 동일 map 좌표계의 태그 중심·방향을 등록한 자산 파일을 지정합니다. 맵만 바뀌었다고 기존 좌표를 그대로 사용하지 않습니다.
-3. `robot_id`, `map_id`, TF frame 이름, map YAML/이미지 SHA-256을 환경 설정과 맞춘 뒤 `configured: true`로 설정합니다.
-
-이 저장소는 아직 harvest 실물 장치 자동 bringup을 구현하지 않았으므로 외부 장치 드라이버와 실제 harvest 환경 설정이 필요합니다. 현재 sim 환경이나 scout 실물 환경을 대체 설정으로 사용하지 않습니다. 기존 실물 Nav2 설정의 속도/진행 기준도 성공 실험값과 자동으로 같아지는 것은 아닙니다. 2026-10-07에는 Vic Pinky 실물 Nav2 프로파일만 아래 실험값으로 변경했습니다. 기존 지도·경로·시뮬 설정·도착 판정은 변경하지 않았습니다.
-
-## 빌드 및 연결 예시
-
-ROS Jazzy 환경의 프로젝트 루트(`farm_project`)에서:
+`farm_bringup harvest.launch.py`에서 실물 장치·Nav2·미션과 선택적 카메라/태그 보정을 함께 실행합니다. 예찰과 같은 실물 환경 선택 구조를 사용합니다.
 
 ```bash
-source /opt/ros/jazzy/setup.bash
-cd robot/ros_ws
-colcon build --symlink-install --packages-up-to farm_bringup harvest_robot
-source install/setup.bash
+# farm_project 디렉터리, ROS/드라이버/프로젝트 overlay source 후
+ros2 launch farm_bringup harvest.launch.py project_root:="$PWD" mode:=real tag_correction:=true
 ```
 
-아래는 **새 맵과 실제 환경 등록 후** 사용할 형식입니다. `pinky_project`, `pinky_environment`, `pinky_capture`를 실제 경로로 지정해야 합니다.
+기본 실물 환경: `robot/config/environments/harvest_real.yaml`. 10/07 지도·태그 모델을 연결해 `configured: true`로 등록했습니다. 예찰 지도는 유지합니다. 실제 이동은 기존 HarvestTask 요청으로 시작합니다.
 
-```bash
-ros2 launch farm_bringup harvest.launch.py \
-  project_root:="$pinky_project" \
-  mode:=real devices:=false navigation:=true \
-  environment_config:="$pinky_environment" \
-  tag_correction:=true capture_directory:="$pinky_capture"
-```
+카메라 실행은 **기존 성공 실행본을 호출하는 어댑터**입니다. 실행본/캘리브레이션 경로는 `robot/config/cameras/harvest_tag_capture.yaml`에서 설정합니다. Git만 새로 설치한 로봇에 기존 실행본까지 포함되는 것은 아닙니다. 실행 세션과 검출 폴더 연결·종료는 자동 처리합니다. 카메라 로컬 Domain 178과 주행 Domain 156을 유지합니다.
 
-이미 동일 Nav2가 실행 중이면 `navigation:=false`를 사용합니다. 기존 harvest 서버/보정 어댑터를 중복 실행하지 않습니다. 보정 OFF는 `tag_correction:=false`이며 이때 태그 설정이나 촬영 폴더는 필요 없습니다. 실제 이동 요청은 기존 HarvestTask 인터페이스를 사용합니다. 이 launch만으로 이동 명령을 보내지 않습니다.
+OFF는 `tag_correction:=false`, OFF 검출 기록은 `tag_camera:=true`를 추가합니다. 외부 캡처 재사용은 `tag_camera:=false capture_directory:=...`입니다. 캡처/보정 실패는 주행 취소를 요청하지 않습니다. 성공 여부는 보정 로그에서 따로 확인합니다. 전체 PNG 기록은 자동으로 켜지 않습니다.
+
+[설치·실행·검증 안내](../../../../docs/HARVEST_REAL_LAUNCH_20261007.md), [FSM 부족 사항](../../../../docs/HARVEST_FSM_GAP_20261007.md).
 
 ## 검증 범위 (2026-10-06)
 
@@ -94,3 +74,4 @@ python3 -m unittest discover -s robot/ros_ws/src/farm_tag_localization/test -v
 - 실제 ROI는 가로60%×세로80%입니다. 모니터 `roi60_candidate`(60%×60%)를 보정 가능 여부로 해석하지 않습니다. 어댑터 시작 로그에 `observation_roi`를 기록합니다.
 - 결과와 한계: [FIELD_RESULTS_20261007.md](FIELD_RESULTS_20261007.md).
 - 검증: 계약 시험19개 통과. ON/OFF 여섯 주행 검출3,779행을 같은 로컬 OpenCV 환경에서 비교해 기존 실험 코드와 이식본의 채택 여부, 채택787행의 위치·공분산 일치(절대오차1e-12). ROS 없는 오프라인 검증이며 Git 프로젝트에서의 실물 실행 완료를 의미하지 않습니다.
+
