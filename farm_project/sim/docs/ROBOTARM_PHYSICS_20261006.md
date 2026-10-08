@@ -2,6 +2,10 @@
 
 작성일: 2026-10-06 KST. **승인한 기초 물성·오른팔 좌표 적용과 실제 Isaac 기동 검증을 완료했다. Nav2 목표 이동과 학습 정책 수확은 후속 검증 범위다.**
 
+이 문서의 전체288개·고정480Hz 설명은 최초 적용과 기준 검사 기록이다.
+현재 운용에는 [동적 주기·수확 주변 과실 활성화](ADAPTIVE_HARVEST_PHYSICS_20261006.md)를 추가했다.
+유휴60Hz/수확480Hz 전환과 실제 동시 주행에서 관측한 수치 응답 차이는 새 보고서를 따른다.
+
 ## 1. 승인 범위와 현재 동작
 
 사용자가 승인한 1차 적용은 농장 과실 물성, 수확 로봇 오른팔 물성, 예찰에서 생성하는 수확 목표의 오른팔 좌표 기준이다. 과실 외형은 Teacher 기준 **폭 70 mm·높이 75 mm로 통일**하는 것으로 확인받았다. 기존 식물마다 다른 과실 스케일을 유지하는 변경이 아니다.
@@ -53,7 +57,7 @@
 
 속도 상한은 독립 템플릿과 농장 session override 모두에 반영했다. 각속도 단위는 원본 IsaacLab/USD의 degree/s이므로 20 rad/s로 해석하지 않는다. §7의 최종 USD·GPU 검사는 이 보완 후 실행했다.
 
-`contact_solver_refine=false`에 맞춰 과실의 solver/sleep/depenetration 추가 override를 넣지 않는다. 과실 body의 CCD 플래그는 true이며 scene 전체 CCD pass는 원본처럼 활성화하지 않는다. 이 플래그 확인을 낙하 터널링 방지 검증으로 해석하지 않는다.
+`contact_solver_refine=false`에 맞춰 과실의 solver/sleep/depenetration 추가 override를 넣지 않는다. 과실 body의 CCD 플래그는 true다. **실행 시 scene CCD도 true다.** 2026-10-06 GUI 성능 계측에서 Isaac Core `World` 기본 초기화가 CPU PhysX/MBP/TGS와 scene CCD=true를 적용함을 확인했다. 기존의 “scene CCD를 활성화하지 않는다”는 설명은 잘못되어 정정한다. 전달 Teacher의 scene CCD=false와 이 설정은 다르며, 이번 과실/팔 이식이 전체 물리 환경의 완전한 동등 재현을 뜻하지 않는다. 이 플래그 확인을 모든 낙하·접촉의 터널링 방지 검증으로 해석하지 않는다. 실제 설정과 성능은 §11을 참조한다.
 
 ### 줄기 결합
 
@@ -266,3 +270,44 @@ cd ~/main/farm_project
 기본 대상은 `/World/Vegetation/Bed_01/Fruits/Pepper_0001_yellow`, world −X 방향으로 COM에 외력을 가한 시험이다. 이 한 과실의 하중 시험을288개 전부의 최소 파괴력 측정으로 확대하지 않는다.
 
 버전 관리되는 요약은 [검증 JSON](changes/ROBOTARM_PHYSICS_VALIDATION_20261006.json)에 보관한다. 전체 원본은 `sim/runs/robotarm/precommit_20261006/`의 `summary.json`, `physics_result.json`, `physics_gpu.log`, `hold_0p5N_hook_result.json`, `force_api_probe.json`에 있다. 실행 로그·백업·413MiB 수신 archive는 소스 커밋에 포함하지 않는다. 공통/실물 실행 코드 변경은 없다.
+
+
+## 11. GUI 자동 종료와 프레임 저하 실측 — 2026-10-06
+
+사용자가 생성한 `sim/runs/robotarm/manual_physics_check.json`과 기준 커밋 `1666a23bf47dc7f0e8a6f2dfafbc1d41e190f6cd`의 검사기를 확인했다. **자동 종료는 정상 동작이며, 프레임 저하는 현재 CPU 물리 실행 경로가 주 병목이다.** 이번에는 성능 분석과 문서 정정만 수행했다. 운영 코드·물성·정책·공통/실물 코드는 변경하지 않았다.
+
+### 자동 종료와 물리 검사 결과
+
+`check_harvest_physics.py --gui --pull`은 지속 관찰용 실행기가 아니다. 정지2초 →0.1N 유지1초 →복원0.5초 →3N 당김(분리되면 종료) →낙하0.6초를 진행한 뒤 JSON을 저장하고 `app.close()`로 창을 닫는다. 마지막 `os._exit()`는 정상 cleanup 뒤 잔여 Kit thread 때문에 프로세스가 남는 것을 방지한다. `--gui`는 화면 표시 옵션이며 계속 켜두는 옵션이 아니다. `--seconds`는 최초 정지 검사 시간만 늘린다. 계속 실행하는 일반 fleet은 `--duration-s`를 생략한다.
+
+사용자 JSON은 `status=PASSED`,15개 check 모두 true,288개9g 과실을 확인했다.0.1N 유지/복원 동안 모두 부착,3N 당김으로 선택 과실 분리 후 약0.90448m 낙하, 최종287개 부착/1개 분리다. 총1994tick=4.154167시뮬초였다. 시작/종료 UTC 차이74.023초에는 앱 초기화·장면 로딩·종료가 포함되므로 순수 FPS나 물리 처리시간으로 환산하지 않는다.
+
+### 비교 조건과 결과
+
+- 이번 PC: i7-13700K, RTX4070SUPER, Isaac5.1,1280×720 GUI. 같은 농장·과실 자산·로봇·근접 시점에서 정지 구간을 비교했다. 정책/ROS/카메라 센서 송신/당김 외력은 실행하지 않았다.
+- 각 경우는 독립 프로세스에서30렌더 프레임 준비 후120프레임을 측정했다. 로딩·종료·실시간 sleep은 제외했다. 측정 FPS는 렌더 호출 수/벽시계 시간이며 UI의 특정 순간 FPS와 동일한 측정값은 아니다.
+- `full`은288개 줄기+PhysX와 원본 정지 검사의 상태/변위 조회를 유지한다. `no_diagnostics`는 추가 조회만 생략한다. `static`은 과실을 kinematic으로 고정하고 줄기 힘을 생략하되 과실 모양·충돌과 로봇을 유지한 **원인 분리용 대조군**이다. 실제 수확 물리와 동등하지 않다.
+
+| 비교 | 전역 물리 주기 | 측정 평균 FPS | CPU 물리 호출 시간/프레임 |
+|---|---:|---:|---:|
+| 현재288개 동적 과실+줄기+진단 |480Hz|8.30|100.63ms|
+| 같은 물리, 추가 상태 진단만 생략 |480Hz|8.27|102.67ms|
+|288개 과실 고정, 줄기 생략 |480Hz|22.22|36.25ms|
+|같은 고정 대조군의 물리 주기만60Hz |60Hz|89.52|4.27ms|
+
+첫 세 경우는 mesh/fruit 경로 해시·카메라 위치·해상도가 일치한다.60Hz 대조군은 초기 reset의 시간 간격 차이로 고정 전 과실 높이와 이를 바라보는 카메라 Z가 약8.05mm 낮다. 따라서 마지막 행은 이전 운영 버전의 실제 FPS나 완전히 같은 초기 상태의 비교로 해석하지 않는다.120프레임의 짧은 정지 구간 시험이며 반복 분산·전체 fleet·실제 수확 성능은 미측정이다.
+
+현재 조건의 프레임당 평균120.44ms 중 물리 실행100.63ms(83.5%), 줄기 갱신7.06ms(5.9%), 화면/앱 갱신9.90ms(8.2%), 추가 상태 검사2.38ms(2.0%)였다. SDK의 `world.step(render=False)`는 `simulate`와 `fetch_results`를 함께 포함하므로100.63ms를 순수 충돌 solver 시간으로 단정하지 않는다. NumPy 수식만 별도 측정하면288개 전체0.495ms/tick(8tick당3.96ms)이었고, 엔진 상태 조회/외력 전달 비용은 그 수치에서 제외된다.
+
+실제 실행값은 `world_device=cpu`, `backend=numpy`, `enableGPUDynamics=false`, `broadphase=MBP`, `solver=TGS`, `suppressReadback=false`, Fabric 확장 비활성이다. 현재 조건의 측정 구간에서 GPU 사용률은 평균11.9%(29개 샘플)였다. 이 문서의 과거 “GPU 검사”는 RTX를 사용하는 Isaac 실행을 뜻했으며 GPU PhysX 사용을 입증한 기록이 아니었다. 전체CPU시간54.61초/벽14.46초는 여러 스레드 합산 값이다.
+
+**동적 과실288개와 전역 물리60→480Hz 증가가 함께 비용을 늘렸다.** 과실만8배 자주 계산하는 것이 아니라 로봇·농장 접촉을 포함한 전체 PhysicsScene을 렌더1회당8tick 진행한다. 추가 검사 생략만으로 FPS가 개선되지 않았고 과실 고정에서는 크게 개선되었다. CPU 물리 경로가 주 병목이라는 결론은 GPU 사용률 하나가 아니라 구간 계측·대조군·실제 엔진 설정을 함께 근거로 한다. 설정의 렌더60Hz는 시뮬 시간 기준이며 현실에서60FPS를 보장하지 않는다. 물리dt는1/480초로 유지되고 벽시계 대비 시뮬 진행이 느려진다.
+
+### 후속 개선과 실행 설정 정정
+
+1. 우선480Hz와 현재 물성을 유지하면서 PhysX 계산/결과 동기화 구간을 더 나누어 계측하고 CPU worker 수·상태 전달 경로를 비교한다. 이번에는 최적화를 적용하지 않았다.
+2. USD 상태 쓰기와 Fabric 경로를 검토할 수 있지만, Fabric 활성화는 USD pose 갱신을 끄므로 현재 USD 기반 SceneTruth/평가가 오래된 위치를 읽지 않도록 함께 검증해야 한다. 단순 스위치 변경으로 처리하지 않는다.
+3. 멀리 있는 과실을 고정하고 작업 영역만 동적으로 만드는 방식은 이번 대조군에서 가능성을 보였지만, 비목표 과실의 움직임·접촉·분리를 생략하는 물리 단순화다.60Hz로 낮추기, solver/충돌 축소, GPU dynamics 전환도 기존 물리 조건과 분리 시험을 다시 검증할 별도 변경이다.
+4. runtime에서 **scene CCD=true**를 확인해 §2의 기존 false 설명을 정정했다. Isaac Core World의 CPU 기본값에서 발생하며 전달 Teacher의 scene CCD=false와 차이가 있다. 성능 원인에서 CCD만의 기여도는 분리 측정하지 않았다. 이번 분석에서 실제 CCD 설정은 바꾸지 않았다.
+
+원본 결과: [수동 물리 검사](../runs/robotarm/manual_physics_check.json), [성능 집계](../runs/robotarm/perf_20261006/summary.json), [현재 조건 세부](../runs/robotarm/perf_20261006/full.json). 재현용 임시 프로파일러·GPU 샘플·각 실행 로그는 `sim/runs/robotarm/perf_20261006/`, 순수 수식 벤치는 `sim/runs/robotarm/cpu_microbenchmark_20261006/`에 있다. 초기 계측기 실행은 설치 SDK의 `use_fabric` getter 오류로 측정 전에 실패했고 `initial_instrumentation_failure_*`로 보존했다. 임시 계측만 수정한 뒤4개 경우 모두 정상 종료코드0을 확인했다. runs 산출물은 Git에서 제외되며 이번 분석 문서 갱신은 미커밋·원격 미반영이다.

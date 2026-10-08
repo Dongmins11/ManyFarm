@@ -84,7 +84,7 @@ controller_server:
     progress_checker:
       plugin: nav2_controller::SimpleProgressChecker
       required_movement_radius: 0.1
-      movement_time_allowance: 30.0
+      movement_time_allowance: 120.0
     enable_stamped_cmd_vel: false
     odom_topic: /harvest_01/odom
     use_sim_time: true
@@ -95,7 +95,7 @@ controller_server:
       min_lookahead_dist: 0.2
       max_lookahead_dist: 0.6
       use_velocity_scaled_lookahead_dist: false
-      rotate_to_heading_angular_vel: 0.5
+      rotate_to_heading_angular_vel: 0.06
       transform_tolerance: 0.3
       min_approach_linear_velocity: 0.03
       approach_velocity_scaling_dist: 0.5
@@ -108,15 +108,15 @@ controller_server:
       use_rotate_to_heading: true
       allow_reversing: false
       rotate_to_heading_min_angle: 0.4
-      max_angular_accel: 10.0
+      max_angular_accel: 1.2
       cost_scaling_dist: 0.2
       cost_scaling_gain: 1.0
       inflation_cost_scaling_factor: 4.0
     goal_checker:
-      stateful: true
+      stateful: false
       plugin: nav2_controller::SimpleGoalChecker
       xy_goal_tolerance: 0.015
-      yaw_goal_tolerance: 0.04
+      yaw_goal_tolerance: 0.01
 local_costmap:
   local_costmap:
     ros__parameters:

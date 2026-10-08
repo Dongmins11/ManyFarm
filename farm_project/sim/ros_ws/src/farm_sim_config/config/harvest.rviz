@@ -67,8 +67,8 @@ Visualization Manager:
       Reliability Policy: Reliable
       Durability Policy: Transient Local
   - Class: rviz_default_plugins/Path
-    Name: Nav2 plan
-    Enabled: true
+    Name: Planner plan (NavigateToPose)
+    Enabled: false
     Topic:
       Value: /harvest_01/plan
       Depth: 5
@@ -99,6 +99,23 @@ Visualization Manager:
       Durability Policy: Transient Local
     Color Scheme: costmap
     Alpha: 0.45
+  - Class: rviz_default_plugins/Path
+    Name: harvest_01 FollowPath (RPP)
+    Enabled: true
+    Topic:
+      Value: /harvest_01/received_global_plan
+      Depth: 5
+      History Policy: Keep Last
+      Reliability Policy: Reliable
+      Durability Policy: Volatile
+    Color: 255; 140; 0
+    Line Style: Billboards
+    Line Width: 0.045
+    Buffer Length: 1
+    Offset:
+      X: 0.0
+      Y: 0.0
+      Z: 0.12
   Tools:
   - Class: rviz_default_plugins/Interact
   - Class: rviz_default_plugins/MoveCamera

@@ -8,8 +8,9 @@ route_graph: sim/ros_ws/src/farm_sim_config/maps/harvest_graph.geojson
 nav_params: sim/ros_ws/src/farm_sim_config/config/nav2_harvest.yaml
 device_config: sim/ros_ws/src/farm_sim_config/config/harvest.json
 navigation:
+  parallel_approach: true
   base_frame: harvest_01/base_footprint
-  goal_timeout_s: 300.0
+  goal_timeout_s: 600.0
   arrival_tolerance_m: 0.02
   heading_tolerance_rad: 0.05
   settle_s: 0.8

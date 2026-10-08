@@ -1,0 +1,291 @@
+{
+  "date": "2026-10-06",
+  "base_commit": "1666a23bf47dc7f0e8a6f2dfafbc1d41e190f6cd",
+  "status": "local_implementation_applied; harvest_success_not_achieved",
+  "approval": "최신 사용자: 팔 업무는 sim 전용, 공통은 기존 도착/정지 후 sim 팔 작업 연결만 변경",
+  "common_scope": [
+    "harvest_robot/node.py",
+    "harvest_robot/mission.py",
+    "harvest_robot/communication.py",
+    "harvest_robot/contract.py",
+    "harvest_robot/arm_client.py"
+  ],
+  "unchanged": [
+    "farm_interfaces",
+    "real profiles/models",
+    "common navigation/vision",
+    "source farm USD"
+  ],
+  "unit_usd": {
+    "run": 178,
+    "passed": 176,
+    "skipped": 2,
+    "skip_reason": "actual ROS integration separately executed",
+    "log": "sim/runs/robotarm/teacher_integration_20261006/unit_usd_final.log"
+  },
+  "teacher_unit_tests": {
+    "state": 17,
+    "policy": 9,
+    "device": 10,
+    "passed": 36
+  },
+  "actual_ros": {
+    "passed": 2,
+    "command": "source /opt/ros/jazzy/setup.bash; source robot/ros_ws/install/local_setup.bash; FARM_RUN_ROS_ARM_TESTS=1 ROS_DOMAIN_ID=94 ROS_AUTOMATIC_DISCOVERY_RANGE=LOCALHOST ROS_LOG_DIR=/tmp/farm_arm_ros_logs /usr/bin/python3 -m unittest discover -s sim/tests -p test_arm_ros_integration.py -v",
+    "scope": "actual ROS+UDP fixture; no Isaac physics"
+  },
+  "build": {
+    "packages": [
+      "harvest_robot",
+      "farm_sim_devices",
+      "farm_sim_config",
+      "farm_sim_runtime"
+    ],
+    "status": "PASS"
+  },
+  "actual_trials": [
+    {
+      "name": "attempt02",
+      "scope": "physical attempt",
+      "terminal": {
+        "job_id": "4dbf9a9ce69e46569d186fa9d2f42adf",
+        "status": "SUCCESS",
+        "stage": "DONE",
+        "success_count": 0,
+        "failed_count": 1,
+        "event_seq": 2,
+        "error_code": "",
+        "error_message": "current_window_candidates_processed",
+        "safe_stopped": true
+      },
+      "attempts": [
+        {
+          "target_id": "/World/Vegetation/Bed_02/Fruits/Pepper_0031_yellow",
+          "success": false,
+          "time_s": 40.77083545969799,
+          "reason": "target_timeout",
+          "teacher_strict_success": false,
+          "attached": true,
+          "fruit_position": [
+            0.5134703528173019,
+            -0.051428462660525476,
+            0.9874882292610242
+          ]
+        }
+      ],
+      "process_returncode": -11,
+      "passed_final_checker": false,
+      "checks": {},
+      "log": "sim/runs/robotarm/teacher_integration_20261006/attempt02/result.json"
+    },
+    {
+      "name": "attempt03",
+      "scope": "physical attempt",
+      "terminal": {
+        "job_id": "7eea5f7c0738460abf3a5bd7a7f0f597",
+        "status": "SUCCESS",
+        "stage": "DONE",
+        "success_count": 0,
+        "failed_count": 1,
+        "event_seq": 2,
+        "error_code": "",
+        "error_message": "current_window_candidates_processed",
+        "safe_stopped": true
+      },
+      "attempts": [
+        {
+          "target_id": "/World/Vegetation/Bed_05/Fruits/Pepper_0030_red",
+          "success": false,
+          "time_s": 9.920833850745112,
+          "reason": "bad_detach",
+          "teacher_strict_success": false,
+          "physical_status": "PENDING",
+          "physical_in_box": false,
+          "physical_place_hold_s": 0.0,
+          "attached": false,
+          "fruit_position": [
+            0.6865215596458102,
+            -0.10744315451719544,
+            0.3155622999454905
+          ]
+        }
+      ],
+      "process_returncode": -11,
+      "passed_final_checker": false,
+      "checks": {},
+      "log": "sim/runs/robotarm/teacher_integration_20261006/attempt03/result.json"
+    },
+    {
+      "name": "attempt04_final",
+      "scope": "physical attempt",
+      "terminal": {
+        "job_id": "5c248538f549406985f29a0786359589",
+        "status": "SUCCESS",
+        "stage": "DONE",
+        "success_count": 0,
+        "failed_count": 1,
+        "event_seq": 2,
+        "error_code": "",
+        "error_message": "current_window_candidates_processed",
+        "safe_stopped": true
+      },
+      "attempts": [
+        {
+          "target_id": "/World/Vegetation/Bed_01/Fruits/Pepper_0027_red",
+          "success": false,
+          "time_s": 10.120833861175925,
+          "reason": "bad_detach",
+          "teacher_strict_success": false,
+          "physical_status": "PENDING",
+          "physical_in_box": false,
+          "physical_place_hold_s": 0.0,
+          "attached": false,
+          "fruit_position": [
+            0.6439275188396789,
+            0.1268618552886034,
+            0.3191110528541614
+          ]
+        }
+      ],
+      "process_returncode": 0,
+      "passed_final_checker": true,
+      "checks": {
+        "terminal_received": true,
+        "safe_stopped": true,
+        "process_exited_cleanly": true,
+        "natural_shutdown_completed": true,
+        "terminal_counts_valid": true,
+        "logs_readable": true,
+        "request_identity": true,
+        "logged_terminal_matches": true,
+        "trace_terminal_matches": true,
+        "attempt_records_valid": true,
+        "target_identifiers_valid": true,
+        "candidates_match_fixture": true,
+        "candidate_count_matches": true,
+        "selected_targets_match_fixture": true,
+        "policy_targets_were_selected": true,
+        "attempt_targets_match_fixture": true,
+        "actual_policy_executed": true,
+        "completed_window_processed_all": true,
+        "finalized_attempt_counts_match": true,
+        "trace_attempts_match": true,
+        "feedback_counts_monotonic": true,
+        "not_unexpected_cancellation": true
+      },
+      "log": "sim/runs/robotarm/teacher_integration_20261006/attempt04_final/result.json"
+    },
+    {
+      "name": "cancel_final",
+      "scope": "interrupted-arm cancel",
+      "terminal": {
+        "job_id": "6444bbe349614f6196a5d61e988cc104",
+        "status": "CANCELED",
+        "stage": "DONE",
+        "success_count": 0,
+        "failed_count": 0,
+        "event_seq": 1,
+        "error_code": "",
+        "error_message": "operator_cancel",
+        "safe_stopped": true
+      },
+      "attempts": [],
+      "process_returncode": -9,
+      "passed_final_checker": false,
+      "checks": {
+        "terminal_received": true,
+        "safe_stopped": true,
+        "process_exited_cleanly": false,
+        "natural_shutdown_completed": false,
+        "terminal_counts_valid": true,
+        "logs_readable": true,
+        "request_identity": true,
+        "logged_terminal_matches": true,
+        "trace_terminal_matches": true,
+        "attempt_records_valid": true,
+        "target_identifiers_valid": true,
+        "candidates_match_fixture": true,
+        "candidate_count_matches": true,
+        "selected_targets_match_fixture": true,
+        "policy_targets_were_selected": true,
+        "attempt_targets_match_fixture": true,
+        "actual_policy_executed": true,
+        "completed_window_processed_all": true,
+        "finalized_attempt_counts_match": true,
+        "trace_attempts_match": true,
+        "feedback_counts_monotonic": true,
+        "cancel_sent_and_confirmed": true,
+        "cancel_preserves_finalized_counts": true
+      },
+      "log": "sim/runs/robotarm/teacher_integration_20261006/cancel_final/result.json"
+    },
+    {
+      "name": "cancel_verified",
+      "scope": "interrupted-arm cancel",
+      "terminal": {
+        "job_id": "eeb4aceb8aa344d5b5214822d105e202",
+        "status": "CANCELED",
+        "stage": "DONE",
+        "success_count": 0,
+        "failed_count": 0,
+        "event_seq": 1,
+        "error_code": "",
+        "error_message": "operator_cancel",
+        "safe_stopped": true
+      },
+      "attempts": [],
+      "process_returncode": 0,
+      "passed_final_checker": true,
+      "checks": {
+        "terminal_received": true,
+        "safe_stopped": true,
+        "process_exited_cleanly": true,
+        "natural_shutdown_completed": true,
+        "terminal_counts_valid": true,
+        "logs_readable": true,
+        "request_identity": true,
+        "logged_terminal_matches": true,
+        "trace_terminal_matches": true,
+        "attempt_records_valid": true,
+        "target_identifiers_valid": true,
+        "candidates_match_fixture": true,
+        "candidate_count_matches": true,
+        "selected_targets_match_fixture": true,
+        "policy_targets_were_selected": true,
+        "attempt_targets_match_fixture": true,
+        "actual_policy_executed": true,
+        "completed_window_processed_all": true,
+        "finalized_attempt_counts_match": true,
+        "trace_attempts_match": true,
+        "feedback_counts_monotonic": true,
+        "cancel_sent_and_confirmed": true,
+        "cancel_preserves_finalized_counts": true
+      },
+      "log": "sim/runs/robotarm/teacher_integration_20261006/cancel_verified/result.json"
+    }
+  ],
+  "actual_harvest": {
+    "independent_original_fruits_attempted": 3,
+    "confirmed_basket_successes": 0,
+    "scope": "existing farm fruit poses; initial base placement fixture; no Nav2 trial"
+  },
+  "limitations": [
+    "farm harvest success not yet achieved",
+    "actual Nav2-to-arm end-to-end not run",
+    "multiple fruits / deposited-fruit loss only unit tested",
+    "multiple harvesters and real/camera policy not validated",
+    "detached/basket fruits remain dynamic; no basket-relative freezing"
+  ],
+  "remote_status": "not committed or pushed",
+  "source_usd_sha256": "1d9887539611d65ec9c284a810bcd0b8015493db0158147c7188b414f95395e7",
+  "audit": {
+    "path": "sim/runs/robotarm/teacher_integration_20261006/analysis_attempt02/result.json",
+    "sample_count": 401,
+    "max_fk_position_error_mm": 0.2921,
+    "max_fk_orientation_error_deg": 0.052412,
+    "policy_replay_samples": 400,
+    "max_action_difference": 1.073e-06,
+    "stage_status_mismatches": 0,
+    "causality": "fruit orientation/input distribution differences observed; sole failure cause not established"
+  }
+}

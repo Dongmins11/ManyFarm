@@ -1,0 +1,18 @@
+# 승인 전 제안. 기존 GetHarvestTasks(예찰 task 목록)와 다른 내부 장치 계약이다.
+string robot_id
+string map_id
+# 외부 HarvestTask Action Goal UUID. 비즈니스 task_id를 대체하지 않는다.
+string task_run_id
+farm_interfaces/HarvestTask harvest_task
+builtin_interfaces/Time arrival_stamp
+---
+# 최신 관측 snapshot을 만들었으면 true. 빈 목록도 정상 응답일 수 있다.
+bool valid
+string source_epoch
+string snapshot_id
+string source_kind
+string workspace_id
+builtin_interfaces/Time observation_stamp
+farm_interfaces/HarvestCandidate[] candidates
+string error_code
+string error_message

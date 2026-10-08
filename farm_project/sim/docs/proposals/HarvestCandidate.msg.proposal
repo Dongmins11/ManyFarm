@@ -1,0 +1,7 @@
+# 승인 전 제안. 실제 farm_interfaces에는 아직 추가하지 않는다.
+# candidate_id는 source_epoch/task_run_id 안에서 같은 물체에 대해 안정적이다.
+string candidate_id
+# red/yellow 등 후보 관측 class. 실제 허용값은 선택한 controller 설정에서 검증한다.
+string class_name
+# 관측 시각과 오른팔 장착 기준 frame ID를 포함한 과실 asset root pose.
+geometry_msgs/PoseStamped root_pose

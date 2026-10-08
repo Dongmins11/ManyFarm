@@ -1,0 +1,216 @@
+{
+  "schema_version": 1,
+  "provenance": {
+    "delivery": "harvest_teacher_9g_20261006_143434",
+    "source_snapshot": "teacher_environment_snapshot_20261001.json",
+    "scope": "simulation ground-truth Teacher only; 35g-trained weights evaluated with 9g physics"
+  },
+  "checkpoints": {
+    "ENTRY_CKPT": {
+      "path": "sim/assets/robotarm_teacher/entry/model_200.pt",
+      "sha256": "e676f43738515446636782f22f51cf81e4fc945210729fdd0ff0458b66b1db9b",
+      "run_sha256": "463dafa1c146561ad5646b66300a0e2196d25a02ce3622e9f4cb05caa921d221",
+      "source_path": "runs/harvest_rl/entry_grasp_refine_20260929_202452_137384791/train/model_200.pt"
+    },
+    "PULL_CKPT": {
+      "path": "sim/assets/robotarm_teacher/pull/teacher_final.pt",
+      "sha256": "4914107143f59cb321ce332b6cf185fe563cb44522f50ade782b715fccc045fd",
+      "run_sha256": "39fb9332bc7e356ce5cd0e0d90f939df9c9a6fe030299a7d3cc5069b4264dc25",
+      "source_path": "runs/harvest_rl/pull_direction_20260927_211734_412361705/train/teacher_final.pt"
+    },
+    "TRANSPORT_CKPT": {
+      "path": "sim/assets/robotarm_teacher/transport/teacher_final.pt",
+      "sha256": "47f3b7bf6500d35448ed9510db6884ac584921eeddc072350000728402ddb528",
+      "run_sha256": "cf83b42b709d861758d3d8b02cdf6d7bbc94a292e712fd50b9349a83b665dd04",
+      "source_path": "outputs/harvest_rl/entry_transport_20260929_220740_390998651/transport_refine/train/teacher_final.pt"
+    },
+    "PLACE_CKPT": {
+      "path": "sim/assets/robotarm_teacher/place/teacher_final.pt",
+      "sha256": "c6c96f0bb81f861519fc5ac0e2467d9083d3c9b5c309d054bd0a7c30c4dcce27",
+      "run_sha256": "30348d079cf2b5fd29482c8f167fd6c64bf0ce4b019cf668f1392cec6c9191c7",
+      "source_path": "runs/harvest_rl/place_short_hook_20260923_074907_182931509/train/teacher_final.pt"
+    }
+  },
+  "runtime": {
+    "contract_version": 2,
+    "reward_version": 8,
+    "attachment_version": 4,
+    "entry_first_grasp": true,
+    "pull_recovery_shaping": false,
+    "pull_squeeze_rearm": true,
+    "pull_squeeze_ramp": true,
+    "pull_direction_shaping": true,
+    "pull_progress_reward": false,
+    "stage_transfer": true,
+    "lock_attachment": false,
+    "native_detach_recovery": true,
+    "captured_break_grace": true,
+    "post_detach_hold_guard": false,
+    "detached_capture_orientation": true,
+    "spring_grasp_grace": true,
+    "native_grasp_grace": true,
+    "grasp_orientation": "horizontal",
+    "grasp_angle_tolerance": 0.4363323129985824,
+    "grasp_orientation_weight": 4.0,
+    "grasp_version": 2,
+    "grasp_center_tolerance": 0.01,
+    "pregrasp_fraction": 0.0,
+    "transport_replay_fraction": 0.0,
+    "transport_start_min": 0.0,
+    "transport_start_max": 0.0,
+    "start_bank": "",
+    "task": "harvest",
+    "target_mode": "external",
+    "sequence": false,
+    "random_colors": false,
+    "timeout_scope": "fruit",
+    "background": "single",
+    "num_fruits": 2,
+    "region_origin": [
+      0.3,
+      -0.19,
+      0.713
+    ],
+    "region_min": [
+      0.2,
+      -0.175,
+      -0.1
+    ],
+    "region_max": [
+      0.3,
+      0.175,
+      0.35
+    ],
+    "diameter": 0.07,
+    "length": 0.075,
+    "mass": 0.009,
+    "spring_k": 60.0,
+    "spring_d": 4.2,
+    "angular_k": 0.015,
+    "angular_d": 0.002,
+    "stem_response_version": 5,
+    "stem_vertical_stiffness": 40.0,
+    "stem_max_extension": 0.04,
+    "tension_axis": [
+      -1.0,
+      0.0,
+      0.0
+    ],
+    "tension_hold_s": 0.04,
+    "lateral_stiffness_ratio": 0.25,
+    "break_force": 2.5,
+    "break_distance": 0.03,
+    "break_hold_s": 0.04,
+    "valid_pull_distance": 0.012,
+    "grip_hold_s": 0.25,
+    "place_hold_s": 0.6,
+    "transport_linear_pose_stop": true,
+    "release_stop_s": 0.3,
+    "release_speed": 0.05,
+    "box_contact_tolerance": 0.003,
+    "shape_placement": true,
+    "box_bottom_contact_tolerance": 0.01,
+    "legacy_box_bottom_margin": 0.01,
+    "contact_threshold": 0.08,
+    "max_contact_force": 25.0,
+    "action_speed": 0.8,
+    "gripper_speed": 1.2,
+    "gripper_effort": 0.5,
+    "grip_friction": 1.0,
+    "dynamic_friction": 1.0,
+    "restitution": 0.02,
+    "gripper_max_error": 0.04,
+    "contact_substeps": 2,
+    "contact_solver_refine": false,
+    "release_intent_mode": true,
+    "transport_adaptive_grip": true,
+    "transport_pose_stop": true,
+    "detached_grip_hold": true,
+    "gripper_hold_error": 0.035,
+    "hold_force": 0.6,
+    "hold_s": 1.0,
+    "detached_hold_s": 0.5,
+    "max_slip": 0.012,
+    "physics_dt": 0.004166666666666667,
+    "decimation": 12,
+    "episode_s": 20.0,
+    "tree_position": [
+      0.85,
+      -0.19,
+      0.0
+    ],
+    "tree_scale": [
+      0.75,
+      0.75,
+      1.35
+    ],
+    "box_min": [
+      0.305,
+      -0.095,
+      0.506
+    ],
+    "box_max": [
+      0.495,
+      0.095,
+      0.701
+    ],
+    "curriculum": 0.0,
+    "workspace_split": "eval",
+    "seed": 182
+  },
+  "action_execution": {
+    "version": 1,
+    "labels": "post_controller_clipped_action",
+    "transport_initial_scale": 0.25,
+    "transport_ramp_s": 3.0,
+    "near_fruit_arm_scale": 1.0,
+    "block_transport_opening": false,
+    "release_mode": "fixed",
+    "transport_recovery": false,
+    "student_reapply_teacher_ramp": false
+  },
+  "device": {
+    "policy_arm_position_m": [
+      0.235,
+      -0.19,
+      0.713
+    ],
+    "home_tcp_arm_m": [
+      0.2164044679254591,
+      -0.0003920020962873416,
+      0.27409939424194896
+    ],
+    "workspace_arm_min_m": [
+      0.265,
+      -0.175,
+      -0.1
+    ],
+    "workspace_arm_max_m": [
+      0.365,
+      0.175,
+      0.35
+    ],
+    "near_home_min_m": 0.09,
+    "near_home_max_m": 0.18,
+    "tcp_offset_gripper_m": [
+      0.0271,
+      -0.000218121,
+      -0.085
+    ]
+  },
+  "session": {
+    "control_dt_s": 0.05,
+    "lease_s": 2.0,
+    "settle_s": 2.0,
+    "stop_hold_s": 0.25,
+    "stop_timeout_s": 3.0,
+    "recovery_waypoint_timeout_s": 3.0,
+    "recovery_timeout_s": 90.0,
+    "recovery_velocity_rad_s": 0.5,
+    "recovery_contact_limit_N": 2.0,
+    "base_linear_limit_m_s": 0.01,
+    "base_angular_limit_rad_s": 0.03,
+    "base_drift_limit_m": 0.02,
+    "base_yaw_drift_limit_rad": 0.05
+  }
+}

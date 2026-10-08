@@ -34,6 +34,7 @@ class NavigationSettings:
     max_start_distance_m: float = .10
     max_goal_distance_m: float = .02
     path_spacing_m: float = .04
+    parallel_approach: bool = False
 
     @classmethod
     def from_mapping(cls, values: dict[str, Any]) -> NavigationSettings:
@@ -49,6 +50,9 @@ class NavigationSettings:
             if isinstance(f.default, float):
                 if isinstance(value, bool) or not isinstance(value, (float, int)) or not math.isfinite(value) or value <= 0:
                     raise ValueError(f'{f.name}: 양의 유한한 수 필요')
+            elif isinstance(f.default, bool):
+                if not isinstance(value, bool):
+                    raise ValueError(f'{f.name}: bool 필요')
             elif not isinstance(value, str) or not value.strip():
                 raise ValueError(f'{f.name}: 비어 있지 않은 문자열 필요')
         if settings.settle_timeout_s <= settings.settle_s:

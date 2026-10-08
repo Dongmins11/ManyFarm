@@ -18,6 +18,8 @@ def main():
     parser.add_argument('--module-path', action='append', default=[])
     parser.add_argument('--scene', type=Path)
     parser.add_argument('--headless', action='store_true')
+    parser.add_argument('--stop-after-arm-job', action='store_true',
+                        help='검증용: 첫 팔 작업의 최종 결과를 보낸 프레임 뒤 정상 종료')
     parser.add_argument('--duration-s', type=float, help='검증용 실행 시간(시뮬레이션 초). 생략하면 계속 실행')
     args = parser.parse_args()
     if args.duration_s is not None and (not math.isfinite(args.duration_s) or args.duration_s <= 0):
@@ -28,7 +30,8 @@ def main():
     from farm_sim_runtime.fleet_config import load_fleet
     configs, task = load_fleet(root, args.fleet_config)
     from farm_sim_runtime.harvest_physics import (
-        HarvestPhysics, PhysicsTicks, initialize_arm_home, load_physics_profile)
+        HarvestPhysics, initialize_arm_home, load_physics_profile)
+    from farm_sim_runtime.physics_schedule import AdaptivePhysicsTicks
     physics_profile = load_physics_profile(root, configs)
     assets = args.assets_root.resolve() if args.assets_root else root/'sim/assets'
     scene = args.scene.expanduser().resolve() if args.scene else assets/configs[0]['scene']
@@ -49,6 +52,8 @@ def main():
         from farm_sim_devices.lidar_sim import LidarSim
         from farm_sim_devices.wire import LocalDatagrams, CommandGate
         from farm_sim_devices.scene_truth import SceneTruth
+        from farm_sim_devices.teacher_device import TeacherDevice
+        from farm_sim_devices.arm_session import ArmSession
         from farm_sim_devices.control_frame import (
             asset_from_control, station_root_transform, relative_sensor_transforms)
         if not open_stage(str(scene)):
@@ -91,8 +96,10 @@ def main():
                 robot = UsdGeom.Xform.Define(stage,robot_path).GetPrim()
                 robot.GetReferences().AddReference(str(asset))
             stage.Load(robot_path)
-            if harvest_physics is not None and cfg['robot_id'] == task['harvest_robot']['robot_id']:
-                harvest_physics.configure_robot(robot_path)
+            if harvest_physics is not None and (cfg['robot_id'] == task['harvest_robot']['robot_id']
+                    or cfg['runtime'].get('harvest_activity', {}).get('enabled', False)):
+                harvest_physics.configure_robot(robot_path, robot_id=cfg['robot_id'],
+                    activity_config=cfg['runtime'].get('harvest_activity'))
             body = require(robot_path+'/'+binding['articulation_relative'])
             if not body.HasAPI(UsdPhysics.ArticulationRootAPI):
                 raise RuntimeError('Not an articulation root: '+str(body.GetPath()))
@@ -136,7 +143,8 @@ def main():
         if len(scenes) > 1:
             raise RuntimeError('Multiple PhysicsScene prims; select one scene before running')
         dt = 1./configs[0]['runtime']['physics_hz']
-        ticks = PhysicsTicks(configs[0]['runtime']['physics_hz'], configs[0]['runtime']['render_hz'])
+        ticks = AdaptivePhysicsTicks(configs[0]['runtime']['physics_hz'], configs[0]['runtime']['render_hz'])
+        frame_dt = ticks.frame_dt
         world = World(physics_dt=dt,rendering_dt=1./configs[0]['runtime']['render_hz'],stage_units_in_meters=1.,
                       physics_prim_path=scenes[0] if scenes else '/World/physicsScene',backend='numpy')
         session = uuid.uuid4().hex
@@ -151,8 +159,18 @@ def main():
             robots.append(dict(cfg=cfg,path=robot_path,base=base,static=static,T_scan=T_scan,
                 camera_path=camera_path,T_camera=T_camera,T_asset_control=T_asset_control,camera=None,lidar=None,
                 transport=LocalDatagrams(rt['command_port'],rt['telemetry_port']),
-                gate=CommandGate(session,cfg['base']['command_timeout_s']),history=deque(maxlen=round(5/dt)),
-                last_scan=-math.inf,last_telemetry=-math.inf,seq=0,camera_frames=0))
+                gate=CommandGate(session,cfg['base']['command_timeout_s']),history=deque(maxlen=math.ceil(5/frame_dt)+2),
+                last_scan=-math.inf,last_telemetry=-math.inf,seq=0,camera_frames=0,arm=None,arm_device=None))
+            arm_cfg = rt.get('harvest_arm', {})
+            if arm_cfg.get('enabled', False):
+                if harvest_physics is None:
+                    raise ValueError('Teacher requires configured harvest physics')
+                profile = json.loads((root/arm_cfg['profile']).read_text())
+                robots[-1]['arm_profile'] = profile
+                device_config = dict(profile['device'], **{key: profile['runtime'][key] for key in
+                    ('box_min', 'box_max', 'box_contact_tolerance', 'box_bottom_contact_tolerance', 'sequence')})
+                robots[-1]['arm_device'] = TeacherDevice(world, base.robot, robot_path,
+                    harvest_physics, cfg['robot_id'], device_config)
         world.reset()
         for robot in robots:
             cfg, base = robot['cfg'], robot['base']
@@ -176,6 +194,21 @@ def main():
             print(f"[two_robot_sim] {cfg['robot_id']} at station {task['stations'][cfg['robot_id']]} using {robot['path']}",flush=True)
         if harvest_physics is not None:
             harvest_physics.initialize()
+        for robot in robots:
+            device = robot['arm_device']
+            if device is not None:
+                from farm_sim_devices.teacher_policy import TeacherController
+                device.initialize()
+                profile = robot['arm_profile']
+                profile['joint_limits'] = dict(lower=device.lower.tolist(), upper=device.upper.tolist(),
+                                               home=device.home.tolist())
+                controller = TeacherController(profile, project_root=root, device='cpu')
+                robot['arm'] = ArmSession(session, robot['cfg']['robot_id'], task['map_id'],
+                    device, controller, harvest_physics, profile['session'], root/'sim/runs/robotarm/teacher')
+        def after_physics(dt_s: float, sim_s: float) -> None:
+            for robot in robots:
+                if robot['arm'] is not None:
+                    robot['arm'].observe_physics_tick(dt_s, sim_s)
         hcfg = task['harvest_robot']
         truth = SceneTruth(stage,root/hcfg['scene_snapshot_file'],hcfg['robot_id'],task['map_id'],session,hcfg['workspace'])
         previous = float(world.current_time)
@@ -185,6 +218,14 @@ def main():
             wall = time.monotonic()
             for robot in robots:
                 for message in robot['transport'].receive():
+                    if message.get('kind') == 'harvest_arm':
+                        if robot['arm'] is not None:
+                            robot['arm'].accept(message)
+                        continue
+                    if message.get('kind') == 'harvest_activity':
+                        if harvest_physics is not None:
+                            harvest_physics.accept_activity(robot['cfg']['robot_id'], message)
+                        continue
                     accepted = robot['gate'].accept(message)
                     diagnostic.received(robot['cfg']['robot_id'], message, accepted)
             if not world.is_playing():
@@ -192,9 +233,22 @@ def main():
                     robot['gate'].stop()
                 app.update();time.sleep(.01);continue
             for robot in robots:
-                robot['applied_cmd'] = robot['gate'].value()
+                if robot['arm'] is not None:
+                    # 실제 차체 속도를 확인합니다. wheel odom 정지 추정으로 대신하지 않습니다.
+                    linear = np.asarray(robot['base'].robot.get_linear_velocity(), dtype=float)
+                    angular = np.asarray(robot['base'].robot.get_angular_velocity(), dtype=float)
+                    arm_cfg = robot['arm_profile']['session']
+                    stationary = (np.isfinite(linear).all() and np.isfinite(angular).all()
+                        and np.linalg.norm(linear[:2]) < arm_cfg['base_linear_limit_m_s']
+                        and abs(angular[2]) < arm_cfg['base_angular_limit_rad_s'])
+                    robot['arm'].tick(float(world.current_time), base_stationary=stationary)
+                robot['applied_cmd'] = ((0., 0.) if robot['arm'] is not None and robot['arm'].busy
+                                        else robot['gate'].value())
                 robot['base'].command(*robot['applied_cmd'])
-            ticks.step(world, harvest_physics)
+            required_hz = (harvest_physics.prepare_frame(float(world.current_time))
+                           if harvest_physics is not None else configs[0]['runtime']['physics_hz'])
+            # 명령/센서/clock의 프레임은 60Hz로 유지하고 내부 물리 tick만 1~8회 진행한다.
+            ticks.step_frame(world, harvest_physics, physics_hz=required_hz, post_step=after_physics)
             now = float(world.current_time)
             if now <= previous:
                 raise RuntimeError('Simulation reset detected; restart both ROS and simulator test processes')
@@ -215,28 +269,43 @@ def main():
                 if robot['lidar'] and now-robot['last_scan']>=1./cfg['lidar']['fps']-1e-8:
                     ranges=robot['lidar'].sample(T);robot['last_scan']=now
                 if robot['camera']:
-                    robot['camera_frames']+=int(robot['camera'].publish(robot['history'],dt*.51))
-                if now-robot['last_telemetry']>=1./rt['telemetry_hz']-1e-8 or ranges is not None:
+                    robot['camera_frames']+=int(robot['camera'].publish(robot['history'],frame_dt*.51))
+                test_terminal = (args.stop_after_arm_job and robot['arm'] is not None
+                    and robot['arm'].state['status'] in ('SUCCESS','FAILED','CANCELED'))
+                if now-robot['last_telemetry']>=1./rt['telemetry_hz']-1e-8 or ranges is not None or test_terminal:
                     robot['seq']+=1
                     robot['transport'].send(dict(kind='state',session=session,seq=robot['seq'],sent=time.monotonic(),
                         stamp_ns=round(now*1e9),odom=odom,joint_positions=positions,joint_velocities=velocities,
-                        static_tf=robot['static'],scan=ranges,camera_frames=robot['camera_frames']))
+                        static_tf=robot['static'],scan=ranges,camera_frames=robot['camera_frames'],
+                        arm=robot['arm'].telemetry() if robot['arm'] is not None else None))
                     robot['last_telemetry']=now
             if now-last_truth>=.2:
                 harvest=next(r for r in robots if r['cfg']['robot_id']==hcfg['robot_id'])
                 truth.capture(round(now*1e9),harvest['T_world_base']);last_truth=now
             previous=now
+            if args.stop_after_arm_job and any(r['arm'] is not None and
+                    r['arm'].state['job_id'] and r['arm'].state['status'] in ('SUCCESS','FAILED','CANCELED')
+                    for r in robots):
+                print('[farm_fleet] arm job bounded run complete: '+json.dumps(dict(
+                    simulated_s=now-start_sim, render_frames=ticks.frame_count, physics_ticks=ticks.total_ticks,
+                    arms={r['cfg']['robot_id']: r['arm'].telemetry() for r in robots if r['arm'] is not None})),
+                    flush=True)
+                break
             if args.duration_s is not None and now-start_sim >= args.duration_s:
                 print('[farm_fleet] bounded run complete: '+json.dumps(dict(simulated_s=now-start_sim,
+                    render_frames=ticks.frame_count, physics_ticks=ticks.total_ticks,
                     robots=[dict(robot_id=r['cfg']['robot_id'],camera_frames=r['camera_frames'],
+                                 position_world_m=r['T_world_base'][:3,3].tolist(),
                                  telemetry_packets=r['seq']) for r in robots])),flush=True)
                 break
             if configs[0]['runtime'].get('realtime',True):
-                time.sleep(max(0.,dt-(time.monotonic()-wall)))
+                time.sleep(max(0.,frame_dt-(time.monotonic()-wall)))
     except KeyboardInterrupt:
         pass
     finally:
         for robot in robots:
+            if robot.get('arm') is not None:
+                robot['arm'].close()
             try:robot['base'].command(0.,0.)
             except Exception:pass
             if robot['camera']:

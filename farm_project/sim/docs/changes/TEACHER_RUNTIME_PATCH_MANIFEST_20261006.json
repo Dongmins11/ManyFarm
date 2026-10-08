@@ -1,0 +1,381 @@
+{
+  "base_commit": "1666a23bf47dc7f0e8a6f2dfafbc1d41e190f6cd",
+  "scope": "uncommitted adaptive physics + Teacher integration changes; excludes unrelated AGENTS/README/handoff backups and received archive",
+  "files": [
+    {
+      "path": "docs/DECISIONS.md",
+      "bytes": 10116,
+      "sha256": "8ea4e3ce2058d92fbc97bce183f4ce97aa961010b7ed972cc713a90c59b81836"
+    },
+    {
+      "path": "docs/PROJECT_STATE.md",
+      "bytes": 43658,
+      "sha256": "394b870ff3fe47888485a66e896900778132e8d24341006227a0fc34ac6927cc"
+    },
+    {
+      "path": "docs/changes/HARVEST_ARM_HOOK_20261006.md",
+      "bytes": 2977,
+      "sha256": "0d5182af689bb86905406f0312c854a6aefc736e73257eaf2471b8f1e87c958a"
+    },
+    {
+      "path": "robot/ros_ws/src/harvest_robot/harvest_robot/arm_client.py",
+      "bytes": 9229,
+      "sha256": "85ae0998ecb668313ae0e0fb7986ead8bb70747bfcc5feda4951ba9a9e53f2b7"
+    },
+    {
+      "path": "robot/ros_ws/src/harvest_robot/harvest_robot/communication.py",
+      "bytes": 6188,
+      "sha256": "d5055bb508720a2c4792ec6a06dd3d58fbbe11aeeb5a023814b1815e0def50f6"
+    },
+    {
+      "path": "robot/ros_ws/src/harvest_robot/harvest_robot/contract.py",
+      "bytes": 1878,
+      "sha256": "5fcbf4712166f117c0f4e8ffa2b4d8a6f23b953e5d92c8f35c1bb39ec4b0c3af"
+    },
+    {
+      "path": "robot/ros_ws/src/harvest_robot/harvest_robot/mission.py",
+      "bytes": 1867,
+      "sha256": "f8548521bca1953c5397116cd0095399618912ae8b42ca51fabeda5d53d03a2b"
+    },
+    {
+      "path": "robot/ros_ws/src/harvest_robot/harvest_robot/node.py",
+      "bytes": 4791,
+      "sha256": "0bcf057cc8b3fa5b9485cf609b8bcf0cb1118fdaef0ae00d3cf202545b5b5892"
+    },
+    {
+      "path": "sim/assets/robotarm_teacher/entry/model_200.pt",
+      "bytes": 2914723,
+      "sha256": "e676f43738515446636782f22f51cf81e4fc945210729fdd0ff0458b66b1db9b"
+    },
+    {
+      "path": "sim/assets/robotarm_teacher/entry/run.json",
+      "bytes": 20393,
+      "sha256": "463dafa1c146561ad5646b66300a0e2196d25a02ce3622e9f4cb05caa921d221"
+    },
+    {
+      "path": "sim/assets/robotarm_teacher/place/run.json",
+      "bytes": 19946,
+      "sha256": "30348d079cf2b5fd29482c8f167fd6c64bf0ce4b019cf668f1392cec6c9191c7"
+    },
+    {
+      "path": "sim/assets/robotarm_teacher/place/teacher_final.pt",
+      "bytes": 2915051,
+      "sha256": "c6c96f0bb81f861519fc5ac0e2467d9083d3c9b5c309d054bd0a7c30c4dcce27"
+    },
+    {
+      "path": "sim/assets/robotarm_teacher/pull/run.json",
+      "bytes": 19647,
+      "sha256": "39fb9332bc7e356ce5cd0e0d90f939df9c9a6fe030299a7d3cc5069b4264dc25"
+    },
+    {
+      "path": "sim/assets/robotarm_teacher/pull/teacher_final.pt",
+      "bytes": 2915051,
+      "sha256": "4914107143f59cb321ce332b6cf185fe563cb44522f50ade782b715fccc045fd"
+    },
+    {
+      "path": "sim/assets/robotarm_teacher/transport/run.json",
+      "bytes": 20849,
+      "sha256": "cf83b42b709d861758d3d8b02cdf6d7bbc94a292e712fd50b9349a83b665dd04"
+    },
+    {
+      "path": "sim/assets/robotarm_teacher/transport/teacher_final.pt",
+      "bytes": 2915051,
+      "sha256": "47f3b7bf6500d35448ed9510db6884ac584921eeddc072350000728402ddb528"
+    },
+    {
+      "path": "sim/docs/ADAPTIVE_HARVEST_PHYSICS_20261006.md",
+      "bytes": 11761,
+      "sha256": "8ae4d5d590a1e43069003156a2b6a6f97cc6ca8b2afe415953cbecadcbf1a4db"
+    },
+    {
+      "path": "sim/docs/CHANGELOG.md",
+      "bytes": 49015,
+      "sha256": "c216317211ce88f853d2ff2aacb08f907d436d834f392345167873a582f3ac7e"
+    },
+    {
+      "path": "sim/docs/ROBOTARM_PHYSICS_20261006.md",
+      "bytes": 37132,
+      "sha256": "05dd5b98c3dbf2ae0a250b27397e89ae2cf9fbcbda1c89aa08b68629ea60c052"
+    },
+    {
+      "path": "sim/docs/RUN_GUIDE_20261006.md",
+      "bytes": 10115,
+      "sha256": "8d5f5f1ed752c58ec6e1766485cbc48dcc85b3d0eb240671ca1222aac4971633"
+    },
+    {
+      "path": "sim/docs/TEACHER_FARM_EVALUATION_REQUEST_20261006.md",
+      "bytes": 3619,
+      "sha256": "5b811af0d93340f5dab28f479caae0febf2f567caf34cc458ae781beec04759b"
+    },
+    {
+      "path": "sim/docs/TEACHER_HARVEST_INTEGRATION_REVIEW_20261006.md",
+      "bytes": 13496,
+      "sha256": "79c7ad4efc1121f8f7ec6f9459a5e78bc24d4e85be849e40bf9327ecd04d05a5"
+    },
+    {
+      "path": "sim/docs/TEACHER_HARVEST_RUNTIME_20261006.md",
+      "bytes": 23839,
+      "sha256": "d61820765ed63cff41bb0555cc197ab3e4836ac86785799b0c335eb8f48b3e39"
+    },
+    {
+      "path": "sim/docs/changes/ADAPTIVE_PHYSICS_VALIDATION_20261006.json",
+      "bytes": 13614,
+      "sha256": "b80864a0ca2d92e79476f906151d99c8ca4bf38b081fd206529e77ab495d1319"
+    },
+    {
+      "path": "sim/docs/changes/TEACHER_INTEGRATION_REVIEW_20261006.json",
+      "bytes": 20108,
+      "sha256": "eb62a03e75d5a0f912e902fcc8b343ed1a6cf81f2073ba24f003d53b0c4f92e5"
+    },
+    {
+      "path": "sim/docs/changes/TEACHER_RUNTIME_VALIDATION_20261006.json",
+      "bytes": 9929,
+      "sha256": "a0168e9ae6d415a80d09de9142c2903784513d5363e12a3dd1d498b9ae8205a2"
+    },
+    {
+      "path": "sim/docs/proposals/GetHarvestCandidates.srv.proposal",
+      "bytes": 630,
+      "sha256": "72b53c113620d38750257a6a7c4ec0b9a744fec02932ad0f61c6fd24c9fd2855"
+    },
+    {
+      "path": "sim/docs/proposals/HARVEST_ARM_COMMON_CONTRACT_20261006.md",
+      "bytes": 17519,
+      "sha256": "72e5b9ea7d0d5328fdb25a5d71570105ddce0815b548fb62f12a93fe4fd13c7c"
+    },
+    {
+      "path": "sim/docs/proposals/HarvestCandidate.msg.proposal",
+      "bytes": 444,
+      "sha256": "98cadec4a72e7beb7738b0444aa159191d5e3cfe0b5c0eb8beea748b9651ca34"
+    },
+    {
+      "path": "sim/docs/proposals/PickFruit.action.proposal",
+      "bytes": 1044,
+      "sha256": "c16be5dc726dd56be80739fe60f82c5a0fc60d4447b5d185b21e7eac785c267c"
+    },
+    {
+      "path": "sim/ros_ws/src/farm_sim_config/config/harvest.json",
+      "bytes": 2471,
+      "sha256": "98f34ebfdd9e3f371b4fcd4ca41b45b4a9cbd0f6a5befe4fc6a57589a7e59928"
+    },
+    {
+      "path": "sim/ros_ws/src/farm_sim_config/config/harvest_task.json",
+      "bytes": 1688,
+      "sha256": "4ea68b593e16e8d77aa264a6978649d559e20cbd94bc536f6ecc424848bf9340"
+    },
+    {
+      "path": "sim/ros_ws/src/farm_sim_config/config/robotarm_physics.json",
+      "bytes": 3591,
+      "sha256": "6f001bd5e15b23bd3ddb55b412de9f8da0f085a4a0e71f8655ded24b81fd0a15"
+    },
+    {
+      "path": "sim/ros_ws/src/farm_sim_config/config/teacher_policy.json",
+      "bytes": 6108,
+      "sha256": "a6db0d3ae09f5fd4f52b049c9cf2d29fa24ecd4f7dc220130774f1c4eaadb3cd"
+    },
+    {
+      "path": "sim/ros_ws/src/farm_sim_devices/farm_sim_devices/_teacher_vendor/__init__.py",
+      "bytes": 80,
+      "sha256": "64052d17c201d000a3f60bfbc77958eba9b48119a2610a1fbcf8d5e5589fb4ea"
+    },
+    {
+      "path": "sim/ros_ws/src/farm_sim_devices/farm_sim_devices/_teacher_vendor/entry_grasp.py",
+      "bytes": 1298,
+      "sha256": "2766407a300bc044d06643cf8a4b31fa068e6ff97c5a5649fc513a867bcfb4d9"
+    },
+    {
+      "path": "sim/ros_ws/src/farm_sim_devices/farm_sim_devices/_teacher_vendor/kernel.py",
+      "bytes": 30513,
+      "sha256": "d35208de8f750d220be0aa7aeb4ce0a074e580b2aa9690bedf8ef36045e6a94d"
+    },
+    {
+      "path": "sim/ros_ws/src/farm_sim_devices/farm_sim_devices/_teacher_vendor/logic.py",
+      "bytes": 25181,
+      "sha256": "d75fc763294b54d886bc886a28922bd275c1038d3842a4708e3294068aad15d5"
+    },
+    {
+      "path": "sim/ros_ws/src/farm_sim_devices/farm_sim_devices/_teacher_vendor/provenance.json",
+      "bytes": 1987,
+      "sha256": "5bb0e3f3b76cabfce3fcd4b38e16484906f5f8008e3a1196e7f06ef84a13550e"
+    },
+    {
+      "path": "sim/ros_ws/src/farm_sim_devices/farm_sim_devices/_teacher_vendor/quaternion.py",
+      "bytes": 914,
+      "sha256": "b13e2a802b669d97bec300ac9ccf72e339d366d7eed0e1b05c195699af943aa2"
+    },
+    {
+      "path": "sim/ros_ws/src/farm_sim_devices/farm_sim_devices/_teacher_vendor/sequence.py",
+      "bytes": 2373,
+      "sha256": "56401fe65e825814c482f7b1938e21dfb8aff5da3f7ac1a9e641dd13b1500fec"
+    },
+    {
+      "path": "sim/ros_ws/src/farm_sim_devices/farm_sim_devices/_teacher_vendor/settings.py",
+      "bytes": 14517,
+      "sha256": "ae28ec73d8d13dcf16634ae34e8aea0780a3ce6a7b998f52a6a9aa430ceb70b4"
+    },
+    {
+      "path": "sim/ros_ws/src/farm_sim_devices/farm_sim_devices/_teacher_vendor/staged_teacher.py",
+      "bytes": 8408,
+      "sha256": "e74d436a5127c7026b61de131fd80cb9532b8c53d21b7ba6c8b7d60de74948ac"
+    },
+    {
+      "path": "sim/ros_ws/src/farm_sim_devices/farm_sim_devices/arm_ros.py",
+      "bytes": 13132,
+      "sha256": "973f9fa0678cf8b9bdc1eda90c20f0e77dc8d3338659f2b3b93090e2b459d2cd"
+    },
+    {
+      "path": "sim/ros_ws/src/farm_sim_devices/farm_sim_devices/arm_session.py",
+      "bytes": 22342,
+      "sha256": "664a611dbf860e754a990a0f98e3d5381c375eb7559e6b6d43ae36048c187085"
+    },
+    {
+      "path": "sim/ros_ws/src/farm_sim_devices/farm_sim_devices/fruit_attachment.py",
+      "bytes": 17433,
+      "sha256": "a8ba589beb10aad2827e90bd48e606908994812613cc6271f5245f8bcc352024"
+    },
+    {
+      "path": "sim/ros_ws/src/farm_sim_devices/farm_sim_devices/harvest_activity.py",
+      "bytes": 2723,
+      "sha256": "afe198486ea99f5645fa227ae103ca5aef8ecfc4ff4bec44fdafc2fd0f2b3876"
+    },
+    {
+      "path": "sim/ros_ws/src/farm_sim_devices/farm_sim_devices/ros_adapter.py",
+      "bytes": 11319,
+      "sha256": "e3b579f5edd40c45c3474b3ed28f67f2e001b6a2089bf2d41ce82b3e991fb602"
+    },
+    {
+      "path": "sim/ros_ws/src/farm_sim_devices/farm_sim_devices/teacher_device.py",
+      "bytes": 21424,
+      "sha256": "c957d91610ef06793b867751b79edf256c6dcd3628a8c044126fb735ddc7fe4d"
+    },
+    {
+      "path": "sim/ros_ws/src/farm_sim_devices/farm_sim_devices/teacher_policy.py",
+      "bytes": 8393,
+      "sha256": "09b4c5d54fd130be5a6402c88cc2ff21c61719ca271ba069bab244ed79ff9dd9"
+    },
+    {
+      "path": "sim/ros_ws/src/farm_sim_devices/farm_sim_devices/teacher_state.py",
+      "bytes": 19893,
+      "sha256": "e00b73df5d1033d89ce52582cffbf58660276333afe1098e7d0404b4e8f19fde"
+    },
+    {
+      "path": "sim/ros_ws/src/farm_sim_devices/package.xml",
+      "bytes": 814,
+      "sha256": "db9dba3e5a5936c6b252bb8569192cfe45816780a7ab03aa4f0910696a9a00e6"
+    },
+    {
+      "path": "sim/ros_ws/src/farm_sim_devices/setup.py",
+      "bytes": 746,
+      "sha256": "edc4c948847db9b4e373c705bb96ad972f5a83fbcda2dbd1af64768cf94a0c08"
+    },
+    {
+      "path": "sim/ros_ws/src/farm_sim_runtime/farm_sim_runtime/harvest_physics.py",
+      "bytes": 12170,
+      "sha256": "717fc2c944292eafe217825060bd59ef02c30e62ecb469bc0ffed3692c0fe04a"
+    },
+    {
+      "path": "sim/ros_ws/src/farm_sim_runtime/farm_sim_runtime/harvest_regions.py",
+      "bytes": 4449,
+      "sha256": "ed7701a9ca117c98c58eab488fa29395ce481a3ae9c0fde8d45ec6248dd2a06c"
+    },
+    {
+      "path": "sim/ros_ws/src/farm_sim_runtime/farm_sim_runtime/physics_schedule.py",
+      "bytes": 5469,
+      "sha256": "42f5f461424fdcc751628d6205c8e19c41040d0770e1f45a89391ff8abbcd8c4"
+    },
+    {
+      "path": "sim/ros_ws/src/farm_sim_runtime/farm_sim_runtime/run_fleet.py",
+      "bytes": 20963,
+      "sha256": "7e4584ada0fd582d38f2ac2946eac2189019458efe21effa6bc93b2476b29ae9"
+    },
+    {
+      "path": "sim/ros_ws/src/farm_sim_runtime/farm_sim_runtime/run_sim.py",
+      "bytes": 11981,
+      "sha256": "d0f222b2c0882dc88218d27f870b710ae87dbad7c3c61e263b1c296571062a29"
+    },
+    {
+      "path": "sim/tests/fixtures/teacher_dock.json",
+      "bytes": 415,
+      "sha256": "2ed635deb77f9a4a2408465bb282e9cff6f562a491edf508afdc81473423f2c5"
+    },
+    {
+      "path": "sim/tests/fixtures/teacher_dock_red.json",
+      "bytes": 412,
+      "sha256": "a53bb03bf42c66e5a893cc6bec8a32c0bab762d956b417c4a9bb3eb1c35b6948"
+    },
+    {
+      "path": "sim/tests/fixtures/teacher_dock_red_near.json",
+      "bytes": 413,
+      "sha256": "b331cda0eb6bb826376cc0873891610ee498bc971c220782a084cb885f5c5b5b"
+    },
+    {
+      "path": "sim/tests/test_arm_ros.py",
+      "bytes": 9855,
+      "sha256": "34a6ff0d91200fc9d5036672aeaf315db549d0b3c0faea84007a3cce4e777d21"
+    },
+    {
+      "path": "sim/tests/test_arm_ros_integration.py",
+      "bytes": 8554,
+      "sha256": "e839a3c4c8be02c9eae390577de259b906e8b780d7558d12986a005e3abc9036"
+    },
+    {
+      "path": "sim/tests/test_arm_session.py",
+      "bytes": 9573,
+      "sha256": "b4889b442f0c004f79a34e9a219e278816498badd83af7572808e942aa126a13"
+    },
+    {
+      "path": "sim/tests/test_fruit_activation.py",
+      "bytes": 11946,
+      "sha256": "f3bcbb0a797c247205c2ecca50c29cdb86ea4c8331601e3c770a81b51e5a5a94"
+    },
+    {
+      "path": "sim/tests/test_harvest_activity.py",
+      "bytes": 9121,
+      "sha256": "7b5e0e5bd4b2f4d8aad4da579e09c429a23f49dcc214afa39bb4a3c58a7cc041"
+    },
+    {
+      "path": "sim/tests/test_harvest_arm_client.py",
+      "bytes": 14227,
+      "sha256": "a890d4dfa8f65f6624e6e63a1324102ab207078ce8852679371281eee059a760"
+    },
+    {
+      "path": "sim/tests/test_harvest_regions.py",
+      "bytes": 8455,
+      "sha256": "fde7668048654a73d0a068c5b84dacd92e169487de317a3fbddd261277474203"
+    },
+    {
+      "path": "sim/tests/test_physics_schedule.py",
+      "bytes": 8689,
+      "sha256": "76032abe10732bcae2b0c213f13c4f6d7ca7a80926450bdb144ab808bb96f375"
+    },
+    {
+      "path": "sim/tests/test_teacher_device.py",
+      "bytes": 10533,
+      "sha256": "a899d763a48391a91adbca0358da5c04403083f5de199d44f6822fa2217981b6"
+    },
+    {
+      "path": "sim/tests/test_teacher_policy.py",
+      "bytes": 6173,
+      "sha256": "51486873f6856c169a843816985f8b5ee1c66701e71e99d7b0eb1e9508f1566a"
+    },
+    {
+      "path": "sim/tests/test_teacher_state.py",
+      "bytes": 13874,
+      "sha256": "5580da999af68a4c9e4e6453a4462af87cb2154b6c7f96e8c9a4b86c97b8a769"
+    },
+    {
+      "path": "sim/tools/check_adaptive_harvest.py",
+      "bytes": 14952,
+      "sha256": "8a7c291e6c6b914a17540d20a6bee63174462f82c76a35087acef9c630e28731"
+    },
+    {
+      "path": "sim/tools/check_teacher_device.py",
+      "bytes": 9605,
+      "sha256": "b6ead392afb4dee7800fafbe0d143caea449bddeff6d534078a4d75eaf13e090"
+    },
+    {
+      "path": "sim/tools/check_teacher_harvest.py",
+      "bytes": 18629,
+      "sha256": "4df87f4b5532ae7928edbc89698de3083ba84d48eaaf2f8f607a2da2538dd149"
+    }
+  ]
+}
