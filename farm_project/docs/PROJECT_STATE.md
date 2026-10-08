@@ -384,3 +384,37 @@ ros2 launch farm_bringup rviz.launch.py mode:=real project_root:="$PWD" \
 - 직접 검증: 신규 오프라인 검사 6개 PASS, 캘리브레이션 SHA256 일치, 드라이버 패치 2개 역적용/재적용 및 첨부 파일 바이트 일치. 실제 로봇 재빌드·카메라·Nav2/주행은 이 변경에 대해 미실행이다.
 - [배포·검증·복원 절차](changes/REAL_RUNTIME_BUNDLE_20261008.md). 인터넷 없는 로봇에서는 git pull/apt/pip 설치를 수행하지 않는다. PC 소스와 로봇 소스의 변경 비교 후 동기화하며 build/install/log/runs/.git는 복사하지 않는다.
 
+## 실물 실행 별칭 Git 이관 — 2026-10-08
+
+- 기준: feat/apriltag-localization / d4674aa 이후 작업.
+- robot/config/robots/vicpinky/shell.bash에 기존 bringup/navigation 별칭을 분리했다. 지도 경로는 파일 위치에서 project_root 기준으로 계산한다.
+- 사용자 로봇 출력으로 .bashrc의 Git 설정 연결과 새 셸의 두 별칭을 확인했다. ROS·드라이버 환경 로딩은 기존 위치에 유지한다.
+- 과거 로그 함수는 원래부터 뒤의 unset으로 비활성화돼 있었다. 해당 함수와 중복 별칭을 제거했으며 diagnostics는 현재 bringup의 로그 의존성이 아니다.
+- 카메라 수신·검출과 설정 복원은 사용자 로그로 확인됐다. detector/rectify 종료 -11은 미해결이며 주행·보정은 미검증이다.
+- 잠금 경로, 기존 카메라 두 폴더, apriltag_ws는 아직 유지한다.
+- 상세: changes/REAL_RUNTIME_BUNDLE_20261008.md. 이번 셸 설정·문서 변경은 미커밋이며 원격 반영을 확인하지 않았다.
+
+## AprilTag 잠금 경로 전환 — 2026-10-08
+
+- 앞선 잠금 경로 유지 상태를 갱신한다. 사용자 요청으로 과거 시험 코드 재사용을 종료하고 Git 실행 기준으로 전환한다.
+- 보정 잠금은 project_root/runs/locks/<robot_id>_tag_correction.lock이다. 로봇 설치본의 변경 소스 연결을 확인했으며 실제 보정 실행은 미검증이다.
+- 기존 폴더·옛 잠금 파일은 아직 남아 있다. 상세는 changes/REAL_RUNTIME_BUNDLE_20261008.md의 잠금 경로 전환 절을 따른다.
+- 이번 코드·문서 변경은 미커밋이며 원격 반영하지 않았다.
+
+## 기존 AprilTag 폴더 정리 완료 — 2026-10-08
+
+- 사용자 로봇 출력으로 /home/vic/apriltag_ws 및 /home/vic/manyfarm_experiments 삭제를 확인했다. 앞선 보류·미삭제 기록을 대체하는 최신 상태다.
+- 삭제 전 관련 프로세스 검색 결과는 없었다. PC 전체 백업은 유지하며, 예찰·드라이버 폴더는 변경하지 않았다.
+- 실행 기준은 Git 이식본이며 보정 잠금은 project_root/runs/locks를 사용한다. 과거 코드로 복원하려면 PC 백업에서 필요한 파일을 먼저 복구해야 한다.
+- Git 카메라 수신은 확인됐지만 종료 -11은 미해결이다. 이번 잠금 변경 후 실제 보정·좌표 이동 통합 실행은 아직 검증하지 않았다.
+
+## AprilTag 의존성 선언 및 설치 정보 갱신 — 2026-10-08
+
+- 기준: feat/apriltag-localization / d4674aa 이후 미커밋 변경. 사용자 AprilTag 의존성 정리 요청 범위다.
+- farm_tag_localization/package.xml에 직접 사용하는 sensor_msgs, apriltag_msgs, ament_index_python을 명시했다.
+- 패키지 README의 외부 카메라 실행본 설명을 Git 내부 코드·설정 기준으로 갱신했다.
+- 사용자 PC의 XML 구문 검사와 git diff --check에서 오류 출력이 없었고, 두 파일의 로봇 전송을 확인했다.
+- 사용자 로봇에서 단일 패키지 colcon build --symlink-install 성공: 1 package finished [2.49s].
+- 같은 패키지의 기존 install이 underlay 환경에 포함됐다는 경고가 있었으며 빌드 오류는 없었다.
+- 패키지 다운로드·실제 보정·좌표 이동 시험은 하지 않았다. 카메라 종료 -11은 미해결이다.
+- 예찰·주행·보정 계산 변경 없음. 복원은 이번 의존성 선언·README 변경만 되돌린 뒤 해당 패키지를 다시 빌드한다.

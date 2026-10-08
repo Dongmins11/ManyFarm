@@ -40,11 +40,11 @@ class TagAdapter(Node):
             self.get_parameter('project_root').value, self._session)
         if self.get_namespace().strip('/') != self._config['robot_id']:
             raise ValueError('보정 노드 namespace와 robot_id 불일치')
-        # 기존 실험 어댑터와도 중복 실행하지 않는다. 잠금 파일은 삭제하지 않는다.
-        lock_dir = Path.home() / 'manyfarm_experiments'
+        # 같은 프로젝트·로봇의 보정 중복 실행을 막는다. 실행 중 잠금 파일은 삭제하지 않는다.
+        project_root = Path(self.get_parameter('project_root').value).expanduser().resolve()
+        lock_dir = project_root / 'runs' / 'locks'
         lock_dir.mkdir(parents=True, exist_ok=True)
-        lock_name = ('pinky_correction.lock' if self._config['robot_id'] == 'harvest_01'
-                     else self._config['robot_id'] + '_tag_correction.lock')
+        lock_name = self._config['robot_id'] + '_tag_correction.lock'
         self._lock = (lock_dir / lock_name).open('a')
         fcntl.flock(self._lock, fcntl.LOCK_EX | fcntl.LOCK_NB)
         folder = Path(self.get_parameter('capture_directory').value).expanduser().resolve()

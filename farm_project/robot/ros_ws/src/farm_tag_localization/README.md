@@ -45,7 +45,7 @@ ros2 launch farm_bringup harvest.launch.py project_root:="$PWD" mode:=real tag_c
 
 기본 실물 환경: `robot/config/environments/harvest_real.yaml`. 10/07 지도·태그 모델을 연결해 `configured: true`로 등록했습니다. 예찰 지도는 유지합니다. 실제 이동은 기존 HarvestTask 요청으로 시작합니다.
 
-카메라 실행은 **기존 성공 실행본을 호출하는 어댑터**입니다. 실행본/캘리브레이션 경로는 `robot/config/cameras/harvest_tag_capture.yaml`에서 설정합니다. Git만 새로 설치한 로봇에 기존 실행본까지 포함되는 것은 아닙니다. 실행 세션과 검출 폴더 연결·종료는 자동 처리합니다. 카메라 로컬 Domain 178과 주행 Domain 156을 유지합니다.
+카메라 실행 도구는 `robot/tools/tag_camera/`, 캘리브레이션은 `robot/config/cameras/`에 포함되어 있습니다. `harvest_tag_capture.yaml`은 이 내부 파일을 project_root 기준으로 연결합니다. 실행 세션과 검출 폴더 연결·종료를 관리하며, 카메라 로컬 Domain 178과 주행 Domain 156을 유지합니다. ROS·Python 패키지와 시스템 도구 설치는 별도로 필요합니다.
 
 OFF는 `tag_correction:=false`, OFF 검출 기록은 `tag_camera:=true`를 추가합니다. 외부 캡처 재사용은 `tag_camera:=false capture_directory:=...`입니다. 캡처/보정 실패는 주행 취소를 요청하지 않습니다. 성공 여부는 보정 로그에서 따로 확인합니다. 전체 PNG 기록은 자동으로 켜지 않습니다.
 
@@ -75,3 +75,11 @@ python3 -m unittest discover -s robot/ros_ws/src/farm_tag_localization/test -v
 - 결과와 한계: [FIELD_RESULTS_20261007.md](FIELD_RESULTS_20261007.md).
 - 검증: 계약 시험19개 통과. ON/OFF 여섯 주행 검출3,779행을 같은 로컬 OpenCV 환경에서 비교해 기존 실험 코드와 이식본의 채택 여부, 채택787행의 위치·공분산 일치(절대오차1e-12). ROS 없는 오프라인 검증이며 Git 프로젝트에서의 실물 실행 완료를 의미하지 않습니다.
 
+## 2026-10-08 Git 실행 기준과 외부 의존성
+
+- 과거 실험 코드 대신 Git 이식본을 사용합니다. 로봇의 apriltag_ws와 manyfarm_experiments는 삭제됐으며 PC 전체 백업은 보존했습니다.
+- 보정 잠금은 project_root/runs/locks/<robot_id>_tag_correction.lock입니다. 같은 운영 체크아웃을 사용하며 실행 중 잠금 파일을 삭제하지 않습니다.
+- 직접 사용하는 sensor_msgs, apriltag_msgs, ament_index_python을 package.xml에 명시했습니다. 선언 추가가 로봇에 패키지를 설치하는 것은 아닙니다.
+- 카메라 제어에 v4l2-ctl이 필요합니다. 장치 사용 확인에는 fuser를 사용하며, 현재 코드는 fuser가 없으면 해당 사전 확인을 생략합니다.
+- 수신 버퍼 설정 원본은 robot/config/robots/vicpinky/sysctl/99-vicpinky-camera.conf입니다. 시스템 적용 방법은 docs/changes/REAL_RUNTIME_BUNDLE_20261008.md를 따릅니다.
+- 사용자 로그에서 Git 카메라 수신·태그 검출·카메라 설정 복원을 확인했습니다. detector/rectify 종료 -11은 미해결이며, 잠금 변경 후 실제 보정·좌표 이동 통합 실행은 미검증입니다.

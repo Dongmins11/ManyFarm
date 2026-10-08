@@ -129,10 +129,53 @@ sudo sysctl -p /etc/sysctl.d/99-vicpinky-camera.conf
 다음 항목은 유지한다.
 
 - 기존 카메라 두 폴더와 `apriltag_ws`의 남은 설정·도구: 종료 오류 확인 및 후속 정리 전까지 보류.
-- `manyfarm_experiments/diagnostics`: `.bashrc`의 bringup 로그 저장 경로.
+- `manyfarm_experiments/diagnostics`: 과거 로그 폴더. 후속 확인에서 로그 함수가 비활성 상태였음을 확인했고 해당 함수를 제거했다. 현재 bringup의 의존성이 아니다.
 - `manyfarm_experiments/pinky_correction.lock`: 기존·새 보정 코드가 공유하는 중복 실행 방지 잠금. 실행 중 삭제하거나 경로를 임의 변경하지 않는다.
 - `vicpinky_ws`, `vic_pinky_library`, `bmany_fleet_ws`, `ap` 및 시스템·사용자 설정.
 
 로봇 `.bashrc`의 navigation 별칭은 Git의
 `robot/config/maps/harvest_field_20261007/many_farm.yaml`을 사용하도록 변경됐다.
 삭제한 홈 지도와 Git 지도가 동일하다는 의미는 아니다.
+
+## 실물 실행 별칭 Git 이관 — 2026-10-08
+
+- 새 원본: robot/config/robots/vicpinky/shell.bash.
+- 로봇 .bashrc에서 비활성 로그 함수와 중복 별칭을 제거하고 아래 한 줄로 연결했다.
+  `source "/home/vic/vmany/main/farm_project/robot/config/robots/vicpinky/shell.bash"`
+- ROS Jazzy 및 vicpinky_ws 환경 로딩은 기존 .bashrc에 유지했다.
+- 사용자 실행 결과: PC 문법 검사·별칭 정의 정상, 로봇 새 셸에서 기존 bringup 명령과 Git 지도 navigation 경로 확인.
+- 실제 bringup/navigation 실행은 하지 않았다. 잠금 파일과 카메라 종료 오류는 이번 변경 대상이 아니다.
+- 수정 전 로봇 설정: /home/vic/.config/cleanup_backups/bashrc_before_git_shell_20261008_183026_127871.
+- 복원 시 위 사본과 현재 .bashrc를 비교해 이번 변경만 되돌리고 새 터미널에서 확인한다.
+- diagnostics 폴더 자체는 아직 삭제하지 않았다. 기존 기록의 로그 의존성 설명을 정정했다.
+
+## AprilTag 잠금 경로 전환 — 2026-10-08
+
+이 절은 앞선 기존 잠금 경로·시험 코드 호환 유지 설명을 대체한다.
+
+- 사용자 확정: 과거 시험 코드는 재사용하지 않고 Git 이식본을 실행 기준으로 삼는다.
+- node.py의 잠금 경로를 project_root/runs/locks/<robot_id>_tag_correction.lock으로 변경했다.
+- harvest_01은 runs/locks/harvest_01_tag_correction.lock을 사용한다. 실행 시 생성되며 Git 추적 대상이 아니다.
+- flock의 배타·비차단 방식은 유지한다. 같은 프로젝트 경로·robot_id의 중복 실행을 막으며, 다른 체크아웃이나 과거 코드와 잠금을 공유하지 않는다.
+- PC Python 문법 검사와 diff 확인, rsync 전송, 로봇 설치본이 변경 소스와 일치함을 사용자 출력으로 확인했다. 실제 보정 노드는 실행하지 않았다.
+- 기존 시험 폴더와 옛 잠금 파일은 아직 삭제하지 않았다. 삭제 여부는 후속 확인 결과로 기록한다.
+- 카메라 종료 -11은 별도 미해결 사항이다. 예찰·주행·보정 계산은 수정하지 않았다.
+- 복원은 보정 프로세스를 종료한 뒤 이번 node.py 경로 변경만 되돌린다. 실행 중 잠금 파일을 삭제하거나 교체하지 않는다.
+
+## 기존 AprilTag 폴더 정리 완료 — 2026-10-08
+
+- 사용자 로봇 출력으로 /home/vic/apriltag_ws 및 /home/vic/manyfarm_experiments 삭제를 확인했다. 앞선 보류·미삭제 기록을 대체하는 최신 상태다.
+- 삭제 전 관련 프로세스 검색 결과는 없었다. PC 전체 백업은 유지하며, 예찰·드라이버 폴더는 변경하지 않았다.
+- 실행 기준은 Git 이식본이며 보정 잠금은 project_root/runs/locks를 사용한다. 과거 코드로 복원하려면 PC 백업에서 필요한 파일을 먼저 복구해야 한다.
+- Git 카메라 수신은 확인됐지만 종료 -11은 미해결이다. 이번 잠금 변경 후 실제 보정·좌표 이동 통합 실행은 아직 검증하지 않았다.
+
+## AprilTag 의존성 선언 및 설치 정보 갱신 — 2026-10-08
+
+- 기준: feat/apriltag-localization / d4674aa 이후 미커밋 변경. 사용자 AprilTag 의존성 정리 요청 범위다.
+- farm_tag_localization/package.xml에 직접 사용하는 sensor_msgs, apriltag_msgs, ament_index_python을 명시했다.
+- 패키지 README의 외부 카메라 실행본 설명을 Git 내부 코드·설정 기준으로 갱신했다.
+- 사용자 PC의 XML 구문 검사와 git diff --check에서 오류 출력이 없었고, 두 파일의 로봇 전송을 확인했다.
+- 사용자 로봇에서 단일 패키지 colcon build --symlink-install 성공: 1 package finished [2.49s].
+- 같은 패키지의 기존 install이 underlay 환경에 포함됐다는 경고가 있었으며 빌드 오류는 없었다.
+- 패키지 다운로드·실제 보정·좌표 이동 시험은 하지 않았다. 카메라 종료 -11은 미해결이다.
+- 예찰·주행·보정 계산 변경 없음. 복원은 이번 의존성 선언·README 변경만 되돌린 뒤 해당 패키지를 다시 빌드한다.

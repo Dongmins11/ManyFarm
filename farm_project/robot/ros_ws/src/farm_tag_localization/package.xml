@@ -10,6 +10,9 @@
 <exec_depend>ros2run</exec_depend>
 <exec_depend>apriltag_ros</exec_depend><exec_depend>image_proc</exec_depend>
 <exec_depend>rmw_cyclonedds_cpp</exec_depend>
+<exec_depend>sensor_msgs</exec_depend>
+<exec_depend>apriltag_msgs</exec_depend>
+<exec_depend>ament_index_python</exec_depend>
 <test_depend>python3-pytest</test_depend>
 <export><build_type>ament_python</build_type></export>
 </package>

@@ -427,3 +427,40 @@
 - 실물 촬영·검출·보정·이동 알고리즘은 유지. 오프라인 6검사 PASS, 패치2개 역적용/재적용 및 수신 원본 일치. 실제 실물/시뮬 실행은 미실행.
 - 복원: 보존한 외부 파일로 capture config의 script/workspace를 되돌린다. 상세 docs/changes/REAL_RUNTIME_BUNDLE_20261008.md.
 
+## REAL-SHELL-20261008 — 실물 실행 별칭 Git 이관 — 2026-10-08
+
+- 구분/기준: 실물 셸 설정·문서, feat/apriltag-localization / d4674aa 이후 미커밋.
+- 승인: 사용자의 외부 의존성 Git 경로 반영 요청.
+- 대상: robot/config/robots/vicpinky/shell.bash, docs/PROJECT_STATE.md, docs/DECISIONS.md, docs/changes/REAL_RUNTIME_BUNDLE_20261008.md, 이 변경 이력. 로봇 로컬 .bashrc도 연결 수정.
+- 전후: .bashrc의 별칭과 비활성 로그 함수 → Git 셸 설정 source. bringup 명령과 로봇의 navigation 지도 경로는 유지.
+- 실물 영향: 별칭 관리 위치 변경. ROS 환경 로딩·드라이버·주행·보정 계산은 유지. 시뮬 실행 변경 없음.
+- 검증: 사용자 실행 bash -n, PC alias 출력, 로봇 bash -ic의 type 출력 및 .bashrc 참조 확인. 실제 구동·시뮬 시험은 미실행.
+- 복원: 로봇의 bashrc_before_git_shell_20261008_183026_127871 사본과 현 파일을 비교해 이번 연결 변경만 되돌린다. 이후 새 터미널을 사용한다.
+- 기존 문서의 충돌 표시 3개는 발견 사실만 기록하고 보존했다. git ls-files -u는 출력이 없었다.
+
+## REAL-APRILTAG-LOCK-20261008 — AprilTag 잠금 경로 전환 — 2026-10-08
+
+- 기준: feat/apriltag-localization / d4674aa 이후 미커밋. 사용자 기존 시험 코드 사용 종료 및 수정 요청 승인.
+- 대상: farm_tag_localization/node.py와 상태·결정·실물 변경 문서.
+- 변경 전 홈 manyfarm_experiments 공용 잠금 → 변경 후 project_root/runs/locks의 robot_id별 잠금. flock 방식 유지, 과거 코드 호환 종료.
+- 실물 영향: 보정 중복 실행의 잠금 경로 변경. 예찰·주행·보정 계산·시뮬 실행 변경 없음.
+- 검증: 사용자 PC 문법 검사·diff, 로봇 전송 및 설치본 소스 일치 확인. 실제 보정 실행·동시 실행 시험은 미실행.
+- 복원: 모든 관련 보정을 종료한 뒤 이번 경로 변경만 되돌린다. 기존 시험 자료는 PC 전체 백업에 보존한다.
+
+## 기존 AprilTag 폴더 정리 완료 — 2026-10-08
+
+- 사용자 로봇 출력으로 /home/vic/apriltag_ws 및 /home/vic/manyfarm_experiments 삭제를 확인했다. 앞선 보류·미삭제 기록을 대체하는 최신 상태다.
+- 삭제 전 관련 프로세스 검색 결과는 없었다. PC 전체 백업은 유지하며, 예찰·드라이버 폴더는 변경하지 않았다.
+- 실행 기준은 Git 이식본이며 보정 잠금은 project_root/runs/locks를 사용한다. 과거 코드로 복원하려면 PC 백업에서 필요한 파일을 먼저 복구해야 한다.
+- Git 카메라 수신은 확인됐지만 종료 -11은 미해결이다. 이번 잠금 변경 후 실제 보정·좌표 이동 통합 실행은 아직 검증하지 않았다.
+
+## AprilTag 의존성 선언 및 설치 정보 갱신 — 2026-10-08
+
+- 기준: feat/apriltag-localization / d4674aa 이후 미커밋 변경. 사용자 AprilTag 의존성 정리 요청 범위다.
+- farm_tag_localization/package.xml에 직접 사용하는 sensor_msgs, apriltag_msgs, ament_index_python을 명시했다.
+- 패키지 README의 외부 카메라 실행본 설명을 Git 내부 코드·설정 기준으로 갱신했다.
+- 사용자 PC의 XML 구문 검사와 git diff --check에서 오류 출력이 없었고, 두 파일의 로봇 전송을 확인했다.
+- 사용자 로봇에서 단일 패키지 colcon build --symlink-install 성공: 1 package finished [2.49s].
+- 같은 패키지의 기존 install이 underlay 환경에 포함됐다는 경고가 있었으며 빌드 오류는 없었다.
+- 패키지 다운로드·실제 보정·좌표 이동 시험은 하지 않았다. 카메라 종료 -11은 미해결이다.
+- 예찰·주행·보정 계산 변경 없음. 복원은 이번 의존성 선언·README 변경만 되돌린 뒤 해당 패키지를 다시 빌드한다.
