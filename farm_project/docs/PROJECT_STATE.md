@@ -373,3 +373,14 @@ ros2 launch farm_bringup rviz.launch.py mode:=real project_root:="$PWD" \
 
 - 사용자18:06 Nav2 ABORTED는 Failed to make progress. 실제구동기록에서첫코너전(-1.998,11.838)근처 제자리, 각명령약±.005rad/s 반복 확인. §25 고정속도시험은 Nav2가속제한 피드백을 검증하지 못했다.
 - sim RPP.max_angular_accel을.10→1.2로수정, 정렬속도.06유지. 런타임 param set가능. 설정/371경로검사 PASS. 실제 Nav2 재시험은 미실행. 미커밋·원격미반영.
+
+
+## 실물 카메라 실행 파일 내재화 — 2026-10-08
+
+- 기준: feat/apriltag-localization / 591a72cbdd2ec50eb16bc4c0a5f13715b0e2ed92. 사용자 승인: 외부 실행 파일을 Git에 포함하고 PC에서 Git 관리·로봇으로 오프라인 동기화. main 변경은 요청하지 않음.
+- robot/tools/tag_camera에 실물 캡처 3개 파일, robot/config/cameras에 검증된 PCWEB400 캘리브레이션을 포함했다. harvest_tag_capture.yaml은 프로젝트 내부 script/calibration을 사용한다. capture_session은 명시적인 기존 workspace 설정도 지원한다.
+- 촬영·검출·보정·이동 알고리즘 변경 없음. 캡처 진입점의 경로·CLI만 변경했고 OpenCV 드라이버·TrialIO는 전달본과 바이트 동일하다. 기본 결과는 runs/harvest_tag, /runs/는 Git 제외.
+- 기존 ~/vicpinky_ws는 유지한다. v2.0.0 aa98a1c3135160335e92f2a1721e9d3b9d6e09b9 및 sllidar 34300099fadfc772965962dec837bf436706188f, 현장 패치·적용 후 파일 해시를 robot/config/robots/vicpinky에 기록했다. 현재 드라이버에 패치를 재적용하지 않았다.
+- 직접 검증: 신규 오프라인 검사 6개 PASS, 캘리브레이션 SHA256 일치, 드라이버 패치 2개 역적용/재적용 및 첨부 파일 바이트 일치. 실제 로봇 재빌드·카메라·Nav2/주행은 이 변경에 대해 미실행이다.
+- [배포·검증·복원 절차](changes/REAL_RUNTIME_BUNDLE_20261008.md). 인터넷 없는 로봇에서는 git pull/apt/pip 설치를 수행하지 않는다. PC 소스와 로봇 소스의 변경 비교 후 동기화하며 build/install/log/runs/.git는 복사하지 않는다.
+

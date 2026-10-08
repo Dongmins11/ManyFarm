@@ -30,14 +30,23 @@ def capture_environment(environment: dict[str, str]) -> dict[str, str]:
 
 
 def capture_command(root: Path, config: dict, session: Path) -> list[str]:
-    """현장 실행본은 수정하지 않고 그 CLI를 호출한다."""
+    """프로젝트 내부 캘리브레이션을 전달하며 명시적인 기존 workspace 설정도 지원한다."""
     script = resolve(root, config['script'])
-    workspace = resolve(root, config['workspace'])
     if not script.is_file():
-        raise FileNotFoundError(f'기존 성공 캡처 실행본 없음: {script}; capture config의 script를 지정하세요.')
-    if not workspace.is_dir():
-        raise FileNotFoundError(f'캘리브레이션 작업공간 없음: {workspace}')
-    return [sys.executable, '-u', str(script), '--workspace', str(workspace),
+        raise FileNotFoundError(f'캡처 실행 파일 없음: {script}')
+    if bool(config.get('calibration')) == bool(config.get('workspace')):
+        raise ValueError('calibration 또는 workspace 중 하나만 지정하세요.')
+    if config.get('calibration'):
+        calibration = resolve(root, config['calibration'])
+        if not calibration.is_file():
+            raise FileNotFoundError(f'캘리브레이션 파일 없음: {calibration}')
+        source_args = ['--calibration', str(calibration)]
+    else:
+        workspace = resolve(root, config['workspace'])
+        if not workspace.is_dir():
+            raise FileNotFoundError(f'캘리브레이션 작업공간 없음: {workspace}')
+        source_args = ['--workspace', str(workspace)]
+    return [sys.executable, '-u', str(script), *source_args,
             '--device', config['device'], '--trial-label', config['trial_label'],
             '--output-root', str(session)]
 
@@ -150,3 +159,4 @@ def main(args: list[str] | None = None) -> int:
             signal.signal(sig, handler)
         (session / 'session.json').write_text(json.dumps(receipt, ensure_ascii=False, indent=2) + '\n')
     return result
+

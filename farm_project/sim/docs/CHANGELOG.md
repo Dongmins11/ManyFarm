@@ -417,3 +417,13 @@
 - sim nav2_harvest.yaml의 RPP.max_angular_accel만.10→1.2. 정렬속도.06/도착기준/PI/충돌검사 유지. 실제 전체Nav2 재검증 미실행. 설정생성일치/371경로검사 PASS.
 - 실행중은 ros2 param set으로 적용가능. 사용자프로세스에는 자동 명령을 보내지 않았다. 원복은각가속도.10이나 기존정지문제재현가능. 미커밋·원격미반영.
 >>>>>>> main
+
+
+## REAL-RUNTIME-20261008 — 실물 카메라 파일 내재화 기록
+
+- 기준 feat/apriltag-localization / 591a72c. 사용자 2026-10-08 Git 내부 이식 승인.
+- 대상: 실물 camera config, robot/tools/tag_camera, farm_tag_localization/capture_session, 드라이버 패치·manifest, 실물 오프라인 검사·문서·runs 제외 규칙.
+- 변경 전 외부 manyfarm_experiments 참조 → 변경 후 project_root 내부 파일. 명시적 기존 workspace CLI/설정 호환 유지. 시뮬 실행/설정 변경 없음.
+- 실물 촬영·검출·보정·이동 알고리즘은 유지. 오프라인 6검사 PASS, 패치2개 역적용/재적용 및 수신 원본 일치. 실제 실물/시뮬 실행은 미실행.
+- 복원: 보존한 외부 파일로 capture config의 script/workspace를 되돌린다. 상세 docs/changes/REAL_RUNTIME_BUNDLE_20261008.md.
+
