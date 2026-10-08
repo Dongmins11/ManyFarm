@@ -66,6 +66,7 @@ class FruitAttachments:
         if not self.view.is_physics_handle_valid():
             raise RuntimeError('과실 PhysX handle이 준비되지 않았습니다.')
         masses = np.asarray(self.view.get_masses(), dtype=float)
+        self.masses = masses.reshape(-1).copy()
         if not np.allclose(masses, self.settings.mass, rtol=1e-5, atol=1e-8):
             raise ValueError('과실 PhysX 질량과 줄기 설정 질량이 다릅니다.')
         local_com, _ = self.view.get_coms()
@@ -89,7 +90,8 @@ class FruitAttachments:
 
     def _set_kinematic(self, indices: np.ndarray, enabled: bool) -> None:
         """전환 경계에서만 세션 USD를 갱신한다. 현재 pose를 같은 값으로 보존한다."""
-        from pxr import Gf, PhysxSchema, Usd, UsdGeom, UsdPhysics
+        from pxr import PhysxSchema, Usd, UsdGeom, UsdPhysics
+        from .fruit_pose import set_rigid_local_pose
 
         if not len(indices):
             return
@@ -119,16 +121,7 @@ class FruitAttachments:
                     world_pose[:3, 3] = self._cached_positions[index]
                     parent = np.asarray(cache.GetLocalToWorldTransform(prim.GetParent())).T
                     local = np.linalg.inv(parent) @ world_pose
-                    xform = UsdGeom.Xformable(prim)
-                    xform.ClearXformOpOrder()
-                    xform.SetResetXformStack(False)
-                    attribute = prim.GetAttribute('xformOp:transform:fruitFreeze')
-                    if not attribute:
-                        operation = xform.AddTransformOp(opSuffix='fruitFreeze')
-                    else:
-                        operation = UsdGeom.XformOp(attribute)
-                        xform.SetXformOpOrder([operation])
-                    operation.Set(Gf.Matrix4d(*local.T.reshape(-1)))
+                    set_rigid_local_pose(prim, local)
                     UsdPhysics.RigidBodyAPI(prim).CreateKinematicEnabledAttr(True)
                 else:
                     PhysxSchema.PhysxRigidBodyAPI(prim).CreateEnableCCDAttr(self._original_ccd[int(index)])
@@ -186,6 +179,35 @@ class FruitAttachments:
         if self._active_view is not None:
             result[self._active_indices] = np.asarray(self._active_view.get_velocities(), dtype=float)
         return result
+
+    def diagnostic_state(self, path: str) -> dict:
+        """선택 과실의 실제 PhysX pose/속도와 마지막 tick 외력을 읽는다. 상태를 바꾸지 않는다."""
+        if not self._ready:
+            raise RuntimeError('FruitAttachments.initialize가 필요합니다.')
+        index = self.paths.index(path)
+        position = self.current_positions()[index]
+        orientation = self._cached_orientations[index].copy()
+        rotation = quaternion_matrix(orientation)
+        tip = position + rotation @ self.tips[index]
+        com = position + rotation @ self.local_com[index]
+        rest = self.rest_orientation[index]
+        cosine = abs(float(orientation @ rest) / (np.linalg.norm(orientation)*np.linalg.norm(rest)))
+        lever = tip-com
+        tilt = np.degrees(np.arccos(np.clip(lever[2]/max(np.linalg.norm(lever), 1e-12), -1., 1.)))
+        initial = np.asarray(self.records[index]['initial_position_world_m'], dtype=float)
+        step = self.last_step
+        return dict(prim_path=path, active=bool(self.active[index]), attached=bool(self.attached[index]),
+            mass_kg=float(self.masses[index]), position_world_m=position.tolist(),
+            orientation_wxyz=orientation.tolist(), com_world_m=com.tolist(), tip_world_m=tip.tolist(),
+            anchor_world_m=self.anchors[index].tolist(),
+            root_z_change_mm=float(1000*(position[2]-initial[2])),
+            tip_displacement_mm=float(1000*np.linalg.norm(tip-self.anchors[index])),
+            rest_rotation_change_deg=float(np.degrees(2*np.arccos(np.clip(cosine, 0., 1.)))),
+            com_tip_tilt_deg=float(tilt), velocity_world=self.current_velocities()[index].tolist(),
+            stem_force_N=(step.force[index].tolist() if step is not None else [0., 0., 0.]),
+            stem_torque_Nm=(step.torque[index].tolist() if step is not None else [0., 0., 0.]),
+            angular_restoring_k_Nm_rad=float(self.settings.angular_k),
+            attachment_model='world_anchor_spring_and_initial_orientation_torque')
 
     def set_active(self, indices: Sequence[int]) -> None:
         """요청 과실과 분리 과실은 dynamic으로 유지하고, 정지한 부착 과실만 freeze한다.

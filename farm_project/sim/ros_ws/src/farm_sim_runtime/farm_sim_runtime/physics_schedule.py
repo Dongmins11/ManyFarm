@@ -5,6 +5,7 @@
 """
 from collections.abc import Callable, Iterable
 import math
+import time
 from typing import Any
 
 
@@ -13,10 +14,16 @@ class AdaptivePhysicsTicks:
 
 World는 최초 physics_hz와 render_hz로 초기화되어 있어야 합니다. 주기 변경은
 공개 PhysicsContext.set_physics_dt API만 사용하며 stop/reset을 호출하지 않습니다.
+batch_usd_writeback을 켜면 중간 tick의 USD 쓰기를 생략하므로 외력·접촉
+콜백은 PhysX tensor를 읽어야 합니다. USD 조회는 프레임 경계에서만 합니다.
     """
 
     def __init__(self, physics_hz: float, render_hz: float,
-                 allowed_hz: Iterable[float] = (60, 120, 240, 480)) -> None:
+                 allowed_hz: Iterable[float] = (60, 120, 240, 480), *,
+                 batch_usd_writeback: bool = False) -> None:
+        if type(batch_usd_writeback) is not bool:
+            raise ValueError('USD 쓰기 일괄 처리 여부는 bool이어야 합니다.')
+        self.batch_usd_writeback = batch_usd_writeback
         self.render_hz = self._positive_rate(render_hz, '렌더')
         self.frame_dt = 1. / self.render_hz
         self.allowed_hz = tuple(sorted(set(self._positive_rate(value, '허용 물리') for value in allowed_hz)))
@@ -33,6 +40,16 @@ World는 최초 physics_hz와 render_hz로 초기화되어 있어야 합니다. 
         self.frame_count = 0
         self.total_ticks = 0
         self._last_frame_time: float | None = None
+        self.frame_timings: dict[str, float] = {}
+
+    def allow_rate(self, value: float) -> None:
+        """시험 UI에서 검증한 렌더 정수 배의 물리 주기를 등록한다."""
+        rate = self._positive_rate(value, '시험 물리')
+        ratio = rate / self.render_hz
+        if not rate.is_integer() or ratio < 1 or not math.isclose(ratio, round(ratio)):
+            raise ValueError('시험 물리 주기는 렌더 주기의 정수 배여야 합니다.')
+        if rate not in self.allowed_hz:
+            self.allowed_hz = tuple(sorted((*self.allowed_hz, rate)))
 
     @staticmethod
     def _positive_rate(value: float, label: str) -> float:
@@ -75,22 +92,48 @@ World는 최초 physics_hz와 render_hz로 초기화되어 있어야 합니다. 
         # 공개 getter가 있는 World에서는 외부의 dt 변경도 첫 외력 적용 전에 감지합니다.
         get_dt = getattr(context, 'get_physics_dt', None)
         if callable(get_dt) and not math.isclose(float(get_dt()), self.dt, rel_tol=1e-9, abs_tol=1e-12):
-            raise RuntimeError('Isaac 물리 dt와 스케줄러 주기가 다릅니다.')
-        for _ in range(round(self.physics_hz / self.render_hz)):
-            before = self._time(world)
-            if physics is not None:
-                physics.update(self.dt, before)
-            world.step(render=False)
-            elapsed = self._time(world) - before
-            if not math.isclose(elapsed, self.dt, rel_tol=1e-5, abs_tol=1e-8):
-                raise RuntimeError('Isaac 물리 tick이 설정 간격과 다릅니다.')
-            if post_step is not None:
-                post_step(self.dt, self._time(world))
-            self.total_ticks += 1
+            raise RuntimeError(
+                f'Isaac 물리 dt와 스케줄러 주기가 다릅니다: actual={get_dt()!r}, '
+                f'expected={self.dt!r}, frame={self.frame_count}, requested_hz={requested}')
+        forces_s = simulation_s = contacts_s = 0.
+        tick_count = round(self.physics_hz / self.render_hz)
+        writeback = (tuple(context.get_physx_update_transformations_settings())
+                     if self.batch_usd_writeback and tick_count > 1 else None)
+        if writeback is not None and (len(writeback) != 3 or any(type(value) is not bool for value in writeback)):
+            raise RuntimeError(f'PhysX USD 쓰기 설정은 bool 세 값이어야 합니다: actual={writeback}')
+        try:
+            for tick in range(tick_count):
+                before = self._time(world)
+                started = time.perf_counter()
+                if physics is not None:
+                    physics.update(self.dt, before)
+                forces_s += time.perf_counter() - started
+                started = time.perf_counter()
+                if writeback is not None:
+                    if tick == 0:
+                        context.set_physx_update_transformations_settings(False, False, writeback[2])
+                    elif tick == tick_count - 1:
+                        context.set_physx_update_transformations_settings(*writeback)
+                world.step(render=False)
+                simulation_s += time.perf_counter() - started
+                elapsed = self._time(world) - before
+                if not math.isclose(elapsed, self.dt, rel_tol=1e-5, abs_tol=1e-8):
+                    raise RuntimeError('Isaac 물리 tick이 설정 간격과 다릅니다.')
+                if post_step is not None:
+                    started = time.perf_counter()
+                    post_step(self.dt, self._time(world))
+                    contacts_s += time.perf_counter() - started
+                self.total_ticks += 1
+        finally:
+            if writeback is not None:
+                context.set_physx_update_transformations_settings(*writeback)
         after_physics = self._time(world)
         if not math.isclose(after_physics - before_frame, self.frame_dt, rel_tol=1e-5, abs_tol=1e-8):
             raise RuntimeError('한 렌더 프레임의 물리 진행 시간이 다릅니다.')
+        started = time.perf_counter()
         world.render()
+        self.frame_timings = dict(forces_s=forces_s, simulation_s=simulation_s,
+                                  contacts_s=contacts_s, render_s=time.perf_counter()-started)
         after_render = self._time(world)
         if not math.isclose(after_render, after_physics, rel_tol=0., abs_tol=1e-10):
             raise RuntimeError('렌더 중 물리 시간이 추가로 진행됐습니다.')

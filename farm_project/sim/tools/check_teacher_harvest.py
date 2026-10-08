@@ -161,6 +161,8 @@ def main() -> int:
     parser.add_argument('--wall-timeout-s', type=float, default=600.)
     parser.add_argument('--cancel-after-s', type=float)
     parser.add_argument('--require-harvest', action='store_true', help='기본 smoke에 더해 실제 바구니 안착 성공을 1개 이상 요구합니다.')
+    parser.add_argument('--teacher-diagnostic-trace', action='store_true',
+                        help='담당자 회신용 실제 추론/물리 연속 로그를 추가합니다.')
     args = parser.parse_args()
     for name in ('duration_s', 'wall_timeout_s', 'cancel_after_s'):
         value = getattr(args, name)
@@ -204,6 +206,8 @@ def main() -> int:
         command += ['--module-path', str(ROOT/path)]
     if not args.gui:
         command.append('--headless')
+    if args.teacher_diagnostic_trace:
+        command.append('--teacher-diagnostic-trace')
     rt = harvest['runtime']
     policy_profile = json.loads((ROOT/rt['harvest_arm']['profile']).read_text())
     place_hold_s = float(policy_profile['runtime']['place_hold_s'])

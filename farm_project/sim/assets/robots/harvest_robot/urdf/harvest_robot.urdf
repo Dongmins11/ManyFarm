@@ -2446,4 +2446,13 @@
     <child link="place_right"/>
     <origin rpy="0 0 0" xyz="0 -0.05 0.055"/>
   </joint>
+  <!-- PCWEB400 추정 광학 장착값. 자산 base_footprint는 논리 주행축과 yaw pi 차이.
+       축 중간 바닥 원점은 바퀴 중심 z=0.0822m 및 반지름 0.0822m와 일치.
+       optical 회전을 이미 포함하므로 추가 -pi/2 변환을 적용하지 않습니다. -->
+  <link name="apriltag_camera_optical_frame"/>
+  <joint name="apriltag_camera_fixed_joint" type="fixed">
+    <parent link="base_footprint"/>
+    <child link="apriltag_camera_optical_frame"/>
+    <origin xyz="0.0043382200 -0.2504645600 0.2614225400" rpy="-1.528781805701 0.017585836054 3.136130772507"/>
+  </joint>
 </robot>

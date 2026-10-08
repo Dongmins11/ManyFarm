@@ -27,7 +27,13 @@ class AdapterTests(unittest.TestCase):
         self.config=config
         return state
     def test_harvest_without_camera_accepted(self):
-        state=self.fixture('harvest');self.assertEqual(len(state['static_tf']),2)
+        state=self.fixture('harvest')
+        self.config['camera']['enabled']=False
+        state['static_tf'].pop()
+        self.assertEqual(len(state['static_tf']),2)
+        self.assertTrue(namespace['valid'](self,state))
+    def test_harvest_apriltag_camera_accepted(self):
+        state=self.fixture('harvest');self.assertEqual(len(state['static_tf']),3)
         self.assertTrue(namespace['valid'](self,state))
     def test_scout_with_camera_accepted(self):
         state=self.fixture('scout');self.assertEqual(len(state['static_tf']),3)

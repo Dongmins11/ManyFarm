@@ -56,6 +56,8 @@ def main():
         from farm_sim_runtime.bed_collisions import ensure_bed_collisions
         bed_collision_report=ensure_bed_collisions(stage)
         print('[farm_sim] bed collision: '+json.dumps(bed_collision_report,ensure_ascii=False),flush=True)
+        from farm_sim_runtime.apriltag_scene import install_tags
+        print('[farm_sim] AprilTags: '+str(install_tags(stage, project_root, config)),flush=True)
         if physics_profile is not None:
             harvest_physics=HarvestPhysics(stage,project_root,physics_profile)
             harvest_config=json.loads((project_root/physics_profile['harvest_device_config']).read_text())
@@ -138,6 +140,9 @@ def main():
         initial_z=float(base.pose()[0][2]);last_sim=float(world.current_time)
         last_telemetry=last_scan=-math.inf;packet_sequence=0
         camera_frames=0;next_log=time.monotonic()+5.0
+        if not args.headless:
+            from farm_sim_runtime.harvest_physics_inspector import enable_physics_debug_ui
+            enable_physics_debug_ui()
         print(f'[farm_sim] 준비 완료: {robot_path}',flush=True)
         print(f'[farm_sim] camera left, wheel r={config["base"]["wheel_radius_m"]}m; ROS 명령 대기',flush=True)
         while app.is_running():

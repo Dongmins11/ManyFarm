@@ -68,7 +68,7 @@ class PhysicsTicks:
 
 
 def initialize_arm_home(articulation: Any, report: dict) -> None:
-    """최초 reset 직후 오른팔 6축만 HOME에 배치하고 같은 drive 목표를 준다."""
+    """초기화 또는 정지한 시험의 재배치에서 오른팔6축 pose·속도·drive를 HOME으로 맞춘다."""
     from isaacsim.core.utils.types import ArticulationAction
     home = report.get('home_positions_rad')
     if home is None:
@@ -111,10 +111,13 @@ class HarvestPhysics:
 
     def configure_robot(self, robot_path: str, *, robot_id: str | None = None,
                         activity_config: dict | None = None) -> dict:
-        """기존 수확 로봇에 오른팔 drive와 박스 바닥만 덧붙인다."""
+        """수확 로봇의 오른팔 학습 물리와 drive, 박스 바닥을 세션에 적용한다."""
         from farm_sim_runtime.robotarm_asset_setup import configure_harvest_arm
         config = copy.deepcopy(self.profile)
         config['box_floor']['asset_path'] = str((self.project_root / config['box_floor']['asset_path']).resolve())
+        if config.get('teacher_alignment', {}).get('enabled', False):
+            config['teacher_alignment']['asset_path'] = str(
+                (self.project_root / config['teacher_alignment']['asset_path']).resolve())
         report = configure_harvest_arm(self.stage, robot_path, config)
         self.arm_reports[robot_path] = report
         if robot_id is not None:
@@ -132,6 +135,9 @@ class HarvestPhysics:
     def register(self, world: Any, session: str) -> None:
         """world.reset 전에 과실 view와 실행별 물리 로그를 생성한다."""
         from farm_sim_devices.fruit_attachment import FruitAttachments
+        if self.profile.get('teacher_alignment', {}).get('enabled', False):
+            from farm_sim_runtime.teacher_arm_alignment import align_teacher_scene
+            align_teacher_scene(world)
         self.attachments = FruitAttachments(world, self.fruits, self.profile['stem'], selective=self.adaptive)
         if self.adaptive:
             from farm_sim_devices.harvest_activity import ActivityGate
@@ -162,6 +168,19 @@ class HarvestPhysics:
         if robot_id not in self.direct_activity or type(active) is not bool:
             raise ValueError('등록된 수확 로봇 ID와 bool 활동 상태가 필요합니다.')
         self.direct_activity[robot_id] = active
+
+    def set_harvest_hz(self, rate: int) -> None:
+        """수확 활동이 없는 프레임 경계에서 세션의 수확 물리 주기를 변경한다."""
+        if type(rate) is not int or rate <= 0 or rate % 60 != 0:
+            raise ValueError('수확 물리 주기는 60Hz의 양의 정수 배여야 합니다.')
+        if not self.adaptive or self.regions is None:
+            raise RuntimeError('수확 물리 주기를 변경하려면 adaptive 물리가 활성화되어야 합니다.')
+        if any(self.direct_activity.values()) or any(gate.value() for gate in self.activity_gates.values()):
+            raise RuntimeError('수확 또는 물리 관찰을 정지한 뒤 물리 주기를 변경하세요.')
+        adaptive: dict = dict(self.profile['adaptive'], harvest_hz=rate)
+        settings = RegionSettings.from_mapping(adaptive, self.profile['render_hz'])
+        self.regions.settings = settings
+        self.profile = dict(self.profile, adaptive=adaptive)
 
     def prepare_frame(self, sim_time_s: float) -> int:
         """60Hz 프레임 경계에서 영역 합집합·물리 모드·공유 주기를 결정한다."""

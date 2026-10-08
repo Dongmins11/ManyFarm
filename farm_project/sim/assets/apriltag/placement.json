@@ -1,0 +1,197 @@
+{
+  "family": "tag36h11",
+  "units": "mm",
+  "datum": "A wall flowerbed start, D-side cut paper edge of ID100; s increases toward ID106",
+  "black_edge": 50,
+  "paper_size": [
+    64,
+    69
+  ],
+  "paper_clear_gap": 500,
+  "center_pitch": 564,
+  "black_center_height": 264,
+  "installed_ids": [
+    100,
+    101,
+    102,
+    103,
+    104,
+    105,
+    106
+  ],
+  "extension_ids": [
+    107,
+    108,
+    109,
+    110,
+    111,
+    112,
+    113,
+    114
+  ],
+  "black_center_from_paper_top_left": [
+    32,
+    32
+  ],
+  "paper_plane_center_height": 261.5,
+  "paper_top_height": 296,
+  "paper_bottom_height": 227,
+  "texture_pixels": [
+    1280,
+    1380
+  ],
+  "texture_orientation": "Read ID label upright; front faces aisle/camera. Do not mirror. First paper starts at s=0.",
+  "placements": [
+    {
+      "id": 100,
+      "status": "installed",
+      "paper_start_s_mm": 0,
+      "tag_center_s_mm": 32,
+      "paper_end_s_mm": 64,
+      "tag_center_height_mm": 264,
+      "black_edge_mm": 50
+    },
+    {
+      "id": 101,
+      "status": "installed",
+      "paper_start_s_mm": 564,
+      "tag_center_s_mm": 596,
+      "paper_end_s_mm": 628,
+      "tag_center_height_mm": 264,
+      "black_edge_mm": 50
+    },
+    {
+      "id": 102,
+      "status": "installed",
+      "paper_start_s_mm": 1128,
+      "tag_center_s_mm": 1160,
+      "paper_end_s_mm": 1192,
+      "tag_center_height_mm": 264,
+      "black_edge_mm": 50
+    },
+    {
+      "id": 103,
+      "status": "installed",
+      "paper_start_s_mm": 1692,
+      "tag_center_s_mm": 1724,
+      "paper_end_s_mm": 1756,
+      "tag_center_height_mm": 264,
+      "black_edge_mm": 50
+    },
+    {
+      "id": 104,
+      "status": "installed",
+      "paper_start_s_mm": 2256,
+      "tag_center_s_mm": 2288,
+      "paper_end_s_mm": 2320,
+      "tag_center_height_mm": 264,
+      "black_edge_mm": 50
+    },
+    {
+      "id": 105,
+      "status": "installed",
+      "paper_start_s_mm": 2820,
+      "tag_center_s_mm": 2852,
+      "paper_end_s_mm": 2884,
+      "tag_center_height_mm": 264,
+      "black_edge_mm": 50
+    },
+    {
+      "id": 106,
+      "status": "installed",
+      "paper_start_s_mm": 3384,
+      "tag_center_s_mm": 3416,
+      "paper_end_s_mm": 3448,
+      "tag_center_height_mm": 264,
+      "black_edge_mm": 50
+    },
+    {
+      "id": 107,
+      "status": "8m_extension_proposal",
+      "paper_start_s_mm": 3948,
+      "tag_center_s_mm": 3980,
+      "paper_end_s_mm": 4012,
+      "tag_center_height_mm": 264,
+      "black_edge_mm": 50
+    },
+    {
+      "id": 108,
+      "status": "8m_extension_proposal",
+      "paper_start_s_mm": 4512,
+      "tag_center_s_mm": 4544,
+      "paper_end_s_mm": 4576,
+      "tag_center_height_mm": 264,
+      "black_edge_mm": 50
+    },
+    {
+      "id": 109,
+      "status": "8m_extension_proposal",
+      "paper_start_s_mm": 5076,
+      "tag_center_s_mm": 5108,
+      "paper_end_s_mm": 5140,
+      "tag_center_height_mm": 264,
+      "black_edge_mm": 50
+    },
+    {
+      "id": 110,
+      "status": "8m_extension_proposal",
+      "paper_start_s_mm": 5640,
+      "tag_center_s_mm": 5672,
+      "paper_end_s_mm": 5704,
+      "tag_center_height_mm": 264,
+      "black_edge_mm": 50
+    },
+    {
+      "id": 111,
+      "status": "8m_extension_proposal",
+      "paper_start_s_mm": 6204,
+      "tag_center_s_mm": 6236,
+      "paper_end_s_mm": 6268,
+      "tag_center_height_mm": 264,
+      "black_edge_mm": 50
+    },
+    {
+      "id": 112,
+      "status": "8m_extension_proposal",
+      "paper_start_s_mm": 6768,
+      "tag_center_s_mm": 6800,
+      "paper_end_s_mm": 6832,
+      "tag_center_height_mm": 264,
+      "black_edge_mm": 50
+    },
+    {
+      "id": 113,
+      "status": "8m_extension_proposal",
+      "paper_start_s_mm": 7332,
+      "tag_center_s_mm": 7364,
+      "paper_end_s_mm": 7396,
+      "tag_center_height_mm": 264,
+      "black_edge_mm": 50
+    },
+    {
+      "id": 114,
+      "status": "8m_extension_proposal",
+      "paper_start_s_mm": 7896,
+      "tag_center_s_mm": 7928,
+      "paper_end_s_mm": 7960,
+      "tag_center_height_mm": 264,
+      "black_edge_mm": 50
+    }
+  ],
+  "actual_original_nominal_wall_length": 3500,
+  "actual_installed_last_paper_end": 3448,
+  "extension_wall_length": 8000,
+  "extension_last_paper_end": 7960,
+  "extension_end_margin": 40,
+  "simulation_map": {
+    "image": "farm_map.png",
+    "resolution_m_per_cell": 0.05,
+    "origin": [
+      -8.075000381469726,
+      15.025000190734863,
+      0.0
+    ],
+    "registration_status": "PENDING: image, A wall start map position and s-axis direction not supplied"
+  },
+  "provenance": "Actual printed PDF v2 patterns; A_wall_installation_ko.md v2 placement plan plus user confirmation of installation and height. Individual tag centers not independently surveyed."
+}

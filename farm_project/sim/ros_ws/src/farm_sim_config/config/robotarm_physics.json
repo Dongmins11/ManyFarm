@@ -92,8 +92,22 @@
     "body_names": ["box_bottom_left", "box_bottom_right"],
     "source_prims": ["/HarvestBoxFloor/Plus", "/HarvestBoxFloor/Minus"]
   },
+  "teacher_alignment": {
+    "enabled": true,
+    "asset_path": "sim/assets/robots/harvest_physics/teacher_arm_reference.usdc",
+    "merged_fixed_bodies": [
+      "arm_2_gripper_frame_link",
+      "arm_2_wrist_camera_mount_link",
+      "arm_2_wrist_camera_link"
+    ],
+    "merged_fixed_joints": [
+      "arm_2_gripper_frame_joint",
+      "arm_2_wrist_camera_mount_link_joint",
+      "arm_2_wrist_camera_joint"
+    ]
+  },
   "notes": [
-    "기본 SI 단위이며 max_angular_velocity_deg_s는 전달 IsaacLab/USD 설정과 같은 deg/s를 명시합니다. 오른팔과 과실 물리 재현용이며 Teacher 정책 추론과 수확 성공 판정은 아직 실행하지 않습니다.",
+    "기본 SI 단위. teacher_alignment는 전달 current_robot의 오른팔 충돌 메시·질량·관성·고정 카메라 합성과 runtime solver/자기충돌을 맞춘다. 접촉 contact_offset_m은 fruit/box용이며 학습 팔 collider에는 원본 기본값을 유지한다.",
     "control_hz=20은 전달 정책 주기 명세입니다. 물리 480Hz, 렌더 60Hz이며 정책 실행을 활성화하는 값이 아닙니다.",
     "과실 연결점은 전달 과실 자산 root 기준입니다. 실제 과실별 월드 인장 방향은 해당 베드에서 통로를 향하도록 scene 설정으로 계산합니다.",
     "과실별 분리 임계력은 고정 seed와 2..3N 범위를 사용합니다. 질량, 강성, 마찰과 실물 성능 검증을 동일하게 해석하지 않습니다."

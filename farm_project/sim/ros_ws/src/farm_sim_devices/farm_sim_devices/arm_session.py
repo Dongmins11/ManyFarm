@@ -130,6 +130,16 @@ class ArmSession:
         self._candidates: list[dict] = []
 
     @property
+    def attempted_target_ids(self) -> frozenset[str]:
+        """시험 UI가 이미 시도한 과실을 재배치 후보에서 제외하도록 읽기 전용 ID를 준다."""
+        return frozenset(self._all_attempted)
+
+    @property
+    def deposited_target_ids(self) -> frozenset[str]:
+        """시험 중 박스에 적재된 과실을 두고 차체만 순간 이동하지 않도록 조회한다."""
+        return frozenset(self._successful_ids)
+
+    @property
     def busy(self) -> bool:
         """팔 동작 중 또는 정지 미확인이면 차체 속도 명령도 차단합니다."""
         return self.state['status'] == 'RUNNING' or self._blocked

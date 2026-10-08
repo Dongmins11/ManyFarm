@@ -1,0 +1,20 @@
+{
+  "source": "/home/ysy/main/farm_project/sim/runs/robotarm/receiver_diagnostic_20261008/independent/manyfarm_robotarm/outputs/harvest_rl/current_robot/82310b121a80b60a/harvest_current.usd",
+  "source_layers_sha256": {
+    "/home/ysy/main/farm_project/sim/runs/robotarm/receiver_diagnostic_20261008/independent/manyfarm_robotarm/outputs/harvest_rl/current_robot/82310b121a80b60a/harvest_current.usd": "3354c11f3628660aab3d6140dbd277ff601122f53ca3f0769b680a75af0a12cf",
+    "/home/ysy/main/farm_project/sim/runs/robotarm/receiver_diagnostic_20261008/independent/manyfarm_robotarm/outputs/harvest_rl/current_robot/82310b121a80b60a/configuration/harvest_current_sensor.usd": "e85cf604fbb246fea9531cfba49385781489f226ad7debf2e605542020959e85",
+    "/home/ysy/main/farm_project/sim/runs/robotarm/receiver_diagnostic_20261008/independent/manyfarm_robotarm/outputs/harvest_rl/current_robot/82310b121a80b60a/configuration/harvest_current_physics.usd": "c4badfa8b6960c486e9363aa68003f448efde97e8927e09d764ad61c71c48262",
+    "/home/ysy/main/farm_project/sim/runs/robotarm/receiver_diagnostic_20261008/independent/manyfarm_robotarm/outputs/harvest_rl/current_robot/82310b121a80b60a/configuration/harvest_current_base.usd": "2aacd5c8154e6d6b2338b433790e04da3d53d73d13b1b2d85e2b141e8d3dff0c",
+    "/home/ysy/main/farm_project/sim/runs/robotarm/receiver_diagnostic_20261008/independent/manyfarm_robotarm/outputs/harvest_rl/current_robot/82310b121a80b60a/configuration/harvest_current_robot.usd": "07b98658c155e41ba99acdc62df81e4c3e6acc636ff2abdb8387e167729cda0f"
+  },
+  "asset_sha256": "1cb2ce6cbc80b3f50ebf1df03c38801263c4fe38ca8813bc9e1be8a4021d6d3c",
+  "body_names": [
+    "arm_2_shoulder_link",
+    "arm_2_upper_arm_link",
+    "arm_2_lower_arm_link",
+    "arm_2_wrist_link",
+    "arm_2_gripper_link",
+    "arm_2_moving_jaw_so101_v1_link"
+  ],
+  "note": "전달 current_robot USD에서 추출; runtime drive/material/solver는 별도 적용"
+}

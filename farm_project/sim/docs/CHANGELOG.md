@@ -370,3 +370,127 @@
 - 사용자18:06실패로그 직접 확인: controller_server Failed to make progress. 구동로그539072...에서첫코너전제자리 각명령약±.005rad/s. 이전 일정.06rad/s시험은 Nav2피드백결합 검증이 아니었다.
 - sim nav2_harvest.yaml의 RPP.max_angular_accel만.10→1.2. 정렬속도.06/도착기준/PI/충돌검사 유지. 실제 전체Nav2 재검증 미실행. 설정생성일치/371경로검사 PASS.
 - 실행중은 ros2 param set으로 적용가능. 사용자프로세스에는 자동 명령을 보내지 않았다. 원복은각가속도.10이나 기존정지문제재현가능. 미커밋·원격미반영.
+
+## SIM-HARVEST-UI-20261008-031 — 배치·480Hz 수확 시험 패널
+
+- 일자/기준: 2026-10-08 KST, main/7d9ae40ec8e0d0bebf0e0552f8a6ee85ddfc9bc3 이후 미커밋. 시작 Git 상태 clean. 원격 재조회·커밋·푸시 없음.
+- 승인 근거: 사용자 “로봇팔 480hz 물리 연산 기준 … UI … 배치 버튼(수확가능한 열매가 있는 무작위 적정 위치) … 수확 버튼(480hz 전환, 인근 파프리카 물리)”. 시뮬 전용 시험 범위다.
+- 파일: tools/harvest_test_ui.py; runtime harvest_test_placement.py/harvest_test_ui.py/run_fleet.py; devices arm_session.py/teacher_device.py의 읽기 전용 상태·장착점 조회; tests/test_harvest_test_{placement,ui,ui_launcher}.py; HARVEST_TEST_UI_20261008.md, RUN_GUIDE, PROJECT_STATE, 이 이력.
+- 전후: 고정 fixture/CLI 위주 → 실제 Isaac GUI의 Place robot/Harvest/Stop 버튼으로 반복 관찰 가능. 기존 정차선/측정 팔 장착/Teacher 범위/원본 바닥지도 footprint 검사 후 미시도 부착 빨강·노랑 후보가 있는 배치를 선택한다. 차체 전체의 시험용 순간 배치이며 Nav2 성공으로 기록하지 않는다.
+- 실행: python3 sim/tools/harvest_test_ui.py. 단독 수확 장치·사용 가능한 별도 UDP 포트·snapshot/로그 생성. ROS/빌드 불필요, 외부 UDP 제어 무시. 원본 fleet/지도/USD/Teacher/물성 보존. 공통·실물 코드 변경 없음.
+- 물리/제어: 기존 ArmSession/Teacher/HarvestPhysics/AdaptivePhysicsTicks 재사용. 실제 정지/HOME/후보 재확인, 60→480→안정후60Hz, 주변 활성·20Hz 정책·실제 성공수량 유지. 활동 중 배치/중복 수확 차단. 적재 후 차체만 순간이동하거나 취소 후 비HOME 상태로 재배치하지 않는다.
+- 직접 검증: 관련75검사 PASS(skip0); 새 배치10/UI13/실행기8 포함. Isaac5.1 GUI/RTX4070SUPER seed713 SEC10 Bed01/Pepper0017 yellow: 정책400회, 주변5/288 활성, 실제복귀/정지확인 및480→60Hz·활성0, 종료0. 처리SUCCESS지만 실제 적재0/실패1(target_timeout). 수확성능 개선 PASS가 아니다.
+- 화면 검증: 최초 ReviewCamera 선택/한글 글리프 문제를 발견했다. Perspective를 명시 선택해 작업 팔과 과실/바구니를 보여주고 패널은 영문으로 제공한다. 최종 GUI 재실행·창 캡처에서 카메라/버튼/단계/480Hz/활성5개 표시 확인. UI 창 닫기 버튼을 제거하고 전체 Isaac 종료로 정리, timeline reset은 프레임 시작에서 감지한다.
+- 로그/보고: sim/runs/harvest_test_ui/validation_20261008/{result.json,unittest.log,isaac.log,final_gui.png,final_gui_run.json}; 연결된 physics/teacher 경로는 result.json. 최종 GUI는 직접 조작하도록 실행 상태로 남겼다.
+- 미검증/다음: 사용자 수동 클릭·다양한 seed의 실제 성공률·동시 운영 시뮬·Nav2 포함 E2E는 미검증. 적정 배치의 근거리/바닥 검사는 팔 IK/모든 동적 장애물 회피 인증이 아니다. 다음은 사용자가 버튼으로 반복 관찰하고 기존 Teacher 농장 성능을 별도 개선하는 일이다.
+- 되돌림: 독립 도구/패널/기하/시험 추가 파일, run_fleet 선택 연결과 devices 읽기 API 및 문서 항목만 비교 복원한다. 전체 reset 금지. 배포 패치는 변경 파일만 sim/runs/harvest_test_ui/harvest_test_ui_20261008.tar.gz, 적용 명령은 실행 가이드에 기록했다.
+
+## SIM-PHYSICS-INSPECT-20261008-032 — 충돌 메뉴·과실 물리 관찰
+
+- 사용자 요청: Show By Type에 없는 Physics collision 표시 추가, 중력/connector 연결과 랜덤 회전 유지 여부 확인. 031 미커밋 변경을 보존하고 추가. 기준main/7d9ae40, 이번 원격 조회·커밋·푸시 없음.
+- 대상: runtime 신규 harvest_physics_inspector.py 및 run_fleet/run_sim/harvest_test_ui; devices fruit_attachment 진단 snapshot/teacher_device 읽기 접촉 API; inspector 신규4검사/UI 추가2검사/접촉 추가1검사; 물리 진단 가이드·기존 UI가이드·PROJECT_STATE·이력.
+- 전후: PhysX GUI 확장 미활성/수확 때만 확인 → GUI 실행에서 공식 omni.physx.ui 활성화, Show By Type > Physics > Colliders 메뉴와 패널 Hide/Selected/All 제공. Physics only 관찰은 팔정책 없이 기존 주변영역480Hz를 사용한다. 전역물성/원본USD/정책/실물·공통 코드는 변경하지 않았다.
+- 계측: 선택 과실의 active/kinematic/gravity/collider flag, 초기 PhysX질량, 실제 pose/속도·root dz·tip 변위·회전각, 이전 tick 적용 줄기 힘, SDK 선택과실별 손가락 접촉력. mg는 Scene중력×질량 계산값임을 명시. 앵커/꼭지/COM/중력 표시만 추가하며 물리 joint를 생성하지 않는다.
+- 발견: 현재 connector와 과실의 자유회전 native joint가 아닌 world 고정 앵커 spring + 초기 랜덤 quaternion 복원 토크다. 유휴부착과실은 kinematic. 중력이 작동해도 수직으로 완전히 정렬되지 않는 이유이며 성공0의 단일 원인을 확정하지 않는다.
+- 직접검증: 99개 실행98PASS/1USD미설치skip/실패0. 실제GUI seed713 Bed01/Pepper0017 yellow, 팔정책 없이8초480Hz/주변5개: root하강10.788mm, 회전8.360°, 남은COM-꼭지기울기35.099°, mgZ -0.088290N/적용줄기Fz +0.088290N. collider1/1 convexDecomposition, 안정후60Hz/활성0, 종료0. 새GUI 재실행에서 와이어/표시와 선택과실별접촉0/0 확인. 이번 직접 수확접촉/파지 성공 검증은 아니다.
+- 로그: sim/runs/harvest_test_ui/physics_inspection_20261008/{result.json,unittest.log,gui.png,final_gui.png}; 실행별 physics_inspection.jsonl. 최종 진단창은 열어두고 기존 사용자시험창/로그는 건드리지 않았다.
+- 다음/한계: Harvest 중 실제집게 접촉력과 충돌형상 대조; 자유진자 connector 모델이 필요하면 별도 물리 모델 설계/Teacher 영향검증. 이번에 angular_k 완화/자세 초기화/가짜 성공은 하지 않았다.
+- 복원: 032의 inspector/관찰 토글/읽기 API/GUI 확장 활성화와 해당 문서 항목만 비교 복원한다. 031 및 사용자 변경은 유지한다. 패치는 변경 파일만 포함, 적용 명령은 UI 가이드와 동일하다.
+
+## SIM-TEACHER-DIAGNOSTIC-20261008-033 — 로봇암팀 요청 재현·회신 로그
+
+- 승인/기준: 사용자 “robotarm/SIM_TEAM_TEACHER_DIAGNOSTIC_REQUEST 확인 … 자료 보고 회신 로그 확보”. main/7d9ae40 이후031/032 및 사용자 미커밋 변경을 보존했다. 공통·실물 코드/운영 설정·정책·물성·원본 robotarm 자료 변경 없음.
+- 대상: sim teacher_policy.py에 기본off forward hook 계측; 신규 runtime teacher_diagnostics.py; run_fleet/check_teacher_harvest 선택적 --teacher-diagnostic-trace 연결; 신규 test_teacher_diagnostic_trace.py; 회신 문서·PROJECT_STATE·이 이력. 산출물은 sim/runs/robotarm/receiver_diagnostic_20261008.
+- 전후: 기존 sample/최종action 위주 로그 → 실제 원본/시간보정/정규화82D와 전문가 raw action, 후처리/clip/최종6D, 상태 플래그, 실제 관절 target buffer·시뮬/벽시계·물리step·dt·초기/복귀/정지 연속 기록 및 USD/PhysX 설정. 추가추론/정규화 재학습 없음. USD 자동계산·무제한 Infinity는 최종계측에서 문자열로 저장하며 초기 노랑 원본은 보존하고 portable사본 추가.
+- 전달본 직접 확인: 최초143434 TAR hash7b33...일치; 새해제본2148개검사 후 cache경로보정. 정책4개+run.json·전달평가소스불변. prepare/cache차이12파일은diff로보존.
+- 실제 GPU 독립진단: 받은 무카메라 어댑터·전달실행기로 red182/yellow183각5회. 성공3+4/실패2+1, 두프로세스0종료. 송신10개trace1069tick가 SHA256까지일치. 카메라/YOLO포함원본스크립트E2E는미실행.
+- 실제 GPU 농장: 기존headless fixture 노랑400POLICY timeout, 빨강42POLICY bad_detach, 실제적재0/2; 두job복귀/정지확인·종료0. 정책dt=.050000002608s, 각24physics step=480Hz. 원본관측/명령/PhysX전달 각19검사통과. taskSUCCESS/검증passed와수확성공을분리.
+- 발견: 빨강양손접촉3.754/3.982N 있으나 파지확인0.05s<0.25s, 총변위46.790mm·지속41.667ms 이탈(인장0N), 정상파지전분리. 노랑최소거리74.99mm/양측접촉없음. farmUSD자기충돌false·solver32/1 vs전달소스true·12/4, 초기과실랜덤회전/고정차체차이. 단일원인으로확정하거나이번에수정하지않음.
+- 검증: 실제가중치등Teacher/ArmSession60개+fleet entrypoint2개PASS, skip0; 새로운계측11개포함. 추가추론없이action/target·normalizer불변검사. diff --check/구문검사 및 회신manifest검증.
+- 오류/한계: GUI2회는Teacher/recorder생성전World.__init__.render nativeOmniGraph SIGSEGV(-11). startup_error 로그별도보존, 성공/수확실패분모제외. 이번viewport영상미확보. 동일초기조건farm대조·Nav2·실물미실행.
+- 회신: sim/docs/TEACHER_DIAGNOSTIC_REPLY_20261008.md, TAR+SHA256+MANIFEST. 원본stdout/trace/결과·설정·모델계약·관련source포함,checkpoint/RGB-D/전체해제본제외. 발송·커밋·푸시·원격재조회없음.
+- 복원: 진단 플래그를 생략하면 기존제어경로다. 추가계측/CLI연결/시험·문서만비교복원하며031/032·사용자변경은유지한다. 다음은 담당자와같은q/목표pose/TF/threshold조건으로최초관측/action차이와solver·접촉영향을분리하는비교다.
+
+## 2026-10-08 — AprilTag 태그 배치와 수확 PCWEB400 가상 카메라
+
+- 구분/승인: 사용자 직접 요청의 sim bed 배치·수확 카메라/bringup 연결·공용 코드 인수 확인. 후속 답변으로 각 면100~114 반복/구간ID와 함께 식별 확정. 기준main/450bf5f, 기존 미커밋 수확 작업 보존.
+- 대상: `assets/apriltag/`, 수확URDF, `farm_sim_config/config/{apriltag_layout,apriltag_map,harvest,scout,scout_fleet}.json`, 런타임`apriltag_scene.py` 및`run_sim/run_fleet`, 장치`camera_sim/camera_ros/ros_adapter`, generator·USD/렌더검증도구, 관련시험·상태/결정/실행문서.
+- 전후: 태그없음/수확camera.disabled → session layer16벽240개(15원본반복), 수확측면optical센서 및RGB/CameraInfo발행. 기존공통bringup의sim장치선택으로연결해공통소스변경불필요. 실제웹캠depth없음. 예찰센서장착·경로·원본USD·실물설정은유지.
+- 검증:19PASS,USD벽범위/크기/TF검사PASS,실제IsaacID104렌더검출/공유메모리전달PASS,3패키지build/371경로PASS. 첫Kit종료지연으로해당시험만정리, 최종렌더결과저장후종료timeout124. 최종반복IDUSD검사재실행. 전체DDS·이동검출/보정·실물미시험. [상세](APRILTAG_INTEGRATION_20261008.md),로그`sim/runs/apriltag_20261008/`.
+- 코드인수: 로컬공용코드에AprilTag검출/보정없음. [요청서](APRILTAG_NAVIGATION_REQUEST_20261008.md)작성,발송없음. 공통수정승인대상diff는이번작업에없으며후속소스인수후검토한다.
+- 실물영향: 없음. 실물harvest장치bringup은여전히미구현. 카메라장착은실측기반추정이며정밀실물검증완료가아님.
+- 복원: 장치JSON의apriltag_map제거/harvest.camera.enabled=false후재시작,URDF추가광학링크/조인트제거. 기존미커밋수확변경을통째로되돌리지않는다. 미커밋·원격미반영.
+
+## SIM-PEPPER-ROTATION-20261008-035 — 수확 비교용 랜덤 기울기 0도
+
+- 사용자 요청: 기존 seed/최대각도 회전 스크립트를 찾아0도로Isaac적용. 기준 main/450bf5f 및 기존 미커밋·AprilTag 변경 보존.
+- 도구: sim/tools/randomize_pepper_rotation.py → scout_dataset.stage.randomize_current_stage_and_save. 기존 구현 그대로 사용; sim/config/scout_dataset.json fruit_rotation.max_degrees만30→0, seed734유지.
+- 실제 Isaac headless stage에서 기존 runpy 스크립트를 실행해 farm_with_plants_v5.usd 저장·정상종료0. 288개 jitter XYZ=0, world local-Z 기울기 전0.964~41.171°→후모두0°. 위치/원래xform op/ID 유지. 원래 yaw는보존하며모든quaternion이identity라는뜻은아님.
+- 백업: sim/assets/envs/output/farm_with_plants_v5.usd.before_rotation_20261008_142400_041527. 설정백업/실행스크립트/stdout/전후288개검증은 sim/runs/pepper_rotation_zero_20261008.
+- 실물·공통·물성·정책변경없음. 기존실행창의메모리상태는유지. 별도UI는초기화SIGSEGV(-11)로종료해ready미확인(gui.log/gui_result.json). 맵저장프로세스종료0과구분. 기존Isaac재시작으로새맵로드필요. 이번수확성공률재시험은아직수행하지않음.
+- 복원: 위USD백업을원래파일로복사하고설정max_degrees=30(seed734)복원한뒤Isaac재시작. 커밋·푸시없음.
+
+## SIM-HARVEST-UI-STARTUP-20261008-036 — 시험 GUI 시작 종료 수정
+
+- 사용자 오류 수정 요청, 기준 main/450bf5f 및 기존 미커밋 보존. 대상: 런타임 `run_fleet.py`, `run_sim.py`, `harvest_physics_inspector.py`, `physics_schedule.py`, inspector 회귀 검사 및 상태 문서.
+- 조기 PhysX UI 확장 활성화 상태에서 World 초기 render가 native SIGSEGV로 종료됐다. 확장 등록을 World/장치 초기화 뒤로 이동했다. 이후 드러난 dt 오류는 layers 확장이 USD 편집 대상을 session→root로 변경해, 더 강한 session의480Hz가 root에 쓴60Hz를 덮은 문제였다. 확장 활성화 성공/실패 모두 기존 edit target을 복원하며 dt 불일치 메시지에 실제/기대값을 추가했다. 충돌 메뉴와 엄격한 주기 검사는 유지한다.
+- 실제 Isaac5.1 GUI: 일반3초/180tick 종료0, 물리 관찰14초/840render/4200tick 종료0. 1.520833초에480Hz·주변5과실 활성,9.520834초에60Hz·0과실 복귀. 일반 무기한 시험창 재실행 및 패널/60Hz 화면 확인 후 열어둠. 로그·화면 `sim/runs/harvest_ui_startup_fix_20261008/`.
+- 관련 검사39개 PASS(레이어 복원 성공/실패, 주기, UI, launcher, fleet entrypoint). 넓은 harvest 패턴 검사112개에서는 별도 geometry 단일 테스트의48개 subtest 실패 및 sandbox UDP 차단3오류가 있었다. UDP 관련 launcher8개는 허용 환경에서 전부PASS. 경로 기하 실패는 이번 시작 수정 범위에서 수정하지 않았다. run_sim 실제 GUI 및 수확 성공률은 이번 미검증.
+- 실물/공통/Teacher/물성/0도맵 변경 없음. 복원은 이번 확장 호출 이동·edit target 보존·오류 메시지만 역적용하며 기존 사용자 변경을 통째로 되돌리지 않는다. 수정 파일 묶음 `sim/runs/harvest_ui_startup_fix_20261008/changed_files.tar.gz`는 현재 미커밋 파일 전체를 포함한다. 커밋·푸시 없음.
+
+
+## SIM-TEACHER-ARM-ALIGNMENT-20261008-037 — 학습 오른팔 물리 정렬
+
+- 승인: 사용자 “로봇팔 물성치, 충돌 판정 … 다 학습환경에 맞춰서 수정”. main/450bf5f 및 기존 미커밋 보존. sim 전용, 실물/공통/전달 정책 소스 변경 없음.
+- 대상: `teacher_arm_alignment.py`, `robotarm_asset_setup.py`, `harvest_physics.py`, `teacher_device.py`, `teacher_diagnostics.py`, `run_fleet.py`(종료 전 최초 예외 보존), `robotarm_physics.json`, 기준 팔usdc/manifest, 추출/대조 도구2개, 회귀 검사, 물리 확인/진단 회신·상태·결정 문서.
+- 변경: convexHull→전달 convexDecomposition 메시15개; 여섯몸체 질량/COM/관성·집게카메라 합성; 자기충돌true/solver12·4, 학습GPU/TGS/접촉설정, material, 팔 collider1mm override제거, 학습4링크 접촉센서. 이동 차체·왼팔/바퀴 구동 구조 유지. 원본USD 미저장/세션적용. [상세 비교와 환경 차이](HARVEST_PHYSICS_INSPECTION_20261008.md).
+- 검증: 독립 전달1회 종료0, 농장GUI3초 종료0, USD/PhysX115항목 일치(최종GUI 반복확인), 회귀56PASS. 수확480Hz/주변5과실 및60Hz복귀/정상종료0. 수확 적재0/1: arm_collision→return_contact_2.779N→safe_stopped=true. 수확성공률 개선/전체학습환경 동일성 검증 아님. 최종 GUI 열어둠.
+- 최초 통합2회는 SDK 확장속성 API 부재로 초기예외, 종료native오류가 원인을 가림. typed USD attribute fallback 및 종료전 예외기록 후 해결, 세 번째부터 정상. 실패로그도 보존.
+- 결과 `sim/runs/arm_physics_alignment_20261008/`, 설정/초기 코드 백업 포함. 복원: teacher_alignment.enabled=false 후 새실행(기존 팔 물리 경로). 전체 파일 reset 금지. 변경파일묶음/적용명령은 상세문서에 기록. 커밋·푸시/외부발송 없음.
+
+
+## SIM-FRUIT-RENDER-SYNC-20261008-038 — 과실 물리/화면 위치 동기화
+
+- 승인: 사용자 내부 적재 로그와 초기 위치 화면의 차이 조사 요청. main/450bf5f 및 기존 미커밋 보존.
+- 대상: devices 신규 fruit_pose.py 및 fruit_attachment.py, runtime fruit_asset_setup.py, pose 신규검사/asset 설정검사, 물리진단·회신·PROJECT_STATE·이력 문서.
+- 원인/수정: 사용자 정의 matrix op로 고정된 과실은 동적 PhysX만 이동하고 표시 root/mesh는 정지했다. 초기 배치/재고정 모두 pose를 보존한 표준 translate/orient/scale로 작성한다. 내부 SUCCESS만으로 화면 운반을 확인했다고 한 판단을 정정했다.
+- 검증: 실제GUI 통제 이동·낙하23sample 최대 물리/표시 오차0.550647m→0.000590m(root0m). 최종5초/300render/1763physics/종료0. 초기3probe는 완료 후 잔류종료를 수동 정리했으며 최종 정상종료와 구분. 단위·USD43PASS. 새 일반GUI480→60Hz 및 화면 확인. 전체수확 성공 재검증은 미실행.
+- 실물영향 없음. 정책·마찰·질량·성공기준·원본맵 불변. 결과/백업/변경파일묶음 sim/runs/fruit_render_sync_20261008. 복원은 before.py와 이번함수/검사 차이만 비교하며 기존변경 유지. 적용명령은 물리진단문서 마지막 절.
+- 다음: 새GUI에서 실제 파지→운반→적재 관찰. 문서갱신, 커밋·푸시·외부발송 없음.
+
+
+## SIM-HARVEST-PHYSX-OPT-20261008-039 — 단독 시험 UI의480Hz 비용 축소 (정적화는040에서 철회)
+
+- 승인: 사용자의 PhysX step 최적화 요청. sim 런타임3개 파일(physics_schedule, harvest_test_ui, run_fleet)과 관련 검사만 변경. 실물·공통·원본USD·학습 팔 물성/충돌/주기 불변.
+- 변경: 미사용 선별기/정찰 로봇43강체를 표시·충돌 형상 보존한 정적 배경으로 전환. USD 위치/속도 쓰기를 렌더 프레임의 마지막 tick에 수행. 힘/물리/접촉은480Hz 유지. 두 변경 모두 시험 UI에만 활성화.
+- 실측: 동일seed713의480Hz GUI 수확에서 물리 step195.84→102.43ms, FPS4.28→7.01. 실제 적재0/1, 복귀 접촉 실패는 남음. GPU backend 유지; CPU/MBP10.51FPS 비교는 미적용.
+- 검증: 관련37검사PASS, 운영GUI 종료0·표시 위치136표본/배경형상불변·PhysX오류0. 독립 sleep/재활성/480→60→480 시험 종료0(최대 위치오차1.92e-8m). Stop→재배치→240Hz 재수확 확인. [상세 수치·재현·범위](HARVEST_TEST_UI_20261008.md), 로그 sim/runs/physx_optimization_20261008.
+- 복원: run_fleet의 configure_test_background 호출과 batch_usd_writeback 활성화만 역적용. 기존 사용자 변경/물성정렬/과실표시수정 보존. 커밋·푸시·외부발송 없음.
+
+
+## SIM-HARVEST-PHYSX-RESTORE-20261008-040 — 네 로봇 동시 운용 요구에 따른 정적화 철회
+
+- 사용자 정정: 예찰·수확·운송·선별팔은 최종적으로 모두 동시에 움직여야 하므로 다른 로봇 정적화는 부적절함.
+- 변경: harvest_test_ui의 configure_test_background, run_fleet의 해당 호출, 전용 test_harvest_test_background.py 제거. USD 쓰기 프레임 단위 처리만 유지. 이전 GUI 세션 종료 후 새 stage로 실행. 원본USD/실물/공통코드 불변.
+- 수치 정정: 7.01FPS/PhysX102.43ms는 두 로봇을 정적화한 폐기 조건이다. 로봇 물리 유지 시 기존 비교4.28→4.67FPS이며 네 로봇 동시 운용 실측은 미실행. fetch_results는 계산 완료 대기/결과 반영을 포함하므로 readback 주병목 단정도 철회.
+- 검증: 스케줄러15·UI17·진입점2개PASS. 실제 물리 복원 로그는 sim/runs/physx_optimization_20261008/restored_scene.json 및 restored_ui.log. [현재 범위와 기록](HARVEST_TEST_UI_20261008.md).
+- 사용자 변경 보존, 커밋·푸시·외부발송 없음. 정적화는 다시 적용하지 않는다.
+
+## SIM-HARVEST-PHYSX-PROFILE-20261008-041 — GPU 커널과 대기 FPS 간극 실측
+
+- 승인/기준: 사용자 “병목을 더 확실하게 파악 … 기존 Nav2 약70FPS와 현재대기22FPS 간극 확인”. main/450bf5f 및 기존 미커밋 보존. 운영 소스·설정·정책·원본USD·실물·공통 코드 변경 없음.
+- 대상: `sim/runs/physx_bottleneck_20261008/`의 격리 계측 wrapper/결과와 `HARVEST_TEST_UI_20261008.md`, `HARVEST_PHYSICS_INSPECTION_20261008.md`, `docs/PROJECT_STATE.md`, 이 이력. CPU/MBP 전환·좌표기록 생략/캐시는 임시 대조 실행만 적용.
+- 전후: fetch_results 경과시간만으로 CPU/GPU원인을 분리하지 못함 → Nsight CUDA/NVTX/OSRT와 PhysX profile zone으로428tick분리. USD쓰기없는fetch17.843ms 중GPU커널15.924ms, GPU→CPU복사0.0619ms/tick. 상위관절커널각15408회=428×36,1block×32thread. GPU solver최대반복32/4의 장면전체영향을 공식107.3소스/실제커널로 확인. 기존팔115항목속성검사한계를명시.
+- 대기 비교: 동일ReviewCamera1280×720/센서OFF/각새프로세스. 모든기존로봇97동적/3관절계·과실형상4829유지, GPU29.80FPS→CPU50.23FPS. 좌표기록생략진단GPU31.95/CPU59.53FPS. 원본맵대조는43동적/2관절계/29convex/CPU,실제59.56FPS(60cap)·물리1.81ms. sleep제외처리용량138.49를실제FPS로사용하지않음. 원본맵SHA전후동일.
+- 수확 비교: CPU480Hz작업13.01FPS,seed713적재0/1,RETURN_FAILED/2.839N·실제정지확인·정상종료0. 성공률개선/물리backend동등성으로해석하지않음. 상세현재GPU대조와좌표캐시결과는연결보고서참고.
+- 검증/한계: 실제Isaac5.1 GUI격리대조와Nsight원본보존. 최초Nsight실행은optional SDK cooking API선택오류로capture전종료1,수정후최종종료0; 실패로그보존. CPU IP sampling권한제한은우회하지않음. 실제Nav2경로주행·과거사용자70FPS정확조건·최종4로봇동시미션·다지점수확회귀는미실행.
+- 복원: 이번에는운영변경없음. 진단wrapper를사용하지않으면기존기본GPU/수확480/대기60Hz. 추가문서만해당절비교복원하고원본로그는보존한다. 다음은환경조건완화보다CPU480Hz접촉/관측/성공률회귀우선. 문서갱신,커밋·푸시·외부발송없음.
+
+## SIM-HARVEST-REPORT-20261008-042 — 최적화 종합 자료와 Git 반영
+
+- 승인: 사용자 “최근커밋 이후 수정사항 커밋메세지에 간략하게 … 480hz 물리 연산 적용 후 … 보고서 작성용 md”, 후속으로 commit+pull+push까지 명시. 기준 main/450bf5f 이후 미커밋 변경 전체를 보존·반영한다.
+- 대상: `HARVEST_OPTIMIZATION_REPORT_MATERIAL_20261008.md`, `changes/HARVEST_OPTIMIZATION_EVIDENCE_20261008.json`, PROJECT_STATE 링크, 이 이력, sim/.gitignore의 회전 전 로컬백업 제외 규칙.
+- 변경: 초기 CPU480Hz→지역 활성화/주기전환→UI/정확성 수정→Hz비교→USD쓰기→정적화 철회→Nsight/CPU/원본맵 대조를 종합했다. 핵심 JSON8개를 출처SHA256과 함께 버전관리 경로에 복사해 원격 보고서 작성에 사용할 수 있게 했다. raw runs/회전 전 백업은 로컬 보존한다.
+- 범위: 이번 종합 과정에서 운영 로직·물성·backend를 추가 변경하지 않았다. 최근 미커밋에는 별도 승인된 AprilTag 작업도 포함하며 보고서에서 물리 최적화와 구분한다. 맵과 팔자산은 기존 LFS로 저장한다.
+- 검증: 원본 JSON8개 hash/내용 및 Markdown 내부링크 대조 PASS, Python43개 구문 PASS, 기존 전달 CSV의 CRLF를 보존한 변경공백 검사 PASS. Isaac Python에서 수확/물리/진단58개, ROS Jazzy 환경에서 AprilTag4개 PASS(skip0). 최초 검사는 테스트 import 경로 누락, 이전 진단 대역의 PhysX view 누락, Isaac 환경 OpenCV API 차이로 실패했다. import 경로/실행 환경을 맞추고 `test_teacher_diagnostic_trace.py`의 대역 view만 보완해 통과했다. 운영 소스 변경은 없다. 성능/수확 숫자는 앞선 실제 시험 기록이며 보고서 작성 중 재측정값으로 표현하지 않는다. 최종 커밋·원격 반영 상태는 Git 결과를 따른다.
+- 복원: 이 종합자료/링크/백업 제외 규칙만 필요에 따라 역적용한다. 이전 변경을 통째로 reset하거나 raw 로그·복원용 USD를 삭제하지 않는다.

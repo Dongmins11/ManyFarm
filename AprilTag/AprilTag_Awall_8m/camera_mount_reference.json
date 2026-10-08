@@ -1,0 +1,142 @@
+{
+  "description": "Physical mounting reference and estimated optical extrinsics; documentation only, not a URDF patch",
+  "parent_frame": "base_footprint",
+  "base_axes": {
+    "x": "forward",
+    "y": "left",
+    "z": "up"
+  },
+  "base_origin_assumption": "Drive axle midpoint projected to floor; confirm correspondence when matching URDF",
+  "camera": "PCWEB400 HD 4MP USB webcam",
+  "physical_installation": "Left side, approximately flush with chassis side, facing left toward tag wall",
+  "measurement": {
+    "tag_id": 104,
+    "tag_black_edge_m": 0.05,
+    "laser_reference": "rear_end",
+    "front_wall_distance_m": 0.172,
+    "rear_wall_distance_m": 0.172,
+    "measurement_baseline_m": 0.53,
+    "base_center_to_reference_face_m": 0.26,
+    "tag_center_base_m": [
+      0.0,
+      0.432,
+      0.264
+    ],
+    "tag_fore_aft_user_estimated_uncertainty_m": 0.002,
+    "wall_relative_heading_measured_rad": 0.0
+  },
+  "estimated_optical_mount": {
+    "translation_m": [
+      -0.00433822,
+      0.25046456,
+      0.26142254
+    ],
+    "quaternion_xyzw": [
+      -0.69205081,
+      0.00823666,
+      0.00411433,
+      0.72179007
+    ],
+    "T_base_camera": [
+      [
+        0.9998304594412302,
+        -0.01733973954324101,
+        0.006195627983593946,
+        -0.00433822
+      ],
+      [
+        -0.005461009377162412,
+        0.04209749642548205,
+        0.9990985828091686,
+        0.25046456
+      ],
+      [
+        -0.017584929630825155,
+        -0.9989630294596888,
+        0.041995666712172086,
+        0.26142254
+      ],
+      [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ]
+    ],
+    "status": "Estimated using stationary ID104 and physical measurements; not independently surveyed absolute extrinsics"
+  },
+  "camera_info": {
+    "width": 1280,
+    "height": 720,
+    "distortion_model": "plumb_bob",
+    "k": [
+      1049.686473614098,
+      0.0,
+      631.4064932131716,
+      0.0,
+      1049.6045471847024,
+      371.5007152003926,
+      0.0,
+      0.0,
+      1.0
+    ],
+    "d": [
+      -0.3377842831321281,
+      -0.164282838502531,
+      -0.0022793440724075856,
+      -0.0009489786116262821,
+      0.5007299952602192
+    ],
+    "r": [
+      1.0,
+      0.0,
+      0.0,
+      0.0,
+      1.0,
+      0.0,
+      0.0,
+      0.0,
+      1.0
+    ],
+    "p": [
+      1049.686473614098,
+      0.0,
+      631.4064932131716,
+      0.0,
+      0.0,
+      1049.6045471847024,
+      371.5007152003926,
+      0.0,
+      0.0,
+      0.0,
+      1.0,
+      0.0
+    ],
+    "binning": [
+      0,
+      0
+    ],
+    "roi": [
+      0,
+      0,
+      0,
+      0
+    ],
+    "frame_id": "apriltag_camera_optical_frame"
+  },
+  "capture_conditions": {
+    "resolution": [
+      1280,
+      720
+    ],
+    "format": "MJPG",
+    "requested_fps": 30,
+    "ros_publish_cap_hz": 10,
+    "actual_observed_ros_hz_approx": [
+      8,
+      9
+    ],
+    "exposure_ms": 2
+  },
+  "warning": "Optical frame transform, not camera housing/link transform. Do not apply again if URDF already includes optical rotation."
+}

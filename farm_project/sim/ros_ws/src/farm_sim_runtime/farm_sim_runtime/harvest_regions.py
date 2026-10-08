@@ -30,8 +30,8 @@ class RegionSettings:
             if isinstance(number, bool) or not isinstance(number, (float, int)) or not math.isfinite(number) or number <= 0:
                 raise ValueError('adaptive.'+key+'는 유한한 양수여야 합니다.')
         for hz in (settings.idle_hz, settings.harvest_hz):
-            if hz not in (60, 120, 240, 480) or not math.isclose(hz/render_hz, round(hz/render_hz)) or hz < render_hz:
-                raise ValueError('adaptive 물리는 렌더의 정수 배인 60/120/240/480Hz여야 합니다.')
+            if hz % 60 != 0 or not math.isclose(hz/render_hz, round(hz/render_hz)) or hz < render_hz:
+                raise ValueError('adaptive 물리는 60Hz와 렌더 주기의 양의 정수 배여야 합니다.')
         if settings.harvest_hz < settings.idle_hz or settings.retention_radius_m < settings.activation_radius_m:
             raise ValueError('수확 주기/유지 반경은 유휴 주기/활성 반경 이상이어야 합니다.')
         return settings

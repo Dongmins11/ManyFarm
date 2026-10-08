@@ -91,6 +91,11 @@ class TeacherDevice:
                      and p.HasAPI(UsdPhysics.RigidBodyAPI) and str(p.GetPath()) not in self._finger_paths
                      and any(c.HasAPI(UsdPhysics.CollisionAPI)
                              for c in Usd.PrimRange(p, Usd.TraverseInstanceProxies()))]
+        if physics.profile.get('teacher_alignment', {}).get('enabled', False):
+            # 학습의 arm contact sensor는 합쳐진 차체/집게를 제외한 네 링크다.
+            contact_links = {'arm_2_shoulder_link', 'arm_2_upper_arm_link',
+                             'arm_2_lower_arm_link', 'arm_2_wrist_link'}
+            arm_paths = [path for path in arm_paths if path.rsplit('/', 1)[-1] in contact_links]
         if not arm_paths:
             raise ValueError('오른팔 접촉 측정 body가 없습니다.')
         # reporter threshold만0으로 만들며 global solver/stabilization은 변경하지 않는다.
@@ -168,6 +173,12 @@ class TeacherDevice:
                      home_distance_m=float(np.linalg.norm(arm[i]-self.config['home_tcp_arm_m'])))
                 for i, path in enumerate(self.paths) if eligible[i] and path not in completed
                 and self.attachments.records[i]['color'] in ('red', 'yellow')]
+
+    def arm_world_transform(self) -> np.ndarray:
+        """시험 배치 기하에 사용할 실제 오른팔 장착점의 world 변환을 복사한다."""
+        if not self._ready:
+            raise RuntimeError('TeacherDevice.initialize가 필요합니다.')
+        return self._frame()[0].copy()
 
     def candidate_ids(self, completed_ids: Sequence[str] = ()) -> list[str]:
         """candidates와 같은 조건의 원래 과실 prim ID 목록이다."""
@@ -255,6 +266,14 @@ class TeacherDevice:
             raise RuntimeError('PhysX contact force 조회가 유효하지 않습니다.')
         return dict(finger_net_forces_world=fingers, arm_forces_world=arm,
                     max_force_N=float(max(np.linalg.norm(fingers, axis=1).max(), np.linalg.norm(arm, axis=1).max())))
+
+    def finger_contact_forces_world(self, target_id: str) -> np.ndarray:
+        """선택 과실에 대한 두 손가락의 실제 접촉력(N)을 읽는다. 다른 물체 접촉은 제외한다."""
+        index = self._path_indices[target_id]
+        matrix = np.asarray(self._finger_view.get_contact_force_matrix(dt=self._last_physics_dt), dtype=float)
+        if matrix.shape != (2, len(self.paths), 3) or not np.isfinite(matrix).all():
+            raise RuntimeError(f'PhysX 대상별 손가락 접촉 shape가 다릅니다: {matrix.shape}')
+        return matrix[self._finger_indices, index].copy()
 
     def _read_sample(self, sim_s: float, dt: float) -> dict:
         """선택 과실의 실제 상태를 고정 legacy policy frame으로 읽는다."""

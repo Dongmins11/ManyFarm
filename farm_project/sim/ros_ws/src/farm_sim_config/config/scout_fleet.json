@@ -92,5 +92,6 @@
     "enabled": true,
     "config": "station_spawn.json"
   },
-  "publish_clock": false
+  "publish_clock": false,
+  "apriltag_map": "sim/ros_ws/src/farm_sim_config/config/apriltag_map.json"
 }

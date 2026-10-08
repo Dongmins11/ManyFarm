@@ -1,6 +1,7 @@
 """받은 오른팔 물성과 박스 바닥을 세션 레이어에만 적용한다.
 
-주행 USD의 바퀴·캐스터·왼팔 및 articulation 구조를 보존한다. 호출은 물리
+주행 USD의 바퀴·캐스터·왼팔을 보존한다. 학습 정렬 시 오른팔의 고정 카메라
+몸체를 집게에 합치고 articulation solver/자기충돌을 맞춘다. 호출은 물리
 초기화 전에 한 번 수행하며, 관절 상태 자체의 HOME 배치는 실행기가 담당한다.
 """
 import math
@@ -43,7 +44,7 @@ def _make_editable(body: object) -> list:
 
 
 def configure_harvest_arm(stage: object, robot_path: str, config: dict) -> dict:
-    """오른팔 drive·집게 접촉·박스 바닥을 적용하고 적용값을 반환한다.
+    """학습 팔 물리·drive·집게 접촉·박스 바닥을 적용하고 적용값을 반환한다.
 
     config의 arm/gripper 값은 N·m/rad, N·m·s/rad, N·m, rad/s다.
     USD angular drive는 degree 기반이므로 gains는 π/180을 곱하고 속도와
@@ -58,6 +59,10 @@ def configure_harvest_arm(stage: object, robot_path: str, config: dict) -> dict:
     if UsdGeom.GetStageUpAxis(stage) != 'Z' or not math.isclose(
             UsdGeom.GetStageMetersPerUnit(stage), 1.0, abs_tol=1e-9):
         raise ValueError('오른팔 물성은 metre/Z-up stage에서만 적용합니다.')
+    alignment = None
+    if config.get('teacher_alignment', {}).get('enabled', False):
+        from .teacher_arm_alignment import align_teacher_arm
+        alignment = align_teacher_arm(stage, robot, config['teacher_alignment'])
     arm, gripper, contact = config['arm'], config['gripper'], config['contact']
     names = list(arm['joint_names']) + [gripper['joint_name']]
     if len(names) != 6 or len(set(names)) != 6 or any(not n.startswith('arm_2_') for n in names):
@@ -154,9 +159,10 @@ def configure_harvest_arm(stage: object, robot_path: str, config: dict) -> dict:
                 resolved, _ = binding.ComputeBoundMaterial('physics')
                 if resolved.GetPath() != material_path:
                     raise RuntimeError(f'그리퍼 접촉 재질 바인딩 실패: {prim.GetPath()}')
-                collision = PhysxSchema.PhysxCollisionAPI.Apply(prim)
-                collision.CreateContactOffsetAttr(offset)
-                collision.CreateRestOffsetAttr(rest)
+                if alignment is None:
+                    collision = PhysxSchema.PhysxCollisionAPI.Apply(prim)
+                    collision.CreateContactOffsetAttr(offset)
+                    collision.CreateRestOffsetAttr(rest)
                 grip_paths.append(str(prim.GetPath()))
         for body, child, source_path in floors:
             prim = UsdGeom.Xform.Define(stage, child).GetPrim()
@@ -169,4 +175,4 @@ def configure_harvest_arm(stage: object, robot_path: str, config: dict) -> dict:
     return dict(joint_paths=[row['path'] for row in drives], joint_names=names,
                 home_positions_rad=None if home_arm is None else [float(v) for v in homes],
                 usd_drives=drives, grip_colliders=grip_paths, floor_colliders=floor_paths,
-                grip_material=str(material_path), edit_layer='session')
+                grip_material=str(material_path), edit_layer='session', teacher_alignment=alignment)

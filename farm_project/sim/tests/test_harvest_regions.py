@@ -132,7 +132,7 @@ class RegionSettingsTests(unittest.TestCase):
         defaults = RegionSettings.from_mapping({}, 60)
         self.assertEqual((defaults.idle_hz, defaults.harvest_hz), (60, 480))
         self.assertEqual((defaults.activation_radius_m, defaults.retention_radius_m), (.8, 1.))
-        for rate in (60, 120, 240, 480):
+        for rate in (60, 120, 180, 240, 480, 960):
             settings = RegionSettings.from_mapping(dict(harvest_hz=rate), 60)
             self.assertEqual(settings.harvest_hz, rate)
 

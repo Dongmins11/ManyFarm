@@ -80,6 +80,14 @@ def fixture() -> TeacherDevice:
 
 
 class TeacherDeviceTest(unittest.TestCase):
+    def test_inspector_contacts_filter_target_and_use_actual_tick_duration(self) -> None:
+        d = fixture()
+        np.testing.assert_allclose(d.finger_contact_forces_world('/red'), [[1., 0., 0.], [0., 2., 0.]])
+        np.testing.assert_allclose(d.finger_contact_forces_world('/yellow'), np.zeros((2, 3)))
+        d._last_physics_dt = 1/60
+        np.testing.assert_allclose(d.finger_contact_forces_world('/red'), [[.125, 0., 0.], [0., .25, 0.]])
+        self.assertEqual(d._selected, '/red')
+
     def test_quaternion_keeps_rotation_for_half_turns_and_general_pose(self) -> None:
         for q in ([1, 0, 0, 0], [0, 1, 0, 0], [0, 0, 1, 0], [0, 0, 0, 1], [1, 2, 3, 4]):
             q = np.asarray(q, dtype=float)/np.linalg.norm(q)

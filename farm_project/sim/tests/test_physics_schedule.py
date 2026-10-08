@@ -13,6 +13,9 @@ class ContextFixture:
 
     def __init__(self, world: 'WorldFixture') -> None:
         self.world = world
+        self.writeback = (True, True, False)
+        self.writeback_reads = 0
+        self.writeback_calls: list[tuple[bool, bool, bool]] = []
 
     def set_physics_dt(self, dt: float, substeps: int = 1) -> None:
         self.world.events.append(('rate', self.world.current_time, dt, substeps))
@@ -21,6 +24,16 @@ class ContextFixture:
 
     def get_physics_dt(self) -> float:
         return self.world.dt
+
+    def get_physx_update_transformations_settings(self) -> tuple[bool, bool, bool]:
+        self.writeback_reads += 1
+        return self.writeback
+
+    def set_physx_update_transformations_settings(self, update_to_usd: bool,
+                                                 update_velocities_to_usd: bool,
+                                                 output_velocities_local_space: bool) -> None:
+        self.writeback = (update_to_usd, update_velocities_to_usd, output_velocities_local_space)
+        self.writeback_calls.append(self.writeback)
 
 
 class WorldFixture:
@@ -34,16 +47,20 @@ class WorldFixture:
         self.render_time_error = 0.
         self.switch_time_error = 0.
         self.step_multiplier = 1.
+        self.step_writeback: list[tuple[bool, bool, bool]] = []
+        self.render_writeback: list[tuple[bool, bool, bool]] = []
 
     def get_physics_context(self) -> ContextFixture:
         return self.context
 
     def step(self, render: bool) -> None:
         self.events.append(('step', self.current_time, render))
+        self.step_writeback.append(self.context.writeback)
         self.current_time += self.dt * self.step_multiplier
 
     def render(self) -> None:
         self.events.append(('render', self.current_time))
+        self.render_writeback.append(self.context.writeback)
         self.current_time += self.render_time_error
 
 
@@ -104,6 +121,17 @@ class AdaptivePhysicsTicksTests(unittest.TestCase):
         self.assertEqual((schedule.frame_count, schedule.total_ticks), (4, 15))
         self.assertAlmostEqual(world.current_time, 4/60)
         self.assertNotIn('force', [event[0] for event in world.events])
+
+    def test_ui_rate_preserves_render_interval(self) -> None:
+        schedule, world = AdaptivePhysicsTicks(60, 60), WorldFixture(60)
+        schedule.allow_rate(180)
+        schedule.step_frame(world, physics_hz=180)
+        self.assertEqual(schedule.total_ticks, 3)
+        self.assertAlmostEqual(world.current_time, 1/60)
+        self.assertEqual(set(schedule.frame_timings),
+                         {'forces_s', 'simulation_s', 'contacts_s', 'render_s'})
+        with self.assertRaises(ValueError):
+            schedule.allow_rate(100)
 
     def test_invalid_rate_or_noninteger_render_ratio_rejected(self) -> None:
         for physics, render, allowed in ((0, 60, (60,)), (60, 0, (60,)),
@@ -174,6 +202,71 @@ class AdaptivePhysicsTicksTests(unittest.TestCase):
             schedule.step_frame(world, FailedAttachment())
         self.assertEqual(world.events, [])
         self.assertEqual((schedule.frame_count, schedule.total_ticks), (0, 0))
+
+    def test_batched_writeback_preserves_ticks_contacts_and_frame_boundary(self) -> None:
+        for hz in (120, 240, 480):
+            with self.subTest(hz=hz):
+                schedule, world = AdaptivePhysicsTicks(hz, 60, batch_usd_writeback=True), WorldFixture(hz)
+                contacts = []
+                def observe(dt: float, now: float) -> None:
+                    contacts.append((dt, now, world.context.writeback))
+                schedule.step_frame(world, AttachmentFixture(world), post_step=observe)
+                expected = [(False, False, False)] * (hz // 60 - 1) + [(True, True, False)]
+                self.assertEqual(world.step_writeback, expected)
+                self.assertEqual([sample[2] for sample in contacts], expected)
+                self.assertEqual(world.render_writeback, [(True, True, False)])
+                self.assertEqual((schedule.total_ticks, schedule.frame_count), (hz // 60, 1))
+                self.assertAlmostEqual(world.current_time, 1 / 60)
+                self.assertEqual(len([event for event in world.events if event[0] == 'force']), hz // 60)
+
+    def test_writeback_opt_in_and_single_tick_never_access_settings(self) -> None:
+        for hz, enabled in ((480, False), (60, False), (60, True)):
+            with self.subTest(hz=hz, enabled=enabled):
+                schedule = AdaptivePhysicsTicks(hz, 60, batch_usd_writeback=enabled)
+                world = WorldFixture(hz)
+                schedule.step_frame(world)
+                self.assertEqual(world.context.writeback_reads, 0)
+                self.assertEqual(world.context.writeback_calls, [])
+                self.assertEqual(world.step_writeback, [(True, True, False)] * (hz // 60))
+
+    def test_batched_writeback_preserves_original_flags_and_rate_changes(self) -> None:
+        schedule, world = AdaptivePhysicsTicks(60, 60, batch_usd_writeback=True), WorldFixture(60)
+        world.context.writeback = (True, False, True)
+        for rate in (60, 480, 60):
+            schedule.step_frame(world, physics_hz=rate)
+        self.assertEqual(world.context.writeback_reads, 1)
+        self.assertEqual(world.step_writeback, [(True, False, True)] +
+                         [(False, False, True)] * 7 + [(True, False, True)] * 2)
+        self.assertEqual(world.render_writeback, [(True, False, True)] * 3)
+        self.assertEqual(world.context.writeback, (True, False, True))
+        self.assertAlmostEqual(world.current_time, 3 / 60)
+
+    def test_batched_writeback_restores_after_tick_or_callback_failure(self) -> None:
+        for failure in ('force', 'step', 'contact'):
+            with self.subTest(failure=failure):
+                schedule, world = AdaptivePhysicsTicks(480, 60, batch_usd_writeback=True), WorldFixture(480)
+                class FailedAttachment:
+                    def update(self, dt_s: float, sim_time_s: float) -> None:
+                        if failure == 'force' and sim_time_s > 0:
+                            raise RuntimeError('force failed')
+                def observe(dt: float, now: float) -> None:
+                    if failure == 'contact':
+                        raise RuntimeError('contact failed')
+                if failure == 'step':
+                    world.step_multiplier = 0.
+                with self.assertRaises(RuntimeError):
+                    schedule.step_frame(world, FailedAttachment(), post_step=observe)
+                self.assertEqual(world.context.writeback, (True, True, False))
+                self.assertEqual(world.context.writeback_calls[-1], (True, True, False))
+                self.assertEqual(world.render_writeback, [])
+
+    def test_invalid_writeback_settings_fail_before_stepping(self) -> None:
+        schedule, world = AdaptivePhysicsTicks(480, 60, batch_usd_writeback=True), WorldFixture(480)
+        world.context.writeback = (True, True)
+        with self.assertRaisesRegex(RuntimeError, 'bool 세 값'):
+            schedule.step_frame(world)
+        self.assertEqual(world.events, [])
+        self.assertEqual(world.context.writeback_calls, [])
 
 
 if __name__ == '__main__':

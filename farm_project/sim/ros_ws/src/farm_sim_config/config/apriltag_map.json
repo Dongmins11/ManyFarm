@@ -1,0 +1,8199 @@
+{
+  "schema_version": 1,
+  "map_id": "farm_map_v1",
+  "frame_id": "map",
+  "identity_fields": [
+    "section_id",
+    "id"
+  ],
+  "requires_active_section": true,
+  "T_map_world": [
+    [
+      1,
+      0,
+      0,
+      0
+    ],
+    [
+      0,
+      1,
+      0,
+      0
+    ],
+    [
+      0,
+      0,
+      1,
+      0
+    ],
+    [
+      0,
+      0,
+      0,
+      1
+    ]
+  ],
+  "note": "시뮬 배치. 실물 설치 완료/독립 측량 좌표가 아님.",
+  "tags": [
+    {
+      "id": 100,
+      "family": "tag36h11",
+      "section_id": "SEC01",
+      "bed_prim": "/World/Vegetation/Bed_02",
+      "wall_prim": "/World/farm_framechanged/Bed_Edge_2__1",
+      "black_edge_m": 0.05,
+      "paper_size_m": [
+        0.064,
+        0.069
+      ],
+      "tag_center_map_m": [
+        -5.501,
+        9.968,
+        0.264
+      ],
+      "paper_center_map_m": [
+        -5.501,
+        9.968,
+        0.2615
+      ],
+      "right_map": [
+        0.0,
+        -1.0,
+        0.0
+      ],
+      "normal_map": [
+        -1.0,
+        -0.0,
+        0.0
+      ],
+      "texture": "sim/assets/apriltag/textures/tag36h11_ID100_64x69mm.png",
+      "source_status": "provided_pattern"
+    },
+    {
+      "id": 101,
+      "family": "tag36h11",
+      "section_id": "SEC01",
+      "bed_prim": "/World/Vegetation/Bed_02",
+      "wall_prim": "/World/farm_framechanged/Bed_Edge_2__1",
+      "black_edge_m": 0.05,
+      "paper_size_m": [
+        0.064,
+        0.069
+      ],
+      "tag_center_map_m": [
+        -5.501,
+        9.404,
+        0.264
+      ],
+      "paper_center_map_m": [
+        -5.501,
+        9.404,
+        0.2615
+      ],
+      "right_map": [
+        0.0,
+        -1.0,
+        0.0
+      ],
+      "normal_map": [
+        -1.0,
+        -0.0,
+        0.0
+      ],
+      "texture": "sim/assets/apriltag/textures/tag36h11_ID101_64x69mm.png",
+      "source_status": "provided_pattern"
+    },
+    {
+      "id": 102,
+      "family": "tag36h11",
+      "section_id": "SEC01",
+      "bed_prim": "/World/Vegetation/Bed_02",
+      "wall_prim": "/World/farm_framechanged/Bed_Edge_2__1",
+      "black_edge_m": 0.05,
+      "paper_size_m": [
+        0.064,
+        0.069
+      ],
+      "tag_center_map_m": [
+        -5.501,
+        8.84,
+        0.264
+      ],
+      "paper_center_map_m": [
+        -5.501,
+        8.84,
+        0.2615
+      ],
+      "right_map": [
+        0.0,
+        -1.0,
+        0.0
+      ],
+      "normal_map": [
+        -1.0,
+        -0.0,
+        0.0
+      ],
+      "texture": "sim/assets/apriltag/textures/tag36h11_ID102_64x69mm.png",
+      "source_status": "provided_pattern"
+    },
+    {
+      "id": 103,
+      "family": "tag36h11",
+      "section_id": "SEC01",
+      "bed_prim": "/World/Vegetation/Bed_02",
+      "wall_prim": "/World/farm_framechanged/Bed_Edge_2__1",
+      "black_edge_m": 0.05,
+      "paper_size_m": [
+        0.064,
+        0.069
+      ],
+      "tag_center_map_m": [
+        -5.501,
+        8.276,
+        0.264
+      ],
+      "paper_center_map_m": [
+        -5.501,
+        8.276,
+        0.2615
+      ],
+      "right_map": [
+        0.0,
+        -1.0,
+        0.0
+      ],
+      "normal_map": [
+        -1.0,
+        -0.0,
+        0.0
+      ],
+      "texture": "sim/assets/apriltag/textures/tag36h11_ID103_64x69mm.png",
+      "source_status": "provided_pattern"
+    },
+    {
+      "id": 104,
+      "family": "tag36h11",
+      "section_id": "SEC01",
+      "bed_prim": "/World/Vegetation/Bed_02",
+      "wall_prim": "/World/farm_framechanged/Bed_Edge_2__1",
+      "black_edge_m": 0.05,
+      "paper_size_m": [
+        0.064,
+        0.069
+      ],
+      "tag_center_map_m": [
+        -5.501,
+        7.712,
+        0.264
+      ],
+      "paper_center_map_m": [
+        -5.501,
+        7.712,
+        0.2615
+      ],
+      "right_map": [
+        0.0,
+        -1.0,
+        0.0
+      ],
+      "normal_map": [
+        -1.0,
+        -0.0,
+        0.0
+      ],
+      "texture": "sim/assets/apriltag/textures/tag36h11_ID104_64x69mm.png",
+      "source_status": "provided_pattern"
+    },
+    {
+      "id": 105,
+      "family": "tag36h11",
+      "section_id": "SEC01",
+      "bed_prim": "/World/Vegetation/Bed_02",
+      "wall_prim": "/World/farm_framechanged/Bed_Edge_2__1",
+      "black_edge_m": 0.05,
+      "paper_size_m": [
+        0.064,
+        0.069
+      ],
+      "tag_center_map_m": [
+        -5.501,
+        7.148,
+        0.264
+      ],
+      "paper_center_map_m": [
+        -5.501,
+        7.148,
+        0.2615
+      ],
+      "right_map": [
+        0.0,
+        -1.0,
+        0.0
+      ],
+      "normal_map": [
+        -1.0,
+        -0.0,
+        0.0
+      ],
+      "texture": "sim/assets/apriltag/textures/tag36h11_ID105_64x69mm.png",
+      "source_status": "provided_pattern"
+    },
+    {
+      "id": 106,
+      "family": "tag36h11",
+      "section_id": "SEC01",
+      "bed_prim": "/World/Vegetation/Bed_02",
+      "wall_prim": "/World/farm_framechanged/Bed_Edge_2__1",
+      "black_edge_m": 0.05,
+      "paper_size_m": [
+        0.064,
+        0.069
+      ],
+      "tag_center_map_m": [
+        -5.501,
+        6.584,
+        0.264
+      ],
+      "paper_center_map_m": [
+        -5.501,
+        6.584,
+        0.2615
+      ],
+      "right_map": [
+        0.0,
+        -1.0,
+        0.0
+      ],
+      "normal_map": [
+        -1.0,
+        -0.0,
+        0.0
+      ],
+      "texture": "sim/assets/apriltag/textures/tag36h11_ID106_64x69mm.png",
+      "source_status": "provided_pattern"
+    },
+    {
+      "id": 107,
+      "family": "tag36h11",
+      "section_id": "SEC01",
+      "bed_prim": "/World/Vegetation/Bed_02",
+      "wall_prim": "/World/farm_framechanged/Bed_Edge_2__1",
+      "black_edge_m": 0.05,
+      "paper_size_m": [
+        0.064,
+        0.069
+      ],
+      "tag_center_map_m": [
+        -5.501,
+        6.02,
+        0.264
+      ],
+      "paper_center_map_m": [
+        -5.501,
+        6.02,
+        0.2615
+      ],
+      "right_map": [
+        0.0,
+        -1.0,
+        0.0
+      ],
+      "normal_map": [
+        -1.0,
+        -0.0,
+        0.0
+      ],
+      "texture": "sim/assets/apriltag/textures/tag36h11_ID107_64x69mm.png",
+      "source_status": "provided_pattern"
+    },
+    {
+      "id": 108,
+      "family": "tag36h11",
+      "section_id": "SEC01",
+      "bed_prim": "/World/Vegetation/Bed_02",
+      "wall_prim": "/World/farm_framechanged/Bed_Edge_2__1",
+      "black_edge_m": 0.05,
+      "paper_size_m": [
+        0.064,
+        0.069
+      ],
+      "tag_center_map_m": [
+        -5.501,
+        5.456,
+        0.264
+      ],
+      "paper_center_map_m": [
+        -5.501,
+        5.456,
+        0.2615
+      ],
+      "right_map": [
+        0.0,
+        -1.0,
+        0.0
+      ],
+      "normal_map": [
+        -1.0,
+        -0.0,
+        0.0
+      ],
+      "texture": "sim/assets/apriltag/textures/tag36h11_ID108_64x69mm.png",
+      "source_status": "provided_pattern"
+    },
+    {
+      "id": 109,
+      "family": "tag36h11",
+      "section_id": "SEC01",
+      "bed_prim": "/World/Vegetation/Bed_02",
+      "wall_prim": "/World/farm_framechanged/Bed_Edge_2__1",
+      "black_edge_m": 0.05,
+      "paper_size_m": [
+        0.064,
+        0.069
+      ],
+      "tag_center_map_m": [
+        -5.501,
+        4.892,
+        0.264
+      ],
+      "paper_center_map_m": [
+        -5.501,
+        4.892,
+        0.2615
+      ],
+      "right_map": [
+        0.0,
+        -1.0,
+        0.0
+      ],
+      "normal_map": [
+        -1.0,
+        -0.0,
+        0.0
+      ],
+      "texture": "sim/assets/apriltag/textures/tag36h11_ID109_64x69mm.png",
+      "source_status": "provided_pattern"
+    },
+    {
+      "id": 110,
+      "family": "tag36h11",
+      "section_id": "SEC01",
+      "bed_prim": "/World/Vegetation/Bed_02",
+      "wall_prim": "/World/farm_framechanged/Bed_Edge_2__1",
+      "black_edge_m": 0.05,
+      "paper_size_m": [
+        0.064,
+        0.069
+      ],
+      "tag_center_map_m": [
+        -5.501,
+        4.328,
+        0.264
+      ],
+      "paper_center_map_m": [
+        -5.501,
+        4.328,
+        0.2615
+      ],
+      "right_map": [
+        0.0,
+        -1.0,
+        0.0
+      ],
+      "normal_map": [
+        -1.0,
+        -0.0,
+        0.0
+      ],
+      "texture": "sim/assets/apriltag/textures/tag36h11_ID110_64x69mm.png",
+      "source_status": "provided_pattern"
+    },
+    {
+      "id": 111,
+      "family": "tag36h11",
+      "section_id": "SEC01",
+      "bed_prim": "/World/Vegetation/Bed_02",
+      "wall_prim": "/World/farm_framechanged/Bed_Edge_2__1",
+      "black_edge_m": 0.05,
+      "paper_size_m": [
+        0.064,
+        0.069
+      ],
+      "tag_center_map_m": [
+        -5.501,
+        3.7640000000000002,
+        0.264
+      ],
+      "paper_center_map_m": [
+        -5.501,
+        3.7640000000000002,
+        0.2615
+      ],
+      "right_map": [
+        0.0,
+        -1.0,
+        0.0
+      ],
+      "normal_map": [
+        -1.0,
+        -0.0,
+        0.0
+      ],
+      "texture": "sim/assets/apriltag/textures/tag36h11_ID111_64x69mm.png",
+      "source_status": "provided_pattern"
+    },
+    {
+      "id": 112,
+      "family": "tag36h11",
+      "section_id": "SEC01",
+      "bed_prim": "/World/Vegetation/Bed_02",
+      "wall_prim": "/World/farm_framechanged/Bed_Edge_2__1",
+      "black_edge_m": 0.05,
+      "paper_size_m": [
+        0.064,
+        0.069
+      ],
+      "tag_center_map_m": [
+        -5.501,
+        3.2,
+        0.264
+      ],
+      "paper_center_map_m": [
+        -5.501,
+        3.2,
+        0.2615
+      ],
+      "right_map": [
+        0.0,
+        -1.0,
+        0.0
+      ],
+      "normal_map": [
+        -1.0,
+        -0.0,
+        0.0
+      ],
+      "texture": "sim/assets/apriltag/textures/tag36h11_ID112_64x69mm.png",
+      "source_status": "provided_pattern"
+    },
+    {
+      "id": 113,
+      "family": "tag36h11",
+      "section_id": "SEC01",
+      "bed_prim": "/World/Vegetation/Bed_02",
+      "wall_prim": "/World/farm_framechanged/Bed_Edge_2__1",
+      "black_edge_m": 0.05,
+      "paper_size_m": [
+        0.064,
+        0.069
+      ],
+      "tag_center_map_m": [
+        -5.501,
+        2.636,
+        0.264
+      ],
+      "paper_center_map_m": [
+        -5.501,
+        2.636,
+        0.2615
+      ],
+      "right_map": [
+        0.0,
+        -1.0,
+        0.0
+      ],
+      "normal_map": [
+        -1.0,
+        -0.0,
+        0.0
+      ],
+      "texture": "sim/assets/apriltag/textures/tag36h11_ID113_64x69mm.png",
+      "source_status": "provided_pattern"
+    },
+    {
+      "id": 114,
+      "family": "tag36h11",
+      "section_id": "SEC01",
+      "bed_prim": "/World/Vegetation/Bed_02",
+      "wall_prim": "/World/farm_framechanged/Bed_Edge_2__1",
+      "black_edge_m": 0.05,
+      "paper_size_m": [
+        0.064,
+        0.069
+      ],
+      "tag_center_map_m": [
+        -5.501,
+        2.072,
+        0.264
+      ],
+      "paper_center_map_m": [
+        -5.501,
+        2.072,
+        0.2615
+      ],
+      "right_map": [
+        0.0,
+        -1.0,
+        0.0
+      ],
+      "normal_map": [
+        -1.0,
+        -0.0,
+        0.0
+      ],
+      "texture": "sim/assets/apriltag/textures/tag36h11_ID114_64x69mm.png",
+      "source_status": "provided_pattern"
+    },
+    {
+      "id": 100,
+      "family": "tag36h11",
+      "section_id": "SEC02",
+      "bed_prim": "/World/Vegetation/Bed_02",
+      "wall_prim": "/World/farm_framechanged/Bed_Edge_2_1",
+      "black_edge_m": 0.05,
+      "paper_size_m": [
+        0.064,
+        0.069
+      ],
+      "tag_center_map_m": [
+        -4.499,
+        2.032,
+        0.264
+      ],
+      "paper_center_map_m": [
+        -4.499,
+        2.032,
+        0.2615
+      ],
+      "right_map": [
+        0.0,
+        1.0,
+        0.0
+      ],
+      "normal_map": [
+        1.0,
+        -0.0,
+        0.0
+      ],
+      "texture": "sim/assets/apriltag/textures/tag36h11_ID100_64x69mm.png",
+      "source_status": "provided_pattern"
+    },
+    {
+      "id": 101,
+      "family": "tag36h11",
+      "section_id": "SEC02",
+      "bed_prim": "/World/Vegetation/Bed_02",
+      "wall_prim": "/World/farm_framechanged/Bed_Edge_2_1",
+      "black_edge_m": 0.05,
+      "paper_size_m": [
+        0.064,
+        0.069
+      ],
+      "tag_center_map_m": [
+        -4.499,
+        2.596,
+        0.264
+      ],
+      "paper_center_map_m": [
+        -4.499,
+        2.596,
+        0.2615
+      ],
+      "right_map": [
+        0.0,
+        1.0,
+        0.0
+      ],
+      "normal_map": [
+        1.0,
+        -0.0,
+        0.0
+      ],
+      "texture": "sim/assets/apriltag/textures/tag36h11_ID101_64x69mm.png",
+      "source_status": "provided_pattern"
+    },
+    {
+      "id": 102,
+      "family": "tag36h11",
+      "section_id": "SEC02",
+      "bed_prim": "/World/Vegetation/Bed_02",
+      "wall_prim": "/World/farm_framechanged/Bed_Edge_2_1",
+      "black_edge_m": 0.05,
+      "paper_size_m": [
+        0.064,
+        0.069
+      ],
+      "tag_center_map_m": [
+        -4.499,
+        3.16,
+        0.264
+      ],
+      "paper_center_map_m": [
+        -4.499,
+        3.16,
+        0.2615
+      ],
+      "right_map": [
+        0.0,
+        1.0,
+        0.0
+      ],
+      "normal_map": [
+        1.0,
+        -0.0,
+        0.0
+      ],
+      "texture": "sim/assets/apriltag/textures/tag36h11_ID102_64x69mm.png",
+      "source_status": "provided_pattern"
+    },
+    {
+      "id": 103,
+      "family": "tag36h11",
+      "section_id": "SEC02",
+      "bed_prim": "/World/Vegetation/Bed_02",
+      "wall_prim": "/World/farm_framechanged/Bed_Edge_2_1",
+      "black_edge_m": 0.05,
+      "paper_size_m": [
+        0.064,
+        0.069
+      ],
+      "tag_center_map_m": [
+        -4.499,
+        3.724,
+        0.264
+      ],
+      "paper_center_map_m": [
+        -4.499,
+        3.724,
+        0.2615
+      ],
+      "right_map": [
+        0.0,
+        1.0,
+        0.0
+      ],
+      "normal_map": [
+        1.0,
+        -0.0,
+        0.0
+      ],
+      "texture": "sim/assets/apriltag/textures/tag36h11_ID103_64x69mm.png",
+      "source_status": "provided_pattern"
+    },
+    {
+      "id": 104,
+      "family": "tag36h11",
+      "section_id": "SEC02",
+      "bed_prim": "/World/Vegetation/Bed_02",
+      "wall_prim": "/World/farm_framechanged/Bed_Edge_2_1",
+      "black_edge_m": 0.05,
+      "paper_size_m": [
+        0.064,
+        0.069
+      ],
+      "tag_center_map_m": [
+        -4.499,
+        4.288,
+        0.264
+      ],
+      "paper_center_map_m": [
+        -4.499,
+        4.288,
+        0.2615
+      ],
+      "right_map": [
+        0.0,
+        1.0,
+        0.0
+      ],
+      "normal_map": [
+        1.0,
+        -0.0,
+        0.0
+      ],
+      "texture": "sim/assets/apriltag/textures/tag36h11_ID104_64x69mm.png",
+      "source_status": "provided_pattern"
+    },
+    {
+      "id": 105,
+      "family": "tag36h11",
+      "section_id": "SEC02",
+      "bed_prim": "/World/Vegetation/Bed_02",
+      "wall_prim": "/World/farm_framechanged/Bed_Edge_2_1",
+      "black_edge_m": 0.05,
+      "paper_size_m": [
+        0.064,
+        0.069
+      ],
+      "tag_center_map_m": [
+        -4.499,
+        4.852,
+        0.264
+      ],
+      "paper_center_map_m": [
+        -4.499,
+        4.852,
+        0.2615
+      ],
+      "right_map": [
+        0.0,
+        1.0,
+        0.0
+      ],
+      "normal_map": [
+        1.0,
+        -0.0,
+        0.0
+      ],
+      "texture": "sim/assets/apriltag/textures/tag36h11_ID105_64x69mm.png",
+      "source_status": "provided_pattern"
+    },
+    {
+      "id": 106,
+      "family": "tag36h11",
+      "section_id": "SEC02",
+      "bed_prim": "/World/Vegetation/Bed_02",
+      "wall_prim": "/World/farm_framechanged/Bed_Edge_2_1",
+      "black_edge_m": 0.05,
+      "paper_size_m": [
+        0.064,
+        0.069
+      ],
+      "tag_center_map_m": [
+        -4.499,
+        5.416,
+        0.264
+      ],
+      "paper_center_map_m": [
+        -4.499,
+        5.416,
+        0.2615
+      ],
+      "right_map": [
+        0.0,
+        1.0,
+        0.0
+      ],
+      "normal_map": [
+        1.0,
+        -0.0,
+        0.0
+      ],
+      "texture": "sim/assets/apriltag/textures/tag36h11_ID106_64x69mm.png",
+      "source_status": "provided_pattern"
+    },
+    {
+      "id": 107,
+      "family": "tag36h11",
+      "section_id": "SEC02",
+      "bed_prim": "/World/Vegetation/Bed_02",
+      "wall_prim": "/World/farm_framechanged/Bed_Edge_2_1",
+      "black_edge_m": 0.05,
+      "paper_size_m": [
+        0.064,
+        0.069
+      ],
+      "tag_center_map_m": [
+        -4.499,
+        5.98,
+        0.264
+      ],
+      "paper_center_map_m": [
+        -4.499,
+        5.98,
+        0.2615
+      ],
+      "right_map": [
+        0.0,
+        1.0,
+        0.0
+      ],
+      "normal_map": [
+        1.0,
+        -0.0,
+        0.0
+      ],
+      "texture": "sim/assets/apriltag/textures/tag36h11_ID107_64x69mm.png",
+      "source_status": "provided_pattern"
+    },
+    {
+      "id": 108,
+      "family": "tag36h11",
+      "section_id": "SEC02",
+      "bed_prim": "/World/Vegetation/Bed_02",
+      "wall_prim": "/World/farm_framechanged/Bed_Edge_2_1",
+      "black_edge_m": 0.05,
+      "paper_size_m": [
+        0.064,
+        0.069
+      ],
+      "tag_center_map_m": [
+        -4.499,
+        6.544,
+        0.264
+      ],
+      "paper_center_map_m": [
+        -4.499,
+        6.544,
+        0.2615
+      ],
+      "right_map": [
+        0.0,
+        1.0,
+        0.0
+      ],
+      "normal_map": [
+        1.0,
+        -0.0,
+        0.0
+      ],
+      "texture": "sim/assets/apriltag/textures/tag36h11_ID108_64x69mm.png",
+      "source_status": "provided_pattern"
+    },
+    {
+      "id": 109,
+      "family": "tag36h11",
+      "section_id": "SEC02",
+      "bed_prim": "/World/Vegetation/Bed_02",
+      "wall_prim": "/World/farm_framechanged/Bed_Edge_2_1",
+      "black_edge_m": 0.05,
+      "paper_size_m": [
+        0.064,
+        0.069
+      ],
+      "tag_center_map_m": [
+        -4.499,
+        7.108,
+        0.264
+      ],
+      "paper_center_map_m": [
+        -4.499,
+        7.108,
+        0.2615
+      ],
+      "right_map": [
+        0.0,
+        1.0,
+        0.0
+      ],
+      "normal_map": [
+        1.0,
+        -0.0,
+        0.0
+      ],
+      "texture": "sim/assets/apriltag/textures/tag36h11_ID109_64x69mm.png",
+      "source_status": "provided_pattern"
+    },
+    {
+      "id": 110,
+      "family": "tag36h11",
+      "section_id": "SEC02",
+      "bed_prim": "/World/Vegetation/Bed_02",
+      "wall_prim": "/World/farm_framechanged/Bed_Edge_2_1",
+      "black_edge_m": 0.05,
+      "paper_size_m": [
+        0.064,
+        0.069
+      ],
+      "tag_center_map_m": [
+        -4.499,
+        7.672,
+        0.264
+      ],
+      "paper_center_map_m": [
+        -4.499,
+        7.672,
+        0.2615
+      ],
+      "right_map": [
+        0.0,
+        1.0,
+        0.0
+      ],
+      "normal_map": [
+        1.0,
+        -0.0,
+        0.0
+      ],
+      "texture": "sim/assets/apriltag/textures/tag36h11_ID110_64x69mm.png",
+      "source_status": "provided_pattern"
+    },
+    {
+      "id": 111,
+      "family": "tag36h11",
+      "section_id": "SEC02",
+      "bed_prim": "/World/Vegetation/Bed_02",
+      "wall_prim": "/World/farm_framechanged/Bed_Edge_2_1",
+      "black_edge_m": 0.05,
+      "paper_size_m": [
+        0.064,
+        0.069
+      ],
+      "tag_center_map_m": [
+        -4.499,
+        8.236,
+        0.264
+      ],
+      "paper_center_map_m": [
+        -4.499,
+        8.236,
+        0.2615
+      ],
+      "right_map": [
+        0.0,
+        1.0,
+        0.0
+      ],
+      "normal_map": [
+        1.0,
+        -0.0,
+        0.0
+      ],
+      "texture": "sim/assets/apriltag/textures/tag36h11_ID111_64x69mm.png",
+      "source_status": "provided_pattern"
+    },
+    {
+      "id": 112,
+      "family": "tag36h11",
+      "section_id": "SEC02",
+      "bed_prim": "/World/Vegetation/Bed_02",
+      "wall_prim": "/World/farm_framechanged/Bed_Edge_2_1",
+      "black_edge_m": 0.05,
+      "paper_size_m": [
+        0.064,
+        0.069
+      ],
+      "tag_center_map_m": [
+        -4.499,
+        8.8,
+        0.264
+      ],
+      "paper_center_map_m": [
+        -4.499,
+        8.8,
+        0.2615
+      ],
+      "right_map": [
+        0.0,
+        1.0,
+        0.0
+      ],
+      "normal_map": [
+        1.0,
+        -0.0,
+        0.0
+      ],
+      "texture": "sim/assets/apriltag/textures/tag36h11_ID112_64x69mm.png",
+      "source_status": "provided_pattern"
+    },
+    {
+      "id": 113,
+      "family": "tag36h11",
+      "section_id": "SEC02",
+      "bed_prim": "/World/Vegetation/Bed_02",
+      "wall_prim": "/World/farm_framechanged/Bed_Edge_2_1",
+      "black_edge_m": 0.05,
+      "paper_size_m": [
+        0.064,
+        0.069
+      ],
+      "tag_center_map_m": [
+        -4.499,
+        9.364,
+        0.264
+      ],
+      "paper_center_map_m": [
+        -4.499,
+        9.364,
+        0.2615
+      ],
+      "right_map": [
+        0.0,
+        1.0,
+        0.0
+      ],
+      "normal_map": [
+        1.0,
+        -0.0,
+        0.0
+      ],
+      "texture": "sim/assets/apriltag/textures/tag36h11_ID113_64x69mm.png",
+      "source_status": "provided_pattern"
+    },
+    {
+      "id": 114,
+      "family": "tag36h11",
+      "section_id": "SEC02",
+      "bed_prim": "/World/Vegetation/Bed_02",
+      "wall_prim": "/World/farm_framechanged/Bed_Edge_2_1",
+      "black_edge_m": 0.05,
+      "paper_size_m": [
+        0.064,
+        0.069
+      ],
+      "tag_center_map_m": [
+        -4.499,
+        9.928,
+        0.264
+      ],
+      "paper_center_map_m": [
+        -4.499,
+        9.928,
+        0.2615
+      ],
+      "right_map": [
+        0.0,
+        1.0,
+        0.0
+      ],
+      "normal_map": [
+        1.0,
+        -0.0,
+        0.0
+      ],
+      "texture": "sim/assets/apriltag/textures/tag36h11_ID114_64x69mm.png",
+      "source_status": "provided_pattern"
+    },
+    {
+      "id": 100,
+      "family": "tag36h11",
+      "section_id": "SEC03",
+      "bed_prim": "/World/Vegetation/Bed_04",
+      "wall_prim": "/World/farm_framechanged/Bed_Edge_4__1",
+      "black_edge_m": 0.05,
+      "paper_size_m": [
+        0.064,
+        0.069
+      ],
+      "tag_center_map_m": [
+        -2.501,
+        9.968,
+        0.264
+      ],
+      "paper_center_map_m": [
+        -2.501,
+        9.968,
+        0.2615
+      ],
+      "right_map": [
+        0.0,
+        -1.0,
+        0.0
+      ],
+      "normal_map": [
+        -1.0,
+        -0.0,
+        0.0
+      ],
+      "texture": "sim/assets/apriltag/textures/tag36h11_ID100_64x69mm.png",
+      "source_status": "provided_pattern"
+    },
+    {
+      "id": 101,
+      "family": "tag36h11",
+      "section_id": "SEC03",
+      "bed_prim": "/World/Vegetation/Bed_04",
+      "wall_prim": "/World/farm_framechanged/Bed_Edge_4__1",
+      "black_edge_m": 0.05,
+      "paper_size_m": [
+        0.064,
+        0.069
+      ],
+      "tag_center_map_m": [
+        -2.501,
+        9.404,
+        0.264
+      ],
+      "paper_center_map_m": [
+        -2.501,
+        9.404,
+        0.2615
+      ],
+      "right_map": [
+        0.0,
+        -1.0,
+        0.0
+      ],
+      "normal_map": [
+        -1.0,
+        -0.0,
+        0.0
+      ],
+      "texture": "sim/assets/apriltag/textures/tag36h11_ID101_64x69mm.png",
+      "source_status": "provided_pattern"
+    },
+    {
+      "id": 102,
+      "family": "tag36h11",
+      "section_id": "SEC03",
+      "bed_prim": "/World/Vegetation/Bed_04",
+      "wall_prim": "/World/farm_framechanged/Bed_Edge_4__1",
+      "black_edge_m": 0.05,
+      "paper_size_m": [
+        0.064,
+        0.069
+      ],
+      "tag_center_map_m": [
+        -2.501,
+        8.84,
+        0.264
+      ],
+      "paper_center_map_m": [
+        -2.501,
+        8.84,
+        0.2615
+      ],
+      "right_map": [
+        0.0,
+        -1.0,
+        0.0
+      ],
+      "normal_map": [
+        -1.0,
+        -0.0,
+        0.0
+      ],
+      "texture": "sim/assets/apriltag/textures/tag36h11_ID102_64x69mm.png",
+      "source_status": "provided_pattern"
+    },
+    {
+      "id": 103,
+      "family": "tag36h11",
+      "section_id": "SEC03",
+      "bed_prim": "/World/Vegetation/Bed_04",
+      "wall_prim": "/World/farm_framechanged/Bed_Edge_4__1",
+      "black_edge_m": 0.05,
+      "paper_size_m": [
+        0.064,
+        0.069
+      ],
+      "tag_center_map_m": [
+        -2.501,
+        8.276,
+        0.264
+      ],
+      "paper_center_map_m": [
+        -2.501,
+        8.276,
+        0.2615
+      ],
+      "right_map": [
+        0.0,
+        -1.0,
+        0.0
+      ],
+      "normal_map": [
+        -1.0,
+        -0.0,
+        0.0
+      ],
+      "texture": "sim/assets/apriltag/textures/tag36h11_ID103_64x69mm.png",
+      "source_status": "provided_pattern"
+    },
+    {
+      "id": 104,
+      "family": "tag36h11",
+      "section_id": "SEC03",
+      "bed_prim": "/World/Vegetation/Bed_04",
+      "wall_prim": "/World/farm_framechanged/Bed_Edge_4__1",
+      "black_edge_m": 0.05,
+      "paper_size_m": [
+        0.064,
+        0.069
+      ],
+      "tag_center_map_m": [
+        -2.501,
+        7.712,
+        0.264
+      ],
+      "paper_center_map_m": [
+        -2.501,
+        7.712,
+        0.2615
+      ],
+      "right_map": [
+        0.0,
+        -1.0,
+        0.0
+      ],
+      "normal_map": [
+        -1.0,
+        -0.0,
+        0.0
+      ],
+      "texture": "sim/assets/apriltag/textures/tag36h11_ID104_64x69mm.png",
+      "source_status": "provided_pattern"
+    },
+    {
+      "id": 105,
+      "family": "tag36h11",
+      "section_id": "SEC03",
+      "bed_prim": "/World/Vegetation/Bed_04",
+      "wall_prim": "/World/farm_framechanged/Bed_Edge_4__1",
+      "black_edge_m": 0.05,
+      "paper_size_m": [
+        0.064,
+        0.069
+      ],
+      "tag_center_map_m": [
+        -2.501,
+        7.148,
+        0.264
+      ],
+      "paper_center_map_m": [
+        -2.501,
+        7.148,
+        0.2615
+      ],
+      "right_map": [
+        0.0,
+        -1.0,
+        0.0
+      ],
+      "normal_map": [
+        -1.0,
+        -0.0,
+        0.0
+      ],
+      "texture": "sim/assets/apriltag/textures/tag36h11_ID105_64x69mm.png",
+      "source_status": "provided_pattern"
+    },
+    {
+      "id": 106,
+      "family": "tag36h11",
+      "section_id": "SEC03",
+      "bed_prim": "/World/Vegetation/Bed_04",
+      "wall_prim": "/World/farm_framechanged/Bed_Edge_4__1",
+      "black_edge_m": 0.05,
+      "paper_size_m": [
+        0.064,
+        0.069
+      ],
+      "tag_center_map_m": [
+        -2.501,
+        6.584,
+        0.264
+      ],
+      "paper_center_map_m": [
+        -2.501,
+        6.584,
+        0.2615
+      ],
+      "right_map": [
+        0.0,
+        -1.0,
+        0.0
+      ],
+      "normal_map": [
+        -1.0,
+        -0.0,
+        0.0
+      ],
+      "texture": "sim/assets/apriltag/textures/tag36h11_ID106_64x69mm.png",
+      "source_status": "provided_pattern"
+    },
+    {
+      "id": 107,
+      "family": "tag36h11",
+      "section_id": "SEC03",
+      "bed_prim": "/World/Vegetation/Bed_04",
+      "wall_prim": "/World/farm_framechanged/Bed_Edge_4__1",
+      "black_edge_m": 0.05,
+      "paper_size_m": [
+        0.064,
+        0.069
+      ],
+      "tag_center_map_m": [
+        -2.501,
+        6.02,
+        0.264
+      ],
+      "paper_center_map_m": [
+        -2.501,
+        6.02,
+        0.2615
+      ],
+      "right_map": [
+        0.0,
+        -1.0,
+        0.0
+      ],
+      "normal_map": [
+        -1.0,
+        -0.0,
+        0.0
+      ],
+      "texture": "sim/assets/apriltag/textures/tag36h11_ID107_64x69mm.png",
+      "source_status": "provided_pattern"
+    },
+    {
+      "id": 108,
+      "family": "tag36h11",
+      "section_id": "SEC03",
+      "bed_prim": "/World/Vegetation/Bed_04",
+      "wall_prim": "/World/farm_framechanged/Bed_Edge_4__1",
+      "black_edge_m": 0.05,
+      "paper_size_m": [
+        0.064,
+        0.069
+      ],
+      "tag_center_map_m": [
+        -2.501,
+        5.456,
+        0.264
+      ],
+      "paper_center_map_m": [
+        -2.501,
+        5.456,
+        0.2615
+      ],
+      "right_map": [
+        0.0,
+        -1.0,
+        0.0
+      ],
+      "normal_map": [
+        -1.0,
+        -0.0,
+        0.0
+      ],
+      "texture": "sim/assets/apriltag/textures/tag36h11_ID108_64x69mm.png",
+      "source_status": "provided_pattern"
+    },
+    {
+      "id": 109,
+      "family": "tag36h11",
+      "section_id": "SEC03",
+      "bed_prim": "/World/Vegetation/Bed_04",
+      "wall_prim": "/World/farm_framechanged/Bed_Edge_4__1",
+      "black_edge_m": 0.05,
+      "paper_size_m": [
+        0.064,
+        0.069
+      ],
+      "tag_center_map_m": [
+        -2.501,
+        4.892,
+        0.264
+      ],
+      "paper_center_map_m": [
+        -2.501,
+        4.892,
+        0.2615
+      ],
+      "right_map": [
+        0.0,
+        -1.0,
+        0.0
+      ],
+      "normal_map": [
+        -1.0,
+        -0.0,
+        0.0
+      ],
+      "texture": "sim/assets/apriltag/textures/tag36h11_ID109_64x69mm.png",
+      "source_status": "provided_pattern"
+    },
+    {
+      "id": 110,
+      "family": "tag36h11",
+      "section_id": "SEC03",
+      "bed_prim": "/World/Vegetation/Bed_04",
+      "wall_prim": "/World/farm_framechanged/Bed_Edge_4__1",
+      "black_edge_m": 0.05,
+      "paper_size_m": [
+        0.064,
+        0.069
+      ],
+      "tag_center_map_m": [
+        -2.501,
+        4.328,
+        0.264
+      ],
+      "paper_center_map_m": [
+        -2.501,
+        4.328,
+        0.2615
+      ],
+      "right_map": [
+        0.0,
+        -1.0,
+        0.0
+      ],
+      "normal_map": [
+        -1.0,
+        -0.0,
+        0.0
+      ],
+      "texture": "sim/assets/apriltag/textures/tag36h11_ID110_64x69mm.png",
+      "source_status": "provided_pattern"
+    },
+    {
+      "id": 111,
+      "family": "tag36h11",
+      "section_id": "SEC03",
+      "bed_prim": "/World/Vegetation/Bed_04",
+      "wall_prim": "/World/farm_framechanged/Bed_Edge_4__1",
+      "black_edge_m": 0.05,
+      "paper_size_m": [
+        0.064,
+        0.069
+      ],
+      "tag_center_map_m": [
+        -2.501,
+        3.7640000000000002,
+        0.264
+      ],
+      "paper_center_map_m": [
+        -2.501,
+        3.7640000000000002,
+        0.2615
+      ],
+      "right_map": [
+        0.0,
+        -1.0,
+        0.0
+      ],
+      "normal_map": [
+        -1.0,
+        -0.0,
+        0.0
+      ],
+      "texture": "sim/assets/apriltag/textures/tag36h11_ID111_64x69mm.png",
+      "source_status": "provided_pattern"
+    },
+    {
+      "id": 112,
+      "family": "tag36h11",
+      "section_id": "SEC03",
+      "bed_prim": "/World/Vegetation/Bed_04",
+      "wall_prim": "/World/farm_framechanged/Bed_Edge_4__1",
+      "black_edge_m": 0.05,
+      "paper_size_m": [
+        0.064,
+        0.069
+      ],
+      "tag_center_map_m": [
+        -2.501,
+        3.2,
+        0.264
+      ],
+      "paper_center_map_m": [
+        -2.501,
+        3.2,
+        0.2615
+      ],
+      "right_map": [
+        0.0,
+        -1.0,
+        0.0
+      ],
+      "normal_map": [
+        -1.0,
+        -0.0,
+        0.0
+      ],
+      "texture": "sim/assets/apriltag/textures/tag36h11_ID112_64x69mm.png",
+      "source_status": "provided_pattern"
+    },
+    {
+      "id": 113,
+      "family": "tag36h11",
+      "section_id": "SEC03",
+      "bed_prim": "/World/Vegetation/Bed_04",
+      "wall_prim": "/World/farm_framechanged/Bed_Edge_4__1",
+      "black_edge_m": 0.05,
+      "paper_size_m": [
+        0.064,
+        0.069
+      ],
+      "tag_center_map_m": [
+        -2.501,
+        2.636,
+        0.264
+      ],
+      "paper_center_map_m": [
+        -2.501,
+        2.636,
+        0.2615
+      ],
+      "right_map": [
+        0.0,
+        -1.0,
+        0.0
+      ],
+      "normal_map": [
+        -1.0,
+        -0.0,
+        0.0
+      ],
+      "texture": "sim/assets/apriltag/textures/tag36h11_ID113_64x69mm.png",
+      "source_status": "provided_pattern"
+    },
+    {
+      "id": 114,
+      "family": "tag36h11",
+      "section_id": "SEC03",
+      "bed_prim": "/World/Vegetation/Bed_04",
+      "wall_prim": "/World/farm_framechanged/Bed_Edge_4__1",
+      "black_edge_m": 0.05,
+      "paper_size_m": [
+        0.064,
+        0.069
+      ],
+      "tag_center_map_m": [
+        -2.501,
+        2.072,
+        0.264
+      ],
+      "paper_center_map_m": [
+        -2.501,
+        2.072,
+        0.2615
+      ],
+      "right_map": [
+        0.0,
+        -1.0,
+        0.0
+      ],
+      "normal_map": [
+        -1.0,
+        -0.0,
+        0.0
+      ],
+      "texture": "sim/assets/apriltag/textures/tag36h11_ID114_64x69mm.png",
+      "source_status": "provided_pattern"
+    },
+    {
+      "id": 100,
+      "family": "tag36h11",
+      "section_id": "SEC04",
+      "bed_prim": "/World/Vegetation/Bed_04",
+      "wall_prim": "/World/farm_framechanged/Bed_Edge_4_1",
+      "black_edge_m": 0.05,
+      "paper_size_m": [
+        0.064,
+        0.069
+      ],
+      "tag_center_map_m": [
+        -1.499,
+        2.032,
+        0.264
+      ],
+      "paper_center_map_m": [
+        -1.499,
+        2.032,
+        0.2615
+      ],
+      "right_map": [
+        0.0,
+        1.0,
+        0.0
+      ],
+      "normal_map": [
+        1.0,
+        -0.0,
+        0.0
+      ],
+      "texture": "sim/assets/apriltag/textures/tag36h11_ID100_64x69mm.png",
+      "source_status": "provided_pattern"
+    },
+    {
+      "id": 101,
+      "family": "tag36h11",
+      "section_id": "SEC04",
+      "bed_prim": "/World/Vegetation/Bed_04",
+      "wall_prim": "/World/farm_framechanged/Bed_Edge_4_1",
+      "black_edge_m": 0.05,
+      "paper_size_m": [
+        0.064,
+        0.069
+      ],
+      "tag_center_map_m": [
+        -1.499,
+        2.596,
+        0.264
+      ],
+      "paper_center_map_m": [
+        -1.499,
+        2.596,
+        0.2615
+      ],
+      "right_map": [
+        0.0,
+        1.0,
+        0.0
+      ],
+      "normal_map": [
+        1.0,
+        -0.0,
+        0.0
+      ],
+      "texture": "sim/assets/apriltag/textures/tag36h11_ID101_64x69mm.png",
+      "source_status": "provided_pattern"
+    },
+    {
+      "id": 102,
+      "family": "tag36h11",
+      "section_id": "SEC04",
+      "bed_prim": "/World/Vegetation/Bed_04",
+      "wall_prim": "/World/farm_framechanged/Bed_Edge_4_1",
+      "black_edge_m": 0.05,
+      "paper_size_m": [
+        0.064,
+        0.069
+      ],
+      "tag_center_map_m": [
+        -1.499,
+        3.16,
+        0.264
+      ],
+      "paper_center_map_m": [
+        -1.499,
+        3.16,
+        0.2615
+      ],
+      "right_map": [
+        0.0,
+        1.0,
+        0.0
+      ],
+      "normal_map": [
+        1.0,
+        -0.0,
+        0.0
+      ],
+      "texture": "sim/assets/apriltag/textures/tag36h11_ID102_64x69mm.png",
+      "source_status": "provided_pattern"
+    },
+    {
+      "id": 103,
+      "family": "tag36h11",
+      "section_id": "SEC04",
+      "bed_prim": "/World/Vegetation/Bed_04",
+      "wall_prim": "/World/farm_framechanged/Bed_Edge_4_1",
+      "black_edge_m": 0.05,
+      "paper_size_m": [
+        0.064,
+        0.069
+      ],
+      "tag_center_map_m": [
+        -1.499,
+        3.724,
+        0.264
+      ],
+      "paper_center_map_m": [
+        -1.499,
+        3.724,
+        0.2615
+      ],
+      "right_map": [
+        0.0,
+        1.0,
+        0.0
+      ],
+      "normal_map": [
+        1.0,
+        -0.0,
+        0.0
+      ],
+      "texture": "sim/assets/apriltag/textures/tag36h11_ID103_64x69mm.png",
+      "source_status": "provided_pattern"
+    },
+    {
+      "id": 104,
+      "family": "tag36h11",
+      "section_id": "SEC04",
+      "bed_prim": "/World/Vegetation/Bed_04",
+      "wall_prim": "/World/farm_framechanged/Bed_Edge_4_1",
+      "black_edge_m": 0.05,
+      "paper_size_m": [
+        0.064,
+        0.069
+      ],
+      "tag_center_map_m": [
+        -1.499,
+        4.288,
+        0.264
+      ],
+      "paper_center_map_m": [
+        -1.499,
+        4.288,
+        0.2615
+      ],
+      "right_map": [
+        0.0,
+        1.0,
+        0.0
+      ],
+      "normal_map": [
+        1.0,
+        -0.0,
+        0.0
+      ],
+      "texture": "sim/assets/apriltag/textures/tag36h11_ID104_64x69mm.png",
+      "source_status": "provided_pattern"
+    },
+    {
+      "id": 105,
+      "family": "tag36h11",
+      "section_id": "SEC04",
+      "bed_prim": "/World/Vegetation/Bed_04",
+      "wall_prim": "/World/farm_framechanged/Bed_Edge_4_1",
+      "black_edge_m": 0.05,
+      "paper_size_m": [
+        0.064,
+        0.069
+      ],
+      "tag_center_map_m": [
+        -1.499,
+        4.852,
+        0.264
+      ],
+      "paper_center_map_m": [
+        -1.499,
+        4.852,
+        0.2615
+      ],
+      "right_map": [
+        0.0,
+        1.0,
+        0.0
+      ],
+      "normal_map": [
+        1.0,
+        -0.0,
+        0.0
+      ],
+      "texture": "sim/assets/apriltag/textures/tag36h11_ID105_64x69mm.png",
+      "source_status": "provided_pattern"
+    },
+    {
+      "id": 106,
+      "family": "tag36h11",
+      "section_id": "SEC04",
+      "bed_prim": "/World/Vegetation/Bed_04",
+      "wall_prim": "/World/farm_framechanged/Bed_Edge_4_1",
+      "black_edge_m": 0.05,
+      "paper_size_m": [
+        0.064,
+        0.069
+      ],
+      "tag_center_map_m": [
+        -1.499,
+        5.416,
+        0.264
+      ],
+      "paper_center_map_m": [
+        -1.499,
+        5.416,
+        0.2615
+      ],
+      "right_map": [
+        0.0,
+        1.0,
+        0.0
+      ],
+      "normal_map": [
+        1.0,
+        -0.0,
+        0.0
+      ],
+      "texture": "sim/assets/apriltag/textures/tag36h11_ID106_64x69mm.png",
+      "source_status": "provided_pattern"
+    },
+    {
+      "id": 107,
+      "family": "tag36h11",
+      "section_id": "SEC04",
+      "bed_prim": "/World/Vegetation/Bed_04",
+      "wall_prim": "/World/farm_framechanged/Bed_Edge_4_1",
+      "black_edge_m": 0.05,
+      "paper_size_m": [
+        0.064,
+        0.069
+      ],
+      "tag_center_map_m": [
+        -1.499,
+        5.98,
+        0.264
+      ],
+      "paper_center_map_m": [
+        -1.499,
+        5.98,
+        0.2615
+      ],
+      "right_map": [
+        0.0,
+        1.0,
+        0.0
+      ],
+      "normal_map": [
+        1.0,
+        -0.0,
+        0.0
+      ],
+      "texture": "sim/assets/apriltag/textures/tag36h11_ID107_64x69mm.png",
+      "source_status": "provided_pattern"
+    },
+    {
+      "id": 108,
+      "family": "tag36h11",
+      "section_id": "SEC04",
+      "bed_prim": "/World/Vegetation/Bed_04",
+      "wall_prim": "/World/farm_framechanged/Bed_Edge_4_1",
+      "black_edge_m": 0.05,
+      "paper_size_m": [
+        0.064,
+        0.069
+      ],
+      "tag_center_map_m": [
+        -1.499,
+        6.544,
+        0.264
+      ],
+      "paper_center_map_m": [
+        -1.499,
+        6.544,
+        0.2615
+      ],
+      "right_map": [
+        0.0,
+        1.0,
+        0.0
+      ],
+      "normal_map": [
+        1.0,
+        -0.0,
+        0.0
+      ],
+      "texture": "sim/assets/apriltag/textures/tag36h11_ID108_64x69mm.png",
+      "source_status": "provided_pattern"
+    },
+    {
+      "id": 109,
+      "family": "tag36h11",
+      "section_id": "SEC04",
+      "bed_prim": "/World/Vegetation/Bed_04",
+      "wall_prim": "/World/farm_framechanged/Bed_Edge_4_1",
+      "black_edge_m": 0.05,
+      "paper_size_m": [
+        0.064,
+        0.069
+      ],
+      "tag_center_map_m": [
+        -1.499,
+        7.108,
+        0.264
+      ],
+      "paper_center_map_m": [
+        -1.499,
+        7.108,
+        0.2615
+      ],
+      "right_map": [
+        0.0,
+        1.0,
+        0.0
+      ],
+      "normal_map": [
+        1.0,
+        -0.0,
+        0.0
+      ],
+      "texture": "sim/assets/apriltag/textures/tag36h11_ID109_64x69mm.png",
+      "source_status": "provided_pattern"
+    },
+    {
+      "id": 110,
+      "family": "tag36h11",
+      "section_id": "SEC04",
+      "bed_prim": "/World/Vegetation/Bed_04",
+      "wall_prim": "/World/farm_framechanged/Bed_Edge_4_1",
+      "black_edge_m": 0.05,
+      "paper_size_m": [
+        0.064,
+        0.069
+      ],
+      "tag_center_map_m": [
+        -1.499,
+        7.672,
+        0.264
+      ],
+      "paper_center_map_m": [
+        -1.499,
+        7.672,
+        0.2615
+      ],
+      "right_map": [
+        0.0,
+        1.0,
+        0.0
+      ],
+      "normal_map": [
+        1.0,
+        -0.0,
+        0.0
+      ],
+      "texture": "sim/assets/apriltag/textures/tag36h11_ID110_64x69mm.png",
+      "source_status": "provided_pattern"
+    },
+    {
+      "id": 111,
+      "family": "tag36h11",
+      "section_id": "SEC04",
+      "bed_prim": "/World/Vegetation/Bed_04",
+      "wall_prim": "/World/farm_framechanged/Bed_Edge_4_1",
+      "black_edge_m": 0.05,
+      "paper_size_m": [
+        0.064,
+        0.069
+      ],
+      "tag_center_map_m": [
+        -1.499,
+        8.236,
+        0.264
+      ],
+      "paper_center_map_m": [
+        -1.499,
+        8.236,
+        0.2615
+      ],
+      "right_map": [
+        0.0,
+        1.0,
+        0.0
+      ],
+      "normal_map": [
+        1.0,
+        -0.0,
+        0.0
+      ],
+      "texture": "sim/assets/apriltag/textures/tag36h11_ID111_64x69mm.png",
+      "source_status": "provided_pattern"
+    },
+    {
+      "id": 112,
+      "family": "tag36h11",
+      "section_id": "SEC04",
+      "bed_prim": "/World/Vegetation/Bed_04",
+      "wall_prim": "/World/farm_framechanged/Bed_Edge_4_1",
+      "black_edge_m": 0.05,
+      "paper_size_m": [
+        0.064,
+        0.069
+      ],
+      "tag_center_map_m": [
+        -1.499,
+        8.8,
+        0.264
+      ],
+      "paper_center_map_m": [
+        -1.499,
+        8.8,
+        0.2615
+      ],
+      "right_map": [
+        0.0,
+        1.0,
+        0.0
+      ],
+      "normal_map": [
+        1.0,
+        -0.0,
+        0.0
+      ],
+      "texture": "sim/assets/apriltag/textures/tag36h11_ID112_64x69mm.png",
+      "source_status": "provided_pattern"
+    },
+    {
+      "id": 113,
+      "family": "tag36h11",
+      "section_id": "SEC04",
+      "bed_prim": "/World/Vegetation/Bed_04",
+      "wall_prim": "/World/farm_framechanged/Bed_Edge_4_1",
+      "black_edge_m": 0.05,
+      "paper_size_m": [
+        0.064,
+        0.069
+      ],
+      "tag_center_map_m": [
+        -1.499,
+        9.364,
+        0.264
+      ],
+      "paper_center_map_m": [
+        -1.499,
+        9.364,
+        0.2615
+      ],
+      "right_map": [
+        0.0,
+        1.0,
+        0.0
+      ],
+      "normal_map": [
+        1.0,
+        -0.0,
+        0.0
+      ],
+      "texture": "sim/assets/apriltag/textures/tag36h11_ID113_64x69mm.png",
+      "source_status": "provided_pattern"
+    },
+    {
+      "id": 114,
+      "family": "tag36h11",
+      "section_id": "SEC04",
+      "bed_prim": "/World/Vegetation/Bed_04",
+      "wall_prim": "/World/farm_framechanged/Bed_Edge_4_1",
+      "black_edge_m": 0.05,
+      "paper_size_m": [
+        0.064,
+        0.069
+      ],
+      "tag_center_map_m": [
+        -1.499,
+        9.928,
+        0.264
+      ],
+      "paper_center_map_m": [
+        -1.499,
+        9.928,
+        0.2615
+      ],
+      "right_map": [
+        0.0,
+        1.0,
+        0.0
+      ],
+      "normal_map": [
+        1.0,
+        -0.0,
+        0.0
+      ],
+      "texture": "sim/assets/apriltag/textures/tag36h11_ID114_64x69mm.png",
+      "source_status": "provided_pattern"
+    },
+    {
+      "id": 100,
+      "family": "tag36h11",
+      "section_id": "SEC05",
+      "bed_prim": "/World/Vegetation/Bed_06",
+      "wall_prim": "/World/farm_framechanged/Bed_Edge_6__1",
+      "black_edge_m": 0.05,
+      "paper_size_m": [
+        0.064,
+        0.069
+      ],
+      "tag_center_map_m": [
+        1.499,
+        9.968,
+        0.264
+      ],
+      "paper_center_map_m": [
+        1.499,
+        9.968,
+        0.2615
+      ],
+      "right_map": [
+        0.0,
+        -1.0,
+        0.0
+      ],
+      "normal_map": [
+        -1.0,
+        -0.0,
+        0.0
+      ],
+      "texture": "sim/assets/apriltag/textures/tag36h11_ID100_64x69mm.png",
+      "source_status": "provided_pattern"
+    },
+    {
+      "id": 101,
+      "family": "tag36h11",
+      "section_id": "SEC05",
+      "bed_prim": "/World/Vegetation/Bed_06",
+      "wall_prim": "/World/farm_framechanged/Bed_Edge_6__1",
+      "black_edge_m": 0.05,
+      "paper_size_m": [
+        0.064,
+        0.069
+      ],
+      "tag_center_map_m": [
+        1.499,
+        9.404,
+        0.264
+      ],
+      "paper_center_map_m": [
+        1.499,
+        9.404,
+        0.2615
+      ],
+      "right_map": [
+        0.0,
+        -1.0,
+        0.0
+      ],
+      "normal_map": [
+        -1.0,
+        -0.0,
+        0.0
+      ],
+      "texture": "sim/assets/apriltag/textures/tag36h11_ID101_64x69mm.png",
+      "source_status": "provided_pattern"
+    },
+    {
+      "id": 102,
+      "family": "tag36h11",
+      "section_id": "SEC05",
+      "bed_prim": "/World/Vegetation/Bed_06",
+      "wall_prim": "/World/farm_framechanged/Bed_Edge_6__1",
+      "black_edge_m": 0.05,
+      "paper_size_m": [
+        0.064,
+        0.069
+      ],
+      "tag_center_map_m": [
+        1.499,
+        8.84,
+        0.264
+      ],
+      "paper_center_map_m": [
+        1.499,
+        8.84,
+        0.2615
+      ],
+      "right_map": [
+        0.0,
+        -1.0,
+        0.0
+      ],
+      "normal_map": [
+        -1.0,
+        -0.0,
+        0.0
+      ],
+      "texture": "sim/assets/apriltag/textures/tag36h11_ID102_64x69mm.png",
+      "source_status": "provided_pattern"
+    },
+    {
+      "id": 103,
+      "family": "tag36h11",
+      "section_id": "SEC05",
+      "bed_prim": "/World/Vegetation/Bed_06",
+      "wall_prim": "/World/farm_framechanged/Bed_Edge_6__1",
+      "black_edge_m": 0.05,
+      "paper_size_m": [
+        0.064,
+        0.069
+      ],
+      "tag_center_map_m": [
+        1.499,
+        8.276,
+        0.264
+      ],
+      "paper_center_map_m": [
+        1.499,
+        8.276,
+        0.2615
+      ],
+      "right_map": [
+        0.0,
+        -1.0,
+        0.0
+      ],
+      "normal_map": [
+        -1.0,
+        -0.0,
+        0.0
+      ],
+      "texture": "sim/assets/apriltag/textures/tag36h11_ID103_64x69mm.png",
+      "source_status": "provided_pattern"
+    },
+    {
+      "id": 104,
+      "family": "tag36h11",
+      "section_id": "SEC05",
+      "bed_prim": "/World/Vegetation/Bed_06",
+      "wall_prim": "/World/farm_framechanged/Bed_Edge_6__1",
+      "black_edge_m": 0.05,
+      "paper_size_m": [
+        0.064,
+        0.069
+      ],
+      "tag_center_map_m": [
+        1.499,
+        7.712,
+        0.264
+      ],
+      "paper_center_map_m": [
+        1.499,
+        7.712,
+        0.2615
+      ],
+      "right_map": [
+        0.0,
+        -1.0,
+        0.0
+      ],
+      "normal_map": [
+        -1.0,
+        -0.0,
+        0.0
+      ],
+      "texture": "sim/assets/apriltag/textures/tag36h11_ID104_64x69mm.png",
+      "source_status": "provided_pattern"
+    },
+    {
+      "id": 105,
+      "family": "tag36h11",
+      "section_id": "SEC05",
+      "bed_prim": "/World/Vegetation/Bed_06",
+      "wall_prim": "/World/farm_framechanged/Bed_Edge_6__1",
+      "black_edge_m": 0.05,
+      "paper_size_m": [
+        0.064,
+        0.069
+      ],
+      "tag_center_map_m": [
+        1.499,
+        7.148,
+        0.264
+      ],
+      "paper_center_map_m": [
+        1.499,
+        7.148,
+        0.2615
+      ],
+      "right_map": [
+        0.0,
+        -1.0,
+        0.0
+      ],
+      "normal_map": [
+        -1.0,
+        -0.0,
+        0.0
+      ],
+      "texture": "sim/assets/apriltag/textures/tag36h11_ID105_64x69mm.png",
+      "source_status": "provided_pattern"
+    },
+    {
+      "id": 106,
+      "family": "tag36h11",
+      "section_id": "SEC05",
+      "bed_prim": "/World/Vegetation/Bed_06",
+      "wall_prim": "/World/farm_framechanged/Bed_Edge_6__1",
+      "black_edge_m": 0.05,
+      "paper_size_m": [
+        0.064,
+        0.069
+      ],
+      "tag_center_map_m": [
+        1.499,
+        6.584,
+        0.264
+      ],
+      "paper_center_map_m": [
+        1.499,
+        6.584,
+        0.2615
+      ],
+      "right_map": [
+        0.0,
+        -1.0,
+        0.0
+      ],
+      "normal_map": [
+        -1.0,
+        -0.0,
+        0.0
+      ],
+      "texture": "sim/assets/apriltag/textures/tag36h11_ID106_64x69mm.png",
+      "source_status": "provided_pattern"
+    },
+    {
+      "id": 107,
+      "family": "tag36h11",
+      "section_id": "SEC05",
+      "bed_prim": "/World/Vegetation/Bed_06",
+      "wall_prim": "/World/farm_framechanged/Bed_Edge_6__1",
+      "black_edge_m": 0.05,
+      "paper_size_m": [
+        0.064,
+        0.069
+      ],
+      "tag_center_map_m": [
+        1.499,
+        6.02,
+        0.264
+      ],
+      "paper_center_map_m": [
+        1.499,
+        6.02,
+        0.2615
+      ],
+      "right_map": [
+        0.0,
+        -1.0,
+        0.0
+      ],
+      "normal_map": [
+        -1.0,
+        -0.0,
+        0.0
+      ],
+      "texture": "sim/assets/apriltag/textures/tag36h11_ID107_64x69mm.png",
+      "source_status": "provided_pattern"
+    },
+    {
+      "id": 108,
+      "family": "tag36h11",
+      "section_id": "SEC05",
+      "bed_prim": "/World/Vegetation/Bed_06",
+      "wall_prim": "/World/farm_framechanged/Bed_Edge_6__1",
+      "black_edge_m": 0.05,
+      "paper_size_m": [
+        0.064,
+        0.069
+      ],
+      "tag_center_map_m": [
+        1.499,
+        5.456,
+        0.264
+      ],
+      "paper_center_map_m": [
+        1.499,
+        5.456,
+        0.2615
+      ],
+      "right_map": [
+        0.0,
+        -1.0,
+        0.0
+      ],
+      "normal_map": [
+        -1.0,
+        -0.0,
+        0.0
+      ],
+      "texture": "sim/assets/apriltag/textures/tag36h11_ID108_64x69mm.png",
+      "source_status": "provided_pattern"
+    },
+    {
+      "id": 109,
+      "family": "tag36h11",
+      "section_id": "SEC05",
+      "bed_prim": "/World/Vegetation/Bed_06",
+      "wall_prim": "/World/farm_framechanged/Bed_Edge_6__1",
+      "black_edge_m": 0.05,
+      "paper_size_m": [
+        0.064,
+        0.069
+      ],
+      "tag_center_map_m": [
+        1.499,
+        4.892,
+        0.264
+      ],
+      "paper_center_map_m": [
+        1.499,
+        4.892,
+        0.2615
+      ],
+      "right_map": [
+        0.0,
+        -1.0,
+        0.0
+      ],
+      "normal_map": [
+        -1.0,
+        -0.0,
+        0.0
+      ],
+      "texture": "sim/assets/apriltag/textures/tag36h11_ID109_64x69mm.png",
+      "source_status": "provided_pattern"
+    },
+    {
+      "id": 110,
+      "family": "tag36h11",
+      "section_id": "SEC05",
+      "bed_prim": "/World/Vegetation/Bed_06",
+      "wall_prim": "/World/farm_framechanged/Bed_Edge_6__1",
+      "black_edge_m": 0.05,
+      "paper_size_m": [
+        0.064,
+        0.069
+      ],
+      "tag_center_map_m": [
+        1.499,
+        4.328,
+        0.264
+      ],
+      "paper_center_map_m": [
+        1.499,
+        4.328,
+        0.2615
+      ],
+      "right_map": [
+        0.0,
+        -1.0,
+        0.0
+      ],
+      "normal_map": [
+        -1.0,
+        -0.0,
+        0.0
+      ],
+      "texture": "sim/assets/apriltag/textures/tag36h11_ID110_64x69mm.png",
+      "source_status": "provided_pattern"
+    },
+    {
+      "id": 111,
+      "family": "tag36h11",
+      "section_id": "SEC05",
+      "bed_prim": "/World/Vegetation/Bed_06",
+      "wall_prim": "/World/farm_framechanged/Bed_Edge_6__1",
+      "black_edge_m": 0.05,
+      "paper_size_m": [
+        0.064,
+        0.069
+      ],
+      "tag_center_map_m": [
+        1.499,
+        3.7640000000000002,
+        0.264
+      ],
+      "paper_center_map_m": [
+        1.499,
+        3.7640000000000002,
+        0.2615
+      ],
+      "right_map": [
+        0.0,
+        -1.0,
+        0.0
+      ],
+      "normal_map": [
+        -1.0,
+        -0.0,
+        0.0
+      ],
+      "texture": "sim/assets/apriltag/textures/tag36h11_ID111_64x69mm.png",
+      "source_status": "provided_pattern"
+    },
+    {
+      "id": 112,
+      "family": "tag36h11",
+      "section_id": "SEC05",
+      "bed_prim": "/World/Vegetation/Bed_06",
+      "wall_prim": "/World/farm_framechanged/Bed_Edge_6__1",
+      "black_edge_m": 0.05,
+      "paper_size_m": [
+        0.064,
+        0.069
+      ],
+      "tag_center_map_m": [
+        1.499,
+        3.2,
+        0.264
+      ],
+      "paper_center_map_m": [
+        1.499,
+        3.2,
+        0.2615
+      ],
+      "right_map": [
+        0.0,
+        -1.0,
+        0.0
+      ],
+      "normal_map": [
+        -1.0,
+        -0.0,
+        0.0
+      ],
+      "texture": "sim/assets/apriltag/textures/tag36h11_ID112_64x69mm.png",
+      "source_status": "provided_pattern"
+    },
+    {
+      "id": 113,
+      "family": "tag36h11",
+      "section_id": "SEC05",
+      "bed_prim": "/World/Vegetation/Bed_06",
+      "wall_prim": "/World/farm_framechanged/Bed_Edge_6__1",
+      "black_edge_m": 0.05,
+      "paper_size_m": [
+        0.064,
+        0.069
+      ],
+      "tag_center_map_m": [
+        1.499,
+        2.636,
+        0.264
+      ],
+      "paper_center_map_m": [
+        1.499,
+        2.636,
+        0.2615
+      ],
+      "right_map": [
+        0.0,
+        -1.0,
+        0.0
+      ],
+      "normal_map": [
+        -1.0,
+        -0.0,
+        0.0
+      ],
+      "texture": "sim/assets/apriltag/textures/tag36h11_ID113_64x69mm.png",
+      "source_status": "provided_pattern"
+    },
+    {
+      "id": 114,
+      "family": "tag36h11",
+      "section_id": "SEC05",
+      "bed_prim": "/World/Vegetation/Bed_06",
+      "wall_prim": "/World/farm_framechanged/Bed_Edge_6__1",
+      "black_edge_m": 0.05,
+      "paper_size_m": [
+        0.064,
+        0.069
+      ],
+      "tag_center_map_m": [
+        1.499,
+        2.072,
+        0.264
+      ],
+      "paper_center_map_m": [
+        1.499,
+        2.072,
+        0.2615
+      ],
+      "right_map": [
+        0.0,
+        -1.0,
+        0.0
+      ],
+      "normal_map": [
+        -1.0,
+        -0.0,
+        0.0
+      ],
+      "texture": "sim/assets/apriltag/textures/tag36h11_ID114_64x69mm.png",
+      "source_status": "provided_pattern"
+    },
+    {
+      "id": 100,
+      "family": "tag36h11",
+      "section_id": "SEC06",
+      "bed_prim": "/World/Vegetation/Bed_06",
+      "wall_prim": "/World/farm_framechanged/Bed_Edge_6_1",
+      "black_edge_m": 0.05,
+      "paper_size_m": [
+        0.064,
+        0.069
+      ],
+      "tag_center_map_m": [
+        2.501,
+        2.032,
+        0.264
+      ],
+      "paper_center_map_m": [
+        2.501,
+        2.032,
+        0.2615
+      ],
+      "right_map": [
+        0.0,
+        1.0,
+        0.0
+      ],
+      "normal_map": [
+        1.0,
+        -0.0,
+        0.0
+      ],
+      "texture": "sim/assets/apriltag/textures/tag36h11_ID100_64x69mm.png",
+      "source_status": "provided_pattern"
+    },
+    {
+      "id": 101,
+      "family": "tag36h11",
+      "section_id": "SEC06",
+      "bed_prim": "/World/Vegetation/Bed_06",
+      "wall_prim": "/World/farm_framechanged/Bed_Edge_6_1",
+      "black_edge_m": 0.05,
+      "paper_size_m": [
+        0.064,
+        0.069
+      ],
+      "tag_center_map_m": [
+        2.501,
+        2.596,
+        0.264
+      ],
+      "paper_center_map_m": [
+        2.501,
+        2.596,
+        0.2615
+      ],
+      "right_map": [
+        0.0,
+        1.0,
+        0.0
+      ],
+      "normal_map": [
+        1.0,
+        -0.0,
+        0.0
+      ],
+      "texture": "sim/assets/apriltag/textures/tag36h11_ID101_64x69mm.png",
+      "source_status": "provided_pattern"
+    },
+    {
+      "id": 102,
+      "family": "tag36h11",
+      "section_id": "SEC06",
+      "bed_prim": "/World/Vegetation/Bed_06",
+      "wall_prim": "/World/farm_framechanged/Bed_Edge_6_1",
+      "black_edge_m": 0.05,
+      "paper_size_m": [
+        0.064,
+        0.069
+      ],
+      "tag_center_map_m": [
+        2.501,
+        3.16,
+        0.264
+      ],
+      "paper_center_map_m": [
+        2.501,
+        3.16,
+        0.2615
+      ],
+      "right_map": [
+        0.0,
+        1.0,
+        0.0
+      ],
+      "normal_map": [
+        1.0,
+        -0.0,
+        0.0
+      ],
+      "texture": "sim/assets/apriltag/textures/tag36h11_ID102_64x69mm.png",
+      "source_status": "provided_pattern"
+    },
+    {
+      "id": 103,
+      "family": "tag36h11",
+      "section_id": "SEC06",
+      "bed_prim": "/World/Vegetation/Bed_06",
+      "wall_prim": "/World/farm_framechanged/Bed_Edge_6_1",
+      "black_edge_m": 0.05,
+      "paper_size_m": [
+        0.064,
+        0.069
+      ],
+      "tag_center_map_m": [
+        2.501,
+        3.724,
+        0.264
+      ],
+      "paper_center_map_m": [
+        2.501,
+        3.724,
+        0.2615
+      ],
+      "right_map": [
+        0.0,
+        1.0,
+        0.0
+      ],
+      "normal_map": [
+        1.0,
+        -0.0,
+        0.0
+      ],
+      "texture": "sim/assets/apriltag/textures/tag36h11_ID103_64x69mm.png",
+      "source_status": "provided_pattern"
+    },
+    {
+      "id": 104,
+      "family": "tag36h11",
+      "section_id": "SEC06",
+      "bed_prim": "/World/Vegetation/Bed_06",
+      "wall_prim": "/World/farm_framechanged/Bed_Edge_6_1",
+      "black_edge_m": 0.05,
+      "paper_size_m": [
+        0.064,
+        0.069
+      ],
+      "tag_center_map_m": [
+        2.501,
+        4.288,
+        0.264
+      ],
+      "paper_center_map_m": [
+        2.501,
+        4.288,
+        0.2615
+      ],
+      "right_map": [
+        0.0,
+        1.0,
+        0.0
+      ],
+      "normal_map": [
+        1.0,
+        -0.0,
+        0.0
+      ],
+      "texture": "sim/assets/apriltag/textures/tag36h11_ID104_64x69mm.png",
+      "source_status": "provided_pattern"
+    },
+    {
+      "id": 105,
+      "family": "tag36h11",
+      "section_id": "SEC06",
+      "bed_prim": "/World/Vegetation/Bed_06",
+      "wall_prim": "/World/farm_framechanged/Bed_Edge_6_1",
+      "black_edge_m": 0.05,
+      "paper_size_m": [
+        0.064,
+        0.069
+      ],
+      "tag_center_map_m": [
+        2.501,
+        4.852,
+        0.264
+      ],
+      "paper_center_map_m": [
+        2.501,
+        4.852,
+        0.2615
+      ],
+      "right_map": [
+        0.0,
+        1.0,
+        0.0
+      ],
+      "normal_map": [
+        1.0,
+        -0.0,
+        0.0
+      ],
+      "texture": "sim/assets/apriltag/textures/tag36h11_ID105_64x69mm.png",
+      "source_status": "provided_pattern"
+    },
+    {
+      "id": 106,
+      "family": "tag36h11",
+      "section_id": "SEC06",
+      "bed_prim": "/World/Vegetation/Bed_06",
+      "wall_prim": "/World/farm_framechanged/Bed_Edge_6_1",
+      "black_edge_m": 0.05,
+      "paper_size_m": [
+        0.064,
+        0.069
+      ],
+      "tag_center_map_m": [
+        2.501,
+        5.416,
+        0.264
+      ],
+      "paper_center_map_m": [
+        2.501,
+        5.416,
+        0.2615
+      ],
+      "right_map": [
+        0.0,
+        1.0,
+        0.0
+      ],
+      "normal_map": [
+        1.0,
+        -0.0,
+        0.0
+      ],
+      "texture": "sim/assets/apriltag/textures/tag36h11_ID106_64x69mm.png",
+      "source_status": "provided_pattern"
+    },
+    {
+      "id": 107,
+      "family": "tag36h11",
+      "section_id": "SEC06",
+      "bed_prim": "/World/Vegetation/Bed_06",
+      "wall_prim": "/World/farm_framechanged/Bed_Edge_6_1",
+      "black_edge_m": 0.05,
+      "paper_size_m": [
+        0.064,
+        0.069
+      ],
+      "tag_center_map_m": [
+        2.501,
+        5.98,
+        0.264
+      ],
+      "paper_center_map_m": [
+        2.501,
+        5.98,
+        0.2615
+      ],
+      "right_map": [
+        0.0,
+        1.0,
+        0.0
+      ],
+      "normal_map": [
+        1.0,
+        -0.0,
+        0.0
+      ],
+      "texture": "sim/assets/apriltag/textures/tag36h11_ID107_64x69mm.png",
+      "source_status": "provided_pattern"
+    },
+    {
+      "id": 108,
+      "family": "tag36h11",
+      "section_id": "SEC06",
+      "bed_prim": "/World/Vegetation/Bed_06",
+      "wall_prim": "/World/farm_framechanged/Bed_Edge_6_1",
+      "black_edge_m": 0.05,
+      "paper_size_m": [
+        0.064,
+        0.069
+      ],
+      "tag_center_map_m": [
+        2.501,
+        6.544,
+        0.264
+      ],
+      "paper_center_map_m": [
+        2.501,
+        6.544,
+        0.2615
+      ],
+      "right_map": [
+        0.0,
+        1.0,
+        0.0
+      ],
+      "normal_map": [
+        1.0,
+        -0.0,
+        0.0
+      ],
+      "texture": "sim/assets/apriltag/textures/tag36h11_ID108_64x69mm.png",
+      "source_status": "provided_pattern"
+    },
+    {
+      "id": 109,
+      "family": "tag36h11",
+      "section_id": "SEC06",
+      "bed_prim": "/World/Vegetation/Bed_06",
+      "wall_prim": "/World/farm_framechanged/Bed_Edge_6_1",
+      "black_edge_m": 0.05,
+      "paper_size_m": [
+        0.064,
+        0.069
+      ],
+      "tag_center_map_m": [
+        2.501,
+        7.108,
+        0.264
+      ],
+      "paper_center_map_m": [
+        2.501,
+        7.108,
+        0.2615
+      ],
+      "right_map": [
+        0.0,
+        1.0,
+        0.0
+      ],
+      "normal_map": [
+        1.0,
+        -0.0,
+        0.0
+      ],
+      "texture": "sim/assets/apriltag/textures/tag36h11_ID109_64x69mm.png",
+      "source_status": "provided_pattern"
+    },
+    {
+      "id": 110,
+      "family": "tag36h11",
+      "section_id": "SEC06",
+      "bed_prim": "/World/Vegetation/Bed_06",
+      "wall_prim": "/World/farm_framechanged/Bed_Edge_6_1",
+      "black_edge_m": 0.05,
+      "paper_size_m": [
+        0.064,
+        0.069
+      ],
+      "tag_center_map_m": [
+        2.501,
+        7.672,
+        0.264
+      ],
+      "paper_center_map_m": [
+        2.501,
+        7.672,
+        0.2615
+      ],
+      "right_map": [
+        0.0,
+        1.0,
+        0.0
+      ],
+      "normal_map": [
+        1.0,
+        -0.0,
+        0.0
+      ],
+      "texture": "sim/assets/apriltag/textures/tag36h11_ID110_64x69mm.png",
+      "source_status": "provided_pattern"
+    },
+    {
+      "id": 111,
+      "family": "tag36h11",
+      "section_id": "SEC06",
+      "bed_prim": "/World/Vegetation/Bed_06",
+      "wall_prim": "/World/farm_framechanged/Bed_Edge_6_1",
+      "black_edge_m": 0.05,
+      "paper_size_m": [
+        0.064,
+        0.069
+      ],
+      "tag_center_map_m": [
+        2.501,
+        8.236,
+        0.264
+      ],
+      "paper_center_map_m": [
+        2.501,
+        8.236,
+        0.2615
+      ],
+      "right_map": [
+        0.0,
+        1.0,
+        0.0
+      ],
+      "normal_map": [
+        1.0,
+        -0.0,
+        0.0
+      ],
+      "texture": "sim/assets/apriltag/textures/tag36h11_ID111_64x69mm.png",
+      "source_status": "provided_pattern"
+    },
+    {
+      "id": 112,
+      "family": "tag36h11",
+      "section_id": "SEC06",
+      "bed_prim": "/World/Vegetation/Bed_06",
+      "wall_prim": "/World/farm_framechanged/Bed_Edge_6_1",
+      "black_edge_m": 0.05,
+      "paper_size_m": [
+        0.064,
+        0.069
+      ],
+      "tag_center_map_m": [
+        2.501,
+        8.8,
+        0.264
+      ],
+      "paper_center_map_m": [
+        2.501,
+        8.8,
+        0.2615
+      ],
+      "right_map": [
+        0.0,
+        1.0,
+        0.0
+      ],
+      "normal_map": [
+        1.0,
+        -0.0,
+        0.0
+      ],
+      "texture": "sim/assets/apriltag/textures/tag36h11_ID112_64x69mm.png",
+      "source_status": "provided_pattern"
+    },
+    {
+      "id": 113,
+      "family": "tag36h11",
+      "section_id": "SEC06",
+      "bed_prim": "/World/Vegetation/Bed_06",
+      "wall_prim": "/World/farm_framechanged/Bed_Edge_6_1",
+      "black_edge_m": 0.05,
+      "paper_size_m": [
+        0.064,
+        0.069
+      ],
+      "tag_center_map_m": [
+        2.501,
+        9.364,
+        0.264
+      ],
+      "paper_center_map_m": [
+        2.501,
+        9.364,
+        0.2615
+      ],
+      "right_map": [
+        0.0,
+        1.0,
+        0.0
+      ],
+      "normal_map": [
+        1.0,
+        -0.0,
+        0.0
+      ],
+      "texture": "sim/assets/apriltag/textures/tag36h11_ID113_64x69mm.png",
+      "source_status": "provided_pattern"
+    },
+    {
+      "id": 114,
+      "family": "tag36h11",
+      "section_id": "SEC06",
+      "bed_prim": "/World/Vegetation/Bed_06",
+      "wall_prim": "/World/farm_framechanged/Bed_Edge_6_1",
+      "black_edge_m": 0.05,
+      "paper_size_m": [
+        0.064,
+        0.069
+      ],
+      "tag_center_map_m": [
+        2.501,
+        9.928,
+        0.264
+      ],
+      "paper_center_map_m": [
+        2.501,
+        9.928,
+        0.2615
+      ],
+      "right_map": [
+        0.0,
+        1.0,
+        0.0
+      ],
+      "normal_map": [
+        1.0,
+        -0.0,
+        0.0
+      ],
+      "texture": "sim/assets/apriltag/textures/tag36h11_ID114_64x69mm.png",
+      "source_status": "provided_pattern"
+    },
+    {
+      "id": 100,
+      "family": "tag36h11",
+      "section_id": "SEC07",
+      "bed_prim": "/World/Vegetation/Bed_08",
+      "wall_prim": "/World/farm_framechanged/Bed_Edge_8__1",
+      "black_edge_m": 0.05,
+      "paper_size_m": [
+        0.064,
+        0.069
+      ],
+      "tag_center_map_m": [
+        4.499,
+        9.968,
+        0.264
+      ],
+      "paper_center_map_m": [
+        4.499,
+        9.968,
+        0.2615
+      ],
+      "right_map": [
+        0.0,
+        -1.0,
+        0.0
+      ],
+      "normal_map": [
+        -1.0,
+        -0.0,
+        0.0
+      ],
+      "texture": "sim/assets/apriltag/textures/tag36h11_ID100_64x69mm.png",
+      "source_status": "provided_pattern"
+    },
+    {
+      "id": 101,
+      "family": "tag36h11",
+      "section_id": "SEC07",
+      "bed_prim": "/World/Vegetation/Bed_08",
+      "wall_prim": "/World/farm_framechanged/Bed_Edge_8__1",
+      "black_edge_m": 0.05,
+      "paper_size_m": [
+        0.064,
+        0.069
+      ],
+      "tag_center_map_m": [
+        4.499,
+        9.404,
+        0.264
+      ],
+      "paper_center_map_m": [
+        4.499,
+        9.404,
+        0.2615
+      ],
+      "right_map": [
+        0.0,
+        -1.0,
+        0.0
+      ],
+      "normal_map": [
+        -1.0,
+        -0.0,
+        0.0
+      ],
+      "texture": "sim/assets/apriltag/textures/tag36h11_ID101_64x69mm.png",
+      "source_status": "provided_pattern"
+    },
+    {
+      "id": 102,
+      "family": "tag36h11",
+      "section_id": "SEC07",
+      "bed_prim": "/World/Vegetation/Bed_08",
+      "wall_prim": "/World/farm_framechanged/Bed_Edge_8__1",
+      "black_edge_m": 0.05,
+      "paper_size_m": [
+        0.064,
+        0.069
+      ],
+      "tag_center_map_m": [
+        4.499,
+        8.84,
+        0.264
+      ],
+      "paper_center_map_m": [
+        4.499,
+        8.84,
+        0.2615
+      ],
+      "right_map": [
+        0.0,
+        -1.0,
+        0.0
+      ],
+      "normal_map": [
+        -1.0,
+        -0.0,
+        0.0
+      ],
+      "texture": "sim/assets/apriltag/textures/tag36h11_ID102_64x69mm.png",
+      "source_status": "provided_pattern"
+    },
+    {
+      "id": 103,
+      "family": "tag36h11",
+      "section_id": "SEC07",
+      "bed_prim": "/World/Vegetation/Bed_08",
+      "wall_prim": "/World/farm_framechanged/Bed_Edge_8__1",
+      "black_edge_m": 0.05,
+      "paper_size_m": [
+        0.064,
+        0.069
+      ],
+      "tag_center_map_m": [
+        4.499,
+        8.276,
+        0.264
+      ],
+      "paper_center_map_m": [
+        4.499,
+        8.276,
+        0.2615
+      ],
+      "right_map": [
+        0.0,
+        -1.0,
+        0.0
+      ],
+      "normal_map": [
+        -1.0,
+        -0.0,
+        0.0
+      ],
+      "texture": "sim/assets/apriltag/textures/tag36h11_ID103_64x69mm.png",
+      "source_status": "provided_pattern"
+    },
+    {
+      "id": 104,
+      "family": "tag36h11",
+      "section_id": "SEC07",
+      "bed_prim": "/World/Vegetation/Bed_08",
+      "wall_prim": "/World/farm_framechanged/Bed_Edge_8__1",
+      "black_edge_m": 0.05,
+      "paper_size_m": [
+        0.064,
+        0.069
+      ],
+      "tag_center_map_m": [
+        4.499,
+        7.712,
+        0.264
+      ],
+      "paper_center_map_m": [
+        4.499,
+        7.712,
+        0.2615
+      ],
+      "right_map": [
+        0.0,
+        -1.0,
+        0.0
+      ],
+      "normal_map": [
+        -1.0,
+        -0.0,
+        0.0
+      ],
+      "texture": "sim/assets/apriltag/textures/tag36h11_ID104_64x69mm.png",
+      "source_status": "provided_pattern"
+    },
+    {
+      "id": 105,
+      "family": "tag36h11",
+      "section_id": "SEC07",
+      "bed_prim": "/World/Vegetation/Bed_08",
+      "wall_prim": "/World/farm_framechanged/Bed_Edge_8__1",
+      "black_edge_m": 0.05,
+      "paper_size_m": [
+        0.064,
+        0.069
+      ],
+      "tag_center_map_m": [
+        4.499,
+        7.148,
+        0.264
+      ],
+      "paper_center_map_m": [
+        4.499,
+        7.148,
+        0.2615
+      ],
+      "right_map": [
+        0.0,
+        -1.0,
+        0.0
+      ],
+      "normal_map": [
+        -1.0,
+        -0.0,
+        0.0
+      ],
+      "texture": "sim/assets/apriltag/textures/tag36h11_ID105_64x69mm.png",
+      "source_status": "provided_pattern"
+    },
+    {
+      "id": 106,
+      "family": "tag36h11",
+      "section_id": "SEC07",
+      "bed_prim": "/World/Vegetation/Bed_08",
+      "wall_prim": "/World/farm_framechanged/Bed_Edge_8__1",
+      "black_edge_m": 0.05,
+      "paper_size_m": [
+        0.064,
+        0.069
+      ],
+      "tag_center_map_m": [
+        4.499,
+        6.584,
+        0.264
+      ],
+      "paper_center_map_m": [
+        4.499,
+        6.584,
+        0.2615
+      ],
+      "right_map": [
+        0.0,
+        -1.0,
+        0.0
+      ],
+      "normal_map": [
+        -1.0,
+        -0.0,
+        0.0
+      ],
+      "texture": "sim/assets/apriltag/textures/tag36h11_ID106_64x69mm.png",
+      "source_status": "provided_pattern"
+    },
+    {
+      "id": 107,
+      "family": "tag36h11",
+      "section_id": "SEC07",
+      "bed_prim": "/World/Vegetation/Bed_08",
+      "wall_prim": "/World/farm_framechanged/Bed_Edge_8__1",
+      "black_edge_m": 0.05,
+      "paper_size_m": [
+        0.064,
+        0.069
+      ],
+      "tag_center_map_m": [
+        4.499,
+        6.02,
+        0.264
+      ],
+      "paper_center_map_m": [
+        4.499,
+        6.02,
+        0.2615
+      ],
+      "right_map": [
+        0.0,
+        -1.0,
+        0.0
+      ],
+      "normal_map": [
+        -1.0,
+        -0.0,
+        0.0
+      ],
+      "texture": "sim/assets/apriltag/textures/tag36h11_ID107_64x69mm.png",
+      "source_status": "provided_pattern"
+    },
+    {
+      "id": 108,
+      "family": "tag36h11",
+      "section_id": "SEC07",
+      "bed_prim": "/World/Vegetation/Bed_08",
+      "wall_prim": "/World/farm_framechanged/Bed_Edge_8__1",
+      "black_edge_m": 0.05,
+      "paper_size_m": [
+        0.064,
+        0.069
+      ],
+      "tag_center_map_m": [
+        4.499,
+        5.456,
+        0.264
+      ],
+      "paper_center_map_m": [
+        4.499,
+        5.456,
+        0.2615
+      ],
+      "right_map": [
+        0.0,
+        -1.0,
+        0.0
+      ],
+      "normal_map": [
+        -1.0,
+        -0.0,
+        0.0
+      ],
+      "texture": "sim/assets/apriltag/textures/tag36h11_ID108_64x69mm.png",
+      "source_status": "provided_pattern"
+    },
+    {
+      "id": 109,
+      "family": "tag36h11",
+      "section_id": "SEC07",
+      "bed_prim": "/World/Vegetation/Bed_08",
+      "wall_prim": "/World/farm_framechanged/Bed_Edge_8__1",
+      "black_edge_m": 0.05,
+      "paper_size_m": [
+        0.064,
+        0.069
+      ],
+      "tag_center_map_m": [
+        4.499,
+        4.892,
+        0.264
+      ],
+      "paper_center_map_m": [
+        4.499,
+        4.892,
+        0.2615
+      ],
+      "right_map": [
+        0.0,
+        -1.0,
+        0.0
+      ],
+      "normal_map": [
+        -1.0,
+        -0.0,
+        0.0
+      ],
+      "texture": "sim/assets/apriltag/textures/tag36h11_ID109_64x69mm.png",
+      "source_status": "provided_pattern"
+    },
+    {
+      "id": 110,
+      "family": "tag36h11",
+      "section_id": "SEC07",
+      "bed_prim": "/World/Vegetation/Bed_08",
+      "wall_prim": "/World/farm_framechanged/Bed_Edge_8__1",
+      "black_edge_m": 0.05,
+      "paper_size_m": [
+        0.064,
+        0.069
+      ],
+      "tag_center_map_m": [
+        4.499,
+        4.328,
+        0.264
+      ],
+      "paper_center_map_m": [
+        4.499,
+        4.328,
+        0.2615
+      ],
+      "right_map": [
+        0.0,
+        -1.0,
+        0.0
+      ],
+      "normal_map": [
+        -1.0,
+        -0.0,
+        0.0
+      ],
+      "texture": "sim/assets/apriltag/textures/tag36h11_ID110_64x69mm.png",
+      "source_status": "provided_pattern"
+    },
+    {
+      "id": 111,
+      "family": "tag36h11",
+      "section_id": "SEC07",
+      "bed_prim": "/World/Vegetation/Bed_08",
+      "wall_prim": "/World/farm_framechanged/Bed_Edge_8__1",
+      "black_edge_m": 0.05,
+      "paper_size_m": [
+        0.064,
+        0.069
+      ],
+      "tag_center_map_m": [
+        4.499,
+        3.7640000000000002,
+        0.264
+      ],
+      "paper_center_map_m": [
+        4.499,
+        3.7640000000000002,
+        0.2615
+      ],
+      "right_map": [
+        0.0,
+        -1.0,
+        0.0
+      ],
+      "normal_map": [
+        -1.0,
+        -0.0,
+        0.0
+      ],
+      "texture": "sim/assets/apriltag/textures/tag36h11_ID111_64x69mm.png",
+      "source_status": "provided_pattern"
+    },
+    {
+      "id": 112,
+      "family": "tag36h11",
+      "section_id": "SEC07",
+      "bed_prim": "/World/Vegetation/Bed_08",
+      "wall_prim": "/World/farm_framechanged/Bed_Edge_8__1",
+      "black_edge_m": 0.05,
+      "paper_size_m": [
+        0.064,
+        0.069
+      ],
+      "tag_center_map_m": [
+        4.499,
+        3.2,
+        0.264
+      ],
+      "paper_center_map_m": [
+        4.499,
+        3.2,
+        0.2615
+      ],
+      "right_map": [
+        0.0,
+        -1.0,
+        0.0
+      ],
+      "normal_map": [
+        -1.0,
+        -0.0,
+        0.0
+      ],
+      "texture": "sim/assets/apriltag/textures/tag36h11_ID112_64x69mm.png",
+      "source_status": "provided_pattern"
+    },
+    {
+      "id": 113,
+      "family": "tag36h11",
+      "section_id": "SEC07",
+      "bed_prim": "/World/Vegetation/Bed_08",
+      "wall_prim": "/World/farm_framechanged/Bed_Edge_8__1",
+      "black_edge_m": 0.05,
+      "paper_size_m": [
+        0.064,
+        0.069
+      ],
+      "tag_center_map_m": [
+        4.499,
+        2.636,
+        0.264
+      ],
+      "paper_center_map_m": [
+        4.499,
+        2.636,
+        0.2615
+      ],
+      "right_map": [
+        0.0,
+        -1.0,
+        0.0
+      ],
+      "normal_map": [
+        -1.0,
+        -0.0,
+        0.0
+      ],
+      "texture": "sim/assets/apriltag/textures/tag36h11_ID113_64x69mm.png",
+      "source_status": "provided_pattern"
+    },
+    {
+      "id": 114,
+      "family": "tag36h11",
+      "section_id": "SEC07",
+      "bed_prim": "/World/Vegetation/Bed_08",
+      "wall_prim": "/World/farm_framechanged/Bed_Edge_8__1",
+      "black_edge_m": 0.05,
+      "paper_size_m": [
+        0.064,
+        0.069
+      ],
+      "tag_center_map_m": [
+        4.499,
+        2.072,
+        0.264
+      ],
+      "paper_center_map_m": [
+        4.499,
+        2.072,
+        0.2615
+      ],
+      "right_map": [
+        0.0,
+        -1.0,
+        0.0
+      ],
+      "normal_map": [
+        -1.0,
+        -0.0,
+        0.0
+      ],
+      "texture": "sim/assets/apriltag/textures/tag36h11_ID114_64x69mm.png",
+      "source_status": "provided_pattern"
+    },
+    {
+      "id": 100,
+      "family": "tag36h11",
+      "section_id": "SEC08",
+      "bed_prim": "/World/Vegetation/Bed_08",
+      "wall_prim": "/World/farm_framechanged/Bed_Edge_8_1",
+      "black_edge_m": 0.05,
+      "paper_size_m": [
+        0.064,
+        0.069
+      ],
+      "tag_center_map_m": [
+        5.501,
+        2.032,
+        0.264
+      ],
+      "paper_center_map_m": [
+        5.501,
+        2.032,
+        0.2615
+      ],
+      "right_map": [
+        0.0,
+        1.0,
+        0.0
+      ],
+      "normal_map": [
+        1.0,
+        -0.0,
+        0.0
+      ],
+      "texture": "sim/assets/apriltag/textures/tag36h11_ID100_64x69mm.png",
+      "source_status": "provided_pattern"
+    },
+    {
+      "id": 101,
+      "family": "tag36h11",
+      "section_id": "SEC08",
+      "bed_prim": "/World/Vegetation/Bed_08",
+      "wall_prim": "/World/farm_framechanged/Bed_Edge_8_1",
+      "black_edge_m": 0.05,
+      "paper_size_m": [
+        0.064,
+        0.069
+      ],
+      "tag_center_map_m": [
+        5.501,
+        2.596,
+        0.264
+      ],
+      "paper_center_map_m": [
+        5.501,
+        2.596,
+        0.2615
+      ],
+      "right_map": [
+        0.0,
+        1.0,
+        0.0
+      ],
+      "normal_map": [
+        1.0,
+        -0.0,
+        0.0
+      ],
+      "texture": "sim/assets/apriltag/textures/tag36h11_ID101_64x69mm.png",
+      "source_status": "provided_pattern"
+    },
+    {
+      "id": 102,
+      "family": "tag36h11",
+      "section_id": "SEC08",
+      "bed_prim": "/World/Vegetation/Bed_08",
+      "wall_prim": "/World/farm_framechanged/Bed_Edge_8_1",
+      "black_edge_m": 0.05,
+      "paper_size_m": [
+        0.064,
+        0.069
+      ],
+      "tag_center_map_m": [
+        5.501,
+        3.16,
+        0.264
+      ],
+      "paper_center_map_m": [
+        5.501,
+        3.16,
+        0.2615
+      ],
+      "right_map": [
+        0.0,
+        1.0,
+        0.0
+      ],
+      "normal_map": [
+        1.0,
+        -0.0,
+        0.0
+      ],
+      "texture": "sim/assets/apriltag/textures/tag36h11_ID102_64x69mm.png",
+      "source_status": "provided_pattern"
+    },
+    {
+      "id": 103,
+      "family": "tag36h11",
+      "section_id": "SEC08",
+      "bed_prim": "/World/Vegetation/Bed_08",
+      "wall_prim": "/World/farm_framechanged/Bed_Edge_8_1",
+      "black_edge_m": 0.05,
+      "paper_size_m": [
+        0.064,
+        0.069
+      ],
+      "tag_center_map_m": [
+        5.501,
+        3.724,
+        0.264
+      ],
+      "paper_center_map_m": [
+        5.501,
+        3.724,
+        0.2615
+      ],
+      "right_map": [
+        0.0,
+        1.0,
+        0.0
+      ],
+      "normal_map": [
+        1.0,
+        -0.0,
+        0.0
+      ],
+      "texture": "sim/assets/apriltag/textures/tag36h11_ID103_64x69mm.png",
+      "source_status": "provided_pattern"
+    },
+    {
+      "id": 104,
+      "family": "tag36h11",
+      "section_id": "SEC08",
+      "bed_prim": "/World/Vegetation/Bed_08",
+      "wall_prim": "/World/farm_framechanged/Bed_Edge_8_1",
+      "black_edge_m": 0.05,
+      "paper_size_m": [
+        0.064,
+        0.069
+      ],
+      "tag_center_map_m": [
+        5.501,
+        4.288,
+        0.264
+      ],
+      "paper_center_map_m": [
+        5.501,
+        4.288,
+        0.2615
+      ],
+      "right_map": [
+        0.0,
+        1.0,
+        0.0
+      ],
+      "normal_map": [
+        1.0,
+        -0.0,
+        0.0
+      ],
+      "texture": "sim/assets/apriltag/textures/tag36h11_ID104_64x69mm.png",
+      "source_status": "provided_pattern"
+    },
+    {
+      "id": 105,
+      "family": "tag36h11",
+      "section_id": "SEC08",
+      "bed_prim": "/World/Vegetation/Bed_08",
+      "wall_prim": "/World/farm_framechanged/Bed_Edge_8_1",
+      "black_edge_m": 0.05,
+      "paper_size_m": [
+        0.064,
+        0.069
+      ],
+      "tag_center_map_m": [
+        5.501,
+        4.852,
+        0.264
+      ],
+      "paper_center_map_m": [
+        5.501,
+        4.852,
+        0.2615
+      ],
+      "right_map": [
+        0.0,
+        1.0,
+        0.0
+      ],
+      "normal_map": [
+        1.0,
+        -0.0,
+        0.0
+      ],
+      "texture": "sim/assets/apriltag/textures/tag36h11_ID105_64x69mm.png",
+      "source_status": "provided_pattern"
+    },
+    {
+      "id": 106,
+      "family": "tag36h11",
+      "section_id": "SEC08",
+      "bed_prim": "/World/Vegetation/Bed_08",
+      "wall_prim": "/World/farm_framechanged/Bed_Edge_8_1",
+      "black_edge_m": 0.05,
+      "paper_size_m": [
+        0.064,
+        0.069
+      ],
+      "tag_center_map_m": [
+        5.501,
+        5.416,
+        0.264
+      ],
+      "paper_center_map_m": [
+        5.501,
+        5.416,
+        0.2615
+      ],
+      "right_map": [
+        0.0,
+        1.0,
+        0.0
+      ],
+      "normal_map": [
+        1.0,
+        -0.0,
+        0.0
+      ],
+      "texture": "sim/assets/apriltag/textures/tag36h11_ID106_64x69mm.png",
+      "source_status": "provided_pattern"
+    },
+    {
+      "id": 107,
+      "family": "tag36h11",
+      "section_id": "SEC08",
+      "bed_prim": "/World/Vegetation/Bed_08",
+      "wall_prim": "/World/farm_framechanged/Bed_Edge_8_1",
+      "black_edge_m": 0.05,
+      "paper_size_m": [
+        0.064,
+        0.069
+      ],
+      "tag_center_map_m": [
+        5.501,
+        5.98,
+        0.264
+      ],
+      "paper_center_map_m": [
+        5.501,
+        5.98,
+        0.2615
+      ],
+      "right_map": [
+        0.0,
+        1.0,
+        0.0
+      ],
+      "normal_map": [
+        1.0,
+        -0.0,
+        0.0
+      ],
+      "texture": "sim/assets/apriltag/textures/tag36h11_ID107_64x69mm.png",
+      "source_status": "provided_pattern"
+    },
+    {
+      "id": 108,
+      "family": "tag36h11",
+      "section_id": "SEC08",
+      "bed_prim": "/World/Vegetation/Bed_08",
+      "wall_prim": "/World/farm_framechanged/Bed_Edge_8_1",
+      "black_edge_m": 0.05,
+      "paper_size_m": [
+        0.064,
+        0.069
+      ],
+      "tag_center_map_m": [
+        5.501,
+        6.544,
+        0.264
+      ],
+      "paper_center_map_m": [
+        5.501,
+        6.544,
+        0.2615
+      ],
+      "right_map": [
+        0.0,
+        1.0,
+        0.0
+      ],
+      "normal_map": [
+        1.0,
+        -0.0,
+        0.0
+      ],
+      "texture": "sim/assets/apriltag/textures/tag36h11_ID108_64x69mm.png",
+      "source_status": "provided_pattern"
+    },
+    {
+      "id": 109,
+      "family": "tag36h11",
+      "section_id": "SEC08",
+      "bed_prim": "/World/Vegetation/Bed_08",
+      "wall_prim": "/World/farm_framechanged/Bed_Edge_8_1",
+      "black_edge_m": 0.05,
+      "paper_size_m": [
+        0.064,
+        0.069
+      ],
+      "tag_center_map_m": [
+        5.501,
+        7.108,
+        0.264
+      ],
+      "paper_center_map_m": [
+        5.501,
+        7.108,
+        0.2615
+      ],
+      "right_map": [
+        0.0,
+        1.0,
+        0.0
+      ],
+      "normal_map": [
+        1.0,
+        -0.0,
+        0.0
+      ],
+      "texture": "sim/assets/apriltag/textures/tag36h11_ID109_64x69mm.png",
+      "source_status": "provided_pattern"
+    },
+    {
+      "id": 110,
+      "family": "tag36h11",
+      "section_id": "SEC08",
+      "bed_prim": "/World/Vegetation/Bed_08",
+      "wall_prim": "/World/farm_framechanged/Bed_Edge_8_1",
+      "black_edge_m": 0.05,
+      "paper_size_m": [
+        0.064,
+        0.069
+      ],
+      "tag_center_map_m": [
+        5.501,
+        7.672,
+        0.264
+      ],
+      "paper_center_map_m": [
+        5.501,
+        7.672,
+        0.2615
+      ],
+      "right_map": [
+        0.0,
+        1.0,
+        0.0
+      ],
+      "normal_map": [
+        1.0,
+        -0.0,
+        0.0
+      ],
+      "texture": "sim/assets/apriltag/textures/tag36h11_ID110_64x69mm.png",
+      "source_status": "provided_pattern"
+    },
+    {
+      "id": 111,
+      "family": "tag36h11",
+      "section_id": "SEC08",
+      "bed_prim": "/World/Vegetation/Bed_08",
+      "wall_prim": "/World/farm_framechanged/Bed_Edge_8_1",
+      "black_edge_m": 0.05,
+      "paper_size_m": [
+        0.064,
+        0.069
+      ],
+      "tag_center_map_m": [
+        5.501,
+        8.236,
+        0.264
+      ],
+      "paper_center_map_m": [
+        5.501,
+        8.236,
+        0.2615
+      ],
+      "right_map": [
+        0.0,
+        1.0,
+        0.0
+      ],
+      "normal_map": [
+        1.0,
+        -0.0,
+        0.0
+      ],
+      "texture": "sim/assets/apriltag/textures/tag36h11_ID111_64x69mm.png",
+      "source_status": "provided_pattern"
+    },
+    {
+      "id": 112,
+      "family": "tag36h11",
+      "section_id": "SEC08",
+      "bed_prim": "/World/Vegetation/Bed_08",
+      "wall_prim": "/World/farm_framechanged/Bed_Edge_8_1",
+      "black_edge_m": 0.05,
+      "paper_size_m": [
+        0.064,
+        0.069
+      ],
+      "tag_center_map_m": [
+        5.501,
+        8.8,
+        0.264
+      ],
+      "paper_center_map_m": [
+        5.501,
+        8.8,
+        0.2615
+      ],
+      "right_map": [
+        0.0,
+        1.0,
+        0.0
+      ],
+      "normal_map": [
+        1.0,
+        -0.0,
+        0.0
+      ],
+      "texture": "sim/assets/apriltag/textures/tag36h11_ID112_64x69mm.png",
+      "source_status": "provided_pattern"
+    },
+    {
+      "id": 113,
+      "family": "tag36h11",
+      "section_id": "SEC08",
+      "bed_prim": "/World/Vegetation/Bed_08",
+      "wall_prim": "/World/farm_framechanged/Bed_Edge_8_1",
+      "black_edge_m": 0.05,
+      "paper_size_m": [
+        0.064,
+        0.069
+      ],
+      "tag_center_map_m": [
+        5.501,
+        9.364,
+        0.264
+      ],
+      "paper_center_map_m": [
+        5.501,
+        9.364,
+        0.2615
+      ],
+      "right_map": [
+        0.0,
+        1.0,
+        0.0
+      ],
+      "normal_map": [
+        1.0,
+        -0.0,
+        0.0
+      ],
+      "texture": "sim/assets/apriltag/textures/tag36h11_ID113_64x69mm.png",
+      "source_status": "provided_pattern"
+    },
+    {
+      "id": 114,
+      "family": "tag36h11",
+      "section_id": "SEC08",
+      "bed_prim": "/World/Vegetation/Bed_08",
+      "wall_prim": "/World/farm_framechanged/Bed_Edge_8_1",
+      "black_edge_m": 0.05,
+      "paper_size_m": [
+        0.064,
+        0.069
+      ],
+      "tag_center_map_m": [
+        5.501,
+        9.928,
+        0.264
+      ],
+      "paper_center_map_m": [
+        5.501,
+        9.928,
+        0.2615
+      ],
+      "right_map": [
+        0.0,
+        1.0,
+        0.0
+      ],
+      "normal_map": [
+        1.0,
+        -0.0,
+        0.0
+      ],
+      "texture": "sim/assets/apriltag/textures/tag36h11_ID114_64x69mm.png",
+      "source_status": "provided_pattern"
+    },
+    {
+      "id": 100,
+      "family": "tag36h11",
+      "section_id": "SEC09",
+      "bed_prim": "/World/Vegetation/Bed_01",
+      "wall_prim": "/World/farm_framechanged/Bed_Edge_1__1",
+      "black_edge_m": 0.05,
+      "paper_size_m": [
+        0.064,
+        0.069
+      ],
+      "tag_center_map_m": [
+        -5.501,
+        -2.032,
+        0.264
+      ],
+      "paper_center_map_m": [
+        -5.501,
+        -2.032,
+        0.2615
+      ],
+      "right_map": [
+        0.0,
+        -1.0,
+        0.0
+      ],
+      "normal_map": [
+        -1.0,
+        -0.0,
+        0.0
+      ],
+      "texture": "sim/assets/apriltag/textures/tag36h11_ID100_64x69mm.png",
+      "source_status": "provided_pattern"
+    },
+    {
+      "id": 101,
+      "family": "tag36h11",
+      "section_id": "SEC09",
+      "bed_prim": "/World/Vegetation/Bed_01",
+      "wall_prim": "/World/farm_framechanged/Bed_Edge_1__1",
+      "black_edge_m": 0.05,
+      "paper_size_m": [
+        0.064,
+        0.069
+      ],
+      "tag_center_map_m": [
+        -5.501,
+        -2.596,
+        0.264
+      ],
+      "paper_center_map_m": [
+        -5.501,
+        -2.596,
+        0.2615
+      ],
+      "right_map": [
+        0.0,
+        -1.0,
+        0.0
+      ],
+      "normal_map": [
+        -1.0,
+        -0.0,
+        0.0
+      ],
+      "texture": "sim/assets/apriltag/textures/tag36h11_ID101_64x69mm.png",
+      "source_status": "provided_pattern"
+    },
+    {
+      "id": 102,
+      "family": "tag36h11",
+      "section_id": "SEC09",
+      "bed_prim": "/World/Vegetation/Bed_01",
+      "wall_prim": "/World/farm_framechanged/Bed_Edge_1__1",
+      "black_edge_m": 0.05,
+      "paper_size_m": [
+        0.064,
+        0.069
+      ],
+      "tag_center_map_m": [
+        -5.501,
+        -3.16,
+        0.264
+      ],
+      "paper_center_map_m": [
+        -5.501,
+        -3.16,
+        0.2615
+      ],
+      "right_map": [
+        0.0,
+        -1.0,
+        0.0
+      ],
+      "normal_map": [
+        -1.0,
+        -0.0,
+        0.0
+      ],
+      "texture": "sim/assets/apriltag/textures/tag36h11_ID102_64x69mm.png",
+      "source_status": "provided_pattern"
+    },
+    {
+      "id": 103,
+      "family": "tag36h11",
+      "section_id": "SEC09",
+      "bed_prim": "/World/Vegetation/Bed_01",
+      "wall_prim": "/World/farm_framechanged/Bed_Edge_1__1",
+      "black_edge_m": 0.05,
+      "paper_size_m": [
+        0.064,
+        0.069
+      ],
+      "tag_center_map_m": [
+        -5.501,
+        -3.724,
+        0.264
+      ],
+      "paper_center_map_m": [
+        -5.501,
+        -3.724,
+        0.2615
+      ],
+      "right_map": [
+        0.0,
+        -1.0,
+        0.0
+      ],
+      "normal_map": [
+        -1.0,
+        -0.0,
+        0.0
+      ],
+      "texture": "sim/assets/apriltag/textures/tag36h11_ID103_64x69mm.png",
+      "source_status": "provided_pattern"
+    },
+    {
+      "id": 104,
+      "family": "tag36h11",
+      "section_id": "SEC09",
+      "bed_prim": "/World/Vegetation/Bed_01",
+      "wall_prim": "/World/farm_framechanged/Bed_Edge_1__1",
+      "black_edge_m": 0.05,
+      "paper_size_m": [
+        0.064,
+        0.069
+      ],
+      "tag_center_map_m": [
+        -5.501,
+        -4.288,
+        0.264
+      ],
+      "paper_center_map_m": [
+        -5.501,
+        -4.288,
+        0.2615
+      ],
+      "right_map": [
+        0.0,
+        -1.0,
+        0.0
+      ],
+      "normal_map": [
+        -1.0,
+        -0.0,
+        0.0
+      ],
+      "texture": "sim/assets/apriltag/textures/tag36h11_ID104_64x69mm.png",
+      "source_status": "provided_pattern"
+    },
+    {
+      "id": 105,
+      "family": "tag36h11",
+      "section_id": "SEC09",
+      "bed_prim": "/World/Vegetation/Bed_01",
+      "wall_prim": "/World/farm_framechanged/Bed_Edge_1__1",
+      "black_edge_m": 0.05,
+      "paper_size_m": [
+        0.064,
+        0.069
+      ],
+      "tag_center_map_m": [
+        -5.501,
+        -4.852,
+        0.264
+      ],
+      "paper_center_map_m": [
+        -5.501,
+        -4.852,
+        0.2615
+      ],
+      "right_map": [
+        0.0,
+        -1.0,
+        0.0
+      ],
+      "normal_map": [
+        -1.0,
+        -0.0,
+        0.0
+      ],
+      "texture": "sim/assets/apriltag/textures/tag36h11_ID105_64x69mm.png",
+      "source_status": "provided_pattern"
+    },
+    {
+      "id": 106,
+      "family": "tag36h11",
+      "section_id": "SEC09",
+      "bed_prim": "/World/Vegetation/Bed_01",
+      "wall_prim": "/World/farm_framechanged/Bed_Edge_1__1",
+      "black_edge_m": 0.05,
+      "paper_size_m": [
+        0.064,
+        0.069
+      ],
+      "tag_center_map_m": [
+        -5.501,
+        -5.416,
+        0.264
+      ],
+      "paper_center_map_m": [
+        -5.501,
+        -5.416,
+        0.2615
+      ],
+      "right_map": [
+        0.0,
+        -1.0,
+        0.0
+      ],
+      "normal_map": [
+        -1.0,
+        -0.0,
+        0.0
+      ],
+      "texture": "sim/assets/apriltag/textures/tag36h11_ID106_64x69mm.png",
+      "source_status": "provided_pattern"
+    },
+    {
+      "id": 107,
+      "family": "tag36h11",
+      "section_id": "SEC09",
+      "bed_prim": "/World/Vegetation/Bed_01",
+      "wall_prim": "/World/farm_framechanged/Bed_Edge_1__1",
+      "black_edge_m": 0.05,
+      "paper_size_m": [
+        0.064,
+        0.069
+      ],
+      "tag_center_map_m": [
+        -5.501,
+        -5.98,
+        0.264
+      ],
+      "paper_center_map_m": [
+        -5.501,
+        -5.98,
+        0.2615
+      ],
+      "right_map": [
+        0.0,
+        -1.0,
+        0.0
+      ],
+      "normal_map": [
+        -1.0,
+        -0.0,
+        0.0
+      ],
+      "texture": "sim/assets/apriltag/textures/tag36h11_ID107_64x69mm.png",
+      "source_status": "provided_pattern"
+    },
+    {
+      "id": 108,
+      "family": "tag36h11",
+      "section_id": "SEC09",
+      "bed_prim": "/World/Vegetation/Bed_01",
+      "wall_prim": "/World/farm_framechanged/Bed_Edge_1__1",
+      "black_edge_m": 0.05,
+      "paper_size_m": [
+        0.064,
+        0.069
+      ],
+      "tag_center_map_m": [
+        -5.501,
+        -6.544,
+        0.264
+      ],
+      "paper_center_map_m": [
+        -5.501,
+        -6.544,
+        0.2615
+      ],
+      "right_map": [
+        0.0,
+        -1.0,
+        0.0
+      ],
+      "normal_map": [
+        -1.0,
+        -0.0,
+        0.0
+      ],
+      "texture": "sim/assets/apriltag/textures/tag36h11_ID108_64x69mm.png",
+      "source_status": "provided_pattern"
+    },
+    {
+      "id": 109,
+      "family": "tag36h11",
+      "section_id": "SEC09",
+      "bed_prim": "/World/Vegetation/Bed_01",
+      "wall_prim": "/World/farm_framechanged/Bed_Edge_1__1",
+      "black_edge_m": 0.05,
+      "paper_size_m": [
+        0.064,
+        0.069
+      ],
+      "tag_center_map_m": [
+        -5.501,
+        -7.108,
+        0.264
+      ],
+      "paper_center_map_m": [
+        -5.501,
+        -7.108,
+        0.2615
+      ],
+      "right_map": [
+        0.0,
+        -1.0,
+        0.0
+      ],
+      "normal_map": [
+        -1.0,
+        -0.0,
+        0.0
+      ],
+      "texture": "sim/assets/apriltag/textures/tag36h11_ID109_64x69mm.png",
+      "source_status": "provided_pattern"
+    },
+    {
+      "id": 110,
+      "family": "tag36h11",
+      "section_id": "SEC09",
+      "bed_prim": "/World/Vegetation/Bed_01",
+      "wall_prim": "/World/farm_framechanged/Bed_Edge_1__1",
+      "black_edge_m": 0.05,
+      "paper_size_m": [
+        0.064,
+        0.069
+      ],
+      "tag_center_map_m": [
+        -5.501,
+        -7.672,
+        0.264
+      ],
+      "paper_center_map_m": [
+        -5.501,
+        -7.672,
+        0.2615
+      ],
+      "right_map": [
+        0.0,
+        -1.0,
+        0.0
+      ],
+      "normal_map": [
+        -1.0,
+        -0.0,
+        0.0
+      ],
+      "texture": "sim/assets/apriltag/textures/tag36h11_ID110_64x69mm.png",
+      "source_status": "provided_pattern"
+    },
+    {
+      "id": 111,
+      "family": "tag36h11",
+      "section_id": "SEC09",
+      "bed_prim": "/World/Vegetation/Bed_01",
+      "wall_prim": "/World/farm_framechanged/Bed_Edge_1__1",
+      "black_edge_m": 0.05,
+      "paper_size_m": [
+        0.064,
+        0.069
+      ],
+      "tag_center_map_m": [
+        -5.501,
+        -8.236,
+        0.264
+      ],
+      "paper_center_map_m": [
+        -5.501,
+        -8.236,
+        0.2615
+      ],
+      "right_map": [
+        0.0,
+        -1.0,
+        0.0
+      ],
+      "normal_map": [
+        -1.0,
+        -0.0,
+        0.0
+      ],
+      "texture": "sim/assets/apriltag/textures/tag36h11_ID111_64x69mm.png",
+      "source_status": "provided_pattern"
+    },
+    {
+      "id": 112,
+      "family": "tag36h11",
+      "section_id": "SEC09",
+      "bed_prim": "/World/Vegetation/Bed_01",
+      "wall_prim": "/World/farm_framechanged/Bed_Edge_1__1",
+      "black_edge_m": 0.05,
+      "paper_size_m": [
+        0.064,
+        0.069
+      ],
+      "tag_center_map_m": [
+        -5.501,
+        -8.8,
+        0.264
+      ],
+      "paper_center_map_m": [
+        -5.501,
+        -8.8,
+        0.2615
+      ],
+      "right_map": [
+        0.0,
+        -1.0,
+        0.0
+      ],
+      "normal_map": [
+        -1.0,
+        -0.0,
+        0.0
+      ],
+      "texture": "sim/assets/apriltag/textures/tag36h11_ID112_64x69mm.png",
+      "source_status": "provided_pattern"
+    },
+    {
+      "id": 113,
+      "family": "tag36h11",
+      "section_id": "SEC09",
+      "bed_prim": "/World/Vegetation/Bed_01",
+      "wall_prim": "/World/farm_framechanged/Bed_Edge_1__1",
+      "black_edge_m": 0.05,
+      "paper_size_m": [
+        0.064,
+        0.069
+      ],
+      "tag_center_map_m": [
+        -5.501,
+        -9.364,
+        0.264
+      ],
+      "paper_center_map_m": [
+        -5.501,
+        -9.364,
+        0.2615
+      ],
+      "right_map": [
+        0.0,
+        -1.0,
+        0.0
+      ],
+      "normal_map": [
+        -1.0,
+        -0.0,
+        0.0
+      ],
+      "texture": "sim/assets/apriltag/textures/tag36h11_ID113_64x69mm.png",
+      "source_status": "provided_pattern"
+    },
+    {
+      "id": 114,
+      "family": "tag36h11",
+      "section_id": "SEC09",
+      "bed_prim": "/World/Vegetation/Bed_01",
+      "wall_prim": "/World/farm_framechanged/Bed_Edge_1__1",
+      "black_edge_m": 0.05,
+      "paper_size_m": [
+        0.064,
+        0.069
+      ],
+      "tag_center_map_m": [
+        -5.501,
+        -9.928,
+        0.264
+      ],
+      "paper_center_map_m": [
+        -5.501,
+        -9.928,
+        0.2615
+      ],
+      "right_map": [
+        0.0,
+        -1.0,
+        0.0
+      ],
+      "normal_map": [
+        -1.0,
+        -0.0,
+        0.0
+      ],
+      "texture": "sim/assets/apriltag/textures/tag36h11_ID114_64x69mm.png",
+      "source_status": "provided_pattern"
+    },
+    {
+      "id": 100,
+      "family": "tag36h11",
+      "section_id": "SEC10",
+      "bed_prim": "/World/Vegetation/Bed_01",
+      "wall_prim": "/World/farm_framechanged/Bed_Edge_1_1",
+      "black_edge_m": 0.05,
+      "paper_size_m": [
+        0.064,
+        0.069
+      ],
+      "tag_center_map_m": [
+        -4.499,
+        -9.968,
+        0.264
+      ],
+      "paper_center_map_m": [
+        -4.499,
+        -9.968,
+        0.2615
+      ],
+      "right_map": [
+        0.0,
+        1.0,
+        0.0
+      ],
+      "normal_map": [
+        1.0,
+        -0.0,
+        0.0
+      ],
+      "texture": "sim/assets/apriltag/textures/tag36h11_ID100_64x69mm.png",
+      "source_status": "provided_pattern"
+    },
+    {
+      "id": 101,
+      "family": "tag36h11",
+      "section_id": "SEC10",
+      "bed_prim": "/World/Vegetation/Bed_01",
+      "wall_prim": "/World/farm_framechanged/Bed_Edge_1_1",
+      "black_edge_m": 0.05,
+      "paper_size_m": [
+        0.064,
+        0.069
+      ],
+      "tag_center_map_m": [
+        -4.499,
+        -9.404,
+        0.264
+      ],
+      "paper_center_map_m": [
+        -4.499,
+        -9.404,
+        0.2615
+      ],
+      "right_map": [
+        0.0,
+        1.0,
+        0.0
+      ],
+      "normal_map": [
+        1.0,
+        -0.0,
+        0.0
+      ],
+      "texture": "sim/assets/apriltag/textures/tag36h11_ID101_64x69mm.png",
+      "source_status": "provided_pattern"
+    },
+    {
+      "id": 102,
+      "family": "tag36h11",
+      "section_id": "SEC10",
+      "bed_prim": "/World/Vegetation/Bed_01",
+      "wall_prim": "/World/farm_framechanged/Bed_Edge_1_1",
+      "black_edge_m": 0.05,
+      "paper_size_m": [
+        0.064,
+        0.069
+      ],
+      "tag_center_map_m": [
+        -4.499,
+        -8.84,
+        0.264
+      ],
+      "paper_center_map_m": [
+        -4.499,
+        -8.84,
+        0.2615
+      ],
+      "right_map": [
+        0.0,
+        1.0,
+        0.0
+      ],
+      "normal_map": [
+        1.0,
+        -0.0,
+        0.0
+      ],
+      "texture": "sim/assets/apriltag/textures/tag36h11_ID102_64x69mm.png",
+      "source_status": "provided_pattern"
+    },
+    {
+      "id": 103,
+      "family": "tag36h11",
+      "section_id": "SEC10",
+      "bed_prim": "/World/Vegetation/Bed_01",
+      "wall_prim": "/World/farm_framechanged/Bed_Edge_1_1",
+      "black_edge_m": 0.05,
+      "paper_size_m": [
+        0.064,
+        0.069
+      ],
+      "tag_center_map_m": [
+        -4.499,
+        -8.276,
+        0.264
+      ],
+      "paper_center_map_m": [
+        -4.499,
+        -8.276,
+        0.2615
+      ],
+      "right_map": [
+        0.0,
+        1.0,
+        0.0
+      ],
+      "normal_map": [
+        1.0,
+        -0.0,
+        0.0
+      ],
+      "texture": "sim/assets/apriltag/textures/tag36h11_ID103_64x69mm.png",
+      "source_status": "provided_pattern"
+    },
+    {
+      "id": 104,
+      "family": "tag36h11",
+      "section_id": "SEC10",
+      "bed_prim": "/World/Vegetation/Bed_01",
+      "wall_prim": "/World/farm_framechanged/Bed_Edge_1_1",
+      "black_edge_m": 0.05,
+      "paper_size_m": [
+        0.064,
+        0.069
+      ],
+      "tag_center_map_m": [
+        -4.499,
+        -7.712,
+        0.264
+      ],
+      "paper_center_map_m": [
+        -4.499,
+        -7.712,
+        0.2615
+      ],
+      "right_map": [
+        0.0,
+        1.0,
+        0.0
+      ],
+      "normal_map": [
+        1.0,
+        -0.0,
+        0.0
+      ],
+      "texture": "sim/assets/apriltag/textures/tag36h11_ID104_64x69mm.png",
+      "source_status": "provided_pattern"
+    },
+    {
+      "id": 105,
+      "family": "tag36h11",
+      "section_id": "SEC10",
+      "bed_prim": "/World/Vegetation/Bed_01",
+      "wall_prim": "/World/farm_framechanged/Bed_Edge_1_1",
+      "black_edge_m": 0.05,
+      "paper_size_m": [
+        0.064,
+        0.069
+      ],
+      "tag_center_map_m": [
+        -4.499,
+        -7.148,
+        0.264
+      ],
+      "paper_center_map_m": [
+        -4.499,
+        -7.148,
+        0.2615
+      ],
+      "right_map": [
+        0.0,
+        1.0,
+        0.0
+      ],
+      "normal_map": [
+        1.0,
+        -0.0,
+        0.0
+      ],
+      "texture": "sim/assets/apriltag/textures/tag36h11_ID105_64x69mm.png",
+      "source_status": "provided_pattern"
+    },
+    {
+      "id": 106,
+      "family": "tag36h11",
+      "section_id": "SEC10",
+      "bed_prim": "/World/Vegetation/Bed_01",
+      "wall_prim": "/World/farm_framechanged/Bed_Edge_1_1",
+      "black_edge_m": 0.05,
+      "paper_size_m": [
+        0.064,
+        0.069
+      ],
+      "tag_center_map_m": [
+        -4.499,
+        -6.584,
+        0.264
+      ],
+      "paper_center_map_m": [
+        -4.499,
+        -6.584,
+        0.2615
+      ],
+      "right_map": [
+        0.0,
+        1.0,
+        0.0
+      ],
+      "normal_map": [
+        1.0,
+        -0.0,
+        0.0
+      ],
+      "texture": "sim/assets/apriltag/textures/tag36h11_ID106_64x69mm.png",
+      "source_status": "provided_pattern"
+    },
+    {
+      "id": 107,
+      "family": "tag36h11",
+      "section_id": "SEC10",
+      "bed_prim": "/World/Vegetation/Bed_01",
+      "wall_prim": "/World/farm_framechanged/Bed_Edge_1_1",
+      "black_edge_m": 0.05,
+      "paper_size_m": [
+        0.064,
+        0.069
+      ],
+      "tag_center_map_m": [
+        -4.499,
+        -6.02,
+        0.264
+      ],
+      "paper_center_map_m": [
+        -4.499,
+        -6.02,
+        0.2615
+      ],
+      "right_map": [
+        0.0,
+        1.0,
+        0.0
+      ],
+      "normal_map": [
+        1.0,
+        -0.0,
+        0.0
+      ],
+      "texture": "sim/assets/apriltag/textures/tag36h11_ID107_64x69mm.png",
+      "source_status": "provided_pattern"
+    },
+    {
+      "id": 108,
+      "family": "tag36h11",
+      "section_id": "SEC10",
+      "bed_prim": "/World/Vegetation/Bed_01",
+      "wall_prim": "/World/farm_framechanged/Bed_Edge_1_1",
+      "black_edge_m": 0.05,
+      "paper_size_m": [
+        0.064,
+        0.069
+      ],
+      "tag_center_map_m": [
+        -4.499,
+        -5.456,
+        0.264
+      ],
+      "paper_center_map_m": [
+        -4.499,
+        -5.456,
+        0.2615
+      ],
+      "right_map": [
+        0.0,
+        1.0,
+        0.0
+      ],
+      "normal_map": [
+        1.0,
+        -0.0,
+        0.0
+      ],
+      "texture": "sim/assets/apriltag/textures/tag36h11_ID108_64x69mm.png",
+      "source_status": "provided_pattern"
+    },
+    {
+      "id": 109,
+      "family": "tag36h11",
+      "section_id": "SEC10",
+      "bed_prim": "/World/Vegetation/Bed_01",
+      "wall_prim": "/World/farm_framechanged/Bed_Edge_1_1",
+      "black_edge_m": 0.05,
+      "paper_size_m": [
+        0.064,
+        0.069
+      ],
+      "tag_center_map_m": [
+        -4.499,
+        -4.892,
+        0.264
+      ],
+      "paper_center_map_m": [
+        -4.499,
+        -4.892,
+        0.2615
+      ],
+      "right_map": [
+        0.0,
+        1.0,
+        0.0
+      ],
+      "normal_map": [
+        1.0,
+        -0.0,
+        0.0
+      ],
+      "texture": "sim/assets/apriltag/textures/tag36h11_ID109_64x69mm.png",
+      "source_status": "provided_pattern"
+    },
+    {
+      "id": 110,
+      "family": "tag36h11",
+      "section_id": "SEC10",
+      "bed_prim": "/World/Vegetation/Bed_01",
+      "wall_prim": "/World/farm_framechanged/Bed_Edge_1_1",
+      "black_edge_m": 0.05,
+      "paper_size_m": [
+        0.064,
+        0.069
+      ],
+      "tag_center_map_m": [
+        -4.499,
+        -4.328,
+        0.264
+      ],
+      "paper_center_map_m": [
+        -4.499,
+        -4.328,
+        0.2615
+      ],
+      "right_map": [
+        0.0,
+        1.0,
+        0.0
+      ],
+      "normal_map": [
+        1.0,
+        -0.0,
+        0.0
+      ],
+      "texture": "sim/assets/apriltag/textures/tag36h11_ID110_64x69mm.png",
+      "source_status": "provided_pattern"
+    },
+    {
+      "id": 111,
+      "family": "tag36h11",
+      "section_id": "SEC10",
+      "bed_prim": "/World/Vegetation/Bed_01",
+      "wall_prim": "/World/farm_framechanged/Bed_Edge_1_1",
+      "black_edge_m": 0.05,
+      "paper_size_m": [
+        0.064,
+        0.069
+      ],
+      "tag_center_map_m": [
+        -4.499,
+        -3.7640000000000002,
+        0.264
+      ],
+      "paper_center_map_m": [
+        -4.499,
+        -3.7640000000000002,
+        0.2615
+      ],
+      "right_map": [
+        0.0,
+        1.0,
+        0.0
+      ],
+      "normal_map": [
+        1.0,
+        -0.0,
+        0.0
+      ],
+      "texture": "sim/assets/apriltag/textures/tag36h11_ID111_64x69mm.png",
+      "source_status": "provided_pattern"
+    },
+    {
+      "id": 112,
+      "family": "tag36h11",
+      "section_id": "SEC10",
+      "bed_prim": "/World/Vegetation/Bed_01",
+      "wall_prim": "/World/farm_framechanged/Bed_Edge_1_1",
+      "black_edge_m": 0.05,
+      "paper_size_m": [
+        0.064,
+        0.069
+      ],
+      "tag_center_map_m": [
+        -4.499,
+        -3.2,
+        0.264
+      ],
+      "paper_center_map_m": [
+        -4.499,
+        -3.2,
+        0.2615
+      ],
+      "right_map": [
+        0.0,
+        1.0,
+        0.0
+      ],
+      "normal_map": [
+        1.0,
+        -0.0,
+        0.0
+      ],
+      "texture": "sim/assets/apriltag/textures/tag36h11_ID112_64x69mm.png",
+      "source_status": "provided_pattern"
+    },
+    {
+      "id": 113,
+      "family": "tag36h11",
+      "section_id": "SEC10",
+      "bed_prim": "/World/Vegetation/Bed_01",
+      "wall_prim": "/World/farm_framechanged/Bed_Edge_1_1",
+      "black_edge_m": 0.05,
+      "paper_size_m": [
+        0.064,
+        0.069
+      ],
+      "tag_center_map_m": [
+        -4.499,
+        -2.636,
+        0.264
+      ],
+      "paper_center_map_m": [
+        -4.499,
+        -2.636,
+        0.2615
+      ],
+      "right_map": [
+        0.0,
+        1.0,
+        0.0
+      ],
+      "normal_map": [
+        1.0,
+        -0.0,
+        0.0
+      ],
+      "texture": "sim/assets/apriltag/textures/tag36h11_ID113_64x69mm.png",
+      "source_status": "provided_pattern"
+    },
+    {
+      "id": 114,
+      "family": "tag36h11",
+      "section_id": "SEC10",
+      "bed_prim": "/World/Vegetation/Bed_01",
+      "wall_prim": "/World/farm_framechanged/Bed_Edge_1_1",
+      "black_edge_m": 0.05,
+      "paper_size_m": [
+        0.064,
+        0.069
+      ],
+      "tag_center_map_m": [
+        -4.499,
+        -2.072,
+        0.264
+      ],
+      "paper_center_map_m": [
+        -4.499,
+        -2.072,
+        0.2615
+      ],
+      "right_map": [
+        0.0,
+        1.0,
+        0.0
+      ],
+      "normal_map": [
+        1.0,
+        -0.0,
+        0.0
+      ],
+      "texture": "sim/assets/apriltag/textures/tag36h11_ID114_64x69mm.png",
+      "source_status": "provided_pattern"
+    },
+    {
+      "id": 100,
+      "family": "tag36h11",
+      "section_id": "SEC11",
+      "bed_prim": "/World/Vegetation/Bed_03",
+      "wall_prim": "/World/farm_framechanged/Bed_Edge_3__1",
+      "black_edge_m": 0.05,
+      "paper_size_m": [
+        0.064,
+        0.069
+      ],
+      "tag_center_map_m": [
+        -2.501,
+        -2.032,
+        0.264
+      ],
+      "paper_center_map_m": [
+        -2.501,
+        -2.032,
+        0.2615
+      ],
+      "right_map": [
+        0.0,
+        -1.0,
+        0.0
+      ],
+      "normal_map": [
+        -1.0,
+        -0.0,
+        0.0
+      ],
+      "texture": "sim/assets/apriltag/textures/tag36h11_ID100_64x69mm.png",
+      "source_status": "provided_pattern"
+    },
+    {
+      "id": 101,
+      "family": "tag36h11",
+      "section_id": "SEC11",
+      "bed_prim": "/World/Vegetation/Bed_03",
+      "wall_prim": "/World/farm_framechanged/Bed_Edge_3__1",
+      "black_edge_m": 0.05,
+      "paper_size_m": [
+        0.064,
+        0.069
+      ],
+      "tag_center_map_m": [
+        -2.501,
+        -2.596,
+        0.264
+      ],
+      "paper_center_map_m": [
+        -2.501,
+        -2.596,
+        0.2615
+      ],
+      "right_map": [
+        0.0,
+        -1.0,
+        0.0
+      ],
+      "normal_map": [
+        -1.0,
+        -0.0,
+        0.0
+      ],
+      "texture": "sim/assets/apriltag/textures/tag36h11_ID101_64x69mm.png",
+      "source_status": "provided_pattern"
+    },
+    {
+      "id": 102,
+      "family": "tag36h11",
+      "section_id": "SEC11",
+      "bed_prim": "/World/Vegetation/Bed_03",
+      "wall_prim": "/World/farm_framechanged/Bed_Edge_3__1",
+      "black_edge_m": 0.05,
+      "paper_size_m": [
+        0.064,
+        0.069
+      ],
+      "tag_center_map_m": [
+        -2.501,
+        -3.16,
+        0.264
+      ],
+      "paper_center_map_m": [
+        -2.501,
+        -3.16,
+        0.2615
+      ],
+      "right_map": [
+        0.0,
+        -1.0,
+        0.0
+      ],
+      "normal_map": [
+        -1.0,
+        -0.0,
+        0.0
+      ],
+      "texture": "sim/assets/apriltag/textures/tag36h11_ID102_64x69mm.png",
+      "source_status": "provided_pattern"
+    },
+    {
+      "id": 103,
+      "family": "tag36h11",
+      "section_id": "SEC11",
+      "bed_prim": "/World/Vegetation/Bed_03",
+      "wall_prim": "/World/farm_framechanged/Bed_Edge_3__1",
+      "black_edge_m": 0.05,
+      "paper_size_m": [
+        0.064,
+        0.069
+      ],
+      "tag_center_map_m": [
+        -2.501,
+        -3.724,
+        0.264
+      ],
+      "paper_center_map_m": [
+        -2.501,
+        -3.724,
+        0.2615
+      ],
+      "right_map": [
+        0.0,
+        -1.0,
+        0.0
+      ],
+      "normal_map": [
+        -1.0,
+        -0.0,
+        0.0
+      ],
+      "texture": "sim/assets/apriltag/textures/tag36h11_ID103_64x69mm.png",
+      "source_status": "provided_pattern"
+    },
+    {
+      "id": 104,
+      "family": "tag36h11",
+      "section_id": "SEC11",
+      "bed_prim": "/World/Vegetation/Bed_03",
+      "wall_prim": "/World/farm_framechanged/Bed_Edge_3__1",
+      "black_edge_m": 0.05,
+      "paper_size_m": [
+        0.064,
+        0.069
+      ],
+      "tag_center_map_m": [
+        -2.501,
+        -4.288,
+        0.264
+      ],
+      "paper_center_map_m": [
+        -2.501,
+        -4.288,
+        0.2615
+      ],
+      "right_map": [
+        0.0,
+        -1.0,
+        0.0
+      ],
+      "normal_map": [
+        -1.0,
+        -0.0,
+        0.0
+      ],
+      "texture": "sim/assets/apriltag/textures/tag36h11_ID104_64x69mm.png",
+      "source_status": "provided_pattern"
+    },
+    {
+      "id": 105,
+      "family": "tag36h11",
+      "section_id": "SEC11",
+      "bed_prim": "/World/Vegetation/Bed_03",
+      "wall_prim": "/World/farm_framechanged/Bed_Edge_3__1",
+      "black_edge_m": 0.05,
+      "paper_size_m": [
+        0.064,
+        0.069
+      ],
+      "tag_center_map_m": [
+        -2.501,
+        -4.852,
+        0.264
+      ],
+      "paper_center_map_m": [
+        -2.501,
+        -4.852,
+        0.2615
+      ],
+      "right_map": [
+        0.0,
+        -1.0,
+        0.0
+      ],
+      "normal_map": [
+        -1.0,
+        -0.0,
+        0.0
+      ],
+      "texture": "sim/assets/apriltag/textures/tag36h11_ID105_64x69mm.png",
+      "source_status": "provided_pattern"
+    },
+    {
+      "id": 106,
+      "family": "tag36h11",
+      "section_id": "SEC11",
+      "bed_prim": "/World/Vegetation/Bed_03",
+      "wall_prim": "/World/farm_framechanged/Bed_Edge_3__1",
+      "black_edge_m": 0.05,
+      "paper_size_m": [
+        0.064,
+        0.069
+      ],
+      "tag_center_map_m": [
+        -2.501,
+        -5.416,
+        0.264
+      ],
+      "paper_center_map_m": [
+        -2.501,
+        -5.416,
+        0.2615
+      ],
+      "right_map": [
+        0.0,
+        -1.0,
+        0.0
+      ],
+      "normal_map": [
+        -1.0,
+        -0.0,
+        0.0
+      ],
+      "texture": "sim/assets/apriltag/textures/tag36h11_ID106_64x69mm.png",
+      "source_status": "provided_pattern"
+    },
+    {
+      "id": 107,
+      "family": "tag36h11",
+      "section_id": "SEC11",
+      "bed_prim": "/World/Vegetation/Bed_03",
+      "wall_prim": "/World/farm_framechanged/Bed_Edge_3__1",
+      "black_edge_m": 0.05,
+      "paper_size_m": [
+        0.064,
+        0.069
+      ],
+      "tag_center_map_m": [
+        -2.501,
+        -5.98,
+        0.264
+      ],
+      "paper_center_map_m": [
+        -2.501,
+        -5.98,
+        0.2615
+      ],
+      "right_map": [
+        0.0,
+        -1.0,
+        0.0
+      ],
+      "normal_map": [
+        -1.0,
+        -0.0,
+        0.0
+      ],
+      "texture": "sim/assets/apriltag/textures/tag36h11_ID107_64x69mm.png",
+      "source_status": "provided_pattern"
+    },
+    {
+      "id": 108,
+      "family": "tag36h11",
+      "section_id": "SEC11",
+      "bed_prim": "/World/Vegetation/Bed_03",
+      "wall_prim": "/World/farm_framechanged/Bed_Edge_3__1",
+      "black_edge_m": 0.05,
+      "paper_size_m": [
+        0.064,
+        0.069
+      ],
+      "tag_center_map_m": [
+        -2.501,
+        -6.544,
+        0.264
+      ],
+      "paper_center_map_m": [
+        -2.501,
+        -6.544,
+        0.2615
+      ],
+      "right_map": [
+        0.0,
+        -1.0,
+        0.0
+      ],
+      "normal_map": [
+        -1.0,
+        -0.0,
+        0.0
+      ],
+      "texture": "sim/assets/apriltag/textures/tag36h11_ID108_64x69mm.png",
+      "source_status": "provided_pattern"
+    },
+    {
+      "id": 109,
+      "family": "tag36h11",
+      "section_id": "SEC11",
+      "bed_prim": "/World/Vegetation/Bed_03",
+      "wall_prim": "/World/farm_framechanged/Bed_Edge_3__1",
+      "black_edge_m": 0.05,
+      "paper_size_m": [
+        0.064,
+        0.069
+      ],
+      "tag_center_map_m": [
+        -2.501,
+        -7.108,
+        0.264
+      ],
+      "paper_center_map_m": [
+        -2.501,
+        -7.108,
+        0.2615
+      ],
+      "right_map": [
+        0.0,
+        -1.0,
+        0.0
+      ],
+      "normal_map": [
+        -1.0,
+        -0.0,
+        0.0
+      ],
+      "texture": "sim/assets/apriltag/textures/tag36h11_ID109_64x69mm.png",
+      "source_status": "provided_pattern"
+    },
+    {
+      "id": 110,
+      "family": "tag36h11",
+      "section_id": "SEC11",
+      "bed_prim": "/World/Vegetation/Bed_03",
+      "wall_prim": "/World/farm_framechanged/Bed_Edge_3__1",
+      "black_edge_m": 0.05,
+      "paper_size_m": [
+        0.064,
+        0.069
+      ],
+      "tag_center_map_m": [
+        -2.501,
+        -7.672,
+        0.264
+      ],
+      "paper_center_map_m": [
+        -2.501,
+        -7.672,
+        0.2615
+      ],
+      "right_map": [
+        0.0,
+        -1.0,
+        0.0
+      ],
+      "normal_map": [
+        -1.0,
+        -0.0,
+        0.0
+      ],
+      "texture": "sim/assets/apriltag/textures/tag36h11_ID110_64x69mm.png",
+      "source_status": "provided_pattern"
+    },
+    {
+      "id": 111,
+      "family": "tag36h11",
+      "section_id": "SEC11",
+      "bed_prim": "/World/Vegetation/Bed_03",
+      "wall_prim": "/World/farm_framechanged/Bed_Edge_3__1",
+      "black_edge_m": 0.05,
+      "paper_size_m": [
+        0.064,
+        0.069
+      ],
+      "tag_center_map_m": [
+        -2.501,
+        -8.236,
+        0.264
+      ],
+      "paper_center_map_m": [
+        -2.501,
+        -8.236,
+        0.2615
+      ],
+      "right_map": [
+        0.0,
+        -1.0,
+        0.0
+      ],
+      "normal_map": [
+        -1.0,
+        -0.0,
+        0.0
+      ],
+      "texture": "sim/assets/apriltag/textures/tag36h11_ID111_64x69mm.png",
+      "source_status": "provided_pattern"
+    },
+    {
+      "id": 112,
+      "family": "tag36h11",
+      "section_id": "SEC11",
+      "bed_prim": "/World/Vegetation/Bed_03",
+      "wall_prim": "/World/farm_framechanged/Bed_Edge_3__1",
+      "black_edge_m": 0.05,
+      "paper_size_m": [
+        0.064,
+        0.069
+      ],
+      "tag_center_map_m": [
+        -2.501,
+        -8.8,
+        0.264
+      ],
+      "paper_center_map_m": [
+        -2.501,
+        -8.8,
+        0.2615
+      ],
+      "right_map": [
+        0.0,
+        -1.0,
+        0.0
+      ],
+      "normal_map": [
+        -1.0,
+        -0.0,
+        0.0
+      ],
+      "texture": "sim/assets/apriltag/textures/tag36h11_ID112_64x69mm.png",
+      "source_status": "provided_pattern"
+    },
+    {
+      "id": 113,
+      "family": "tag36h11",
+      "section_id": "SEC11",
+      "bed_prim": "/World/Vegetation/Bed_03",
+      "wall_prim": "/World/farm_framechanged/Bed_Edge_3__1",
+      "black_edge_m": 0.05,
+      "paper_size_m": [
+        0.064,
+        0.069
+      ],
+      "tag_center_map_m": [
+        -2.501,
+        -9.364,
+        0.264
+      ],
+      "paper_center_map_m": [
+        -2.501,
+        -9.364,
+        0.2615
+      ],
+      "right_map": [
+        0.0,
+        -1.0,
+        0.0
+      ],
+      "normal_map": [
+        -1.0,
+        -0.0,
+        0.0
+      ],
+      "texture": "sim/assets/apriltag/textures/tag36h11_ID113_64x69mm.png",
+      "source_status": "provided_pattern"
+    },
+    {
+      "id": 114,
+      "family": "tag36h11",
+      "section_id": "SEC11",
+      "bed_prim": "/World/Vegetation/Bed_03",
+      "wall_prim": "/World/farm_framechanged/Bed_Edge_3__1",
+      "black_edge_m": 0.05,
+      "paper_size_m": [
+        0.064,
+        0.069
+      ],
+      "tag_center_map_m": [
+        -2.501,
+        -9.928,
+        0.264
+      ],
+      "paper_center_map_m": [
+        -2.501,
+        -9.928,
+        0.2615
+      ],
+      "right_map": [
+        0.0,
+        -1.0,
+        0.0
+      ],
+      "normal_map": [
+        -1.0,
+        -0.0,
+        0.0
+      ],
+      "texture": "sim/assets/apriltag/textures/tag36h11_ID114_64x69mm.png",
+      "source_status": "provided_pattern"
+    },
+    {
+      "id": 100,
+      "family": "tag36h11",
+      "section_id": "SEC12",
+      "bed_prim": "/World/Vegetation/Bed_03",
+      "wall_prim": "/World/farm_framechanged/Bed_Edge_3_1",
+      "black_edge_m": 0.05,
+      "paper_size_m": [
+        0.064,
+        0.069
+      ],
+      "tag_center_map_m": [
+        -1.499,
+        -9.968,
+        0.264
+      ],
+      "paper_center_map_m": [
+        -1.499,
+        -9.968,
+        0.2615
+      ],
+      "right_map": [
+        0.0,
+        1.0,
+        0.0
+      ],
+      "normal_map": [
+        1.0,
+        -0.0,
+        0.0
+      ],
+      "texture": "sim/assets/apriltag/textures/tag36h11_ID100_64x69mm.png",
+      "source_status": "provided_pattern"
+    },
+    {
+      "id": 101,
+      "family": "tag36h11",
+      "section_id": "SEC12",
+      "bed_prim": "/World/Vegetation/Bed_03",
+      "wall_prim": "/World/farm_framechanged/Bed_Edge_3_1",
+      "black_edge_m": 0.05,
+      "paper_size_m": [
+        0.064,
+        0.069
+      ],
+      "tag_center_map_m": [
+        -1.499,
+        -9.404,
+        0.264
+      ],
+      "paper_center_map_m": [
+        -1.499,
+        -9.404,
+        0.2615
+      ],
+      "right_map": [
+        0.0,
+        1.0,
+        0.0
+      ],
+      "normal_map": [
+        1.0,
+        -0.0,
+        0.0
+      ],
+      "texture": "sim/assets/apriltag/textures/tag36h11_ID101_64x69mm.png",
+      "source_status": "provided_pattern"
+    },
+    {
+      "id": 102,
+      "family": "tag36h11",
+      "section_id": "SEC12",
+      "bed_prim": "/World/Vegetation/Bed_03",
+      "wall_prim": "/World/farm_framechanged/Bed_Edge_3_1",
+      "black_edge_m": 0.05,
+      "paper_size_m": [
+        0.064,
+        0.069
+      ],
+      "tag_center_map_m": [
+        -1.499,
+        -8.84,
+        0.264
+      ],
+      "paper_center_map_m": [
+        -1.499,
+        -8.84,
+        0.2615
+      ],
+      "right_map": [
+        0.0,
+        1.0,
+        0.0
+      ],
+      "normal_map": [
+        1.0,
+        -0.0,
+        0.0
+      ],
+      "texture": "sim/assets/apriltag/textures/tag36h11_ID102_64x69mm.png",
+      "source_status": "provided_pattern"
+    },
+    {
+      "id": 103,
+      "family": "tag36h11",
+      "section_id": "SEC12",
+      "bed_prim": "/World/Vegetation/Bed_03",
+      "wall_prim": "/World/farm_framechanged/Bed_Edge_3_1",
+      "black_edge_m": 0.05,
+      "paper_size_m": [
+        0.064,
+        0.069
+      ],
+      "tag_center_map_m": [
+        -1.499,
+        -8.276,
+        0.264
+      ],
+      "paper_center_map_m": [
+        -1.499,
+        -8.276,
+        0.2615
+      ],
+      "right_map": [
+        0.0,
+        1.0,
+        0.0
+      ],
+      "normal_map": [
+        1.0,
+        -0.0,
+        0.0
+      ],
+      "texture": "sim/assets/apriltag/textures/tag36h11_ID103_64x69mm.png",
+      "source_status": "provided_pattern"
+    },
+    {
+      "id": 104,
+      "family": "tag36h11",
+      "section_id": "SEC12",
+      "bed_prim": "/World/Vegetation/Bed_03",
+      "wall_prim": "/World/farm_framechanged/Bed_Edge_3_1",
+      "black_edge_m": 0.05,
+      "paper_size_m": [
+        0.064,
+        0.069
+      ],
+      "tag_center_map_m": [
+        -1.499,
+        -7.712,
+        0.264
+      ],
+      "paper_center_map_m": [
+        -1.499,
+        -7.712,
+        0.2615
+      ],
+      "right_map": [
+        0.0,
+        1.0,
+        0.0
+      ],
+      "normal_map": [
+        1.0,
+        -0.0,
+        0.0
+      ],
+      "texture": "sim/assets/apriltag/textures/tag36h11_ID104_64x69mm.png",
+      "source_status": "provided_pattern"
+    },
+    {
+      "id": 105,
+      "family": "tag36h11",
+      "section_id": "SEC12",
+      "bed_prim": "/World/Vegetation/Bed_03",
+      "wall_prim": "/World/farm_framechanged/Bed_Edge_3_1",
+      "black_edge_m": 0.05,
+      "paper_size_m": [
+        0.064,
+        0.069
+      ],
+      "tag_center_map_m": [
+        -1.499,
+        -7.148,
+        0.264
+      ],
+      "paper_center_map_m": [
+        -1.499,
+        -7.148,
+        0.2615
+      ],
+      "right_map": [
+        0.0,
+        1.0,
+        0.0
+      ],
+      "normal_map": [
+        1.0,
+        -0.0,
+        0.0
+      ],
+      "texture": "sim/assets/apriltag/textures/tag36h11_ID105_64x69mm.png",
+      "source_status": "provided_pattern"
+    },
+    {
+      "id": 106,
+      "family": "tag36h11",
+      "section_id": "SEC12",
+      "bed_prim": "/World/Vegetation/Bed_03",
+      "wall_prim": "/World/farm_framechanged/Bed_Edge_3_1",
+      "black_edge_m": 0.05,
+      "paper_size_m": [
+        0.064,
+        0.069
+      ],
+      "tag_center_map_m": [
+        -1.499,
+        -6.584,
+        0.264
+      ],
+      "paper_center_map_m": [
+        -1.499,
+        -6.584,
+        0.2615
+      ],
+      "right_map": [
+        0.0,
+        1.0,
+        0.0
+      ],
+      "normal_map": [
+        1.0,
+        -0.0,
+        0.0
+      ],
+      "texture": "sim/assets/apriltag/textures/tag36h11_ID106_64x69mm.png",
+      "source_status": "provided_pattern"
+    },
+    {
+      "id": 107,
+      "family": "tag36h11",
+      "section_id": "SEC12",
+      "bed_prim": "/World/Vegetation/Bed_03",
+      "wall_prim": "/World/farm_framechanged/Bed_Edge_3_1",
+      "black_edge_m": 0.05,
+      "paper_size_m": [
+        0.064,
+        0.069
+      ],
+      "tag_center_map_m": [
+        -1.499,
+        -6.02,
+        0.264
+      ],
+      "paper_center_map_m": [
+        -1.499,
+        -6.02,
+        0.2615
+      ],
+      "right_map": [
+        0.0,
+        1.0,
+        0.0
+      ],
+      "normal_map": [
+        1.0,
+        -0.0,
+        0.0
+      ],
+      "texture": "sim/assets/apriltag/textures/tag36h11_ID107_64x69mm.png",
+      "source_status": "provided_pattern"
+    },
+    {
+      "id": 108,
+      "family": "tag36h11",
+      "section_id": "SEC12",
+      "bed_prim": "/World/Vegetation/Bed_03",
+      "wall_prim": "/World/farm_framechanged/Bed_Edge_3_1",
+      "black_edge_m": 0.05,
+      "paper_size_m": [
+        0.064,
+        0.069
+      ],
+      "tag_center_map_m": [
+        -1.499,
+        -5.456,
+        0.264
+      ],
+      "paper_center_map_m": [
+        -1.499,
+        -5.456,
+        0.2615
+      ],
+      "right_map": [
+        0.0,
+        1.0,
+        0.0
+      ],
+      "normal_map": [
+        1.0,
+        -0.0,
+        0.0
+      ],
+      "texture": "sim/assets/apriltag/textures/tag36h11_ID108_64x69mm.png",
+      "source_status": "provided_pattern"
+    },
+    {
+      "id": 109,
+      "family": "tag36h11",
+      "section_id": "SEC12",
+      "bed_prim": "/World/Vegetation/Bed_03",
+      "wall_prim": "/World/farm_framechanged/Bed_Edge_3_1",
+      "black_edge_m": 0.05,
+      "paper_size_m": [
+        0.064,
+        0.069
+      ],
+      "tag_center_map_m": [
+        -1.499,
+        -4.892,
+        0.264
+      ],
+      "paper_center_map_m": [
+        -1.499,
+        -4.892,
+        0.2615
+      ],
+      "right_map": [
+        0.0,
+        1.0,
+        0.0
+      ],
+      "normal_map": [
+        1.0,
+        -0.0,
+        0.0
+      ],
+      "texture": "sim/assets/apriltag/textures/tag36h11_ID109_64x69mm.png",
+      "source_status": "provided_pattern"
+    },
+    {
+      "id": 110,
+      "family": "tag36h11",
+      "section_id": "SEC12",
+      "bed_prim": "/World/Vegetation/Bed_03",
+      "wall_prim": "/World/farm_framechanged/Bed_Edge_3_1",
+      "black_edge_m": 0.05,
+      "paper_size_m": [
+        0.064,
+        0.069
+      ],
+      "tag_center_map_m": [
+        -1.499,
+        -4.328,
+        0.264
+      ],
+      "paper_center_map_m": [
+        -1.499,
+        -4.328,
+        0.2615
+      ],
+      "right_map": [
+        0.0,
+        1.0,
+        0.0
+      ],
+      "normal_map": [
+        1.0,
+        -0.0,
+        0.0
+      ],
+      "texture": "sim/assets/apriltag/textures/tag36h11_ID110_64x69mm.png",
+      "source_status": "provided_pattern"
+    },
+    {
+      "id": 111,
+      "family": "tag36h11",
+      "section_id": "SEC12",
+      "bed_prim": "/World/Vegetation/Bed_03",
+      "wall_prim": "/World/farm_framechanged/Bed_Edge_3_1",
+      "black_edge_m": 0.05,
+      "paper_size_m": [
+        0.064,
+        0.069
+      ],
+      "tag_center_map_m": [
+        -1.499,
+        -3.7640000000000002,
+        0.264
+      ],
+      "paper_center_map_m": [
+        -1.499,
+        -3.7640000000000002,
+        0.2615
+      ],
+      "right_map": [
+        0.0,
+        1.0,
+        0.0
+      ],
+      "normal_map": [
+        1.0,
+        -0.0,
+        0.0
+      ],
+      "texture": "sim/assets/apriltag/textures/tag36h11_ID111_64x69mm.png",
+      "source_status": "provided_pattern"
+    },
+    {
+      "id": 112,
+      "family": "tag36h11",
+      "section_id": "SEC12",
+      "bed_prim": "/World/Vegetation/Bed_03",
+      "wall_prim": "/World/farm_framechanged/Bed_Edge_3_1",
+      "black_edge_m": 0.05,
+      "paper_size_m": [
+        0.064,
+        0.069
+      ],
+      "tag_center_map_m": [
+        -1.499,
+        -3.2,
+        0.264
+      ],
+      "paper_center_map_m": [
+        -1.499,
+        -3.2,
+        0.2615
+      ],
+      "right_map": [
+        0.0,
+        1.0,
+        0.0
+      ],
+      "normal_map": [
+        1.0,
+        -0.0,
+        0.0
+      ],
+      "texture": "sim/assets/apriltag/textures/tag36h11_ID112_64x69mm.png",
+      "source_status": "provided_pattern"
+    },
+    {
+      "id": 113,
+      "family": "tag36h11",
+      "section_id": "SEC12",
+      "bed_prim": "/World/Vegetation/Bed_03",
+      "wall_prim": "/World/farm_framechanged/Bed_Edge_3_1",
+      "black_edge_m": 0.05,
+      "paper_size_m": [
+        0.064,
+        0.069
+      ],
+      "tag_center_map_m": [
+        -1.499,
+        -2.636,
+        0.264
+      ],
+      "paper_center_map_m": [
+        -1.499,
+        -2.636,
+        0.2615
+      ],
+      "right_map": [
+        0.0,
+        1.0,
+        0.0
+      ],
+      "normal_map": [
+        1.0,
+        -0.0,
+        0.0
+      ],
+      "texture": "sim/assets/apriltag/textures/tag36h11_ID113_64x69mm.png",
+      "source_status": "provided_pattern"
+    },
+    {
+      "id": 114,
+      "family": "tag36h11",
+      "section_id": "SEC12",
+      "bed_prim": "/World/Vegetation/Bed_03",
+      "wall_prim": "/World/farm_framechanged/Bed_Edge_3_1",
+      "black_edge_m": 0.05,
+      "paper_size_m": [
+        0.064,
+        0.069
+      ],
+      "tag_center_map_m": [
+        -1.499,
+        -2.072,
+        0.264
+      ],
+      "paper_center_map_m": [
+        -1.499,
+        -2.072,
+        0.2615
+      ],
+      "right_map": [
+        0.0,
+        1.0,
+        0.0
+      ],
+      "normal_map": [
+        1.0,
+        -0.0,
+        0.0
+      ],
+      "texture": "sim/assets/apriltag/textures/tag36h11_ID114_64x69mm.png",
+      "source_status": "provided_pattern"
+    },
+    {
+      "id": 100,
+      "family": "tag36h11",
+      "section_id": "SEC13",
+      "bed_prim": "/World/Vegetation/Bed_05",
+      "wall_prim": "/World/farm_framechanged/Bed_Edge_5__1",
+      "black_edge_m": 0.05,
+      "paper_size_m": [
+        0.064,
+        0.069
+      ],
+      "tag_center_map_m": [
+        1.499,
+        -2.032,
+        0.264
+      ],
+      "paper_center_map_m": [
+        1.499,
+        -2.032,
+        0.2615
+      ],
+      "right_map": [
+        0.0,
+        -1.0,
+        0.0
+      ],
+      "normal_map": [
+        -1.0,
+        -0.0,
+        0.0
+      ],
+      "texture": "sim/assets/apriltag/textures/tag36h11_ID100_64x69mm.png",
+      "source_status": "provided_pattern"
+    },
+    {
+      "id": 101,
+      "family": "tag36h11",
+      "section_id": "SEC13",
+      "bed_prim": "/World/Vegetation/Bed_05",
+      "wall_prim": "/World/farm_framechanged/Bed_Edge_5__1",
+      "black_edge_m": 0.05,
+      "paper_size_m": [
+        0.064,
+        0.069
+      ],
+      "tag_center_map_m": [
+        1.499,
+        -2.596,
+        0.264
+      ],
+      "paper_center_map_m": [
+        1.499,
+        -2.596,
+        0.2615
+      ],
+      "right_map": [
+        0.0,
+        -1.0,
+        0.0
+      ],
+      "normal_map": [
+        -1.0,
+        -0.0,
+        0.0
+      ],
+      "texture": "sim/assets/apriltag/textures/tag36h11_ID101_64x69mm.png",
+      "source_status": "provided_pattern"
+    },
+    {
+      "id": 102,
+      "family": "tag36h11",
+      "section_id": "SEC13",
+      "bed_prim": "/World/Vegetation/Bed_05",
+      "wall_prim": "/World/farm_framechanged/Bed_Edge_5__1",
+      "black_edge_m": 0.05,
+      "paper_size_m": [
+        0.064,
+        0.069
+      ],
+      "tag_center_map_m": [
+        1.499,
+        -3.16,
+        0.264
+      ],
+      "paper_center_map_m": [
+        1.499,
+        -3.16,
+        0.2615
+      ],
+      "right_map": [
+        0.0,
+        -1.0,
+        0.0
+      ],
+      "normal_map": [
+        -1.0,
+        -0.0,
+        0.0
+      ],
+      "texture": "sim/assets/apriltag/textures/tag36h11_ID102_64x69mm.png",
+      "source_status": "provided_pattern"
+    },
+    {
+      "id": 103,
+      "family": "tag36h11",
+      "section_id": "SEC13",
+      "bed_prim": "/World/Vegetation/Bed_05",
+      "wall_prim": "/World/farm_framechanged/Bed_Edge_5__1",
+      "black_edge_m": 0.05,
+      "paper_size_m": [
+        0.064,
+        0.069
+      ],
+      "tag_center_map_m": [
+        1.499,
+        -3.724,
+        0.264
+      ],
+      "paper_center_map_m": [
+        1.499,
+        -3.724,
+        0.2615
+      ],
+      "right_map": [
+        0.0,
+        -1.0,
+        0.0
+      ],
+      "normal_map": [
+        -1.0,
+        -0.0,
+        0.0
+      ],
+      "texture": "sim/assets/apriltag/textures/tag36h11_ID103_64x69mm.png",
+      "source_status": "provided_pattern"
+    },
+    {
+      "id": 104,
+      "family": "tag36h11",
+      "section_id": "SEC13",
+      "bed_prim": "/World/Vegetation/Bed_05",
+      "wall_prim": "/World/farm_framechanged/Bed_Edge_5__1",
+      "black_edge_m": 0.05,
+      "paper_size_m": [
+        0.064,
+        0.069
+      ],
+      "tag_center_map_m": [
+        1.499,
+        -4.288,
+        0.264
+      ],
+      "paper_center_map_m": [
+        1.499,
+        -4.288,
+        0.2615
+      ],
+      "right_map": [
+        0.0,
+        -1.0,
+        0.0
+      ],
+      "normal_map": [
+        -1.0,
+        -0.0,
+        0.0
+      ],
+      "texture": "sim/assets/apriltag/textures/tag36h11_ID104_64x69mm.png",
+      "source_status": "provided_pattern"
+    },
+    {
+      "id": 105,
+      "family": "tag36h11",
+      "section_id": "SEC13",
+      "bed_prim": "/World/Vegetation/Bed_05",
+      "wall_prim": "/World/farm_framechanged/Bed_Edge_5__1",
+      "black_edge_m": 0.05,
+      "paper_size_m": [
+        0.064,
+        0.069
+      ],
+      "tag_center_map_m": [
+        1.499,
+        -4.852,
+        0.264
+      ],
+      "paper_center_map_m": [
+        1.499,
+        -4.852,
+        0.2615
+      ],
+      "right_map": [
+        0.0,
+        -1.0,
+        0.0
+      ],
+      "normal_map": [
+        -1.0,
+        -0.0,
+        0.0
+      ],
+      "texture": "sim/assets/apriltag/textures/tag36h11_ID105_64x69mm.png",
+      "source_status": "provided_pattern"
+    },
+    {
+      "id": 106,
+      "family": "tag36h11",
+      "section_id": "SEC13",
+      "bed_prim": "/World/Vegetation/Bed_05",
+      "wall_prim": "/World/farm_framechanged/Bed_Edge_5__1",
+      "black_edge_m": 0.05,
+      "paper_size_m": [
+        0.064,
+        0.069
+      ],
+      "tag_center_map_m": [
+        1.499,
+        -5.416,
+        0.264
+      ],
+      "paper_center_map_m": [
+        1.499,
+        -5.416,
+        0.2615
+      ],
+      "right_map": [
+        0.0,
+        -1.0,
+        0.0
+      ],
+      "normal_map": [
+        -1.0,
+        -0.0,
+        0.0
+      ],
+      "texture": "sim/assets/apriltag/textures/tag36h11_ID106_64x69mm.png",
+      "source_status": "provided_pattern"
+    },
+    {
+      "id": 107,
+      "family": "tag36h11",
+      "section_id": "SEC13",
+      "bed_prim": "/World/Vegetation/Bed_05",
+      "wall_prim": "/World/farm_framechanged/Bed_Edge_5__1",
+      "black_edge_m": 0.05,
+      "paper_size_m": [
+        0.064,
+        0.069
+      ],
+      "tag_center_map_m": [
+        1.499,
+        -5.98,
+        0.264
+      ],
+      "paper_center_map_m": [
+        1.499,
+        -5.98,
+        0.2615
+      ],
+      "right_map": [
+        0.0,
+        -1.0,
+        0.0
+      ],
+      "normal_map": [
+        -1.0,
+        -0.0,
+        0.0
+      ],
+      "texture": "sim/assets/apriltag/textures/tag36h11_ID107_64x69mm.png",
+      "source_status": "provided_pattern"
+    },
+    {
+      "id": 108,
+      "family": "tag36h11",
+      "section_id": "SEC13",
+      "bed_prim": "/World/Vegetation/Bed_05",
+      "wall_prim": "/World/farm_framechanged/Bed_Edge_5__1",
+      "black_edge_m": 0.05,
+      "paper_size_m": [
+        0.064,
+        0.069
+      ],
+      "tag_center_map_m": [
+        1.499,
+        -6.544,
+        0.264
+      ],
+      "paper_center_map_m": [
+        1.499,
+        -6.544,
+        0.2615
+      ],
+      "right_map": [
+        0.0,
+        -1.0,
+        0.0
+      ],
+      "normal_map": [
+        -1.0,
+        -0.0,
+        0.0
+      ],
+      "texture": "sim/assets/apriltag/textures/tag36h11_ID108_64x69mm.png",
+      "source_status": "provided_pattern"
+    },
+    {
+      "id": 109,
+      "family": "tag36h11",
+      "section_id": "SEC13",
+      "bed_prim": "/World/Vegetation/Bed_05",
+      "wall_prim": "/World/farm_framechanged/Bed_Edge_5__1",
+      "black_edge_m": 0.05,
+      "paper_size_m": [
+        0.064,
+        0.069
+      ],
+      "tag_center_map_m": [
+        1.499,
+        -7.108,
+        0.264
+      ],
+      "paper_center_map_m": [
+        1.499,
+        -7.108,
+        0.2615
+      ],
+      "right_map": [
+        0.0,
+        -1.0,
+        0.0
+      ],
+      "normal_map": [
+        -1.0,
+        -0.0,
+        0.0
+      ],
+      "texture": "sim/assets/apriltag/textures/tag36h11_ID109_64x69mm.png",
+      "source_status": "provided_pattern"
+    },
+    {
+      "id": 110,
+      "family": "tag36h11",
+      "section_id": "SEC13",
+      "bed_prim": "/World/Vegetation/Bed_05",
+      "wall_prim": "/World/farm_framechanged/Bed_Edge_5__1",
+      "black_edge_m": 0.05,
+      "paper_size_m": [
+        0.064,
+        0.069
+      ],
+      "tag_center_map_m": [
+        1.499,
+        -7.672,
+        0.264
+      ],
+      "paper_center_map_m": [
+        1.499,
+        -7.672,
+        0.2615
+      ],
+      "right_map": [
+        0.0,
+        -1.0,
+        0.0
+      ],
+      "normal_map": [
+        -1.0,
+        -0.0,
+        0.0
+      ],
+      "texture": "sim/assets/apriltag/textures/tag36h11_ID110_64x69mm.png",
+      "source_status": "provided_pattern"
+    },
+    {
+      "id": 111,
+      "family": "tag36h11",
+      "section_id": "SEC13",
+      "bed_prim": "/World/Vegetation/Bed_05",
+      "wall_prim": "/World/farm_framechanged/Bed_Edge_5__1",
+      "black_edge_m": 0.05,
+      "paper_size_m": [
+        0.064,
+        0.069
+      ],
+      "tag_center_map_m": [
+        1.499,
+        -8.236,
+        0.264
+      ],
+      "paper_center_map_m": [
+        1.499,
+        -8.236,
+        0.2615
+      ],
+      "right_map": [
+        0.0,
+        -1.0,
+        0.0
+      ],
+      "normal_map": [
+        -1.0,
+        -0.0,
+        0.0
+      ],
+      "texture": "sim/assets/apriltag/textures/tag36h11_ID111_64x69mm.png",
+      "source_status": "provided_pattern"
+    },
+    {
+      "id": 112,
+      "family": "tag36h11",
+      "section_id": "SEC13",
+      "bed_prim": "/World/Vegetation/Bed_05",
+      "wall_prim": "/World/farm_framechanged/Bed_Edge_5__1",
+      "black_edge_m": 0.05,
+      "paper_size_m": [
+        0.064,
+        0.069
+      ],
+      "tag_center_map_m": [
+        1.499,
+        -8.8,
+        0.264
+      ],
+      "paper_center_map_m": [
+        1.499,
+        -8.8,
+        0.2615
+      ],
+      "right_map": [
+        0.0,
+        -1.0,
+        0.0
+      ],
+      "normal_map": [
+        -1.0,
+        -0.0,
+        0.0
+      ],
+      "texture": "sim/assets/apriltag/textures/tag36h11_ID112_64x69mm.png",
+      "source_status": "provided_pattern"
+    },
+    {
+      "id": 113,
+      "family": "tag36h11",
+      "section_id": "SEC13",
+      "bed_prim": "/World/Vegetation/Bed_05",
+      "wall_prim": "/World/farm_framechanged/Bed_Edge_5__1",
+      "black_edge_m": 0.05,
+      "paper_size_m": [
+        0.064,
+        0.069
+      ],
+      "tag_center_map_m": [
+        1.499,
+        -9.364,
+        0.264
+      ],
+      "paper_center_map_m": [
+        1.499,
+        -9.364,
+        0.2615
+      ],
+      "right_map": [
+        0.0,
+        -1.0,
+        0.0
+      ],
+      "normal_map": [
+        -1.0,
+        -0.0,
+        0.0
+      ],
+      "texture": "sim/assets/apriltag/textures/tag36h11_ID113_64x69mm.png",
+      "source_status": "provided_pattern"
+    },
+    {
+      "id": 114,
+      "family": "tag36h11",
+      "section_id": "SEC13",
+      "bed_prim": "/World/Vegetation/Bed_05",
+      "wall_prim": "/World/farm_framechanged/Bed_Edge_5__1",
+      "black_edge_m": 0.05,
+      "paper_size_m": [
+        0.064,
+        0.069
+      ],
+      "tag_center_map_m": [
+        1.499,
+        -9.928,
+        0.264
+      ],
+      "paper_center_map_m": [
+        1.499,
+        -9.928,
+        0.2615
+      ],
+      "right_map": [
+        0.0,
+        -1.0,
+        0.0
+      ],
+      "normal_map": [
+        -1.0,
+        -0.0,
+        0.0
+      ],
+      "texture": "sim/assets/apriltag/textures/tag36h11_ID114_64x69mm.png",
+      "source_status": "provided_pattern"
+    },
+    {
+      "id": 100,
+      "family": "tag36h11",
+      "section_id": "SEC14",
+      "bed_prim": "/World/Vegetation/Bed_05",
+      "wall_prim": "/World/farm_framechanged/Bed_Edge_5_1",
+      "black_edge_m": 0.05,
+      "paper_size_m": [
+        0.064,
+        0.069
+      ],
+      "tag_center_map_m": [
+        2.501,
+        -9.968,
+        0.264
+      ],
+      "paper_center_map_m": [
+        2.501,
+        -9.968,
+        0.2615
+      ],
+      "right_map": [
+        0.0,
+        1.0,
+        0.0
+      ],
+      "normal_map": [
+        1.0,
+        -0.0,
+        0.0
+      ],
+      "texture": "sim/assets/apriltag/textures/tag36h11_ID100_64x69mm.png",
+      "source_status": "provided_pattern"
+    },
+    {
+      "id": 101,
+      "family": "tag36h11",
+      "section_id": "SEC14",
+      "bed_prim": "/World/Vegetation/Bed_05",
+      "wall_prim": "/World/farm_framechanged/Bed_Edge_5_1",
+      "black_edge_m": 0.05,
+      "paper_size_m": [
+        0.064,
+        0.069
+      ],
+      "tag_center_map_m": [
+        2.501,
+        -9.404,
+        0.264
+      ],
+      "paper_center_map_m": [
+        2.501,
+        -9.404,
+        0.2615
+      ],
+      "right_map": [
+        0.0,
+        1.0,
+        0.0
+      ],
+      "normal_map": [
+        1.0,
+        -0.0,
+        0.0
+      ],
+      "texture": "sim/assets/apriltag/textures/tag36h11_ID101_64x69mm.png",
+      "source_status": "provided_pattern"
+    },
+    {
+      "id": 102,
+      "family": "tag36h11",
+      "section_id": "SEC14",
+      "bed_prim": "/World/Vegetation/Bed_05",
+      "wall_prim": "/World/farm_framechanged/Bed_Edge_5_1",
+      "black_edge_m": 0.05,
+      "paper_size_m": [
+        0.064,
+        0.069
+      ],
+      "tag_center_map_m": [
+        2.501,
+        -8.84,
+        0.264
+      ],
+      "paper_center_map_m": [
+        2.501,
+        -8.84,
+        0.2615
+      ],
+      "right_map": [
+        0.0,
+        1.0,
+        0.0
+      ],
+      "normal_map": [
+        1.0,
+        -0.0,
+        0.0
+      ],
+      "texture": "sim/assets/apriltag/textures/tag36h11_ID102_64x69mm.png",
+      "source_status": "provided_pattern"
+    },
+    {
+      "id": 103,
+      "family": "tag36h11",
+      "section_id": "SEC14",
+      "bed_prim": "/World/Vegetation/Bed_05",
+      "wall_prim": "/World/farm_framechanged/Bed_Edge_5_1",
+      "black_edge_m": 0.05,
+      "paper_size_m": [
+        0.064,
+        0.069
+      ],
+      "tag_center_map_m": [
+        2.501,
+        -8.276,
+        0.264
+      ],
+      "paper_center_map_m": [
+        2.501,
+        -8.276,
+        0.2615
+      ],
+      "right_map": [
+        0.0,
+        1.0,
+        0.0
+      ],
+      "normal_map": [
+        1.0,
+        -0.0,
+        0.0
+      ],
+      "texture": "sim/assets/apriltag/textures/tag36h11_ID103_64x69mm.png",
+      "source_status": "provided_pattern"
+    },
+    {
+      "id": 104,
+      "family": "tag36h11",
+      "section_id": "SEC14",
+      "bed_prim": "/World/Vegetation/Bed_05",
+      "wall_prim": "/World/farm_framechanged/Bed_Edge_5_1",
+      "black_edge_m": 0.05,
+      "paper_size_m": [
+        0.064,
+        0.069
+      ],
+      "tag_center_map_m": [
+        2.501,
+        -7.712,
+        0.264
+      ],
+      "paper_center_map_m": [
+        2.501,
+        -7.712,
+        0.2615
+      ],
+      "right_map": [
+        0.0,
+        1.0,
+        0.0
+      ],
+      "normal_map": [
+        1.0,
+        -0.0,
+        0.0
+      ],
+      "texture": "sim/assets/apriltag/textures/tag36h11_ID104_64x69mm.png",
+      "source_status": "provided_pattern"
+    },
+    {
+      "id": 105,
+      "family": "tag36h11",
+      "section_id": "SEC14",
+      "bed_prim": "/World/Vegetation/Bed_05",
+      "wall_prim": "/World/farm_framechanged/Bed_Edge_5_1",
+      "black_edge_m": 0.05,
+      "paper_size_m": [
+        0.064,
+        0.069
+      ],
+      "tag_center_map_m": [
+        2.501,
+        -7.148,
+        0.264
+      ],
+      "paper_center_map_m": [
+        2.501,
+        -7.148,
+        0.2615
+      ],
+      "right_map": [
+        0.0,
+        1.0,
+        0.0
+      ],
+      "normal_map": [
+        1.0,
+        -0.0,
+        0.0
+      ],
+      "texture": "sim/assets/apriltag/textures/tag36h11_ID105_64x69mm.png",
+      "source_status": "provided_pattern"
+    },
+    {
+      "id": 106,
+      "family": "tag36h11",
+      "section_id": "SEC14",
+      "bed_prim": "/World/Vegetation/Bed_05",
+      "wall_prim": "/World/farm_framechanged/Bed_Edge_5_1",
+      "black_edge_m": 0.05,
+      "paper_size_m": [
+        0.064,
+        0.069
+      ],
+      "tag_center_map_m": [
+        2.501,
+        -6.584,
+        0.264
+      ],
+      "paper_center_map_m": [
+        2.501,
+        -6.584,
+        0.2615
+      ],
+      "right_map": [
+        0.0,
+        1.0,
+        0.0
+      ],
+      "normal_map": [
+        1.0,
+        -0.0,
+        0.0
+      ],
+      "texture": "sim/assets/apriltag/textures/tag36h11_ID106_64x69mm.png",
+      "source_status": "provided_pattern"
+    },
+    {
+      "id": 107,
+      "family": "tag36h11",
+      "section_id": "SEC14",
+      "bed_prim": "/World/Vegetation/Bed_05",
+      "wall_prim": "/World/farm_framechanged/Bed_Edge_5_1",
+      "black_edge_m": 0.05,
+      "paper_size_m": [
+        0.064,
+        0.069
+      ],
+      "tag_center_map_m": [
+        2.501,
+        -6.02,
+        0.264
+      ],
+      "paper_center_map_m": [
+        2.501,
+        -6.02,
+        0.2615
+      ],
+      "right_map": [
+        0.0,
+        1.0,
+        0.0
+      ],
+      "normal_map": [
+        1.0,
+        -0.0,
+        0.0
+      ],
+      "texture": "sim/assets/apriltag/textures/tag36h11_ID107_64x69mm.png",
+      "source_status": "provided_pattern"
+    },
+    {
+      "id": 108,
+      "family": "tag36h11",
+      "section_id": "SEC14",
+      "bed_prim": "/World/Vegetation/Bed_05",
+      "wall_prim": "/World/farm_framechanged/Bed_Edge_5_1",
+      "black_edge_m": 0.05,
+      "paper_size_m": [
+        0.064,
+        0.069
+      ],
+      "tag_center_map_m": [
+        2.501,
+        -5.456,
+        0.264
+      ],
+      "paper_center_map_m": [
+        2.501,
+        -5.456,
+        0.2615
+      ],
+      "right_map": [
+        0.0,
+        1.0,
+        0.0
+      ],
+      "normal_map": [
+        1.0,
+        -0.0,
+        0.0
+      ],
+      "texture": "sim/assets/apriltag/textures/tag36h11_ID108_64x69mm.png",
+      "source_status": "provided_pattern"
+    },
+    {
+      "id": 109,
+      "family": "tag36h11",
+      "section_id": "SEC14",
+      "bed_prim": "/World/Vegetation/Bed_05",
+      "wall_prim": "/World/farm_framechanged/Bed_Edge_5_1",
+      "black_edge_m": 0.05,
+      "paper_size_m": [
+        0.064,
+        0.069
+      ],
+      "tag_center_map_m": [
+        2.501,
+        -4.892,
+        0.264
+      ],
+      "paper_center_map_m": [
+        2.501,
+        -4.892,
+        0.2615
+      ],
+      "right_map": [
+        0.0,
+        1.0,
+        0.0
+      ],
+      "normal_map": [
+        1.0,
+        -0.0,
+        0.0
+      ],
+      "texture": "sim/assets/apriltag/textures/tag36h11_ID109_64x69mm.png",
+      "source_status": "provided_pattern"
+    },
+    {
+      "id": 110,
+      "family": "tag36h11",
+      "section_id": "SEC14",
+      "bed_prim": "/World/Vegetation/Bed_05",
+      "wall_prim": "/World/farm_framechanged/Bed_Edge_5_1",
+      "black_edge_m": 0.05,
+      "paper_size_m": [
+        0.064,
+        0.069
+      ],
+      "tag_center_map_m": [
+        2.501,
+        -4.328,
+        0.264
+      ],
+      "paper_center_map_m": [
+        2.501,
+        -4.328,
+        0.2615
+      ],
+      "right_map": [
+        0.0,
+        1.0,
+        0.0
+      ],
+      "normal_map": [
+        1.0,
+        -0.0,
+        0.0
+      ],
+      "texture": "sim/assets/apriltag/textures/tag36h11_ID110_64x69mm.png",
+      "source_status": "provided_pattern"
+    },
+    {
+      "id": 111,
+      "family": "tag36h11",
+      "section_id": "SEC14",
+      "bed_prim": "/World/Vegetation/Bed_05",
+      "wall_prim": "/World/farm_framechanged/Bed_Edge_5_1",
+      "black_edge_m": 0.05,
+      "paper_size_m": [
+        0.064,
+        0.069
+      ],
+      "tag_center_map_m": [
+        2.501,
+        -3.7640000000000002,
+        0.264
+      ],
+      "paper_center_map_m": [
+        2.501,
+        -3.7640000000000002,
+        0.2615
+      ],
+      "right_map": [
+        0.0,
+        1.0,
+        0.0
+      ],
+      "normal_map": [
+        1.0,
+        -0.0,
+        0.0
+      ],
+      "texture": "sim/assets/apriltag/textures/tag36h11_ID111_64x69mm.png",
+      "source_status": "provided_pattern"
+    },
+    {
+      "id": 112,
+      "family": "tag36h11",
+      "section_id": "SEC14",
+      "bed_prim": "/World/Vegetation/Bed_05",
+      "wall_prim": "/World/farm_framechanged/Bed_Edge_5_1",
+      "black_edge_m": 0.05,
+      "paper_size_m": [
+        0.064,
+        0.069
+      ],
+      "tag_center_map_m": [
+        2.501,
+        -3.2,
+        0.264
+      ],
+      "paper_center_map_m": [
+        2.501,
+        -3.2,
+        0.2615
+      ],
+      "right_map": [
+        0.0,
+        1.0,
+        0.0
+      ],
+      "normal_map": [
+        1.0,
+        -0.0,
+        0.0
+      ],
+      "texture": "sim/assets/apriltag/textures/tag36h11_ID112_64x69mm.png",
+      "source_status": "provided_pattern"
+    },
+    {
+      "id": 113,
+      "family": "tag36h11",
+      "section_id": "SEC14",
+      "bed_prim": "/World/Vegetation/Bed_05",
+      "wall_prim": "/World/farm_framechanged/Bed_Edge_5_1",
+      "black_edge_m": 0.05,
+      "paper_size_m": [
+        0.064,
+        0.069
+      ],
+      "tag_center_map_m": [
+        2.501,
+        -2.636,
+        0.264
+      ],
+      "paper_center_map_m": [
+        2.501,
+        -2.636,
+        0.2615
+      ],
+      "right_map": [
+        0.0,
+        1.0,
+        0.0
+      ],
+      "normal_map": [
+        1.0,
+        -0.0,
+        0.0
+      ],
+      "texture": "sim/assets/apriltag/textures/tag36h11_ID113_64x69mm.png",
+      "source_status": "provided_pattern"
+    },
+    {
+      "id": 114,
+      "family": "tag36h11",
+      "section_id": "SEC14",
+      "bed_prim": "/World/Vegetation/Bed_05",
+      "wall_prim": "/World/farm_framechanged/Bed_Edge_5_1",
+      "black_edge_m": 0.05,
+      "paper_size_m": [
+        0.064,
+        0.069
+      ],
+      "tag_center_map_m": [
+        2.501,
+        -2.072,
+        0.264
+      ],
+      "paper_center_map_m": [
+        2.501,
+        -2.072,
+        0.2615
+      ],
+      "right_map": [
+        0.0,
+        1.0,
+        0.0
+      ],
+      "normal_map": [
+        1.0,
+        -0.0,
+        0.0
+      ],
+      "texture": "sim/assets/apriltag/textures/tag36h11_ID114_64x69mm.png",
+      "source_status": "provided_pattern"
+    },
+    {
+      "id": 100,
+      "family": "tag36h11",
+      "section_id": "SEC15",
+      "bed_prim": "/World/Vegetation/Bed_07",
+      "wall_prim": "/World/farm_framechanged/Bed_Edge_7__1",
+      "black_edge_m": 0.05,
+      "paper_size_m": [
+        0.064,
+        0.069
+      ],
+      "tag_center_map_m": [
+        4.499,
+        -2.032,
+        0.264
+      ],
+      "paper_center_map_m": [
+        4.499,
+        -2.032,
+        0.2615
+      ],
+      "right_map": [
+        0.0,
+        -1.0,
+        0.0
+      ],
+      "normal_map": [
+        -1.0,
+        -0.0,
+        0.0
+      ],
+      "texture": "sim/assets/apriltag/textures/tag36h11_ID100_64x69mm.png",
+      "source_status": "provided_pattern"
+    },
+    {
+      "id": 101,
+      "family": "tag36h11",
+      "section_id": "SEC15",
+      "bed_prim": "/World/Vegetation/Bed_07",
+      "wall_prim": "/World/farm_framechanged/Bed_Edge_7__1",
+      "black_edge_m": 0.05,
+      "paper_size_m": [
+        0.064,
+        0.069
+      ],
+      "tag_center_map_m": [
+        4.499,
+        -2.596,
+        0.264
+      ],
+      "paper_center_map_m": [
+        4.499,
+        -2.596,
+        0.2615
+      ],
+      "right_map": [
+        0.0,
+        -1.0,
+        0.0
+      ],
+      "normal_map": [
+        -1.0,
+        -0.0,
+        0.0
+      ],
+      "texture": "sim/assets/apriltag/textures/tag36h11_ID101_64x69mm.png",
+      "source_status": "provided_pattern"
+    },
+    {
+      "id": 102,
+      "family": "tag36h11",
+      "section_id": "SEC15",
+      "bed_prim": "/World/Vegetation/Bed_07",
+      "wall_prim": "/World/farm_framechanged/Bed_Edge_7__1",
+      "black_edge_m": 0.05,
+      "paper_size_m": [
+        0.064,
+        0.069
+      ],
+      "tag_center_map_m": [
+        4.499,
+        -3.16,
+        0.264
+      ],
+      "paper_center_map_m": [
+        4.499,
+        -3.16,
+        0.2615
+      ],
+      "right_map": [
+        0.0,
+        -1.0,
+        0.0
+      ],
+      "normal_map": [
+        -1.0,
+        -0.0,
+        0.0
+      ],
+      "texture": "sim/assets/apriltag/textures/tag36h11_ID102_64x69mm.png",
+      "source_status": "provided_pattern"
+    },
+    {
+      "id": 103,
+      "family": "tag36h11",
+      "section_id": "SEC15",
+      "bed_prim": "/World/Vegetation/Bed_07",
+      "wall_prim": "/World/farm_framechanged/Bed_Edge_7__1",
+      "black_edge_m": 0.05,
+      "paper_size_m": [
+        0.064,
+        0.069
+      ],
+      "tag_center_map_m": [
+        4.499,
+        -3.724,
+        0.264
+      ],
+      "paper_center_map_m": [
+        4.499,
+        -3.724,
+        0.2615
+      ],
+      "right_map": [
+        0.0,
+        -1.0,
+        0.0
+      ],
+      "normal_map": [
+        -1.0,
+        -0.0,
+        0.0
+      ],
+      "texture": "sim/assets/apriltag/textures/tag36h11_ID103_64x69mm.png",
+      "source_status": "provided_pattern"
+    },
+    {
+      "id": 104,
+      "family": "tag36h11",
+      "section_id": "SEC15",
+      "bed_prim": "/World/Vegetation/Bed_07",
+      "wall_prim": "/World/farm_framechanged/Bed_Edge_7__1",
+      "black_edge_m": 0.05,
+      "paper_size_m": [
+        0.064,
+        0.069
+      ],
+      "tag_center_map_m": [
+        4.499,
+        -4.288,
+        0.264
+      ],
+      "paper_center_map_m": [
+        4.499,
+        -4.288,
+        0.2615
+      ],
+      "right_map": [
+        0.0,
+        -1.0,
+        0.0
+      ],
+      "normal_map": [
+        -1.0,
+        -0.0,
+        0.0
+      ],
+      "texture": "sim/assets/apriltag/textures/tag36h11_ID104_64x69mm.png",
+      "source_status": "provided_pattern"
+    },
+    {
+      "id": 105,
+      "family": "tag36h11",
+      "section_id": "SEC15",
+      "bed_prim": "/World/Vegetation/Bed_07",
+      "wall_prim": "/World/farm_framechanged/Bed_Edge_7__1",
+      "black_edge_m": 0.05,
+      "paper_size_m": [
+        0.064,
+        0.069
+      ],
+      "tag_center_map_m": [
+        4.499,
+        -4.852,
+        0.264
+      ],
+      "paper_center_map_m": [
+        4.499,
+        -4.852,
+        0.2615
+      ],
+      "right_map": [
+        0.0,
+        -1.0,
+        0.0
+      ],
+      "normal_map": [
+        -1.0,
+        -0.0,
+        0.0
+      ],
+      "texture": "sim/assets/apriltag/textures/tag36h11_ID105_64x69mm.png",
+      "source_status": "provided_pattern"
+    },
+    {
+      "id": 106,
+      "family": "tag36h11",
+      "section_id": "SEC15",
+      "bed_prim": "/World/Vegetation/Bed_07",
+      "wall_prim": "/World/farm_framechanged/Bed_Edge_7__1",
+      "black_edge_m": 0.05,
+      "paper_size_m": [
+        0.064,
+        0.069
+      ],
+      "tag_center_map_m": [
+        4.499,
+        -5.416,
+        0.264
+      ],
+      "paper_center_map_m": [
+        4.499,
+        -5.416,
+        0.2615
+      ],
+      "right_map": [
+        0.0,
+        -1.0,
+        0.0
+      ],
+      "normal_map": [
+        -1.0,
+        -0.0,
+        0.0
+      ],
+      "texture": "sim/assets/apriltag/textures/tag36h11_ID106_64x69mm.png",
+      "source_status": "provided_pattern"
+    },
+    {
+      "id": 107,
+      "family": "tag36h11",
+      "section_id": "SEC15",
+      "bed_prim": "/World/Vegetation/Bed_07",
+      "wall_prim": "/World/farm_framechanged/Bed_Edge_7__1",
+      "black_edge_m": 0.05,
+      "paper_size_m": [
+        0.064,
+        0.069
+      ],
+      "tag_center_map_m": [
+        4.499,
+        -5.98,
+        0.264
+      ],
+      "paper_center_map_m": [
+        4.499,
+        -5.98,
+        0.2615
+      ],
+      "right_map": [
+        0.0,
+        -1.0,
+        0.0
+      ],
+      "normal_map": [
+        -1.0,
+        -0.0,
+        0.0
+      ],
+      "texture": "sim/assets/apriltag/textures/tag36h11_ID107_64x69mm.png",
+      "source_status": "provided_pattern"
+    },
+    {
+      "id": 108,
+      "family": "tag36h11",
+      "section_id": "SEC15",
+      "bed_prim": "/World/Vegetation/Bed_07",
+      "wall_prim": "/World/farm_framechanged/Bed_Edge_7__1",
+      "black_edge_m": 0.05,
+      "paper_size_m": [
+        0.064,
+        0.069
+      ],
+      "tag_center_map_m": [
+        4.499,
+        -6.544,
+        0.264
+      ],
+      "paper_center_map_m": [
+        4.499,
+        -6.544,
+        0.2615
+      ],
+      "right_map": [
+        0.0,
+        -1.0,
+        0.0
+      ],
+      "normal_map": [
+        -1.0,
+        -0.0,
+        0.0
+      ],
+      "texture": "sim/assets/apriltag/textures/tag36h11_ID108_64x69mm.png",
+      "source_status": "provided_pattern"
+    },
+    {
+      "id": 109,
+      "family": "tag36h11",
+      "section_id": "SEC15",
+      "bed_prim": "/World/Vegetation/Bed_07",
+      "wall_prim": "/World/farm_framechanged/Bed_Edge_7__1",
+      "black_edge_m": 0.05,
+      "paper_size_m": [
+        0.064,
+        0.069
+      ],
+      "tag_center_map_m": [
+        4.499,
+        -7.108,
+        0.264
+      ],
+      "paper_center_map_m": [
+        4.499,
+        -7.108,
+        0.2615
+      ],
+      "right_map": [
+        0.0,
+        -1.0,
+        0.0
+      ],
+      "normal_map": [
+        -1.0,
+        -0.0,
+        0.0
+      ],
+      "texture": "sim/assets/apriltag/textures/tag36h11_ID109_64x69mm.png",
+      "source_status": "provided_pattern"
+    },
+    {
+      "id": 110,
+      "family": "tag36h11",
+      "section_id": "SEC15",
+      "bed_prim": "/World/Vegetation/Bed_07",
+      "wall_prim": "/World/farm_framechanged/Bed_Edge_7__1",
+      "black_edge_m": 0.05,
+      "paper_size_m": [
+        0.064,
+        0.069
+      ],
+      "tag_center_map_m": [
+        4.499,
+        -7.672,
+        0.264
+      ],
+      "paper_center_map_m": [
+        4.499,
+        -7.672,
+        0.2615
+      ],
+      "right_map": [
+        0.0,
+        -1.0,
+        0.0
+      ],
+      "normal_map": [
+        -1.0,
+        -0.0,
+        0.0
+      ],
+      "texture": "sim/assets/apriltag/textures/tag36h11_ID110_64x69mm.png",
+      "source_status": "provided_pattern"
+    },
+    {
+      "id": 111,
+      "family": "tag36h11",
+      "section_id": "SEC15",
+      "bed_prim": "/World/Vegetation/Bed_07",
+      "wall_prim": "/World/farm_framechanged/Bed_Edge_7__1",
+      "black_edge_m": 0.05,
+      "paper_size_m": [
+        0.064,
+        0.069
+      ],
+      "tag_center_map_m": [
+        4.499,
+        -8.236,
+        0.264
+      ],
+      "paper_center_map_m": [
+        4.499,
+        -8.236,
+        0.2615
+      ],
+      "right_map": [
+        0.0,
+        -1.0,
+        0.0
+      ],
+      "normal_map": [
+        -1.0,
+        -0.0,
+        0.0
+      ],
+      "texture": "sim/assets/apriltag/textures/tag36h11_ID111_64x69mm.png",
+      "source_status": "provided_pattern"
+    },
+    {
+      "id": 112,
+      "family": "tag36h11",
+      "section_id": "SEC15",
+      "bed_prim": "/World/Vegetation/Bed_07",
+      "wall_prim": "/World/farm_framechanged/Bed_Edge_7__1",
+      "black_edge_m": 0.05,
+      "paper_size_m": [
+        0.064,
+        0.069
+      ],
+      "tag_center_map_m": [
+        4.499,
+        -8.8,
+        0.264
+      ],
+      "paper_center_map_m": [
+        4.499,
+        -8.8,
+        0.2615
+      ],
+      "right_map": [
+        0.0,
+        -1.0,
+        0.0
+      ],
+      "normal_map": [
+        -1.0,
+        -0.0,
+        0.0
+      ],
+      "texture": "sim/assets/apriltag/textures/tag36h11_ID112_64x69mm.png",
+      "source_status": "provided_pattern"
+    },
+    {
+      "id": 113,
+      "family": "tag36h11",
+      "section_id": "SEC15",
+      "bed_prim": "/World/Vegetation/Bed_07",
+      "wall_prim": "/World/farm_framechanged/Bed_Edge_7__1",
+      "black_edge_m": 0.05,
+      "paper_size_m": [
+        0.064,
+        0.069
+      ],
+      "tag_center_map_m": [
+        4.499,
+        -9.364,
+        0.264
+      ],
+      "paper_center_map_m": [
+        4.499,
+        -9.364,
+        0.2615
+      ],
+      "right_map": [
+        0.0,
+        -1.0,
+        0.0
+      ],
+      "normal_map": [
+        -1.0,
+        -0.0,
+        0.0
+      ],
+      "texture": "sim/assets/apriltag/textures/tag36h11_ID113_64x69mm.png",
+      "source_status": "provided_pattern"
+    },
+    {
+      "id": 114,
+      "family": "tag36h11",
+      "section_id": "SEC15",
+      "bed_prim": "/World/Vegetation/Bed_07",
+      "wall_prim": "/World/farm_framechanged/Bed_Edge_7__1",
+      "black_edge_m": 0.05,
+      "paper_size_m": [
+        0.064,
+        0.069
+      ],
+      "tag_center_map_m": [
+        4.499,
+        -9.928,
+        0.264
+      ],
+      "paper_center_map_m": [
+        4.499,
+        -9.928,
+        0.2615
+      ],
+      "right_map": [
+        0.0,
+        -1.0,
+        0.0
+      ],
+      "normal_map": [
+        -1.0,
+        -0.0,
+        0.0
+      ],
+      "texture": "sim/assets/apriltag/textures/tag36h11_ID114_64x69mm.png",
+      "source_status": "provided_pattern"
+    },
+    {
+      "id": 100,
+      "family": "tag36h11",
+      "section_id": "SEC16",
+      "bed_prim": "/World/Vegetation/Bed_07",
+      "wall_prim": "/World/farm_framechanged/Bed_Edge_7_1",
+      "black_edge_m": 0.05,
+      "paper_size_m": [
+        0.064,
+        0.069
+      ],
+      "tag_center_map_m": [
+        5.501,
+        -9.968,
+        0.264
+      ],
+      "paper_center_map_m": [
+        5.501,
+        -9.968,
+        0.2615
+      ],
+      "right_map": [
+        0.0,
+        1.0,
+        0.0
+      ],
+      "normal_map": [
+        1.0,
+        -0.0,
+        0.0
+      ],
+      "texture": "sim/assets/apriltag/textures/tag36h11_ID100_64x69mm.png",
+      "source_status": "provided_pattern"
+    },
+    {
+      "id": 101,
+      "family": "tag36h11",
+      "section_id": "SEC16",
+      "bed_prim": "/World/Vegetation/Bed_07",
+      "wall_prim": "/World/farm_framechanged/Bed_Edge_7_1",
+      "black_edge_m": 0.05,
+      "paper_size_m": [
+        0.064,
+        0.069
+      ],
+      "tag_center_map_m": [
+        5.501,
+        -9.404,
+        0.264
+      ],
+      "paper_center_map_m": [
+        5.501,
+        -9.404,
+        0.2615
+      ],
+      "right_map": [
+        0.0,
+        1.0,
+        0.0
+      ],
+      "normal_map": [
+        1.0,
+        -0.0,
+        0.0
+      ],
+      "texture": "sim/assets/apriltag/textures/tag36h11_ID101_64x69mm.png",
+      "source_status": "provided_pattern"
+    },
+    {
+      "id": 102,
+      "family": "tag36h11",
+      "section_id": "SEC16",
+      "bed_prim": "/World/Vegetation/Bed_07",
+      "wall_prim": "/World/farm_framechanged/Bed_Edge_7_1",
+      "black_edge_m": 0.05,
+      "paper_size_m": [
+        0.064,
+        0.069
+      ],
+      "tag_center_map_m": [
+        5.501,
+        -8.84,
+        0.264
+      ],
+      "paper_center_map_m": [
+        5.501,
+        -8.84,
+        0.2615
+      ],
+      "right_map": [
+        0.0,
+        1.0,
+        0.0
+      ],
+      "normal_map": [
+        1.0,
+        -0.0,
+        0.0
+      ],
+      "texture": "sim/assets/apriltag/textures/tag36h11_ID102_64x69mm.png",
+      "source_status": "provided_pattern"
+    },
+    {
+      "id": 103,
+      "family": "tag36h11",
+      "section_id": "SEC16",
+      "bed_prim": "/World/Vegetation/Bed_07",
+      "wall_prim": "/World/farm_framechanged/Bed_Edge_7_1",
+      "black_edge_m": 0.05,
+      "paper_size_m": [
+        0.064,
+        0.069
+      ],
+      "tag_center_map_m": [
+        5.501,
+        -8.276,
+        0.264
+      ],
+      "paper_center_map_m": [
+        5.501,
+        -8.276,
+        0.2615
+      ],
+      "right_map": [
+        0.0,
+        1.0,
+        0.0
+      ],
+      "normal_map": [
+        1.0,
+        -0.0,
+        0.0
+      ],
+      "texture": "sim/assets/apriltag/textures/tag36h11_ID103_64x69mm.png",
+      "source_status": "provided_pattern"
+    },
+    {
+      "id": 104,
+      "family": "tag36h11",
+      "section_id": "SEC16",
+      "bed_prim": "/World/Vegetation/Bed_07",
+      "wall_prim": "/World/farm_framechanged/Bed_Edge_7_1",
+      "black_edge_m": 0.05,
+      "paper_size_m": [
+        0.064,
+        0.069
+      ],
+      "tag_center_map_m": [
+        5.501,
+        -7.712,
+        0.264
+      ],
+      "paper_center_map_m": [
+        5.501,
+        -7.712,
+        0.2615
+      ],
+      "right_map": [
+        0.0,
+        1.0,
+        0.0
+      ],
+      "normal_map": [
+        1.0,
+        -0.0,
+        0.0
+      ],
+      "texture": "sim/assets/apriltag/textures/tag36h11_ID104_64x69mm.png",
+      "source_status": "provided_pattern"
+    },
+    {
+      "id": 105,
+      "family": "tag36h11",
+      "section_id": "SEC16",
+      "bed_prim": "/World/Vegetation/Bed_07",
+      "wall_prim": "/World/farm_framechanged/Bed_Edge_7_1",
+      "black_edge_m": 0.05,
+      "paper_size_m": [
+        0.064,
+        0.069
+      ],
+      "tag_center_map_m": [
+        5.501,
+        -7.148,
+        0.264
+      ],
+      "paper_center_map_m": [
+        5.501,
+        -7.148,
+        0.2615
+      ],
+      "right_map": [
+        0.0,
+        1.0,
+        0.0
+      ],
+      "normal_map": [
+        1.0,
+        -0.0,
+        0.0
+      ],
+      "texture": "sim/assets/apriltag/textures/tag36h11_ID105_64x69mm.png",
+      "source_status": "provided_pattern"
+    },
+    {
+      "id": 106,
+      "family": "tag36h11",
+      "section_id": "SEC16",
+      "bed_prim": "/World/Vegetation/Bed_07",
+      "wall_prim": "/World/farm_framechanged/Bed_Edge_7_1",
+      "black_edge_m": 0.05,
+      "paper_size_m": [
+        0.064,
+        0.069
+      ],
+      "tag_center_map_m": [
+        5.501,
+        -6.584,
+        0.264
+      ],
+      "paper_center_map_m": [
+        5.501,
+        -6.584,
+        0.2615
+      ],
+      "right_map": [
+        0.0,
+        1.0,
+        0.0
+      ],
+      "normal_map": [
+        1.0,
+        -0.0,
+        0.0
+      ],
+      "texture": "sim/assets/apriltag/textures/tag36h11_ID106_64x69mm.png",
+      "source_status": "provided_pattern"
+    },
+    {
+      "id": 107,
+      "family": "tag36h11",
+      "section_id": "SEC16",
+      "bed_prim": "/World/Vegetation/Bed_07",
+      "wall_prim": "/World/farm_framechanged/Bed_Edge_7_1",
+      "black_edge_m": 0.05,
+      "paper_size_m": [
+        0.064,
+        0.069
+      ],
+      "tag_center_map_m": [
+        5.501,
+        -6.02,
+        0.264
+      ],
+      "paper_center_map_m": [
+        5.501,
+        -6.02,
+        0.2615
+      ],
+      "right_map": [
+        0.0,
+        1.0,
+        0.0
+      ],
+      "normal_map": [
+        1.0,
+        -0.0,
+        0.0
+      ],
+      "texture": "sim/assets/apriltag/textures/tag36h11_ID107_64x69mm.png",
+      "source_status": "provided_pattern"
+    },
+    {
+      "id": 108,
+      "family": "tag36h11",
+      "section_id": "SEC16",
+      "bed_prim": "/World/Vegetation/Bed_07",
+      "wall_prim": "/World/farm_framechanged/Bed_Edge_7_1",
+      "black_edge_m": 0.05,
+      "paper_size_m": [
+        0.064,
+        0.069
+      ],
+      "tag_center_map_m": [
+        5.501,
+        -5.456,
+        0.264
+      ],
+      "paper_center_map_m": [
+        5.501,
+        -5.456,
+        0.2615
+      ],
+      "right_map": [
+        0.0,
+        1.0,
+        0.0
+      ],
+      "normal_map": [
+        1.0,
+        -0.0,
+        0.0
+      ],
+      "texture": "sim/assets/apriltag/textures/tag36h11_ID108_64x69mm.png",
+      "source_status": "provided_pattern"
+    },
+    {
+      "id": 109,
+      "family": "tag36h11",
+      "section_id": "SEC16",
+      "bed_prim": "/World/Vegetation/Bed_07",
+      "wall_prim": "/World/farm_framechanged/Bed_Edge_7_1",
+      "black_edge_m": 0.05,
+      "paper_size_m": [
+        0.064,
+        0.069
+      ],
+      "tag_center_map_m": [
+        5.501,
+        -4.892,
+        0.264
+      ],
+      "paper_center_map_m": [
+        5.501,
+        -4.892,
+        0.2615
+      ],
+      "right_map": [
+        0.0,
+        1.0,
+        0.0
+      ],
+      "normal_map": [
+        1.0,
+        -0.0,
+        0.0
+      ],
+      "texture": "sim/assets/apriltag/textures/tag36h11_ID109_64x69mm.png",
+      "source_status": "provided_pattern"
+    },
+    {
+      "id": 110,
+      "family": "tag36h11",
+      "section_id": "SEC16",
+      "bed_prim": "/World/Vegetation/Bed_07",
+      "wall_prim": "/World/farm_framechanged/Bed_Edge_7_1",
+      "black_edge_m": 0.05,
+      "paper_size_m": [
+        0.064,
+        0.069
+      ],
+      "tag_center_map_m": [
+        5.501,
+        -4.328,
+        0.264
+      ],
+      "paper_center_map_m": [
+        5.501,
+        -4.328,
+        0.2615
+      ],
+      "right_map": [
+        0.0,
+        1.0,
+        0.0
+      ],
+      "normal_map": [
+        1.0,
+        -0.0,
+        0.0
+      ],
+      "texture": "sim/assets/apriltag/textures/tag36h11_ID110_64x69mm.png",
+      "source_status": "provided_pattern"
+    },
+    {
+      "id": 111,
+      "family": "tag36h11",
+      "section_id": "SEC16",
+      "bed_prim": "/World/Vegetation/Bed_07",
+      "wall_prim": "/World/farm_framechanged/Bed_Edge_7_1",
+      "black_edge_m": 0.05,
+      "paper_size_m": [
+        0.064,
+        0.069
+      ],
+      "tag_center_map_m": [
+        5.501,
+        -3.7640000000000002,
+        0.264
+      ],
+      "paper_center_map_m": [
+        5.501,
+        -3.7640000000000002,
+        0.2615
+      ],
+      "right_map": [
+        0.0,
+        1.0,
+        0.0
+      ],
+      "normal_map": [
+        1.0,
+        -0.0,
+        0.0
+      ],
+      "texture": "sim/assets/apriltag/textures/tag36h11_ID111_64x69mm.png",
+      "source_status": "provided_pattern"
+    },
+    {
+      "id": 112,
+      "family": "tag36h11",
+      "section_id": "SEC16",
+      "bed_prim": "/World/Vegetation/Bed_07",
+      "wall_prim": "/World/farm_framechanged/Bed_Edge_7_1",
+      "black_edge_m": 0.05,
+      "paper_size_m": [
+        0.064,
+        0.069
+      ],
+      "tag_center_map_m": [
+        5.501,
+        -3.2,
+        0.264
+      ],
+      "paper_center_map_m": [
+        5.501,
+        -3.2,
+        0.2615
+      ],
+      "right_map": [
+        0.0,
+        1.0,
+        0.0
+      ],
+      "normal_map": [
+        1.0,
+        -0.0,
+        0.0
+      ],
+      "texture": "sim/assets/apriltag/textures/tag36h11_ID112_64x69mm.png",
+      "source_status": "provided_pattern"
+    },
+    {
+      "id": 113,
+      "family": "tag36h11",
+      "section_id": "SEC16",
+      "bed_prim": "/World/Vegetation/Bed_07",
+      "wall_prim": "/World/farm_framechanged/Bed_Edge_7_1",
+      "black_edge_m": 0.05,
+      "paper_size_m": [
+        0.064,
+        0.069
+      ],
+      "tag_center_map_m": [
+        5.501,
+        -2.636,
+        0.264
+      ],
+      "paper_center_map_m": [
+        5.501,
+        -2.636,
+        0.2615
+      ],
+      "right_map": [
+        0.0,
+        1.0,
+        0.0
+      ],
+      "normal_map": [
+        1.0,
+        -0.0,
+        0.0
+      ],
+      "texture": "sim/assets/apriltag/textures/tag36h11_ID113_64x69mm.png",
+      "source_status": "provided_pattern"
+    },
+    {
+      "id": 114,
+      "family": "tag36h11",
+      "section_id": "SEC16",
+      "bed_prim": "/World/Vegetation/Bed_07",
+      "wall_prim": "/World/farm_framechanged/Bed_Edge_7_1",
+      "black_edge_m": 0.05,
+      "paper_size_m": [
+        0.064,
+        0.069
+      ],
+      "tag_center_map_m": [
+        5.501,
+        -2.072,
+        0.264
+      ],
+      "paper_center_map_m": [
+        5.501,
+        -2.072,
+        0.2615
+      ],
+      "right_map": [
+        0.0,
+        1.0,
+        0.0
+      ],
+      "normal_map": [
+        1.0,
+        -0.0,
+        0.0
+      ],
+      "texture": "sim/assets/apriltag/textures/tag36h11_ID114_64x69mm.png",
+      "source_status": "provided_pattern"
+    }
+  ]
+}

@@ -91,7 +91,8 @@ def configure_farm_fruits(stage: object, project_root: Path, config: dict, surve
     상대 경로이며, 반환 항목은 prim_path/attachment_local_m/
     tension_axis_world/break_force_N를 포함한다. 원본 stage는 저장하지 않는다.
     """
-    from pxr import Gf, PhysxSchema, Sdf, Usd, UsdGeom, UsdPhysics, UsdShade
+    from pxr import PhysxSchema, Sdf, Usd, UsdGeom, UsdPhysics, UsdShade
+    from farm_sim_devices.fruit_pose import set_rigid_local_pose
 
     if UsdGeom.GetStageUpAxis(stage) != 'Z' or not math.isclose(
             UsdGeom.GetStageMetersPerUnit(stage), 1., abs_tol=1e-9):
@@ -161,10 +162,7 @@ def configure_farm_fruits(stage: object, project_root: Path, config: dict, surve
         for prim, model, local, record in prepared:
             prim.GetReferences().AddReference(str(assets[record['color']]), '/Pepper')
             model.SetActive(False)
-            xform = UsdGeom.Xformable(prim)
-            xform.ClearXformOpOrder()
-            xform.SetResetXformStack(False)
-            xform.AddTransformOp(opSuffix='teacherFruit').Set(Gf.Matrix4d(*local.T.reshape(-1)))
+            set_rigid_local_pose(prim, local)
             UsdPhysics.RigidBodyAPI.Apply(prim).CreateRigidBodyEnabledAttr(True)
             UsdPhysics.MassAPI.Apply(prim).CreateMassAttr(numeric['mass_kg'])
             body = PhysxSchema.PhysxRigidBodyAPI.Apply(prim)

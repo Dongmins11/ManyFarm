@@ -18,10 +18,23 @@ def main():
     parser.add_argument('--module-path', action='append', default=[])
     parser.add_argument('--scene', type=Path)
     parser.add_argument('--headless', action='store_true')
+    parser.add_argument('--harvest-test-ui', action='store_true',
+                        help='독립 시험용 배치/가변 Hz 수확 패널. sim/tools/harvest_test_ui.py에서 실행')
+    parser.add_argument('--harvest-test-seed', type=int)
+    parser.add_argument('--harvest-test-auto-run', action='store_true',
+                        help='검증용: 패널 배치→정지 확인→수확 버튼을 한 번 자동 실행')
+    parser.add_argument('--harvest-test-auto-physics', action='store_true',
+                        help='검증용: 배치 후 팔 없이 주변 물리8초 관찰→비활성 요청')
     parser.add_argument('--stop-after-arm-job', action='store_true',
                         help='검증용: 첫 팔 작업의 최종 결과를 보낸 프레임 뒤 정상 종료')
+    parser.add_argument('--teacher-diagnostic-trace', action='store_true',
+                        help='회신용 실제 관측/정규화/정책 출력과 USD·PhysX·복귀 연속 기록')
     parser.add_argument('--duration-s', type=float, help='검증용 실행 시간(시뮬레이션 초). 생략하면 계속 실행')
     args = parser.parse_args()
+    if ((args.harvest_test_ui and args.headless)
+            or ((args.harvest_test_auto_run or args.harvest_test_auto_physics) and not args.harvest_test_ui)
+            or (args.harvest_test_auto_run and args.harvest_test_auto_physics)):
+        parser.error('수확 시험 UI는 GUI에서 실행하며 auto-run은 시험 UI 전용입니다.')
     if args.duration_s is not None and (not math.isfinite(args.duration_s) or args.duration_s <= 0):
         parser.error('--duration-s는 유한한 양수여야 합니다.')
     root = args.project_root.expanduser().resolve()
@@ -29,6 +42,10 @@ def main():
         sys.path.insert(0, str(Path(module_path).resolve()))
     from farm_sim_runtime.fleet_config import load_fleet
     configs, task = load_fleet(root, args.fleet_config)
+    if args.harvest_test_ui:
+        snapshot = Path(task['harvest_robot']['scene_snapshot_file']).resolve()
+        if len(configs) != 1 or not snapshot.is_relative_to(root/'sim/runs/harvest_test_ui'):
+            parser.error('sim/tools/harvest_test_ui.py의 독립 설정으로 실행하세요.')
     from farm_sim_runtime.harvest_physics import (
         HarvestPhysics, initialize_arm_home, load_physics_profile)
     from farm_sim_runtime.physics_schedule import AdaptivePhysicsTicks
@@ -41,6 +58,8 @@ def main():
     sys.argv = [sys.argv[0]]
     app = SimulationApp({'headless':args.headless, 'renderer':'RayTracedLighting', 'fast_shutdown':False})
     world, robots, clock_transport, harvest_physics = None, [], None, None
+    test_controller, test_panel = None, None
+    performance_log = None
     try:
         import omni.usd
         from pxr import UsdGeom, UsdPhysics, Gf, Usd
@@ -64,6 +83,9 @@ def main():
             raise ValueError('Scene must use metres and Z-up')
         from farm_sim_runtime.bed_collisions import ensure_bed_collisions
         print('[farm_fleet] bed collisions: '+json.dumps(ensure_bed_collisions(stage)), flush=True)
+        from farm_sim_runtime.apriltag_scene import install_tags, mount_camera
+        for cfg in configs:
+            print('[farm_fleet] AprilTags: '+str(install_tags(stage, root, cfg)), flush=True)
         if physics_profile is not None:
             harvest_physics = HarvestPhysics(stage, root, physics_profile)
         cache = UsdGeom.XformCache()
@@ -96,6 +118,7 @@ def main():
                 robot = UsdGeom.Xform.Define(stage,robot_path).GetPrim()
                 robot.GetReferences().AddReference(str(asset))
             stage.Load(robot_path)
+            mount_camera(stage, robot_path, cfg)
             if harvest_physics is not None and (cfg['robot_id'] == task['harvest_robot']['robot_id']
                     or cfg['runtime'].get('harvest_activity', {}).get('enabled', False)):
                 harvest_physics.configure_robot(robot_path, robot_id=cfg['robot_id'],
@@ -143,7 +166,8 @@ def main():
         if len(scenes) > 1:
             raise RuntimeError('Multiple PhysicsScene prims; select one scene before running')
         dt = 1./configs[0]['runtime']['physics_hz']
-        ticks = AdaptivePhysicsTicks(configs[0]['runtime']['physics_hz'], configs[0]['runtime']['render_hz'])
+        ticks = AdaptivePhysicsTicks(configs[0]['runtime']['physics_hz'], configs[0]['runtime']['render_hz'],
+                                     batch_usd_writeback=args.harvest_test_ui)
         frame_dt = ticks.frame_dt
         world = World(physics_dt=dt,rendering_dt=1./configs[0]['runtime']['render_hz'],stage_units_in_meters=1.,
                       physics_prim_path=scenes[0] if scenes else '/World/physicsScene',backend='numpy')
@@ -203,8 +227,26 @@ def main():
                 profile['joint_limits'] = dict(lower=device.lower.tolist(), upper=device.upper.tolist(),
                                                home=device.home.tolist())
                 controller = TeacherController(profile, project_root=root, device='cpu')
+                if args.teacher_diagnostic_trace:
+                    controller.enable_diagnostic_trace()
                 robot['arm'] = ArmSession(session, robot['cfg']['robot_id'], task['map_id'],
                     device, controller, harvest_physics, profile['session'], root/'sim/runs/robotarm/teacher')
+                if args.teacher_diagnostic_trace:
+                    from farm_sim_runtime.teacher_diagnostics import TeacherRuntimeRecorder
+                    robot['teacher_recorder'] = TeacherRuntimeRecorder(robot,
+                        root/'sim/runs/robotarm/diagnostics'/session/robot['cfg']['robot_id'])
+        # 장면 구성과 PhysX 초기화가 끝난 다음 viewport 물리 메뉴를 등록한다.
+        if not args.headless:
+            from farm_sim_runtime.harvest_physics_inspector import enable_physics_debug_ui
+            enable_physics_debug_ui()
+        if args.harvest_test_ui:
+            from farm_sim_runtime.harvest_test_ui import HarvestTestController, HarvestTestPanel
+            test_controller = HarvestTestController(robots[0], harvest_physics, task, root,
+                                                    seed=args.harvest_test_seed)
+            test_panel = HarvestTestPanel(test_controller)
+            performance_log = (test_controller.directory/'frame_performance.jsonl').open('w')
+        auto_phase = 'place'
+        auto_physics_stop_at = math.inf
         def after_physics(dt_s: float, sim_s: float) -> None:
             for robot in robots:
                 if robot['arm'] is not None:
@@ -216,8 +258,29 @@ def main():
         last_truth = -math.inf
         while app.is_running():
             wall = time.monotonic()
+            frame_start = time.perf_counter()
+            frame_status = test_controller.arm.state['status'] if test_controller else ''
+            frame_stage = test_controller.arm.state['stage'] if test_controller else ''
+            if float(world.current_time) < previous-1e-10:
+                raise RuntimeError('Simulation reset detected; restart the simulator test process')
+            if test_controller is not None:
+                if (args.harvest_test_auto_run or args.harvest_test_auto_physics) and float(world.current_time)-start_sim > 1.:
+                    if auto_phase == 'place' and test_controller.can_place:
+                        test_controller.request('place')
+                        auto_phase = 'harvest'
+                    elif auto_phase == 'harvest' and test_controller.ready:
+                        test_controller.request('physics' if args.harvest_test_auto_physics else 'harvest')
+                        auto_phase = 'observe' if args.harvest_test_auto_physics else 'done'
+                        auto_physics_stop_at = float(world.current_time)+8.
+                    elif auto_phase == 'observe' and float(world.current_time) >= auto_physics_stop_at:
+                        test_controller.request('physics')
+                        auto_phase = 'done'
+                test_controller.before_frame(float(world.current_time), playing=world.is_playing())
             for robot in robots:
                 for message in robot['transport'].receive():
+                    if test_controller is not None:
+                        # 이 패널 시험은 외부 ROS/UDP 명령으로 로봇을 움직이지 않는다.
+                        continue
                     if message.get('kind') == 'harvest_arm':
                         if robot['arm'] is not None:
                             robot['arm'].accept(message)
@@ -231,7 +294,11 @@ def main():
             if not world.is_playing():
                 for robot in robots:
                     robot['gate'].stop()
+                if test_panel is not None:
+                    test_panel.before_render(float(world.current_time), ticks.physics_hz)
+                    test_panel.update(float(world.current_time), ticks.physics_hz, playing=False)
                 app.update();time.sleep(.01);continue
+            control_finished = time.perf_counter()
             for robot in robots:
                 if robot['arm'] is not None:
                     # 실제 차체 속도를 확인합니다. wheel odom 정지 추정으로 대신하지 않습니다.
@@ -242,14 +309,27 @@ def main():
                         and np.linalg.norm(linear[:2]) < arm_cfg['base_linear_limit_m_s']
                         and abs(angular[2]) < arm_cfg['base_angular_limit_rad_s'])
                     robot['arm'].tick(float(world.current_time), base_stationary=stationary)
+                    if robot.get('teacher_recorder') is not None:
+                        robot['teacher_recorder'].sample(float(world.current_time))
                 robot['applied_cmd'] = ((0., 0.) if robot['arm'] is not None and robot['arm'].busy
                                         else robot['gate'].value())
                 robot['base'].command(*robot['applied_cmd'])
+            arm_finished = time.perf_counter()
+            if test_panel is not None:
+                test_panel.apply_hz(float(world.current_time))
             required_hz = (harvest_physics.prepare_frame(float(world.current_time))
                            if harvest_physics is not None else configs[0]['runtime']['physics_hz'])
+            if test_panel is not None:
+                ticks.allow_rate(required_hz)
+                test_panel.before_render(float(world.current_time), required_hz)
+            prepare_finished = time.perf_counter()
             # 명령/센서/clock의 프레임은 60Hz로 유지하고 내부 물리 tick만 1~8회 진행한다.
             ticks.step_frame(world, harvest_physics, physics_hz=required_hz, post_step=after_physics)
+            step_finished = time.perf_counter()
             now = float(world.current_time)
+            if test_controller is not None:
+                test_controller.after_frame(now, ticks.physics_hz)
+                test_panel.update(now, ticks.physics_hz)
             if now <= previous:
                 raise RuntimeError('Simulation reset detected; restart both ROS and simulator test processes')
             clock_transport.send(dict(kind='clock', session=session, stamp_ns=round(now*1e9), sent=time.monotonic()))
@@ -279,9 +359,18 @@ def main():
                         static_tf=robot['static'],scan=ranges,camera_frames=robot['camera_frames'],
                         arm=robot['arm'].telemetry() if robot['arm'] is not None else None))
                     robot['last_telemetry']=now
+            truth_started = time.perf_counter()
             if now-last_truth>=.2:
                 harvest=next(r for r in robots if r['cfg']['robot_id']==hcfg['robot_id'])
                 truth.capture(round(now*1e9),harvest['T_world_base']);last_truth=now
+            frame_finished = time.perf_counter()
+            if performance_log is not None:
+                performance_log.write(json.dumps(dict(
+                    sim_s=now, wall_s=wall, physics_hz=ticks.physics_hz, status=frame_status, stage=frame_stage,
+                    frame_s=frame_finished-frame_start, control_s=control_finished-frame_start,
+                    arm_s=arm_finished-control_finished, prepare_s=prepare_finished-arm_finished,
+                    post_s=truth_started-step_finished, truth_s=frame_finished-truth_started,
+                    **ticks.frame_timings))+'\n')
             previous=now
             if args.stop_after_arm_job and any(r['arm'] is not None and
                     r['arm'].state['job_id'] and r['arm'].state['status'] in ('SUCCESS','FAILED','CANCELED')
@@ -302,8 +391,27 @@ def main():
                 time.sleep(max(0.,frame_dt-(time.monotonic()-wall)))
     except KeyboardInterrupt:
         pass
+    except Exception:
+        # SDK 종료 중 native 오류가 나더라도 최초 Python 원인을 로그에 보존한다.
+        import traceback
+        traceback.print_exc()
+        raise
     finally:
+        if performance_log is not None:
+            performance_log.close()
+        if test_panel is not None:
+            try:
+                test_panel.close()
+            except Exception as error:
+                print('[harvest_test] panel cleanup: '+str(error), flush=True)
+        if test_controller is not None:
+            try:
+                test_controller.close()
+            except Exception as error:
+                print('[harvest_test] controller cleanup: '+str(error), flush=True)
         for robot in robots:
+            if robot.get('teacher_recorder') is not None:
+                robot['teacher_recorder'].close()
             if robot.get('arm') is not None:
                 robot['arm'].close()
             try:robot['base'].command(0.,0.)

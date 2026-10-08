@@ -42,6 +42,10 @@ class SimRosAdapter(Node):
         self.joint_pub=self.create_publisher(JointState,'joint_states',10)
         self.clock_pub=self.create_publisher(ClockMessage,'/clock',10) if self.config.get('publish_clock', True) else None
         self.tf=TransformBroadcaster(self);self.static_tf=StaticTransformBroadcaster(self)
+        self.camera_ros=None
+        if self.config['camera'].get('enabled') and self.config['camera'].get('publish_ros'):
+            from farm_sim_devices.camera_ros import CameraRos
+            self.camera_ros=CameraRos(self,self.config['camera'],self.config['frames']['camera_optical'])
         kind=self.get_parameter('cmd_vel_type').value
         if kind=='twist':
             self.subscription=self.create_subscription(Twist,'cmd_vel',self.command,10)
@@ -127,6 +131,8 @@ class SimRosAdapter(Node):
         if self.session is not None and time.monotonic()-self.last_seen>self.config['runtime']['transport_timeout_s'] and not self.link_lost:
             self.get_logger().warning('시뮬레이션 데이터가 멈췄습니다. 새 속도 명령 전달을 중단합니다.')
             self.link_lost=True
+        if self.camera_ros is not None and not self.link_lost:
+            self.camera_ros.publish(self.session)
 
     def publish_state(self,m):
         ns=m['stamp_ns'];frames=self.config['frames']

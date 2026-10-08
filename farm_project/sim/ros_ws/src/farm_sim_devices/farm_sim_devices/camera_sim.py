@@ -17,7 +17,14 @@ class CameraSim:
 
     def initialize(self):
         self.camera.initialize()
-        self.camera.add_distance_to_image_plane_to_frame()
+        calibration = self.config.get('camera_info')
+        if calibration:
+            k = calibration['k']
+            # Isaac 5.1 OpenCV 렌즈 모델로 K와 실제 왜곡 D를 함께 재현합니다.
+            self.camera.set_opencv_pinhole_properties(
+                cx=k[2], cy=k[5], fx=k[0], fy=k[4], pinhole=calibration['d'])
+        if not self.config.get('render_rgb_only', False):
+            self.camera.add_distance_to_image_plane_to_frame()
         self.writer=RgbdWriter(self.config['shm_name'],self.config['width'],self.config['height'])
 
     def publish(self,pose_history,tolerance):
@@ -26,6 +33,10 @@ class CameraSim:
         if not math.isfinite(stamp) or stamp<=self.last_stamp:return False
         rgb=frame.get('rgb')
         depth=frame.get('distance_to_image_plane')
+        rgb_only=self.config.get('render_rgb_only',False)
+        if rgb_only:
+            # 공통 전송 버퍼의 depth 영역은 미사용 NaN. 웹캠 깊이 센서를 흉내내지 않습니다.
+            depth=np.full((self.config['height'],self.config['width']),np.nan,dtype=np.float32)
         if rgb is None or depth is None:return False
         rgb=np.asarray(rgb);depth=np.asarray(depth)
         h,w=self.config['height'],self.config['width']
@@ -42,8 +53,9 @@ class CameraSim:
         meta=dict(session=self.session,stamp_ns=round(stamp*1e9),frame_id=self.optical_frame,
                   pose_stamp_ns=round(sample[0]*1e9),pose_frame=self.config['odom_frame'],
                   T_odom_camera_optical=(T_odom_base@self.T_base_optical).tolist(),
-                  K=np.asarray(self.camera.get_intrinsics_matrix()).tolist(),
-                  aligned_depth=True,depth_definition='distance_to_image_plane',
+                  K=(np.asarray(self.config['camera_info']['k']).reshape(3,3).tolist()
+                     if 'camera_info' in self.config else np.asarray(self.camera.get_intrinsics_matrix()).tolist()),
+                  aligned_depth=not rgb_only,depth_definition='unavailable' if rgb_only else 'distance_to_image_plane',
                   note='map 변환은 촬영 시각의 map->odom TF를 사용하는 소비자 책임')
         done=self.writer.write(rgb[:,:,:3],depth,meta)
         self.last_stamp=stamp

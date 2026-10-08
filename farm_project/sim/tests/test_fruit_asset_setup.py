@@ -9,7 +9,8 @@ import unittest
 import numpy as np
 
 ROOT = Path(__file__).resolve().parents[2]
-sys.path.insert(0, str(ROOT / 'sim/ros_ws/src/farm_sim_runtime'))
+for package in ('farm_sim_runtime', 'farm_sim_devices'):
+    sys.path.insert(0, str(ROOT / 'sim/ros_ws/src' / package))
 from farm_sim_runtime.fruit_asset_setup import configure_farm_fruits, outward_tension_axis_world
 
 try:

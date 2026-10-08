@@ -1,0 +1,1436 @@
+{
+  "description": "2026-10-08 실제 진단 결과의 버전관리 사본. raw trace 전체는 sim/runs에 로컬 보존. 문서 종합 시 새 시험을 수행한 것은 아님.",
+  "baseline_commit": "450bf5f100a81986469a22aba47847d9c2619acc",
+  "sources": [
+    {
+      "path": "sim/runs/physx_bottleneck_20261008/idle_comparisons.json",
+      "sha256": "6d2c360c316514c1bfc5c7b4cc11881141afb0ef30580ec2d08b3b7773d15881",
+      "result": [
+        {
+          "case": "gpu_idle",
+          "fleet": "/home/ysy/main/farm_project/sim/runs/harvest_test_ui/20261008T092819_0gu4fe7u",
+          "exit_code": 0,
+          "start_sim_s": 2.0041667711921036,
+          "end_sim_s": 6.00416697980836,
+          "frames": 241,
+          "wall_fps": 29.80233459277645,
+          "processing_fps": 29.908553814955052,
+          "p95_frame_ms": 62.51769499795046,
+          "mean_ms": {
+            "frame_s": 33.43525087127329,
+            "control_s": 0.01642063468514992,
+            "arm_s": 0.17603782989341704,
+            "prepare_s": 0.08852110000151399,
+            "post_s": 0.491467920780236,
+            "truth_s": 2.8644891118720612,
+            "forces_s": 0.01952186724628975,
+            "simulation_s": 23.81913077991448,
+            "contacts_s": 0.0037820833441472895,
+            "render_s": 5.904896112404767
+          },
+          "settings": {
+            "world_backend": "numpy",
+            "world_device": "cpu",
+            "physics_sim_device": "cpu",
+            "gpu_dynamics": true,
+            "broadphase": "GPU",
+            "usd_update_settings": [
+              true,
+              true,
+              false
+            ],
+            "suppress_readback": false,
+            "fabric_extension_enabled": false,
+            "explanation": "fetch_s는 순수 GPU 계산 시간이 아니라 완료 대기와 결과 쓰기를 포함한다."
+          },
+          "case_setup": {
+            "case": "gpu_idle",
+            "viewport_resolution": [
+              1280,
+              720
+            ],
+            "viewport_camera": "/World/Vegetation/ReviewCamera",
+            "camera_world_transform": "( (0.3158472901481777, 0.9488100385778206, 3.1858196636314062e-15, 0), (-0.20609172823401706, 0.0686054228328267, 0.9761247335825065, 0), (0.926156946127173, -0.3083063519486217, 0.2172107375075157, 0), (1.6250187098572828, 1.4591299741095598, 2.5168103216085735, 1) )",
+            "note": "Diagnostic comparison only; all robot rigid bodies and fruit colliders retained. CPU mode and snapshot omission are not production changes."
+          },
+          "initial_scene": {
+            "nb_dynamic_rigids": 97,
+            "nb_active_dynamic_rigids": 288,
+            "nb_kinematic_rigids": 288,
+            "nb_active_kinematic_rigids": 0,
+            "nb_static_rigids": 29,
+            "nb_articulations": 3,
+            "nb_box_shapes": 52,
+            "nb_capsule_shapes": 0,
+            "nb_convex_shapes": 4829,
+            "nb_trimesh_shapes": 4,
+            "nb_sphere_shapes": 4,
+            "nb_plane_shapes": 1,
+            "nb_discrete_contact_pairs_total": 38,
+            "nb_discrete_contact_pairs_with_contacts": 0,
+            "nb_active_constraints": 0,
+            "nb_axis_solver_constaints": 0,
+            "gpu_mem_heap": 1543503872,
+            "gpu_mem_rigid_contact_count": 278,
+            "gpu_mem_rigid_patch_count": 76,
+            "gpu_mem_heap_broadphase": 1267603524,
+            "gpu_mem_heap_narrowphase": 2686296,
+            "gpu_mem_heap_solver": 223780480
+          },
+          "physx_error_lines": []
+        },
+        {
+          "case": "cpu_idle",
+          "fleet": "/home/ysy/main/farm_project/sim/runs/harvest_test_ui/20261008T092917_m3s0d7rg",
+          "exit_code": 0,
+          "start_sim_s": 2.0041667711921036,
+          "end_sim_s": 6.00416697980836,
+          "frames": 241,
+          "wall_fps": 50.22692867499356,
+          "processing_fps": 60.19650420937487,
+          "p95_frame_ms": 49.81410100299399,
+          "mean_ms": {
+            "frame_s": 16.61226034857124,
+            "control_s": 0.02249314534744534,
+            "arm_s": 0.24292811178225499,
+            "prepare_s": 0.12292570529430255,
+            "post_s": 0.6014155100787607,
+            "truth_s": 3.2956286684196456,
+            "forces_s": 0.025583917617554394,
+            "simulation_s": 5.63836323175361,
+            "contacts_s": 0.0050980706420955075,
+            "render_s": 6.591474136827451
+          },
+          "settings": {
+            "world_backend": "numpy",
+            "world_device": "cpu",
+            "physics_sim_device": "cpu",
+            "gpu_dynamics": false,
+            "broadphase": "MBP",
+            "usd_update_settings": [
+              true,
+              true,
+              false
+            ],
+            "suppress_readback": false,
+            "fabric_extension_enabled": false,
+            "explanation": "fetch_s는 순수 GPU 계산 시간이 아니라 완료 대기와 결과 쓰기를 포함한다."
+          },
+          "case_setup": {
+            "case": "cpu_idle",
+            "viewport_resolution": [
+              1280,
+              720
+            ],
+            "viewport_camera": "/World/Vegetation/ReviewCamera",
+            "camera_world_transform": "( (0.3158472901481777, 0.9488100385778206, 3.1858196636314062e-15, 0), (-0.20609172823401706, 0.0686054228328267, 0.9761247335825065, 0), (0.926156946127173, -0.3083063519486217, 0.2172107375075157, 0), (1.6250187098572828, 1.4591299741095598, 2.5168103216085735, 1) )",
+            "note": "Diagnostic comparison only; all robot rigid bodies and fruit colliders retained. CPU mode and snapshot omission are not production changes."
+          },
+          "initial_scene": {
+            "nb_dynamic_rigids": 97,
+            "nb_active_dynamic_rigids": 288,
+            "nb_kinematic_rigids": 288,
+            "nb_active_kinematic_rigids": 0,
+            "nb_static_rigids": 29,
+            "nb_articulations": 3,
+            "nb_box_shapes": 52,
+            "nb_capsule_shapes": 0,
+            "nb_convex_shapes": 4829,
+            "nb_trimesh_shapes": 4,
+            "nb_sphere_shapes": 4,
+            "nb_plane_shapes": 1,
+            "nb_discrete_contact_pairs_total": 77,
+            "nb_discrete_contact_pairs_with_contacts": 76,
+            "nb_active_constraints": 0,
+            "nb_axis_solver_constaints": 0,
+            "gpu_mem_heap": 0,
+            "gpu_mem_rigid_contact_count": 0,
+            "gpu_mem_rigid_patch_count": 0,
+            "gpu_mem_heap_broadphase": 0,
+            "gpu_mem_heap_narrowphase": 0,
+            "gpu_mem_heap_solver": 0
+          },
+          "physx_error_lines": []
+        },
+        {
+          "case": "gpu_no_truth",
+          "fleet": "/home/ysy/main/farm_project/sim/runs/harvest_test_ui/20261008T093028_64qck4ig",
+          "exit_code": 0,
+          "start_sim_s": 2.0041667711921036,
+          "end_sim_s": 6.00416697980836,
+          "frames": 241,
+          "wall_fps": 31.950317324715908,
+          "processing_fps": 32.07197255937014,
+          "p95_frame_ms": 40.43869899760466,
+          "mean_ms": {
+            "frame_s": 31.179872025297065,
+            "control_s": 0.01825396273685117,
+            "arm_s": 0.20741811179154054,
+            "prepare_s": 0.1116513069434076,
+            "post_s": 0.5832190879092154,
+            "truth_s": 0.0008026471132551672,
+            "forces_s": 0.023090240921867677,
+            "simulation_s": 24.098054663721605,
+            "contacts_s": 0.005257892032555803,
+            "render_s": 6.072094668385464
+          },
+          "settings": {
+            "world_backend": "numpy",
+            "world_device": "cpu",
+            "physics_sim_device": "cpu",
+            "gpu_dynamics": true,
+            "broadphase": "GPU",
+            "usd_update_settings": [
+              true,
+              true,
+              false
+            ],
+            "suppress_readback": false,
+            "fabric_extension_enabled": false,
+            "explanation": "fetch_s는 순수 GPU 계산 시간이 아니라 완료 대기와 결과 쓰기를 포함한다."
+          },
+          "case_setup": {
+            "case": "gpu_no_truth",
+            "viewport_resolution": [
+              1280,
+              720
+            ],
+            "viewport_camera": "/World/Vegetation/ReviewCamera",
+            "camera_world_transform": "( (0.3158472901481777, 0.9488100385778206, 3.1858196636314062e-15, 0), (-0.20609172823401706, 0.0686054228328267, 0.9761247335825065, 0), (0.926156946127173, -0.3083063519486217, 0.2172107375075157, 0), (1.6250187098572828, 1.4591299741095598, 2.5168103216085735, 1) )",
+            "note": "Diagnostic comparison only; all robot rigid bodies and fruit colliders retained. CPU mode and snapshot omission are not production changes."
+          },
+          "initial_scene": {
+            "nb_dynamic_rigids": 97,
+            "nb_active_dynamic_rigids": 288,
+            "nb_kinematic_rigids": 288,
+            "nb_active_kinematic_rigids": 0,
+            "nb_static_rigids": 29,
+            "nb_articulations": 3,
+            "nb_box_shapes": 52,
+            "nb_capsule_shapes": 0,
+            "nb_convex_shapes": 4829,
+            "nb_trimesh_shapes": 4,
+            "nb_sphere_shapes": 4,
+            "nb_plane_shapes": 1,
+            "nb_discrete_contact_pairs_total": 38,
+            "nb_discrete_contact_pairs_with_contacts": 0,
+            "nb_active_constraints": 0,
+            "nb_axis_solver_constaints": 0,
+            "gpu_mem_heap": 1543503872,
+            "gpu_mem_rigid_contact_count": 278,
+            "gpu_mem_rigid_patch_count": 76,
+            "gpu_mem_heap_broadphase": 1267603524,
+            "gpu_mem_heap_narrowphase": 2686296,
+            "gpu_mem_heap_solver": 223780480
+          },
+          "physx_error_lines": []
+        },
+        {
+          "case": "cpu_no_truth",
+          "fleet": "/home/ysy/main/farm_project/sim/runs/harvest_test_ui/20261008T093143_0g6q7ki_",
+          "exit_code": 0,
+          "start_sim_s": 2.0041667711921036,
+          "end_sim_s": 6.00416697980836,
+          "frames": 241,
+          "wall_fps": 59.526725432747774,
+          "processing_fps": 78.29174791983367,
+          "p95_frame_ms": 16.787482993095182,
+          "mean_ms": {
+            "frame_s": 12.77273820765815,
+            "control_s": 0.02236233600772747,
+            "arm_s": 0.2331080044865129,
+            "prepare_s": 0.11823377576830538,
+            "post_s": 0.556045198748835,
+            "truth_s": 0.0008407387741420155,
+            "forces_s": 0.024074775442631754,
+            "simulation_s": 5.320306563944579,
+            "contacts_s": 0.004895038154513355,
+            "render_s": 6.426887268804814
+          },
+          "settings": {
+            "world_backend": "numpy",
+            "world_device": "cpu",
+            "physics_sim_device": "cpu",
+            "gpu_dynamics": false,
+            "broadphase": "MBP",
+            "usd_update_settings": [
+              true,
+              true,
+              false
+            ],
+            "suppress_readback": false,
+            "fabric_extension_enabled": false,
+            "explanation": "fetch_s는 순수 GPU 계산 시간이 아니라 완료 대기와 결과 쓰기를 포함한다."
+          },
+          "case_setup": {
+            "case": "cpu_no_truth",
+            "viewport_resolution": [
+              1280,
+              720
+            ],
+            "viewport_camera": "/World/Vegetation/ReviewCamera",
+            "camera_world_transform": "( (0.3158472901481777, 0.9488100385778206, 3.1858196636314062e-15, 0), (-0.20609172823401706, 0.0686054228328267, 0.9761247335825065, 0), (0.926156946127173, -0.3083063519486217, 0.2172107375075157, 0), (1.6250187098572828, 1.4591299741095598, 2.5168103216085735, 1) )",
+            "note": "Diagnostic comparison only; all robot rigid bodies and fruit colliders retained. CPU mode and snapshot omission are not production changes."
+          },
+          "initial_scene": {
+            "nb_dynamic_rigids": 97,
+            "nb_active_dynamic_rigids": 288,
+            "nb_kinematic_rigids": 288,
+            "nb_active_kinematic_rigids": 0,
+            "nb_static_rigids": 29,
+            "nb_articulations": 3,
+            "nb_box_shapes": 52,
+            "nb_capsule_shapes": 0,
+            "nb_convex_shapes": 4829,
+            "nb_trimesh_shapes": 4,
+            "nb_sphere_shapes": 4,
+            "nb_plane_shapes": 1,
+            "nb_discrete_contact_pairs_total": 77,
+            "nb_discrete_contact_pairs_with_contacts": 76,
+            "nb_active_constraints": 0,
+            "nb_axis_solver_constaints": 0,
+            "gpu_mem_heap": 0,
+            "gpu_mem_rigid_contact_count": 0,
+            "gpu_mem_rigid_patch_count": 0,
+            "gpu_mem_heap_broadphase": 0,
+            "gpu_mem_heap_narrowphase": 0,
+            "gpu_mem_heap_solver": 0
+          },
+          "physx_error_lines": []
+        }
+      ]
+    },
+    {
+      "path": "sim/runs/physx_bottleneck_20261008/harvest_comparisons.json",
+      "sha256": "6d0c2fbc76dd09d732d46379177058f37d8f7a52eaeec21ee7f5a2249bf77c26",
+      "result": [
+        {
+          "case": "gpu_harvest",
+          "fleet": "/home/ysy/main/farm_project/sim/runs/harvest_test_ui/20261008T094450_k_x06k2h",
+          "exit_code": 0,
+          "segments": {
+            "job": {
+              "frames": 156,
+              "wall_fps": 4.689914872200079,
+              "mean_ms": {
+                "frame_s": 212.20986514060476,
+                "simulation_s": 170.72356130134162,
+                "render_s": 23.834195859634722,
+                "truth_s": 3.6769838967675477,
+                "forces_s": 4.380384264293705,
+                "contacts_s": 5.79601837307564
+              }
+            },
+            "policy": {
+              "frames": 138,
+              "wall_fps": 4.713065463770863,
+              "mean_ms": {
+                "frame_s": 212.44885625302507,
+                "simulation_s": 171.34146930471036,
+                "render_s": 23.502835189308666,
+                "truth_s": 3.5376487599485014,
+                "forces_s": 4.386639806161048,
+                "contacts_s": 5.883013544350262
+              }
+            }
+          },
+          "result": {
+            "event": "STATE",
+            "sim_time_s": 4.1375002157874405,
+            "physics_hz": 60.0,
+            "active_fruit_count": 0,
+            "ready": false,
+            "arm": {
+              "job_id": "c1b32d80da4d4520a09577660e91b432",
+              "status": "FAILED",
+              "stage": "DONE",
+              "success_count": 0,
+              "failed_count": 1,
+              "event_seq": 2,
+              "error_code": "RETURN_FAILED",
+              "error_message": "return_contact_2.804N",
+              "safe_stopped": true
+            }
+          },
+          "scene": {
+            "sim_s": 0.004166666883975267,
+            "status": "IDLE",
+            "stage": "IDLE",
+            "active_fruit_count": 0,
+            "fruit_count": 288,
+            "values": {
+              "nb_dynamic_rigids": 97,
+              "nb_active_dynamic_rigids": 288,
+              "nb_kinematic_rigids": 288,
+              "nb_active_kinematic_rigids": 0,
+              "nb_static_rigids": 29,
+              "nb_articulations": 3,
+              "nb_box_shapes": 52,
+              "nb_capsule_shapes": 0,
+              "nb_convex_shapes": 4829,
+              "nb_trimesh_shapes": 4,
+              "nb_sphere_shapes": 4,
+              "nb_plane_shapes": 1,
+              "nb_discrete_contact_pairs_total": 38,
+              "nb_discrete_contact_pairs_with_contacts": 0,
+              "nb_active_constraints": 0,
+              "nb_axis_solver_constaints": 0,
+              "gpu_mem_heap": 1543503872,
+              "gpu_mem_rigid_contact_count": 278,
+              "gpu_mem_rigid_patch_count": 76,
+              "gpu_mem_heap_broadphase": 1267603524,
+              "gpu_mem_heap_narrowphase": 2686296,
+              "gpu_mem_heap_solver": 223780480
+            }
+          },
+          "setup": {
+            "case": "gpu_harvest",
+            "viewport_resolution": [
+              1280,
+              720
+            ],
+            "viewport_camera": "/World/Vegetation/ReviewCamera",
+            "camera_world_transform": "( (0.3158472901481777, 0.9488100385778206, 3.1858196636314062e-15, 0), (-0.20609172823401706, 0.0686054228328267, 0.9761247335825065, 0), (0.926156946127173, -0.3083063519486217, 0.2172107375075157, 0), (1.6250187098572828, 1.4591299741095598, 2.5168103216085735, 1) )",
+            "verify_cached_truth": false,
+            "note": "Diagnostic comparison only; all robot rigid bodies and fruit colliders retained. CPU mode and snapshot omission are not production changes."
+          },
+          "physx_error_lines": []
+        },
+        {
+          "case": "cpu_harvest",
+          "fleet": "/home/ysy/main/farm_project/sim/runs/harvest_test_ui/20261008T094209_jwxzibgr",
+          "exit_code": 0,
+          "segments": {
+            "job": {
+              "frames": 204,
+              "wall_fps": 13.010191079805038,
+              "mean_ms": {
+                "frame_s": 76.61995782309175,
+                "simulation_s": 38.98405298890544,
+                "render_s": 22.320553362863162,
+                "truth_s": 3.238948882319485,
+                "forces_s": 4.048504339081381,
+                "contacts_s": 4.96013487588475
+              }
+            },
+            "policy": {
+              "frames": 138,
+              "wall_fps": 12.810795419794745,
+              "mean_ms": {
+                "frame_s": 78.08124734699537,
+                "simulation_s": 39.65378046289687,
+                "render_s": 22.410290232126474,
+                "truth_s": 3.4942880651004193,
+                "forces_s": 4.095352674704517,
+                "contacts_s": 5.039547919401177
+              }
+            }
+          },
+          "result": {
+            "event": "STATE",
+            "sim_time_s": 4.937500257510692,
+            "physics_hz": 60.0,
+            "active_fruit_count": 0,
+            "ready": false,
+            "arm": {
+              "job_id": "b0f1a2660ba44cf28236c6db2a367bb0",
+              "status": "FAILED",
+              "stage": "DONE",
+              "success_count": 0,
+              "failed_count": 1,
+              "event_seq": 2,
+              "error_code": "RETURN_FAILED",
+              "error_message": "return_contact_2.839N",
+              "safe_stopped": true
+            }
+          },
+          "scene": {
+            "sim_s": 0.004166666883975267,
+            "status": "IDLE",
+            "stage": "IDLE",
+            "active_fruit_count": 0,
+            "fruit_count": 288,
+            "values": {
+              "nb_dynamic_rigids": 97,
+              "nb_active_dynamic_rigids": 288,
+              "nb_kinematic_rigids": 288,
+              "nb_active_kinematic_rigids": 0,
+              "nb_static_rigids": 29,
+              "nb_articulations": 3,
+              "nb_box_shapes": 52,
+              "nb_capsule_shapes": 0,
+              "nb_convex_shapes": 4829,
+              "nb_trimesh_shapes": 4,
+              "nb_sphere_shapes": 4,
+              "nb_plane_shapes": 1,
+              "nb_discrete_contact_pairs_total": 77,
+              "nb_discrete_contact_pairs_with_contacts": 76,
+              "nb_active_constraints": 0,
+              "nb_axis_solver_constaints": 0,
+              "gpu_mem_heap": 0,
+              "gpu_mem_rigid_contact_count": 0,
+              "gpu_mem_rigid_patch_count": 0,
+              "gpu_mem_heap_broadphase": 0,
+              "gpu_mem_heap_narrowphase": 0,
+              "gpu_mem_heap_solver": 0
+            }
+          },
+          "setup": {
+            "case": "cpu_harvest",
+            "viewport_resolution": [
+              1280,
+              720
+            ],
+            "viewport_camera": "/World/Vegetation/ReviewCamera",
+            "camera_world_transform": "( (0.3158472901481777, 0.9488100385778206, 3.1858196636314062e-15, 0), (-0.20609172823401706, 0.0686054228328267, 0.9761247335825065, 0), (0.926156946127173, -0.3083063519486217, 0.2172107375075157, 0), (1.6250187098572828, 1.4591299741095598, 2.5168103216085735, 1) )",
+            "note": "Diagnostic comparison only; all robot rigid bodies and fruit colliders retained. CPU mode and snapshot omission are not production changes."
+          },
+          "physx_error_lines": []
+        }
+      ]
+    },
+    {
+      "path": "sim/runs/physx_bottleneck_20261008/gpu_kernel_audit.json",
+      "sha256": "60b3a2a713ff968c27237cb37af7e9917aa20e54afe530f8f7769c3d7dae96a8",
+      "result": {
+        "kernel_contexts": [
+          {
+            "deviceId": 0,
+            "contextId": 1,
+            "globalPid": 318529756725248,
+            "count": 515266,
+            "total_ms": 7043.723601
+          }
+        ],
+        "containment": {
+          "physx/fetch_results_usd": {
+            "count": 142146,
+            "total_ms": 2123.5323550011744
+          },
+          "physx/fetch_results_no_usd": {
+            "count": 373120,
+            "total_ms": 4920.19124600728
+          }
+        },
+        "outside_fetch_examples": [],
+        "top_kernel_launches": [
+          {
+            "name": "artiPropagateRigidImpulsesAndSolveSelfConstraintsTGS1T",
+            "gridX": 1,
+            "gridY": 1,
+            "gridZ": 1,
+            "blockX": 32,
+            "blockY": 1,
+            "blockZ": 1,
+            "count": 15408,
+            "total_ms": 1999.49759
+          },
+          {
+            "name": "artiSolveInternalConstraintsTGS1T",
+            "gridX": 1,
+            "gridY": 1,
+            "gridZ": 1,
+            "blockX": 32,
+            "blockY": 1,
+            "blockZ": 1,
+            "count": 15408,
+            "total_ms": 2189.672949
+          }
+        ],
+        "launch_correlation": [
+          {
+            "kernel": "artiPropagateRigidImpulsesAndSolveSelfConstraintsTGS1T",
+            "launch_api": "cuLaunchKernel",
+            "globalTid": 318529758933928,
+            "count": 540
+          },
+          {
+            "kernel": "artiPropagateRigidImpulsesAndSolveSelfConstraintsTGS1T",
+            "launch_api": "cuLaunchKernel",
+            "globalTid": 318529758933929,
+            "count": 720
+          },
+          {
+            "kernel": "artiPropagateRigidImpulsesAndSolveSelfConstraintsTGS1T",
+            "launch_api": "cuLaunchKernel",
+            "globalTid": 318529758933930,
+            "count": 540
+          },
+          {
+            "kernel": "artiPropagateRigidImpulsesAndSolveSelfConstraintsTGS1T",
+            "launch_api": "cuLaunchKernel",
+            "globalTid": 318529758933931,
+            "count": 828
+          },
+          {
+            "kernel": "artiPropagateRigidImpulsesAndSolveSelfConstraintsTGS1T",
+            "launch_api": "cuLaunchKernel",
+            "globalTid": 318529758933932,
+            "count": 432
+          },
+          {
+            "kernel": "artiPropagateRigidImpulsesAndSolveSelfConstraintsTGS1T",
+            "launch_api": "cuLaunchKernel",
+            "globalTid": 318529758933933,
+            "count": 576
+          },
+          {
+            "kernel": "artiPropagateRigidImpulsesAndSolveSelfConstraintsTGS1T",
+            "launch_api": "cuLaunchKernel",
+            "globalTid": 318529758933934,
+            "count": 756
+          },
+          {
+            "kernel": "artiPropagateRigidImpulsesAndSolveSelfConstraintsTGS1T",
+            "launch_api": "cuLaunchKernel",
+            "globalTid": 318529758933935,
+            "count": 540
+          },
+          {
+            "kernel": "artiPropagateRigidImpulsesAndSolveSelfConstraintsTGS1T",
+            "launch_api": "cuLaunchKernel",
+            "globalTid": 318529758933936,
+            "count": 612
+          },
+          {
+            "kernel": "artiPropagateRigidImpulsesAndSolveSelfConstraintsTGS1T",
+            "launch_api": "cuLaunchKernel",
+            "globalTid": 318529758933937,
+            "count": 612
+          },
+          {
+            "kernel": "artiPropagateRigidImpulsesAndSolveSelfConstraintsTGS1T",
+            "launch_api": "cuLaunchKernel",
+            "globalTid": 318529758933938,
+            "count": 756
+          },
+          {
+            "kernel": "artiPropagateRigidImpulsesAndSolveSelfConstraintsTGS1T",
+            "launch_api": "cuLaunchKernel",
+            "globalTid": 318529758933939,
+            "count": 792
+          },
+          {
+            "kernel": "artiPropagateRigidImpulsesAndSolveSelfConstraintsTGS1T",
+            "launch_api": "cuLaunchKernel",
+            "globalTid": 318529758933940,
+            "count": 432
+          },
+          {
+            "kernel": "artiPropagateRigidImpulsesAndSolveSelfConstraintsTGS1T",
+            "launch_api": "cuLaunchKernel",
+            "globalTid": 318529758933941,
+            "count": 648
+          },
+          {
+            "kernel": "artiPropagateRigidImpulsesAndSolveSelfConstraintsTGS1T",
+            "launch_api": "cuLaunchKernel",
+            "globalTid": 318529758933942,
+            "count": 756
+          },
+          {
+            "kernel": "artiPropagateRigidImpulsesAndSolveSelfConstraintsTGS1T",
+            "launch_api": "cuLaunchKernel",
+            "globalTid": 318529758933943,
+            "count": 792
+          },
+          {
+            "kernel": "artiPropagateRigidImpulsesAndSolveSelfConstraintsTGS1T",
+            "launch_api": "cuLaunchKernel",
+            "globalTid": 318529758933944,
+            "count": 576
+          },
+          {
+            "kernel": "artiPropagateRigidImpulsesAndSolveSelfConstraintsTGS1T",
+            "launch_api": "cuLaunchKernel",
+            "globalTid": 318529758933945,
+            "count": 432
+          },
+          {
+            "kernel": "artiPropagateRigidImpulsesAndSolveSelfConstraintsTGS1T",
+            "launch_api": "cuLaunchKernel",
+            "globalTid": 318529758933946,
+            "count": 648
+          },
+          {
+            "kernel": "artiPropagateRigidImpulsesAndSolveSelfConstraintsTGS1T",
+            "launch_api": "cuLaunchKernel",
+            "globalTid": 318529758933947,
+            "count": 540
+          },
+          {
+            "kernel": "artiPropagateRigidImpulsesAndSolveSelfConstraintsTGS1T",
+            "launch_api": "cuLaunchKernel",
+            "globalTid": 318529758933948,
+            "count": 720
+          },
+          {
+            "kernel": "artiPropagateRigidImpulsesAndSolveSelfConstraintsTGS1T",
+            "launch_api": "cuLaunchKernel",
+            "globalTid": 318529758933949,
+            "count": 792
+          },
+          {
+            "kernel": "artiPropagateRigidImpulsesAndSolveSelfConstraintsTGS1T",
+            "launch_api": "cuLaunchKernel",
+            "globalTid": 318529758933950,
+            "count": 648
+          },
+          {
+            "kernel": "artiPropagateRigidImpulsesAndSolveSelfConstraintsTGS1T",
+            "launch_api": "cuLaunchKernel",
+            "globalTid": 318529758933951,
+            "count": 720
+          },
+          {
+            "kernel": "artiSolveInternalConstraintsTGS1T",
+            "launch_api": "cuLaunchKernel",
+            "globalTid": 318529758933928,
+            "count": 540
+          },
+          {
+            "kernel": "artiSolveInternalConstraintsTGS1T",
+            "launch_api": "cuLaunchKernel",
+            "globalTid": 318529758933929,
+            "count": 720
+          },
+          {
+            "kernel": "artiSolveInternalConstraintsTGS1T",
+            "launch_api": "cuLaunchKernel",
+            "globalTid": 318529758933930,
+            "count": 540
+          },
+          {
+            "kernel": "artiSolveInternalConstraintsTGS1T",
+            "launch_api": "cuLaunchKernel",
+            "globalTid": 318529758933931,
+            "count": 828
+          },
+          {
+            "kernel": "artiSolveInternalConstraintsTGS1T",
+            "launch_api": "cuLaunchKernel",
+            "globalTid": 318529758933932,
+            "count": 432
+          },
+          {
+            "kernel": "artiSolveInternalConstraintsTGS1T",
+            "launch_api": "cuLaunchKernel",
+            "globalTid": 318529758933933,
+            "count": 576
+          },
+          {
+            "kernel": "artiSolveInternalConstraintsTGS1T",
+            "launch_api": "cuLaunchKernel",
+            "globalTid": 318529758933934,
+            "count": 756
+          },
+          {
+            "kernel": "artiSolveInternalConstraintsTGS1T",
+            "launch_api": "cuLaunchKernel",
+            "globalTid": 318529758933935,
+            "count": 540
+          },
+          {
+            "kernel": "artiSolveInternalConstraintsTGS1T",
+            "launch_api": "cuLaunchKernel",
+            "globalTid": 318529758933936,
+            "count": 612
+          },
+          {
+            "kernel": "artiSolveInternalConstraintsTGS1T",
+            "launch_api": "cuLaunchKernel",
+            "globalTid": 318529758933937,
+            "count": 612
+          },
+          {
+            "kernel": "artiSolveInternalConstraintsTGS1T",
+            "launch_api": "cuLaunchKernel",
+            "globalTid": 318529758933938,
+            "count": 756
+          },
+          {
+            "kernel": "artiSolveInternalConstraintsTGS1T",
+            "launch_api": "cuLaunchKernel",
+            "globalTid": 318529758933939,
+            "count": 792
+          },
+          {
+            "kernel": "artiSolveInternalConstraintsTGS1T",
+            "launch_api": "cuLaunchKernel",
+            "globalTid": 318529758933940,
+            "count": 432
+          },
+          {
+            "kernel": "artiSolveInternalConstraintsTGS1T",
+            "launch_api": "cuLaunchKernel",
+            "globalTid": 318529758933941,
+            "count": 648
+          },
+          {
+            "kernel": "artiSolveInternalConstraintsTGS1T",
+            "launch_api": "cuLaunchKernel",
+            "globalTid": 318529758933942,
+            "count": 756
+          },
+          {
+            "kernel": "artiSolveInternalConstraintsTGS1T",
+            "launch_api": "cuLaunchKernel",
+            "globalTid": 318529758933943,
+            "count": 792
+          },
+          {
+            "kernel": "artiSolveInternalConstraintsTGS1T",
+            "launch_api": "cuLaunchKernel",
+            "globalTid": 318529758933944,
+            "count": 576
+          },
+          {
+            "kernel": "artiSolveInternalConstraintsTGS1T",
+            "launch_api": "cuLaunchKernel",
+            "globalTid": 318529758933945,
+            "count": 432
+          },
+          {
+            "kernel": "artiSolveInternalConstraintsTGS1T",
+            "launch_api": "cuLaunchKernel",
+            "globalTid": 318529758933946,
+            "count": 648
+          },
+          {
+            "kernel": "artiSolveInternalConstraintsTGS1T",
+            "launch_api": "cuLaunchKernel",
+            "globalTid": 318529758933947,
+            "count": 540
+          },
+          {
+            "kernel": "artiSolveInternalConstraintsTGS1T",
+            "launch_api": "cuLaunchKernel",
+            "globalTid": 318529758933948,
+            "count": 720
+          },
+          {
+            "kernel": "artiSolveInternalConstraintsTGS1T",
+            "launch_api": "cuLaunchKernel",
+            "globalTid": 318529758933949,
+            "count": 792
+          },
+          {
+            "kernel": "artiSolveInternalConstraintsTGS1T",
+            "launch_api": "cuLaunchKernel",
+            "globalTid": 318529758933950,
+            "count": 648
+          },
+          {
+            "kernel": "artiSolveInternalConstraintsTGS1T",
+            "launch_api": "cuLaunchKernel",
+            "globalTid": 318529758933951,
+            "count": 720
+          }
+        ],
+        "physics_ticks": 428,
+        "top_kernel_calls_per_tick": 36.0
+      }
+    },
+    {
+      "path": "sim/runs/physx_bottleneck_20261008/offline_iteration_audit.json",
+      "sha256": "59f6c8b9fe9c25a83ac963ead1cd05e49305e92954d95746fe7559860aeae3a6",
+      "result": [
+        {
+          "source": "farm_project/sim/runs/robotarm/received_20261006_143434/manyfarm_robotarm/outputs/harvest_rl/current_robot/82310b121a80b60a/pair_fruit_assets/pepper_Red_0.0700_0.0750_0.0090_mesh_contact_v2.usda",
+          "articulations": [],
+          "rigids": [
+            {
+              "path": "/Pepper",
+              "position": 16,
+              "velocity": 1,
+              "applied": true
+            }
+          ],
+          "scope": "Offline composed delivered fruit asset using installed PhysxSchema. env.py leaves solver properties unchanged when contact_solver_refine=false."
+        },
+        {
+          "source": "farm_project/sim/runs/robotarm/received_20261006_143434/manyfarm_robotarm/outputs/harvest_rl/current_robot/82310b121a80b60a/harvest_current.usd",
+          "articulations": [
+            {
+              "path": "/manyfarm_paprika_dual_so101/root_joint",
+              "position": 32,
+              "velocity": 1,
+              "applied": true
+            }
+          ],
+          "rigids": [],
+          "scope": "Pre-spawn imported robot asset only. HarvestEnv overrides this articulation to 12/4; existing runtime physical_readback.json confirms 12/4. Do not treat this raw 32/1 as training runtime."
+        },
+        {
+          "source": "farm_project/sim/assets/envs/output/farm_with_plants_v5.usd",
+          "articulations": [
+            {
+              "path": "/World/sorting_station_portable/root_joint",
+              "position": 32,
+              "velocity": 1,
+              "applied": true,
+              "source_layer": "sim/assets/props/Sortingstation/urdf/sorting_station.portable/configuration/sorting_station.portable_physics.usd"
+            },
+            {
+              "path": "/World/scout_robot_camera_fixed/base_footprint",
+              "position": 32,
+              "velocity": 1,
+              "applied": true,
+              "source_layer": "sim/assets/robots/scout_robot/urdf/scout_robot_camera_fixed.usd"
+            }
+          ],
+          "rigids": [],
+          "scope": "Offline original farm map. Scout and sorter articulation overrides are not modified by harvest arm alignment."
+        },
+        {
+          "source": "farm_project/sim/runs/robotarm/received_20261006_143434/manyfarm_robotarm/src/Pepper_RL_Demo/assets/Tree_01.usdc",
+          "articulations": [],
+          "rigids": [],
+          "scope": "Offline original training tree asset; no rigid bodies or articulations."
+        }
+      ]
+    },
+    {
+      "path": "sim/runs/physx_bottleneck_20261008/nav_reference/nav_reference_result.json",
+      "sha256": "d9418160473ea4d418d6e3da93a9f1896a6ab9943cdc2dd255a243856068de0f",
+      "result": {
+        "scope": "Nav2-style simulator only; no Nav2 control or route driving",
+        "source_entrypoint": "farm_sim_runtime.run_sim.main",
+        "warmup_frames": 60,
+        "requested_measure_frames": 240,
+        "measured_frames": 240,
+        "original_scene_robots_dynamic": true,
+        "harvest_profile_applied": false,
+        "before": {
+          "world_backend": "numpy",
+          "world_device": "cpu",
+          "gpu_dynamics": false,
+          "broadphase": "MBP",
+          "physics_dt_s": 0.016666666666666666,
+          "solver": "TGS",
+          "usd_update_settings": [
+            true,
+            true,
+            false
+          ],
+          "suppress_readback": false,
+          "fabric_enabled": false,
+          "physics_scene": {
+            "nb_dynamic_rigids": 43,
+            "nb_active_dynamic_rigids": 0,
+            "nb_kinematic_rigids": 0,
+            "nb_static_rigids": 29,
+            "nb_articulations": 2,
+            "nb_convex_shapes": 29,
+            "nb_box_shapes": 26,
+            "nb_sphere_shapes": 0,
+            "nb_capsule_shapes": 0,
+            "nb_trimesh_shapes": 4,
+            "nb_plane_shapes": 1,
+            "nb_discrete_contact_pairs_total": 29,
+            "nb_discrete_contact_pairs_with_contacts": 29
+          },
+          "rigid_bodies_enabled": 43,
+          "viewport": {
+            "resolution": [
+              1280,
+              720
+            ],
+            "camera_path": "/World/Vegetation/ReviewCamera",
+            "camera_world_matrix_usd_rows": [
+              [
+                0.3158472901481777,
+                0.9488100385778206,
+                3.1858196636314062e-15,
+                0.0
+              ],
+              [
+                -0.20609172823401706,
+                0.0686054228328267,
+                0.9761247335825065,
+                0.0
+              ],
+              [
+                0.926156946127173,
+                -0.3083063519486217,
+                0.2172107375075157,
+                0.0
+              ],
+              [
+                1.6250187098572828,
+                1.4591299741095598,
+                2.5168103216085735,
+                1.0
+              ]
+            ],
+            "focal_length": 25.0,
+            "horizontal_aperture": 20.954999923706055,
+            "vertical_aperture": 15.290800094604492
+          }
+        },
+        "after": {
+          "world_backend": "numpy",
+          "world_device": "cpu",
+          "gpu_dynamics": false,
+          "broadphase": "MBP",
+          "physics_dt_s": 0.016666666666666666,
+          "solver": "TGS",
+          "usd_update_settings": [
+            true,
+            true,
+            false
+          ],
+          "suppress_readback": false,
+          "fabric_enabled": false,
+          "physics_scene": {
+            "nb_dynamic_rigids": 43,
+            "nb_active_dynamic_rigids": 0,
+            "nb_kinematic_rigids": 0,
+            "nb_static_rigids": 29,
+            "nb_articulations": 2,
+            "nb_convex_shapes": 29,
+            "nb_box_shapes": 26,
+            "nb_sphere_shapes": 0,
+            "nb_capsule_shapes": 0,
+            "nb_trimesh_shapes": 4,
+            "nb_plane_shapes": 1,
+            "nb_discrete_contact_pairs_total": 4,
+            "nb_discrete_contact_pairs_with_contacts": 4
+          },
+          "rigid_bodies_enabled": 43,
+          "viewport": {
+            "resolution": [
+              1280,
+              720
+            ],
+            "camera_path": "/World/Vegetation/ReviewCamera",
+            "camera_world_matrix_usd_rows": [
+              [
+                0.3158472901481777,
+                0.9488100385778206,
+                3.1858196636314062e-15,
+                0.0
+              ],
+              [
+                -0.20609172823401706,
+                0.0686054228328267,
+                0.9761247335825065,
+                0.0
+              ],
+              [
+                0.926156946127173,
+                -0.3083063519486217,
+                0.2172107375075157,
+                0.0
+              ],
+              [
+                1.6250187098572828,
+                1.4591299741095598,
+                2.5168103216085735,
+                1.0
+              ]
+            ],
+            "focal_length": 25.0,
+            "horizontal_aperture": 20.954999923706055,
+            "vertical_aperture": 15.290800094604492
+          }
+        },
+        "bounded_complete": true,
+        "error": null,
+        "wall_s": 4.0296649759984575,
+        "processing_s": 1.7329516879835865,
+        "actual_loop_fps": 59.55830110678954,
+        "processing_capacity_fps": 138.49203163837603,
+        "simulated_s": 4.000000208616257,
+        "average_ms": {
+          "wall_frame_s": 16.790270733326906,
+          "processing_s": 7.220632033264943,
+          "sleep_s": 9.569638700061963,
+          "cpu_s": 54.55071533333333,
+          "step_frame_s": 6.776656008817857,
+          "simulation_s": 1.808127687581873,
+          "render_s": 4.898626017469117,
+          "forces_s": 0.00016074985372445857,
+          "contacts_s": 0.0
+        }
+      }
+    },
+    {
+      "path": "sim/runs/physx_bottleneck_20261008/truth_cache_runtime_comparison.json",
+      "sha256": "1fd82f469e327b11933b4865483152e414dcc32032a816b8fe4f0cda3fe289ee",
+      "result": {
+        "case": "gpu_cached_truth_verify",
+        "fleet": "/home/ysy/main/farm_project/sim/runs/harvest_test_ui/20261008T094632_vo4y311v",
+        "exit_code": 0,
+        "frames": 241,
+        "wall_fps": 30.2232223888244,
+        "mean_ms": {
+          "frame_s": 32.972622099545056,
+          "simulation_s": 25.150071385935338,
+          "render_s": 6.567980984227801,
+          "truth_s": 0.21636295018821985
+        },
+        "cache_summary": {
+          "notice_count": 394,
+          "notice_s": 0.3853958159306785,
+          "captures": 30,
+          "verification_requested": true,
+          "verified_captures": 8
+        },
+        "steady_captures": [
+          {
+            "sim_s": 2.020833439,
+            "capture_s": 0.0023581049899803475,
+            "recomputed_fruits": 0,
+            "notice_count": 135,
+            "notice_s": 0.1268538089498179
+          },
+          {
+            "sim_s": 2.220833449,
+            "capture_s": 0.002401096004177816,
+            "recomputed_fruits": 0,
+            "notice_count": 148,
+            "notice_s": 0.14025544295145664
+          },
+          {
+            "sim_s": 2.4208334600000003,
+            "capture_s": 0.0023704759951215237,
+            "recomputed_fruits": 0,
+            "notice_count": 161,
+            "notice_s": 0.15542056095728185
+          },
+          {
+            "sim_s": 2.62083347,
+            "capture_s": 0.002399934994173236,
+            "recomputed_fruits": 0,
+            "notice_count": 174,
+            "notice_s": 0.1720115489588352
+          },
+          {
+            "sim_s": 2.82083348,
+            "capture_s": 0.0022868649975862354,
+            "recomputed_fruits": 0,
+            "notice_count": 187,
+            "notice_s": 0.1857529689441435
+          },
+          {
+            "sim_s": 3.0208334910000003,
+            "capture_s": 0.0024117260036291555,
+            "recomputed_fruits": 0,
+            "notice_count": 200,
+            "notice_s": 0.19837196794105694
+          },
+          {
+            "sim_s": 3.220833501,
+            "capture_s": 0.002313103002961725,
+            "recomputed_fruits": 0,
+            "notice_count": 213,
+            "notice_s": 0.21241625792754348
+          },
+          {
+            "sim_s": 3.420833512,
+            "capture_s": 0.002463707991410047,
+            "recomputed_fruits": 0,
+            "notice_count": 226,
+            "notice_s": 0.22251792695897166
+          },
+          {
+            "sim_s": 3.6208335220000003,
+            "capture_s": 0.0022697529930155724,
+            "recomputed_fruits": 0,
+            "notice_count": 239,
+            "notice_s": 0.23379900699364953
+          },
+          {
+            "sim_s": 3.820833533,
+            "capture_s": 0.00240077699709218,
+            "recomputed_fruits": 0,
+            "notice_count": 252,
+            "notice_s": 0.24580773701018188
+          },
+          {
+            "sim_s": 4.020833543,
+            "capture_s": 0.002356646000407636,
+            "recomputed_fruits": 0,
+            "notice_count": 265,
+            "notice_s": 0.2555372479837388
+          },
+          {
+            "sim_s": 4.220833553,
+            "capture_s": 0.0023955540091264993,
+            "recomputed_fruits": 0,
+            "notice_count": 278,
+            "notice_s": 0.26453000599576626
+          },
+          {
+            "sim_s": 4.4208335640000005,
+            "capture_s": 0.0022917439928278327,
+            "recomputed_fruits": 0,
+            "notice_count": 291,
+            "notice_s": 0.2757977919536643
+          },
+          {
+            "sim_s": 4.620833574000001,
+            "capture_s": 0.002763614000286907,
+            "recomputed_fruits": 0,
+            "notice_count": 304,
+            "notice_s": 0.29214278094877955
+          },
+          {
+            "sim_s": 4.820833585,
+            "capture_s": 0.004363060987088829,
+            "recomputed_fruits": 0,
+            "notice_count": 317,
+            "notice_s": 0.30682124696613755
+          },
+          {
+            "sim_s": 5.020833595,
+            "capture_s": 0.004199032002361491,
+            "recomputed_fruits": 0,
+            "notice_count": 330,
+            "notice_s": 0.3180046279740054
+          },
+          {
+            "sim_s": 5.220833606,
+            "capture_s": 0.0024105569900712,
+            "recomputed_fruits": 0,
+            "notice_count": 343,
+            "notice_s": 0.3322529179713456
+          },
+          {
+            "sim_s": 5.420833616,
+            "capture_s": 0.00234247199841775,
+            "recomputed_fruits": 0,
+            "notice_count": 356,
+            "notice_s": 0.3430374739691615
+          },
+          {
+            "sim_s": 5.6208336260000005,
+            "capture_s": 0.002516976004699245,
+            "recomputed_fruits": 0,
+            "notice_count": 369,
+            "notice_s": 0.35518574695743155
+          },
+          {
+            "sim_s": 5.820833637000001,
+            "capture_s": 0.002597108992631547,
+            "recomputed_fruits": 0,
+            "notice_count": 382,
+            "notice_s": 0.3700798759382451
+          }
+        ],
+        "physx_error_lines": []
+      }
+    },
+    {
+      "path": "sim/runs/physx_bottleneck_20261008/scene_truth_cache_equivalence.json",
+      "sha256": "871cb24c0b5591ec1f4adf99cd0e6f105b1d04d445b5b652484fc015cf603767",
+      "result": {
+        "scope": "Offline USD only; source assets unchanged; no GPU simulation",
+        "comparison": "Every snapshot field equals original capture, excluding wall-clock timestamp; original membership rescanned only for structural/color edits",
+        "cases": [
+          {
+            "name": "initial",
+            "exact_snapshot_match": true,
+            "recomputed_fruits": 288,
+            "original_ms": 31.523361991276033,
+            "candidate_ms": 31.281593997846358,
+            "fruit_count": 288,
+            "error": ""
+          },
+          {
+            "name": "unchanged",
+            "exact_snapshot_match": true,
+            "recomputed_fruits": 0,
+            "original_ms": 30.140613002004102,
+            "candidate_ms": 2.1883019944652915,
+            "fruit_count": 288,
+            "error": ""
+          },
+          {
+            "name": "five_rigid_translations",
+            "exact_snapshot_match": true,
+            "recomputed_fruits": 5,
+            "original_ms": 40.55002499080729,
+            "candidate_ms": 3.3346590062137693,
+            "fruit_count": 288,
+            "error": ""
+          },
+          {
+            "name": "rigid_rotation",
+            "exact_snapshot_match": true,
+            "recomputed_fruits": 1,
+            "original_ms": 29.218925992609,
+            "candidate_ms": 2.3579230037285015,
+            "fruit_count": 288,
+            "error": ""
+          },
+          {
+            "name": "ancestor_rotation",
+            "exact_snapshot_match": true,
+            "recomputed_fruits": 36,
+            "original_ms": 29.704743006732315,
+            "candidate_ms": 5.706233001546934,
+            "fruit_count": 288,
+            "error": ""
+          },
+          {
+            "name": "ancestor_visibility_hidden",
+            "exact_snapshot_match": true,
+            "recomputed_fruits": 36,
+            "original_ms": 25.49541401094757,
+            "candidate_ms": 2.187027988838963,
+            "fruit_count": 252,
+            "error": ""
+          },
+          {
+            "name": "ancestor_visibility_visible",
+            "exact_snapshot_match": true,
+            "recomputed_fruits": 36,
+            "original_ms": 28.167771000880748,
+            "candidate_ms": 5.381584996939637,
+            "fruit_count": 288,
+            "error": ""
+          },
+          {
+            "name": "mesh_points_edit",
+            "exact_snapshot_match": true,
+            "recomputed_fruits": 1,
+            "original_ms": 28.989909988013096,
+            "candidate_ms": 5.7824050018098205,
+            "fruit_count": 288,
+            "error": ""
+          },
+          {
+            "name": "empty_geometry_error",
+            "exact_snapshot_match": true,
+            "recomputed_fruits": 1,
+            "original_ms": 28.87112199096009,
+            "candidate_ms": 2.0709240052383393,
+            "fruit_count": 287,
+            "error": "Missing fruit geometry: /World/Vegetation/Bed_01/Fruits/Pepper_0001_yellow"
+          },
+          {
+            "name": "geometry_restored",
+            "exact_snapshot_match": true,
+            "recomputed_fruits": 1,
+            "original_ms": 27.573486004257575,
+            "candidate_ms": 2.1737950009992346,
+            "fruit_count": 288,
+            "error": ""
+          },
+          {
+            "name": "crop_color_edit",
+            "exact_snapshot_match": true,
+            "recomputed_fruits": 288,
+            "original_ms": 28.18706700054463,
+            "candidate_ms": 79.65221100312192,
+            "fruit_count": 288,
+            "error": ""
+          },
+          {
+            "name": "prim_deactivate",
+            "exact_snapshot_match": true,
+            "recomputed_fruits": 287,
+            "original_ms": 31.774068003869615,
+            "candidate_ms": 82.30035599262919,
+            "fruit_count": 287,
+            "error": ""
+          },
+          {
+            "name": "prim_reactivate",
+            "exact_snapshot_match": true,
+            "recomputed_fruits": 288,
+            "original_ms": 28.92988600069657,
+            "candidate_ms": 79.50911398802418,
+            "fruit_count": 288,
+            "error": ""
+          },
+          {
+            "name": "instanced_fruit_added",
+            "exact_snapshot_match": true,
+            "recomputed_fruits": 289,
+            "original_ms": 28.910228997119702,
+            "candidate_ms": 78.80974499857984,
+            "fruit_count": 289,
+            "error": ""
+          },
+          {
+            "name": "referenced_source_layer_points_edit",
+            "exact_snapshot_match": true,
+            "recomputed_fruits": 289,
+            "original_ms": 27.04091600026004,
+            "candidate_ms": 80.14734399330337,
+            "fruit_count": 289,
+            "error": ""
+          },
+          {
+            "name": "referenced_geometry_deleted",
+            "exact_snapshot_match": true,
+            "recomputed_fruits": 289,
+            "original_ms": 26.960543007589877,
+            "candidate_ms": 80.1396949973423,
+            "fruit_count": 288,
+            "error": "Missing fruit geometry: /World/AddedFruit"
+          },
+          {
+            "name": "fruit_prim_deleted",
+            "exact_snapshot_match": true,
+            "recomputed_fruits": 288,
+            "original_ms": 29.206730992882513,
+            "candidate_ms": 79.22154800326098,
+            "fruit_count": 288,
+            "error": ""
+          },
+          {
+            "name": "unrelated_property_created",
+            "exact_snapshot_match": true,
+            "recomputed_fruits": 0,
+            "original_ms": 29.431312999804504,
+            "candidate_ms": 2.1623240027111024,
+            "fruit_count": 288,
+            "error": ""
+          },
+          {
+            "name": "unrelated_1000_property_updates",
+            "exact_snapshot_match": true,
+            "recomputed_fruits": 0,
+            "original_ms": 28.721057999064215,
+            "candidate_ms": 2.0490909955697134,
+            "fruit_count": 288,
+            "error": ""
+          }
+        ],
+        "unrelated_1000_updates_ms": 6.2190160097088665,
+        "production_source_changed": false
+      }
+    },
+    {
+      "path": "sim/runs/physx_bottleneck_20261008/live_idle_before.json",
+      "sha256": "0246fea15cca1bbe263be6dbb5fe96a3ee25d29e47718122974ae9418f94a7be",
+      "result": {
+        "source": "sim/runs/harvest_test_ui/20261008T090939_eu2015p_/frame_performance.jsonl",
+        "n": 600,
+        "statuses": [
+          "IDLE"
+        ],
+        "rates": [
+          60.0
+        ],
+        "wall_fps": 27.480866973196488,
+        "mean_ms": {
+          "frame_s": 36.28337562814219,
+          "control_s": 0.022264359989397537,
+          "arm_s": 0.25395121638818335,
+          "prepare_s": 0.1352371083582208,
+          "post_s": 0.715036239901868,
+          "truth_s": 6.072979700038559,
+          "forces_s": 0.029243195507054526,
+          "simulation_s": 20.03718549851328,
+          "contacts_s": 0.007738006655320835,
+          "render_s": 8.940381696035425
+        }
+      }
+    }
+  ]
+}

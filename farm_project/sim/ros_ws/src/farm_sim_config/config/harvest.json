@@ -17,7 +17,7 @@
     "articulation_relative": "base_footprint",
     "base_link_relative": "base_link",
     "lidar_relative": "lidar_mount",
-    "camera_relative": null,
+    "camera_relative": "base_link/apriltag_camera",
     "control_frame_yaw_rad": 3.141592653589793
   },
   "notes": [
@@ -73,17 +73,120 @@
     "base_footprint": "harvest_01/base_footprint",
     "base_link": "harvest_01/base_link",
     "scan": "harvest_01/base_scan",
-    "camera_optical": "harvest_01/camera_optical_frame"
+    "camera_optical": "harvest_01/apriltag_camera_optical_frame"
   },
   "camera": {
-    "enabled": false,
-    "width": 640,
-    "height": 384,
-    "fps": 15,
-    "shm_name": "farm_harvest_01_rgbd",
+    "enabled": true,
+    "width": 1280,
+    "height": 720,
+    "fps": 10,
+    "shm_name": "farm_harvest_01_apriltag",
     "depth_min_m": 0.1,
     "depth_max_m": 5.0,
-    "odom_frame": "harvest_01/odom"
+    "odom_frame": "harvest_01/odom",
+    "render_rgb_only": true,
+    "publish_ros": true,
+    "ros_image_topic": "apriltag_camera/image_raw",
+    "ros_info_topic": "apriltag_camera/camera_info",
+    "T_base_optical": [
+      [
+        0.9998304594412302,
+        -0.01733973954324101,
+        0.006195627983593946,
+        -0.00433822
+      ],
+      [
+        -0.005461009377162412,
+        0.04209749642548205,
+        0.9990985828091686,
+        0.25046456
+      ],
+      [
+        -0.017584929630825155,
+        -0.9989630294596888,
+        0.041995666712172086,
+        0.26142254
+      ],
+      [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ]
+    ],
+    "camera_info": {
+      "width": 1280,
+      "height": 720,
+      "distortion_model": "plumb_bob",
+      "k": [
+        1049.686473614098,
+        0.0,
+        631.4064932131716,
+        0.0,
+        1049.6045471847024,
+        371.5007152003926,
+        0.0,
+        0.0,
+        1.0
+      ],
+      "d": [
+        -0.3377842831321281,
+        -0.164282838502531,
+        -0.0022793440724075856,
+        -0.0009489786116262821,
+        0.5007299952602192
+      ],
+      "r": [
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ],
+      "p": [
+        1049.686473614098,
+        0.0,
+        631.4064932131716,
+        0.0,
+        0.0,
+        1049.6045471847024,
+        371.5007152003926,
+        0.0,
+        0.0,
+        0.0,
+        1.0,
+        0.0
+      ],
+      "binning": [
+        0,
+        0
+      ],
+      "roi": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "frame_id": "apriltag_camera_optical_frame"
+    },
+    "capture_reference": {
+      "resolution": [
+        1280,
+        720
+      ],
+      "format": "MJPG",
+      "requested_fps": 30,
+      "ros_publish_cap_hz": 10,
+      "actual_observed_ros_hz_approx": [
+        8,
+        9
+      ],
+      "exposure_ms": 2
+    }
   },
   "lidar": {
     "enabled": true,
@@ -92,5 +195,6 @@
     "range_min_m": 0.12,
     "range_max_m": 12.0
   },
-  "publish_clock": false
+  "publish_clock": false,
+  "apriltag_map": "sim/ros_ws/src/farm_sim_config/config/apriltag_map.json"
 }
