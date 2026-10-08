@@ -66,13 +66,13 @@ cd /home/vic/vmany/main/farm_project
 python3 robot/tools/tag_camera/pinky_tag_capture_compare.py --trial-label manual_2ms --plan
 ```
 
-`--plan`은 파일·캘리브레이션 검증이며 ROS/장치를 실행하지 않는다. 카메라 설정·캡처 세션 실제 실행, 통합 launch와 실물 주행은 다음 현장 확인 단계다. 그전에는 기존 외부 카메라 두 폴더를 삭제하지 않는다.
+`--plan`은 파일·캘리브레이션 검증이며 ROS/장치를 실행하지 않는다. 2026-10-08 현장에서는 새 Git 경로의 카메라 수신·태그 검출을 확인했다. 종료 오류가 남아 있어 기존 외부 카메라 두 폴더는 유지한다. 통합 launch·실물 주행·위치 보정은 미검증이다.
 
 ## 검증과 복원
 
 직접 실행: `python3 -m unittest discover -s robot/ros_ws/src/farm_tag_localization/test -p test_bundled_capture.py -v` 6개 PASS. 다른 cwd·임시 HOME에서 과거 폴더 없이 plan 성공, 새 설정의 명령 경로, 공백 포함 경로, 기존 workspace 호환, 누락/중복 설정 거절, 변조 캘리브레이션 거절, 드라이버·기록 코드 원본 해시를 검사한다.
 
-첨부한 드라이버 파일에 patch 역적용→원본 blob ID 접두사 확인→재적용→첨부본과 바이트 동일 확인을 두 저장소 모두 수행했다. ROS 빌드·카메라 구동·실물 주행은 이 변경에 대해 실행하지 않았다.
+첨부한 드라이버 파일에 patch 역적용→원본 blob ID 접두사 확인→재적용→첨부본과 바이트 동일 확인을 두 저장소 모두 수행했다. 최초 이식 검증 당시에는 ROS 빌드·카메라 구동·실물 주행을 실행하지 않았다. 이후 현장 확인 결과는 아래에 별도로 기록한다.
 
 실행 경로 복원은 `harvest_tag_capture.yaml`의 calibration을 제거하고 다음 값을 사용한다. 이전 외부 파일이 남아 있어야 하며 두 방식의 키를 동시에 설정하지 않는다.
 
@@ -82,3 +82,57 @@ workspace: ~/manyfarm_experiments/apriltag_code_0wj0bg/apriltag_field_execution_
 ```
 
 카메라 원본: `pinky_camera_code_review.tar.gz`. 캘리브레이션·패치 원본: `pinky_runtime_sources.tar.gz`. 사용자 PC 백업은 `/home/eunbi/vmany_1/backup_20261008/home_vic/`. 현장 파일을 덮어쓰기 전에 항상 변경분을 비교한다.
+
+## 2026-10-08 현장 적용 결과와 시스템 설정
+
+사용자가 제공한 로봇 터미널 출력 기준이다.
+
+- `farm_tag_localization` 단일 패키지 빌드와 내부 경로 `--plan` 검사 종료 코드 0.
+- 최초 캡처는 `net.core.rmem_max=212992`로 사전 검사에서 실패했다.
+- 수신 버퍼 상한을 `16777216`으로 적용한 뒤 새 Git 카메라 실행을 확인했다.
+- 세션: `runs/harvest_tag/20261008_174148_gz365wxt`.
+- Git 내부 캘리브레이션 사용, 1280×720 MJPG 캡처 약 30Hz, 영상·검출 수신 약 8~9Hz, 태그 103 지속 검출.
+- `roi60`은 비어 있었다. 전체 화면 검출 성공이며 ROI 통과나 위치 정확도 검증은 아니다.
+- 주행·위치 보정은 실행하지 않았다. 이미지 저장 요청도 없어 저장 프레임은 0이었다.
+- 종료 시 camera와 monitor는 코드 0, 카메라 컨트롤 복원은 true였다.
+- detector와 rectify는 각각 SIGINT를 받은 후 -11로 종료했다. `clean_shutdown=false`, `unexpected_exits=[]`, `startup_error=null`이었다.
+- 수신 중 예기치 않은 종료는 기록되지 않았지만, 종료 충돌 원인은 미확인이다. 이를 정상 종료로 간주하지 않는다.
+- 로봇에 `coredumpctl`이 없어 해당 도구를 통한 충돌 기록 확인은 수행하지 못했다.
+
+### DDS 수신 버퍼 설정
+
+저장소 파일: `robot/config/robots/vicpinky/sysctl/99-vicpinky-camera.conf`.
+
+현재 로봇에는 `/etc/sysctl.d/99-vicpinky-camera.conf`를 생성하고
+`sysctl -p`로 `net.core.rmem_max=16777216` 적용을 확인했다.
+재부팅 후 실제 값 확인은 아직 하지 않았다.
+
+새 장비에서는 기존 sysctl 설정과 대상 파일을 비교한 뒤 로봇에서 적용한다.
+아래 `project_root`는 해당 장비의 프로젝트 경로로 지정한다.
+
+```bash
+project_root=/home/vic/vmany/main/farm_project
+sudo install -m 0644 \
+  "$project_root/robot/config/robots/vicpinky/sysctl/99-vicpinky-camera.conf" \
+  /etc/sysctl.d/99-vicpinky-camera.conf
+sudo sysctl -p /etc/sysctl.d/99-vicpinky-camera.conf
+```
+
+저장소 동기화만으로 `/etc` 설정이 적용되지는 않는다.
+
+### 과거 자료 정리와 유지 항목
+
+검증 완료된 PC 전체 백업은 덮어쓰거나 삭제하지 않았다.
+로봇의 과거 진단 로그, apriltag data/results, telemetry_checks,
+공유 사본, 과거 mapping/config/startup_params/toolkit 및 일회성 패치 도구를 정리했다.
+
+다음 항목은 유지한다.
+
+- 기존 카메라 두 폴더와 `apriltag_ws`의 남은 설정·도구: 종료 오류 확인 및 후속 정리 전까지 보류.
+- `manyfarm_experiments/diagnostics`: `.bashrc`의 bringup 로그 저장 경로.
+- `manyfarm_experiments/pinky_correction.lock`: 기존·새 보정 코드가 공유하는 중복 실행 방지 잠금. 실행 중 삭제하거나 경로를 임의 변경하지 않는다.
+- `vicpinky_ws`, `vic_pinky_library`, `bmany_fleet_ws`, `ap` 및 시스템·사용자 설정.
+
+로봇 `.bashrc`의 navigation 별칭은 Git의
+`robot/config/maps/harvest_field_20261007/many_farm.yaml`을 사용하도록 변경됐다.
+삭제한 홈 지도와 Git 지도가 동일하다는 의미는 아니다.
