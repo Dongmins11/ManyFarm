@@ -1,0 +1,54 @@
+{
+  "scope": "isolated Isaac physical heading/stop; full Nav2 E2E not run",
+  "result": {
+    "heading_runs": [
+      {
+        "target": 0.300037022252359,
+        "actual": 0.2949338861977433,
+        "error_rad": 0.005103136054615709
+      },
+      {
+        "target": -0.005066113802256689,
+        "actual": -0.01438516416541735,
+        "error_rad": 0.009319050363160662
+      }
+    ],
+    "returncode": 0,
+    "session": "318459690cb142a5b92353f468cde053",
+    "sample_count": 960,
+    "checks": {
+      "clean_exit": true,
+      "complete": true,
+      "heading_settled": true
+    },
+    "passed": true,
+    "scope": "isolated physical wheel odometry response; not Nav2 E2E"
+  },
+  "world_diagnostic": [
+    {
+      "start_s": 3.2375001688487828,
+      "settled_s": 11.120833913329989,
+      "world_rotation_rad": 0.3000543162524345,
+      "world_error_rad": -5.431625243451643e-05
+    },
+    {
+      "start_s": 11.120833913329989,
+      "settled_s": 18.43750096159056,
+      "world_rotation_rad": -0.3159337263405264,
+      "world_error_rad": 0.015933726340526422
+    }
+  ],
+  "unit_tests": 11,
+  "route_checks": 371,
+  "build_packages": [
+    "farm_sim_devices",
+    "farm_sim_runtime",
+    "farm_sim_config"
+  ],
+  "original_usd_sha256": "1d9887539611d65ec9c284a810bcd0b8015493db0158147c7188b414f95395e7",
+  "limitations": [
+    "actual Nav2 full route not run",
+    "480Hz concurrent navigation not run",
+    "temporary snapshot conflict in earlier test; failed run excluded"
+  ]
+}

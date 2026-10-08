@@ -1,4 +1,4 @@
-"""HarvestTask 입력 검사와 이동 전용 결과 계약. ROS import 없이 검사 가능합니다."""
+"""HarvestTask 입력과 누적 결과 계약. 후보 선택·수확 판정은 하지 않습니다."""
 import math
 
 
@@ -19,8 +19,18 @@ def validate_task(goal, config: dict) -> None:
         raise ValueError('목표 pose/expected_count 오류')
 
 
-def result_fields(goal, code: str, error_code: str = 'NONE', message: str = '') -> dict:
+def validate_counts(success: int, failed: int, previous: tuple[int, int] = (0, 0)) -> tuple[int, int]:
+    """확정 수량은 음수가 아니며 같은 실행에서 감소하지 않아야 합니다."""
+    if (type(success) is not int or type(failed) is not int or success < previous[0]
+            or failed < previous[1] or success < 0 or failed < 0):
+        raise ValueError('팔 누적 수량이 음수/역행/정수가 아님')
+    return success, failed
+
+
+def result_fields(goal, code: str, error_code: str = 'NONE', message: str = '', *,
+                  harvested_count: int = 0, failed_count: int = 0) -> dict:
+    validate_counts(harvested_count, failed_count)
     task = goal.harvest_task
     return dict(robot_id=goal.robot_id, task_id=task.task_id, window_id=task.window_id,
-                result_code=code, expected_count=task.expected_count, harvested_count=0,
-                failed_count=0, error_code=error_code, error_message=message)
+                result_code=code, expected_count=task.expected_count, harvested_count=harvested_count,
+                failed_count=failed_count, error_code=error_code, error_message=message)

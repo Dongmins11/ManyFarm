@@ -57,9 +57,25 @@ def main() -> None:
                                     rejected.append(obj);continue
                                 accepted.append({'position_odom_m':obj['xyz_m'],'class_name':obj['class'],
                                     'confidence':obj['confidence'],'mask_box_original_xyxy':obj['bbox_xyxy']})
-                            if report['objects'] and not accepted:
-                                raise RuntimeError('검출된 과실 중 유효한 깊이·신뢰도 표본이 없습니다.')
-                            result.update(detections=accepted,rejected=rejected,timings=timing)
+                            # 후보의 측정 실패는 카메라/RPC 실패와 구분합니다.
+                            # 빈 검출 목록으로 기존 FSM을 이어가되 유효 좌표를 만들어내지 않습니다.
+                            measurement_status = ('VALID' if accepted else
+                                                  'NO_VALID_MEASUREMENTS' if rejected else 'NO_DETECTIONS')
+                            measurement = {
+                                'status': measurement_status,
+                                'candidate_count': len(report['objects']),
+                                'valid_count': len(accepted),
+                                'rejected': rejected,
+                            }
+                            # annotate에서 관측 폴더로 복사되어, 과실 없음과 측정 불가를 구분합니다.
+                            (folder / 'measurement_status.json').write_text(
+                                json.dumps(measurement, ensure_ascii=False, allow_nan=False), encoding='utf-8')
+                            if measurement_status == 'NO_VALID_MEASUREMENTS':
+                                print('관측 경고: 유효한 깊이·신뢰도 표본 없음; '
+                                      '측정 불가를 기록하고 다음 지점으로 진행합니다.',
+                                      file=sys.stderr, flush=True)
+                            result.update(detections=accepted,rejected=rejected,timings=timing,
+                                          measurement_status=measurement_status)
                             cached=(folder,req['id'])
                     elif req['op']=='annotate':
                         if cached is None:raise ValueError('No capture')

@@ -57,6 +57,7 @@ class DriveDiagnostics:
             applied_cmd_mps_rps=[float(linear),float(angular)],
             wheel_order=cfg['wheel_joints'],dof_indices=[int(v) for v in base.indices],
             target_joint_velocity_rad_s=[float(v*s) for v,s in zip(target,cfg['wheel_signs'])],
+            applied_joint_velocity_rad_s=[float(v) for v in base.last_joint_targets],
             measured_joint_velocity_rad_s=[float(v*s) for v,s in zip(velocities,cfg['wheel_signs'])],
             measured_control_wheel_position_rad=[float(v) for v in positions],
             wheel_odom=[float(v) for v in odom],

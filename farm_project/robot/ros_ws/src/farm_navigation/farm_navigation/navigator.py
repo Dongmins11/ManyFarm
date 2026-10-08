@@ -14,6 +14,7 @@ from .pose_provider import PoseProvider
 from .motion_monitor import MotionMonitor
 from .route import RouteGraph
 from .path_builder import build_path
+from .parallel_approach import select_corridor, inside_corridor, straight_plan
 from .arrival import measure_arrival, arrival_description
 
 
@@ -75,7 +76,63 @@ class Navigator:
             entry={'request_id':request_id,'goal_map':{'x':target[0],'y':target[1],'yaw':float(yaw)},
                    'mode':self._settings.mode,'status':'PLANNING','started_at':datetime.now(timezone.utc).isoformat()}
             if self._record is not None: self._record(entry)
-            plan=self.plan(target)
+            plan = None
+            if self._settings.parallel_approach:
+                if self._settings.mode != 'follow_path':
+                    raise ValueError('평행 접근은 follow_path 모드에서만 지원합니다.')
+                current = self._poses.current(self._check)
+                measured = measure_arrival(current, target, yaw, self._settings.arrival_tolerance_m, self._settings.heading_tolerance_rad)
+                if measured['accepted']:
+                    self._needs_stop_confirmation = True
+                    stamp = self._motion.wait_stopped(self._check)
+                    current = self._poses.lookup(self._settings.map_frame, self._settings.base_frame, stamp, self._check)
+                    measured = measure_arrival(current, target, yaw, self._settings.arrival_tolerance_m, self._settings.heading_tolerance_rad)
+                    if not measured['accepted']:
+                        raise RuntimeError('도착 재검사 실패: '+arrival_description(measured))
+                    entry.update(measured, status='ARRIVED', already_arrived=True, stamp_ns=stamp)
+                    self._needs_stop_confirmation = False
+                    self._status = NavigationStatus(request_id, 'ARRIVED')
+                    return NavigationResult(request_id, '', stamp, measured)
+                corridor = select_corridor(self._graph.parallel_corridors, target, yaw, self._settings.heading_tolerance_rad)
+                xy = (float(current[0,3]), float(current[1,3]))
+                # 다른 좁은 구간에서 방향을 바꾸는 자동 복구도 허용하지 않는다.
+                occupied = [c for c in self._graph.parallel_corridors if inside_corridor(c, xy, self._settings.max_start_distance_m)]
+                if occupied and corridor not in occupied:
+                    if len(occupied) != 1:
+                        raise RuntimeError('APPROACH_RECOVERY_REQUIRED: 작업 구간 중복')
+                    old = occupied[0]
+                    template = RoutePlan(uuid.uuid4().hex, self._graph.revision, self._graph.frame, (), (), 0.)
+                    exit_plan = straight_plan(template, old, xy, math.atan2(current[1,0],current[0,0]), tuple(old['exit']),
+                        self._settings.arrival_tolerance_m, self._settings.heading_tolerance_rad)
+                    entry['exit_route'] = asdict(exit_plan)
+                    self._needs_stop_confirmation = True
+                    self._client.execute(tuple(old['exit']), old['yaw'], build_path(exit_plan, old['yaw'],
+                        self._node.get_clock().now().to_msg(), self._settings.path_spacing_m), self._check)
+                    stamp = self._motion.wait_stopped(self._check)
+                    current = self._poses.lookup(self._settings.map_frame, self._settings.base_frame, stamp, self._check)
+                    gate = measure_arrival(current, old['exit'], old['yaw'], self._settings.arrival_tolerance_m, self._settings.heading_tolerance_rad)
+                    entry['exit_arrival'] = gate
+                    if not gate['accepted']:
+                        raise RuntimeError('작업 구간 이탈 실패: '+arrival_description(gate))
+                    occupied = []
+                if not occupied:
+                    approach = self.plan(tuple(corridor['entry']))
+                    entry['approach_route'] = asdict(approach)
+                    self._needs_stop_confirmation = True
+                    self._client.execute(tuple(corridor['entry']), corridor['yaw'],
+                        build_path(approach, corridor['yaw'], self._node.get_clock().now().to_msg(), self._settings.path_spacing_m), self._check)
+                    stamp = self._motion.wait_stopped(self._check)
+                    current = self._poses.lookup(self._settings.map_frame, self._settings.base_frame, stamp, self._check)
+                    gate = measure_arrival(current, corridor['entry'], corridor['yaw'], self._settings.arrival_tolerance_m, self._settings.heading_tolerance_rad)
+                    entry['approach_arrival'] = gate
+                    if not gate['accepted']:
+                        raise RuntimeError('진입 정렬 실패: '+arrival_description(gate))
+                    xy = (float(current[0,3]), float(current[1,3]))
+                template = RoutePlan(uuid.uuid4().hex, self._graph.revision, self._graph.frame, (), (), 0.)
+                plan = straight_plan(template, corridor, xy, math.atan2(current[1,0],current[0,0]), target,
+                    self._settings.arrival_tolerance_m, self._settings.heading_tolerance_rad)
+            else:
+                plan=self.plan(target)
             path=None
             if plan is not None:
                 plan_id=plan.plan_id

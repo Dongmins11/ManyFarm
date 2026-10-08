@@ -21,7 +21,7 @@
     "control_frame_yaw_rad": 3.141592653589793
   },
   "notes": [
-    "v0.8.5 수확 주행 자산을 유지하고 오른팔 arm_2의 물성·HOME·작업 좌표를 세션 설정으로 적용합니다. 수확 정책 실행은 후속 작업입니다."
+    "오른팔 arm_2에 전달 Teacher를 연결합니다. 후보 선택·좌표 정답·반복 시도·물리 판정은 sim 전용이며 카메라 정책이 아닙니다."
   ],
   "base": {
     "wheel_joints": [
@@ -36,9 +36,20 @@
     "wheel_separation_m": 0.4288,
     "max_linear_mps": 0.15,
     "max_angular_rps": 0.6,
-    "command_timeout_s": 0.5
+    "command_timeout_s": 0.5,
+    "wheel_velocity_servo": {
+      "kp": 1.0,
+      "ki": 4.0,
+      "max_correction_rad_s": 2.0,
+      "dt_s": 0.016666666666666666
+    }
   },
   "runtime": {
+    "harvest_activity": {
+      "enabled": true,
+      "topic": "sim/harvest_activity",
+      "lease_s": 2.0
+    },
     "physics_hz": 480,
     "render_hz": 60,
     "realtime": true,
@@ -47,7 +58,15 @@
     "telemetry_hz": 30,
     "transport_timeout_s": 2.0,
     "drop_limit_m": 0.25,
-    "robotarm_physics_config": "sim/ros_ws/src/farm_sim_config/config/robotarm_physics.json"
+    "robotarm_physics_config": "sim/ros_ws/src/farm_sim_config/config/robotarm_physics.json",
+    "harvest_arm": {
+      "enabled": true,
+      "endpoint": "sim/harvest_arm",
+      "profile": "sim/ros_ws/src/farm_sim_config/config/teacher_policy.json",
+      "lease_s": 2.0,
+      "execution_timeout_s": 600.0,
+      "cancel_timeout_s": 10.0
+    }
   },
   "frames": {
     "odom": "harvest_01/odom",

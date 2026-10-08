@@ -1,0 +1,692 @@
+{
+  "schema_version": 1,
+  "status": "REVIEW_COMPLETE_COMMON_APPROVAL_PENDING",
+  "baseline_commit": "1666a23bf47dc7f0e8a6f2dfafbc1d41e190f6cd",
+  "confirmed": {
+    "source": "User requests sim fruit coordinates to Teacher; explicit red/yellow one-attempt choice",
+    "input_mode": "isaac_truth_teacher_only",
+    "colors": [
+      "red",
+      "yellow"
+    ],
+    "attempts_per_target": 1,
+    "base_reposition": false,
+    "ordinary_failure": "continue after recovery and ready-for-next confirmation"
+  },
+  "proposed_common_contract": "sim/docs/proposals/HARVEST_ARM_COMMON_CONTRACT_20261006.md",
+  "proposed_result_semantics": "all selected targets processed -> SUCCESS with actual counts; interruption -> FAILED; cancel confirmed -> CANCELED; awaiting user confirmation",
+  "execution": {
+    "common_code_changed": false,
+    "operational_sim_code_changed": false,
+    "ros_interfaces_registered": false,
+    "physics_policy_run": false,
+    "committed": false,
+    "pushed": false,
+    "scope": "This review turn only; previously implemented adaptive physics changes remain uncommitted and preserved."
+  },
+  "checkpoint_inspection": {
+    "versions": {
+      "torch": "2.7.0+cu128",
+      "rsl-rl-lib": "3.1.2",
+      "isaaclab": "0.54.2"
+    },
+    "policies": {
+      "ENTRY_CKPT": {
+        "sha256_matches": true,
+        "run": "runs/harvest_rl/entry_grasp_refine_20260929_202452_137384791/train/run.json",
+        "run_sha256_matches": true,
+        "state_keys": [
+          "model_state_dict",
+          "optimizer_state_dict",
+          "iter",
+          "infos"
+        ],
+        "model_shapes": {
+          "std": [
+            6
+          ],
+          "actor.0.weight": [
+            256,
+            82
+          ],
+          "actor.0.bias": [
+            256
+          ],
+          "actor.2.weight": [
+            256,
+            256
+          ],
+          "actor.2.bias": [
+            256
+          ],
+          "actor.4.weight": [
+            128,
+            256
+          ],
+          "actor.4.bias": [
+            128
+          ],
+          "actor.6.weight": [
+            6,
+            128
+          ],
+          "actor.6.bias": [
+            6
+          ],
+          "actor_obs_normalizer._mean": [
+            1,
+            82
+          ],
+          "actor_obs_normalizer._var": [
+            1,
+            82
+          ],
+          "actor_obs_normalizer._std": [
+            1,
+            82
+          ],
+          "actor_obs_normalizer.count": [],
+          "critic.0.weight": [
+            256,
+            82
+          ],
+          "critic.0.bias": [
+            256
+          ],
+          "critic.2.weight": [
+            256,
+            256
+          ],
+          "critic.2.bias": [
+            256
+          ],
+          "critic.4.weight": [
+            128,
+            256
+          ],
+          "critic.4.bias": [
+            128
+          ],
+          "critic.6.weight": [
+            1,
+            128
+          ],
+          "critic.6.bias": [
+            1
+          ],
+          "critic_obs_normalizer._mean": [
+            1,
+            82
+          ],
+          "critic_obs_normalizer._var": [
+            1,
+            82
+          ],
+          "critic_obs_normalizer._std": [
+            1,
+            82
+          ],
+          "critic_obs_normalizer.count": []
+        }
+      },
+      "PULL_CKPT": {
+        "sha256_matches": true,
+        "run": "runs/harvest_rl/pull_direction_20260927_211734_412361705/train/run.json",
+        "run_sha256_matches": true,
+        "state_keys": [
+          "model_state_dict",
+          "optimizer_state_dict",
+          "iter",
+          "infos"
+        ],
+        "model_shapes": {
+          "std": [
+            6
+          ],
+          "actor.0.weight": [
+            256,
+            82
+          ],
+          "actor.0.bias": [
+            256
+          ],
+          "actor.2.weight": [
+            256,
+            256
+          ],
+          "actor.2.bias": [
+            256
+          ],
+          "actor.4.weight": [
+            128,
+            256
+          ],
+          "actor.4.bias": [
+            128
+          ],
+          "actor.6.weight": [
+            6,
+            128
+          ],
+          "actor.6.bias": [
+            6
+          ],
+          "actor_obs_normalizer._mean": [
+            1,
+            82
+          ],
+          "actor_obs_normalizer._var": [
+            1,
+            82
+          ],
+          "actor_obs_normalizer._std": [
+            1,
+            82
+          ],
+          "actor_obs_normalizer.count": [],
+          "critic.0.weight": [
+            256,
+            82
+          ],
+          "critic.0.bias": [
+            256
+          ],
+          "critic.2.weight": [
+            256,
+            256
+          ],
+          "critic.2.bias": [
+            256
+          ],
+          "critic.4.weight": [
+            128,
+            256
+          ],
+          "critic.4.bias": [
+            128
+          ],
+          "critic.6.weight": [
+            1,
+            128
+          ],
+          "critic.6.bias": [
+            1
+          ],
+          "critic_obs_normalizer._mean": [
+            1,
+            82
+          ],
+          "critic_obs_normalizer._var": [
+            1,
+            82
+          ],
+          "critic_obs_normalizer._std": [
+            1,
+            82
+          ],
+          "critic_obs_normalizer.count": []
+        }
+      },
+      "TRANSPORT_CKPT": {
+        "sha256_matches": true,
+        "run": "outputs/harvest_rl/entry_transport_20260929_220740_390998651/transport_refine/train/run.json",
+        "run_sha256_matches": true,
+        "state_keys": [
+          "model_state_dict",
+          "optimizer_state_dict",
+          "iter",
+          "infos"
+        ],
+        "model_shapes": {
+          "std": [
+            6
+          ],
+          "actor.0.weight": [
+            256,
+            82
+          ],
+          "actor.0.bias": [
+            256
+          ],
+          "actor.2.weight": [
+            256,
+            256
+          ],
+          "actor.2.bias": [
+            256
+          ],
+          "actor.4.weight": [
+            128,
+            256
+          ],
+          "actor.4.bias": [
+            128
+          ],
+          "actor.6.weight": [
+            6,
+            128
+          ],
+          "actor.6.bias": [
+            6
+          ],
+          "actor_obs_normalizer._mean": [
+            1,
+            82
+          ],
+          "actor_obs_normalizer._var": [
+            1,
+            82
+          ],
+          "actor_obs_normalizer._std": [
+            1,
+            82
+          ],
+          "actor_obs_normalizer.count": [],
+          "critic.0.weight": [
+            256,
+            82
+          ],
+          "critic.0.bias": [
+            256
+          ],
+          "critic.2.weight": [
+            256,
+            256
+          ],
+          "critic.2.bias": [
+            256
+          ],
+          "critic.4.weight": [
+            128,
+            256
+          ],
+          "critic.4.bias": [
+            128
+          ],
+          "critic.6.weight": [
+            1,
+            128
+          ],
+          "critic.6.bias": [
+            1
+          ],
+          "critic_obs_normalizer._mean": [
+            1,
+            82
+          ],
+          "critic_obs_normalizer._var": [
+            1,
+            82
+          ],
+          "critic_obs_normalizer._std": [
+            1,
+            82
+          ],
+          "critic_obs_normalizer.count": []
+        }
+      },
+      "PLACE_CKPT": {
+        "sha256_matches": true,
+        "run": "runs/harvest_rl/place_short_hook_20260923_074907_182931509/train/run.json",
+        "run_sha256_matches": true,
+        "state_keys": [
+          "model_state_dict",
+          "optimizer_state_dict",
+          "iter",
+          "infos"
+        ],
+        "model_shapes": {
+          "std": [
+            6
+          ],
+          "actor.0.weight": [
+            256,
+            82
+          ],
+          "actor.0.bias": [
+            256
+          ],
+          "actor.2.weight": [
+            256,
+            256
+          ],
+          "actor.2.bias": [
+            256
+          ],
+          "actor.4.weight": [
+            128,
+            256
+          ],
+          "actor.4.bias": [
+            128
+          ],
+          "actor.6.weight": [
+            6,
+            128
+          ],
+          "actor.6.bias": [
+            6
+          ],
+          "actor_obs_normalizer._mean": [
+            1,
+            82
+          ],
+          "actor_obs_normalizer._var": [
+            1,
+            82
+          ],
+          "actor_obs_normalizer._std": [
+            1,
+            82
+          ],
+          "actor_obs_normalizer.count": [],
+          "critic.0.weight": [
+            256,
+            82
+          ],
+          "critic.0.bias": [
+            256
+          ],
+          "critic.2.weight": [
+            256,
+            256
+          ],
+          "critic.2.bias": [
+            256
+          ],
+          "critic.4.weight": [
+            128,
+            256
+          ],
+          "critic.4.bias": [
+            128
+          ],
+          "critic.6.weight": [
+            1,
+            128
+          ],
+          "critic.6.bias": [
+            1
+          ],
+          "critic_obs_normalizer._mean": [
+            1,
+            82
+          ],
+          "critic_obs_normalizer._var": [
+            1,
+            82
+          ],
+          "critic_obs_normalizer._std": [
+            1,
+            82
+          ],
+          "critic_obs_normalizer.count": []
+        }
+      }
+    }
+  },
+  "policy_inference": {
+    "status": "PASSED",
+    "scope": "CPU checkpoint load and inference contract only; synthetic observations; no arm motion or success-rate evaluation",
+    "versions": {
+      "torch": "2.7.0+cu128",
+      "rsl-rl-lib": "3.1.2",
+      "isaaclab": "0.54.2"
+    },
+    "policies": {
+      "ENTRY_CKPT": {
+        "checkpoint": "runs/harvest_rl/entry_grasp_refine_20260929_202452_137384791/train/model_200.pt",
+        "checkpoint_sha256": "e676f43738515446636782f22f51cf81e4fc945210729fdd0ff0458b66b1db9b",
+        "checks": {
+          "strict_state_loaded": true,
+          "shape_5_by_6": true,
+          "finite": true,
+          "deterministic": true,
+          "normalization_loaded": true
+        },
+        "synthetic_output_min": -5.487911224365234,
+        "synthetic_output_max": 3.388930559158325
+      },
+      "PULL_CKPT": {
+        "checkpoint": "runs/harvest_rl/pull_direction_20260927_211734_412361705/train/teacher_final.pt",
+        "checkpoint_sha256": "4914107143f59cb321ce332b6cf185fe563cb44522f50ade782b715fccc045fd",
+        "checks": {
+          "strict_state_loaded": true,
+          "shape_5_by_6": true,
+          "finite": true,
+          "deterministic": true,
+          "normalization_loaded": true
+        },
+        "synthetic_output_min": -4.281961441040039,
+        "synthetic_output_max": 3.283712148666382
+      },
+      "TRANSPORT_CKPT": {
+        "checkpoint": "outputs/harvest_rl/entry_transport_20260929_220740_390998651/transport_refine/train/teacher_final.pt",
+        "checkpoint_sha256": "47f3b7bf6500d35448ed9510db6884ac584921eeddc072350000728402ddb528",
+        "checks": {
+          "strict_state_loaded": true,
+          "shape_5_by_6": true,
+          "finite": true,
+          "deterministic": true,
+          "normalization_loaded": true
+        },
+        "synthetic_output_min": -3.947225570678711,
+        "synthetic_output_max": 1.1782501935958862
+      },
+      "PLACE_CKPT": {
+        "checkpoint": "runs/harvest_rl/place_short_hook_20260923_074907_182931509/train/teacher_final.pt",
+        "checkpoint_sha256": "c6c96f0bb81f861519fc5ac0e2467d9083d3c9b5c309d054bd0a7c30c4dcce27",
+        "checks": {
+          "strict_state_loaded": true,
+          "shape_5_by_6": true,
+          "finite": true,
+          "deterministic": true,
+          "normalization_loaded": true
+        },
+        "synthetic_output_min": -0.09741202741861343,
+        "synthetic_output_max": 0.4792982041835785
+      }
+    }
+  },
+  "geometry": {
+    "validation_scope": "정적 USD/FK/기하 평가. 실제 Nav2 도착·접촉·IK·경로 안전성·Teacher 성공 검증이 아니다.",
+    "current_planner_truth_only": {
+      "windows": 174,
+      "assigned_root_count": 288,
+      "near_root_unique": 53,
+      "near_root_by_color": {
+        "yellow": 20,
+        "red": 18,
+        "green": 15
+      },
+      "note": "모든색 정답 root를 오프라인 평가에만 사용. 실제 운영은 센서 기반이며 green 목표 금지.",
+      "near_with_neighbor_below_018m": 12,
+      "red_yellow_near_with_neighbor_below_018m": 12,
+      "nearest_discrete_candidate_distance_m": {
+        "min": 0.005282544424145265,
+        "median": 0.035774407872506166,
+        "max": 0.08525818208378173,
+        "exact_match_count_1um": 0
+      }
+    },
+    "along_route_centered_probe": {
+      "near_roots": 94,
+      "note": "각 root의 팔 Y가0이 되도록 정지 위치를 놓은 한 가지 가정. 최적화한 최대 도달 개수나 실측 결과가 아니다."
+    },
+    "current_geometry_old_observations": {
+      "windows": 9,
+      "near_red_yellow_windows": 1,
+      "note": "과거 표면 검출좌표에 현재 planner 설정을 적용한 재계산. 현재 70x75mm 과실로 새로 촬영한 결과가 아니다."
+    },
+    "orientations": {
+      "source_reset_quaternion_wxyz": [
+        1,
+        0,
+        0,
+        0
+      ],
+      "farm_world_local_z_tilt_deg": {
+        "min": 0.9641408874905786,
+        "median": 23.75856833433707,
+        "max": 41.170858043260175
+      },
+      "above25deg": 132,
+      "note": "초기 과실 자세 분포 차이. 25도는 분포 비교용이며 TCP-과실 가로파지 오차와 같은 값이 아니다."
+    },
+    "coordinate_differences": {
+      "grasp_offset_local_m": [
+        0,
+        0,
+        -0.006
+      ],
+      "root_to_grasp_distance_m": 0.006,
+      "attachment_local_m_by_color": {
+        "red": [
+          0.017529832318793216,
+          0.012588152566927921,
+          0.0375
+        ],
+        "yellow": [
+          0.01752983375906352,
+          0.012588151126657617,
+          0.0375
+        ],
+        "green": [
+          0.01752983519933382,
+          0.012588151126657617,
+          0.0375
+        ]
+      },
+      "planner_route_offset_by_section_m": {
+        "SEC01": -0.0600000000000005,
+        "SEC02": 0.05999999999999961,
+        "SEC03": -0.05999999999999961,
+        "SEC04": 0.06000000000000005,
+        "SEC05": -0.06000000000000005,
+        "SEC06": 0.05999999999999961,
+        "SEC07": -0.05999999999999961,
+        "SEC08": 0.0600000000000005,
+        "SEC09": -0.0600000000000005,
+        "SEC10": 0.05999999999999961,
+        "SEC11": -0.05999999999999961,
+        "SEC12": 0.06000000000000005,
+        "SEC13": -0.06000000000000005,
+        "SEC14": 0.05999999999999961,
+        "SEC15": -0.05999999999999961,
+        "SEC16": 0.0600000000000005
+      }
+    },
+    "source_sha256": {
+      "sim/ros_ws/src/farm_sim_config/config/scout_survey.json": "984713d853b97c84e0b77c78900f98ec8e1bede9302f03c3c21922a430ca7abc",
+      "sim/assets/robots/harvest_count_test/harvest_robot.usd": "2fcbce1c61890b1fc9320e6944f7d0534697843f7441b1102130c7bd25f14fa1",
+      "sim/assets/envs/output/farm_with_plants_v5.usd": "1d9887539611d65ec9c284a810bcd0b8015493db0158147c7188b414f95395e7",
+      "sim/runs/robotarm/received_20261006_143434/manyfarm_robotarm/docs/manipulation/teacher_fruit_candidates_20261001.json": "5b0718600807af1eecb253413b03e90ddf3370123257ebd6dcb01fae7dcbbbad",
+      "sim/runs/robotarm/received_20261006_143434/manyfarm_robotarm/docs/manipulation/teacher_environment_snapshot_20261001.json": "789add59fc120ca9768e518572f98d72153ce63a53a21eabe66795ca9e0c291f"
+    },
+    "robot_frame_parity": {
+      "T_policy_from_mobile_asset": [
+        [
+          2.220446049250313e-16,
+          -1.0,
+          0.0,
+          0.050000000000000044
+        ],
+        [
+          1.0,
+          2.220446049250313e-16,
+          0.0,
+          2.7755575615628914e-17
+        ],
+        [
+          0.0,
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "legacy_vs_mobile_urdf_max_abs_matrix_errors": {
+        "arm_2/shoulder_link": 1.1102230246251565e-16,
+        "arm_2/upper_arm_link": 1.1102230246251565e-16,
+        "arm_2/lower_arm_link": 1.1102230246251565e-16,
+        "arm_2/wrist_link": 1.1102230246251565e-16,
+        "arm_2/gripper_link": 1.1102230246251565e-16,
+        "arm_2/moving_jaw_so101_v1_link": 2.220446049250313e-16,
+        "harvest_box": 5.551115123125783e-17,
+        "place_right": 5.551115123125783e-17,
+        "place_left": 5.551115123125783e-17
+      },
+      "sample_count": 9,
+      "mobile_usd_zero_pose_vs_mobile_urdf_max_abs_matrix_errors": {
+        "arm_2/base_link": 3.42285420007471e-08,
+        "arm_2/shoulder_link": 1.2477883981519389e-07,
+        "arm_2/upper_arm_link": 1.7494442957385627e-07,
+        "arm_2/lower_arm_link": 1.6765241656975107e-07,
+        "arm_2/wrist_link": 1.3120465288307086e-07,
+        "arm_2/gripper_link": 2.988837453019033e-07,
+        "arm_2/moving_jaw_so101_v1_link": 5.958487319449035e-07,
+        "harvest_box": 3.42285420007471e-08
+      },
+      "note": "정적 FK/장착/박스 일치. 실제 구동과 움직이는 장애물 충돌 검증은 별도."
+    },
+    "spacing": {
+      "minimum_root_distance_m": 0.1327706146661332,
+      "closest_pair": [
+        "/World/Vegetation/Bed_06/Fruits/Pepper_0027_red",
+        "/World/Vegetation/Bed_06/Fruits/Pepper_0034_red"
+      ],
+      "pairs_below_018m": 34,
+      "unique_fruits_below_018m": 66
+    },
+    "box": {
+      "success_region_arm_min_m": [
+        0.07,
+        0.095,
+        -0.20699999999999985
+      ],
+      "success_region_arm_max_m": [
+        0.26,
+        0.28500000000000003,
+        -0.0119999999999999
+      ],
+      "physical_floor_top_arm_z_m": -0.21199997700750828,
+      "nominal_success_floor_arm_z_m": -0.207,
+      "floor_difference_m": 0.004999977007508289,
+      "source_bottom_tolerance_m": 0.01,
+      "source_wall_top_tolerance_m": 0.003,
+      "source_settled_com_speed_max_m_s": 0.12,
+      "source_place_dwell_s": 0.6,
+      "note": "바닥 upper surface는 box frame z=0(월드asset z=.501), source success min은wall thickness5mm를더한z=.506. source10mm 하단 허용범위 안. 바닥4tile 이음새0.4mm; 모든 collider vertices의 containment가필요."
+    }
+  },
+  "proposal_syntax": {
+    "scope": "ROS IDL syntax parsing only; no package changes, type registration, build or runtime test",
+    "results": {
+      "HarvestCandidate.msg": "SYNTAX_PASSED",
+      "GetHarvestCandidates.srv": "SYNTAX_PASSED",
+      "PickFruit.action": "SYNTAX_PASSED"
+    }
+  },
+  "limitations": [
+    "Synthetic CPU policy forward is not pickup success",
+    "Static geometry filters are not verified reachability or collision-free paths",
+    "Actual farm Nav2 arrival and full Teacher pickup/placement not run",
+    "Original teacher aborts on first failure; farm continuation requires new recovery logic"
+  ],
+  "artifacts_directory": "sim/runs/robotarm/policy_integration_review_20261006",
+  "artifact_sha256": {
+    "geometry_analysis.json": "768171a95e50adb0b43d3c183dbad6dc695ae97bf307c8ead9b9502c9aec0fad",
+    "check_policy_inference.py": "89fbf6df6880c108a25a23ea810e6d89cde8478ce23cd5fc440b9b905a61593d",
+    "proposal_syntax.json": "218e9c4229f46fb49bd143466b614261bdae999463848e6306371985c3ebaa56",
+    "inspect_geometry.py": "12c293c9891155146513be2ff1109621678fbb4683459db547f8b278041fe773",
+    "geometry_summary.json": "5c14f14c64abcf0065b963d8a163af837a3a52e692ac8fdc57a7d2a048c382bd",
+    "GEOMETRY_README.md": "67a05abe46b3a239b44ce364bcbff47d6199c3da8b7390a87f9ffebae0820906",
+    "policy_inference.json": "8ecc2cc8a1fe193895a2991f36057066ac170fb3f759159c1c9b2fd64e4755bd",
+    "checkpoint_inspection.json": "efd517b0a6480e9211d9bf67b602bd4ec81b88631140e5a94bde6181b123a99a"
+  }
+}

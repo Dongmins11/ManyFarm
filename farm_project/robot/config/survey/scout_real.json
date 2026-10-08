@@ -2,7 +2,7 @@
   "configured": true,
   "schema_version": 1,
   "robot_id": "scout_01",
-  "map_id": "many_farm_v1",
+  "map_id": "farm_map_v1",
   "base_frame": "base_footprint",
   "vision_config": "robot/config/vision/scout_real.json",
   "output_dir": "runs/scout_survey",
@@ -14,7 +14,7 @@
   "association_distance_m": 0.065,
   "association_band_half_depth_m": 0.2,
   "sections": {
-    "SEC_01": {
+    "SEC01": {
       "route_file": "robot/config/maps/many_farm/graph.geojson",
       "node_ids": [
         2,
@@ -32,7 +32,7 @@
         "mode": "manual",
         "segments": [
           {
-            "segment_id": "SEG_01",
+            "segment_id": "SEG01",
             "offset_m": 0
           }
         ]

@@ -1,0 +1,395 @@
+{
+  "document_kind": "handoff_source_snapshot",
+  "prepared_date_kst": "2026-10-06",
+  "repository": "Robot3FinalProject/main",
+  "branch": "main",
+  "project_directory": "farm_project",
+  "inspected_code_commit": "068b42eb0ebe54b3b57cffe254a20b2f9e3b202e",
+  "commit_time_kst": "2026-10-06T11:19:12+09:00",
+  "scope": "Read-only inspection of selected repository files and current-turn project conversation. No ROS/Isaac/hardware execution. No remote or user-PC modification.",
+  "source_file_count": 67,
+  "source_files": [
+    {
+      "path": "AGENTS.md",
+      "git_blob_sha": "4c843a1d835c9fb6e0c48c11d506707627f47bbf",
+      "url": "https://github.com/Robot3FinalProject/main/blob/068b42eb0ebe54b3b57cffe254a20b2f9e3b202e/farm_project/AGENTS.md"
+    },
+    {
+      "path": "sim/AGENTS.md",
+      "git_blob_sha": "aeca4e5c03223ab193538efd0e69258276d9aeb3",
+      "url": "https://github.com/Robot3FinalProject/main/blob/068b42eb0ebe54b3b57cffe254a20b2f9e3b202e/farm_project/sim/AGENTS.md"
+    },
+    {
+      "path": "README.md",
+      "git_blob_sha": "40ef875380736161b87c52c059d81a6b18399481",
+      "url": "https://github.com/Robot3FinalProject/main/blob/068b42eb0ebe54b3b57cffe254a20b2f9e3b202e/farm_project/README.md"
+    },
+    {
+      "path": "docs/SUMMARY_인수인계서.md",
+      "git_blob_sha": "ee80d2c6704b0f572a5b1ac7017873ead92dae32",
+      "url": "https://github.com/Robot3FinalProject/main/blob/068b42eb0ebe54b3b57cffe254a20b2f9e3b202e/farm_project/docs/SUMMARY_%EC%9D%B8%EC%88%98%EC%9D%B8%EA%B3%84%EC%84%9C.md"
+    },
+    {
+      "path": "sim/docs/CHANGELOG.md",
+      "git_blob_sha": "224f02caa69473af8acc8a13ac489d9021127f85",
+      "url": "https://github.com/Robot3FinalProject/main/blob/068b42eb0ebe54b3b57cffe254a20b2f9e3b202e/farm_project/sim/docs/CHANGELOG.md"
+    },
+    {
+      "path": "docs/changes/PROTOCOL-20261006-014.md",
+      "git_blob_sha": "1ebf5573cc75fdf3de08258965a145af10733970",
+      "url": "https://github.com/Robot3FinalProject/main/blob/068b42eb0ebe54b3b57cffe254a20b2f9e3b202e/farm_project/docs/changes/PROTOCOL-20261006-014.md"
+    },
+    {
+      "path": "docs/RUN_GUIDE_20261002.md",
+      "git_blob_sha": "1abf65005ae61c881d04d6a36b31d8ea564a00d9",
+      "url": "https://github.com/Robot3FinalProject/main/blob/068b42eb0ebe54b3b57cffe254a20b2f9e3b202e/farm_project/docs/RUN_GUIDE_20261002.md"
+    },
+    {
+      "path": "sim/docs/HARVEST_RUN_GUIDE_20261002.md",
+      "git_blob_sha": "e56196947d87bd2e40ebd66dc9e7e1d842542bb0",
+      "url": "https://github.com/Robot3FinalProject/main/blob/068b42eb0ebe54b3b57cffe254a20b2f9e3b202e/farm_project/sim/docs/HARVEST_RUN_GUIDE_20261002.md"
+    },
+    {
+      "path": "sim/docs/changes/CASTER-FIX-20261006-013.md",
+      "git_blob_sha": "52682356f5e4a4129e93826375a55bff570e4dae",
+      "url": "https://github.com/Robot3FinalProject/main/blob/068b42eb0ebe54b3b57cffe254a20b2f9e3b202e/farm_project/sim/docs/changes/CASTER-FIX-20261006-013.md"
+    },
+    {
+      "path": "scripts/env.sh",
+      "git_blob_sha": "84f313f28708bc5deff890e164f57f37890a7978",
+      "url": "https://github.com/Robot3FinalProject/main/blob/068b42eb0ebe54b3b57cffe254a20b2f9e3b202e/farm_project/scripts/env.sh"
+    },
+    {
+      "path": "scripts/build.sh",
+      "git_blob_sha": "3b5669944496218482f8edd17ed17bd80ad91754",
+      "url": "https://github.com/Robot3FinalProject/main/blob/068b42eb0ebe54b3b57cffe254a20b2f9e3b202e/farm_project/scripts/build.sh"
+    },
+    {
+      "path": "sim/ros_ws/src/farm_sim_runtime/launch/all.launch.py",
+      "git_blob_sha": "dac1cad922ca25135f76e9594ef898b249867728",
+      "url": "https://github.com/Robot3FinalProject/main/blob/068b42eb0ebe54b3b57cffe254a20b2f9e3b202e/farm_project/sim/ros_ws/src/farm_sim_runtime/launch/all.launch.py"
+    },
+    {
+      "path": "sim/ros_ws/src/farm_sim_runtime/launch/isaac.launch.py",
+      "git_blob_sha": "495833065ea6f10d5b30001c126b1fa3a17ecb98",
+      "url": "https://github.com/Robot3FinalProject/main/blob/068b42eb0ebe54b3b57cffe254a20b2f9e3b202e/farm_project/sim/ros_ws/src/farm_sim_runtime/launch/isaac.launch.py"
+    },
+    {
+      "path": "sim/ros_ws/src/farm_sim_runtime/launch/scout.launch.py",
+      "git_blob_sha": "f41e7829885f4d3b90db4cc1f368dbe5a186ae43",
+      "url": "https://github.com/Robot3FinalProject/main/blob/068b42eb0ebe54b3b57cffe254a20b2f9e3b202e/farm_project/sim/ros_ws/src/farm_sim_runtime/launch/scout.launch.py"
+    },
+    {
+      "path": "sim/ros_ws/src/farm_sim_runtime/launch/harvest.launch.py",
+      "git_blob_sha": "9b8b79e16373f4ec77054cf8fa50aa1023a88d15",
+      "url": "https://github.com/Robot3FinalProject/main/blob/068b42eb0ebe54b3b57cffe254a20b2f9e3b202e/farm_project/sim/ros_ws/src/farm_sim_runtime/launch/harvest.launch.py"
+    },
+    {
+      "path": "robot/ros_ws/src/farm_bringup/launch/scout.launch.py",
+      "git_blob_sha": "7e387ba2f12ebec5d69a250e519115959d084e36",
+      "url": "https://github.com/Robot3FinalProject/main/blob/068b42eb0ebe54b3b57cffe254a20b2f9e3b202e/farm_project/robot/ros_ws/src/farm_bringup/launch/scout.launch.py"
+    },
+    {
+      "path": "robot/ros_ws/src/farm_bringup/launch/harvest.launch.py",
+      "git_blob_sha": "7312451d59555705d5e4bb767c0ec7c3780ceda5",
+      "url": "https://github.com/Robot3FinalProject/main/blob/068b42eb0ebe54b3b57cffe254a20b2f9e3b202e/farm_project/robot/ros_ws/src/farm_bringup/launch/harvest.launch.py"
+    },
+    {
+      "path": "robot/ros_ws/src/farm_bringup/launch/rviz.launch.py",
+      "git_blob_sha": "e7ff40f779b3a45a079fa4a89db1c6247bf01bb0",
+      "url": "https://github.com/Robot3FinalProject/main/blob/068b42eb0ebe54b3b57cffe254a20b2f9e3b202e/farm_project/robot/ros_ws/src/farm_bringup/launch/rviz.launch.py"
+    },
+    {
+      "path": "robot/ros_ws/src/farm_interfaces/action/ScoutArea.action",
+      "git_blob_sha": "4cda9d8273d915d1753bf37cccd80eb5e2a261bd",
+      "url": "https://github.com/Robot3FinalProject/main/blob/068b42eb0ebe54b3b57cffe254a20b2f9e3b202e/farm_project/robot/ros_ws/src/farm_interfaces/action/ScoutArea.action"
+    },
+    {
+      "path": "robot/ros_ws/src/farm_interfaces/action/HarvestTask.action",
+      "git_blob_sha": "094e7d094c470f2f81f0679dabb6a0a1640e3fc8",
+      "url": "https://github.com/Robot3FinalProject/main/blob/068b42eb0ebe54b3b57cffe254a20b2f9e3b202e/farm_project/robot/ros_ws/src/farm_interfaces/action/HarvestTask.action"
+    },
+    {
+      "path": "robot/ros_ws/src/farm_interfaces/msg/HarvestTask.msg",
+      "git_blob_sha": "a0ce13726774758231d7427a819f4d3aca74ab02",
+      "url": "https://github.com/Robot3FinalProject/main/blob/068b42eb0ebe54b3b57cffe254a20b2f9e3b202e/farm_project/robot/ros_ws/src/farm_interfaces/msg/HarvestTask.msg"
+    },
+    {
+      "path": "robot/ros_ws/src/farm_interfaces/msg/RobotPose.msg",
+      "git_blob_sha": "39021e6bf8ab3007620e312b0a3908f14143e6b1",
+      "url": "https://github.com/Robot3FinalProject/main/blob/068b42eb0ebe54b3b57cffe254a20b2f9e3b202e/farm_project/robot/ros_ws/src/farm_interfaces/msg/RobotPose.msg"
+    },
+    {
+      "path": "robot/ros_ws/src/farm_interfaces/msg/RobotStatus.msg",
+      "git_blob_sha": "57e13fa34cecd08d6a573a331e94c14907004988",
+      "url": "https://github.com/Robot3FinalProject/main/blob/068b42eb0ebe54b3b57cffe254a20b2f9e3b202e/farm_project/robot/ros_ws/src/farm_interfaces/msg/RobotStatus.msg"
+    },
+    {
+      "path": "robot/ros_ws/src/farm_interfaces/srv/GetHarvestTasks.srv",
+      "git_blob_sha": "41c5596febe73eb4e4c1c565e3eb7c0b6ca46fe5",
+      "url": "https://github.com/Robot3FinalProject/main/blob/068b42eb0ebe54b3b57cffe254a20b2f9e3b202e/farm_project/robot/ros_ws/src/farm_interfaces/srv/GetHarvestTasks.srv"
+    },
+    {
+      "path": "robot/ros_ws/src/harvest_robot/harvest_robot/node.py",
+      "git_blob_sha": "962bfd4ad983f36772c6cfe7bc9ff7ad690bab34",
+      "url": "https://github.com/Robot3FinalProject/main/blob/068b42eb0ebe54b3b57cffe254a20b2f9e3b202e/farm_project/robot/ros_ws/src/harvest_robot/harvest_robot/node.py"
+    },
+    {
+      "path": "robot/ros_ws/src/harvest_robot/harvest_robot/communication.py",
+      "git_blob_sha": "3c06c60ed61b0898d231c4b4103296bd09be1114",
+      "url": "https://github.com/Robot3FinalProject/main/blob/068b42eb0ebe54b3b57cffe254a20b2f9e3b202e/farm_project/robot/ros_ws/src/harvest_robot/harvest_robot/communication.py"
+    },
+    {
+      "path": "robot/ros_ws/src/harvest_robot/harvest_robot/contract.py",
+      "git_blob_sha": "07ea8263b621810b072de45c9a08082d18951ff1",
+      "url": "https://github.com/Robot3FinalProject/main/blob/068b42eb0ebe54b3b57cffe254a20b2f9e3b202e/farm_project/robot/ros_ws/src/harvest_robot/harvest_robot/contract.py"
+    },
+    {
+      "path": "robot/ros_ws/src/harvest_robot/harvest_robot/state_controller.py",
+      "git_blob_sha": "a50dad4e63d6a0057fe8c0fb595bdd8f00e7b979",
+      "url": "https://github.com/Robot3FinalProject/main/blob/068b42eb0ebe54b3b57cffe254a20b2f9e3b202e/farm_project/robot/ros_ws/src/harvest_robot/harvest_robot/state_controller.py"
+    },
+    {
+      "path": "sim/ros_ws/src/farm_sim_harvest/farm_sim_harvest/audit_node.py",
+      "git_blob_sha": "b7072c7a1c5cededf7106fa10b98c6d4f0d6f242",
+      "url": "https://github.com/Robot3FinalProject/main/blob/068b42eb0ebe54b3b57cffe254a20b2f9e3b202e/farm_project/sim/ros_ws/src/farm_sim_harvest/farm_sim_harvest/audit_node.py"
+    },
+    {
+      "path": "sim/ros_ws/src/farm_sim_harvest/farm_sim_harvest/evaluation.py",
+      "git_blob_sha": "0955687ca9c320f844b46f95cbc935acac3fa8b1",
+      "url": "https://github.com/Robot3FinalProject/main/blob/068b42eb0ebe54b3b57cffe254a20b2f9e3b202e/farm_project/sim/ros_ws/src/farm_sim_harvest/farm_sim_harvest/evaluation.py"
+    },
+    {
+      "path": "sim/ros_ws/src/farm_sim_config/config/harvest_audit.json",
+      "git_blob_sha": "796e750fcfb433895e094cf87e4e3eb8e922e857",
+      "url": "https://github.com/Robot3FinalProject/main/blob/068b42eb0ebe54b3b57cffe254a20b2f9e3b202e/farm_project/sim/ros_ws/src/farm_sim_config/config/harvest_audit.json"
+    },
+    {
+      "path": "sim/ros_ws/src/farm_sim_config/config/harvest_task.json",
+      "git_blob_sha": "5a239361b51b06538b84e178f32f8f0b962202b3",
+      "url": "https://github.com/Robot3FinalProject/main/blob/068b42eb0ebe54b3b57cffe254a20b2f9e3b202e/farm_project/sim/ros_ws/src/farm_sim_config/config/harvest_task.json"
+    },
+    {
+      "path": "sim/ros_ws/src/farm_sim_config/config/harvest_fleet.json",
+      "git_blob_sha": "af1863da0fa214f592e094a25b8266e9a84ed93c",
+      "url": "https://github.com/Robot3FinalProject/main/blob/068b42eb0ebe54b3b57cffe254a20b2f9e3b202e/farm_project/sim/ros_ws/src/farm_sim_config/config/harvest_fleet.json"
+    },
+    {
+      "path": "sim/ros_ws/src/farm_sim_config/config/scout_runtime.yaml",
+      "git_blob_sha": "b2e39b0ce78da7d93a51499cefdef1fe16c79dff",
+      "url": "https://github.com/Robot3FinalProject/main/blob/068b42eb0ebe54b3b57cffe254a20b2f9e3b202e/farm_project/sim/ros_ws/src/farm_sim_config/config/scout_runtime.yaml"
+    },
+    {
+      "path": "sim/ros_ws/src/farm_sim_config/config/harvest_runtime.yaml",
+      "git_blob_sha": "9594279956db9b025f7daf61934635bc5859fb39",
+      "url": "https://github.com/Robot3FinalProject/main/blob/068b42eb0ebe54b3b57cffe254a20b2f9e3b202e/farm_project/sim/ros_ws/src/farm_sim_config/config/harvest_runtime.yaml"
+    },
+    {
+      "path": "sim/ros_ws/src/farm_sim_config/config/scout_vision.json",
+      "git_blob_sha": "31808ced3796be0f76adcaf995dc12d1fef70238",
+      "url": "https://github.com/Robot3FinalProject/main/blob/068b42eb0ebe54b3b57cffe254a20b2f9e3b202e/farm_project/sim/ros_ws/src/farm_sim_config/config/scout_vision.json"
+    },
+    {
+      "path": "sim/ros_ws/src/farm_sim_config/config/task.yaml",
+      "git_blob_sha": "8228274adbad93edbaf48b289325534c65334a60",
+      "url": "https://github.com/Robot3FinalProject/main/blob/068b42eb0ebe54b3b57cffe254a20b2f9e3b202e/farm_project/sim/ros_ws/src/farm_sim_config/config/task.yaml"
+    },
+    {
+      "path": "robot/ros_ws/src/scout_robot/scout_new/scout_communication.py",
+      "git_blob_sha": "fcc17376809580b21fbe0c948cbed33dba458293",
+      "url": "https://github.com/Robot3FinalProject/main/blob/068b42eb0ebe54b3b57cffe254a20b2f9e3b202e/farm_project/robot/ros_ws/src/scout_robot/scout_new/scout_communication.py"
+    },
+    {
+      "path": "robot/ros_ws/src/scout_robot/scout_new/scout_mission.py",
+      "git_blob_sha": "9db08e5607d8326cbd507638378ec36fdbe8e63c",
+      "url": "https://github.com/Robot3FinalProject/main/blob/068b42eb0ebe54b3b57cffe254a20b2f9e3b202e/farm_project/robot/ros_ws/src/scout_robot/scout_new/scout_mission.py"
+    },
+    {
+      "path": "robot/ros_ws/src/scout_robot/scout_robot/task_messages.py",
+      "git_blob_sha": "1cf56e4edacc990e152fcd4e9edea1e76c8811ed",
+      "url": "https://github.com/Robot3FinalProject/main/blob/068b42eb0ebe54b3b57cffe254a20b2f9e3b202e/farm_project/robot/ros_ws/src/scout_robot/scout_robot/task_messages.py"
+    },
+    {
+      "path": "robot/config/vision/scout_real.json",
+      "git_blob_sha": "4e22b5e8a144574e5965bba36099212eae28a573",
+      "url": "https://github.com/Robot3FinalProject/main/blob/068b42eb0ebe54b3b57cffe254a20b2f9e3b202e/farm_project/robot/config/vision/scout_real.json"
+    },
+    {
+      "path": "control/scripts/send_scout_area.py",
+      "git_blob_sha": "ca70c470cb4c5d6d20e5c2e7fe3c95386598a981",
+      "url": "https://github.com/Robot3FinalProject/main/blob/068b42eb0ebe54b3b57cffe254a20b2f9e3b202e/farm_project/control/scripts/send_scout_area.py"
+    },
+    {
+      "path": "robot/ros_ws/src/farm_navigation/farm_navigation/navigator.py",
+      "git_blob_sha": "4a0f621ea95fcc59a37e92f982149b10aecf933c",
+      "url": "https://github.com/Robot3FinalProject/main/blob/068b42eb0ebe54b3b57cffe254a20b2f9e3b202e/farm_project/robot/ros_ws/src/farm_navigation/farm_navigation/navigator.py"
+    },
+    {
+      "path": "robot/ros_ws/src/farm_navigation/farm_navigation/route.py",
+      "git_blob_sha": "587dfdea2dd515bc01d810e16d0343ad985a5678",
+      "url": "https://github.com/Robot3FinalProject/main/blob/068b42eb0ebe54b3b57cffe254a20b2f9e3b202e/farm_project/robot/ros_ws/src/farm_navigation/farm_navigation/route.py"
+    },
+    {
+      "path": "robot/ros_ws/src/farm_navigation/farm_navigation/configuration.py",
+      "git_blob_sha": "d7876daa21bb15e224f248e44e8da89210037255",
+      "url": "https://github.com/Robot3FinalProject/main/blob/068b42eb0ebe54b3b57cffe254a20b2f9e3b202e/farm_project/robot/ros_ws/src/farm_navigation/farm_navigation/configuration.py"
+    },
+    {
+      "path": "robot/ros_ws/src/harvest_robot/harvest_robot/mission.py",
+      "git_blob_sha": "1d9d9b2ff22c5776dadffc1c8de57ff88ea944a2",
+      "url": "https://github.com/Robot3FinalProject/main/blob/068b42eb0ebe54b3b57cffe254a20b2f9e3b202e/farm_project/robot/ros_ws/src/harvest_robot/harvest_robot/mission.py"
+    },
+    {
+      "path": "robot/ros_ws/src/scout_robot/scout_new/scout_node.py",
+      "git_blob_sha": "ef4a6c0af30825411001be98343741cfb630f460",
+      "url": "https://github.com/Robot3FinalProject/main/blob/068b42eb0ebe54b3b57cffe254a20b2f9e3b202e/farm_project/robot/ros_ws/src/scout_robot/scout_new/scout_node.py"
+    },
+    {
+      "path": "robot/ros_ws/src/scout_robot/scout_new/vision_runtime.py",
+      "git_blob_sha": "ea80c7387103c519051498e908529ea702e1e552",
+      "url": "https://github.com/Robot3FinalProject/main/blob/068b42eb0ebe54b3b57cffe254a20b2f9e3b202e/farm_project/robot/ros_ws/src/scout_robot/scout_new/vision_runtime.py"
+    },
+    {
+      "path": "sim/ros_ws/src/farm_sim_runtime/farm_sim_runtime/run_fleet.py",
+      "git_blob_sha": "e0666fd898963d80b6cb613204d087b5a77b4852",
+      "url": "https://github.com/Robot3FinalProject/main/blob/068b42eb0ebe54b3b57cffe254a20b2f9e3b202e/farm_project/sim/ros_ws/src/farm_sim_runtime/farm_sim_runtime/run_fleet.py"
+    },
+    {
+      "path": "sim/ros_ws/src/farm_sim_devices/farm_sim_devices/scene_truth.py",
+      "git_blob_sha": "ac61db41a0da91272805a337efb4e96b134533c4",
+      "url": "https://github.com/Robot3FinalProject/main/blob/068b42eb0ebe54b3b57cffe254a20b2f9e3b202e/farm_project/sim/ros_ws/src/farm_sim_devices/farm_sim_devices/scene_truth.py"
+    },
+    {
+      "path": "sim/ros_ws/src/farm_sim_config/config/scout_fleet_runtime.yaml",
+      "git_blob_sha": "ab71b636be8a140776ec3647038e6c4b99984c88",
+      "url": "https://github.com/Robot3FinalProject/main/blob/068b42eb0ebe54b3b57cffe254a20b2f9e3b202e/farm_project/sim/ros_ws/src/farm_sim_config/config/scout_fleet_runtime.yaml"
+    },
+    {
+      "path": "sim/ros_ws/src/farm_sim_config/config/scout_fleet.json",
+      "git_blob_sha": "93db9371ea0db58d90bc2222fef0be2e3ce306d0",
+      "url": "https://github.com/Robot3FinalProject/main/blob/068b42eb0ebe54b3b57cffe254a20b2f9e3b202e/farm_project/sim/ros_ws/src/farm_sim_config/config/scout_fleet.json"
+    },
+    {
+      "path": "sim/ros_ws/src/farm_sim_config/config/harvest.json",
+      "git_blob_sha": "480453692f856e0acb9daba2583bf243dd9f3445",
+      "url": "https://github.com/Robot3FinalProject/main/blob/068b42eb0ebe54b3b57cffe254a20b2f9e3b202e/farm_project/sim/ros_ws/src/farm_sim_config/config/harvest.json"
+    },
+    {
+      "path": "sim/ros_ws/src/farm_sim_config/config/station_spawn.json",
+      "git_blob_sha": "c81d18ec4dbda5f49181131a00655b568ec8935a",
+      "url": "https://github.com/Robot3FinalProject/main/blob/068b42eb0ebe54b3b57cffe254a20b2f9e3b202e/farm_project/sim/ros_ws/src/farm_sim_config/config/station_spawn.json"
+    },
+    {
+      "path": "sim/ros_ws/src/farm_sim_config/config/scout_survey.json",
+      "git_blob_sha": "2d9e54dc91f9d39b08448d3408a67b274ab61f49",
+      "url": "https://github.com/Robot3FinalProject/main/blob/068b42eb0ebe54b3b57cffe254a20b2f9e3b202e/farm_project/sim/ros_ws/src/farm_sim_config/config/scout_survey.json"
+    },
+    {
+      "path": "sim/ros_ws/src/farm_sim_config/maps/scout_harvest.geojson",
+      "git_blob_sha": "961f0b36ab72b5a2b33dc6388cdab940e7aec441",
+      "url": "https://github.com/Robot3FinalProject/main/blob/068b42eb0ebe54b3b57cffe254a20b2f9e3b202e/farm_project/sim/ros_ws/src/farm_sim_config/maps/scout_harvest.geojson"
+    },
+    {
+      "path": "sim/ros_ws/src/farm_sim_config/maps/graph.geojson",
+      "git_blob_sha": "e3008785c65a0bed6ffdef86ffe276f1b7202b3e",
+      "url": "https://github.com/Robot3FinalProject/main/blob/068b42eb0ebe54b3b57cffe254a20b2f9e3b202e/farm_project/sim/ros_ws/src/farm_sim_config/maps/graph.geojson"
+    },
+    {
+      "path": "sim/ros_ws/src/farm_sim_config/maps/harvest_graph.geojson",
+      "git_blob_sha": "ff8e37fe2afee0bcfc269c11fa2f95f5c9682db4",
+      "url": "https://github.com/Robot3FinalProject/main/blob/068b42eb0ebe54b3b57cffe254a20b2f9e3b202e/farm_project/sim/ros_ws/src/farm_sim_config/maps/harvest_graph.geojson"
+    },
+    {
+      "path": "sim/ros_ws/src/farm_sim_config/maps/count_test_farm_map.yaml",
+      "git_blob_sha": "b90f17c13486bf384aa4df7eea032b6a82e19efb",
+      "url": "https://github.com/Robot3FinalProject/main/blob/068b42eb0ebe54b3b57cffe254a20b2f9e3b202e/farm_project/sim/ros_ws/src/farm_sim_config/maps/count_test_farm_map.yaml"
+    },
+    {
+      "path": "sim/tools/harvest_smoke_goal.py",
+      "git_blob_sha": "4b21860534e34c002ed7c23db84429596ad932d7",
+      "url": "https://github.com/Robot3FinalProject/main/blob/068b42eb0ebe54b3b57cffe254a20b2f9e3b202e/farm_project/sim/tools/harvest_smoke_goal.py"
+    },
+    {
+      "path": "sim/config/scout_dataset.json",
+      "git_blob_sha": "f90d4821ee84113e7958ecde5a2c4ab2f4c931c7",
+      "url": "https://github.com/Robot3FinalProject/main/blob/068b42eb0ebe54b3b57cffe254a20b2f9e3b202e/farm_project/sim/config/scout_dataset.json"
+    },
+    {
+      "path": "sim/docs/changes/CASTER-FIX-20261006-013-applied.jsonl",
+      "git_blob_sha": "7aef1fde836ed2b34e5ff7fed148d57b23460124",
+      "url": "https://github.com/Robot3FinalProject/main/blob/068b42eb0ebe54b3b57cffe254a20b2f9e3b202e/farm_project/sim/docs/changes/CASTER-FIX-20261006-013-applied.jsonl"
+    },
+    {
+      "path": "robot/ros_ws/src/farm_bringup/launch/transport.launch.py",
+      "git_blob_sha": "eb19439a6a9070d4033a55e2b9310ecf2c1a6e08",
+      "url": "https://github.com/Robot3FinalProject/main/blob/068b42eb0ebe54b3b57cffe254a20b2f9e3b202e/farm_project/robot/ros_ws/src/farm_bringup/launch/transport.launch.py"
+    },
+    {
+      "path": "robot/ros_ws/src/farm_bringup/launch/sorting.launch.py",
+      "git_blob_sha": "a3ed8463fc4d3fc858d644670b24dd6da1ce7310",
+      "url": "https://github.com/Robot3FinalProject/main/blob/068b42eb0ebe54b3b57cffe254a20b2f9e3b202e/farm_project/robot/ros_ws/src/farm_bringup/launch/sorting.launch.py"
+    },
+    {
+      "path": "robot/ros_ws/src/farm_bringup/launch/all.launch.py",
+      "git_blob_sha": "a2f842196ff24d09566d4a83d013c6a0c3180b3e",
+      "url": "https://github.com/Robot3FinalProject/main/blob/068b42eb0ebe54b3b57cffe254a20b2f9e3b202e/farm_project/robot/ros_ws/src/farm_bringup/launch/all.launch.py"
+    },
+    {
+      "path": "sim/assets/envs/output/farm_with_plants_v5.usd",
+      "git_blob_sha": "e920a3058dffe42e1059f49fb8e87b8e0f3b354c",
+      "url": "https://github.com/Robot3FinalProject/main/blob/068b42eb0ebe54b3b57cffe254a20b2f9e3b202e/farm_project/sim/assets/envs/output/farm_with_plants_v5.usd"
+    },
+    {
+      "path": "robot/config/environments/scout_real.yaml",
+      "git_blob_sha": "2b5b38a6dea868e16d7fdc3734e8fc660e32cb7c",
+      "url": "https://github.com/Robot3FinalProject/main/blob/068b42eb0ebe54b3b57cffe254a20b2f9e3b202e/farm_project/robot/config/environments/scout_real.yaml"
+    }
+  ],
+  "planning_references": [
+    {
+      "filename": "01_Tomato_Harvesting_Robot_Project_Plan.md",
+      "document_date": "2026-09-10",
+      "role": "initial goals; not current implementation"
+    },
+    {
+      "filename": "02_Tomato_Harvesting_Robot_Simulation_Part.md",
+      "document_date": "2026-09-10",
+      "role": "simulation responsibilities; not current configuration"
+    }
+  ],
+  "conversation_evidence": [
+    {
+      "date": "2026-10-06",
+      "statement": "User wants coding in Codex and planning/materials/discussion in this ChatGPT project, with shared latest context."
+    },
+    {
+      "date": "2026-10-06",
+      "statement": "User requested updated handoff files for delivery."
+    },
+    {
+      "date": "2026-10-06",
+      "statement": "Current repository's PROTOCOL-20261006-014 records user's confirmation that harvest motion works after the caster correction; not re-executed in this task."
+    }
+  ],
+  "limitations": [
+    "User-PC uncommitted changes unavailable",
+    "External Control/robotarm/sorting repository contents not reviewed",
+    "Historical reports are not new test results",
+    "Git LFS USD inspected as pointer only; no geometry validation in this task"
+  ],
+  "authoritative_instructions": [
+    "AGENTS.md",
+    "sim/AGENTS.md"
+  ],
+  "artifact_status": "Document package prepared for user application; not committed or pushed",
+  "prepared_at_kst": "2026-10-06T11:36:25+09:00",
+  "remote_head_rechecked_unchanged": true,
+  "validation": {
+    "files": 8,
+    "markdown_links_checked": 14,
+    "bash_blocks_parsed": 13,
+    "errors": [],
+    "smoke_goal_generation": "Generated CLI JSON with current helper using SEC01/fraction 0.313/expected 0; did not send a ROS goal.",
+    "runtime_tests": "not_run"
+  }
+}

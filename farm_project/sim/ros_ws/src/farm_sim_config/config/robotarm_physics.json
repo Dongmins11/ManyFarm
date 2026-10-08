@@ -4,6 +4,16 @@
   "physics_hz": 480,
   "render_hz": 60,
   "control_hz": 20,
+  "adaptive": {
+    "enabled": true,
+    "idle_hz": 60,
+    "harvest_hz": 480,
+    "activation_radius_m": 0.8,
+    "retention_radius_m": 1.0,
+    "settled_linear_m_s": 0.01,
+    "settled_angular_rad_s": 0.1,
+    "settled_seconds": 0.6
+  },
   "survey_config": "sim/ros_ws/src/farm_sim_config/config/scout_survey.json",
   "harvest_device_config": "sim/ros_ws/src/farm_sim_config/config/harvest.json",
   "fruit": {

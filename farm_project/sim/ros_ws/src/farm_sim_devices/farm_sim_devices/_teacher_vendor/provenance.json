@@ -1,0 +1,66 @@
+{
+  "source_bundle": "manyfarm_robotarm received_20261006_143434",
+  "purpose": "받은 로봇팔 Teacher의 순수 계산만 보존. World/ROS/장면 생성 없음.",
+  "files": {
+    "logic.py": {
+      "source": "src/harvest_robot/harvest_rl/logic.py",
+      "sha256": "d75fc763294b54d886bc886a28922bd275c1038d3842a4708e3294068aad15d5",
+      "modification": "none"
+    },
+    "entry_grasp.py": {
+      "source": "src/harvest_robot/harvest_rl/entry_grasp.py",
+      "sha256": "2766407a300bc044d06643cf8a4b31fa068e6ff97c5a5649fc513a867bcfb4d9",
+      "modification": "none"
+    },
+    "sequence.py": {
+      "source": "src/harvest_robot/harvest_rl/sequence.py",
+      "sha256": "56401fe65e825814c482f7b1938e21dfb8aff5da3f7ac1a9e641dd13b1500fec",
+      "modification": "none"
+    },
+    "settings.py": {
+      "source": "src/harvest_robot/harvest_rl/settings.py",
+      "sha256": "ae28ec73d8d13dcf16634ae34e8aea0780a3ce6a7b998f52a6a9aa430ceb70b4",
+      "modification": "none"
+    },
+    "staged_teacher.py": {
+      "source": "src/harvest_robot/harvest_runtime/staged_teacher.py",
+      "sha256": "e74d436a5127c7026b61de131fd80cb9532b8c53d21b7ba6c8b7d60de74948ac",
+      "modification": "none"
+    },
+    "kernel.py": {
+      "source": "src/harvest_robot/harvest_rl/env.py",
+      "source_sha256": "9d255c652fdabd00874d7b026e4eee1b9159257cc775abfab1aa6b98a0b16c3f",
+      "methods": {
+        "_grasp_center": [
+          337,
+          343
+        ],
+        "_grasp_orientation": [
+          345,
+          348
+        ],
+        "_pre_physics_step": [
+          350,
+          408
+        ],
+        "_update_task": [
+          492,
+          763
+        ],
+        "_target_elapsed_steps": [
+          765,
+          768
+        ],
+        "proprio": [
+          930,
+          933
+        ],
+        "_get_observations": [
+          993,
+          1023
+        ]
+      },
+      "modification": "Listed method text copied exactly; no World/scene creation or stepping."
+    }
+  }
+}

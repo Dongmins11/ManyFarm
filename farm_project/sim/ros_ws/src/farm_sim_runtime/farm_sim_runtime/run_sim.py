@@ -24,7 +24,8 @@ def main():
     station=read_station(args.config,config)
     root=args.assets_root.expanduser().resolve()
     from farm_sim_runtime.harvest_physics import (
-        HarvestPhysics, PhysicsTicks, initialize_arm_home, load_physics_profile)
+        HarvestPhysics, initialize_arm_home, load_physics_profile)
+    from farm_sim_runtime.physics_schedule import AdaptivePhysicsTicks
     project_root=args.project_root.expanduser().resolve()
     physics_profile=load_physics_profile(project_root,[config])
     scene=(root/config['scene']).resolve()
@@ -61,7 +62,8 @@ def main():
             harvest_binding=harvest_config['scene_binding']
             for path in harvest_binding.get('robot_prim_candidates',[harvest_binding['robot_prim']]):
                 if stage.GetPrimAtPath(path).IsValid():
-                    harvest_physics.configure_robot(path)
+                    harvest_physics.configure_robot(path, robot_id=harvest_config['robot_id'],
+                        activity_config=harvest_config['runtime'].get('harvest_activity'))
                     break
         binding=config['scene_binding'];robot_path=binding['robot_prim'].rstrip('/')
         def prim(relative):
@@ -99,7 +101,8 @@ def main():
         scenes=[str(p.GetPath()) for p in stage.Traverse() if p.IsA(UsdPhysics.Scene)]
         if len(scenes)>1:raise RuntimeError('PhysicsScene이 여러 개입니다. 사용할 씬을 먼저 정리하세요.')
         dt=1.0/config['runtime']['physics_hz']
-        ticks=PhysicsTicks(config['runtime']['physics_hz'],config['runtime']['render_hz'])
+        ticks=AdaptivePhysicsTicks(config['runtime']['physics_hz'],config['runtime']['render_hz'])
+        frame_dt=ticks.frame_dt
         world=World(physics_dt=dt,rendering_dt=1./config['runtime']['render_hz'],stage_units_in_meters=1.0,
                     physics_prim_path=scenes[0] if scenes else '/World/physicsScene',backend='numpy')
         base=BaseSim(world,str(body.GetPath()),config['base'])
@@ -131,7 +134,7 @@ def main():
                              frames['camera_optical'],T_base_optical)
             camera.initialize()
         lidar=LidarSim(config['lidar'],robot_path,T_base_scan) if config['lidar']['enabled'] else None
-        history=deque(maxlen=round(5/dt))
+        history=deque(maxlen=math.ceil(5/frame_dt)+2)
         initial_z=float(base.pose()[0][2]);last_sim=float(world.current_time)
         last_telemetry=last_scan=-math.inf;packet_sequence=0
         camera_frames=0;next_log=time.monotonic()+5.0
@@ -139,14 +142,19 @@ def main():
         print(f'[farm_sim] camera left, wheel r={config["base"]["wheel_radius_m"]}m; ROS 명령 대기',flush=True)
         while app.is_running():
             wall_start=time.monotonic()
-            for message in transport.receive():gate.accept(message)
+            for message in transport.receive():
+                if message.get('kind')=='harvest_activity':
+                    if harvest_physics is not None:harvest_physics.accept_activity(config['robot_id'],message)
+                else:gate.accept(message)
             if not world.is_playing():
                 gate.stop()
                 app.update()
                 time.sleep(.01)
                 continue
             base.command(*gate.value())
-            ticks.step(world,harvest_physics)
+            required_hz=(harvest_physics.prepare_frame(float(world.current_time))
+                         if harvest_physics is not None else rt['physics_hz'])
+            ticks.step_frame(world,harvest_physics,physics_hz=required_hz)
             now=float(world.current_time)
             if now<=last_sim:
                 raise RuntimeError('시뮬레이션 시간 reset 감지. 연결 프로그램을 재시작하세요.')
@@ -162,7 +170,7 @@ def main():
             ranges=None
             if lidar and now-last_scan>=1.0/config['lidar']['fps']-1e-8:
                 ranges=lidar.sample(T_world_base);last_scan=now
-            if camera:camera_frames+=int(camera.publish(history,dt*.51))
+            if camera:camera_frames+=int(camera.publish(history,frame_dt*.51))
             if now-last_telemetry>=1.0/rt['telemetry_hz']-1e-8 or ranges is not None:
                 packet_sequence+=1
                 packet=dict(kind='state',session=session,seq=packet_sequence,sent=time.monotonic(),
@@ -174,7 +182,7 @@ def main():
                 print(f'[farm_sim] sim={now:.2f}s odom=({odom[0]:.2f},{odom[1]:.2f}) RGB-D frames={camera_frames}',flush=True)
                 next_log=time.monotonic()+5.0
             if rt['realtime']:
-                time.sleep(max(0.0,dt-(time.monotonic()-wall_start)))
+                time.sleep(max(0.0,frame_dt-(time.monotonic()-wall_start)))
     except KeyboardInterrupt:
         pass
     finally:

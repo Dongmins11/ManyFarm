@@ -25,6 +25,49 @@ def role_graph(source: dict, role: str) -> dict:
     return result
 
 
+def align_harvest_graph(graph: dict, task: dict) -> None:
+    """오른팔 정차선으로 수확 전용 노드만 평행 이동하고 접근 구간을 기록한다."""
+    shifts = {}
+    original_nodes = {f['properties']['id']: f['geometry']['coordinates'] for f in graph['features'] if f['geometry']['type'] == 'Point'}
+    corridors = []
+    for sid, section in task['sections'].items():
+        a, b = section['survey_geometry']['start_xy_m'], section['survey_geometry']['end_xy_m']
+        yaw = math.atan2(b[1]-a[1], b[0]-a[0])
+        h = section['harvest']
+        heading = yaw + h['heading_offset_rad']
+        mx, my = [h['mount_xy_base_m'][i]+h['work_offset_xy_base_m'][i] for i in range(2)]
+        x = a[0]-math.sin(yaw)*section['bed_plane_from_route_m']-math.cos(heading)*mx+math.sin(heading)*my
+        old = original_nodes[section['harvest_route']['entry_node_id']][0]
+        if abs(section['harvest_route']['x_m']-x)>1e-8:
+            raise ValueError(f'{sid}: task.yaml 수확 주행선과 오른팔 정차선 불일치')
+        if old in shifts and abs(shifts[old]-x)>1e-8:
+            raise ValueError('같은 수확 주행선의 오른팔 기하가 다릅니다.')
+        shifts[old] = x
+        corridors.append(dict(section=sid, entry_node=section['harvest_route']['entry_node_id'],
+            exit_node=section['harvest_route']['exit_node_id'], yaw=heading))
+    station_ids = {s['node_id'] for s in task['stations'].values()}
+    nodes = {}
+    for f in graph['features']:
+        if f['geometry']['type'] == 'Point':
+            xy = f['geometry']['coordinates']
+            if f['properties']['id'] not in station_ids:
+                for old, new in shifts.items():
+                    if abs(xy[0]-old)<1e-8:
+                        xy[0] = new
+                        break
+            nodes[f['properties']['id']] = xy
+    for f in graph['features']:
+        if f['geometry']['type'] == 'LineString':
+            props=f['properties']
+            line=[nodes[props['startid']][:], nodes[props['endid']][:]]
+            f['geometry']['coordinates']=line
+            props['cost']=math.dist(*line)
+    for corridor in corridors:
+        corridor['entry']=nodes[corridor.pop('entry_node')][:]
+        corridor['exit']=nodes[corridor.pop('exit_node')][:]
+    graph['metadata']['parallel_approach_corridors']=corridors
+
+
 def insert_boundary(graph: dict, node_id: str, xy: list[float]) -> None:
     """원본 YAML의 베드 경계를 기존 직선 엣지에 삽입합니다. 새 통로는 만들지 않습니다."""
     matches = []
@@ -72,6 +115,7 @@ def build() -> dict[str, dict]:
     task = yaml.safe_load((BASE / 'config/task.yaml').read_text())
     source = json.loads((ROOT / task['graph_file']).read_text())
     graphs = {role: role_graph(source, role) for role in ('scout', 'harvest', 'transport')}
+    align_harvest_graph(graphs['harvest'], task)
     graph_path = PREFIX + 'maps/graph.geojson'
     survey_keys = ('robot_id', 'map_id', 'base_frame', 'vision_config', 'output_dir',
                    'goal_timeout_s', 'arrival_tolerance_m', 'heading_tolerance_rad', 'settle_s',

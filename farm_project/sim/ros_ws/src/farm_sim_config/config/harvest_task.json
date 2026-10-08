@@ -2,7 +2,7 @@
   "schema_version": 1,
   "robot_id": "harvest_01",
   "map_id": "farm_map_v1",
-  "completion_policy": "ARRIVAL_ONLY_NO_HARVEST",
+  "completion_policy": "ARRIVAL_THEN_ARM",
   "segments": [
     "SEC01_G01",
     "SEC01_G02",
@@ -84,5 +84,12 @@
     "SEC16_G03",
     "SEC16_G04",
     "SEC16_G05"
-  ]
+  ],
+  "arm_action": {
+    "endpoint": "sim/harvest_arm",
+    "readiness_timeout_s": 5.0,
+    "response_timeout_s": 5.0,
+    "execution_timeout_s": 660.0,
+    "cancel_timeout_s": 20.0
+  }
 }

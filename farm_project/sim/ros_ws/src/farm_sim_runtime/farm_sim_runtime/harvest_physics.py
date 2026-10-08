@@ -7,6 +7,8 @@ from typing import Any
 
 import numpy as np
 
+from .harvest_regions import HarvestRegions, RegionSettings
+
 
 def load_physics_profile(project_root: Path, configs: list[dict]) -> dict | None:
     """장치들이 동일한 물리 프로파일과 시간 간격을 사용하는지 검사한다."""
@@ -22,6 +24,8 @@ def load_physics_profile(project_root: Path, configs: list[dict]) -> dict | None
     profile = json.loads(path.read_text())
     if not profile.get('enabled', False):
         return None
+    if profile.get('adaptive', {}).get('enabled', False):
+        RegionSettings.from_mapping(profile['adaptive'], profile['render_hz'])
     for cfg in configs:
         for key in ('physics_hz', 'render_hz'):
             if cfg['runtime'][key] != profile[key]:
@@ -94,31 +98,104 @@ class HarvestPhysics:
         self.arm_reports: dict[str, dict] = {}
         self.log = None
         self.directory: Path | None = None
+        self.adaptive = bool(profile.get('adaptive', {}).get('enabled', False))
+        self.regions = (HarvestRegions(RegionSettings.from_mapping(profile['adaptive'], profile['render_hz']))
+                        if self.adaptive else None)
+        self.harvesters: dict[str, dict] = {}
+        self.activity_gates: dict[str, Any] = {}
+        self.direct_activity: dict[str, bool] = {}
+        self.activity_log = None
+        self.last_runtime_state = None
+        self.frame_count = 0
+        self.rate_frames: dict[int, int] = {}
 
-    def configure_robot(self, robot_path: str) -> dict:
+    def configure_robot(self, robot_path: str, *, robot_id: str | None = None,
+                        activity_config: dict | None = None) -> dict:
         """기존 수확 로봇에 오른팔 drive와 박스 바닥만 덧붙인다."""
         from farm_sim_runtime.robotarm_asset_setup import configure_harvest_arm
         config = copy.deepcopy(self.profile)
         config['box_floor']['asset_path'] = str((self.project_root / config['box_floor']['asset_path']).resolve())
         report = configure_harvest_arm(self.stage, robot_path, config)
         self.arm_reports[robot_path] = report
+        if robot_id is not None:
+            if robot_id in self.harvesters:
+                raise ValueError('중복 수확 로봇 ID: '+robot_id)
+            joint = self.stage.GetPrimAtPath(report['joint_paths'][0])
+            mounts = joint.GetRelationship('physics:body0').GetTargets()
+            if len(mounts) != 1 or not self.stage.GetPrimAtPath(mounts[0]).IsValid():
+                raise ValueError('오른팔 장착 body를 찾을 수 없습니다: '+robot_id)
+            self.harvesters[robot_id] = dict(robot_path=robot_path, mount_path=str(mounts[0]),
+                                           activity_config=copy.deepcopy(activity_config or {}))
+            self.direct_activity[robot_id] = False
         return report
 
     def register(self, world: Any, session: str) -> None:
         """world.reset 전에 과실 view와 실행별 물리 로그를 생성한다."""
         from farm_sim_devices.fruit_attachment import FruitAttachments
-        self.attachments = FruitAttachments(world, self.fruits, self.profile['stem'])
+        self.attachments = FruitAttachments(world, self.fruits, self.profile['stem'], selective=self.adaptive)
+        if self.adaptive:
+            from farm_sim_devices.harvest_activity import ActivityGate
+            for robot_id, entry in self.harvesters.items():
+                config = entry['activity_config']
+                if config.get('enabled', False):
+                    self.activity_gates[robot_id] = ActivityGate(session, robot_id, config.get('lease_s', 2.))
         self.directory = self.project_root / 'sim/runs/robotarm/physics' / session
         self.directory.mkdir(parents=True, exist_ok=True)
         self.log = (self.directory / 'detach_events.jsonl').open('w')
+        self.activity_log = (self.directory / 'activity.jsonl').open('w')
         (self.directory / 'setup.json').write_text(json.dumps(dict(
-            profile=self.profile, fruits=self.fruits, arms=self.arm_reports,
+            profile=self.profile, fruits=self.fruits, arms=self.arm_reports, harvesters=self.harvesters,
             policy_execution=False), ensure_ascii=False, indent=2) + '\n')
 
     def initialize(self) -> None:
         """world.reset 이후 질량과 관성 및 물리 view를 검사한다."""
         self.attachments.initialize()
         print('[harvest_physics] ' + json.dumps(self.attachments.summary()), flush=True)
+
+    def accept_activity(self, robot_id: str, message: dict) -> bool:
+        """해당 로봇의 장치 채널에서 온 sim 활동만 받는다. 이동 성공을 수확으로 추정하지 않는다."""
+        gate = self.activity_gates.get(robot_id)
+        return gate.accept(message) if gate is not None else False
+
+    def set_activity(self, robot_id: str, active: bool) -> None:
+        """향후 Isaac 팔 제어기의 시작/종료 연결점. 목표·과실 성공 상태는 변경하지 않는다."""
+        if robot_id not in self.direct_activity or type(active) is not bool:
+            raise ValueError('등록된 수확 로봇 ID와 bool 활동 상태가 필요합니다.')
+        self.direct_activity[robot_id] = active
+
+    def prepare_frame(self, sim_time_s: float) -> int:
+        """60Hz 프레임 경계에서 영역 합집합·물리 모드·공유 주기를 결정한다."""
+        if not self.adaptive:
+            return int(self.profile['physics_hz'])
+        from pxr import UsdGeom
+        cache = UsdGeom.XformCache()
+        centers = {}
+        for robot_id, entry in self.harvesters.items():
+            gate = self.activity_gates.get(robot_id)
+            if self.direct_activity[robot_id] or (gate is not None and gate.value()):
+                prim = self.stage.GetPrimAtPath(entry['mount_path'])
+                centers[robot_id] = np.asarray(cache.GetLocalToWorldTransform(prim).ExtractTranslation(), dtype=float)
+        positions = self.attachments.current_positions()
+        selected = self.regions.select(positions, centers, self.attachments.active)
+        self.attachments.set_active(selected)
+        detached = ~self.attachments.attached
+        velocity = (self.attachments.current_velocities()[detached] if detached.any() else np.empty((0, 6)))
+        hz = self.regions.required_hz(sim_time_s, requested=bool(centers),
+            attached_active=bool(np.any(self.attachments.attached & self.attachments.active)),
+            detached_velocities=velocity)
+        self.frame_count += 1
+        self.rate_frames[hz] = self.rate_frames.get(hz, 0)+1
+        state = (hz, tuple(sorted(centers)), tuple(np.flatnonzero(self.attachments.active).tolist()))
+        if state != self.last_runtime_state:
+            record = dict(event='PHYSICS_ACTIVITY', sim_time_s=sim_time_s, physics_hz=hz,
+                          active_robot_ids=sorted(centers), active_fruit_count=int(self.attachments.active.sum()),
+                          active_fruit_paths=[self.attachments.paths[i] for i in np.flatnonzero(self.attachments.active)],
+                          detached_count=int(detached.sum()))
+            self.activity_log.write(json.dumps(record, ensure_ascii=False)+'\n')
+            self.activity_log.flush()
+            print('[harvest_physics] '+json.dumps(record, ensure_ascii=False), flush=True)
+            self.last_runtime_state = state
+        return hz
 
     def update(self, dt_s: float, sim_time_s: float) -> None:
         """물리적으로 발생한 분리만 기록한다. 수확 성공으로 간주하지 않는다."""
@@ -132,6 +209,9 @@ class HarvestPhysics:
         """종료 시 마지막 결합 상태를 기록하고 파일을 닫는다."""
         if self.directory is not None and self.attachments is not None:
             (self.directory / 'summary.json').write_text(json.dumps(
-                self.attachments.summary(), ensure_ascii=False, indent=2) + '\n')
+                dict(self.attachments.summary(), adaptive=self.adaptive, frame_count=self.frame_count,
+                     rate_frames=self.rate_frames), ensure_ascii=False, indent=2) + '\n')
         if self.log is not None:
             self.log.close()
+        if self.activity_log is not None:
+            self.activity_log.close()

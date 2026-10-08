@@ -1,0 +1,14 @@
+{
+  "scope": "검증 전용 초기 배치. Nav2 도착 시험이 아니며, reset 후 과실/관절/차체를 이동하지 않는다.",
+  "source": "SEC02_root_audit_002",
+  "map_id": "farm_map_v1",
+  "robot_id": "harvest_01",
+  "xy_m": [
+    -3.9850000000000003,
+    3.8940355264153594
+  ],
+  "yaw_rad": 1.5707963267948966,
+  "expected_target_ids": [
+    "/World/Vegetation/Bed_02/Fruits/Pepper_0031_yellow"
+  ]
+}

@@ -35,6 +35,7 @@ class RouteGraph:
         data = json.loads(raw)
         if data.get('type') != 'FeatureCollection':
             raise ValueError('GeoJSON FeatureCollection 필요')
+        self.parallel_corridors = data.get('metadata', {}).get('parallel_approach_corridors', [])
         self.frame: str = frame
         self.revision: str = hashlib.sha256(raw).hexdigest()
         self.nodes: dict[NodeId, Point] = {}

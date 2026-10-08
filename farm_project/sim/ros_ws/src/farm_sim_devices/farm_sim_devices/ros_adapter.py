@@ -6,12 +6,13 @@ from pathlib import Path
 import rclpy
 from rclpy.node import Node
 from rclpy.clock import Clock,ClockType
-from rclpy.executors import ExternalShutdownException
-from rclpy.qos import qos_profile_sensor_data
+from rclpy.executors import ExternalShutdownException,MultiThreadedExecutor
+from rclpy.qos import qos_profile_sensor_data,QoSProfile,ReliabilityPolicy,DurabilityPolicy
 from geometry_msgs.msg import Twist,TwistStamped,TransformStamped
 from nav_msgs.msg import Odometry
 from sensor_msgs.msg import LaserScan,JointState
 from rosgraph_msgs.msg import Clock as ClockMessage
+from std_msgs.msg import Bool
 from tf2_ros import TransformBroadcaster,StaticTransformBroadcaster
 from farm_sim_devices.wire import LocalDatagrams
 
@@ -47,6 +48,22 @@ class SimRosAdapter(Node):
         elif kind=='twist_stamped':
             self.subscription=self.create_subscription(TwistStamped,'cmd_vel',lambda msg:self.command(msg.twist),10)
         else:raise ValueError('cmd_vel_type은 twist 또는 twist_stamped이어야 합니다.')
+        activity=rt.get('harvest_activity',{})
+        if not isinstance(activity,dict):raise ValueError('harvest_activity는 설정 객체여야 합니다.')
+        self.harvest_activity_enabled=activity.get('enabled',False) is True
+        self.harvest_activity_subscription=None
+        if self.harvest_activity_enabled:
+            topic=activity.get('topic','sim/harvest_activity')
+            if not isinstance(topic,str) or not topic.strip():
+                raise ValueError('수확 활동 topic은 비어 있지 않은 문자열이어야 합니다.')
+            self.harvest_activity_subscription=self.create_subscription(Bool,topic,self.harvest_activity,
+                QoSProfile(depth=1,reliability=ReliabilityPolicy.RELIABLE,durability=DurabilityPolicy.VOLATILE))
+        arm=rt.get('harvest_arm',{})
+        if not isinstance(arm,dict):raise ValueError('harvest_arm은 설정 객체여야 합니다.')
+        self.arm_server=None
+        if arm.get('enabled',False) is True:
+            from farm_sim_devices.arm_ros import ArmRosServer
+            self.arm_server=ArmRosServer(self,arm)
         self.timer=self.create_timer(.005,self.poll,clock=Clock(clock_type=ClockType.STEADY_TIME))
         self.get_logger().info('Isaac Sim 연결 대기. 속도 명령은 연결 이후에만 전달합니다.')
 
@@ -57,6 +74,16 @@ class SimRosAdapter(Node):
         self.cmd_seq=time.monotonic_ns()
         self.transport.send(dict(kind='cmd',session=self.session,seq=self.cmd_seq,sent=time.monotonic(),
                                  linear=float(msg.linear.x),angular=float(msg.angular.z)))
+
+    def harvest_activity(self,msg: Bool) -> None:
+        """명시적인 Bool 수신 때만 전달합니다. 주행 이벤트 추론·활동 재전송은 없습니다."""
+        if not self.harvest_activity_enabled or self.session is None or type(msg.data) is not bool:
+            return
+        now=time.monotonic()
+        if not 0<=now-self.last_seen<=self.config['runtime']['transport_timeout_s']:
+            return
+        self.transport.send(dict(kind='harvest_activity',session=self.session,seq=time.monotonic_ns(),
+            sent=now,robot_id=self.config['robot_id'],active=msg.data))
 
     def valid(self,m):
         if m.get('kind')!='state' or not isinstance(m.get('session'),str):return False
@@ -95,6 +122,7 @@ class SimRosAdapter(Node):
             if m['seq']<=self.last_packet or m['stamp_ns']<=self.last_stamp:continue
             self.last_packet,self.last_stamp=m['seq'],m['stamp_ns'];self.last_seen=time.monotonic()
             self.link_lost=False
+            if self.arm_server is not None:self.arm_server.observe(m['session'],m.get('arm'))
             self.publish_state(m)
         if self.session is not None and time.monotonic()-self.last_seen>self.config['runtime']['transport_timeout_s'] and not self.link_lost:
             self.get_logger().warning('시뮬레이션 데이터가 멈췄습니다. 새 속도 명령 전달을 중단합니다.')
@@ -140,16 +168,22 @@ class SimRosAdapter(Node):
 
     def close(self):
         if self.session is not None:self.command(Twist())
+        if self.arm_server is not None:self.arm_server.close()
         self.transport.close()
         self.destroy_node()
 
 
 def main(args=None):
     rclpy.init(args=args)
-    node=None
+    node=None;executor=None
     try:
-        node=SimRosAdapter();rclpy.spin(node)
+        node=SimRosAdapter()
+        # 팔 execute는 wall 시간 조건변수로 대기합니다. 센서 poll/cancel 처리는 병행합니다.
+        executor=MultiThreadedExecutor(num_threads=4)
+        executor.add_node(node);executor.spin()
     except (KeyboardInterrupt,ExternalShutdownException):pass
     finally:
+        if node is not None and node.arm_server is not None:node.arm_server.request_stop()
+        if executor is not None:executor.shutdown()
         if node is not None:node.close()
         if rclpy.ok():rclpy.shutdown()

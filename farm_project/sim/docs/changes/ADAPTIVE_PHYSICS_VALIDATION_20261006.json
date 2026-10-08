@@ -1,0 +1,355 @@
+{
+  "schema_version": 1,
+  "baseline_commit": "1666a23bf47dc7f0e8a6f2dfafbc1d41e190f6cd",
+  "status": "IMPLEMENTED_WITH_OBSERVED_DRIVE_RESPONSE_DIFFERENCE",
+  "commit_push_performed": false,
+  "scope": "sim adapters/runtime/config only; common logic and physical robot files unchanged",
+  "environment": {
+    "isaac": "5.1.0",
+    "gpu": "RTX 4070 SUPER",
+    "physics_backend": "CPU PhysX / NumPy"
+  },
+  "validation": {
+    "unit_tests": {
+      "count": 107,
+      "skipped": 0,
+      "status": "PASSED",
+      "log": "sim/runs/robotarm/adaptive_20261006/unit_tests.log"
+    },
+    "colcon": {
+      "packages": [
+        "farm_sim_config",
+        "farm_sim_devices",
+        "farm_sim_runtime"
+      ],
+      "status": "PASSED",
+      "log": "sim/runs/robotarm/adaptive_20261006/build.log"
+    },
+    "adaptive": {
+      "status": "PASSED",
+      "checks": {
+        "idle_60hz": true,
+        "all_288_initially_frozen": true,
+        "idle_pose_preserved": true,
+        "harvest_480hz": true,
+        "only_near_fruits_active": true,
+        "active_rate_480hz": true,
+        "no_spontaneous_detach": true,
+        "attached_region_frozen": true,
+        "freeze_preserves_settled_pose": true,
+        "reactivation_does_not_teleport": true,
+        "reactivation_selects_same_fruit": true,
+        "physically_detached": true,
+        "detached_stays_dynamic": true,
+        "gravity_drop_after_detach": true,
+        "anchors_and_rest_preserved": true,
+        "far_fruit_unchanged": true,
+        "all_objects_preserved": true,
+        "continuous_frame_time": true,
+        "source_scene_preserved": true
+      },
+      "active_count": 3,
+      "gravity": {
+        "start_z_m": 0.9487606883049011,
+        "end_z_m": 0.7416164875030518,
+        "peak_z_m": 0.9524575471878052,
+        "drop_m": 0.20714420080184937,
+        "minimum_vz_m_s": -1.4573522806167603,
+        "initial_velocity": [
+          -2.950623035430908,
+          -0.3334945738315582,
+          0.2842596471309662,
+          0.002231327351182699,
+          0.29591482877731323,
+          0.18495020270347595
+        ]
+      },
+      "detach_events": [
+        {
+          "prim_path": "/World/Vegetation/Bed_01/Fruits/Pepper_0001_yellow",
+          "event": "PHYSICAL_DETACH",
+          "sim_time_s": 2.189583447529003,
+          "sustained_s": 0.041666666666666664,
+          "tension_N": 2.3808677615539193,
+          "raw_tension_N": 4.259738316515875,
+          "criteria": [
+            "force_and_min_pull",
+            "hook_opening",
+            "max_extension"
+          ],
+          "threshold_N": 2.390099939978847,
+          "extension_m": 0.13526604437721268,
+          "displacement_m": 0.13722529250909285
+        }
+      ],
+      "frame_count": 198,
+      "physics_ticks": 1318,
+      "simulated_s": 3.300000172108412,
+      "final": {
+        "fruit_count": 288,
+        "attached_count": 287,
+        "detached_count": 1,
+        "gravity_compensation": false,
+        "attachment_version": 4,
+        "stem_response_version": 5,
+        "active_count": 1,
+        "frozen_count": 287
+      },
+      "scene_sha256_before": "1d9887539611d65ec9c284a810bcd0b8015493db0158147c7188b414f95395e7",
+      "scene_sha256_after": "1d9887539611d65ec9c284a810bcd0b8015493db0158147c7188b414f95395e7",
+      "physics_log_directory": "/home/ysy/main/farm_project/sim/runs/robotarm/physics/adaptive_check_20261006T091551381689"
+    },
+    "full_reference": {
+      "status": "PASSED",
+      "checks": {
+        "wheel_authoring_preserved": true,
+        "base_authoring_preserved": true,
+        "home_initialized": true,
+        "masses_9g": true,
+        "no_spontaneous_detach": true,
+        "rest_displacement_bounded": true,
+        "base_displacement_bounded": true,
+        "wheel_displacement_bounded": true,
+        "finite_states": true,
+        "physics_tick_preserved": true,
+        "low_force_stays_attached": true,
+        "low_force_recovery_stays_attached": true,
+        "selected_physically_detached": true,
+        "detached_gravity_drop": true,
+        "source_scene_preserved": true
+      },
+      "scene_sha256_before": "1d9887539611d65ec9c284a810bcd0b8015493db0158147c7188b414f95395e7",
+      "scene_sha256_after": "1d9887539611d65ec9c284a810bcd0b8015493db0158147c7188b414f95395e7"
+    },
+    "ros_bridge": {
+      "status": "PASSED",
+      "test_kind": "real_ros_bool_to_adapter_to_udp_no_isaac",
+      "ros_domain_id": "193",
+      "python": "/usr/bin/python3",
+      "checks": {
+        "real_ros_subscription_discovered": true,
+        "no_activity_without_ros_input": true,
+        "true_packet_received": true,
+        "true_packet_matches_wire_contract": true,
+        "true_accepted_by_runtime_gate": true,
+        "no_automatic_activity_retransmit": true,
+        "false_packet_received": true,
+        "false_packet_matches_wire_contract": true,
+        "packet_sequence_strictly_increases": true,
+        "false_stops_runtime_gate": true,
+        "exactly_one_packet_per_bool": true,
+        "stale_telemetry_link_rejects_new_activity": true,
+        "adapter_exited_cleanly": true
+      },
+      "activity_packets": [
+        {
+          "payload": {
+            "kind": "harvest_activity",
+            "session": "65b86fc6738545c583ca4c6046a1576e",
+            "seq": 32982926959759,
+            "sent": 32982.926957331,
+            "robot_id": "harvest_bridge_smoke_01",
+            "active": true,
+            "version": 1
+          },
+          "received": 32982.929089789,
+          "sender": [
+            "127.0.0.1",
+            45007
+          ]
+        },
+        {
+          "payload": {
+            "kind": "harvest_activity",
+            "session": "65b86fc6738545c583ca4c6046a1576e",
+            "seq": 32983282155195,
+            "sent": 32983.28215389,
+            "robot_id": "harvest_bridge_smoke_01",
+            "active": false,
+            "version": 1
+          },
+          "received": 32983.287229187,
+          "sender": [
+            "127.0.0.1",
+            45007
+          ]
+        }
+      ],
+      "limitations": [
+        "Isaac/PhysX 실행 없음",
+        "정책·미션의 활동 신호 생성은 범위 밖"
+      ],
+      "session": "65b86fc6738545c583ca4c6046a1576e",
+      "robot_id": "harvest_bridge_smoke_01",
+      "namespace": "/harvest_bridge_smoke",
+      "command_port": 58349,
+      "telemetry_port": 45007,
+      "adapter_config": "/home/ysy/main/farm_project/sim/runs/robotarm/adaptive_20261006/ros_bridge/adapter_config.json",
+      "adapter_log": "/home/ysy/main/farm_project/sim/runs/robotarm/adaptive_20261006/ros_bridge/adapter.log",
+      "adapter_command": [
+        "/usr/bin/python3",
+        "-c",
+        "from farm_sim_devices.ros_adapter import main; main()",
+        "--ros-args",
+        "-p",
+        "config_file:=/home/ysy/main/farm_project/sim/runs/robotarm/adaptive_20261006/ros_bridge/adapter_config.json",
+        "-r",
+        "__ns:=/harvest_bridge_smoke"
+      ],
+      "telemetry_packets_sent": 37,
+      "adapter_exit_code": 0,
+      "wall_seconds": 4.075734409998404
+    },
+    "fleet": {
+      "idle_motion": {
+        "bounded": {
+          "simulated_s": 6.000000312924385,
+          "render_frames": 360,
+          "physics_ticks": 360,
+          "robots": [
+            {
+              "robot_id": "scout_01",
+              "camera_frames": 89,
+              "position_world_m": [
+                -5.002071857452393,
+                12.955547332763672,
+                8.230271305365022e-06
+              ],
+              "telemetry_packets": 180
+            },
+            {
+              "robot_id": "harvest_01",
+              "camera_frames": 0,
+              "position_world_m": [
+                -6.163976669311523,
+                -3.945927619934082,
+                0.00030072935624048114
+              ],
+              "telemetry_packets": 180
+            }
+          ]
+        },
+        "odom_distance_m": 0.2951597114973972,
+        "odom_speed_at_2s_m_s": 0.06731629735816955,
+        "real_time_factor": 0.7250725786930289,
+        "phase_wall_s": 8.252047893998679,
+        "checks": {
+          "exit_zero": true,
+          "clock_60hz": true,
+          "clock_one_session": true,
+          "camera_stamp_monotonic": true,
+          "camera_pose_matching": true,
+          "region_subset": true,
+          "rates": true,
+          "ends_idle": true,
+          "no_detach": true,
+          "scout_01_telemetry_30hz": true,
+          "scout_01_lidar_10hz": true,
+          "harvest_01_telemetry_30hz": true,
+          "harvest_01_lidar_10hz": true,
+          "scout_moved": true
+        },
+        "source_result": "sim/runs/robotarm/adaptive_20261006/idle_motion/result.json"
+      },
+      "active_motion": {
+        "bounded": {
+          "simulated_s": 6.000000312924385,
+          "render_frames": 360,
+          "physics_ticks": 1200,
+          "robots": [
+            {
+              "robot_id": "scout_01",
+              "camera_frames": 89,
+              "position_world_m": [
+                -5.001363277435303,
+                12.9296875,
+                8.193238500098232e-06
+              ],
+              "telemetry_packets": 180
+            },
+            {
+              "robot_id": "harvest_01",
+              "camera_frames": 0,
+              "position_world_m": [
+                -6.164003372192383,
+                -3.9461171627044678,
+                0.00030069478088989854
+              ],
+              "telemetry_packets": 180
+            }
+          ]
+        },
+        "odom_distance_m": 0.3194441508862129,
+        "odom_speed_at_2s_m_s": 0.07930802408489458,
+        "real_time_factor": 0.48341326125083717,
+        "phase_wall_s": 12.377264186998218,
+        "checks": {
+          "exit_zero": true,
+          "clock_60hz": true,
+          "clock_one_session": true,
+          "camera_stamp_monotonic": true,
+          "camera_pose_matching": true,
+          "region_subset": true,
+          "rates": true,
+          "ends_idle": true,
+          "no_detach": true,
+          "scout_01_telemetry_30hz": true,
+          "scout_01_lidar_10hz": true,
+          "harvest_01_telemetry_30hz": true,
+          "harvest_01_lidar_10hz": true,
+          "scout_moved": true,
+          "scout_moved_while_harvesting": true
+        },
+        "source_result": "sim/runs/robotarm/adaptive_20261006/active_motion/result.json"
+      }
+    }
+  },
+  "drive_response": {
+    "command_m_s": 0.08,
+    "comparison": "one fixed 60Hz run vs one 60/480/60Hz run; open-loop command; not Nav2",
+    "final_world_position_difference_m": 0.02586953877066748,
+    "world_positions": {
+      "idle_motion": [
+        -5.002071857452393,
+        12.955547332763672,
+        8.230271305365022e-06
+      ],
+      "active_motion": [
+        -5.001363277435303,
+        12.9296875,
+        8.193238500098232e-06
+      ]
+    },
+    "interpretation": "Clock and sensor cadence remained stable; physical drive response changed. Do not treat this as trajectory equivalence or closed-loop navigation validation."
+  },
+  "untested": [
+    "trained policy pickup/placement",
+    "Nav2 closed-loop trajectory and final tolerance",
+    "multiple harvesters on GPU",
+    "transport robot",
+    "real hardware"
+  ],
+  "artifacts_directory": "sim/runs/robotarm/adaptive_20261006",
+  "intermediate_failures": [
+    "initial_placement_failure.json: mount initially outside radius; corrected test initial placement only",
+    "fleet_idle.log: kinematic CCD compatibility errors; fixed batched flag changes and reran"
+  ],
+  "implementation_sha256": {
+    "sim/ros_ws/src/farm_sim_config/config/harvest.json": "6e7c8dd051bacc7464f4f28034bb5f14c9182dac53ea7d34ff82c3ea7e96fae2",
+    "sim/ros_ws/src/farm_sim_config/config/robotarm_physics.json": "6f001bd5e15b23bd3ddb55b412de9f8da0f085a4a0e71f8655ded24b81fd0a15",
+    "sim/ros_ws/src/farm_sim_devices/farm_sim_devices/fruit_attachment.py": "a8ba589beb10aad2827e90bd48e606908994812613cc6271f5245f8bcc352024",
+    "sim/ros_ws/src/farm_sim_devices/farm_sim_devices/harvest_activity.py": "afe198486ea99f5645fa227ae103ca5aef8ecfc4ff4bec44fdafc2fd0f2b3876",
+    "sim/ros_ws/src/farm_sim_devices/farm_sim_devices/ros_adapter.py": "8cc491b3fa37bb6bac3a92aa640eae04d116f876880e183f3575218f7be3ea91",
+    "sim/ros_ws/src/farm_sim_devices/package.xml": "29ee4c1826effdc070bfe2c4ed59041ba62e7838bc6357f0a4b8feeae99aa4a6",
+    "sim/ros_ws/src/farm_sim_runtime/farm_sim_runtime/harvest_physics.py": "717fc2c944292eafe217825060bd59ef02c30e62ecb469bc0ffed3692c0fe04a",
+    "sim/ros_ws/src/farm_sim_runtime/farm_sim_runtime/harvest_regions.py": "ed7701a9ca117c98c58eab488fa29395ce481a3ae9c0fde8d45ec6248dd2a06c",
+    "sim/ros_ws/src/farm_sim_runtime/farm_sim_runtime/physics_schedule.py": "404728f259a7f962c336d79dc5384993b4f3dcfd2993165e11cc8f29b89c1b36",
+    "sim/ros_ws/src/farm_sim_runtime/farm_sim_runtime/run_fleet.py": "6b2e4a7e7661d4086e351e2b04a7fc87e9ad33afe1eb3b7422eda9d69e005200",
+    "sim/ros_ws/src/farm_sim_runtime/farm_sim_runtime/run_sim.py": "d0f222b2c0882dc88218d27f870b710ae87dbad7c3c61e263b1c296571062a29",
+    "sim/tests/test_fruit_activation.py": "f3bcbb0a797c247205c2ecca50c29cdb86ea4c8331601e3c770a81b51e5a5a94",
+    "sim/tests/test_harvest_activity.py": "7b5e0e5bd4b2f4d8aad4da579e09c429a23f49dcc214afa39bb4a3c58a7cc041",
+    "sim/tests/test_harvest_regions.py": "fde7668048654a73d0a068c5b84dacd92e169487de317a3fbddd261277474203",
+    "sim/tests/test_physics_schedule.py": "4e875f3a763785407a2f27ebf8b0601389895558b1506801535b44b110a274fe",
+    "sim/tools/check_adaptive_harvest.py": "8a7c291e6c6b914a17540d20a6bee63174462f82c76a35087acef9c630e28731"
+  }
+}
