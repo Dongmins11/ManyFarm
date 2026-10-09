@@ -1,11 +1,11 @@
-# 10/07 성공 실험 지도·경로를 사용하는 이동 전용 환경. 실물 통합 검증은 별도.
+# 예찰과 동일한 300cm 지도·전체 그래프. 14번까지 실물 검증은 별도.
 schema_version: 1
 configured: true
 mode: real
 robot_id: harvest_01
-map_id: 93f108470604e1afb2d320b8eb128df031e926875a032c03d0b98030c09e067c
-map_yaml: robot/config/maps/harvest_field_20261007/many_farm.yaml
-route_graph: robot/config/maps/harvest_field_20261007/graph.geojson
+map_id: many_farm_v1
+map_yaml: robot/config/maps/many_farm/many_farm.yaml
+route_graph: robot/config/maps/many_farm/graph.geojson
 nav_params: robot/config/robots/vicpinky/nav2.yaml
 device_config: robot/config/robots/vicpinky/devices.json
 harvest_config: robot/config/harvest/harvest_real.json

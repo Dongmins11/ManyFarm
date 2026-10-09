@@ -61,7 +61,11 @@ def setup(context) -> list:
             dict(mode=mode,robot_id=profile['robot_id'],map=profile['map_yaml'],nav_params=profile['nav_params'],
                  route_file=profile['route_graph'],rviz='false')))
     harvest_config = read_mapping(resolve_file(root, profile['harvest_config']))
-    if value('navigation') == 'true' and harvest_config.get('movement_mode') == 'route_then_pose':
+    approach_planner = harvest_config.get('approach_planner', 'route_server')
+    if approach_planner not in ('graph', 'route_server'):
+        raise ValueError('알 수 없는 approach_planner')
+    if (value('navigation') == 'true' and approach_planner == 'route_server'
+            and harvest_config.get('movement_mode') in ('route_then_pose', 'route_then_follow')):
         route_params = resolve_file(root, profile['route_server_params'])
         from launch_ros.descriptions import ParameterFile
         from nav2_common.launch import RewrittenYaml

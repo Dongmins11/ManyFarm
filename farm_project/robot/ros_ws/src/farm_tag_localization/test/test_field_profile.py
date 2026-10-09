@@ -27,6 +27,11 @@ class FieldProfile(unittest.TestCase):
             self.assertEqual(c['desired_linear_vel'],.1)
             self.assertEqual(c['rotate_to_heading_angular_vel'],.1)
             self.assertTrue(c['use_collision_detection'])
-        self.assertEqual(p['general_goal_checker']['yaw_goal_tolerance'],.05236)
+        # 최종 미션 판정은 5cm/3도, Nav2는 정지 후 판정 여유를 둔다.
+        environment = yaml.safe_load((ROOT/'robot/config/environments/harvest_real.yaml').read_text())
+        self.assertEqual(environment['navigation']['arrival_tolerance_m'], .05)
+        self.assertEqual(environment['navigation']['heading_tolerance_rad'], .05236)
+        self.assertEqual(p['general_goal_checker']['xy_goal_tolerance'], .04)
+        self.assertAlmostEqual(p['general_goal_checker']['yaw_goal_tolerance'], math.radians(2.5))
         self.assertEqual(p['progress_checker']['required_movement_radius'],.1)
         self.assertEqual(p['progress_checker']['movement_time_allowance'],20.)

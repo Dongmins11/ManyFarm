@@ -1,8 +1,19 @@
 # Vic Pinky 통합 실행 — 이동 시험 + 선택적 태그 보정
 
+<!-- HARVEST_CURRENT_20261009 -->
+> **현재 실물 기준 — 2026-10-09**
+> - 공용 지도 `maps/many_farm`, map_id `many_farm_v1`.
+> - `route_then_follow` + `approach_planner=graph`: 진입·작업 모두 그래프 다익스트라 → FollowPath. Route Server는 실행하지 않는다.
+> - 11번 정밀 도착·정지 후 작업 목표로 이동한다. lifecycle 확인 대상은 amcl, controller_server, planner_server, bt_navigator다.
+> - 사용자 로봇 빌드·설치 검사 PASS. 14번 주행 성공 사례가 있으나 반복 시험의 충돌 예측 중단과 진입점 부근 회전 문제는 미해결이다.
+> - 태그 보정 효과·실측 정확도 검증 완료가 아니다. 카메라 종료 -11과 AMCL 시각 경고도 남아 있다.
+> - 11번 접근 제어의 추가 수정은 아직 적용하지 않았다.
+> - 아래 날짜별 기록의 미실행·이전 구조 설명은 작성 당시 상태이며 현재 실행 안내는 이 기준을 따른다.
+
+
 ## 두 단계 이동 적용 후 변경
 
-2026-10-07 추가 승인으로 실물 기본 미션은 화단 접근 ComputeRoute+FollowPath, 작업 NavigateToPose로 나뉜다. [두 단계 이동과 메시지 변경](HARVEST_TWO_STAGE_NAVIGATION_20261007.md)을 먼저 읽는다. HarvestTask Goal에 section_id가 추가되어 양쪽 인터페이스 재빌드가 필요하다. 현재 SEC_01 진입점은 기존 A 시험 경계 11번이며, 시험 그래프 10~13을 전체 농장 접근 그래프로 오해하지 않는다.
+2026-10-08 FollowPath 전환 승인으로 실물 기본 미션은 화단 접근 ComputeRoute+FollowPath, 작업·출구 RouteGraph Dijkstra+FollowPath로 연결한다. 상세 현재 기준은 [FollowPath 전환](changes/HARVEST_FOLLOW_PATH_20261008.md)이다. [두 단계 이동과 메시지 변경](HARVEST_TWO_STAGE_NAVIGATION_20261007.md)을 먼저 읽는다. HarvestTask Goal에 section_id가 추가되어 양쪽 인터페이스 재빌드가 필요하다. 현재 SEC_01 진입점은 기존 A 시험 경계 11번이며, 시험 그래프 10~13을 전체 농장 접근 그래프로 오해하지 않는다.
 
 ## 범위
 
@@ -14,7 +25,7 @@
 
 - 작업 브랜치: `feat/apriltag-localization`. `project_root`는 저장소 아래 **farm_project**다.
 - ROS Jazzy와 `~/vicpinky_ws`의 원래 Vic Pinky 드라이버가 필요하다.
-- 카메라 어댑터는 기존 성공 실행본을 그대로 사용한다. `robot/config/cameras/harvest_tag_capture.yaml`의 `script`와 `workspace`를 현재 로봇 경로로 맞춘다. 기본값은 `~/manyfarm_experiments/pinky_tag_amcl_map_20261007/pinky_tag_capture_compare.py`와 기존 캘리브레이션 작업공간이다. Git clone만 한 새 로봇에는 이 파일들이 자동 설치되지 않는다. 카메라 코드를 다시 이식한 것으로 주장하지 않는다.
+- 카메라 코드는 `robot/tools/tag_camera/`, 캘리브레이션은 `robot/config/cameras/`의 Git 내부 파일을 사용한다. 삭제한 과거 실험 폴더를 다시 만들 필요가 없다. OS·ROS 패키지 설치는 별도다.
 - 기존 캡처의 CycloneDDS/image_proc/apriltag_ros/OpenCV/v4l2-ctl 의존성이 필요하다. 기존 전용 Domain 178·loopback 설정을 그대로 사용하며 주행 Domain 156 환경은 변경하지 않는다.
 - 기존 캡처가 요구하는 수신 버퍼: `sudo sysctl -w net.core.rmem_max=16777216` (재부팅 후 설정이 유지되는지 운영체제 설정에 따라 다름).
 - 기존 mini_fleet·별도 Nav2·별도 장치·카메라·보정 실행본을 동시에 켜지 않는다. 이미 같은 장치나 Nav2를 운영 중인 경우에만 devices/navigation 옵션으로 해당 중복 실행을 제외한다.
@@ -73,4 +84,54 @@ Ctrl+C 시 태그 어댑터를 종료하고 기존 캡처 관리자가 카메라
 - 태그 패키지 계약 시험 30개 통과: 자동/외부 캡처, ON/OFF, 실물 장치 선택, 이중 캡처 거절, 현재 세션 폴더 선택, DDS 환경 분리, 자기 자식만 종료, 지도/모델/경로/goal checker 일치 등.
 - Python 컴파일 검사. 10→13 경로 계산 및 14번 제외 확인. 실험 지도 YAML/PGM 원본 SHA-256 일치.
 - ROS가 없는 환경에서 수행했다. colcon 빌드, 실제 ROS launch/DDS, 카메라 하드웨어, 실물 주행은 아직 미검증이다.
-- 실물 접근은 Route Server+FollowPath, 작업 구간은 NavigateToPose를 사용한다. 아래 30개 검사는 이전 통합 시점 기록이며 두 단계 변경 검증은 별도 문서를 따른다.
+- 실물 접근은 Route Server+FollowPath, 작업·출구 구간도 그래프 Dijkstra+FollowPath를 사용한다. 아래 30개 검사는 이전 통합 시점 기록이며 두 단계 변경 검증은 별도 문서를 따른다.
+
+
+## 2026-10-08 실행 전 검사와 현재 제한
+
+소스 동기화·빌드 후 로봇에서 프로젝트 overlay를 source하고 실행한다. 이 검사는 장치를 열거나 로봇을 움직이지 않는다.
+
+```bash
+cd /home/vic/vmany/main/farm_project
+source /opt/ros/jazzy/setup.bash
+source /home/vic/vicpinky_ws/install/setup.bash
+source robot/ros_ws/install/setup.bash
+python3 robot/tools/tag_camera/check_runtime.py --ros
+```
+
+FAIL이 있으면 launch 전에 해당 설치·소스·설정을 확인한다. PASS는 실물 주행 합격이 아니다.
+RViz를 먼저 준비하고 launch 후 실제 위치·방향으로 `/harvest_01/initialpose`를 지정한다.
+현재 Nav2 설정에서는 global costmap이 TF를 60초 기다리다 실패할 수 있다.
+이미 활성화 실패한 실행은 초기 위치만 늦게 지정해도 전체 lifecycle이 자동 재시작되지 않는다.
+해당 launch를 정상 종료하고 다시 시작해 초기 위치를 지정한 뒤 아래 상태를 확인한다.
+임의 좌표를 자동 주입하거나 미션의 시작 거리 검사를 완화하지 않는다.
+
+```bash
+for node in amcl controller_server planner_server bt_navigator route_server; do
+  printf '\n%s\n' "$node"
+  timeout 5s ros2 lifecycle get "/harvest_01/$node"
+done
+```
+
+모두 active이고 실제 지도/로봇 위치가 일치한 뒤 기존 HarvestTask 절차를 사용한다.
+이번 수정은 Goal을 자동 전송하지 않는다. 태그 보정 수식·속도·충돌 검사는 유지한다.
+미션 최종 도착 기준 5cm/3도는 그대로이고 Nav2 종료 기준만 4cm/2.5도로 좁혔다.
+이는 공통 주행 사전 검사의 엄격 부등식에 맞춘 것으로 실물 도달 성능은 재검증해야 한다.
+
+카메라 종료의 detector/rectify -11은 아직 원인이 확인되지 않았다.
+이번 수정은 그 실패를 상위 세션에서도 실패로 보고하며, 충돌 자체를 해결한 것으로 기록하지 않는다.
+상세 검토와 검사 범위는 `docs/changes/APRILTAG_RUNTIME_REVIEW_20261008.md`에 있다.
+
+## 2026-10-09 현재 실물 설정 갱신
+
+앞선 시험 그래프/ComputeRoute 진입 설명은 현재 실물 설정에서는 이 절로 대체한다. 예찰과 같은 maps/many_farm의 지도·전체 그래프와 map_id=many_farm_v1을 사용한다. approach_planner=graph로 진입·작업 모두 공통 Dijkstra→FollowPath다. route_server는 실행하지 않으며 lifecycle 확인 대상은 amcl/controller_server/planner_server/bt_navigator 네 개다. 11번 단계 도착 정지 확인은 유지한다.
+
+14번 목표는 x=1.188,y=-4.02이며 코드에 직접 입력하지 말고 현재 그래프에서 생성한다. 아래 첫 명령은 JSON 생성만, 두 번째 action 명령은 실제 이동이다. 로봇 빌드/설치 검사와 실제 초기 위치·활성화를 확인한 후 보낸다.
+
+```bash
+cd /home/vic/vmany/main/farm_project
+goal=$(python3 robot/tools/tag_camera/harvest_graph_goal.py --node 14 --heading-from 13) &&
+ros2 action send_goal /harvest_01/harvest_task farm_interfaces/action/HarvestTask "$goal" --feedback
+```
+
+예전 해시형map_id·13번 목표를 재사용하지 않는다. 단위검사와 실제14번 주행은 구분한다. 상세: docs/changes/HARVEST_SHARED_MAP_20261009.md.

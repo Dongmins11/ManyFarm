@@ -37,18 +37,13 @@ class HarvestNode(Node):
         self.config = read_mapping(resolve_file(self.root, profile['harvest_config']))
         policy = self.config.get('completion_policy')
         if (self.config['robot_id'] != profile['robot_id'] or self.config['map_id'] != profile['map_id']
-<<<<<<< HEAD
-                or self.config.get('completion_policy') != 'ARRIVAL_ONLY_NO_HARVEST'):
-            raise ValueError('수확 환경 또는 이동 전용 완료 정책 불일치')
-        self.declare_parameter('tag_correction', False)
-        self.tag_control = (TagControl(self, profile['robot_id'], profile['map_id'])
-                            if self.get_parameter('tag_correction').value else None)
-=======
                 or policy not in ('ARRIVAL_ONLY_NO_HARVEST', 'ARRIVAL_THEN_ARM')):
             raise ValueError('수확 환경 또는 완료 정책 불일치')
         if policy == 'ARRIVAL_THEN_ARM' and self.mode != 'sim':
             raise ValueError('도착 후 팔 작업의 실물 장치 연결은 미구현입니다. 시뮬 장치로 대체하지 않습니다.')
->>>>>>> main
+        self.declare_parameter('tag_correction', False)
+        self.tag_control = (TagControl(self, profile['robot_id'], profile['map_id'])
+                            if self.get_parameter('tag_correction').value else None)
         self.callbacks = ReentrantCallbackGroup()
         self.lock = threading.Lock()
         self.active_goal = None
@@ -69,20 +64,30 @@ class HarvestNode(Node):
         self.route_planner = None
         self.work_client = None
         movement_mode = self.config.get('movement_mode', 'graph_only')
-        if movement_mode not in ('graph_only', 'route_then_pose'):
+        if movement_mode not in ('graph_only', 'route_then_pose', 'route_then_follow'):
             raise ValueError('알 수 없는 movement_mode')
-        if movement_mode == 'route_then_pose':
-            from .route_server import RouteServerPlanner
+        if movement_mode in ('route_then_pose', 'route_then_follow'):
             graph = RouteGraph(profile['route_graph'])
             sections = load_sections(self.config, graph)
-            self.route_planner = RouteServerPlanner(self, settings, self.callbacks, graph.revision)
-            self.navigator = Navigator(self, settings, self.client, self.poses, self.motion,
-                self.check, record=lambda item: self.navigation_log.append(item),
-                route_planner=self.route_planner)
-            work_settings = replace(settings, mode='navigate_to_pose')
+            approach_planner = self.config.get('approach_planner', 'route_server')
+            if approach_planner not in ('graph', 'route_server'):
+                raise ValueError('알 수 없는 approach_planner')
+            # graph는 scout_new와 같은 선분 투영·다익스트라를 사용한다.
+            # Route Server를 명시한 기존 환경만 외부 계획기를 연결한다.
+            if approach_planner == 'route_server':
+                from .route_server import RouteServerPlanner
+                self.route_planner = RouteServerPlanner(self, settings, self.callbacks, graph.revision)
+                self.navigator = Navigator(self, settings, self.client, self.poses, self.motion,
+                    self.check, record=lambda item: self.navigation_log.append(item),
+                    route_planner=self.route_planner)
+            # scout_new와 같은 그래프 Dijkstra → Path → FollowPath 연결을 재사용한다.
+            # 기존 pose 모드는 명시적으로 선택한 환경에서만 호환 유지한다.
+            work_settings = (settings if movement_mode == 'route_then_follow'
+                             else replace(settings, mode='navigate_to_pose'))
             self.work_client = Nav2Client(self, work_settings, self.callbacks)
             work = Navigator(self, work_settings, self.work_client, self.poses, self.motion,
-                self.check, record=lambda item: self.navigation_log.append(item))
+                self.check, graph=graph if movement_mode == 'route_then_follow' else None,
+                record=lambda item: self.navigation_log.append(item))
             def current_xy() -> tuple[float, float]:
                 transform = self.poses.current(self.check)
                 return float(transform[0,3]), float(transform[1,3])
@@ -123,16 +128,13 @@ def main(args=None) -> None:
         if node.tag_control is not None:
             node.tag_control.end()
         executor.shutdown()
-<<<<<<< HEAD
         if node.route_planner is not None:
             node.route_planner.close()
         if node.work_client is not None:
             node.work_client.close()
         node.client.close()
-=======
         if node.arm_client is not None:
             node.arm_client.close()
->>>>>>> main
         node.motion.close()
         node.poses.close()
         node.destroy_node()

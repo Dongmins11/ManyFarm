@@ -153,6 +153,19 @@ def main(args: list[str] | None = None) -> int:
         receipt['adapter_exit'] = stop_owned(adapter, 5.)
         # 기존 캡처 관리자가 카메라→검출→rectify 순서로 정리할 시간을 준다.
         receipt['capture_exit'] = stop_owned(camera, 45.)
+        # 종료 요청 뒤 발견한 자식 오류도 상위 launch에 실패로 전달한다.
+        # 검출기의 -11을 캡처 관리자가 1로 보고한 경우도 여기에 포함된다.
+        clean_codes = (0, -signal.SIGINT, 128 + signal.SIGINT)
+        shutdown_errors = {
+            name: receipt[name + '_exit']
+            for name, process in (('adapter', adapter), ('capture', camera))
+            if process is not None and receipt[name + '_exit'] not in clean_codes
+        }
+        if shutdown_errors:
+            result = 1
+            receipt['shutdown_errors'] = shutdown_errors
+            print('TAG_SESSION_SHUTDOWN_ERROR: ' + json.dumps(shutdown_errors), flush=True)
+        receipt['clean_shutdown'] = result == 0
         for handle in handles:
             handle.close()
         for sig, handler in previous.items():

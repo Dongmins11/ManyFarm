@@ -77,7 +77,10 @@ class RouteServerPlanner:
         response = self._wait(self.result, s.response_timeout_s, check)
         self._clear()
         if response.status != GoalStatus.STATUS_SUCCEEDED or response.result.error_code != 0:
-            raise RuntimeError('ComputeRoute 실패: ' + response.result.error_msg)
+            # 설치된 Jazzy 결과는 error_code만 제공한다. 문구는 있는 버전에서만 읽는다.
+            detail = getattr(response.result, 'error_msg', '')
+            raise RuntimeError(f'ComputeRoute 실패: status={response.status}, '
+                               f'error_code={response.result.error_code}' + (f', {detail}' if detail else ''))
         return route_plan(response.result.path, start, goal, s.map_frame, self.revision,
                           s.max_start_distance_m, s.max_goal_distance_m)
 

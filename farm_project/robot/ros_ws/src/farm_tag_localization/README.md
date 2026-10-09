@@ -14,7 +14,7 @@ flowchart TD
   A -->|map → odom| N
 ```
 
-- 기존 HarvestTask/HarvestMission/Navigator 경로 실행을 유지합니다. 이 저장소의 경로 계산은 `RouteGraph.plan → FollowPath`이며 이전 mini_fleet 실행기를 가져오지 않습니다.
+- 기존 HarvestTask/HarvestMission/Navigator 경로 실행을 유지합니다. 실물 `route_then_pose`는 화단 접근 `ComputeRoute → FollowPath`, 작업 좌표 이동 `NavigateToPose`입니다. 기존 graph_only 방식도 유지합니다.
 - 미션 preflight 성공 후 이동 시작부터 완료·실패·취소까지 보정 사용 신호를 보냅니다. 보정 노드의 READY나 응답을 기다리지 않습니다.
 - 작업 신호가 2초 동안 끊기면 **보정 요청만** 중단합니다. 태그 누락, 관측 거부, 기록 저장 오류도 주행을 취소하지 않습니다. 기존 Nav2 장애물·주행 오류 처리는 유지합니다.
 - 보정 계산은 별도 스레드에서 수행하고 TF 수신은 계속합니다. 촬영 시각 odom과 최신 odom 차이로 관측을 이동 보상한 뒤, 전송 직전에 시간 유효성을 다시 확인합니다.
@@ -83,3 +83,13 @@ python3 -m unittest discover -s robot/ros_ws/src/farm_tag_localization/test -v
 - 카메라 제어에 v4l2-ctl이 필요합니다. 장치 사용 확인에는 fuser를 사용하며, 현재 코드는 fuser가 없으면 해당 사전 확인을 생략합니다.
 - 수신 버퍼 설정 원본은 robot/config/robots/vicpinky/sysctl/99-vicpinky-camera.conf입니다. 시스템 적용 방법은 docs/changes/REAL_RUNTIME_BUNDLE_20261008.md를 따릅니다.
 - 사용자 로그에서 Git 카메라 수신·태그 검출·카메라 설정 복원을 확인했습니다. detector/rectify 종료 -11은 미해결이며, 잠금 변경 후 실제 보정·좌표 이동 통합 실행은 미검증입니다.
+
+
+## 2026-10-08 실행 연결 재검토
+
+실행 전 `python3 robot/tools/tag_camera/check_runtime.py --ros`를 프로젝트 루트에서 실행합니다.
+이번 검사·수정과 실물 미검증 항목은 [실행 검토](../../../../docs/changes/APRILTAG_RUNTIME_REVIEW_20261008.md)를 따릅니다.
+종료 요청 이후 캡처 자식이 실패해도 세션은 실패 코드와 `clean_shutdown=false`를 반환합니다.
+기존 detector/rectify -11을 정상으로 취급하지 않습니다.
+앞선 최종 허용치 보존 설명 중 Nav2 종료 기준은 이번에 4cm/2.5도로 좁혔으며,
+미션의 최종 합격 기준 5cm/3도, 태그 기하 계산, 속도와 충돌 검사는 유지합니다.

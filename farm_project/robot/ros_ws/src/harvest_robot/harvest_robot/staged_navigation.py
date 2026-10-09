@@ -28,7 +28,7 @@ def load_sections(config: dict, graph: Any) -> dict[str, Section]:
         exit_xy, xyaw = endpoint('exit')
         sections[key] = Section(entry, ey, exit_xy, xyaw)
     if not sections:
-        raise ValueError('route_then_pose에는 화단 진입/이탈 설정이 필요함')
+        raise ValueError('단계별 이동에는 화단 진입/이탈 설정이 필요함')
     return sections
 
 

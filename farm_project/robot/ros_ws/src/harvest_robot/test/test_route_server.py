@@ -28,7 +28,7 @@ class FakeClient:
     def send_goal_async(self,request):
         self.request=request
         return done(S(accepted=self.accepted,get_result_async=lambda:done(S(status=self.status,
-            result=S(path=self.path,error_code=self.error,error_msg='test error'))),
+            result=S(path=self.path,error_code=self.error))),
             cancel_goal_async=lambda:done(None)))
     def destroy(self):pass
 
@@ -71,7 +71,11 @@ class TestRouteServer(unittest.TestCase):
         assert self.planner.pending is None
     def test_error_result_never_falls_back(self):
         self.planner.client.error=405
-        with self.assertRaisesRegex(RuntimeError,'실패'):self.planner.plan((0,0),(1,0),lambda:None)
+        with self.assertRaisesRegex(RuntimeError,'error_code=405'):self.planner.plan((0,0),(1,0),lambda:None)
+    def test_aborted_without_error_message_is_failure(self):
+        self.planner.client.status=6
+        with self.assertRaisesRegex(RuntimeError,'status=6, error_code=0'):
+            self.planner.plan((0,0),(1,0),lambda:None)
     def test_wrong_frame(self):
         self.planner.client.path.header.frame_id='other_map'
         with self.assertRaises(ValueError):self.planner.plan((0,0),(1,0),lambda:None)

@@ -86,8 +86,9 @@ controller_server:
     general_goal_checker:
       stateful: true
       plugin: nav2_controller::SimpleGoalChecker
-      xy_goal_tolerance: 0.05
-      yaw_goal_tolerance: 0.05236
+      # 미션 최종 판정 5cm/3도보다 엄격하게 설정해 정지 후 판정 여유를 둔다.
+      xy_goal_tolerance: 0.04
+      yaw_goal_tolerance: 0.04363323129985824
     FollowPath:
       plugin: nav2_regulated_pure_pursuit_controller::RegulatedPurePursuitController
       desired_linear_vel: 0.10

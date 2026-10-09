@@ -1,0 +1,107 @@
+# 수확 실물 모니터링. TF remap은 farm_bringup/rviz.launch.py가 설정한다.
+# 초기 위치는 실제 로봇 위치에 맞게 2D Pose Estimate로 지정한다.
+Panels:
+- Class: rviz_common/Displays
+  Name: Displays
+- Class: rviz_common/Tool Properties
+  Name: Tool Properties
+Visualization Manager:
+  Class: ''
+  Global Options:
+    Background Color: 35; 35; 35
+    Fixed Frame: map
+    Frame Rate: 30
+  Displays:
+  - Class: rviz_default_plugins/Grid
+    Name: Grid
+    Enabled: true
+    Cell Size: 0.5
+    Plane: XY
+    Plane Cell Count: 40
+  - Class: rviz_default_plugins/Map
+    Name: Harvest map
+    Enabled: true
+    Topic:
+      Value: /harvest_01/map
+      Depth: 5
+      History Policy: Keep Last
+      Reliability Policy: Reliable
+      Durability Policy: Transient Local
+    Alpha: 0.75
+    Color Scheme: map
+  - Class: rviz_default_plugins/LaserScan
+    Name: Filtered LiDAR
+    Enabled: true
+    Topic:
+      Value: /harvest_01/scan_filtered
+      Depth: 5
+      History Policy: Keep Last
+      Reliability Policy: Best Effort
+      Durability Policy: Volatile
+    Size (m): 0.02
+    Style: Points
+    Color Transformer: FlatColor
+    Color: 255; 40; 40
+  - Class: rviz_default_plugins/PoseWithCovariance
+    Name: AMCL pose
+    Enabled: true
+    Topic:
+      Value: /harvest_01/amcl_pose
+      Depth: 5
+      History Policy: Keep Last
+      Reliability Policy: Reliable
+      Durability Policy: Transient Local
+    Shape: Arrow
+    Color: 255; 180; 0
+  - Class: rviz_default_plugins/TF
+    Name: Frames
+    Enabled: true
+    Show Names: false
+    Show Axes: true
+    Show Arrows: false
+    Marker Scale: 0.3
+  - Class: rviz_default_plugins/Path
+    Name: Route preview
+    Enabled: true
+    Topic:
+      Value: /harvest_01/route_preview
+      Depth: 5
+      History Policy: Keep Last
+      Reliability Policy: Reliable
+      Durability Policy: Transient Local
+    Color: 0; 255; 255
+    Line Style: Billboards
+    Line Width: 0.025
+  - Class: rviz_default_plugins/Polygon
+    Name: Robot footprint
+    Enabled: true
+    Topic:
+      Value: /harvest_01/local_costmap/published_footprint
+      Depth: 5
+      History Policy: Keep Last
+      Reliability Policy: Reliable
+      Durability Policy: Volatile
+    Color: 255; 0; 255
+  Tools:
+  - Class: rviz_default_plugins/Interact
+  - Class: rviz_default_plugins/MoveCamera
+  - Class: rviz_default_plugins/Select
+  - Class: rviz_default_plugins/SetInitialPose
+    Topic:
+      Value: /harvest_01/initialpose
+      Depth: 5
+      History Policy: Keep Last
+      Reliability Policy: Reliable
+      Durability Policy: Volatile
+  Views:
+    Current:
+      Class: rviz_default_plugins/TopDownOrtho
+      Name: Current View
+      Scale: 120.0
+      X: 1.0
+      Y: -2.0
+      Angle: 0.0
+      Target Frame: map
+Window Geometry:
+  Width: 1200
+  Height: 900

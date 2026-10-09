@@ -16,7 +16,7 @@ class TestNavigatorDispatch(unittest.TestCase):
         fake('rclpy');fake('rclpy.node',Node=object)
         fake('nav_test',__path__=[str(root)])
         fake('nav_test.navigation_types',NavigationSettings=object,NavigationStatus=lambda *a:S(phase=a[1] if len(a)>1 else 'IDLE'),NavigationResult=object,RoutePlan=object)
-        for mod,cls in [('nav2_client','Nav2Client'),('pose_provider','PoseProvider'),('motion_monitor','MotionMonitor'),('route','RouteGraph')]:fake('nav_test.'+mod,**{cls:object})
+        for mod,cls in [('nav2_client','Nav2Client'),('pose_provider','PoseProvider'),('motion_monitor','MotionMonitor')]:fake('nav_test.'+mod,**{cls:object})
         fake('nav_test.path_builder',build_path=lambda *a:None)
         fake('nav_test.arrival',measure_arrival=lambda *a:{},arrival_description=str)
         spec=importlib.util.spec_from_file_location('nav_test.navigator',root/'navigator.py')

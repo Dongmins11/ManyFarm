@@ -1,9 +1,9 @@
 {
   "schema_version": 1,
   "robot_id": "harvest_01",
-  "map_id": "93f108470604e1afb2d320b8eb128df031e926875a032c03d0b98030c09e067c",
+  "map_id": "many_farm_v1",
   "completion_policy": "ARRIVAL_ONLY_NO_HARVEST",
-  "movement_mode": "route_then_pose",
+  "movement_mode": "route_then_follow",
   "sections": {
     "SEC_01": {
       "entry_node": 11,
@@ -11,5 +11,6 @@
       "exit_node": 11,
       "exit_heading_node": 10
     }
-  }
+  },
+  "approach_planner": "graph"
 }

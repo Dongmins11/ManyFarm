@@ -8,7 +8,7 @@ import unittest
 ROOT=Path(__file__).resolve().parents[5]
 
 class LaunchContract(unittest.TestCase):
-    def setup_launch(self, enabled, *, camera="auto", folder="/capture/current", devices="false", mode="real", staged=False, navigation="true"):
+    def setup_launch(self, enabled, *, camera="auto", folder="/capture/current", devices="false", mode="real", staged=False, navigation="true", movement_mode="route_then_pose", approach_planner="route_server"):
         class Action:
             def __init__(self,*args,**kwargs):self.args=args;self.kwargs=kwargs
         class Config:
@@ -29,7 +29,7 @@ class LaunchContract(unittest.TestCase):
         stub('launch_ros');stub('launch_ros.actions',Node=Action)
         stub('launch_ros.descriptions',ParameterFile=Action)
         stub('nav2_common');stub('nav2_common.launch',RewrittenYaml=Action)
-        stub('farm_navigation');stub('farm_navigation.configuration',load_environment=lambda *a,**k:profile,resolve_file=lambda r,p:r/p,read_mapping=lambda p:({'movement_mode':'route_then_pose'} if staged else {}))
+        stub('farm_navigation');stub('farm_navigation.configuration',load_environment=lambda *a,**k:profile,resolve_file=lambda r,p:r/p,read_mapping=lambda p:({'movement_mode':movement_mode,'approach_planner':approach_planner} if staged else {}))
         calls=[]
         stub('farm_tag_localization.runtime',validate_binding=lambda *a:calls.append(a))
         with patch.dict(sys.modules,modules):
@@ -37,6 +37,30 @@ class LaunchContract(unittest.TestCase):
             module=importlib.util.module_from_spec(spec);spec.loader.exec_module(module)
             actions=module.setup(dict(mode=mode,devices=devices,navigation=navigation,project_root=str(ROOT),environment_config=('sim/e.yaml' if mode == 'sim' else 'robot/e.yaml'),tag_correction=str(enabled).lower(),capture_directory=folder,tag_camera=camera))
         return actions,calls
+
+    def test_graph_approach_does_not_launch_unused_route_server(self):
+        actions,_=self.setup_launch(True,staged=True,movement_mode='route_then_follow',approach_planner='graph')
+        executables=[a.kwargs.get('executable') for a in actions]
+        self.assertNotIn('route_server',executables)
+        self.assertNotIn('lifecycle_manager',executables)
+        self.assertIn('harvest_node',executables)
+        self.assertIn('tag_amcl_adapter',executables)
+
+    def test_invalid_approach_rejected(self):
+        with self.assertRaises(ValueError):
+            self.setup_launch(False,staged=True,approach_planner='typo')
+
+    def test_follow_work_keeps_single_route_server(self):
+        actions,_=self.setup_launch(False,staged=True,movement_mode='route_then_follow')
+        servers=[a.kwargs for a in actions if a.kwargs.get('executable')=='route_server']
+        self.assertEqual(len(servers),1)
+        self.assertEqual(servers[0]['namespace'],'harvest_01')
+        self.assertIn(('/tf','/harvest_01/tf'),servers[0]['remappings'])
+
+    def test_follow_work_external_navigation_does_not_duplicate_server(self):
+        actions,_=self.setup_launch(False,staged=True,navigation='false',movement_mode='route_then_follow')
+        self.assertFalse(any(a.kwargs.get('executable')=='route_server' for a in actions))
+        self.assertEqual(actions[-1].kwargs['package'],'harvest_robot')
 
     def test_off_preserves_navigation_without_adapter(self):
         actions,calls=self.setup_launch(False)

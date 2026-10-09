@@ -13,6 +13,7 @@ from farm_tag_localization.capture_session import capture_directory, capture_env
 from farm_tag_localization.runtime import validate_binding, load_observer
 from farm_navigation.configuration import load_environment, read_mapping
 from farm_navigation.route import RouteGraph
+from farm_navigation.arrival import validate_goal_checkers
 from farm_navigation.navigation_types import NavigationSettings
 
 class CaptureSession(unittest.TestCase):
@@ -66,4 +67,7 @@ class CaptureSession(unittest.TestCase):
         params=read_mapping(env['nav_params'])['controller_server']['ros__parameters']
         self.assertIn(settings.goal_checker_id,params['goal_checker_plugins'])
         self.assertIn(settings.controller_id,params['controller_plugins'])
-        self.assertGreaterEqual(settings.arrival_tolerance_m,params[settings.goal_checker_id]['xy_goal_tolerance'])
+        flattened = dict(params)
+        for checker in params['goal_checker_plugins']:
+            flattened.update({checker + '.' + k: v for k, v in params[checker].items()})
+        validate_goal_checkers(flattened, settings.arrival_tolerance_m, settings.heading_tolerance_rad)
