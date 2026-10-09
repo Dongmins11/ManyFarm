@@ -86,6 +86,16 @@ def main(args: list[str] | None = None) -> int:
                               ('goal_checker_plugins', settings.goal_checker_id)):
             if selected not in params[key]:
                 raise ValueError(f'{key}: {selected} 없음')
+        if harvest.get('movement_mode') in ('route_then_pose', 'route_then_follow'):
+            entry = harvest.get('approach_controller_id', settings.controller_id)
+            if not isinstance(entry, str) or entry not in params['controller_plugins']:
+                raise ValueError('진입 제어기 미등록: ' + str(entry))
+            if entry == 'HarvestApproach':
+                expected = dict(params[settings.controller_id], use_fixed_curvature_lookahead=True,
+                                curvature_lookahead_dist=0.4, interpolate_curvature_after_goal=True)
+                if params[entry] != expected:
+                    raise ValueError('진입 전용 RPP 설정이 검증된 작업 프로파일/세 변경값과 다릅니다.')
+            print('  수확 제어기: 진입=' + entry + ', 작업·이탈=' + settings.controller_id)
         flat = dict(params)
         for checker in params['goal_checker_plugins']:
             flat.update({checker + '.' + k: v for k, v in params[checker].items()})

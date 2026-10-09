@@ -7,7 +7,7 @@
 > - 11번 정밀 도착·정지 후 작업 목표로 이동한다. lifecycle 확인 대상은 amcl, controller_server, planner_server, bt_navigator다.
 > - 사용자 로봇 빌드·설치 검사 PASS. 14번 주행 성공 사례가 있으나 반복 시험의 충돌 예측 중단과 진입점 부근 회전 문제는 미해결이다.
 > - 태그 보정 효과·실측 정확도 검증 완료가 아니다. 카메라 종료 -11과 AMCL 시각 경고도 남아 있다.
-> - 11번 접근 제어의 추가 수정은 아직 적용하지 않았다.
+> - 11번 진입 전용 HarvestApproach 제어기를 추가했다. 오프라인 연결·기하 검사는 통과했으며 로봇 적용 후 재주행 검증은 아직 하지 않았다.
 > - 아래 날짜별 기록의 미실행·이전 구조 설명은 작성 당시 상태이며 현재 실행 안내는 이 기준을 따른다.
 
 
@@ -54,3 +54,11 @@ ros2 action send_goal /harvest_01/harvest_task farm_interfaces/action/HarvestTas
 ```
 
 예전 해시형map_id·13번 목표를 재사용하지 않는다. 단위검사와 실제14번 주행은 구분한다. 상세: docs/changes/HARVEST_SHARED_MAP_20261009.md.
+
+### 실물 진입 전용 제어기
+
+`harvest_real.json`의 `approach_controller_id`는 SECTION_APPROACH용 FollowPath 제어기를 선택한다.
+실물은 `HarvestApproach`, 작업/이탈은 기존 `RPP`다. 키가 없는 기존 환경과 graph_only 동작은 유지한다.
+새 프로파일이 controller_server에 없으면 기존 Nav2Client의 준비 검사에서 Goal 전송 전에 실패한다.
+진입 제어기는 0.4m 가상 곡률 참조점을 마지막 선분 방향으로 연장한다. 실제 목표와 정밀 도착·정지 조건은 유지한다.
+정적 검사 PASS는 실물 검증 완료가 아니다. 설정 적용 후 controller_server 재시작이 필요하다.

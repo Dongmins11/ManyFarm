@@ -55,18 +55,27 @@ class HarvestNode(Node):
         settings = NavigationSettings.from_mapping(profile['navigation'])
         if settings.mode != 'follow_path':
             raise ValueError('수확 이동 시험은 그래프 FollowPath를 사용합니다.')
+        movement_mode = self.config.get('movement_mode', 'graph_only')
+        if movement_mode not in ('graph_only', 'route_then_pose', 'route_then_follow'):
+            raise ValueError('알 수 없는 movement_mode')
+        # 진입 FollowPath만 별도 제어기를 선택한다. 작업·이탈과 도착 판정은 기존 설정이다.
+        approach_settings = settings
+        if movement_mode in ('route_then_pose', 'route_then_follow'):
+            controller_id = self.config.get('approach_controller_id', settings.controller_id)
+            if not isinstance(controller_id, str) or not controller_id.strip():
+                raise ValueError('approach_controller_id는 비어 있지 않은 문자열이어야 합니다.')
+            approach_settings = replace(settings, controller_id=controller_id)
         self.poses = PoseProvider(self, settings)
         self.motion = MotionMonitor(self, settings, self.callbacks)
-        self.client = Nav2Client(self, settings, self.callbacks)
-        self.navigator = Navigator(self, settings, self.client, self.poses, self.motion, self.check,
+        self.client = Nav2Client(self, approach_settings, self.callbacks)
+        self.navigator = Navigator(self, approach_settings, self.client, self.poses, self.motion, self.check,
             RouteGraph(profile['route_graph']), record=lambda item: self.navigation_log.append(item))
         self.staged_navigation = None
         self.route_planner = None
         self.work_client = None
-        movement_mode = self.config.get('movement_mode', 'graph_only')
-        if movement_mode not in ('graph_only', 'route_then_pose', 'route_then_follow'):
-            raise ValueError('알 수 없는 movement_mode')
         if movement_mode in ('route_then_pose', 'route_then_follow'):
+            self.get_logger().info('수확 제어기: 진입=' + approach_settings.controller_id
+                                   + ', 작업·이탈=' + settings.controller_id)
             graph = RouteGraph(profile['route_graph'])
             sections = load_sections(self.config, graph)
             approach_planner = self.config.get('approach_planner', 'route_server')
@@ -77,7 +86,7 @@ class HarvestNode(Node):
             if approach_planner == 'route_server':
                 from .route_server import RouteServerPlanner
                 self.route_planner = RouteServerPlanner(self, settings, self.callbacks, graph.revision)
-                self.navigator = Navigator(self, settings, self.client, self.poses, self.motion,
+                self.navigator = Navigator(self, approach_settings, self.client, self.poses, self.motion,
                     self.check, record=lambda item: self.navigation_log.append(item),
                     route_planner=self.route_planner)
             # scout_new와 같은 그래프 Dijkstra → Path → FollowPath 연결을 재사용한다.

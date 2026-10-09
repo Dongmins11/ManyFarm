@@ -71,9 +71,10 @@ class Client:
 
 
 class Parameters:
+    controllers = ('RPP', 'HarvestApproach')
     def service_is_ready(self) -> bool:return True
     def call_async(self, request: object) -> Future:
-        base={'goal_checker_plugins':['general_goal_checker'],'controller_plugins':['RPP'],
+        base={'goal_checker_plugins':['general_goal_checker'],'controller_plugins':list(self.controllers),
               'progress_checker_plugins':['progress_checker']}
         checker={'plugin':'nav2_controller::SimpleGoalChecker','xy_goal_tolerance':.04,
                  'yaw_goal_tolerance':.043633,'stateful':True,'symmetric_yaw_tolerance':False}
@@ -119,7 +120,8 @@ class RoutePlanner:
     def cancel(self) -> None:self.canceled=True
 
 
-def construct(mode: str='route_then_follow', approach: str='graph') -> Node:
+def construct(mode: str='route_then_follow', approach: str='graph',
+              config_overrides: dict | None = None) -> Node:
     """운영 HarvestNode 클래스 본문을 실행한다. 설정/알고리즘은 실제 코드를 사용한다."""
     modules={}
     def stub(name: str, **values: object) -> None:
@@ -147,7 +149,11 @@ def construct(mode: str='route_then_follow', approach: str='graph') -> Node:
         cls=next(n for n in tree.body if isinstance(n,ast.ClassDef) and n.name=='HarvestNode')
         def mapping(path: Path) -> dict:
             data=read_mapping(path)
-            if 'movement_mode' in data:data=copy.deepcopy(data);data['movement_mode']=mode;data['approach_planner']=approach
+            if 'movement_mode' in data:
+                data=copy.deepcopy(data);data['movement_mode']=mode;data['approach_planner']=approach
+                for key, value in (config_overrides or {}).items():
+                    if value is None:data.pop(key, None)
+                    else:data[key]=value
             return data
         env=dict(__name__='harvest_robot._follow_verify',__package__='harvest_robot',
             Node=Node,Path=Path,load_environment=load_environment,resolve_file=resolve_file,read_mapping=mapping,

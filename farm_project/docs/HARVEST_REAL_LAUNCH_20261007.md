@@ -7,7 +7,7 @@
 > - 11번 정밀 도착·정지 후 작업 목표로 이동한다. lifecycle 확인 대상은 amcl, controller_server, planner_server, bt_navigator다.
 > - 사용자 로봇 빌드·설치 검사 PASS. 14번 주행 성공 사례가 있으나 반복 시험의 충돌 예측 중단과 진입점 부근 회전 문제는 미해결이다.
 > - 태그 보정 효과·실측 정확도 검증 완료가 아니다. 카메라 종료 -11과 AMCL 시각 경고도 남아 있다.
-> - 11번 접근 제어의 추가 수정은 아직 적용하지 않았다.
+> - 11번 진입 전용 HarvestApproach 제어기를 추가했다. 오프라인 연결·기하 검사는 통과했으며 로봇 적용 후 재주행 검증은 아직 하지 않았다.
 > - 아래 날짜별 기록의 미실행·이전 구조 설명은 작성 당시 상태이며 현재 실행 안내는 이 기준을 따른다.
 
 
@@ -135,3 +135,21 @@ ros2 action send_goal /harvest_01/harvest_task farm_interfaces/action/HarvestTas
 ```
 
 예전 해시형map_id·13번 목표를 재사용하지 않는다. 단위검사와 실제14번 주행은 구분한다. 상세: docs/changes/HARVEST_SHARED_MAP_20261009.md.
+
+## 2026-10-09 진입 제어기 적용 확인
+
+빌드·정적 검사 후 기존 수확 launch를 정상 종료하고 재시작한다. 실행 중 파라미터를 임시 변경하지 않는다.
+controller_server 설정은 시작 시 읽으므로 파일 복사만으로 실행 중 노드가 갱신되지는 않는다.
+
+```bash
+ros2 param get /harvest_01/controller_server controller_plugins
+ros2 param get /harvest_01/controller_server HarvestApproach.use_fixed_curvature_lookahead
+ros2 param get /harvest_01/controller_server HarvestApproach.curvature_lookahead_dist
+ros2 param get /harvest_01/controller_server HarvestApproach.interpolate_curvature_after_goal
+```
+
+목록에 HarvestApproach, 다음 값은 순서대로 True / 0.4 / True여야 한다.
+수확 노드 로그는 `수확 제어기: 진입=HarvestApproach, 작업·이탈=RPP`다.
+11번 정밀 도착 후 작업으로 전환하므로 정상적인 정지·재출발은 남는다.
+이전 성공/실패와 같은 위치·방향에서 별도 승인된 재주행을 기록해 진입 회전, odom, TF, costmap, 태그 이벤트를 비교한다.
+현재 패치의 실물 재주행은 미실행이며 충돌 검사를 해제하지 않는다.
