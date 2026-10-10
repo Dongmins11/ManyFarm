@@ -36,8 +36,10 @@ class StagedNavigation:
     """동시에 한 작업만 실행하는 HarvestMission이 소유하는 화단 문맥."""
     def __init__(self, approach: Any, work: Any, sections: dict[str, Section],
                  current_xy: Callable, check: Callable, record: Callable,
-                 continuity_m: float) -> None:
+                 continuity_m: float, *, exit_navigator: Any = None) -> None:
         self.approach, self.work, self.sections = approach, work, sections
+        # 기존 호출은 작업 제어기를 그대로 사용하며 명시적 이탈 제어기만 분리한다.
+        self.exit_navigator = work if exit_navigator is None else exit_navigator
         self.current_xy, self.check, self.record = current_xy, check, record
         self.continuity_m = continuity_m
         self.current_section = None
@@ -55,7 +57,7 @@ class StagedNavigation:
             if self.current_section != section_id:
                 if self.current_section is not None:
                     old = self.sections[self.current_section]
-                    self._move(self.work, 'SECTION_EXIT', self.current_section, old.exit, old.exit_yaw)
+                    self._move(self.exit_navigator, 'SECTION_EXIT', self.current_section, old.exit, old.exit_yaw)
                     self.current_section = self.last_arrival = None
                 self._move(self.approach, 'SECTION_APPROACH', section_id, target.entry, target.entry_yaw)
                 self.current_section = section_id

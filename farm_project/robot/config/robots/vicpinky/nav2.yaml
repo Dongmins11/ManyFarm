@@ -80,6 +80,7 @@ controller_server:
     - FollowPath
     - RPP
     - HarvestApproach
+    - HarvestWork
     progress_checker:
       plugin: nav2_controller::SimpleProgressChecker
       required_movement_radius: 0.1
@@ -127,6 +128,26 @@ controller_server:
     # 수확 진입 전용: 끝점 근처 곡률/경로 정렬은 마지막 선분 방향을 사용한다.
     # 가상 참조점만 연장하며 실제 Path 끝점·도착 허용치·충돌 검사는 유지한다.
     HarvestApproach:
+      plugin: nav2_regulated_pure_pursuit_controller::RegulatedPurePursuitController
+      desired_linear_vel: 0.10
+      lookahead_dist: 0.4
+      use_velocity_scaled_lookahead_dist: false
+      use_rotate_to_heading: true
+      rotate_to_heading_angular_vel: 0.10
+      max_angular_accel: 1.0
+      allow_reversing: false
+      use_collision_detection: true
+      max_allowed_time_to_collision_up_to_carrot: 1.0
+      use_regulated_linear_velocity_scaling: true
+      regulated_linear_scaling_min_speed: 0.05
+      min_approach_linear_velocity: 0.05
+      approach_velocity_scaling_dist: 0.6
+      rotate_to_heading_min_angle: 0.10471975511965978
+      use_fixed_curvature_lookahead: true
+      curvature_lookahead_dist: 0.4
+      interpolate_curvature_after_goal: true
+    # 수확 작업점 전용: 주행 중 정렬을 유지해 끝점의 과도한 반대 회전을 줄인다.
+    HarvestWork:
       plugin: nav2_regulated_pure_pursuit_controller::RegulatedPurePursuitController
       desired_linear_vel: 0.10
       lookahead_dist: 0.4

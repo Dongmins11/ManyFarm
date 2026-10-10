@@ -21,6 +21,8 @@ def load_observer(config_file: str, project_root: str, session_id: str) -> tuple
     cfg = yaml.safe_load(resolve(root, config_file).read_text())
     if cfg.get('configured') is not True:
         raise ValueError('새 맵과 태그 좌표 정합 후 configured=true로 지정하세요.')
+    if cfg.get('correction_transport', 'initialpose') not in ('initialpose', 'scan_sync'):
+        raise ValueError('알 수 없는 correction_transport')
     assets = json.loads(resolve(root, cfg['assets_file']).read_text())
     model = json.loads(resolve(root, cfg['model_file']).read_text())
     context = SimpleNamespace(session_id=session_id, epoch=0,

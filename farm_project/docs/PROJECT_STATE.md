@@ -1,13 +1,29 @@
 # 농작물 수확 로봇 — 현재 상태 인수인계
 
+<!-- MOTOR_INSTALLED_20261010_1751 -->
+> **모터 영구 설정 설치 확인 — 2026-10-10 17:51 KST**
+> 사용자 로봇 출력: udev 규칙 검사 Success 1 / Fail 0,
+> serial=BG02QM7Y, latency_timer=1, rule_installed=True,
+> CHECK_OK 및 INSTALL_OK 확인.
+> 아래의 설치 미실행 표기는 설치 전 기록이며 이 확인으로 갱신한다.
+> 재부팅·USB 재연결 후 지속성 확인은 아직 미실행이다.
+
+
+> **최신 실물 기준 고정 — 2026-10-10**
+> 태그 보정 연결·실제 AMCL 적용 검증 완료(10/10), 14번 SUCCESS. 실제 차체 옆면–벽 20cm 유지와 카메라 종료는 후속 개선이다.
+> HarvestWork 및 scan_sync_v1 + 선택적 pixel_bias ON 실물 기록을 확보했다. RouteGraph→FollowPath이며 Route Server 미사용.
+> 최신 근거: [인계 기준](changes/HARVEST_TAG_HANDOFF_20261010.md). 아래 10/09 이하 '미검증/미실행'은 당시 이력이다.
+> 모터 영구 규칙은 준비 완료, 로봇 설치·재부팅 확인은 아직 미실행이다.
+
+
 <!-- HARVEST_CURRENT_20261009 -->
 > **현재 실물 기준 — 2026-10-09**
 > - 공용 지도 `maps/many_farm`, map_id `many_farm_v1`.
 > - `route_then_follow` + `approach_planner=graph`: 진입·작업 모두 그래프 다익스트라 → FollowPath. Route Server는 실행하지 않는다.
 > - 11번 정밀 도착·정지 후 작업 목표로 이동한다. lifecycle 확인 대상은 amcl, controller_server, planner_server, bt_navigator다.
-> - 사용자 로봇 빌드·설치 검사 PASS. 14번 주행 성공 사례가 있으나 반복 시험의 충돌 예측 중단과 진입점 부근 회전 문제는 미해결이다.
+> - 사용자 로봇 빌드·설치 검사 PASS. 14번 성공 뒤 반복 시험에서 작업 끝점 회전·충돌 예측 중단을 확인했다. 진입과 작업 끝점 문제를 구분한다.
 > - 태그 보정 효과·실측 정확도 검증 완료가 아니다. 카메라 종료 -11과 AMCL 시각 경고도 남아 있다.
-> - 11번 진입 전용 HarvestApproach 제어기를 추가했다. 오프라인 연결·기하 검사는 통과했으며 로봇 적용 후 재주행 검증은 아직 하지 않았다.
+> - 진입 HarvestApproach는 사용자 실물 개선 확인. 작업점 전용 HarvestWork를 추가한 이번 변경은 오프라인 검증 완료·실물 미검증이며 이탈은 RPP를 유지한다.
 > - 아래 날짜별 기록의 미실행·이전 구조 설명은 작성 당시 상태이며 현재 실행 안내는 이 기준을 따른다.
 
 
@@ -492,3 +508,52 @@ ros2 launch farm_bringup rviz.launch.py mode:=real project_root:="$PWD" \
 - PC RViz 설정에 Actual FollowPath와 Local costmap 표시를 추가했다.
 - 분석 자료: harvest_entry_success_20261009_174834.tar.gz.
 - 다음 단계: 코드·파라미터를 유지하고 유사한 출발 위치와 방향에서 14번 목표 주행을 2회 더 기록·비교한다.
+
+## 수확 작업 좌표 접근 안정화 — 2026-10-09
+
+- 기준: feat/apriltag-localization / 7689f3648007c643f01a2dcaee160ae6fcbefcdd. 사용자 19:02 단계별 수정·검증 진행 요청으로 적용본 준비.
+- 목표 동작: 태그로 위치 추정을 보조하면서 주행 중 차체 옆면–벽 20cm 기준 경로를 유지하고, 각 수확 좌표에서는 큰 회전 없이 감속·정지한다. 20cm는 실측 기준이며 제어기의 보장값이 아니다.
+- 1단계 변경: 진입 HarvestApproach 유지, 모든 WINDOW_MOVE에 HarvestWork 선택, SECTION_EXIT는 기존 RPP 유지. work_controller_id가 없는 환경은 기존 선택을 유지하며 graph_only/route_then_pose에는 새 작업 설정을 적용하지 않는다.
+- 수확 node.py와 staged_navigation.py에서 작업·이탈 연결을 분리하고 종료 시 별도 Action client를 닫는다. Nav2Client/Navigator/RouteGraph를 그대로 사용하며 예찰·공통 주행·FSM·메시지·팔 코드를 수정하지 않았다.
+- 속도·도착 허용치·실제 목표 yaw·충돌 검사·costmap·지도·태그 계산 불변. RPP 기존 프로파일도 그대로이며 HarvestWork만 고정 곡률 참조 0.4m/마지막 선분 연장 기능을 사용한다.
+- 오프라인 수확 60개/AprilTag 46개 검사 및 check_runtime PASS. 실패 로그 작업 Path 1,019개 참조점 계산 비교: 819개 동일, 끝점 근처 200개 연장. ROS 전체 제어기·실물 주행 검증을 대체하지 않는다.
+- 이번 파일의 로봇 동기화·빌드·실물 실행은 미실행. Git commit/push는 자동 수행하지 않았다.
+- 후속: 새 설정 단일 목표 1회에서 끝점 동작 확인 후 짧은 연속 작업 좌표 시험. 같은 증상이 재현되면 반복 전 로그 분석. 태그 시각 경고·costmap 적정성·카메라 종료 -11은 별도 미해결.
+- 복원: work_controller_id 키 제거 후 수확 노드 재시작으로 작업 제어기 RPP 선택. 전체 복원은 ~/vmany_backups/harvest_work_*의 이번 파일만 사용한다.
+- 상세: docs/changes/HARVEST_WORK_CONTROL_20261009.md.
+
+## 수확 태그 보정 라이다 시각 연결 — 2026-10-09
+
+- 사용자 “그 방법대로 연결해보도록 하자” 승인. 원격 7689f36 및 이후 적용한 HarvestWork 기준이다.
+- 수확 real+tag_correction=true에서 farm_tag_amcl을 선택하고 작업 토큰·라이다 시각을 맞춰 보정한다. 공유 launch의 기본값은 기존 nav2_amcl로 유지한다.
+- 예찰/scout_new·공통 주행 알고리즘·지도·벽 간격 20cm·제어기·costmap·도착 허용오차·드라이버는 변경하지 않았다.
+- 직접 검사: 태그/launch 50개, 수확 60개, 실제 ROS 22개 PASS. CMake/ament 빌드·설치 PASS. 주행 녹화의 보정 12/12 적용, 보정 관련 TF 경고 12→0; 수동 초기 위치 경고 1회는 별도다.
+- 로봇 arm64 빌드·실물 폐루프 주행·벽 간격 정확도·카메라 종료 -11 해결은 미검증. PC 백업은 저장소 밖에 유지하며 commit/push·로봇 복사·실행은 하지 않았다.
+- 복원은 실행 종료 후 correction_transport: initialpose로 전환한다. 상세 계약·검증·다음 작업: docs/changes/HARVEST_TAG_SCAN_SYNC_20261009.md. 전달물 RUN.md에 로봇 빌드·독립 ROS 검사·RViz·실행·로그 명령을 포함했다.
+
+## 수확 태그 화면 위치 편향 비교 시험 — 2026-10-10
+
+- 승인: 사용자 “지금 중요한건 태그로 인한 보정이 잘 들어가느냐야…주행 해 볼수 있도록 준비해”. 관측 보상 전후를 비교하는 선택적 실물 시험이다.
+- 기준: scan_sync 적용본과 사용자가 전달한 로봇 node.py의 SHA256 42ce10c433bd5ce05f2bf2696d4ee1299fe3a09748cc82244fbe28e2833f7eba. 현재 PC HEAD/원격을 직접 조회한 것은 아니다. 적용 시 코드 해시를 검사하고 기존 문서에 이 절만 추가한다.
+- 새 pixel_bias.py·시험 프로파일·시험 실행/기록 도구, tag adapter의 선택적 관측 보상 연결을 추가했다. 기본 설정은 OFF. trial.bash launch on에서만 실행 당시 환경 복사본으로 ON을 선택한다.
+- 촬영 시각의 태그 map pose에 화면 가로 위치 기반 벽 법선/각도 편향을 보상하고 기존 odom 이송·잔차 제한·scan_sync AMCL 적용을 거친다. 원본 관측·보상량·실제 수신 적용을 별도로 기록한다. 기존 공분산은 축소하지 않았다.
+- 학습 자료는 20261010_162411 녹화의 74개 관측/태그 100–105. 화면 중심 x=388.045–889.780px 범위만 사용하며 범위 밖/미검증 태그는 해당 보정만 생략한다. 주행 중단 조건을 추가하지 않는다.
+- 예찰/scout_new·farm_navigation·launch·지도·카메라 캘리브레이션/장착값·제어기·costmap·도착 조건·실물 드라이버는 변경하지 않았다. 20cm는 차체 옆면–벽 실측 기준으로 유지한다.
+- 단일 녹화에서 태그 하나씩 제외해 학습한 오프라인 비교에서 거리/각도 RMS가 감소했다. 기준은 라이다 평면이며 독립 실측 정답이 아니다. 별도 주행에서의 개선·20cm 유지·실제 ROS 연결은 이번 패치로 아직 검증하지 않았다.
+- 직접 검증: 태그 기존/신규 오프라인 검사, 녹화 프레임의 production _solve/_send 연결, 보상 OFF 동일성, 단위/부호/시각 이송 순서, 범위 밖 보정만 생략. 상세 결과는 HARVEST_TAG_BIAS_VALIDATION_20261010.json 및 전달물 VALIDATION.md.
+- 다음 시험은 10번 부근 동일 초기 자세에서 ON 한 번, 필요 시 OFF 한 번 비교. goal 도구가 주행 로그/rosbag을 수집한다. 적용 수와 실제 벽 간격 추세를 함께 평가한다. 단순 SUCCESS로 정확도 완료 처리하지 않는다.
+- 복원: 기존 harvest_real.yaml로 실행하거나 trial.bash launch off. 기존 설정 파일을 수정하지 않으며 저장소 밖 ~/vmany_backups에 적용 전 파일을 보관한다. commit/push·로봇 복사·빌드·주행은 자동 실행하지 않았다.
+
+
+## 수확 태그 기준 고정 및 모터 지연 영구 설정 — 2026-10-10
+
+- 사용자 승인: 태그 보정 정상 수행을 기록하고 추가 반복 주행 없이 다음 단계로 전환. 모터 latency_timer 16→1을 영구 설정하도록 요청.
+- 기준: PC 제공 HEAD 7689f3648007c643f01a2dcaee160ae6fcbefcdd + harvest_git_review_20261010_174503.tar.gz의 미커밋 변경. 기존 변경을 보존했다.
+- 실제 ON 주행: 14번 SUCCESS, 요청/queued/applied 10/10/10, 전달 식별자·pose 일치. 라이다 대비 관측 오차 감소. 물리적 20cm 유지·카메라 정상 종료는 미완료.
+- 사용자 관찰: 출발 간격 약20cm, 주행하면서 벽에서 점차 멀어짐. 태그/그래프 벽 기준 1cm 차이 및 base–차체 간격은 후속 정합 항목.
+- 새 상세 기록: docs/changes/HARVEST_TAG_HANDOFF_20261010.md. 원본 수치와 이번 재계산을 분리했다. 원본 로그·패치 파일명/해시를 보존했다.
+- 새 설정/도구: robot/config/robots/vicpinky/udev/99-vicpinky-motor-latency.rules, robot/tools/vicpinky_motor_latency.py. FTDI 0403:6001 / BG02QM7Y만 latency_timer=1. 기존 /dev/motor·권한 규칙 유지.
+- 이번 변경은 문서·실물 모터 설정에 한정. 예찰·기존 공유 launch·주행·보상 알고리즘·지도·제어기·costmap 불변. 시뮬 실행 영향 없음.
+- 검증: 이번 로그 재분석 및 전달물 오프라인 검사는 HARVEST_GIT_FREEZE_20261010.md 참조. 새 udev 규칙의 로봇 설치/재부팅·재연결은 미실행이며 설치 도구의 CHECK_OK 후에도 실제 재부팅 검증과 구분한다.
+- 복원: 새 설치 도구 remove는 자기 규칙만 제거하고 현재 모터 latency_timer=16 복원. PC 문서 복원은 /home/eunbi/vmany_backups 적용 백업과 비교해 이번 변경만 되돌림.
+- commit/push·로봇 설치 미실행. 은비가 VS Code에서 반영 후 Confluence에서 확정 커밋을 연결한다.

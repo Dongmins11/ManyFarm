@@ -71,7 +71,7 @@ class Client:
 
 
 class Parameters:
-    controllers = ('RPP', 'HarvestApproach')
+    controllers = ('RPP', 'HarvestApproach', 'HarvestWork')
     def service_is_ready(self) -> bool:return True
     def call_async(self, request: object) -> Future:
         base={'goal_checker_plugins':['general_goal_checker'],'controller_plugins':list(self.controllers),
@@ -190,7 +190,7 @@ class FollowWork(unittest.TestCase):
         self.assertTrue(all(abs(p.pose.position.x-1.188)<1e-9 for p in path.poses))
         self.assertAlmostEqual(path.poses[-1].pose.position.y,goal.harvest_task.goal_pose.position.y)
         self.assertAlmostEqual(2*math.atan2(path.poses[-1].pose.orientation.z,path.poses[-1].pose.orientation.w),-math.pi/2)
-        self.assertEqual(n.sent[-1][1].controller_id,'RPP')
+        self.assertEqual(n.sent[-1][1].controller_id,'HarvestWork')
         self.assertEqual([r['phase'] for r in n.navigation_log if 'phase' in r],['SECTION_APPROACH','WINDOW_MOVE'])
         self.assertEqual(result['stamp_ns'],123)
         self.assertTrue(n.navigation_log[-1]['route']['edge_ids'])

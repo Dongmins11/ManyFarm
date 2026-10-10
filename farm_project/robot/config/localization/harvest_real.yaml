@@ -10,3 +10,6 @@ map_frame: map
 odom_frame: odom
 base_frame: base_footprint
 
+
+# 수확 전용 AMCL이 작업 토큰과 라이다 시각을 확인한 뒤 적용한다.
+correction_transport: scan_sync

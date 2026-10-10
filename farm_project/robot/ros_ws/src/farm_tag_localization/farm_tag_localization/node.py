@@ -17,6 +17,7 @@ from std_msgs.msg import String
 from rcl_interfaces.srv import GetParameters
 from tf2_ros import Buffer, TransformListener
 from .runtime import load_observer, Lease, Journal, time_valid
+from .pixel_bias import load_profile, compensate
 from .tag_adapter import observe, transported, correction, OBSERVATION_ROI
 
 
@@ -42,6 +43,7 @@ class TagAdapter(Node):
             raise ValueError('보정 노드 namespace와 robot_id 불일치')
         # 같은 프로젝트·로봇의 보정 중복 실행을 막는다. 실행 중 잠금 파일은 삭제하지 않는다.
         project_root = Path(self.get_parameter('project_root').value).expanduser().resolve()
+        self._bias_profile = load_profile(self._config, project_root)
         lock_dir = project_root / 'runs' / 'locks'
         lock_dir.mkdir(parents=True, exist_ok=True)
         lock_name = self._config['robot_id'] + '_tag_correction.lock'
@@ -59,7 +61,12 @@ class TagAdapter(Node):
         self._lease = Lease(self._config['robot_id'], self._config['map_id'])
         self._buffer = Buffer()
         self._listener = TransformListener(self._buffer, self)
-        self._publisher = self.create_publisher(PoseWithCovarianceStamped, 'initialpose', 10)
+        self._scan_sync = self._config.get('correction_transport', 'initialpose') == 'scan_sync'
+        self._publisher = self.create_publisher(
+            String if self._scan_sync else PoseWithCovarianceStamped,
+            'tag_localization/correction' if self._scan_sync else 'initialpose', 10)
+        self._receiver_events = self.create_subscription(
+            String, 'tag_localization/events', self._on_receiver_event, 100) if self._scan_sync else None
         self._control = self.create_subscription(String, 'tag_localization/control', self._on_control, 10)
         self._amcl = self.create_subscription(PoseWithCovarianceStamped, 'amcl_pose', self._on_amcl, qos_profile_sensor_data)
         self._amcl_parameters = self.create_client(GetParameters, 'amcl/get_parameters')
@@ -73,8 +80,9 @@ class TagAdapter(Node):
         self._count = 0
         self._timer = self.create_timer(.02, self._tick)
         self._owner_timer = self.create_timer(1.0, self._poll_owner)
-        self._log('start', tf_owner='AMCL', method='bounded_tag_initialpose',
-            observation_roi=list(OBSERVATION_ROI), physical_accuracy_validated=False)
+        self._log('start', tf_owner='AMCL', method='bounded_tag_scan_sync' if self._scan_sync else 'bounded_tag_initialpose',
+            observation_roi=list(OBSERVATION_ROI), physical_accuracy_validated=False,
+            pixel_bias_model=self._bias_profile['model_id'] if self._bias_profile else 'OFF')
         self.get_logger().info('TAG_ADAPTER_RUNNING: 작업 신호 대기. AMCL TF 유지; 태그 누락은 주행을 취소하지 않습니다.')
 
     def _log(self, kind: str, **fields: object) -> None:
@@ -90,6 +98,22 @@ class TagAdapter(Node):
             self._lease.update(json.loads(message.data), self.get_clock().now().nanoseconds, time.monotonic())
         except (KeyError, ValueError, TypeError):
             self._log('skip', reason='invalid_task_control')
+
+    def _on_receiver_event(self, message: String) -> None:
+        """발행과 실제 AMCL 적용을 구분하여 같은 세션에 기록한다."""
+        try:
+            event = json.loads(message.data)
+            if (event.get('robot_id') != self._config['robot_id'] or
+                    event.get('map_id') != self._config['map_id']):
+                return
+            if event.get('producer_session') not in (None, self._session):
+                return
+            kind = event.pop('kind')
+            self._log(kind, **event)
+            if kind == 'tag_correction_applied':
+                self.get_logger().info(f"TAG_CORRECTION_APPLIED: {event['sequence']}")
+        except (ValueError, KeyError, TypeError):
+            self._log('skip', reason='invalid_receiver_event')
 
     def _on_amcl(self, message: PoseWithCovarianceStamped) -> None:
         if not self._count:
@@ -109,18 +133,30 @@ class TagAdapter(Node):
                 return
             try:
                 values = self._parameter_future.result().values
-                self._amcl_owns_tf = len(values) == 1 and values[0].type == 1 and values[0].bool_value
+                sync = self._config.get('correction_transport', 'initialpose') == 'scan_sync'
+                self._amcl_owns_tf = (len(values) == (4 if sync else 1) and
+                    values[0].type == 1 and values[0].bool_value)
+                if sync and self._amcl_owns_tf:
+                    expected = ('scan_sync_v1', self._config['robot_id'], self._config['map_id'])
+                    self._amcl_owns_tf = all(v.type == 4 and v.string_value == e
+                                             for v, e in zip(values[1:], expected))
                 self._owner_checked = time.monotonic()
             except Exception:
                 self._amcl_owns_tf = False
             self._parameter_future = None
         if self._amcl_parameters.service_is_ready():
             self._query_started = time.monotonic()
-            self._parameter_future = self._amcl_parameters.call_async(GetParameters.Request(names=['tf_broadcast']))
+            names = ['tf_broadcast']
+            if self._config.get('correction_transport', 'initialpose') == 'scan_sync':
+                names += ['tag_correction_protocol', 'tag_robot_id', 'tag_map_id']
+            self._parameter_future = self._amcl_parameters.call_async(GetParameters.Request(names=names))
 
     def _solve(self, record: dict) -> tuple:
         begin = time.monotonic()
         candidate, result = observe(self._observer, record)
+        if candidate is not None:
+            candidate = dict(candidate, _bias_tag=result['selected']['tag'],
+                _bias_corners=result['selected']['detection']['corners'])
         return candidate, result, time.monotonic() - begin
 
     def _tick(self) -> None:
@@ -163,7 +199,12 @@ class TagAdapter(Node):
         new = self._buffer.lookup_transform(c['odom_frame'], c['base_frame'], Time())
         pose_ns = stamp_ns(new.header.stamp)
         current = self._buffer.lookup_transform(c['map_frame'], c['base_frame'], Time(nanoseconds=pose_ns))
-        tag = transported(candidate['q'], planar(old), planar(new))
+        try:
+            observed, bias_audit = compensate(candidate, getattr(self, '_bias_profile', None))
+        except (ValueError, KeyError, TypeError) as exc:
+            self._log('pixel_bias_skip', source_stamp_ns=stamp, reason=str(exc))
+            return  # 이 관측의 보정만 생략한다. 주행 상태는 변경하지 않는다.
+        tag = transported(observed, planar(old), planar(new))
         target, delta = correction(planar(current), tag)
         message = PoseWithCovarianceStamped()
         message.header.frame_id, message.header.stamp = c['map_frame'], new.header.stamp
@@ -183,6 +224,14 @@ class TagAdapter(Node):
             return
         if not self._lease.accepts(token, stamp, time.monotonic()) or self._publisher.get_subscription_count() == 0:
             return
+        if c.get('correction_transport', 'initialpose') == 'scan_sync':
+            # 기하 계산은 보존하고 수신 측에서 작업과 시각을 다시 검사할 정보를 전달한다.
+            payload = dict(protocol=1, robot_id=c['robot_id'], map_id=c['map_id'],
+                token=token, producer_session=self._session, sequence=self._count + 1,
+                source_stamp_ns=stamp, pose_stamp_ns=pose_ns, sent_stamp_ns=now,
+                frame_id=c['map_frame'], pose=target.tolist(), covariance=cov)
+            message = String()
+            message.data = json.dumps(payload, allow_nan=False)
         self._publisher.publish(message)
         self._last_send = time.monotonic()
         self._count += 1
@@ -190,7 +239,7 @@ class TagAdapter(Node):
             output_stamp_ns=pose_ns, send_ros_ns=now, compute_s=compute_s,
             image_age_at_send_s=(now-stamp)/1e9, pose_age_at_send_s=(now-pose_ns)/1e9,
             tag=[d['id'] for d in record['detections']], before=planar(current), tag_current=tag.tolist(),
-            requested=target.tolist(), residual=delta.tolist(), covariance=cov)
+            requested=target.tolist(), residual=delta.tolist(), covariance=cov, pixel_bias=bias_audit)
         self.get_logger().info(f'TAG_CORRECTION_SENT: {self._count}')
 
     def close(self) -> None:

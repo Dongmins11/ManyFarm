@@ -59,6 +59,19 @@ class SendTests(unittest.TestCase):
         self.assertEqual(self.sent[0].header.stamp.nanosec,100_000_000)
         self.assertEqual(self.logs[-1][0],'tag_correction_requested')
 
+    def test_scan_sync_keeps_geometry_and_adds_task_contract(self):
+        import json
+        self.adapter._config.update(correction_transport='scan_sync',robot_id='h',map_id='m')
+        self.adapter._session='session'
+        self.adapter._send(self.candidate,self.record,'task',.01)
+        data=json.loads(self.sent[0].data)
+        self.assertEqual(data['token'],'task')
+        self.assertEqual(data['producer_session'],'session')
+        self.assertEqual(data['pose_stamp_ns'],1_100_000_000)
+        self.assertEqual(data['source_stamp_ns'],1_000_000_000)
+        self.assertEqual(data['sequence'],1)
+        self.assertAlmostEqual(data['pose'][0],.05)
+
     def test_expired_compute_cannot_publish(self):
         self.adapter.get_clock=lambda:NS(now=lambda:NS(nanoseconds=3_000_000_000))
         self.adapter._send(self.candidate,self.record,'task',2.)

@@ -93,3 +93,12 @@ python3 -m unittest discover -s robot/ros_ws/src/farm_tag_localization/test -v
 기존 detector/rectify -11을 정상으로 취급하지 않습니다.
 앞선 최종 허용치 보존 설명 중 Nav2 종료 기준은 이번에 4cm/2.5도로 좁혔으며,
 미션의 최종 합격 기준 5cm/3도, 태그 기하 계산, 속도와 충돌 검사는 유지합니다.
+
+## 수확 태그 보정 라이다 시각 연결 — 2026-10-09
+
+- 사용자 “그 방법대로 연결해보도록 하자” 승인. 원격 7689f36 및 이후 적용한 HarvestWork 기준이다.
+- 수확 real+tag_correction=true에서 farm_tag_amcl을 선택하고 작업 토큰·라이다 시각을 맞춰 보정한다. 공유 launch의 기본값은 기존 nav2_amcl로 유지한다.
+- 예찰/scout_new·공통 주행 알고리즘·지도·벽 간격 20cm·제어기·costmap·도착 허용오차·드라이버는 변경하지 않았다.
+- 직접 검사: 태그/launch 50개, 수확 60개, 실제 ROS 22개 PASS. CMake/ament 빌드·설치 PASS. 주행 녹화의 보정 12/12 적용, 보정 관련 TF 경고 12→0; 수동 초기 위치 경고 1회는 별도다.
+- 로봇 arm64 빌드·실물 폐루프 주행·벽 간격 정확도·카메라 종료 -11 해결은 미검증. PC 백업은 저장소 밖에 유지하며 commit/push·로봇 복사·실행은 하지 않았다.
+- 복원은 실행 종료 후 correction_transport: initialpose로 전환한다. 상세 계약·검증·다음 작업: docs/changes/HARVEST_TAG_SCAN_SYNC_20261009.md. 전달물 RUN.md에 로봇 빌드·독립 ROS 검사·RViz·실행·로그 명령을 포함했다.

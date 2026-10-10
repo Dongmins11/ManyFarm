@@ -9,7 +9,7 @@ class EntryController(unittest.TestCase):
     def test_entry_and_work_select_different_controllers(self) -> None:
         node = construct()
         HarvestMission(node, request()).run()
-        self.assertEqual([g.controller_id for _, g in node.sent], ['HarvestApproach', 'RPP'])
+        self.assertEqual([g.controller_id for _, g in node.sent], ['HarvestApproach', 'HarvestWork'])
         for _, goal in node.sent:
             self.assertEqual(goal.goal_checker_id, 'general_goal_checker')
             self.assertEqual(goal.progress_checker_id, 'progress_checker')
@@ -21,15 +21,15 @@ class EntryController(unittest.TestCase):
         node = construct()
         HarvestMission(node, request((1.188, -2.3))).run()
         HarvestMission(node, request((1.188, -2.7))).run()
-        self.assertEqual(node.sent[-1][1].controller_id, 'RPP')
+        self.assertEqual(node.sent[-1][1].controller_id, 'HarvestWork')
         node.staged_navigation.sections['SECOND'] = node.staged_navigation.sections['SEC_01']
         node.config['sections']['SECOND'] = node.config['sections']['SEC_01']
         HarvestMission(node, request((1.188, -3.0), 'SECOND')).run()
         self.assertEqual([g.controller_id for _, g in node.sent[-3:]],
-                         ['RPP', 'HarvestApproach', 'RPP'])
+                         ['RPP', 'HarvestApproach', 'HarvestWork'])
 
     def test_absent_option_preserves_legacy_controller(self) -> None:
-        node = construct(config_overrides={'approach_controller_id': None})
+        node = construct(config_overrides={'approach_controller_id': None, 'work_controller_id': None})
         HarvestMission(node, request()).run()
         self.assertEqual([g.controller_id for _, g in node.sent], ['RPP', 'RPP'])
 
@@ -42,7 +42,7 @@ class EntryController(unittest.TestCase):
         node = construct(approach='route_server')
         HarvestMission(node, request()).run()
         self.assertEqual(len(node.route_planner.calls), 1)
-        self.assertEqual([g.controller_id for _, g in node.sent], ['HarvestApproach', 'RPP'])
+        self.assertEqual([g.controller_id for _, g in node.sent], ['HarvestApproach', 'HarvestWork'])
 
     def test_missing_installed_plugin_fails_before_motion(self) -> None:
         with patch.object(Parameters, 'controllers', ('RPP',)):
@@ -55,6 +55,38 @@ class EntryController(unittest.TestCase):
         for value in ('', ' ', 1, [], {}):
             with self.subTest(value=value), self.assertRaises(ValueError):
                 construct(config_overrides={'approach_controller_id': value})
+
+    def test_close_consecutive_work_goals_keep_exact_pose(self) -> None:
+        node = construct()
+        for y in (-2.3, -2.38, -2.7):
+            result = HarvestMission(node, request((1.188, y))).run()
+            goal = node.sent[-1][1]
+            self.assertEqual(goal.controller_id, 'HarvestWork')
+            self.assertAlmostEqual(goal.path.poses[-1].pose.position.y, y)
+            self.assertEqual(result['stamp_ns'], 123)
+        self.assertEqual(len(node.sent), 4)
+
+    def test_missing_work_plugin_never_sends_work_goal(self) -> None:
+        with patch.object(Parameters, 'controllers', ('RPP', 'HarvestApproach')):
+            node = construct()
+            with self.assertRaises(RuntimeError):
+                HarvestMission(node, request()).run()
+            self.assertEqual([g.controller_id for _, g in node.sent], ['HarvestApproach'])
+            self.assertIsNone(node.staged_navigation.current_section)
+
+    def test_invalid_work_option_is_rejected(self) -> None:
+        for value in ('', ' ', 1, [], {}):
+            with self.subTest(value=value), self.assertRaises(ValueError):
+                construct(config_overrides={'work_controller_id': value})
+
+    def test_work_profile_preserves_all_other_parameters(self) -> None:
+        data = read_mapping(ROOT/'robot/config/robots/vicpinky/nav2.yaml')
+        params = data['controller_server']['ros__parameters']
+        expected = dict(params['RPP'], use_fixed_curvature_lookahead=True,
+                        curvature_lookahead_dist=0.4, interpolate_curvature_after_goal=True)
+        self.assertEqual(params['HarvestWork'], expected)
+        node = construct()
+        self.assertEqual(node.exit_client._settings.controller_id, 'RPP')
 
     def test_profile_changes_only_curvature_reference(self) -> None:
         data = read_mapping(ROOT/'robot/config/robots/vicpinky/nav2.yaml')

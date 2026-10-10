@@ -27,8 +27,11 @@ def setup(context):
         source_file=selected['nav_params'], root_key=namespace,
         param_rewrites={'use_sim_time': 'true' if sim else 'false'},
         convert_types=True), allow_substs=False)
+    tag_sync = value('tag_scan_sync') == 'true'
+    if tag_sync and (sim or not value('tag_map_id')):
+        raise ValueError('시각 동기 AMCL은 map_id가 확인된 실물 수확에서만 사용합니다.')
     servers = [
-        ('nav2_map_server', 'map_server'), ('nav2_amcl', 'amcl'),
+        ('nav2_map_server', 'map_server'), ('farm_tag_amcl' if tag_sync else 'nav2_amcl', 'amcl'),
         ('nav2_controller', 'controller_server'), ('nav2_planner', 'planner_server'),
         ('nav2_behaviors', 'behavior_server'), ('nav2_bt_navigator', 'bt_navigator'),
         ('nav2_velocity_smoother', 'velocity_smoother'),
@@ -36,6 +39,8 @@ def setup(context):
     actions = [LogInfo(msg='Scout Nav2 설정 파일: '+selected['nav_params'])]
     for package, name in servers:
         extra = [{'yaml_filename': selected['map']}] if name == 'map_server' else []
+        if name == 'amcl' and tag_sync:
+            extra = [{'tag_robot_id': namespace, 'tag_map_id': value('tag_map_id')}]
         remaps = []
         if name in ('controller_server', 'behavior_server'):
             remaps = [('cmd_vel', 'cmd_vel_nav')]
@@ -70,6 +75,8 @@ def generate_launch_description():
         DeclareLaunchArgument('map', default_value=''),
         DeclareLaunchArgument('nav_params', default_value=''),
         DeclareLaunchArgument('route_file', default_value=''),
+        DeclareLaunchArgument('tag_scan_sync', default_value='false', choices=['true', 'false']),
+        DeclareLaunchArgument('tag_map_id', default_value=''),
         DeclareLaunchArgument('rviz', default_value='false', choices=['true', 'false']),
         OpaqueFunction(function=setup),
     ])

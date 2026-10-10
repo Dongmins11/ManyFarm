@@ -5,9 +5,9 @@
 > - 공용 지도 `maps/many_farm`, map_id `many_farm_v1`.
 > - `route_then_follow` + `approach_planner=graph`: 진입·작업 모두 그래프 다익스트라 → FollowPath. Route Server는 실행하지 않는다.
 > - 11번 정밀 도착·정지 후 작업 목표로 이동한다. lifecycle 확인 대상은 amcl, controller_server, planner_server, bt_navigator다.
-> - 사용자 로봇 빌드·설치 검사 PASS. 14번 주행 성공 사례가 있으나 반복 시험의 충돌 예측 중단과 진입점 부근 회전 문제는 미해결이다.
+> - 사용자 로봇 빌드·설치 검사 PASS. 14번 성공 뒤 반복 시험에서 작업 끝점 회전·충돌 예측 중단을 확인했다. 진입과 작업 끝점 문제를 구분한다.
 > - 태그 보정 효과·실측 정확도 검증 완료가 아니다. 카메라 종료 -11과 AMCL 시각 경고도 남아 있다.
-> - 11번 진입 전용 HarvestApproach 제어기를 추가했다. 오프라인 연결·기하 검사는 통과했으며 로봇 적용 후 재주행 검증은 아직 하지 않았다.
+> - 진입 HarvestApproach는 사용자 실물 개선 확인. 작업점 전용 HarvestWork를 추가한 이번 변경은 오프라인 검증 완료·실물 미검증이며 이탈은 RPP를 유지한다.
 > - 아래 날짜별 기록의 미실행·이전 구조 설명은 작성 당시 상태이며 현재 실행 안내는 이 기준을 따른다.
 
 
@@ -58,7 +58,20 @@ ros2 action send_goal /harvest_01/harvest_task farm_interfaces/action/HarvestTas
 ### 실물 진입 전용 제어기
 
 `harvest_real.json`의 `approach_controller_id`는 SECTION_APPROACH용 FollowPath 제어기를 선택한다.
-실물은 `HarvestApproach`, 작업/이탈은 기존 `RPP`다. 키가 없는 기존 환경과 graph_only 동작은 유지한다.
+실물 진입은 `HarvestApproach`, 작업은 `work_controller_id=HarvestWork`, 이탈은 기존 `RPP`다. 키가 없는 기존 환경과 graph_only 동작은 유지한다.
 새 프로파일이 controller_server에 없으면 기존 Nav2Client의 준비 검사에서 Goal 전송 전에 실패한다.
 진입 제어기는 0.4m 가상 곡률 참조점을 마지막 선분 방향으로 연장한다. 실제 목표와 정밀 도착·정지 조건은 유지한다.
 정적 검사 PASS는 실물 검증 완료가 아니다. 설정 적용 후 controller_server 재시작이 필요하다.
+
+### 2026-10-09 작업점 제어기 적용
+
+현재 선택은 진입 HarvestApproach / 작업 HarvestWork / 이탈 RPP다. 각 작업 좌표의 위치·yaw·정지 확인을 유지한다. 코드와 설정 복사 후 harvest_robot 빌드, check_runtime.py --ros, 수확 launch 재시작이 필요하다.
+
+```bash
+ros2 param get /harvest_01/controller_server controller_plugins
+ros2 param get /harvest_01/controller_server HarvestWork.use_fixed_curvature_lookahead
+ros2 param get /harvest_01/controller_server HarvestWork.curvature_lookahead_dist
+ros2 param get /harvest_01/controller_server HarvestWork.interpolate_curvature_after_goal
+```
+
+HarvestWork 등록 및 True / 0.4 / True를 확인한다. 상세·미검증 범위는 docs/changes/HARVEST_WORK_CONTROL_20261009.md에 기록했다.

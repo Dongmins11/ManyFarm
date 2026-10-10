@@ -73,9 +73,10 @@ class HarvestNode(Node):
         self.staged_navigation = None
         self.route_planner = None
         self.work_client = None
+        self.exit_client = None
         if movement_mode in ('route_then_pose', 'route_then_follow'):
             self.get_logger().info('수확 제어기: 진입=' + approach_settings.controller_id
-                                   + ', 작업·이탈=' + settings.controller_id)
+                                   + ', 기본=' + settings.controller_id)
             graph = RouteGraph(profile['route_graph'])
             sections = load_sections(self.config, graph)
             approach_planner = self.config.get('approach_planner', 'route_server')
@@ -93,16 +94,29 @@ class HarvestNode(Node):
             # 기존 pose 모드는 명시적으로 선택한 환경에서만 호환 유지한다.
             work_settings = (settings if movement_mode == 'route_then_follow'
                              else replace(settings, mode='navigate_to_pose'))
+            # 선택 키가 있는 FollowPath 작업에만 적용한다. 이탈 제어기는 원래 설정을 유지한다.
+            if movement_mode == 'route_then_follow':
+                work_id = self.config.get('work_controller_id', settings.controller_id)
+                if not isinstance(work_id, str) or not work_id.strip():
+                    raise ValueError('work_controller_id는 비어 있지 않은 문자열이어야 합니다.')
+                work_settings = replace(work_settings, controller_id=work_id)
+            self.get_logger().info('수확 작업 제어기=' + work_settings.controller_id
+                                   + ', 이탈 제어기=' + settings.controller_id)
             self.work_client = Nav2Client(self, work_settings, self.callbacks)
             work = Navigator(self, work_settings, self.work_client, self.poses, self.motion,
                 self.check, graph=graph if movement_mode == 'route_then_follow' else None,
                 record=lambda item: self.navigation_log.append(item))
+            exit_navigator = work
+            if work_settings.controller_id != settings.controller_id:
+                self.exit_client = Nav2Client(self, settings, self.callbacks)
+                exit_navigator = Navigator(self, settings, self.exit_client, self.poses, self.motion,
+                    self.check, graph=graph, record=lambda item: self.navigation_log.append(item))
             def current_xy() -> tuple[float, float]:
                 transform = self.poses.current(self.check)
                 return float(transform[0,3]), float(transform[1,3])
             self.staged_navigation = StagedNavigation(self.navigator, work, sections,
                 current_xy, self.check, lambda item: self.navigation_log.append(item),
-                settings.max_start_distance_m)
+                settings.max_start_distance_m, exit_navigator=exit_navigator)
         self.events = self.create_publisher(String, 'task_events', QoSProfile(
             depth=100, reliability=ReliabilityPolicy.RELIABLE, durability=DurabilityPolicy.TRANSIENT_LOCAL))
         self.communication = HarvestCommunication(self)
@@ -141,6 +155,8 @@ def main(args=None) -> None:
             node.route_planner.close()
         if node.work_client is not None:
             node.work_client.close()
+        if node.exit_client is not None:
+            node.exit_client.close()
         node.client.close()
         if node.arm_client is not None:
             node.arm_client.close()

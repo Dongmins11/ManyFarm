@@ -5,9 +5,9 @@
 > - 공용 지도 `maps/many_farm`, map_id `many_farm_v1`.
 > - `route_then_follow` + `approach_planner=graph`: 진입·작업 모두 그래프 다익스트라 → FollowPath. Route Server는 실행하지 않는다.
 > - 11번 정밀 도착·정지 후 작업 목표로 이동한다. lifecycle 확인 대상은 amcl, controller_server, planner_server, bt_navigator다.
-> - 사용자 로봇 빌드·설치 검사 PASS. 14번 주행 성공 사례가 있으나 반복 시험의 충돌 예측 중단과 진입점 부근 회전 문제는 미해결이다.
+> - 사용자 로봇 빌드·설치 검사 PASS. 14번 성공 뒤 반복 시험에서 작업 끝점 회전·충돌 예측 중단을 확인했다. 진입과 작업 끝점 문제를 구분한다.
 > - 태그 보정 효과·실측 정확도 검증 완료가 아니다. 카메라 종료 -11과 AMCL 시각 경고도 남아 있다.
-> - 11번 진입 전용 HarvestApproach 제어기를 추가했다. 오프라인 연결·기하 검사는 통과했으며 로봇 적용 후 재주행 검증은 아직 하지 않았다.
+> - 진입 HarvestApproach는 사용자 실물 개선 확인. 작업점 전용 HarvestWork를 추가한 이번 변경은 오프라인 검증 완료·실물 미검증이며 이탈은 RPP를 유지한다.
 > - 아래 날짜별 기록의 미실행·이전 구조 설명은 작성 당시 상태이며 현재 실행 안내는 이 기준을 따른다.
 
 
@@ -149,7 +149,29 @@ ros2 param get /harvest_01/controller_server HarvestApproach.interpolate_curvatu
 ```
 
 목록에 HarvestApproach, 다음 값은 순서대로 True / 0.4 / True여야 한다.
-수확 노드 로그는 `수확 제어기: 진입=HarvestApproach, 작업·이탈=RPP`다.
+수확 노드 로그는 진입 `HarvestApproach`와 작업 `HarvestWork`, 이탈 `RPP` 선택을 별도로 표시한다.
 11번 정밀 도착 후 작업으로 전환하므로 정상적인 정지·재출발은 남는다.
 이전 성공/실패와 같은 위치·방향에서 별도 승인된 재주행을 기록해 진입 회전, odom, TF, costmap, 태그 이벤트를 비교한다.
-현재 패치의 실물 재주행은 미실행이며 충돌 검사를 해제하지 않는다.
+진입 패치의 실물 성공 확인 이후 작업점 접근을 추가 수정했다. 새 HarvestWork 실물 주행은 미검증이며 충돌 검사는 유지한다.
+
+### 2026-10-09 작업점 제어기 적용
+
+현재 선택은 진입 HarvestApproach / 작업 HarvestWork / 이탈 RPP다. 각 작업 좌표의 위치·yaw·정지 확인을 유지한다. 코드와 설정 복사 후 harvest_robot 빌드, check_runtime.py --ros, 수확 launch 재시작이 필요하다.
+
+```bash
+ros2 param get /harvest_01/controller_server controller_plugins
+ros2 param get /harvest_01/controller_server HarvestWork.use_fixed_curvature_lookahead
+ros2 param get /harvest_01/controller_server HarvestWork.curvature_lookahead_dist
+ros2 param get /harvest_01/controller_server HarvestWork.interpolate_curvature_after_goal
+```
+
+HarvestWork 등록 및 True / 0.4 / True를 확인한다. 상세·미검증 범위는 docs/changes/HARVEST_WORK_CONTROL_20261009.md에 기록했다.
+
+## 수확 태그 보정 라이다 시각 연결 — 2026-10-09
+
+- 사용자 “그 방법대로 연결해보도록 하자” 승인. 원격 7689f36 및 이후 적용한 HarvestWork 기준이다.
+- 수확 real+tag_correction=true에서 farm_tag_amcl을 선택하고 작업 토큰·라이다 시각을 맞춰 보정한다. 공유 launch의 기본값은 기존 nav2_amcl로 유지한다.
+- 예찰/scout_new·공통 주행 알고리즘·지도·벽 간격 20cm·제어기·costmap·도착 허용오차·드라이버는 변경하지 않았다.
+- 직접 검사: 태그/launch 50개, 수확 60개, 실제 ROS 22개 PASS. CMake/ament 빌드·설치 PASS. 주행 녹화의 보정 12/12 적용, 보정 관련 TF 경고 12→0; 수동 초기 위치 경고 1회는 별도다.
+- 로봇 arm64 빌드·실물 폐루프 주행·벽 간격 정확도·카메라 종료 -11 해결은 미검증. PC 백업은 저장소 밖에 유지하며 commit/push·로봇 복사·실행은 하지 않았다.
+- 복원은 실행 종료 후 correction_transport: initialpose로 전환한다. 상세 계약·검증·다음 작업: docs/changes/HARVEST_TAG_SCAN_SYNC_20261009.md. 전달물 RUN.md에 로봇 빌드·독립 ROS 검사·RViz·실행·로그 명령을 포함했다.

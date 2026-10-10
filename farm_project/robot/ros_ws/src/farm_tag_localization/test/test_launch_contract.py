@@ -8,7 +8,7 @@ import unittest
 ROOT=Path(__file__).resolve().parents[5]
 
 class LaunchContract(unittest.TestCase):
-    def setup_launch(self, enabled, *, camera="auto", folder="/capture/current", devices="false", mode="real", staged=False, navigation="true", movement_mode="route_then_pose", approach_planner="route_server"):
+    def setup_launch(self, enabled, *, camera="auto", folder="/capture/current", devices="false", mode="real", staged=False, navigation="true", movement_mode="route_then_pose", approach_planner="route_server", scan_sync=False):
         class Action:
             def __init__(self,*args,**kwargs):self.args=args;self.kwargs=kwargs
         class Config:
@@ -29,7 +29,7 @@ class LaunchContract(unittest.TestCase):
         stub('launch_ros');stub('launch_ros.actions',Node=Action)
         stub('launch_ros.descriptions',ParameterFile=Action)
         stub('nav2_common');stub('nav2_common.launch',RewrittenYaml=Action)
-        stub('farm_navigation');stub('farm_navigation.configuration',load_environment=lambda *a,**k:profile,resolve_file=lambda r,p:r/p,read_mapping=lambda p:({'movement_mode':movement_mode,'approach_planner':approach_planner} if staged else {}))
+        stub('farm_navigation');stub('farm_navigation.configuration',load_environment=lambda *a,**k:profile,resolve_file=lambda r,p:r/p,read_mapping=lambda p:({'correction_transport':'scan_sync'} if scan_sync and str(p).endswith('/t.yaml') else ({'movement_mode':movement_mode,'approach_planner':approach_planner} if staged else {})))
         calls=[]
         stub('farm_tag_localization.runtime',validate_binding=lambda *a:calls.append(a))
         with patch.dict(sys.modules,modules):
@@ -37,6 +37,13 @@ class LaunchContract(unittest.TestCase):
             module=importlib.util.module_from_spec(spec);spec.loader.exec_module(module)
             actions=module.setup(dict(mode=mode,devices=devices,navigation=navigation,project_root=str(ROOT),environment_config=('sim/e.yaml' if mode == 'sim' else 'robot/e.yaml'),tag_correction=str(enabled).lower(),capture_directory=folder,tag_camera=camera))
         return actions,calls
+
+    def test_scan_sync_only_real_enabled(self):
+        for mode,enabled,expected in [('real',True,'true'),('real',False,'false'),('sim',True,'false')]:
+            actions,_=self.setup_launch(enabled,mode=mode,scan_sync=True)
+            args=dict(actions[0].kwargs['launch_arguments'])
+            self.assertEqual(args['tag_scan_sync'],expected)
+            self.assertEqual(args['tag_map_id'],'m' if expected=='true' else '')
 
     def test_graph_approach_does_not_launch_unused_route_server(self):
         actions,_=self.setup_launch(True,staged=True,movement_mode='route_then_follow',approach_planner='graph')

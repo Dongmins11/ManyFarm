@@ -123,7 +123,8 @@ class Contracts(unittest.TestCase):
         tree=ast.parse(source)
         publishers=[n for n in ast.walk(tree) if isinstance(n,ast.Call) and isinstance(n.func,ast.Attribute) and n.func.attr=='create_publisher']
         self.assertEqual(len(publishers),1)
-        self.assertEqual(publishers[0].args[1].value,'initialpose')
+        self.assertEqual({publishers[0].args[1].body.value, publishers[0].args[1].orelse.value},
+                         {'initialpose', 'tag_localization/correction'})
         self.assertNotIn('TransformBroadcaster',source)
         self.assertNotIn('SetParameters',source)
         self.assertNotIn('ActionClient',source)

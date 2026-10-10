@@ -37,12 +37,15 @@ def setup(context) -> list:
         raise ValueError('실물 USB 카메라 실행은 mode=real 전용입니다. sim은 외부 capture_directory를 사용하세요.')
     capture_config = resolve_file(root, profile['tag_capture_config']) if camera_on else None
     tag_path = None
+    tag_sync = False
     if tag_on:
         from farm_tag_localization.runtime import validate_binding
         tag_path = resolve_file(root, profile['tag_localization_config'])
         if tag_path.is_relative_to(root/'sim') != (mode == 'sim'):
             raise ValueError('태그 설정의 sim/real 경로 불일치')
-        validate_binding(read_mapping(tag_path), profile, root)
+        tag_config = read_mapping(tag_path)
+        validate_binding(tag_config, profile, root)
+        tag_sync = mode == 'real' and tag_config.get('correction_transport', 'initialpose') == 'scan_sync'
         if not camera_on and not value('capture_directory'):
             raise ValueError('tag_correction=true에는 현재 capture_directory가 필요합니다.')
     tf_remaps = [] if mode == 'sim' else [
@@ -59,7 +62,8 @@ def setup(context) -> list:
     if value('navigation') == 'true':
         actions.append(include('farm_bringup','scout_navigation.launch.py',
             dict(mode=mode,robot_id=profile['robot_id'],map=profile['map_yaml'],nav_params=profile['nav_params'],
-                 route_file=profile['route_graph'],rviz='false')))
+                 route_file=profile['route_graph'],rviz='false',
+                 tag_scan_sync='true' if tag_sync else 'false', tag_map_id=profile['map_id'] if tag_sync else '')))
     harvest_config = read_mapping(resolve_file(root, profile['harvest_config']))
     approach_planner = harvest_config.get('approach_planner', 'route_server')
     if approach_planner not in ('graph', 'route_server'):

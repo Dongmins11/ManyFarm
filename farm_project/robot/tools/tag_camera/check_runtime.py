@@ -50,7 +50,7 @@ def main(args: list[str] | None = None) -> int:
             failures.append(name)
             print('FAIL:', name, type(exc).__name__, str(exc), flush=True)
     def sources() -> None:
-        paths = [src / 'farm_bringup/launch/harvest.launch.py']
+        paths = [src / 'farm_bringup/launch/harvest.launch.py', src / 'farm_bringup/launch/scout_navigation.launch.py']
         for folder in (src / 'farm_tag_localization/farm_tag_localization',
                        src / 'harvest_robot/harvest_robot', src / 'farm_navigation/farm_navigation',
                        root / 'robot/tools/tag_camera'):
@@ -73,6 +73,9 @@ def main(args: list[str] | None = None) -> int:
         env = load_environment(root / 'robot/config/environments/harvest_real.yaml', root, 'real', require_survey=False)
         cfg = read_mapping(root / env['tag_localization_config'])
         validate_binding(cfg, env, root)
+        if cfg.get('correction_transport') != 'scan_sync':
+            raise ValueError('실물 수확 보정 수신부 scan_sync 설정 불일치')
+        print('  보정 수신부: farm_tag_amcl / scan_sync_v1')
         load_observer(str(root / env['tag_localization_config']), str(root), 'preflight')
         harvest = read_mapping(root / env['harvest_config'])
         if harvest['completion_policy'] != 'ARRIVAL_ONLY_NO_HARVEST':
@@ -95,7 +98,15 @@ def main(args: list[str] | None = None) -> int:
                                 curvature_lookahead_dist=0.4, interpolate_curvature_after_goal=True)
                 if params[entry] != expected:
                     raise ValueError('진입 전용 RPP 설정이 검증된 작업 프로파일/세 변경값과 다릅니다.')
-            print('  수확 제어기: 진입=' + entry + ', 작업·이탈=' + settings.controller_id)
+            work = harvest.get('work_controller_id', settings.controller_id) if harvest.get('movement_mode') == 'route_then_follow' else settings.controller_id
+            if not isinstance(work, str) or work not in params['controller_plugins']:
+                raise ValueError('작업 제어기 미등록: ' + str(work))
+            if work == 'HarvestWork':
+                expected = dict(params[settings.controller_id], use_fixed_curvature_lookahead=True,
+                                curvature_lookahead_dist=0.4, interpolate_curvature_after_goal=True)
+                if params[work] != expected:
+                    raise ValueError('작업 전용 RPP 설정이 검증된 기본값/세 변경값과 다릅니다.')
+            print('  수확 제어기: 진입=' + entry + ', 작업=' + work + ', 이탈=' + settings.controller_id)
         flat = dict(params)
         for checker in params['goal_checker_plugins']:
             flat.update({checker + '.' + k: v for k, v in params[checker].items()})
@@ -160,7 +171,7 @@ def main(args: list[str] | None = None) -> int:
         def dependencies() -> None:
             from ament_index_python.packages import get_package_prefix
             for package, executable in (('nav2_route', 'route_server'), ('apriltag_ros', 'apriltag_node'),
-                                        ('image_proc', 'rectify_node')):
+                                        ('image_proc', 'rectify_node'), ('farm_tag_amcl', 'amcl')):
                 path = Path(get_package_prefix(package)) / 'lib' / package / executable
                 if not path.is_file():
                     raise FileNotFoundError(path)
