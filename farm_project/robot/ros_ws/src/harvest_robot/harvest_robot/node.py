@@ -5,6 +5,7 @@ import threading
 import json
 from dataclasses import replace
 from .staged_navigation import StagedNavigation, load_sections
+from .corridor_navigation import CorridorNavigator, load_corridors
 import rclpy
 from rclpy.node import Node
 from rclpy.callback_groups import ReentrantCallbackGroup
@@ -103,11 +104,16 @@ class HarvestNode(Node):
             self.get_logger().info('수확 작업 제어기=' + work_settings.controller_id
                                    + ', 이탈 제어기=' + settings.controller_id)
             self.work_client = Nav2Client(self, work_settings, self.callbacks)
-            work = Navigator(self, work_settings, self.work_client, self.poses, self.motion,
+            corridors = load_corridors(self.config, graph)
+            if corridors and (movement_mode != 'route_then_follow' or work_settings.parallel_approach):
+                raise ValueError('중간 시작은 일반 FollowPath 작업 모드에서만 사용합니다.')
+            work_class = CorridorNavigator if corridors else Navigator
+            work_options = {'corridors': corridors} if corridors else {}
+            work = work_class(self, work_settings, self.work_client, self.poses, self.motion,
                 self.check, graph=graph if movement_mode == 'route_then_follow' else None,
-                record=lambda item: self.navigation_log.append(item))
+                record=lambda item: self.navigation_log.append(item), **work_options)
             exit_navigator = work
-            if work_settings.controller_id != settings.controller_id:
+            if corridors or work_settings.controller_id != settings.controller_id:
                 self.exit_client = Nav2Client(self, settings, self.callbacks)
                 exit_navigator = Navigator(self, settings, self.exit_client, self.poses, self.motion,
                     self.check, graph=graph, record=lambda item: self.navigation_log.append(item))
@@ -116,10 +122,18 @@ class HarvestNode(Node):
                 return float(transform[0,3]), float(transform[1,3])
             self.staged_navigation = StagedNavigation(self.navigator, work, sections,
                 current_xy, self.check, lambda item: self.navigation_log.append(item),
-                settings.max_start_distance_m, exit_navigator=exit_navigator)
+                settings.max_start_distance_m, exit_navigator=exit_navigator,
+                resume_current=work.resume_current if corridors else None)
         self.events = self.create_publisher(String, 'task_events', QoSProfile(
             depth=100, reliability=ReliabilityPolicy.RELIABLE, durability=DurabilityPolicy.TRANSIENT_LOCAL))
         self.communication = HarvestCommunication(self)
+        self.status_reporter = None
+        status_config = self.config.get('status_reporting', {})
+        if status_config.get('enabled', False):
+            if self.mode != 'real' or policy != 'ARRIVAL_ONLY_NO_HARVEST':
+                raise ValueError('현재 Status는 실물 이동 전용 정책에만 연결됨')
+            from .status import HarvestStatus
+            self.status_reporter = HarvestStatus(self, settings, status_config)
         self.get_logger().info('HarvestTask 완료 정책: '+policy)
 
     def emit_record(self, record: dict) -> None:
@@ -151,6 +165,8 @@ def main(args=None) -> None:
         if node.tag_control is not None:
             node.tag_control.end()
         executor.shutdown()
+        if node.status_reporter is not None:
+            node.status_reporter.close()
         if node.route_planner is not None:
             node.route_planner.close()
         if node.work_client is not None:

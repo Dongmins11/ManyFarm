@@ -152,7 +152,7 @@ class TestStagedNavigation(unittest.TestCase):
         setup = globals()["setup"]()
         staged,a,_,calls,_,_=setup
         tags=[]
-        n=S(staged_navigation=staged,navigator=a,check=lambda:None,blocked=False,
+        n=S(config={"sections":{"A":{},"B":{}}},staged_navigation=staged,navigator=a,check=lambda:None,blocked=False,
             tag_control=S(begin=lambda:tags.append('begin'),end=lambda:tags.append('end')))
         assert HarvestMission(n,goal()).run()=={'accepted':True}
         assert tags==['begin','end']
@@ -164,7 +164,7 @@ class TestStagedNavigation(unittest.TestCase):
         staged,a,w,_,_,_=setup
         w.failure=RuntimeError('blocked path')
         tags=[]
-        n=S(staged_navigation=staged,navigator=a,check=lambda:None,blocked=False,
+        n=S(config={"sections":{"A":{},"B":{}}},staged_navigation=staged,navigator=a,check=lambda:None,blocked=False,
             tag_control=S(begin=lambda:tags.append('begin'),end=lambda:tags.append('end')))
         with self.assertRaises(RuntimeError):HarvestMission(n,goal()).run()
         assert w.canceled and tags==['begin','end']
@@ -176,7 +176,7 @@ class TestStagedNavigation(unittest.TestCase):
         w.failure=RuntimeError('path failed')
         def fail():raise RuntimeError('no response')
         w.cancel_nav=fail
-        n=S(staged_navigation=staged,navigator=a,check=lambda:None,blocked=False,tag_control=None)
+        n=S(config={"sections":{"A":{},"B":{}}},staged_navigation=staged,navigator=a,check=lambda:None,blocked=False,tag_control=None)
         with self.assertRaisesRegex(RuntimeError,'CANCEL_UNCONFIRMED'):HarvestMission(n,goal()).run()
         assert n.blocked
 

@@ -20,7 +20,7 @@ def build_goal(root: Path, node_id: int = 14, heading_from: int = 13,
         raise ValueError('수확/환경 식별자 불일치')
     if config['completion_policy'] != 'ARRIVAL_ONLY_NO_HARVEST':
         raise ValueError('이 도구는 이동 전용 시험만 지원합니다.')
-    if section_id not in config['sections']:
+    if section_id != config.get('default_section_id') or len(config['sections']) != 1:
         raise ValueError('등록되지 않은 section_id')
     features = json.loads((root / env['route_graph']).read_text())['features']
     points = {f['properties']['id']: f['geometry']['coordinates'][:2]
@@ -39,7 +39,7 @@ def build_goal(root: Path, node_id: int = 14, heading_from: int = 13,
                     goal_pose=dict(frame_id=env['navigation']['map_frame'],
                                    position=dict(x=x, y=y, z=0.0), yaw=math.atan2(y-b, x-a)),
                     expected_count=0),
-                section_id=section_id, timestamp=datetime.now(timezone.utc).isoformat())
+                timestamp=datetime.now(timezone.utc).isoformat())
 
 
 def main() -> None:

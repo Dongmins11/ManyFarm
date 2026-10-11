@@ -8,7 +8,7 @@ if [ "$action" != rviz ]; then
   source "$HOME/vicpinky_ws/install/setup.bash"
   source "$root/robot/ros_ws/install/setup.bash"
 fi
-export ROS_DOMAIN_ID=156
+export ROS_DOMAIN_ID=77
 export ROS_AUTOMATIC_DISCOVERY_RANGE=SUBNET
 export RMW_IMPLEMENTATION=rmw_fastrtps_cpp
 unset ROS_LOCALHOST_ONLY ROS_DISCOVERY_SERVER ROS_STATIC_PEERS
@@ -20,6 +20,14 @@ case "$action" in
       -r /initialpose:=/harvest_01/initialpose
     ;;
   launch)
+    # 새 시험 폴더/marker를 만들기 전에 중복 실행과 남은 장치 프로세스를 막는다.
+    mkdir -p "$HOME/.cache/manyfarm"
+    exec 9>>"$HOME/.cache/manyfarm/harvest_trial.lock"
+    if ! flock -n 9; then
+      printf '실행 중단: 이미 수확 launch가 실행 중입니다. 기존 실행 창을 확인하세요.\n' >&2
+      exit 3
+    fi
+    python3 robot/tools/tag_camera/bias_trial/launch_guard.py "$root"
     mode="${2:-on}"
     folder="$(python3 robot/tools/tag_camera/bias_trial/trial.py prepare --mode "$mode")"
     printf '시험 폴더: %s\n보상: %s\n' "$folder" "$mode"

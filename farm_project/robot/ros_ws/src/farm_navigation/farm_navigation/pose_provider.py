@@ -55,5 +55,17 @@ class PoseProvider:
     def current(self, check: Callable[[],None]) -> NDArray[np.float64]:
         return self.lookup(self._settings.map_frame,self._settings.base_frame,0,check)
 
+    def recovery_ready(self) -> bool:
+        """직전 0.1초의 map→base TF가 실제로 연결될 때만 복구를 허용합니다."""
+        now = self._node.get_clock().now().nanoseconds
+        try:
+            self._buffer.lookup_transform(
+                self._settings.map_frame, self._settings.base_frame,
+                Time(nanoseconds=max(1, now - 100_000_000)))
+            return True
+        except TransformException:
+            return False
+
     def close(self) -> None:
         self._listener.unregister()
+

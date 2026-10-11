@@ -1,5 +1,6 @@
 """공통 이동을 마친 뒤 설정된 팔 Action의 종료를 기다립니다. 팔 작업 정책은 소유하지 않습니다."""
 from dataclasses import asdict
+from .contract import resolve_section
 
 
 class MissionCanceled(Exception):
@@ -22,7 +23,7 @@ class HarvestMission:
                 control.begin()
             xy = (task.goal_pose.position.x, task.goal_pose.position.y)
             if staged is not None:
-                result = staged.navigate(self.goal.section_id, xy, task.goal_pose.yaw)
+                result = staged.navigate(resolve_section(getattr(self.goal, "section_id", None), self.node.config), xy, task.goal_pose.yaw)
             else:
                 result = self.node.navigator.navigate(xy, task.goal_pose.yaw)
             self.node.check()

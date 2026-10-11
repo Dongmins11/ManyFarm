@@ -2,17 +2,31 @@
 import math
 
 
+def resolve_section(section_id: str | None, config: dict) -> str:
+    """원본 Section ID는 보존하고 명시된 수확 진입 경로만 선택한다."""
+    if section_id is None:
+        section_id = config.get('default_section_id')
+        if section_id is None or len(config.get('sections', {})) != 1:
+            raise ValueError('Section 없는 관제 Goal에는 명시적인 단일 구역 설정 필요')
+    if section_id in config.get('sections', {}):
+        return section_id
+    target = config.get('control_aliases', {}).get('section_ids', {}).get(section_id)
+    if target not in config.get('sections', {}):
+        raise ValueError('등록된 section_id 필요; window_id에서 추측하지 않음')
+    return target
+
+
 def validate_task(goal, config: dict) -> None:
     task = goal.harvest_task
     # 새 규약의 ID는 opaque identifier입니다. 삭제된 Section/Segment를 추정하지 않습니다.
     if any(not isinstance(value, str) or not value.strip()
            for value in (task.task_id, task.window_id)):
         raise ValueError('task_id/window_id가 비어 있음')
-    if goal.robot_id != config['robot_id'] or goal.map_id != config['map_id']:
+    internal_map = config.get('control_aliases', {}).get('map_ids', {}).get(goal.map_id, goal.map_id)
+    if goal.robot_id != config['robot_id'] or internal_map != config['map_id']:
         raise ValueError('robot_id/map_id 불일치')
     if config.get("movement_mode") in ("route_then_pose", "route_then_follow"):
-        if getattr(goal, "section_id", "") not in config.get("sections", {}):
-            raise ValueError("등록된 section_id 필요; window_id에서 추측하지 않음")
+        resolve_section(getattr(goal, "section_id", None), config)
     p, yaw = task.goal_pose.position, task.goal_pose.yaw
     if (task.goal_pose.frame_id != 'map' or task.expected_count < 0
             or not all(math.isfinite(v) for v in (p.x, p.y, p.z, yaw)) or abs(p.z) > .1):

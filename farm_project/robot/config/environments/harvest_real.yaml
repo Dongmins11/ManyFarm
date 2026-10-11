@@ -13,6 +13,8 @@ tag_localization_config: robot/config/localization/harvest_real.yaml
 tag_capture_config: robot/config/cameras/harvest_tag_capture.yaml
 navigation:
   mode: follow_path
+  tf_recovery_enabled: false
+  tf_recovery_timeout_s: 10.0
   map_frame: map
   base_frame: base_footprint
   controller_id: RPP
@@ -26,3 +28,4 @@ navigation:
   path_spacing_m: 0.04
 
 route_server_params: robot/config/harvest/route_server.yaml
+

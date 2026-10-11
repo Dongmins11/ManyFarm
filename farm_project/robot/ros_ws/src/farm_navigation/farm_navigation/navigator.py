@@ -33,6 +33,8 @@ class Navigator:
         self._graph=graph
         self._route_planner=route_planner
         self._record=record
+        if settings.tf_recovery_enabled:
+            client.set_recovery_probe(lambda: poses.recovery_ready() and motion.stationary_now())
         self._lock=threading.Lock()
         self._status=NavigationStatus()
         self._needs_stop_confirmation=False
@@ -182,3 +184,4 @@ class Navigator:
 
     def stationary_now(self) -> bool:
         return self._motion.stationary_now()
+

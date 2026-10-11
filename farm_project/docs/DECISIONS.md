@@ -1,5 +1,21 @@
 # 설계 결정 및 미확정 사항
 
+<!-- HARVEST_VERIFIED_BASELINE_20261011 -->
+## 수확 실물 성공 상태 고정 — 2026-10-11 17:51 KST
+
+- 사용자 확인: 중간 위치에서 회전 없이 목표로 이동했고 관제 웹에 작업 완료가 표시됨. 단일 요청 성공이며 반복 신뢰성, 태그 보정 정확도, 실제 수확 동작까지 검증한 것은 아님.
+- 사용자 지시: 현재 성공한 코드·설정을 반드시 유지. 이후 코드·설정·실행 옵션 변경은 이유와 범위를 설명하고 사용자 확인 후 적용. 조회·로그 분석부터 진행.
+- 통신 ROS_DOMAIN_ID=77 / rmw_fastrtps_cpp, 태그 카메라 별도 환경 유지. navigation.tf_recovery_enabled=false (timeout_s=10.0 값은 남아 있으나 비활성). 이전 문서의 TF 복구 ON 설명보다 이 상태가 최신.
+- SEC_01 work_corridor_nodes=[10,14]. 구간 내 위치·방향 및 전방 목표 조건을 만족하면 SECTION_RESUME로 진입점 복귀를 건너뛰고 현재 위치에서 작업 목표로 이동. 구간 밖 기존 진입 및 충돌 감지 유지.
+- 중간 출발 관련 4개 파일은 성공 후 로봇에서 받은 harvest_working_20261011.tar.gz와 전달 v2의 SHA256이 일치함. PC의 미커밋 관제 호환·상태 발행·TF 복구 소스 및 기존 테스트는 보존.
+- launch 중복 방지와 제한 시간 진단 도구를 로봇 적용본으로 보존. Wi-Fi/DDS 정체와 TF 끊김의 재발 방지는 해결 완료로 판정하지 않음.
+- Git: Robot3FinalProject/main, feat/apriltag-localization, 사용자 출력 HEAD 25cdf88 + 미커밋 변경 기준. PC 경로 /home/eunbi/vmany/main/farm_project. 로봇 /home/vic/vmany/main/farm_project는 Git 미연결. PC VS Code에서 기존 Fix: 형식으로 커밋·push 예정; 이 문서 생성 시점 원격 반영 미완료.
+- 승인 범위: 성공한 로봇 소스·설정을 PC에 백업하고 Git에 보존. PC 문서는 최신 이력을 보존하며 로봇의 오래된 문서로 덮어쓰지 않음. 로봇 실행·설정 변경 없음. 시뮬 신규 변경 없음; 앞선 Action 규격 변경의 다중 구역 영향은 기존 호환 문서 참조.
+- 패키지 적용 전 PC 파일 해시 확인 및 저장소 밖 백업. PC 재빌드 불필요. 복원은 적용 시 표시된 backup의 restore_manifest.json과 원본 파일을 기준으로 해당 파일만 복원. Git pull/reset 및 로봇 재배포는 이번 백업 작업에 포함하지 않음.
+
+
+관련 구현 기록: docs/changes/HARVEST_RUNTIME_TOOLS_20261011.md, docs/changes/HARVEST_MIDSTART_20261011.md.
+
 <!-- MOTOR_INSTALLED_20261010_1751 -->
 > **모터 영구 설정 설치 확인 — 2026-10-10 17:51 KST**
 > 사용자 로봇 출력: udev 규칙 검사 Success 1 / Fail 0,
@@ -211,3 +227,82 @@
 - 검증: 이번 로그 재분석 및 전달물 오프라인 검사는 HARVEST_GIT_FREEZE_20261010.md 참조. 새 udev 규칙의 로봇 설치/재부팅·재연결은 미실행이며 설치 도구의 CHECK_OK 후에도 실제 재부팅 검증과 구분한다.
 - 복원: 새 설치 도구 remove는 자기 규칙만 제거하고 현재 모터 latency_timer=16 복원. PC 문서 복원은 /home/eunbi/vmany_backups 적용 백업과 비교해 이번 변경만 되돌림.
 - commit/push·로봇 설치 미실행. 은비가 VS Code에서 반영 후 Confluence에서 확정 커밋을 연결한다.
+
+## 관제 좌표 수신 연결 준비 — 2026-10-10
+
+- 사용자 승인: 관제에서 좌표를 받아 이동하도록 연결 준비. 후속 확인에 따라 수확 ROS_DOMAIN_ID=156 유지. README의 일반 실물 77을 수확에 일괄 적용하지 않는다.
+- 기준: main 저장소 feat/apriltag-localization 25cdf88, Control/web_integration 337c2d5, Frontend/main 5909f0d. PC/로봇 설치본은 이번에 직접 조회하지 않았다.
+- 수확 서버는 기존 HarvestTask Goal의 section_id를 요구한다. 관제 터미널 ManualHarvest·RosAdapter 및 웹 ControlQueue 송신부와 각 관제 저장소의 Action 정의를 이 형식에 맞추는 패키지를 준비했다. HarvestTask.msg/ScoutArea와 예찰 scout_new는 변경하지 않는다.
+- 수확 주행·태그 보정·지도·제어기·costmap·모터·launch 변경 없음. 관제 미션의 좌표·yaw·ID·배열/사용자 선택 순서를 그대로 전달한다. real 완료 정책은 ARRIVAL_ONLY_NO_HARVEST: SUCCESS는 이동 완료, harvested_count=0.
+- 직접 검증: Control 오프라인 68개 PASS, 웹 실제 큐의 Section/좌표/ID 전달·도착 수량0·재전송 거절 검사 1개 PASS. 생성 ROS 메시지/CDR·DDS·실물 연동은 미실행.
+- 관제 문서의 Domain 기준은 README 77 / FULL_PIPELINE 156으로 다르다. 웹 Git 기본 설정은 real=77이며 환경 변수로 변경 가능하다. 현재 웹 worker는 환경당 단일 Domain이므로 로봇별 별도 Domain 연결이 구현됐다고 주장하지 않는다. 수확156을 유지하고 관제의 실제 수확 연결 Domain을 실행 시 확인한다.
+- 적용·빌드·PC RViz·초기 위치·Goal·rosbag·로그 수집·로봇→PC 복사는 docs/changes/HARVEST_CONTROL_LINK_20261010.md를 따른다. 백업은 /home/eunbi/vmany_backups만 사용하며 파일 해시 불일치 시 전체 적용 전 중단한다. commit/push·실물 실행은 수행하지 않았다.
+
+
+<!-- HARVEST_CONTROL_READY_20261010 -->
+## 관제 좌표 수신 정합 수정 — 2026-10-10
+
+사용자 “좌표받아서 갈수있도록 코드 분석해서 준비” 승인 범위. 준비본·미커밋이며 PC/로봇 설치와 실주행은 별도다.
+기준 Git: main feat/apriltag-localization 25cdf88 / Frontend main 5909f0d.
+
+이 기록은 앞서 HARVEST_CONTROL_LINK_20261010.md의 Domain156 및 예찰에 many_farm_v1/SEC_01을 보내라는 안내를 정정한다.
+현재 통신 Domain은77(사용자 변경 완료 보고), 카메라 별도 환경은 유지한다.
+관제/예찰 통신은 farm_map_v1/SEC01 그대로다. 예찰과 수확 환경 YAML은 같은 maps/many_farm/many_farm.yaml 및 graph.geojson을 참조한다.
+수확 내부 many_farm_v1/SEC_01과 태그 기준은 보존하고 harvest_real.json control_aliases에 위 두 ID의 명시적 대응을 추가한다.
+contract.py에서 지도/구역을 검사하고 mission.py에서 구역을 해석한다. 원본 Goal·좌표·yaw·작업 ID는 변경하지 않는다.
+등록되지 않은 지도/구역 거절 유지. 별칭 설정 없는 시뮬 등은 기존 계약 유지.
+Frontend control_core.py와 HarvestTask.action의 section_id 전송을 맞춘다. Control 키보드 관제 패치도 포함하나 웹은 Frontend 패치가 필요하다.
+각 저장소에 패치 적용 및 인터페이스 재빌드/프로세스 재시작이 필요하다. 이전 패키지의 project 문서4개 적용만으로 관제 수정이 완료된 것이 아니다.
+예찰 scout_new·지도·그래프·태그 보상·Nav2·footprint·제어기·모터 설정은 수정하지 않는다.
+수확의 현재 SUCCESS는 도착/정지 성공이며 실제 수확량은0이다. 물리적20cm 유지 및 카메라 종료 문제는 동결 기록의 후속 과제다.
+직접 검사 및 미실행 범위는 전달물 VALIDATION.md, 배포/실행/로그는 RUN.md를 따른다.
+복원: PC /home/eunbi/vmany_backups의 이번 파일만 비교 복구하고 harvest_robot 재빌드. 관제 인터페이스를 되돌리면 의존 노드도 함께 재빌드한다. commit/push 자동 수행 없음.
+
+### 공유 DM의 통신 문서 대조 및 Status 추가
+
+공통11796484(v18), 수확4358169(v37), 인계16908315(v10)를 직접 읽었다.
+/harvest_01/status RobotStatus를 실물 이동 전용 정책에서1초마다 발행한다. boot_id는 프로세스마다 새 UUID, sequence는 발행마다 증가한다.
+관제 map_id=farm_map_v1, 실제 최신 map→base TF, 현재 task_id, IDLE/NAVIGATION_MOVE/ERROR와 ready를 보고한다.
+ready는 작업/종료/정지 미확정 여부, 유효 TF, FollowPath 서버 발견을 반영하며 실제 Goal의 기존 preflight 검사를 대체하지 않는다.
+이동 전용 단계에서는 transfer_required=false, loaded_count=0으로 보고한다. 이는 수확/적재 기능이 없는 현재 운용 값이며 실제 적재 센서 검증 완료를 의미하지 않는다.
+문서 규약상 수확 인계가 필요하면 true를 유지하고 인계 완료+적재 해소 확인 후 false로 바꿔야 한다. 실제 dock_transfer/transfer_event/배출장치/FSM은 이번에 구현하지 않았으며 가짜 완료 신호를 발행하지 않는다.
+배터리 입력은 설정 battery_topic의 sensor_msgs/BatteryState.percentage(0–1)를 사용한다. 현재 실제 드라이버의 topic/percentage 제공 여부는 확인되지 않았다.
+미수신/NaN/5초 만료 시 battery_percent=0.0은 미측정 자리값이며 error_code/error_message에 BATTERY_UNAVAILABLE을 명시한다. 이 값으로 잔량0%를 표시하거나 저전압 동작을 트리거하면 안 된다. 프로토콜에 unknown 필드가 없다는 한계가 남아 있다.
+위치 미확인도 POSE_UNAVAILABLE+ready=false로 보고한다. 상태 발행 실패/태그 누락을 새 주행 중단 조건으로 연결하지 않는다.
+인계 문서의 harvester_01 표기는 최신 수확 문서 및 Git의 harvest_01과 다르므로 현재 endpoint는 harvest_01을 유지한다.
+수확 프로토콜 문서에는 section_id가 빠져 있고 현재 수확 Git은 요구한다. 이번 전달물은 Git의 확장 필드를 유지하며 Frontend도 맞추는 방안이다. 문서와 완전히 일치한다고 주장하지 않으며 인터페이스 변경 사항을 관제 담당자에게 전달해야 한다.
+
+
+<!-- HARVEST_RECEIVER_COMPAT_20261010 -->
+## 기존 관제에 수확 수신부를 맞춤 — 2026-10-10
+
+사용자 승인: 관제를 수정하지 말고 수확 쪽을 맞출 것. 앞선 ready 패키지 PC 적용·로봇 빌드 완료 보고 후 후속 수정이다.
+앞선 HARVEST_CONTROL_LINK / HARVEST_CONTROL_READY의 frontend.patch 전달·관제 재빌드 지시는 철회한다. 이 패키지에는 관제 패치가 없다.
+기준 관제: Frontend main 5909f0d 원본. 수확: feat/apriltag-localization 25cdf88 + 앞선 ready 적용본.
+수확 farm_interfaces/HarvestTask.action에서 추가 section_id를 제거해 원래 Frontend Action과 바이트 동일하게 맞춘다. HarvestTask.msg/ScoutArea/예찰 소스는 변경하지 않는다.
+수확 실물 설정의 default_section_id=SEC_01을 명시하고 단일 구역 설정에서만 Section 없는 Goal을 처리한다. 여러 구역/설정 누락은 추측하지 않고 거절한다. Window ID 파싱 없음.
+관제의 farm_map_v1을 기존 내부 many_farm_v1에 연결하는 명시적 별칭과 Status 1Hz는 유지한다.
+실제 받은 좌표/yaw/task_id/window_id/expected_count 보존. 기존 태그/지도/제어기/footprint 불변.
+시험용 harvest_graph_goal.py도 section_id 없는 형식으로 맞춘다. 좌표 생성 기준은 기존 그래프이며 이번 관제 실행에서는 이 시험 Goal을 사용하지 않는다.
+현재 실물 단일 구역 연결만 지원한다. 다중 구역 시뮬 등 기존 확장 Section 의존 클라이언트는 이번 Action 변경 영향이 있으므로 그 환경에 바로 배포하지 않는다. 후속 다중 구역 설계 없이 ID를 파싱하지 않는다.
+실물에서 현재 팔 정책은 ARRIVAL_ONLY_NO_HARVEST. 도착 SUCCESS와 실제 수확/운송 인계를 구분한다.
+검증: 원본 Frontend ControlQueue에서 생성한 Section 없는 Goal2개 → 수확 계약/미션/실제 RouteGraph → 원본 관제 Result 처리 PASS. 실제 DDS/ROS 빌드/이동은 이번 환경에서 미실행.
+관제는 재빌드/수정하지 않는다. 로봇은 farm_interfaces와 의존 패키지를 재빌드하고 재시작한다. 이미 ready를 빌드한 상태도 적용기가 허용한다.
+백업은 PC /home/eunbi/vmany_backups만 사용한다. 코드 원복은 이번 백업과 비교하고 관련 인터페이스를 다시 빌드해야 한다. commit/push 자동 수행 없음.
+
+
+<!-- HARVEST_TF_RECOVERY_20261011 -->
+## 수확 TF 오류 복구 대기 — 2026-10-11
+
+- 승인: 사용자가 TF 장애 시 정지 상태로 최대 10초 대기·회복 후 재개에 “그렇게 해보자”라고 승인.
+- 기준: harvest_receiver_compat 적용 소스 복사본. 로봇 13:02 주행 로그에서 SECTION_APPROACH TF_ERROR 확인. 현재 PC Git HEAD/미커밋 변경은 직접 조회하지 않았으며 배포 시 기존 파일 SHA256을 검사한다.
+- 공통 farm_navigation의 nav2_client/navigator/pose_provider/navigation_types 및 새 tf_recovery.py, 수확 실물 harvest_real.yaml 수정.
+- 기본 복구 OFF. 수확 실물 설정만 ON/10초. 예찰·시뮬은 기존 정책 유지. Action 형식·카메라·태그 검출·보정·경로 좌표는 유지.
+- Nav2 FollowPath가 ABORTED + TF_ERROR로 종료 응답을 준 경우만 재시도. 미확정/취소/장애물/진행 실패는 자동 재시도하지 않는다. error_code도 실패 로그에 남긴다.
+- 자신의 Nav2 Goal 종료 확인 후 cmd_vel_nav와 cmd_vel에 0을 반복 발행. 최신 0.1초 전 map→base TF 연결과 최신 odom의 정지를 확인하면 같은 경로를 재전송한다. 기존 goal_timeout_s도 전체 재시도에 적용한다.
+- TF 오류 응답 이후 연속 복구 구간 최대 10초. 실제 제어 Feedback이 다시 발생한 뒤 새 TF 오류가 발생하면 새로운 구간으로 본다. Feedback 없는 반복 실패는 제한을 초기화하지 않는다.
+- 외부 HarvestTask는 계속 실행 중이며 성공을 조작하지 않는다. 기다리는 중에도 취소·종료 검사. TF_RECOVERY_WAIT/RESUME/TIMEOUT을 rosout에 기록한다.
+- 직접 검증: verify.py 7개 오프라인 검사 통과 (2.4초 회복, 10초 만료, 취소, 반복 TF 실패 제한, 다른 오류 즉시 실패, 설정 검증, 운영 Nav2Client TF 분류·동일 경로 재전송). ROS I/O는 대역. compileall 통과.
+- 전체 기존 통합 시험은 복사본에 지도 YAML 등 런타임 자산이 없어 실행 완료하지 못했다. 실제 로봇 colcon·주행·정지 응답 시간은 미검증. 지연 원인 자체를 해결하는 변경은 아니다.
+- 반영: 전달 패키지만 생성. commit/push·로봇 배포·빌드 미실행. 적용 도구가 문서에 이 내용을 추가한다.
+- 되돌리기: 실물 환경 navigation.tf_recovery_enabled를 false로 설정 후 launch 재시작. 완전 복원은 PC vmany_backups의 적용·배포 백업을 사용한다.
