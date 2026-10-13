@@ -196,4 +196,228 @@
     </inertial>
   </link>
 
+
+  <!-- SCOUT-MOUNT-20261013: PDF 장착 기준. 추가 질량/관성 미정; 동역학 검증 모델 아님. -->
+<link name="${namespace}scout_plate_center_ground" />
+  <joint name="${namespace}scout_plate_center_ground_mount_joint" type="fixed">
+    <parent link="${namespace}base_footprint" />
+    <child link="${namespace}scout_plate_center_ground" />
+    <origin xyz="-0.032 0 0" rpy="0 0 0" />
+  </joint>
+  <link name="${namespace}scout_mast_base" />
+  <joint name="${namespace}scout_mast_base_mount_joint" type="fixed">
+    <parent link="${namespace}base_footprint" />
+    <child link="${namespace}scout_mast_base" />
+    <origin xyz="-0.032 0 0.200" rpy="0 0 0" />
+  </joint>
+  <link name="${namespace}scout_mast_top" />
+  <joint name="${namespace}scout_mast_top_mount_joint" type="fixed">
+    <parent link="${namespace}base_footprint" />
+    <child link="${namespace}scout_mast_top" />
+    <origin xyz="-0.032 0 0.620" rpy="0 0 0" />
+  </joint>
+  <link name="${namespace}scout_mast_link">
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0" />
+      <geometry>
+        <box size="0.050 0.050 0.420" />
+      </geometry>
+      <material name="white" />
+    </visual>
+    <collision>
+      <origin xyz="0 0 0" rpy="0 0 0" />
+      <geometry>
+        <box size="0.050 0.050 0.420" />
+      </geometry>
+    </collision>
+  </link>
+  <joint name="${namespace}scout_mast_link_mount_joint" type="fixed">
+    <parent link="${namespace}base_footprint" />
+    <child link="${namespace}scout_mast_link" />
+    <origin xyz="-0.032 0 0.410" rpy="0 0 0" />
+  </joint>
+  <link name="${namespace}scout_top_plate_envelope">
+    <!-- 근사 외곽 시각화만: 실제 Burger 판 메시/홀 패턴 미제공. 충돌체 아님. -->
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0" />
+      <geometry>
+        <box size="0.13755 0.13755 0.009" />
+      </geometry>
+      <material name="blue" />
+    </visual>
+  </link>
+  <joint name="${namespace}scout_top_plate_envelope_mount_joint" type="fixed">
+    <parent link="${namespace}base_footprint" />
+    <child link="${namespace}scout_top_plate_envelope" />
+    <origin xyz="-0.032 0 0.1955" rpy="0 0 0" />
+  </joint>
+  <link name="${namespace}scout_holder_reference">
+    <!-- DUX 근사 외형: 중앙 51mm 개구와 두께 3mm. 체결 구멍/CAD 형상/충돌 미검증. -->
+    <visual>
+      <origin xyz="0 -0.027 0" rpy="0 0 0" />
+      <geometry>
+        <box size="0.137 0.003 0.050" />
+      </geometry>
+      <material name="grey" />
+    </visual>
+    <visual>
+      <origin xyz="0 0.027 0" rpy="0 0 0" />
+      <geometry>
+        <box size="0.137 0.003 0.050" />
+      </geometry>
+      <material name="grey" />
+    </visual>
+    <visual>
+      <origin xyz="-0.027 0 0" rpy="0 0 0" />
+      <geometry>
+        <box size="0.003 0.137 0.050" />
+      </geometry>
+      <material name="grey" />
+    </visual>
+    <visual>
+      <origin xyz="0.027 0 0" rpy="0 0 0" />
+      <geometry>
+        <box size="0.003 0.137 0.050" />
+      </geometry>
+      <material name="grey" />
+    </visual>
+  </link>
+  <joint name="${namespace}scout_holder_reference_mount_joint" type="fixed">
+    <parent link="${namespace}base_footprint" />
+    <child link="${namespace}scout_holder_reference" />
+    <origin xyz="-0.032 0 0.225" rpy="0 0 0" />
+  </joint>
+  <link name="${namespace}scout_extension_post_1">
+    <!-- 대변 5mm 육각봉의 외접 원통 시각화. 길이/축은 PDF B값. -->
+    <visual>
+      <geometry>
+        <cylinder radius="0.002886751346" length="0.0395" />
+      </geometry>
+      <material name="orange" />
+    </visual>
+  </link>
+  <joint name="${namespace}scout_extension_post_1_mount_joint" type="fixed">
+    <parent link="${namespace}base_footprint" />
+    <child link="${namespace}scout_extension_post_1" />
+    <origin xyz="-0.096000 -0.024000 0.17125" rpy="0 0 0" />
+  </joint>
+  <link name="${namespace}scout_extension_post_2">
+    <!-- 대변 5mm 육각봉의 외접 원통 시각화. 길이/축은 PDF B값. -->
+    <visual>
+      <geometry>
+        <cylinder radius="0.002886751346" length="0.0395" />
+      </geometry>
+      <material name="orange" />
+    </visual>
+  </link>
+  <joint name="${namespace}scout_extension_post_2_mount_joint" type="fixed">
+    <parent link="${namespace}base_footprint" />
+    <child link="${namespace}scout_extension_post_2" />
+    <origin xyz="-0.096000 0.024000 0.17125" rpy="0 0 0" />
+  </joint>
+  <link name="${namespace}scout_extension_post_3">
+    <!-- 대변 5mm 육각봉의 외접 원통 시각화. 길이/축은 PDF B값. -->
+    <visual>
+      <geometry>
+        <cylinder radius="0.002886751346" length="0.0395" />
+      </geometry>
+      <material name="orange" />
+    </visual>
+  </link>
+  <joint name="${namespace}scout_extension_post_3_mount_joint" type="fixed">
+    <parent link="${namespace}base_footprint" />
+    <child link="${namespace}scout_extension_post_3" />
+    <origin xyz="-0.008000 -0.064000 0.17125" rpy="0 0 0" />
+  </joint>
+  <link name="${namespace}scout_extension_post_4">
+    <!-- 대변 5mm 육각봉의 외접 원통 시각화. 길이/축은 PDF B값. -->
+    <visual>
+      <geometry>
+        <cylinder radius="0.002886751346" length="0.0395" />
+      </geometry>
+      <material name="orange" />
+    </visual>
+  </link>
+  <joint name="${namespace}scout_extension_post_4_mount_joint" type="fixed">
+    <parent link="${namespace}base_footprint" />
+    <child link="${namespace}scout_extension_post_4" />
+    <origin xyz="-0.008000 0.064000 0.17125" rpy="0 0 0" />
+  </joint>
+  <link name="${namespace}scout_extension_post_5">
+    <!-- 대변 5mm 육각봉의 외접 원통 시각화. 길이/축은 PDF B값. -->
+    <visual>
+      <geometry>
+        <cylinder radius="0.002886751346" length="0.0395" />
+      </geometry>
+      <material name="orange" />
+    </visual>
+  </link>
+  <joint name="${namespace}scout_extension_post_5_mount_joint" type="fixed">
+    <parent link="${namespace}base_footprint" />
+    <child link="${namespace}scout_extension_post_5" />
+    <origin xyz="0.032000 -0.024000 0.17125" rpy="0 0 0" />
+  </joint>
+  <link name="${namespace}scout_extension_post_6">
+    <!-- 대변 5mm 육각봉의 외접 원통 시각화. 길이/축은 PDF B값. -->
+    <visual>
+      <geometry>
+        <cylinder radius="0.002886751346" length="0.0395" />
+      </geometry>
+      <material name="orange" />
+    </visual>
+  </link>
+  <joint name="${namespace}scout_extension_post_6_mount_joint" type="fixed">
+    <parent link="${namespace}base_footprint" />
+    <child link="${namespace}scout_extension_post_6" />
+    <origin xyz="0.032000 0.024000 0.17125" rpy="0 0 0" />
+  </joint>
+  <link name="${namespace}bmany_camera_link">
+    <!-- 원점=RGB 렌즈 중심. 외형은 렌즈 뒤에 놓은 개략 상자이며 렌즈-하우징 중심 변환은 미측정. pitch=1도/roll=0 잠정값. -->
+    <visual>
+      <origin xyz="-0.012525 0 0" rpy="0 0 0" />
+      <geometry>
+        <box size="0.02505 0.090 0.025" />
+      </geometry>
+      <material name="light_black" />
+    </visual>
+  </link>
+  <joint name="${namespace}bmany_camera_link_mount_joint" type="fixed">
+    <parent link="${namespace}base_footprint" />
+    <child link="${namespace}bmany_camera_link" />
+    <origin xyz="-0.049 0.055 0.595" rpy="0 0.017453292520 1.570796326795" />
+  </joint>
+  <link name="${namespace}camera_color_optical_frame" />
+  <joint name="${namespace}camera_color_optical_frame_mount_joint" type="fixed">
+    <parent link="${namespace}bmany_camera_link" />
+    <child link="${namespace}camera_color_optical_frame" />
+    <origin xyz="0 0 0" rpy="-1.570796326795 0 -1.570796326795" />
+  </joint>
+  <link name="${namespace}camera_optical_frame" />
+  <joint name="${namespace}camera_optical_frame_mount_joint" type="fixed">
+    <parent link="${namespace}camera_color_optical_frame" />
+    <child link="${namespace}camera_optical_frame" />
+    <origin xyz="0 0 0" rpy="0 0 0" />
+  </joint>
+  <link name="${namespace}picam_frame">
+    <!-- 렌즈 중심 기준. 판 중심 X=0은 PDF C값. 스트리밍 활성화와 무관한 외형/TF. -->
+    <visual>
+      <origin xyz="-0.004 0 0" rpy="0 0 0" />
+      <geometry>
+        <box size="0.008 0.025 0.024" />
+      </geometry>
+      <material name="green" />
+    </visual>
+  </link>
+  <joint name="${namespace}picam_frame_mount_joint" type="fixed">
+    <parent link="${namespace}base_footprint" />
+    <child link="${namespace}picam_frame" />
+    <origin xyz="-0.032 0.063 0.117" rpy="0 0 1.570796326795" />
+  </joint>
+  <link name="${namespace}picam_optical_frame" />
+  <joint name="${namespace}picam_optical_frame_mount_joint" type="fixed">
+    <parent link="${namespace}picam_frame" />
+    <child link="${namespace}picam_optical_frame" />
+    <origin xyz="0 0 0" rpy="-1.570796326795 0 -1.570796326795" />
+  </joint>
+
 </robot>

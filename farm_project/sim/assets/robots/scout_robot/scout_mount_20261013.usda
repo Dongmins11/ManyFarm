@@ -1,0 +1,246 @@
+#usda 1.0
+(
+    defaultPrim = "ScoutMount"
+    metersPerUnit = 1
+    upAxis = "Z"
+)
+
+def Xform "ScoutMount"
+{
+    def Xform "scout_plate_center_ground"
+    {
+        matrix4d xformOp:transform = ( (1, 0, 0, 0), (0, 1, 0, 0), (0, 0, 1, 0), (-0.032, 0, 0, 1) )
+        uniform token[] xformOpOrder = ["xformOp:transform"]
+    }
+
+    def Xform "scout_mast_base"
+    {
+        matrix4d xformOp:transform = ( (1, 0, 0, 0), (0, 1, 0, 0), (0, 0, 1, 0), (-0.032, 0, 0.2, 1) )
+        uniform token[] xformOpOrder = ["xformOp:transform"]
+    }
+
+    def Xform "scout_mast_top"
+    {
+        matrix4d xformOp:transform = ( (1, 0, 0, 0), (0, 1, 0, 0), (0, 0, 1, 0), (-0.032, 0, 0.62, 1) )
+        uniform token[] xformOpOrder = ["xformOp:transform"]
+    }
+
+    def Xform "scout_mast_link"
+    {
+        matrix4d xformOp:transform = ( (1, 0, 0, 0), (0, 1, 0, 0), (0, 0, 1, 0), (-0.032, 0, 0.41, 1) )
+        uniform token[] xformOpOrder = ["xformOp:transform"]
+
+        def Cube "visual_0" (
+            prepend apiSchemas = ["PhysicsCollisionAPI"]
+        )
+        {
+            color3f[] primvars:displayColor = [(1, 1, 1)]
+            double size = 1
+            float3 xformOp:scale = (0.05, 0.05, 0.42)
+            double3 xformOp:translate = (0, 0, 0)
+            uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:scale"]
+        }
+    }
+
+    def Xform "scout_top_plate_envelope"
+    {
+        matrix4d xformOp:transform = ( (1, 0, 0, 0), (0, 1, 0, 0), (0, 0, 1, 0), (-0.032, 0, 0.1955, 1) )
+        uniform token[] xformOpOrder = ["xformOp:transform"]
+
+        def Cube "visual_0"
+        {
+            color3f[] primvars:displayColor = [(0, 0, 0.8)]
+            double size = 1
+            float3 xformOp:scale = (0.13755, 0.13755, 0.009)
+            double3 xformOp:translate = (0, 0, 0)
+            uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:scale"]
+        }
+    }
+
+    def Xform "scout_holder_reference"
+    {
+        matrix4d xformOp:transform = ( (1, 0, 0, 0), (0, 1, 0, 0), (0, 0, 1, 0), (-0.032, 0, 0.225, 1) )
+        uniform token[] xformOpOrder = ["xformOp:transform"]
+
+        def Cube "visual_0"
+        {
+            color3f[] primvars:displayColor = [(0.5, 0.5, 0.5)]
+            double size = 1
+            float3 xformOp:scale = (0.137, 0.003, 0.05)
+            double3 xformOp:translate = (0, -0.027, 0)
+            uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:scale"]
+        }
+
+        def Cube "visual_1"
+        {
+            color3f[] primvars:displayColor = [(0.5, 0.5, 0.5)]
+            double size = 1
+            float3 xformOp:scale = (0.137, 0.003, 0.05)
+            double3 xformOp:translate = (0, 0.027, 0)
+            uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:scale"]
+        }
+
+        def Cube "visual_2"
+        {
+            color3f[] primvars:displayColor = [(0.5, 0.5, 0.5)]
+            double size = 1
+            float3 xformOp:scale = (0.003, 0.137, 0.05)
+            double3 xformOp:translate = (-0.027, 0, 0)
+            uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:scale"]
+        }
+
+        def Cube "visual_3"
+        {
+            color3f[] primvars:displayColor = [(0.5, 0.5, 0.5)]
+            double size = 1
+            float3 xformOp:scale = (0.003, 0.137, 0.05)
+            double3 xformOp:translate = (0.027, 0, 0)
+            uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:scale"]
+        }
+    }
+
+    def Xform "scout_extension_post_1"
+    {
+        matrix4d xformOp:transform = ( (1, 0, 0, 0), (0, 1, 0, 0), (0, 0, 1, 0), (-0.096, -0.024, 0.17125, 1) )
+        uniform token[] xformOpOrder = ["xformOp:transform"]
+
+        def Cylinder "visual_0"
+        {
+            uniform token axis = "Z"
+            double height = 0.0395
+            color3f[] primvars:displayColor = [(1, 0.4235, 0.0392)]
+            double radius = 0.002886751346
+            double3 xformOp:translate = (0, 0, 0)
+            uniform token[] xformOpOrder = ["xformOp:translate"]
+        }
+    }
+
+    def Xform "scout_extension_post_2"
+    {
+        matrix4d xformOp:transform = ( (1, 0, 0, 0), (0, 1, 0, 0), (0, 0, 1, 0), (-0.096, 0.024, 0.17125, 1) )
+        uniform token[] xformOpOrder = ["xformOp:transform"]
+
+        def Cylinder "visual_0"
+        {
+            uniform token axis = "Z"
+            double height = 0.0395
+            color3f[] primvars:displayColor = [(1, 0.4235, 0.0392)]
+            double radius = 0.002886751346
+            double3 xformOp:translate = (0, 0, 0)
+            uniform token[] xformOpOrder = ["xformOp:translate"]
+        }
+    }
+
+    def Xform "scout_extension_post_3"
+    {
+        matrix4d xformOp:transform = ( (1, 0, 0, 0), (0, 1, 0, 0), (0, 0, 1, 0), (-0.008, -0.064, 0.17125, 1) )
+        uniform token[] xformOpOrder = ["xformOp:transform"]
+
+        def Cylinder "visual_0"
+        {
+            uniform token axis = "Z"
+            double height = 0.0395
+            color3f[] primvars:displayColor = [(1, 0.4235, 0.0392)]
+            double radius = 0.002886751346
+            double3 xformOp:translate = (0, 0, 0)
+            uniform token[] xformOpOrder = ["xformOp:translate"]
+        }
+    }
+
+    def Xform "scout_extension_post_4"
+    {
+        matrix4d xformOp:transform = ( (1, 0, 0, 0), (0, 1, 0, 0), (0, 0, 1, 0), (-0.008, 0.064, 0.17125, 1) )
+        uniform token[] xformOpOrder = ["xformOp:transform"]
+
+        def Cylinder "visual_0"
+        {
+            uniform token axis = "Z"
+            double height = 0.0395
+            color3f[] primvars:displayColor = [(1, 0.4235, 0.0392)]
+            double radius = 0.002886751346
+            double3 xformOp:translate = (0, 0, 0)
+            uniform token[] xformOpOrder = ["xformOp:translate"]
+        }
+    }
+
+    def Xform "scout_extension_post_5"
+    {
+        matrix4d xformOp:transform = ( (1, 0, 0, 0), (0, 1, 0, 0), (0, 0, 1, 0), (0.032, -0.024, 0.17125, 1) )
+        uniform token[] xformOpOrder = ["xformOp:transform"]
+
+        def Cylinder "visual_0"
+        {
+            uniform token axis = "Z"
+            double height = 0.0395
+            color3f[] primvars:displayColor = [(1, 0.4235, 0.0392)]
+            double radius = 0.002886751346
+            double3 xformOp:translate = (0, 0, 0)
+            uniform token[] xformOpOrder = ["xformOp:translate"]
+        }
+    }
+
+    def Xform "scout_extension_post_6"
+    {
+        matrix4d xformOp:transform = ( (1, 0, 0, 0), (0, 1, 0, 0), (0, 0, 1, 0), (0.032, 0.024, 0.17125, 1) )
+        uniform token[] xformOpOrder = ["xformOp:transform"]
+
+        def Cylinder "visual_0"
+        {
+            uniform token axis = "Z"
+            double height = 0.0395
+            color3f[] primvars:displayColor = [(1, 0.4235, 0.0392)]
+            double radius = 0.002886751346
+            double3 xformOp:translate = (0, 0, 0)
+            uniform token[] xformOpOrder = ["xformOp:translate"]
+        }
+    }
+
+    def Xform "bmany_camera_link"
+    {
+        matrix4d xformOp:transform = ( (-1.0339580347461557e-13, 0.9998476951563903, -0.01745240643734021, 0), (-1, -1.0341155355510722e-13, 0, 0), (-1.804780462960505e-15, 0.01745240643734021, 0.9998476951563903, 0), (-0.049, 0.055, 0.595, 1) )
+        uniform token[] xformOpOrder = ["xformOp:transform"]
+
+        def Cube "visual_0"
+        {
+            color3f[] primvars:displayColor = [(0.4, 0.4, 0.4)]
+            double size = 1
+            float3 xformOp:scale = (0.02505, 0.09, 0.025)
+            double3 xformOp:translate = (-0.012525, 0, 0)
+            uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:scale"]
+        }
+    }
+
+    def Xform "camera_color_optical_frame"
+    {
+        matrix4d xformOp:transform = ( (1, 1.5750080491647595e-17, 1.804780462960505e-15, 0), (1.8047804629605035e-15, -0.017452406437443606, -0.9998476951563885, 0), (1.575008049183423e-17, 0.9998476951563885, -0.017452406437443606, 0), (-0.049, 0.055, 0.595, 1) )
+        uniform token[] xformOpOrder = ["xformOp:transform"]
+    }
+
+    def Xform "camera_optical_frame"
+    {
+        matrix4d xformOp:transform = ( (1, 1.5750080491647595e-17, 1.804780462960505e-15, 0), (1.8047804629605035e-15, -0.017452406437443606, -0.9998476951563885, 0), (1.575008049183423e-17, 0.9998476951563885, -0.017452406437443606, 0), (-0.049, 0.055, 0.595, 1) )
+        uniform token[] xformOpOrder = ["xformOp:transform"]
+    }
+
+    def Xform "picam_frame"
+    {
+        matrix4d xformOp:transform = ( (-1.0341155355510722e-13, 1, 0, 0), (-1, -1.0341155355510722e-13, 0, 0), (0, 0, 1, 0), (-0.032, 0.063, 0.117, 1) )
+        uniform token[] xformOpOrder = ["xformOp:transform"]
+
+        def Cube "visual_0"
+        {
+            color3f[] primvars:displayColor = [(0, 0.8, 0)]
+            double size = 1
+            float3 xformOp:scale = (0.008, 0.025, 0.024)
+            double3 xformOp:translate = (-0.004, 0, 0)
+            uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:scale"]
+        }
+    }
+
+    def Xform "picam_optical_frame"
+    {
+        matrix4d xformOp:transform = ( (1, 0, 0, 0), (0, -1.0341155355510722e-13, -1, 0), (0, 1, -1.0341155355510722e-13, 0), (-0.032, 0.063, 0.117, 1) )
+        uniform token[] xformOpOrder = ["xformOp:transform"]
+    }
+}
+

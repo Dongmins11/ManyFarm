@@ -83,6 +83,7 @@ def main():
             raise ValueError('Scene must use metres and Z-up')
         from farm_sim_runtime.bed_collisions import ensure_bed_collisions
         print('[farm_fleet] bed collisions: '+json.dumps(ensure_bed_collisions(stage)), flush=True)
+        from farm_sim_runtime.scout_mount import install_scout_mount, scout_mount_static_tf
         from farm_sim_runtime.apriltag_scene import install_tags, mount_camera
         for cfg in configs:
             print('[farm_fleet] AprilTags: '+str(install_tags(stage, root, cfg)), flush=True)
@@ -119,6 +120,7 @@ def main():
                 robot.GetReferences().AddReference(str(asset))
             stage.Load(robot_path)
             mount_camera(stage, robot_path, cfg)
+            install_scout_mount(stage, root, robot_path, cfg)
             if harvest_physics is not None and (cfg['robot_id'] == task['harvest_robot']['robot_id']
                     or cfg['runtime'].get('harvest_activity', {}).get('enabled', False)):
                 harvest_physics.configure_robot(robot_path, robot_id=cfg['robot_id'],
@@ -161,6 +163,7 @@ def main():
                 camera_path = str(camera_prim.GetPath())
                 T_camera = inv@matrix(camera_prim)@np.diag([1.,-1.,-1.,1.])
                 static.append(static_tf(frames['base_link'],frames['camera_optical'],np.linalg.inv(T_link)@T_camera))
+            static.extend(scout_mount_static_tf(stage, robot_path, cfg))
             bindings.append((cfg,robot_path,str(body.GetPath()),static,T_scan,camera_path,T_camera,T_asset_control))
         scenes = [str(p.GetPath()) for p in stage.Traverse() if p.IsA(UsdPhysics.Scene)]
         if len(scenes) > 1:

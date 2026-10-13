@@ -32,11 +32,11 @@
     "lidar_relative": "base_scan"
   },
   "notes": [
-    "카메라와 베드 가장자리 사이 1.14m는 사용자 제공값이며 USD에서 실측하지 않았습니다.",
+    "1.14m는 경로 기준점에서 화단까지의 거리입니다. 카메라의 측면 오프셋을 경로 거리에서 다시 빼지 않습니다.",
     "map_id는 PDF 예시 기반 임시값입니다. 실 관제 지도 ID와 대조해야 합니다.",
-    "USD 카메라는 base_link 위 0.59m이며 로봇 왼쪽(+Y)을 봅니다. 640x384는 USD의 5:3 aperture 비율이며 실물 카메라 보정값은 아닙니다.",
     "odom은 바퀴 엔코더를 적분합니다. map→odom은 AMCL이 발행합니다.",
-    "task.yaml에서 생성한 station_spawn.json으로 시작 시 예찰로봇을 배치합니다. AMCL 초기 pose도 같은 station 값을 사용하며 odom은 바퀴 적분을 유지합니다."
+    "task.yaml에서 생성한 station_spawn.json으로 시작 시 예찰로봇을 배치합니다. AMCL 초기 pose도 같은 station 값을 사용하며 odom은 바퀴 적분을 유지합니다.",
+    "2026-10-09 장착 PDF: D435 렌즈 base_footprint 기준 [-0.049,0.055,0.595]m, 왼쪽/하향1도(C). 장착 USD 세션 적용; 영상 조건 유지. 1.14m는 경로 기준 거리."
   ],
   "base": {
     "wheel_joints": [
@@ -92,5 +92,6 @@
     "enabled": true,
     "config": "station_spawn.json"
   },
-  "apriltag_map": "sim/ros_ws/src/farm_sim_config/config/apriltag_map.json"
+  "apriltag_map": "sim/ros_ws/src/farm_sim_config/config/apriltag_map.json",
+  "scout_mount_asset": "sim/assets/robots/scout_robot/scout_mount_20261013.usda"
 }

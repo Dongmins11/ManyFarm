@@ -79,6 +79,8 @@ def main():
             from farm_sim_runtime.station_spawn import place_at_station
             report=place_at_station(stage,binding,station)
             print('[farm_sim] station placement: '+json.dumps(report,ensure_ascii=False),flush=True)
+        from farm_sim_runtime.scout_mount import install_scout_mount, scout_mount_static_tf
+        install_scout_mount(stage, project_root, robot_path, config)
         link=prim(binding['base_link_relative']);scan_prim=prim(binding['lidar_relative'])
         camera_prim=prim(binding['camera_relative'])
         if not camera_prim.IsA(UsdGeom.Camera):raise RuntimeError('지정한 camera prim이 Camera가 아닙니다.')
@@ -100,6 +102,7 @@ def main():
         static=[static_tf(frames['base_footprint'],frames['base_link'],T_base_link),
                 static_tf(frames['base_link'],frames['scan'],np.linalg.inv(T_base_link)@T_base_scan),
                 static_tf(frames['base_link'],frames['camera_optical'],np.linalg.inv(T_base_link)@T_base_optical)]
+        static.extend(scout_mount_static_tf(stage, robot_path, config))
         scenes=[str(p.GetPath()) for p in stage.Traverse() if p.IsA(UsdPhysics.Scene)]
         if len(scenes)>1:raise RuntimeError('PhysicsScene이 여러 개입니다. 사용할 씬을 먼저 정리하세요.')
         dt=1.0/config['runtime']['physics_hz']
