@@ -65,7 +65,15 @@ class HarvestNode(Node):
             controller_id = self.config.get('approach_controller_id', settings.controller_id)
             if not isinstance(controller_id, str) or not controller_id.strip():
                 raise ValueError('approach_controller_id는 비어 있지 않은 문자열이어야 합니다.')
-            approach_settings = replace(settings, controller_id=controller_id)
+            # 진입 허용값만 분리하며 작업/이탈/연속성 판정은 유지한다.
+            start_limit = self.config.get(
+                'approach_max_start_distance_m', settings.max_start_distance_m)
+            if (isinstance(start_limit, bool) or not isinstance(start_limit, (int, float))
+                    or not 0.0 < start_limit < float('inf')):
+                raise ValueError('approach_max_start_distance_m는 유한한 양수여야 합니다.')
+            approach_settings = replace(
+                settings, controller_id=controller_id,
+                max_start_distance_m=float(start_limit))
         self.poses = PoseProvider(self, settings)
         self.motion = MotionMonitor(self, settings, self.callbacks)
         self.client = Nav2Client(self, approach_settings, self.callbacks)
