@@ -38,7 +38,7 @@ def prepare(mode: str) -> Path:
         raise ValueError('수확 실물 환경만 지원합니다.')
     cfg.pop('pixel_bias_profile', None)
     if mode == 'on':
-        cfg['pixel_bias_profile'] = 'robot/config/localization/bias_trial_20261010/profile.json'
+        cfg['pixel_bias_profile'] = 'robot/config/localization/bias_trial_20261014/profile.json'
     from farm_tag_localization.pixel_bias import load_profile
     profile = load_profile(cfg, root)
     folder = root/'runs/tag_bias_trial'/(datetime.now().strftime('%Y%m%d_%H%M%S_%f')+'_'+mode)
@@ -76,10 +76,23 @@ def ready() -> None:
         for name in ('amcl', 'controller_server', 'planner_server', 'bt_navigator', 'velocity_smoother'):
             client = node.create_client(GetState, '/harvest_01/'+name+'/get_state')
             if not client.wait_for_service(timeout_sec=10.): raise RuntimeError(name+' 서비스 없음')
-            future = client.call_async(GetState.Request())
-            rclpy.spin_until_future_complete(node, future, timeout_sec=10.)
-            if not future.done() or future.result().current_state.id != 3:
-                raise RuntimeError(name+'가 active가 아닙니다. 초기 위치/실행 로그를 확인하세요.')
+            for attempt in range(3):
+                future = client.call_async(GetState.Request())
+                rclpy.spin_until_future_complete(node, future, timeout_sec=10.)
+                if not future.done():
+                    future.cancel()
+                    print(f'{name} 상태 조회 응답 지연 ({attempt+1}/3)', flush=True)
+                    continue
+                response = future.result()
+                if response is None:
+                    raise RuntimeError(name+' 상태 조회 응답이 없습니다.')
+                state = response.current_state
+                if state.id != 3:
+                    raise RuntimeError(f'{name} 실제 상태: {state.label} [{state.id}]')
+                break
+            else:
+                raise RuntimeError(name+' 상태 조회 3회 시간 초과. active 여부 확인 불가.')
+            node.destroy_client(client)
         client = node.create_client(GetParameters, '/harvest_01/amcl/get_parameters')
         if not client.wait_for_service(timeout_sec=5.): raise RuntimeError('AMCL 파라미터 서비스 없음')
         future = client.call_async(GetParameters.Request(names=['tag_correction_protocol']))
@@ -138,7 +151,7 @@ def goal() -> None:
             time.sleep(3.)
             if recorder.poll() is not None: raise RuntimeError('rosbag 기록 시작 실패. bag.log 확인')
             data = subprocess.check_output([sys.executable, str(ROOT/'robot/tools/tag_camera/harvest_graph_goal.py'),
-                '--node', '14', '--heading-from', '13', '--section', 'SEC_01'], text=True)
+                '--node', '14', '--heading-from', '12', '--section', 'SEC_01'], text=True)
             (folder/'goal.json').write_text(data)
             print('실제 이동 시작: 14번 / 보상 모델 '+model_id, flush=True)
             with (folder/'goal.log').open('w') as output:

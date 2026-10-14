@@ -1,15 +1,12 @@
-# 지도 바이트 동일성을 검증한 공용 지도에 연결. 태그 좌표·등록 버전은 유지.
+# 2026-10-14 map registration candidate; field validation pending.
 configured: true
 robot_id: harvest_01
 map_id: many_farm_v1
-assets_file: robot/config/localization/reference_20261007/assets.candidate.json
+assets_file: robot/config/localization/reference_20261014/assets.candidate.json
 model_file: robot/config/localization/reference_20261007/observation_model.json
-map_yaml_sha256: bbe46086336b76b5f11611160803260a91339d87c97709a6ffe5114d8d328fac
-map_image_sha256: a9f852637490aaff50c7115a543e2780a60ecf654747b3e777319251e151949e
+map_yaml_sha256: d56627220f61708f56b5ebe6e682726a0f45ce25f008dab4e1ab96f42987b157
+map_image_sha256: c16144d12bf45bafbb122f2fa34bd0243a39f25e525349e92195fc0223ae410b
 map_frame: map
 odom_frame: odom
 base_frame: base_footprint
-
-
-# 수확 전용 AMCL이 작업 토큰과 라이다 시각을 확인한 뒤 적용한다.
 correction_transport: scan_sync
