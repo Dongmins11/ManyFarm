@@ -15,17 +15,20 @@ ROOT = Path(__file__).resolve().parents[2]
 for tree, pkg in [('sim','farm_sim_harvest'),('sim','farm_sim_runtime'),('robot','farm_navigation'),('robot','harvest_robot')]:
     sys.path.insert(0, str(ROOT / tree / 'ros_ws/src' / pkg))
 from harvest_robot.contract import validate_task, result_fields
+from harvest_robot.configuration import load_harvest_config
+from harvest_robot.corridor_navigation import load_corridors
 from farm_sim_harvest.evaluation import count_snapshot, SceneEvaluator, evaluate_record
 from harvest_robot.state_controller import HarvestStateController
 from harvest_robot.mission import HarvestMission, MissionCanceled
 from farm_sim_runtime.fleet_config import load_fleet
 from farm_navigation.route import RouteGraph
+from farm_navigation.configuration import load_environment
 CONFIG = ROOT/'sim/ros_ws/src/farm_sim_config/config'
 
 def goal():
     return NS(robot_id='harvest_01',map_id='farm_map_v1',harvest_task=NS(
         task_id='test',window_id='SEC01_G01_W01',
-        expected_count=9,goal_pose=NS(frame_id='map',position=NS(x=-5.955,y=6.,z=0.),yaw=-math.pi/2)))
+        expected_count=9,goal_pose=NS(frame_id='map',position=NS(x=-6.015,y=6.,z=0.),yaw=-math.pi/2)))
 
 def snapshot():
     T=np.array([[0.,-1,0,10],[1,0,0,20],[0,0,1,0],[0,0,0,1]])
@@ -37,18 +40,25 @@ def snapshot():
 BOX=dict(center_m=[0,0,0],size_m=[1,1,1])
 
 class ContractTests(unittest.TestCase):
+    @classmethod
+    def setUpClass(cls):
+        profile=load_environment(CONFIG/'harvest_runtime.yaml',ROOT,'sim',require_survey=False)
+        cls.config=load_harvest_config(CONFIG/'harvest_task.json',ROOT)
+        cls.sections=dict(corridors=load_corridors(cls.config,RouteGraph(profile['route_graph'])),
+            position_tolerance_m=profile['navigation']['max_goal_distance_m'],
+            heading_tolerance_rad=profile['navigation']['heading_tolerance_rad'])
     def test_valid_and_zero_count(self):
-        g=goal();validate_task(g,json.loads((CONFIG/'harvest_task.json').read_text()))
+        g=goal();validate_task(g,self.config,self.sections)
         for status in ('SUCCESS','FAILED','CANCELED'):
             r=result_fields(g,status)
             self.assertEqual((r['expected_count'],r['harvested_count'],r['failed_count']),(9,0,0))
     def test_invalid_contract(self):
-        config=json.loads((CONFIG/'harvest_task.json').read_text())
+        config=self.config
         for key,value in [('task_id',''),('expected_count',-1),('window_id',''),('window_id','   ')]:
             g=goal();setattr(g.harvest_task,key,value)
-            with self.assertRaises(ValueError):validate_task(g,config)
+            with self.assertRaises(ValueError):validate_task(g,config,self.sections)
         g=goal();g.harvest_task.goal_pose.position.x=float('nan')
-        with self.assertRaises(ValueError):validate_task(g,config)
+        with self.assertRaises(ValueError):validate_task(g,config,self.sections)
     def test_state_completion_and_error(self):
         for error in (None,RuntimeError('failed'),MissionCanceled('cancel')):
             def run():
@@ -126,6 +136,14 @@ class RouteFleetTests(unittest.TestCase):
             device['publish_clock']=False;device['runtime']['command_port']=17610
             (p/'device.json').write_text(json.dumps(device))
             with self.assertRaisesRegex(ValueError,'포트'):load_fleet(ROOT,p/'fleet.json')
+    def test_secondary_camera_shm_conflict_fails_before_launch(self):
+        with tempfile.TemporaryDirectory(dir=ROOT/'sim') as directory:
+            p=Path(directory);fleet=json.loads((CONFIG/'harvest_fleet.json').read_text())
+            device=json.loads((ROOT/fleet['device_configs'][0]).read_text())
+            device['tag_camera']['shm_name']=device['camera']['shm_name']
+            (p/'device.json').write_text(json.dumps(device))
+            fleet['device_configs'][0]=str(p/'device.json');(p/'fleet.json').write_text(json.dumps(fleet))
+            with self.assertRaisesRegex(ValueError,'공유 메모리'):load_fleet(ROOT,p/'fleet.json')
 
 spec=importlib.util.spec_from_file_location('launch_helpers',ROOT/'tests/test_launch_composition.py')
 helper=importlib.util.module_from_spec(spec);spec.loader.exec_module(helper)
@@ -152,19 +170,12 @@ class HarvestLaunchTests(unittest.TestCase):
         self.assertEqual(len(sim),1)
         self.assertEqual(sim[0].kwargs['package'],'harvest_robot')
         self.assertTrue(sim[0].kwargs['parameters'][0]['use_sim_time'])
-        with tempfile.TemporaryDirectory() as directory:
-            root=Path(directory)
-            profile=yaml.safe_load((CONFIG/'harvest_runtime.yaml').read_text())
-            profile['mode']='real'
-            for key in ('device_config','map_yaml','nav_params','route_graph','harvest_config'):
-                source=ROOT/profile[key];dest=root/source.name
-                dest.write_bytes(source.read_bytes());profile[key]=str(dest)
-            (root/'real.yaml').write_text(yaml.safe_dump(profile))
-            actions=helper.load('farm_bringup','harvest.launch.py',dict(self.args,project_root=str(root),mode='real',
-                devices='false',navigation='false',environment_config='real.yaml'))
-            self.assertEqual(len(actions),1)
-            self.assertEqual(actions[0].kwargs['package'],'harvest_robot')
-            self.assertFalse(actions[0].kwargs['parameters'][0]['use_sim_time'])
+        # 실제 프로파일도 같은 공통 기본값을 참조한다. Node 생성은 helper의 mock이다.
+        actions=helper.load('farm_bringup','harvest.launch.py',dict(self.args,project_root=str(ROOT),mode='real',
+            devices='false',navigation='false',environment_config='robot/config/environments/harvest_real.yaml'))
+        self.assertEqual(len(actions),1)
+        self.assertEqual(actions[0].kwargs['package'],'harvest_robot')
+        self.assertFalse(actions[0].kwargs['parameters'][0]['use_sim_time'])
     def test_harvest_only_bringup_and_real_rejected(self):
         actions=helper.expand(helper.load('farm_sim_runtime','harvest.launch.py',self.args))
         self.assertFalse(any(isinstance(a,helper.Process) for a in actions))

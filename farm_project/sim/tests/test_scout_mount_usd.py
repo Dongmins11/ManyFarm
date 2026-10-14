@@ -73,7 +73,7 @@ class ScoutMountTests(unittest.TestCase):
         np.testing.assert_allclose(self.transform('base_link/scout_mount/picam_frame')[:3,3],[.168,.363,.117],atol=1e-9)
 
     def test_disabled_configuration_noop(self) -> None:
-        cfg=dict(self.cfg);cfg.pop('scout_mount_asset')
+        cfg=dict(self.cfg);cfg.pop('scout_mount_asset');cfg.pop('tag_camera',None)
         before=self.stage.GetSessionLayer().ExportToString()
         install_scout_mount(self.stage,ROOT,self.path,cfg)
         self.assertEqual(scout_mount_static_tf(self.stage,self.path,cfg),[])
@@ -82,6 +82,33 @@ class ScoutMountTests(unittest.TestCase):
     def test_missing_camera_fails_without_silent_new_sensor(self) -> None:
         self.stage.GetPrimAtPath(self.path+'/base_link/scout_camera').SetActive(False)
         with self.assertRaises(ValueError):
+            install_scout_mount(self.stage,ROOT,self.path,self.cfg)
+
+    def test_picam_renders_at_mount_and_reuses_its_optical_tf(self) -> None:
+        install_scout_mount(self.stage,ROOT,self.path,self.cfg)
+        relative=self.cfg['scene_binding']['tag_camera_relative']
+        camera=self.stage.GetPrimAtPath(self.path+'/'+relative)
+        self.assertTrue(camera.IsA(UsdGeom.Camera))
+        actual=self.transform(relative)@np.diag([1.,-1.,-1.,1.])
+        np.testing.assert_allclose(actual,self.cfg['tag_camera']['T_base_optical'],atol=1e-9)
+        np.testing.assert_allclose(actual,self.transform('base_link/scout_mount/picam_optical_frame'),atol=1e-9)
+        transforms=scout_mount_static_tf(self.stage,self.path,self.cfg)
+        selected=[tf for tf in transforms if tf['child']==self.cfg['frames']['tag_camera_optical']]
+        self.assertEqual(len(selected),1)
+        # base_link 물리 변환을 따라가며, 원본 USD에 새 센서를 저장하지 않습니다.
+        base=UsdGeom.Xformable(self.stage.GetPrimAtPath(self.path+'/base_link'))
+        base.GetOrderedXformOps()[0].Set((.2,.3,.01))
+        np.testing.assert_allclose(self.transform(relative)[:3,3],actual[:3,3]+[.2,.3,0.],atol=1e-9)
+        self.assertEqual(self.stage.GetRootLayer().ExportToString(),self.source)
+
+    def test_tag_camera_requires_mount(self) -> None:
+        cfg=dict(self.cfg);cfg.pop('scout_mount_asset')
+        with self.assertRaisesRegex(ValueError,'scout_mount_asset'):
+            install_scout_mount(self.stage,ROOT,self.path,cfg)
+
+    def test_tag_camera_cannot_replace_survey_camera(self) -> None:
+        self.cfg['scene_binding']['tag_camera_relative']=self.cfg['scene_binding']['camera_relative']
+        with self.assertRaisesRegex(ValueError,'PiCam'):
             install_scout_mount(self.stage,ROOT,self.path,self.cfg)
 
 if __name__=='__main__':

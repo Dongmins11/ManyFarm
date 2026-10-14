@@ -1,0 +1,25 @@
+{
+  "schema_version": 1,
+  "source": "pinky_runtime_sources.tar.gz (2026-10-08 PC verified backup)",
+  "runtime_workspace": "~/vicpinky_ws",
+  "repositories": {
+    "vic_pinky": {
+      "commit": "aa98a1c3135160335e92f2a1721e9d3b9d6e09b9",
+      "patch": "patches/vic_pinky.patch",
+      "files": {
+        "vicpinky_bringup/vicpinky_bringup/bringup.py": {
+          "sha256_after_patch": "6bf63ba62804e2e85f631bd1179a6ed029f9c9cb5ac331da4fa997fe16cf49a8"
+        }
+      }
+    },
+    "sllidar_ros2": {
+      "commit": "34300099fadfc772965962dec837bf436706188f",
+      "patch": "patches/sllidar_ros2.patch",
+      "files": {
+        "launch/sllidar_c1_launch.py": {
+          "sha256_after_patch": "49bf95de96dc27e025cfc2965e45b6a232bf14c22ef15ab70788ef4778a49a46"
+        }
+      }
+    }
+  }
+}

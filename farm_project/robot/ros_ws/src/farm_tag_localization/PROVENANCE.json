@@ -1,0 +1,23 @@
+{
+  "baseline": "pinky_tag_amcl_20261006 + pinky_amcl_timing_fix_20261006",
+  "ported_files": {
+    "tag_localization/observer.py": "6c76a4c89b7f40750ef09bd13c65153c26687ac0a005823139c6a483b9900f5c",
+    "tag_localization/geometry.py": "1c53909aa1e749e64ba2a0ac6a6b4b0a0493ce1510cae10750d36a169c7d06ae",
+    "tag_adapter.py": "63804dce241990ee451df6201d6692753e7d74a196856b3f99c207bf592327ad"
+  },
+  "changes": "ROS packaging; explicit journal input; task lease independent of image recording; compute worker keeps TF callbacks responsive; no CI estimator or TF takeover",
+  "physical_accuracy_validated": false,
+  "field_update_20261007": {
+    "reference": "robot/config/localization/reference_20261007",
+    "physical_accuracy_validated": false,
+    "offline_replay": {
+      "rows": 3779,
+      "unique_accepted": 787,
+      "absolute_tolerance": 1e-12
+    },
+    "files_sha256": {
+      "observation_model.json": "539bf6c8a81578a5100b6a113ab18e9e7bd34da0226a8308581556d8f7fb6bb4",
+      "assets.candidate.json": "abf2a55e952df9d5b88a860c0eca814a07d01024e6b03d407e8e4a8ae9f5fcc5"
+    }
+  }
+}

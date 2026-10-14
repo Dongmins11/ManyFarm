@@ -1,0 +1,8 @@
+# project_root 기준 카메라 코드·캘리브레이션. PC 영상 전송·주행 명령 없음.
+script: robot/tools/tag_camera/pinky_tag_capture_compare.py
+calibration: robot/config/cameras/pcweb400_720p_report.json
+device: /dev/video0
+trial_label: manual_2ms
+output_root: runs/harvest_tag
+startup_timeout_s: 60.0
+

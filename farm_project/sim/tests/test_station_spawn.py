@@ -11,6 +11,8 @@ import yaml
 
 ROOT = Path(__file__).resolve().parents[2]
 sys.path.insert(0, str(ROOT / 'sim/ros_ws/src/farm_sim_runtime'))
+sys.path.insert(0, str(ROOT / 'robot/ros_ws/src/farm_navigation'))
+from farm_navigation.configuration import load_nav2_parameters
 from farm_sim_runtime.station_spawn import read_station, station_transforms, verify_station_pose
 
 
@@ -28,7 +30,7 @@ class StationTests(unittest.TestCase):
     def test_shared_station_and_amcl(self) -> None:
         task = yaml.safe_load((self.config_dir / 'task.yaml').read_text())
         source = task['stations'][self.device['robot_id']]
-        nav = yaml.safe_load((self.config_dir / 'nav2_scout.yaml').read_text())
+        nav = load_nav2_parameters(self.config_dir / 'nav2_scout.yaml', ROOT)
         amcl = nav['amcl']['ros__parameters']
         self.assertEqual(self.station['xy_m'], source['xy_m'])
         self.assertEqual(amcl['initial_pose'], dict(x=source['xy_m'][0], y=source['xy_m'][1],

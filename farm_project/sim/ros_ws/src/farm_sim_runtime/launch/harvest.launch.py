@@ -1,4 +1,4 @@
-"""수확 장치·Nav2·HarvestTask 서버. 실물 장치 연결은 인수인계 후 구현합니다."""
+"""시뮬 수확 장치·Nav2·공통 수확 서버와 선택적 영상 태그 보정을 조립한다."""
 import json
 import math
 from pathlib import Path
@@ -8,7 +8,8 @@ from launch.actions import DeclareLaunchArgument, IncludeLaunchDescription, Opaq
 from launch.launch_description_sources import PythonLaunchDescriptionSource
 from launch.substitutions import LaunchConfiguration
 from launch_ros.actions import Node
-from farm_navigation.configuration import load_environment, read_mapping
+from farm_navigation.configuration import load_environment, load_nav2_parameters, read_mapping
+from farm_sim_runtime.tag_localization import tag_capture_actions
 
 
 def setup(context) -> list:
@@ -25,7 +26,7 @@ def setup(context) -> list:
         if not path.resolve().is_relative_to(root / 'sim'):
             raise ValueError('수확 시뮬 설정은 sim 안에 있어야 합니다.')
     station = json.loads((env.parent / 'station_spawn.json').read_text())['stations'][profile['robot_id']]
-    initial = read_mapping(Path(profile['nav_params']))['amcl']['ros__parameters']
+    initial = load_nav2_parameters(profile['nav_params'], root)['amcl']['ros__parameters']
     pose = initial['initial_pose']
     device = json.loads(Path(profile['device_config']).read_text())
     if (device['robot_id'] != profile['robot_id'] or device['map_id'] != profile['map_id']
@@ -36,11 +37,17 @@ def setup(context) -> list:
     def include(package: str, file: str, args: dict):
         path = Path(get_package_share_directory(package)) / 'launch' / file
         return IncludeLaunchDescription(PythonLaunchDescriptionSource(str(path)), launch_arguments=args.items())
-    return [include('farm_bringup', 'harvest.launch.py',
-                    dict(project_root=str(root), mode=mode, environment_config=str(env))),
+    actions = []
+    capture = ''
+    if value('tag_correction') == 'true':
+        actions, capture = tag_capture_actions(root, profile)
+    actions += [include('farm_bringup', 'harvest.launch.py',
+                    dict(project_root=str(root), mode=mode, environment_config=str(env),
+                         tag_correction=value('tag_correction'), tag_camera='false', capture_directory=capture)),
             Node(package='farm_sim_harvest', executable='harvest_audit', namespace=profile['robot_id'],
                  output='screen', parameters=[dict(project_root=str(root),
                      audit_config=str(env.parent / 'harvest_audit.json'), use_sim_time=True)])]
+    return actions
 
 
 
@@ -50,4 +57,5 @@ def generate_launch_description() -> LaunchDescription:
         DeclareLaunchArgument('mode', default_value='sim', choices=['sim','real']),
         DeclareLaunchArgument('environment_config', default_value=
                               'sim/ros_ws/src/farm_sim_config/config/harvest_runtime.yaml'),
+        DeclareLaunchArgument('tag_correction', default_value='false', choices=['true', 'false']),
         OpaqueFunction(function=setup)])

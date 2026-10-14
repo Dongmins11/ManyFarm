@@ -18,6 +18,10 @@ def main():
     parser.add_argument('--module-path', action='append', default=[])
     parser.add_argument('--scene', type=Path)
     parser.add_argument('--headless', action='store_true')
+    parser.add_argument('--physics-device', choices=('cpu', 'gpu'),
+                        help='비교 시험용 PhysX 실행 장치. 생략하면 기존 물리 프로파일 유지')
+    parser.add_argument('--performance-log', type=Path,
+                        help='일반 fleet의 프레임별 물리/렌더/센서/평가 시간 JSONL')
     parser.add_argument('--harvest-test-ui', action='store_true',
                         help='독립 시험용 배치/가변 Hz 수확 패널. sim/tools/harvest_test_ui.py에서 실행')
     parser.add_argument('--harvest-test-seed', type=int)
@@ -56,7 +60,8 @@ def main():
         raise FileNotFoundError(scene)
     from isaacsim import SimulationApp
     sys.argv = [sys.argv[0]]
-    app = SimulationApp({'headless':args.headless, 'renderer':'RayTracedLighting', 'fast_shutdown':False})
+    app = SimulationApp({'headless':args.headless, 'disable_viewport_updates':args.headless,
+                         'renderer':'RayTracedLighting', 'fast_shutdown':False})
     world, robots, clock_transport, harvest_physics = None, [], None, None
     test_controller, test_panel = None, None
     performance_log = None
@@ -164,7 +169,17 @@ def main():
                 T_camera = inv@matrix(camera_prim)@np.diag([1.,-1.,-1.,1.])
                 static.append(static_tf(frames['base_link'],frames['camera_optical'],np.linalg.inv(T_link)@T_camera))
             static.extend(scout_mount_static_tf(stage, robot_path, cfg))
-            bindings.append((cfg,robot_path,str(body.GetPath()),static,T_scan,camera_path,T_camera,T_asset_control))
+            tag_camera_path,T_tag_camera=None,None
+            if cfg.get('tag_camera',{}).get('enabled'):
+                tag_prim=require(robot_path+'/'+binding['tag_camera_relative'])
+                if not tag_prim.IsA(UsdGeom.Camera):
+                    raise RuntimeError('Configured tag_camera is not a USD Camera')
+                tag_camera_path=str(tag_prim.GetPath())
+                T_tag_camera=inv@matrix(tag_prim)@np.diag([1.,-1.,-1.,1.])
+                if not np.allclose(T_tag_camera[:3,:3].T@T_tag_camera[:3,:3],np.eye(3),atol=1e-5):
+                    raise RuntimeError('tag_camera에 비단위 scale이 있습니다.')
+            bindings.append((cfg,robot_path,str(body.GetPath()),static,T_scan,camera_path,T_camera,
+                             tag_camera_path,T_tag_camera,T_asset_control))
         scenes = [str(p.GetPath()) for p in stage.Traverse() if p.IsA(UsdPhysics.Scene)]
         if len(scenes) > 1:
             raise RuntimeError('Multiple PhysicsScene prims; select one scene before running')
@@ -177,14 +192,20 @@ def main():
         session = uuid.uuid4().hex
         if harvest_physics is not None:
             harvest_physics.register(world, session)
+        if args.physics_device is not None:
+            # 학습 프로파일 적용 뒤, reset 전에만 비교용 실행 장치를 선택한다.
+            context = world.get_physics_context()
+            context.enable_gpu_dynamics(args.physics_device == 'gpu')
+            context.set_broadphase_type('GPU' if args.physics_device == 'gpu' else 'MBP')
         clock_transport = LocalDatagrams(task['clock']['command_port'], task['clock']['telemetry_port'])
         diagnostic = DriveDiagnostics(root/'sim/runs/drive_diagnostics'/session, session)
-        for cfg,robot_path,body_path,static,T_scan,camera_path,T_camera,T_asset_control in bindings:
+        for cfg,robot_path,body_path,static,T_scan,camera_path,T_camera,tag_camera_path,T_tag_camera,T_asset_control in bindings:
             base = BaseSim(world,body_path,cfg['base'],name=cfg['robot_id']+'_drive')
             rt = cfg['runtime']
             diagnostic.describe(stage, cfg, robot_path)
             robots.append(dict(cfg=cfg,path=robot_path,base=base,static=static,T_scan=T_scan,
                 camera_path=camera_path,T_camera=T_camera,T_asset_control=T_asset_control,camera=None,lidar=None,
+                tag_camera_path=tag_camera_path,T_tag_camera=T_tag_camera,tag_camera=None,tag_camera_frames=0,
                 transport=LocalDatagrams(rt['command_port'],rt['telemetry_port']),
                 gate=CommandGate(session,cfg['base']['command_timeout_s']),history=deque(maxlen=math.ceil(5/frame_dt)+2),
                 last_scan=-math.inf,last_telemetry=-math.inf,seq=0,camera_frames=0,arm=None,arm_device=None))
@@ -216,6 +237,10 @@ def main():
             if cfg['camera']['enabled']:
                 camera = CameraSim(robot['camera_path'],cfg['camera'],session,cfg['frames']['camera_optical'],robot['T_camera'])
                 camera.initialize();robot['camera']=camera
+            if cfg.get('tag_camera',{}).get('enabled'):
+                camera = CameraSim(robot['tag_camera_path'],cfg['tag_camera'],session,
+                    cfg['frames']['tag_camera_optical'],robot['T_tag_camera'])
+                camera.initialize();robot['tag_camera']=camera
             if cfg['lidar']['enabled']:
                 robot['lidar']=LidarSim(cfg['lidar'],robot['path'],robot['T_scan'])
             print(f"[two_robot_sim] {cfg['robot_id']} at station {task['stations'][cfg['robot_id']]} using {robot['path']}",flush=True)
@@ -248,6 +273,9 @@ def main():
                                                     seed=args.harvest_test_seed)
             test_panel = HarvestTestPanel(test_controller)
             performance_log = (test_controller.directory/'frame_performance.jsonl').open('w')
+        elif args.performance_log:
+            args.performance_log.parent.mkdir(parents=True, exist_ok=True)
+            performance_log = args.performance_log.open('w')
         auto_phase = 'place'
         auto_physics_stop_at = math.inf
         def after_physics(dt_s: float, sim_s: float) -> None:
@@ -336,6 +364,7 @@ def main():
             if now <= previous:
                 raise RuntimeError('Simulation reset detected; restart both ROS and simulator test processes')
             clock_transport.send(dict(kind='clock', session=session, stamp_ns=round(now*1e9), sent=time.monotonic()))
+            sensor_s = 0.
             for robot in robots:
                 cfg = robot['cfg'];rt=cfg['runtime'];base=robot['base']
                 odom,positions,velocities=base.sample(now-previous)
@@ -349,10 +378,14 @@ def main():
                 robot['T_world_base']=T
                 diagnostic.sample(robot, now, odom, positions, velocities)
                 ranges=None
+                sensor_started = time.perf_counter()
                 if robot['lidar'] and now-robot['last_scan']>=1./cfg['lidar']['fps']-1e-8:
                     ranges=robot['lidar'].sample(T);robot['last_scan']=now
                 if robot['camera']:
                     robot['camera_frames']+=int(robot['camera'].publish(robot['history'],frame_dt*.51))
+                if robot['tag_camera']:
+                    robot['tag_camera_frames']+=int(robot['tag_camera'].publish(robot['history'],frame_dt*.51))
+                sensor_s += time.perf_counter() - sensor_started
                 test_terminal = (args.stop_after_arm_job and robot['arm'] is not None
                     and robot['arm'].state['status'] in ('SUCCESS','FAILED','CANCELED'))
                 if now-robot['last_telemetry']>=1./rt['telemetry_hz']-1e-8 or ranges is not None or test_terminal:
@@ -360,6 +393,7 @@ def main():
                     robot['transport'].send(dict(kind='state',session=session,seq=robot['seq'],sent=time.monotonic(),
                         stamp_ns=round(now*1e9),odom=odom,joint_positions=positions,joint_velocities=velocities,
                         static_tf=robot['static'],scan=ranges,camera_frames=robot['camera_frames'],
+                        tag_camera_frames=robot['tag_camera_frames'],
                         arm=robot['arm'].telemetry() if robot['arm'] is not None else None))
                     robot['last_telemetry']=now
             truth_started = time.perf_counter()
@@ -373,7 +407,10 @@ def main():
                     frame_s=frame_finished-frame_start, control_s=control_finished-frame_start,
                     arm_s=arm_finished-control_finished, prepare_s=prepare_finished-arm_finished,
                     post_s=truth_started-step_finished, truth_s=frame_finished-truth_started,
+                    sensor_s=sensor_s,
                     **ticks.frame_timings))+'\n')
+                if ticks.frame_count % 60 == 0:
+                    performance_log.flush()
             previous=now
             if args.stop_after_arm_job and any(r['arm'] is not None and
                     r['arm'].state['job_id'] and r['arm'].state['status'] in ('SUCCESS','FAILED','CANCELED')
@@ -387,6 +424,7 @@ def main():
                 print('[farm_fleet] bounded run complete: '+json.dumps(dict(simulated_s=now-start_sim,
                     render_frames=ticks.frame_count, physics_ticks=ticks.total_ticks,
                     robots=[dict(robot_id=r['cfg']['robot_id'],camera_frames=r['camera_frames'],
+                                 tag_camera_frames=r['tag_camera_frames'],
                                  position_world_m=r['T_world_base'][:3,3].tolist(),
                                  telemetry_packets=r['seq']) for r in robots])),flush=True)
                 break
@@ -421,6 +459,8 @@ def main():
             except Exception:pass
             if robot['camera']:
                 robot['camera'].close()
+            if robot['tag_camera']:
+                robot['tag_camera'].close()
             robot['transport'].close()
         if world:
             world.stop()

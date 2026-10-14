@@ -1,0 +1,30 @@
+{
+  "provenance": {
+    "date": "2026-10-13",
+    "renderer": "Isaac Sim stationary check_apriltag_render.py",
+    "image": "sim/runs/apriltag_integration_20261013/render/sec01_id104.png",
+    "pipeline": "image_proc rectify_node then apriltag_ros apriltag_node; sensor_data QoS",
+    "detector": {"family": "36h11", "decimate": 2.0, "max_hamming": 0},
+    "evidence": "sim/runs/apriltag_integration_20261013/detector/capture_20261013_152134_692785/result.json",
+    "note": "실제 렌더/검출 코너. 주행·AMCL 보정 검증과 구분한다."
+  },
+  "section_id": "SEC01",
+  "tag_id": 104,
+  "expected_pose": [-6.015, 7.70766178, -1.5707963267948966],
+  "record": {
+    "source_stamp_ns": 101055694001,
+    "frame_id": "harvest_01/apriltag_camera_optical_frame",
+    "detections": [{
+      "family": "tag36h11",
+      "id": 104,
+      "hamming": 0,
+      "decision_margin": 162.0379638671875,
+      "corners_rectified": [
+        [723.7332153320312, 306.1530456542969],
+        [525.8429565429689, 309.1952209472656],
+        [528.1825561523438, 508.4440307617187],
+        [727.7067260742186, 505.03958129882807]
+      ]
+    }]
+  }
+}

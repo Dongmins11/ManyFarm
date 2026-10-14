@@ -1,0 +1,434 @@
+{
+  "date": "2026-10-14",
+  "base_commit": "62a80ed81dfe8b3ddbecf2786aa39237ef1ead1e",
+  "request": "예찰 완료 후 수확 fraction0.313 목표에서 회전 진동과 미완료 문제 조사/조치",
+  "original": {
+    "task_id": "smoke_3b593251674c",
+    "audit": "sim/runs/harvest_motion/a29f45127e19/smoke_3b593251674c_2d5af56197fb4952b6fa17f6668fac83.json",
+    "result": {
+      "robot_id": "harvest_01",
+      "task_id": "smoke_3b593251674c",
+      "window_id": "SEC01_G01_W99",
+      "result_code": "CANCELED",
+      "expected_count": 0,
+      "harvested_count": 0,
+      "failed_count": 0,
+      "error_code": "NONE",
+      "error_message": "수확 작업 취소/종료 요청",
+      "timestamp": "2026-10-14T06:04:26.300704+00:00"
+    },
+    "approach": {
+      "request_id": "31a4617fd5cc4bc8b093ad44ab74f0b5",
+      "goal_map": {
+        "x": -6.015000000000001,
+        "y": 10.7,
+        "yaw": -1.5707963267948966
+      },
+      "mode": "follow_path",
+      "status": "ARRIVED",
+      "started_at": "2026-10-14T05:58:44.291327+00:00",
+      "route": {
+        "plan_id": "e7b60bcbec5d4ea89aed815f02e26f43",
+        "graph_revision": "2ff1cd7b1dd355f46ee4b05fb71b961e57c4f5fc22134bedfbb6908072ed4cdc",
+        "frame_id": "map",
+        "points": [
+          [
+            -1.999999756942857,
+            13.251595790456706
+          ],
+          [
+            -2.0,
+            13.25
+          ],
+          [
+            -2.0,
+            11.5
+          ],
+          [
+            -3.0149999999999997,
+            11.5
+          ],
+          [
+            -3.345,
+            11.5
+          ],
+          [
+            -3.655,
+            11.5
+          ],
+          [
+            -3.9850000000000003,
+            11.5
+          ],
+          [
+            -5.0,
+            11.5
+          ],
+          [
+            -6.015000000000001,
+            11.5
+          ],
+          [
+            -6.015000000000001,
+            10.7
+          ]
+        ],
+        "edge_ids": [
+          "30510",
+          "30511",
+          "30013",
+          "30011",
+          "30009",
+          "30007",
+          "30005",
+          "30003",
+          "30147"
+        ],
+        "distance_m": 6.566595790475217
+      },
+      "nav2_status": 4,
+      "actual_map": {
+        "x": -6.020293055986198,
+        "y": 10.712414023824472,
+        "yaw": -1.5742253486801996
+      },
+      "position_error_m": 0.013495348427795161,
+      "heading_error_rad": 0.00342902188530303,
+      "position_tolerance_m": 0.02,
+      "heading_tolerance_rad": 0.05,
+      "accepted": true,
+      "stamp_ns": 358020852006,
+      "finished_at": "2026-10-14T06:01:32.034544+00:00"
+    },
+    "work_status": "INTERRUPTED",
+    "controller_log": "/home/ysy/.ros/log/controller_server_3628888_1791956919552.log",
+    "physics_device": "cpu (live process arguments)",
+    "drive_log": "sim/runs/drive_diagnostics/fcc2f11409604f6c839e3b13e7116632/harvest_01.jsonl",
+    "stall": {
+      "sim_interval_s": [
+        405,
+        437
+      ],
+      "samples": 67,
+      "max_abs_linear_mps": 0.0,
+      "angular_range_rps": [
+        -0.06,
+        0.06
+      ],
+      "world_goal_distance_range_m": [
+        0.03275001409749568,
+        0.03380349958569219
+      ]
+    },
+    "tag_journal": "sim/runs/apriltag/08c6d9265f52424ba57ec5bc28af4158/amcl_tag_7325d74574114b2dbff532aba2053cba/events.jsonl",
+    "last_tag_request": {
+      "kind": "tag_correction_requested",
+      "wall_ns": 1791957761847270703,
+      "number": 8,
+      "task_token": "5c604dde95bd4eff83ede962af52365e",
+      "source_stamp_ns": 390837520384,
+      "section_id": "SEC01",
+      "output_stamp_ns": 390854187051,
+      "send_ros_ns": 390870853719,
+      "compute_s": 0.002256237086839974,
+      "image_age_at_send_s": 0.033333335,
+      "pose_age_at_send_s": 0.016666668,
+      "tag": [
+        104
+      ],
+      "before": [
+        -6.013901605258658,
+        7.769085626486319,
+        -1.609756996860119
+      ],
+      "tag_current": [
+        -6.010437863069293,
+        7.790675967957774,
+        -1.6091176284613786
+      ],
+      "requested": [
+        -6.012169734163976,
+        7.779880797222047,
+        -1.6094373126607489
+      ],
+      "residual": [
+        0.003463742189365071,
+        0.021590341471454444,
+        0.0006393683987404586
+      ],
+      "covariance": [
+        0.007615435494667714,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.007615435494667714,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.007615435494667714
+      ],
+      "pixel_bias": {
+        "enabled": false
+      }
+    },
+    "after_last_request": {
+      "kind": "amcl_after_request",
+      "wall_ns": 1791957764284895691,
+      "stamp_ns": 392020853779,
+      "request_count": 8,
+      "x": -6.0044072856474155,
+      "y": 7.782058495486935,
+      "z": -0.7020781934988644,
+      "w": 0.7120998597200895,
+      "covariance": [
+        0.004823414157876016,
+        -0.00028753705791473294,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        -0.00028753705791473294,
+        0.008155041564187115,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.004973684409499716
+      ]
+    }
+  },
+  "diagnosis": {
+    "stage": "WINDOW_MOVE (SECTION_APPROACH was ARRIVED)",
+    "control": "RPP.stateful=true: XY 도착을 기억하고 전진0으로 목표각 회전",
+    "checker": "sim goal_checker.stateful=false: XY를 매번 재평가",
+    "mechanism": "태그 보정 전 추정 위치11.34mm로 XY15mm 안에 들어갔으나 yaw가0.01rad 밖. 보정 후 XY가26.47mm로 이동해 checker는 계속 미완료, RPP는 전진0/회전을 유지했다. 제어기·판정기의 상태 처리 불일치.",
+    "limits": "사용자 원본 실행에서 내부 latch/checker 입력 모든 주기를 기록한 것은 아님. 직접 설치 checker에 기록 XY와 허용내 yaw를 재생해 동작 차이를 검증.",
+    "real_profile": "robot/config/robots/vicpinky/nav2.yaml general_goal_checker.stateful=true"
+  },
+  "change": {
+    "path": "sim/ros_ws/src/farm_sim_config/config/nav2_harvest.yaml",
+    "setting": "controller_server.ros__parameters.goal_checker.stateful",
+    "before": false,
+    "after": true,
+    "semantics": "실물과 동일하게 XY 도착 확인 후 위치 도착 이력을 유지하면서 방향 기준을 만족하면 Nav2 완료. 새 Goal에서는 이력 초기화.",
+    "other_yaml_values_unchanged": true,
+    "real_profile_changed": false,
+    "shared_runtime_code_changed": false,
+    "departure_gate_added": false,
+    "xy_tolerance_m": 0.015,
+    "yaw_tolerance_rad": 0.01
+  },
+  "validation": {
+    "status": "COMPLETE",
+    "offline_python_tests_passed": 20,
+    "installed_simple_goal_checker_assertions_passed": 7,
+    "probe": "sim/runs/harvest_arrival_fix_20261014/checker_probe",
+    "runtime_parameter_query": "Boolean value is: True",
+    "farm_sim_config_build": "PASS",
+    "fixtures_directory": "sim/runs/harvest_arrival_fix_20261014",
+    "cpu_mission_results": [
+      {
+        "file": "sim/runs/harvest_arrival_fix_20261014/fixed/harvest_audit/ca8a4decde0a/smoke_78e5f4c473b4_afb5adece5094c9cad4e0e4c49d801e5.json",
+        "task_id": "smoke_78e5f4c473b4",
+        "result": {
+          "robot_id": "harvest_01",
+          "task_id": "smoke_78e5f4c473b4",
+          "window_id": "SEC01_G01_W99",
+          "result_code": "SUCCESS",
+          "expected_count": 0,
+          "harvested_count": 0,
+          "failed_count": 0,
+          "error_code": "NONE",
+          "error_message": "",
+          "timestamp": "2026-10-14T06:12:37.648068+00:00"
+        },
+        "navigation": [
+          {
+            "phase": "SECTION_APPROACH",
+            "section_id": "SEC01",
+            "target_xy": [
+              -6.015000000000001,
+              10.7
+            ],
+            "target_yaw": -1.5707963267948966
+          },
+          {
+            "goal_map": {
+              "x": -6.015000000000001,
+              "y": 10.7,
+              "yaw": -1.5707963267948966
+            },
+            "status": "ARRIVED",
+            "actual_map": {
+              "x": -6.019120829584811,
+              "y": 10.694903643361632,
+              "yaw": -1.5676317170030414
+            },
+            "position_error_m": 0.006553936790393363,
+            "heading_error_rad": 0.0031646097918551774,
+            "accepted": true,
+            "stamp_ns": 90720838065
+          },
+          {
+            "phase": "WINDOW_MOVE",
+            "section_id": "SEC01",
+            "target_xy": [
+              -6.015000000000001,
+              7.7578
+            ],
+            "target_yaw": -1.5707963267948966
+          },
+          {
+            "goal_map": {
+              "x": -6.015000000000001,
+              "y": 7.7578,
+              "yaw": -1.5707963267948966
+            },
+            "status": "ARRIVED",
+            "actual_map": {
+              "x": -6.017321659583686,
+              "y": 7.773831876379062,
+              "yaw": -1.5779671207170813
+            },
+            "position_error_m": 0.016199109958762045,
+            "heading_error_rad": 0.007170793922184782,
+            "accepted": true,
+            "stamp_ns": 123720839786
+          }
+        ]
+      },
+      {
+        "file": "sim/runs/harvest_arrival_fix_20261014/fixed/harvest_audit/ca8a4decde0a/smoke_a069a939d3b3_7498719a84004a828110c39115488270.json",
+        "task_id": "smoke_a069a939d3b3",
+        "result": {
+          "robot_id": "harvest_01",
+          "task_id": "smoke_a069a939d3b3",
+          "window_id": "SEC01_G01_W99",
+          "result_code": "SUCCESS",
+          "expected_count": 0,
+          "harvested_count": 0,
+          "failed_count": 0,
+          "error_code": "NONE",
+          "error_message": "",
+          "timestamp": "2026-10-14T06:13:06.130299+00:00"
+        },
+        "navigation": [
+          {
+            "phase": "SECTION_RESUME",
+            "section_id": "SEC01",
+            "target_xy": [
+              -6.015000000000001,
+              7.41
+            ]
+          },
+          {
+            "phase": "WINDOW_MOVE",
+            "section_id": "SEC01",
+            "target_xy": [
+              -6.015000000000001,
+              7.41
+            ],
+            "target_yaw": -1.5707963267948966
+          },
+          {
+            "goal_map": {
+              "x": -6.015000000000001,
+              "y": 7.41,
+              "yaw": -1.5707963267948966
+            },
+            "status": "ARRIVED",
+            "actual_map": {
+              "x": -6.011798685891642,
+              "y": 7.425143707737106,
+              "yaw": -1.5499981624504298
+            },
+            "position_error_m": 0.015478381570669624,
+            "heading_error_rad": 0.020798164344466796,
+            "accepted": true,
+            "stamp_ns": 136720840464
+          }
+        ]
+      }
+    ],
+    "tag_corrections_applied": 11,
+    "tag_journal": "sim/runs/apriltag/8266b2dafcc141a69472ff5123ded7db/amcl_tag_e552c269301d4aa4ab619725ec38055e/events.jsonl",
+    "manifest": "sim/runs/harvest_arrival_fix_20261014/fixed/manifest.json",
+    "camera_count": 3,
+    "rviz": true,
+    "headless": false,
+    "scout": "server active, stationary; scout task was not rerun in this validation",
+    "harvest_completion_policy": "ARRIVAL_ONLY_NO_HARVEST",
+    "nav2_progress_failure_count": 0,
+    "sequential_goals": [
+      "0.313",
+      "0.35"
+    ]
+  },
+  "limitations": [
+    "실물 주행/배포 미실행",
+    "도착 이력 유지로 위치 오차가0이 되거나 횡방향 정밀도가 향상된다는 의미가 아님",
+    "Nav2 자체 실패/정지 실패/TF 오류는 기존 실패 처리 유지; D-029 정지 후 잔여 오차는 기록하고 다음 이동 차단하지 않음",
+    "CPU 연속 두 Goal 1회 검증이며 장시간 반복/전체16구역 성공률을 보장하지 않음"
+  ],
+  "commit_push": false,
+  "runtime_application": "기존 취소된 런치와 시험 런치는 종료. 정상 CPU 런치 재시작 필요.",
+  "rollback": "이번 goal_checker.stateful=true만 false로 복원. 기존 다른 미커밋 변경은 유지.",
+  "process_cleanup": {
+    "mission_results": "both SUCCESS",
+    "launch_exit_code": 0,
+    "shutdown_errors": [
+      "Isaac SIGINT timeout -> SIGTERM, exit -15",
+      "scout apriltag detector exit -11 during shutdown"
+    ]
+  }
+}

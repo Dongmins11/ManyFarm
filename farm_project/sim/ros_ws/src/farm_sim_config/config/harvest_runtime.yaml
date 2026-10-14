@@ -7,21 +7,10 @@ map_yaml: sim/ros_ws/src/farm_sim_config/maps/count_test_farm_map.yaml
 route_graph: sim/ros_ws/src/farm_sim_config/maps/harvest_graph.geojson
 nav_params: sim/ros_ws/src/farm_sim_config/config/nav2_harvest.yaml
 device_config: sim/ros_ws/src/farm_sim_config/config/harvest.json
+navigation_policy: robot/config/navigation/harvest_navigation.yaml
 navigation:
-  parallel_approach: true
-  base_frame: harvest_01/base_footprint
-  goal_timeout_s: 600.0
-  arrival_tolerance_m: 0.02
-  heading_tolerance_rad: 0.05
-  settle_s: 0.8
-  mode: follow_path
   map_frame: map
-  controller_id: RPP
-  goal_checker_id: goal_checker
-  progress_checker_id: progress_checker
-  max_start_distance_m: 0.2
-  # 오른팔 작업 중심 변경 0.065m + 기존 연결 여유 0.02m. Path는 실제 Goal까지 유지합니다.
-  max_goal_distance_m: 0.09
-  path_spacing_m: 0.04
+  base_frame: harvest_01/base_footprint
 harvest_config: sim/ros_ws/src/farm_sim_config/config/harvest_task.json
+tag_localization_config: sim/ros_ws/src/farm_sim_config/config/tag_localization/harvest.yaml
 rviz_config: sim/ros_ws/src/farm_sim_config/config/harvest.rviz

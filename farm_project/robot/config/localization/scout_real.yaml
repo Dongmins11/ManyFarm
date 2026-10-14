@@ -1,0 +1,19 @@
+# 공통 관측기 연결은 준비됐으나 실제 예찰 카메라의 등록 자료는 전달되지 않았다.
+# 수확 카메라 또는 Isaac의 K/TF/태그 좌표를 복사해 configured=true로 만들지 않는다.
+configured: false
+setup_required:
+  - 실제 예찰 태그 카메라의 1280x720 CameraInfo와 보정 해시
+  - base_footprint 기준 실제 카메라 optical TF 및 버전
+  - many_farm 지도에 등록한 태그 family/id/edge_m/t_map_tag 및 지도 해시
+  - 실측 관측 거리와 태그 투영 면적에 맞춘 observation model overrides
+  - 위 정보를 가진 assets_file/model_file 연결 후 configured=true 지정
+robot_id: scout_01
+map_id: many_farm_v1
+assets_file: null
+model_file: null
+map_yaml_sha256: null
+map_image_sha256: null
+map_frame: map
+odom_frame: odom
+base_frame: base_footprint
+correction_transport: scan_sync

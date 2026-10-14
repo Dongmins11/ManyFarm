@@ -1,0 +1,33 @@
+{
+  "schema_version": 1,
+  "robot_id": "harvest_01",
+  "map_id": "many_farm_v1",
+  "control_aliases": {
+    "map_ids": {
+      "farm_map_v1": "many_farm_v1"
+    },
+    "section_ids": {
+      "SEC01": "SEC_01"
+    }
+  },
+  "status_reporting": {
+    "enabled": true,
+    "map_id": "farm_map_v1",
+    "battery_topic": "battery_state"
+  },
+  "default_section_id": "SEC_01",
+  "completion_policy": "ARRIVAL_ONLY_NO_HARVEST",
+  "sections": {
+    "SEC_01": {
+      "entry_node": 11,
+      "entry_heading_node": 12,
+      "exit_node": 11,
+      "exit_heading_node": 10,
+      "work_corridor_nodes": [
+        10,
+        14
+      ]
+    }
+  },
+  "task_navigation_policy": "robot/config/navigation/harvest_task.yaml"
+}

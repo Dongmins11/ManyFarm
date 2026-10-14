@@ -7,6 +7,8 @@ def install_scout_mount(stage: object, project_root: Path, robot_path: str, conf
     """세션 레이어에 적용. 기존 본체·구동 joint·질량과 카메라 광학 속성을 유지합니다."""
     selected = config.get('scout_mount_asset')
     if not selected:
+        if config.get('tag_camera', {}).get('enabled'):
+            raise ValueError('예찰 태그 카메라는 scout_mount_asset 장착이 필요합니다.')
         return
     from pxr import UsdGeom, Gf
     asset = (project_root / selected).resolve()
@@ -49,6 +51,23 @@ def install_scout_mount(stage: object, project_root: Path, robot_path: str, conf
     xf.ClearXformOpOrder()
     xf.SetResetXformStack(False)
     xf.AddTransformOp().Set(Gf.Matrix4d(*camera_local.T.flatten().tolist()))
+    if config.get('tag_camera', {}).get('enabled'):
+        # URDF의 PiCam 광학 프레임에 실제 렌더 센서를 부착합니다. D435는 그대로 둡니다.
+        optical_path = mount_path + '/picam_optical_frame'
+        tag_path = robot_path + '/' + binding['tag_camera_relative']
+        base_frame = config['frames']['base_link']
+        prefix = base_frame.rsplit('/', 1)[0] + '/' if '/' in base_frame else ''
+        if (tag_path != optical_path + '/Camera'
+                or config['frames']['tag_camera_optical'] != prefix + 'picam_optical_frame'):
+            raise ValueError('태그 카메라 prim/TF는 예찰 PiCam optical 장착 프레임이어야 합니다.')
+        require(binding['base_link_relative'] + '/scout_mount/picam_optical_frame')
+        tag_camera = UsdGeom.Camera.Define(stage, tag_path)
+        tag_xf = UsdGeom.Xformable(tag_camera)
+        tag_xf.ClearXformOpOrder()
+        tag_xf.SetResetXformStack(False)
+        tag_xf.AddTransformOp().Set(Gf.Matrix4d(1., 0., 0., 0., 0., -1., 0., 0.,
+                                               0., 0., -1., 0., 0., 0., 0., 1.))
+        tag_camera.CreateClippingRangeAttr(Gf.Vec2f(.01, 100.))
 
 
 def scout_mount_static_tf(stage: object, robot_path: str, config: dict) -> list[dict]:

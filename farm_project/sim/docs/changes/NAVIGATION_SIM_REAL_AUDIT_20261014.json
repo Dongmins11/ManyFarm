@@ -1,0 +1,264 @@
+{
+  "date": "2026-10-14",
+  "scope": "사용자 요구에 따른 수정 전 실물/시뮬 주행 동등성 감사",
+  "base_commit": "62a80ed81dfe8b3ddbecf2786aa39237ef1ead1e",
+  "runtime_code_or_config_changed": false,
+  "simulation_run": false,
+  "commit_push": false,
+  "comparison_limit": "실물은 저장소의 현재 프로파일. 실제 장비의 현재 소스/실행 파라미터/드라이버 버전은 조회하지 않음. 전달 당시 검증본 bf10fcd 및 성공기록과 현재 로컬 real파일도 다름.",
+  "shared": [
+    "HarvestNode/ScoutNode와 Navigator/PoseProvider/MotionMonitor/Nav2Client",
+    "수확 graph→FollowPath 및 StagedNavigation",
+    "현재 정지 후 잔여오차 warning/다음이동 잠금 해제; Nav2/정지/TF실패 유지",
+    "정지 기준0.005mps/0.02radps,odomstamp0.8초(시뮬시간),freshness0.5wall초/stop timeout20wall초",
+    "예찰 controller/smoother/도착3cm3deg/진도10cm10초는 프레임·시계 제외 동일",
+    "수확 AprilTag→AMCL(scan_sync)→RPP 구조 및 기본 관측모델/gain/상한",
+    "기본 real/sim pixel_bias 둘 다 미선택"
+  ],
+  "differences": [
+    {
+      "item": "수확 진입/작업 끝점 추종",
+      "repository_real": "고정 곡률 참조0.4m/마지막 선분 연장 ON",
+      "sim": "해당 설정 없음(기본OFF)",
+      "judgment": "전달본에 있던 정책 통합 누락. 불가피한 환경 차이 아님",
+      "references": [
+        "robot/config/robots/vicpinky/nav2.yaml:162",
+        "robot/config/robots/vicpinky/nav2.yaml:182",
+        "sim/ros_ws/src/farm_sim_config/config/nav2_harvest.yaml:96"
+      ]
+    },
+    {
+      "item": "수확 작업 제어기 선택",
+      "repository_real": "HarvestWork",
+      "sim": "RPP",
+      "judgment": "전달본 작업 제어 선택 미반영",
+      "references": [
+        "robot/config/harvest/harvest_real.json:36",
+        "robot/ros_ws/src/harvest_robot/harvest_robot/node.py:104"
+      ]
+    },
+    {
+      "item": "수확 Nav2 도착 기준",
+      "repository_real": "4cm/2.5deg",
+      "sim": "1.5cm/0.01rad(0.573deg)",
+      "judgment": "공통 도착 정책 차이; 실물 동등성 근거 없음",
+      "references": [
+        "robot/config/robots/vicpinky/nav2.yaml:98",
+        "sim/ros_ws/src/farm_sim_config/config/nav2_harvest.yaml:153"
+      ]
+    },
+    {
+      "item": "수확 새 작업 시작 횡오차/방향 한계",
+      "repository_real": "5cm/약3deg",
+      "sim": "2cm/2.865deg",
+      "judgment": "arrival_tolerance를 새 경로 제한에도 재사용; 한쪽만 거절 가능",
+      "references": [
+        "robot/config/environments/harvest_real.yaml:23",
+        "sim/ros_ws/src/farm_sim_config/config/harvest_runtime.yaml:14",
+        "robot/ros_ws/src/harvest_robot/harvest_robot/corridor_navigation.py:68",
+        "robot/ros_ws/src/farm_navigation/farm_navigation/parallel_approach.py:30"
+      ]
+    },
+    {
+      "item": "수확 진도 부족 판정 시간",
+      "repository_real": "20 ROS초",
+      "sim": "120 ROS초(sim시간)",
+      "judgment": "실패 정책 차이; 장치 어댑터 차이로 정당화 불가",
+      "references": [
+        "robot/config/robots/vicpinky/nav2.yaml:93",
+        "sim/ros_ws/src/farm_sim_config/config/nav2_harvest.yaml:92"
+      ]
+    },
+    {
+      "item": "수확 Goal timeout",
+      "repository_real": "300 wall초",
+      "sim": "600 wall초",
+      "judgment": "시간 정책 차이; 임의 배수로 동등성 확보 안 됨",
+      "references": [
+        "robot/config/environments/harvest_real.yaml:25",
+        "sim/ros_ws/src/farm_sim_config/config/harvest_runtime.yaml:13"
+      ]
+    },
+    {
+      "item": "수확 전진/목표 회전속도",
+      "repository_real": "0.10m/s,0.10rad/s",
+      "sim": "0.12m/s,0.06rad/s",
+      "judgment": "장치응답 근거에 따른 별도 검증 없이 불가피하다고 할 수 없음",
+      "references": [
+        "robot/config/robots/vicpinky/nav2.yaml:148",
+        "sim/ros_ws/src/farm_sim_config/config/nav2_harvest.yaml:126"
+      ]
+    },
+    {
+      "item": "수확 경로 방향 정렬 전환각",
+      "repository_real": "6deg",
+      "sim": "0.4rad(22.918deg)",
+      "judgment": "정렬 정책 차이; 전달본 동등 통합 미완료",
+      "references": [
+        "robot/config/robots/vicpinky/nav2.yaml:161",
+        "sim/ros_ws/src/farm_sim_config/config/nav2_harvest.yaml:143"
+      ]
+    },
+    {
+      "item": "수확 lookahead/최저접근속도/감속거리/각가속도",
+      "repository_real": "0.4m/0.05mps/0.6m/1.0radss",
+      "sim": "0.35m/0.03mps/0.5m/1.2radss",
+      "judgment": "근거 및 실물응답 정합 검증 필요",
+      "references": [
+        "robot/config/robots/vicpinky/nav2.yaml:149",
+        "sim/ros_ws/src/farm_sim_config/config/nav2_harvest.yaml:127"
+      ]
+    },
+    {
+      "item": "수확 velocity smoother",
+      "repository_real": "CLOSED_LOOP; 선가속+1.8/-1.8mss,timeout1.0s",
+      "sim": "OPEN_LOOP; 선가속+0.25/-0.4mss,timeout0.4s",
+      "judgment": "실제 명령 파형 차이. 단순 드라이버 출력 치환 아님",
+      "references": [
+        "robot/config/robots/vicpinky/nav2.yaml:321",
+        "sim/ros_ws/src/farm_sim_config/config/nav2_harvest.yaml:293"
+      ]
+    },
+    {
+      "item": "수확 시작/목표 그래프 거리",
+      "repository_real": "0.1m/0.02m",
+      "sim": "0.2m/0.09m",
+      "judgment": "지도 그래프/장착 변경 근거와 제어정책 분리 필요; 수치가 자동 정당화되지는 않음",
+      "references": [
+        "robot/config/environments/harvest_real.yaml:26",
+        "sim/ros_ws/src/farm_sim_config/config/harvest_runtime.yaml:22"
+      ]
+    },
+    {
+      "item": "예찰 AMCL 갱신 이동/각도",
+      "repository_real": "0.25m/0.2rad",
+      "sim": "0.05m/0.05rad",
+      "judgment": "위치 추정 동작 차이, 동일차체 정합 근거 미확인",
+      "references": [
+        "robot/config/robots/burger/nav2.yaml:35",
+        "sim/ros_ws/src/farm_sim_config/config/nav2_scout.yaml:32"
+      ]
+    },
+    {
+      "item": "예찰 충돌 반경/센서 관측거리/레이어",
+      "repository_real": "0.10m/2.5m/voxel 포함",
+      "sim": "0.12m/7.5m/voxel 없음",
+      "judgment": "실제 차체/센서로 보정 가능하나 근거 필요. 충돌정책에 영향",
+      "references": [
+        "robot/config/robots/burger/nav2.yaml:196",
+        "sim/ros_ws/src/farm_sim_config/config/nav2_scout.yaml:182"
+      ]
+    },
+    {
+      "item": "실물 예찰 AprilTag 기본 연결",
+      "repository_real": "tag_localization_config 없음; 기본 tag ON 런치 구성 실패",
+      "sim": "태그 설정/센서 연결 존재",
+      "judgment": "실물 연결 미완료. 공유 알고리즘 지원과 배포를 혼동",
+      "references": [
+        "robot/config/environments/scout_real.yaml:1",
+        "robot/ros_ws/src/farm_bringup/launch/scout.launch.py:39"
+      ]
+    },
+    {
+      "item": "수확 태그 보정 구간 제한",
+      "repository_real": "section 없는 고유 태그, 미션 중 보이면 보정 가능",
+      "sim": "반복ID 태그로 WINDOW_MOVE의 section이 있어야 보정 가능",
+      "judgment": "태그 중복 식별은 필요. 단계별 허용 정책 차이까지 Isaac 필수 차이는 아님",
+      "references": [
+        "robot/ros_ws/src/harvest_robot/harvest_robot/node.py:136",
+        "robot/ros_ws/src/farm_tag_localization/farm_tag_localization/observer.py:235"
+      ]
+    },
+    {
+      "item": "하위 바퀴 PI/PID",
+      "repository_real": "외부 vicpinky/TurtleBot3 드라이버 및 펌웨어",
+      "sim": "Isaac joint target + 수확 전용 WheelVelocityServo kp1/ki4/cap2radps",
+      "judgment": "어댑터 분리는 필요. 동일 PID 코드라는 설명은 틀림. 실물 속도/제동 정합 미검증",
+      "references": [
+        "sim/ros_ws/src/farm_sim_devices/farm_sim_devices/base_sim.py:22",
+        "sim/ros_ws/src/farm_sim_config/config/harvest.json:40",
+        "robot/ros_ws/src/farm_real_devices/launch/scout_devices.launch.py:31"
+      ]
+    }
+  ],
+  "necessary_environment_differences": [
+    "실제 지도/노드좌표와 태그 배치",
+    "실측 센서내부/외부보정 및 장착TF",
+    "드라이버·가상센서 연결·namespace",
+    "ROS sim clock과 실제장치시계"
+  ],
+  "not_justified_by_environment": [
+    "시작/완료/실패 정책 및 허용치",
+    "끝점 추종 방식",
+    "검증 없는 속도/가속/감속·충돌여유·AMCL 변경"
+  ],
+  "history": [
+    "1666a23(10/06): sim XY4cm→1.5cm",
+    "7d9ae40(10/08): sim progress120s/회전0.06/yaw0.01/statefulfalse 등 태그 통합 전 설정",
+    "전달bf10fcd에는 HarvestApproach/HarvestWork 고정곡률/끝점연장 및 work_controller_id 존재. 10/13 시뮬 동등 반영 누락",
+    "10/14 SettlingRPP/Stopped는 양쪽 로컬프로파일에 새로 추가; 실제 실물 배포 미실행",
+    "직전 sim checker.statefultrue 수정은 한 항목만 해결, 전체 동등성 확보 아님"
+  ],
+  "latest_failure": {
+    "controller_log": "/home/ysy/.ros/log/controller_server_3647712_1791958623178.log",
+    "drive_log": "sim/runs/drive_diagnostics/1e13df1b0bb6449db092bd4d7f9c9623/harvest_01.jsonl",
+    "goal_received_wall_s": 1791958660.8011756,
+    "goal_canceled_wall_s": 1791959028.8512995,
+    "reached_goal_messages": 0,
+    "stage": "첫 SECTION_APPROACH 진입 정렬, WINDOW_MOVE 진입 전",
+    "final_world_xy": [
+      -6.040363788604736,
+      10.716707229614258
+    ],
+    "tag_corrections_applied": 0,
+    "root_cause_status": "이번 감사에서 근본원인을 확정하거나 수정하지 않음. 작업점 도착 문제와 다른 단계.",
+    "tag_journals": [
+      "sim/runs/apriltag/143049b858d2480e84b5eeda6f0e8725/amcl_tag_b88e641ce7494677b7ca0ee3a8d8fab0/events.jsonl",
+      "sim/runs/apriltag/da0e9ee0a1bd4a9e9da643cf04676112/amcl_tag_dc17bd4567af40c5b88efbd8793bb340/events.jsonl"
+    ]
+  },
+  "smoke_profile": "navigation_smoke_20261014는 기본 sim과 harvest task경로 및 팔OFF 정책만 다름. 별도 nav튜닝이 아님.",
+  "recommendation": "전달 당시 실물 검증본과 이후 공통 수정의 기준을 명확히 분리하고, 공통 주행 정책을 하나의 기준으로 대조/정렬. 환경 차이는 실측 근거 있는 항목만 허용. 그 후 동일 입력/시작조건으로 검증. 현재 local real파일을 무조건 복사하거나 물성부터 변경하지 않음.",
+  "sources": {
+    "harvest_real_env": {
+      "path": "robot/config/environments/harvest_real.yaml",
+      "sha256": "d904182329457593250010d5e1e34fa64d002cb01eec8027dffca5752899cf73"
+    },
+    "harvest_sim_env": {
+      "path": "sim/ros_ws/src/farm_sim_config/config/harvest_runtime.yaml",
+      "sha256": "fcbe3e53bb8ced24ec6417a116bddcb73d942453af49735d0cebac2f289000cb"
+    },
+    "harvest_real_nav": {
+      "path": "robot/config/robots/vicpinky/nav2.yaml",
+      "sha256": "e545e834b5a798f54cbc1ebf400599563f02b78f99b80e6d93dd1a73189cf005"
+    },
+    "harvest_sim_nav": {
+      "path": "sim/ros_ws/src/farm_sim_config/config/nav2_harvest.yaml",
+      "sha256": "6cd2b776df4b317bb7337d627134f77f23851888448d9283d28732ae7b47d6ca"
+    },
+    "harvest_real_task": {
+      "path": "robot/config/harvest/harvest_real.json",
+      "sha256": "bc023ad8d774e7482b50f82f94124a8e72c43c3a96e5a6a479fbf16ebfb5634a"
+    },
+    "harvest_sim_task": {
+      "path": "sim/ros_ws/src/farm_sim_config/config/harvest_task.json",
+      "sha256": "90d10cb96c93e75e75e7d3528fb446f81983053dc47d7d99e7cafc3d111db2a4"
+    },
+    "scout_real_env": {
+      "path": "robot/config/environments/scout_real.yaml",
+      "sha256": "c130fcd796310a21783ca72e6e72bebf1db29379ebb6755271662c9a8cab47f1"
+    },
+    "scout_sim_env": {
+      "path": "sim/ros_ws/src/farm_sim_config/config/scout_fleet_runtime.yaml",
+      "sha256": "a0269957b2aee77e535d562ad7bb1453387c400dc78c3d00917ab07f4066e7b1"
+    },
+    "scout_real_nav": {
+      "path": "robot/config/robots/burger/nav2.yaml",
+      "sha256": "d8056335382236e4b2324409419269e9f1f22e404b035309ec783741784d14f5"
+    },
+    "scout_sim_nav": {
+      "path": "sim/ros_ws/src/farm_sim_config/config/nav2_scout.yaml",
+      "sha256": "b43eb5a3038147c4b2fa5bf162831b932be6b1e040b5ec0d05a1e95576cbc321"
+    }
+  }
+}

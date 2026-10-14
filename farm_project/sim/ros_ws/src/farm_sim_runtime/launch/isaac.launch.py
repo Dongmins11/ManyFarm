@@ -13,7 +13,7 @@ from farm_sim_runtime.station_spawn import read_station
 
 
 def setup(context) -> list:
-    import farm_common, farm_sim_devices, farm_sim_runtime
+    import farm_common, farm_navigation, farm_sim_devices, farm_sim_runtime
 
     def value(name: str) -> str:
         return LaunchConfiguration(name).perform(context)
@@ -43,10 +43,16 @@ def setup(context) -> list:
         runner = runner.with_name('run_fleet.py')
         command = [str(executable), str(runner), '--project-root', str(root),
                    '--fleet-config', str(fleet), '--assets-root', str(assets)]
-    for module in (farm_common, farm_sim_devices, farm_sim_runtime):
+    for module in (farm_common, farm_navigation, farm_sim_devices, farm_sim_runtime):
         command += ['--module-path', str(Path(module.__file__).resolve().parent.parent)]
     if value('headless') == 'true':
         command.append('--headless')
+    if value('physics_device') != 'profile':
+        command += ['--physics-device', value('physics_device')]
+    if value('performance_log'):
+        if not value('fleet_config'):
+            raise ValueError('performance_log는 fleet 실행에서 사용합니다.')
+        command += ['--performance-log', str(root / value('performance_log'))]
     env = dict(os.environ)
     for key in ('PYTHONPATH', 'PYTHONHOME', 'LD_LIBRARY_PATH', 'AMENT_PREFIX_PATH',
                 'CMAKE_PREFIX_PATH', 'COLCON_PREFIX_PATH'):
@@ -73,5 +79,7 @@ def generate_launch_description() -> LaunchDescription:
         DeclareLaunchArgument('assets_root', default_value=''),
         DeclareLaunchArgument('fleet_config', default_value=''),
         DeclareLaunchArgument('headless', default_value='false', choices=['true', 'false']),
+        DeclareLaunchArgument('physics_device', default_value='profile', choices=['profile', 'cpu', 'gpu']),
+        DeclareLaunchArgument('performance_log', default_value=''),
         OpaqueFunction(function=setup),
     ])

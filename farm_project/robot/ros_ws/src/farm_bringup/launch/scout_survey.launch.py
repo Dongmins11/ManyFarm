@@ -31,7 +31,8 @@ def setup(context):
         sigterm_timeout='60',sigkill_timeout='5',
         remappings=[] if sim else [('/tf','tf'),('/tf_static','tf_static')],parameters=[{'use_sim_time':sim,'project_root':str(root),
         'survey_config':config,'environment_config':environment,'mode':mode,'vision_python':str(python) if value('vision_python') else '',
-        'device':value('device'),'headless':value('headless').lower()=='true'}])]
+        'device':value('device'),'headless':value('headless').lower()=='true',
+        'tag_correction':value('tag_correction')=='true'}])]
 
 
 def generate_launch_description():
@@ -41,5 +42,6 @@ def generate_launch_description():
         DeclareLaunchArgument('project_root'),DeclareLaunchArgument('vision_python',default_value=''),
         DeclareLaunchArgument('environment_config',default_value=''),
         DeclareLaunchArgument('survey_config',default_value=''),
+        DeclareLaunchArgument('tag_correction',default_value='false',choices=['true','false']),
         DeclareLaunchArgument('device',default_value='0'),
         DeclareLaunchArgument('headless',default_value='false'),OpaqueFunction(function=setup)])

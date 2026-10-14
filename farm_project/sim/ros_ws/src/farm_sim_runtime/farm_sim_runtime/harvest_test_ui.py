@@ -22,10 +22,11 @@ def load_clearance_check(project_root: Path, config: dict) -> Any:
     """기존 지도 자유 셀과 수확 Nav2 footprint를 읽어 차체 배치 여유를 검사한다."""
     import yaml
     from PIL import Image
+    from farm_navigation.configuration import load_nav2_parameters
     config_root = project_root / 'sim/ros_ws/src/farm_sim_config'
     map_path = config_root / config['map_yaml']
     metadata = yaml.safe_load(map_path.read_text())
-    nav = yaml.safe_load((config_root / 'config/nav2_harvest.yaml').read_text())
+    nav = load_nav2_parameters(config_root / 'config/nav2_harvest.yaml', project_root)
     costmap = nav['local_costmap']['local_costmap']['ros__parameters']
     footprint = np.asarray(json.loads(costmap['footprint']), dtype=float)
     with Image.open(map_path.parent / metadata['image']) as source:

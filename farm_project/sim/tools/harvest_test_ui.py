@@ -118,7 +118,7 @@ def build_command(isaac_python: Path, project_root: Path, fleet_config: Path,
     command = [str(isaac_python.expanduser().absolute()), str(runner), '--project-root', str(root),
                '--fleet-config', str(fleet_config), '--assets-root', str(root / 'sim/assets'),
                '--harvest-test-ui']
-    for package in ('robot/ros_ws/src/farm_common', 'sim/ros_ws/src/farm_sim_devices',
+    for package in ('robot/ros_ws/src/farm_common', 'robot/ros_ws/src/farm_navigation', 'sim/ros_ws/src/farm_sim_devices',
                     'sim/ros_ws/src/farm_sim_runtime'):
         command.extend(('--module-path', str(root / package)))
     if seed is not None:

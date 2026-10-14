@@ -1,0 +1,103 @@
+diff --git a/vicpinky_bringup/vicpinky_bringup/bringup.py b/vicpinky_bringup/vicpinky_bringup/bringup.py
+index 822a67c..03d3daa 100644
+--- a/vicpinky_bringup/vicpinky_bringup/bringup.py
++++ b/vicpinky_bringup/vicpinky_bringup/bringup.py
+@@ -3,6 +3,7 @@
+ import rclpy
+ from rclpy.node import Node
+ import math
++import json
+ import time
+ 
+ from geometry_msgs.msg import Twist, TransformStamped
+@@ -39,6 +40,13 @@ class VicPinky(Node):
+     def __init__(self):
+         super().__init__('vic_pinky_bringup')
+         self.is_initialized = False
++        # Experimental diagnostics: sampled console JSON, not a full-rate trace.
++        self.declare_parameter('drive_diagnostics', False)
++        self._drive_diag_enabled = self.get_parameter('drive_diagnostics').value
++        self._drive_diag_last = None
++        self._drive_attempts = 0
++        self._drive_failures = 0
++        self._drive_exceptions = 0
+ 
+         self.get_logger().info('Initializing Vic Pinky Bringup Node...')
+         
+@@ -200,6 +208,15 @@ class VicPinky(Node):
+         else:
+             self.cmd_angular_z = self.target_angular_z
+ 
++        drive_diag = {
++            'stamp_ns': current_time.nanoseconds, 'dt_s': dt,
++            'target_v': self.target_linear_x, 'target_w': self.target_angular_z,
++            'limited_v': self.cmd_linear_x, 'limited_w': self.cmd_angular_z,
++            'encoder_v': v_x, 'encoder_w': vth,
++            # Feedback was read BEFORE this iteration's write.
++            'rpm_feedback_before_write': [rpm_l_fb, rpm_r_fb],
++        }
++        self._drive_attempts += 1
+         try:
+             v_l = self.cmd_linear_x - (self.cmd_angular_z * WHEEL_BASE / 2.0)
+             v_r = self.cmd_linear_x + (self.cmd_angular_z * WHEEL_BASE / 2.0)
+@@ -207,6 +224,7 @@ class VicPinky(Node):
+             rpm_l_raw = v_l / (WHEEL_RAD * RPM2RAD)
+             rpm_r_raw = v_r / (WHEEL_RAD * RPM2RAD)
+             
++            drive_diag['rpm_raw'] = [rpm_l_raw, rpm_r_raw]
+             max_rpm_limit = 28.0
+             max_req = max(abs(rpm_l_raw), abs(rpm_r_raw))
+             
+@@ -215,15 +233,26 @@ class VicPinky(Node):
+                 rpm_l_raw *= scale
+                 rpm_r_raw *= scale
+ 
+-            rpm_l = int(rpm_l_raw)
+-            rpm_r = int(rpm_r_raw)
++            drive_diag['rpm_scaled'] = [rpm_l_raw, rpm_r_raw]
++            rpm_l = round(rpm_l_raw)
++            rpm_r = round(rpm_r_raw)
+             
+             rpm_l = max(min(rpm_l, max_rpm_limit), -max_rpm_limit)
+             rpm_r = max(min(rpm_r, max_rpm_limit), -max_rpm_limit)
+ 
+-            self.driver.set_double_rpm(rpm_l, rpm_r)
+-        except:
+-            pass
++            drive_diag['rpm_command'] = [rpm_l, rpm_r]
++            success = bool(self.driver.set_double_rpm(rpm_l, rpm_r))
++            drive_diag['send_ok'] = success
++            if not success:
++                self._drive_failures += 1
++        except Exception as exc:
++            self._drive_exceptions += 1
++            drive_diag['send_ok'] = False
++            drive_diag['exception_type'] = type(exc).__name__
++        drive_diag['attempts'] = self._drive_attempts
++        drive_diag['send_failures'] = self._drive_failures
++        drive_diag['exceptions'] = self._drive_exceptions
++        self._emit_drive_diagnostic(drive_diag)
+ 
+         self._publish_tf(current_time)
+         self._publish_odometry(current_time, v_x, vth)
+@@ -231,6 +260,20 @@ class VicPinky(Node):
+ 
+         self.last_time = current_time
+ 
++    def _emit_drive_diagnostic(self, record):
++        if not self._drive_diag_enabled:
++            return
++        now = time.monotonic()
++        if self._drive_diag_last is not None and now - self._drive_diag_last < 0.2:
++            return
++        self._drive_diag_last = now
++        try:
++            self.get_logger().info(
++                'DRIVE_DIAG ' + json.dumps(record, allow_nan=False, separators=(',', ':')))
++        except Exception:
++            # Observability must not interrupt the existing odometry loop.
++            pass
++
+     def _publish_tf(self, current_time):
+         t = TransformStamped()
+         t.header.stamp = current_time.to_msg()

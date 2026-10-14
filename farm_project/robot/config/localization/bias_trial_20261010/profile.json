@@ -1,0 +1,55 @@
+{
+  "schema_version": 1,
+  "experimental": true,
+  "model_id": "sec01-pixel-bias-trial-20261010-v1",
+  "robot_id": "harvest_01",
+  "map_id": "many_farm_v1",
+  "map_frame": "map",
+  "sha256": {
+    "assets_file": "abf2a55e952df9d5b88a860c0eca814a07d01024e6b03d407e8e4a8ae9f5fcc5",
+    "model_file": "539bf6c8a81578a5100b6a113ab18e9e7bd34da0226a8308581556d8f7fb6bb4"
+  },
+  "map_yaml_sha256": "bbe46086336b76b5f11611160803260a91339d87c97709a6ffe5114d8d328fac",
+  "map_image_sha256": "a9f852637490aaff50c7115a543e2780a60ecf654747b3e777319251e151949e",
+  "wall_normal_map": [
+    1.0,
+    0.0
+  ],
+  "family": "tag36h11",
+  "tag_ids": [
+    100,
+    101,
+    102,
+    103,
+    104,
+    105
+  ],
+  "u_center_px": 640.0,
+  "u_scale_px": 640.0,
+  "u_interval_px": [
+    388.04473876953125,
+    889.77978515625
+  ],
+  "heading_interval_rad": [
+    -1.8325957145940461,
+    -1.3089969389957472
+  ],
+  "distance_bias_m": [
+    0.02316284358688556,
+    0.04866276347063953
+  ],
+  "yaw_bias_rad": [
+    0.04603614825476121,
+    -0.07805139861644357
+  ],
+  "max_distance_bias_m": 0.05,
+  "max_yaw_bias_rad": 0.10471975511965978,
+  "provenance": {
+    "task_id": "graph_test_b6d4bda1031940ecb28eac9c7118ec82",
+    "source_archive_sha256": "527e4268456e18df43b7c02fe0148187afe63762e96956d877a6be2956376dc5",
+    "samples": 74,
+    "reference": "left planar LiDAR wall fit, not independent metrology",
+    "independent_run_validated": false,
+    "physical_accuracy_validated": false
+  }
+}

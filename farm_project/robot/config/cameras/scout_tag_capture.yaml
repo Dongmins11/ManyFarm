@@ -1,0 +1,9 @@
+# 실제 PiCam 드라이버는 장치 어댑터가 시작해야 한다. 검출/Journal은 공통 코드다.
+configured: false
+setup_required:
+  - 실제 PiCam 드라이버가 아래 namespace에 image_raw와 camera_info를 발행하도록 연결
+  - scout_real.yaml의 실제 K/TF/태그 등록과 CameraInfo 일치 확인
+  - 장치 연결 검증 후 configured=true 지정
+backend: ros
+camera_namespace: scout_01/apriltag_camera
+output_root: runs/scout_tag

@@ -1,0 +1,79 @@
+{
+  "validation_kind": "offline, single recorded run, leave-one-tag-out",
+  "ros_execution": false,
+  "physical_accuracy_validated": false,
+  "held_out_results": [
+    {
+      "held_out_tag": 100,
+      "n": 12,
+      "raw_rms_cm_deg": [
+        2.6847473846831322,
+        3.3324497433768605
+      ],
+      "adjusted_rms_cm_deg": [
+        0.5830276188671951,
+        1.3274905865635462
+      ]
+    },
+    {
+      "held_out_tag": 101,
+      "n": 11,
+      "raw_rms_cm_deg": [
+        2.3495479907274106,
+        2.8974959422800923
+      ],
+      "adjusted_rms_cm_deg": [
+        0.8846367690429134,
+        1.0033447872724035
+      ]
+    },
+    {
+      "held_out_tag": 102,
+      "n": 12,
+      "raw_rms_cm_deg": [
+        2.474784286187631,
+        3.271973199068886
+      ],
+      "adjusted_rms_cm_deg": [
+        0.5883515384553389,
+        0.9992784486150386
+      ]
+    },
+    {
+      "held_out_tag": 103,
+      "n": 11,
+      "raw_rms_cm_deg": [
+        2.9519176164797605,
+        2.755234240031512
+      ],
+      "adjusted_rms_cm_deg": [
+        0.6958656717961271,
+        0.9848708203785371
+      ]
+    },
+    {
+      "held_out_tag": 104,
+      "n": 12,
+      "raw_rms_cm_deg": [
+        2.827934638248785,
+        2.1690149408546446
+      ],
+      "adjusted_rms_cm_deg": [
+        0.4797241585246541,
+        1.0230180361178447
+      ]
+    },
+    {
+      "held_out_tag": 105,
+      "n": 16,
+      "raw_rms_cm_deg": [
+        2.7711495303912645,
+        3.026330906500118
+      ],
+      "adjusted_rms_cm_deg": [
+        0.6179780393634475,
+        0.6164245521443913
+      ]
+    }
+  ]
+}

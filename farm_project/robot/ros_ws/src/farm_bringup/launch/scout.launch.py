@@ -20,7 +20,8 @@ def select_mode(context) -> list:
     profile=None
     root=Path(value('project_root')).expanduser().resolve()
     environment=value('environment_config')
-    if survey or environment or value('navigation')=='true':
+    tag_on = value('tag_correction') == 'true'
+    if survey or environment or value('navigation')=='true' or tag_on or value('tag_camera') == 'true':
         if not value('project_root'): raise RuntimeError('project_root에 farm_project 경로를 지정하세요.')
         environment=environment or ('sim/ros_ws/src/farm_sim_config/config/scout_runtime.yaml' if mode=='sim' else 'robot/config/environments/scout_real.yaml')
         environment=str(resolve_file(root,environment))
@@ -29,6 +30,10 @@ def select_mode(context) -> list:
         for argument,key in [('map','map_yaml'),('nav_params','nav_params'),('route_file','route_graph')]:
             if value(argument) and str(resolve_file(root,value(argument)))!=profile[key]:
                 raise RuntimeError(f'{argument}를 환경 파일과 다르게 지정할 수 없습니다.')
+
+    from farm_tag_localization.launch_support import tag_launch_actions
+    tag_sync, tag_actions = tag_launch_actions(root, profile, mode, enabled=tag_on,
+        camera_mode=value('tag_camera'), capture_directory=value('capture_directory'))
 
     package='farm_sim_runtime' if mode=='sim' else 'farm_real_devices'
     device_launch=Path(get_package_share_directory(package))/'launch/scout_devices.launch.py'
@@ -43,12 +48,15 @@ def select_mode(context) -> list:
     if survey or value('navigation')=='true':
         if value('cmd_vel_type')!='twist': raise RuntimeError('현재 farm Nav2 구성은 cmd_vel_type:=twist를 사용합니다.')
         args={name:value(name) for name in ('mode','map','nav_params','route_file','rviz')}
+        args['project_root'] = str(root)
         if profile: args.update(map=profile['map_yaml'],nav_params=profile['nav_params'],route_file=profile['route_graph'],robot_id=profile['robot_id'])
+        args.update(tag_scan_sync='true' if tag_sync else 'false', tag_map_id=profile['map_id'] if tag_sync else '')
         actions.append(IncludeLaunchDescription(PythonLaunchDescriptionSource(str(share/'scout_navigation.launch.py')),launch_arguments=args.items()))
     if survey:
-        args={name:value(name) for name in ('mode','vision_python','headless','device')}
+        args={name:value(name) for name in ('mode','vision_python','headless','device','tag_correction')}
         args.update(project_root=str(root),environment_config=environment)
         actions.append(IncludeLaunchDescription(PythonLaunchDescriptionSource(str(share/'scout_survey.launch.py')),launch_arguments=args.items()))
+    actions.extend(tag_actions)
     return actions
 
 
@@ -58,6 +66,9 @@ def generate_launch_description() -> LaunchDescription:
         DeclareLaunchArgument('project_root',default_value=''),
         DeclareLaunchArgument('environment_config',default_value=''),
         DeclareLaunchArgument('survey',default_value='true',choices=['true','false']),
+        DeclareLaunchArgument('tag_correction',default_value='false',choices=['true','false']),
+        DeclareLaunchArgument('capture_directory',default_value=''),
+        DeclareLaunchArgument('tag_camera',default_value='auto',choices=['auto','true','false']),
         DeclareLaunchArgument('vision_python',default_value=os.environ.get('FARM_VISION_PYTHON','')),
         DeclareLaunchArgument('device',default_value='0'),
         DeclareLaunchArgument('assets_root',default_value=os.environ.get('FARM_ASSETS_ROOT','')),

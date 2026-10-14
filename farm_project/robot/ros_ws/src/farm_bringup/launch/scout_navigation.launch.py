@@ -7,6 +7,20 @@ from launch.substitutions import LaunchConfiguration
 from launch_ros.actions import Node
 from launch_ros.descriptions import ParameterFile
 from nav2_common.launch import RewrittenYaml
+from farm_navigation.configuration import load_nav2_parameters, materialize_nav2_parameters
+
+
+def _bt_xml_parameters(nav_params: str, root: Path | None = None) -> dict[str, str]:
+    """선택한 Nav2 설정 옆의 상대 BT 경로를 실행 위치와 무관하게 해석합니다."""
+    parameters = load_nav2_parameters(nav_params, root).get('bt_navigator', {}).get('ros__parameters', {})
+    result = {}
+    for key in ('default_nav_to_pose_bt_xml', 'default_nav_through_poses_bt_xml'):
+        value = parameters.get(key)
+        # 미지정/빈 경로는 기존 Nav2 기본 BT 선택을 그대로 사용한다.
+        if value is None or value == '':
+            continue
+        result[key] = value
+    return result
 
 
 def setup(context):
@@ -23,12 +37,17 @@ def setup(context):
         selected[name] = str(path.absolute())
     # 프레임 이름은 유지하고 실물 TF·센서 토픽을 장치 namespace에 연결합니다.
     namespace = value('robot_id')
+    root = Path(LaunchConfiguration('project_root', default=str(Path.cwd())).perform(context)).expanduser().resolve()
+    bt_xml = _bt_xml_parameters(selected['nav_params'], root)
     params = ParameterFile(RewrittenYaml(
-        source_file=selected['nav_params'], root_key=namespace,
+        source_file=materialize_nav2_parameters(selected['nav_params'], root), root_key=namespace,
         param_rewrites={'use_sim_time': 'true' if sim else 'false'},
         convert_types=True), allow_substs=False)
+    tag_sync = value('tag_scan_sync') == 'true'
+    if tag_sync and not value('tag_map_id'):
+        raise ValueError('시각 동기 AMCL에는 선택한 환경의 map_id가 필요합니다.')
     servers = [
-        ('nav2_map_server', 'map_server'), ('nav2_amcl', 'amcl'),
+        ('nav2_map_server', 'map_server'), ('farm_tag_amcl' if tag_sync else 'nav2_amcl', 'amcl'),
         ('nav2_controller', 'controller_server'), ('nav2_planner', 'planner_server'),
         ('nav2_behaviors', 'behavior_server'), ('nav2_bt_navigator', 'bt_navigator'),
         ('nav2_velocity_smoother', 'velocity_smoother'),
@@ -36,6 +55,10 @@ def setup(context):
     actions = [LogInfo(msg='Scout Nav2 설정 파일: '+selected['nav_params'])]
     for package, name in servers:
         extra = [{'yaml_filename': selected['map']}] if name == 'map_server' else []
+        if name == 'amcl' and tag_sync:
+            extra = [{'tag_robot_id': namespace, 'tag_map_id': value('tag_map_id')}]
+        elif name == 'bt_navigator' and bt_xml:
+            extra = [bt_xml]
         remaps = []
         if name in ('controller_server', 'behavior_server'):
             remaps = [('cmd_vel', 'cmd_vel_nav')]
@@ -66,10 +89,13 @@ def setup(context):
 def generate_launch_description():
     return LaunchDescription([
         DeclareLaunchArgument('robot_id', default_value='scout_01'),
+        DeclareLaunchArgument('project_root', default_value=str(Path.cwd())),
         DeclareLaunchArgument('mode', default_value='sim', choices=['sim', 'real']),
         DeclareLaunchArgument('map', default_value=''),
         DeclareLaunchArgument('nav_params', default_value=''),
         DeclareLaunchArgument('route_file', default_value=''),
+        DeclareLaunchArgument('tag_scan_sync', default_value='false', choices=['true', 'false']),
+        DeclareLaunchArgument('tag_map_id', default_value=''),
         DeclareLaunchArgument('rviz', default_value='false', choices=['true', 'false']),
         OpaqueFunction(function=setup),
     ])

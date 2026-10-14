@@ -9,7 +9,8 @@ from launch.action import Action
 from launch.actions import DeclareLaunchArgument, IncludeLaunchDescription, OpaqueFunction
 from launch.launch_description_sources import PythonLaunchDescriptionSource
 from launch.substitutions import LaunchConfiguration
-from farm_navigation.configuration import load_environment, read_mapping
+from farm_navigation.configuration import load_environment, load_nav2_parameters, read_mapping
+from farm_sim_runtime.tag_localization import tag_capture_actions
 
 
 def _sim_file(root: Path, value: str) -> Path:
@@ -42,7 +43,7 @@ def setup(context: LaunchContext) -> list[Action]:
     if station is not None:
         _sim_file(root, station['source'])
         if survey or value('navigation') == 'true':
-            amcl = read_mapping(profile['nav_params'])['amcl']['ros__parameters']
+            amcl = load_nav2_parameters(profile['nav_params'], root)['amcl']['ros__parameters']
             expected = dict(x=station['xy_m'][0], y=station['xy_m'][1], z=0.0,
                             yaw=station['yaw_rad'])
             if amcl.get('set_initial_pose') is not True or amcl.get('initial_pose') != expected:
@@ -56,16 +57,22 @@ def setup(context: LaunchContext) -> list[Action]:
 
     arguments = {name: value(name) for name in (
         'navigation', 'survey', 'vision_python', 'device', 'isaac_python',
-        'start_isaac', 'headless', 'cmd_vel_type',
+        'start_isaac', 'headless', 'cmd_vel_type', 'tag_correction',
     )}
     arguments.update(
         mode='sim', project_root=str(root), environment_config=str(environment),
         assets_root=value('assets_root') or str(root / 'sim/assets'), rviz='false',
     )
+    actions: list[Action] = []
+    capture = ''
+    if value('tag_correction') == 'true':
+        _sim_file(root, profile['tag_localization_config'])
+        actions, capture = tag_capture_actions(root, profile)
+    arguments['capture_directory'] = capture
     common = Path(get_package_share_directory('farm_bringup')) / 'launch/scout.launch.py'
-    actions: list[Action] = [IncludeLaunchDescription(
+    actions.append(IncludeLaunchDescription(
         PythonLaunchDescriptionSource(str(common)), launch_arguments=arguments.items(),
-    )]
+    ))
     return actions
 
 
@@ -79,6 +86,7 @@ def generate_launch_description() -> LaunchDescription:
         DeclareLaunchArgument('rviz_config', default_value=''),
         DeclareLaunchArgument('navigation', default_value='true', choices=boolean),
         DeclareLaunchArgument('survey', default_value='true', choices=boolean),
+        DeclareLaunchArgument('tag_correction', default_value='false', choices=boolean),
         DeclareLaunchArgument('rviz', default_value='false', choices=boolean),
         DeclareLaunchArgument('vision_python', default_value=default_vision_python()),
         DeclareLaunchArgument('isaac_python', default_value=os.environ.get('FARM_ISAAC_PYTHON', '')),

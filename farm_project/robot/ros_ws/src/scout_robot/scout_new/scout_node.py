@@ -25,6 +25,7 @@ from farm_navigation.navigator import Navigator
 from farm_navigation.nav2_client import Nav2Client
 from farm_navigation.pose_provider import PoseProvider
 from farm_navigation.motion_monitor import MotionMonitor
+from farm_navigation.tag_control import TagControl
 from scout_robot.survey_core import StraightBed, Survey
 from .runtime import MissionCanceled
 from .scout_mission import ScoutMission
@@ -42,7 +43,7 @@ class ScoutNode(Node):
 
     def _initialize_settings(self) -> None:
         for key, value in [('project_root', ''), ('survey_config', ''), ('environment_config',''),
-                           ('mode','sim'), ('vision_python', ''), ('device', '0'), ('headless', False)]:
+                           ('mode','sim'), ('tag_correction', False), ('vision_python', ''), ('device', '0'), ('headless', False)]:
             self.declare_parameter(key, value)
         self._root: Path = Path(self.get_parameter('project_root').value).expanduser().resolve()
         env_file = str(self.get_parameter('environment_config').value)
@@ -109,6 +110,8 @@ class ScoutNode(Node):
 
     def _initialize_components(self) -> None:
         # 역할을 각각 만들고 명시적으로 연결합니다. Mission이 Controller를 소유하지 않습니다.
+        self._tag_control = (TagControl(self, self._cfg['robot_id'], self._cfg['map_id'])
+                             if self.get_parameter('tag_correction').value else None)
         self._poses = PoseProvider(self,self._navigation_settings)
         self._motion = MotionMonitor(self,self._navigation_settings,self._cb)
         self._nav2 = Nav2Client(self,self._navigation_settings,self._cb)
@@ -225,6 +228,8 @@ def main(args: list[str] | None = None) -> None:
     finally:
         executor.shutdown()
         node._state_controller.close()
+        if node._tag_control is not None:
+            node._tag_control.end()
         if node._vision is not None:
             node._vision.close()
         node._communication.close()

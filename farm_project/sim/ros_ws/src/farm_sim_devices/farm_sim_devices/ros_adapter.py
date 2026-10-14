@@ -46,6 +46,11 @@ class SimRosAdapter(Node):
         if self.config['camera'].get('enabled') and self.config['camera'].get('publish_ros'):
             from farm_sim_devices.camera_ros import CameraRos
             self.camera_ros=CameraRos(self,self.config['camera'],self.config['frames']['camera_optical'])
+        self.tag_camera_ros=None
+        tag_camera=self.config.get('tag_camera',{})
+        if tag_camera.get('enabled') and tag_camera.get('publish_ros'):
+            from farm_sim_devices.camera_ros import CameraRos
+            self.tag_camera_ros=CameraRos(self,tag_camera,self.config['frames']['tag_camera_optical'])
         kind=self.get_parameter('cmd_vel_type').value
         if kind=='twist':
             self.subscription=self.create_subscription(Twist,'cmd_vel',self.command,10)
@@ -108,6 +113,13 @@ class SimRosAdapter(Node):
                   (frames['base_link'],frames['scan'])}
         if self.config['camera']['enabled']:
             expected.add((frames['base_link'],frames['camera_optical']))
+        if self.config.get('tag_camera',{}).get('enabled'):
+            expected.add((frames['base_link'],frames['tag_camera_optical']))
+        # 장착 레이어가 선택된 예찰만 런타임에서 발행하는 센서 TF 네 개를 추가합니다.
+        if self.config.get('scout_mount_asset'):
+            prefix=frames['base_link'].rsplit('/',1)[0]+'/' if '/' in frames['base_link'] else ''
+            expected.update((frames['base_link'],prefix+name) for name in
+                            ('bmany_camera_link','camera_color_optical_frame','picam_frame','picam_optical_frame'))
         if not isinstance(transforms,list) or len(transforms)!=len(expected):return False
         for t in transforms:
             if not isinstance(t,dict) or not isinstance(t.get('parent'),str) or not isinstance(t.get('child'),str):return False
@@ -133,6 +145,8 @@ class SimRosAdapter(Node):
             self.link_lost=True
         if self.camera_ros is not None and not self.link_lost:
             self.camera_ros.publish(self.session)
+        if self.tag_camera_ros is not None and not self.link_lost:
+            self.tag_camera_ros.publish(self.session)
 
     def publish_state(self,m):
         ns=m['stamp_ns'];frames=self.config['frames']

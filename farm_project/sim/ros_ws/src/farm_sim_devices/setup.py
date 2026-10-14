@@ -12,5 +12,5 @@ setup(
     install_requires=['setuptools'], zip_safe=True,
     maintainer='Farm Team', maintainer_email='maintainer@example.com',
     description='Farm integration scaffold', license='Proprietary',
-    entry_points={'console_scripts': ['ros_adapter = farm_sim_devices.ros_adapter:main', 'clock_relay = farm_sim_devices.clock_relay:main']},
+    entry_points={'console_scripts': ['ros_adapter = farm_sim_devices.ros_adapter:main', 'clock_relay = farm_sim_devices.clock_relay:main', 'tag_capture = farm_sim_devices.tag_capture:main']},
 )

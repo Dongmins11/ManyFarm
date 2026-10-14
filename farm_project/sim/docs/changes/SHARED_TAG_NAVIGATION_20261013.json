@@ -1,0 +1,44 @@
+{
+  "rectified_count": 8,
+  "detection_count": 5,
+  "journal_count": 5,
+  "accepted": 5,
+  "expected_pose": [
+    -6.655000220825833,
+    7.679998293968355,
+    -1.570798855699108
+  ],
+  "error_xy_m": [
+    -0.037214210410075665,
+    0.07161022947286533
+  ],
+  "error_yaw_deg": -3.410288781749602,
+  "position_error_m": 0.08070267914760831,
+  "accuracy_check_passed": false,
+  "accuracy_requirement_xy_per_axis_m": 0.05,
+  "shutdown": {
+    "return_codes": {
+      "rectify": 0,
+      "detector": -9,
+      "capture": 0
+    },
+    "all_processes_stopped": true,
+    "clean_shutdown": false
+  },
+  "motion_test_executed": false,
+  "common_build_packages": 4,
+  "sim_build_packages": 3,
+  "focused_tests": {
+    "harvest": 82,
+    "scout_protocol": 6,
+    "scout_tag_lifecycle": 5,
+    "sim_tag_and_camera": 26,
+    "common_launch": 9,
+    "usd_mount": 7
+  },
+  "legacy_tests": {
+    "test_scout_state_flow.py": "30 run / 20 errors: HEAD already uses section_id but legacy fixture still sends section_ids"
+  },
+  "source_head": "62a80ed",
+  "committed": false
+}

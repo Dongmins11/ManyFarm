@@ -1,5 +1,6 @@
 """공통 이동을 마친 뒤 설정된 팔 Action의 종료를 기다립니다. 팔 작업 정책은 소유하지 않습니다."""
 from dataclasses import asdict
+from .contract import resolve_section
 
 
 class MissionCanceled(Exception):
@@ -12,11 +13,21 @@ class HarvestMission:
 
     def run(self) -> dict:
         task = self.goal.harvest_task
+        control = getattr(self.node, 'tag_control', None)
         try:
             self.node.check()
-            self.node.navigator.preflight_navigation()
-            result = self.node.navigator.navigate(
-                [task.goal_pose.position.x, task.goal_pose.position.y], task.goal_pose.yaw)
+            staged = getattr(self.node, "staged_navigation", None)
+            if staged is None:
+                self.node.navigator.preflight_navigation()
+            if control is not None:
+                control.begin()
+            xy = (task.goal_pose.position.x, task.goal_pose.position.y)
+            if staged is not None:
+                section = resolve_section(getattr(self.goal, "section_id", None), self.node.config,
+                    task.goal_pose, **getattr(self.node, 'section_resolution', {}))
+                result = staged.navigate(section, xy, task.goal_pose.yaw)
+            else:
+                result = self.node.navigator.navigate(xy, task.goal_pose.yaw)
             self.node.check()
             arrival = asdict(result)
             self.node.arrival_result = arrival
@@ -37,10 +48,14 @@ class HarvestMission:
                 except Exception as error:
                     errors.append(str(error))
             try:
-                self.node.navigator.cancel_nav()
+                executor = getattr(self.node, "staged_navigation", None) or self.node.navigator
+                executor.cancel_nav()
             except Exception as error:
                 errors.append(str(error))
             if errors:
                 self.node.blocked = True
                 raise RuntimeError('CANCEL_UNCONFIRMED: ' + '; '.join(errors))
             raise
+        finally:
+            if control is not None:
+                control.end()

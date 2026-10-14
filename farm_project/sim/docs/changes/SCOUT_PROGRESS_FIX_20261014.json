@@ -1,0 +1,193 @@
+{
+  "date": "2026-10-14",
+  "authorization": "사용자: 원인 확인 - 조치 - 보고",
+  "base_commit": "62a80ed81dfe8b3ddbecf2786aa39237ef1ead1e",
+  "commit_push": false,
+  "previous_audit": "sim/docs/changes/SCOUT_PROGRESS_FAILURE_20261014.json",
+  "diagnosis": {
+    "nav2_version": "1.3.12",
+    "error_code": 105,
+    "error_name": "FAILED_TO_MAKE_PROGRESS",
+    "mechanism": "RPP.stateful=true는 목표 XY 범위에 한번 들어간 후 현재 추정 위치가 범위를 벗어나도 목표각 회전을 유지한다. 전진0으로 남아 진행 검사에 실패한다.",
+    "tag_only_cause": false,
+    "evidence": "원 사용자 실행에서는 태그 보정 중 발생했고, 통제 CPU 재현에서는 첫 태그 보정 전에도 같은 실패가 발생했다. AMCL/TF 변동의 정확한 발생 원인이나 GoalChecker와의 매주기 시간차까지 확정한 것은 아니다."
+  },
+  "changes": [
+    {
+      "path": "sim/ros_ws/src/farm_sim_config/config/nav2_scout.yaml",
+      "setting": "controller_server.ros__parameters.RPP.stateful",
+      "before": "implicit true",
+      "after": false
+    },
+    {
+      "path": "robot/config/robots/burger/nav2.yaml",
+      "setting": "controller_server.ros__parameters.RPP.stateful",
+      "before": "implicit true",
+      "after": false
+    },
+    {
+      "path": "robot/ros_ws/src/farm_nav2_controller/test/test_settling_controller.cpp",
+      "change": "실제 설치 RPP의 목표각 전환 함수를 호출하는 대조 회귀시험 2개"
+    }
+  ],
+  "unchanged": [
+    "XY 도착 0.03m, yaw 0.05236rad",
+    "progress 이동 0.1m/10sim초",
+    "속도/PI/물성/센서/태그 보정",
+    "수확 설정 및 제어",
+    "D-029 종료 잔여 오차의 비차단 정책",
+    "Nav2 실패를 실제 실패로 반환"
+  ],
+  "controlled_test_conditions": {
+    "physics_device": "cpu",
+    "tag_correction": true,
+    "rviz": true,
+    "headless": false,
+    "scout": true,
+    "harvest": true,
+    "harvest_task_sent": false,
+    "camera_count": 3,
+    "start": "original station spawn and matching AMCL pose",
+    "control_ground_truth_injection": false,
+    "isolation": "서로 다른 ROS domain/UDP/SHM/출력 경로, 순차 실행",
+    "observer": "읽기 전용 cmd/회전상태/lookahead/경로 기록; 토픽별 비동기 수신이므로 한 샘플의 동시성은 보장하지 않음"
+  },
+  "baseline": {
+    "directory": "sim/runs/scout_progress_fix_20261014/baseline",
+    "task_id": "scout_fix_fc6ac15e82b4",
+    "result": "FAILED / ABORTED / 105",
+    "completed_segments": 0,
+    "tag_corrections_applied": 0,
+    "first_inside": {
+      "sim_s": 69.070836936,
+      "distance_m": 0.029711490532848307,
+      "rotating": true,
+      "linear_mps": 0
+    },
+    "stall": {
+      "sim_interval_s": [
+        70,
+        75
+      ],
+      "goal_distance_range_m": [
+        0.030654639382467486,
+        0.030655897910600003
+      ],
+      "carrot_angle_deg_approx": 1.297,
+      "rotate_to_path_threshold_rad": 0.3,
+      "rotating": true,
+      "linear_mps": 0
+    },
+    "tag_journals": [
+      "sim/runs/apriltag/6e0e48e96a0c49e3a64f6e91ce260f75/amcl_tag_7807b15ade9442d5af13e6538b47f509/events.jsonl",
+      "sim/runs/apriltag/8cdfae2f273d459f8863c93926874e62/amcl_tag_a68d065d314840b69e2246b789646d89/events.jsonl"
+    ]
+  },
+  "fixed": {
+    "directory": "sim/runs/scout_progress_fix_20261014/fixed",
+    "survey": "sim/runs/scout_progress_fix_20261014/fixed/survey/55a1b64406f8/survey.json",
+    "task_id": "scout_fix_02b822c1e51f",
+    "result": "SUCCESS",
+    "action_status": "SUCCEEDED",
+    "completed_segments": 5,
+    "navigation": [
+      {
+        "goal": {
+          "x": -6.655,
+          "y": 9.044947,
+          "yaw": -1.5707963267948966
+        },
+        "status": "ARRIVED",
+        "nav2_status": 4,
+        "post_stop_position_error_m": 0.028821768030267824,
+        "post_stop_heading_error_deg": 0.6159358638537856,
+        "accepted": true
+      },
+      {
+        "goal": {
+          "x": -6.655,
+          "y": 7.522473,
+          "yaw": -1.5707963267948966
+        },
+        "status": "ARRIVED",
+        "nav2_status": 4,
+        "post_stop_position_error_m": 0.02917218379081787,
+        "post_stop_heading_error_deg": 1.667857737393891,
+        "accepted": true
+      },
+      {
+        "goal": {
+          "x": -6.655,
+          "y": 6.0,
+          "yaw": -1.5707963267948966
+        },
+        "status": "ARRIVED",
+        "nav2_status": 4,
+        "post_stop_position_error_m": 0.02910412385540623,
+        "post_stop_heading_error_deg": 1.7085409301417778,
+        "accepted": true
+      },
+      {
+        "goal": {
+          "x": -6.655,
+          "y": 4.477527,
+          "yaw": -1.5707963267948966
+        },
+        "status": "ARRIVED",
+        "nav2_status": 4,
+        "post_stop_position_error_m": 0.0403249984346833,
+        "post_stop_heading_error_deg": 2.3245669751297298,
+        "accepted": true
+      },
+      {
+        "goal": {
+          "x": -6.655,
+          "y": 2.9550529999999995,
+          "yaw": -1.5707963267948966
+        },
+        "status": "ARRIVED",
+        "nav2_status": 4,
+        "post_stop_position_error_m": 0.025126553005578908,
+        "post_stop_heading_error_deg": 2.4874326912221845,
+        "accepted": true
+      }
+    ],
+    "tag_corrections_applied": 129,
+    "tag_journal": "sim/runs/apriltag/69a65ed2d55c409ba62e3f31cf3ecc75/amcl_tag_61b76f615d34436ba093eff64214cd68/events.jsonl",
+    "near_goal_rotation_to_tracking_transitions": [],
+    "launch_exit_code": 0,
+    "goal_exit_code": 0,
+    "controller_failure_count": 0
+  },
+  "offline_validation": {
+    "cpp_tests_passed": 12,
+    "python_tests_passed": 14,
+    "python_modules": [
+      "sim.tests.test_recorded_arrival_overshoot",
+      "sim.tests.test_staged_harvest_config",
+      "sim.tests.test_tag_localization_integration"
+    ],
+    "packages_built": [
+      "farm_nav2_controller",
+      "farm_sim_config"
+    ],
+    "config_diff_check": "두 profile의 YAML mapping에서 추가된 RPP.stateful=false만 제거하면 수정 전과 동일",
+    "installed_sim_config_matches_source": true,
+    "logs_directory": "sim/runs/scout_progress_fix_20261014"
+  },
+  "limitations": [
+    "실물 설정은 로컬 수정했지만 실물 배포/주행은 미실행",
+    "16개 전체 구역 및 장시간 반복은 미실행",
+    "태그 절대 위치 정확도와 저속 물리 응답 문제를 해결했다는 의미가 아님",
+    "수정 전 1회 재현/수정 후 전체 SEC01 1회 성공. 성공률 통계나 모든 실패 제거를 주장하지 않음"
+  ],
+  "rollback": "RPP.stateful=false 두 추가 설정 및 신규 회귀시험만 역적용. 기존 누적 미커밋 변경은 보존.",
+  "runtime_application": "기존 실패 런치는 검증을 위해 종료함. 수정된 설정을 쓰려면 CPU 런치 재시작 필요.",
+  "runtime_parameter_query": "격리 도메인의 추가 CLI 조회는 Node not found로 미확인. launch가 선택한 프로파일/manifest 및 설치 설정 일치로 적용 경로 확인.",
+  "process_cleanup": {
+    "host_process_check": "원래 실패 launch/관련 PID 및 시험 경로의 잔여 프로세스 없음",
+    "fixed_launch_exit_code": 0,
+    "fixed_isaac_exit_code": -15,
+    "note": "미션 성공 후 정리 중 Isaac이15초 내 SIGINT 종료하지 않아 launch가 SIGTERM으로 종료했다. 주행 성공과 정상 종료 여부를 구분한다."
+  }
+}

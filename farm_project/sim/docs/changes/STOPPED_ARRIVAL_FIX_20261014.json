@@ -1,0 +1,638 @@
+{
+  "date_kst": "2026-10-14",
+  "tested_nav2_version": "1.3.12 (installed ROS Jazzy controller and RPP packages; physical runtime version unverified)",
+  "baseline_head": "62a80ed81dfe8b3ddbecf2786aa39237ef1ead1e",
+  "status": "local_uncommitted_entry_alignment_fix_with_separate_work_arrival_failure",
+  "objective": "Reject moving arrival inside Nav2 and continue entry alignment until stopped within the original tolerances.",
+  "cause_addressed": [
+    "RPP continues nonzero final angular commands inside the pose tolerance; config-only trials did not reliably settle. The shared entry controller now commands zero while both XY and yaw meet the same existing checker tolerances.",
+    "SimpleGoalChecker may report success while the robot is still rotating; subsequent braking exceeds the final heading limit.",
+    "RPP stateful latch keeps final rotation even if braking takes XY outside its tolerance; StoppedGoalChecker alone does not fix this mismatch."
+  ],
+  "changes": {
+    "shared_navigation": "StoppedGoalChecker preflight support, actual stop-limit and velocity masking validation; SimpleGoalChecker compatibility retained.",
+    "sim_and_local_real_profile": "Only SECTION_APPROACH selects StoppedGoalChecker with stateful=false, trans=.005 m/s, rot=.02 rad/s and shared SettlingRegulatedPurePursuitController.stateful=false. The subclass runs original RPP/collision checks, then zeros the command inside the final XY/yaw window.",
+    "scope_guard": "Work and exit retain their previous SimpleGoalChecker and RPP XY latch plus the shared post-stop pose gate; no new global retry, spin or reverse recovery.",
+    "navigate_bt_compatibility": "Both default BTs explicitly select the original general checker; launch resolves XML relative to the selected Nav2 config. Other upstream BT behavior is unchanged.",
+    "sim_dispatch": "harvest_task approach_controller_id and optional approach_goal_checker_id select the entry-specific controller/checker; omitted checker ID preserves the prior behavior."
+  },
+  "unchanged": [
+    "wheel PI",
+    "USD/contact/physics parameters",
+    "camera/render rates",
+    "AprilTag correction policy",
+    "Nav2 XY/yaw tolerances",
+    "final arrival tolerances and .8 s stopped confirmation",
+    "ROS interfaces"
+  ],
+  "baseline_evidence": "sim/docs/changes/DRIVE_BACKEND_REPEAT_20261014.json",
+  "baseline_summary": {
+    "cpu": {
+      "success": 1,
+      "trials": 3
+    },
+    "gpu": {
+      "success": 2,
+      "trials": 3
+    },
+    "failed_final_heading_deg": [
+      6.124,
+      6.504,
+      7.314
+    ]
+  },
+  "full_mission_trials": [
+    {
+      "case": "cpu_brake_01",
+      "scope": "final_approach_only_policy",
+      "result": "FAILED",
+      "fps": 28.1677406507241,
+      "note": null,
+      "physical_robot_connected": false,
+      "navigation": [
+        {
+          "goal_map": {
+            "x": -6.015000000000001,
+            "y": 10.7,
+            "yaw": -1.5707963267948966
+          },
+          "actual_map": {
+            "x": -6.01585133640063,
+            "y": 10.693202514092762,
+            "yaw": -1.5756741343649563
+          },
+          "status": "ARRIVED",
+          "position_error_m": 0.006850590363327777,
+          "heading_error_rad": 0.004877807570059733,
+          "stamp_ns": 86354171170,
+          "heading_error_deg": 0.2794777870413863,
+          "world_sample_dt_s": -0.1500000074356933,
+          "world_heading_error_deg": 0.07401043022468735,
+          "world_xy": [
+            -6.025003433227539,
+            10.735139846801758
+          ],
+          "world_position_error_m": 0.036535975552718994
+        },
+        {
+          "goal_map": {
+            "x": -6.015000000000001,
+            "y": 7.7578,
+            "yaw": -1.5707963267948966
+          },
+          "actual_map": {
+            "x": -6.019553841267017,
+            "y": 7.784227280105541,
+            "yaw": -1.5782242870513512
+          },
+          "status": "INTERRUPTED",
+          "position_error_m": 0.02681675976067816,
+          "heading_error_rad": 0.0074279602564546465,
+          "stamp_ns": 119254172886,
+          "heading_error_deg": 0.4255907730857639,
+          "world_sample_dt_s": 0.08333333793562758,
+          "world_heading_error_deg": 0.5192840332791987,
+          "world_xy": [
+            -6.022825241088867,
+            7.7773027420043945
+          ],
+          "world_position_error_m": 0.021014074897289136
+        }
+      ],
+      "log_directory": "sim/runs/rotation_fix_20261014/cpu_brake_01"
+    },
+    {
+      "case": "cpu_final_01",
+      "scope": "rejected_candidate_or_invalid_fixture",
+      "result": "CANCELED",
+      "fps": 27.81742946056638,
+      "note": {
+        "status": "CANCELED_CONFIG_ONLY_NOT_ROBUST",
+        "valid_controller_trial": true,
+        "reason": "Approach-only Stopped checker + RPP.stateful=false still produced repeated rotation without settling; the controller continued nonzero angular commands near the goal. Rejected as a final fix; test shared zero-in-goal command next."
+      },
+      "physical_robot_connected": false,
+      "navigation": [],
+      "log_directory": "sim/runs/rotation_fix_20261014/cpu_final_01"
+    },
+    {
+      "case": "cpu_scoped_01",
+      "scope": "rejected_candidate_or_invalid_fixture",
+      "result": "CANCELED",
+      "fps": 27.98470489569655,
+      "note": {
+        "status": "CANCELED_AFTER_WORK_REGRESSION",
+        "valid_controller_trial": true,
+        "reason": "Stopped checker with stateful RPP in work phase repeated rotation after XY drift outside tolerance. Approach-only controller unlatching was insufficient when stopped checker still applied to work. Do not adopt this policy."
+      },
+      "physical_robot_connected": false,
+      "navigation": [
+        {
+          "goal_map": {
+            "x": -6.015000000000001,
+            "y": 10.7,
+            "yaw": -1.5707963267948966
+          },
+          "actual_map": {
+            "x": -6.014085941718896,
+            "y": 10.703584707060212,
+            "yaw": -1.5780088403751464
+          },
+          "status": "ARRIVED",
+          "position_error_m": 0.0036994090404815646,
+          "heading_error_rad": 0.007212513580249879,
+          "stamp_ns": 86754171191,
+          "heading_error_deg": 0.41324658782910906,
+          "world_sample_dt_s": 0.183333343143957,
+          "world_heading_error_deg": 0.5498937529433335,
+          "world_xy": [
+            -6.023946762084961,
+            10.731593132019043
+          ],
+          "world_position_error_m": 0.032835507344604976
+        }
+      ],
+      "log_directory": "sim/runs/rotation_fix_20261014/cpu_scoped_01"
+    },
+    {
+      "case": "cpu_stopped_01",
+      "scope": "rejected_candidate_or_invalid_fixture",
+      "result": "CANCELED",
+      "fps": 27.958111103879215,
+      "note": {
+        "outcome": "CANCELED_BY_TEST",
+        "reason": "Persistent final rotation with XY drift outside goal tolerance; RPP default stateful latch kept linear=0. Stopped checker alone not sufficient.",
+        "next_change": "RPP.stateful=false",
+        "operational_config_applied": false
+      },
+      "physical_robot_connected": false,
+      "navigation": [],
+      "log_directory": "sim/runs/rotation_fix_20261014/cpu_stopped_01"
+    },
+    {
+      "case": "cpu_unlatched_01",
+      "scope": "preliminary_all_phase_unlatched_policy",
+      "result": "SUCCESS",
+      "fps": 28.079450356182825,
+      "note": null,
+      "physical_robot_connected": false,
+      "navigation": [
+        {
+          "goal_map": {
+            "x": -6.015000000000001,
+            "y": 10.7,
+            "yaw": -1.5707963267948966
+          },
+          "actual_map": {
+            "x": -6.013282744349851,
+            "y": 10.703032851677923,
+            "yaw": -1.5782315324364964
+          },
+          "status": "ARRIVED",
+          "position_error_m": 0.0034852770719492627,
+          "heading_error_rad": 0.007435205641599829,
+          "stamp_ns": 83854171040,
+          "heading_error_deg": 0.4260059030755296,
+          "world_sample_dt_s": -0.11666667274904796,
+          "world_heading_error_deg": 0.5556456053313187,
+          "world_xy": [
+            -6.025200366973877,
+            10.719209671020508
+          ],
+          "world_position_error_m": 0.02174991832439637
+        },
+        {
+          "goal_map": {
+            "x": -6.015000000000001,
+            "y": 7.7578,
+            "yaw": -1.5707963267948966
+          },
+          "actual_map": {
+            "x": -6.013378926336763,
+            "y": 7.764245874475614,
+            "yaw": -1.5756799032296944
+          },
+          "status": "ARRIVED",
+          "position_error_m": 0.006646591425461986,
+          "heading_error_rad": 0.004883576434797865,
+          "stamp_ns": 116587506081,
+          "heading_error_deg": 0.2798083186434631,
+          "world_sample_dt_s": 0.033333334583758756,
+          "world_heading_error_deg": 0.2810562930374646,
+          "world_xy": [
+            -6.02366304397583,
+            7.769725799560547
+          ],
+          "world_position_error_m": 0.014740184058739086
+        }
+      ],
+      "log_directory": "sim/runs/rotation_fix_20261014/cpu_unlatched_01"
+    },
+    {
+      "case": "gpu_brake_01",
+      "scope": "final_approach_only_policy",
+      "result": "SUCCESS",
+      "fps": 17.363668616603633,
+      "note": null,
+      "physical_robot_connected": false,
+      "navigation": [
+        {
+          "goal_map": {
+            "x": -6.015000000000001,
+            "y": 10.7,
+            "yaw": -1.5707963267948966
+          },
+          "actual_map": {
+            "x": -6.0201227948720675,
+            "y": 10.69542118811901,
+            "yaw": -1.5669334364481144
+          },
+          "status": "ARRIVED",
+          "position_error_m": 0.00687084751269927,
+          "heading_error_rad": 0.0038628903467821103,
+          "stamp_ns": 132354173569,
+          "heading_error_deg": 0.2213273135924419,
+          "world_sample_dt_s": -0.11666667227694916,
+          "world_heading_error_deg": 0.35632230110938545,
+          "world_xy": [
+            -6.023107528686523,
+            10.721731185913086
+          ],
+          "world_position_error_m": 0.023194319619077572
+        },
+        {
+          "goal_map": {
+            "x": -6.015000000000001,
+            "y": 7.7578,
+            "yaw": -1.5707963267948966
+          },
+          "actual_map": {
+            "x": -6.020868296631168,
+            "y": 7.767470854324657,
+            "yaw": -1.5572155940890449
+          },
+          "status": "ARRIVED",
+          "position_error_m": 0.011312043525380663,
+          "heading_error_rad": 0.013580732705851693,
+          "stamp_ns": 168620842128,
+          "heading_error_deg": 0.7781186667405845,
+          "world_sample_dt_s": 0.13333333988231288,
+          "world_heading_error_deg": 1.1372886335199617,
+          "world_xy": [
+            -6.031771659851074,
+            7.772881507873535
+          ],
+          "world_position_error_m": 0.022555275522582987
+        }
+      ],
+      "log_directory": "sim/runs/rotation_fix_20261014/gpu_brake_01"
+    },
+    {
+      "case": "gpu_entry_unlatched_01",
+      "scope": "rejected_candidate_or_invalid_fixture",
+      "result": "FAILED",
+      "fps": null,
+      "note": {
+        "outcome": "EXCLUDED_INVALID_FIXTURE",
+        "reason": "Fleet station_config still referenced original spawn while AMCL used entry spawn. Mission correctly rejected before navigation; not a valid controller test. Also mid-corridor misaligned starts are intentionally rejected by mission, so use same full-route mission for comparisons."
+      },
+      "physical_robot_connected": false,
+      "navigation": [],
+      "log_directory": "sim/runs/rotation_fix_20261014/gpu_entry_unlatched_01"
+    },
+    {
+      "case": "gpu_unlatched_01",
+      "scope": "preliminary_all_phase_unlatched_policy",
+      "result": "SUCCESS",
+      "fps": 17.095961745055074,
+      "note": null,
+      "physical_robot_connected": false,
+      "navigation": [
+        {
+          "goal_map": {
+            "x": -6.015000000000001,
+            "y": 10.7,
+            "yaw": -1.5707963267948966
+          },
+          "actual_map": {
+            "x": -6.019312720872932,
+            "y": 10.701993430640316,
+            "yaw": -1.565703741277748
+          },
+          "status": "ARRIVED",
+          "position_error_m": 0.004751139552315275,
+          "heading_error_rad": 0.00509258551714864,
+          "stamp_ns": 87787504578,
+          "heading_error_deg": 0.2917836569420648,
+          "world_sample_dt_s": -0.15000000734819707,
+          "world_heading_error_deg": 0.7415228369640257,
+          "world_xy": [
+            -6.011733055114746,
+            10.732447624206543
+          ],
+          "world_position_error_m": 0.032611673454951216
+        },
+        {
+          "goal_map": {
+            "x": -6.015000000000001,
+            "y": 7.7578,
+            "yaw": -1.5707963267948966
+          },
+          "actual_map": {
+            "x": -6.015930022507432,
+            "y": 7.767718491150081,
+            "yaw": -1.5729096664907278
+          },
+          "status": "ARRIVED",
+          "position_error_m": 0.009961998221168888,
+          "heading_error_rad": 0.0021133396958312733,
+          "stamp_ns": 119287506221,
+          "heading_error_deg": 0.1210854452485931,
+          "world_sample_dt_s": -0.050000002279773526,
+          "world_heading_error_deg": 0.001047267455011062,
+          "world_xy": [
+            -6.018624782562256,
+            7.786293029785156
+          ],
+          "world_position_error_m": 0.028722670400947312
+        }
+      ],
+      "log_directory": "sim/runs/rotation_fix_20261014/gpu_unlatched_01"
+    }
+  ],
+  "bt_runtime_probe": {
+    "scope": "isolated_sim_nav2_default_bt_compatibility_probe",
+    "ros_domain_id": "106",
+    "physical_robot_connected": false,
+    "goal_source": "current estimated map->harvest_01/base_footprint TF; no ground truth",
+    "controller_selection": "RPP via transient-local controller_selector",
+    "actions": [
+      {
+        "action": "navigate_to_pose",
+        "timeout_wall_s": 20.0,
+        "started_monotonic": 611927.45192978,
+        "goal": {
+          "frame_id": "map",
+          "stamp_ns": 9220833814,
+          "position": {
+            "x": -2.0000000338000867,
+            "y": 13.250079105526021,
+            "z": 0.0
+          },
+          "orientation": {
+            "x": 0.0,
+            "y": 0.0,
+            "z": -0.7072935740878549,
+            "w": 0.7069199389280431
+          }
+        },
+        "started_sim_ns": 9220833814,
+        "accepted": true,
+        "status": 4,
+        "error_code": 0,
+        "error_message": "",
+        "stopped_odometry": {
+          "stamp_ns": 10020833856,
+          "received_monotonic": 611933.894750253,
+          "linear_x": 1.3174611329773222e-05,
+          "linear_y": 0.0,
+          "angular_z": 4.44924049162229e-05
+        },
+        "final_pose": {
+          "frame_id": "map",
+          "stamp_ns": 10020833856,
+          "position": {
+            "x": -2.0000000334432286,
+            "y": 13.250079774843805,
+            "z": 0.0
+          },
+          "orientation": {
+            "x": 0.0,
+            "y": 0.0,
+            "z": -0.7072913107619163,
+            "w": 0.7069222034429888
+          }
+        },
+        "position_change_m": 6.693178785518468e-07,
+        "heading_change_rad": 6.403334207316647e-06,
+        "passed": true,
+        "elapsed_wall_s": 6.460561726009473,
+        "finished_sim_ns": 10020833856
+      },
+      {
+        "action": "navigate_through_poses",
+        "timeout_wall_s": 20.0,
+        "started_monotonic": 611933.912877483,
+        "goal": {
+          "frame_id": "map",
+          "stamp_ns": 10020833856,
+          "position": {
+            "x": -2.0000000334432286,
+            "y": 13.250079774843805,
+            "z": 0.0
+          },
+          "orientation": {
+            "x": 0.0,
+            "y": 0.0,
+            "z": -0.7072913107619163,
+            "w": 0.7069222034429888
+          }
+        },
+        "started_sim_ns": 10020833856,
+        "accepted": true,
+        "status": 4,
+        "error_code": 0,
+        "error_message": "",
+        "stopped_odometry": {
+          "stamp_ns": 10820833898,
+          "received_monotonic": 611936.690691653,
+          "linear_x": 1.1226090570063262e-05,
+          "linear_y": 0.0,
+          "angular_z": -3.6094406162634135e-05
+        },
+        "final_pose": {
+          "frame_id": "map",
+          "stamp_ns": 10820833898,
+          "position": {
+            "x": -2.0000000335461054,
+            "y": 13.250079580360763,
+            "z": 0.0
+          },
+          "orientation": {
+            "x": 0.0,
+            "y": 0.0,
+            "z": -0.70729095806512,
+            "w": 0.7069225563237636
+          }
+        },
+        "position_change_m": 1.9448306843671546e-07,
+        "heading_change_rad": 9.978374044816718e-07,
+        "passed": true,
+        "elapsed_wall_s": 2.7847608610754833,
+        "finished_sim_ns": 10820833898
+      }
+    ],
+    "passed": true
+  },
+  "entry_braking_evidence": {
+    "case": "gpu_brake_01",
+    "source": "sim/runs/rotation_fix_20261014/gpu_brake_01/entry_braking_trace.json",
+    "samples": [
+      {
+        "sim_time_s": 130.78750682109967,
+        "command_mps_rps": [
+          0.0,
+          0.06
+        ],
+        "odom_angular_velocity_rps": 0.02971459706259463
+      },
+      {
+        "sim_time_s": 131.1041735042818,
+        "command_mps_rps": [
+          0.0,
+          0.06
+        ],
+        "odom_angular_velocity_rps": 0.04828242819762287
+      },
+      {
+        "sim_time_s": 131.3875068523921,
+        "command_mps_rps": [
+          0.0,
+          0.0
+        ],
+        "odom_angular_velocity_rps": 0.03583771712545479
+      },
+      {
+        "sim_time_s": 131.65417353296652,
+        "command_mps_rps": [
+          0.0,
+          0.0
+        ],
+        "odom_angular_velocity_rps": 0.01191211308763754
+      },
+      {
+        "sim_time_s": 131.95417354861274,
+        "command_mps_rps": [
+          0.0,
+          0.0
+        ],
+        "odom_angular_velocity_rps": -0.004284692941036576
+      },
+      {
+        "sim_time_s": 132.23750689672306,
+        "command_mps_rps": [
+          0.0,
+          0.0
+        ],
+        "odom_angular_velocity_rps": -0.002306496340086791
+      },
+      {
+        "sim_time_s": 132.53750691236928,
+        "command_mps_rps": [
+          0.12,
+          -0.0014270287311827358
+        ],
+        "odom_angular_velocity_rps": -0.0007171862481956645
+      }
+    ],
+    "observation": "Zero command starts while measured angular velocity is still above the stopped limit; work motion follows settling."
+  },
+  "remaining_work_failure": {
+    "case": "cpu_brake_01",
+    "position_error_mm": 26.81675976067816,
+    "forward_error_mm": 26.427280105541,
+    "lateral_error_mm": 4.5538412670165,
+    "heading_error_deg": 0.4255907734262786,
+    "direct_goal_direction_error_deg": 9.777,
+    "existing_straight_plan_result": "APPROACH_RECOVERY_REQUIRED",
+    "observed_timing": "TAG_CORRECTION_APPLIED 8 and 9 occurred after work Nav2 Reached the goal and before the final stopped-pose sample.",
+    "cause_not_fully_isolated": "Each requested along-track shift was only about 0.3mm; tag timing alone does not explain the full error. Nearest world error was21.01mm.",
+    "evidence": "sim/runs/rotation_fix_20261014/cpu_brake_01/work_arrival_evidence.json",
+    "policy": "Preserve tag corrections and final gate; do not add unsafe automatic rotation/retry or loosen tolerances."
+  },
+  "targeted_probe": {
+    "scope": "isolated_shared_navigator_controller_probe_not_mission_e2e",
+    "physics": "cpu",
+    "status": "ARRIVED",
+    "position_error_mm": 5.329268886687305,
+    "heading_error_deg": 0.4673610835648061,
+    "elapsed_sim_s": 4.300000224,
+    "log_directory": "sim/runs/rotation_fix_20261014/controller_entry_probe/cpu_01",
+    "limitation": "Fresh spawn at the recorded difficult heading; not a replay of the original contact history or a full HarvestTask."
+  },
+  "offline_validation": {
+    "focused_sim_tests": {
+      "passed": 24,
+      "log": "sim/runs/rotation_fix_20261014/focused_regression.log"
+    },
+    "common_navigation_tests": {
+      "passed": 10,
+      "log": "sim/runs/rotation_fix_20261014/common_regression.log"
+    },
+    "real_profile_and_dispatch_tests": {
+      "entry_controller": 15,
+      "follow_work": 16,
+      "capture_session": 5,
+      "field_profile": 2
+    },
+    "cpp_plugin_tests": {
+      "passed": 10,
+      "log": "sim/runs/rotation_fix_20261014/test_settling_controller.gtest.xml"
+    },
+    "runtime_regressions": {
+      "passed": 4
+    },
+    "static_runtime_check_groups": {
+      "passed": 5
+    },
+    "build": {
+      "farm_navigation": "PASS",
+      "harvest_robot": "PASS",
+      "farm_nav2_controller": "PASS",
+      "farm_bringup": "PASS",
+      "farm_sim_config": "PASS"
+    },
+    "preexisting_failure": {
+      "test": "test_short_goal_connectors_are_free_and_preserve_exact_endpoint",
+      "failing_subcases": 48,
+      "baseline_proof": "sim/runs/rotation_fix_20261014/baseline_geometry.log",
+      "note": "Same failure with the HEAD test and current preexisting route graph. Unrelated route geometry was not modified."
+    }
+  },
+  "limitations": [
+    "Physical robot not run or deployed; real Nav2 version/odom noise/braking still need field validation.",
+    "GPU harvest_audit workspace snapshot was UNAVAILABLE; mission success here does not validate arm workspace.",
+    "Limited repeats do not establish a statistical failure rate or all-section correctness.",
+    "Full missions use expected_count=0 with arm disabled; harvest/arm validation is not included.",
+    "Outside the goal pose window, original RPP dynamics remain; this is not a predictive braking-envelope or wheel-PI fix.",
+    "Exact cause and real-world fidelity of direction-dependent simulated low-speed wheel response remain unresolved.",
+    "Isaac app shutdown still requires launch SIGTERM escalation in these tests; navigation result and shutdown result are separate."
+  ],
+  "changed_file_sha256": {
+    "robot/ros_ws/src/farm_navigation/farm_navigation/arrival.py": "43c5d9484923a55e4710f4161693f01e57ed9b7187995be87bd9371501fed561",
+    "robot/ros_ws/src/farm_navigation/farm_navigation/nav2_client.py": "7a2856a9cea2eaf18019f5169e9a08bc849f7039baebc103fefad2ba36417b1d",
+    "robot/config/robots/vicpinky/nav2.yaml": "e545e834b5a798f54cbc1ebf400599563f02b78f99b80e6d93dd1a73189cf005",
+    "robot/config/harvest/harvest_real.json": "bc023ad8d774e7482b50f82f94124a8e72c43c3a96e5a6a479fbf16ebfb5634a",
+    "robot/ros_ws/src/harvest_robot/harvest_robot/node.py": "c2d658018aa9fd004c1d2c995bc894eda9fde0e71513213b948268c17dca0fad",
+    "robot/ros_ws/src/harvest_robot/test/test_follow_work.py": "478aa01b429859db9971dd3dc0a002ebe9555cbcacd92f2f6c712a200f5b4caa",
+    "robot/ros_ws/src/harvest_robot/test/test_entry_controller.py": "cf3115855817732b2c2aa2d842e76604c35d4ce71be7ce35fa55a2bfd5900a13",
+    "sim/ros_ws/src/farm_sim_config/config/nav2_harvest.yaml": "b4934c1b56192e14f94c4a83b64914bc63ee2908b454652f212f0529bd5459b9",
+    "sim/ros_ws/src/farm_sim_config/config/harvest_task.json": "90d10cb96c93e75e75e7d3528fb446f81983053dc47d7d99e7cafc3d111db2a4",
+    "sim/tests/test_stopped_goal_checker.py": "3bafae8ecb78ab4ffef3320576de058411ed9659b83a9744335878183bc8d466",
+    "sim/tests/test_harvest_arm_geometry.py": "62a0fb8bb348c3346bb270412ba9d12b2654a8e80f7b16662893dc58e03949e3",
+    "sim/tests/test_nav2_bt_goal_checker.py": "ff819a9d72038fc31d1ca23446b95385cd07e382c6ec3c52e3c62308935935fd",
+    "robot/ros_ws/src/farm_bringup/launch/scout_navigation.launch.py": "53516b02c42666e58e4779c49200b67787a211334376069c77a1d05a5c459b0c",
+    "robot/ros_ws/src/farm_bringup/package.xml": "2854b024a01ac09c581c657d6230aae968c4ae1d15c83cf1e46840a422d871d6",
+    "robot/tools/tag_camera/check_runtime.py": "e8fc059b2d1cc93c2b4557b766877f738d6049449e8d40a6b4977b725b9a4901",
+    "robot/ros_ws/src/farm_nav2_controller/CMakeLists.txt": "8c774737fd64bf62d9eba51781cc63f9ba5dc0c0ac5b5db73d5f4a0ac97cbfe6",
+    "robot/ros_ws/src/farm_nav2_controller/controller_plugins.xml": "955bba1501f7f6f1ee35ddf13267619498dc1717b0a19a1b3e6f41f3abfdac74",
+    "robot/ros_ws/src/farm_nav2_controller/include/farm_nav2_controller/settling_regulated_pure_pursuit_controller.hpp": "eab315be2dd5f7ad78413bb3e77b3a8b7a3d35dbad810c11c0dd34952ed868da",
+    "robot/ros_ws/src/farm_nav2_controller/package.xml": "439639a9a3b74b9a93c109a3196b144335f4e1d5b52a3b15c316d641d1874969",
+    "robot/ros_ws/src/farm_nav2_controller/src/settling_regulated_pure_pursuit_controller.cpp": "39d0ceed5fe7f3dba3b2f32de7656f889c4b4fe5c1f204d20ecbd2f67d3cbbd3",
+    "robot/ros_ws/src/farm_nav2_controller/test/test_settling_controller.cpp": "336fe3f141e45412947297b02c1c8cac8cf72abbaf68fbec70e2d5c9973ddf1b",
+    "robot/config/robots/vicpinky/harvest_navigate_through_poses.xml": "b8b00784c27e66eb881cfb343056edc33b347b8b9cc3a87d9355ad2f60383a87",
+    "robot/config/robots/vicpinky/harvest_navigate_to_pose.xml": "71e762831b95ad74c5f4994edb6bc875f48379a93d0dc61af6837cce8bbc2a0a",
+    "sim/ros_ws/src/farm_sim_config/config/harvest_navigate_through_poses.xml": "d45f88a27b07f30cb5f59f4bae62fab35fb6b8c31d8eaa3109c0ff6e34ee3d20",
+    "sim/ros_ws/src/farm_sim_config/config/harvest_navigate_to_pose.xml": "df28401981044f115969f79d403fa9915cdda2bf5b60634e2e6f6cd905d6aab9"
+  }
+}

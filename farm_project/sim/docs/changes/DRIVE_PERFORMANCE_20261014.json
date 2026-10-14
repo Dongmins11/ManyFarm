@@ -1,0 +1,440 @@
+{
+  "method": "Isaac 14 sim seconds; harvest .08m/s sim1..7s; measured sim2..13s; scout stationary; no ROS/Nav2; 60Hz physics; same assets; single run per case",
+  "cases": {
+    "gpu_baseline": {
+      "wall_fps": 17.56525296659953,
+      "mean_ms": {
+        "frame_s": 56.84274684066291,
+        "control_s": 0.05631948076894112,
+        "arm_s": 0.3068722687506428,
+        "prepare_s": 0.10614650796703767,
+        "post_s": 4.276714580147669,
+        "truth_s": 3.9931997281118212,
+        "sensor_s": 3.749773769011495,
+        "forces_s": 0.02565954998841114,
+        "simulation_s": 34.85351973442558,
+        "contacts_s": 0.007693568830180801,
+        "render_s": 13.142843435476111
+      },
+      "camera_frames": 139,
+      "bounded_run_completed": true,
+      "exit_code": -15,
+      "completion": {
+        "simulated_s": 14.000000730156898,
+        "render_frames": 840,
+        "physics_ticks": 840,
+        "robots": [
+          {
+            "robot_id": "scout_01",
+            "camera_frames": 209,
+            "tag_camera_frames": 139,
+            "position_world_m": [
+              -5.0,
+              13.249999046325684,
+              8.270869329862762e-06
+            ],
+            "telemetry_packets": 420
+          },
+          {
+            "robot_id": "harvest_01",
+            "camera_frames": 139,
+            "tag_camera_frames": 0,
+            "position_world_m": [
+              -2.000159740447998,
+              12.733739852905273,
+              0.000299113045912236
+            ],
+            "telemetry_packets": 420
+          }
+        ]
+      }
+    },
+    "cpu_baseline": {
+      "wall_fps": 28.861236863854224,
+      "mean_ms": {
+        "frame_s": 34.45777868389886,
+        "control_s": 0.04709590381632248,
+        "arm_s": 0.30198051897583134,
+        "prepare_s": 0.10331383885138413,
+        "post_s": 4.050853245567079,
+        "truth_s": 3.560003658552005,
+        "sensor_s": 3.537281047531658,
+        "forces_s": 0.026168209627609358,
+        "simulation_s": 5.483026063126145,
+        "contacts_s": 0.006564556811512872,
+        "render_s": 20.8052161077362
+      },
+      "camera_frames": 139,
+      "bounded_run_completed": true,
+      "exit_code": -15,
+      "completion": {
+        "simulated_s": 14.000000730156898,
+        "render_frames": 840,
+        "physics_ticks": 840,
+        "robots": [
+          {
+            "robot_id": "scout_01",
+            "camera_frames": 209,
+            "tag_camera_frames": 139,
+            "position_world_m": [
+              -4.999999046325684,
+              13.249998092651367,
+              8.209585757867899e-06
+            ],
+            "telemetry_packets": 420
+          },
+          {
+            "robot_id": "harvest_01",
+            "camera_frames": 139,
+            "tag_camera_frames": 0,
+            "position_world_m": [
+              -1.9989323616027832,
+              12.734064102172852,
+              0.00029905291739851236
+            ],
+            "telemetry_packets": 420
+          }
+        ]
+      }
+    },
+    "gpu_final": {
+      "wall_fps": 17.660553155889918,
+      "mean_ms": {
+        "frame_s": 56.505014593042716,
+        "control_s": 0.057813730337798144,
+        "arm_s": 0.31996521036930836,
+        "prepare_s": 0.11046993860156473,
+        "post_s": 3.829638090753702,
+        "truth_s": 3.9340544751294977,
+        "sensor_s": 3.293594655538486,
+        "forces_s": 0.027174892073327843,
+        "simulation_s": 34.93422377011456,
+        "contacts_s": 0.007394717293650363,
+        "render_s": 13.209261035610158
+      },
+      "camera_frames": 139,
+      "bounded_run_completed": true,
+      "exit_code": -15,
+      "completion": {
+        "simulated_s": 14.000000730156898,
+        "render_frames": 840,
+        "physics_ticks": 840,
+        "robots": [
+          {
+            "robot_id": "scout_01",
+            "camera_frames": 209,
+            "tag_camera_frames": 139,
+            "position_world_m": [
+              -5.0,
+              13.249999046325684,
+              8.270869329862762e-06
+            ],
+            "telemetry_packets": 420
+          },
+          {
+            "robot_id": "harvest_01",
+            "camera_frames": 139,
+            "tag_camera_frames": 0,
+            "position_world_m": [
+              -2.000159740447998,
+              12.733739852905273,
+              0.000299113045912236
+            ],
+            "telemetry_packets": 420
+          }
+        ]
+      }
+    },
+    "cpu_final": {
+      "wall_fps": 29.048767804093032,
+      "mean_ms": {
+        "frame_s": 34.273047799025804,
+        "control_s": 0.04662783061521071,
+        "arm_s": 0.29874965742540854,
+        "prepare_s": 0.1066638938165411,
+        "post_s": 3.6858270322254887,
+        "truth_s": 3.5559787259747586,
+        "sensor_s": 3.1712405051979604,
+        "forces_s": 0.02603149835274301,
+        "simulation_s": 5.494105097463806,
+        "contacts_s": 0.006895278806261945,
+        "render_s": 20.979358920488846
+      },
+      "camera_frames": 139,
+      "bounded_run_completed": true,
+      "exit_code": -15,
+      "completion": {
+        "simulated_s": 14.000000730156898,
+        "render_frames": 840,
+        "physics_ticks": 840,
+        "robots": [
+          {
+            "robot_id": "scout_01",
+            "camera_frames": 209,
+            "tag_camera_frames": 139,
+            "position_world_m": [
+              -4.999999046325684,
+              13.249998092651367,
+              8.209585757867899e-06
+            ],
+            "telemetry_packets": 420
+          },
+          {
+            "robot_id": "harvest_01",
+            "camera_frames": 139,
+            "tag_camera_frames": 0,
+            "position_world_m": [
+              -1.9989323616027832,
+              12.734064102172852,
+              0.00029905291739851236
+            ],
+            "telemetry_packets": 420
+          }
+        ]
+      }
+    },
+    "cpu_final_no_d435": {
+      "wall_fps": 34.731390310467596,
+      "mean_ms": {
+        "frame_s": 28.38255259169576,
+        "control_s": 0.042977686230601234,
+        "arm_s": 0.29727959084663197,
+        "prepare_s": 0.10450360308768171,
+        "post_s": 3.17580103680181,
+        "truth_s": 3.2368555587405963,
+        "sensor_s": 2.6918069528288804,
+        "forces_s": 0.025980095520164025,
+        "simulation_s": 5.416204553330317,
+        "contacts_s": 0.006510851954138189,
+        "render_s": 16.00405897285479
+      },
+      "camera_frames": 139,
+      "bounded_run_completed": true,
+      "exit_code": -15,
+      "completion": {
+        "simulated_s": 14.000000730156898,
+        "render_frames": 840,
+        "physics_ticks": 840,
+        "robots": [
+          {
+            "robot_id": "scout_01",
+            "camera_frames": 0,
+            "tag_camera_frames": 139,
+            "position_world_m": [
+              -4.999999046325684,
+              13.249998092651367,
+              8.209585757867899e-06
+            ],
+            "telemetry_packets": 420
+          },
+          {
+            "robot_id": "harvest_01",
+            "camera_frames": 139,
+            "tag_camera_frames": 0,
+            "position_world_m": [
+              -1.9989323616027832,
+              12.734064102172852,
+              0.00029905291739851236
+            ],
+            "telemetry_packets": 420
+          }
+        ]
+      }
+    },
+    "cpu_final_headless": {
+      "wall_fps": 36.23273999292853,
+      "mean_ms": {
+        "frame_s": 26.67108736085621,
+        "control_s": 0.04413141463318783,
+        "arm_s": 0.31706535479646514,
+        "prepare_s": 0.11229100425473669,
+        "post_s": 3.8336588221489256,
+        "truth_s": 4.698773882542313,
+        "sensor_s": 3.3301178572318433,
+        "forces_s": 0.027394508343246398,
+        "simulation_s": 5.938787904751459,
+        "contacts_s": 0.006921754649021861,
+        "render_s": 11.62644907440567
+      },
+      "camera_frames": 139,
+      "bounded_run_completed": true,
+      "exit_code": -15,
+      "completion": {
+        "simulated_s": 14.000000730156898,
+        "render_frames": 840,
+        "physics_ticks": 840,
+        "robots": [
+          {
+            "robot_id": "scout_01",
+            "camera_frames": 209,
+            "tag_camera_frames": 139,
+            "position_world_m": [
+              -4.999999046325684,
+              13.249998092651367,
+              8.209585757867899e-06
+            ],
+            "telemetry_packets": 420
+          },
+          {
+            "robot_id": "harvest_01",
+            "camera_frames": 139,
+            "tag_camera_frames": 0,
+            "position_world_m": [
+              -1.9989323616027832,
+              12.734064102172852,
+              0.00029905291739851236
+            ],
+            "telemetry_packets": 420
+          }
+        ]
+      }
+    },
+    "gpu_final_headless": {
+      "wall_fps": 18.63613633276909,
+      "mean_ms": {
+        "frame_s": 53.54751131398547,
+        "control_s": 0.05462258775492735,
+        "arm_s": 0.32137317872239335,
+        "prepare_s": 0.11412521760741418,
+        "post_s": 4.05489343384309,
+        "truth_s": 4.500287987828029,
+        "sensor_s": 3.5280413227155805,
+        "forces_s": 0.026625064272207743,
+        "simulation_s": 33.33290865941142,
+        "contacts_s": 0.007337237757658868,
+        "render_s": 11.067195231038513
+      },
+      "camera_frames": 139,
+      "bounded_run_completed": true,
+      "exit_code": -15,
+      "completion": {
+        "simulated_s": 14.000000730156898,
+        "render_frames": 840,
+        "physics_ticks": 840,
+        "robots": [
+          {
+            "robot_id": "scout_01",
+            "camera_frames": 209,
+            "tag_camera_frames": 139,
+            "position_world_m": [
+              -5.0,
+              13.249999046325684,
+              8.270869329862762e-06
+            ],
+            "telemetry_packets": 420
+          },
+          {
+            "robot_id": "harvest_01",
+            "camera_frames": 139,
+            "tag_camera_frames": 0,
+            "position_world_m": [
+              -2.000159740447998,
+              12.733739852905273,
+              0.000299113045912236
+            ],
+            "telemetry_packets": 420
+          }
+        ]
+      }
+    }
+  },
+  "limitations": [
+    "Short straight drive does not validate bed clearance or learned arm policy.",
+    "All bounded runs completed; Isaac close hung and owned processes were terminated (-15).",
+    "Camera render scheduling experiment produced no images and was reverted.",
+    "no_d435 is benchmark only; production camera configuration unchanged.",
+    "ROS launch parent exited 0, but tag nodes segfaulted (-11) during shutdown and Isaac required SIGTERM (-15); mission result is separate from clean shutdown."
+  ],
+  "nav2_e2e": {
+    "cpu": {
+      "goal_result": "ABORTED",
+      "error": "arrival heading 0.1069 rad > 0.05; distance 0.0087m < 0.02",
+      "wall_fps": 28.26460529502381,
+      "tag_pipelines": {
+        "harvest_01/apriltag_camera_optical_frame": {
+          "capture": "sim/runs/apriltag/f90d55cbd595476faa493e0bad4db29d",
+          "frames": 373,
+          "nonempty_frames": 5,
+          "event_counts": {
+            "start": 1,
+            "tag_control_accepted": 161,
+            "observation": 5,
+            "closed": 1
+          },
+          "closed": [
+            {
+              "kind": "closed",
+              "wall_ns": 1791938094610981084,
+              "correction_requests": 0,
+              "tf_owner": "AMCL"
+            }
+          ]
+        },
+        "scout_01/picam_optical_frame": {
+          "capture": "sim/runs/apriltag/23606e3aac9d490fb5ccdc7be3fa3cc1",
+          "frames": 264,
+          "nonempty_frames": 0,
+          "event_counts": {
+            "start": 1,
+            "closed": 1
+          },
+          "closed": [
+            {
+              "kind": "closed",
+              "wall_ns": 1791938094678091082,
+              "correction_requests": 0,
+              "tf_owner": "AMCL"
+            }
+          ]
+        }
+      }
+    },
+    "gpu": {
+      "goal_result": "SUCCEEDED",
+      "completion_policy": "ARRIVAL_ONLY_NO_HARVEST",
+      "wall_fps": 17.38481339980325,
+      "tag_pipelines": {
+        "harvest_01/apriltag_camera_optical_frame": {
+          "capture": "sim/runs/apriltag/a0d41eea592246df9c09e560d18fa198",
+          "frames": 502,
+          "nonempty_frames": 42,
+          "event_counts": {
+            "start": 1,
+            "tag_control_accepted": 295,
+            "observation": 39,
+            "tag_correction_requested": 4,
+            "tag_correction_queued": 4,
+            "amcl_after_request": 29,
+            "tag_correction_applied": 4,
+            "closed": 1
+          },
+          "closed": [
+            {
+              "kind": "closed",
+              "wall_ns": 1791938679467164922,
+              "correction_requests": 4,
+              "tf_owner": "AMCL"
+            }
+          ]
+        },
+        "scout_01/picam_optical_frame": {
+          "capture": "sim/runs/apriltag/f0f8a8dab31d46fd9f21a0cb8b1c1b42",
+          "frames": 725,
+          "nonempty_frames": 0,
+          "event_counts": {
+            "start": 1,
+            "closed": 1
+          },
+          "closed": [
+            {
+              "kind": "closed",
+              "wall_ns": 1791938679519002595,
+              "correction_requests": 0,
+              "tf_owner": "AMCL"
+            }
+          ]
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,257 @@
+{
+  "date": "2026-10-14",
+  "base_commit": "62a80ed81dfe8b3ddbecf2786aa39237ef1ead1e",
+  "state": "implemented_cpu_sequence_passed",
+  "commit_push": false,
+  "requirement": "공통 구현 파일 한 벌을 실물/시뮬에서 함께 import. 설정값은 데이터로 변경 가능. sim에는 전용 어댑터/자산/설정/검증만.",
+  "shared_code": {
+    "real": {
+      "farm_navigation.navigator": {
+        "path": "/home/ysy/main/farm_project/robot/ros_ws/src/farm_navigation/farm_navigation/navigator.py",
+        "sha256": "4c316cd10cbcd71d5451b62827ebe67545e4bf14948d40cba4c8b2d8f9a51640"
+      },
+      "farm_navigation.nav2_client": {
+        "path": "/home/ysy/main/farm_project/robot/ros_ws/src/farm_navigation/farm_navigation/nav2_client.py",
+        "sha256": "7a2856a9cea2eaf18019f5169e9a08bc849f7039baebc103fefad2ba36417b1d"
+      },
+      "farm_navigation.parallel_approach": {
+        "path": "/home/ysy/main/farm_project/robot/ros_ws/src/farm_navigation/farm_navigation/parallel_approach.py",
+        "sha256": "c53321015238be7e8b222dd507d34af4b46decaa859f13c13a6b4d954c88f8fa"
+      },
+      "farm_navigation.tag_control": {
+        "path": "/home/ysy/main/farm_project/robot/ros_ws/src/farm_navigation/farm_navigation/tag_control.py",
+        "sha256": "4d8b2e45f3c43bcdaead3549bb5d86674459cd37d582cdcd08ddd6e1412520d6"
+      },
+      "harvest_robot.staged_navigation": {
+        "path": "/home/ysy/main/farm_project/robot/ros_ws/src/harvest_robot/harvest_robot/staged_navigation.py",
+        "sha256": "02e020950ff9d63290f750c6c153aef4bd4cdfc790552833c4b2a4c243de1025"
+      },
+      "harvest_robot.corridor_navigation": {
+        "path": "/home/ysy/main/farm_project/robot/ros_ws/src/harvest_robot/harvest_robot/corridor_navigation.py",
+        "sha256": "f44fb132fa87ace2f6f1771d56b46df681a3e1b0dc0d4a1048f1b1cc6c477adc"
+      },
+      "farm_tag_localization.runtime": {
+        "path": "/home/ysy/main/farm_project/robot/ros_ws/src/farm_tag_localization/farm_tag_localization/runtime.py",
+        "sha256": "d8c03295fcf2dea9b3ebbdf2a5f758d5970b80eb7d5c41d8f0744a31661a0799"
+      },
+      "farm_tag_localization.detection": {
+        "path": "/home/ysy/main/farm_project/robot/ros_ws/src/farm_tag_localization/farm_tag_localization/detection.py",
+        "sha256": "05647ec97fc8f5730bcf6ed1bb3fa79026876845688ba170b23bfb648c130a71"
+      },
+      "farm_tag_localization.ros_capture": {
+        "path": "/home/ysy/main/farm_project/robot/ros_ws/src/farm_tag_localization/farm_tag_localization/ros_capture.py",
+        "sha256": "07fb4e55365e795ac26c51a46658f0efc4064b9bdf67fc00ae3ba818fdb111a0"
+      }
+    },
+    "sim": {
+      "farm_navigation.navigator": {
+        "path": "/home/ysy/main/farm_project/robot/ros_ws/src/farm_navigation/farm_navigation/navigator.py",
+        "sha256": "4c316cd10cbcd71d5451b62827ebe67545e4bf14948d40cba4c8b2d8f9a51640"
+      },
+      "farm_navigation.nav2_client": {
+        "path": "/home/ysy/main/farm_project/robot/ros_ws/src/farm_navigation/farm_navigation/nav2_client.py",
+        "sha256": "7a2856a9cea2eaf18019f5169e9a08bc849f7039baebc103fefad2ba36417b1d"
+      },
+      "farm_navigation.parallel_approach": {
+        "path": "/home/ysy/main/farm_project/robot/ros_ws/src/farm_navigation/farm_navigation/parallel_approach.py",
+        "sha256": "c53321015238be7e8b222dd507d34af4b46decaa859f13c13a6b4d954c88f8fa"
+      },
+      "farm_navigation.tag_control": {
+        "path": "/home/ysy/main/farm_project/robot/ros_ws/src/farm_navigation/farm_navigation/tag_control.py",
+        "sha256": "4d8b2e45f3c43bcdaead3549bb5d86674459cd37d582cdcd08ddd6e1412520d6"
+      },
+      "harvest_robot.staged_navigation": {
+        "path": "/home/ysy/main/farm_project/robot/ros_ws/src/harvest_robot/harvest_robot/staged_navigation.py",
+        "sha256": "02e020950ff9d63290f750c6c153aef4bd4cdfc790552833c4b2a4c243de1025"
+      },
+      "harvest_robot.corridor_navigation": {
+        "path": "/home/ysy/main/farm_project/robot/ros_ws/src/harvest_robot/harvest_robot/corridor_navigation.py",
+        "sha256": "f44fb132fa87ace2f6f1771d56b46df681a3e1b0dc0d4a1048f1b1cc6c477adc"
+      },
+      "farm_tag_localization.runtime": {
+        "path": "/home/ysy/main/farm_project/robot/ros_ws/src/farm_tag_localization/farm_tag_localization/runtime.py",
+        "sha256": "d8c03295fcf2dea9b3ebbdf2a5f758d5970b80eb7d5c41d8f0744a31661a0799"
+      },
+      "farm_tag_localization.detection": {
+        "path": "/home/ysy/main/farm_project/robot/ros_ws/src/farm_tag_localization/farm_tag_localization/detection.py",
+        "sha256": "05647ec97fc8f5730bcf6ed1bb3fa79026876845688ba170b23bfb648c130a71"
+      },
+      "farm_tag_localization.ros_capture": {
+        "path": "/home/ysy/main/farm_project/robot/ros_ws/src/farm_tag_localization/farm_tag_localization/ros_capture.py",
+        "sha256": "07fb4e55365e795ac26c51a46658f0efc4064b9bdf67fc00ae3ba818fdb111a0"
+      }
+    },
+    "same_files": true
+  },
+  "configuration": {
+    "nav2": "shared_nav2 + bindings + overrides",
+    "navigation": "navigation_policy + navigation",
+    "harvest": "task_navigation_policy + local task values",
+    "tag_model": "shared_model_file + overrides",
+    "merge": "recursive mappings; replace lists/scalars; preserve sources"
+  },
+  "common_defaults": {
+    "harvest_controller": "nav2_regulated_pure_pursuit_controller::RegulatedPurePursuitController",
+    "harvest_goal_checker": "nav2_controller::SimpleGoalChecker",
+    "harvest_curvature_after_goal": true,
+    "harvest_xy_tolerance_m": 0.04,
+    "harvest_yaw_tolerance_rad": 0.04363323129985824,
+    "harvest_speed_mps": 0.1,
+    "harvest_smoother": "CLOSED_LOOP",
+    "harvest_progress_ros_s": 20.0,
+    "harvest_goal_wall_s": 300.0,
+    "scout_rpp_stateful": false,
+    "post_stop_residual_blocks_next_goal": false
+  },
+  "boundary_changes": [
+    "Common ROS tag capture/launch/detection used by sim and real ROS cameras",
+    "Real USB uses same detection conversion/parameters and consumes asset IDs/sizes + config overrides",
+    "Common observation model with sensor data overrides",
+    "Harvest tag section hint no longer coupled to pose-based task section resolution",
+    "Current user navigation_smoke profile references common defaults",
+    "Real trial bundles include referenced shared configurations for reproducibility"
+  ],
+  "validation": {
+    "build_common_packages": 4,
+    "build_sim_packages": 3,
+    "root_test_suites": {
+      "navigation": {
+        "tests": 20,
+        "passed": true,
+        "log": "sim/runs/shared_navigation_20261014/tests_navigation.log"
+      },
+      "harvest": {
+        "tests": 90,
+        "passed": true,
+        "log": "sim/runs/shared_navigation_20261014/tests_harvest.log"
+      },
+      "tag_final": {
+        "tests": 80,
+        "passed": true,
+        "log": "sim/runs/shared_navigation_20261014/tests_tag_final.log"
+      },
+      "sim": {
+        "tests": 32,
+        "passed": true,
+        "log": "sim/runs/shared_navigation_20261014/tests_sim.log"
+      },
+      "launch": {
+        "tests": 9,
+        "passed": true,
+        "log": "sim/runs/shared_navigation_20261014/tests_launch.log"
+      }
+    },
+    "additional_fixture_log": "sim/runs/shared_navigation_20261014/remaining_fixture_tests.log",
+    "route_plans_passed": 371,
+    "cpu_run": "sim/runs/shared_navigation_20261014/cpu_e2e/manifest.json",
+    "cpu_result": {
+      "finished_at": "2026-10-14T07:18:00.880246+00:00",
+      "all_goals_succeeded": true,
+      "goals": [
+        {
+          "label": "scout_SEC01",
+          "action_status": "SUCCEEDED",
+          "result_code": "SUCCESS",
+          "success": true
+        },
+        {
+          "label": "harvest_0.313",
+          "action_status": "SUCCEEDED",
+          "result_code": "SUCCESS",
+          "success": true
+        },
+        {
+          "label": "harvest_0.35",
+          "action_status": "SUCCEEDED",
+          "result_code": "SUCCESS",
+          "success": true
+        }
+      ],
+      "tag_applied": {
+        "scout_01": 122,
+        "harvest_01": 9
+      },
+      "runtime_controller_errors": [],
+      "runtime_process_exits": [],
+      "performance": {
+        "samples": 17581,
+        "wall_span_s": 659.2815375400241,
+        "mean_fps": 26.665391033997732,
+        "sim_wall_ratio": 0.44442320707843747,
+        "physics_hz": [
+          60.0
+        ]
+      },
+      "analysis_file": "sim/runs/shared_navigation_20261014/cpu_e2e/analysis.json",
+      "analysis_sha256": "00465206bbd9450630c54ae2f39fb709eba4478cba20d79e354d1e8f2bc1c78d",
+      "runtime_parameters": {
+        "/scout_01/controller_server": {
+          "RPP.plugin": "nav2_regulated_pure_pursuit_controller::RegulatedPurePursuitController",
+          "RPP.stateful": false,
+          "goal_checker.stateful": true
+        },
+        "/harvest_01/controller_server": {
+          "HarvestApproach.plugin": "nav2_regulated_pure_pursuit_controller::RegulatedPurePursuitController",
+          "HarvestWork.plugin": "nav2_regulated_pure_pursuit_controller::RegulatedPurePursuitController",
+          "HarvestWork.interpolate_curvature_after_goal": true,
+          "HarvestWork.desired_linear_vel": 0.1,
+          "general_goal_checker.plugin": "nav2_controller::SimpleGoalChecker",
+          "general_goal_checker.xy_goal_tolerance": 0.04,
+          "general_goal_checker.yaw_goal_tolerance": 0.04363323129985824
+        },
+        "/harvest_01/velocity_smoother": {
+          "feedback": "CLOSED_LOOP"
+        }
+      },
+      "shutdown": {
+        "boundary_line_1based": 6409,
+        "boundary_message": "[WARNING] [launch]: user interrupted with ctrl-c (SIGINT)",
+        "note": "Runner cleanup began after all three successful goals. Exit -2 is SIGINT; detector/rectify -11 and Isaac -15 remain separate shutdown issues.",
+        "exit_code_counts": {
+          "-2": 19,
+          "-11": 3,
+          "-15": 1
+        },
+        "sigint_process_exits": [
+          "[ERROR] [velocity_smoother-29]: process has died [pid 3681472, exit code -2, cmd '/opt/ros/jazzy/lib/nav2_velocity_smoother/velocity_smoother --ros-args -r __node:=velocity_smoother -r __ns:=/harvest_01 --params-file /tmp/tmpj0sotgpo -r cmd_vel:=cmd_vel_nav -r cmd_vel_smoothed:=cmd_vel'].",
+          "[ERROR] [amcl-24]: process has died [pid 3681388, exit code -2, cmd '/home/ysy/main/farm_project/robot/ros_ws/install/farm_tag_amcl/lib/farm_tag_amcl/amcl --ros-args -r __node:=amcl -r __ns:=/harvest_01 --params-file /tmp/tmpj0sotgpo --params-file /tmp/launch_params_ozsyq2r4'].",
+          "[ERROR] [map_server-23]: process has died [pid 3681383, exit code -2, cmd '/opt/ros/jazzy/lib/nav2_map_server/map_server --ros-args -r __node:=map_server -r __ns:=/harvest_01 --params-file /tmp/tmpj0sotgpo --params-file /tmp/launch_params_vp8k5j13'].",
+          "[ERROR] [ros_adapter-22]: process has died [pid 3681346, exit code -2, cmd '/home/ysy/main/farm_project/sim/ros_ws/install/farm_sim_devices/lib/farm_sim_devices/ros_adapter --ros-args -r __ns:=/harvest_01 --params-file /tmp/launch_params__8z36f1o'].",
+          "[ERROR] [tag_capture-21]: process has died [pid 3681345, exit code -2, cmd '/home/ysy/main/farm_project/robot/ros_ws/install/farm_tag_localization/lib/farm_tag_localization/tag_capture --ros-args -r __ns:=/harvest_01/apriltag_camera --params-file /tmp/launch_params_xx4_ua57'].",
+          "[ERROR] [route_preview-31]: process has died [pid 3681477, exit code -2, cmd '/home/ysy/main/farm_project/robot/ros_ws/install/scout_robot/lib/scout_robot/route_preview --ros-args -r __ns:=/harvest_01 --params-file /tmp/launch_params_td1spduk'].",
+          "[ERROR] [route_preview-15]: process has died [pid 3681339, exit code -2, cmd '/home/ysy/main/farm_project/robot/ros_ws/install/scout_robot/lib/scout_robot/route_preview --ros-args -r __ns:=/scout_01 --params-file /tmp/launch_params_s_dj4k73'].",
+          "[ERROR] [lifecycle_manager-14]: process has died [pid 3681338, exit code -2, cmd '/opt/ros/jazzy/lib/nav2_lifecycle_manager/lifecycle_manager --ros-args -r __node:=lifecycle_manager_navigation -r __ns:=/scout_01 --params-file /tmp/launch_params_ufyvijdk'].",
+          "[ERROR] [velocity_smoother-13]: process has died [pid 3681337, exit code -2, cmd '/opt/ros/jazzy/lib/nav2_velocity_smoother/velocity_smoother --ros-args -r __node:=velocity_smoother -r __ns:=/scout_01 --params-file /tmp/tmppvtaqlrk -r cmd_vel:=cmd_vel_nav -r cmd_vel_smoothed:=cmd_vel'].",
+          "[ERROR] [harvest_audit-34]: process has died [pid 3681498, exit code -2, cmd '/home/ysy/main/farm_project/sim/ros_ws/install/farm_sim_harvest/lib/farm_sim_harvest/harvest_audit --ros-args -r __ns:=/harvest_01 --params-file /tmp/launch_params_6bvxizyk'].",
+          "[ERROR] [tag_amcl_adapter-17]: process has died [pid 3681341, exit code -2, cmd '/home/ysy/main/farm_project/robot/ros_ws/install/farm_tag_localization/lib/farm_tag_localization/tag_amcl_adapter --ros-args -r __ns:=/scout_01 --params-file /tmp/launch_params_lzfdv_z8'].",
+          "[ERROR] [behavior_server-11]: process has died [pid 3681335, exit code -2, cmd '/opt/ros/jazzy/lib/nav2_behaviors/behavior_server --ros-args -r __node:=behavior_server -r __ns:=/scout_01 --params-file /tmp/tmppvtaqlrk -r cmd_vel:=cmd_vel_nav'].",
+          "[ERROR] [controller_server-9]: process has died [pid 3681333, exit code -2, cmd '/opt/ros/jazzy/lib/nav2_controller/controller_server --ros-args -r __node:=controller_server -r __ns:=/scout_01 --params-file /tmp/tmppvtaqlrk -r cmd_vel:=cmd_vel_nav'].",
+          "[ERROR] [amcl-8]: process has died [pid 3681331, exit code -2, cmd '/home/ysy/main/farm_project/robot/ros_ws/install/farm_tag_amcl/lib/farm_tag_amcl/amcl --ros-args -r __node:=amcl -r __ns:=/scout_01 --params-file /tmp/tmppvtaqlrk --params-file /tmp/launch_params_ntuyogl9'].",
+          "[ERROR] [rviz2-18]: process has died [pid 3681342, exit code -2, cmd '/opt/ros/jazzy/lib/rviz2/rviz2 -d /home/ysy/main/farm_project/sim/ros_ws/src/farm_sim_config/config/scout_harvest.rviz --ros-args -r __node:=farm_rviz --params-file /tmp/launch_params_xkx3gsmb -r /initialpose:=/scout_01/initialpose'].",
+          "[ERROR] [tag_amcl_adapter-33]: process has died [pid 3681496, exit code -2, cmd '/home/ysy/main/farm_project/robot/ros_ws/install/farm_tag_localization/lib/farm_tag_localization/tag_amcl_adapter --ros-args -r __ns:=/harvest_01 --params-file /tmp/launch_params_257mkxqk'].",
+          "[ERROR] [ros_adapter-6]: process has died [pid 3681322, exit code -2, cmd '/home/ysy/main/farm_project/sim/ros_ws/install/farm_sim_devices/lib/farm_sim_devices/ros_adapter --ros-args -r __ns:=/scout_01 --params-file /tmp/launch_params_yydyvybg'].",
+          "[ERROR] [tag_capture-5]: process has died [pid 3681321, exit code -2, cmd '/home/ysy/main/farm_project/robot/ros_ws/install/farm_tag_localization/lib/farm_tag_localization/tag_capture --ros-args -r __ns:=/scout_01/apriltag_camera --params-file /tmp/launch_params_tekl9lky'].",
+          "[ERROR] [clock_relay-2]: process has died [pid 3681318, exit code -2, cmd '/home/ysy/main/farm_project/sim/ros_ws/install/farm_sim_devices/lib/farm_sim_devices/clock_relay --ros-args --params-file /tmp/launch_params_cjf8pt7l']."
+        ],
+        "abnormal_process_exits": [
+          "[ERROR] [apriltag_node-20]: process has died [pid 3681344, exit code -11, cmd '/opt/ros/jazzy/lib/apriltag_ros/apriltag_node --ros-args -r __node:=tag_detector -r __ns:=/harvest_01/apriltag_camera --params-file /tmp/launch_params_51alhxb8 -r /tf:=diagnostic_tf -r /tf_static:=diagnostic_tf_static'].",
+          "[ERROR] [rectify_node-19]: process has died [pid 3681343, exit code -11, cmd '/opt/ros/jazzy/lib/image_proc/rectify_node --ros-args -r __node:=tag_rectify -r __ns:=/harvest_01/apriltag_camera --params-file /tmp/launch_params_f_s2voxe -r image:=image_raw'].",
+          "[ERROR] [apriltag_node-4]: process has died [pid 3681320, exit code -11, cmd '/opt/ros/jazzy/lib/apriltag_ros/apriltag_node --ros-args -r __node:=tag_detector -r __ns:=/scout_01/apriltag_camera --params-file /tmp/launch_params_1x_8zz5u -r /tf:=diagnostic_tf -r /tf_static:=diagnostic_tf_static'].",
+          "[ERROR] [python3.11-1]: process has died [pid 3681317, exit code -15, cmd '/home/ysy/isaac/env_isaaclab/bin/python3.11 /home/ysy/main/farm_project/sim/ros_ws/src/farm_sim_runtime/farm_sim_runtime/run_fleet.py --project-root /home/ysy/main/farm_project --fleet-config /home/ysy/main/farm_project/sim/runs/shared_navigation_20261014/cpu_e2e/fleet.json --assets-root /home/ysy/main/farm_project/sim/assets --module-path /home/ysy/main/farm_project/robot/ros_ws/src/farm_common --module-path /home/ysy/main/farm_project/robot/ros_ws/src/farm_navigation --module-path /home/ysy/main/farm_project/sim/ros_ws/src/farm_sim_devices --module-path /home/ysy/main/farm_project/sim/ros_ws/src/farm_sim_runtime --physics-device cpu --performance-log /home/ysy/main/farm_project/sim/runs/shared_navigation_20261014/cpu_e2e/frames.jsonl']."
+        ],
+        "other_errors": [
+          "[ERROR] [python3.11-1]: process[python3.11-1] failed to terminate '15' seconds after receiving 'SIGINT', escalating to 'SIGTERM'"
+        ]
+      },
+      "image_sync_warning_count": 911,
+      "remaining_simulator_processes": 0
+    }
+  },
+  "limitations": [
+    "Real scout PiCam calibration/TF/tag registration/driver binding not provided; configured:false",
+    "Exact external motor driver/firmware source unavailable; Isaac wheel PI equivalence to real response unverified",
+    "No real hardware deployment or driving executed",
+    "No claim of precision certification or all-section/repeated reliability from this single CPU trial",
+    "After successful goals: 3 detector/rectify SIGSEGV(-11) exits and Isaac SIGTERM(-15) at shutdown; image synchronization warnings remain"
+  ]
+}

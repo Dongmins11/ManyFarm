@@ -34,6 +34,7 @@ class RgbdWriter:
         self.rgb_bytes=width*height*3
         self.size=OFFSET+width*height*7
         self.sequence=0
+        self._depth_unavailable=False
         self.owner=os.open(str(self.path)+'.owner',os.O_CREAT|os.O_RDWR|os.O_NOFOLLOW,0o600)
         try:
             fcntl.flock(self.owner,fcntl.LOCK_EX|fcntl.LOCK_NB)
@@ -51,8 +52,13 @@ class RgbdWriter:
 
     def write(self,rgb,depth,metadata):
         rgb=np.ascontiguousarray(rgb,dtype=np.uint8)
-        depth=np.ascontiguousarray(depth,dtype='<f4')
-        if rgb.shape!=(self.height,self.width,3) or depth.shape!=(self.height,self.width):
+        # RGB 전용 센서는 기존 버퍼 규격의 NaN 영역을 재사용한다.
+        if depth is None:
+            if metadata.get('aligned_depth') is not False or metadata.get('depth_definition')!='unavailable':
+                raise ValueError('깊이 생략은 unavailable RGB 센서만 허용합니다.')
+        else:
+            depth=np.ascontiguousarray(depth,dtype='<f4')
+        if rgb.shape!=(self.height,self.width,3) or (depth is not None and depth.shape!=(self.height,self.width)):
             raise ValueError('RGB/Depth 크기 불일치')
         meta=dict(metadata,version=1,width=self.width,height=self.height,
                   rgb_encoding='rgb8',depth_encoding='32FC1',depth_unit='m',
@@ -68,7 +74,11 @@ class RgbdWriter:
         try:
             self.mm[HEADER.size:HEADER.size+len(encoded)]=encoded
             self.mm[OFFSET:OFFSET+self.rgb_bytes]=rgb.tobytes()
-            self.mm[OFFSET+self.rgb_bytes:]=depth.tobytes()
+            if depth is not None:
+                self.mm[OFFSET+self.rgb_bytes:]=depth.tobytes()
+            elif not self._depth_unavailable:
+                self.mm[OFFSET+self.rgb_bytes:]=np.full((self.height,self.width),np.nan,dtype='<f4').tobytes()
+            self._depth_unavailable=depth is None
             self.sequence+=1
             self.mm[:HEADER.size]=HEADER.pack(MAGIC,1,self.width,self.height,
                                              len(encoded),self.sequence,int(meta['stamp_ns']))
@@ -92,7 +102,7 @@ class RgbdReader:
         self.path=location(name)
         self.last=None
 
-    def read(self,max_age=2.0):
+    def read(self,max_age=2.0,*,include_depth=True):
         # 매번 열어 writer 재시작/크기 변경 시에도 이전 mmap을 재사용하지 않습니다.
         try:fd=os.open(self.path,os.O_RDONLY|os.O_NOFOLLOW)
         except FileNotFoundError:return None
@@ -111,7 +121,8 @@ class RgbdReader:
                 key=(meta['session'],seq)
                 if key==self.last or time.monotonic()-meta['written_monotonic']>max_age:return None
                 rgb=np.frombuffer(mm,dtype=np.uint8,count=w*h*3,offset=OFFSET).reshape(h,w,3).copy()
-                depth=np.frombuffer(mm,dtype='<f4',count=w*h,offset=OFFSET+w*h*3).reshape(h,w).copy()
+                depth=(np.frombuffer(mm,dtype='<f4',count=w*h,offset=OFFSET+w*h*3).reshape(h,w).copy()
+                       if include_depth else None)
                 self.last=key
                 return dict(rgb=rgb,depth=depth,metadata=dict(meta,sequence=seq,stamp_ns=stamp))
         finally:

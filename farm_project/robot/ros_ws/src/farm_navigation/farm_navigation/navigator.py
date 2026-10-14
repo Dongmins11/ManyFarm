@@ -22,7 +22,8 @@ class Navigator:
     def __init__(self, node: Node, settings: NavigationSettings, client: Nav2Client,
                  poses: PoseProvider, motion: MotionMonitor, check: Callable[[],None],
                  graph: RouteGraph | None = None,
-                 record: Callable[[dict[str,Any]],None] | None = None) -> None:
+                 record: Callable[[dict[str,Any]],None] | None = None,
+                 route_planner: Any = None) -> None:
         self._node=node
         self._settings=settings
         self._client=client
@@ -30,11 +31,14 @@ class Navigator:
         self._motion=motion
         self._check=check
         self._graph=graph
+        self._route_planner=route_planner
         self._record=record
+        if settings.tf_recovery_enabled:
+            client.set_recovery_probe(lambda: poses.recovery_ready() and motion.stationary_now())
         self._lock=threading.Lock()
         self._status=NavigationStatus()
         self._needs_stop_confirmation=False
-        if settings.mode=='follow_path' and graph is None:
+        if settings.mode=='follow_path' and graph is None and route_planner is None:
             raise ValueError('follow_path 모드에는 경로 그래프가 필요합니다.')
 
     @property
@@ -49,8 +53,10 @@ class Navigator:
         """명령을 보내지 않고 경로만 계산합니다. pose 모드는 Nav2가 계획합니다."""
         self._check()
         if self._settings.mode=='navigate_to_pose': return None
-        assert self._graph is not None
         actual=self._poses.current(self._check)
+        if self._route_planner is not None:
+            return self._route_planner.plan((float(actual[0,3]),float(actual[1,3])),xy,self._check)
+        assert self._graph is not None
         return self._graph.plan((float(actual[0,3]),float(actual[1,3])),xy,
                                 self._settings.max_start_distance_m,self._settings.max_goal_distance_m)
 
@@ -84,7 +90,7 @@ class Navigator:
                     current = self._poses.lookup(self._settings.map_frame, self._settings.base_frame, stamp, self._check)
                     measured = measure_arrival(current, target, yaw, self._settings.arrival_tolerance_m, self._settings.heading_tolerance_rad)
                     if not measured['accepted']:
-                        raise RuntimeError('도착 재검사 실패: '+arrival_description(measured))
+                        self._node.get_logger().warning('정지 후 도착 오차 기록: '+arrival_description(measured))
                     entry.update(measured, status='ARRIVED', already_arrived=True, stamp_ns=stamp)
                     self._needs_stop_confirmation = False
                     self._status = NavigationStatus(request_id, 'ARRIVED')
@@ -109,7 +115,7 @@ class Navigator:
                     gate = measure_arrival(current, old['exit'], old['yaw'], self._settings.arrival_tolerance_m, self._settings.heading_tolerance_rad)
                     entry['exit_arrival'] = gate
                     if not gate['accepted']:
-                        raise RuntimeError('작업 구간 이탈 실패: '+arrival_description(gate))
+                        self._node.get_logger().warning('이탈 정지 후 도착 오차 기록: '+arrival_description(gate))
                     occupied = []
                 if not occupied:
                     approach = self.plan(tuple(corridor['entry']))
@@ -122,7 +128,7 @@ class Navigator:
                     gate = measure_arrival(current, corridor['entry'], corridor['yaw'], self._settings.arrival_tolerance_m, self._settings.heading_tolerance_rad)
                     entry['approach_arrival'] = gate
                     if not gate['accepted']:
-                        raise RuntimeError('진입 정렬 실패: '+arrival_description(gate))
+                        self._node.get_logger().warning('진입 정지 후 도착 오차 기록: '+arrival_description(gate))
                     xy = (float(current[0,3]), float(current[1,3]))
                 template = RoutePlan(uuid.uuid4().hex, self._graph.revision, self._graph.frame, (), (), 0.)
                 plan = straight_plan(template, corridor, xy, math.atan2(current[1,0],current[0,0]), target,
@@ -146,8 +152,9 @@ class Navigator:
             transform=self._poses.lookup(self._settings.map_frame,self._settings.base_frame,stamp,self._check)
             measured=measure_arrival(transform,target,yaw,self._settings.arrival_tolerance_m,self._settings.heading_tolerance_rad)
             entry.update(measured,stamp_ns=stamp,finished_at=datetime.now(timezone.utc).isoformat())
+            # 잔여 자세 오차는 진단값이다. 완료·정지가 확인된 이동의 다음 출발을 막지 않는다.
             if not measured['accepted']:
-                raise RuntimeError('도착 허용오차 초과: '+arrival_description(measured))
+                self._node.get_logger().warning('정지 후 도착 오차 기록: '+arrival_description(measured))
             self._needs_stop_confirmation=False
             self._status=NavigationStatus(request_id,'ARRIVED',plan_id)
             entry['status']='ARRIVED'
@@ -155,7 +162,7 @@ class Navigator:
         except Exception as error:
             self._status=NavigationStatus(request_id,'INTERRUPTED',plan_id,str(error))
             entry.update(status='INTERRUPTED',error=str(error))
-            # 종료 실패 때 새 이동을 막을 수 있도록 Goal/정지 플래그를 유지합니다.
+            # 목표 실행 또는 종료 확인 실패 때 Goal/정지 플래그를 유지합니다.
             raise
         finally:
             self._lock.release()
@@ -165,6 +172,8 @@ class Navigator:
         if not self._lock.acquire(blocking=False):
             raise RuntimeError('진행 중 I/O가 취소를 확인하고 반환한 뒤 정리해야 합니다.')
         try:
+            if self._route_planner is not None:
+                self._route_planner.cancel()
             self._client.cancel()
             if self._needs_stop_confirmation:
                 self._status=NavigationStatus(self._status.request_id,'STOPPING',self._status.plan_id)

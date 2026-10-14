@@ -22,7 +22,7 @@ class HarvestCommunication:
 
     def accept(self, goal):
         try:
-            validate_task(goal, self.node.config)
+            validate_task(goal, self.node.config, getattr(self.node, 'section_resolution', None))
         except (ValueError, AttributeError) as error:
             self.node.get_logger().warning('HarvestTask 거절: ' + str(error))
             return GoalResponse.REJECT

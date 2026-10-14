@@ -40,8 +40,10 @@ def load_fleet(root: Path, path: Path) -> tuple[list, dict]:
         for frame in config['frames'].values():
             if frame in frames: raise ValueError('로봇 TF 이름 충돌')
             frames.add(frame)
-        if config['camera']['enabled']:
-            name = config['camera']['shm_name']
+        for camera in (config['camera'], config.get('tag_camera', {})):
+            if not camera.get('enabled'):
+                continue
+            name = camera['shm_name']
             if name in cameras: raise ValueError('카메라 공유 메모리 이름 충돌')
             cameras.add(name)
     if any(c.get('publish_clock', True) for c in configs):

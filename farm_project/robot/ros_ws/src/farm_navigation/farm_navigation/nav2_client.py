@@ -13,6 +13,8 @@ from rcl_interfaces.srv import GetParameters
 from nav2_msgs.action import NavigateToPose, FollowPath
 from action_msgs.msg import GoalStatus
 from nav_msgs.msg import Path
+from geometry_msgs.msg import Twist
+from .tf_recovery import run_with_tf_recovery, Nav2TFError
 from .navigation_types import NavigationSettings
 from .arrival import validate_goal_checkers
 
@@ -27,6 +29,11 @@ class Nav2Client:
         self._pending: Future | None = None
         self._handle: ClientGoalHandle | None = None
         self._result: Future | None = None
+        self._recovery_probe = None
+        self._stop_publishers = ([node.create_publisher(Twist, topic, 10)
+                                 for topic in ('cmd_vel_nav', 'cmd_vel')]
+                                if settings.tf_recovery_enabled else [])
+        self._last_control_feedback = 0.0
 
     @property
     def has_goal(self) -> bool:
@@ -67,11 +74,45 @@ class Nav2Client:
                 if value not in (values.get(name) or []): raise RuntimeError(f'{name}에 {value}가 없습니다.')
             ids=[s.goal_checker_id]
         values.update(self._read_parameters([f'{name}.{key}' for name in ids for key in ('plugin','xy_goal_tolerance','yaw_goal_tolerance','stateful','symmetric_yaw_tolerance')],check))
+        stopped_ids = [name for name in ids if values.get(f'{name}.plugin') == 'nav2_controller::StoppedGoalChecker']
+        if stopped_ids:
+            values.update(self._read_parameters([f'{name}.{key}' for name in stopped_ids
+                for key in ('trans_stopped_velocity', 'rot_stopped_velocity')]
+                + ['min_x_velocity_threshold', 'min_y_velocity_threshold', 'min_theta_velocity_threshold'], check))
         checked=dict(values,goal_checker_plugins=ids)
-        checkers=validate_goal_checkers(checked,s.arrival_tolerance_m,s.heading_tolerance_rad)
+        checkers=validate_goal_checkers(checked,s.arrival_tolerance_m,s.heading_tolerance_rad,
+            stopped_linear_limit=s.stopped_linear_mps, stopped_angular_limit=s.stopped_angular_rps)
         return {'mode':s.mode,'controller_node':s.controller_node,'parameters':values,'checkers':checkers,'status':'OK'}
 
+    def set_recovery_probe(self, probe: Callable[[], bool]) -> None:
+        self._recovery_probe = probe
+
+    def _stop_for_recovery(self) -> None:
+        # 자신의 Nav2 Goal이 종료된 뒤에만 호출한다. smoother 입력과 모터 입력에 0을 보낸다.
+        for publisher in self._stop_publishers:
+            publisher.publish(Twist())
+
+    def _control_feedback(self, message: Any) -> None:
+        self._last_control_feedback = time.monotonic()
+
     def execute(self, xy: tuple[float,float], yaw: float, path: Path | None, check: Callable[[],None]) -> int:
+        if not self._settings.tf_recovery_enabled or self._settings.mode != 'follow_path':
+            return self._execute_once(xy, yaw, path, check)
+        if self._recovery_probe is None:
+            raise RuntimeError('TF 복구 준비 확인 연결 누락')
+        deadline = time.monotonic() + self._settings.goal_timeout_s
+        def bounded_check() -> None:
+            check()
+            if time.monotonic() >= deadline:
+                raise TimeoutError('Nav2 전체 주행 시간 초과')
+        return run_with_tf_recovery(
+            lambda: self._execute_once(xy, yaw, path, bounded_check),
+            self._recovery_probe, self._stop_for_recovery, bounded_check,
+            lambda: self._last_control_feedback,
+            self._settings.tf_recovery_timeout_s,
+            lambda text: self._node.get_logger().warning(text))
+
+    def _execute_once(self, xy: tuple[float,float], yaw: float, path: Path | None, check: Callable[[],None]) -> int:
         check()
         if self.has_goal: raise RuntimeError('이전 주행 종료 확인 전에는 새 Goal을 보낼 수 없습니다.')
         if self._settings.mode=='follow_path':
@@ -88,7 +129,15 @@ class Nav2Client:
             goal.pose.pose.position.x=float(xy[0]);goal.pose.pose.position.y=float(xy[1])
             goal.pose.pose.orientation.z=math.sin(yaw/2);goal.pose.pose.orientation.w=math.cos(yaw/2)
             client=self._navigate
-        self._pending=client.send_goal_async(goal)
+        if self._settings.tf_recovery_enabled:
+            # 이전 경로의 좌표·순서는 유지하고 전송 시각만 갱신한다.
+            if path is not None:
+                path.header.stamp = self._node.get_clock().now().to_msg()
+                for pose in path.poses:
+                    pose.header.stamp = path.header.stamp
+            self._pending=client.send_goal_async(goal, feedback_callback=self._control_feedback)
+        else:
+            self._pending=client.send_goal_async(goal)
         # 취소/timeout 때 pending을 보존해야 늦은 승인 Goal까지 자신의 것만 취소할 수 있습니다.
         self._handle=self._wait(self._pending,self._settings.response_timeout_s,check)
         if not self._handle.accepted:
@@ -98,7 +147,13 @@ class Nav2Client:
         response=self._wait(self._result,self._settings.goal_timeout_s,check)
         self._clear()
         if response.status!=GoalStatus.STATUS_SUCCEEDED or getattr(response.result,'error_code',0)!=0:
-            raise RuntimeError(f'Nav2 실패: status={response.status}, {getattr(response.result,"error_msg","")}')
+            code = getattr(response.result, 'error_code', 0)
+            message = f'Nav2 실패: status={response.status}, error_code={code}, {getattr(response.result,"error_msg","")}'
+            if (self._settings.mode == 'follow_path'
+                    and response.status == GoalStatus.STATUS_ABORTED
+                    and code == getattr(FollowPath.Result, 'TF_ERROR', -1)):
+                raise Nav2TFError(message)
+            raise RuntimeError(message)
         return int(response.status)
 
     def _clear(self) -> None:
@@ -120,5 +175,7 @@ class Nav2Client:
         self._clear()
 
     def close(self) -> None:
+        for publisher in self._stop_publishers:
+            self._node.destroy_publisher(publisher)
         self._navigate.destroy();self._follow.destroy()
         self._node.destroy_client(self._parameters)

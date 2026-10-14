@@ -1,0 +1,13 @@
+# 공통 주행 기본값. 환경 파일의 navigation에서 필요한 설정값을 변경할 수 있다.
+mode: follow_path
+tf_recovery_enabled: false
+tf_recovery_timeout_s: 10.0
+controller_id: RPP
+goal_checker_id: general_goal_checker
+progress_checker_id: progress_checker
+arrival_tolerance_m: 0.05
+heading_tolerance_rad: 0.05236
+goal_timeout_s: 300.0
+max_start_distance_m: 0.1
+max_goal_distance_m: 0.02
+path_spacing_m: 0.04

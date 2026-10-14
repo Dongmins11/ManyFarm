@@ -1,0 +1,40 @@
+{
+  "source_stamp_ns": 1791617083907451068,
+  "frame_id": "apriltag_camera_optical_frame",
+  "received_stamp_ns": 1791617083991760897,
+  "receipt_minus_source_ms": 84.309829,
+  "timestamp_basis": "camera cap.read completion; not exposure",
+  "detections": [
+    {
+      "id": 100,
+      "family": "tag36h11",
+      "installed": true,
+      "hamming": 0,
+      "decision_margin": 115.76119232177734,
+      "corners_rectified": [
+        [
+          992.5943603515626,
+          286.4339294433594
+        ],
+        [
+          769.9850463867186,
+          291.6453552246094
+        ],
+        [
+          770.1390991210936,
+          515.0899047851564
+        ],
+        [
+          995.7353515625,
+          511.23876953125
+        ]
+      ],
+      "roi": {
+        "40": false,
+        "60": true,
+        "80": true
+      },
+      "roi60_candidate": true
+    }
+  ]
+}

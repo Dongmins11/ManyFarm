@@ -17,7 +17,7 @@ class CameraRos:
         """현재 Isaac 세션의 새 프레임만 발행하며 이전 세션 영상은 버립니다."""
         if session is None:
             return False
-        packet = self.reader.read(max_age=1.)
+        packet = self.reader.read(max_age=1., include_depth=False)
         if packet is None:
             return False
         meta = packet['metadata']

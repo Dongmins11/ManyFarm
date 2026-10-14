@@ -20,6 +20,7 @@ for tree, package in [('robot', 'scout_robot'), ('robot', 'farm_navigation'), ('
     sys.path.insert(0, str(ROOT / tree / 'ros_ws/src' / package))
 sys.path.insert(0, str(ROOT / 'sim/tools'))
 from farm_navigation.arrival import measure_arrival, validate_goal_checkers
+from farm_navigation.configuration import load_environment, load_nav2_parameters
 from farm_navigation.route import RouteGraph, load_route
 from farm_sim_harvest.evaluation import count_snapshot
 from scout_robot.survey_core import StraightBed, Survey
@@ -131,9 +132,9 @@ class HarvestArmGeometryTests(unittest.TestCase):
         task = yaml.safe_load((CONFIG / 'task.yaml').read_text())
         self.assertEqual(set(task['sections']), set(self.survey['sections']))
 
-    def test_short_goal_connectors_are_free_and_preserve_exact_endpoint(self) -> None:
-        """원본 레일에서 베드 반대쪽으로 나가는 짧은 연결의 정적 지도 ray를 검사합니다."""
-        profile = yaml.safe_load((CONFIG / 'harvest_runtime.yaml').read_text())
+    def test_work_goals_stay_on_route_and_preserve_exact_endpoint(self) -> None:
+        """현 작업선 위 목표의 끝점 보존과 마지막 주행 선분의 정적 지도 ray를 검사합니다."""
+        profile = load_environment(CONFIG / 'harvest_runtime.yaml', ROOT, 'sim', require_survey=False)
         nav = profile['navigation']
         graph = RouteGraph(ROOT / profile['route_graph'])
         task = yaml.safe_load((CONFIG / 'task.yaml').read_text())
@@ -156,9 +157,11 @@ class HarvestArmGeometryTests(unittest.TestCase):
                     path = graph.plan(station, target, nav['max_start_distance_m'], nav['max_goal_distance_m'])
                     self.assertEqual(path.points[-1], target)
                     a, b = np.array(path.points[-2]), np.array(path.points[-1])
-                    self.assertAlmostEqual(float(np.linalg.norm(b - a)), .06)
-                    self.assertLess(float((b - a) @ bed.n), 0)
-                    self.assertAlmostEqual(float((b - a) @ bed.t), 0)
+                    # 오른팔 목표와 작업선은 이미 정렬되어 있어 별도 6cm 횡연결이 없다.
+                    self.assertAlmostEqual(min(item[1] for item in graph._candidates(
+                        target, nav['max_goal_distance_m'])), 0.)
+                    self.assertAlmostEqual(float((b - a) @ bed.n), 0.)
+                    self.assertGreater(float((b - a) @ bed.t), 0.)
                     # 5mm 간격의 centerline 검사이며 로봇 footprint/실시간 장애물 인증은 아닙니다.
                     samples = math.ceil(float(np.linalg.norm(b - a)) / .005) + 1
                     for ratio in np.linspace(0, 1, samples):
@@ -170,25 +173,35 @@ class HarvestArmGeometryTests(unittest.TestCase):
                         gray = float(pixels[row, col]) / 255
                         occupancy = gray if map_config['negate'] else 1 - gray
                         self.assertLess(occupancy, map_config['free_thresh'])
-                    old_rail_pose = rigid_transform([*a, 0], [0, 0, goal['yaw']])
-                    arrival = measure_arrival(old_rail_pose, target, goal['yaw'],
+                    upstream_pose = rigid_transform([*a, 0], [0, 0, goal['yaw']])
+                    arrival = measure_arrival(upstream_pose, target, goal['yaw'],
                                               nav['arrival_tolerance_m'], nav['heading_tolerance_rad'])
                     self.assertFalse(arrival['accepted'])
 
     def test_goal_checker_is_stricter_than_arrival_and_has_no_deadband(self) -> None:
         """Nav2 사전검사 계약과 수확 전용 정밀 도착 설정을 함께 검사합니다."""
-        nav = yaml.safe_load((CONFIG / 'harvest_runtime.yaml').read_text())['navigation']
-        controller = yaml.safe_load((CONFIG / 'nav2_harvest.yaml').read_text())
+        nav = load_environment(CONFIG / 'harvest_runtime.yaml', ROOT, 'sim', require_survey=False)['navigation']
+        controller = load_nav2_parameters(CONFIG / 'nav2_harvest.yaml', ROOT)
         parameters = controller['controller_server']['ros__parameters']
         flat = {'goal_checker_plugins': parameters['goal_checker_plugins']}
         for name in parameters['goal_checker_plugins']:
             flat.update({f'{name}.{key}': value for key, value in parameters[name].items()})
         self.assertTrue(validate_goal_checkers(flat, nav['arrival_tolerance_m'], nav['heading_tolerance_rad']))
+        checker = parameters[nav['goal_checker_id']]
+        self.assertEqual(checker['plugin'], 'nav2_controller::SimpleGoalChecker')
+        self.assertIs(checker['stateful'], True)
+        for name in ('HarvestApproach', 'HarvestWork'):
+            self.assertIn(name, parameters['controller_plugins'])
+            self.assertEqual(parameters[name]['plugin'],
+                             'nav2_regulated_pure_pursuit_controller::RegulatedPurePursuitController')
+            self.assertTrue(parameters[name]['use_fixed_curvature_lookahead'])
+            self.assertTrue(parameters[name]['interpolate_curvature_after_goal'])
+            self.assertEqual(parameters[name]['curvature_lookahead_dist'], .4)
         self.assertLess(nav['arrival_tolerance_m'], .06)
         self.assertEqual(controller['velocity_smoother']['ros__parameters']['deadband_velocity'], [0, 0, 0])
-        # 20Hz에서 최소 접근속도 0.03m/s의 1step 이동량은 1.5mm로 15mm gate보다 작습니다.
+        # 20Hz에서 최소 접근속도 0.05m/s의 1step 이동량은 2.5mm로 40mm gate보다 작습니다.
         step = parameters['RPP']['min_approach_linear_velocity'] / parameters['controller_frequency']
-        self.assertLess(step, parameters['goal_checker']['xy_goal_tolerance'])
+        self.assertLess(step, checker['xy_goal_tolerance'])
 
     def test_device_clocks_and_vision_crop_match_physics_workspace(self) -> None:
         """단독/통합 장치 주기와 예찰 크롭이 같은 물리·오른팔 프로파일을 사용합니다."""

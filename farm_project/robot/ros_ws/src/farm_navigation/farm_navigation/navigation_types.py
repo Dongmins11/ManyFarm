@@ -35,6 +35,8 @@ class NavigationSettings:
     max_goal_distance_m: float = .02
     path_spacing_m: float = .04
     parallel_approach: bool = False
+    tf_recovery_enabled: bool = False
+    tf_recovery_timeout_s: float = 10.0
 
     @classmethod
     def from_mapping(cls, values: dict[str, Any]) -> NavigationSettings:

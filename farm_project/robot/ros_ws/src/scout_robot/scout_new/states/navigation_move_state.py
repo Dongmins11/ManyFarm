@@ -65,7 +65,21 @@ class NavigationMoveState(MissionState):
         # 그래프는 XY, bed.world()는 XYZ를 반환합니다.
         # 시뮬·실물 모두 공통 주행부에는 평면 좌표 XY만 전달합니다.
         target_xy = (float(xy[0]), float(xy[1]))
-        return self._mission.node._navigator.navigate(target_xy, context.bed.yaw)
+        node = self._mission.node
+        control = getattr(node, '_tag_control', None)
+        # 반복 ID는 진입 후 해당 구역의 관측 이동에서만 보정에 사용한다.
+        # 접근/이탈에서는 구역 권한을 열지 않으며 완료·실패·취소 시 즉시 닫는다.
+        node.check()
+        if control is not None:
+            if self._purpose == 'observation':
+                control.begin(context.section)
+            else:
+                control.end()
+        try:
+            return node._navigator.navigate(target_xy, context.bed.yaw)
+        finally:
+            if control is not None:
+                control.end()
 
     def _on_arrived(self, result: NavigationResult) -> None:
         context = self._mission.context

@@ -1,0 +1,782 @@
+--- a/docs/DECISIONS.md
++++ b/docs/DECISIONS.md
+@@ -92,3 +92,9 @@
+ ### D-020 — 학습 오른팔 물리 정렬 (2026-10-08)
+ 
+ 사용자가 팔 물성·충돌 판정을 학습환경에 맞추도록 명시 승인했다. 전달 current_robot/teacher_ramp_20260930 실행을 기준으로 오른팔 여섯 몸체의 충돌 메시와 질량/관성을 가져오고, 집게 고정 카메라 합성·자기충돌·solver·재질·접촉센서 범위를 맞춘다. sim 세션override와 자체 기준자산으로 구현하며 정책/성공 임계값 및 공통/실물 소스는 수정하지 않는다. 농장 이동차체/장애물 배치 차이는 명시적으로 남긴다. 검증115항목 일치/56PASS, 수확0/1 실패 및 세부 한계는 PROJECT_STATE§33을 따른다. 미커밋.
++
++
++
++### D-021 — 예찰 URDF 장착 기준 수신 (2026-10-13)
++
++사용자의 URDF 수정 요청과 10/9 기준 PDF를 장착 좌표 근거로 채택한다. base_footprint/base_link·바퀴·IMU·라이다를 유지하며, 센서 위치는 렌즈 중심 기준을 쓴다. D435 하향1도/roll0 및 파이캠 판중심X0은 PDF의 잠정 C값으로 보존한다. 상세 CAD·질량을 추정 확정하지 않는다. 이번 수정본은 sim URDF에 한정하며 USD·운영 센서 반영은 로컬 Codex 검증 단계로 구분한다. 사용자 PC의 실물 모델 반영을 확인한 것으로 기록하지 않는다.
+--- a/docs/PROJECT_STATE.md
++++ b/docs/PROJECT_STATE.md
+@@ -444,3 +444,10 @@
+ - 같은 카메라1280×720·센서OFF 대기: 현재GPU29.80FPS/물리23.82ms, 같은 장면CPU50.23FPS/물리5.64ms. 원본 맵 Nav2형 대조59.56FPS(60cap)/물리1.81ms. 원본43동적/29convex vs 현재97동적+288고정과실/4829convex, GPU backend·5Hz전체좌표 기록도 추가됐다. 실제 Nav2 주행과 과거70FPS의 정확한 재현은 미실행.
+ - GPU는 활성 몸체의 solver 반복 최대값을 사용해 실제32/4로 실행됐다. 수확팔12/4 등115항목 속성 일치만으로 전체 학습 환경 동일성을 판정할 수 없다. 임의로 다른 로봇 solver 설정을 낮추지 않았다.
+ - CPU480Hz 격리 수확13.01FPS, 적재0/1·복귀접촉 실패/실제정지·종료0. backend 기본값과 물성/정책은 유지했다. 다음 판단은 Hz 완화보다 CPU480Hz 관측·접촉·성공률 회귀 비교 우선이다. [상세 측정·재현·한계](../sim/docs/HARVEST_TEST_UI_20261008.md), 로그 `sim/runs/physx_bottleneck_20261008/`. 이번 작업은 진단 도구·문서만 추가, 커밋·푸시 없음.
++
++
++
++## 36. 예찰 장착 URDF 수정본 — 2026-10-13
++
++- 기준 main/a393f1a 및 사용자 제공 10/9 기준 PDF. sim scout URDF 두 변형에 장착 기구와 D435/파이캠 TF를 추가한 전달 패치. 기둥620mm, RGB 렌즈(-49,55,595)mm, 파이캠(-32,63,117)mm.
++- 정적 좌표·구조 확인만 완료. 상세 CAD 없는 부품은 시각화 근사, 추가 질량/관성 미정. 원격·사용자 PC 적용 및 Isaac USD/실시간 센서 연결은 미완료. [구현 범위·후속 인계](../sim/docs/SCOUT_URDF_MOUNT_20261013.md).
+--- a/sim/assets/robots/scout_robot/urdf/turtlebot3_burger.portable.urdf
++++ b/sim/assets/robots/scout_robot/urdf/turtlebot3_burger.portable.urdf
+@@ -192,4 +192,228 @@
+     </inertial>
+   </link>
+ 
++
++  <!-- SCOUT-MOUNT-20261013: PDF 장착 기준. 추가 질량/관성 미정; 동역학 검증 모델 아님. -->
++<link name="scout_plate_center_ground" />
++  <joint name="scout_plate_center_ground_mount_joint" type="fixed">
++    <parent link="base_footprint" />
++    <child link="scout_plate_center_ground" />
++    <origin xyz="-0.032 0 0" rpy="0 0 0" />
++  </joint>
++  <link name="scout_mast_base" />
++  <joint name="scout_mast_base_mount_joint" type="fixed">
++    <parent link="base_footprint" />
++    <child link="scout_mast_base" />
++    <origin xyz="-0.032 0 0.200" rpy="0 0 0" />
++  </joint>
++  <link name="scout_mast_top" />
++  <joint name="scout_mast_top_mount_joint" type="fixed">
++    <parent link="base_footprint" />
++    <child link="scout_mast_top" />
++    <origin xyz="-0.032 0 0.620" rpy="0 0 0" />
++  </joint>
++  <link name="scout_mast_link">
++    <visual>
++      <origin xyz="0 0 0" rpy="0 0 0" />
++      <geometry>
++        <box size="0.050 0.050 0.420" />
++      </geometry>
++      <material name="white" />
++    </visual>
++    <collision>
++      <origin xyz="0 0 0" rpy="0 0 0" />
++      <geometry>
++        <box size="0.050 0.050 0.420" />
++      </geometry>
++    </collision>
++  </link>
++  <joint name="scout_mast_link_mount_joint" type="fixed">
++    <parent link="base_footprint" />
++    <child link="scout_mast_link" />
++    <origin xyz="-0.032 0 0.410" rpy="0 0 0" />
++  </joint>
++  <link name="scout_top_plate_envelope">
++    <!-- 근사 외곽 시각화만: 실제 Burger 판 메시/홀 패턴 미제공. 충돌체 아님. -->
++    <visual>
++      <origin xyz="0 0 0" rpy="0 0 0" />
++      <geometry>
++        <box size="0.13755 0.13755 0.009" />
++      </geometry>
++      <material name="blue" />
++    </visual>
++  </link>
++  <joint name="scout_top_plate_envelope_mount_joint" type="fixed">
++    <parent link="base_footprint" />
++    <child link="scout_top_plate_envelope" />
++    <origin xyz="-0.032 0 0.1955" rpy="0 0 0" />
++  </joint>
++  <link name="scout_holder_reference">
++    <!-- DUX 근사 외형: 중앙 51mm 개구와 두께 3mm. 체결 구멍/CAD 형상/충돌 미검증. -->
++    <visual>
++      <origin xyz="0 -0.027 0" rpy="0 0 0" />
++      <geometry>
++        <box size="0.137 0.003 0.050" />
++      </geometry>
++      <material name="grey" />
++    </visual>
++    <visual>
++      <origin xyz="0 0.027 0" rpy="0 0 0" />
++      <geometry>
++        <box size="0.137 0.003 0.050" />
++      </geometry>
++      <material name="grey" />
++    </visual>
++    <visual>
++      <origin xyz="-0.027 0 0" rpy="0 0 0" />
++      <geometry>
++        <box size="0.003 0.137 0.050" />
++      </geometry>
++      <material name="grey" />
++    </visual>
++    <visual>
++      <origin xyz="0.027 0 0" rpy="0 0 0" />
++      <geometry>
++        <box size="0.003 0.137 0.050" />
++      </geometry>
++      <material name="grey" />
++    </visual>
++  </link>
++  <joint name="scout_holder_reference_mount_joint" type="fixed">
++    <parent link="base_footprint" />
++    <child link="scout_holder_reference" />
++    <origin xyz="-0.032 0 0.225" rpy="0 0 0" />
++  </joint>
++  <link name="scout_extension_post_1">
++    <!-- 대변 5mm 육각봉의 외접 원통 시각화. 길이/축은 PDF B값. -->
++    <visual>
++      <geometry>
++        <cylinder radius="0.002886751346" length="0.0395" />
++      </geometry>
++      <material name="orange" />
++    </visual>
++  </link>
++  <joint name="scout_extension_post_1_mount_joint" type="fixed">
++    <parent link="base_footprint" />
++    <child link="scout_extension_post_1" />
++    <origin xyz="-0.096000 -0.024000 0.17125" rpy="0 0 0" />
++  </joint>
++  <link name="scout_extension_post_2">
++    <!-- 대변 5mm 육각봉의 외접 원통 시각화. 길이/축은 PDF B값. -->
++    <visual>
++      <geometry>
++        <cylinder radius="0.002886751346" length="0.0395" />
++      </geometry>
++      <material name="orange" />
++    </visual>
++  </link>
++  <joint name="scout_extension_post_2_mount_joint" type="fixed">
++    <parent link="base_footprint" />
++    <child link="scout_extension_post_2" />
++    <origin xyz="-0.096000 0.024000 0.17125" rpy="0 0 0" />
++  </joint>
++  <link name="scout_extension_post_3">
++    <!-- 대변 5mm 육각봉의 외접 원통 시각화. 길이/축은 PDF B값. -->
++    <visual>
++      <geometry>
++        <cylinder radius="0.002886751346" length="0.0395" />
++      </geometry>
++      <material name="orange" />
++    </visual>
++  </link>
++  <joint name="scout_extension_post_3_mount_joint" type="fixed">
++    <parent link="base_footprint" />
++    <child link="scout_extension_post_3" />
++    <origin xyz="-0.008000 -0.064000 0.17125" rpy="0 0 0" />
++  </joint>
++  <link name="scout_extension_post_4">
++    <!-- 대변 5mm 육각봉의 외접 원통 시각화. 길이/축은 PDF B값. -->
++    <visual>
++      <geometry>
++        <cylinder radius="0.002886751346" length="0.0395" />
++      </geometry>
++      <material name="orange" />
++    </visual>
++  </link>
++  <joint name="scout_extension_post_4_mount_joint" type="fixed">
++    <parent link="base_footprint" />
++    <child link="scout_extension_post_4" />
++    <origin xyz="-0.008000 0.064000 0.17125" rpy="0 0 0" />
++  </joint>
++  <link name="scout_extension_post_5">
++    <!-- 대변 5mm 육각봉의 외접 원통 시각화. 길이/축은 PDF B값. -->
++    <visual>
++      <geometry>
++        <cylinder radius="0.002886751346" length="0.0395" />
++      </geometry>
++      <material name="orange" />
++    </visual>
++  </link>
++  <joint name="scout_extension_post_5_mount_joint" type="fixed">
++    <parent link="base_footprint" />
++    <child link="scout_extension_post_5" />
++    <origin xyz="0.032000 -0.024000 0.17125" rpy="0 0 0" />
++  </joint>
++  <link name="scout_extension_post_6">
++    <!-- 대변 5mm 육각봉의 외접 원통 시각화. 길이/축은 PDF B값. -->
++    <visual>
++      <geometry>
++        <cylinder radius="0.002886751346" length="0.0395" />
++      </geometry>
++      <material name="orange" />
++    </visual>
++  </link>
++  <joint name="scout_extension_post_6_mount_joint" type="fixed">
++    <parent link="base_footprint" />
++    <child link="scout_extension_post_6" />
++    <origin xyz="0.032000 0.024000 0.17125" rpy="0 0 0" />
++  </joint>
++  <link name="bmany_camera_link">
++    <!-- 원점=RGB 렌즈 중심. 외형은 렌즈 뒤에 놓은 개략 상자이며 렌즈-하우징 중심 변환은 미측정. pitch=1도/roll=0 잠정값. -->
++    <visual>
++      <origin xyz="-0.012525 0 0" rpy="0 0 0" />
++      <geometry>
++        <box size="0.02505 0.090 0.025" />
++      </geometry>
++      <material name="light_black" />
++    </visual>
++  </link>
++  <joint name="bmany_camera_link_mount_joint" type="fixed">
++    <parent link="base_footprint" />
++    <child link="bmany_camera_link" />
++    <origin xyz="-0.049 0.055 0.595" rpy="0 0.017453292520 1.570796326795" />
++  </joint>
++  <link name="camera_color_optical_frame" />
++  <joint name="camera_color_optical_frame_mount_joint" type="fixed">
++    <parent link="bmany_camera_link" />
++    <child link="camera_color_optical_frame" />
++    <origin xyz="0 0 0" rpy="-1.570796326795 0 -1.570796326795" />
++  </joint>
++  <link name="camera_optical_frame" />
++  <joint name="camera_optical_frame_mount_joint" type="fixed">
++    <parent link="camera_color_optical_frame" />
++    <child link="camera_optical_frame" />
++    <origin xyz="0 0 0" rpy="0 0 0" />
++  </joint>
++  <link name="picam_frame">
++    <!-- 렌즈 중심 기준. 판 중심 X=0은 PDF C값. 스트리밍 활성화와 무관한 외형/TF. -->
++    <visual>
++      <origin xyz="-0.004 0 0" rpy="0 0 0" />
++      <geometry>
++        <box size="0.008 0.025 0.024" />
++      </geometry>
++      <material name="green" />
++    </visual>
++  </link>
++  <joint name="picam_frame_mount_joint" type="fixed">
++    <parent link="base_footprint" />
++    <child link="picam_frame" />
++    <origin xyz="-0.032 0.063 0.117" rpy="0 0 1.570796326795" />
++  </joint>
++  <link name="picam_optical_frame" />
++  <joint name="picam_optical_frame_mount_joint" type="fixed">
++    <parent link="picam_frame" />
++    <child link="picam_optical_frame" />
++    <origin xyz="0 0 0" rpy="-1.570796326795 0 -1.570796326795" />
++  </joint>
++
+ </robot>
+--- a/sim/assets/robots/scout_robot/urdf/turtlebot3_burger.urdf
++++ b/sim/assets/robots/scout_robot/urdf/turtlebot3_burger.urdf
+@@ -196,4 +196,228 @@
+     </inertial>
+   </link>
+ 
++
++  <!-- SCOUT-MOUNT-20261013: PDF 장착 기준. 추가 질량/관성 미정; 동역학 검증 모델 아님. -->
++<link name="${namespace}scout_plate_center_ground" />
++  <joint name="${namespace}scout_plate_center_ground_mount_joint" type="fixed">
++    <parent link="${namespace}base_footprint" />
++    <child link="${namespace}scout_plate_center_ground" />
++    <origin xyz="-0.032 0 0" rpy="0 0 0" />
++  </joint>
++  <link name="${namespace}scout_mast_base" />
++  <joint name="${namespace}scout_mast_base_mount_joint" type="fixed">
++    <parent link="${namespace}base_footprint" />
++    <child link="${namespace}scout_mast_base" />
++    <origin xyz="-0.032 0 0.200" rpy="0 0 0" />
++  </joint>
++  <link name="${namespace}scout_mast_top" />
++  <joint name="${namespace}scout_mast_top_mount_joint" type="fixed">
++    <parent link="${namespace}base_footprint" />
++    <child link="${namespace}scout_mast_top" />
++    <origin xyz="-0.032 0 0.620" rpy="0 0 0" />
++  </joint>
++  <link name="${namespace}scout_mast_link">
++    <visual>
++      <origin xyz="0 0 0" rpy="0 0 0" />
++      <geometry>
++        <box size="0.050 0.050 0.420" />
++      </geometry>
++      <material name="white" />
++    </visual>
++    <collision>
++      <origin xyz="0 0 0" rpy="0 0 0" />
++      <geometry>
++        <box size="0.050 0.050 0.420" />
++      </geometry>
++    </collision>
++  </link>
++  <joint name="${namespace}scout_mast_link_mount_joint" type="fixed">
++    <parent link="${namespace}base_footprint" />
++    <child link="${namespace}scout_mast_link" />
++    <origin xyz="-0.032 0 0.410" rpy="0 0 0" />
++  </joint>
++  <link name="${namespace}scout_top_plate_envelope">
++    <!-- 근사 외곽 시각화만: 실제 Burger 판 메시/홀 패턴 미제공. 충돌체 아님. -->
++    <visual>
++      <origin xyz="0 0 0" rpy="0 0 0" />
++      <geometry>
++        <box size="0.13755 0.13755 0.009" />
++      </geometry>
++      <material name="blue" />
++    </visual>
++  </link>
++  <joint name="${namespace}scout_top_plate_envelope_mount_joint" type="fixed">
++    <parent link="${namespace}base_footprint" />
++    <child link="${namespace}scout_top_plate_envelope" />
++    <origin xyz="-0.032 0 0.1955" rpy="0 0 0" />
++  </joint>
++  <link name="${namespace}scout_holder_reference">
++    <!-- DUX 근사 외형: 중앙 51mm 개구와 두께 3mm. 체결 구멍/CAD 형상/충돌 미검증. -->
++    <visual>
++      <origin xyz="0 -0.027 0" rpy="0 0 0" />
++      <geometry>
++        <box size="0.137 0.003 0.050" />
++      </geometry>
++      <material name="grey" />
++    </visual>
++    <visual>
++      <origin xyz="0 0.027 0" rpy="0 0 0" />
++      <geometry>
++        <box size="0.137 0.003 0.050" />
++      </geometry>
++      <material name="grey" />
++    </visual>
++    <visual>
++      <origin xyz="-0.027 0 0" rpy="0 0 0" />
++      <geometry>
++        <box size="0.003 0.137 0.050" />
++      </geometry>
++      <material name="grey" />
++    </visual>
++    <visual>
++      <origin xyz="0.027 0 0" rpy="0 0 0" />
++      <geometry>
++        <box size="0.003 0.137 0.050" />
++      </geometry>
++      <material name="grey" />
++    </visual>
++  </link>
++  <joint name="${namespace}scout_holder_reference_mount_joint" type="fixed">
++    <parent link="${namespace}base_footprint" />
++    <child link="${namespace}scout_holder_reference" />
++    <origin xyz="-0.032 0 0.225" rpy="0 0 0" />
++  </joint>
++  <link name="${namespace}scout_extension_post_1">
++    <!-- 대변 5mm 육각봉의 외접 원통 시각화. 길이/축은 PDF B값. -->
++    <visual>
++      <geometry>
++        <cylinder radius="0.002886751346" length="0.0395" />
++      </geometry>
++      <material name="orange" />
++    </visual>
++  </link>
++  <joint name="${namespace}scout_extension_post_1_mount_joint" type="fixed">
++    <parent link="${namespace}base_footprint" />
++    <child link="${namespace}scout_extension_post_1" />
++    <origin xyz="-0.096000 -0.024000 0.17125" rpy="0 0 0" />
++  </joint>
++  <link name="${namespace}scout_extension_post_2">
++    <!-- 대변 5mm 육각봉의 외접 원통 시각화. 길이/축은 PDF B값. -->
++    <visual>
++      <geometry>
++        <cylinder radius="0.002886751346" length="0.0395" />
++      </geometry>
++      <material name="orange" />
++    </visual>
++  </link>
++  <joint name="${namespace}scout_extension_post_2_mount_joint" type="fixed">
++    <parent link="${namespace}base_footprint" />
++    <child link="${namespace}scout_extension_post_2" />
++    <origin xyz="-0.096000 0.024000 0.17125" rpy="0 0 0" />
++  </joint>
++  <link name="${namespace}scout_extension_post_3">
++    <!-- 대변 5mm 육각봉의 외접 원통 시각화. 길이/축은 PDF B값. -->
++    <visual>
++      <geometry>
++        <cylinder radius="0.002886751346" length="0.0395" />
++      </geometry>
++      <material name="orange" />
++    </visual>
++  </link>
++  <joint name="${namespace}scout_extension_post_3_mount_joint" type="fixed">
++    <parent link="${namespace}base_footprint" />
++    <child link="${namespace}scout_extension_post_3" />
++    <origin xyz="-0.008000 -0.064000 0.17125" rpy="0 0 0" />
++  </joint>
++  <link name="${namespace}scout_extension_post_4">
++    <!-- 대변 5mm 육각봉의 외접 원통 시각화. 길이/축은 PDF B값. -->
++    <visual>
++      <geometry>
++        <cylinder radius="0.002886751346" length="0.0395" />
++      </geometry>
++      <material name="orange" />
++    </visual>
++  </link>
++  <joint name="${namespace}scout_extension_post_4_mount_joint" type="fixed">
++    <parent link="${namespace}base_footprint" />
++    <child link="${namespace}scout_extension_post_4" />
++    <origin xyz="-0.008000 0.064000 0.17125" rpy="0 0 0" />
++  </joint>
++  <link name="${namespace}scout_extension_post_5">
++    <!-- 대변 5mm 육각봉의 외접 원통 시각화. 길이/축은 PDF B값. -->
++    <visual>
++      <geometry>
++        <cylinder radius="0.002886751346" length="0.0395" />
++      </geometry>
++      <material name="orange" />
++    </visual>
++  </link>
++  <joint name="${namespace}scout_extension_post_5_mount_joint" type="fixed">
++    <parent link="${namespace}base_footprint" />
++    <child link="${namespace}scout_extension_post_5" />
++    <origin xyz="0.032000 -0.024000 0.17125" rpy="0 0 0" />
++  </joint>
++  <link name="${namespace}scout_extension_post_6">
++    <!-- 대변 5mm 육각봉의 외접 원통 시각화. 길이/축은 PDF B값. -->
++    <visual>
++      <geometry>
++        <cylinder radius="0.002886751346" length="0.0395" />
++      </geometry>
++      <material name="orange" />
++    </visual>
++  </link>
++  <joint name="${namespace}scout_extension_post_6_mount_joint" type="fixed">
++    <parent link="${namespace}base_footprint" />
++    <child link="${namespace}scout_extension_post_6" />
++    <origin xyz="0.032000 0.024000 0.17125" rpy="0 0 0" />
++  </joint>
++  <link name="${namespace}bmany_camera_link">
++    <!-- 원점=RGB 렌즈 중심. 외형은 렌즈 뒤에 놓은 개략 상자이며 렌즈-하우징 중심 변환은 미측정. pitch=1도/roll=0 잠정값. -->
++    <visual>
++      <origin xyz="-0.012525 0 0" rpy="0 0 0" />
++      <geometry>
++        <box size="0.02505 0.090 0.025" />
++      </geometry>
++      <material name="light_black" />
++    </visual>
++  </link>
++  <joint name="${namespace}bmany_camera_link_mount_joint" type="fixed">
++    <parent link="${namespace}base_footprint" />
++    <child link="${namespace}bmany_camera_link" />
++    <origin xyz="-0.049 0.055 0.595" rpy="0 0.017453292520 1.570796326795" />
++  </joint>
++  <link name="${namespace}camera_color_optical_frame" />
++  <joint name="${namespace}camera_color_optical_frame_mount_joint" type="fixed">
++    <parent link="${namespace}bmany_camera_link" />
++    <child link="${namespace}camera_color_optical_frame" />
++    <origin xyz="0 0 0" rpy="-1.570796326795 0 -1.570796326795" />
++  </joint>
++  <link name="${namespace}camera_optical_frame" />
++  <joint name="${namespace}camera_optical_frame_mount_joint" type="fixed">
++    <parent link="${namespace}camera_color_optical_frame" />
++    <child link="${namespace}camera_optical_frame" />
++    <origin xyz="0 0 0" rpy="0 0 0" />
++  </joint>
++  <link name="${namespace}picam_frame">
++    <!-- 렌즈 중심 기준. 판 중심 X=0은 PDF C값. 스트리밍 활성화와 무관한 외형/TF. -->
++    <visual>
++      <origin xyz="-0.004 0 0" rpy="0 0 0" />
++      <geometry>
++        <box size="0.008 0.025 0.024" />
++      </geometry>
++      <material name="green" />
++    </visual>
++  </link>
++  <joint name="${namespace}picam_frame_mount_joint" type="fixed">
++    <parent link="${namespace}base_footprint" />
++    <child link="${namespace}picam_frame" />
++    <origin xyz="-0.032 0.063 0.117" rpy="0 0 1.570796326795" />
++  </joint>
++  <link name="${namespace}picam_optical_frame" />
++  <joint name="${namespace}picam_optical_frame_mount_joint" type="fixed">
++    <parent link="${namespace}picam_frame" />
++    <child link="${namespace}picam_optical_frame" />
++    <origin xyz="0 0 0" rpy="-1.570796326795 0 -1.570796326795" />
++  </joint>
++
+ </robot>
+--- a/sim/docs/CHANGELOG.md
++++ b/sim/docs/CHANGELOG.md
+@@ -494,3 +494,12 @@
+ - 범위: 이번 종합 과정에서 운영 로직·물성·backend를 추가 변경하지 않았다. 최근 미커밋에는 별도 승인된 AprilTag 작업도 포함하며 보고서에서 물리 최적화와 구분한다. 맵과 팔자산은 기존 LFS로 저장한다.
+ - 검증: 원본 JSON8개 hash/내용 및 Markdown 내부링크 대조 PASS, Python43개 구문 PASS, 기존 전달 CSV의 CRLF를 보존한 변경공백 검사 PASS. Isaac Python에서 수확/물리/진단58개, ROS Jazzy 환경에서 AprilTag4개 PASS(skip0). 최초 검사는 테스트 import 경로 누락, 이전 진단 대역의 PhysX view 누락, Isaac 환경 OpenCV API 차이로 실패했다. import 경로/실행 환경을 맞추고 `test_teacher_diagnostic_trace.py`의 대역 view만 보완해 통과했다. 운영 소스 변경은 없다. 성능/수확 숫자는 앞선 실제 시험 기록이며 보고서 작성 중 재측정값으로 표현하지 않는다. 최종 커밋·원격 반영 상태는 Git 결과를 따른다.
+ - 복원: 이 종합자료/링크/백업 제외 규칙만 필요에 따라 역적용한다. 이전 변경을 통째로 reset하거나 raw 로그·복원용 USD를 삭제하지 않는다.
++
++
++
++## SIM-SCOUT-URDF-20261013 — PDF 장착 모델 반영
++
++- 기준 main/a393f1a, 사용자 URDF 수정 요청 및 첨부 PDF 기준. sim scout 원본/portable URDF에 기둥·상판/홀더 근사 외형·봉·D435/파이캠 TF 추가. 기존 기본 링크/물성 불변, 공통·실물 소스 변경 없음.
++- 변경 전 센서/장착 없음 → D435(-49,55,595)mm/하향1도, 파이캠(-32,63,117)mm, 기둥 상단620mm. PDF A/B/C 구분 유지; 추가 질량/관성은 미정.
++- 직접 검증: XML/트리/기존 노드 보존/좌표·방향 계산. ROS·Isaac·실물 미실행. 기존 USD/실행 설정은 자동 변경되지 않으며 PC 적용/원격 반영 없음.
++- [상세·한계·복원](SCOUT_URDF_MOUNT_20261013.md). 패치 역적용으로 복원하며 사용자 변경이 있으면 먼저 병합.
+--- /dev/null
++++ b/sim/docs/SCOUT_URDF_MOUNT_20261013.md
+@@ -0,0 +1,39 @@
++# Scout URDF 장착 수정 — 2026-10-13
++
++기준 저장소 Robot3FinalProject/main, 브랜치 main, 커밋 a393f1a9dd73052f601abd23f5901dbacdcbde9e.
++근거: 사용자 첨부 「예찰로봇 부품 치수와 변경 관리 — TurtleBot3 Burger」(2026-10-09 기준, 10-13 PDF 내보내기).
++승인: “이거 확인해서 scout robot urdf 수정해줘” 및 후속 PDF 제공.
++
++## 변경과 정확도
++
++- sim/assets/robots/scout_robot/urdf/turtlebot3_burger.urdf 및 portable.urdf에 동일 장착 구조를 추가했다. 기존 본체·바퀴·캐스터·IMU·라이다 노드와 물성은 유지한다.
++- 판 중심 지면 기준 (-0.032,0,0), 기둥 바닥 Z0.200/상단 Z0.620m. 기둥 외곽 0.05×0.05×0.42m의 visual/collision. 속빈 관 질량·관성은 미측정이므로 생성하지 않았다.
++- D435 렌즈 위치는 base_footprint 기준 (-0.049,+0.055,0.595)m, body RPY=(0,π/180,π/2). 기둥 상단보다 25mm 낮다. pitch1도/roll0은 C(잠정)다.
++- 파이캠은 (-0.032,+0.063,0.117)m, body RPY=(0,0,π/2). 판 중심 X0은 C값이다. 두 optical 회전은 body 기준 (-π/2,0,-π/2).
++- PDF 프레임 bmany_camera_link/camera_color_optical_frame/picam_frame/picam_optical_frame을 추가하고 기존 sim 명명과 비교 가능한 camera_optical_frame identity alias를 둔다. 외부 static TF와 동시에 발행하면 중복이므로 로컬 연결 시 확인한다.
++- 연결봉 6개 축·길이39.5mm·중심Z171.25mm를 반영했다. 육각봉은 외접 원통 시각화다.
++- 추가 상판은 137.55×137.55×9mm 외곽 상자 시각화, DUX는 137mm 길이·3mm 두께·높이50mm 교차판 시각화다. 상세 CAD/홀은 제공되지 않았다. 이 근사 부품들과 카메라에는 collision을 추가하지 않았다. 상판 사각 외곽은 실제 깎인 모서리와 다르므로 PDF의 최대반경109.02mm 검증에 사용할 수 없다.
++- 카메라 외형은 렌즈 뒤에 둔 개략 상자다. 하우징 중심까지의 정확한 변환은 알 수 없다. D435 상단 마운트는 변환 미정이라 제외했다.
++
++## 적용 범위와 남은 작업
++
++이번 결과는 URDF 파일 수정본과 정적 검증이다. 사용자 PC 파일·실물에 적용하지 않았으며 commit/push하지 않았다.
++현재 scout.json/scout_fleet.json은 농장 USD 안의 /World/scout_robot_camera_fixed와 base_link/scout_camera를 사용한다. **이 URDF 변경만으로 기존 Isaac USD와 실행 카메라가 바뀌지 않는다.** USD 재임포트 또는 세션 override 연결·ROS TF 검증은 로컬 Codex 후속 작업이다. 기존 농장 전체를 재임포트해 바퀴/캐스터 물성을 덮어쓰지 않는다.
++
++로컬 Codex 인계:
++1. 로컬 HEAD·미커밋 변경을 먼저 확인한다. PDF에 등장한 robot/models/scout/description 및 devices.json의 최신 PC 버전은 원격 기준에서 확인되지 않았다. 그 실물 장착 모델/CAD가 있다면 근사 외형 대신 재사용한다.
++2. 기존 USD의 base_link 높이·회전을 확인한 뒤 D435 base_footprint→lens를 환산한다. base_link가 Z0.010m이면 상대 XYZ=(-0.049,0.055,0.585)m이다. USD 카메라 축과 ROS optical 축 변환을 적용한다.
++3. sim USD/센서 장착을 같은 기준으로 연결하고 시각화·TF·센서 영상·라이다 간섭을 확인한다. 해상도/FPS/내부 파라미터·왜곡·깊이 스케일을 이 치수 변경 때문에 바꾸지 않는다.
++4. 경로 기준 화단 거리1.14m에서 카메라55mm를 다시 차감하지 않는다. Nav2 반경0.11m는 실물 문서값이며 이 근사 외형에서 검증된 값이 아니다. 실제 CAD/배선 포함 외곽과 함께 별도 확인한다.
++5. 질량·관성 자료 확보 전 Isaac importer 기본 질량을 실측 물성으로 취급하지 않는다. 높은 기둥의 동역학·주행 안정성은 미검증이다.
++6. portable URDF의 기존 meshes/wheels/left_tire.stl 및 right_tire.stl 참조는 기준 Git 트리에 실파일이 없다. 원본 Burger 메시를 로컬에서 확보해야 한다. transport의 동명 파일로 대체하지 않았다.
++
++## 검증
++
++XML 파싱, 링크 이름 고유성, 단일 부모/연결 트리, 기존 노드 불변, 두 변형의 장착 일치, 렌즈 TF·광학 방향·기둥 높이·봉 치수를 Python으로 직접 검사했다. 상세 결과는 SCOUT_URDF_VALIDATION_20261013.json.
++ROS check_urdf/xacro 실행, RViz, Isaac import/물리/영상, 실물 검증은 실행하지 않았다.
++
++## 적용과 복원
++
++압축 파일은 패치와 이 안내를 담는다. 프로젝트에 직접 수정 파일을 덮어쓰지 않고 git apply --check 성공 후 적용한다. 로컬 변경과 충돌하면 중단하고 Codex로 병합한다.
++복원은 같은 패치에 git apply -R --check 후 git apply -R을 사용한다. 새 문서/URDF를 작업 후 다시 수정했다면 역적용 충돌도 먼저 해결한다. 기존 사용자 파일을 reset/clean하지 않는다.
+--- /dev/null
++++ b/sim/docs/SCOUT_URDF_VALIDATION_20261013.json
+@@ -0,0 +1,235 @@
++{
++  "basis_commit": "a393f1a9dd73052f601abd23f5901dbacdcbde9e",
++  "status": "PASS",
++  "assertion_count": 394,
++  "checks": [
++    "turtlebot3_burger.portable.urdf: D435 optical forward",
++    "turtlebot3_burger.portable.urdf: compatibility alias",
++    "turtlebot3_burger.portable.urdf: mast dimensions",
++    "turtlebot3_burger.portable.urdf: no cycle base_footprint",
++    "turtlebot3_burger.portable.urdf: no cycle base_link",
++    "turtlebot3_burger.portable.urdf: no cycle base_scan",
++    "turtlebot3_burger.portable.urdf: no cycle bmany_camera_link",
++    "turtlebot3_burger.portable.urdf: no cycle camera_color_optical_frame",
++    "turtlebot3_burger.portable.urdf: no cycle camera_optical_frame",
++    "turtlebot3_burger.portable.urdf: no cycle caster_back_link",
++    "turtlebot3_burger.portable.urdf: no cycle imu_link",
++    "turtlebot3_burger.portable.urdf: no cycle picam_frame",
++    "turtlebot3_burger.portable.urdf: no cycle picam_optical_frame",
++    "turtlebot3_burger.portable.urdf: no cycle scout_extension_post_1",
++    "turtlebot3_burger.portable.urdf: no cycle scout_extension_post_2",
++    "turtlebot3_burger.portable.urdf: no cycle scout_extension_post_3",
++    "turtlebot3_burger.portable.urdf: no cycle scout_extension_post_4",
++    "turtlebot3_burger.portable.urdf: no cycle scout_extension_post_5",
++    "turtlebot3_burger.portable.urdf: no cycle scout_extension_post_6",
++    "turtlebot3_burger.portable.urdf: no cycle scout_holder_reference",
++    "turtlebot3_burger.portable.urdf: no cycle scout_mast_base",
++    "turtlebot3_burger.portable.urdf: no cycle scout_mast_link",
++    "turtlebot3_burger.portable.urdf: no cycle scout_mast_top",
++    "turtlebot3_burger.portable.urdf: no cycle scout_plate_center_ground",
++    "turtlebot3_burger.portable.urdf: no cycle scout_top_plate_envelope",
++    "turtlebot3_burger.portable.urdf: no cycle wheel_left_link",
++    "turtlebot3_burger.portable.urdf: no cycle wheel_right_link",
++    "turtlebot3_burger.portable.urdf: no invented mass",
++    "turtlebot3_burger.portable.urdf: one root",
++    "turtlebot3_burger.portable.urdf: picam upright optical",
++    "turtlebot3_burger.portable.urdf: position base_link",
++    "turtlebot3_burger.portable.urdf: position base_scan",
++    "turtlebot3_burger.portable.urdf: position bmany_camera_link",
++    "turtlebot3_burger.portable.urdf: position camera_color_optical_frame",
++    "turtlebot3_burger.portable.urdf: position imu_link",
++    "turtlebot3_burger.portable.urdf: position picam_optical_frame",
++    "turtlebot3_burger.portable.urdf: position scout_mast_base",
++    "turtlebot3_burger.portable.urdf: position scout_mast_top",
++    "turtlebot3_burger.portable.urdf: post endpoints 1",
++    "turtlebot3_burger.portable.urdf: post endpoints 2",
++    "turtlebot3_burger.portable.urdf: post endpoints 3",
++    "turtlebot3_burger.portable.urdf: post endpoints 4",
++    "turtlebot3_burger.portable.urdf: post endpoints 5",
++    "turtlebot3_burger.portable.urdf: post endpoints 6",
++    "turtlebot3_burger.portable.urdf: preserve joint base_joint",
++    "turtlebot3_burger.portable.urdf: preserve joint caster_back_joint",
++    "turtlebot3_burger.portable.urdf: preserve joint imu_joint",
++    "turtlebot3_burger.portable.urdf: preserve joint scan_joint",
++    "turtlebot3_burger.portable.urdf: preserve joint wheel_left_joint",
++    "turtlebot3_burger.portable.urdf: preserve joint wheel_right_joint",
++    "turtlebot3_burger.portable.urdf: preserve link base_footprint",
++    "turtlebot3_burger.portable.urdf: preserve link base_link",
++    "turtlebot3_burger.portable.urdf: preserve link base_scan",
++    "turtlebot3_burger.portable.urdf: preserve link caster_back_link",
++    "turtlebot3_burger.portable.urdf: preserve link imu_link",
++    "turtlebot3_burger.portable.urdf: preserve link wheel_left_link",
++    "turtlebot3_burger.portable.urdf: preserve link wheel_right_link",
++    "turtlebot3_burger.portable.urdf: preserve material black",
++    "turtlebot3_burger.portable.urdf: preserve material blue",
++    "turtlebot3_burger.portable.urdf: preserve material brown",
++    "turtlebot3_burger.portable.urdf: preserve material dark",
++    "turtlebot3_burger.portable.urdf: preserve material green",
++    "turtlebot3_burger.portable.urdf: preserve material grey",
++    "turtlebot3_burger.portable.urdf: preserve material light_black",
++    "turtlebot3_burger.portable.urdf: preserve material orange",
++    "turtlebot3_burger.portable.urdf: preserve material red",
++    "turtlebot3_burger.portable.urdf: preserve material white",
++    "turtlebot3_burger.portable.urdf: unique links",
++    "turtlebot3_burger.portable.urdf: valid parent/child base_link",
++    "turtlebot3_burger.portable.urdf: valid parent/child base_scan",
++    "turtlebot3_burger.portable.urdf: valid parent/child bmany_camera_link",
++    "turtlebot3_burger.portable.urdf: valid parent/child camera_color_optical_frame",
++    "turtlebot3_burger.portable.urdf: valid parent/child camera_optical_frame",
++    "turtlebot3_burger.portable.urdf: valid parent/child caster_back_link",
++    "turtlebot3_burger.portable.urdf: valid parent/child imu_link",
++    "turtlebot3_burger.portable.urdf: valid parent/child picam_frame",
++    "turtlebot3_burger.portable.urdf: valid parent/child picam_optical_frame",
++    "turtlebot3_burger.portable.urdf: valid parent/child scout_extension_post_1",
++    "turtlebot3_burger.portable.urdf: valid parent/child scout_extension_post_2",
++    "turtlebot3_burger.portable.urdf: valid parent/child scout_extension_post_3",
++    "turtlebot3_burger.portable.urdf: valid parent/child scout_extension_post_4",
++    "turtlebot3_burger.portable.urdf: valid parent/child scout_extension_post_5",
++    "turtlebot3_burger.portable.urdf: valid parent/child scout_extension_post_6",
++    "turtlebot3_burger.portable.urdf: valid parent/child scout_holder_reference",
++    "turtlebot3_burger.portable.urdf: valid parent/child scout_mast_base",
++    "turtlebot3_burger.portable.urdf: valid parent/child scout_mast_link",
++    "turtlebot3_burger.portable.urdf: valid parent/child scout_mast_top",
++    "turtlebot3_burger.portable.urdf: valid parent/child scout_plate_center_ground",
++    "turtlebot3_burger.portable.urdf: valid parent/child scout_top_plate_envelope",
++    "turtlebot3_burger.portable.urdf: valid parent/child wheel_left_link",
++    "turtlebot3_burger.portable.urdf: valid parent/child wheel_right_link",
++    "turtlebot3_burger.urdf: D435 optical forward",
++    "turtlebot3_burger.urdf: compatibility alias",
++    "turtlebot3_burger.urdf: mast dimensions",
++    "turtlebot3_burger.urdf: no cycle base_footprint",
++    "turtlebot3_burger.urdf: no cycle base_link",
++    "turtlebot3_burger.urdf: no cycle base_scan",
++    "turtlebot3_burger.urdf: no cycle bmany_camera_link",
++    "turtlebot3_burger.urdf: no cycle camera_color_optical_frame",
++    "turtlebot3_burger.urdf: no cycle camera_optical_frame",
++    "turtlebot3_burger.urdf: no cycle caster_back_link",
++    "turtlebot3_burger.urdf: no cycle imu_link",
++    "turtlebot3_burger.urdf: no cycle picam_frame",
++    "turtlebot3_burger.urdf: no cycle picam_optical_frame",
++    "turtlebot3_burger.urdf: no cycle scout_extension_post_1",
++    "turtlebot3_burger.urdf: no cycle scout_extension_post_2",
++    "turtlebot3_burger.urdf: no cycle scout_extension_post_3",
++    "turtlebot3_burger.urdf: no cycle scout_extension_post_4",
++    "turtlebot3_burger.urdf: no cycle scout_extension_post_5",
++    "turtlebot3_burger.urdf: no cycle scout_extension_post_6",
++    "turtlebot3_burger.urdf: no cycle scout_holder_reference",
++    "turtlebot3_burger.urdf: no cycle scout_mast_base",
++    "turtlebot3_burger.urdf: no cycle scout_mast_link",
++    "turtlebot3_burger.urdf: no cycle scout_mast_top",
++    "turtlebot3_burger.urdf: no cycle scout_plate_center_ground",
++    "turtlebot3_burger.urdf: no cycle scout_top_plate_envelope",
++    "turtlebot3_burger.urdf: no cycle wheel_left_link",
++    "turtlebot3_burger.urdf: no cycle wheel_right_link",
++    "turtlebot3_burger.urdf: no invented mass",
++    "turtlebot3_burger.urdf: one root",
++    "turtlebot3_burger.urdf: picam upright optical",
++    "turtlebot3_burger.urdf: position base_link",
++    "turtlebot3_burger.urdf: position base_scan",
++    "turtlebot3_burger.urdf: position bmany_camera_link",
++    "turtlebot3_burger.urdf: position camera_color_optical_frame",
++    "turtlebot3_burger.urdf: position imu_link",
++    "turtlebot3_burger.urdf: position picam_optical_frame",
++    "turtlebot3_burger.urdf: position scout_mast_base",
++    "turtlebot3_burger.urdf: position scout_mast_top",
++    "turtlebot3_burger.urdf: post endpoints 1",
++    "turtlebot3_burger.urdf: post endpoints 2",
++    "turtlebot3_burger.urdf: post endpoints 3",
++    "turtlebot3_burger.urdf: post endpoints 4",
++    "turtlebot3_burger.urdf: post endpoints 5",
++    "turtlebot3_burger.urdf: post endpoints 6",
++    "turtlebot3_burger.urdf: preserve joint base_joint",
++    "turtlebot3_burger.urdf: preserve joint caster_back_joint",
++    "turtlebot3_burger.urdf: preserve joint imu_joint",
++    "turtlebot3_burger.urdf: preserve joint scan_joint",
++    "turtlebot3_burger.urdf: preserve joint wheel_left_joint",
++    "turtlebot3_burger.urdf: preserve joint wheel_right_joint",
++    "turtlebot3_burger.urdf: preserve link base_footprint",
++    "turtlebot3_burger.urdf: preserve link base_link",
++    "turtlebot3_burger.urdf: preserve link base_scan",
++    "turtlebot3_burger.urdf: preserve link caster_back_link",
++    "turtlebot3_burger.urdf: preserve link imu_link",
++    "turtlebot3_burger.urdf: preserve link wheel_left_link",
++    "turtlebot3_burger.urdf: preserve link wheel_right_link",
++    "turtlebot3_burger.urdf: preserve material black",
++    "turtlebot3_burger.urdf: preserve material blue",
++    "turtlebot3_burger.urdf: preserve material brown",
++    "turtlebot3_burger.urdf: preserve material dark",
++    "turtlebot3_burger.urdf: preserve material green",
++    "turtlebot3_burger.urdf: preserve material grey",
++    "turtlebot3_burger.urdf: preserve material light_black",
++    "turtlebot3_burger.urdf: preserve material orange",
++    "turtlebot3_burger.urdf: preserve material red",
++    "turtlebot3_burger.urdf: preserve material white",
++    "turtlebot3_burger.urdf: unique links",
++    "turtlebot3_burger.urdf: valid parent/child base_link",
++    "turtlebot3_burger.urdf: valid parent/child base_scan",
++    "turtlebot3_burger.urdf: valid parent/child bmany_camera_link",
++    "turtlebot3_burger.urdf: valid parent/child camera_color_optical_frame",
++    "turtlebot3_burger.urdf: valid parent/child camera_optical_frame",
++    "turtlebot3_burger.urdf: valid parent/child caster_back_link",
++    "turtlebot3_burger.urdf: valid parent/child imu_link",
++    "turtlebot3_burger.urdf: valid parent/child picam_frame",
++    "turtlebot3_burger.urdf: valid parent/child picam_optical_frame",
++    "turtlebot3_burger.urdf: valid parent/child scout_extension_post_1",
++    "turtlebot3_burger.urdf: valid parent/child scout_extension_post_2",
++    "turtlebot3_burger.urdf: valid parent/child scout_extension_post_3",
++    "turtlebot3_burger.urdf: valid parent/child scout_extension_post_4",
++    "turtlebot3_burger.urdf: valid parent/child scout_extension_post_5",
++    "turtlebot3_burger.urdf: valid parent/child scout_extension_post_6",
++    "turtlebot3_burger.urdf: valid parent/child scout_holder_reference",
++    "turtlebot3_burger.urdf: valid parent/child scout_mast_base",
++    "turtlebot3_burger.urdf: valid parent/child scout_mast_link",
++    "turtlebot3_burger.urdf: valid parent/child scout_mast_top",
++    "turtlebot3_burger.urdf: valid parent/child scout_plate_center_ground",
++    "turtlebot3_burger.urdf: valid parent/child scout_top_plate_envelope",
++    "turtlebot3_burger.urdf: valid parent/child wheel_left_link",
++    "turtlebot3_burger.urdf: valid parent/child wheel_right_link",
++    "variants identical: bmany_camera_link",
++    "variants identical: bmany_camera_link_mount_joint",
++    "variants identical: camera_color_optical_frame",
++    "variants identical: camera_color_optical_frame_mount_joint",
++    "variants identical: camera_optical_frame",
++    "variants identical: camera_optical_frame_mount_joint",
++    "variants identical: picam_frame",
++    "variants identical: picam_frame_mount_joint",
++    "variants identical: picam_optical_frame",
++    "variants identical: picam_optical_frame_mount_joint",
++    "variants identical: scout_extension_post_1",
++    "variants identical: scout_extension_post_1_mount_joint",
++    "variants identical: scout_extension_post_2",
++    "variants identical: scout_extension_post_2_mount_joint",
++    "variants identical: scout_extension_post_3",
++    "variants identical: scout_extension_post_3_mount_joint",
++    "variants identical: scout_extension_post_4",
++    "variants identical: scout_extension_post_4_mount_joint",
++    "variants identical: scout_extension_post_5",
++    "variants identical: scout_extension_post_5_mount_joint",
++    "variants identical: scout_extension_post_6",
++    "variants identical: scout_extension_post_6_mount_joint",
++    "variants identical: scout_holder_reference",
++    "variants identical: scout_holder_reference_mount_joint",
++    "variants identical: scout_mast_base",
++    "variants identical: scout_mast_base_mount_joint",
++    "variants identical: scout_mast_link",
++    "variants identical: scout_mast_link_mount_joint",
++    "variants identical: scout_mast_top",
++    "variants identical: scout_mast_top_mount_joint",
++    "variants identical: scout_plate_center_ground",
++    "variants identical: scout_plate_center_ground_mount_joint",
++    "variants identical: scout_top_plate_envelope",
++    "variants identical: scout_top_plate_envelope_mount_joint"
++  ],
++  "not_run": [
++    "ROS check_urdf/xacro",
++    "RViz",
++    "Isaac import/physics/render/ROS sensor integration",
++    "real robot"
++  ],
++  "limitations": [
++    "approximate visual plate/holder/camera",
++    "no measured mount masses/inertias",
++    "existing portable wheel mesh paths absent from remote tree",
++    "existing USD and runtime camera unchanged"
++  ]
++}

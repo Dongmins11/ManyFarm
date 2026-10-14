@@ -1,0 +1,11 @@
+# 기존 그래프 형상을 유지. 좌표와 경로는 환경 파일에서 주입한다.
+route_server:
+  ros__parameters:
+    use_sim_time: false
+    path_density: 0.04
+    smooth_corners: false
+    edge_cost_functions: [DistanceScorer]
+    DistanceScorer:
+      plugin: nav2_route::DistanceScorer
+    # 빈 YAML 배열은 설치된 Jazzy에서 타입 없는 파라미터로 거절된다.
+    # operations는 Nav2 기본값을 사용한다. 이 클라이언트는 ComputeRoute만 요청한다.

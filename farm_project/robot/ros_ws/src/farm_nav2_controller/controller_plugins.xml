@@ -1,0 +1,7 @@
+<library path="farm_nav2_controller">
+  <class name="farm_nav2_controller::SettlingRegulatedPurePursuitController"
+    type="farm_nav2_controller::SettlingRegulatedPurePursuitController"
+    base_class_type="nav2_core::Controller">
+    <description>RPP 경로·충돌 검사를 유지하며 목표 위치와 방향 허용치 안에서 정지를 명령한다.</description>
+  </class>
+</library>

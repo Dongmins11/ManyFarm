@@ -1,0 +1,108 @@
+{
+  "date": "2026-10-13",
+  "timezone": "Asia/Seoul",
+  "head": "a393f1a9dd73052f601abd23f5901dbacdcbde9e",
+  "incoming": "bf10fcd59b5cedcc646a3224338295fa3beb80c9",
+  "status": "uncommitted",
+  "manifest_files_verified": 120,
+  "builds": {
+    "common_packages": [
+      "farm_tag_amcl",
+      "farm_tag_localization",
+      "farm_navigation",
+      "harvest_robot",
+      "farm_bringup"
+    ],
+    "sim_packages": [
+      "farm_sim_config",
+      "farm_sim_devices",
+      "farm_sim_runtime"
+    ]
+  },
+  "tests": {
+    "common_regressions": 123,
+    "tag_localization": 65,
+    "sim_focused": 23,
+    "overlap_parallel_approach": 7,
+    "route_paths": 371,
+    "real_ros_amcl": [
+      "dynamic_scan_rewire_rejected_before_base_callback",
+      "delayed_TF_scan_aligned",
+      "next_scan_motion_counted_once",
+      "duplicate_source_rejected",
+      "future_pose_rejected",
+      "stale_pose_rejected",
+      "wrong_robot_rejected",
+      "wrong_map_rejected",
+      "wrong_token_rejected",
+      "producer_swap_rejected",
+      "invalid_covariance_rejected",
+      "task_end_cancels_pending",
+      "closed_token_not_replayed",
+      "pending_timeout_no_apply",
+      "manual_pose_cancels_pending_and_token",
+      "deactivation_clears_pending",
+      "rotated_SE2_transport",
+      "out_of_order_scan_no_reapply",
+      "heartbeat_expiry_blocks_correction",
+      "clock_rewind_cancels_pending",
+      "map_update_cancels_pending",
+      "shutdown_cancels_pending"
+    ]
+  },
+  "launch_startup": {
+    "alive_before_stop": true,
+    "tag_adapter_ready": true,
+    "amcl_ready": true,
+    "early_errors": [],
+    "exit_code": 0,
+    "note": "No Isaac sensor stream or driving Goal; startup smoke only"
+  },
+  "isaac_render": {
+    "tags": 240,
+    "width": 1280,
+    "height": 720,
+    "output": "sim/runs/apriltag_integration_20261013/render/",
+    "exit_code": 124,
+    "note": "Rendered and shared memory verified; Kit shutdown timeout, not clean exit"
+  },
+  "detector_replay": {
+    "input_image": "sim/runs/apriltag_integration_20261013/render/sec01_id104.png",
+    "input_sha256": "8943ba6a7c4ffc4a895b457933c41f0b66a331f373a2fb73944d944e4b3c38d4",
+    "journal_frames": 10,
+    "accepted": 10,
+    "camera_info_stamps_match": true,
+    "rectified_stamps_match": true,
+    "expected_pose": [
+      -6.015,
+      7.70766178,
+      -1.5707963267948966
+    ],
+    "max_position_error_m": 0.0014380952827438788,
+    "max_heading_error_deg": 0.17102496698321823,
+    "shutdown": {
+      "return_codes": {
+        "rectify": -11,
+        "detector": -11,
+        "capture": 0
+      },
+      "all_processes_stopped": true,
+      "clean_shutdown": false
+    },
+    "note": "Single stationary scene replay, not moving localization or closed-loop AMCL/harvest E2E"
+  },
+  "dependencies": {
+    "system_install": false,
+    "reason": "sudo requires administrator password",
+    "temporary_prefix": "sim/runs/apriltag_integration_20261013/deps/opt/ros/jazzy",
+    "install_command": "sudo apt install ros-jazzy-apriltag-ros ros-jazzy-image-proc"
+  },
+  "pending": [
+    "live moving localization and section transition",
+    "Nav2 to arm full E2E",
+    "upstream image_proc/apriltag_ros SIGINT exit -11",
+    "Isaac Kit shutdown timeout",
+    "real robot retest"
+  ],
+  "raw_logs": "sim/runs/apriltag_integration_20261013/"
+}

@@ -2,18 +2,58 @@
 import math
 
 
-def validate_task(goal, config: dict) -> None:
+def resolve_section(section_id: str | None, config: dict, goal_pose: object = None, *,
+                    corridors: dict | None = None, position_tolerance_m: float = .02,
+                    heading_tolerance_rad: float = .12) -> str:
+    """원본 Section ID는 보존하고 명시된 수확 진입 경로만 선택한다."""
+    if section_id is None and config.get('resolve_section_from_goal_pose', False):
+        # Section 필드가 없는 wire에서 ID 문자열 대신 환경 그래프의 작업 선분을 대조한다.
+        if goal_pose is None or not corridors:
+            raise ValueError('목표 pose와 작업 구간 설정이 필요함')
+        p = goal_pose.position
+        matches = []
+        for key, corridor in corridors.items():
+            a, b = corridor['entry'], corridor['exit']
+            dx, dy = b[0]-a[0], b[1]-a[1]
+            length_squared = dx*dx+dy*dy
+            if length_squared <= 0:
+                raise ValueError('작업 구간 길이는 0보다 커야 함')
+            along = ((p.x-a[0])*dx+(p.y-a[1])*dy)/length_squared
+            lateral = abs((p.x-a[0])*dy-(p.y-a[1])*dx)/math.sqrt(length_squared)
+            if (-1e-9 <= along <= 1+1e-9 and lateral <= position_tolerance_m
+                    and abs(math.remainder(goal_pose.yaw-corridor['yaw'], 2*math.pi)) <= heading_tolerance_rad):
+                matches.append(key)
+        if len(matches) != 1 or matches[0] not in config.get('sections', {}):
+            raise ValueError('목표 pose에 일치하는 단일 작업 구간 필요')
+        return matches[0]
+    if section_id is None:
+        section_id = config.get('default_section_id')
+        if section_id is None or len(config.get('sections', {})) != 1:
+            raise ValueError('Section 없는 관제 Goal에는 명시적인 단일 구역 설정 필요')
+    if section_id in config.get('sections', {}):
+        return section_id
+    target = config.get('control_aliases', {}).get('section_ids', {}).get(section_id)
+    if target not in config.get('sections', {}):
+        raise ValueError('등록된 section_id 필요; window_id에서 추측하지 않음')
+    return target
+
+
+def validate_task(goal, config: dict, section_options: dict | None = None) -> None:
     task = goal.harvest_task
     # 새 규약의 ID는 opaque identifier입니다. 삭제된 Section/Segment를 추정하지 않습니다.
     if any(not isinstance(value, str) or not value.strip()
            for value in (task.task_id, task.window_id)):
         raise ValueError('task_id/window_id가 비어 있음')
-    if goal.robot_id != config['robot_id'] or goal.map_id != config['map_id']:
+    internal_map = config.get('control_aliases', {}).get('map_ids', {}).get(goal.map_id, goal.map_id)
+    if goal.robot_id != config['robot_id'] or internal_map != config['map_id']:
         raise ValueError('robot_id/map_id 불일치')
     p, yaw = task.goal_pose.position, task.goal_pose.yaw
     if (task.goal_pose.frame_id != 'map' or task.expected_count < 0
             or not all(math.isfinite(v) for v in (p.x, p.y, p.z, yaw)) or abs(p.z) > .1):
         raise ValueError('목표 pose/expected_count 오류')
+    if config.get("movement_mode") in ("route_then_pose", "route_then_follow"):
+        resolve_section(getattr(goal, "section_id", None), config, task.goal_pose,
+                        **(section_options or {}))
 
 
 def validate_counts(success: int, failed: int, previous: tuple[int, int] = (0, 0)) -> tuple[int, int]:

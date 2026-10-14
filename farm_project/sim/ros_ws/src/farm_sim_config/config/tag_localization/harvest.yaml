@@ -1,0 +1,12 @@
+configured: true
+robot_id: harvest_01
+map_id: farm_map_v1
+assets_file: sim/ros_ws/src/farm_sim_config/config/tag_localization/assets.json
+model_file: robot/config/localization/common_observation_model.json
+map_yaml_sha256: 3669207256030ede0d5c58acef44af58e8d77867350a235c3b92b0d7b3addce8
+map_image_sha256: d6f3146c411a9fdb2ad6f4c2c1ef6383f2ad0f852c06dc8e6f09396426a5039d
+map_frame: map
+odom_frame: harvest_01/odom
+base_frame: harvest_01/base_footprint
+correction_transport: scan_sync
+lock_directory: sim/runs/locks

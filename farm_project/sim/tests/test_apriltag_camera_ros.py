@@ -49,6 +49,24 @@ class CameraTests(unittest.TestCase):
             reader.return_value.read.return_value = None
             self.assertFalse(bridge.publish('current'))
 
+    def test_scout_picam_uses_its_image_frame_and_calibration(self) -> None:
+        cfg = json.loads((ROOT/'sim/ros_ws/src/farm_sim_config/config/scout.json').read_text())
+        camera = cfg['tag_camera']
+        with patch('farm_sim_devices.camera_ros.RgbdReader') as reader:
+            bridge = CameraRos(self,camera,cfg['frames']['tag_camera_optical'])
+            reader.assert_called_once_with(camera['shm_name'])
+            packet = dict(rgb=np.zeros((camera['height'],camera['width'],3),np.uint8),
+                metadata=dict(session='scout',frame_id=cfg['frames']['camera_optical'],stamp_ns=2))
+            reader.return_value.read.return_value = packet
+            self.assertFalse(bridge.publish('scout'))  # 예찰 D435 프레임을 PiCam으로 발행하지 않습니다.
+            packet['metadata']['frame_id'] = cfg['frames']['tag_camera_optical']
+            self.assertTrue(bridge.publish('scout'))
+            image,info = bridge.image_pub.messages[0],bridge.info_pub.messages[0]
+            self.assertEqual(image.header.frame_id,'scout_01/picam_optical_frame')
+            self.assertEqual(image.header,info.header)
+            np.testing.assert_allclose(info.k,camera['camera_info']['k'])
+            np.testing.assert_allclose(info.d,camera['camera_info']['d'])
+
 
 if __name__ == '__main__':
     unittest.main()

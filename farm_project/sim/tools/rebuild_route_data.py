@@ -142,7 +142,7 @@ def build() -> dict[str, dict]:
                  T_map_world=task['evaluation']['T_map_world'])
     nav = yaml.safe_load((BASE / 'config/nav2_scout.yaml').read_text())
     station = task['stations'][task['robot_id']]
-    nav['amcl']['ros__parameters'].update(set_initial_pose=True, initial_pose=dict(
+    nav['bindings'].update(set_initial_pose=True, initial_pose=dict(
         x=station['xy_m'][0], y=station['xy_m'][1], z=0.0, yaw=station['yaw_rad']))
     outputs = {'config/station_spawn.json': spawn, 'config/nav2_scout.yaml': nav,
             'maps/graph.geojson': graphs['scout'],
@@ -160,10 +160,40 @@ def build() -> dict[str, dict]:
     if (BASE / 'config/nav2_harvest.yaml').is_file():
         harvest_nav = yaml.safe_load((BASE / 'config/nav2_harvest.yaml').read_text())
         harvest_station = task['stations']['harvest_01']
-        harvest_nav['amcl']['ros__parameters']['initial_pose'] = dict(
+        harvest_nav['bindings']['initial_pose'] = dict(
             x=harvest_station['xy_m'][0], y=harvest_station['xy_m'][1], z=0., yaw=harvest_station['yaw_rad'])
         harvest_task = json.loads((BASE / 'config/harvest_task.json').read_text())
         harvest_task['segments'] = [o['segment_id'] for section in task['sections'].values() for o in section['observations']]
+        # 공통 단계별 주행에 실제 시뮬 진입/이탈 노드를 연결한다. 새 통로는 만들지 않는다.
+        nodes = {f['properties']['id']: f['geometry']['coordinates']
+                 for f in graphs['harvest']['features'] if f['geometry']['type'] == 'Point'}
+        sections = {}
+        for sid, section in task['sections'].items():
+            route = section['harvest_route']
+            entry, end = route['entry_node_id'], route['exit_node_id']
+            a, b = nodes[entry], nodes[end]
+            dx, dy = b[0] - a[0], b[1] - a[1]
+            # 실물처럼 진입점을 허용 구간 내부에 둔다. 기존 직선 진입 엣지만 사용한다.
+            incoming = {f['properties']['startid'] for f in graphs['harvest']['features']
+                        if f['geometry']['type'] == 'LineString'
+                        and f['properties']['endid'] == entry}
+            behind = [node for node in incoming
+                      if abs((nodes[node][0]-a[0])*dy-(nodes[node][1]-a[1])*dx) < 1e-8
+                      and (nodes[node][0]-a[0])*dx+(nodes[node][1]-a[1])*dy < -1e-8]
+            if len(behind) != 1:
+                raise ValueError(f'{sid}: 진입점 뒤의 연결된 직선 노드는 정확히 하나여야 합니다. '
+                                 f'후보: {sorted(behind)}')
+            forward = [node for node, xy in nodes.items()
+                       if abs((xy[0]-b[0])*dy-(xy[1]-b[1])*dx) < 1e-8
+                       and (xy[0]-b[0])*dx+(xy[1]-b[1])*dy > 1e-8]
+            if not forward:
+                raise ValueError(f'{sid}: 이탈 방향의 기존 그래프 노드가 없습니다.')
+            sections[sid] = dict(entry_node=entry, entry_heading_node=end, exit_node=end,
+                exit_heading_node=min(forward, key=lambda n: math.dist(nodes[n], b)),
+                work_corridor_nodes=[behind[0], end])
+        # 공통 기본값을 참조하고 사용자가 지정한 설정은 보존한다. 생성기는 지도만 갱신한다.
+        harvest_task.setdefault('task_navigation_policy', 'robot/config/navigation/harvest_task.yaml')
+        harvest_task['sections'] = sections
         outputs['config/nav2_harvest.yaml'] = harvest_nav
         outputs['config/harvest_task.json'] = harvest_task
     if (BASE / 'config/harvest_fleet.json').is_file():

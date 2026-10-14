@@ -25,11 +25,11 @@ def setup(context) -> list:
 
     if value('isaac') == 'true':
         include('farm_sim_runtime', 'isaac.launch.py', dict(shared, **{
-            name: value(name) for name in ('isaac_python', 'assets_root', 'headless')},
+            name: value(name) for name in ('isaac_python', 'assets_root', 'headless', 'physics_device', 'performance_log')},
             fleet_config=value('fleet_config') if value('harvest') == 'true' else ''))
     if value('scout') == 'true':
         include('farm_sim_runtime', 'scout.launch.py', dict(shared, start_isaac='false', rviz='false',
-            **{name: value(name) for name in ('navigation', 'survey', 'vision_python', 'device', 'headless')}))
+            **{name: value(name) for name in ('navigation', 'survey', 'vision_python', 'device', 'headless', 'tag_correction')}))
     if value('rviz') == 'true':
         monitor = dict(shared)
         fleet_view = value('harvest') == 'true' and value('scout') == 'true'
@@ -39,7 +39,8 @@ def setup(context) -> list:
             rviz_config=value('rviz_config') or ('sim/ros_ws/src/farm_sim_config/config/scout_harvest.rviz' if fleet_view else '')))
     if value('harvest') == 'true':
         include('farm_sim_runtime', 'harvest.launch.py', dict(project_root=value('project_root'),
-            mode='sim', environment_config=value('harvest_environment_config')))
+            mode='sim', environment_config=value('harvest_environment_config'),
+            tag_correction=value('tag_correction')))
     return actions
 
 
@@ -52,6 +53,7 @@ def generate_launch_description() -> LaunchDescription:
         DeclareLaunchArgument('isaac', default_value='true', choices=boolean),
         DeclareLaunchArgument('scout', default_value='true', choices=boolean),
         DeclareLaunchArgument('harvest', default_value='false', choices=boolean),
+        DeclareLaunchArgument('tag_correction', default_value='false', choices=boolean),
         DeclareLaunchArgument('harvest_environment_config', default_value=
                               'sim/ros_ws/src/farm_sim_config/config/harvest_runtime.yaml'),
         DeclareLaunchArgument('fleet_config', default_value=
@@ -64,6 +66,8 @@ def generate_launch_description() -> LaunchDescription:
         DeclareLaunchArgument('assets_root', default_value=''),
         DeclareLaunchArgument('rviz_config', default_value=''),
         DeclareLaunchArgument('headless', default_value='false', choices=boolean),
+        DeclareLaunchArgument('physics_device', default_value='profile', choices=['profile', 'cpu', 'gpu']),
+        DeclareLaunchArgument('performance_log', default_value=''),
         DeclareLaunchArgument('device', default_value='0'),
         OpaqueFunction(function=setup),
     ])

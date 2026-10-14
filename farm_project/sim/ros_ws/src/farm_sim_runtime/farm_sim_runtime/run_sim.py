@@ -15,6 +15,7 @@ def main():
     parser.add_argument('--config',type=Path,required=True)
     parser.add_argument('--assets-root',type=Path,required=True)
     parser.add_argument('--headless',action='store_true')
+    parser.add_argument('--physics-device',choices=('cpu','gpu'))
     parser.add_argument('--module-path',action='append',default=[])
     args=parser.parse_args()
     for path in args.module_path:
@@ -35,8 +36,9 @@ def main():
     from farm_sim_devices.wire import LocalDatagrams,CommandGate
     from isaacsim import SimulationApp
     sys.argv=[sys.argv[0]]
-    app=SimulationApp({'headless':args.headless,'renderer':'RayTracedLighting','fast_shutdown':False})
-    world=base=camera=transport=harvest_physics=None
+    app=SimulationApp({'headless':args.headless,'disable_viewport_updates':args.headless,
+                       'renderer':'RayTracedLighting','fast_shutdown':False})
+    world=base=camera=tag_camera=transport=harvest_physics=None
     try:
         import omni.usd
         from pxr import UsdGeom,UsdPhysics,Gf
@@ -91,6 +93,14 @@ def main():
         T_base_link=inverse@matrix(link)
         T_base_scan=inverse@matrix(scan_prim)
         T_base_optical=inverse@matrix(camera_prim)@np.diag([1.,-1.,-1.,1.])
+        tag_camera_prim=T_base_tag_optical=None
+        if config.get('tag_camera',{}).get('enabled'):
+            tag_camera_prim=prim(binding['tag_camera_relative'])
+            if not tag_camera_prim.IsA(UsdGeom.Camera):
+                raise RuntimeError('지정한 tag_camera prim이 Camera가 아닙니다.')
+            T_base_tag_optical=inverse@matrix(tag_camera_prim)@np.diag([1.,-1.,-1.,1.])
+            if not np.allclose(T_base_tag_optical[:3,:3].T@T_base_tag_optical[:3,:3],np.eye(3),atol=1e-5):
+                raise RuntimeError('tag_camera에 비단위 scale이 있습니다.')
         for name,T in [('base_link',T_base_link),('scan',T_base_scan),('camera',T_base_optical)]:
             if not np.allclose(T[:3,:3].T@T[:3,:3],np.eye(3),atol=1e-5):
                 raise RuntimeError(f'{name}에 비단위 scale이 있습니다.')
@@ -120,6 +130,10 @@ def main():
         session=uuid.uuid4().hex
         if harvest_physics is not None:
             harvest_physics.register(world,session)
+        if args.physics_device is not None:
+            context=world.get_physics_context()
+            context.enable_gpu_dynamics(args.physics_device=='gpu')
+            context.set_broadphase_type('GPU' if args.physics_device=='gpu' else 'MBP')
         world.reset()
         base.initialize()
         for arm,report in passive_arms:
@@ -138,11 +152,15 @@ def main():
             camera=CameraSim(str(camera_prim.GetPath()),config['camera'],session,
                              frames['camera_optical'],T_base_optical)
             camera.initialize()
+        if tag_camera_prim is not None:
+            tag_camera=CameraSim(str(tag_camera_prim.GetPath()),config['tag_camera'],session,
+                                 frames['tag_camera_optical'],T_base_tag_optical)
+            tag_camera.initialize()
         lidar=LidarSim(config['lidar'],robot_path,T_base_scan) if config['lidar']['enabled'] else None
         history=deque(maxlen=math.ceil(5/frame_dt)+2)
         initial_z=float(base.pose()[0][2]);last_sim=float(world.current_time)
         last_telemetry=last_scan=-math.inf;packet_sequence=0
-        camera_frames=0;next_log=time.monotonic()+5.0
+        camera_frames=tag_camera_frames=0;next_log=time.monotonic()+5.0
         if not args.headless:
             from farm_sim_runtime.harvest_physics_inspector import enable_physics_debug_ui
             enable_physics_debug_ui()
@@ -179,15 +197,16 @@ def main():
             if lidar and now-last_scan>=1.0/config['lidar']['fps']-1e-8:
                 ranges=lidar.sample(T_world_base);last_scan=now
             if camera:camera_frames+=int(camera.publish(history,frame_dt*.51))
+            if tag_camera:tag_camera_frames+=int(tag_camera.publish(history,frame_dt*.51))
             if now-last_telemetry>=1.0/rt['telemetry_hz']-1e-8 or ranges is not None:
                 packet_sequence+=1
                 packet=dict(kind='state',session=session,seq=packet_sequence,sent=time.monotonic(),
                             stamp_ns=round(now*1e9),odom=odom,joint_positions=positions,
                             joint_velocities=velocities,static_tf=static,scan=ranges,
-                            camera_frames=camera_frames)
+                            camera_frames=camera_frames,tag_camera_frames=tag_camera_frames)
                 transport.send(packet);last_telemetry=now
             if time.monotonic()>=next_log:
-                print(f'[farm_sim] sim={now:.2f}s odom=({odom[0]:.2f},{odom[1]:.2f}) RGB-D frames={camera_frames}',flush=True)
+                print(f'[farm_sim] sim={now:.2f}s odom=({odom[0]:.2f},{odom[1]:.2f}) RGB-D frames={camera_frames} tag frames={tag_camera_frames}',flush=True)
                 next_log=time.monotonic()+5.0
             if rt['realtime']:
                 time.sleep(max(0.0,frame_dt-(time.monotonic()-wall_start)))
@@ -199,6 +218,9 @@ def main():
             except Exception:pass
         if camera is not None:
             try:camera.close()
+            except Exception:pass
+        if tag_camera is not None:
+            try:tag_camera.close()
             except Exception:pass
         if transport is not None:transport.close()
         if world is not None:

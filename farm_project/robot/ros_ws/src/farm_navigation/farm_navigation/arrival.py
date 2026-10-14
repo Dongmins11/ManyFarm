@@ -4,6 +4,7 @@ from typing import Any
 from collections.abc import Sequence
 import numpy as np
 from numpy.typing import NDArray
+from .navigation_types import NavigationSettings
 
 
 class NavigationConfigurationError(RuntimeError):
@@ -18,12 +19,15 @@ def positive_number(value: Any, name: str) -> float:
     return float(value)
 
 
-def validate_goal_checkers(parameters: dict[str, Any], position_limit: float, heading_limit: float) -> list[dict[str, Any]]:
-    """Read-only check. Nav2 needs a tighter gate to leave stopping/TF margin.
+def validate_goal_checkers(
+    parameters: dict[str, Any], position_limit: float, heading_limit: float, *,
+    stopped_linear_limit: float = NavigationSettings.stopped_linear_mps,
+    stopped_angular_limit: float = NavigationSettings.stopped_angular_rps,
+) -> list[dict[str, Any]]:
+    """Nav2의 도착 기준이 최종 위치·방향·정지 검사보다 느슨하지 않은지 확인합니다.
 
-    All registered checkers are checked because NavigateToPose does not report
-    which goal-checker ID the behavior tree selected. The current scout setup
-    uses one SimpleGoalChecker. New checker types need an explicit adaptation.
+    NavigateToPose는 실제 선택한 checker ID를 알리지 않으므로 전달된 모든
+    checker를 검사합니다. 기존 SimpleGoalChecker 호출 계약도 유지합니다.
     """
     position_limit = positive_number(position_limit, 'arrival_tolerance_m')
     heading_limit = positive_number(heading_limit, 'heading_tolerance_rad')
@@ -33,8 +37,9 @@ def validate_goal_checkers(parameters: dict[str, Any], position_limit: float, he
     checkers = []
     for checker in ids:
         get = lambda suffix: parameters.get(f'{checker}.{suffix}')
-        if get('plugin') != 'nav2_controller::SimpleGoalChecker':
-            raise NavigationConfigurationError(f'{checker}: unsupported goal checker {get("plugin")!r}')
+        plugin = get('plugin')
+        if plugin not in ('nav2_controller::SimpleGoalChecker', 'nav2_controller::StoppedGoalChecker'):
+            raise NavigationConfigurationError(f'{checker}: unsupported goal checker {plugin!r}')
         xy = positive_number(get('xy_goal_tolerance'), f'{checker}.xy_goal_tolerance')
         yaw = positive_number(get('yaw_goal_tolerance'), f'{checker}.yaw_goal_tolerance')
         if xy >= position_limit or yaw >= heading_limit:
@@ -47,8 +52,38 @@ def validate_goal_checkers(parameters: dict[str, Any], position_limit: float, he
                 'Configured controller tolerance must be tighter than requested arrival tolerance.')
         if get('symmetric_yaw_tolerance') is True:
             raise NavigationConfigurationError(f'{checker}: symmetric_yaw_tolerance must be false for an exact final heading (including camera direction)')
-        checkers.append({'id': checker, 'xy_goal_tolerance': xy,
-                         'yaw_goal_tolerance': yaw, 'stateful': get('stateful')})
+        checked = {'id': checker, 'xy_goal_tolerance': xy,
+                   'yaw_goal_tolerance': yaw, 'stateful': get('stateful')}
+        if plugin == 'nav2_controller::StoppedGoalChecker':
+            # 위치를 한 번 통과한 뒤 제동 중 벗어난 경우에도 계속 검사해야 합니다.
+            if get('stateful') is not False:
+                raise NavigationConfigurationError(f'{checker}: StoppedGoalChecker requires stateful=false')
+            linear = positive_number(get('trans_stopped_velocity'), f'{checker}.trans_stopped_velocity')
+            angular = positive_number(get('rot_stopped_velocity'), f'{checker}.rot_stopped_velocity')
+            linear_limit = positive_number(stopped_linear_limit, 'stopped_linear_mps')
+            angular_limit = positive_number(stopped_angular_limit, 'stopped_angular_rps')
+            if linear > linear_limit or angular > angular_limit:
+                raise NavigationConfigurationError(
+                    f'{checker}: Nav2 stopped velocities must not exceed navigation limits: '
+                    f'trans={linear:.4f}m/s (limit={linear_limit:.4f}m/s), '
+                    f'rot={angular:.4f}rad/s (limit={angular_limit:.4f}rad/s)')
+            thresholds = []
+            for key in ('min_x_velocity_threshold', 'min_y_velocity_threshold', 'min_theta_velocity_threshold'):
+                value = parameters.get(key)
+                if (isinstance(value, bool) or not isinstance(value, (int, float))
+                        or not math.isfinite(value) or value < 0):
+                    raise NavigationConfigurationError(
+                        f'controller_server.{key}: expected a nonnegative finite number, got {value!r}')
+                thresholds.append(float(value))
+            # 정지 기준 이상의 운동 전체가 0으로 가려지는 설정을 막습니다.
+            # 일부 축만 가려질 때의 원시 속도·지속 정지는 최종 MotionMonitor가 검사합니다.
+            if math.hypot(*thresholds[:2]) >= linear or thresholds[2] >= angular:
+                raise NavigationConfigurationError(
+                    f'{checker}: controller velocity masking thresholds must be below stopped velocities: '
+                    f'planar={math.hypot(*thresholds[:2]):.4f}m/s (stopped={linear:.4f}m/s), '
+                    f'angular={thresholds[2]:.4f}rad/s (stopped={angular:.4f}rad/s)')
+            checked.update(trans_stopped_velocity=linear, rot_stopped_velocity=angular)
+        checkers.append(checked)
     return checkers
 
 

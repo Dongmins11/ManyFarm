@@ -1,0 +1,414 @@
+{
+  "date": "2026-10-14",
+  "scope": "Analysis only. Existing six Nav2 trials plus six isolated fixed-command Isaac trials. No production code, runtime configuration, thresholds or USD edits.",
+  "conclusion_ko": "6~7도는 실제 차체 과회전이며 최종 허용 2.865도를 넘는다. 저속 구동 응답 저하와 PI 보정 누적, 측정 속도를 따르는 RPP 감속 제한, 정지 확인 없는 Nav2 순간 도착 판정 뒤 제동 지연이 연결된다. 저속 구동 저항의 정확한 접촉/물성 원인은 아직 미확정이다.",
+  "confirmed": [
+    "Final arrival check waits for stopped odometry for 0.8 simulation seconds, then checks pose at that stamp. It correctly rejects >0.05rad yaw error.",
+    "All six trials map/world stopped yaw differ by at most 0.184deg at nearest samples within 0.134 simulation seconds. Failed trials applied zero AprilTag corrections.",
+    "At fixed cmd_w=-0.06, nominal wheel target magnitude is 0.156496rad/s. Before failures, simulator PI wheel targets reach 1.81/1.89/1.99rad/s while motion is initially small.",
+    "RPP rotate_to_heading_angular_vel=0.06 is a desired value, not a hard cap. Installed Nav2 1.3.12 clamps desired angular command to measured odom_w plus/minus max_angular_accel/control_frequency (1.2/20=0.06), then applies an angle-based stopping cap. This permits approximately -0.30 commands when measured velocity is approximately -0.36.",
+    "Selected SimpleGoalChecker checks position/yaw and ignores twist. Nav2 can succeed during passage through target heading, after which the separate final arrival check finds braking overshoot.",
+    "Zero command resets PI integral and applies reverse braking targets. Overshoot is not caused by an integral that remains accumulated after stop.",
+    "Fixed-command trials without ROS/Nav2 reproduced severe low-speed response loss at about -71deg both near the bed and at the station. Station initial -90deg responds much better. Each condition is a single trial, and spawning fresh is not an exact replay of arrival contact history.",
+    "Removing PI also severely reduces rotation at the normal station pose on CPU and GPU; disabling PI is not a demonstrated fix."
+  ],
+  "representative_gpu03": {
+    "source": "sim/runs/drive_diagnostics/b0367c609ac447c28e4a77ea5dfc9097/harvest_01.jsonl",
+    "samples": [
+      {
+        "sim_s": 112.32083919132128,
+        "yaw_deg": -71.02846368511946,
+        "yaw_error_deg": 18.971536314880545,
+        "odom_yaw_deg": 19.044621755824757,
+        "odom_wz": -0.016489199322836334,
+        "cmd_wz": -0.06,
+        "target_wheels": [
+          -0.1564963503649635,
+          0.1564963503649635
+        ],
+        "applied_wheels": [
+          -1.961888626006113,
+          1.9886591800544755
+        ],
+        "received_age_s": 0.05772111495025456
+      },
+      {
+        "sim_s": 112.6208392069675,
+        "yaw_deg": -72.2076170729992,
+        "yaw_error_deg": 17.792382927000794,
+        "odom_yaw_deg": 17.78312819101204,
+        "odom_wz": -0.13865475111609538,
+        "cmd_wz": -0.06,
+        "target_wheels": [
+          -0.1564963503649635,
+          0.1564963503649635
+        ],
+        "applied_wheels": [
+          -1.7373613172246742,
+          1.755292124079802
+        ],
+        "received_age_s": 0.05928524804767221
+      },
+      {
+        "sim_s": 112.90417255507782,
+        "yaw_deg": -75.20631223558706,
+        "yaw_error_deg": 14.79368776441293,
+        "odom_yaw_deg": 14.674313858291173,
+        "odom_wz": -0.24393313334674982,
+        "cmd_wz": -0.18573136924496195,
+        "target_wheels": [
+          -0.48443802391873286,
+          0.48443802391873286
+        ],
+        "applied_wheels": [
+          -2.060858473075994,
+          1.9362262190745325
+        ],
+        "received_age_s": 0.048324604984372854
+      },
+      {
+        "sim_s": 113.22083923825994,
+        "yaw_deg": -80.39876650622647,
+        "yaw_error_deg": 9.601233493773535,
+        "odom_yaw_deg": 8.969055107962511,
+        "odom_wz": -0.34403138959688906,
+        "cmd_wz": -0.23103090594692294,
+        "target_wheels": [
+          -0.6025915600367431,
+          0.6025915600367431
+        ],
+        "applied_wheels": [
+          -1.8498188462864107,
+          1.5940493713310817
+        ],
+        "received_age_s": 0.05745063500944525
+      },
+      {
+        "sim_s": 113.52083925390616,
+        "yaw_deg": -86.63018689488578,
+        "yaw_error_deg": 3.3698131051142206,
+        "odom_yaw_deg": 2.537523496849939,
+        "odom_wz": -0.37847775340346407,
+        "cmd_wz": -0.3001284031311165,
+        "target_wheels": [
+          -0.7828166621814037,
+          0.7828166621814037
+        ],
+        "applied_wheels": [
+          -1.7976623273060426,
+          1.6098348852181295
+        ],
+        "received_age_s": 0.05625243205577135
+      },
+      {
+        "sim_s": 113.82083926955238,
+        "yaw_deg": -92.87154022278118,
+        "yaw_error_deg": -2.871540222781184,
+        "odom_yaw_deg": -2.9040109169252233,
+        "odom_wz": -0.25232855721617664,
+        "cmd_wz": 0.0,
+        "target_wheels": [
+          -0.0,
+          -0.0
+        ],
+        "applied_wheels": [
+          0.8021937744264884,
+          -0.5618312579187349
+        ],
+        "received_age_s": 0.05475198500789702
+      },
+      {
+        "sim_s": 114.1208392851986,
+        "yaw_deg": -96.35315684136627,
+        "yaw_error_deg": -6.353156841366275,
+        "odom_yaw_deg": -6.047247178034859,
+        "odom_wz": -0.13072092644919048,
+        "cmd_wz": 0.0,
+        "target_wheels": [
+          -0.0,
+          -0.0
+        ],
+        "applied_wheels": [
+          0.39353493822251306,
+          -0.393673580320981
+        ],
+        "received_age_s": 0.30556899798102677
+      },
+      {
+        "sim_s": 114.42083930084482,
+        "yaw_deg": -97.63762956969512,
+        "yaw_error_deg": -7.637629569695124,
+        "odom_yaw_deg": -7.243386992275788,
+        "odom_wz": -0.02727921458111863,
+        "cmd_wz": 0.0,
+        "target_wheels": [
+          -0.0,
+          -0.0
+        ],
+        "applied_wheels": [
+          0.15157483936082883,
+          -0.09747031864899164
+        ],
+        "received_age_s": 1.352168929995969
+      }
+    ],
+    "first_logged_zero_to_peak_extra_rotation_deg": 4.76608934691394,
+    "first_zero_odom_angular_speed_deg_s": 14.457361379112234,
+    "warning": "Existing diagnostics are sampled about once per wall second. First logged zero is not exact first zero command time; sampled post-zero additional rotation is a lower bound."
+  },
+  "original_six_trial_pose_checks": [
+    {
+      "case": "cpu_01",
+      "result": "FAILED",
+      "nav_status": "INTERRUPTED",
+      "settled_stamp_s": 91.654171447,
+      "measured_map_yaw_deg": -96.12393346014362,
+      "nearest_world_sim_s": 91.63750477926806,
+      "world_yaw_deg": -96.28795590567968,
+      "map_world_yaw_difference_deg": 0.16402244553605938,
+      "diag_file": "sim/runs/drive_diagnostics/c3cb711046564f5c91a7bc7c538d4a2e/harvest_01.jsonl",
+      "goal_log": {
+        "line": 2430,
+        "text": "[controller_server-24] [INFO] [1791938085.332402275] [harvest_01.controller_server]: Reached the goal!"
+      },
+      "tag_corrections_applied": 0
+    },
+    {
+      "case": "gpu_01",
+      "result": "SUCCESS",
+      "nav_status": "ARRIVED",
+      "settled_stamp_s": 122.887506409,
+      "measured_map_yaw_deg": -90.3651005406667,
+      "nearest_world_sim_s": 122.75417306879535,
+      "world_yaw_deg": -90.33672745086156,
+      "map_world_yaw_difference_deg": -0.028373089805139345,
+      "diag_file": "sim/runs/drive_diagnostics/732bfcd4c613487495a77a1799b56754/harvest_01.jsonl",
+      "goal_log": {
+        "line": 3123,
+        "text": "[controller_server-24] [INFO] [1791938564.400436719] [harvest_01.controller_server]: Reached the goal!"
+      },
+      "tag_corrections_applied": 4
+    },
+    {
+      "case": "gpu_02",
+      "result": "SUCCESS",
+      "nav_status": "ARRIVED",
+      "settled_stamp_s": 100.987505267,
+      "measured_map_yaw_deg": -91.91202657552397,
+      "nearest_world_sim_s": 100.93750526430085,
+      "world_yaw_deg": -92.06150158362426,
+      "map_world_yaw_difference_deg": 0.14947500810028883,
+      "diag_file": "sim/runs/drive_diagnostics/e37c427e4e8d484fbb915269ea7f26a7/harvest_01.jsonl",
+      "goal_log": {
+        "line": 2683,
+        "text": "[controller_server-24] [INFO] [1791940823.262189436] [harvest_01.controller_server]: Reached the goal!"
+      },
+      "tag_corrections_applied": 7
+    },
+    {
+      "case": "cpu_02",
+      "result": "SUCCESS",
+      "nav_status": "ARRIVED",
+      "settled_stamp_s": 87.520837898,
+      "measured_map_yaw_deg": -90.82820554355884,
+      "nearest_world_sim_s": 87.6375045706518,
+      "world_yaw_deg": -90.64439284850805,
+      "map_world_yaw_difference_deg": -0.1838126950507985,
+      "diag_file": "sim/runs/drive_diagnostics/2dc1cb56db5544e4b94166991f7d26f7/harvest_01.jsonl",
+      "goal_log": {
+        "line": 2301,
+        "text": "[controller_server-24] [INFO] [1791941162.363626120] [harvest_01.controller_server]: Reached the goal!"
+      },
+      "tag_corrections_applied": 11
+    },
+    {
+      "case": "cpu_03",
+      "result": "FAILED",
+      "nav_status": "INTERRUPTED",
+      "settled_stamp_s": 95.387504975,
+      "measured_map_yaw_deg": -96.50390579973502,
+      "nearest_world_sim_s": 95.4375049774535,
+      "world_yaw_deg": -96.62621246335182,
+      "map_world_yaw_difference_deg": 0.12230666361679438,
+      "diag_file": "sim/runs/drive_diagnostics/3f4386c4d0904d758de20a2a9e227a17/harvest_01.jsonl",
+      "goal_log": {
+        "line": 2605,
+        "text": "[controller_server-24] [INFO] [1791941477.258556014] [harvest_01.controller_server]: Reached the goal!"
+      },
+      "tag_corrections_applied": 0
+    },
+    {
+      "case": "gpu_03",
+      "result": "FAILED",
+      "nav_status": "INTERRUPTED",
+      "settled_stamp_s": 115.887506044,
+      "measured_map_yaw_deg": -97.3142600268986,
+      "nearest_world_sim_s": 115.90417271154001,
+      "world_yaw_deg": -97.44773970383531,
+      "map_world_yaw_difference_deg": 0.1334796769367222,
+      "diag_file": "sim/runs/drive_diagnostics/b0367c609ac447c28e4a77ea5dfc9097/harvest_01.jsonl",
+      "goal_log": {
+        "line": 2950,
+        "text": "[controller_server-24] [INFO] [1791941924.642384100] [harvest_01.controller_server]: Reached the goal!"
+      },
+      "tag_corrections_applied": 0
+    }
+  ],
+  "isolated_protocol": {
+    "command": "linear=0, angular=-0.06rad/s for 8sim seconds, then zero; 14sim-second bounded execution; full fleet/cameras, physics60Hz; no ROS/Nav2; fresh PI each process",
+    "expected_rotation_deg": 27.50197560061924,
+    "repetitions_per_condition": 1,
+    "spawns": "Default station (-2,13.25), yaw=-90deg; captured failure entry (-6.02047,10.74631), yaw=-71.028deg; heading-only station same XY as default but yaw=-71.028deg.",
+    "termination": "All six bounded runs completed, then app.close wait required SIGTERM (-15). Not a clean shutdown validation."
+  },
+  "isolated_results": [
+    {
+      "case": "cpu_turn_pi",
+      "command_rad_s": -0.06,
+      "actual_command_duration_sim_s": 8.000000417232513,
+      "commanded_rotation_deg": -27.50197560061924,
+      "final_rotation_deg": -23.566567990017603,
+      "rotation_after_first_zero_sample_deg": 0.3101194607360986,
+      "maximum_actual_angular_velocity_rad_s": 0.07430010288953781,
+      "maximum_integral_rad_s": 0.7173100531944506,
+      "maximum_joint_target_rad_s": 1.0051962455481689,
+      "zero_command_sim_s": 9.037500471342355,
+      "actual_velocity_at_first_zero_sample_rad_s": -0.012002112343907356,
+      "no_ros_nav2": true,
+      "bounded_run_completed": true,
+      "process_exit_code": -15,
+      "initial_world_xy_m": [
+        -1.999999761581421,
+        13.25000286102295
+      ],
+      "initial_world_yaw_deg": -89.99131786176068
+    },
+    {
+      "case": "cpu_turn_no_servo",
+      "command_rad_s": -0.06,
+      "actual_command_duration_sim_s": 8.000000417232513,
+      "commanded_rotation_deg": -27.50197560061924,
+      "final_rotation_deg": -1.6103307321595364,
+      "rotation_after_first_zero_sample_deg": 0.04476492948645061,
+      "maximum_actual_angular_velocity_rad_s": 0.014859890565276146,
+      "maximum_integral_rad_s": null,
+      "maximum_joint_target_rad_s": 0.1564963503649635,
+      "zero_command_sim_s": 9.037500471342355,
+      "actual_velocity_at_first_zero_sample_rad_s": -0.002105527091771364,
+      "no_ros_nav2": true,
+      "bounded_run_completed": true,
+      "process_exit_code": -15,
+      "initial_world_xy_m": [
+        -1.999999761581421,
+        13.25000286102295
+      ],
+      "initial_world_yaw_deg": -89.99131786176068
+    },
+    {
+      "case": "gpu_turn_pi",
+      "command_rad_s": -0.06,
+      "actual_command_duration_sim_s": 8.000000417232513,
+      "commanded_rotation_deg": -27.50197560061924,
+      "final_rotation_deg": -26.41388032436467,
+      "rotation_after_first_zero_sample_deg": 0.010272394392527034,
+      "maximum_actual_angular_velocity_rad_s": 0.07712702453136444,
+      "maximum_integral_rad_s": 0.39067728228597837,
+      "maximum_joint_target_rad_s": 0.5603399062363807,
+      "zero_command_sim_s": 9.037500471342355,
+      "actual_velocity_at_first_zero_sample_rad_s": -0.048129692673683167,
+      "no_ros_nav2": true,
+      "bounded_run_completed": true,
+      "process_exit_code": -15,
+      "initial_world_xy_m": [
+        -1.999999761581421,
+        13.250001907348633
+      ],
+      "initial_world_yaw_deg": -89.99415784261764
+    },
+    {
+      "case": "gpu_turn_no_servo",
+      "command_rad_s": -0.06,
+      "actual_command_duration_sim_s": 8.000000417232513,
+      "commanded_rotation_deg": -27.50197560061924,
+      "final_rotation_deg": -0.09144313165574101,
+      "rotation_after_first_zero_sample_deg": 0.09106774172966614,
+      "maximum_actual_angular_velocity_rad_s": 0.007891068235039711,
+      "maximum_integral_rad_s": null,
+      "maximum_joint_target_rad_s": 0.1564963503649635,
+      "zero_command_sim_s": 9.037500471342355,
+      "actual_velocity_at_first_zero_sample_rad_s": 0.0012268074788153172,
+      "no_ros_nav2": true,
+      "bounded_run_completed": true,
+      "process_exit_code": -15,
+      "initial_world_xy_m": [
+        -1.999999761581421,
+        13.250001907348633
+      ],
+      "initial_world_yaw_deg": -89.99415784261764
+    },
+    {
+      "case": "cpu_entry_pi",
+      "command_rad_s": -0.06,
+      "actual_command_duration_sim_s": 8.000000417232513,
+      "commanded_rotation_deg": -27.50197560061924,
+      "final_rotation_deg": -0.799572737679152,
+      "rotation_after_first_zero_sample_deg": 0.11506002628064453,
+      "maximum_actual_angular_velocity_rad_s": 0.0569470152258873,
+      "maximum_integral_rad_s": 2.0,
+      "maximum_joint_target_rad_s": 2.1564963503649635,
+      "zero_command_sim_s": 9.037500471342355,
+      "actual_velocity_at_first_zero_sample_rad_s": 0.01709340512752533,
+      "no_ros_nav2": true,
+      "bounded_run_completed": true,
+      "process_exit_code": -15,
+      "initial_world_xy_m": [
+        -6.020457744598389,
+        10.746309280395508
+      ],
+      "initial_world_yaw_deg": -71.0201668224847
+    },
+    {
+      "case": "cpu_heading_pi",
+      "command_rad_s": -0.06,
+      "actual_command_duration_sim_s": 8.000000417232513,
+      "commanded_rotation_deg": -27.50197560061924,
+      "final_rotation_deg": -0.6898913486689017,
+      "rotation_after_first_zero_sample_deg": 0.22773223601945933,
+      "maximum_actual_angular_velocity_rad_s": 0.05600140616297722,
+      "maximum_integral_rad_s": 2.0,
+      "maximum_joint_target_rad_s": 2.1564963503649635,
+      "zero_command_sim_s": 9.037500471342355,
+      "actual_velocity_at_first_zero_sample_rad_s": 0.016881227493286133,
+      "no_ros_nav2": true,
+      "bounded_run_completed": true,
+      "process_exit_code": -15,
+      "initial_world_xy_m": [
+        -1.999987244606018,
+        13.250000953674316
+      ],
+      "initial_world_yaw_deg": -71.020159405754
+    }
+  ],
+  "unresolved": [
+    "Exact physical mechanism producing orientation-dependent low-speed resistance: runtime wheel/contact forces, effective joint drive response and solver/contact behavior have not been measured separately.",
+    "Authored caster zero-friction patch exists. Static body/wheel collision bounds do not indicate a bed hit; runtime arm contact is not fully reconstructed. Heading-only station experiment weakens bed-position-only explanation.",
+    "CPU/GPU affect wall FPS and ROS-wall/simulation timing. Both backends have failures, so neither a CPU-only defect nor equal backend reliability is established.",
+    "New fixed-command experiments reproduce resistance and PI saturation, not the complete original Nav2 overshoot trajectory."
+  ],
+  "recommended_next_step_ko": "D-027 후속 방향: 실패 조건과 허용치를 유지한다. 실물 회전 명령·측정 속도·잔류 회전량과 시뮬을 비교해 모델 타당성을 확인하고, 현실적인 지연·포화·제동 편차에서 공통 감속/정지 완료 계약을 검증한다. 시뮬 PI만 바꾸어 성공시키는 것을 해결로 간주하지 않는다. 좁은 구간 자동 재정렬은 회전 공간 검증 없이 추가하지 않는다.",
+  "local_sources": [
+    "sim/ros_ws/src/farm_sim_devices/farm_sim_devices/base_sim.py:27",
+    "sim/ros_ws/src/farm_sim_devices/farm_sim_devices/wheel_servo.py:18",
+    "sim/ros_ws/src/farm_sim_config/config/nav2_harvest.yaml:98",
+    "robot/ros_ws/src/farm_navigation/farm_navigation/navigator.py:148",
+    "robot/ros_ws/src/farm_navigation/farm_navigation/motion_monitor.py:42",
+    "robot/ros_ws/src/farm_navigation/farm_navigation/arrival.py:36"
+  ],
+  "official_sources": [
+    "https://github.com/ros-navigation/navigation2/blob/1.3.12/nav2_regulated_pure_pursuit_controller/src/regulated_pure_pursuit_controller.cpp#L310",
+    "https://github.com/ros-navigation/navigation2/blob/1.3.12/nav2_controller/plugins/simple_goal_checker.cpp#L96"
+  ],
+  "raw_directory": "sim/runs/rotation_root_cause_20261014",
+  "plot": "sim/docs/changes/ROTATION_OVERSHOOT_20261014.png",
+  "regression_test": "sim/tests/test_recorded_arrival_overshoot.py (6 recorded arrival conditions; mocked I/O, actual shared Navigator; no physics/Nav2 replay)"
+}

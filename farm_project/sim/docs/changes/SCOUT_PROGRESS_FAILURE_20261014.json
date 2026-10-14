@@ -1,0 +1,283 @@
+{
+  "date": "2026-10-14",
+  "scope": "read_only_user_scout_failure_audit",
+  "survey_session": "3917fe5a2e43",
+  "physics_device": "cpu (confirmed from live launch and simulator process arguments)",
+  "rviz": true,
+  "error_code": 105,
+  "nav2_error": "FAILED_TO_MAKE_PROGRESS",
+  "controller_error_wall_kst": "2026-10-14 14:15:37.907",
+  "completed_segments": 2,
+  "failed_goal": {
+    "x": -6.655,
+    "y": 6.0,
+    "yaw": -1.5707963267948966
+  },
+  "runtime_parameters": {
+    "RPP.stateful": true,
+    "goal_checker.xy_goal_tolerance": 0.03,
+    "progress_checker.required_movement_radius": 0.1,
+    "progress_checker.movement_time_allowance": 10.0
+  },
+  "stationary_interval": {
+    "start_sim_s": 127.97084000753239,
+    "end_sim_s": 135.40417372854427,
+    "maximum_displacement_m": 1.8275993248688507e-05,
+    "world_last_xy": [
+      -6.6486687660217285,
+      6.02284574508667
+    ],
+    "world_last_goal_distance_m": 0.02370680476683278,
+    "world_yaw_deg_range": [
+      -89.5345699514279,
+      -89.16885150973687
+    ],
+    "linear_command_range": [
+      0.0,
+      0.0
+    ],
+    "angular_command_range": [
+      -0.13139760698811973,
+      0.17816529754737295
+    ],
+    "maximum_command_age_wall_s": 0.10002234496641904
+  },
+  "tag_requests_near_failure": [
+    {
+      "sequence": 58,
+      "sim_time_s": 127.637506657,
+      "before_map": [
+        -6.652410017571949,
+        6.0398240544990225,
+        -1.571739072374668
+      ],
+      "requested_map": [
+        -6.667240031615359,
+        6.047040976111775,
+        -1.5765708141703996
+      ],
+      "before_goal_distance_m": 0.03990818619930913
+    },
+    {
+      "sequence": 59,
+      "sim_time_s": 128.337506693,
+      "before_map": [
+        -6.652410017690247,
+        6.039823928614069,
+        -1.5716860629838376
+      ],
+      "requested_map": [
+        -6.664599031025318,
+        6.046493495247992,
+        -1.5762518928617477
+      ],
+      "before_goal_distance_m": 0.039908060572061456
+    },
+    {
+      "sequence": 60,
+      "sim_time_s": 129.137506735,
+      "before_map": [
+        -6.658656436090695,
+        6.048212545041499,
+        -1.5718836968651642
+      ],
+      "requested_map": [
+        -6.667276157354921,
+        6.0493317323401925,
+        -1.5752391774710284
+      ],
+      "before_goal_distance_m": 0.04835099817236396
+    },
+    {
+      "sequence": 61,
+      "sim_time_s": 129.737506766,
+      "before_map": [
+        -6.6530077190439645,
+        6.048759289285309,
+        -1.5717348781663394
+      ],
+      "requested_map": [
+        -6.664154481579461,
+        6.046049497730332,
+        -1.572191760146984
+      ],
+      "before_goal_distance_m": 0.04879997412925785
+    },
+    {
+      "sequence": 62,
+      "sim_time_s": 130.237506792,
+      "before_map": [
+        -6.659049679429209,
+        6.052637556658572,
+        -1.5698709789301493
+      ],
+      "requested_map": [
+        -6.666893537592085,
+        6.046299040296615,
+        -1.569883299747902
+      ],
+      "before_goal_distance_m": 0.05279310820991484
+    },
+    {
+      "sequence": 63,
+      "sim_time_s": 130.737506818,
+      "before_map": [
+        -6.659020265605823,
+        6.048705674294505,
+        -1.5706073892121852
+      ],
+      "requested_map": [
+        -6.666892032303027,
+        6.044669194866502,
+        -1.5705620557040971
+      ],
+      "before_goal_distance_m": 0.04887131309903318
+    },
+    {
+      "sequence": 64,
+      "sim_time_s": 131.33750685,
+      "before_map": [
+        -6.656694544254585,
+        6.049906180194348,
+        -1.5709483015905612
+      ],
+      "requested_map": [
+        -6.665302435601204,
+        6.042385842634539,
+        -1.5683038976652455
+      ],
+      "before_goal_distance_m": 0.04993494069107836
+    },
+    {
+      "sequence": 65,
+      "sim_time_s": 131.937506881,
+      "before_map": [
+        -6.658652290523232,
+        6.043958645720451,
+        -1.5690959848693322
+      ],
+      "requested_map": [
+        -6.666088391006486,
+        6.041028905229961,
+        -1.5687285274942562
+      ],
+      "before_goal_distance_m": 0.044110109494788594
+    },
+    {
+      "sequence": 66,
+      "sim_time_s": 132.537506912,
+      "before_map": [
+        -6.656539181231292,
+        6.048344350571483,
+        -1.5673159926848153
+      ],
+      "requested_map": [
+        -6.661325930582184,
+        6.0430951084094,
+        -1.5703605622197916
+      ],
+      "before_goal_distance_m": 0.04836884649277074
+    },
+    {
+      "sequence": 67,
+      "sim_time_s": 133.137506944,
+      "before_map": [
+        -6.661635402208251,
+        6.0360298027353885,
+        -1.5703634736638734
+      ],
+      "requested_map": [
+        -6.669527037078257,
+        6.045028004566992,
+        -1.5791108724755718
+      ],
+      "before_goal_distance_m": 0.03663571000562521
+    },
+    {
+      "sequence": 68,
+      "sim_time_s": 133.83750698,
+      "before_map": [
+        -6.658700506090222,
+        6.045933562466756,
+        -1.5684899661345453
+      ],
+      "requested_map": [
+        -6.6682342416006515,
+        6.048873238114912,
+        -1.5772429641078691
+      ],
+      "before_goal_distance_m": 0.046082381733273156
+    },
+    {
+      "sequence": 69,
+      "sim_time_s": 134.737507027,
+      "before_map": [
+        -6.6588374548370854,
+        6.0455826447867835,
+        -1.5737572836457145
+      ],
+      "requested_map": [
+        -6.667714369589568,
+        6.032941630596856,
+        -1.5648441660168253
+      ],
+      "before_goal_distance_m": 0.04574389101710471
+    },
+    {
+      "sequence": 70,
+      "sim_time_s": 135.437507064,
+      "before_map": [
+        -6.664438261533764,
+        6.05353783535047,
+        -1.5690356304765471
+      ],
+      "requested_map": [
+        -6.670611736178748,
+        6.051548714117994,
+        -1.5755502378144248
+      ],
+      "before_goal_distance_m": 0.05436341228063015
+    },
+    {
+      "sequence": 71,
+      "sim_time_s": 135.93750709,
+      "before_map": [
+        -6.661301450756808,
+        6.037115721490549,
+        -1.5727635499071524
+      ],
+      "requested_map": [
+        -6.670111236684835,
+        6.040866223463925,
+        -1.5753328458258324
+      ],
+      "before_goal_distance_m": 0.03764684665950759
+    }
+  ],
+  "tag_corrections_applied": 70,
+  "diagnosis": {
+    "confirmed": "Nav2 itself aborted its third FollowPath with progress failure before common post-arrival residual processing. Near goal, nonzero angular commands continued while linear command and physical displacement were effectively zero. Tag/AMCL map estimates remained outside 3cm.",
+    "leading_inference": "RPP stateful XY latch retained rotation-only mode after localization moved outside the goal window, leaving Nav2 unable to finish. Command pattern and source support this, but internal latch and per-cycle goal checker values were not recorded.",
+    "not_proven": [
+      "CPU-specific regression",
+      "Exact contribution of simulated low-speed wheel response",
+      "AprilTag pose accuracy",
+      "A fix verified by fresh Isaac replay"
+    ]
+  },
+  "recent_changes": {
+    "common_post_stop_gate": "Not reached by the failed action; prior two arrivals passed original measurements too.",
+    "harvest_settling_plugin": "Not selected by scout; existing built-in RPP is active.",
+    "scout_nav2_config": "No git diff against HEAD."
+  },
+  "recommended_next": "Validate current-position tracking after tag correction instead of retaining the previous RPP XY arrival latch, at unchanged CPU backend and goal tolerances. Do not mask via longer progress timeout or convert Nav2 failure to success.",
+  "sources": {
+    "survey": "sim/runs/scout_survey/3917fe5a2e43/survey.json",
+    "drive": "sim/runs/drive_diagnostics/ed71c152066e4b218c3660389e930c64/scout_01.jsonl",
+    "tags": "sim/runs/apriltag/94bce9cf7c634d2db26345ea6ecf5700/amcl_tag_c443bb3312a748f9874d9899e4cae7ec/events.jsonl",
+    "controller_log": "/home/ysy/.ros/log/controller_server_3601808_1791954630557.log:95",
+    "rpp_source": "https://raw.githubusercontent.com/ros-navigation/navigation2/1.3.12/nav2_regulated_pure_pursuit_controller/src/regulated_pure_pursuit_controller.cpp"
+  },
+  "code_changes": false,
+  "physical_or_sim_motion_requested": false
+}

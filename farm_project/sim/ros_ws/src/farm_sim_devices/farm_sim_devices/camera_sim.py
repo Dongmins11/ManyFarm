@@ -8,7 +8,7 @@ class CameraSim:
     def __init__(self,prim_path,config,session,optical_frame,T_base_optical):
         from isaacsim.sensors.camera import Camera
         self.config=config
-        self.camera=Camera(prim_path=prim_path,name='scout_rgbd',frequency=config['fps'],
+        self.camera=Camera(prim_path=prim_path,name=config['shm_name'],frequency=config['fps'],
                            resolution=(config['width'],config['height']))
         self.session,self.optical_frame=session,optical_frame
         self.T_base_optical=T_base_optical
@@ -35,21 +35,23 @@ class CameraSim:
         depth=frame.get('distance_to_image_plane')
         rgb_only=self.config.get('render_rgb_only',False)
         if rgb_only:
-            # 공통 전송 버퍼의 depth 영역은 미사용 NaN. 웹캠 깊이 센서를 흉내내지 않습니다.
-            depth=np.full((self.config['height'],self.config['width']),np.nan,dtype=np.float32)
-        if rgb is None or depth is None:return False
-        rgb=np.asarray(rgb);depth=np.asarray(depth)
+            # writer가 기존 RGB-D 규격의 NaN 영역을 재사용한다.
+            depth=None
+        if rgb is None or (depth is None and not rgb_only):return False
+        rgb=np.asarray(rgb)
         h,w=self.config['height'],self.config['width']
-        if rgb.ndim!=3 or rgb.shape[:2]!=(h,w) or rgb.shape[2]<3 or depth.shape!=(h,w):return False
+        if rgb.ndim!=3 or rgb.shape[:2]!=(h,w) or rgb.shape[2]<3:return False
+        if not rgb_only and np.shape(depth)!=(h,w):return False
         if not pose_history:return False
         sample=min(pose_history,key=lambda p:abs(p[0]-stamp))
         if abs(sample[0]-stamp)>tolerance:return False  # 현재 시각으로 대체하지 않음
         x,y,yaw=sample[1][:3]
         c,s=math.cos(yaw),math.sin(yaw)
         T_odom_base=np.array([[c,-s,0,x],[s,c,0,y],[0,0,1,0],[0,0,0,1]],dtype=float)
-        depth=np.array(depth,dtype=np.float32,copy=True)
-        valid=np.isfinite(depth)&(depth>=self.config['depth_min_m'])&(depth<=self.config['depth_max_m'])
-        depth[~valid]=np.nan
+        if not rgb_only:
+            depth=np.array(depth,dtype=np.float32,copy=True)
+            valid=np.isfinite(depth)&(depth>=self.config['depth_min_m'])&(depth<=self.config['depth_max_m'])
+            depth[~valid]=np.nan
         meta=dict(session=self.session,stamp_ns=round(stamp*1e9),frame_id=self.optical_frame,
                   pose_stamp_ns=round(sample[0]*1e9),pose_frame=self.config['odom_frame'],
                   T_odom_camera_optical=(T_odom_base@self.T_base_optical).tolist(),

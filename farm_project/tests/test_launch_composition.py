@@ -30,8 +30,9 @@ class Opaque(Record): pass
 
 
 class Configuration:
-    def __init__(self, name: str): self.name = name
-    def perform(self, context: dict) -> str: return context[self.name]
+    def __init__(self, name: str, default=None): self.name, self.default = name, default
+    def perform(self, context: dict) -> str:
+        return context[self.name] if self.name in context else self.default
 
 
 def fake(name: str, **items) -> ModuleType:

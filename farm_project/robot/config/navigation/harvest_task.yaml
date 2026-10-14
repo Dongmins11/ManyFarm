@@ -1,0 +1,8 @@
+# 단계별 주행의 공통 기본값. 환경 파일에서 필요한 설정만 명시적으로 변경할 수 있다.
+schema_version: 1
+movement_mode: route_then_follow
+approach_planner: graph
+approach_controller_id: HarvestApproach
+approach_goal_checker_id: general_goal_checker
+work_controller_id: HarvestWork
+resolve_section_from_goal_pose: true
