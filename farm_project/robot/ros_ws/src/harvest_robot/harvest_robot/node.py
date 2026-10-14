@@ -23,6 +23,7 @@ from .tag_control import TagControl
 from std_msgs.msg import String
 from rclpy.qos import QoSProfile, ReliabilityPolicy, DurabilityPolicy
 from .communication import HarvestCommunication
+from .transfer_communication import TransferCommunication
 from .arm_client import ArmActionClient, ArmActionSettings
 
 
@@ -134,6 +135,7 @@ class HarvestNode(Node):
                 resume_current=work.resume_current if corridors else None)
         self.events = self.create_publisher(String, 'task_events', QoSProfile(
             depth=100, reliability=ReliabilityPolicy.RELIABLE, durability=DurabilityPolicy.TRANSIENT_LOCAL))
+        self.transfer = TransferCommunication(self)
         self.communication = HarvestCommunication(self)
         self.status_reporter = None
         status_config = self.config.get('status_reporting', {})
@@ -173,6 +175,7 @@ def main(args=None) -> None:
         if node.tag_control is not None:
             node.tag_control.end()
         executor.shutdown()
+        node.transfer.close()
         if node.status_reporter is not None:
             node.status_reporter.close()
         if node.route_planner is not None:

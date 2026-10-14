@@ -7,6 +7,8 @@ find_package(action_msgs REQUIRED)
 find_package(rosidl_default_generators REQUIRED)
 
 rosidl_generate_interfaces(${PROJECT_NAME}
+  "action/DockTransfer.action"
+  "srv/TransferEvent.srv"
   "msg/RobotPose.msg"
   "msg/RobotStatus.msg"
   "msg/HarvestTask.msg"

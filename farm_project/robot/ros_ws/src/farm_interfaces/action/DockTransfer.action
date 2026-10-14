@@ -1,0 +1,27 @@
+# 관제 → 수확. 현재 수확 작업 종료 후 발행한다.
+string robot_id
+string task_id
+string transfer_id
+string transport_robot_id
+int32 expected_count
+string timestamp
+---
+# 수확 → 관제. 세 완료 필드가 모두 true일 때만 SUCCESS다.
+string robot_id
+string task_id
+string transfer_id
+string result_code
+int32 expected_count
+bool transfer_complete
+bool transport_clear
+bool restore_complete
+string error_code
+string error_message
+string timestamp
+---
+# 수확 → 관제. 주기 발행이 아니라 실제 완료 이벤트다.
+string robot_id
+string task_id
+string transfer_id
+string event
+string timestamp
