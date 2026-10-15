@@ -60,7 +60,8 @@ class Navigator:
         return self._graph.plan((float(actual[0,3]),float(actual[1,3])),xy,
                                 self._settings.max_start_distance_m,self._settings.max_goal_distance_m)
 
-    def navigate(self, xy: Sequence[float], yaw: float) -> NavigationResult:
+    def navigate(self, xy: Sequence[float], yaw: float, *,
+                 route_plan: RoutePlan | None = None, reverse: bool = False) -> NavigationResult:
         """I/O 작업 스레드에서 호출합니다. State enter에서 직접 기다리지 않습니다."""
         if not self._lock.acquire(blocking=False):
             raise RuntimeError('이미 이동 요청을 처리 중입니다.')
@@ -78,8 +79,14 @@ class Navigator:
             entry={'request_id':request_id,'goal_map':{'x':target[0],'y':target[1],'yaw':float(yaw)},
                    'mode':self._settings.mode,'status':'PLANNING','started_at':datetime.now(timezone.utc).isoformat()}
             if self._record is not None: self._record(entry)
-            plan = None
-            if self._settings.parallel_approach:
+            if reverse and (route_plan is None or self._settings.mode != 'follow_path'):
+                raise ValueError('후진 실행에는 명시적 FollowPath 경로가 필요합니다.')
+            plan = route_plan
+            if route_plan is not None:
+                if (route_plan.frame_id != self._settings.map_frame or not route_plan.points
+                        or math.dist(route_plan.points[-1], target) > 1e-6):
+                    raise ValueError('제공 경로의 좌표계·종점 불일치')
+            elif self._settings.parallel_approach:
                 if self._settings.mode != 'follow_path':
                     raise ValueError('평행 접근은 follow_path 모드에서만 지원합니다.')
                 current = self._poses.current(self._check)
@@ -139,7 +146,8 @@ class Navigator:
             if plan is not None:
                 plan_id=plan.plan_id
                 entry['route']=asdict(plan)
-                path=build_path(plan,yaw,self._node.get_clock().now().to_msg(),self._settings.path_spacing_m)
+                path=build_path(plan,yaw,self._node.get_clock().now().to_msg(),self._settings.path_spacing_m, reverse=reverse)
+                entry['reverse']=reverse
             # 향후 허가를 연결할 때 이 실행 경계를 사용합니다. 현재는 교통 기능 없음.
             self._check()
             self._status=NavigationStatus(request_id,'MOVING',plan_id)

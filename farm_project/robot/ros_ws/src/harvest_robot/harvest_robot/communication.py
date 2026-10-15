@@ -1,6 +1,8 @@
-"""HarvestTask만 제공하는 통신 계층. 작업은 한 번에 하나만 수락합니다."""
+"""수확 작업 통신. 복귀와의 소유권 교체는 공통 handoff에 위임한다."""
 from datetime import datetime, timezone
 import uuid
+from typing import Any
+from farm_common.action_handoff import ActionInterrupted
 from rclpy.action import ActionServer, GoalResponse, CancelResponse
 from farm_interfaces.action import HarvestTask
 from .contract import validate_task, result_fields, validate_counts
@@ -30,6 +32,8 @@ class HarvestCommunication:
             if (self.node.busy or self.node.blocked or self.node.stopping
                     or goal.harvest_task.task_id in self.node.completed_ids):
                 return GoalResponse.REJECT
+            if not self.node.handoff.reserve('work', goal.harvest_task.task_id):
+                return GoalResponse.REJECT
             self.node.busy = True
         return GoalResponse.ACCEPT
 
@@ -49,7 +53,36 @@ class HarvestCommunication:
         if handle is not None:
             self.feedback(handle)
 
-    def execute(self, handle):
+    def execute(self, handle: Any) -> Any:
+        node, task_id = self.node, handle.request.harvest_task.task_id
+        try:
+            def check() -> None:
+                if handle.is_cancel_requested or node.stopping:
+                    raise ActionInterrupted('수확 작업 시작 전 취소/종료')
+                if node.blocked:
+                    raise RuntimeError('이전 동작 정지 미확인')
+            node.handoff.acquire('work', task_id, check)
+        except Exception as error:
+            code = 'CANCELED' if isinstance(error, ActionInterrupted) else 'FAILED'
+            result = HarvestTask.Result()
+            fields = result_fields(handle.request, code, 'NONE' if code == 'CANCELED' else 'CANCEL_UNCONFIRMED', str(error))
+            fields['timestamp'] = timestamp()
+            for name, value in fields.items():
+                setattr(result, name, value)
+            if handle.is_cancel_requested:
+                handle.canceled()
+            else:
+                handle.abort()
+            with node.lock:
+                node.busy = False
+            node.handoff.release('work', task_id)
+            return result
+        try:
+            return self._execute_work(handle)
+        finally:
+            node.handoff.release('work', task_id)
+
+    def _execute_work(self, handle: Any) -> Any:
         node, goal = self.node, handle.request
         node.active_goal = handle
         node.navigation_log = []
@@ -91,9 +124,12 @@ class HarvestCommunication:
                 handle.abort()
         except MissionCanceled as error:
             error_message = str(error)
-            if handle.is_cancel_requested and not node.blocked:
+            if (handle.is_cancel_requested or node.handoff.work_interrupted) and not node.blocked:
                 code, error_code = 'CANCELED', 'NONE'
-                handle.canceled()
+                if handle.is_cancel_requested:
+                    handle.canceled()
+                else:
+                    handle.abort()
             else:
                 code, error_code = 'FAILED', 'SHUTDOWN'
                 handle.abort()

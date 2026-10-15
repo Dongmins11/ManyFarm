@@ -11,7 +11,8 @@ find_package(pluginlib REQUIRED)
 find_package(tf2 REQUIRED)
 find_package(tf2_geometry_msgs REQUIRED)
 
-add_library(${PROJECT_NAME} SHARED src/settling_regulated_pure_pursuit_controller.cpp)
+add_library(${PROJECT_NAME} SHARED src/settling_regulated_pure_pursuit_controller.cpp
+  src/reverse_regulated_pure_pursuit_controller.cpp)
 target_include_directories(${PROJECT_NAME} PUBLIC
   $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
   $<INSTALL_INTERFACE:include>)

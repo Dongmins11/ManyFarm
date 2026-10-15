@@ -4,4 +4,8 @@
     base_class_type="nav2_core::Controller">
     <description>RPP 경로·충돌 검사를 유지하며 목표 위치와 방향 허용치 안에서 정지를 명령한다.</description>
   </class>
+  <class name="farm_nav2_controller::ReverseRegulatedPurePursuitController"
+    type="farm_nav2_controller::ReverseRegulatedPurePursuitController" base_class_type="nav2_core::Controller">
+    <description>카메라 방향을 유지하는 스테이션 복귀 전용 후진 RPP.</description>
+  </class>
 </library>

@@ -28,6 +28,8 @@ from farm_navigation.motion_monitor import MotionMonitor
 from farm_navigation.tag_control import TagControl
 from scout_robot.survey_core import StraightBed, Survey
 from .runtime import MissionCanceled
+from farm_common.action_handoff import ActionHandoff
+from farm_common.station_return import StationReturn
 from .scout_mission import ScoutMission
 from .scout_state_controller import ScoutStateController
 from .mission_types import JsonObject
@@ -99,6 +101,7 @@ class ScoutNode(Node):
         # 작업이 기다리는 동안 다른 스레드가 odom·TF·액션 응답을 처리합니다.
         self._cb: ReentrantCallbackGroup = ReentrantCallbackGroup()
         self._lock: LockType = threading.Lock()
+        self._handoff = ActionHandoff()
         self._busy: bool = False
         self._motion_uncertain: bool = False
         self._shutdown_requested: bool = False
@@ -122,6 +125,11 @@ class ScoutNode(Node):
         self._state_controller: ScoutStateController = ScoutStateController(self._mission)
         from .vision_runtime import VisionRuntime
         self._vision = VisionRuntime(self) if not self._readiness_error else None
+        self._station_return = StationReturn(self, root=self._root, profile=self._environment,
+            settings=self._navigation_settings, poses=self._poses, motion=self._motion,
+            callbacks=self._cb, handoff=self._handoff,
+            unavailable=lambda: self._motion_uncertain or self._shutdown_requested,
+            block=lambda: setattr(self, '_motion_uncertain', True), tag_control=self._tag_control)
         self._communication: ScoutCommunication = ScoutCommunication(self, self._state_controller)
         self._state_group: MutuallyExclusiveCallbackGroup = MutuallyExclusiveCallbackGroup()
         self._state_clock: Clock = Clock(clock_type=ClockType.STEADY_TIME)
@@ -140,7 +148,7 @@ class ScoutNode(Node):
             self._markers.publish(self._last_markers)
 
     def check(self) -> None:
-        if self._state_controller.stop_requested or self._shutdown_requested or not rclpy.ok() or (self._active_goal and self._active_goal.is_cancel_requested):
+        if self._handoff.work_interrupted or self._state_controller.stop_requested or self._shutdown_requested or not rclpy.ok() or (self._active_goal and self._active_goal.is_cancel_requested):
             raise MissionCanceled('ScoutArea canceled')
 
     def lookup(self, target: str, source: str, stamp: int) -> NDArray[np.float64]:
@@ -223,7 +231,7 @@ def main(args: list[str] | None = None) -> None:
     signal.signal(signal.SIGINT, stop)
     signal.signal(signal.SIGTERM, stop)
     try:
-        while rclpy.ok() and (not node._shutdown_requested or node._busy):
+        while rclpy.ok() and (not node._shutdown_requested or node._busy or node._handoff.busy):
             executor.spin_once(timeout_sec=0.1)
     finally:
         executor.shutdown()
@@ -233,6 +241,7 @@ def main(args: list[str] | None = None) -> None:
         if node._vision is not None:
             node._vision.close()
         node._communication.close()
+        node._station_return.close()
         node._nav2.close()
         node._motion.close()
         node._poses.close()

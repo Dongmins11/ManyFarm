@@ -38,6 +38,7 @@ class RouteGraph:
         self.parallel_corridors = data.get('metadata', {}).get('parallel_approach_corridors', [])
         self.frame: str = frame
         self.revision: str = hashlib.sha256(raw).hexdigest()
+        self.node_sections: dict[NodeId, str] = {}
         self.nodes: dict[NodeId, Point] = {}
         self.edges: list[Edge] = []
         for feature in data['features']:
@@ -53,6 +54,9 @@ class RouteGraph:
             if len(point) != 2 or not all(map(math.isfinite, point)):
                 raise ValueError('노드 좌표는 유한한 평면 m 좌표여야 합니다.')
             self.nodes[key] = point
+            section = props.get('section', props.get('metadata', {}).get('section'))
+            if isinstance(section, str) and section.strip():
+                self.node_sections[key] = section
         identifiers: set[str] = set()
         for feature in data['features']:
             geom, props = feature['geometry'], feature['properties']
@@ -92,6 +96,22 @@ class RouteGraph:
             raise ValueError(f'위치 {point}가 그래프에서 {limit}m 이상 떨어져 있습니다.')
         nearest = min(item[1] for item in items)
         return [item for item in items if item[1] <= nearest+1e-5]
+
+    def section_at(self, xy: Point, yaw: float, max_distance: float, heading_tolerance: float) -> str | None:
+        """반복 태그 구역은 가장 가까운 작업 엣지와 실제 차체 방향이 맞을 때만 선택한다."""
+        try:
+            candidates = self._candidates(xy, max_distance)
+        except ValueError:
+            return None
+        sections = set()
+        for edge, _, _, _ in candidates:
+            a, b = self.nodes[edge.start], self.nodes[edge.end]
+            heading = math.atan2(b[1]-a[1], b[0]-a[0])
+            section = self.node_sections.get(edge.start)
+            if (section is not None and section == self.node_sections.get(edge.end)
+                    and abs(math.remainder(yaw-heading, 2*math.pi)) <= heading_tolerance):
+                sections.add(section)
+        return next(iter(sections)) if len(sections) == 1 else None
 
     def plan(self, start: Point, goal: Point, max_start: float=.10, max_goal: float=.02) -> RoutePlan:
         """거리 기반 다익스트라 탐색. 교통·장애물 비용이나 진입 허가는 포함하지 않습니다."""

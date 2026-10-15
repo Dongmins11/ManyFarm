@@ -52,6 +52,10 @@ class HarvestStatus:
             busy, blocked, stopping = node.busy, node.blocked, node.stopping
             goal = node.active_goal
             status.current_task_id = goal.request.harvest_task.task_id if goal is not None else ''
+        current = node.handoff.current
+        if current is not None:
+            busy = True
+            status.current_task_id = current[1]
         status.state = 'ERROR' if blocked else 'NAVIGATION_MOVE' if busy else 'IDLE'
         status.ready = False
         errors = []

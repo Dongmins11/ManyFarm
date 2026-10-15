@@ -6,7 +6,7 @@ from nav_msgs.msg import Path
 from .navigation_types import RoutePlan
 
 
-def build_path(plan: RoutePlan, yaw: float, stamp: Time, spacing_m: float=.04) -> Path:
+def build_path(plan: RoutePlan, yaw: float, stamp: Time, spacing_m: float=.04, *, reverse: bool=False) -> Path:
     if not plan.points or not math.isfinite(yaw) or not math.isfinite(spacing_m) or spacing_m<=0:
         raise ValueError('경로·방향·보간 간격이 유효하지 않습니다.')
     result=Path()
@@ -21,7 +21,7 @@ def build_path(plan: RoutePlan, yaw: float, stamp: Time, spacing_m: float=.04) -
         result.poses.append(pose)
     for a,b in zip(plan.points,plan.points[1:]):
         count=max(1,math.ceil(math.dist(a,b)/spacing_m))
-        heading=math.atan2(b[1]-a[1],b[0]-a[0])
+        heading=math.atan2(b[1]-a[1],b[0]-a[0]) + (math.pi if reverse else 0.)
         for i in range(count): add(a[0]+(b[0]-a[0])*i/count,a[1]+(b[1]-a[1])*i/count,heading)
     # 제자리 방향 정렬에도 두 pose를 제공하며 최종 작업 방향을 보존합니다.
     if not result.poses: add(*plan.points[-1],yaw)

@@ -74,6 +74,7 @@ controller_server:
     controller_plugins:
     - FollowPath
     - RPP
+    - StationReverse
     - HarvestApproach
     - HarvestWork
     progress_checker:
@@ -105,7 +106,7 @@ controller_server:
       rotate_to_heading_min_angle: 0.10471975511965978
     progress_checker_plugins:
     - progress_checker
-    RPP:
+    RPP: &rpp_defaults
       plugin: nav2_regulated_pure_pursuit_controller::RegulatedPurePursuitController
       desired_linear_vel: 0.1
       lookahead_dist: 0.4
@@ -121,6 +122,14 @@ controller_server:
       min_approach_linear_velocity: 0.05
       approach_velocity_scaling_dist: 0.6
       rotate_to_heading_min_angle: 0.10471975511965978
+    StationReverse:
+      <<: *rpp_defaults
+      plugin: farm_nav2_controller::ReverseRegulatedPurePursuitController
+      use_rotate_to_heading: false
+      allow_reversing: true
+      use_fixed_curvature_lookahead: false
+      interpolate_curvature_after_goal: false
+      stateful: false
     HarvestApproach:
       plugin: nav2_regulated_pure_pursuit_controller::RegulatedPurePursuitController
       desired_linear_vel: 0.1

@@ -12,6 +12,7 @@ rosidl_generate_interfaces(${PROJECT_NAME}
   "msg/HarvestTask.msg"
   "action/ScoutArea.action"
   "action/HarvestTask.action"
+  "action/ReturnToStation.action"
   "srv/GetHarvestTasks.srv"
   DEPENDENCIES geometry_msgs action_msgs
 )

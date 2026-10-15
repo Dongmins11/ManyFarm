@@ -1,5 +1,6 @@
 """환경 설정에 따라 이동 전용 또는 도착 후 팔 Action 연결을 조립합니다."""
 from pathlib import Path
+from collections.abc import Callable
 import signal
 import threading
 import json
@@ -20,6 +21,8 @@ from farm_navigation.motion_monitor import MotionMonitor
 from farm_navigation.nav2_client import Nav2Client
 from farm_navigation.navigator import Navigator
 from .mission import MissionCanceled
+from farm_common.action_handoff import ActionHandoff
+from farm_common.station_return import StationReturn
 from farm_navigation.tag_control import TagControl
 from std_msgs.msg import String
 from rclpy.qos import QoSProfile, ReliabilityPolicy, DurabilityPolicy
@@ -48,6 +51,7 @@ class HarvestNode(Node):
                             if self.get_parameter('tag_correction').value else None)
         self.callbacks = ReentrantCallbackGroup()
         self.lock = threading.Lock()
+        self.handoff = ActionHandoff()
         self.active_goal = None
         self.busy = self.blocked = self.stopping = False
         self.completed_ids = set()
@@ -140,6 +144,11 @@ class HarvestNode(Node):
                     if self.tag_control else None)
         self.events = self.create_publisher(String, 'task_events', QoSProfile(
             depth=100, reliability=ReliabilityPolicy.RELIABLE, durability=DurabilityPolicy.TRANSIENT_LOCAL))
+        self.station_return = StationReturn(self, root=self.root, profile=profile, settings=settings,
+            poses=self.poses, motion=self.motion, callbacks=self.callbacks, handoff=self.handoff,
+            unavailable=lambda: self.blocked or self.stopping,
+            block=lambda: setattr(self, 'blocked', True), prepare=self.prepare_station_return,
+            tag_control=self.tag_control)
         self.communication = HarvestCommunication(self)
         self.status_reporter = None
         status_config = self.config.get('status_reporting', {})
@@ -156,8 +165,16 @@ class HarvestNode(Node):
         message.data = json.dumps(record, ensure_ascii=False, allow_nan=False)
         self.events.publish(message)
 
+    def prepare_station_return(self, check: Callable[[], None]) -> None:
+        """인계 조건의 확장 지점. 팔이 중단된 경우 안전한 주행 준비를 먼저 확인한다."""
+        check()
+        if self.arm_client is not None and getattr(self, 'mission_stage', '') == 'ARM':
+            result = getattr(self, 'arm_result', None)
+            if result is None or result['result_code'] != 'SUCCESS':
+                raise RuntimeError('ARM_TRAVEL_NOT_READY: 중단된 팔의 접힘 확인이 필요합니다.')
+
     def check(self) -> None:
-        if self.stopping or not rclpy.ok() or (self.active_goal and self.active_goal.is_cancel_requested):
+        if self.handoff.work_interrupted or self.stopping or not rclpy.ok() or (self.active_goal and self.active_goal.is_cancel_requested):
             raise MissionCanceled('수확 작업 취소/종료 요청')
 
 
@@ -173,7 +190,7 @@ def main(args=None) -> None:
     signal.signal(signal.SIGINT, stop)
     signal.signal(signal.SIGTERM, stop)
     try:
-        while rclpy.ok() and (not node.stopping or node.busy):
+        while rclpy.ok() and (not node.stopping or node.busy or node.handoff.busy):
             executor.spin_once(timeout_sec=.1)
     finally:
         if node.tag_control is not None:
@@ -187,6 +204,7 @@ def main(args=None) -> None:
             node.work_client.close()
         if node.exit_client is not None:
             node.exit_client.close()
+        node.station_return.close()
         node.client.close()
         if node.arm_client is not None:
             node.arm_client.close()

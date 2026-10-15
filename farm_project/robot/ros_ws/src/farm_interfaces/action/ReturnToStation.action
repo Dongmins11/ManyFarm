@@ -1,0 +1,22 @@
+# 공통 통신 프로토콜 2026-10-15. 좌표는 map_id에 대응하는 환경 설정에서 읽는다.
+string robot_id
+string task_id
+string station_id
+string map_id
+string timestamp
+---
+string robot_id
+string task_id
+string result_code
+string station_id
+bool docked
+string error_code
+string error_message
+string timestamp
+---
+string robot_id
+string task_id
+string phase
+string station_id
+bool docked
+string timestamp

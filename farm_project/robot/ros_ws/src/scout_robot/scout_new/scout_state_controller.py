@@ -66,7 +66,7 @@ class ScoutStateController:
             self._result = None
             result.set_exception(error)
             return
-        if goal.is_cancel_requested or self._mission.node._shutdown_requested:
+        if goal.is_cancel_requested or self._mission.node._handoff.work_interrupted or self._mission.node._shutdown_requested:
             self._stop(MissionCanceled('ScoutArea canceled before start'))
             return
         from .states.navigation_move_state import NavigationMoveState
@@ -81,7 +81,7 @@ class ScoutStateController:
             for _ in range(32):
                 if self._result is not None and not self._stopping:
                     goal = self._mission.context.goal
-                    if goal.is_cancel_requested or self._mission.node._shutdown_requested:
+                    if goal.is_cancel_requested or self._mission.node._handoff.work_interrupted or self._mission.node._shutdown_requested:
                         self._stop(MissionCanceled('ScoutArea canceled'))
                 try:
                     event = self._events.get_nowait()

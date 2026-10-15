@@ -90,6 +90,7 @@ controller_server:
     controller_plugins:
     - FollowPath
     - RPP
+    - StationReverse
     progress_checker:
       plugin: nav2_controller::PoseProgressChecker
       required_movement_radius: 0.1
@@ -148,7 +149,7 @@ controller_server:
       RotateToGoal.slowing_factor: 5.0
       RotateToGoal.lookahead_time: -1.0
     enable_stamped_cmd_vel: false
-    RPP:
+    RPP: &rpp_defaults
       plugin: nav2_regulated_pure_pursuit_controller::RegulatedPurePursuitController
       desired_linear_vel: 0.15
       lookahead_dist: 0.15
@@ -176,6 +177,14 @@ controller_server:
       rotate_to_heading_min_angle: 0.3
       max_angular_accel: 3.2
       max_robot_pose_search_dist: 1.5
+      stateful: false
+    StationReverse:
+      <<: *rpp_defaults
+      plugin: farm_nav2_controller::ReverseRegulatedPurePursuitController
+      use_rotate_to_heading: false
+      allow_reversing: true
+      use_fixed_curvature_lookahead: false
+      interpolate_curvature_after_goal: false
       stateful: false
     use_sim_time: false
 local_costmap:

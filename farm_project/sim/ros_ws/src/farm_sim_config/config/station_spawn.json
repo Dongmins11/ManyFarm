@@ -8,7 +8,8 @@
         -5.0,
         13.25
       ],
-      "yaw_rad": -1.5707963267948966
+      "yaw_rad": -1.5707963267948966,
+      "station_id": "STATION_SCOUT_01"
     },
     "harvest_01": {
       "node_id": 8002,
@@ -16,7 +17,8 @@
         -2.0,
         13.25
       ],
-      "yaw_rad": -1.5707963267948966
+      "yaw_rad": -1.5707963267948966,
+      "station_id": "STATION_HARVEST_01"
     },
     "transport_01": {
       "node_id": 8003,
@@ -26,7 +28,8 @@
       ],
       "yaw_rad": null,
       "status": "DESIGN_PROPOSAL",
-      "source": "sim_route_design_v1 / P3; coordinate matches latest graph"
+      "source": "sim_route_design_v1 / P3; coordinate matches latest graph",
+      "station_id": "STATION_TRANSPORT_01"
     },
     "sorting_station": {
       "node_id": 8004,

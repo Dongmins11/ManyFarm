@@ -9,6 +9,7 @@ from rclpy.action import ActionServer, CancelResponse, GoalResponse
 from rclpy.action.server import ServerGoalHandle
 
 from .runtime import utc
+from farm_common.action_handoff import ActionInterrupted
 from .scout_state_controller import ScoutStateController
 
 if TYPE_CHECKING:
@@ -71,6 +72,8 @@ class ScoutCommunication:
             if reasons:
                 logger.warning(f'ScoutArea Goal REJECT: task_id={goal.task_id!r}; ' + '; '.join(reasons))
                 return GoalResponse.REJECT
+            if not node._handoff.reserve('work', goal.task_id):
+                return GoalResponse.REJECT
             node._busy = True  # 실행 콜백 이전부터 미션 한 건을 예약합니다.
         logger.info(f'ScoutArea Goal ACCEPT: task_id={goal.task_id!r}')
         return GoalResponse.ACCEPT
@@ -83,6 +86,28 @@ class ScoutCommunication:
 
     def execute(self, goal: ServerGoalHandle) -> ScoutArea.Result:
         """ROS execute 콜백은 전체 결과만 기다립니다. 상태 실행은 별도 타이머가 담당합니다."""
+        try:
+            def check() -> None:
+                if goal.is_cancel_requested or self._node._shutdown_requested:
+                    raise ActionInterrupted('예찰 작업 시작 전 취소/종료')
+                if self._node._motion_uncertain:
+                    raise RuntimeError('이전 동작 정지 미확인')
+            self._node._handoff.acquire('work', goal.request.task_id, check)
+        except Exception as error:
+            result = ScoutArea.Result()
+            result.robot_id, result.task_id = goal.request.robot_id, goal.request.task_id
+            result.section_id = goal.request.section_id
+            result.result_code = 'CANCELED' if isinstance(error, ActionInterrupted) else 'FAILED'
+            result.error_code = 'NONE' if result.result_code == 'CANCELED' else 'CANCEL_UNCONFIRMED'
+            result.error_message, result.timestamp = str(error), utc()
+            if goal.is_cancel_requested:
+                goal.canceled()
+            else:
+                goal.abort()
+            with self._node._lock:
+                self._node._busy = False
+            self._node._handoff.release('work', goal.request.task_id)
+            return result
         try:
             result = self._controller.start(goal).result()
             if result.result_code == 'SUCCESS':
@@ -117,6 +142,7 @@ class ScoutCommunication:
             self._node._active_goal = None
             with self._node._lock:
                 self._node._busy = False
+            self._node._handoff.release('work', goal.request.task_id)
 
     def feedback(
         self, goal: ServerGoalHandle, section: str, phase: str,
