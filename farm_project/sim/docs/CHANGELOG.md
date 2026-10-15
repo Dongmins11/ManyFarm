@@ -699,3 +699,10 @@
 - 결과: 신규는 두 backend 모두1성공/1실패. 기존 포함 CPU1/3·GPU2/3 성공. CPU 방향6.124°/6.504° 실패뿐 아니라 GPU7.314° 실패도 재현됐다. 실제 차체 과회전이 기록돼 CPU 고유 실패라는 해석은 철회한다. 성능 차이는 CPU27.76~28.26/GPU17.12~17.38FPS로 유지. 신규 성공 주행에서 GPU 태그 보정7회, CPU11회.
 - 해석/제한: 3회씩으로 성공률 차이·동등성 확정 불가. 물리 backend와 실행 속도/ROS 타이밍이 함께 달라 순수 물리 원인 분리는 미완료다. 공통 정렬·정지 응답을 먼저 조사하며 도착 허용치는 유지한다. 기본 backend 변경 없음, 팔 수확 검증 없음.
 - 산출물: PROJECT_STATE §43, sim/docs/changes/DRIVE_BACKEND_REPEAT_20261014.json, sim/runs/drive_repeat_20261014/. 시험 소유 프로세스 종료 확인. 부모 launch0과 자식 종료 -11/-15는 별개다. 되돌릴 운영 변경 없음. commit/push 없음.
+
+
+## COMMON-ROTATION-PROGRESS-20261015 — 예찰·수확 회전 진행 판정
+
+- 승인: 사용자 “공통코드면 수정해 회전도 진행 판정에 포함돼야지”. 대상 robot/config/navigation/{scout,harvest}_nav2.yaml. 공통 SimpleProgressChecker→PoseProgressChecker, 각도 문턱0.1rad 추가. 거리/시간/도착/속도 유지. 실물·시뮬에 같은 기준 적용.
+- 검증: 설치 Nav2 검사기 직접 호출92 assertions 및 기존 공통 설정pytest6개 PASS. 환경4개 최종값/나머지 설정 불변 PASS. 상세 PROJECT_STATE §54, sim/runs/progress_checker_20261015/. 신규 Isaac/실물 주행 및 실행 프로세스 재시작은 미실행.
+- 적용: 해당 Nav2 launch 재시작 후 반영. 수확 휠 응답 진동은 별개로 남는다. 복원은 두 YAML의 SimpleProgressChecker 복구 및 required_movement_angle/주석 제거. 사용자 후속 지시로 이 공통 수정과 해당 기록의 커밋·푸시를 승인받았다.
