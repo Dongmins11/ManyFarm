@@ -179,5 +179,85 @@ class SessionTests(unittest.TestCase):
         self.assertEqual(self.device.selected_ids,['red'])
         self.assertEqual(self.arm.state['success_count'],1)
 
+    def setup_travel(self):
+        self.device.travel = np.array([0., -1.6, 1.2, -1.5, .0488, 1.1])
+        self.device.q = self.device.travel.copy()
+        self.device.travel_ready = lambda: bool(np.max(abs(self.device.q-self.device.travel)) < .1)
+
+    def test_deploy_then_stow_before_completion(self):
+        self.setup_travel()
+        self.device.targets = []
+        self.arm.accept(self.msg(), now=0.)
+        stages = set()
+        for _ in range(600):
+            self.tick()
+            stages.add(self.arm.state['stage'])
+            if self.arm.state['status'] != 'RUNNING':
+                break
+            self.assertTrue(self.arm.busy)
+            self.device.q = self.device.commands[-1].copy()
+        self.assertTrue({'DEPLOYING', 'SELECT', 'STOWING', 'STOPPING', 'DONE'} <= stages)
+        self.assertEqual(self.arm.state['status'], 'SUCCESS')
+        self.assertTrue(self.arm.travel_ready)
+        self.assertFalse(self.arm.busy)
+        self.assertEqual(self.device.selected_ids, [])
+
+    def test_harvest_attempts_keep_home_then_stow_once(self):
+        self.setup_travel()
+        self.arm.accept(self.msg(), now=0.)
+        stages = []
+        for _ in range(600):
+            self.tick()
+            stage = self.arm.state['stage']
+            if not stages or stages[-1] != stage:
+                stages.append(stage)
+            if self.arm.state['status'] != 'RUNNING':
+                break
+            self.device.q = self.device.commands[-1].copy()
+        self.assertEqual(self.device.selected_ids, ['red', 'yellow', 'red2'])
+        self.assertEqual((self.arm.state['success_count'], self.arm.state['failed_count']), (2, 1))
+        self.assertEqual(stages.count('DEPLOYING'), 1)
+        self.assertEqual(stages.count('STOWING'), 1)
+        self.assertEqual(self.arm.state['status'], 'SUCCESS')
+        self.assertTrue(self.arm.travel_ready)
+        self.assertFalse(self.arm.busy)
+
+    def test_cancel_while_deployed_holds_and_blocks_driving(self):
+        self.setup_travel()
+        self.arm.accept(self.msg(), now=0.)
+        self.tick()
+        self.device.q = (self.device.home+self.device.travel)/2
+        held = self.device.q.copy()
+        self.arm.accept(self.msg('cancel'), now=self.now)
+        self.run_done()
+        self.assertEqual(self.arm.state['status'], 'CANCELED')
+        np.testing.assert_allclose(self.device.commands[-1], held)
+        self.assertTrue(self.arm.state['safe_stopped'])
+        self.assertFalse(self.arm.travel_ready)
+        self.assertTrue(self.arm.busy)
+
+    def test_deploy_contact_latches_between_control_ticks(self):
+        self.setup_travel()
+        self.arm.accept(self.msg(), now=0.)
+        self.tick()
+        self.device.q = (self.device.home+self.device.travel)/2
+        self.device.max_force = 3.
+        self.arm.observe_physics_tick(1/480, self.now)
+        self.device.max_force = 0.
+        self.run_done()
+        self.assertEqual(self.arm.state['status'], 'FAILED')
+        self.assertEqual(self.device.selected_ids, [])
+        self.assertTrue(self.arm.busy)
+
+    def test_stow_stall_does_not_report_success_or_allow_drive(self):
+        self.setup_travel()
+        self.device.q = self.device.home.copy()
+        self.device.targets = []
+        self.arm.accept(self.msg(), now=0.)
+        self.run_done()
+        self.assertEqual(self.arm.state['error_code'], 'ARM_TRANSITION_FAILED')
+        self.assertTrue(self.arm.busy)
+
+
 
 if __name__=='__main__': unittest.main()

@@ -40,12 +40,18 @@ def reverse_measured_path(history: list, home: np.ndarray, spacing: float = .025
 
 
 class PhysicalReturn:
-    """측정 경로를 되짚어 HOME로 복귀합니다. 접촉·시간 초과 시 정지해야 합니다."""
+    """측정 복귀 경로 또는 지정 자세 경로를 따라간다. 접촉·시간 초과 시 정지한다."""
 
-    def __init__(self, device: Any, history: list, config: Mapping, now: float) -> None:
+    def __init__(self, device: Any, history: list, config: Mapping, now: float,
+                 *, path: np.ndarray | None = None) -> None:
         self.device, self.config = device, config
         current = device.joint_positions()
-        self.path = reverse_measured_path(history+[current.copy()], device.home)
+        self.path = (reverse_measured_path(history+[current.copy()], device.home) if path is None
+                     else np.asarray(path, dtype=float).copy())
+        if path is not None and (self.path.ndim != 2 or self.path.shape[1] != 6 or not len(self.path)
+                or not np.isfinite(self.path).all() or np.any(self.path < device.lower)
+                or np.any(self.path > device.upper)):
+            raise ValueError('전환 경로는 관절 한계 내의 유한한 Nx6 배열이어야 합니다.')
         self.index, self.start, self.waypoint_start, self.stable = 0, now, now, 0.
         self.previous, self.command = current.copy(), current.copy()
         self.bias = np.zeros(6)
@@ -144,6 +150,22 @@ class ArmSession:
         """팔 동작 중 또는 정지 미확인이면 차체 속도 명령도 차단합니다."""
         return self.state['status'] == 'RUNNING' or self._blocked
 
+    @property
+    def travel_ready(self) -> bool:
+        """접힌 양팔의 실측 상태로 주행 허용 여부를 반환한다."""
+        return bool(self.device.travel_ready()) if getattr(self.device, 'travel', None) is not None else True
+
+    def _transition(self, now: float, stage: str, goal: np.ndarray) -> None:
+        """정차 중 오른팔만 속도 제한·접촉 감시를 유지하며 자세를 바꾼다."""
+        current = self.device.joint_positions()
+        # 기존 복귀의 경유점 시간 제한을 지키도록 짧은 관절 공간 경유점으로 나눈다.
+        count = max(1, int(np.ceil(np.max(abs(goal-current))/.15)))
+        path = np.linspace(current, goal, count+1)[1:]
+        self._return = PhysicalReturn(self.device, [], self.config, now, path=path)
+        self.device.command(current)
+        self.state['stage'] = stage
+        self._log(stage, time_s=now, measured_start=current, goal=goal)
+
     def telemetry(self) -> dict:
         """최종 결과는 새 작업 전까지 반복 전송합니다."""
         return dict(self.state)
@@ -230,8 +252,8 @@ class ArmSession:
             self._record_attempt(now, success, reason or code)
         self.state.update(status=status, stage='DONE', error_code=code, error_message=reason, safe_stopped=safe)
         self.state['event_seq'] += 1
-        self._blocked = not safe
-        self.physics.set_activity(self.robot_id, not safe)
+        self._blocked = not safe or not self.travel_ready
+        self.physics.set_activity(self.robot_id, self._blocked)
         self._completed_jobs[self.state['job_id']] = dict(self.state)
         self._completed_requests[self.state['job_id']] = dict(self.job)
         self._log('RESULT', time_s=now, **self.state)
@@ -266,10 +288,12 @@ class ArmSession:
             return
         try:
             self.device.observe_physics_tick(dt_s, sim_time_s)
-            if self.state['status'] == 'RUNNING' and self.state['stage'] == 'RETURNING' and self._return:
+            if (self.state['status'] == 'RUNNING'
+                    and self.state['stage'] in ('RETURNING', 'DEPLOYING', 'STOWING') and self._return):
                 self._return.observe_physics()
                 if self._return.problem:
-                    self._stop(sim_time_s, 'FAILED', 'RETURN_FAILED', self._return.problem)
+                    code = 'RETURN_FAILED' if self.state['stage'] == 'RETURNING' else 'ARM_TRANSITION_FAILED'
+                    self._stop(sim_time_s, 'FAILED', code, self._return.problem)
         except Exception as error:
             if self.state['status'] != 'RUNNING':
                 raise
@@ -278,7 +302,10 @@ class ArmSession:
     def _next_target(self, now: float) -> None:
         remaining = [item for item in self._candidates if item['target_id'] not in self._all_attempted]
         if not remaining:
-            self._stop(now, 'SUCCESS', '', 'current_window_candidates_processed')
+            if getattr(self.device, 'travel', None) is not None:
+                self._transition(now, 'STOWING', self.device.travel)
+            else:
+                self._stop(now, 'SUCCESS', '', 'current_window_candidates_processed')
             return
         target = remaining[0]['target_id']
         self._all_attempted.add(target)
@@ -345,6 +372,8 @@ class ArmSession:
             self.physics.set_activity(self.robot_id, True)
             if not stationary:
                 self._stop(now, 'FAILED', 'BASE_MOVING', 'base_not_stationary_at_start')
+            elif getattr(self.device, 'travel', None) is not None and self.travel_ready:
+                self._transition(now, 'DEPLOYING', self.device.home)
             elif (np.max(abs(self.device.joint_positions()-self.device.home)) > .06
                   or np.max(abs(self.device.joint_velocities())) > .5):
                 self._stop(now, 'FAILED', 'ARM_NOT_HOME', 'initial_measured_home_required')
@@ -374,9 +403,23 @@ class ArmSession:
                     escaped = self.device.escaped_deposits(self._successful_ids)
                     if escaped:
                         self._stop_request = ('FAILED', 'PREVIOUS_DEPOSIT_LOST', ','.join(escaped))
+                if self._stop_request[0] == 'SUCCESS' and not self.travel_ready:
+                    self._stop_request = ('FAILED', 'ARM_NOT_STOWED', 'both_arms_travel_pose_required')
                 self._finish(now, *self._stop_request)
             elif now-self._stop_start >= self.config['stop_timeout_s']:
                 self._finish(now, 'FAILED', 'CANCEL_UNCONFIRMED', 'measured_stop_not_confirmed', safe=False)
+            return
+        if stage in ('DEPLOYING', 'STOWING'):
+            status, reason = self._return.tick(now, self.dt)
+            if status == 'FAILED':
+                self._stop(now, 'FAILED', 'ARM_TRANSITION_FAILED', reason)
+            elif status == 'SUCCEEDED':
+                if stage == 'DEPLOYING':
+                    self.state['stage'] = 'SELECT'
+                elif self.travel_ready:
+                    self._stop(now, 'SUCCESS', '', 'current_window_candidates_processed_arms_stowed')
+                else:
+                    self._stop(now, 'FAILED', 'ARM_NOT_STOWED', 'both_arms_travel_pose_required')
             return
         if stage == 'SELECT':
             # PREPARE와 같은 tick에서 선택하지 않도록 다음 제어 간격까지 기다립니다.

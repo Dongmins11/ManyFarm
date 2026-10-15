@@ -39,13 +39,32 @@ class Nav2Client:
     def has_goal(self) -> bool:
         return self._pending is not None or self._handle is not None
 
-    def _wait(self, future: Future, timeout: float, check: Callable[[],None]) -> Any:
-        deadline=time.monotonic()+timeout
-        while not future.done() and time.monotonic()<deadline:
+    def _execution_clock(self) -> Callable[[], float]:
+        """주행 경과시간: use_sim_time 활성 시 ROS 시계, 실물은 단조 실시간이다."""
+        ros_clock = self._node.get_clock()
+        if not ros_clock.ros_time_is_active:
+            return time.monotonic
+        previous = ros_clock.now().nanoseconds
+        def now() -> float:
+            nonlocal previous
+            current = ros_clock.now().nanoseconds
+            if current < previous:
+                raise RuntimeError('주행 중 시뮬 시계가 역행했습니다; 요청 종료 여부 확인 필요')
+            previous = current
+            return current / 1e9
+        return now
+
+    def _wait(self, future: Future, timeout: float, check: Callable[[],None], *,
+              clock: Callable[[], float] | None = None,
+              timeout_message: str = 'Nav2 응답 시간 초과; 요청 종료 여부 확인 필요') -> Any:
+        # 연결/응답/취소는 sim 일시정지 중에도 실시간으로 제한한다.
+        clock = time.monotonic if clock is None else clock
+        deadline=clock()+timeout
+        while not future.done() and clock()<deadline:
             check()
             time.sleep(.02)
         check()
-        if not future.done(): raise TimeoutError('Nav2 응답 시간 초과; 요청 종료 여부 확인 필요')
+        if not future.done(): raise TimeoutError(timeout_message)
         return future.result()
 
     def _read_parameters(self, names: list[str], check: Callable[[],None]) -> dict[str,Any]:
@@ -100,10 +119,11 @@ class Nav2Client:
             return self._execute_once(xy, yaw, path, check)
         if self._recovery_probe is None:
             raise RuntimeError('TF 복구 준비 확인 연결 누락')
-        deadline = time.monotonic() + self._settings.goal_timeout_s
+        execution_clock = self._execution_clock()
+        deadline = execution_clock() + self._settings.goal_timeout_s
         def bounded_check() -> None:
             check()
-            if time.monotonic() >= deadline:
+            if execution_clock() >= deadline:
                 raise TimeoutError('Nav2 전체 주행 시간 초과')
         return run_with_tf_recovery(
             lambda: self._execute_once(xy, yaw, path, bounded_check),
@@ -144,7 +164,9 @@ class Nav2Client:
             self._clear()
             raise RuntimeError('Nav2 Goal 거절')
         self._result=self._handle.get_result_async()
-        response=self._wait(self._result,self._settings.goal_timeout_s,check)
+        response=self._wait(self._result,self._settings.goal_timeout_s,check,
+            clock=self._execution_clock(),
+            timeout_message='Nav2 주행 완료 시간 초과; 요청 종료 여부 확인 필요')
         self._clear()
         if response.status!=GoalStatus.STATUS_SUCCEEDED or getattr(response.result,'error_code',0)!=0:
             code = getattr(response.result, 'error_code', 0)

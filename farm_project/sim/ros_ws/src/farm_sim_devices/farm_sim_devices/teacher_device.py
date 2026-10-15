@@ -65,6 +65,9 @@ class TeacherDevice:
         report = physics.arm_reports[robot_path]
         self.joint_names = list(report['joint_names'])
         self.home = _array(report['home_positions_rad'], (6,), 'HOME')
+        self.travel = (None if report.get('travel_pose') is None else
+                       _array(report['travel_pose']['positions_rad'][6:], (6,), 'right travel'))
+        self._travel_report = report.get('travel_pose')
         self._policy_arm = _array(config['policy_arm_position_m'], (3,), 'policy arm mount')
         self._tcp_offset = _array(config['tcp_offset_gripper_m'], (3,), 'TCP offset')
         continuous_near_mask(np.empty((0, 3)), config)
@@ -149,6 +152,18 @@ class TeacherDevice:
         self._ready = True
         self._frame()
         self.contacts_for_recovery()
+
+    def travel_ready(self) -> bool:
+        """양팔의 실제 주행 자세와 정지 상태를 확인한다. 오른팔 HOME은 별도 계약이다."""
+        if self._travel_report is None:
+            return True
+        indices = np.asarray([self.articulation.get_dof_index(n)
+                              for n in self._travel_report['joint_names']], dtype=np.int32)
+        q = np.asarray(self.articulation.get_joint_positions(joint_indices=indices))
+        qd = np.asarray(self.articulation.get_joint_velocities(joint_indices=indices))
+        target = np.asarray(self._travel_report['positions_rad'])
+        return bool(np.isfinite(q).all() and np.isfinite(qd).all()
+                    and np.max(abs(q-target)) < .1 and np.max(abs(qd)) < .5)
 
     def _frame(self) -> tuple[np.ndarray, np.ndarray]:
         """현재 실제 오른팔 장착점의 world pose를 읽는다."""

@@ -84,6 +84,24 @@ def initialize_arm_home(articulation: Any, report: dict) -> None:
         raise RuntimeError('오른팔 초기 HOME 배치가 적용되지 않았습니다.')
 
 
+def initialize_arm_travel(articulation: Any, report: dict) -> None:
+    """시작 시에만 양팔을 주행 자세로 배치한다. 작업 중 전환은 실제 drive로 수행한다."""
+    travel = report.get('travel_pose')
+    if travel is None:
+        initialize_arm_home(articulation, report)
+        return
+    from isaacsim.core.utils.types import ArticulationAction
+    indices = np.asarray([articulation.get_dof_index(n) for n in travel['joint_names']], dtype=np.int32)
+    positions = np.asarray(travel['positions_rad'], dtype=np.float32)
+    if len(indices) != 12 or len(set(indices)) != 12 or np.any(indices < 0):
+        raise RuntimeError('양팔 12축 주행 자세의 관절 인덱스를 확인할 수 없습니다.')
+    articulation.set_joint_positions(positions, joint_indices=indices)
+    articulation.set_joint_velocities(np.zeros(12, dtype=np.float32), joint_indices=indices)
+    articulation.apply_action(ArticulationAction(joint_positions=positions, joint_indices=indices))
+    if not np.allclose(articulation.get_joint_positions(joint_indices=indices), positions, atol=1e-5):
+        raise RuntimeError('양팔 초기 주행 자세가 적용되지 않았습니다.')
+
+
 class HarvestPhysics:
     """세션 USD, 과실 외력, 물리 로그의 수명을 관리한다. 정답은 제어로 보내지 않는다."""
 

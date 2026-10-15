@@ -1,0 +1,944 @@
+{
+  "scene": "sim/assets/envs/output/farm_with_plants_v5.usd",
+  "box_top_world_m": 0.7013000050067901,
+  "clearance_margin_m": 0.05,
+  "minimum_root_z_m": 0.79,
+  "maximum_root_z_m": 1.0792028165030343,
+  "total_fruits": 288,
+  "moved_fruits": 98,
+  "unchanged_fruits": 190,
+  "seed": 20261015,
+  "changes": [
+    {
+      "fruit": "/World/Vegetation/Bed_01/Fruits/Pepper_0002_yellow",
+      "connector": "/World/Vegetation/Bed_01/Connectors/Stem_0002",
+      "old_z": 0.6815385330911881,
+      "new_z": 0.9701750679180209,
+      "delta_z": 0.2886365348268328,
+      "old_collider_bottom": 0.6440385316010719,
+      "new_collider_bottom": 0.9326750664279048
+    },
+    {
+      "fruit": "/World/Vegetation/Bed_01/Fruits/Pepper_0004_red",
+      "connector": "/World/Vegetation/Bed_01/Connectors/Stem_0004",
+      "old_z": 0.7265631027687882,
+      "new_z": 1.0057714159043478,
+      "delta_z": 0.2792083131355596,
+      "old_collider_bottom": 0.6890631012786721,
+      "new_collider_bottom": 0.9682714144142317
+    },
+    {
+      "fruit": "/World/Vegetation/Bed_01/Fruits/Pepper_0005_green",
+      "connector": "/World/Vegetation/Bed_01/Connectors/Stem_0005",
+      "old_z": 0.7566227514098984,
+      "new_z": 0.8063534365000418,
+      "delta_z": 0.049730685090143334,
+      "old_collider_bottom": 0.7191227499197823,
+      "new_collider_bottom": 0.7688534350099256
+    },
+    {
+      "fruit": "/World/Vegetation/Bed_01/Fruits/Pepper_0008_yellow",
+      "connector": "/World/Vegetation/Bed_01/Connectors/Stem_0008",
+      "old_z": 0.6694424636922455,
+      "new_z": 0.982936411433424,
+      "delta_z": 0.31349394774117856,
+      "old_collider_bottom": 0.6319424622021294,
+      "new_collider_bottom": 0.9454364099433079
+    },
+    {
+      "fruit": "/World/Vegetation/Bed_01/Fruits/Pepper_0010_green",
+      "connector": "/World/Vegetation/Bed_01/Connectors/Stem_0010",
+      "old_z": 0.6733759329690747,
+      "new_z": 0.8197850248359884,
+      "delta_z": 0.14640909186691364,
+      "old_collider_bottom": 0.6358759314789586,
+      "new_collider_bottom": 0.7822850233458722
+    },
+    {
+      "fruit": "/World/Vegetation/Bed_01/Fruits/Pepper_0011_red",
+      "connector": "/World/Vegetation/Bed_01/Connectors/Stem_0011",
+      "old_z": 0.7095477523226543,
+      "new_z": 0.9504484205339461,
+      "delta_z": 0.24090066821129175,
+      "old_collider_bottom": 0.6720477508325382,
+      "new_collider_bottom": 0.91294841904383
+    },
+    {
+      "fruit": "/World/Vegetation/Bed_01/Fruits/Pepper_0014_green",
+      "connector": "/World/Vegetation/Bed_01/Connectors/Stem_0014",
+      "old_z": 0.7067668358415987,
+      "new_z": 1.0657116818827328,
+      "delta_z": 0.3589448460411341,
+      "old_collider_bottom": 0.6692668343514826,
+      "new_collider_bottom": 1.0282116803926167
+    },
+    {
+      "fruit": "/World/Vegetation/Bed_01/Fruits/Pepper_0018_green",
+      "connector": "/World/Vegetation/Bed_01/Connectors/Stem_0018",
+      "old_z": 0.6931120900493749,
+      "new_z": 0.8633752511360524,
+      "delta_z": 0.1702631610866775,
+      "old_collider_bottom": 0.6556120885592588,
+      "new_collider_bottom": 0.8258752496459363
+    },
+    {
+      "fruit": "/World/Vegetation/Bed_01/Fruits/Pepper_0020_red",
+      "connector": "/World/Vegetation/Bed_01/Connectors/Stem_0020",
+      "old_z": 0.7040735179119082,
+      "new_z": 1.0032657337727433,
+      "delta_z": 0.2991922158608351,
+      "old_collider_bottom": 0.6665735164217921,
+      "new_collider_bottom": 0.9657657322826272
+    },
+    {
+      "fruit": "/World/Vegetation/Bed_01/Fruits/Pepper_0025_red",
+      "connector": "/World/Vegetation/Bed_01/Connectors/Stem_0025",
+      "old_z": 0.677653831687839,
+      "new_z": 0.9157926323088517,
+      "delta_z": 0.23813880062101267,
+      "old_collider_bottom": 0.6401538301977229,
+      "new_collider_bottom": 0.8782926308187355
+    },
+    {
+      "fruit": "/World/Vegetation/Bed_01/Fruits/Pepper_0032_yellow",
+      "connector": "/World/Vegetation/Bed_01/Connectors/Stem_0032",
+      "old_z": 0.6894462767856948,
+      "new_z": 1.0577230607198758,
+      "delta_z": 0.36827678393418095,
+      "old_collider_bottom": 0.6519462752955787,
+      "new_collider_bottom": 1.0202230592297596
+    },
+    {
+      "fruit": "/World/Vegetation/Bed_01/Fruits/Pepper_0034_red",
+      "connector": "/World/Vegetation/Bed_01/Connectors/Stem_0034",
+      "old_z": 0.6838801148255053,
+      "new_z": 0.825652228312026,
+      "delta_z": 0.14177211348652075,
+      "old_collider_bottom": 0.6463801133353891,
+      "new_collider_bottom": 0.7881522268219099
+    },
+    {
+      "fruit": "/World/Vegetation/Bed_02/Fruits/Pepper_0001_green",
+      "connector": "/World/Vegetation/Bed_02/Connectors/Stem_0001",
+      "old_z": 0.7208019498235749,
+      "new_z": 1.0540968212935191,
+      "delta_z": 0.3332948714699442,
+      "old_collider_bottom": 0.6833019483334588,
+      "new_collider_bottom": 1.016596819803403
+    },
+    {
+      "fruit": "/World/Vegetation/Bed_02/Fruits/Pepper_0007_red",
+      "connector": "/World/Vegetation/Bed_02/Connectors/Stem_0007",
+      "old_z": 0.6967975454640261,
+      "new_z": 0.8784272913343247,
+      "delta_z": 0.18162974587029868,
+      "old_collider_bottom": 0.6592975439739099,
+      "new_collider_bottom": 0.8409272898442086
+    },
+    {
+      "fruit": "/World/Vegetation/Bed_02/Fruits/Pepper_0008_green",
+      "connector": "/World/Vegetation/Bed_02/Connectors/Stem_0008",
+      "old_z": 0.6903425744427444,
+      "new_z": 1.0249716203154253,
+      "delta_z": 0.33462904587268094,
+      "old_collider_bottom": 0.6528425729526283,
+      "new_collider_bottom": 0.9874716188253092
+    },
+    {
+      "fruit": "/World/Vegetation/Bed_02/Fruits/Pepper_0010_red",
+      "connector": "/World/Vegetation/Bed_02/Connectors/Stem_0010",
+      "old_z": 0.6462269254248136,
+      "new_z": 0.8205261572975601,
+      "delta_z": 0.17429923187274643,
+      "old_collider_bottom": 0.6087269239346975,
+      "new_collider_bottom": 0.783026155807444
+    },
+    {
+      "fruit": "/World/Vegetation/Bed_02/Fruits/Pepper_0014_green",
+      "connector": "/World/Vegetation/Bed_02/Connectors/Stem_0014",
+      "old_z": 0.7715028112848906,
+      "new_z": 0.9474392075866042,
+      "delta_z": 0.17593639630171354,
+      "old_collider_bottom": 0.7340028097947745,
+      "new_collider_bottom": 0.909939206096488
+    },
+    {
+      "fruit": "/World/Vegetation/Bed_02/Fruits/Pepper_0015_red",
+      "connector": "/World/Vegetation/Bed_02/Connectors/Stem_0015",
+      "old_z": 0.6550055626080951,
+      "new_z": 0.8184195295534399,
+      "delta_z": 0.16341396694534482,
+      "old_collider_bottom": 0.6175055611179789,
+      "new_collider_bottom": 0.7809195280633238
+    },
+    {
+      "fruit": "/World/Vegetation/Bed_02/Fruits/Pepper_0020_yellow",
+      "connector": "/World/Vegetation/Bed_02/Connectors/Stem_0020",
+      "old_z": 0.7396503543250711,
+      "new_z": 0.8641438245506567,
+      "delta_z": 0.12449347022558566,
+      "old_collider_bottom": 0.702150352834955,
+      "new_collider_bottom": 0.8266438230605406
+    },
+    {
+      "fruit": "/World/Vegetation/Bed_02/Fruits/Pepper_0021_red",
+      "connector": "/World/Vegetation/Bed_02/Connectors/Stem_0021",
+      "old_z": 0.6561488167746513,
+      "new_z": 0.9524655413634022,
+      "delta_z": 0.2963167245887509,
+      "old_collider_bottom": 0.6186488152845352,
+      "new_collider_bottom": 0.9149655398732861
+    },
+    {
+      "fruit": "/World/Vegetation/Bed_02/Fruits/Pepper_0024_green",
+      "connector": "/World/Vegetation/Bed_02/Connectors/Stem_0024",
+      "old_z": 0.6411704093093576,
+      "new_z": 1.0383081999869836,
+      "delta_z": 0.397137790677626,
+      "old_collider_bottom": 0.6036704078192415,
+      "new_collider_bottom": 1.0008081984968675
+    },
+    {
+      "fruit": "/World/Vegetation/Bed_02/Fruits/Pepper_0027_red",
+      "connector": "/World/Vegetation/Bed_02/Connectors/Stem_0027",
+      "old_z": 0.6681686725403244,
+      "new_z": 0.9673792023898629,
+      "delta_z": 0.29921052984953844,
+      "old_collider_bottom": 0.6306686710502083,
+      "new_collider_bottom": 0.9298792008997467
+    },
+    {
+      "fruit": "/World/Vegetation/Bed_02/Fruits/Pepper_0033_red",
+      "connector": "/World/Vegetation/Bed_02/Connectors/Stem_0033",
+      "old_z": 0.6379509514499605,
+      "new_z": 0.922939221721914,
+      "delta_z": 0.2849882702719535,
+      "old_collider_bottom": 0.6004509499598444,
+      "new_collider_bottom": 0.8854392202317979
+    },
+    {
+      "fruit": "/World/Vegetation/Bed_02/Fruits/Pepper_0034_yellow",
+      "connector": "/World/Vegetation/Bed_02/Connectors/Stem_0034",
+      "old_z": 0.7764042287325047,
+      "new_z": 0.8313342886412788,
+      "delta_z": 0.05493005990877409,
+      "old_collider_bottom": 0.7389042272423886,
+      "new_collider_bottom": 0.7938342871511627
+    },
+    {
+      "fruit": "/World/Vegetation/Bed_02/Fruits/Pepper_0036_yellow",
+      "connector": "/World/Vegetation/Bed_02/Connectors/Stem_0036",
+      "old_z": 0.6305548781303587,
+      "new_z": 0.8461741710084293,
+      "delta_z": 0.21561929287807058,
+      "old_collider_bottom": 0.5930548766402426,
+      "new_collider_bottom": 0.8086741695183132
+    },
+    {
+      "fruit": "/World/Vegetation/Bed_03/Fruits/Pepper_0001_red",
+      "connector": "/World/Vegetation/Bed_03/Connectors/Stem_0001",
+      "old_z": 0.6434256465448639,
+      "new_z": 1.0628456836054752,
+      "delta_z": 0.41942003706061126,
+      "old_collider_bottom": 0.6059256450547478,
+      "new_collider_bottom": 1.025345682115359
+    },
+    {
+      "fruit": "/World/Vegetation/Bed_03/Fruits/Pepper_0003_yellow",
+      "connector": "/World/Vegetation/Bed_03/Connectors/Stem_0003",
+      "old_z": 0.6946733976549904,
+      "new_z": 0.8178750371007488,
+      "delta_z": 0.12320163944575846,
+      "old_collider_bottom": 0.6571733961648742,
+      "new_collider_bottom": 0.7803750356106327
+    },
+    {
+      "fruit": "/World/Vegetation/Bed_03/Fruits/Pepper_0004_red",
+      "connector": "/World/Vegetation/Bed_03/Connectors/Stem_0004",
+      "old_z": 0.6374609108539007,
+      "new_z": 0.9672158481834515,
+      "delta_z": 0.32975493732955086,
+      "old_collider_bottom": 0.5999609093637845,
+      "new_collider_bottom": 0.9297158466933354
+    },
+    {
+      "fruit": "/World/Vegetation/Bed_03/Fruits/Pepper_0006_yellow",
+      "connector": "/World/Vegetation/Bed_03/Connectors/Stem_0006",
+      "old_z": 0.7626398369412434,
+      "new_z": 0.9023734490163056,
+      "delta_z": 0.13973361207506219,
+      "old_collider_bottom": 0.7251398354511273,
+      "new_collider_bottom": 0.8648734475261894
+    },
+    {
+      "fruit": "/World/Vegetation/Bed_03/Fruits/Pepper_0007_green",
+      "connector": "/World/Vegetation/Bed_03/Connectors/Stem_0007",
+      "old_z": 0.7340762428590836,
+      "new_z": 0.8541948122128495,
+      "delta_z": 0.12011856935376597,
+      "old_collider_bottom": 0.6965762413689675,
+      "new_collider_bottom": 0.8166948107227334
+    },
+    {
+      "fruit": "/World/Vegetation/Bed_03/Fruits/Pepper_0010_green",
+      "connector": "/World/Vegetation/Bed_03/Connectors/Stem_0010",
+      "old_z": 0.6723323833902282,
+      "new_z": 0.9571510284269104,
+      "delta_z": 0.2848186450366822,
+      "old_collider_bottom": 0.634832381900112,
+      "new_collider_bottom": 0.9196510269367942
+    },
+    {
+      "fruit": "/World/Vegetation/Bed_03/Fruits/Pepper_0015_yellow",
+      "connector": "/World/Vegetation/Bed_03/Connectors/Stem_0015",
+      "old_z": 0.7736096198698498,
+      "new_z": 0.7961625305952491,
+      "delta_z": 0.022552910725399333,
+      "old_collider_bottom": 0.7361096183797337,
+      "new_collider_bottom": 0.758662529105133
+    },
+    {
+      "fruit": "/World/Vegetation/Bed_03/Fruits/Pepper_0016_yellow",
+      "connector": "/World/Vegetation/Bed_03/Connectors/Stem_0016",
+      "old_z": 0.7032921752495497,
+      "new_z": 0.8964168666568865,
+      "delta_z": 0.1931246914073368,
+      "old_collider_bottom": 0.6657921737594336,
+      "new_collider_bottom": 0.8589168651667703
+    },
+    {
+      "fruit": "/World/Vegetation/Bed_03/Fruits/Pepper_0022_green",
+      "connector": "/World/Vegetation/Bed_03/Connectors/Stem_0022",
+      "old_z": 0.6842949018496589,
+      "new_z": 0.7936192452246634,
+      "delta_z": 0.10932434337500452,
+      "old_collider_bottom": 0.6467949003595428,
+      "new_collider_bottom": 0.7561192437345473
+    },
+    {
+      "fruit": "/World/Vegetation/Bed_03/Fruits/Pepper_0026_red",
+      "connector": "/World/Vegetation/Bed_03/Connectors/Stem_0026",
+      "old_z": 0.6525480103636202,
+      "new_z": 0.8860859600884197,
+      "delta_z": 0.23353794972479947,
+      "old_collider_bottom": 0.6150480088735041,
+      "new_collider_bottom": 0.8485859585983035
+    },
+    {
+      "fruit": "/World/Vegetation/Bed_03/Fruits/Pepper_0028_yellow",
+      "connector": "/World/Vegetation/Bed_03/Connectors/Stem_0028",
+      "old_z": 0.6985470195709091,
+      "new_z": 1.0477918108680413,
+      "delta_z": 0.34924479129713215,
+      "old_collider_bottom": 0.661047018080793,
+      "new_collider_bottom": 1.0102918093779252
+    },
+    {
+      "fruit": "/World/Vegetation/Bed_03/Fruits/Pepper_0031_green",
+      "connector": "/World/Vegetation/Bed_03/Connectors/Stem_0031",
+      "old_z": 0.7661161265120677,
+      "new_z": 1.0286357414898313,
+      "delta_z": 0.26251961497776355,
+      "old_collider_bottom": 0.7286161250219516,
+      "new_collider_bottom": 0.9911357399997152
+    },
+    {
+      "fruit": "/World/Vegetation/Bed_03/Fruits/Pepper_0033_green",
+      "connector": "/World/Vegetation/Bed_03/Connectors/Stem_0033",
+      "old_z": 0.7840630949850244,
+      "new_z": 0.8515217182911533,
+      "delta_z": 0.06745862330612895,
+      "old_collider_bottom": 0.7465630934949082,
+      "new_collider_bottom": 0.8140217168010372
+    },
+    {
+      "fruit": "/World/Vegetation/Bed_03/Fruits/Pepper_0036_yellow",
+      "connector": "/World/Vegetation/Bed_03/Connectors/Stem_0036",
+      "old_z": 0.7398922503446497,
+      "new_z": 0.9435392008198095,
+      "delta_z": 0.2036469504751598,
+      "old_collider_bottom": 0.7023922488545336,
+      "new_collider_bottom": 0.9060391993296933
+    },
+    {
+      "fruit": "/World/Vegetation/Bed_04/Fruits/Pepper_0004_green",
+      "connector": "/World/Vegetation/Bed_04/Connectors/Stem_0004",
+      "old_z": 0.6990864849245763,
+      "new_z": 0.7923013479126079,
+      "delta_z": 0.09321486298803161,
+      "old_collider_bottom": 0.6615864834344601,
+      "new_collider_bottom": 0.7548013464224917
+    },
+    {
+      "fruit": "/World/Vegetation/Bed_04/Fruits/Pepper_0006_red",
+      "connector": "/World/Vegetation/Bed_04/Connectors/Stem_0006",
+      "old_z": 0.6960886806696319,
+      "new_z": 0.8073595177089637,
+      "delta_z": 0.11127083703933183,
+      "old_collider_bottom": 0.6585886791795158,
+      "new_collider_bottom": 0.7698595162188476
+    },
+    {
+      "fruit": "/World/Vegetation/Bed_04/Fruits/Pepper_0007_yellow",
+      "connector": "/World/Vegetation/Bed_04/Connectors/Stem_0007",
+      "old_z": 0.6717402348410226,
+      "new_z": 0.8673880226492094,
+      "delta_z": 0.1956477878081868,
+      "old_collider_bottom": 0.6342402333509065,
+      "new_collider_bottom": 0.8298880211590933
+    },
+    {
+      "fruit": "/World/Vegetation/Bed_04/Fruits/Pepper_0012_green",
+      "connector": "/World/Vegetation/Bed_04/Connectors/Stem_0012",
+      "old_z": 0.7470830949043461,
+      "new_z": 0.8608625543847035,
+      "delta_z": 0.11377945948035739,
+      "old_collider_bottom": 0.70958309341423,
+      "new_collider_bottom": 0.8233625528945874
+    },
+    {
+      "fruit": "/World/Vegetation/Bed_04/Fruits/Pepper_0013_red",
+      "connector": "/World/Vegetation/Bed_04/Connectors/Stem_0013",
+      "old_z": 0.6597356449137277,
+      "new_z": 1.0786220344248099,
+      "delta_z": 0.41888638951108215,
+      "old_collider_bottom": 0.6222356434236116,
+      "new_collider_bottom": 1.0411220329346937
+    },
+    {
+      "fruit": "/World/Vegetation/Bed_04/Fruits/Pepper_0014_yellow",
+      "connector": "/World/Vegetation/Bed_04/Connectors/Stem_0014",
+      "old_z": 0.7268302235829234,
+      "new_z": 1.0697341160497726,
+      "delta_z": 0.34290389246684927,
+      "old_collider_bottom": 0.6893302220928073,
+      "new_collider_bottom": 1.0322341145596565
+    },
+    {
+      "fruit": "/World/Vegetation/Bed_04/Fruits/Pepper_0015_red",
+      "connector": "/World/Vegetation/Bed_04/Connectors/Stem_0015",
+      "old_z": 0.6746206367694665,
+      "new_z": 0.8600809558719283,
+      "delta_z": 0.18546031910246186,
+      "old_collider_bottom": 0.6371206352793504,
+      "new_collider_bottom": 0.8225809543818122
+    },
+    {
+      "fruit": "/World/Vegetation/Bed_04/Fruits/Pepper_0019_yellow",
+      "connector": "/World/Vegetation/Bed_04/Connectors/Stem_0019",
+      "old_z": 0.6876236747465041,
+      "new_z": 0.8280194261509162,
+      "delta_z": 0.14039575140441207,
+      "old_collider_bottom": 0.650123673256388,
+      "new_collider_bottom": 0.7905194246608
+    },
+    {
+      "fruit": "/World/Vegetation/Bed_04/Fruits/Pepper_0024_yellow",
+      "connector": "/World/Vegetation/Bed_04/Connectors/Stem_0024",
+      "old_z": 0.7022647406632134,
+      "new_z": 0.9365164971768862,
+      "delta_z": 0.2342517565136728,
+      "old_collider_bottom": 0.6647647391730973,
+      "new_collider_bottom": 0.8990164956867701
+    },
+    {
+      "fruit": "/World/Vegetation/Bed_04/Fruits/Pepper_0026_red",
+      "connector": "/World/Vegetation/Bed_04/Connectors/Stem_0026",
+      "old_z": 0.6754977746710132,
+      "new_z": 1.0524319117310923,
+      "delta_z": 0.37693413706007906,
+      "old_collider_bottom": 0.6379977731808971,
+      "new_collider_bottom": 1.0149319102409762
+    },
+    {
+      "fruit": "/World/Vegetation/Bed_04/Fruits/Pepper_0034_green",
+      "connector": "/World/Vegetation/Bed_04/Connectors/Stem_0034",
+      "old_z": 0.6707605763409478,
+      "new_z": 0.9806843482636092,
+      "delta_z": 0.3099237719226614,
+      "old_collider_bottom": 0.6332605748508316,
+      "new_collider_bottom": 0.943184346773493
+    },
+    {
+      "fruit": "/World/Vegetation/Bed_05/Fruits/Pepper_0001_yellow",
+      "connector": "/World/Vegetation/Bed_05/Connectors/Stem_0001",
+      "old_z": 0.6994903896099641,
+      "new_z": 0.8781623188119402,
+      "delta_z": 0.17867192920197605,
+      "old_collider_bottom": 0.661990388119848,
+      "new_collider_bottom": 0.8406623173218241
+    },
+    {
+      "fruit": "/World/Vegetation/Bed_05/Fruits/Pepper_0003_green",
+      "connector": "/World/Vegetation/Bed_05/Connectors/Stem_0003",
+      "old_z": 0.7530433659570026,
+      "new_z": 0.8797729038739845,
+      "delta_z": 0.12672953791698194,
+      "old_collider_bottom": 0.7155433644668865,
+      "new_collider_bottom": 0.8422729023838684
+    },
+    {
+      "fruit": "/World/Vegetation/Bed_05/Fruits/Pepper_0006_red",
+      "connector": "/World/Vegetation/Bed_05/Connectors/Stem_0006",
+      "old_z": 0.7384172023864405,
+      "new_z": 0.8149436469261953,
+      "delta_z": 0.07652644453975477,
+      "old_collider_bottom": 0.7009172008963244,
+      "new_collider_bottom": 0.7774436454360791
+    },
+    {
+      "fruit": "/World/Vegetation/Bed_05/Fruits/Pepper_0013_yellow",
+      "connector": "/World/Vegetation/Bed_05/Connectors/Stem_0013",
+      "old_z": 0.7178334884183951,
+      "new_z": 0.9431168785582136,
+      "delta_z": 0.22528339013981846,
+      "old_collider_bottom": 0.680333486928279,
+      "new_collider_bottom": 0.9056168770680975
+    },
+    {
+      "fruit": "/World/Vegetation/Bed_05/Fruits/Pepper_0015_yellow",
+      "connector": "/World/Vegetation/Bed_05/Connectors/Stem_0015",
+      "old_z": 0.6930249321102708,
+      "new_z": 0.9216273979492197,
+      "delta_z": 0.22860246583894883,
+      "old_collider_bottom": 0.6555249306201547,
+      "new_collider_bottom": 0.8841273964591035
+    },
+    {
+      "fruit": "/World/Vegetation/Bed_05/Fruits/Pepper_0019_yellow",
+      "connector": "/World/Vegetation/Bed_05/Connectors/Stem_0019",
+      "old_z": 0.6700689022837739,
+      "new_z": 0.8000140249261848,
+      "delta_z": 0.12994512264241087,
+      "old_collider_bottom": 0.6325689007936578,
+      "new_collider_bottom": 0.7625140234360687
+    },
+    {
+      "fruit": "/World/Vegetation/Bed_05/Fruits/Pepper_0021_green",
+      "connector": "/World/Vegetation/Bed_05/Connectors/Stem_0021",
+      "old_z": 0.7497138926797494,
+      "new_z": 1.0721132525111403,
+      "delta_z": 0.3223993598313909,
+      "old_collider_bottom": 0.7122138911896333,
+      "new_collider_bottom": 1.0346132510210242
+    },
+    {
+      "fruit": "/World/Vegetation/Bed_05/Fruits/Pepper_0022_green",
+      "connector": "/World/Vegetation/Bed_05/Connectors/Stem_0022",
+      "old_z": 0.7311102635456432,
+      "new_z": 0.7927514053751687,
+      "delta_z": 0.061641141829525514,
+      "old_collider_bottom": 0.6936102620555271,
+      "new_collider_bottom": 0.7552514038850526
+    },
+    {
+      "fruit": "/World/Vegetation/Bed_05/Fruits/Pepper_0025_green",
+      "connector": "/World/Vegetation/Bed_05/Connectors/Stem_0025",
+      "old_z": 0.7595346942216693,
+      "new_z": 0.9232444204789373,
+      "delta_z": 0.16370972625726798,
+      "old_collider_bottom": 0.7220346927315532,
+      "new_collider_bottom": 0.8857444189888212
+    },
+    {
+      "fruit": "/World/Vegetation/Bed_05/Fruits/Pepper_0027_green",
+      "connector": "/World/Vegetation/Bed_05/Connectors/Stem_0027",
+      "old_z": 0.7815854447249709,
+      "new_z": 0.8295828487740302,
+      "delta_z": 0.04799740404905928,
+      "old_collider_bottom": 0.7440854432348548,
+      "new_collider_bottom": 0.7920828472839141
+    },
+    {
+      "fruit": "/World/Vegetation/Bed_05/Fruits/Pepper_0029_red",
+      "connector": "/World/Vegetation/Bed_05/Connectors/Stem_0029",
+      "old_z": 0.7794733714665533,
+      "new_z": 0.8793616591409733,
+      "delta_z": 0.09988828767442004,
+      "old_collider_bottom": 0.7419733699764371,
+      "new_collider_bottom": 0.8418616576508572
+    },
+    {
+      "fruit": "/World/Vegetation/Bed_05/Fruits/Pepper_0032_red",
+      "connector": "/World/Vegetation/Bed_05/Connectors/Stem_0032",
+      "old_z": 0.7300655675535648,
+      "new_z": 0.9277423055177028,
+      "delta_z": 0.19767673796413798,
+      "old_collider_bottom": 0.6925655660634487,
+      "new_collider_bottom": 0.8902423040275866
+    },
+    {
+      "fruit": "/World/Vegetation/Bed_06/Fruits/Pepper_0001_red",
+      "connector": "/World/Vegetation/Bed_06/Connectors/Stem_0001",
+      "old_z": 0.7723626558015219,
+      "new_z": 0.945700441760053,
+      "delta_z": 0.1733377859585311,
+      "old_collider_bottom": 0.7348626543114057,
+      "new_collider_bottom": 0.9082004402699368
+    },
+    {
+      "fruit": "/World/Vegetation/Bed_06/Fruits/Pepper_0004_yellow",
+      "connector": "/World/Vegetation/Bed_06/Connectors/Stem_0004",
+      "old_z": 0.710371879063703,
+      "new_z": 1.0349829859256587,
+      "delta_z": 0.3246111068619557,
+      "old_collider_bottom": 0.6728718775735869,
+      "new_collider_bottom": 0.9974829844355426
+    },
+    {
+      "fruit": "/World/Vegetation/Bed_06/Fruits/Pepper_0017_red",
+      "connector": "/World/Vegetation/Bed_06/Connectors/Stem_0017",
+      "old_z": 0.662060014814966,
+      "new_z": 0.9589927628635643,
+      "delta_z": 0.29693274804859826,
+      "old_collider_bottom": 0.6245600133248499,
+      "new_collider_bottom": 0.9214927613734482
+    },
+    {
+      "fruit": "/World/Vegetation/Bed_06/Fruits/Pepper_0019_red",
+      "connector": "/World/Vegetation/Bed_06/Connectors/Stem_0019",
+      "old_z": 0.6789001368619209,
+      "new_z": 0.9735853968499142,
+      "delta_z": 0.29468525998799333,
+      "old_collider_bottom": 0.6414001353718047,
+      "new_collider_bottom": 0.9360853953597981
+    },
+    {
+      "fruit": "/World/Vegetation/Bed_06/Fruits/Pepper_0020_yellow",
+      "connector": "/World/Vegetation/Bed_06/Connectors/Stem_0020",
+      "old_z": 0.7851740667294771,
+      "new_z": 0.8668661933634603,
+      "delta_z": 0.08169212663398318,
+      "old_collider_bottom": 0.747674065239361,
+      "new_collider_bottom": 0.8293661918733441
+    },
+    {
+      "fruit": "/World/Vegetation/Bed_06/Fruits/Pepper_0021_red",
+      "connector": "/World/Vegetation/Bed_06/Connectors/Stem_0021",
+      "old_z": 0.64002096928332,
+      "new_z": 0.9561364810758669,
+      "delta_z": 0.31611551179254693,
+      "old_collider_bottom": 0.6025209677932039,
+      "new_collider_bottom": 0.9186364795857508
+    },
+    {
+      "fruit": "/World/Vegetation/Bed_06/Fruits/Pepper_0023_green",
+      "connector": "/World/Vegetation/Bed_06/Connectors/Stem_0023",
+      "old_z": 0.7757555682236799,
+      "new_z": 0.8981232503320213,
+      "delta_z": 0.12236768210834148,
+      "old_collider_bottom": 0.7382555667335637,
+      "new_collider_bottom": 0.8606232488419052
+    },
+    {
+      "fruit": "/World/Vegetation/Bed_06/Fruits/Pepper_0024_green",
+      "connector": "/World/Vegetation/Bed_06/Connectors/Stem_0024",
+      "old_z": 0.653274671249876,
+      "new_z": 0.9544342265836797,
+      "delta_z": 0.3011595553338037,
+      "old_collider_bottom": 0.6157746697597599,
+      "new_collider_bottom": 0.9169342250935636
+    },
+    {
+      "fruit": "/World/Vegetation/Bed_06/Fruits/Pepper_0028_green",
+      "connector": "/World/Vegetation/Bed_06/Connectors/Stem_0028",
+      "old_z": 0.7869872934208789,
+      "new_z": 0.8732860291260657,
+      "delta_z": 0.08629873570518676,
+      "old_collider_bottom": 0.7494872919307628,
+      "new_collider_bottom": 0.8357860276359496
+    },
+    {
+      "fruit": "/World/Vegetation/Bed_06/Fruits/Pepper_0029_yellow",
+      "connector": "/World/Vegetation/Bed_06/Connectors/Stem_0029",
+      "old_z": 0.685772124498395,
+      "new_z": 0.9014764522551263,
+      "delta_z": 0.21570432775673132,
+      "old_collider_bottom": 0.6482721230082789,
+      "new_collider_bottom": 0.8639764507650102
+    },
+    {
+      "fruit": "/World/Vegetation/Bed_06/Fruits/Pepper_0031_yellow",
+      "connector": "/World/Vegetation/Bed_06/Connectors/Stem_0031",
+      "old_z": 0.6363561300645708,
+      "new_z": 0.9321961990526427,
+      "delta_z": 0.2958400689880719,
+      "old_collider_bottom": 0.5988561285744547,
+      "new_collider_bottom": 0.8946961975625266
+    },
+    {
+      "fruit": "/World/Vegetation/Bed_06/Fruits/Pepper_0032_green",
+      "connector": "/World/Vegetation/Bed_06/Connectors/Stem_0032",
+      "old_z": 0.7532577758727204,
+      "new_z": 0.9278514225545559,
+      "delta_z": 0.17459364668183552,
+      "old_collider_bottom": 0.7157577743826042,
+      "new_collider_bottom": 0.8903514210644398
+    },
+    {
+      "fruit": "/World/Vegetation/Bed_06/Fruits/Pepper_0035_green",
+      "connector": "/World/Vegetation/Bed_06/Connectors/Stem_0035",
+      "old_z": 0.7715617060661292,
+      "new_z": 0.8516937461802059,
+      "delta_z": 0.08013204011407671,
+      "old_collider_bottom": 0.734061704576013,
+      "new_collider_bottom": 0.8141937446900898
+    },
+    {
+      "fruit": "/World/Vegetation/Bed_07/Fruits/Pepper_0001_red",
+      "connector": "/World/Vegetation/Bed_07/Connectors/Stem_0001",
+      "old_z": 0.7003310948824388,
+      "new_z": 0.8410081569299492,
+      "delta_z": 0.1406770620475104,
+      "old_collider_bottom": 0.6628310933923227,
+      "new_collider_bottom": 0.8035081554398331
+    },
+    {
+      "fruit": "/World/Vegetation/Bed_07/Fruits/Pepper_0003_yellow",
+      "connector": "/World/Vegetation/Bed_07/Connectors/Stem_0003",
+      "old_z": 0.7716228513594136,
+      "new_z": 0.9017855772443827,
+      "delta_z": 0.13016272588496913,
+      "old_collider_bottom": 0.7341228498692974,
+      "new_collider_bottom": 0.8642855757542666
+    },
+    {
+      "fruit": "/World/Vegetation/Bed_07/Fruits/Pepper_0004_yellow",
+      "connector": "/World/Vegetation/Bed_07/Connectors/Stem_0004",
+      "old_z": 0.7439884203175398,
+      "new_z": 1.0450645696286498,
+      "delta_z": 0.30107614931111004,
+      "old_collider_bottom": 0.7064884188274236,
+      "new_collider_bottom": 1.0075645681385337
+    },
+    {
+      "fruit": "/World/Vegetation/Bed_07/Fruits/Pepper_0005_red",
+      "connector": "/World/Vegetation/Bed_07/Connectors/Stem_0005",
+      "old_z": 0.7825571359079672,
+      "new_z": 0.9133237759600491,
+      "delta_z": 0.13076664005208194,
+      "old_collider_bottom": 0.745057134417851,
+      "new_collider_bottom": 0.875823774469933
+    },
+    {
+      "fruit": "/World/Vegetation/Bed_07/Fruits/Pepper_0006_green",
+      "connector": "/World/Vegetation/Bed_07/Connectors/Stem_0006",
+      "old_z": 0.6572838339852323,
+      "new_z": 0.975682273783894,
+      "delta_z": 0.3183984397986618,
+      "old_collider_bottom": 0.6197838324951161,
+      "new_collider_bottom": 0.9381822722937779
+    },
+    {
+      "fruit": "/World/Vegetation/Bed_07/Fruits/Pepper_0009_red",
+      "connector": "/World/Vegetation/Bed_07/Connectors/Stem_0009",
+      "old_z": 0.6717534543570327,
+      "new_z": 0.8221296411529894,
+      "delta_z": 0.15037618679595666,
+      "old_collider_bottom": 0.6342534528669166,
+      "new_collider_bottom": 0.7846296396628732
+    },
+    {
+      "fruit": "/World/Vegetation/Bed_07/Fruits/Pepper_0015_green",
+      "connector": "/World/Vegetation/Bed_07/Connectors/Stem_0015",
+      "old_z": 0.7113177880950643,
+      "new_z": 0.9564732091451091,
+      "delta_z": 0.24515542105004484,
+      "old_collider_bottom": 0.6738177866049482,
+      "new_collider_bottom": 0.918973207654993
+    },
+    {
+      "fruit": "/World/Vegetation/Bed_07/Fruits/Pepper_0019_red",
+      "connector": "/World/Vegetation/Bed_07/Connectors/Stem_0019",
+      "old_z": 0.706643589650323,
+      "new_z": 0.8651979405392393,
+      "delta_z": 0.15855435088891623,
+      "old_collider_bottom": 0.6691435881602069,
+      "new_collider_bottom": 0.8276979390491231
+    },
+    {
+      "fruit": "/World/Vegetation/Bed_07/Fruits/Pepper_0023_yellow",
+      "connector": "/World/Vegetation/Bed_07/Connectors/Stem_0023",
+      "old_z": 0.6512626524854183,
+      "new_z": 1.0688561512142252,
+      "delta_z": 0.4175934987288069,
+      "old_collider_bottom": 0.6137626509953021,
+      "new_collider_bottom": 1.031356149724109
+    },
+    {
+      "fruit": "/World/Vegetation/Bed_07/Fruits/Pepper_0032_green",
+      "connector": "/World/Vegetation/Bed_07/Connectors/Stem_0032",
+      "old_z": 0.7822374860713338,
+      "new_z": 1.040826319702796,
+      "delta_z": 0.25858883363146223,
+      "old_collider_bottom": 0.7447374845812177,
+      "new_collider_bottom": 1.00332631821268
+    },
+    {
+      "fruit": "/World/Vegetation/Bed_07/Fruits/Pepper_0033_green",
+      "connector": "/World/Vegetation/Bed_07/Connectors/Stem_0033",
+      "old_z": 0.6452450078141504,
+      "new_z": 0.9253049511053517,
+      "delta_z": 0.2800599432912013,
+      "old_collider_bottom": 0.6077450063240343,
+      "new_collider_bottom": 0.8878049496152356
+    },
+    {
+      "fruit": "/World/Vegetation/Bed_07/Fruits/Pepper_0034_green",
+      "connector": "/World/Vegetation/Bed_07/Connectors/Stem_0034",
+      "old_z": 0.6539962882200033,
+      "new_z": 1.0370001681496321,
+      "delta_z": 0.3830038799296288,
+      "old_collider_bottom": 0.6164962867298872,
+      "new_collider_bottom": 0.999500166659516
+    },
+    {
+      "fruit": "/World/Vegetation/Bed_07/Fruits/Pepper_0035_green",
+      "connector": "/World/Vegetation/Bed_07/Connectors/Stem_0035",
+      "old_z": 0.695624535331056,
+      "new_z": 0.9420328598868486,
+      "delta_z": 0.24640832455579265,
+      "old_collider_bottom": 0.6581245338409398,
+      "new_collider_bottom": 0.9045328583967325
+    },
+    {
+      "fruit": "/World/Vegetation/Bed_08/Fruits/Pepper_0001_yellow",
+      "connector": "/World/Vegetation/Bed_08/Connectors/Stem_0001",
+      "old_z": 0.6417078315982065,
+      "new_z": 0.8954936414793473,
+      "delta_z": 0.25378580988114074,
+      "old_collider_bottom": 0.6042078301080904,
+      "new_collider_bottom": 0.8579936399892312
+    },
+    {
+      "fruit": "/World/Vegetation/Bed_08/Fruits/Pepper_0004_yellow",
+      "connector": "/World/Vegetation/Bed_08/Connectors/Stem_0004",
+      "old_z": 0.6699305218535502,
+      "new_z": 0.8131952924207538,
+      "delta_z": 0.14326477056720366,
+      "old_collider_bottom": 0.6324305203634341,
+      "new_collider_bottom": 0.7756952909306377
+    },
+    {
+      "fruit": "/World/Vegetation/Bed_08/Fruits/Pepper_0006_green",
+      "connector": "/World/Vegetation/Bed_08/Connectors/Stem_0006",
+      "old_z": 0.7346485180993787,
+      "new_z": 0.9648840332867288,
+      "delta_z": 0.23023551518735008,
+      "old_collider_bottom": 0.6971485166092626,
+      "new_collider_bottom": 0.9273840317966127
+    },
+    {
+      "fruit": "/World/Vegetation/Bed_08/Fruits/Pepper_0016_yellow",
+      "connector": "/World/Vegetation/Bed_08/Connectors/Stem_0016",
+      "old_z": 0.7836203223815368,
+      "new_z": 1.0783426626053165,
+      "delta_z": 0.29472234022377974,
+      "old_collider_bottom": 0.7461203208914207,
+      "new_collider_bottom": 1.0408426611152004
+    },
+    {
+      "fruit": "/World/Vegetation/Bed_08/Fruits/Pepper_0017_green",
+      "connector": "/World/Vegetation/Bed_08/Connectors/Stem_0017",
+      "old_z": 0.7583903971196462,
+      "new_z": 0.8155718443606667,
+      "delta_z": 0.05718144724102048,
+      "old_collider_bottom": 0.7208903956295301,
+      "new_collider_bottom": 0.7780718428705505
+    },
+    {
+      "fruit": "/World/Vegetation/Bed_08/Fruits/Pepper_0020_green",
+      "connector": "/World/Vegetation/Bed_08/Connectors/Stem_0020",
+      "old_z": 0.742351670520222,
+      "new_z": 0.796879431329807,
+      "delta_z": 0.05452776080958499,
+      "old_collider_bottom": 0.7048516690301059,
+      "new_collider_bottom": 0.7593794298396909
+    },
+    {
+      "fruit": "/World/Vegetation/Bed_08/Fruits/Pepper_0026_yellow",
+      "connector": "/World/Vegetation/Bed_08/Connectors/Stem_0026",
+      "old_z": 0.7468840134389867,
+      "new_z": 0.9246546289883828,
+      "delta_z": 0.1777706155493961,
+      "old_collider_bottom": 0.7093840119488706,
+      "new_collider_bottom": 0.8871546274982667
+    },
+    {
+      "fruit": "/World/Vegetation/Bed_08/Fruits/Pepper_0028_red",
+      "connector": "/World/Vegetation/Bed_08/Connectors/Stem_0028",
+      "old_z": 0.7401442696002496,
+      "new_z": 0.8448703813401592,
+      "delta_z": 0.10472611173990964,
+      "old_collider_bottom": 0.7026442681101335,
+      "new_collider_bottom": 0.8073703798500431
+    },
+    {
+      "fruit": "/World/Vegetation/Bed_08/Fruits/Pepper_0034_green",
+      "connector": "/World/Vegetation/Bed_08/Connectors/Stem_0034",
+      "old_z": 0.633367348248045,
+      "new_z": 1.0607294688438793,
+      "delta_z": 0.42736212059583434,
+      "old_collider_bottom": 0.5958673467579289,
+      "new_collider_bottom": 1.0232294673537632
+    },
+    {
+      "fruit": "/World/Vegetation/Bed_08/Fruits/Pepper_0036_green",
+      "connector": "/World/Vegetation/Bed_08/Connectors/Stem_0036",
+      "old_z": 0.6686487942469078,
+      "new_z": 1.0509975969565029,
+      "delta_z": 0.38234880270959504,
+      "old_collider_bottom": 0.6311487927567917,
+      "new_collider_bottom": 1.0134975954663867
+    }
+  ],
+  "before_sha256": "904021b253bb58e2834ea40d7e1832261b6ee103556ce0255c6bfc088a3041af",
+  "after_sha256": "4ccf550267bf69ec878a5f89ed6f44a2cd6fddc38c9e2ad9e279591579a9a68b",
+  "verified": "all fruit and connector world matrices equal old matrix plus authorized Z only",
+  "placement": "fixed seed, feasible Z intervals without inter-fruit AABB overlap for moved fruit",
+  "placement_attempts": 1,
+  "validation": {
+    "z_only_equal_connector_shift": true,
+    "minimum_collider_bottom_m": 0.7548013464224917,
+    "minimum_box_gap_m": 0.05350134141570162,
+    "changed_properties": 294,
+    "allowed_properties_only": true,
+    "new_aabb_overlaps": []
+  },
+  "physics_test": {
+    "case": "raised_final",
+    "duration_sim_s": 22.004167814273387,
+    "bounded_run_complete": true,
+    "travel_2_to_14_m": 1.2106981668417867,
+    "final_xy": [
+      -2.9615633487701416,
+      8.493765830993652
+    ],
+    "box_fruit_contact_events": 0,
+    "other_fruit_contacts": [
+      {
+        "colliders": [
+          "/World/harvest_robot/arm_2_gripper_link/TeacherCollisions/mesh_3/box",
+          "/World/Vegetation/Bed_04/Fruits/Pepper_0003_yellow/Collision"
+        ],
+        "events": 2,
+        "first_sim_s": 0.0,
+        "last_sim_s": 0.0020833334419876337
+      },
+      {
+        "colliders": [
+          "/World/harvest_robot/arm_2_gripper_link/TeacherCollisions/d435_wrist_mount/node_STL_BINARY_",
+          "/World/Vegetation/Bed_04/Fruits/Pepper_0003_yellow/Collision"
+        ],
+        "events": 1,
+        "first_sim_s": 0.0,
+        "last_sim_s": 0.0
+      }
+    ],
+    "exit_code": -15,
+    "scope": "CPU isolated physical approach and rotation, not Nav2 full mission"
+  },
+  "baseline_commit": "8cfcc3f",
+  "authorization": "박스에 걸릴만한 낮은 파프리카만 기존 최대 높이 이하로 상향, 커넥터 동일 Z 이동",
+  "commit_push": "not performed"
+}

@@ -51,7 +51,7 @@ def main():
         if len(configs) != 1 or not snapshot.is_relative_to(root/'sim/runs/harvest_test_ui'):
             parser.error('sim/tools/harvest_test_ui.py의 독립 설정으로 실행하세요.')
     from farm_sim_runtime.harvest_physics import (
-        HarvestPhysics, initialize_arm_home, load_physics_profile)
+        HarvestPhysics, initialize_arm_travel, load_physics_profile)
     from farm_sim_runtime.physics_schedule import AdaptivePhysicsTicks
     physics_profile = load_physics_profile(root, configs)
     assets = args.assets_root.resolve() if args.assets_root else root/'sim/assets'
@@ -224,7 +224,7 @@ def main():
             cfg, base = robot['cfg'], robot['base']
             base.initialize()
             if harvest_physics is not None and robot['path'] in harvest_physics.arm_reports:
-                initialize_arm_home(base.robot, harvest_physics.arm_reports[robot['path']])
+                initialize_arm_travel(base.robot, harvest_physics.arm_reports[robot['path']])
             from farm_sim_runtime.station_spawn import verify_station_pose
             position, orientation = base.pose()
             q = Gf.Quatd(float(orientation[0]), Gf.Vec3d(*map(float, orientation[1:])))
@@ -342,7 +342,8 @@ def main():
                     robot['arm'].tick(float(world.current_time), base_stationary=stationary)
                     if robot.get('teacher_recorder') is not None:
                         robot['teacher_recorder'].sample(float(world.current_time))
-                robot['applied_cmd'] = ((0., 0.) if robot['arm'] is not None and robot['arm'].busy
+                robot['applied_cmd'] = ((0., 0.) if robot['arm'] is not None
+                                        and (robot['arm'].busy or not robot['arm'].travel_ready)
                                         else robot['gate'].value())
                 robot['base'].command(*robot['applied_cmd'])
             arm_finished = time.perf_counter()

@@ -1,6 +1,6 @@
 """받은 오른팔 물성과 박스 바닥을 세션 레이어에만 적용한다.
 
-주행 USD의 바퀴·캐스터·왼팔을 보존한다. 학습 정렬 시 오른팔의 고정 카메라
+주행 USD의 바퀴·캐스터를 보존하며 양팔 주행 자세는 별도로 적용한다. 학습 정렬 시 오른팔의 고정 카메라
 몸체를 집게에 합치고 articulation solver/자기충돌을 맞춘다. 호출은 물리
 초기화 전에 한 번 수행하며, 관절 상태 자체의 HOME 배치는 실행기가 담당한다.
 """
@@ -172,7 +172,39 @@ def configure_harvest_arm(stage: object, robot_path: str, config: dict) -> dict:
                 collision.CreateContactOffsetAttr(offset)
                 collision.CreateRestOffsetAttr(rest)
                 floor_paths.append(str(collider.GetPath()))
-    return dict(joint_paths=[row['path'] for row in drives], joint_names=names,
+    travel = None
+    if config.get('travel_pose') is not None:
+        travel_names = [n.replace('arm_2_', 'arm_1_', 1) for n in names] + names
+        positions = [float(v) for side in ('left', 'right')
+                     for v in config['travel_pose'][side+'_positions_rad']]
+        if any(len(config['travel_pose'][side+'_positions_rad']) != 6 for side in ('left', 'right')):
+            raise ValueError('주행 자세는 좌우 각각 6축이어야 합니다.')
+        travel_joints = [_named_prim(stage, robot, name) for name in travel_names]
+        for joint, angle in zip(travel_joints, positions):
+            if (not math.isfinite(angle) or not joint.GetAttribute('physics:lowerLimit').Get()
+                    <= math.degrees(angle) <= joint.GetAttribute('physics:upperLimit').Get()):
+                raise ValueError(f'{joint.GetPath()}: 주행 자세가 관절 한계를 벗어납니다.')
+        with Usd.EditContext(stage, stage.GetSessionLayer()):
+            for index, (joint, angle) in enumerate(zip(travel_joints, positions)):
+                drive = UsdPhysics.DriveAPI.Apply(joint, 'angular')
+                if index < 6:
+                    # 같은 서보의 주행 유지에도 오른팔과 같은 SI drive 한도를 사용한다.
+                    row = drives[index]
+                    drive.CreateTypeAttr('force')
+                    drive.CreateStiffnessAttr(row['stiffness'])
+                    drive.CreateDampingAttr(row['damping'])
+                    drive.CreateMaxForceAttr(row['max_force'])
+                    PhysxSchema.PhysxJointAPI.Apply(joint).CreateMaxJointVelocityAttr(row['max_velocity'])
+                drive.CreateTargetPositionAttr(math.degrees(angle))
+                drive.CreateTargetVelocityAttr(0.)
+            # 왼팔 고정 카메라 마운트는 손목 CAD와 겹친다. 오른팔의 고정 body 합성과
+            # 동일하게 직접 인접한 손목 쌍만 제외하고 외부/비인접 접촉은 보존한다.
+            mount = _named_prim(stage, robot, 'arm_1_wrist_camera_mount_link')
+            wrist = _named_prim(stage, robot, 'arm_1_wrist_link')
+            UsdPhysics.FilteredPairsAPI.Apply(mount).CreateFilteredPairsRel().AddTarget(wrist.GetPath())
+        travel = dict(joint_names=travel_names, positions_rad=positions,
+                      filtered_pairs=[[str(mount.GetPath()), str(wrist.GetPath())]])
+    return dict(travel_pose=travel, joint_paths=[row['path'] for row in drives], joint_names=names,
                 home_positions_rad=None if home_arm is None else [float(v) for v in homes],
                 usd_drives=drives, grip_colliders=grip_paths, floor_colliders=floor_paths,
                 grip_material=str(material_path), edit_layer='session', teacher_alignment=alignment)

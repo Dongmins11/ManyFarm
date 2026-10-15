@@ -1,0 +1,42 @@
+{
+  "date": "2026-10-15",
+  "baseline": "8cfcc3f plus existing uncommitted changes",
+  "authorization": "이거는 sim이랑 real이랑 서로 다른 시간대를 쓰도록 조정돼야겠는데?",
+  "scope": "shared navigation execution deadline",
+  "implementation": {
+    "selector": "node.get_clock().ros_time_is_active (existing use_sim_time)",
+    "sim": "ROS /clock seconds",
+    "real": "time.monotonic seconds",
+    "wall_time_preserved": [
+      "parameter response",
+      "goal acceptance",
+      "readiness",
+      "cancel acknowledgement and terminal result",
+      "TF recovery watchdog"
+    ],
+    "execution_paths": [
+      "FollowPath result wait",
+      "NavigateToPose result wait",
+      "overall TF recovery execution budget"
+    ],
+    "sim_rewind": "RuntimeError preserving pending goal for normal cancellation",
+    "new_config": false
+  },
+  "validation": {
+    "pytest_passed": 59,
+    "new_clock_tests": 12,
+    "installed_ros_clock_timesource_checked": true,
+    "source_install_symlink_checked": true,
+    "isaac_full_mission": false,
+    "real_hardware": false
+  },
+  "files": {
+    "robot/ros_ws/src/farm_navigation/farm_navigation/nav2_client.py": "3a46b8c3e8b7e707dde8b3328283fdcee141fd44d65f9b5e534714383825b428",
+    "robot/ros_ws/src/farm_navigation/farm_navigation/navigation_types.py": "f8818aa6c547ecd11752a528f814fee3fee18fe2a0ccb35e1aed176a4c0842b8",
+    "robot/ros_ws/src/farm_navigation/test/test_nav2_execution_clock.py": "408d401fc45c721e58525d0758f96a1a9ae0f8fab61361da7656a5ee2b4a35c1",
+    "robot/ros_ws/src/harvest_robot/test/test_follow_work.py": "c05aba3df34ab9f6b50400842f56c19f310b25f12a8e502dd84dffc6c53cd3b6"
+  },
+  "logs": "sim/runs/navigation_clock_20261015/pytest.log",
+  "deployment": "existing processes unchanged; restart caller robot node to load source",
+  "commit_push": "not performed"
+}

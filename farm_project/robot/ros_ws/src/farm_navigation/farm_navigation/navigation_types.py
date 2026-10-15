@@ -18,6 +18,7 @@ class NavigationSettings:
     controller_id: str = 'FollowPath'
     goal_checker_id: str = 'goal_checker'
     progress_checker_id: str = 'progress_checker'
+    # 주행 제한은 sim에서 ROS 시간, real에서 단조 실시간. I/O 제한은 항상 실시간이다.
     goal_timeout_s: float = 300.0
     response_timeout_s: float = 15.0
     cancel_timeout_s: float = 10.0

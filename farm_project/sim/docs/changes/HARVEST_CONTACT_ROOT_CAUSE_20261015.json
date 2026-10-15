@@ -1,0 +1,728 @@
+{
+  "date_kst": "2026-10-15",
+  "baseline_commit": "8cfcc3f",
+  "request": "원인 찾아내",
+  "scope": "latest two SEC02 approach failures; isolated physical reproduction, not Nav2 E2E",
+  "confirmed_direct_cause": "Left arm wrist camera contacts Bed_04 Pepper_0003_yellow. Inactive fruits retain collision while kinematic, obstructing heading correction. Removing only this fruit collider in the test session restores rotation and removes approach deflection.",
+  "contact_pair": [
+    "/World/harvest_robot/arm_1_wrist_camera_link/collisions/mesh_0/box",
+    "/World/Vegetation/Bed_04/Fruits/Pepper_0003_yellow/Collision"
+  ],
+  "original_physics_activity": [
+    "sim/runs/robotarm/physics/06d40de821d74033a73879f30d073a3a/activity.jsonl",
+    "sim/runs/robotarm/physics/a5b08ca6cf2c45abb43047ac43055480/activity.jsonl"
+  ],
+  "original_active_fruit_count": 0,
+  "cases": [
+    {
+      "case": "baseline",
+      "last_sim_s": 22.004167814273387,
+      "sample_count": 1320,
+      "rotation_2_to_12_deg": -0.30364094681943543,
+      "samples": {
+        "2": {
+          "actual_t": 2.0041667711921036,
+          "xy": [
+            -2.9871928691864014,
+            9.282989501953125
+          ],
+          "yaw_deg": -81.64016549624637
+        },
+        "8": {
+          "actual_t": 8.004167084116489,
+          "xy": [
+            -2.9873578548431396,
+            9.284024238586426
+          ],
+          "yaw_deg": -81.9301939778021
+        },
+        "10": {
+          "actual_t": 10.004167188424617,
+          "xy": [
+            -2.987332820892334,
+            9.283839225769043
+          ],
+          "yaw_deg": -81.95034260717149
+        },
+        "12": {
+          "actual_t": 12.004167292732745,
+          "xy": [
+            -2.987337589263916,
+            9.283875465393066
+          ],
+          "yaw_deg": -81.9438064430658
+        },
+        "16": {
+          "actual_t": 16.004167501349002,
+          "xy": [
+            -2.987367868423462,
+            9.284082412719727
+          ],
+          "yaw_deg": -81.94742412520054
+        },
+        "20": {
+          "actual_t": 20.00416770996526,
+          "xy": [
+            -2.987434148788452,
+            9.284554481506348
+          ],
+          "yaw_deg": -82.00574511828138
+        },
+        "22": {
+          "actual_t": 22.004167814273387,
+          "xy": [
+            -2.986037492752075,
+            9.275477409362793
+          ],
+          "yaw_deg": -80.80525572399279
+        }
+      },
+      "sleeping_samples": 0,
+      "fruit_contacts": [
+        {
+          "colliders": [
+            "/World/harvest_robot/arm_1_wrist_camera_link/collisions/mesh_0/box",
+            "/World/Vegetation/Bed_04/Fruits/Pepper_0003_yellow/Collision"
+          ],
+          "summed_normal_impulse_Ns": 204.36336909691002,
+          "nonzero_points": 2667,
+          "first_nonzero_sim_s": 0.03750000195577741,
+          "min_separation_m": -0.002133607864379883
+        }
+      ],
+      "largest_contacts": [
+        {
+          "colliders": [
+            "/World/harvest_robot/arm_1_wrist_camera_mount_link/collisions/d435_wrist_mount/node_STL_BINARY_",
+            "/World/harvest_robot/arm_1_wrist_link/collisions/sts3215_03a_no_horn_v1/node_STL_BINARY_"
+          ],
+          "summed_normal_impulse_Ns": 13325.138301358933,
+          "nonzero_points": 4193,
+          "first_nonzero_sim_s": 0.0,
+          "min_separation_m": -0.02690945565700531
+        },
+        {
+          "colliders": [
+            "/World/harvest_robot/arm_1_wrist_camera_mount_link/collisions/d435_wrist_mount/node_STL_BINARY_",
+            "/World/harvest_robot/arm_1_wrist_link/collisions/wrist_roll_pitch_so101_v2/node_STL_BINARY_"
+          ],
+          "summed_normal_impulse_Ns": 12166.244955647862,
+          "nonzero_points": 4987,
+          "first_nonzero_sim_s": 0.0,
+          "min_separation_m": -0.02243126928806305
+        },
+        {
+          "colliders": [
+            "/World/harvest_robot/left_wheel/collisions/mesh_0/cylinder",
+            "/World/GroundPlane/CollisionPlane"
+          ],
+          "summed_normal_impulse_Ns": 7999.865855067973,
+          "nonzero_points": 2644,
+          "first_nonzero_sim_s": 0.0,
+          "min_separation_m": -0.0003004418686032295
+        },
+        {
+          "colliders": [
+            "/World/harvest_robot/right_wheel/collisions/mesh_0/cylinder",
+            "/World/GroundPlane/CollisionPlane"
+          ],
+          "summed_normal_impulse_Ns": 7949.880707589448,
+          "nonzero_points": 2643,
+          "first_nonzero_sim_s": 0.0,
+          "min_separation_m": -0.0003003837482538074
+        },
+        {
+          "colliders": [
+            "/World/harvest_robot/arm_1_wrist_camera_link/collisions/mesh_0/box",
+            "/World/Vegetation/Bed_04/Fruits/Pepper_0003_yellow/Collision"
+          ],
+          "summed_normal_impulse_Ns": 204.36336909691002,
+          "nonzero_points": 2667,
+          "first_nonzero_sim_s": 0.03750000195577741,
+          "min_separation_m": -0.002133607864379883
+        }
+      ],
+      "bounded_run_complete": true
+    },
+    {
+      "case": "no_fruit_contact",
+      "last_sim_s": 22.004167814273387,
+      "sample_count": 1320,
+      "rotation_2_to_12_deg": -22.72692005989765,
+      "samples": {
+        "2": {
+          "actual_t": 2.0041667711921036,
+          "xy": [
+            -2.9890024662017822,
+            9.296030044555664
+          ],
+          "yaw_deg": -82.40563619205123
+        },
+        "8": {
+          "actual_t": 8.004167084116489,
+          "xy": [
+            -2.988999605178833,
+            9.296056747436523
+          ],
+          "yaw_deg": -83.22480304015963
+        },
+        "10": {
+          "actual_t": 10.004167188424617,
+          "xy": [
+            -2.9890642166137695,
+            9.297260284423828
+          ],
+          "yaw_deg": -92.56375931094398
+        },
+        "12": {
+          "actual_t": 12.004167292732745,
+          "xy": [
+            -2.9896340370178223,
+            9.295247077941895
+          ],
+          "yaw_deg": -105.13255625194888
+        },
+        "16": {
+          "actual_t": 16.004167501349002,
+          "xy": [
+            -2.9898152351379395,
+            9.296191215515137
+          ],
+          "yaw_deg": -126.40781587684812
+        },
+        "20": {
+          "actual_t": 20.00416770996526,
+          "xy": [
+            -2.9901599884033203,
+            9.296067237854004
+          ],
+          "yaw_deg": -173.79081261380585
+        },
+        "22": {
+          "actual_t": 22.004167814273387,
+          "xy": [
+            -2.9922361373901367,
+            9.296106338500977
+          ],
+          "yaw_deg": 178.72906648903876
+        }
+      },
+      "sleeping_samples": 0,
+      "fruit_contacts": [],
+      "largest_contacts": [
+        {
+          "colliders": [
+            "/World/harvest_robot/arm_1_wrist_camera_mount_link/collisions/d435_wrist_mount/node_STL_BINARY_",
+            "/World/harvest_robot/arm_1_wrist_link/collisions/sts3215_03a_no_horn_v1/node_STL_BINARY_"
+          ],
+          "summed_normal_impulse_Ns": 13338.732100043933,
+          "nonzero_points": 5286,
+          "first_nonzero_sim_s": 0.0,
+          "min_separation_m": -0.026909343898296356
+        },
+        {
+          "colliders": [
+            "/World/harvest_robot/arm_1_wrist_camera_mount_link/collisions/d435_wrist_mount/node_STL_BINARY_",
+            "/World/harvest_robot/arm_1_wrist_link/collisions/wrist_roll_pitch_so101_v2/node_STL_BINARY_"
+          ],
+          "summed_normal_impulse_Ns": 12232.486087192477,
+          "nonzero_points": 2647,
+          "first_nonzero_sim_s": 0.0,
+          "min_separation_m": -0.02243126928806305
+        },
+        {
+          "colliders": [
+            "/World/harvest_robot/right_wheel/collisions/mesh_0/cylinder",
+            "/World/GroundPlane/CollisionPlane"
+          ],
+          "summed_normal_impulse_Ns": 8338.32933313179,
+          "nonzero_points": 2637,
+          "first_nonzero_sim_s": 0.0,
+          "min_separation_m": -0.0003003837482538074
+        },
+        {
+          "colliders": [
+            "/World/harvest_robot/left_wheel/collisions/mesh_0/cylinder",
+            "/World/GroundPlane/CollisionPlane"
+          ],
+          "summed_normal_impulse_Ns": 7623.50424728543,
+          "nonzero_points": 2644,
+          "first_nonzero_sim_s": 0.0,
+          "min_separation_m": -0.0003004418686032295
+        },
+        {
+          "colliders": [
+            "/World/harvest_robot/lower_rail_right/collisions/mesh_0/box",
+            "/World/harvest_robot/lower_rail_rear/collisions/mesh_0/box"
+          ],
+          "summed_normal_impulse_Ns": 110.52599536336943,
+          "nonzero_points": 4179,
+          "first_nonzero_sim_s": 0.0,
+          "min_separation_m": -1.5357512666014372e-06
+        }
+      ],
+      "bounded_run_complete": true
+    },
+    {
+      "case": "no_mount_contact_v2",
+      "last_sim_s": 22.004167814273387,
+      "sample_count": 1320,
+      "rotation_2_to_12_deg": -6.49326558576941,
+      "samples": {
+        "2": {
+          "actual_t": 2.0041667711921036,
+          "xy": [
+            -2.9892749786376953,
+            9.29806900024414
+          ],
+          "yaw_deg": -82.39368592977968
+        },
+        "8": {
+          "actual_t": 8.004167084116489,
+          "xy": [
+            -2.9923031330108643,
+            9.326842308044434
+          ],
+          "yaw_deg": -85.18079367728184
+        },
+        "10": {
+          "actual_t": 10.004167188424617,
+          "xy": [
+            -2.9935050010681152,
+            9.346004486083984
+          ],
+          "yaw_deg": -87.19397462349284
+        },
+        "12": {
+          "actual_t": 12.004167292732745,
+          "xy": [
+            -2.9939723014831543,
+            9.361339569091797
+          ],
+          "yaw_deg": -88.8869515155491
+        },
+        "16": {
+          "actual_t": 16.004167501349002,
+          "xy": [
+            -2.990971803665161,
+            9.424332618713379
+          ],
+          "yaw_deg": -96.32995478751728
+        },
+        "20": {
+          "actual_t": 20.00416770996526,
+          "xy": [
+            -2.9872400760650635,
+            9.451772689819336
+          ],
+          "yaw_deg": -99.23540626383414
+        },
+        "22": {
+          "actual_t": 22.004167814273387,
+          "xy": [
+            -2.9878287315368652,
+            9.448698997497559
+          ],
+          "yaw_deg": -98.68988795856379
+        }
+      },
+      "sleeping_samples": 0,
+      "fruit_contacts": [
+        {
+          "colliders": [
+            "/World/harvest_robot/arm_1_wrist_camera_link/collisions/mesh_0/box",
+            "/World/Vegetation/Bed_04/Fruits/Pepper_0003_yellow/Collision"
+          ],
+          "summed_normal_impulse_Ns": 91.5290759488744,
+          "nonzero_points": 1718,
+          "first_nonzero_sim_s": 0.0,
+          "min_separation_m": -0.0034412629902362823
+        }
+      ],
+      "largest_contacts": [
+        {
+          "colliders": [
+            "/World/harvest_robot/right_wheel/collisions/mesh_0/cylinder",
+            "/World/GroundPlane/CollisionPlane"
+          ],
+          "summed_normal_impulse_Ns": 8197.920812000075,
+          "nonzero_points": 2619,
+          "first_nonzero_sim_s": 0.0,
+          "min_separation_m": -0.0003003837482538074
+        },
+        {
+          "colliders": [
+            "/World/harvest_robot/left_wheel/collisions/mesh_0/cylinder",
+            "/World/GroundPlane/CollisionPlane"
+          ],
+          "summed_normal_impulse_Ns": 7685.768980234866,
+          "nonzero_points": 2644,
+          "first_nonzero_sim_s": 0.0,
+          "min_separation_m": -0.0003004418686032295
+        },
+        {
+          "colliders": [
+            "/World/harvest_robot/front_left_caster/collisions/mesh_0/sphere",
+            "/World/GroundPlane/CollisionPlane"
+          ],
+          "summed_normal_impulse_Ns": 97.08694140240603,
+          "nonzero_points": 209,
+          "first_nonzero_sim_s": 0.13750000717118382,
+          "min_separation_m": 0
+        },
+        {
+          "colliders": [
+            "/World/harvest_robot/arm_1_wrist_camera_link/collisions/mesh_0/box",
+            "/World/Vegetation/Bed_04/Fruits/Pepper_0003_yellow/Collision"
+          ],
+          "summed_normal_impulse_Ns": 91.5290759488744,
+          "nonzero_points": 1718,
+          "first_nonzero_sim_s": 0.0,
+          "min_separation_m": -0.0034412629902362823
+        },
+        {
+          "colliders": [
+            "/World/harvest_robot/lower_rail_right/collisions/mesh_0/box",
+            "/World/harvest_robot/lower_rail_rear/collisions/mesh_0/box"
+          ],
+          "summed_normal_impulse_Ns": 54.721196313085926,
+          "nonzero_points": 4349,
+          "first_nonzero_sim_s": 0.0,
+          "min_separation_m": -1.3560060097006499e-06
+        }
+      ],
+      "bounded_run_complete": true
+    },
+    {
+      "case": "approach",
+      "last_sim_s": 22.004167814273387,
+      "sample_count": 1320,
+      "rotation_2_to_12_deg": 20.789109899383824,
+      "samples": {
+        "2": {
+          "actual_t": 2.0041667711921036,
+          "xy": [
+            -3.015000343322754,
+            9.999999046325684
+          ],
+          "yaw_deg": -90.01177241979978
+        },
+        "8": {
+          "actual_t": 8.004167084116489,
+          "xy": [
+            -3.014665365219116,
+            9.39254093170166
+          ],
+          "yaw_deg": -90.55126085250687
+        },
+        "10": {
+          "actual_t": 10.004167188424617,
+          "xy": [
+            -2.998115062713623,
+            9.214248657226562
+          ],
+          "yaw_deg": -77.52441613959984
+        },
+        "12": {
+          "actual_t": 12.004167292732745,
+          "xy": [
+            -2.947718858718872,
+            9.056663513183594
+          ],
+          "yaw_deg": -69.22266252041595
+        },
+        "16": {
+          "actual_t": 16.004167501349002,
+          "xy": [
+            -2.940164804458618,
+            9.03674602508545
+          ],
+          "yaw_deg": -75.93631066979277
+        },
+        "20": {
+          "actual_t": 20.00416770996526,
+          "xy": [
+            -2.9415442943573,
+            9.038712501525879
+          ],
+          "yaw_deg": -92.6725951467223
+        },
+        "22": {
+          "actual_t": 22.004167814273387,
+          "xy": [
+            -2.94157075881958,
+            9.038413047790527
+          ],
+          "yaw_deg": -93.40955161088995
+        }
+      },
+      "sleeping_samples": 0,
+      "fruit_contacts": [
+        {
+          "colliders": [
+            "/World/harvest_robot/arm_1_moving_jaw_so101_v1_link/collisions/moving_jaw_so101_v1/node_STL_BINARY_",
+            "/World/Vegetation/Bed_04/Fruits/Pepper_0003_yellow/Collision"
+          ],
+          "summed_normal_impulse_Ns": 6.348610582756209,
+          "nonzero_points": 180,
+          "first_nonzero_sim_s": 9.27083381684497,
+          "min_separation_m": -0.0009164833463728428
+        },
+        {
+          "colliders": [
+            "/World/harvest_robot/arm_2_gripper_link/TeacherCollisions/mesh_3/box",
+            "/World/Vegetation/Bed_04/Fruits/Pepper_0033_green/Collision"
+          ],
+          "summed_normal_impulse_Ns": 5.416413861741567,
+          "nonzero_points": 107,
+          "first_nonzero_sim_s": 12.487500651273876,
+          "min_separation_m": -0.0002590606745798141
+        },
+        {
+          "colliders": [
+            "/World/harvest_robot/arm_1_wrist_camera_link/collisions/mesh_0/box",
+            "/World/Vegetation/Bed_04/Fruits/Pepper_0003_yellow/Collision"
+          ],
+          "summed_normal_impulse_Ns": 1.6903120640314582,
+          "nonzero_points": 8,
+          "first_nonzero_sim_s": 8.254167097155005,
+          "min_separation_m": -8.407607674598694e-05
+        },
+        {
+          "colliders": [
+            "/World/harvest_robot/arm_2_moving_jaw_so101_v1_link/TeacherCollisions/moving_jaw_so101_v1/node_STL_BINARY_",
+            "/World/Vegetation/Bed_04/Fruits/Pepper_0033_green/Collision"
+          ],
+          "summed_normal_impulse_Ns": 1.643767192437001,
+          "nonzero_points": 211,
+          "first_nonzero_sim_s": 16.704167537856847,
+          "min_separation_m": -0.001176886260509491
+        },
+        {
+          "colliders": [
+            "/World/harvest_robot/box_right_wall/collisions/mesh_0/box",
+            "/World/Vegetation/Bed_04/Fruits/Pepper_0004_green/Collision"
+          ],
+          "summed_normal_impulse_Ns": 0.6941911565916093,
+          "nonzero_points": 2,
+          "first_nonzero_sim_s": 20.17083438532427,
+          "min_separation_m": 0
+        }
+      ],
+      "largest_contacts": [
+        {
+          "colliders": [
+            "/World/harvest_robot/arm_1_wrist_camera_mount_link/collisions/d435_wrist_mount/node_STL_BINARY_",
+            "/World/harvest_robot/arm_1_wrist_link/collisions/sts3215_03a_no_horn_v1/node_STL_BINARY_"
+          ],
+          "summed_normal_impulse_Ns": 13334.999207395851,
+          "nonzero_points": 5281,
+          "first_nonzero_sim_s": 0.0,
+          "min_separation_m": -0.026909401640295982
+        },
+        {
+          "colliders": [
+            "/World/harvest_robot/arm_1_wrist_camera_mount_link/collisions/d435_wrist_mount/node_STL_BINARY_",
+            "/World/harvest_robot/arm_1_wrist_link/collisions/wrist_roll_pitch_so101_v2/node_STL_BINARY_"
+          ],
+          "summed_normal_impulse_Ns": 12231.612414889943,
+          "nonzero_points": 2662,
+          "first_nonzero_sim_s": 0.0,
+          "min_separation_m": -0.02243073284626007
+        },
+        {
+          "colliders": [
+            "/World/harvest_robot/right_wheel/collisions/mesh_0/cylinder",
+            "/World/GroundPlane/CollisionPlane"
+          ],
+          "summed_normal_impulse_Ns": 8311.399117195053,
+          "nonzero_points": 2629,
+          "first_nonzero_sim_s": 0.0,
+          "min_separation_m": -0.0003003568563144654
+        },
+        {
+          "colliders": [
+            "/World/harvest_robot/left_wheel/collisions/mesh_0/cylinder",
+            "/World/GroundPlane/CollisionPlane"
+          ],
+          "summed_normal_impulse_Ns": 7591.285971991722,
+          "nonzero_points": 2643,
+          "first_nonzero_sim_s": 0.0,
+          "min_separation_m": -0.00030040796264074743
+        },
+        {
+          "colliders": [
+            "/World/harvest_robot/lower_rail_right/collisions/mesh_0/box",
+            "/World/harvest_robot/lower_rail_rear/collisions/mesh_0/box"
+          ],
+          "summed_normal_impulse_Ns": 83.07093946486941,
+          "nonzero_points": 4162,
+          "first_nonzero_sim_s": 0.0,
+          "min_separation_m": -1.325272023677826e-06
+        }
+      ],
+      "bounded_run_complete": true
+    },
+    {
+      "case": "approach_no_fruit",
+      "last_sim_s": 22.004167814273387,
+      "sample_count": 1320,
+      "rotation_2_to_12_deg": -0.327390238129811,
+      "samples": {
+        "2": {
+          "actual_t": 2.0041667711921036,
+          "xy": [
+            -3.015000343322754,
+            9.999999046325684
+          ],
+          "yaw_deg": -90.01177241979978
+        },
+        "8": {
+          "actual_t": 8.004167084116489,
+          "xy": [
+            -3.014665365219116,
+            9.39254093170166
+          ],
+          "yaw_deg": -90.55126085250687
+        },
+        "10": {
+          "actual_t": 10.004167188424617,
+          "xy": [
+            -3.0168771743774414,
+            9.190112113952637
+          ],
+          "yaw_deg": -90.56130578562953
+        },
+        "12": {
+          "actual_t": 12.004167292732745,
+          "xy": [
+            -3.018263101577759,
+            8.99068546295166
+          ],
+          "yaw_deg": -90.33916265792959
+        },
+        "16": {
+          "actual_t": 16.004167501349002,
+          "xy": [
+            -3.0167014598846436,
+            8.991320610046387
+          ],
+          "yaw_deg": -95.7720532212039
+        },
+        "20": {
+          "actual_t": 20.00416770996526,
+          "xy": [
+            -3.0173492431640625,
+            8.983549118041992
+          ],
+          "yaw_deg": -102.94868216513731
+        },
+        "22": {
+          "actual_t": 22.004167814273387,
+          "xy": [
+            -3.0175068378448486,
+            8.983031272888184
+          ],
+          "yaw_deg": -105.3009107914567
+        }
+      },
+      "sleeping_samples": 0,
+      "fruit_contacts": [],
+      "largest_contacts": [
+        {
+          "colliders": [
+            "/World/harvest_robot/arm_1_wrist_camera_mount_link/collisions/d435_wrist_mount/node_STL_BINARY_",
+            "/World/harvest_robot/arm_1_wrist_link/collisions/sts3215_03a_no_horn_v1/node_STL_BINARY_"
+          ],
+          "summed_normal_impulse_Ns": 13339.553805411666,
+          "nonzero_points": 5286,
+          "first_nonzero_sim_s": 0.0,
+          "min_separation_m": -0.026909401640295982
+        },
+        {
+          "colliders": [
+            "/World/harvest_robot/arm_1_wrist_camera_mount_link/collisions/d435_wrist_mount/node_STL_BINARY_",
+            "/World/harvest_robot/arm_1_wrist_link/collisions/wrist_roll_pitch_so101_v2/node_STL_BINARY_"
+          ],
+          "summed_normal_impulse_Ns": 12232.876207701998,
+          "nonzero_points": 2647,
+          "first_nonzero_sim_s": 0.0,
+          "min_separation_m": -0.02243073284626007
+        },
+        {
+          "colliders": [
+            "/World/harvest_robot/right_wheel/collisions/mesh_0/cylinder",
+            "/World/GroundPlane/CollisionPlane"
+          ],
+          "summed_normal_impulse_Ns": 8351.080516642896,
+          "nonzero_points": 2639,
+          "first_nonzero_sim_s": 0.0,
+          "min_separation_m": -0.0003003568563144654
+        },
+        {
+          "colliders": [
+            "/World/harvest_robot/left_wheel/collisions/mesh_0/cylinder",
+            "/World/GroundPlane/CollisionPlane"
+          ],
+          "summed_normal_impulse_Ns": 7598.315610878174,
+          "nonzero_points": 2643,
+          "first_nonzero_sim_s": 0.0,
+          "min_separation_m": -0.00030040796264074743
+        },
+        {
+          "colliders": [
+            "/World/harvest_robot/lower_rail_right/collisions/mesh_0/box",
+            "/World/harvest_robot/lower_rail_rear/collisions/mesh_0/box"
+          ],
+          "summed_normal_impulse_Ns": 62.517795733957385,
+          "nonzero_points": 3021,
+          "first_nonzero_sim_s": 0.0,
+          "min_separation_m": -1.3569373322752654e-06
+        }
+      ],
+      "bounded_run_complete": true
+    }
+  ],
+  "additional_finding": "Left wrist camera mount self-collides with wrist geometry with about 22-27mm penetration in this reproduction; disabling mount collision improves but does not fully restore motion with the fruit retained. Whole-articulation self collision is enabled by teacher_arm_alignment.py.",
+  "unchanged": [
+    "operating code/config/assets",
+    "existing user simulator",
+    "PI gains",
+    "command sequence within each paired comparison"
+  ],
+  "test_differences_from_user_run": [
+    "single harvest robot; no camera/lidar output or ROS/Nav2",
+    "arm operation disabled, configured teacher body physics and initialize_arm_home retained",
+    "direct command sequence, CPU physics; observed idle physics 60Hz",
+    "contact reports and per-frame PI/world/odom tracing added only to test copy"
+  ],
+  "invalid_trial": {
+    "case": "no_mount_contact",
+    "reason": "USD instance proxy edit rejected before physics; not used as evidence",
+    "exit_code": -11
+  },
+  "exit_codes": {
+    "baseline": 0,
+    "no_fruit_contact": -15,
+    "no_mount_contact_v2": -15,
+    "approach": -15,
+    "approach_no_fruit": -15
+  },
+  "shutdown_note": "All five valid trials reached 22 simulation seconds; several required SIGTERM during app shutdown. Do not interpret bounded completion as clean process exit.",
+  "recommendation": "Preserve physical collisions. Address travel swept-volume/left-arm camera posture and inactive fruit contact behavior; correct overlapping mount collision geometry or justified internal pair filtering. Do not solve by raising timeout/PI gain or globally removing collisions.",
+  "limitations": [
+    "No full ROS/Nav2 rerun or real hardware validation",
+    "Dynamic activation as a remediation has not yet been tested",
+    "Does not establish the cause of every historical harvest 105"
+  ],
+  "source_sha256": {
+    "sim/ros_ws/src/farm_sim_runtime/farm_sim_runtime/run_fleet.py": "b576ba23078d21391aace011a6621af2022ffd6c6f5c977baebf2db766d0b1ce",
+    "sim/ros_ws/src/farm_sim_runtime/farm_sim_runtime/harvest_physics.py": "01ac70a8d3ac1b0a8c3c85513148ee3a90cf92aecf8c2876e94228ad169489dd",
+    "sim/ros_ws/src/farm_sim_devices/farm_sim_devices/fruit_attachment.py": "c5b412978786c9c09466acc1af684bbaa2fa12b944a018156acaaf6003ed82ed",
+    "sim/ros_ws/src/farm_sim_runtime/farm_sim_runtime/teacher_arm_alignment.py": "6b1cb0fa7f87331cd7331de20d46e3a315c087576b2cf1218485234c63620696"
+  },
+  "cleanup": {
+    "test_processes_remaining": false,
+    "existing_user_simulator_preserved_pid": 992009
+  }
+}

@@ -701,8 +701,59 @@
 - 산출물: PROJECT_STATE §43, sim/docs/changes/DRIVE_BACKEND_REPEAT_20261014.json, sim/runs/drive_repeat_20261014/. 시험 소유 프로세스 종료 확인. 부모 launch0과 자식 종료 -11/-15는 별개다. 되돌릴 운영 변경 없음. commit/push 없음.
 
 
+## SIM-PROGRESS-105-DIAGNOSIS-20261015 — 반복 중단 로그 진단
+
+- 사용자 반복105 보고에 따라 기존 예찰 SEC02 및 수확 TASK005 로그를 분석했다. 기준 main/66b8287. 운영 코드·설정과 실행 프로세스, 실물 영향 없음.
+- 예찰의 회전 중 위치 진행 제한과 수확의 명령/휠 응답 진동을 구분했다. 원인 전체 확정이나 수정 완료가 아니다. 상세 근거·후속 검증은 PROJECT_STATE §53 및 changes/PROGRESS_105_DIAGNOSIS_20261015.json에 기록했다.
+- 검증: 원본 JSON/JSONL 파싱 및 시간 구간 추출, 설치 FollowPath 코드 정의와 현재 공통 설정 대조. 새 Isaac/실물 시험 없음. 공통 변경 승인 요청 전 진단 단계다.
+- 복원: 이번 문서 항목과 신규 진단 JSON만 제거한다. commit/push 없음.
+
+
 ## COMMON-ROTATION-PROGRESS-20261015 — 예찰·수확 회전 진행 판정
 
 - 승인: 사용자 “공통코드면 수정해 회전도 진행 판정에 포함돼야지”. 대상 robot/config/navigation/{scout,harvest}_nav2.yaml. 공통 SimpleProgressChecker→PoseProgressChecker, 각도 문턱0.1rad 추가. 거리/시간/도착/속도 유지. 실물·시뮬에 같은 기준 적용.
 - 검증: 설치 Nav2 검사기 직접 호출92 assertions 및 기존 공통 설정pytest6개 PASS. 환경4개 최종값/나머지 설정 불변 PASS. 상세 PROJECT_STATE §54, sim/runs/progress_checker_20261015/. 신규 Isaac/실물 주행 및 실행 프로세스 재시작은 미실행.
 - 적용: 해당 Nav2 launch 재시작 후 반영. 수확 휠 응답 진동은 별개로 남는다. 복원은 두 YAML의 SimpleProgressChecker 복구 및 required_movement_angle/주석 제거. 사용자 후속 지시로 이 공통 수정과 해당 기록의 커밋·푸시를 승인받았다.
+
+
+## SIM-HARVEST-PROGRESS-105-20261015 — 회전 판정 수정 후 수확 정체 분석
+
+- 요청: 최신 수확105 원인 분석. main/8cfcc3f 기준 기존로그만 읽고 운영 코드/설정/실행은 유지했다. 실물 영향 없음.
+- 최신 두 SEC02 SECTION_APPROACH 실패는 거의 같은 위치의 실제 정체다. PoseProgressChecker 로드 확인, 신선한 명령 수신/거절0, 최신 태그 보정0회, 휠 PI 보정 포화와 미미한 차체/odom 변화를 확인했다. 물리 접촉/마찰/제어 진동 인과는 추가 계측이 필요하다.
+- 상세/검증: PROJECT_STATE §55, changes/HARVEST_PROGRESS_105_20261015.json, sim/runs/harvest_progress_105_20261015/analyze.py. 원본로그 파싱/통계와 실행설정 대조만 수행. 신규 주행/수정/재시작 없음. 이번 기록/JSON 제거로 복원 가능. 미커밋/푸시 없음.
+
+
+## SIM-HARVEST-CONTACT-ROOT-CAUSE-20261015 — 수확105 접촉 원인 확인
+
+- 사용자 “원인 찾아내”에 따라 격리 CPU 물리 시험5개를 수행했다. 운영 코드/설정/자산과 기존 사용자 실행은 유지했다. 실물 영향 없음.
+- 최신SEC02 정체는 왼팔 손목 카메라와 Bed_04/Pepper_0003_yellow 접촉으로 재현됐다. 비수확중 과실은kinematic/충돌유지다. 해당 collider만 시험 씬에서 제외하면 동일 저속회전 응답−0.304°→−22.727°, 직진 방향변화20.789°→−0.327°. 카메라 mount 자체관통도 확인해 별도 역대조했다.
+- 검증/한계: 유효5개22sim초 완료, 최초mount 시험은USD instance proxy 편집 오류로 무효. 일부종료SIGTERM−15. Nav2 E2E/실물/운영수정은 미실행. 상세 PROJECT_STATE §56, changes/HARVEST_CONTACT_ROOT_CAUSE_20261015.json, sim/runs/harvest_root_cause_20261015/. 이번기록·시험자료만 제거해 복원. 미커밋/푸시 없음.
+
+## 2026-10-15 — 양팔 접힘 주행, 오른팔 작업 전개/복귀
+
+- 구분/승인: 시뮬 전용 구현. 사용자 “양팔: 주행 중 접고 수확할 때 오른팔만 펼침”. 기준 main/8cfcc3f, 기존 변경 보존. 실물·공통 Nav2/미션 수정 없음. 커밋/푸시 및 사용자 실행 재시작 없음.
+- 대상: farm_sim_config/config/robotarm_physics.json; farm_sim_runtime/{robotarm_asset_setup,harvest_physics,run_fleet}.py; farm_sim_devices/{teacher_device,arm_session}.py; tests/{test_arm_session,test_robotarm_asset_setup}.py. 상태/결정: PROJECT_STATE §57, D-034.
+- 전후/이유: 왼팔 돌출 및 오른팔 작업 HOME으로 주행하던 방식에서 양팔 별도 접힘 자세로 시작한다. 정차→오른팔 전개→기존 작업 HOME에서 수확→오른팔 접기→양팔 실측 접힘/정지 확인 뒤 주행한다. 취소/접힘 실패 시 차체 잠금을 유지한다. 작업 HOME/정책·과실별 복귀·실물은 유지한다.
+- 관련 물리: 왼팔 mount–wrist 인접 CAD 관통만 pair filtering하며 외부 충돌을 유지한다. 왼팔 유지 drive도 같은 오른팔 서보의 기존 SI 값으로 맞춰 접힘 자세의 속도 진동을 없앤다. 초기 더 깊은 접힘 후보는 팔 자체 접촉 때문에 제외했다.
+- 검증: 오프라인 회귀45 PASS, 설치 USD/PhysX 정적4 PASS. 실제 CPU transition_v2는 전개5.9초/접기5.95초 및 정지 후SUCCESS. travel_final은 문제 접근 구간 직진1.009m·방향 변화−0.041°,저속 회전−13.679°; 팔 접촉 없음, 주행 중 접힘 판정 누락0회. 실제 수확 후보는 빈 목록으로 전환만 시험했으며 Nav2 전체 미션/과실 수확 E2E/실물은 미실행.22sim초 완료 시험은 앱 종료 지연으로SIGTERM 정리.
+- 근거/적용/복원: docs/changes/HARVEST_ARM_TRAVEL_20261015.json 및 runs/arm_stow_20261015/. 다음 Isaac 시작 때 반영된다. 이번8개 파일의 diff만 되돌리면 이전 동작이다. travel_pose 미설정 프로파일은 기존 HOME 방식과 호환된다.
+
+## 2026-10-15 — 박스 간섭 가능한 낮은 열매98개와 커넥터 Z 상향
+
+- 승인/범위: 사용자 요청으로 `assets/envs/output/farm_with_plants_v5.usd`의 낮은 과실·대응 커넥터만 수정. 공통/실물·박스·충돌 설정·기존 팔 코드는 변경 없음. 기준8cfcc3f의 기존 미커밋 작업 보존.
+- 변경 전후: 박스 collider 상단0.7013m와 과실 하단 offset−0.0375m,5cm 여유에서 root 최저0.79m 산정. 총288개 중98개를0.79~1.0792028165m 범위로 배정하고 커넥터도 같은ΔZ 이동. 나머지190개, 모든X/Y·회전·scale·ID·mesh 보존. 새 과실 간 AABB 겹침을 피하는 높이를 선택했다.
+- 검증: 실제 runtime collider 전체의 박스 위 간격 최소5.3501cm, 신규 과실 AABB 겹침0. 씬의 변경 속성294개가 허용된 Z 이동 속성뿐임을 확인. 실제CPU22sim초에서 이전 박스 간섭 구간 직진 통과 및 박스–과실 접촉0. 기존 높은 열매와 팔의 초기 접촉은 잔존하며 전체Nav2 미션은 미검증. 상세 PROJECT_STATE §58 및 docs/changes/FRUIT_BOX_CLEARANCE_20261015.json.
+- 적용/복원: 씬 재로드/Isaac 재시작 필요, 기존 실행 유지 및 커밋/푸시 없음. runs/fruit_height_20261015/farm_with_plants_v5.before.usd를 원래 씬 경로에 복사하면 이번 높이 변경만 복원된다.
+
+## 2026-10-15 — 최신 수확 Goal timeout 진단
+
+- 사용자 응답시간 초과 확인 요청. 코드·설정 변경 없이 최신 로그 분석만 수행했다. 수확 시작300실시간초 후 공통 Nav2Client가 결과 대기 제한으로 취소한 것이며105가 아니다.
+- 시뮬 속도비0.4201로 약126sim초만 경과.16.535m 경로는0.1m/s에서 직선 이동만165.35sim초가 필요했다. 취소 직전 정상 전진 및 controller의 취소 응답을 확인했다.
+- 근거: PROJECT_STATE §59, docs/changes/HARVEST_GOAL_TIMEOUT_20261015.json. 실행 완료 제한의 ROS 시간 기준 수정은 제안만 했으며 공통 소스/실물 영향 없음. 새 시험·재시작·커밋·푸시 없음. 이번 문서 항목만 제거하면 진단 기록 복원.
+
+## 2026-10-15 — 승인된 공통 주행 sim/real 시계 분리
+
+- 승인: 사용자 “sim이랑 real이랑 서로 다른 시간대를 쓰도록 조정”. 대상은 robot/ros_ws/src/farm_navigation의 nav2_client.py/navigation_types.py/새 test_nav2_execution_clock.py 및 harvest_robot/test/test_follow_work.py의 시계 더블이다. 기존 미커밋 작업 보존.
+- 변경 전후: 주행 완료300초를 양쪽 모두 실시간으로 계산하던 방식에서 sim은 기존 use_sim_time의 /clock,real은 monotonic 실시간을 사용한다. 전체 TF 재시도 주행 예산도 일치시켰다. 통신/수락/준비/취소/TF 복구 제한은 실시간 유지. 실행 timeout 오류 문구 분리,sim 시계 역행 시 오류와 Goal 정리 상태 보존.
+- 영향/검증: 공통 클라이언트를 쓰는 예찰·수확에 적용,실물 시간 기준은 기존과 동일. 새 설정/의존성 없음. 오프라인59 PASS(시계 전용12 포함),설치 rclpy 시계 API 및 소스 symlink 확인. 실제Isaac 전체 미션/실물 주행 미실행. 상세 PROJECT_STATE §60 및 docs/changes/NAVIGATION_EXECUTION_CLOCK_20261015.json.
+- 적용/복원: 실행 중 로봇 노드 재시작 후 적용. 이번 공통 diff만 되돌리면 이전 실시간 주행 제한으로 복원된다. 기존 실행 재시작·커밋·푸시하지 않았다.

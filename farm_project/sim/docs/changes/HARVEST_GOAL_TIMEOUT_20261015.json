@@ -1,0 +1,29 @@
+{
+  "date": "2026-10-15",
+  "type": "diagnosis_only",
+  "session": "ba5b812cf7654cfb908c5d0fc7a82178",
+  "motion_report": "sim/runs/harvest_motion/efcec6418865/4d6ae4e8a92e_SEC02_TASK001_e7bca2cafc514a2785714b6b5597bb50.json",
+  "cause": "Nav2Client result wait uses time.monotonic deadline with goal_timeout_s=300; healthy execution is cancelled before sufficient simulation time elapses",
+  "goal_received_epoch_s": 1792040588.4243083,
+  "cancelled_epoch_s": 1792040888.4744625,
+  "goal_timeout_wall_s": 300.0,
+  "trace_moving_wall_s": 299.3299120570009,
+  "trace_moving_sim_s": 125.75000655837357,
+  "real_time_factor": 0.42010504628226797,
+  "route_distance_m": 16.53503051129917,
+  "configured_speed_m_s": 0.1,
+  "ideal_translation_sim_s": 165.3503051129917,
+  "ideal_translation_wall_s_at_measured_rtf": 393.5928,
+  "last_moving_xy": [
+    -2.9881372451782227,
+    4.430983543395996
+  ],
+  "last_command": [
+    0.1,
+    -0.0041217924793367075
+  ],
+  "last_command_age_s": 0.024211164000007557,
+  "controller_log": "/home/ysy/.ros/log/controller_server_1533429_1792040548928.log",
+  "recommendation": "Use ROS-clock duration for navigation execution deadline; retain monotonic deadlines for service/goal response, readiness and cancellation. Shared implementation approval required before editing.",
+  "source_changes": false
+}

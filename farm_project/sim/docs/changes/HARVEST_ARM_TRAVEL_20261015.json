@@ -1,0 +1,500 @@
+{
+  "date": "2026-10-15",
+  "base_commit": "8cfcc3f",
+  "authorization": "양팔: 주행 중 접고 수확할 때 오른팔만 펼침",
+  "scope": "sim_only",
+  "status": "implemented_and_isolated_physics_validated",
+  "changes": {
+    "travel_pose_rad": [
+      0,
+      -1.6,
+      1.2,
+      -1.5,
+      0.04879632679489654,
+      1.1
+    ],
+    "work_home_unchanged": true,
+    "left_drive": "same existing arm/gripper SI gains and limits as right",
+    "filtered_pair": [
+      "arm_1_wrist_camera_mount_link",
+      "arm_1_wrist_link"
+    ],
+    "states": [
+      "DEPLOYING",
+      "SELECT/POLICY/RETURNING/SETTLING/NEXT",
+      "STOWING",
+      "STOPPING",
+      "DONE"
+    ],
+    "drive_gate": "not busy and both arms measured travel ready",
+    "cancel_failure": "hold measured joints; block driving when not stowed"
+  },
+  "tests": {
+    "offline_pytest_passed": 45,
+    "usd_static_passed": 4,
+    "actual_cpu_physics": [
+      {
+        "case": "folded",
+        "last_sim_s": 22.004167814273387,
+        "samples": 1320,
+        "bounded_run_complete": true,
+        "straight_yaw_change_deg": -0.027508858812374512,
+        "rotation_12_to_20_deg": -10.969855704350898,
+        "travel_distance_2_to_12_m": 1.0093880960440755,
+        "arm_contact_pairs": [
+          {
+            "colliders": [
+              "/World/harvest_robot/arm_1_wrist_camera_mount_link/collisions/d435_wrist_mount/node_STL_BINARY_",
+              "/World/harvest_robot/arm_1_wrist_link/collisions/sts3215_03a_no_horn_v1/node_STL_BINARY_"
+            ],
+            "points": 5089
+          },
+          {
+            "colliders": [
+              "/World/harvest_robot/arm_2_lower_arm_link/TeacherCollisions/motor_holder_so101_wrist_v1/node_STL_BINARY_",
+              "/World/harvest_robot/arm_2_shoulder_link/TeacherCollisions/sts3215_03a_v1/node_STL_BINARY_"
+            ],
+            "points": 4135
+          },
+          {
+            "colliders": [
+              "/World/harvest_robot/arm_1_wrist_camera_mount_link/collisions/d435_wrist_mount/node_STL_BINARY_",
+              "/World/harvest_robot/arm_1_wrist_link/collisions/wrist_roll_pitch_so101_v2/node_STL_BINARY_"
+            ],
+            "points": 2847
+          },
+          {
+            "colliders": [
+              "/World/harvest_robot/arm_1_lower_arm_link/collisions/motor_holder_so101_wrist_v1/node_STL_BINARY_",
+              "/World/harvest_robot/arm_1_shoulder_link/collisions/sts3215_03a_v1/node_STL_BINARY_"
+            ],
+            "points": 1336
+          }
+        ],
+        "max_arm_impulse_Ns": 21.32121310527709,
+        "stages": [],
+        "final_arm_q": [
+          0.0004152733599767089,
+          -1.6002062559127808,
+          1.597967505455017,
+          -1.500198483467102,
+          -0.024287503212690353,
+          1.1019591093063354,
+          0.00011483414709800854,
+          -1.6066426038742065,
+          1.5880990028381348,
+          -1.5017515420913696,
+          0.04866928607225418,
+          1.1003097295761108
+        ]
+      },
+      {
+        "case": "folded_v2",
+        "last_sim_s": 22.004167814273387,
+        "samples": 1320,
+        "bounded_run_complete": true,
+        "straight_yaw_change_deg": -0.06149572978023528,
+        "rotation_12_to_20_deg": -10.307651927734272,
+        "travel_distance_2_to_12_m": 1.0094403975037058,
+        "arm_contact_pairs": [
+          {
+            "colliders": [
+              "/World/harvest_robot/arm_1_wrist_camera_mount_link/collisions/d435_wrist_mount/node_STL_BINARY_",
+              "/World/harvest_robot/arm_1_wrist_link/collisions/sts3215_03a_no_horn_v1/node_STL_BINARY_"
+            ],
+            "points": 4165
+          },
+          {
+            "colliders": [
+              "/World/harvest_robot/arm_1_wrist_camera_mount_link/collisions/d435_wrist_mount/node_STL_BINARY_",
+              "/World/harvest_robot/arm_1_wrist_link/collisions/wrist_roll_pitch_so101_v2/node_STL_BINARY_"
+            ],
+            "points": 3777
+          }
+        ],
+        "max_arm_impulse_Ns": 21.32121310527709,
+        "stages": [],
+        "final_arm_q": [
+          -0.003920255694538355,
+          -1.600082516670227,
+          1.1994309425354004,
+          -1.5048532485961914,
+          -0.14040714502334595,
+          1.1069272756576538,
+          -0.00010865250078495592,
+          -1.6077308654785156,
+          1.213034987449646,
+          -1.5041066408157349,
+          0.04879363998770714,
+          1.1003812551498413
+        ]
+      },
+      {
+        "case": "folded_v3",
+        "last_sim_s": 22.004167814273387,
+        "samples": 1320,
+        "bounded_run_complete": true,
+        "straight_yaw_change_deg": -0.8425170513108349,
+        "rotation_12_to_20_deg": -10.603120306469139,
+        "travel_distance_2_to_12_m": 1.0093677227948012,
+        "arm_contact_pairs": [
+          {
+            "colliders": [
+              "/World/harvest_robot/arm_1_wrist_camera_mount_link/collisions/d435_wrist_mount/node_STL_BINARY_",
+              "/World/harvest_robot/arm_1_wrist_link/collisions/sts3215_03a_no_horn_v1/node_STL_BINARY_"
+            ],
+            "points": 4741
+          },
+          {
+            "colliders": [
+              "/World/harvest_robot/arm_1_wrist_camera_mount_link/collisions/d435_wrist_mount/node_STL_BINARY_",
+              "/World/harvest_robot/arm_1_wrist_link/collisions/wrist_roll_pitch_so101_v2/node_STL_BINARY_"
+            ],
+            "points": 4067
+          }
+        ],
+        "max_arm_impulse_Ns": 58.37753847503263,
+        "stages": [],
+        "final_arm_q": [
+          -0.0027391198091208935,
+          -1.5956138372421265,
+          1.2017549276351929,
+          -1.4955089092254639,
+          -2.106548309326172,
+          1.095660924911499,
+          -1.572593828313984e-05,
+          -1.6077890396118164,
+          1.2128574848175049,
+          -1.5040967464447021,
+          0.04885423928499222,
+          1.1003767251968384
+        ]
+      },
+      {
+        "case": "folded_filtered",
+        "last_sim_s": 22.004167814273387,
+        "samples": 1320,
+        "bounded_run_complete": true,
+        "straight_yaw_change_deg": 0.004078855564838245,
+        "rotation_12_to_20_deg": -12.908875929415752,
+        "travel_distance_2_to_12_m": 1.0093550322679428,
+        "arm_contact_pairs": [],
+        "max_arm_impulse_Ns": 0.0,
+        "stages": [],
+        "final_arm_q": [
+          0.00015625600644852966,
+          -1.6003949642181396,
+          1.1994646787643433,
+          -1.5054446458816528,
+          0.047400884330272675,
+          1.106550931930542,
+          -0.00011206639464944601,
+          -1.6078977584838867,
+          1.212977409362793,
+          -1.5041378736495972,
+          0.04878875985741615,
+          1.1003822088241577
+        ]
+      },
+      {
+        "case": "transition",
+        "last_sim_s": 22.004167814273387,
+        "samples": 1320,
+        "bounded_run_complete": true,
+        "straight_yaw_change_deg": -0.01921183773046643,
+        "rotation_12_to_20_deg": -6.655695665656604e-05,
+        "travel_distance_2_to_12_m": 0.0003261567033522194,
+        "arm_contact_pairs": [],
+        "max_arm_impulse_Ns": 0.0,
+        "stages": [
+          {
+            "t": 0.020833334419876337,
+            "state": {
+              "job_id": "",
+              "status": "IDLE",
+              "stage": "IDLE",
+              "success_count": 0,
+              "failed_count": 0,
+              "event_seq": 0,
+              "error_code": "",
+              "error_message": "",
+              "safe_stopped": true
+            }
+          },
+          {
+            "t": 2.0208334387280047,
+            "state": {
+              "job_id": "ab",
+              "status": "RUNNING",
+              "stage": "STOPPING",
+              "success_count": 0,
+              "failed_count": 0,
+              "event_seq": 0,
+              "error_code": "",
+              "error_message": "",
+              "safe_stopped": false
+            }
+          },
+          {
+            "t": 2.2708334517665207,
+            "state": {
+              "job_id": "ab",
+              "status": "FAILED",
+              "stage": "DONE",
+              "success_count": 0,
+              "failed_count": 0,
+              "event_seq": 1,
+              "error_code": "ARM_NOT_HOME",
+              "error_message": "initial_measured_home_required",
+              "safe_stopped": true
+            }
+          }
+        ],
+        "final_arm_q": [
+          -0.00013428540842141956,
+          -1.6147195100784302,
+          1.2253193855285645,
+          -1.5076429843902588,
+          0.04887385666370392,
+          1.1007530689239502
+        ],
+        "final_travel_ready": false,
+        "not_ready_samples_after_2s": 1195
+      },
+      {
+        "case": "transition_measure",
+        "last_sim_s": 11.054167243186384,
+        "samples": 663,
+        "bounded_run_complete": false,
+        "straight_yaw_change_deg": -0.01852313778040566,
+        "rotation_12_to_20_deg": 0.0,
+        "travel_distance_2_to_12_m": 9.830249847454215e-07,
+        "arm_contact_pairs": [],
+        "max_arm_impulse_Ns": 0.0,
+        "stages": [
+          {
+            "t": 0.020833334419876337,
+            "state": {
+              "job_id": "",
+              "status": "IDLE",
+              "stage": "IDLE",
+              "success_count": 0,
+              "failed_count": 0,
+              "event_seq": 0,
+              "error_code": "",
+              "error_message": "",
+              "safe_stopped": true
+            }
+          },
+          {
+            "t": 2.0208334387280047,
+            "state": {
+              "job_id": "ab",
+              "status": "RUNNING",
+              "stage": "STOPPING",
+              "success_count": 0,
+              "failed_count": 0,
+              "event_seq": 0,
+              "error_code": "",
+              "error_message": "",
+              "safe_stopped": false
+            }
+          },
+          {
+            "t": 2.2708334517665207,
+            "state": {
+              "job_id": "ab",
+              "status": "FAILED",
+              "stage": "DONE",
+              "success_count": 0,
+              "failed_count": 0,
+              "event_seq": 1,
+              "error_code": "ARM_NOT_HOME",
+              "error_message": "initial_measured_home_required",
+              "safe_stopped": true
+            }
+          }
+        ],
+        "final_arm_q": [
+          -1.88648027688032e-05,
+          -1.614151954650879,
+          1.2254351377487183,
+          -1.5071314573287964,
+          0.049020249396562576,
+          1.1008044481277466
+        ],
+        "final_travel_ready": true,
+        "not_ready_samples_after_2s": 16,
+        "max_left_deviation_after_2s_rad": 0.03998210430145255
+      },
+      {
+        "case": "transition_v2",
+        "last_sim_s": 22.004167814273387,
+        "samples": 1320,
+        "bounded_run_complete": true,
+        "straight_yaw_change_deg": -0.00221629308358125,
+        "rotation_12_to_20_deg": -0.000735302959759655,
+        "travel_distance_2_to_12_m": 2.9490749542362644e-06,
+        "arm_contact_pairs": [],
+        "max_arm_impulse_Ns": 0.0,
+        "stages": [
+          {
+            "t": 0.020833334419876337,
+            "state": {
+              "job_id": "",
+              "status": "IDLE",
+              "stage": "IDLE",
+              "success_count": 0,
+              "failed_count": 0,
+              "event_seq": 0,
+              "error_code": "",
+              "error_message": "",
+              "safe_stopped": true
+            }
+          },
+          {
+            "t": 2.0208334387280047,
+            "state": {
+              "job_id": "ab",
+              "status": "RUNNING",
+              "stage": "DEPLOYING",
+              "success_count": 0,
+              "failed_count": 0,
+              "event_seq": 0,
+              "error_code": "",
+              "error_message": "",
+              "safe_stopped": false
+            }
+          },
+          {
+            "t": 7.920833746436983,
+            "state": {
+              "job_id": "ab",
+              "status": "RUNNING",
+              "stage": "SELECT",
+              "success_count": 0,
+              "failed_count": 0,
+              "event_seq": 0,
+              "error_code": "",
+              "error_message": "",
+              "safe_stopped": false
+            }
+          },
+          {
+            "t": 8.02083375165239,
+            "state": {
+              "job_id": "ab",
+              "status": "RUNNING",
+              "stage": "STOWING",
+              "success_count": 0,
+              "failed_count": 0,
+              "event_seq": 0,
+              "error_code": "",
+              "error_message": "",
+              "safe_stopped": false
+            }
+          },
+          {
+            "t": 13.970834061969072,
+            "state": {
+              "job_id": "ab",
+              "status": "RUNNING",
+              "stage": "STOPPING",
+              "success_count": 0,
+              "failed_count": 0,
+              "event_seq": 0,
+              "error_code": "",
+              "error_message": "",
+              "safe_stopped": false
+            }
+          },
+          {
+            "t": 14.220834075007588,
+            "state": {
+              "job_id": "ab",
+              "status": "SUCCESS",
+              "stage": "DONE",
+              "success_count": 0,
+              "failed_count": 0,
+              "event_seq": 1,
+              "error_code": "",
+              "error_message": "current_window_candidates_processed_arms_stowed",
+              "safe_stopped": true
+            }
+          }
+        ],
+        "final_arm_q": [
+          -0.00011767243995564058,
+          -1.6119307279586792,
+          1.2155630588531494,
+          -1.535035252571106,
+          0.04891780763864517,
+          1.1004753112792969
+        ],
+        "final_travel_ready": true,
+        "not_ready_samples_after_2s": 604,
+        "max_left_deviation_after_2s_rad": 0.013398218154907271
+      },
+      {
+        "case": "travel_final",
+        "last_sim_s": 22.004167814273387,
+        "samples": 1320,
+        "bounded_run_complete": true,
+        "straight_yaw_change_deg": -0.041080940100203696,
+        "rotation_12_to_20_deg": -13.678727397190396,
+        "travel_distance_2_to_12_m": 1.0094462780341504,
+        "arm_contact_pairs": [],
+        "max_arm_impulse_Ns": 0.0,
+        "stages": [
+          {
+            "t": 0.020833334419876337,
+            "state": {
+              "job_id": "",
+              "status": "IDLE",
+              "stage": "IDLE",
+              "success_count": 0,
+              "failed_count": 0,
+              "event_seq": 0,
+              "error_code": "",
+              "error_message": "",
+              "safe_stopped": true
+            }
+          }
+        ],
+        "final_arm_q": [
+          -0.00011380717478459701,
+          -1.6078351736068726,
+          1.213002324104309,
+          -1.504126787185669,
+          0.04879096522927284,
+          1.1003819704055786
+        ],
+        "final_travel_ready": true,
+        "not_ready_samples_after_2s": 0,
+        "max_left_deviation_after_2s_rad": 0.014246869087219283
+      }
+    ],
+    "empty_candidate_transition_only": true,
+    "nav2_full_mission": false,
+    "real_robot": false
+  },
+  "limits": [
+    "주행 검증은 과거 접촉 위치를 지나는 직진1m 및 저속 회전22sim초이다. 전체 경로/180도/장시간 주행은 미검증.",
+    "실제 전환 시험은 빈 후보로 팔 펼침/접힘만 검증했다. 새 자세에서 실제 과실 수확 E2E는 미검증.",
+    "각22초 완료 Isaac 시험은 종료 정리 지연으로 runner가 SIGTERM(-15) 종료했다. transition_measure는 원인 확인 후11.05초에서 진단 프로세스만 종료했다.",
+    "작업 취소/전환 실패 시 펼친 팔을 자동으로 접지 않는다. 실측 정지 후 주행 차단을 유지한다.",
+    "사용자 기존 실행을 재시작하지 않았다. 소스/설정은 다음 Isaac 시작부터 반영된다."
+  ],
+  "source_sha256": {
+    "sim/ros_ws/src/farm_sim_config/config/robotarm_physics.json": "1b769393ff8ae12df8bbeee3bf6d1542c3cc00935cf8ffe5fff430c108768a72",
+    "sim/ros_ws/src/farm_sim_runtime/farm_sim_runtime/robotarm_asset_setup.py": "653c48b6c9ea8f0b1876978317e4cd16bf5ec17ca0520e74629c2a2a2b62be03",
+    "sim/ros_ws/src/farm_sim_runtime/farm_sim_runtime/harvest_physics.py": "96054c414fbeae4a813de728ed835ac35932adba599ed619a15489d1096fac2b",
+    "sim/ros_ws/src/farm_sim_runtime/farm_sim_runtime/run_fleet.py": "eb0d4cd94b12c8af9a0246a2e30ea78efc994ea8d6f041abdf0b2d6e98f94962",
+    "sim/ros_ws/src/farm_sim_devices/farm_sim_devices/teacher_device.py": "56900182e6591170561576007120170817523ab81fc65cbeada04b5775e4a726",
+    "sim/ros_ws/src/farm_sim_devices/farm_sim_devices/arm_session.py": "d91f0705066193ccdd6a2a91cb3b9ee8ed857a6ee818f52b446d3dc9a71ef001",
+    "sim/tests/test_arm_session.py": "75eca7a16be3d69406ddad6c4716ac8bf8902bdb2ad391df4ffa7f19b44c0fbc",
+    "sim/tests/test_robotarm_asset_setup.py": "06acaae9f5370b1b8a245e0225afd8f2beb6465f410a10104dec1265a5e7587f"
+  },
+  "artifacts": "sim/runs/arm_stow_20261015",
+  "commit_push": "not performed"
+}

@@ -118,6 +118,31 @@ class RobotarmAssetTests(unittest.TestCase):
         configure_harvest_arm(self.stage, '/Robot', _config())
         self.assertEqual(before, self.stage.GetSessionLayer().ExportToString())
 
+    def test_travel_pose_keeps_work_home_and_filters_only_adjacent_mount(self) -> None:
+        config = _config()
+        pose = [0., -1.6, 1.2, -1.5, .04879632679489654, 1.1]
+        config['travel_pose'] = dict(left_positions_rad=pose, right_positions_rad=pose)
+        before = self.stage.GetRootLayer().ExportToString()
+        result = configure_harvest_arm(self.stage, '/Robot', config)
+        self.assertEqual(self.stage.GetRootLayer().ExportToString(), before)
+        np.testing.assert_allclose(result['home_positions_rad'],
+                                   config['arm']['home_positions_rad']+[1.1])
+        travel = result['travel_pose']
+        self.assertEqual(len(travel['joint_names']), 12)
+        for name, angle in zip(travel['joint_names'], travel['positions_rad']):
+            joint = next(p for p in self.stage.Traverse() if p.GetName() == name)
+            self.assertAlmostEqual(math.radians(joint.GetAttribute(
+                'drive:angular:physics:targetPosition').Get()), angle, places=6)
+        mount = self.stage.GetPrimAtPath(travel['filtered_pairs'][0][0])
+        targets = mount.GetRelationship('physics:filteredPairs').GetTargets()
+        self.assertEqual([str(p) for p in targets], [travel['filtered_pairs'][0][1]])
+        for name in ('arm_1_wrist_camera_link', 'arm_1_wrist_camera_mount_link'):
+            body = next(p for p in self.stage.Traverse() if p.GetName() == name)
+            colliders = [p for p in Usd.PrimRange(body, Usd.TraverseInstanceProxies())
+                         if p.HasAPI(UsdPhysics.CollisionAPI)]
+            self.assertTrue(colliders)
+            self.assertTrue(all(p.GetAttribute('physics:collisionEnabled').Get() for p in colliders))
+
     def test_bad_home_fails_before_mutation(self) -> None:
         config = copy.deepcopy(_config())
         config['gripper']['home_position_rad'] = 10

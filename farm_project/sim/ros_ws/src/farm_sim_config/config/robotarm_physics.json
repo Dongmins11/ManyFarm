@@ -79,6 +79,10 @@
     "velocity_limit_rad_s": 1.5,
     "home_position_rad": 1.1
   },
+  "travel_pose": {
+    "left_positions_rad": [0.0, -1.6, 1.2, -1.5, 0.04879632679489654, 1.1],
+    "right_positions_rad": [0.0, -1.6, 1.2, -1.5, 0.04879632679489654, 1.1]
+  },
   "contact": {
     "static_friction": 1.0,
     "dynamic_friction": 1.0,

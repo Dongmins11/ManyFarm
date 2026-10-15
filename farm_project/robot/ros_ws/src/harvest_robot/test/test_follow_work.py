@@ -101,7 +101,7 @@ class Node:
     def create_publisher(self, *args: object) -> NS:return NS(publish=lambda value:None)
     def create_client(self, *args: object, **kwargs: object) -> Parameters:return Parameters()
     def get_logger(self) -> NS:return NS(info=lambda value:None)
-    def get_clock(self) -> NS:return NS(now=lambda:NS(to_msg=lambda:NS(sec=0,nanosec=0)))
+    def get_clock(self) -> NS:return NS(ros_time_is_active=False, now=lambda:NS(to_msg=lambda:NS(sec=0,nanosec=0)))
 
 
 class Poses:

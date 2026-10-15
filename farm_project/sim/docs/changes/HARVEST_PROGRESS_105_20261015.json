@@ -1,0 +1,81 @@
+{
+  "baseline": "8cfcc3f",
+  "method": "existing logs only",
+  "cases": [
+    {
+      "session": "a5b08ca6cf2c45abb43047ac43055480",
+      "source": "sim/runs/drive_diagnostics/a5b08ca6cf2c45abb43047ac43055480/harvest_01.jsonl",
+      "sample_count": 25,
+      "sim_interval_s": [
+        413.3541882247664,
+        427.4375222926028
+      ],
+      "world_xy_diameter_m": 0.0003206548189312095,
+      "world_yaw_range_deg": 0.040932745518626426,
+      "wheel_odom_xy_diameter_m": 0.00032613042996423473,
+      "wheel_odom_yaw_range_deg": 0.03888715958096948,
+      "world_last_xy": [
+        -2.9889369010925293,
+        9.295991897583008
+      ],
+      "world_last_yaw_deg": -82.40605259972651,
+      "command_angular_range": [
+        -0.05335103967611941,
+        -0.04625955964138554
+      ],
+      "max_command_age_s": 0.06956739700035541,
+      "rejected_packets_end": 0,
+      "correction_saturated_samples": 25,
+      "mean_odom_angular_rps": -0.0007241755791077033,
+      "max_abs_correction_rad_s": 2.0
+    },
+    {
+      "session": "06d40de821d74033a73879f30d073a3a",
+      "source": "sim/runs/drive_diagnostics/06d40de821d74033a73879f30d073a3a/harvest_01.jsonl",
+      "sample_count": 29,
+      "sim_interval_s": [
+        113.32083924347535,
+        129.98750677937642
+      ],
+      "world_xy_diameter_m": 0.013389657554364576,
+      "world_yaw_range_deg": 2.071141242345983,
+      "wheel_odom_xy_diameter_m": 0.013160990770914503,
+      "wheel_odom_yaw_range_deg": 2.179974886149865,
+      "world_last_xy": [
+        -3.0001049041748047,
+        9.269176483154297
+      ],
+      "world_last_yaw_deg": -82.92489028220992,
+      "command_angular_range": [
+        -0.1,
+        0.04684559509151638
+      ],
+      "max_command_age_s": 0.06000562000008358,
+      "rejected_packets_end": 0,
+      "correction_saturated_samples": 13,
+      "mean_odom_angular_rps": 0.0005163010506126749,
+      "max_abs_correction_rad_s": 2.0
+    }
+  ],
+  "limitations": [
+    "1 sample per wall second; not a control-cycle trace",
+    "No contact forces or raw cmd_vel_nav recorded in this trace",
+    "Instantaneous joint velocity is not the angle-difference feedback used by the PI servo",
+    "World truth is diagnostic only; Nav2 progress uses its estimated pose"
+  ],
+  "runtime_evidence": {
+    "controller_log": "/home/ysy/.ros/log/controller_server_992033_1792034298336.log",
+    "plugin_log_line": 21,
+    "loaded_plugin": "nav2_controller::PoseProgressChecker",
+    "generated_nav2": "/tmp/farm_nav2_2tairix8.yaml",
+    "latest_task_report": "sim/runs/harvest_motion/0210f57b1e9a/4d6ae4e8a92e_SEC02_TASK001_ed557bf0aceb494a82d9b90a214338b5.json",
+    "task": "4d6ae4e8a92e_SEC02_TASK001",
+    "failed_phase": "SECTION_APPROACH",
+    "latest_start_kst": "2026-10-15 12:19:23",
+    "latest_result_kst": "2026-10-15 12:22:12",
+    "tag_journal": "sim/runs/apriltag/6b153a21a1c34109b41d10e936959fa3",
+    "tag_corrections_requested": 0,
+    "tag_corrections_applied": 0
+  },
+  "conclusion": "Both recent SEC02 approach attempts physically stalled near x=-3,y=9.3 while fresh commands were accepted. Rotation progress plugin was loaded. PI correction saturation is confirmed, but contact/friction/control causality is not isolated."
+}
