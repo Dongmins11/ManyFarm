@@ -77,7 +77,7 @@ def compare(reference_path: Path, farm_directory: Path) -> dict:
         intentional_environment_differences=['농장 이동 차체 대 학습 고정 베이스',
             '농장 장애물/다른 과실/적재함 배치', '농장 lidar scene query 및 env collision group 구성',
             '농장 GPU found/lost 충돌쌍 버퍼 4,194,304개(학습 2,097,152개)',
-            '농장 대기60Hz, 수확480Hz; 정책20Hz'])
+            '농장 물리60Hz / 정책20Hz / 렌더30Hz'])
 
 
 if __name__ == '__main__':

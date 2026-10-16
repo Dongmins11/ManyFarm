@@ -10,6 +10,8 @@ import unittest
 from unittest.mock import patch
 ROOT=Path(__file__).resolve().parents[2]
 sys.path.insert(0,str(ROOT/'robot/ros_ws/src/harvest_robot'))
+sys.path.insert(0, str(ROOT/'robot/ros_ws/src/farm_common'))
+from farm_common.action_handoff import ActionHandoff
 from harvest_robot.mission import MissionCanceled
 
 def module(name,**values):
@@ -31,7 +33,7 @@ class ActionTests(unittest.TestCase):
                         goal_pose=NS(position=NS(x=1.,y=2.),yaw=0.))
                     goal=NS(robot_id='harvest_01',map_id='farm_map_v1',harvest_task=task)
                     feedback=[];statuses=[];records=[]
-                    handle=NS(request=goal,is_cancel_requested=mode.startswith('cancel'),
+                    handle=NS(request=goal,is_cancel_requested=False,
                         publish_feedback=feedback.append,succeed=lambda:statuses.append('success'),
                         canceled=lambda:statuses.append('canceled'),abort=lambda:statuses.append('aborted'))
                     def evaluate(*args):
@@ -40,7 +42,10 @@ class ActionTests(unittest.TestCase):
                     n=NS(callbacks=None,lock=threading.Lock(),busy=True,blocked=False,stopping=False,
                          completed_ids=set(),mode='sim',output=Path(directory),check=lambda:None,
                          emit_record=records.append,get_logger=lambda:NS(info=lambda s:None,error=lambda s:None))
+                    n.handoff = ActionHandoff()
+                    n.handoff.reserve('work', task.task_id)
                     def run():
+                        handle.is_cancel_requested = mode.startswith('cancel')
                         if mode=='cancel':raise MissionCanceled('cancel requested')
                         if mode=='cancel_unconfirmed':n.blocked=True;raise RuntimeError('stop unknown')
                         if mode=='failure':raise RuntimeError('navigation failed')

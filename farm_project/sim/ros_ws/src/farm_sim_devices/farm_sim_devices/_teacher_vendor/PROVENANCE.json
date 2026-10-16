@@ -1,0 +1,399 @@
+{
+  "delivery": "harvest_teacher_60hz_20261013_r2",
+  "source_files": {
+    "sequence.py": "56401fe65e825814c482f7b1938e21dfb8aff5da3f7ac1a9e641dd13b1500fec",
+    "logic.py": "56a1d973580ae8b143dc5085c99cd2563c226dbf55a72e9836b8e6184612fbc3",
+    "release_control.py": "e36caf5c5883da55d654c625219c5c90919551ae7907a60714ddc03adcd25ec6",
+    "entry_grasp.py": "0b8a34a51f41fed9816199871e24f4eb56d4e5f89b0fb8eaeb8f3a26be9b8c47",
+    "env.py": "a7aeccb83ce50473d10397c3d79257755786fffac1c6288c74b2f45b42e4e196",
+    "teacher_domain.py": "f595cff69d5f52ab523f2908571f2d9642438e30cd11a0f777cb1571474c7858",
+    "teacher_domain_env.py": "344b1dc5290b797f02bf648a174b00ae327b093b1f2cbba3f3dd19a63bfeaf41",
+    "capture_reward.py": "2e7e638003467d7c39ac42b795b7af9bd67dc3814e1180172dc1904fcb5434cb",
+    "teacher_capture_env.py": "3630d2910c49a8262865ba7ad7514d3689b6b1af6b9ee80c036c3f767977b881",
+    "capture_confirmation.py": "6a710dbeb56c5cdefb6871a7cf11837c33395fb9a308b16f60687adcb92a9651",
+    "capture_v4.py": "48bfcc29215cc841469ca15175472805af69e17bcf10ed4decaceeecbb309fef",
+    "teacher_capture_v4_env.py": "137065628f1bf07cef686a4fd9aec9740865c4c678889a7856e90a2ce7be7069",
+    "teacher_contact_margin_env.py": "eff39db7ec52ab9e8015a9830f30e9a0c2762d3d81720d0e989751ed273bd5e8",
+    "teacher_load_reserve_env.py": "3dc0cdbc4230cf85ec7f2d9914f5aab277d94528205878e17df3cce0e42b42a0",
+    "bounded_grip_60hz.py": "fab03fd223adbafd1e418959c79c238ccd7b23440e0684c2e52e5bcce659db45",
+    "grasp_bridge_60hz.py": "ecfcf4a20e1fc0767c1eed16cf88d1c05890bc2faa2f85d0130dade99804eec5",
+    "teacher_grasp_bridge_env.py": "60f2eb3532df408b5c94b4b93af34a1fce2aaf8b7da5930a2cddf76e59c60e18",
+    "pull_ready_60hz.py": "eb3298d11e25bd87e6556c7266e8d491e3d15d3c76b2578a898245ced87e05b4",
+    "pull_refine_60hz.py": "eca98335e386ebc91f98df0373f21fbbf5365dfc732fe47de9bdecef2d54797b",
+    "bridge_pull_training.py": "d0b4ba050918325cdccace071095ae0a8622297524695cae0e579c75177c008e",
+    "teacher_bridge_pull_env.py": "6e2829f894353e58dc819f5fd28fe6aaa2dc8a6d79cf0470ac1e61d010ae8e9a",
+    "settings.py": "98a65e5bc1ec5503afa026f82c5b6aa50321dc5bc905cc164f46e76cb26f4149",
+    "kinematics.py": "dac95e356503b4ace4b8f9177d6a2c5252d175e17422b4d25c69a5b8d005c43b",
+    "matched_pull_60hz.py": "6866a9b03cfb0b47219c806dacf2a3f274d640ebbffe5c5b747e1818e4628ec2",
+    "bridge_pull_path.py": "e6ac724caed752bb28d0afdadd4976310f5aa959559282cb450d67ecc31e044a",
+    "bridge_pull_risk.py": "703389cffc06fd214e9f5f13fa89170233f69da44ca2c09b669d2cb285204368",
+    "teacher_bridge_pull_risk_env.py": "17e9656cfa69102f2cf65a4c686f5d7a076d7432f3e8393faa90534a725d4646",
+    "teacher_bridge_pull_guarded_env.py": "4c809f2a548bf99be0086610b3fd4f601b530dcebbb50470541e21e72d8b19f4",
+    "bridge_transport_60hz.py": "1f9122e88d233e5fcbbfe51df5d83a4a03f6ac6ad9109ffddb0b84bd68c997e5",
+    "teacher_bridge_transport_env.py": "90b3103db9966956ae23e1d0fe7aa51cccbd617bb94a66117ab8e689013819f1",
+    "bridge_transport_path.py": "9918dd21bf2786e3d8feb7727699a513378808bfaab2a00a9a6cf01991f59657",
+    "teacher_bridge_transport_path_env.py": "a584795d57e772d297ac598106a5415d66f1c63a011931d0d94f37af4e87f94c",
+    "bridge_transport_constrained.py": "bd019d4b4de643197f9f6edd1e67f6404c88be5bbb3314d67cb974811a2bac0c",
+    "teacher_bridge_transport_constrained_env.py": "de7dea78f86cb0def9837423f9f6350b06bfe793c1470add7f47cb59f4f7e8b0",
+    "transport_contact_unload_v2.py": "321e7c12c9a7a26c73b5bc84e8cae37c76d979b91281d1af6f2ca436da595712",
+    "teacher_bridge_transport_unload_v2_env.py": "6989e4ff16f073bdbcc61ffb51c9589789d5ac0bc605dec5575c119097efde93",
+    "teacher_bridge_transport_gain_env.py": "d7d44014b99995969b4759c24d9fcd728ba3f6e9f0fa0bcc9109f56e05960b51",
+    "teacher_bridge_transport_settle_env.py": "b7b983104f29c2492917eafdeaa1619e1df036fa26f0d477b64be1d2de34c2cc",
+    "deposit_60hz.py": "e532d00978a7ae4a7730cfdfdbbaba829f8bcf65f15fa792c7b11e6173c5d9db",
+    "teacher_bridge_deposit_env.py": "1488036561b0fbc5ee58c08b06e2e5e96204e6961feabf23f56b1e51f7eca0a9",
+    "transport_motion_compare.py": "6c9627b98d8ada82890d5c3d0f7deabd978d921bdc1cfebf3b64bc64c6d663ad",
+    "teacher_bridge_motion_compare_env.py": "8f3453362f4ab65315f9696b2b3cee72efc20d75597835f7c294e479b63d207b",
+    "pressure_compare.py": "829229308788ec621e5f6d024cf6ed01940c7bb377a5c3a3cc3ac24828c51082",
+    "teacher_pressure_compare_env.py": "104ed6a61f52bdb356fb49cf42c5ae06460f4001d4275130a91ac607c6eec898",
+    "teacher_pull_stability_env.py": "3f654c3ba7591d7d2d1356c6a669fff1f02e3e241fb3aa72efb4a7320e4c5616",
+    "transport_posture_escape.py": "f4a172f15243fd033f6eb765960dcd234be74e83b258c3482f407a7de296d27c",
+    "teacher_transport_posture_env.py": "d48c432e7e454ae09d7b077e5dbfa58d3caa45f44d6609d9e40315c15c1c18c7",
+    "settle_gate_v2.py": "5557ec909837fd1c63717d5954931fbac0b35ca7fd57d05dc7c7b03b66b6cf44",
+    "teacher_native_settle_v2_env.py": "7c4e0f0c3d151d3ae253ca297a9347711cdad59407bf35704b3456eaaa814574",
+    "settle_gain_v4.py": "a2334744a28b7a8cb9b15ff5f6f111eab54c36e2f72f902d83e02f6b3f5fd1da",
+    "teacher_native_settle_v4_env.py": "1736841f83619ed533b08340537013c144806060a49857d6780005c06506db12",
+    "teacher_native_floor_unified_env.py": "07b75b72f588d1957c52d6144a83354ed42ca42fd23b401ccf6c7123f291e6f0",
+    "jaw_surface_compare.py": "9cb1ddecf9256c034ba98e2c3db56ae0c102fececed398f0952024a81e282a05",
+    "jaw_surface_compare_v2.py": "d9fc36f3d91ceb0670e32bfb46d56d0f089e831d49b3247ad47eebaaf5974b45",
+    "teacher_jaw_surface_compare_v2_env.py": "36841b646df1473284b7a02a8ce10d8c6761442b5c7d745542a839e20ad89714",
+    "friction_followup.py": "accceaa3c391abb12e4e0e130a494f251e5bbd007797e78eb3b01fd2afe077e8",
+    "teacher_friction_followup_env.py": "4ceca3d4f0c8181bb3866aebbd9ad73b94365cfaed3b84c47934fc23a86e0b05",
+    "transport_progress_budget.py": "2b027d569c650e69ce9497999018a696b193ea97e1bf6a3327fe2788e5a8c273",
+    "teacher_friction_progress_env.py": "d565be337649d639f89808820eb0c12093c05357481773291600c135e9d4f56d",
+    "attachment_60hz.py": "7941ef6b021fb06fb5cb07cd25983e2eb1966749f478a17e3bc3df5c227b57c0",
+    "simulation_clock.py": "b2044cabb7149950dbef60a51156ac0297c3134be31ea2f07e64bc05ab115661"
+  },
+  "methods": [
+    {
+      "module": "env",
+      "method": "HarvestEnv.__init__",
+      "original_body": false
+    },
+    {
+      "module": "env",
+      "method": "HarvestEnv._native_recovery_enabled",
+      "original_body": true
+    },
+    {
+      "module": "env",
+      "method": "HarvestEnv._grasp_center",
+      "original_body": true
+    },
+    {
+      "module": "env",
+      "method": "HarvestEnv._grasp_orientation",
+      "original_body": true
+    },
+    {
+      "module": "env",
+      "method": "HarvestEnv._pre_physics_step",
+      "original_body": true
+    },
+    {
+      "module": "env",
+      "method": "HarvestEnv._update_task",
+      "original_body": true
+    },
+    {
+      "module": "env",
+      "method": "HarvestEnv._target_elapsed_steps",
+      "original_body": true
+    },
+    {
+      "module": "env",
+      "method": "HarvestEnv._get_dones",
+      "original_body": true
+    },
+    {
+      "module": "env",
+      "method": "HarvestEnv.proprio",
+      "original_body": true
+    },
+    {
+      "module": "env",
+      "method": "HarvestEnv._get_observations",
+      "original_body": true
+    },
+    {
+      "module": "teacher_domain_env",
+      "method": "TeacherDomainEnv.__init__",
+      "original_body": false
+    },
+    {
+      "module": "teacher_domain_env",
+      "method": "TeacherDomainEnv._get_observations",
+      "original_body": true
+    },
+    {
+      "module": "teacher_capture_env",
+      "method": "TeacherCaptureEnv.__init__",
+      "original_body": true
+    },
+    {
+      "module": "teacher_capture_env",
+      "method": "TeacherCaptureEnv._potential",
+      "original_body": true
+    },
+    {
+      "module": "teacher_capture_env",
+      "method": "TeacherCaptureEnv._pre_physics_step",
+      "original_body": true
+    },
+    {
+      "module": "teacher_capture_v4_env",
+      "method": "TeacherCaptureV4Env.__init__",
+      "original_body": true
+    },
+    {
+      "module": "teacher_capture_v4_env",
+      "method": "TeacherCaptureV4Env._pre_physics_step",
+      "original_body": true
+    },
+    {
+      "module": "teacher_grasp_bridge_env",
+      "method": "TeacherGraspBridgeEnv.__init__",
+      "original_body": true
+    },
+    {
+      "module": "teacher_grasp_bridge_env",
+      "method": "TeacherGraspBridgeEnv._pre_physics_step",
+      "original_body": true
+    },
+    {
+      "module": "teacher_grasp_bridge_env",
+      "method": "TeacherGraspBridgeEnv._update_task",
+      "original_body": true
+    },
+    {
+      "module": "teacher_bridge_pull_env",
+      "method": "TeacherBridgePullEnv.__init__",
+      "original_body": true
+    },
+    {
+      "module": "teacher_bridge_pull_env",
+      "method": "TeacherBridgePullEnv._target_elapsed_steps",
+      "original_body": true
+    },
+    {
+      "module": "teacher_bridge_pull_env",
+      "method": "TeacherBridgePullEnv._pre_physics_step",
+      "original_body": true
+    },
+    {
+      "module": "teacher_bridge_pull_env",
+      "method": "TeacherBridgePullEnv._update_task",
+      "original_body": true
+    },
+    {
+      "module": "teacher_bridge_pull_risk_env",
+      "method": "TeacherBridgePullRiskEnv.__init__",
+      "original_body": false
+    },
+    {
+      "module": "teacher_bridge_pull_risk_env",
+      "method": "TeacherBridgePullRiskEnv._pre_physics_step",
+      "original_body": true
+    },
+    {
+      "module": "teacher_bridge_pull_guarded_env",
+      "method": "TeacherBridgePullGuardedEnv._pre_physics_step",
+      "original_body": true
+    },
+    {
+      "module": "teacher_bridge_transport_env",
+      "method": "TeacherBridgeTransportEnv.__init__",
+      "original_body": true
+    },
+    {
+      "module": "teacher_bridge_transport_env",
+      "method": "TeacherBridgeTransportEnv._target_elapsed_steps",
+      "original_body": true
+    },
+    {
+      "module": "teacher_bridge_transport_env",
+      "method": "TeacherBridgeTransportEnv._transport_observations",
+      "original_body": true
+    },
+    {
+      "module": "teacher_bridge_transport_env",
+      "method": "TeacherBridgeTransportEnv._pre_physics_step",
+      "original_body": true
+    },
+    {
+      "module": "teacher_bridge_transport_env",
+      "method": "TeacherBridgeTransportEnv._update_task",
+      "original_body": true
+    },
+    {
+      "module": "teacher_bridge_transport_path_env",
+      "method": "TeacherBridgeTransportPathEnv.__init__",
+      "original_body": true
+    },
+    {
+      "module": "teacher_bridge_transport_path_env",
+      "method": "TeacherBridgeTransportPathEnv._pre_physics_step",
+      "original_body": true
+    },
+    {
+      "module": "teacher_bridge_transport_constrained_env",
+      "method": "TeacherBridgeTransportConstrainedEnv._pre_physics_step",
+      "original_body": true
+    },
+    {
+      "module": "teacher_bridge_transport_unload_v2_env",
+      "method": "TeacherBridgeTransportUnloadV2Env.__init__",
+      "original_body": true
+    },
+    {
+      "module": "teacher_bridge_transport_unload_v2_env",
+      "method": "TeacherBridgeTransportUnloadV2Env._pre_physics_step",
+      "original_body": true
+    },
+    {
+      "module": "teacher_bridge_transport_gain_env",
+      "method": "TeacherBridgeTransportGainEnv.__init__",
+      "original_body": true
+    },
+    {
+      "module": "teacher_bridge_transport_gain_env",
+      "method": "TeacherBridgeTransportGainEnv._write_gain",
+      "original_body": true
+    },
+    {
+      "module": "teacher_bridge_transport_gain_env",
+      "method": "TeacherBridgeTransportGainEnv._pre_physics_step",
+      "original_body": true
+    },
+    {
+      "module": "teacher_bridge_transport_settle_env",
+      "method": "TeacherBridgeTransportSettleEnv.__init__",
+      "original_body": true
+    },
+    {
+      "module": "teacher_bridge_transport_settle_env",
+      "method": "TeacherBridgeTransportSettleEnv._pre_physics_step",
+      "original_body": true
+    },
+    {
+      "module": "teacher_bridge_deposit_env",
+      "method": "TeacherBridgeDepositEnv.__init__",
+      "original_body": true
+    },
+    {
+      "module": "teacher_bridge_deposit_env",
+      "method": "TeacherBridgeDepositEnv._target_elapsed_steps",
+      "original_body": true
+    },
+    {
+      "module": "teacher_bridge_deposit_env",
+      "method": "TeacherBridgeDepositEnv._pre_physics_step",
+      "original_body": true
+    },
+    {
+      "module": "teacher_bridge_deposit_env",
+      "method": "TeacherBridgeDepositEnv._update_task",
+      "original_body": true
+    },
+    {
+      "module": "teacher_bridge_deposit_env",
+      "method": "TeacherBridgeDepositEnv._get_dones",
+      "original_body": true
+    },
+    {
+      "module": "teacher_bridge_motion_compare_env",
+      "method": "TeacherBridgeMotionCompareEnv.__init__",
+      "original_body": true
+    },
+    {
+      "module": "teacher_bridge_motion_compare_env",
+      "method": "TeacherBridgeMotionCompareEnv._pre_physics_step",
+      "original_body": true
+    },
+    {
+      "module": "teacher_pressure_compare_env",
+      "method": "TeacherPressureCompareEnv.__init__",
+      "original_body": true
+    },
+    {
+      "module": "teacher_pressure_compare_env",
+      "method": "TeacherPressureCompareEnv._pre_physics_step",
+      "original_body": false
+    },
+    {
+      "module": "teacher_pull_stability_env",
+      "method": "TeacherPullStabilityEnv.__init__",
+      "original_body": true
+    },
+    {
+      "module": "teacher_pull_stability_env",
+      "method": "TeacherPullStabilityEnv._pre_physics_step",
+      "original_body": true
+    },
+    {
+      "module": "teacher_transport_posture_env",
+      "method": "TeacherTransportPostureEnv.__init__",
+      "original_body": true
+    },
+    {
+      "module": "teacher_transport_posture_env",
+      "method": "TeacherTransportPostureEnv._pre_physics_step",
+      "original_body": true
+    },
+    {
+      "module": "teacher_native_settle_v2_env",
+      "method": "TeacherNativeSettleV2Env.__init__",
+      "original_body": true
+    },
+    {
+      "module": "teacher_native_settle_v2_env",
+      "method": "TeacherNativeSettleV2Env._pre_physics_step",
+      "original_body": true
+    },
+    {
+      "module": "teacher_native_settle_v4_env",
+      "method": "TeacherNativeSettleV4Env.__init__",
+      "original_body": true
+    },
+    {
+      "module": "teacher_native_settle_v4_env",
+      "method": "TeacherNativeSettleV4Env._pre_physics_step",
+      "original_body": true
+    },
+    {
+      "module": "teacher_native_floor_unified_env",
+      "method": "TeacherNativeFloorUnifiedEnv.__init__",
+      "original_body": true
+    },
+    {
+      "module": "teacher_jaw_surface_compare_v2_env",
+      "method": "TeacherJawSurfaceCompareEnv.__init__",
+      "original_body": true
+    },
+    {
+      "module": "teacher_friction_followup_env",
+      "method": "TeacherFrictionFollowupEnv.__init__",
+      "original_body": true
+    },
+    {
+      "module": "teacher_friction_followup_env",
+      "method": "TeacherFrictionFollowupEnv._pre_physics_step",
+      "original_body": true
+    },
+    {
+      "module": "teacher_friction_progress_env",
+      "method": "TeacherFrictionProgressEnv.__init__",
+      "original_body": true
+    },
+    {
+      "module": "teacher_friction_progress_env",
+      "method": "TeacherFrictionProgressEnv._pre_physics_step",
+      "original_body": true
+    },
+    {
+      "module": "teacher_friction_progress_env",
+      "method": "TeacherFrictionProgressEnv._get_dones",
+      "original_body": true
+    }
+  ],
+  "note": "scene/reset/reward \uc81c\uc678; \ucd08\uae30\ud654\ub294 \ub18d\uc7a5 \uce21\uc815\uac12. \uc815\ucc45 \ub2e8\uacc4 \uacc4\uc0b0 \uc6d0\ubb38 \ubcf4\uc874."
+}

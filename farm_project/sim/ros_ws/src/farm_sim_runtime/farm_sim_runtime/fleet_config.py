@@ -62,3 +62,24 @@ def load_fleet(root: Path, path: Path) -> tuple[list, dict]:
     harvest = dict(evaluation['evaluation'], robot_id=evaluation['robot_id'], scene_snapshot_file=str(output))
     return configs, dict(map_id=stations['map_id'], stations=stations['stations'],
                          evaluation=dict(T_map_world=stations['T_map_world']), harvest_robot=harvest, clock=fleet['clock'])
+
+
+def validate_harvest_action(task: dict, device: dict, physics: dict) -> None:
+    """팔 완료 정책의 Action 연결과 국소 물리 설정을 시작 전에 검사한다.
+
+    관측/정책 종류는 검사하지 않는다. 카메라 정책도 같은 팔 Action 계약을 쓴다.
+    명시적인 이동 전용 시험 정책은 기존대로 허용한다.
+    """
+    if task.get('completion_policy') != 'ARRIVAL_THEN_ARM':
+        return
+    arm = device['runtime'].get('harvest_arm', {})
+    if arm.get('enabled') is not True:
+        raise ValueError('ARRIVAL_THEN_ARM에는 harvest_arm.enabled=true가 필요합니다.')
+    endpoint = task.get('arm_action', {}).get('endpoint')
+    if not endpoint or endpoint != arm.get('endpoint'):
+        raise ValueError('수확 작업과 장치의 팔 Action endpoint가 다릅니다.')
+    if not physics.get('enabled') or not physics.get('adaptive', {}).get('enabled'):
+        raise ValueError('팔 수확에는 주변 과실만 활성화하는 adaptive 물리가 필요합니다.')
+    region = physics['adaptive']
+    if not 0 < region['activation_radius_m'] <= region['retention_radius_m']:
+        raise ValueError('과실 활성/유지 반경 설정이 올바르지 않습니다.')

@@ -1,0 +1,12 @@
+"""60Hz r2 원본 계산에서 추출. 재생성: sim/tools/import_teacher60.py."""
+
+import torch
+
+def guarded_gain(previous, active, first, scope, zone, raw, grip, slip, center,
+                 pose_speed, tcp_speed, sdk_speed, min_force, goal_error, dt=.05):
+    reserve=torch.where((center<.006) & (slip<.006),min_force.new_tensor(.5),min_force.new_tensor(1.))
+    allowed = (active & ~first & scope & zone & raw & grip & (slip < .008)
+        & (center < .008) & (pose_speed <= .02) & (tcp_speed <= .02)
+        & (sdk_speed > .18) & (min_force > reserve) & (goal_error < .01))
+    gain = torch.where(allowed, (previous - 7.*dt).clamp_min(1.), previous)
+    return gain, allowed, reserve

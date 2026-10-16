@@ -33,11 +33,10 @@ def _config() -> dict:
                      damping_nm_s_per_rad=.3, effort_limit_nm=.5,
                      velocity_limit_rad_s=1.5, home_position_rad=1.1),
         contact=dict(static_friction=1, dynamic_friction=1, restitution=.02,
-                     contact_offset_m=.001, rest_offset_m=0),
-        box_floor=dict(enabled=True,
-                       asset_path=str(ROOT / 'sim/assets/robots/harvest_physics/box_floor_v3.usd'),
-                       body_names=['box_bottom_left', 'box_bottom_right'],
-                       source_prims=['/HarvestBoxFloor/Plus', '/HarvestBoxFloor/Minus']))
+                     contact_offset_m=.001, rest_offset_m=0, finger_friction=2.2),
+        box_floor=dict(enabled=True, mode='teacher60_unified',
+                       policy_lower_m=[.3, -.1, .451], policy_upper_m=[.5, .1, .501],
+                       contact_offset_m=.04))
 
 
 @unittest.skipIf(Usd is None, 'Isaac USD/PhysX schema Python 환경이 필요합니다.')
@@ -92,14 +91,15 @@ class RobotarmAssetTests(unittest.TestCase):
 
     def test_grip_material_floor_geometry_and_idempotence(self) -> None:
         result = configure_harvest_arm(self.stage, '/Robot', _config())
-        self.assertEqual(len(result['floor_colliders']), 4)
+        self.assertEqual(len(result['floor_colliders']), 1)
         self.assertGreater(len(result['grip_colliders']), 0)
         for path in result['grip_colliders']:
             prim = self.stage.GetPrimAtPath(path)
             mat, _ = UsdShade.MaterialBindingAPI(prim).ComputeBoundMaterial('physics')
-            self.assertEqual(str(mat.GetPath()), result['grip_material'])
-            self.assertEqual(mat.GetPrim().GetAttribute('physics:staticFriction').Get(), 1)
-            self.assertEqual(mat.GetPrim().GetAttribute('physics:dynamicFriction').Get(), 1)
+            finger = any(token in path for token in ('wrist_roll_follower_so101_v1', 'moving_jaw_so101_v1'))
+            expected = 2.2 if finger else 1.
+            self.assertAlmostEqual(mat.GetPrim().GetAttribute('physics:staticFriction').Get(), expected, places=6)
+            self.assertAlmostEqual(mat.GetPrim().GetAttribute('physics:dynamicFriction').Get(), expected, places=6)
             self.assertAlmostEqual(mat.GetPrim().GetAttribute('physics:restitution').Get(), .02)
             self.assertAlmostEqual(prim.GetAttribute('physxCollision:contactOffset').Get(), .001)
             self.assertEqual(prim.GetAttribute('physxCollision:restOffset').Get(), 0)
@@ -108,11 +108,13 @@ class RobotarmAssetTests(unittest.TestCase):
         for path in result['floor_colliders']:
             prim = self.stage.GetPrimAtPath(path)
             self.assertFalse(prim.HasAPI(UsdPhysics.RigidBodyAPI))
-            xyz = np.asarray(UsdGeom.Mesh(prim).GetPointsAttr().Get())
+            self.assertTrue(prim.IsA(UsdGeom.Cube))
+            self.assertAlmostEqual(prim.GetAttribute('physxCollision:contactOffset').Get(), .04)
+            xyz = np.array([[x,y,z] for x in (-.5,.5) for y in (-.5,.5) for z in (-.5,.5)])
             transform = np.asarray(transforms.GetLocalToWorldTransform(prim)).T
             points.extend(xyz @ transform[:3, :3].T + transform[:3, 3])
         points = np.asarray(points)
-        np.testing.assert_allclose(points.min(0), [-.1, -.45, .495], atol=1e-6)
+        np.testing.assert_allclose(points.min(0), [-.1, -.45, .451], atol=1e-6)
         np.testing.assert_allclose(points.max(0), [.1, -.25, .501], atol=1e-6)
         before = self.stage.GetSessionLayer().ExportToString()
         configure_harvest_arm(self.stage, '/Robot', _config())

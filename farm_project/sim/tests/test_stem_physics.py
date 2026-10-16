@@ -19,139 +19,71 @@ def inputs(count: int = 1) -> dict:
                 orientation_wxyz=np.tile([1., 0., 0., 0.], (count, 1)),
                 rest_orientation_wxyz=np.tile([1., 0., 0., 0.], (count, 1)),
                 angular_velocity=np.zeros((count, 3)), attached=np.ones(count, dtype=bool),
-                timer=np.zeros(count), thresholds=np.full(count, 2.5), dt_s=1/480)
+                timer=np.zeros(count), thresholds=np.full(count, 2.5), dt_s=1/60)
 
 
 class StemPhysicsTests(unittest.TestCase):
-    def setUp(self) -> None:
-        self.settings = StemSettings.from_mapping({})
+    def test_response6_matches_original_coupled_wrench_including_gyro(self):
+        import torch
+        from types import SimpleNamespace
+        from farm_sim_devices._teacher_vendor.attachment_60hz import coupled_wrench
+        from farm_sim_devices.stem_physics import _quaternion_error
+        rng = np.random.default_rng(60); n = 64; cfg = StemSettings()
+        data = inputs(n)
+        for name, scale in [('displacement', .02), ('tip_velocity', .2), ('lever', .03), ('angular_velocity', 2.)]:
+            data[name] = rng.normal(size=(n,3))*scale
+        for name in ('orientation_wxyz', 'rest_orientation_wxyz'):
+            q = rng.normal(size=(n,4)); data[name] = q/np.linalg.norm(q,axis=-1,keepdims=True)
+        data['timer'] = rng.uniform(0,.04,n)
+        data['attached'] = rng.random(n)>.2
+        scalar, vector = _quaternion_error(data['orientation_wxyz'],data['rest_orientation_wxyz'])
+        config = SimpleNamespace(**cfg.__dict__, tension_axis=(-1.,0.,0.))
+        def t(value): return torch.as_tensor(value)
+        for gyro in (False, True):
+            result = stem_step(cfg, **data, gyroscopic_forces=gyro)
+            oracle = coupled_wrench(t(data['displacement']),t(data['tip_velocity']),t(data['lever']),
+                t(data['angular_velocity']),t(2*vector*np.sign(scalar)[:,None]),t(data['inverse_inertia_world']),
+                config,t(data['attached']),t(data['timer']),1/60,t(data['thresholds']),gyroscopic_forces=gyro)
+            for actual, expected in zip((result.force,result.torque,result.attached,result.timer,result.tension),oracle):
+                np.testing.assert_allclose(actual,expected.numpy(),atol=1e-12,rtol=1e-10)
 
-    def test_zero_load_has_no_gravity_feedforward(self) -> None:
-        result = stem_step(self.settings, **inputs())
-        np.testing.assert_array_equal(result.force, [[0., 0., 0.]])
-        np.testing.assert_array_equal(result.torque, [[0., 0., 0.]])
-        self.assertTrue(result.attached[0])
-
-    def test_implicit_axial_force_matches_scalar_mass_system(self) -> None:
-        # 1자유도 implicit Euler: F = -(k*x + (d+dt*k)*v)/(1+dt*(d+dt*k)/m).
-        case = inputs()
-        case['displacement'][0, 0] = -.01
-        case['tip_velocity'][0, 0] = -.02
-        result = stem_step(self.settings, **case)
-        dt, mass, k, damping = 1/480, .009, 60., 4.2
-        expected = (k*.01+(damping+dt*k)*.02)/(1+dt*(damping+dt*k)/mass)
-        self.assertAlmostEqual(result.force[0, 0], expected, places=13)
-        self.assertEqual(result.timer[0], 0.)
-
-    def test_short_hook_requires_continuous_40ms_and_stays_detached(self) -> None:
-        case = inputs(2)
-        case['displacement'][0, 0] = -.025
-        case['displacement'][1, 0] = -.0249
-        for _ in range(19):
-            result = stem_step(self.settings, **case)
-            case.update(attached=result.attached, timer=result.timer)
-        self.assertTrue(result.attached.all())
-        self.assertAlmostEqual(result.timer[0], 19/480)
-        result = stem_step(self.settings, **case)
+    def test_three_consecutive_ticks_and_no_reattachment(self):
+        data = inputs(); data['displacement'][0,0] = -.026
+        for index in range(3):
+            result = stem_step(StemSettings(), **data)
+            self.assertEqual(bool(result.attached[0]), index<2)
+            data['attached'], data['timer'] = result.attached,result.timer
+        self.assertAlmostEqual(result.timer[0], .05)
+        data['displacement'][:] = 0
+        result = stem_step(StemSettings(), **data)
         self.assertFalse(result.attached[0])
-        self.assertTrue(result.attached[1])
-        self.assertAlmostEqual(result.timer[0], 20/480)
-        np.testing.assert_array_equal(result.force[0], [0., 0., 0.])
-        case.update(attached=result.attached, timer=result.timer)
-        case['displacement'].fill(0.)
-        result = stem_step(self.settings, **case)
+        np.testing.assert_array_equal(result.force, 0.)
+        np.testing.assert_array_equal(result.torque, 0.)
+
+    def test_sideways_break_remains_documented_limitation(self):
+        data = inputs(); data['displacement'][0,1] = .041
+        for _ in range(3):
+            result = stem_step(StemSettings(), **data)
+            data['attached'], data['timer'] = result.attached,result.timer
         self.assertFalse(result.attached[0])
-        self.assertEqual(result.timer[0], 0.)
+        self.assertFalse(result.hook_opened[0])
+        self.assertTrue(result.max_extension_exceeded[0])
 
-    def test_interrupted_pull_clears_dwell_and_lateral_escape_detaches(self) -> None:
-        case = inputs()
-        case['displacement'][0, 1] = .04
-        for _ in range(10):
-            result = stem_step(self.settings, **case)
-            case.update(attached=result.attached, timer=result.timer)
-        case['displacement'][0, 1] = .039
-        result = stem_step(self.settings, **case)
-        self.assertEqual(result.timer[0], 0.)
-        case.update(attached=result.attached, timer=result.timer)
-        case['displacement'][0, 1] = .04
-        for _ in range(20):
-            result = stem_step(self.settings, **case)
-            case.update(attached=result.attached, timer=result.timer)
-        self.assertFalse(result.attached[0])
+    def test_no_480hz_or_response5_fallback(self):
+        with self.assertRaises(ValueError): StemSettings.from_mapping({'stem_response_version':5})
+        data = inputs(); data['dt_s']=1/480
+        with self.assertRaises(ValueError): stem_step(StemSettings(), **data)
 
-    def test_force_condition_does_not_bypass_minimum_extension(self) -> None:
-        case = inputs(2)
-        case['thresholds'].fill(.1)
-        case['displacement'][:, 0] = [-.012, -.013]
-        result = stem_step(self.settings, **case)
-        self.assertEqual(result.timer[0], 0.)
-        self.assertGreater(result.timer[1], 0.)
-        np.testing.assert_allclose(np.linalg.norm(result.force, axis=-1), [.1, .1])
-
-    def test_yaw_rotation_preserves_forces_torques_and_timer(self) -> None:
-        case = inputs()
-        case['displacement'][0] = [-.03, .006, -.003]
-        case['tip_velocity'][0] = [.02, -.01, .03]
-        case['lever'][0] = [.01753, .012588, .0375]
-        case['angular_velocity'][0] = [.1, -.2, .3]
-        angle = .15
-        case['orientation_wxyz'][0] = [math.cos(angle/2), math.sin(angle/2), 0., 0.]
-        original = stem_step(self.settings, **case)
-        yaw = 1.1
-        q = np.array([[math.cos(yaw/2), 0., 0., math.sin(yaw/2)]])
-        rotation = quaternion_matrix(q)[0]
-        changed = dict(case)
-        for key in ('displacement', 'tip_velocity', 'lever', 'angular_velocity', 'tension_axis_world'):
-            changed[key] = case[key] @ rotation.T
-        changed['inverse_inertia_world'] = rotation @ case['inverse_inertia_world'] @ rotation.T
-        changed['rest_orientation_wxyz'] = q
-        # yaw quaternion * 초기 roll quaternion. 좌표계 전체의 동일 회전입니다.
-        a, b = angle/2, yaw/2
-        changed['orientation_wxyz'] = np.array([[math.cos(b)*math.cos(a), math.cos(b)*math.sin(a),
-                                               math.sin(b)*math.sin(a), math.sin(b)*math.cos(a)]])
-        rotated = stem_step(self.settings, **changed)
-        np.testing.assert_allclose(rotated.force, original.force @ rotation.T, atol=1e-12)
-        np.testing.assert_allclose(rotated.torque, original.torque @ rotation.T, atol=1e-12)
-        np.testing.assert_allclose(rotated.timer, original.timer)
-
-    def test_diagnostics_distinguish_force_threshold_from_geometric_escape(self) -> None:
-        """같은 분리 타이머라도 힘 초과와 거리 이탈 원인을 서로 구분해야 합니다."""
-        case = inputs(3)
-        case['displacement'][0, 0] = -.013
-        case['tip_velocity'][0, 0] = -2.
-        case['displacement'][1, 0] = -.025
-        case['displacement'][2, 1] = .040
-        result = stem_step(self.settings, **case)
-        np.testing.assert_array_equal(result.force_exceeded, [True, False, False])
-        np.testing.assert_array_equal(result.hook_opened, [False, True, False])
-        np.testing.assert_array_equal(result.max_extension_exceeded, [False, False, True])
-        self.assertGreater(result.raw_tension[0], 2.5)
-        self.assertEqual(result.tension[0], 2.5)
-        self.assertLess(result.raw_tension[1], 2.5)
-        np.testing.assert_allclose(result.timer, np.full(3, 1/480))
-        self.assertTrue(result.attached.all())
-
-    def test_quaternion_sign_does_not_change_restoring_torque(self) -> None:
-        case = inputs()
-        case['orientation_wxyz'][0] = [math.cos(.2), 0., math.sin(.2), 0.]
-        first = stem_step(self.settings, **case)
-        case['orientation_wxyz'] *= -1
-        second = stem_step(self.settings, **case)
-        np.testing.assert_allclose(first.torque, second.torque)
-        self.assertLess(first.torque[0, 1], 0.)
-
-    def test_invalid_values_rejected_before_force_application(self) -> None:
-        for key, value in (('mass', 0), ('tension_hold_s', -1), ('spring_d', float('nan')),
-                           ('attachment_version', 3)):
-            with self.subTest(key=key), self.assertRaises(ValueError):
-                StemSettings.from_mapping({key: value})
-        for key, value in (('dt_s', 0.), ('thresholds', [0.]), ('tip_velocity', [[float('nan'), 0., 0.]]),
-                           ('orientation_wxyz', [[0., 0., 0., 0.]])):
-            case = inputs()
-            case[key] = value
-            with self.subTest(key=key), self.assertRaises(ValueError):
-                stem_step(self.settings, **case)
-
-
-if __name__ == '__main__':
-    unittest.main()
+    def test_yaw_rotation_preserves_force_and_torque(self):
+        data = inputs(); data['displacement'][0] = [-.01,.003,-.002]
+        data['lever'][0] = [.02,.01,.03]
+        original = stem_step(StemSettings(),**data)
+        angle=.9; q=np.array([math.cos(angle/2),0,0,math.sin(angle/2)])
+        r=quaternion_matrix(q)
+        for name in ('displacement','tip_velocity','lever','angular_velocity','tension_axis_world'):
+            data[name]=data[name]@r.T
+        data['inverse_inertia_world']=r@data['inverse_inertia_world']@r.T
+        data['orientation_wxyz'][:]=q; data['rest_orientation_wxyz'][:]=q
+        rotated=stem_step(StemSettings(),**data)
+        np.testing.assert_allclose(rotated.force,original.force@r.T,atol=1e-12)
+        np.testing.assert_allclose(rotated.torque,original.torque@r.T,atol=1e-12)

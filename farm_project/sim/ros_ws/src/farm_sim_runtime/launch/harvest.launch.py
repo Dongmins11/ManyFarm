@@ -10,6 +10,7 @@ from launch.substitutions import LaunchConfiguration
 from launch_ros.actions import Node
 from farm_navigation.configuration import load_environment, load_nav2_parameters, read_mapping
 from farm_sim_runtime.tag_localization import tag_capture_actions
+from farm_sim_runtime.fleet_config import validate_harvest_action
 
 
 def setup(context) -> list:
@@ -29,6 +30,10 @@ def setup(context) -> list:
     initial = load_nav2_parameters(profile['nav_params'], root)['amcl']['ros__parameters']
     pose = initial['initial_pose']
     device = json.loads(Path(profile['device_config']).read_text())
+    task = read_mapping(root / profile['harvest_config'])
+    if task.get('completion_policy') == 'ARRIVAL_THEN_ARM':
+        physics = read_mapping(root / device['runtime']['robotarm_physics_config'])
+        validate_harvest_action(task, device, physics)
     if (device['robot_id'] != profile['robot_id'] or device['map_id'] != profile['map_id']
             or not initial.get('set_initial_pose')
             or math.dist([pose['x'], pose['y']], station['xy_m']) > 1e-6

@@ -272,6 +272,20 @@ class TeacherDevice:
             joint_positions=np.clip(values, self.lower, self.upper).astype(np.float32),
             joint_indices=self._joint_indices))
 
+    def configure_actuator(self, settings: Mapping) -> None:
+        """원본 단계 제어의 drive gain/실제 속도 한도를 PhysX에 적용한다."""
+        gain = _array(settings['stiffness'], (6,), 'stiffness')
+        limit = _array(settings['velocity_limits'], (6,), 'velocity limits')
+        if np.any(gain <= 0) or np.any(limit <= 0):
+            raise ValueError('양의 drive gain/속도 한도가 필요합니다.')
+        view = self.articulation._articulation_view
+        view.set_gains(kps=gain[None].astype(np.float32), joint_indices=self._joint_indices)
+        view.set_max_joint_velocities(limit[None].astype(np.float32), joint_indices=self._joint_indices)
+
+    def restore_actuator(self) -> None:
+        """실제 복귀 전 조임 단계의 임시 gain/속도 한도를 해제한다."""
+        self.configure_actuator(dict(stiffness=[25.]*5+[8.], velocity_limits=[1.2]*5+[1.5]))
+
     def contacts_for_recovery(self) -> dict:
         """실제 손가락·팔 net contact 힘과 최대값을 반환한다. 단위는 N이다."""
         dt = self._last_physics_dt

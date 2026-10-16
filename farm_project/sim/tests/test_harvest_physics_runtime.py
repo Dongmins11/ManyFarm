@@ -118,9 +118,10 @@ class ProfileTests(unittest.TestCase):
         self.root = Path(self.directory.name).resolve()
         (self.root / 'sim').mkdir()
         self.path = self.root / 'sim/physics.json'
-        self.profile = dict(enabled=True, physics_hz=480, render_hz=60, control_hz=20)
+        self.profile = dict(enabled=True, physics_hz=60, render_hz=30, control_hz=20,
+                            stem=dict(stem_response_version=6))
         self.path.write_text(json.dumps(self.profile))
-        self.devices = [dict(robot_id=name, runtime=dict(physics_hz=480, render_hz=60,
+        self.devices = [dict(robot_id=name, runtime=dict(physics_hz=60, render_hz=30,
                         robotarm_physics_config='sim/physics.json')) for name in ('scout_01', 'harvest_01')]
 
     def test_all_deployed_devices_load_the_same_profile(self) -> None:
@@ -128,16 +129,24 @@ class ProfileTests(unittest.TestCase):
         devices = [json.loads((config / f'{name}.json').read_text()) for name in ('scout', 'scout_fleet', 'harvest')]
         profile = load_physics_profile(ROOT, devices)
         self.assertTrue(profile['enabled'])
-        self.assertEqual((profile['physics_hz'], profile['render_hz']), (480, 60))
+        self.assertEqual((profile['physics_hz'], profile['render_hz']), (60, 30))
         self.assertEqual(profile['fruit']['mass_kg'], profile['stem']['mass'])
 
     def test_mismatched_device_physics_or_render_rate_is_rejected(self) -> None:
-        for key, value in [('physics_hz', 60), ('render_hz', 30)]:
+        for key, value in [('physics_hz', 480), ('render_hz', 60)]:
             with self.subTest(key=key):
                 devices = deepcopy(self.devices)
                 devices[1]['runtime'][key] = value
                 with self.assertRaisesRegex(ValueError, key):
                     load_physics_profile(self.root, devices)
+
+    def test_legacy_profile_is_rejected_even_when_all_devices_match(self) -> None:
+        self.profile['physics_hz'] = 480
+        self.path.write_text(json.dumps(self.profile))
+        for device in self.devices:
+            device['runtime']['physics_hz'] = 480
+        with self.assertRaisesRegex(ValueError, 'physics_hz'):
+            load_physics_profile(self.root, self.devices)
 
     def test_mixed_or_missing_profile_is_rejected(self) -> None:
         for replacement in ['sim/other.json', None]:

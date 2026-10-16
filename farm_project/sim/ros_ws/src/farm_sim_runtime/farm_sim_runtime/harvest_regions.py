@@ -14,7 +14,7 @@ class RegionSettings:
     """거리 m, 속도 m/s·rad/s, 지속시간 시뮬 초, 주기 Hz."""
 
     idle_hz: int = 60
-    harvest_hz: int = 480
+    harvest_hz: int = 60
     activation_radius_m: float = .8
     retention_radius_m: float = 1.
     settled_linear_m_s: float = .01
@@ -29,6 +29,8 @@ class RegionSettings:
         for key, number in vars(settings).items():
             if isinstance(number, bool) or not isinstance(number, (float, int)) or not math.isfinite(number) or number <= 0:
                 raise ValueError('adaptive.'+key+'는 유한한 양수여야 합니다.')
+        if (settings.idle_hz, settings.harvest_hz) != (60, 60):
+            raise ValueError('농장 물리는 유휴/수확 모두60Hz입니다.')
         for hz in (settings.idle_hz, settings.harvest_hz):
             if hz % 60 != 0 or not math.isclose(hz/render_hz, round(hz/render_hz)) or hz < render_hz:
                 raise ValueError('adaptive 물리는 60Hz와 렌더 주기의 양의 정수 배여야 합니다.')
@@ -61,7 +63,7 @@ class HarvestRegions:
 
     def required_hz(self, now: float, *, requested: bool, attached_active: bool,
                     detached_velocities: np.ndarray) -> int:
-        """분리 과실은 고정하지 않는다. 충분히 정지했을 때만 저주기 동역학을 허용한다."""
+        """분리 과실의 정지 이력은 보존하되 유휴/활동 모두60Hz를 반환한다."""
         velocity = np.asarray(detached_velocities, dtype=float).reshape(-1, 6)
         if not math.isfinite(now) or not np.isfinite(velocity).all() or (self.last_time is not None and now < self.last_time):
             raise ValueError('과실 속도와 단조 시뮬 시간을 확인하세요.')

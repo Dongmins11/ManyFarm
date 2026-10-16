@@ -1,4 +1,4 @@
-"""농장 전체의 60/480Hz 전환·근처 과실 활성화·실제 외력 분리를 검사합니다.
+"""농장 전체의 고정60Hz·근처 과실 활성화·실제 외력 분리를 검사합니다.
 
 정책/주행 성공 시험이 아닙니다. 로봇은 초기 장면에서만 과실 근처에 배치하며,
 실행 중 과실 pose·분리 상태·mount 위치를 강제로 바꾸지 않습니다.
@@ -64,9 +64,14 @@ def exercise(world: object, physics: object, schedule: object, report: dict) -> 
 
     def until_idle(label: str) -> None:
         for _ in range(120):
-            if frame(label) == 60:
+            require('fixed_60hz', frame(label) == 60)
+            attached_quiet = not np.any(attachment.attached & attachment.active)
+            quiet_since = physics.regions.quiet_since
+            detached_quiet = (attachment.attached.all() or (quiet_since is not None
+                and world.current_time-quiet_since >= physics.regions.settings.settled_seconds))
+            if attached_quiet and detached_quiet:
                 return
-        raise AssertionError(label+': 2초 안에 idle 60Hz로 복귀하지 않았습니다.')
+        raise AssertionError(label+': 2초 안에 과실 정지를 확인하지 못했습니다.')
 
     report['trace'] = trace
     for _ in range(30):
@@ -76,7 +81,7 @@ def exercise(world: object, physics: object, schedule: object, report: dict) -> 
                 for path in attachment.paths))
     require('idle_pose_preserved', np.allclose(attachment.view.get_world_poses()[0], initial, atol=1e-5, rtol=0))
     physics.set_activity('adaptive_test_harvest', True)
-    require('harvest_480hz', frame('activate') == 480)
+    require('harvest_60hz', frame('activate') == 60)
     active = np.flatnonzero(attachment.active)
     require('only_near_fruits_active', 0 < len(active) < 288)
     selected, far = int(active[0]), int(np.flatnonzero(~attachment.active)[-1])
@@ -85,7 +90,7 @@ def exercise(world: object, physics: object, schedule: object, report: dict) -> 
     report['active_count'] = len(active)
     report['far_fruit'] = attachment.paths[far]
     for _ in range(60):
-        require('active_rate_480hz', frame('attached_rest') == 480)
+        require('active_rate_60hz', frame('attached_rest') == 60)
     require('no_spontaneous_detach', attachment.attached.all())
     physics.set_activity('adaptive_test_harvest', False)
     until_idle('freeze')
@@ -97,7 +102,7 @@ def exercise(world: object, physics: object, schedule: object, report: dict) -> 
     physics.set_activity('adaptive_test_harvest', True)
     hz = physics.prepare_frame(float(world.current_time))
     require('reactivation_does_not_teleport', np.allclose(attachment.view.get_world_poses()[0], frozen_pose, atol=1e-5, rtol=0))
-    require('reactivation_selects_same_fruit', attachment.active[selected] and hz == 480)
+    require('reactivation_selects_same_fruit', attachment.active[selected] and hz == 60)
     for _ in range(30):
         frame('reactivate_settle')
     probe.selected = selected
@@ -198,7 +203,7 @@ def execute(args: argparse.Namespace, report: dict) -> None:
         scenes = [str(p.GetPath()) for p in stage.Traverse() if p.IsA(UsdPhysics.Scene)]
         if len(scenes) > 1:
             raise ValueError('PhysicsScene이 여러 개입니다.')
-        world = World(physics_dt=1/480, rendering_dt=1/60, backend='numpy', stage_units_in_meters=1.,
+        world = World(physics_dt=1/60, rendering_dt=1/30, backend='numpy', stage_units_in_meters=1.,
                       physics_prim_path=scenes[0] if scenes else '/World/physicsScene')
         physics.register(world, 'adaptive_check_'+datetime.now(timezone.utc).strftime('%Y%m%dT%H%M%S%f'))
         report['physics_log_directory'] = str(physics.directory)
@@ -213,7 +218,7 @@ def execute(args: argparse.Namespace, report: dict) -> None:
             from isaacsim.core.utils.viewports import set_camera_view
             eye = fruit_position+.9*axis+.4*np.cross(axis, [0., 0., 1.])+[0., 0., .45]
             set_camera_view(eye=eye, target=fruit_position)
-        exercise(world, physics, AdaptivePhysicsTicks(480, 60), report)
+        exercise(world, physics, AdaptivePhysicsTicks(60, 30), report)
         report['scene_sha256_after'] = digest(scene)
         report['checks']['source_scene_preserved'] = report['scene_sha256_after'] == report['scene_sha256_before']
         if not all(report['checks'].values()):

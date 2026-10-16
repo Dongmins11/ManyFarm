@@ -26,11 +26,13 @@ class Device:
     def joint_positions(self): return self.q.copy()
     def joint_velocities(self): return self.qd.copy()
     def command(self, q): self.commands.append(np.asarray(q).copy())
+    def configure_actuator(self, settings): self.actuator = settings
+    def restore_actuator(self): self.actuator = None
     def clear_target(self): self.selected = None
     def escaped_deposits(self, target_ids): return []
     def contacts_for_recovery(self): return {'max_force_N': self.max_force}
     def candidates(self, completed=()):
-        return [dict(target_id=t, home_distance_m=i) for i,t in enumerate(self.targets) if t not in completed]
+        return [dict(target_id=t, home_distance_m=3-i, root_world_m=[0.,0.,i]) for i,t in enumerate(self.targets) if t not in completed]
     def candidate_ids(self, completed=()): return [r['target_id'] for r in self.candidates(completed)]
     def select_target(self, target, completed=()):
         self.selected = target
@@ -130,6 +132,23 @@ class SessionTests(unittest.TestCase):
         self.run_done()
         self.assertEqual(self.arm.state['status'],'CANCELED')
         self.assertEqual(self.arm.state['success_count']+self.arm.state['failed_count'],0)
+    def test_stop_accepts_stable_pose_with_bounded_solver_velocity(self):
+        self.arm.accept(self.msg(), now=0.); self.tick()
+        self.device.qd[:] = .25
+        self.arm.accept(self.msg('cancel'), now=self.now)
+        self.run_done()
+        self.assertEqual(self.arm.state['status'], 'CANCELED')
+        self.assertTrue(self.arm.state['safe_stopped'])
+
+    def test_stop_rejects_actual_motion_even_with_zero_reported_velocity(self):
+        self.arm.accept(self.msg(), now=0.); self.tick()
+        self.arm.accept(self.msg('cancel'), now=self.now)
+        for _ in range(12):
+            self.device.q[0] += .01
+            self.tick()
+        self.assertEqual(self.arm.state['error_code'], 'CANCEL_UNCONFIRMED')
+        self.assertFalse(self.arm.state['safe_stopped'])
+
     def test_unconfirmed_stop_blocks_new_job(self):
         self.arm.accept(self.msg(),now=0.);self.tick()
         self.device.qd[:]=1.
@@ -173,7 +192,7 @@ class SessionTests(unittest.TestCase):
         self.arm.accept(self.msg(),now=0.)
         self.tick();self.tick()
         self.device.max_force=3.
-        self.arm.observe_physics_tick(1/480,self.now)
+        self.arm.observe_physics_tick(1/60,self.now)
         self.run_done()
         self.assertEqual(self.arm.state['error_code'],'RETURN_FAILED')
         self.assertEqual(self.device.selected_ids,['red'])
@@ -242,7 +261,7 @@ class SessionTests(unittest.TestCase):
         self.tick()
         self.device.q = (self.device.home+self.device.travel)/2
         self.device.max_force = 3.
-        self.arm.observe_physics_tick(1/480, self.now)
+        self.arm.observe_physics_tick(1/60, self.now)
         self.device.max_force = 0.
         self.run_done()
         self.assertEqual(self.arm.state['status'], 'FAILED')

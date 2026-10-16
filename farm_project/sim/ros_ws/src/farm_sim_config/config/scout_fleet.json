@@ -55,8 +55,8 @@
     "command_timeout_s": 0.5
   },
   "runtime": {
-    "physics_hz": 480,
-    "render_hz": 60,
+    "physics_hz": 60,
+    "render_hz": 30,
     "realtime": true,
     "command_port": 17600,
     "telemetry_port": 17601,

@@ -1,20 +1,25 @@
-"""SI-unit task contract shared by preparation, simulation and policies."""
+"""60Hz r2 원본 계산에서 추출. 재생성: sim/tools/import_teacher60.py."""
+
 from dataclasses import asdict, dataclass
+
 from pathlib import Path
 
-ROOT = Path(__file__).resolve().parents[3]
-ASSETS = ROOT / "src/Pepper_RL_Demo/assets"
+ROOT = Path(__file__).resolve().parent
+
 URDF = ROOT / "src/smartfarm_description/urdf/harvest_robot.urdf"
+
 CACHE = ROOT / "outputs/harvest_rl/assets"
+
 JOINTS = ("shoulder_pan", "shoulder_lift", "elbow_flex", "wrist_flex", "wrist_roll", "gripper")
 
-
 @dataclass
+
 class TaskSettings:
     contract_version: int = 2
     reward_version: int = 7
     attachment_version: int = 2  # 1: legacy OR, 2: spring force AND extension, 3: native PhysX joint, 4: directional compliant stem
     entry_first_grasp: bool = False  # opt-in entry geometry gate and pre-entry contact cost
+    entry_capture_shaping: bool = False  # unconfirmed capture: penalize one-sided pushing after entry too
     pull_recovery_shaping: bool = False  # terminal-corrected post-grasp distance potential
     pull_squeeze_rearm: bool = False  # rearm confirmed contact after explicit closing resumes
     pull_squeeze_ramp: bool = False  # opt-in gradual post-grasp preload; actuator cap unchanged
@@ -80,13 +85,19 @@ class TaskSettings:
     action_speed: float = 0.8  # rad/s; five revolute joints
     gripper_speed: float = 1.2
     gripper_effort: float = 0.50  # simulation starting cap; must be measured before hardware use
+    gripper_stiffness: float = 8.0  # Nm/rad; historical implicit drive
+    gripper_damping: float = 0.3  # Nm s/rad
     grip_friction: float = 1.0  # rubber pad/plastic pair assumption; measure on hardware
     dynamic_friction: float = 1.0
     restitution: float = 0.02
+    fruit_collision_mode: str = "legacy"  # preserve checkpoints; body_hull_v1 is an explicit contact experiment
+    contact_stiffness: float = 0.0  # 0: historical rigid contacts; positive enables implicit compliant grip contact
+    contact_damping: float = 0.0  # N s/m; provisional unless measured
     gripper_max_error: float = 0.04  # anti-windup closing error, rad
     contact_substeps: int = 1  # preserves control period while refining contact integration
     contact_solver_refine: bool = False  # explicit solver convergence comparison
     release_intent_mode: bool = False  # validate stop when opening starts, then monitor hand
+    release_measured_open: bool = False  # evaluation opt-in: unload closing target once release is approved
     transport_adaptive_grip: bool = False  # saved transport controller contract
     transport_pose_stop: bool = False  # saved control-interval orientation stop criterion
     detached_grip_hold: bool = False  # opt-in position target retention after detachment
@@ -97,6 +108,7 @@ class TaskSettings:
     max_slip: float = 0.012
     physics_dt: float = 1.0 / 240.0
     decimation: int = 12  # 20 Hz policy
+    render_hz: int = 0  # 0: historical control-rate rendering; explicit frequency divides actual physics Hz
     episode_s: float = 20.0
     tree_position: tuple = (0.85, -0.19, 0.0)
     tree_scale: tuple = (0.75, 0.75, 1.35)
@@ -107,8 +119,28 @@ class TaskSettings:
     seed: int = 42
 
     def validate(self):
+        if (self.attachment_version != 4 or self.contact_substeps != 1
+                or abs(self.physics_dt-1/60)>1e-12 or self.decimation != 3):
+            raise ValueError('60Hz / 20Hz / response6만 지원합니다.')
+        import math
+        if self.entry_capture_shaping and not self.entry_first_grasp:
+            raise ValueError('Capture shaping requires entry-first grasp')
+        if self.release_measured_open and not self.release_intent_mode:
+            raise ValueError('Measured opening requires approved release-intent mode')
+        if not math.isfinite(self.gripper_stiffness) or not math.isfinite(self.gripper_damping) or self.gripper_stiffness <= 0 or self.gripper_damping < 0:
+            raise ValueError('Invalid gripper drive gains')
+        if any(not math.isfinite(v) or v<0 for v in (self.contact_stiffness,self.contact_damping)) or (self.contact_stiffness==0 and self.contact_damping!=0):
+            raise ValueError('Invalid contact compliance')
+        if self.fruit_collision_mode not in ('legacy', 'body_hull_v1'):
+            raise ValueError('Invalid fruit collision mode')
+        if self.fruit_collision_mode != 'legacy' and (self.attachment_version != 4 or self.stem_response_version < 2):
+            raise ValueError('Body hull requires the mesh-contact attachment4 asset')
         if type(self.contact_substeps) is not int or self.contact_substeps not in (1,2,4):
             raise ValueError("contact_substeps must be 1,2,4")
+        if type(self.render_hz) is not int or self.render_hz < 0:
+            raise ValueError('Invalid rendering frequency')
+        from .simulation_clock import render_interval
+        render_interval(self.physics_dt/self.contact_substeps,self.decimation*self.contact_substeps,self.render_hz)
         if self.target_mode not in ("nearest", "random", "external"):
             raise ValueError("Invalid target_mode")
         if self.target_mode != "nearest" and not self.sequence and not (
@@ -185,7 +217,7 @@ class TaskSettings:
             raise ValueError("workspace_split must be train or eval")
         if self.attachment_version not in (1, 2, 3, 4) or min(self.spring_k, self.break_hold_s, self.valid_pull_distance, self.break_distance) <= 0 or self.spring_d < 0:
             raise ValueError("Invalid attachment parameters")
-        if self.stem_response_version not in (1, 2, 3, 4, 5) or not 0.02 <= self.stem_max_extension <= 0.15:
+        if self.stem_response_version != 6 or not 0.02 <= self.stem_max_extension <= 0.15:
             raise ValueError("Invalid stem response version or travel limit")
         if self.attachment_version == 4:
             import math

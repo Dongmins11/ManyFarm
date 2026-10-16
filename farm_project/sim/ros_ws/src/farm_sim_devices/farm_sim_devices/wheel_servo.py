@@ -16,7 +16,8 @@ class WheelVelocityServo:
         if desired.shape!=(2,) or measured.shape!=(2,) or not np.isfinite([desired,measured]).all():
             raise ValueError('바퀴 명령과 측정은 유한한 2개 속도여야 합니다.')
         self.filtered += .25*(measured-self.filtered)
-        reset=(np.abs(desired)<1e-8)|(desired*self.previous<0)
+        # 정지 전환에서 기존 주행 적분만 지운다. 정지 유지 중에는 외란을 보상한다.
+        reset=((np.abs(desired)<1e-8)&(np.abs(self.previous)>=1e-8))|(desired*self.previous<0)
         self.integral[reset]=0.
         error=desired-self.filtered
         self.integral[~reset]=np.clip(self.integral[~reset]+self.ki*error[~reset]*self.dt,-self.limit,self.limit)

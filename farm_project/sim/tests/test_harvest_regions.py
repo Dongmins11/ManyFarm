@@ -26,11 +26,11 @@ class HarvestRegionTests(unittest.TestCase):
         active = np.zeros(4, dtype=bool)
         selected = self.regions.select(positions, centers, active)
         np.testing.assert_array_equal(selected, [0, 1, 3])
-        self.assertEqual(self.hz(0., requested=bool(centers)), 480)
+        self.assertEqual(self.hz(0., requested=bool(centers)), 60)
         active[selected] = True
         del centers['harvest_01']
         np.testing.assert_array_equal(self.regions.select(positions, centers, active), [1, 3])
-        self.assertEqual(self.hz(.1, requested=bool(centers)), 480)
+        self.assertEqual(self.hz(.1, requested=bool(centers)), 60)
         self.assertEqual(self.hz(.2, requested=False), 60)
 
     def test_activation_and_retention_boundaries_are_inclusive(self) -> None:
@@ -65,8 +65,8 @@ class HarvestRegionTests(unittest.TestCase):
         self.assertEqual(self.hz(1.), 60)
 
     def test_explicit_activity_is_high_even_with_no_nearby_fruit(self) -> None:
-        self.assertEqual(self.hz(0., requested=True), 480)
-        self.assertEqual(self.hz(.1, attached_active=True), 480)
+        self.assertEqual(self.hz(0., requested=True), 60)
+        self.assertEqual(self.hz(.1, attached_active=True), 60)
         self.assertEqual(self.hz(.2), 60)
 
     def test_detached_translation_or_rotation_keeps_high_after_activity_stops(self) -> None:
@@ -74,14 +74,14 @@ class HarvestRegionTests(unittest.TestCase):
                          [.008, .008, 0, 0, 0, 0]):
             with self.subTest(velocity=velocity):
                 self.regions = HarvestRegions(RegionSettings.from_mapping({}, 60))
-                self.assertEqual(self.hz(0., [velocity], requested=False), 480)
-                self.assertEqual(self.hz(3., [velocity], requested=False), 480)
+                self.assertEqual(self.hz(0., [velocity], requested=False), 60)
+                self.assertEqual(self.hz(3., [velocity], requested=False), 60)
                 self.assertIsNone(self.regions.quiet_since)
 
     def test_all_detached_fruits_need_continuous_point_six_sim_seconds_quiet(self) -> None:
         still = np.array([[.01, 0, 0, .1, 0, 0], [0, 0, 0, 0, 0, 0]])
-        self.assertEqual(self.hz(10., still), 480)
-        self.assertEqual(self.hz(10.599999, still), 480)
+        self.assertEqual(self.hz(10., still), 60)
+        self.assertEqual(self.hz(10.599999, still), 60)
         self.assertEqual(self.hz(10.6, still), 60)
         self.assertEqual(self.hz(100., still), 60)
         # 저주기 요청은 분리 과실을 kinematic으로 바꾸는 명령이 아닙니다.
@@ -91,20 +91,20 @@ class HarvestRegionTests(unittest.TestCase):
         still = np.zeros((2, 6))
         moving = still.copy()
         moving[1, 3] = .2
-        self.assertEqual(self.hz(0., still), 480)
-        self.assertEqual(self.hz(.5, moving), 480)
-        self.assertEqual(self.hz(.6, still), 480)
-        self.assertEqual(self.hz(1.1, still), 480)
+        self.assertEqual(self.hz(0., still), 60)
+        self.assertEqual(self.hz(.5, moving), 60)
+        self.assertEqual(self.hz(.6, still), 60)
+        self.assertEqual(self.hz(1.1, still), 60)
         self.assertEqual(self.hz(1.2, still), 60)
 
     def test_new_request_or_detached_motion_reawakens_high_rate(self) -> None:
         still = np.zeros((1, 6))
-        self.assertEqual(self.hz(0., still), 480)
+        self.assertEqual(self.hz(0., still), 60)
         self.assertEqual(self.hz(.6, still), 60)
-        self.assertEqual(self.hz(.7, still, requested=True), 480)
-        self.assertEqual(self.hz(.8, still), 480)
+        self.assertEqual(self.hz(.7, still, requested=True), 60)
+        self.assertEqual(self.hz(.8, still), 60)
         self.assertEqual(self.hz(1.4, still), 60)
-        self.assertEqual(self.hz(1.5, [[0, 0, -.5, 0, 0, 0]]), 480)
+        self.assertEqual(self.hz(1.5, [[0, 0, -.5, 0, 0, 0]]), 60)
 
     def test_nonfinite_positions_centers_and_mismatched_shapes_are_rejected(self) -> None:
         for positions, centers, active in [
@@ -130,9 +130,9 @@ class HarvestRegionTests(unittest.TestCase):
 class RegionSettingsTests(unittest.TestCase):
     def test_supported_rates_and_default_geometry(self) -> None:
         defaults = RegionSettings.from_mapping({}, 60)
-        self.assertEqual((defaults.idle_hz, defaults.harvest_hz), (60, 480))
+        self.assertEqual((defaults.idle_hz, defaults.harvest_hz), (60, 60))
         self.assertEqual((defaults.activation_radius_m, defaults.retention_radius_m), (.8, 1.))
-        for rate in (60, 120, 180, 240, 480, 960):
+        for rate in (60,):
             settings = RegionSettings.from_mapping(dict(harvest_hz=rate), 60)
             self.assertEqual(settings.harvest_hz, rate)
 

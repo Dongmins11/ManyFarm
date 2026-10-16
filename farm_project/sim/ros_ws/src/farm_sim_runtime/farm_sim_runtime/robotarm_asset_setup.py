@@ -111,26 +111,8 @@ def configure_harvest_arm(stage: object, robot_path: str, config: dict) -> dict:
         raise ValueError('반발계수는 0..1, rest offset은 contact offset 미만이어야 합니다.')
 
     floor = config.get('box_floor', {})
-    floors = []
-    if floor.get('enabled', False):
-        asset = Path(floor['asset_path'])
-        if not asset.is_absolute() or not asset.is_file():
-            raise ValueError(f'박스 바닥 독립 USD 절대 경로가 필요합니다: {asset}')
-        source = Usd.Stage.Open(str(asset))
-        bodies = floor['body_names']
-        paths = floor['source_prims']
-        if len(bodies) != 2 or len(paths) != 2:
-            raise ValueError('박스 바닥 좌우 두 body와 두 source prim이 필요합니다.')
-        for name, source_path in zip(bodies, paths):
-            body = _named_prim(stage, robot, name)
-            prim = source.GetPrimAtPath(source_path)
-            if not body.HasAPI(UsdPhysics.RigidBodyAPI) or not prim.IsValid() or not _colliders(prim):
-                raise ValueError(f'박스 바닥 body/source 충돌체를 확인하세요: {name}, {source_path}')
-            child = body.GetPath().AppendChild('RobotarmFloorTiles')
-            existing = [p for p in _colliders(body) if not p.GetPath().HasPrefix(child)]
-            if existing:
-                raise ValueError(f'{name}에 기존 바닥 충돌체가 있어 중복 추가를 중단합니다.')
-            floors.append((body, child, source_path))
+    if floor.get('enabled') and floor.get('mode') != 'teacher60_unified':
+        raise ValueError('60Hz 단일 박스 바닥만 지원합니다.')
 
     material_path = robot.GetPath().AppendChild('RobotarmGripMaterial')
     grip_paths, floor_paths = [], []
@@ -151,27 +133,51 @@ def configure_harvest_arm(stage: object, robot_path: str, config: dict) -> dict:
         physics.CreateDynamicFrictionAttr(dynamic)
         physics.CreateRestitutionAttr(restitution)
         PhysxSchema.PhysxMaterialAPI.Apply(material.GetPrim()).CreateFrictionCombineModeAttr('average')
+        finger_material = UsdShade.Material.Define(stage, robot.GetPath().AppendChild('Teacher60FingerMaterial'))
+        finger_api = UsdPhysics.MaterialAPI.Apply(finger_material.GetPrim())
+        finger_api.CreateStaticFrictionAttr(float(contact['finger_friction']))
+        finger_api.CreateDynamicFrictionAttr(float(contact['finger_friction']))
+        finger_api.CreateRestitutionAttr(restitution)
+        PhysxSchema.PhysxMaterialAPI.Apply(finger_material.GetPrim()).CreateFrictionCombineModeAttr('average')
         for body in grip_bodies:
+            token = ('wrist_roll_follower_so101_v1' if body.GetName() == 'arm_2_gripper_link'
+                     else 'moving_jaw_so101_v1')
             for prim in _make_editable(body):
-                binding = UsdShade.MaterialBindingAPI.Apply(prim)
-                binding.Bind(material, bindingStrength=UsdShade.Tokens.strongerThanDescendants,
-                             materialPurpose='physics')
-                resolved, _ = binding.ComputeBoundMaterial('physics')
-                if resolved.GetPath() != material_path:
-                    raise RuntimeError(f'그리퍼 접촉 재질 바인딩 실패: {prim.GetPath()}')
+                # 합성 카메라/모터는 baseline1.0, 손가락 충돌 메시만2.2다.
+                selected_material = finger_material if token in str(prim.GetPath()) else material
+                UsdShade.MaterialBindingAPI.Apply(prim).Bind(selected_material,
+                    bindingStrength=UsdShade.Tokens.strongerThanDescendants, materialPurpose='physics')
                 if alignment is None:
                     collision = PhysxSchema.PhysxCollisionAPI.Apply(prim)
                     collision.CreateContactOffsetAttr(offset)
                     collision.CreateRestOffsetAttr(rest)
                 grip_paths.append(str(prim.GetPath()))
-        for body, child, source_path in floors:
-            prim = UsdGeom.Xform.Define(stage, child).GetPrim()
-            prim.GetReferences().SetReferences([Sdf.Reference(str(asset), source_path)])
-            for collider in _colliders(prim):
-                collision = PhysxSchema.PhysxCollisionAPI.Apply(collider)
-                collision.CreateContactOffsetAttr(offset)
-                collision.CreateRestOffsetAttr(rest)
-                floor_paths.append(str(collider.GetPath()))
+        if floor.get('enabled'):
+            from pxr import Gf
+            import numpy as np
+            bodies = [_named_prim(stage, robot, n) for n in ('box_bottom_left', 'box_bottom_right')]
+            for body in bodies:
+                for prim in _make_editable(body):
+                    UsdPhysics.CollisionAPI(prim).CreateCollisionEnabledAttr(False)
+            body = bodies[0]
+            mount = stage.GetPrimAtPath(joints[0].GetRelationship('physics:body0').GetTargets()[0])
+            cache = UsdGeom.XformCache()
+            policy_world = np.asarray(cache.GetLocalToWorldTransform(mount)).T.copy()
+            policy_world[:3, 3] -= policy_world[:3, :3] @ np.array([.235, -.19, .713])
+            lo, hi = np.asarray(floor['policy_lower_m']), np.asarray(floor['policy_upper_m'])
+            shape = np.eye(4); shape[:3, :3] = np.diag(hi-lo); shape[:3, 3] = (lo+hi)/2
+            local = np.linalg.inv(np.asarray(cache.GetLocalToWorldTransform(body)).T) @ policy_world @ shape
+            cube = UsdGeom.Cube.Define(stage, body.GetPath().AppendChild('Teacher60ClosedFloor'))
+            cube.CreateSizeAttr(1.)
+            xform = UsdGeom.Xformable(cube)
+            xform.ClearXformOpOrder()
+            xform.AddTransformOp().Set(Gf.Matrix4d(local.T.tolist()))
+            cube.CreateVisibilityAttr('invisible')
+            UsdPhysics.CollisionAPI.Apply(cube.GetPrim()).CreateCollisionEnabledAttr(True)
+            collision = PhysxSchema.PhysxCollisionAPI.Apply(cube.GetPrim())
+            collision.CreateContactOffsetAttr(float(floor['contact_offset_m']))
+            collision.CreateRestOffsetAttr(0.)
+            floor_paths.append(str(cube.GetPath()))
     travel = None
     if config.get('travel_pose') is not None:
         travel_names = [n.replace('arm_2_', 'arm_1_', 1) for n in names] + names

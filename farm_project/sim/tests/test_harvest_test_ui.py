@@ -1,7 +1,7 @@
 """Isaac 없이 시험 UI의 요청 경계·배치 안전 조건·기존 ArmSession 계약을 검사한다.
 
 가짜 장치에서는 물리를 실행하지 않는다. 메시지 수락 검사는 실제 ArmSession을
-사용하며, 실제 480Hz 전환과 접촉·수확 결과는 별도 Isaac 시험 범위다.
+사용하며, 실제 60Hz 물리과 접촉·수확 결과는 별도 Isaac 시험 범위다.
 """
 from copy import deepcopy
 import json
@@ -78,8 +78,8 @@ class HarvestTestControllerTests(unittest.TestCase):
             attached=np.array([True]), active=np.array([False]), paths=['/Bed/red'],
             current_positions=Mock(return_value=np.array([[3., 4., 1.]])))
         self.physics = SimpleNamespace(adaptive=True,
-            regions=SimpleNamespace(settings=SimpleNamespace(idle_hz=60, harvest_hz=480)),
-            profile={'render_hz': 60, 'survey_config': 'survey.json'},
+            regions=SimpleNamespace(settings=SimpleNamespace(idle_hz=60, harvest_hz=60)),
+            profile={'render_hz': 30, 'survey_config': 'survey.json'},
             directory=self.root / 'physics', attachments=self.attachments, set_activity=Mock(),
             arm_reports={'/Robot': {'home_positions_rad': self.device.home.tolist()}})
         self.device.robot_path = '/Robot'

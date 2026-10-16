@@ -24,7 +24,8 @@ from farm_sim_devices.wire import LocalDatagrams
 
 
 def evaluate_result(result: dict, fixture: dict, log_directory: Path | None, *,
-                    require_harvest: bool, cancel_requested: bool, place_hold_s: float) -> dict:
+                    require_harvest: bool, cancel_requested: bool, place_hold_s: float,
+                    expected_task_id: str = 'teacher_physical_check') -> dict:
     """실제 요청/시도/결과 로그를 대조합니다. 검증을 위해 물리 상태를 바꾸지 않습니다."""
     terminal = result.get('terminal') or {}
     job_id = result['job_id']
@@ -67,7 +68,7 @@ def evaluate_result(result: dict, fixture: dict, log_directory: Path | None, *,
     check('logs_readable', not errors)
     check('request_identity', all(request.get(key) == value for key,value in dict(
         job_id=job_id, robot_id=fixture['robot_id'], map_id=fixture['map_id'],
-        task_id='teacher_physical_check', window_id=fixture['source'], expected_count=len(expected),
+        task_id=expected_task_id, window_id=fixture['source'], expected_count=len(expected),
         goal_pose=dict(x=fixture['xy_m'][0], y=fixture['xy_m'][1], yaw=fixture['yaw_rad'])).items()))
     keys = ('job_id', 'status', 'success_count', 'failed_count', 'safe_stopped', 'error_code', 'event_seq')
     check('logged_terminal_matches', bool(logged_result)
@@ -99,13 +100,17 @@ def evaluate_result(result: dict, fixture: dict, log_directory: Path | None, *,
     if not identifiers_valid:
         candidate_ids, selected, policy_ids = [], [], []
     expected_set = set(expected)
-    check('candidates_match_fixture', len(candidate_events) == 1
-          and set(candidate_ids) == expected_set and len(candidate_ids) == len(expected))
+    # 전개 중 취소는 후보 선정/정책 실행 전에 끝날 수 있다. 정상 완료에는 적용하지 않는다.
+    canceled_before_selection = (cancel_requested and terminal.get('status') == 'CANCELED'
+        and not candidate_events and not selected and not policy_ids and not attempts)
+    check('candidates_match_fixture', canceled_before_selection or (len(candidate_events) == 1
+          and set(candidate_ids) == expected_set and len(candidate_ids) == len(expected)))
     check('candidate_count_matches', logged_result.get('candidate_count') == len(candidate_ids))
     check('selected_targets_match_fixture', set(selected) <= expected_set and len(selected) == len(set(selected)))
     check('policy_targets_were_selected', set(policy_ids) <= set(selected))
     check('attempt_targets_match_fixture', set(recorded) <= expected_set and len(recorded) == len(set(recorded)))
-    check('actual_policy_executed', bool(policy_ids) if expected else not selected and not policy_ids and not attempts)
+    check('actual_policy_executed', canceled_before_selection or
+          (bool(policy_ids) if expected else not selected and not policy_ids and not attempts))
     check('completed_window_processed_all', terminal.get('status') != 'SUCCESS' or set(recorded) == expected_set)
     actual_counts = (sum(record['success'] for record in attempts), sum(not record['success'] for record in attempts))
     check('finalized_attempt_counts_match', counts == actual_counts)
@@ -157,6 +162,7 @@ def main() -> int:
     parser.add_argument('--fixture', type=Path, default=ROOT/'sim/tests/fixtures/teacher_dock.json')
     parser.add_argument('--output', type=Path, default=ROOT/'sim/runs/robotarm/teacher_check/result.json')
     parser.add_argument('--gui', action='store_true')
+    parser.add_argument('--no-cameras', action='store_true', help='Teacher 전용 평가에서 RGB-D/태그 렌더링을 끕니다.')
     parser.add_argument('--duration-s', type=float, default=90.)
     parser.add_argument('--wall-timeout-s', type=float, default=600.)
     parser.add_argument('--cancel-after-s', type=float)
@@ -193,6 +199,12 @@ def main() -> int:
         device = json.loads((ROOT/file).read_text())
         # 실행 프로세스·포트를 분리하고 센서는 원 설정을 그대로 둡니다.
         device['runtime'].update(command_port=21600+10*i, telemetry_port=21601+10*i)
+        for key in ('camera', 'tag_camera'):
+            if key in device:
+                if args.no_cameras:
+                    device[key]['enabled'] = False
+                elif 'shm_name' in device[key]:
+                    device[key]['shm_name'] += '_teacher_check'
         devices.append(save('test_'+device['robot_id']+'.json', device))
         if device['robot_id'] == fixture['robot_id']:
             harvest = device

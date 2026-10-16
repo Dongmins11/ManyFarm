@@ -17,6 +17,15 @@ class WheelServoTests(unittest.TestCase):
         self.assertLess(result[0],0);self.assertGreater(result[1],0)
         np.testing.assert_array_equal(self.servo.integral,np.zeros(2))
 
+    def test_stationary_command_integrates_persistent_disturbance(self) -> None:
+        measured=np.array([.05,-.05])
+        first=self.servo.command(np.zeros(2),measured)
+        for _ in range(60):result=self.servo.command(np.zeros(2),measured)
+        self.assertLess(result[0],first[0])
+        self.assertGreater(result[1],first[1])
+        self.assertLess(self.servo.integral[0],0.)
+        self.assertGreater(self.servo.integral[1],0.)
+
     def test_stalled_wheel_correction_is_bounded(self) -> None:
         for _ in range(1000):result=self.servo.command(np.array([.1,-.1]),np.zeros(2))
         self.assertTrue(np.all(np.abs(result)<=2.1))

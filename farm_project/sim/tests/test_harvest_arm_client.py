@@ -13,6 +13,8 @@ ROOT = Path(__file__).resolve().parents[2]
 sys.path.insert(0, str(ROOT/'robot/ros_ws/src/harvest_robot'))
 from harvest_robot.arm_client import ArmActionClient, ArmActionSettings, ArmExecutionError
 from harvest_robot.contract import result_fields
+sys.path.insert(0, str(ROOT/'robot/ros_ws/src/farm_common'))
+from farm_common.action_handoff import ActionHandoff
 from harvest_robot.mission import HarvestMission, MissionCanceled
 
 
@@ -242,15 +244,18 @@ class CommunicationForwardTests(unittest.TestCase):
                 for mode in ('success', 'failed', 'canceled', 'unconfirmed'):
                     with self.subTest(mode=mode):
                         messages, statuses, records = [], [], []
-                        handle = NS(request=goal(), is_cancel_requested=mode in ('canceled', 'unconfirmed'),
+                        handle = NS(request=goal(), is_cancel_requested=False,
                             publish_feedback=messages.append, succeed=lambda: statuses.append('success'),
                             canceled=lambda: statuses.append('canceled'), abort=lambda: statuses.append('aborted'))
                         node = NS(callbacks=None, lock=threading.Lock(), busy=True, blocked=False, stopping=False,
                             completed_ids=set(), mode='sim', check=lambda: None, emit_record=records.append,
                             config={'completion_policy': 'ARRIVAL_THEN_ARM'},
                             get_logger=lambda: NS(error=lambda _message: None))
+                        node.handoff = ActionHandoff()
+                        node.handoff.reserve('work', goal().harvest_task.task_id)
                         communication = communication_module.HarvestCommunication(node)
                         def run() -> dict:
+                            handle.is_cancel_requested = mode in ('canceled', 'unconfirmed')
                             node.arrival_result = {'stamp_ns': 123}
                             node.mission_stage = 'ARM'
                             communication.arm_feedback(1, 0)

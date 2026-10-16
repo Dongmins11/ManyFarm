@@ -77,6 +77,9 @@ class FruitAttachments:
                 or not np.allclose(self.inverse_inertia, self.inverse_inertia.transpose(0, 2, 1))
                 or np.any(np.linalg.eigvalsh(self.inverse_inertia) <= 0)):
             raise ValueError('유한한 COM과 양의 정부호 과실 관성이 필요합니다.')
+        from pxr import PhysxSchema
+        self.gyroscopic_forces = np.asarray([bool(PhysxSchema.PhysxRigidBodyAPI(
+            self.world.stage.GetPrimAtPath(path)).GetEnableGyroscopicForcesAttr().Get()) for path in self.paths])
         self._ready = True
         self.reset()
         position, orientation = self.view.get_world_poses()
@@ -279,7 +282,8 @@ class FruitAttachments:
             lever=lever, inverse_inertia_world=inverse_world, tension_axis_world=self.axes[indices],
             orientation_wxyz=orientations, rest_orientation_wxyz=self.rest_orientation[indices],
             angular_velocity=velocities[:, 3:], attached=self.attached[indices], timer=self.timer[indices],
-            thresholds=self.thresholds[indices], dt_s=dt_s)
+            thresholds=self.thresholds[indices], dt_s=dt_s,
+            gyroscopic_forces=self.gyroscopic_forces[indices])
         global_result = self._empty_step()
         for field in fields(StemStep):
             getattr(global_result, field.name)[indices] = getattr(result, field.name)
@@ -313,5 +317,5 @@ class FruitAttachments:
         """로그용 물리 상태. 실제 수확 성공 개수와 구분합니다."""
         return dict(fruit_count=len(self.paths), attached_count=int(self.attached.sum()),
                     detached_count=int((~self.attached).sum()), gravity_compensation=False,
-                    attachment_version=4, stem_response_version=5,
+                    attachment_version=4, stem_response_version=6,
                     active_count=int(self.active.sum()), frozen_count=int((~self.active).sum()))

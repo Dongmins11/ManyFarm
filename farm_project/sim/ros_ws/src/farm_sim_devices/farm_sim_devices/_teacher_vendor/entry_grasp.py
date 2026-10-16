@@ -1,6 +1,6 @@
-"""SO101 entry-first grasp shaping. Calibrated envelope, not a mesh collision test."""
-import torch
+"""60Hz r2 원본 계산에서 추출. 재생성: sim/tools/import_teacher60.py."""
 
+import torch
 
 def entry_state(local_center, jaw_q):
     # Local X is finger closure; TCP is 85 mm along the fixed finger.
@@ -10,20 +10,9 @@ def entry_state(local_center, jaw_q):
     # TCP is positioned half a nominal fruit diameter from the fixed pad.
     return aligned, gap
 
-
 def entry_gate(local_center, half_width, jaw_q, previous, diameter):
     aligned,gap=entry_state(local_center,jaw_q)
     x=local_center[:,0]+diameter/2
     fits=(x-half_width>=-.002)&(x+half_width<=gap+.002)
     entered=aligned & (previous | fits)
     return entered,gap
-
-
-def entry_cost(entered, attached, distance, fixed_force, moving_force, closing,
-               displacement, gap, diameter, dt):
-    approaching=attached & ~entered & (distance<.10)
-    contact=(fixed_force+moving_force-.10).clamp(0,3.)
-    pushing=(displacement/.02).square().clamp(max=4.)
-    early_close=closing.clamp(0,1)
-    insufficient_open=((diameter+.004-gap)/.02).clamp(0,2.)
-    return dt*approaching.float()*(2.*contact+2.*pushing+early_close+insufficient_open)

@@ -60,8 +60,8 @@ class HarvestTestController:
         if self.arm is None or not physics.adaptive:
             raise ValueError('수확 시험 UI에는 Teacher와 adaptive 물리가 필요합니다.')
         settings = physics.regions.settings
-        if (settings.idle_hz, physics.profile['render_hz']) != (60, 60):
-            raise ValueError('시험 UI는 대기60Hz/렌더60Hz 설정을 요구합니다.')
+        if (settings.idle_hz, settings.harvest_hz, physics.profile['render_hz']) != (60, 60, 30):
+            raise ValueError('시험 UI는 대기60Hz/수확60Hz/렌더30Hz 설정을 요구합니다.')
         survey = json.loads((project_root / physics.profile['survey_config']).read_text())
         self.sections = survey['sections']
         self.registration = np.asarray(task['evaluation']['T_map_world'], dtype=float)
@@ -304,10 +304,11 @@ class HarvestTestPanel:
                 with ui.HStack(height=30, spacing=8):
                     ui.Label('Harvest physics Hz', width=155)
                     self.hz_input = ui.IntField(identifier='harvest_physics_hz')
-                    self.hz_input.model.set_value(controller.physics.regions.settings.harvest_hz)
+                    self.hz_input.model.set_value(60)
+                    self.hz_input.enabled = False
                     self.hz_apply = ui.Button('Apply', width=70, identifier='apply_harvest_hz',
-                                             clicked_fn=self.request_hz)
-                self.hz_feedback = ui.Label('60 Hz multiples (60 / 120 / 240 / 480 ...)',
+                                             clicked_fn=self.request_hz, enabled=False)
+                self.hz_feedback = ui.Label('60 Hz fixed / Teacher60 response6',
                                             height=32, word_wrap=True)
                 with ui.HStack(height=46, spacing=10):
                     self.place = ui.Button('1. Place robot', identifier='place_robot', clicked_fn=lambda: controller.request('place'))
@@ -361,7 +362,7 @@ class HarvestTestPanel:
             self.hz_feedback.text = str(error)
             self.controller._event('REJECTED', sim_time_s=now, action='set_harvest_hz', reason=str(error))
             return
-        self.hz_feedback.text = f'Applied {rate} Hz. Policy 20 Hz / render 60 Hz.'
+        self.hz_feedback.text = f'Applied {rate} Hz. Policy 20 Hz / render 30 Hz.'
         self.controller._event('HARVEST_HZ', sim_time_s=now, harvest_hz=rate)
 
     def before_render(self, now: float, physics_hz: float) -> None:
@@ -410,8 +411,8 @@ class HarvestTestPanel:
         attachments = controller.physics.attachments
         self.rate.text = (f'Physics {physics_hz:g} Hz | Active fruit {int(attachments.active.sum())}/{len(attachments.paths)}'
                           f'\nFPS {self.fps:.1f} | sim {now:.1f}s')
-        self.timing.text = (f'Physics dt {1000/physics_hz:.3f}ms | Policy 20Hz | Render target 60Hz\n'
-                            'Place prepares HOME for the next test. Lower Hz changes physics accuracy.')
+        self.timing.text = (f'Physics dt {1000/physics_hz:.3f}ms | Policy 20Hz | Render target 30Hz\n'
+                            'Place prepares HOME for the next test. Teacher physics is fixed at 60 Hz.')
         p = controller.placement
         self.location.text = (f"{p['section_id']} | map ({p['x']:.3f}, {p['y']:.3f}) m | yaw {p['yaw']:.3f} rad"
                               if p else 'Position: click Place robot')

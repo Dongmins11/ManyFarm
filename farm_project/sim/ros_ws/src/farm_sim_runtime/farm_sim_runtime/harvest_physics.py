@@ -24,6 +24,11 @@ def load_physics_profile(project_root: Path, configs: list[dict]) -> dict | None
     profile = json.loads(path.read_text())
     if not profile.get('enabled', False):
         return None
+    for key, expected in (('physics_hz', 60), ('render_hz', 30), ('control_hz', 20)):
+        if profile[key] != expected:
+            raise ValueError(f'Teacher60 {key}는 {expected}이어야 합니다.')
+    if profile['stem']['stem_response_version'] != 6:
+        raise ValueError('Teacher60은 response6 연결 모델이 필요합니다.')
     if profile.get('adaptive', {}).get('enabled', False):
         RegionSettings.from_mapping(profile['adaptive'], profile['render_hz'])
     for cfg in configs:
@@ -132,7 +137,8 @@ class HarvestPhysics:
         """수확 로봇의 오른팔 학습 물리와 drive, 박스 바닥을 세션에 적용한다."""
         from farm_sim_runtime.robotarm_asset_setup import configure_harvest_arm
         config = copy.deepcopy(self.profile)
-        config['box_floor']['asset_path'] = str((self.project_root / config['box_floor']['asset_path']).resolve())
+        if 'asset_path' in config['box_floor']:
+            config['box_floor']['asset_path'] = str((self.project_root / config['box_floor']['asset_path']).resolve())
         if config.get('teacher_alignment', {}).get('enabled', False):
             config['teacher_alignment']['asset_path'] = str(
                 (self.project_root / config['teacher_alignment']['asset_path']).resolve())
@@ -189,8 +195,8 @@ class HarvestPhysics:
 
     def set_harvest_hz(self, rate: int) -> None:
         """수확 활동이 없는 프레임 경계에서 세션의 수확 물리 주기를 변경한다."""
-        if type(rate) is not int or rate <= 0 or rate % 60 != 0:
-            raise ValueError('수확 물리 주기는 60Hz의 양의 정수 배여야 합니다.')
+        if type(rate) is not int or rate != 60:
+            raise ValueError('480Hz 경로는 폐기했습니다. 수확 물리는 60Hz 고정입니다.')
         if not self.adaptive or self.regions is None:
             raise RuntimeError('수확 물리 주기를 변경하려면 adaptive 물리가 활성화되어야 합니다.')
         if any(self.direct_activity.values()) or any(gate.value() for gate in self.activity_gates.values()):

@@ -1,0 +1,365 @@
+{
+  "schema": "teacher60_sim_deployment_v1",
+  "runtime": "teacher60_finger_friction_run_v2",
+  "role": "privileged Teacher, not Student",
+  "task": {
+    "contract_version": 2,
+    "reward_version": 3,
+    "attachment_version": 4,
+    "entry_first_grasp": true,
+    "entry_capture_shaping": true,
+    "pull_recovery_shaping": false,
+    "pull_squeeze_rearm": true,
+    "pull_squeeze_ramp": true,
+    "pull_direction_shaping": true,
+    "pull_progress_reward": false,
+    "stage_transfer": true,
+    "lock_attachment": false,
+    "native_detach_recovery": true,
+    "captured_break_grace": true,
+    "post_detach_hold_guard": false,
+    "detached_capture_orientation": true,
+    "spring_grasp_grace": true,
+    "native_grasp_grace": true,
+    "grasp_orientation": "horizontal",
+    "grasp_angle_tolerance": 0.4363323129985824,
+    "grasp_orientation_weight": 4.0,
+    "grasp_version": 2,
+    "grasp_center_tolerance": 0.01,
+    "pregrasp_fraction": 0.0,
+    "transport_replay_fraction": 0.0,
+    "transport_start_min": 0.0,
+    "transport_start_max": 0.0,
+    "start_bank": "",
+    "task": "grasp",
+    "target_mode": "nearest",
+    "sequence": false,
+    "random_colors": false,
+    "timeout_scope": "fruit",
+    "background": "single",
+    "num_fruits": 2,
+    "region_origin": [
+      0.3,
+      -0.19,
+      0.713
+    ],
+    "region_min": [
+      0.2,
+      -0.175,
+      0.08700000000000008
+    ],
+    "region_max": [
+      0.3,
+      0.175,
+      0.35
+    ],
+    "diameter": 0.07,
+    "length": 0.075,
+    "mass": 0.009,
+    "spring_k": 60.0,
+    "spring_d": 4.2,
+    "angular_k": 0.015,
+    "angular_d": 0.002,
+    "stem_response_version": 6,
+    "stem_vertical_stiffness": 40.0,
+    "stem_max_extension": 0.04,
+    "tension_axis": [
+      -1.0,
+      0.0,
+      0.0
+    ],
+    "tension_hold_s": 0.04,
+    "lateral_stiffness_ratio": 0.25,
+    "break_force": 2.5,
+    "break_distance": 0.03,
+    "break_hold_s": 0.04,
+    "valid_pull_distance": 0.012,
+    "grip_hold_s": 0.25,
+    "place_hold_s": 0.6,
+    "transport_linear_pose_stop": true,
+    "release_stop_s": 0.3,
+    "release_speed": 0.05,
+    "box_contact_tolerance": 0.003,
+    "shape_placement": true,
+    "box_bottom_contact_tolerance": 0.01,
+    "legacy_box_bottom_margin": 0.01,
+    "contact_threshold": 0.08,
+    "max_contact_force": 25.0,
+    "action_speed": 0.8,
+    "gripper_speed": 1.2,
+    "gripper_effort": 0.5,
+    "gripper_stiffness": 8.0,
+    "gripper_damping": 0.3,
+    "grip_friction": 1.0,
+    "dynamic_friction": 1.0,
+    "restitution": 0.02,
+    "fruit_collision_mode": "legacy",
+    "contact_stiffness": 0.0,
+    "contact_damping": 0.0,
+    "gripper_max_error": 0.04,
+    "contact_substeps": 1,
+    "contact_solver_refine": false,
+    "release_intent_mode": true,
+    "release_measured_open": true,
+    "transport_adaptive_grip": true,
+    "transport_pose_stop": true,
+    "detached_grip_hold": true,
+    "gripper_hold_error": 0.035,
+    "hold_force": 0.6,
+    "hold_s": 1.0,
+    "detached_hold_s": 0.5,
+    "max_slip": 0.012,
+    "physics_dt": 0.016666666666666666,
+    "decimation": 3,
+    "render_hz": 30,
+    "episode_s": 20.0,
+    "tree_position": [
+      0.85,
+      -0.19,
+      0.0
+    ],
+    "tree_scale": [
+      0.75,
+      0.75,
+      1.35
+    ],
+    "box_min": [
+      0.305,
+      -0.095,
+      0.506
+    ],
+    "box_max": [
+      0.495,
+      0.095,
+      0.701
+    ],
+    "curriculum": 0.0,
+    "workspace_split": "eval",
+    "seed": 6042
+  },
+  "domain": {
+    "schema": 1,
+    "name": "teacher_60hz_capture_v4",
+    "physics_profile": "src/harvest_robot/config/harvest_physics_60hz_response6.json",
+    "observation_contract": "teacher82_single_target_canonical_quaternion_v1",
+    "task": "grasp",
+    "mass_kg": 0.009,
+    "geometry": "v1",
+    "visual_scene": "greenhouse_v1",
+    "colors": [
+      "Red",
+      "Yellow"
+    ],
+    "yaw_deg": [
+      -180,
+      180
+    ],
+    "upright_fraction": 0.25,
+    "nominal_pose_fraction": 0.1,
+    "edge_tilt_fraction": 0.25,
+    "home_arm_jitter_rad": 0.01,
+    "position_jitter_m": 0.0,
+    "minimum_home_distance_m": 0.09,
+    "recent_window": 2048,
+    "promotion_min_episodes": 512,
+    "promotion_success_rate": 0.8,
+    "stages": [
+      {
+        "earliest_iteration": 0,
+        "max_tilt_deg": 10,
+        "max_home_distance_m": 0.18
+      },
+      {
+        "earliest_iteration": 150,
+        "max_tilt_deg": 20,
+        "max_home_distance_m": 0.23
+      },
+      {
+        "earliest_iteration": 500,
+        "max_tilt_deg": 30,
+        "max_home_distance_m": 0.28
+      },
+      {
+        "earliest_iteration": 900,
+        "max_tilt_deg": 30,
+        "max_home_distance_m": 0.34
+      }
+    ],
+    "validation_seed": 6042,
+    "test_seed": 7042,
+    "deferred": [
+      "geometry_v2",
+      "mass_randomization",
+      "friction_randomization",
+      "motor_gain_randomization",
+      "camera_extrinsic_randomization",
+      "vision_delay",
+      "physical_leaf_collision"
+    ],
+    "status": "Candidate raw-proposal reward repair and expanded grasp curriculum; physical rollout untested",
+    "capture_reward": {
+      "version": 2,
+      "readiness_weight": 8.0,
+      "readiness_distance_scale_m": 0.035,
+      "angle_scale_deg": 35.0,
+      "closing_budget": 6.0,
+      "closing_center_scale_m": 0.012,
+      "maximum_stem_motion_m": 0.008
+    },
+    "normalization_contract": "teacher82_grasp_progress_identity_v1",
+    "confirmation_control": {
+      "version": 2,
+      "contract": "raw_proposal_confirmation_v2",
+      "proposed_action_cost_per_s": 2.0,
+      "scope": "current qualified, attached, unconfirmed grasp only; no hold latch",
+      "proposed_open_cost_per_s": 8.0
+    },
+    "refinement": {
+      "learning_rate": 5e-05,
+      "exploration_std": 0.1,
+      "entropy_coef": 0.001
+    }
+  },
+  "robot_root_to_policy_world": [
+    [
+      2.220446049250313e-16,
+      -1.0,
+      0.0,
+      0.050000000000000044
+    ],
+    [
+      1.0,
+      2.220446049250313e-16,
+      0.0,
+      2.7755575615628914e-17
+    ],
+    [
+      0.0,
+      0.0,
+      1.0,
+      0.0
+    ],
+    [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+    ]
+  ],
+  "robot_usd": "outputs/harvest_rl/current_robot/b73ed90a6e56216d/harvest_current.usd",
+  "actors": {
+    "grasp": {
+      "format": "torchscript",
+      "input_shape": [
+        "N",
+        82
+      ],
+      "input_dtype": "float32",
+      "input": "raw Teacher82; normalizer is included; do not normalize twice",
+      "output_shape": [
+        "N",
+        6
+      ],
+      "output": "deterministic raw actor action; not torque or absolute joint position",
+      "recurrent": false,
+      "progress_slot39_identity": true,
+      "normalization_epsilon": 0.01,
+      "comparison_samples": 289,
+      "maximum_absolute_error": 0.0,
+      "original_weights_and_normalizers_unchanged": true,
+      "harvest_performance_test": false,
+      "path": "grasp_actor.pt",
+      "sha256": "aa94c3d4e2b5d8bef8d1337cc27db2a28b1eb0d57fcc7d3463a91a924f5be778",
+      "source_checkpoint": "runs/harvest_rl/teacher60_grasp_bridge_20261011_162738.9TsEHh/teacher_final.pt",
+      "source_checkpoint_sha256": "684cb805303086d6627339d390d305c85a9791f64bb5640eb098f0a73734e9ce",
+      "source_run": "runs/harvest_rl/teacher60_grasp_bridge_20261011_162738.9TsEHh/run.json",
+      "source_run_sha256": "1b58de3ab0c4b1ad8e65aaea1975f37941f1e17fa193905ef21a113f1035252d"
+    },
+    "pull": {
+      "format": "torchscript",
+      "input_shape": [
+        "N",
+        82
+      ],
+      "input_dtype": "float32",
+      "input": "raw Teacher82; normalizer is included; do not normalize twice",
+      "output_shape": [
+        "N",
+        6
+      ],
+      "output": "deterministic raw actor action; not torque or absolute joint position",
+      "recurrent": false,
+      "progress_slot39_identity": true,
+      "normalization_epsilon": 0.01,
+      "comparison_samples": 289,
+      "maximum_absolute_error": 0.0,
+      "original_weights_and_normalizers_unchanged": true,
+      "harvest_performance_test": false,
+      "path": "pull_actor.pt",
+      "sha256": "cc7b1df475ff64eba5e2fe9d81821cb857dfe727f5c8f84586f5985f7f67f82d",
+      "source_checkpoint": "runs/harvest_rl/teacher60_native_contact_control_20261013_080334.p0n3qs8u/teacher_final.pt",
+      "source_checkpoint_sha256": "40e3e984f478a17a5a5d02c258c0c5a065789de960996637e4ebb8b7fc947a32",
+      "source_run": "runs/harvest_rl/teacher60_native_contact_control_20261013_080334.p0n3qs8u/run.json",
+      "source_run_sha256": "7c56d891588e2e5439d87b6b7aedec321a96212b206e217d664ed667b44c9e7d"
+    },
+    "transport_reference": {
+      "format": "torchscript",
+      "input_shape": [
+        "N",
+        82
+      ],
+      "input_dtype": "float32",
+      "input": "raw Teacher82; normalizer is included; do not normalize twice",
+      "output_shape": [
+        "N",
+        6
+      ],
+      "output": "deterministic raw actor action; not torque or absolute joint position",
+      "recurrent": false,
+      "progress_slot39_identity": false,
+      "normalization_epsilon": 0.01,
+      "comparison_samples": 289,
+      "maximum_absolute_error": 0.0,
+      "original_weights_and_normalizers_unchanged": true,
+      "harvest_performance_test": false,
+      "path": "transport_reference_actor.pt",
+      "sha256": "849afd4f80ab435c86ebfe31ed6b9debc0f3018f02d8a01f7a43be8cc00e849b",
+      "source_checkpoint": "outputs/harvest_rl/entry_transport_20260929_220740_390998651/transport_refine/train/teacher_final.pt",
+      "source_checkpoint_sha256": "47f3b7bf6500d35448ed9510db6884ac584921eeddc072350000728402ddb528",
+      "source_run": "outputs/harvest_rl/entry_transport_20260929_220740_390998651/transport_refine/train/run.json",
+      "source_run_sha256": "cf83b42b709d861758d3d8b02cdf6d7bbc94a292e712fd50b9349a83b665dd04"
+    }
+  },
+  "material": {
+    "scope": "finger_collision_meshes_only",
+    "jaw_static_friction": 2.2,
+    "jaw_dynamic_friction": 2.2,
+    "fruit_static_friction": 1.0,
+    "fruit_dynamic_friction": 1.0,
+    "combine_mode": "average",
+    "effective_pair_friction": 1.6,
+    "pad_mode": "none",
+    "real_material_calibrated": false
+  },
+  "followup": {
+    "bridge_velocity_cap": 0.15,
+    "bridge_rate_deg_s": 6.0,
+    "transport_mode": "progress_budget"
+  },
+  "learning": false,
+  "hardware_executed": false,
+  "demo": {
+    "base": "stopped",
+    "arm": "right",
+    "sequence": "lowest-first",
+    "teacher_target": "simulator_truth"
+  },
+  "standalone": "scripts/sim_team/run_teacher60_exported.py",
+  "farm_backend_status": "Requires in-place scene adapter; standalone auto-reset is not a farm executor",
+  "excluded_active_physics": "Provisional native70mm connector and its TGS changes",
+  "fk_relocation": {
+    "original_sha256": "4e061e6d1a34c5f44506f45e66b1f7c299755b9ff4a1c51e27ace9c9f70af0ed",
+    "delivered_sha256": "6b271a83aa6208cd404312c1420214774b5a77db2da557edb70ac5c30313def9",
+    "change": "Only absolute mesh URI prefix -> relative path; no joint/physics edits"
+  }
+}

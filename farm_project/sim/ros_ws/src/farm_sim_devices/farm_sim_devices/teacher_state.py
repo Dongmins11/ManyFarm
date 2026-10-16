@@ -1,7 +1,7 @@
 """농장 sample을 원본 Teacher의 상태·82차원 관측으로 연결합니다.
 
 모든 공간 입력은 장착 시 고정한 legacy policy frame, quaternion은 wxyz입니다.
-World, Isaac, ROS를 호출하지 않습니다. 원본 계산은 _teacher_vendor/kernel.py에
+World, Isaac, ROS를 호출하지 않습니다. 원본 계산은 _teacher_vendor/에
 보존하며 과실별 reset은 이 객체만 새로 만듭니다. 다른 과실은 관측에 주입하지 않습니다.
 """
 from __future__ import annotations
@@ -14,7 +14,7 @@ from typing import Any, Mapping
 import numpy as np
 import torch
 
-from ._teacher_vendor.kernel import TeacherKernel
+from ._teacher_vendor.teacher_friction_progress_env import TeacherFrictionProgressEnv
 from ._teacher_vendor.settings import TaskSettings
 from ._teacher_vendor.quaternion import quat_apply, quat_conjugate
 from ._teacher_vendor.logic import (bilateral_contact, qualified_grasp, valid_pull,
@@ -47,20 +47,36 @@ def finite_scalar(value: Any, name: str) -> float:
     return result
 
 
-class TeacherState(TeacherKernel):
+class TeacherState(TeacherFrictionProgressEnv):
     """한 과실의 상태만 소유하는 원본 Teacher 계산 어댑터입니다."""
 
     def __init__(self, runtime: Mapping, joint_limits: Mapping, sample: Mapping,
-                 *, device: str = 'cpu') -> None:
+                 *, device: str = 'cpu', deployment: Mapping, kinematics_path: Any,
+                 grasp_policy: Any, transport_policy: Any) -> None:
+        from ._teacher_vendor.friction_followup import FollowupSpec
+        from ._teacher_vendor.pressure_compare import PressureSpec
+        from ._teacher_vendor.bridge_pull_risk import RiskPullSpec
+        self.kinematics_path = kinematics_path
+        super().__init__(runtime, joint_limits, sample, device=device,
+            domain=deployment['domain'], domain_split='test', progress_budget=True,
+            followup_spec=FollowupSpec(.15, 6., 'baseline'), floor_mode='unified',
+            posture_mode='position', stability_mode='pause', pressure_spec=PressureSpec(0.),
+            transport_speed_m_s=.035, orientation_length_m=.02, opening_rate_rad_s=.3,
+            deposit_timeout_s=6., hold_stiffness_Nm_rad=1., gain_ramp_s=1.,
+            path_spec=RiskPullSpec(axial=True, hold_after_detach=True),
+            grasp_policy=grasp_policy, transport_policy=transport_policy)
+
+    def _initialize_sample(self, runtime: Mapping, joint_limits: Mapping, sample: Mapping,
+                           *, device: str = 'cpu', **kwargs: Any) -> None:
         accepted = {field.name for field in fields(TaskSettings)}
         unknown = set(runtime) - accepted
         if unknown:
             raise ValueError(f'Unknown Teacher runtime settings: {sorted(unknown)}')
         self.settings = TaskSettings(**dict(runtime))
-        if (self.settings.task != 'harvest' or self.settings.target_mode != 'external'
+        if (self.settings.task != 'grasp' or self.settings.target_mode != 'nearest'
                 or self.settings.sequence or self.settings.attachment_version != 4
-                or self.settings.stem_response_version != 5):
-            raise ValueError('농장 Teacher는 external/nonsequence harvest, attachment4/response5 계약입니다.')
+                or self.settings.stem_response_version != 6):
+            raise ValueError('60Hz 전달본 grasp/nearest, attachment4/response6 계약이 필요합니다.')
         # 원본 selected_teacher_observation와 동일하게 목표 한 슬롯만 표현합니다.
         self.settings.num_fruits = 1
         self.settings.validate()
@@ -78,7 +94,7 @@ class TeacherState(TeacherKernel):
             raise ValueError('관절 제한이 원본 Teacher 정규화 계약과 다릅니다.')
         self.scene = SimpleNamespace(env_origins=self._tensor([[0., 0., 0.]]))
         self.jids = list(range(6))
-        self.robot = SimpleNamespace(data=SimpleNamespace())
+        self.robot = MeasuredDrive(self.device)
         self.fruits = [SimpleNamespace(data=SimpleNamespace())]
         self.fixed_contact = SimpleNamespace(data=SimpleNamespace())
         self.moving_contact = SimpleNamespace(data=SimpleNamespace())
@@ -124,7 +140,8 @@ class TeacherState(TeacherKernel):
             'release_paid', 'has_grasped', 'squeeze_active', 'valid_detach', 'transport_started',
             'pending_detach', 'pending_detach_rejected', 'has_retained', 'grip', 'raw_grip',
             'success', 'failure', 'detach_event', 'grasp_event', 'arm_collision', 'collection_event',
-            'pending_next', 'transport_replay', 'easy_episode')
+            'pending_next', 'transport_replay', 'easy_episode', 'release_target_unloaded',
+            'transport_preload_latched')
         for name in scalar_names:
             setattr(self, name, torch.zeros(1, device=self.device))
         for name in bool_names:
@@ -149,6 +166,7 @@ class TeacherState(TeacherKernel):
         self.applied_stem_torque = torch.zeros_like(self.break_displacement)
         self.threshold = torch.full((1, 1), self.settings.break_force, device=self.device)
         self.place_best_distance = torch.full((1,), float('inf'), device=self.device)
+        self.transport_preload_origin = torch.zeros(1, device=self.device)
         self.diagnostic_counts: dict = {}
         self.diagnostic_steps = 0
         self.last_diagnostics: dict = {}
@@ -237,7 +255,9 @@ class TeacherState(TeacherKernel):
                                     < self.settings.contact_threshold)[0])
                               for sensor in (self.fixed_contact, self.moving_contact))
         released = no_hand_contact and not bool(self.attached[0, 0])
-        valid = self.physical_in_box and released
+        valid = (self.physical_in_box and released and bool(self.valid_detach[0])
+                 and bool(self.has_retained[0]) and bool(getattr(self, 'deposit_active', [False])[0])
+                 and not bool(self.failure[0]))
         self.physical_place_time = self.physical_place_time + dt if valid else 0.
         self.physical_success = self.physical_place_time + 1e-9 >= self.settings.place_hold_s
 
@@ -289,7 +309,7 @@ class TeacherState(TeacherKernel):
         """직전20Hz 명령 이후 측정값으로 원본 상태 전이를 계산합니다."""
         self.episode_length_buf += 1
         self._consume_detach_evidence()
-        self._update_task()
+        _, timed_out = self._get_dones()
         if self.other_detached:
             self.failure[:] = True
             self.success[:] = False
@@ -298,7 +318,7 @@ class TeacherState(TeacherKernel):
             self.assignment_status = 'FAILED'
         elif bool(self.success[0]):
             self.assignment_status = 'SUCCEEDED'
-        elif int(self._target_elapsed_steps()[0]) >= self.max_episode_length - 1:
+        elif bool(timed_out[0]):
             self.assignment_status = 'TIMED_OUT'
 
     def prepare_action(self, action: torch.Tensor) -> None:
@@ -321,6 +341,12 @@ class TeacherState(TeacherKernel):
                       physical_status='SUCCEEDED' if self.physical_success else 'PENDING',
                       teacher_strict_success=bool(self.success[0]),
                       teacher_status=self.assignment_status)
+        result['actuator'] = dict(
+            stiffness=self.robot.data.joint_stiffness[0].cpu().tolist(),
+            velocity_limits=self.robot.data.joint_vel_limits[0].cpu().tolist())
+        for name in ('bridge_hold_time', 'pull_active', 'transport_active', 'deposit_active',
+                     'progress_extension', 'progress_3s'):
+            result[name] = getattr(self, name)[0].detach().cpu().item()
         return result
 
     def failure_reason(self) -> str:
@@ -328,3 +354,21 @@ class TeacherState(TeacherKernel):
         reasons = [key.removeprefix('failure_') for key, value in self.last_diagnostics.items()
                    if key.startswith('failure_') and isinstance(value, torch.Tensor) and bool(value[0])]
         return ','.join(reasons) or ('target_timeout' if self.assignment_status == 'TIMED_OUT' else '')
+
+
+class MeasuredDrive:
+    """전달 제어기의 gain/속도 제한 출력을 보관한다. 실제 적용은 TeacherDevice 책임이다."""
+
+    def __init__(self, device: torch.device) -> None:
+        self.data = SimpleNamespace(
+            joint_stiffness=torch.tensor([[25.]*5+[8.]], device=device),
+            joint_vel_limits=torch.tensor([[1.2]*5+[1.5]], device=device))
+        self.actuators = {'gripper': SimpleNamespace(stiffness=self.data.joint_stiffness[:, -1:])}
+
+    def write_joint_stiffness_to_sim(self, values: torch.Tensor, *, joint_ids: list,
+                                     env_ids: torch.Tensor) -> None:
+        self.data.joint_stiffness[env_ids[:, None], joint_ids] = values
+
+    def write_joint_velocity_limit_to_sim(self, values: torch.Tensor, *, joint_ids: list,
+                                          env_ids: torch.Tensor) -> None:
+        self.data.joint_vel_limits[env_ids[:, None], joint_ids] = values

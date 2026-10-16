@@ -1,8 +1,7 @@
-"""과실 꼭지의 attachment4/response5 물리만 계산합니다. 단위는 SI입니다.
+"""과실 꼭지의 attachment4/response6 물리만 계산합니다. 단위는 SI입니다.
 
-인수 원본 harvest_rl/logic.py의 implicit spring/damping과 env.py의 회전
-복원식을 NumPy로 옮겼습니다. 파지·정책·업무 성공 판정은 포함하지 않습니다.
-원본 response5는 중력을 활성화하며 +mg 보상 외력을 추가하지 않습니다.
+인수 원본 harvest_rl/attachment_60hz.py의 coupled_wrench를 NumPy로 옮겼습니다. 파지·정책·업무 성공 판정은 포함하지 않습니다.
+response6는 중력 예측을 포함한 6×6 결합식을 사용하며 중력 보상력을 더하지 않습니다.
 """
 from dataclasses import dataclass, fields
 from typing import Mapping
@@ -15,7 +14,7 @@ class StemSettings:
     """원본 snapshot의 줄기 설정. 질량은 kg, 거리 m, 시간 s입니다."""
 
     attachment_version: int = 4
-    stem_response_version: int = 5
+    stem_response_version: int = 6
     mass: float = .009
     spring_k: float = 60.
     spring_d: float = 4.2
@@ -31,8 +30,8 @@ class StemSettings:
     @classmethod
     def from_mapping(cls, values: Mapping) -> "StemSettings":
         result = cls(**{field.name: values[field.name] for field in fields(cls) if field.name in values})
-        if (result.attachment_version, result.stem_response_version) != (4, 5):
-            raise ValueError('줄기 어댑터는 attachment4/response5만 지원합니다.')
+        if (result.attachment_version, result.stem_response_version) != (4, 6):
+            raise ValueError('줄기 어댑터는 attachment4/response6만 지원합니다.')
         for field in fields(cls):
             value = getattr(result, field.name)
             if not np.isfinite(value) or value < 0:
@@ -90,14 +89,14 @@ def stem_step(settings: StemSettings, *, displacement: np.ndarray, tip_velocity:
               lever: np.ndarray, inverse_inertia_world: np.ndarray, tension_axis_world: np.ndarray,
               orientation_wxyz: np.ndarray, rest_orientation_wxyz: np.ndarray,
               angular_velocity: np.ndarray, attached: np.ndarray, timer: np.ndarray,
-              thresholds: np.ndarray, dt_s: float) -> StemStep:
+              thresholds: np.ndarray, dt_s: float, gyroscopic_forces: np.ndarray | bool = False) -> StemStep:
     """월드 좌표의 N개 꼭지 외력과 연속 이탈 타이머를 한 tick 진행합니다.
 
     displacement는 초기 고정 앵커에서 현재 꼭지까지, lever는 COM에서 꼭지까지입니다.
     반환 힘은 COM에, 반환 토크는 COM 주위에 적용합니다. 분리 후 외력은 0입니다.
     """
-    if not np.isfinite(dt_s) or dt_s <= 0:
-        raise ValueError('물리 dt는 유한한 양수여야 합니다.')
+    if not np.isfinite(dt_s) or not np.isclose(dt_s, 1/60, rtol=0., atol=1e-12):
+        raise ValueError('response6 물리 주기는 정확히 60Hz여야 합니다.')
     attached = np.asarray(attached, dtype=bool)
     if attached.ndim != 1:
         raise ValueError('attached는 과실별 1차원 배열이어야 합니다.')
@@ -133,11 +132,27 @@ def stem_step(settings: StemSettings, *, displacement: np.ndarray, tip_velocity:
     skew[:, 0, 1], skew[:, 0, 2] = -z, y
     skew[:, 1, 0], skew[:, 1, 2] = z, -x
     skew[:, 2, 0], skew[:, 2, 1] = -y, x
-    mobility = eye/settings.mass - skew @ data['inertia'] @ skew
-    effective = settings.spring_d*eye + dt_s*stiffness
-    lhs = eye + dt_s*effective @ mobility
-    rhs = -(stiffness @ data['displacement'][..., None] + effective @ data['velocity'][..., None])
-    elastic = np.linalg.solve(lhs, rhs)[..., 0]
+    inertia = data['inertia']
+    mobility = np.concatenate((
+        np.concatenate((eye/settings.mass-skew@inertia@skew, -skew@inertia), axis=-1),
+        np.concatenate((inertia@skew, inertia), axis=-1)), axis=-2)
+    stiffness6 = np.zeros((n, 6, 6))
+    stiffness6[:, :3, :3] = stiffness
+    stiffness6[:, 3:, 3:] = settings.angular_k*eye
+    effective = np.diag([settings.spring_d]*3+[settings.angular_d]*3)+dt_s*stiffness6
+    scalar, vector = _quaternion_error(data['current'], data['rest'])
+    orientation_error = 2*vector*np.sign(scalar)[:, None]
+    position6 = np.concatenate((data['displacement'], orientation_error), axis=-1)
+    velocity6 = np.concatenate((data['velocity'], data['omega']), axis=-1)
+    gyro = -(inertia @ np.cross(data['omega'],
+        (np.linalg.inv(inertia) @ data['omega'][..., None])[..., 0])[..., None])[..., 0]
+    gyro *= np.asarray(gyroscopic_forces)[..., None]
+    free_point = np.array([0., 0., -9.81])+np.cross(data['omega'], np.cross(data['omega'], data['lever']))
+    free_point -= (skew @ gyro[..., None])[..., 0]
+    free6 = np.concatenate((free_point, gyro), axis=-1)
+    rhs = -(stiffness6 @ position6[..., None] + effective @ (velocity6+dt_s*free6)[..., None])
+    wrench = np.linalg.solve(np.eye(6)+dt_s*effective@mobility, rhs)[..., 0]
+    elastic, restoring = wrench[:, :3], wrench[:, 3:]
     extension = (data['displacement']*axis).sum(-1)
     tension = np.maximum(-(elastic*axis).sum(-1), 0.)
     length = np.linalg.norm(data['displacement'], axis=-1)
@@ -154,10 +169,6 @@ def stem_step(settings: StemSettings, *, displacement: np.ndarray, tip_velocity:
     new_timer = np.where(attached & exceeded, data['timer']+dt_s, 0.)
     remaining = attached & (new_timer < settings.tension_hold_s)
     force = elastic*remaining[:, None]
-    scalar, vector = _quaternion_error(data['current'], data['rest'])
-    damping = np.linalg.solve(eye+dt_s*settings.angular_d*data['inertia'],
-                              (settings.angular_d*data['omega'])[..., None])[..., 0]
-    restoring = -settings.angular_k*2*vector*np.sign(scalar)[:, None] - damping
     torque = np.cross(data['lever'], force) + restoring*remaining[:, None]
     if not np.isfinite(force).all() or not np.isfinite(torque).all():
         raise FloatingPointError('줄기 외력 계산 결과가 유한하지 않습니다.')

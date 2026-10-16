@@ -1,1 +1,1 @@
-"""수령한 Teacher의 원본 순수 계산 코드. provenance.json 참고."""
+"""60Hz r2 전달본의 scene 독립 추론 계산. provenance는 PROVENANCE.json 참조."""

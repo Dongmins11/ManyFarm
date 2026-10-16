@@ -1,5 +1,6 @@
 """Live Isaac ground truth for count evaluation only. Never feeds scout inference."""
 import json
+import os
 from pathlib import Path
 import time
 import numpy as np
@@ -7,7 +8,7 @@ import numpy as np
 
 class SceneTruth:
     def __init__(self, stage, output, robot_id, map_id, session, workspace):
-        from pxr import Usd, UsdGeom, Gf
+        from pxr import Usd, UsdGeom, Gf, Tf
         self.stage, self.output = stage, Path(output)
         self.robot_id, self.map_id, self.session = robot_id, map_id, session
         self.workspace = workspace
@@ -21,6 +22,14 @@ class SceneTruth:
         if not self.fruits:
             raise RuntimeError('No crop:color fruit prims were found in the active scene')
         self.cache = UsdGeom.BBoxCache(Usd.TimeCode.Default(), ['default', 'render'], useExtentsHint=False)
+        self.fruit_paths = {str(prim.GetPath()) for prim, _ in self.fruits}
+        self.fruit_prefix = os.path.commonpath([str(prim.GetPath().GetParentPath())
+                                              for prim, _ in self.fruits]).rstrip('/')+'/'
+        self.geometry_dirty = True
+        self.local_bounds = {}
+        self.geometry_valid = {}
+        self.transforms = UsdGeom.XformCache()
+        self.notice = Tf.Notice.Register(Usd.Notice.ObjectsChanged, self._geometry_changed, stage)
         # A wire box has no collision and does not hide fruit or alter the source scene.
         self.lines = UsdGeom.BasisCurves.Define(stage, '/World/HarvestCountPreview/workspace')
         self.lines.CreateTypeAttr('linear')
@@ -30,20 +39,55 @@ class SceneTruth:
         self.lines.CreateDisplayColorAttr([Gf.Vec3f(.72, .12, 1.)])
         self.output.parent.mkdir(parents=True, exist_ok=True)
 
+    def _geometry_changed(self, notice: object, sender: object) -> None:
+        """위치만 바뀌는 과실은 로컬 경계를 재사용하고 실제 기하 편집은 무효화한다."""
+        for path in notice.GetResyncedPaths():
+            text = str(path)
+            if text.startswith(self.fruit_prefix) or self.fruit_prefix.startswith(text.rstrip('/')+'/'):
+                self.geometry_dirty = True
+                return
+        for path in notice.GetChangedInfoOnlyPaths():
+            if not str(path).startswith(self.fruit_prefix):
+                continue
+            name = path.name
+            if name.startswith('xformOp') and str(path.GetPrimPath()) in self.fruit_paths:
+                continue
+            if name.startswith('xformOp') or name in ('points', 'extent', 'visibility',
+                                                     'radius', 'height', 'size', 'axis', 'widths'):
+                self.geometry_dirty = True
+                return
+
+    def close(self) -> None:
+        """stage 변경 구독을 해제한다."""
+        self.notice.Revoke()
+
     def capture(self, stamp_ns, T_world_base):
         from pxr import Usd, UsdGeom, Gf
-        self.cache.Clear()
+        if self.geometry_dirty:
+            self.cache.Clear()
+            for prim, _ in self.fruits:
+                key = str(prim.GetPath())
+                meshes = [p for p in Usd.PrimRange(prim, Usd.TraverseInstanceProxies())
+                          if p.IsA(UsdGeom.Mesh)]
+                valid = bool(meshes) and all(UsdGeom.Mesh(p).GetPointsAttr().Get() for p in meshes)
+                self.geometry_valid[key] = valid
+                if valid:
+                    self.local_bounds[key] = self.cache.ComputeUntransformedBound(prim)
+            self.geometry_dirty = False
+        self.transforms.Clear()
         values, errors = [], []
         for prim, color in self.fruits:
             if not prim.IsActive():
                 continue
             if UsdGeom.Imageable(prim).ComputeVisibility() == UsdGeom.Tokens.invisible:
                 continue
-            meshes = [p for p in Usd.PrimRange(prim, Usd.TraverseInstanceProxies()) if p.IsA(UsdGeom.Mesh)]
-            if not meshes or any(not UsdGeom.Mesh(p).GetPointsAttr().Get() for p in meshes):
+            key = str(prim.GetPath())
+            if not self.geometry_valid[key]:
                 errors.append('Missing fruit geometry: '+str(prim.GetPath()))
                 continue
-            bounds = self.cache.ComputeWorldBound(prim).ComputeAlignedRange()
+            bound = Gf.BBox3d(self.local_bounds[key])
+            bound.Transform(self.transforms.GetLocalToWorldTransform(prim))
+            bounds = bound.ComputeAlignedRange()
             lo, hi = np.asarray(bounds.GetMin()), np.asarray(bounds.GetMax())
             if not np.isfinite([lo, hi]).all() or (hi <= lo).any():
                 errors.append('Invalid fruit bounds: '+str(prim.GetPath()))

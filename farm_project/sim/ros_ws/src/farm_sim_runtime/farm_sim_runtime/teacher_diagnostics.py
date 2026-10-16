@@ -60,6 +60,10 @@ class TeacherRuntimeRecorder:
         ids = self.device._joint_indices
         kp, kd = ctl.get_gains()
         attachments = self.device.attachments
+        self._save('fruit_initial_states.json', dict(
+            records=attachments.records, positions_world_m=attachments.current_positions(),
+            orientations_wxyz=attachments._cached_orientations,
+            T_world_arm=self.device.arm_world_transform()))
         view = art._articulation_view
         self._save('arm_physx_readback.json', dict(
             body_names=view.body_names, masses=view.get_body_masses(),

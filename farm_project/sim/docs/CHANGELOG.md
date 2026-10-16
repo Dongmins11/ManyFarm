@@ -2,6 +2,53 @@
 
 시뮬 전용 변경과 시뮬 통합에 필요한 공통 변경을 기록한다. 공통 변경은 사용자 승인 전 적용하지 않는다.
 
+## HARVEST-COMPLETION-PROFILE-20261016 — 이동 전용 실행 경로의 팔 생략 수정
+
+- 요청/범위: 팔 작업 없이 완료되는 현상 확인 요청. 실제 런치·서버 파라미터·로그로 ARRIVAL_ONLY_NO_HARVEST 선택 확인.
+- 대상/전후: 실제 사용 중인 `runs/navigation_smoke_20261014/harvest_runtime.yaml`의 harvest_config 참조를 이동 전용 시험 JSON→현행 canonical harvest_task.json으로 변경. 다음 시작부터 ARRIVAL_THEN_ARM을 선택한다. 이전 이동 전용 JSON은 증거로 보존했다. 공통/실물 변경 없음.
+- 검증: 공통 환경 로더로 수정 경로를 읽어 팔 작업 정책/팔 활성화/60Hz 확인. 기존 실행 중 서버는 재시작하지 않았으며 사용자 작업 중단·Goal 전송 없음. 재시작 후 시작 로그와 실제 수확 완료는 아직 이번 실행에서 미확인.
+- 복원/반영: `runs/harvest_completion_20261016/harvest_runtime_before.yaml` 또는 참조 한 줄 복구. PROJECT_STATE §67과 실행 가이드에 재시작 필요 명시. 미커밋/원격 미반영.
+
+## WHEEL-TIRE-FIX-20261016 — 저속 회전 접촉 단면 수정과 정지 유지 보완
+
+- 승인: 사용자 “진행해 … 원인을 … 설명해” 실행 요청. 기존60Hz 통합과 사용자 변경 보존, 공통/실물 수정 없음.
+- 대상: `assets/robots/harvest_count_test/harvest_robot.usd`, `farm_sim_devices/wheel_servo.py`, `tests/test_wheel_servo.py`, `tools/rebuild_harvest_tire_collisions.py`, 진단 결과와 PROJECT_STATE §66/DECISIONS D-039/이 기록.
+- 전후: 평평한50mm 원통 충돌선에서 같은 +0.05rad/s 4초 입력0.970° 정체→같은 외경/폭의 둥근 native 원통 묶음10.425° 회전. 평평한 단면 분할 대조군0.953°로 개수 증가 효과를 배제했다. 정지 유지 때 매 tick 적분 초기화→정지 전환에서만 초기화/유지 중 외란 오차 적분. 원래 kp1/ki4/상한2 유지(kp8 후보 탈락·복구).
+- 검증: 바퀴 단위5개/자산 범위 검사 통과.46sim초 전후진·회전·정지 특성 기록, 실제 Nav2 양방향 정렬/0.5m 이동3개 정상 완료, 실제 Teacher 팔 Action2/2 적재·복귀·safe_stopped. 중속 급정지 피크2° 목표는 약3.4°로 미달한 계측 한계를 명시했다. 전체 농장 연속 미션·실물·밀집3개 복귀·접촉 취소는 이번 인증 범위 아님.
+- 복원: `runs/wheel_contact_20261016/before_apply`의 자산과wheel_servo.py만 원위치 복사. 기존60Hz 통합을 되돌리지 않는다. 미커밋/원격 미반영. SHA와 결과/시행착오는 같은 runs의applied.json/verification_final.json을 따른다.
+
+## WHEEL-CONTACT-DIAG-20261016 — 무부하/접지 분리 및 후보 탈락 기록
+
+- 승인: 사용자 sim 전용 구동·접지 개선 방향 승인. 대상은 `sim/runs/wheel_drive_20261016/` 진단 실행 사본/집계와 PROJECT_STATE §64 정정·§65, DECISIONS D-038, 이 문서다.
+- 전후: 속도 보정 상한 부족을 근본 원인으로 단정했던 설명을 철회했다. 무부하 정상 추종/접지 정체, 접촉 폭 영향, 질량 증대·유한 force drive·직접 토크 PI 후보 미통과를 확인했다.
+- 운영/실물 영향: 이번 진단은 운영 소스·USD·설정 및 공통/실물 변경 없음. 사용자 확인 결과 공식 공개 자료에 필요한 질량/감속비/출력축 토크 사양 없음. PI 상한 확대, 타이어 폭 축소, 임의 질량/토크 변경은 운영에 반영하지 않았다.
+- 검증/복원: 실제 Isaac CPU60Hz 격리 시험의 관절 위치 차분·차체 회전·정지 구간 집계. 전체 Nav2/실물 회귀는 미실행. 시험 출력과 문서만 있어 운영 복원 대상 없음. 미커밋/원격 미반영.
+
+## HARVEST-105-20261016 — 실제 정체 원인 분리
+
+- 요청/범위: 사용자105 발생 당시 움직이지 못한 원인 확인 요청. 운영 소스·설정·공통 코드·자산 수정 없음. 기존 프로세스 종료 이후 별도 포트·scene으로 접촉/구동 비교 시험만 실행했다.
+- 결과: 실제 명령 수신 정상, 바퀴 PI 보정±2rad/s 포화와 차체 정체 확인. 실패 자세에서 동일 +0.05rad/s 10초 입력에 기본0.919°/보정 상한20 시험26.448° 회전. 내부 충돌 제거·GPU·drive gain/type 변경만으로는 미해결. 마찰 감소/solver 반복 증가로 개선돼 현행 접지·구동 보정 조합의 한계로 확인. 운영 상한20 적용은 하지 않았다.
+- 검증/제약: 유효8개 격리 시험의14sim초 trace/contact와 실제 수신/휠/차체 로그 집계. 최초 마찰 시험은 instance 편집 오류로 제외하고v2로 재시험. 종료 지연으로 소유한 시험 프로세스만SIGTERM 정리. 전체 Nav2 재주행/실물 미실행. 수치와 다음 검증은 PROJECT_STATE §64.
+- 파일/복원: `sim/runs/harvest_105_20261016/`의 진단 산출물, PROJECT_STATE §64 및 이 기록만 추가. 운영 복원 대상 없음. 문서·결과 미커밋, 원격 미반영.
+
+
+## TEACHER60-ACTION-20261016 — 수확 Action과 팔 실행/국소 물리 연결 확인
+
+- 승인: 사용자 수확 액션에60Hz Teacher 팔 움직임 연결, 향후 카메라 정책 교체, 근처 과실만 물리 적용 요청.
+- 대상: `farm_sim_runtime/{fleet_config.py,launch/harvest.launch.py}`, `sim/tools/check_teacher_action.py`, `check_teacher_harvest.py`, sim 액션 설정/통신 시험과 실행 문서. 기존 공통 `HarvestMission`/`ArmActionClient` 및 sim 팔 실행 연결을 재사용하며 공통·실물 소스 변경 없음.
+- 전후: 기존 ARRIVAL_THEN_ARM/내부 팔 Action 기본값은 유지하고 팔 OFF·endpoint 불일치·국소 물리 OFF를 시작 전에 거부한다. 미래 카메라 모델 교체는 관측/정책/대상 선정 어댑터 경계로 명시하며 새 추상화나 Student 대역을 넣지 않는다.
+- 검증: 실제 ROS→UDP→Isaac로2개 적재·물리 복귀·접힘·정지 및 ROS SUCCESS/2개 수량 확인. 활성 과실0→4→2/전체288. 취소 시험 상세와 로그는 [PROJECT_STATE §63](../../docs/PROJECT_STATE.md#63-수확-action의60hz-teacher-팔-실행과-주변-과실-물리--2026-10-16). 관련 최종62개, sim3패키지 build PASS. 전개 중 취소는 실제 정지/CANCELED 확인, 접촉 중 취소는 CANCEL_UNCONFIRMED로 미해결. 외부 주행→팔 호출은 단위시험, 이번 실제 Nav2 미실행.3개 밀집 복귀 문제는 미해결.
+- 복원/영향: 이번 사전검사와 검증 도구/문서 변경만 역적용하면 §62 상태다. 이전60Hz 모델/정책 통합을 되돌리지 않는다. 공통·실물 영향 없음. 새 launch는 재시작 필요. 미커밋·원격 미반영.
+
+## TEACHER60-R2-20261016 — 60Hz Teacher 통합,480Hz 폐기
+
+- 승인: 사용자 “그렇게 적용하고480hz는 폐기하자”. 기준 `7b0e1a4` 위 미커밋 작업. sim 전용 변경이며 공통·실물 파일 변경 없음.
+- 대상: `assets/robotarm_teacher/`, `assets/robots/harvest_physics/teacher_arm_reference.*`, sim config5개, `farm_sim_devices`의 Teacher/줄기/장치/세션과 `_teacher_vendor`, runtime 물리 스케줄/자산/UI/진단, 해당 시험·fixture·import/replay 도구 및 실행 문서. 이전4개 체크포인트·staged_teacher/kernel 제거.
+- 전후: 기존480Hz/response5·분리 정책 실행을 전달60Hz r2의 JIT+원본 단계 제어/response6/마찰2.2/단일 바닥/실제 속도 제한으로 교체. 유휴·수확60Hz/정책20Hz/렌더30Hz. 낮은순·물리 복귀 후 다음 목표, 적재 보존. SDK qd 잔류에 대한 정지 판정은 실측 q 변화·hold 오차·bounded qd를 함께 검사한다.
+- 검증: 전달 SHA/내부1438개 일치, 독립 GPU26/32 재현,239tick 원본 명령 비교 최종목표 최대4.06e-6rad. 농장 단일1/1·연속2/2 적재/복귀/접힘/정지 PASS.3개 배치는 첫 적재 후 복귀 중 비목표 분리로 안전 정지(1개 적재/뒤2개 미시도),3개 순차 성공은 미완료. 상세와 최초 fixture 불일치 기록은 [PROJECT_STATE §62](../../docs/PROJECT_STATE.md#62-60hz-teacher-r2-적용과480hz-폐기--2026-10-16) 참조. 관련108개+84subtests, 추가 과실/배치17개+9subtests, USD 팔11개·과실19개 PASS. sim3패키지 빌드 PASS. 로그 `sim/runs/teacher60/`.
+- 실물 영향/한계: 직접 영향 없음. 공유 Isaac scene 시간은60Hz로 고정되므로 기존 주행 사용자 확인과 이번 주기 변경 후 전체 연계 재검증을 구분한다. Student·실물·전체 Nav2 연계·실측 분리력 대응은 미검증. 기존 실행 세션은 유지했고 재시작이 필요하다.
+- 복원/전달: sim 소스·자산·설정을 기준 커밋 버전으로 함께 복원 후3패키지 재빌드. 새 모델과480Hz를 혼용하지 않는다. 변경 파일과 삭제 목록만 담은 `sim/runs/teacher60/teacher60_changes.tar.gz` 및 패치 적용 방법은 같은 디렉터리 `PATCH_README.txt`. 현재 workspace에는 이미 적용했으므로 재적용 불필요. commit/push 없음.
+
 ## HARVEST-PROGRESS-AUDIT-20261014 — 최근 수확 주행 두 건 실패 진단 (미해결)
 
 - 요청: 최근 수확 주행 중 제자리회전 후 ABORTED 원인 확인 및 현재 작업 커밋·푸시. 운영 코드·설정 변경이나 추가 주행 없이 기존 로그를 대조했다.
@@ -757,3 +804,12 @@
 - 변경 전후: 주행 완료300초를 양쪽 모두 실시간으로 계산하던 방식에서 sim은 기존 use_sim_time의 /clock,real은 monotonic 실시간을 사용한다. 전체 TF 재시도 주행 예산도 일치시켰다. 통신/수락/준비/취소/TF 복구 제한은 실시간 유지. 실행 timeout 오류 문구 분리,sim 시계 역행 시 오류와 Goal 정리 상태 보존.
 - 영향/검증: 공통 클라이언트를 쓰는 예찰·수확에 적용,실물 시간 기준은 기존과 동일. 새 설정/의존성 없음. 오프라인59 PASS(시계 전용12 포함),설치 rclpy 시계 API 및 소스 symlink 확인. 실제Isaac 전체 미션/실물 주행 미실행. 상세 PROJECT_STATE §60 및 docs/changes/NAVIGATION_EXECUTION_CLOCK_20261015.json.
 - 적용/복원: 실행 중 로봇 노드 재시작 후 적용. 이번 공통 diff만 되돌리면 이전 실시간 주행 제한으로 복원된다. 기존 실행 재시작·커밋·푸시하지 않았다.
+
+
+## 2026-10-16 — 수확 프레임 저하: 평가 경계 캐시와 실시간 pacing
+
+- 사용자 승인으로 sim 전용 SceneTruth의 정적 로컬 경계를 재사용하고 현재 world 변환은 매번 반영한다. 기하 편집 시 무효화·종료 시 USD notice 해제. run_fleet은 렌더 지연 후 추가 대기를 줄이며 물리 tick을 생략하지 않는다. 일반 Action의 stage 성능 계측과 check_teacher_action --performance-log 연결도 추가했다. 실제 수확 계측으로 CPU Teacher의 Torch intra-op=1을 적용해 팔 계산 평균7.614→4.700ms, 동일 수확 구간13.38→15.55fps를 확인했다. 실제1,649관측 정책 출력 차이0.
+- 고정60/20/30Hz·주변 과실 물리·모델·solver·카메라 설정·공통/실물 유지. 전체 센서 headless4sim초 비교에서20.56→26.28 렌더fps, 평가 tick평균3.831→0.657ms. 실제288개 경계 오차0, nativeUSD4+schedule4 PASS. 실제 GUI12fps의 개선 수치로 해석하지 않는다. 수확 PhysX 비용은 잔존한다.
+- 실제2과실 수확 재검증/제외 후보/실패 시험/로그 및 원본 소스 복원법은 PROJECT_STATE §68. 현재 실행을 재시작하지 않았으며 다음 시작에 적용. 미커밋·원격 미반영.
+
+- 최종 전체 센서4sim초는25.40fps, 카메라58/39/39로 원본과 동일. 실제 수확 비교3개 모두2/2·접힘·safe stop 통과. 최종 소스 관련13시험 PASS. 상세/패치: runs/performance_20261016/{harvest_summary.json,final_sensor_verification.json,performance_fix_20261016.tar.gz}.

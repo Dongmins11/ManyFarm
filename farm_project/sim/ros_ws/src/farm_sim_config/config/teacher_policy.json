@@ -1,41 +1,15 @@
 {
   "schema_version": 1,
   "provenance": {
-    "delivery": "harvest_teacher_9g_20261006_143434",
-    "source_snapshot": "teacher_environment_snapshot_20261001.json",
-    "scope": "simulation ground-truth Teacher only; 35g-trained weights evaluated with 9g physics"
-  },
-  "checkpoints": {
-    "ENTRY_CKPT": {
-      "path": "sim/assets/robotarm_teacher/entry/model_200.pt",
-      "sha256": "e676f43738515446636782f22f51cf81e4fc945210729fdd0ff0458b66b1db9b",
-      "run_sha256": "463dafa1c146561ad5646b66300a0e2196d25a02ce3622e9f4cb05caa921d221",
-      "source_path": "runs/harvest_rl/entry_grasp_refine_20260929_202452_137384791/train/model_200.pt"
-    },
-    "PULL_CKPT": {
-      "path": "sim/assets/robotarm_teacher/pull/teacher_final.pt",
-      "sha256": "4914107143f59cb321ce332b6cf185fe563cb44522f50ade782b715fccc045fd",
-      "run_sha256": "39fb9332bc7e356ce5cd0e0d90f939df9c9a6fe030299a7d3cc5069b4264dc25",
-      "source_path": "runs/harvest_rl/pull_direction_20260927_211734_412361705/train/teacher_final.pt"
-    },
-    "TRANSPORT_CKPT": {
-      "path": "sim/assets/robotarm_teacher/transport/teacher_final.pt",
-      "sha256": "47f3b7bf6500d35448ed9510db6884ac584921eeddc072350000728402ddb528",
-      "run_sha256": "cf83b42b709d861758d3d8b02cdf6d7bbc94a292e712fd50b9349a83b665dd04",
-      "source_path": "outputs/harvest_rl/entry_transport_20260929_220740_390998651/transport_refine/train/teacher_final.pt"
-    },
-    "PLACE_CKPT": {
-      "path": "sim/assets/robotarm_teacher/place/teacher_final.pt",
-      "sha256": "c6c96f0bb81f861519fc5ac0e2467d9083d3c9b5c309d054bd0a7c30c4dcce27",
-      "run_sha256": "30348d079cf2b5fd29482c8f167fd6c64bf0ce4b019cf668f1392cec6c9191c7",
-      "source_path": "runs/harvest_rl/place_short_hook_20260923_074907_182931509/train/teacher_final.pt"
-    }
+    "delivery": "harvest_teacher_60hz_20261013_r2",
+    "scope": "60Hz privileged Teacher; farm in-place adapter"
   },
   "runtime": {
     "contract_version": 2,
-    "reward_version": 8,
+    "reward_version": 3,
     "attachment_version": 4,
     "entry_first_grasp": true,
+    "entry_capture_shaping": true,
     "pull_recovery_shaping": false,
     "pull_squeeze_rearm": true,
     "pull_squeeze_ramp": true,
@@ -59,8 +33,8 @@
     "transport_start_min": 0.0,
     "transport_start_max": 0.0,
     "start_bank": "",
-    "task": "harvest",
-    "target_mode": "external",
+    "task": "grasp",
+    "target_mode": "nearest",
     "sequence": false,
     "random_colors": false,
     "timeout_scope": "fruit",
@@ -74,7 +48,7 @@
     "region_min": [
       0.2,
       -0.175,
-      -0.1
+      0.08700000000000008
     ],
     "region_max": [
       0.3,
@@ -88,7 +62,7 @@
     "spring_d": 4.2,
     "angular_k": 0.015,
     "angular_d": 0.002,
-    "stem_response_version": 5,
+    "stem_response_version": 6,
     "stem_vertical_stiffness": 40.0,
     "stem_max_extension": 0.04,
     "tension_axis": [
@@ -116,13 +90,19 @@
     "action_speed": 0.8,
     "gripper_speed": 1.2,
     "gripper_effort": 0.5,
+    "gripper_stiffness": 8.0,
+    "gripper_damping": 0.3,
     "grip_friction": 1.0,
     "dynamic_friction": 1.0,
     "restitution": 0.02,
+    "fruit_collision_mode": "legacy",
+    "contact_stiffness": 0.0,
+    "contact_damping": 0.0,
     "gripper_max_error": 0.04,
-    "contact_substeps": 2,
+    "contact_substeps": 1,
     "contact_solver_refine": false,
     "release_intent_mode": true,
+    "release_measured_open": true,
     "transport_adaptive_grip": true,
     "transport_pose_stop": true,
     "detached_grip_hold": true,
@@ -131,8 +111,9 @@
     "hold_s": 1.0,
     "detached_hold_s": 0.5,
     "max_slip": 0.012,
-    "physics_dt": 0.004166666666666667,
-    "decimation": 12,
+    "physics_dt": 0.016666666666666666,
+    "decimation": 3,
+    "render_hz": 30,
     "episode_s": 20.0,
     "tree_position": [
       0.85,
@@ -156,18 +137,7 @@
     ],
     "curriculum": 0.0,
     "workspace_split": "eval",
-    "seed": 182
-  },
-  "action_execution": {
-    "version": 1,
-    "labels": "post_controller_clipped_action",
-    "transport_initial_scale": 0.25,
-    "transport_ramp_s": 3.0,
-    "near_fruit_arm_scale": 1.0,
-    "block_transport_opening": false,
-    "release_mode": "fixed",
-    "transport_recovery": false,
-    "student_reapply_teacher_ramp": false
+    "seed": 6042
   },
   "device": {
     "policy_arm_position_m": [
@@ -183,7 +153,7 @@
     "workspace_arm_min_m": [
       0.265,
       -0.175,
-      -0.1
+      0.087
     ],
     "workspace_arm_max_m": [
       0.365,
@@ -191,7 +161,7 @@
       0.35
     ],
     "near_home_min_m": 0.09,
-    "near_home_max_m": 0.18,
+    "near_home_max_m": 0.34,
     "tcp_offset_gripper_m": [
       0.0271,
       -0.000218121,
@@ -212,5 +182,6 @@
     "base_angular_limit_rad_s": 0.03,
     "base_drift_limit_m": 0.02,
     "base_yaw_drift_limit_rad": 0.05
-  }
+  },
+  "deployment": "sim/assets/robotarm_teacher/DEPLOYMENT.json"
 }

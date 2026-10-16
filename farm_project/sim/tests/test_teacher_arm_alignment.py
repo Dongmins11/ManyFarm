@@ -30,7 +30,8 @@ class TeacherAlignmentTests(unittest.TestCase):
                             for p in cls.stage.Traverse() if p.GetName() in ('left_wheel_joint','right_wheel_joint')}
         config = json.loads((ROOT/'sim/ros_ws/src/farm_sim_config/config/robotarm_physics.json').read_text())
         for key in ('box_floor','teacher_alignment'):
-            config[key]['asset_path'] = str(ROOT/config[key]['asset_path'])
+            if 'asset_path' in config[key]:
+                config[key]['asset_path'] = str(ROOT/config[key]['asset_path'])
         cls.reference = Usd.Stage.Open(config['teacher_alignment']['asset_path'])
         cls.report = configure_harvest_arm(cls.stage, '/Robot', config)
 
@@ -71,7 +72,8 @@ class TeacherAlignmentTests(unittest.TestCase):
             for p in Usd.PrimRange(self.stage.GetPrimAtPath('/Robot/'+name+'/TeacherCollisions')):
                 if p.HasAPI(UsdPhysics.CollisionAPI):
                     mat, _ = UsdShade.MaterialBindingAPI(p).ComputeBoundMaterial('physics')
-                    expected = 1. if name in BODY_NAMES[-2:] else .8
+                    finger = any(token in str(p.GetPath()) for token in ('wrist_roll_follower_so101_v1', 'moving_jaw_so101_v1'))
+                    expected = 2.2 if finger else (1. if name in BODY_NAMES[-2:] else .8)
                     self.assertAlmostEqual(mat.GetPrim().GetAttribute('physics:dynamicFriction').Get(), expected)
         root = self.stage.GetPrimAtPath(self.report['teacher_alignment']['articulation_root'])
         self.assertTrue(root.GetAttribute('physxArticulation:enabledSelfCollisions').Get())

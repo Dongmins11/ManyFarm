@@ -231,6 +231,9 @@ class ArmSession:
         profile = getattr(self.controller, 'profile', None)
         if profile is not None:
             (self._directory/'profile.json').write_text(json.dumps(profile, ensure_ascii=False, indent=2, default=_json)+'\n')
+        artifacts = getattr(self.controller, 'artifact_manifest', None)
+        if artifacts is not None:
+            (self._directory/'artifact_sha256.json').write_text(json.dumps(artifacts, indent=2)+'\n')
         self._log('START', time_s=now)
 
     def _stop(self, now: float, status: str, code: str, reason: str) -> None:
@@ -238,6 +241,7 @@ class ArmSession:
             return
         self.controller.cancel()
         self._stop_hold = np.clip(self.device.joint_positions(), self.device.lower, self.device.upper)
+        self._stop_previous = self.device.joint_positions().copy()
         self.device.command(self._stop_hold)
         self._stop_request = (status, code, reason)
         self._stop_start, self._stop_stable = now, 0.
@@ -333,8 +337,10 @@ class ArmSession:
                   stage=step.stage, reason=step.reason, joint_targets=step.joint_targets,
                   diagnostics=step.diagnostics, sample={k:v for k,v in sample.items() if k != 'collision_vertices'})
         if step.status == 'RUNNING':
+            self.device.configure_actuator(step.diagnostics['actuator'])
             self.device.command(step.joint_targets)
         else:
+            self.device.restore_actuator()
             self._return = PhysicalReturn(self.device, self._history, self.config, now)
             self.state['stage'] = 'RETURNING'
             # 정책의 마지막 증분을 유지하지 않고 실제 위치에서 복귀 목표를 시작합니다.
@@ -396,7 +402,14 @@ class ArmSession:
                 self._last_teacher = self.controller.observe(self.device.sample())
             self.device.command(self._stop_hold)
             qd = self.device.joint_velocities()
-            slow = np.isfinite(qd).all() and np.max(abs(qd)) < .1 and stationary
+            q = self.device.joint_positions()
+            measured_speed = np.max(abs(q-self._stop_previous))/self.dt
+            self._stop_previous = q.copy()
+            # 60Hz PhysX의 solver 속도와 실제 pose 차분을 함께 확인한다.
+            # 복귀와 동일한 .05rad/s pose / .5rad/s SDK 기준이며 목표 이탈도 거부한다.
+            slow = (np.isfinite(qd).all() and np.isfinite(q).all()
+                    and measured_speed < .05 and np.max(abs(qd)) < .5
+                    and np.max(abs(q-self._stop_hold)) < .035 and stationary)
             self._stop_stable = self._stop_stable+self.dt if slow else 0.
             if self._stop_stable >= self.config['stop_hold_s']:
                 if self._stop_request[0] == 'SUCCESS' and self._successful_ids:
@@ -427,7 +440,7 @@ class ArmSession:
                 self._select_job = self.state['job_id']
                 return
             self._candidates = sorted(self.device.candidates(self._all_attempted),
-                key=lambda item:(item['home_distance_m'], item['target_id']))
+                key=lambda item:(item['root_world_m'][2], item['target_id']))
             self._log('CANDIDATES', time_s=now, candidates=self._candidates)
             self._next_target(now)
             return

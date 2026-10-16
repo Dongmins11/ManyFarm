@@ -95,7 +95,12 @@ class FruitActivationTests(unittest.TestCase):
         FakeRigidPrim.world = self.world
         module = ModuleType('isaacsim.core.prims')
         module.RigidPrim = FakeRigidPrim
-        self.modules = patch.dict(sys.modules, {'isaacsim.core.prims': module})
+        # gyro 속성 조회도 USD I/O 경계다. 실제 coupled6x6 계산은 그대로 실행한다.
+        self.world.stage = SimpleNamespace(GetPrimAtPath=lambda path: path)
+        pxr = ModuleType('pxr')
+        pxr.PhysxSchema = SimpleNamespace(PhysxRigidBodyAPI=lambda prim: SimpleNamespace(
+            GetEnableGyroscopicForcesAttr=lambda: SimpleNamespace(Get=lambda: True)))
+        self.modules = patch.dict(sys.modules, {'isaacsim.core.prims': module, 'pxr': pxr})
         self.modules.start()
         self.addCleanup(self.modules.stop)
         self.records = [dict(prim_path=path, attachment_local_m=[0., 0., .035],
@@ -110,7 +115,7 @@ class FruitActivationTests(unittest.TestCase):
     def test_default_all_active_preserves_full_shape_and_view(self) -> None:
         attachment = self.make(False)
         attachment.set_active([])
-        attachment.update(1/480)
+        attachment.update(1/60)
         self.assertEqual(len(self.world.views), 1)
         np.testing.assert_array_equal(attachment.active, [True, True, True])
         self.assertEqual(attachment.last_step.force.shape, (3, 3))
@@ -136,7 +141,7 @@ class FruitActivationTests(unittest.TestCase):
         attachment.set_active([0, 2])
         np.testing.assert_array_equal(attachment._active_indices, [2, 0])
         self.world.positions[2, 0] -= .005
-        attachment.update(1/480)
+        attachment.update(1/60)
         np.testing.assert_array_equal(self.world.force_calls[-1]['global_indices'], [2, 0])
         self.assertEqual((attachment.view.pose_reads, attachment.view.velocity_reads), full_reads)
         self.assertEqual(attachment.last_step.force.shape, (3, 3))
@@ -178,7 +183,7 @@ class FruitActivationTests(unittest.TestCase):
         self.world.positions[2, 0] -= .026
         events = []
         for i in range(20):
-            events += attachment.update(1/480, i/480)
+            events += attachment.update(1/60, i/60)
         self.assertEqual([e['prim_path'] for e in events], ['/Fruit_2'])
         self.assertFalse(attachment.attached[2])
         attachment.set_active([])

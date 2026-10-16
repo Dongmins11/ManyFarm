@@ -1,0 +1,98 @@
+{
+  "schema": "teacher60_normalized_actor_export_v1",
+  "runtime": "teacher60_finger_friction_run_v2",
+  "runtime_profile": "src/harvest_robot/config/teacher60_finger_friction_run_v2.json",
+  "runtime_profile_sha256": "69ed74866315fb3339637d97a03070669f56c675e28bbfac39a6bc33473a557c",
+  "actors": {
+    "grasp": {
+      "format": "torchscript",
+      "input_shape": [
+        "N",
+        82
+      ],
+      "input_dtype": "float32",
+      "input": "raw Teacher82; normalizer is included; do not normalize twice",
+      "output_shape": [
+        "N",
+        6
+      ],
+      "output": "deterministic raw actor action; not torque or absolute joint position",
+      "recurrent": false,
+      "progress_slot39_identity": true,
+      "normalization_epsilon": 0.01,
+      "comparison_samples": 289,
+      "maximum_absolute_error": 0.0,
+      "original_weights_and_normalizers_unchanged": true,
+      "harvest_performance_test": false,
+      "path": "grasp_actor.pt",
+      "sha256": "aa94c3d4e2b5d8bef8d1337cc27db2a28b1eb0d57fcc7d3463a91a924f5be778",
+      "source_checkpoint": "runs/harvest_rl/teacher60_grasp_bridge_20261011_162738.9TsEHh/teacher_final.pt",
+      "source_checkpoint_sha256": "684cb805303086d6627339d390d305c85a9791f64bb5640eb098f0a73734e9ce",
+      "source_run": "runs/harvest_rl/teacher60_grasp_bridge_20261011_162738.9TsEHh/run.json",
+      "source_run_sha256": "1b58de3ab0c4b1ad8e65aaea1975f37941f1e17fa193905ef21a113f1035252d"
+    },
+    "pull": {
+      "format": "torchscript",
+      "input_shape": [
+        "N",
+        82
+      ],
+      "input_dtype": "float32",
+      "input": "raw Teacher82; normalizer is included; do not normalize twice",
+      "output_shape": [
+        "N",
+        6
+      ],
+      "output": "deterministic raw actor action; not torque or absolute joint position",
+      "recurrent": false,
+      "progress_slot39_identity": true,
+      "normalization_epsilon": 0.01,
+      "comparison_samples": 289,
+      "maximum_absolute_error": 0.0,
+      "original_weights_and_normalizers_unchanged": true,
+      "harvest_performance_test": false,
+      "path": "pull_actor.pt",
+      "sha256": "cc7b1df475ff64eba5e2fe9d81821cb857dfe727f5c8f84586f5985f7f67f82d",
+      "source_checkpoint": "runs/harvest_rl/teacher60_native_contact_control_20261013_080334.p0n3qs8u/teacher_final.pt",
+      "source_checkpoint_sha256": "40e3e984f478a17a5a5d02c258c0c5a065789de960996637e4ebb8b7fc947a32",
+      "source_run": "runs/harvest_rl/teacher60_native_contact_control_20261013_080334.p0n3qs8u/run.json",
+      "source_run_sha256": "7c56d891588e2e5439d87b6b7aedec321a96212b206e217d664ed667b44c9e7d"
+    },
+    "transport_reference": {
+      "format": "torchscript",
+      "input_shape": [
+        "N",
+        82
+      ],
+      "input_dtype": "float32",
+      "input": "raw Teacher82; normalizer is included; do not normalize twice",
+      "output_shape": [
+        "N",
+        6
+      ],
+      "output": "deterministic raw actor action; not torque or absolute joint position",
+      "recurrent": false,
+      "progress_slot39_identity": false,
+      "normalization_epsilon": 0.01,
+      "comparison_samples": 289,
+      "maximum_absolute_error": 0.0,
+      "original_weights_and_normalizers_unchanged": true,
+      "harvest_performance_test": false,
+      "path": "transport_reference_actor.pt",
+      "sha256": "849afd4f80ab435c86ebfe31ed6b9debc0f3018f02d8a01f7a43be8cc00e849b",
+      "source_checkpoint": "outputs/harvest_rl/entry_transport_20260929_220740_390998651/transport_refine/train/teacher_final.pt",
+      "source_checkpoint_sha256": "47f3b7bf6500d35448ed9510db6884ac584921eeddc072350000728402ddb528",
+      "source_run": "outputs/harvest_rl/entry_transport_20260929_220740_390998651/transport_refine/train/run.json",
+      "source_run_sha256": "cf83b42b709d861758d3d8b02cdf6d7bbc94a292e712fd50b9349a83b665dd04"
+    }
+  },
+  "physics_hz": 60,
+  "policy_hz": 20,
+  "render_hz": 30,
+  "learning": false,
+  "hardware_executed": false,
+  "current_transport_arm_owner": "Cartesian controller, not transport actor",
+  "current_place_owner": "Stop/physical-deposit controller; no place actor",
+  "excludes": "Student weights and provisional native70mm connector",
+  "limitation": "Exported actors alone are not a full harvest executor"
+}

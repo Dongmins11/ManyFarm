@@ -34,15 +34,15 @@ def read_sim_config(project_root: Path, value: str | Path) -> dict:
 
 
 def validate_harvest_config(project_root: Path, device: dict) -> None:
-    """시험이 요청한 대기 60Hz·수확 480Hz·렌더 60Hz인지 검사한다."""
+    """시험이 요청한 대기 60Hz·수확 60Hz·렌더 30Hz인지 검사한다."""
     runtime = device['runtime']
     physics = read_sim_config(project_root, runtime['robotarm_physics_config'])
     adaptive = physics.get('adaptive', {})
     if (not physics.get('enabled') or not adaptive.get('enabled')
-            or adaptive.get('idle_hz') != 60 or adaptive.get('harvest_hz') != 480
-            or physics.get('physics_hz') != 480 or physics.get('render_hz') != 60
-            or runtime.get('physics_hz') != 480 or runtime.get('render_hz') != 60):
-        raise ValueError('수확 UI에는 adaptive idle 60Hz / harvest 480Hz / render 60Hz 설정이 필요합니다.')
+            or adaptive.get('idle_hz') != 60 or adaptive.get('harvest_hz') != 60
+            or physics.get('physics_hz') != 60 or physics.get('render_hz') != 30
+            or runtime.get('physics_hz') != 60 or runtime.get('render_hz') != 30):
+        raise ValueError('수확 UI에는 adaptive idle 60Hz / harvest 60Hz / render 30Hz 설정이 필요합니다.')
     arm = runtime.get('harvest_arm', {})
     if not arm.get('enabled') or not runtime.get('harvest_activity', {}).get('enabled'):
         raise ValueError('수확 UI에는 harvest_arm 및 harvest_activity가 활성화되어야 합니다.')
@@ -132,8 +132,8 @@ def build_command(isaac_python: Path, project_root: Path, fleet_config: Path,
 
 def configure_run_harvest_hz(project_root: Path, fleet_config: Path, harvest_hz: int) -> None:
     """격리 시험 설정에 물리 프로파일을 복사하고 선택한 수확 주기를 기록한다."""
-    if type(harvest_hz) is not int or harvest_hz <= 0 or harvest_hz % 60 != 0:
-        raise ValueError('--harvest-hz는 60Hz의 양의 정수 배여야 합니다.')
+    if type(harvest_hz) is not int or harvest_hz != 60:
+        raise ValueError('--harvest-hz는 60Hz 고정입니다.')
     root = project_root.expanduser().resolve()
     path = fleet_config.resolve()
     if not path.is_relative_to(root / 'sim/runs/harvest_test_ui'):
@@ -172,13 +172,13 @@ def main(argv: Sequence[str] | None = None) -> int:
                         default=Path(os.environ.get('FARM_ISAAC_PYTHON') or '~/isaac/env_isaaclab/bin/python'))
     parser.add_argument('--seed', type=int, help='무작위 배치 순서 재현용 seed')
     parser.add_argument('--duration-s', type=float, help='시험용 실행 시간(시뮬레이션 초)')
-    parser.add_argument('--harvest-hz', type=int, default=480, help='수확 물리 주기: 60Hz의 양의 정수 배')
+    parser.add_argument('--harvest-hz', type=int, default=60, choices=[60], help='수확 물리60Hz 고정')
     parser.add_argument('--prepare-only', action='store_true', help='격리 설정과 GUI 실행 명령만 생성')
     args = parser.parse_args(argv)
     if args.duration_s is not None and (not math.isfinite(args.duration_s) or args.duration_s <= 0):
         parser.error('--duration-s는 유한한 양수여야 합니다.')
-    if args.harvest_hz <= 0 or args.harvest_hz % 60 != 0:
-        parser.error('--harvest-hz는 60Hz의 양의 정수 배여야 합니다.')
+    if args.harvest_hz != 60:
+        parser.error('--harvest-hz는 60Hz 고정입니다.')
     executable = args.isaac_python.expanduser().absolute()
     if not args.prepare_only and (not executable.is_file() or not os.access(executable, os.X_OK)):
         parser.error('Isaac Python을 찾지 못했습니다. --isaac-python 또는 FARM_ISAAC_PYTHON을 지정하세요.')
@@ -193,7 +193,7 @@ def main(argv: Sequence[str] | None = None) -> int:
         ensure_ascii=False, indent=2) + '\n',
         encoding='utf-8')
     print(f'수확 UI 시험 설정: {fleet_config}', flush=True)
-    print(f'대기 물리 60Hz / 수확 물리 {args.harvest_hz}Hz / 렌더 60Hz · 배치 → 수확', flush=True)
+    print(f'대기 물리 60Hz / 수확 물리 {args.harvest_hz}Hz / 렌더 30Hz · 배치 → 수확', flush=True)
     print(shlex.join(command), flush=True)
     if args.prepare_only:
         return 0

@@ -287,11 +287,14 @@ def main():
         previous = float(world.current_time)
         start_sim = previous
         last_truth = -math.inf
+        frame_deadline = time.monotonic()
         while app.is_running():
             wall = time.monotonic()
             frame_start = time.perf_counter()
-            frame_status = test_controller.arm.state['status'] if test_controller else ''
-            frame_stage = test_controller.arm.state['stage'] if test_controller else ''
+            frame_arm = (test_controller.arm if test_controller else
+                next((r['arm'] for r in robots if r['arm'] is not None and r['arm'].busy), None))
+            frame_status = frame_arm.state['status'] if frame_arm else ''
+            frame_stage = frame_arm.state['stage'] if frame_arm else ''
             if float(world.current_time) < previous-1e-10:
                 raise RuntimeError('Simulation reset detected; restart the simulator test process')
             if test_controller is not None:
@@ -328,7 +331,9 @@ def main():
                 if test_panel is not None:
                     test_panel.before_render(float(world.current_time), ticks.physics_hz)
                     test_panel.update(float(world.current_time), ticks.physics_hz, playing=False)
-                app.update();time.sleep(.01);continue
+                app.update();time.sleep(.01)
+                frame_deadline = time.monotonic()
+                continue
             control_finished = time.perf_counter()
             for robot in robots:
                 if robot['arm'] is not None:
@@ -355,7 +360,7 @@ def main():
                 ticks.allow_rate(required_hz)
                 test_panel.before_render(float(world.current_time), required_hz)
             prepare_finished = time.perf_counter()
-            # 명령/센서/clock의 프레임은 60Hz로 유지하고 내부 물리 tick만 1~8회 진행한다.
+            # 명령/센서/clock과 물리는60Hz, 렌더 요청은30Hz로 진행한다.
             ticks.step_frame(world, harvest_physics, physics_hz=required_hz, post_step=after_physics)
             step_finished = time.perf_counter()
             now = float(world.current_time)
@@ -429,8 +434,12 @@ def main():
                                  position_world_m=r['T_world_base'][:3,3].tolist(),
                                  telemetry_packets=r['seq']) for r in robots])),flush=True)
                 break
+            # 렌더가 오래 걸린 다음 tick에 이미 늦은 시간을 추가 sleep으로 누적하지 않는다.
+            frame_deadline = max(frame_deadline+frame_dt, wall-frame_dt)
             if configs[0]['runtime'].get('realtime',True):
-                time.sleep(max(0.,frame_dt-(time.monotonic()-wall)))
+                delay = frame_deadline-time.monotonic()
+                if delay > 0:
+                    time.sleep(delay)
     except KeyboardInterrupt:
         pass
     except Exception:
@@ -439,6 +448,8 @@ def main():
         traceback.print_exc()
         raise
     finally:
+        if 'truth' in locals():
+            truth.close()
         if performance_log is not None:
             performance_log.close()
         if test_panel is not None:
