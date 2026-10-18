@@ -20,11 +20,18 @@ overrides:
   local_costmap:
     local_costmap:
       ros__parameters:
-        resolution: 0.025
+        resolution: 0.02
         footprint: '[[0.30, -0.25], [0.30, 0.25], [-0.30, 0.25], [-0.30, -0.25]]'
         footprint_padding: 0.02
+        # 기존 실물 launch의 절대 토픽 remap을 사용해 costmap 하위 namespace를 피한다.
+        voxel_layer:
+          scan:
+            topic: /scan_filtered
   global_costmap:
     global_costmap:
       ros__parameters:
         footprint: '[[0.30, -0.25], [0.30, 0.25], [-0.30, 0.25], [-0.30, -0.25]]'
         footprint_padding: 0.02
+        obstacle_layer:
+          scan:
+            topic: /scan_filtered

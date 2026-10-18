@@ -182,6 +182,7 @@ def goal() -> None:
     if (folder/'bag').exists(): raise RuntimeError('한 시험 폴더에 한 번만 주행합니다. 덮어쓰지 않습니다.')
     topics = ['/harvest_01/'+x for x in ('tf', 'tf_static', 'odom', 'scan_filtered', 'amcl_pose',
         'cmd_vel', 'cmd_vel_nav', 'received_global_plan', 'task_events',
+        'local_costmap/costmap', 'local_costmap/published_footprint',
         'tag_localization/control', 'tag_localization/correction', 'tag_localization/events')]+['/rosout']
     with (folder/'bag.log').open('w') as log:
         recorder = subprocess.Popen(['ros2', 'bag', 'record', '-s', 'mcap', '-o', str(folder/'bag'), *topics],
@@ -190,7 +191,7 @@ def goal() -> None:
             time.sleep(3.)
             if recorder.poll() is not None: raise RuntimeError('rosbag 기록 시작 실패. bag.log 확인')
             data = subprocess.check_output([sys.executable, str(ROOT/'robot/tools/tag_camera/harvest_graph_goal.py'),
-                '--node', '14', '--heading-from', '13', '--section', 'SEC_01'], text=True)
+                '--node', '14', '--heading-from', '12', '--section', 'SEC_01'], text=True)
             (folder/'goal.json').write_text(data)
             print('실제 이동 시작: 14번 / 보상 모델 '+model_id, flush=True)
             with (folder/'goal.log').open('w') as output:
