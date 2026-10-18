@@ -1,4 +1,4 @@
-"""이동 전용 수확 상태를 1 Hz로 보고한다. 주행 허가·중단을 제어하지 않는다."""
+"""수확 이동 및 인계 상태를 1 Hz로 보고한다. 동작 명령은 보내지 않는다."""
 from datetime import datetime, timezone
 import math
 import time
@@ -45,21 +45,28 @@ class HarvestStatus:
         self.sequence += 1
         status.sequence = self.sequence
         status.timestamp = datetime.now(timezone.utc).isoformat()
-        status.transfer_required = False
-        status.loaded_count = 0
+        transfer = (node.transfer.snapshot() if node.transfer is not None else
+                    dict(task_id='', phase='', loaded_count=None, transfer_required=False, error=''))
+        status.transfer_required = transfer['transfer_required']
+        status.loaded_count = transfer['loaded_count'] if transfer['loaded_count'] is not None else 0
         status.pose.frame_id = self.settings.map_frame
         with node.lock:
             busy, blocked, stopping = node.busy, node.blocked, node.stopping
             goal = node.active_goal
-            status.current_task_id = goal.request.harvest_task.task_id if goal is not None else ''
+            status.current_task_id = (transfer['task_id'] or
+                                      (goal.request.harvest_task.task_id if goal is not None else ''))
         current = node.handoff.current
         if current is not None:
             busy = True
             status.current_task_id = current[1]
-        status.state = 'ERROR' if blocked else 'NAVIGATION_MOVE' if busy else 'IDLE'
+        status.state = ('ERROR' if blocked else transfer['phase'] or
+                        ('RETURNING' if current and current[0] == 'return' else 'NAVIGATION_MOVE' if busy else 'IDLE'))
         status.ready = False
         errors = []
-        if blocked: errors.append(('CANCEL_UNCONFIRMED', '이전 동작 종료 확인 필요'))
+        if blocked:
+            errors.append((transfer['error'] or 'CANCEL_UNCONFIRMED', '이전 동작 또는 인계 복구 확인 필요'))
+        if node.transfer is not None and node.transfer.load_topic and transfer['loaded_count'] is None:
+            errors.append(('LOAD_UNAVAILABLE', 'loaded_count=0은 미측정 자리값; 빈 적재함 확인 아님'))
         if stopping: errors.append(('SHUTDOWN', '서버 종료 중'))
         try:
             tf = self.buffer.lookup_transform(self.settings.map_frame, self.settings.base_frame, Time())

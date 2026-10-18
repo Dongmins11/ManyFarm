@@ -7,7 +7,7 @@ import json
 from dataclasses import replace
 from .staged_navigation import StagedNavigation, load_sections
 from .corridor_navigation import CorridorNavigator, load_corridors
-from .configuration import load_harvest_config
+from .configuration import load_harvest_config, approach_navigation_settings
 import rclpy
 from rclpy.node import Node
 from rclpy.callback_groups import ReentrantCallbackGroup
@@ -27,6 +27,7 @@ from farm_navigation.tag_control import TagControl
 from std_msgs.msg import String
 from rclpy.qos import QoSProfile, ReliabilityPolicy, DurabilityPolicy
 from .communication import HarvestCommunication
+from .transfer_communication import TransferCommunication
 from .arm_client import ArmActionClient, ArmActionSettings
 
 
@@ -73,7 +74,8 @@ class HarvestNode(Node):
             goal_checker_id = self.config.get('approach_goal_checker_id', settings.goal_checker_id)
             if not isinstance(goal_checker_id, str) or not goal_checker_id.strip():
                 raise ValueError('approach_goal_checker_id는 비어 있지 않은 문자열이어야 합니다.')
-            approach_settings = replace(settings, controller_id=controller_id, goal_checker_id=goal_checker_id)
+            approach_settings = approach_navigation_settings(
+                settings, self.config, controller_id, goal_checker_id)
         self.poses = PoseProvider(self, settings)
         self.motion = MotionMonitor(self, settings, self.callbacks)
         self.client = Nav2Client(self, approach_settings, self.callbacks)
@@ -144,6 +146,11 @@ class HarvestNode(Node):
                     if self.tag_control else None)
         self.events = self.create_publisher(String, 'task_events', QoSProfile(
             depth=100, reliability=ReliabilityPolicy.RELIABLE, durability=DurabilityPolicy.TRANSIENT_LOCAL))
+        # 환경 데이터가 선택한 인계 장치만 연결한다. sim/real 업무 코드는 동일하다.
+        transfer_config = self.config.get("transfer", {})
+        self.declare_parameter("transfer_enabled", transfer_config.get("enabled", False))
+        self.transfer = (TransferCommunication(self)
+                         if self.get_parameter("transfer_enabled").value else None)
         self.station_return = StationReturn(self, root=self.root, profile=profile, settings=settings,
             poses=self.poses, motion=self.motion, callbacks=self.callbacks, handoff=self.handoff,
             unavailable=lambda: self.blocked or self.stopping,
@@ -205,6 +212,8 @@ def main(args=None) -> None:
         if node.exit_client is not None:
             node.exit_client.close()
         node.station_return.close()
+        if node.transfer is not None:
+            node.transfer.close()
         node.client.close()
         if node.arm_client is not None:
             node.arm_client.close()

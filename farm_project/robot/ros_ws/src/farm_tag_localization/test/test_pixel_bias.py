@@ -1,5 +1,6 @@
 """실험 보상의 방향·경계·기존 전송 계약을 검증한다. 실제 주행 시험은 아니다."""
 import copy
+import tempfile
 import json
 import math
 from pathlib import Path
@@ -19,6 +20,15 @@ class PixelBiasTests(unittest.TestCase):
     def setUp(self) -> None:
         self.cfg = yaml.safe_load((ROOT/'robot/config/localization/harvest_real.yaml').read_text())
         self.cfg['pixel_bias_profile'] = 'robot/config/localization/bias_trial_20261010/profile.json'
+        # 녹화 프레임/학습 샘플은 10/10 지도 기준이다. 운영 새 지도와 분리한다.
+        reference = json.loads((ROOT/self.cfg['pixel_bias_profile']).read_text())
+        self.cfg['assets_file'] = 'robot/config/localization/reference_20261007/assets.candidate.json'
+        for key in ('map_yaml_sha256', 'map_image_sha256'):
+            self.cfg[key] = reference[key]
+        self.reference_dir = tempfile.TemporaryDirectory()
+        self.addCleanup(self.reference_dir.cleanup)
+        self.reference_config = Path(self.reference_dir.name)/'recorded_config.yaml'
+        self.reference_config.write_text(yaml.safe_dump(self.cfg))
         self.profile = load_profile(self.cfg, ROOT)
         self.candidate = dict(q=[1.18, -2., -math.pi/2], p=np.eye(3),
             _bias_tag=['tag36h11', 102], _bias_corners=[[630, 200], [650, 200], [650, 400], [630, 400]])
@@ -90,7 +100,7 @@ class PixelBiasTests(unittest.TestCase):
         record = json.loads((ROOT/'robot/config/localization/bias_trial_20261010/replay_record.json').read_text())
         cls = load_node().TagAdapter
         adapter = cls.__new__(cls)
-        _, adapter._observer = load_observer('robot/config/localization/harvest_real.yaml', str(ROOT), 'bias-replay')
+        _, adapter._observer = load_observer(str(self.reference_config), str(ROOT), 'bias-replay')
         candidate, result, _ = adapter._solve(record)
         np.testing.assert_allclose(candidate['q'], [1.15290566427, -1.00271721870, -1.56404565931], atol=2e-6, rtol=0.)
         adjusted, audit = compensate(candidate, self.profile)

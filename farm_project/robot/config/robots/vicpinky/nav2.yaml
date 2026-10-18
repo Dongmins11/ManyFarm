@@ -1,4 +1,4 @@
-# 공통 Nav2 기본값과 장치 연결. 필요한 파라미터 변경은 overrides에 명시한다.
+# 공통 주행 구현·정책을 사용하고 10/14 실물 검증 설정만 덮어쓴다.
 shared_nav2: robot/config/navigation/harvest_nav2.yaml
 bindings:
   base_footprint_frame: base_footprint
@@ -11,3 +11,20 @@ bindings:
     y: 0.357
     z: 0.0
     yaw: -1.5707963267948966
+overrides:
+  controller_server:
+    ros__parameters:
+      HarvestApproach:
+        lookahead_dist: 0.1
+        curvature_lookahead_dist: 0.1
+  local_costmap:
+    local_costmap:
+      ros__parameters:
+        resolution: 0.025
+        footprint: '[[0.30, -0.25], [0.30, 0.25], [-0.30, 0.25], [-0.30, -0.25]]'
+        footprint_padding: 0.02
+  global_costmap:
+    global_costmap:
+      ros__parameters:
+        footprint: '[[0.30, -0.25], [0.30, 0.25], [-0.30, 0.25], [-0.30, -0.25]]'
+        footprint_padding: 0.02

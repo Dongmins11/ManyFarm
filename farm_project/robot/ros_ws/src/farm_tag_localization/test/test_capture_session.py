@@ -60,8 +60,8 @@ class CaptureSession(unittest.TestCase):
         cfg=read_mapping(ROOT/env['tag_localization_config'])
         validate_binding(cfg,env,ROOT)
         load_observer(str(ROOT/env['tag_localization_config']),str(ROOT),'test')
-        graph=RouteGraph(env['route_graph']);plan=graph.plan(graph.nodes[10],graph.nodes[13])
-        self.assertEqual(plan.points[-1],graph.nodes[13])
+        graph=RouteGraph(env['route_graph']);plan=graph.plan(graph.nodes[10],graph.nodes[12])
+        self.assertEqual(plan.points[-1],graph.nodes[12])
         self.assertNotIn(graph.nodes.get(14),plan.points)
         settings=NavigationSettings.from_mapping(env['navigation'])
         params=load_nav2_parameters(env['nav_params'],ROOT)['controller_server']['ros__parameters']

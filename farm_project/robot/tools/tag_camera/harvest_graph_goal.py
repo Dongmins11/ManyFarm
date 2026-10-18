@@ -11,7 +11,7 @@ import uuid
 import yaml
 
 
-def build_goal(root: Path, node_id: int = 14, heading_from: int = 13,
+def build_goal(root: Path, node_id: int = 14, heading_from: int = 12,
                section_id: str = 'SEC_01') -> dict:
     """설정에서 ID·좌표를 읽고 진입 엣지 방향을 최종 yaw로 사용한다."""
     env = yaml.safe_load((root / 'robot/config/environments/harvest_real.yaml').read_text())
@@ -47,7 +47,7 @@ def main() -> None:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--project-root', type=Path, default=Path(__file__).resolve().parents[3])
     parser.add_argument('--node', type=int, default=14)
-    parser.add_argument('--heading-from', type=int, default=13)
+    parser.add_argument('--heading-from', type=int, default=12)
     parser.add_argument('--section', default='SEC_01')
     args = parser.parse_args()
     print(json.dumps(build_goal(args.project_root.resolve(), args.node, args.heading_from,

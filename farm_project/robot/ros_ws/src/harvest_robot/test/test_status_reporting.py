@@ -38,6 +38,7 @@ class StatusTests(unittest.TestCase):
         with patch.dict('sys.modules',modules):spec.loader.exec_module(module)
         self.sent=[];self.periods=[]
         self.node=S(config={'robot_id':'harvest_01'},lock=threading.Lock(),busy=False,blocked=False,
+            transfer=None,handoff=S(current=None),
             stopping=False,active_goal=None,get_clock=lambda:S(now=lambda:S(nanoseconds=10_000_000_000)),
             create_publisher=lambda *a:S(publish=self.sent.append),create_subscription=lambda *a,**k:S(),
             create_timer=lambda period,*a,**k:self.periods.append(period),destroy_timer=lambda *a:None)
@@ -68,6 +69,21 @@ class StatusTests(unittest.TestCase):
         self.node.blocked=True;self.reporter.publish();a=self.sent[-1]
         self.assertFalse(a.ready);self.assertEqual(a.state,'ERROR')
         self.assertEqual(a.error_code,'CANCEL_UNCONFIRMED')
+
+    def test_return_and_transfer_preserve_task_and_load_status(self):
+        self.node.handoff.current=('return','R1')
+        self.reporter.publish()
+        a=self.sent[-1]
+        self.assertEqual((a.state,a.current_task_id,a.ready),('RETURNING','R1',False))
+        self.node.handoff.current=('transfer','T1')
+        self.node.transfer=S(load_topic='/load',snapshot=lambda:dict(task_id='T1',
+            phase='WAIT_DOCK_STABLE',loaded_count=4,transfer_required=True,error=''))
+        self.reporter.publish()
+        a=self.sent[-1]
+        self.assertEqual((a.state,a.current_task_id),('WAIT_DOCK_STABLE','T1'))
+        self.assertEqual(a.loaded_count,4)
+        self.assertTrue(a.transfer_required)
+        self.assertFalse(a.ready)
 
 
 if __name__=='__main__':unittest.main()

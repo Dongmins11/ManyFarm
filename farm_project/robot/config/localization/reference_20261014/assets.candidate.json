@@ -1,0 +1,337 @@
+{
+  "schema": "physical-assets-v1",
+  "status": "design_candidate",
+  "registration_evidence": {
+    "method": "90-degree CCW rigid transform using corresponding unchanged wall inner faces in old/new edited occupancy maps",
+    "from_map_version": "sha256:93f108470604e1afb2d320b8eb128df031e926875a032c03d0b98030c09e067c",
+    "yaw_rad": 1.5707963267948966,
+    "translation_xy_m": [
+      0.031,
+      -1.228
+    ],
+    "confirmed_physical_accuracy": false,
+    "note": "User confirmed tags physically unchanged. Other wall boundaries differ by about 1 cm; field validation pending."
+  },
+  "map_version": "sha256:c16144d12bf45bafbb122f2fa34bd0243a39f25e525349e92195fc0223ae410b",
+  "tag_map_version": "A-wall-map-alignment-20261014-candidate",
+  "calibration_version": "sha256:7f0512b9f466fb12e36cc424331af727f516670cb9e179dd2c25d7ead8f10e31",
+  "extrinsics_version": "sha256:3b9e7af9b71cffba81eced1bd42e4b72318ccf368ba789425e313f663ab0b482",
+  "camera_info": {
+    "width": 1280,
+    "height": 720,
+    "distortion_model": "plumb_bob",
+    "k": [
+      1049.686473614098,
+      0.0,
+      631.4064932131716,
+      0.0,
+      1049.6045471847024,
+      371.5007152003926,
+      0.0,
+      0.0,
+      1.0
+    ],
+    "d": [
+      -0.3377842831321281,
+      -0.164282838502531,
+      -0.0022793440724075856,
+      -0.0009489786116262821,
+      0.5007299952602192
+    ],
+    "r": [
+      1.0,
+      0.0,
+      0.0,
+      0.0,
+      1.0,
+      0.0,
+      0.0,
+      0.0,
+      1.0
+    ],
+    "p": [
+      1049.686473614098,
+      0.0,
+      631.4064932131716,
+      0.0,
+      0.0,
+      1049.6045471847024,
+      371.5007152003926,
+      0.0,
+      0.0,
+      0.0,
+      1.0,
+      0.0
+    ],
+    "binning": [
+      0,
+      0
+    ],
+    "roi": [
+      0,
+      0,
+      0,
+      0
+    ],
+    "frame_id": "apriltag_camera_optical_frame"
+  },
+  "t_base_camera": [
+    [
+      0.9998304594412302,
+      -0.01733973954324101,
+      0.006195627983593946,
+      -0.00433822
+    ],
+    [
+      -0.005461009377162412,
+      0.04209749642548205,
+      0.9990985828091686,
+      0.25046456
+    ],
+    [
+      -0.017584929630825155,
+      -0.9989630294596888,
+      0.041995666712172086,
+      0.26142254
+    ],
+    [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+    ]
+  ],
+  "tags": [
+    {
+      "family": "tag36h11",
+      "tag_id": 100,
+      "edge_m": 0.05,
+      "t_map_tag": [
+        [
+          -1.0,
+          0.0,
+          0.0,
+          1.083
+        ],
+        [
+          0.0,
+          0.0,
+          1.0,
+          0.425
+        ],
+        [
+          0.0,
+          1.0,
+          0.0,
+          0.264
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ]
+    },
+    {
+      "family": "tag36h11",
+      "tag_id": 101,
+      "edge_m": 0.05,
+      "t_map_tag": [
+        [
+          -1.0,
+          0.0,
+          0.0,
+          1.647
+        ],
+        [
+          0.0,
+          0.0,
+          1.0,
+          0.425
+        ],
+        [
+          0.0,
+          1.0,
+          0.0,
+          0.264
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ]
+    },
+    {
+      "family": "tag36h11",
+      "tag_id": 102,
+      "edge_m": 0.05,
+      "t_map_tag": [
+        [
+          -1.0,
+          0.0,
+          0.0,
+          2.211
+        ],
+        [
+          0.0,
+          0.0,
+          1.0,
+          0.425
+        ],
+        [
+          0.0,
+          1.0,
+          0.0,
+          0.264
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ]
+    },
+    {
+      "family": "tag36h11",
+      "tag_id": 103,
+      "edge_m": 0.05,
+      "t_map_tag": [
+        [
+          -1.0,
+          0.0,
+          0.0,
+          2.775
+        ],
+        [
+          0.0,
+          0.0,
+          1.0,
+          0.425
+        ],
+        [
+          0.0,
+          1.0,
+          0.0,
+          0.264
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ]
+    },
+    {
+      "family": "tag36h11",
+      "tag_id": 104,
+      "edge_m": 0.05,
+      "t_map_tag": [
+        [
+          -1.0,
+          0.0,
+          0.0,
+          3.339
+        ],
+        [
+          0.0,
+          0.0,
+          1.0,
+          0.425
+        ],
+        [
+          0.0,
+          1.0,
+          0.0,
+          0.264
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ]
+    },
+    {
+      "family": "tag36h11",
+      "tag_id": 105,
+      "edge_m": 0.05,
+      "t_map_tag": [
+        [
+          -1.0,
+          0.0,
+          0.0,
+          3.903
+        ],
+        [
+          0.0,
+          0.0,
+          1.0,
+          0.425
+        ],
+        [
+          0.0,
+          1.0,
+          0.0,
+          0.264
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ]
+    },
+    {
+      "family": "tag36h11",
+      "tag_id": 106,
+      "edge_m": 0.05,
+      "t_map_tag": [
+        [
+          -1.0,
+          0.0,
+          0.0,
+          4.467
+        ],
+        [
+          0.0,
+          0.0,
+          1.0,
+          0.425
+        ],
+        [
+          0.0,
+          1.0,
+          0.0,
+          0.264
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ]
+    }
+  ],
+  "source": {
+    "graph": "sha256:82e06fa63afa6c25b103491d4ecb63ee4589b3167389ccfdb6c7cd33bd942adb",
+    "placement": "user_confirmed_7_tags_paper_gap_0.50m",
+    "wall_origin": "route_design_node_11_level_not_independent_survey",
+    "mount": "mount104_20261002 measured candidate; vertical wall/upright tag assumptions remain",
+    "map_yaml_sha256": "d56627220f61708f56b5ebe6e682726a0f45ce25f008dab4e1ab96f42987b157",
+    "map_image_sha256": "c16144d12bf45bafbb122f2fa34bd0243a39f25e525349e92195fc0223ae410b"
+  },
+  "unresolved": [
+    "current_mount_registration",
+    "printed_corner_axes_registration",
+    "physical_asset_uncertainty_and_timing_model"
+  ],
+  "mount_evidence": "mount_candidate.json"
+}

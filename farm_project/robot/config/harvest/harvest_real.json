@@ -29,5 +29,14 @@
       ]
     }
   },
-  "task_navigation_policy": "robot/config/navigation/harvest_task.yaml"
+  "task_navigation_policy": "robot/config/navigation/harvest_task.yaml",
+  "approach_max_start_distance_m": 0.2,
+  "transfer": {
+    "enabled": true,
+    "device_services": {},
+    "capacity_count": 0,
+    "loaded_count_topic": "",
+    "stage_timeout_s": 120.0,
+    "stop_timeout_s": 10.0
+  }
 }

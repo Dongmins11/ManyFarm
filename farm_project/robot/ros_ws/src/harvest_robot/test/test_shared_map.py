@@ -19,17 +19,17 @@ class SharedMap(unittest.TestCase):
         for key in ('map_yaml', 'route_graph', 'map_id'):
             self.assertEqual(harvest[key], scout[key])
         expected = {
-            'graph.geojson': 'fc72ffb617c0f756a6eb58477c0e1211dbc3f4cea2ca9855874008b150cfc504',
-            'many_farm.yaml': 'bbe46086336b76b5f11611160803260a91339d87c97709a6ffe5114d8d328fac',
-            'many_farm.pgm': 'a9f852637490aaff50c7115a543e2780a60ecf654747b3e777319251e151949e',
+            'graph.geojson': '82e06fa63afa6c25b103491d4ecb63ee4589b3167389ccfdb6c7cd33bd942adb',
+            'many_farm.yaml': 'd56627220f61708f56b5ebe6e682726a0f45ce25f008dab4e1ab96f42987b157',
+            'many_farm.pgm': 'c16144d12bf45bafbb122f2fa34bd0243a39f25e525349e92195fc0223ae410b',
         }
         for name, digest in expected.items():
             self.assertEqual(hashlib.sha256((ROOT / 'robot/config/maps/many_farm' / name).read_bytes()).hexdigest(), digest)
 
     def test_all_node_pairs_and_edge_midpoints(self) -> None:
         graph = RouteGraph(ROOT / 'robot/config/maps/many_farm/graph.geojson')
-        self.assertEqual(len(graph.nodes), 21)
-        self.assertEqual(len(graph.edges), 46)
+        self.assertEqual(len(graph.nodes), 17)
+        self.assertEqual(len(graph.edges), 34)
         for a in graph.nodes.values():
             for b in graph.nodes.values():
                 plan = graph.plan(a, b)
@@ -50,9 +50,9 @@ class SharedMap(unittest.TestCase):
         goal = module.build_goal(ROOT)
         self.assertEqual(goal['map_id'], 'many_farm_v1')
         pose = goal['harvest_task']['goal_pose']
-        self.assertAlmostEqual(pose['position']['x'], 1.188)
-        self.assertAlmostEqual(pose['position']['y'], -4.02)
-        self.assertAlmostEqual(pose['yaw'], -math.pi/2)
+        self.assertAlmostEqual(pose['position']['x'], 3.576)
+        self.assertAlmostEqual(pose['position']['y'], -0.035)
+        self.assertAlmostEqual(pose['yaw'], 0.0)
         with self.assertRaises(ValueError):
             module.build_goal(ROOT, heading_from=0)
 

@@ -2,6 +2,12 @@
 
 시뮬 전용 변경과 시뮬 통합에 필요한 공통 변경을 기록한다. 공통 변경은 사용자 승인 전 적용하지 않는다.
 
+## SHARED-REAL-INTEGRATION-20261018 — 실물 설정·인계의 공통 연결
+
+- 사용자 승인으로 공통 HarvestNode/설정 로더/ActionHandoff/launch 및 인계 인터페이스를 확장했다. sim 프로파일은 기존 기본값과 인계 OFF를 유지한다.
+- 실물 지도·bias·Nav2 수치는 실물 설정에 보존한다. 공통 관측 모델과 주행 정책을 복제하지 않는다. sim 전용 소스/자산 변경 없음.
+- 오프라인 완료 묶음 133개 통과. ROS/Isaac 실행 미검증 및 태그 의존성 제한은 docs/changes/HARVEST_COMMON_REAL_INTEGRATION_20261018.md 참고. 별도 통합 브랜치로 제공, 기존 운용 배포 없음.
+
 ## HARVEST-COMPLETION-PROFILE-20261016 — 이동 전용 실행 경로의 팔 생략 수정
 
 - 요청/범위: 팔 작업 없이 완료되는 현상 확인 요청. 실제 런치·서버 파라미터·로그로 ARRIVAL_ONLY_NO_HARVEST 선택 확인.
@@ -688,128 +694,4 @@
 - 기록: `sim/runs/shared_tag_navigation_20261013/`의 빌드/회귀 로그, 초기·촬영시점 렌더, ROS replay 결과 및 [검증 요약](changes/SHARED_TAG_NAVIGATION_20261013.json). 실행 안내는 [시뮬 통합 안내](APRILTAG_INTEGRATION_20261013.md).
 - 남은 작업: 예찰 실제 카메라 교정 및 관측 모델/정면 소형 태그 정확도 개선, 이동 중 보정 평가. 기존 수확 진입 허용오차 수정은 여전히 별도 제안 상태이며 이번 변경에 적용하지 않았다.
 
-- 복원: 이번 변경 파일에서 공통 신호 이동·예찰 연결·추가 센서/프로파일만 되돌린 후 빌드/재시작한다. 단순 보정 OFF 비교는 `tag_correction:=false`로 가능하며 이전 인수/예찰 장착 변경 전체를 reset하지 않는다.
-
-
-## SIM-HARVEST-START-AUDIT-20261013 — 원본 대조·수정 초안 보류
-
-- 사용자 추가 확인 요청: 실물 성공본은 별도 출발 조건을 제거했다고 전달받았으며, 시뮬 중단 직전에는 SEC01 태그가 카메라에 보이지 않았음. 최신 실패 `smoke_7c647822d87c`와 전달 커밋 `bf10fcd`를 대조했다. 원격 재조회·실물 접속은 하지 않았다.
-- 원본 확인: `corridor_navigation.py`와 공통 `parallel_approach.py`는 전달 원본과 바이트 일치. 원본에도 구간 내부·방향·횡오차·전방 목표 검사가 남아 있다. 태그 응답/READY/검출을 기다리지 않는 동작은 원본과 현재 모두 같다. 담당자가 전달 뒤 별도 변경한 실물 실행본이 있는지는 미확인이다.
-- 통합 설정 차이: 실물은 작업 허용구간10→14, 진입11번으로 시작 경계보다1m 안쪽이다. 시뮬은 진입20102번을 작업 허용구간 시작점에도 사용했다. 이 때문에 진입 도착 오차 범위의 위치가 구간 밖으로 분류된다. 조건 제거 코드 누락으로 확인된 문제가 아니라 시뮬 구간 설정이 원본의 전제를 재현하지 못한 문제다. 최근 도착 기록상 시작점 직전5.985mm·횡오차6.030mm·방향0.648°였다(실패 판정 시각보다 약41ms 앞의 도착 기록).
-- 실제 구조: 진입과 작업 모두 FollowPath 경로를 사용하고 태그 관측이 AMCL 위치를 보정한다. 작업 단계 전환은 태그 검출 성공을 기다리지 않는다. 이번 실패는 작업 경로 생성 중 발생했고 태그 보정 요청/적용은0회다.
-- 영상 확인: 검출 journal `sim/runs/apriltag/9462dccc81d049669fbb3a35950747d2/`에서 도착 시각83.354171s 전후1초의8프레임 모두 검출0. 앞선 접근 중7회 검출은 구역 미확정으로 제외됐다. 반복ID이므로 해당 검출을 SEC01로 단정하지 않는다.
-- 기하 확인: SEC01 수확 진입y10.7, bed시작y10.0, 첫태그y9.968로 첫태그는 진행방향0.732m 앞이다. 측면 카메라의1280폭 화면에 첫태그 중심은 진입목표에서u3509px, 도착기록 위치에서u3363px로 시야 밖. 계획 직선 기준 약0.598m 이동 후 전체 태그가 화면에, 약0.662m 후 보정ROI에 들어온다. 이는 정적 투영이며 실제 RGB/가림/월드 정답 재렌더 검증은 아니다.
-- 임시2cm 진행축 허용 수정은5개 신규 검사·수확87개·sim설정3개 및 빌드를 통과했으나, 사용자 원본 대조 요청에 따라 `sim/runs/corridor_entry_fix_20261013/`에 제안 패치/검사를 보관하고 소스·운영/시험 설정을 적용 전으로 복원했다. 출발 조건 완화는 현재 적용하지 않았다.
-- 권장 후속: 원본처럼 진입점이 작업 허용구간 안에 놓이도록 시뮬 구간 정의를 먼저 맞춘다(SEC01은 기존 그래프의 진입 전 직선노드9002가 후보). 태그 관측 전 약0.6m 구간의 의미와 작업 시작 시 태그 가시성 요구는 별도로 정해야 한다. 현재 진입점에 단순 검출대기를 넣으면 태그가 시야 밖이라 대기 상태에 머물 수 있다.
-- 근거: `sim/runs/harvest_abort_audit_20261013/{source_and_detection_audit.json,camera_geometry.json,camera_geometry.py}`. 운영 코드/설정의 최종 변경 없음, 문서/검사 산출물만 추가. 실물·시뮬 주행 명령 및 commit/push 없음.
-
-- 승인 범위는 원본/영상 기록 확인과 직전 초안 보류다. 실제 주행 기준 추가 변경은 미적용이다. 복원할 운영 변경은 없고 산출물만 보관한다.
-
-## SIM-HARVEST-START-ALIGN-20261013 — 실물 기준 작업 구간 적용
-
-- 구분/승인: 시뮬 전용 설정·생성기·검사. 사용자 “실물이랑 맞춰 실물방식을 무조건 따라가”로 적용 승인. 기준 main/62a80ed 및 전달 bf10fcd, 미커밋 변경 보존.
-- 대상: `sim/tools/rebuild_route_data.py`, `sim/ros_ws/src/farm_sim_config/config/harvest_task.json`, `sim/tests/test_staged_harvest_config.py`, 이동 시험용 `sim/runs/navigation_smoke_20261013/harvest_task.json`.
-- 변경 전후: 이전에는 진입점=허용 시작점이라5.985mm 직전 도착도 구간 밖이었다. 기존 그래프에서 진입점에 직접 연결된 직선 직전 노드를 허용 시작으로 선택하여16구역 모두 진입점이 내부에 놓이도록 했다. SEC01은9002→20100을 허용 구간으로,20102를 진입 목표로 사용한다. 시작→진입 거리는 시뮬0.8m/1.3m(실물1m)이며 진입/이탈 목표와 그래프·좌표는 보존했다. 후보가 없거나 여러 개면 생성 실패로 처리한다.
-- 실물 영향: 이번 공통·실물 코드/설정 변경 없음. 원본 구간/횡오차/각도/전방 검사를 그대로 사용한다. 태그 검출 대기 없이 작업 이동하며 유효 관측으로 보정하는 흐름도 유지한다. 임시2cm 진행축 완화 제안은 미적용이다.
-- 검증: `python3 -m unittest sim.tests.test_staged_harvest_config -v` 6개 PASS. 두 실패 로그의 실제 도착 좌표를 원본 코드에 넣었을 때 이전 설정의 오류 재현/새 설정 통과,16구역 진입 전1cm 허용과 옆 방향·각도·후진·외곽 거절 유지 확인. `python3 sim/tools/validate_route_data.py` 371개 경로 계획 PASS. `colcon build --symlink-install --packages-select farm_sim_config` PASS. 실제 Isaac/ROS 재주행 미실행.
-- 기록/다음: `sim/runs/harvest_start_alignment_20261013/`의 로그 및 비교 그림. 수확 launch 재시작 후 같은 SEC01 Goal로 시험한다. 진입에서 태그가 보이지 않는 기존 배치는 유지하므로 작업 이동 중 검출·보정 여부는 별도 확인한다. 문서 갱신 완료, commit/push 없음.
-- 복원: 생성기의 이번 직전 노드 선택 부분을 제거하고 두 설정의 각 `work_corridor_nodes` 첫 원소만 해당 `entry_node`로 되돌린다. 팔 완료 정책·기존 태그/예찰 변경·다른 미커밋 파일은 보존한다.
-
-## SIM-DRIVE-PERFORMANCE-AUDIT-20261013 — 약17FPS 주행 원인 조사
-
-- 구분/승인: 사용자 “프레임드랍 원인 확인하고 무슨조치 할수있는지 리스트업”에 따른 읽기 전용 조사와 문서 기록. 실행 코드/설정/물성 변경 없음, 실제 재주행·A/B계측 미실행.
-- 대상:17:20 실행 fleet/session `298ffb11e69e4a8cbaba7634ba963954`의 주행·물리·태그·Kit/ROS 로그, 현재 runtime/device 소스, 이전10/8 물리 비교 기록. 호스트 GPU/프로세스 조회 시 이미 시뮬 종료 상태였다.
-- 결과: RTF0.2854 및 환산17.1248FPS 확인. 물리는60Hz, 활성과실0. GPU물리·센서3개·5simHz 전체과실 평가와 태그RGB-only 미사용depth 복사가 유지된다. 비용의 존재와 이번 실행에서 각 비용의 비중은 구분하며, 일반fleet에 세부 성능로그가 없어 주병목 비중은 확정하지 않았다.
-- 추가 확인: 태그 결과 예찰3.40Hz/수확4.32Hz 및 raw영상/CameraInfo 동기 경고. 전송손실/소비지연/원본센서속도 분리 필요. 태그 저널은 영상파일을 저장하지 않는다.
-- 후보/영향: CPU물리 비교(주행·접촉 회귀), 미사용 센서 실제렌더 중지와 뷰포트 축소(태그입력 유지), 평가 snapshot 필요 시 갱신, RGB-only 버퍼 낭비 제거, 영상 전달 계측. 카메라fps 또는 tag_correction만 낮춰서는 렌더 부하가 비례 감소하지 않는다. 태그 해상도·충돌/물리 정밀도 완화는 우선안에서 제외한다.
-- 상세/산출물: PROJECT_STATE §41, `sim/runs/drive_performance_audit_20261013/evidence.json`. 실물 영향 없음. 되돌릴 운영 변경 없음. 문서 갱신, commit/push 없음.
-
-
-## SIM-DRIVE-PERFORMANCE-20261014 — 우선순위 성능 조치
-
-- 구분/승인: 사용자 성능 조치 제안 후 “우선순위대로 진행해”. 시뮬 실행/센서 및 제안한 공통 RGB-only 공유메모리 최적화 범위. main/62a80ed 위 미커밋 변경 보존, commit/push 없음.
-- 대상: runtime `run_fleet.py`, `run_sim.py`, `launch/{all,isaac}.launch.py`; devices `camera_sim.py`, `camera_ros.py`; 공통 `rgbd_shm.py`; `sim/tests/test_rgb_only_transport.py`.
-- 전후: 기존 프로파일만 사용하던 물리에 CPU/GPU 선택 추가(기본 profile 보존), 일반 fleet 성능 기록 추가, headless viewport 갱신 제외. RGB-only는 NaN 깊이 버퍼를 재사용하고 ROS RGB 발행에서 깊이 복사를 생략한다. 기존 RGB-D ABI/기본 API 유지, 실물 설정/주행 업무 정책 영향 없음.
-- 검증: 관련36검사·3패키지 빌드·launch 인자 조회 PASS. 직접 Isaac 짧은 주행 GPU17.66→CPU29.05FPS, CPU+headless36.23FPS; 정상3카메라 프레임 유지. 각14sim초/조건1회, ROS/Nav2 제외 비교다. 종료 대기로 -15 정리, 팔 정책/접촉 검증 미실행. 상세 PROJECT_STATE §42 및 `sim/docs/changes/DRIVE_PERFORMANCE_20261014.json`.
-- 미적용: 예찰D435 중지는34.73FPS 비교만 수행. 렌더 예약은 영상 미발행으로 철회. 평가 snapshot/충돌체 단순화 보류. 태그 화질·주기·출발 판정 그대로다.
-- 기록: `sim/runs/drive_optimization_20261014/`의 before 원본·벤치 manifest/stdout/frames·빌드/검사 로그. 복원은 physics_device:=profile 사용 및 이번 성능 선택/로그/headless 설정과 RGB-only 변경만 역적용한다. 같은 파일의 기존 AprilTag 변경을 함께 되돌리지 않는다.
-
-- 후속 실제 Nav2: CPU28.26FPS이나 진입 방향0.1069rad>0.05로 ABORTED(위치8.7mm 정상). 같은 GPU 조건17.38FPS에서 SEC01 진입·작업 이동 SUCCEEDED, 실제 AprilTag 보정4회. CPU 기본 전환 보류, 도착 기준 유지. 둘 다 팔OFF/expected0이며 예찰은 정차했다. 영상/CameraInfo 동기 경고 잔존. `e2e_cpu/`, `e2e_gpu/`; 추가 런치 검사5개 PASS. 이 결과는 이전 §40의 미실행 재주행 중 해당 SEC01 수확 이동을 보완한다.
-
-- GPU 유지+headless 추가 비교:18.64FPS(화면ON17.66), 센서3개 프레임 유지. 물리 변경 없이 얻는 개선은 약5.5%로 제한적이다. 현재 권장 선택은 기존 물리 유지와 필요할 때 `rviz:=false headless:=true`; CPU는 주행 차이 원인 검증 후 판단한다. 종료 시 기존 tag/image_proc -11 및 Isaac SIGTERM(-15) 문제가 남아 있어 ROS launch 부모0을 모든 자식 정상 종료로 해석하지 않는다.
-
-
-## SIM-DRIVE-BACKEND-REPEAT-20261014 — CPU/GPU 주행 재현성 검사
-
-- 승인/범위: 사용자 CPU/GPU 결과가 우연인지 확인 요청. 운영 소스·설정·실물 영향 없음. 반복 도구/로그는 sim/runs 안에 작성, 기존 미커밋 변경 보존.
-- 시험: 기존 조건에서 GPU→CPU→CPU→GPU 각2회 신규 실행. SEC01 fraction0.313/expected0/팔OFF, 동일 센서/제어/허용치 유지. Goal 이전 액션 발견 실패1회는 별도 제외 보존하고 신규 도메인으로 재실행했다.
-- 결과: 신규는 두 backend 모두1성공/1실패. 기존 포함 CPU1/3·GPU2/3 성공. CPU 방향6.124°/6.504° 실패뿐 아니라 GPU7.314° 실패도 재현됐다. 실제 차체 과회전이 기록돼 CPU 고유 실패라는 해석은 철회한다. 성능 차이는 CPU27.76~28.26/GPU17.12~17.38FPS로 유지. 신규 성공 주행에서 GPU 태그 보정7회, CPU11회.
-- 해석/제한: 3회씩으로 성공률 차이·동등성 확정 불가. 물리 backend와 실행 속도/ROS 타이밍이 함께 달라 순수 물리 원인 분리는 미완료다. 공통 정렬·정지 응답을 먼저 조사하며 도착 허용치는 유지한다. 기본 backend 변경 없음, 팔 수확 검증 없음.
-- 산출물: PROJECT_STATE §43, sim/docs/changes/DRIVE_BACKEND_REPEAT_20261014.json, sim/runs/drive_repeat_20261014/. 시험 소유 프로세스 종료 확인. 부모 launch0과 자식 종료 -11/-15는 별개다. 되돌릴 운영 변경 없음. commit/push 없음.
-
-
-## SIM-PROGRESS-105-DIAGNOSIS-20261015 — 반복 중단 로그 진단
-
-- 사용자 반복105 보고에 따라 기존 예찰 SEC02 및 수확 TASK005 로그를 분석했다. 기준 main/66b8287. 운영 코드·설정과 실행 프로세스, 실물 영향 없음.
-- 예찰의 회전 중 위치 진행 제한과 수확의 명령/휠 응답 진동을 구분했다. 원인 전체 확정이나 수정 완료가 아니다. 상세 근거·후속 검증은 PROJECT_STATE §53 및 changes/PROGRESS_105_DIAGNOSIS_20261015.json에 기록했다.
-- 검증: 원본 JSON/JSONL 파싱 및 시간 구간 추출, 설치 FollowPath 코드 정의와 현재 공통 설정 대조. 새 Isaac/실물 시험 없음. 공통 변경 승인 요청 전 진단 단계다.
-- 복원: 이번 문서 항목과 신규 진단 JSON만 제거한다. commit/push 없음.
-
-
-## COMMON-ROTATION-PROGRESS-20261015 — 예찰·수확 회전 진행 판정
-
-- 승인: 사용자 “공통코드면 수정해 회전도 진행 판정에 포함돼야지”. 대상 robot/config/navigation/{scout,harvest}_nav2.yaml. 공통 SimpleProgressChecker→PoseProgressChecker, 각도 문턱0.1rad 추가. 거리/시간/도착/속도 유지. 실물·시뮬에 같은 기준 적용.
-- 검증: 설치 Nav2 검사기 직접 호출92 assertions 및 기존 공통 설정pytest6개 PASS. 환경4개 최종값/나머지 설정 불변 PASS. 상세 PROJECT_STATE §54, sim/runs/progress_checker_20261015/. 신규 Isaac/실물 주행 및 실행 프로세스 재시작은 미실행.
-- 적용: 해당 Nav2 launch 재시작 후 반영. 수확 휠 응답 진동은 별개로 남는다. 복원은 두 YAML의 SimpleProgressChecker 복구 및 required_movement_angle/주석 제거. 사용자 후속 지시로 이 공통 수정과 해당 기록의 커밋·푸시를 승인받았다.
-
-
-## SIM-HARVEST-PROGRESS-105-20261015 — 회전 판정 수정 후 수확 정체 분석
-
-- 요청: 최신 수확105 원인 분석. main/8cfcc3f 기준 기존로그만 읽고 운영 코드/설정/실행은 유지했다. 실물 영향 없음.
-- 최신 두 SEC02 SECTION_APPROACH 실패는 거의 같은 위치의 실제 정체다. PoseProgressChecker 로드 확인, 신선한 명령 수신/거절0, 최신 태그 보정0회, 휠 PI 보정 포화와 미미한 차체/odom 변화를 확인했다. 물리 접촉/마찰/제어 진동 인과는 추가 계측이 필요하다.
-- 상세/검증: PROJECT_STATE §55, changes/HARVEST_PROGRESS_105_20261015.json, sim/runs/harvest_progress_105_20261015/analyze.py. 원본로그 파싱/통계와 실행설정 대조만 수행. 신규 주행/수정/재시작 없음. 이번 기록/JSON 제거로 복원 가능. 미커밋/푸시 없음.
-
-
-## SIM-HARVEST-CONTACT-ROOT-CAUSE-20261015 — 수확105 접촉 원인 확인
-
-- 사용자 “원인 찾아내”에 따라 격리 CPU 물리 시험5개를 수행했다. 운영 코드/설정/자산과 기존 사용자 실행은 유지했다. 실물 영향 없음.
-- 최신SEC02 정체는 왼팔 손목 카메라와 Bed_04/Pepper_0003_yellow 접촉으로 재현됐다. 비수확중 과실은kinematic/충돌유지다. 해당 collider만 시험 씬에서 제외하면 동일 저속회전 응답−0.304°→−22.727°, 직진 방향변화20.789°→−0.327°. 카메라 mount 자체관통도 확인해 별도 역대조했다.
-- 검증/한계: 유효5개22sim초 완료, 최초mount 시험은USD instance proxy 편집 오류로 무효. 일부종료SIGTERM−15. Nav2 E2E/실물/운영수정은 미실행. 상세 PROJECT_STATE §56, changes/HARVEST_CONTACT_ROOT_CAUSE_20261015.json, sim/runs/harvest_root_cause_20261015/. 이번기록·시험자료만 제거해 복원. 미커밋/푸시 없음.
-
-## 2026-10-15 — 양팔 접힘 주행, 오른팔 작업 전개/복귀
-
-- 구분/승인: 시뮬 전용 구현. 사용자 “양팔: 주행 중 접고 수확할 때 오른팔만 펼침”. 기준 main/8cfcc3f, 기존 변경 보존. 실물·공통 Nav2/미션 수정 없음. 커밋/푸시 및 사용자 실행 재시작 없음.
-- 대상: farm_sim_config/config/robotarm_physics.json; farm_sim_runtime/{robotarm_asset_setup,harvest_physics,run_fleet}.py; farm_sim_devices/{teacher_device,arm_session}.py; tests/{test_arm_session,test_robotarm_asset_setup}.py. 상태/결정: PROJECT_STATE §57, D-034.
-- 전후/이유: 왼팔 돌출 및 오른팔 작업 HOME으로 주행하던 방식에서 양팔 별도 접힘 자세로 시작한다. 정차→오른팔 전개→기존 작업 HOME에서 수확→오른팔 접기→양팔 실측 접힘/정지 확인 뒤 주행한다. 취소/접힘 실패 시 차체 잠금을 유지한다. 작업 HOME/정책·과실별 복귀·실물은 유지한다.
-- 관련 물리: 왼팔 mount–wrist 인접 CAD 관통만 pair filtering하며 외부 충돌을 유지한다. 왼팔 유지 drive도 같은 오른팔 서보의 기존 SI 값으로 맞춰 접힘 자세의 속도 진동을 없앤다. 초기 더 깊은 접힘 후보는 팔 자체 접촉 때문에 제외했다.
-- 검증: 오프라인 회귀45 PASS, 설치 USD/PhysX 정적4 PASS. 실제 CPU transition_v2는 전개5.9초/접기5.95초 및 정지 후SUCCESS. travel_final은 문제 접근 구간 직진1.009m·방향 변화−0.041°,저속 회전−13.679°; 팔 접촉 없음, 주행 중 접힘 판정 누락0회. 실제 수확 후보는 빈 목록으로 전환만 시험했으며 Nav2 전체 미션/과실 수확 E2E/실물은 미실행.22sim초 완료 시험은 앱 종료 지연으로SIGTERM 정리.
-- 근거/적용/복원: docs/changes/HARVEST_ARM_TRAVEL_20261015.json 및 runs/arm_stow_20261015/. 다음 Isaac 시작 때 반영된다. 이번8개 파일의 diff만 되돌리면 이전 동작이다. travel_pose 미설정 프로파일은 기존 HOME 방식과 호환된다.
-
-## 2026-10-15 — 박스 간섭 가능한 낮은 열매98개와 커넥터 Z 상향
-
-- 승인/범위: 사용자 요청으로 `assets/envs/output/farm_with_plants_v5.usd`의 낮은 과실·대응 커넥터만 수정. 공통/실물·박스·충돌 설정·기존 팔 코드는 변경 없음. 기준8cfcc3f의 기존 미커밋 작업 보존.
-- 변경 전후: 박스 collider 상단0.7013m와 과실 하단 offset−0.0375m,5cm 여유에서 root 최저0.79m 산정. 총288개 중98개를0.79~1.0792028165m 범위로 배정하고 커넥터도 같은ΔZ 이동. 나머지190개, 모든X/Y·회전·scale·ID·mesh 보존. 새 과실 간 AABB 겹침을 피하는 높이를 선택했다.
-- 검증: 실제 runtime collider 전체의 박스 위 간격 최소5.3501cm, 신규 과실 AABB 겹침0. 씬의 변경 속성294개가 허용된 Z 이동 속성뿐임을 확인. 실제CPU22sim초에서 이전 박스 간섭 구간 직진 통과 및 박스–과실 접촉0. 기존 높은 열매와 팔의 초기 접촉은 잔존하며 전체Nav2 미션은 미검증. 상세 PROJECT_STATE §58 및 docs/changes/FRUIT_BOX_CLEARANCE_20261015.json.
-- 적용/복원: 씬 재로드/Isaac 재시작 필요, 기존 실행 유지 및 커밋/푸시 없음. runs/fruit_height_20261015/farm_with_plants_v5.before.usd를 원래 씬 경로에 복사하면 이번 높이 변경만 복원된다.
-
-## 2026-10-15 — 최신 수확 Goal timeout 진단
-
-- 사용자 응답시간 초과 확인 요청. 코드·설정 변경 없이 최신 로그 분석만 수행했다. 수확 시작300실시간초 후 공통 Nav2Client가 결과 대기 제한으로 취소한 것이며105가 아니다.
-- 시뮬 속도비0.4201로 약126sim초만 경과.16.535m 경로는0.1m/s에서 직선 이동만165.35sim초가 필요했다. 취소 직전 정상 전진 및 controller의 취소 응답을 확인했다.
-- 근거: PROJECT_STATE §59, docs/changes/HARVEST_GOAL_TIMEOUT_20261015.json. 실행 완료 제한의 ROS 시간 기준 수정은 제안만 했으며 공통 소스/실물 영향 없음. 새 시험·재시작·커밋·푸시 없음. 이번 문서 항목만 제거하면 진단 기록 복원.
-
-## 2026-10-15 — 승인된 공통 주행 sim/real 시계 분리
-
-- 승인: 사용자 “sim이랑 real이랑 서로 다른 시간대를 쓰도록 조정”. 대상은 robot/ros_ws/src/farm_navigation의 nav2_client.py/navigation_types.py/새 test_nav2_execution_clock.py 및 harvest_robot/test/test_follow_work.py의 시계 더블이다. 기존 미커밋 작업 보존.
-- 변경 전후: 주행 완료300초를 양쪽 모두 실시간으로 계산하던 방식에서 sim은 기존 use_sim_time의 /clock,real은 monotonic 실시간을 사용한다. 전체 TF 재시도 주행 예산도 일치시켰다. 통신/수락/준비/취소/TF 복구 제한은 실시간 유지. 실행 timeout 오류 문구 분리,sim 시계 역행 시 오류와 Goal 정리 상태 보존.
-- 영향/검증: 공통 클라이언트를 쓰는 예찰·수확에 적용,실물 시간 기준은 기존과 동일. 새 설정/의존성 없음. 오프라인59 PASS(시계 전용12 포함),설치 rclpy 시계 API 및 소스 symlink 확인. 실제Isaac 전체 미션/실물 주행 미실행. 상세 PROJECT_STATE §60 및 docs/changes/NAVIGATION_EXECUTION_CLOCK_20261015.json.
-- 적용/복원: 실행 중 로봇 노드 재시작 후 적용. 이번 공통 diff만 되돌리면 이전 실시간 주행 제한으로 복원된다. 기존 실행 재시작·커밋·푸시하지 않았다.
-
-
-## 2026-10-16 — 수확 프레임 저하: 평가 경계 캐시와 실시간 pacing
-
-- 사용자 승인으로 sim 전용 SceneTruth의 정적 로컬 경계를 재사용하고 현재 world 변환은 매번 반영한다. 기하 편집 시 무효화·종료 시 USD notice 해제. run_fleet은 렌더 지연 후 추가 대기를 줄이며 물리 tick을 생략하지 않는다. 일반 Action의 stage 성능 계측과 check_teacher_action --performance-log 연결도 추가했다. 실제 수확 계측으로 CPU Teacher의 Torch intra-op=1을 적용해 팔 계산 평균7.614→4.700ms, 동일 수확 구간13.38→15.55fps를 확인했다. 실제1,649관측 정책 출력 차이0.
-- 고정60/20/30Hz·주변 과실 물리·모델·solver·카메라 설정·공통/실물 유지. 전체 센서 headless4sim초 비교에서20.56→26.28 렌더fps, 평가 tick평균3.831→0.657ms. 실제288개 경계 오차0, nativeUSD4+schedule4 PASS. 실제 GUI12fps의 개선 수치로 해석하지 않는다. 수확 PhysX 비용은 잔존한다.
-- 실제2과실 수확 재검증/제외 후보/실패 시험/로그 및 원본 소스 복원법은 PROJECT_STATE §68. 현재 실행을 재시작하지 않았으며 다음 시작에 적용. 미커밋·원격 미반영.
-
-- 최종 전체 센서4sim초는25.40fps, 카메라58/39/39로 원본과 동일. 실제 수확 비교3개 모두2/2·접힘·safe stop 통과. 최종 소스 관련13시험 PASS. 상세/패치: runs/performance_20261016/{harvest_summary.json,final_sensor_verification.json,performance_fix_20261016.tar.gz}.
+- 복원: 이번 변경 파일에서 공통 신호 이동·예찰 연결·추가 센서/프로파일만 되돌린 후 빌드/재시작한다. 단순 보정 OFF 비교는 `tag_correction:=false`로 가능하며 이전 인수/예찰 장착 변경 전체를 reset하지 않는

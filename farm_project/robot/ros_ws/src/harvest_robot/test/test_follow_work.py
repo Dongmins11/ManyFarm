@@ -1,6 +1,7 @@
 """실제 수확 초기화와 공통 계획→Path→Action 연결 검사. ROS I/O만 대역이다."""
 from pathlib import Path
 import ast
+from collections.abc import Callable
 import copy
 from dataclasses import replace
 import importlib.util
@@ -15,14 +16,22 @@ import numpy as np
 
 ROOT=Path(__file__).resolve().parents[5]
 SRC=ROOT/'robot/ros_ws/src'
-for package in ('harvest_robot','farm_navigation'):
+for package in ('harvest_robot','farm_navigation','farm_common'):
     sys.path.insert(0,str(SRC/package))
 from farm_navigation.configuration import load_environment, read_mapping, resolve_file
 from farm_navigation.navigation_types import NavigationSettings
 from farm_navigation.route import RouteGraph
 from harvest_robot.staged_navigation import StagedNavigation, load_sections
 from harvest_robot.contract import validate_task
-from harvest_robot.configuration import load_harvest_config
+from harvest_robot.configuration import load_harvest_config, approach_navigation_settings
+from farm_common.action_handoff import ActionHandoff
+
+GRAPH_FIXTURE = Path(__file__).parent/"fixtures/navigation_graph_20261007.geojson"
+
+def fixture_environment(*args, **kwargs):
+    profile = load_environment(*args, **kwargs)
+    profile["route_graph"] = str(GRAPH_FIXTURE)
+    return profile
 from harvest_robot.mission import HarvestMission, MissionCanceled
 
 
@@ -122,7 +131,7 @@ class RoutePlanner:
     """Route Server 통신만 대역. 작업 경로는 실제 RouteGraph로 계산한다."""
     def __init__(self, node: Node, *args: object) -> None:
         self.node=node;self.calls=[];self.canceled=False
-        self.graph=RouteGraph(ROOT/'robot/config/maps/many_farm/graph.geojson')
+        self.graph=RouteGraph(GRAPH_FIXTURE)
     def plan(self, start: tuple, goal: tuple, check: object) -> object:
         check();self.calls.append((start,goal));return self.graph.plan(start,goal,.1,.02)
     def cancel(self) -> None:self.canceled=True
@@ -160,6 +169,7 @@ def construct(mode: str='route_then_follow', approach: str='graph',
         cls=next(n for n in tree.body if isinstance(n,ast.ClassDef) and n.name=='HarvestNode')
         def harvest_mapping(path: Path, root: Path) -> dict:
             data=load_harvest_config(path, root)
+            data['transfer'] = {'enabled': False}
             if 'movement_mode' in data:
                 data=copy.deepcopy(data);data['movement_mode']=mode;data['approach_planner']=approach
                 # 기존 두 단계 회귀와 새 중간 출발 정책을 각각 검사한다.
@@ -172,8 +182,9 @@ def construct(mode: str='route_then_follow', approach: str='graph',
                     else:data[key]=value
             return data
         env=dict(__name__='harvest_robot._follow_verify',__package__='harvest_robot',
-            Node=Node,Path=Path,load_environment=load_environment,resolve_file=resolve_file,read_mapping=read_mapping,
-            load_harvest_config=harvest_mapping,
+            Node=Node,Path=Path,load_environment=fixture_environment,resolve_file=resolve_file,read_mapping=read_mapping,
+            load_harvest_config=harvest_mapping, approach_navigation_settings=approach_navigation_settings,
+            ActionHandoff=ActionHandoff, StationReturn=lambda *a, **k:NS(), Callable=Callable,
             NavigationSettings=NavigationSettings,RouteGraph=RouteGraph,Navigator=navigator.Navigator,
             Nav2Client=client.Nav2Client,PoseProvider=Poses,MotionMonitor=Motion,replace=replace,
             ReentrantCallbackGroup=lambda:None,threading=threading,StagedNavigation=StagedNavigation,

@@ -889,3 +889,10 @@ overrides:
 
 - 사용자 “이 상태로 한번 커밋 푸시하자”에 따라 기준7b0e1a4 이후 현재 작업트리의60Hz Teacher 전환/480Hz 제거, 수확 Action·국소 물리, 바퀴 접촉 수정과 수확 성능 개선을 함께 커밋 대상으로 확정했다. 기존 루트 README 삭제도 현재 상태에 포함한다. 실행 로그·백업·전달 압축은 기존 ignore 정책대로 로컬에 보존한다.
 - 원격 조회: git fetch origin 성공, 준비 시점 HEAD와 origin/main은7b0e1a4로 동일(ahead0/behind0). 기존 검증 결과는 §63~68에 기록했으며 이번 게시 요청을 이유로 사용자 GUI/ROS를 재시작하거나 물리 시험을 반복하지 않았다. 최종 커밋 SHA와 push 결과는 Git 이력 및 작업 응답에서 확인한다.
+
+## 70. 실물 수확 로직을 공통 구조에 통합 — 2026-10-18
+
+- 사용자 파일별 계획 승인 후 main 2a397da 기반으로 실물 afdcc05 설정·지도·태그 bias·인계를 선택 통합했다. 공통 미션/주행을 유지하고 실물값은 override 및 선택 설정으로 표현한다.
+- 인계는 공통 ActionHandoff의 비선점 예약을 사용한다. 실행 중 수확/복귀를 거절하고 실패·미확인 저널은 차단한다. 기존 작업↔복귀 동작은 유지한다.
+- 완료된 오프라인 테스트 묶음 133개 통과. pixel_bias 8개 통과/실제 영상 solve 1개 cv2 부재로 미실행. 태그 전체 suite는 ROS/부분 체크아웃 의존성 제한으로 미통과. colcon/ROS/Isaac/실물 시험 미실행.
+- 원본 브랜치와 실행 장치는 유지하며 별도 integration/shared-real-harvest-20261018 브랜치로 제공한다. 상세 파일표·설정 위치·검증 한계는 docs/changes/HARVEST_COMMON_REAL_INTEGRATION_20261018.md.

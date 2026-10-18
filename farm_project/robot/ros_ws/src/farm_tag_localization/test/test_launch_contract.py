@@ -30,7 +30,7 @@ class LaunchContract(unittest.TestCase):
         stub('launch_ros.descriptions',ParameterFile=Action)
         stub('nav2_common');stub('nav2_common.launch',RewrittenYaml=Action)
         stub('farm_navigation');stub('farm_navigation.configuration',load_environment=lambda *a,**k:profile,resolve_file=lambda r,p:r/p,read_mapping=lambda p:({'correction_transport':'scan_sync'} if scan_sync and str(p).endswith('/t.yaml') else ({'movement_mode':movement_mode,'approach_planner':approach_planner} if staged else {})))
-        stub('harvest_robot.configuration',load_harvest_config=lambda *a:({'movement_mode':movement_mode,'approach_planner':approach_planner} if staged else {}))
+        stub('harvest_robot.configuration',transfer_parameters=lambda c: {'transfer_enabled':False},load_harvest_config=lambda *a:({'movement_mode':movement_mode,'approach_planner':approach_planner} if staged else {}))
         calls=[]
         stub('farm_tag_localization.runtime',validate_binding=lambda *a:calls.append(a))
         with patch.dict(sys.modules,modules):

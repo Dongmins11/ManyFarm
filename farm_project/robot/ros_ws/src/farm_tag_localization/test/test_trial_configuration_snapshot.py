@@ -19,7 +19,7 @@ SPEC.loader.exec_module(TRIAL)
 class TrialConfigurationSnapshot(unittest.TestCase):
     def copy_sources(self, root: Path) -> None:
         seeds = ['robot/config/environments/harvest_real.yaml',
-            'robot/config/localization/bias_trial_20261010/profile.json',
+            'robot/config/localization/bias_trial_20261014/profile.json',
             'robot/ros_ws/src/farm_tag_localization/farm_tag_localization/node.py',
             'robot/ros_ws/src/farm_tag_localization/farm_tag_localization/pixel_bias.py']
         for source in TRIAL.configuration_sources(ROOT, seeds):
