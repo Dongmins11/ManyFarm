@@ -8,10 +8,14 @@ if [ "$action" != rviz ]; then
   source "$HOME/vicpinky_ws/install/setup.bash"
   source "$root/robot/ros_ws/install/setup.bash"
 fi
+# 2026-10-16 현장 관제 연결 기준: 로컬 DDS + 별도 Zenoh 브리지.
+# source가 설정한 값도 정리한 후 적용한다. 브리지는 초기 위치 설정 후 별도 실행한다.
+unset CYCLONEDDS_URI ROS_STATIC_PEERS ROS_DISCOVERY_SERVER
+unset ROS_LOCALHOST_ONLY
+unset FASTRTPS_DEFAULT_PROFILES_FILE FASTDDS_DEFAULT_PROFILES_FILE
+export RMW_IMPLEMENTATION=rmw_cyclonedds_cpp
 export ROS_DOMAIN_ID=77
-export ROS_AUTOMATIC_DISCOVERY_RANGE=SUBNET
-export RMW_IMPLEMENTATION=rmw_fastrtps_cpp
-unset ROS_LOCALHOST_ONLY ROS_DISCOVERY_SERVER ROS_STATIC_PEERS
+export ROS_AUTOMATIC_DISCOVERY_RANGE=LOCALHOST
 cd "$root"
 case "$action" in
   rviz)

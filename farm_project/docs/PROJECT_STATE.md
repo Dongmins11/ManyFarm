@@ -896,3 +896,11 @@ overrides:
 - 인계는 공통 ActionHandoff의 비선점 예약을 사용한다. 실행 중 수확/복귀를 거절하고 실패·미확인 저널은 차단한다. 기존 작업↔복귀 동작은 유지한다.
 - 완료된 오프라인 테스트 묶음 133개 통과. pixel_bias 8개 통과/실제 영상 solve 1개 cv2 부재로 미실행. 태그 전체 suite는 ROS/부분 체크아웃 의존성 제한으로 미통과. colcon/ROS/Isaac/실물 시험 미실행.
 - 원본 브랜치와 실행 장치는 유지하며 별도 integration/shared-real-harvest-20261018 브랜치로 제공한다. 상세 파일표·설정 위치·검증 한계는 docs/changes/HARVEST_COMMON_REAL_INTEGRATION_20261018.md.
+
+
+## 71. 실물 수확 Zenoh 통신 설정 정합 — 2026-10-18
+
+- 사용자 승인으로 통합 fb5c61a 기반 새 작업 브랜치 feat/harvest-handoff-real-20261018에 trial.bash의 source 이후 CycloneDDS/Domain77/LOCALHOST 및 DDS 잔존 변수 해제를 반영한다.
+- 사용자 10/16 관제 성공 절차(런치→초기 위치→브리지)를 보존한다. 주행·지도·태그·공통 FSM·시뮬 변경 없음.
+- bash 구문 및 잔존 환경변수 정리 실행 검증 통과. ROS/관제/실물 재시험 미실행. 로컬 PC 접근 불가 및 로봇 SSH Network is unreachable로 로컬 전환은 미완료다.
+- 실행 명령과 한계: docs/changes/HARVEST_ZENOH_RUNTIME_20261018.md. 로컬 미커밋 변경 비교 후 새 브랜치 전환이 다음 단계다.
