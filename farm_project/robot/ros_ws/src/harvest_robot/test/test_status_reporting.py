@@ -60,6 +60,29 @@ class StatusTests(unittest.TestCase):
         self.assertFalse(a.ready);self.assertEqual(a.error_code,'BATTERY_UNAVAILABLE')
         self.assertIn('미측정',a.error_message)
 
+    def test_harvest_stage_reports_existing_protocol_state(self):
+        self.node.busy=True;self.node.mission_stage='ARM'
+        self.node.arm_client=S(server_is_ready=lambda: True)
+        self.reporter.publish()
+        self.assertEqual(self.sent[-1].state,'HARVESTING')
+        self.assertFalse(self.sent[-1].ready)
+        self.node.busy=False
+        self.reporter.publish()
+        self.assertEqual(self.sent[-1].state,'IDLE')
+
+    def test_arm_server_unavailable_prevents_ready(self):
+        self.node.arm_client=S(server_is_ready=lambda: False)
+        self.reporter.publish()
+        self.assertFalse(self.sent[-1].ready)
+        self.assertEqual(self.sent[-1].error_code,'ARM_NOT_READY')
+
+    def test_unconfirmed_fold_after_terminal_is_error(self):
+        self.node.blocked=True;self.node.arm_travel_ready=False
+        self.reporter.publish()
+        self.assertEqual(self.sent[-1].state,'ERROR')
+        self.assertEqual(self.sent[-1].error_code,'ARM_TRAVEL_NOT_READY')
+        self.assertFalse(self.sent[-1].ready)
+
     def test_stale_pose_not_ready_and_no_motion_change(self):
         self.reporter.buffer.stamp=1;self.reporter.publish();a=self.sent[-1]
         self.assertFalse(a.ready);self.assertEqual(a.error_code,'POSE_UNAVAILABLE')

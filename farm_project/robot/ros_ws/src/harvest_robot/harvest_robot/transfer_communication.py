@@ -19,6 +19,10 @@ from farm_interfaces.srv import TransferEvent
 from std_msgs.msg import Int32
 
 from .transfer_devices import TriggerTransferDevices
+from .discharge_client import DischargeClient, discharge_parameters
+from .discharge_devices import DischargeDevices
+from .transfer_rotation import (RotationSettings, RotatingTransferDevices,
+                                ROTATION_DEVICE_OPERATIONS, rotation_parameters)
 from .transfer_mission import TransferMission, TransferOutcome
 
 
@@ -41,7 +45,7 @@ def valid_time(value: Any) -> bool:
 class TransferCommunication:
     """node.py에서 한 번 생성한다. 미설정 실물 장치는 구동하지 않는다."""
 
-    def __init__(self, node: Any) -> None:
+    def __init__(self, node: Any, navigation_settings: Any = None) -> None:
         self.node = node
         self.active = None
         self.error = ''
@@ -66,12 +70,45 @@ class TransferCommunication:
         if type(self.capacity) is not int or self.capacity < 0:
             raise ValueError('transfer_capacity_count는 0 이상의 정수여야 합니다.')
         self.load_topic = parameter('transfer_loaded_count_topic', config.get('loaded_count_topic', ''))
+        self.load_source = parameter('transfer_load_source', config.get('load_source', 'external_topic'))
+        self.request_count = parameter('transfer_request_count', config.get('request_count', 0))
+        if self.load_source not in ('external_topic', 'arm_feedback'):
+            raise ValueError('알 수 없는 적재량 입력 방식')
+        if type(self.request_count) is not int or not 0 <= self.request_count <= 2147483647:
+            raise ValueError('transfer_request_count는 0 이상의 int32여야 합니다.')
+        if self.load_source == 'arm_feedback':
+            if self.load_topic:
+                raise ValueError('팔 누적과 외부 적재 Topic은 동시에 선택할 수 없습니다.')
+            self.loaded_count = node.harvest_load.loaded_count
         if not isinstance(self.load_topic, str) or (self.load_topic and (
                 not self.load_topic.startswith('/') or self.load_topic == '/'
                 or any(c.isspace() for c in self.load_topic))):
             raise ValueError('적재 개수 토픽은 절대 ROS 이름이어야 합니다.')
         services = json.loads(parameter('transfer_device_services', json.dumps(config.get('device_services', {}))))
-        self.devices = TriggerTransferDevices(node, services)
+        mode = parameter('transfer_rotation_mode', config.get('rotation_mode', 'device_services'))
+        rotation = json.loads(parameter('transfer_rotation', json.dumps(config.get('rotation', {}))))
+        rotation_parameters({'rotation_mode': mode, 'rotation': rotation})
+        discharge_mode = parameter('transfer_discharge_mode', config.get('discharge_mode', 'device_services'))
+        discharge = json.loads(parameter('transfer_discharge_action', json.dumps(config.get('discharge_action', {}))))
+        discharge_parameters({'discharge_mode': discharge_mode, 'discharge_action': discharge,
+                              'rotation_mode': mode})
+        self._discharge_devices = None
+        if mode == 'nav2_spin':
+            if navigation_settings is None:
+                raise ValueError('공통 회전에는 기존 주행 설정과 위치/정지 관측 연결이 필요합니다.')
+            from farm_navigation.spin_client import SpinClient
+            rotation_settings = RotationSettings.from_mapping(rotation)
+            if discharge_mode == 'action':
+                auxiliary = TriggerTransferDevices(node, services, operations=('prepare_arm', 'stop'))
+                client = DischargeClient(node, **discharge, group=node.callbacks)
+                devices = self._discharge_devices = DischargeDevices(auxiliary, client)
+            else:
+                devices = TriggerTransferDevices(node, services, operations=ROTATION_DEVICE_OPERATIONS)
+            spin = SpinClient(node, rotation_settings.endpoint, navigation_settings, node.callbacks)
+            self.devices = RotatingTransferDevices(devices, spin, node.poses, node.motion,
+                rotation_settings, self.stage_timeout_s, self.stop_timeout_s)
+        else:
+            self.devices = TriggerTransferDevices(node, services)
         journal = parameter('transfer_journal_path', config.get('journal_path', str(Path.home() / '.local/state/manyfarm'
                              / node.config['robot_id'] / 'transfer.json')))
         if not isinstance(journal, str) or not journal.strip():
@@ -130,14 +167,27 @@ class TransferCommunication:
             self.node.get_logger().warning('잘못된 적재 개수 입력 무시')
             return
         with self.node.lock:
+            if self.load_source != 'external_topic':
+                return
             # 인계 중 배출 해소 판정은 discharge 완료 응답 하나를 기준으로 한다.
             # 늦게 도착한 양수 적재 샘플이 진행 중 완료를 덮어쓰지 않도록 한다.
             if self._reserved is not None or self.active is not None:
                 return
-            self.loaded_count = count
-            if self.capacity and count >= math.ceil(self.capacity * 0.8):
-                self.transfer_required = True
+            self._set_loaded_count(count)
             # 센서 한 번의 0이나 임계치 하락으로 선호출 요청을 해제하지 않는다.
+
+    def _set_loaded_count(self, count: int) -> None:
+        """node.lock 안에서 호출한다. 0 기준은 기존 용량 80% 정책을 사용한다."""
+        self.loaded_count = count
+        threshold = self.request_count or (math.ceil(self.capacity * 0.8) if self.capacity else 0)
+        if threshold and count >= threshold:
+            self.transfer_required = True
+
+    def update_harvest_load(self) -> None:
+        """공통 팔 수량을 읽어 호출 상태에 연결한다. 수확 실행은 중단하지 않는다."""
+        with self.node.lock:
+            if self.load_source == 'arm_feedback' and self._reserved is None and self.active is None:
+                self._set_loaded_count(self.node.harvest_load.loaded_count)
 
     def snapshot(self) -> dict:
         with self.node.lock:
@@ -244,6 +294,8 @@ class TransferCommunication:
             self.stage_timeout_s, self.stop_timeout_s)
         with self.node.lock:
             self.active = (handle, mission)
+        if self._discharge_devices is not None:
+            self._discharge_devices.begin(goal.transfer_id)
         outcome = mission.run()
         with self.node.lock:
             self._finishing = True
@@ -251,6 +303,8 @@ class TransferCommunication:
                 outcome = replace(outcome, result_code='CANCELED', error_code='CANCELED',
                                   error_message='복구 완료 직후 취소 요청 수락')
             if outcome.transfer_complete and outcome.restore_complete and not outcome.recovery_required:
+                if self.load_source == 'arm_feedback':
+                    self.node.harvest_load.reset_after_transfer()
                 self.loaded_count = 0
                 self.transfer_required = False
             if outcome.result_code == 'SUCCESS':

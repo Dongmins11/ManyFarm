@@ -15,7 +15,7 @@ from farm_interfaces.msg import RobotStatus
 
 
 class HarvestStatus:
-    """실물 이동 전용 정책에서만 활성화한다. 타이머는 주행 명령을 보내지 않는다."""
+    """환경 설정에서 선택적으로 활성화한다. 타이머는 주행 명령을 보내지 않는다."""
     def __init__(self, node, settings, config: dict) -> None:
         self.node, self.settings, self.config = node, settings, config
         self.boot_id = uuid.uuid4().hex
@@ -53,6 +53,7 @@ class HarvestStatus:
         with node.lock:
             busy, blocked, stopping = node.busy, node.blocked, node.stopping
             goal = node.active_goal
+            arm_stage = busy and getattr(node, 'mission_stage', '') == 'ARM'
             status.current_task_id = (transfer['task_id'] or
                                       (goal.request.harvest_task.task_id if goal is not None else ''))
         current = node.handoff.current
@@ -60,13 +61,20 @@ class HarvestStatus:
             busy = True
             status.current_task_id = current[1]
         status.state = ('ERROR' if blocked else transfer['phase'] or
-                        ('RETURNING' if current and current[0] == 'return' else 'NAVIGATION_MOVE' if busy else 'IDLE'))
+                        ('RETURNING' if current and current[0] == 'return' else 'HARVESTING' if arm_stage else 'NAVIGATION_MOVE' if busy else 'IDLE'))
         status.ready = False
         errors = []
         if blocked:
-            errors.append((transfer['error'] or 'CANCEL_UNCONFIRMED', '이전 동작 또는 인계 복구 확인 필요'))
+            if not getattr(node, 'arm_travel_ready', True):
+                errors.append(('ARM_TRAVEL_NOT_READY', '팔 작업 중단 후 접힘 확인 필요'))
+            else:
+                errors.append((transfer['error'] or 'CANCEL_UNCONFIRMED', '이전 동작 또는 인계 복구 확인 필요'))
         if node.transfer is not None and node.transfer.load_topic and transfer['loaded_count'] is None:
             errors.append(('LOAD_UNAVAILABLE', 'loaded_count=0은 미측정 자리값; 빈 적재함 확인 아님'))
+        arm = getattr(node, 'arm_client', None)
+        arm_ready = arm is None or arm.server_is_ready()
+        if not arm_ready:
+            errors.append(('ARM_NOT_READY', '팔 Action 서버 연결 대기'))
         if stopping: errors.append(('SHUTDOWN', '서버 종료 중'))
         try:
             tf = self.buffer.lookup_transform(self.settings.map_frame, self.settings.base_frame, Time())
@@ -81,7 +89,7 @@ class HarvestStatus:
             values = (t.x,t.y,t.z,math.atan2(2*(w*z+x*y),1-2*(y*y+z*z)))
             if not all(math.isfinite(v) for v in values): raise ValueError('잘못된 TF 위치')
             status.pose.position.x,status.pose.position.y,status.pose.position.z,status.pose.yaw = values
-            status.ready = not (busy or blocked or stopping) and self.client.server_is_ready()
+            status.ready = not (busy or blocked or stopping) and arm_ready and self.client.server_is_ready()
             if not self.client.server_is_ready():errors.append(('NAV_NOT_READY','FollowPath 서버 연결 대기'))
         except Exception as error:
             # 유효하지 않은 위치를 정상값으로 표시하지 않는다. 주행은 기존 미션이 판단한다.

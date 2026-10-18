@@ -904,3 +904,78 @@ overrides:
 - 사용자 10/16 관제 성공 절차(런치→초기 위치→브리지)를 보존한다. 주행·지도·태그·공통 FSM·시뮬 변경 없음.
 - bash 구문 및 잔존 환경변수 정리 실행 검증 통과. ROS/관제/실물 재시험 미실행. 로컬 PC 접근 불가 및 로봇 SSH Network is unreachable로 로컬 전환은 미완료다.
 - 실행 명령과 한계: docs/changes/HARVEST_ZENOH_RUNTIME_20261018.md. 로컬 미커밋 변경 비교 후 새 브랜치 전환이 다음 단계다.
+
+
+## 72. 공통 수확 성공량 누적 — 2026-10-18
+
+- 사용자 1단계 승인, 기준 8466ac1의 부분 작업본에서 구현. 10/18 사용자 PC 패치 적용 및 관련29개 통과 로그 확인. 로봇 적용 및 원격 commit/push는 미수행.
+- 좌표별 팔 실적의 성공 증가분만 전체 적재량으로 합산하고 기존 호출 필요 Status에 연결. 인계 물리 완료 시 초기화.
+- 기존 외부 Topic 입력은 선택 설정으로 보존. 실물/시뮬 프로파일은 arm_feedback 선택, 운영 임계값과 팔/인계 활성화는 미확정 상태 유지.
+- 관련 오프라인 29개 통과. ROS/Isaac/실물 미실행. 재시작 적재량 복구는 미구현.
+- 상세 파일·적용·검증 한계: docs/changes/HARVEST_LOAD_COMMON_20261018.md.
+
+
+## 73. 공통 팔 Action 연결의 환경 제한 해제 — 2026-10-18
+
+- 사용자 2단계 PC 코드·모의 시험 승인. 기준8466ac1 + PC 적용 완료된 1단계 패치. 원격 main2a397da/통합fb5c61a/작업8466ac1 후속 변경 없음 확인.
+- 공통 ArmActionClient를 완료 정책과 명시 endpoint로 선택. 실물 모드 금지와 Status 이동 전용 제한 해제. 실제 실물 설정은 이동 전용으로 보존하여 장치 호출 자동 활성화 없음.
+- 팔 작업 중 HARVESTING, 팔 서버 미연결 시 ready=false. 실패/취소 후 접힘 미확인은 다음 작업·인계·복귀 차단. 성공/실패 수량 및 기존 결과 전달 보존.
+- PC 오프라인43개 통과(설정/미션6, Status8, 팔 클라이언트/통신11, 집계/인계18). ROS 빌드·실제 DDS/Zenoh·Isaac·Jetson·로봇 시험 미실행.
+- 새 상세 docs/changes/HARVEST_ARM_COMMON_STAGE2_20261018.md. 사용자 PC 2단계 적용 및43개 통과 로그 확인, 원격 미반영. 로봇에는 공통 통합 자체가 미배포일 수 있어 추후 전체 차이 대조 필요.
+
+
+## 74. 공통 인계 제자리 정·역회전 연결 — 2026-10-18
+
+- 사용자3단계 PC 범위 승인. 기준8466ac1 + 적용 완료1·2단계. 준비 왼쪽90도/복원 오른쪽90도, 오차 보정 이동·추가 회전 금지.
+- 공통 SpinClient 및 RotatingTransferDevices 추가. 기존5개 서비스 방식 보존, 새 방식은 명시 설정으로 선택. 비차체 복원 성공 및 운송 이격 후 반대각 회전.
+- 원래 위치·방향, 정지 확인과 실패/취소 시 자신의 Goal 종료 확인 연결. 팔/적재함 미설정은 여전히 인계 거절. 실물/시뮬 운영 설정·주행값·지도·태그·Zenoh 변경 없음.
+- 오프라인62개 PASS, ROS 빌드/실제 통신/Isaac/실물 미실행. 운영 Spin 주소·회전 제한시간·허용 오차·비차체 장치 계약은 확인 대기. 새 방식은 비활성 유지.
+- 상세 docs/changes/HARVEST_ROTATION_COMMON_STAGE3_20261018.md. 사용자 PC 적용 및62개 통과 로그 확인, 원격 미반영. 다음 단계는 박스 Action 연결 설계다.
+
+
+## 75. Jetson 배출 Action 단일 요청 설계 — 2026-10-18
+
+- 사용자 확정: 한 번 요청하면 Jetson이 열기·배출·닫기까지 담당. 전체 성공 Result 이후 TRANSFER_COMPLETE, 운송 이격 이후 역회전. 별도 닫기 명령을 중복 요청하지 않는다.
+- 새 장치 어댑터의 discharge는 배출 Action, restore_devices는 해당 인계의 배출·닫힘 완료 증거 확인으로 연결할 계획. 기존 Trigger 방식은 보존한다.
+- 실제 Action 타입/주소/필드·완료 판정·취소/복구 계약 미정. 이번에는 설계 문서만 갱신했으며 런타임 코드/설정 변경 없음.4단계 구현 완료로 표시하지 않는다.
+- 상세 docs/changes/HARVEST_DISCHARGE_ACTION_STAGE4_DESIGN_20261018.md. 문서 패치 검사 통과; 코드 시험 반복 없음. 로봇/원격 미반영.
+
+
+## 76. 배출 결과 판정과 PC 모의 검증 — 2026-10-18
+
+- 기준: 작업8466ac1 + 사용자 PC 적용1~3단계 및4단계 설계. 원격 작업8466ac1/통합fb5c61a/main2a397da 후속 변경 없음 조회 확인. PC 현재 파일 자체는 원격 접근 없이 제공 로그 기준이다.
+- 사용자 승인으로 discharge_result.py와 test_discharge_result.py 추가. 새 모듈은 운영 런치에 아직 연결하지 않았다. 단일 인계별 증거, 재전송 차단, 실패/취소 시 증거 폐기, 복원 전 전체 성공 판정 책임만 구현했다.
+- Result 필드: transfer_id/discharge_complete/error_code/error_message. closed 제외. 감지 방식·AI 사용·실제 wire 타입/주소/오류 코드 매핑은 보류.
+- 이번 직접 실행: 새13개 + 기존 공통 회전12개 =25개 PASS. 새 시험은 실제 TransferMission/RotatingTransferDevices와 모의 장치를 조합한다. 실제 DDS/Zenoh/ROS Action·Jetson·Isaac·로봇 시험 및 ROS 빌드 미실행.
+- PC 적용용 증분 패치 제공, 사용자 PC에서의 이번 적용/시험은 아직 확인 전. 운영 설정·주행·지도·태그 변경 없음. commit/push/배포 미수행.
+- 다음: Action wire 형식·주소·오류 코드와 취소/정지 계약 확정 후 실제 클라이언트/장치 어댑터 및 설정 선택 연결. 이번 모의 통과를 해당 구현 완료로 해석하지 않는다.
+
+
+## 77. 배출 Result 복수 오류 배열로 변경 — 2026-10-18
+
+- 사용자 로그로 직전4단계 모의 패치 PC 적용 및13+12개 PASS, diff 검사 통과 확인.
+- 후속 승인으로 discharge_complete 제거, 단일 error_code를 error_codes 배열로 변경. Result는 transfer_id/error_codes/error_message만 사용한다. 76절의 이전 필드 구성은 D-046으로 대체된다.
+- discharge_result.py: error_free 외부 bool도 제거하고 배열 자체를 검사한다. 성공+빈 배열+현재 ID 일치만 복원 증거 생성. 배열 아닌 빈 문자열/None 등은 성공으로 오인하지 않는다.
+- test_discharge_result.py: 배출 실패/닫기 실패/복수 실패/성공 상태와 오류의 모순/취소/시간초과 등15개 직접 실행 PASS. 변경은 결과 판정에 한정되어 직전 통과한 공통 회전12개 전체는 이번에 반복하지 않았다.
+- 이번 증분 패치의 사용자 PC 적용은 아직 확인 전. ROS 빌드·실제 Action 통신·Jetson·Isaac·실물 미검증. 운영 연결/환경 설정 변경 및 commit/push/로봇 배포 없음.
+
+
+## 78. 공통 배출 ROS Action 클라이언트·장치 연결 — 2026-10-18
+
+- 사용자 로그로4단계 errors 패치 적용 및15개 PASS 확인. 후속 승인으로 Discharge.action, 공통 클라이언트/장치 어댑터/설정 조립과 PC 시험 서버 추가.
+- 기준8466ac1 + PC 적용1~4단계 미커밋 변경. 원격 작업8466ac1/통합fb5c61a/main2a397da 후속 변경 없음 조회 확인. PC 실제 파일은 사용자 로그 기준, 로봇은 미접속.
+- Goal transfer_id, Feedback phase, Result transfer_id/error_codes/error_message. 전체 성공은 ID 일치+SUCCEEDED+빈 오류 배열. 실제 감지·AI 여부와 취소 물리 처리는 보류.
+- 명시 discharge_mode=action + nav2_spin 조합만 새 방식 선택. 서비스 기본값 보존. 실제 프로파일은 수정하지 않아 기존 장치 호출 방식 유지, 장치 미설정은 거절 유지.
+- 공통 TransferMission/회전 알고리즘 변경 없음. 새 어댑터는 prepare_arm/stop 서비스와 배출 Action을 조합. 복원은 현재 인계 성공 증거만 검사하고 닫기 명령 재전송 없음. 취소 terminal은 물리 정지 확인이 아니며 명시 stop 서비스 응답도 필요.
+- 직접 오프라인57개 PASS: 새 client12, 결과15, 회전12, 적재/기존 인계18. Python 구문·Bash 구문 검사 통과. ROS 미설치로 ROS 빌드 및 실제 송수신4개 시나리오는 아직 미실행. Jetson/Isaac/실물·Zenoh 기기간 통신 미검증.
+- 사용자 2026-10-18 17:47 KST 제공 로그로5단계 PC 적용, 오프라인57개, diff 검사, farm_interfaces 빌드 및 실제 ROS 송수신4개 시나리오 PASS 확인. 이전 항목의 ROS 미실행은 작성 환경 기준이며 PC에서는 후속 검증 완료.
+- PC 로그: /home/eunbi/harvest_stage5_ros_zdqlxg/ros_smoke.log. 인터페이스1개 패키지 빌드이며 전체 harvest_robot/Nav2 빌드나 실물 검증은 아니다.
+- 상세 HARVEST_DISCHARGE_ACTION_STAGE5_20261018.md. 담당자 전달 기준: docs/JETSON_ARM_COMMUNICATION_HANDOFF_20261018.md. 문서 작성 완료, 담당자에게 직접 전송하지 않음. 원격 commit/push 및 로봇 배포 없음.
+
+
+## 79. 시뮬 담당자 코드 인계 및 커밋 준비 — 2026-10-18
+
+- 사용자 로그로5단계 결과/Jetson 인계 문서 패치 적용·diff 검사 통과 확인.
+- 사용자 요청으로 SIM_HARVEST_COMMUNICATION_HANDOFF_20261018.md 추가. 공통 모듈 재사용, 시뮬 장치/설정 책임, 현재 비활성 상태와 미검증 범위를 분리했다.
+- 전체1~5단계 변경을8466ac1 기준 증분 패치/변경 파일/해시 목록으로 준비. 사용자 PC 실행용 도구는 파일 내용과 브랜치/기준 HEAD/기존 staging을 검사한 뒤 이번 파일만 커밋하고 Git bundle·format-patch·코드 스냅샷을 생성한다.
+- 현재 기록 시점 실제 PC 커밋은 실행 전이며 커밋 해시는 생성 후 전달 ZIP의 COMMIT.txt로 확인한다. 원격 push·로봇 배포는 수행하지 않는다. 문서/패키징만 변경되어 코드 시험 반복 없음.

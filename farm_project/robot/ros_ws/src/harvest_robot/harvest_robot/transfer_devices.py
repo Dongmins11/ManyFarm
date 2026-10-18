@@ -27,15 +27,16 @@ class DeviceResult:
 class TriggerTransferDevices:
     """실물 서비스 연결용 어댑터. poll은 기다리지 않고 즉시 반환한다."""
 
-    def __init__(self, node: Any, services: Mapping[str, str]) -> None:
+    def __init__(self, node: Any, services: Mapping[str, str], *,
+                 operations: tuple[str, ...] = OPERATIONS) -> None:
         from std_srvs.srv import Trigger
         if not isinstance(services, dict):
             raise ValueError('transfer_device_services는 JSON 객체여야 합니다.')
-        if services and (set(services) != set(OPERATIONS) or any(
+        if services and (set(services) != set(operations) or any(
                 not isinstance(v, str) or not v.startswith('/') or v == '/'
                 or any(c.isspace() for c in v) for v in services.values())):
-            raise ValueError('5개 장치 동작에 절대 ROS 서비스 이름이 필요합니다.')
-        if services and len(set(services.values())) != len(OPERATIONS):
+            raise ValueError('선택한 장치 동작 전체에 절대 ROS 서비스 이름이 필요합니다: ' + ', '.join(operations))
+        if services and len(set(services.values())) != len(operations):
             raise ValueError('동작마다 서로 다른 서비스가 필요합니다.')
         self._type = Trigger
         self._clients = {name: node.create_client(Trigger, endpoint,

@@ -695,3 +695,93 @@
 - 남은 작업: 예찰 실제 카메라 교정 및 관측 모델/정면 소형 태그 정확도 개선, 이동 중 보정 평가. 기존 수확 진입 허용오차 수정은 여전히 별도 제안 상태이며 이번 변경에 적용하지 않았다.
 
 - 복원: 이번 변경 파일에서 공통 신호 이동·예찰 연결·추가 센서/프로파일만 되돌린 후 빌드/재시작한다. 단순 보정 OFF 비교는 `tag_correction:=false`로 가능하며 이전 인수/예찰 장착 변경 전체를 reset하지 않는
+
+
+## 2026-10-18 — 공통 수확량 집계 연결
+
+- 구분: 공통 구현 + 환경별 선택 설정. 사용자 “1단계 부터 진행하자” 승인. 기준 8466ac1.
+- 변경 전: 작업별 실적 전달과 외부 적재 Topic만 연결. 변경 후: 공통 HarvestLoad에 성공 증가분 누적, 기존 호출 상태와 인계 완료 초기화 연결.
+- 대상: harvest_robot의 harvest_load/node/communication/configuration/transfer_communication, 실물 harvest_real.json, sim harvest_task.json, 관련 시험 및 상태·결정 문서.
+- sim 설정은 arm_feedback을 선택하되 transfer OFF와 미확정 호출값 유지. 기존 Teacher/팔 Action/주행 변경 없음. 실물은 이동 전용 정책과 장치 미설정 유지.
+- 오프라인 관련 29개 PASS. ROS/Isaac/실물 미실행. 원격 미반영·사용자 PC 적용 전 패치.
+- 되돌림: 패치 역적용 검사 후 해당 변경만 복원. 상세 farm_project/docs/changes/HARVEST_LOAD_COMMON_20261018.md 참고.
+
+
+## 2026-10-18 — 공통 팔 Action 선택과 Status 연결 2단계
+
+- 구분/승인: 공통 변경. 사용자 “알겠어 진행해줘”, PC 코드와 모의 시험 범위.
+- 대상: harvest_robot의 arm_client/node/mission/communication/status, 공통 시험2개 및 sim 기존 팔 연결 시험, PROJECT_STATE/DECISIONS/상세 변경 문서.
+- 전후: sim에만 허용하던 팔 Action을 명시 설정 시 양 환경에서 연결. 팔 작업 중 HARVESTING 보고 및 서버 연결 기반 준비 상태. 팔 비정상 종료 후 다음 이동 차단 보완.
+- 실물 영향: 운영 설정/장치 주소/주행/지도/태그/통신 환경 변경 없음. sim 정상 수확 흐름 유지; sim도 비정상 팔 종료 후 자동 다음 이동은 차단한다.
+- 검증: 오프라인43개 PASS, ROS/Isaac/실물 미실행. 패치 적용 검사 및 결과 파일 일치 검사 수행. 원격 미반영.
+- 복원: 2단계 패치만 역적용 검사 후 복원. 1단계 누적량 패치는 유지. 상세 HARVEST_ARM_COMMON_STAGE2_20261018.md.
+
+
+## 2026-10-18 — 공통 인계 Spin 회전 연결 3단계
+
+- 구분/승인: 공통 변경. 사용자 파일별 제안 및 제자리 반대각 복원 승인, PC 모의 검증 범위.
+- 대상: farm_navigation/spin_client, harvest_robot의 transfer_rotation/transfer_devices/transfer_communication/configuration/node, 신규 시험2개 및 공통 상태·결정·상세 문서.
+- 전후: 기존5개 서비스 방식 보존, 명시 선택한 환경은 차체 Spin과4개 비차체 장치 동작으로 분리. 정/역각 회전 및 실제 관측 기반 정지·위치·방향 확인. 실패 시 자동 보정 없음.
+- 영향: 실물/시뮬 운영 프로파일·속도·footprint·지도·태그·통신 환경은 변경하지 않는다. 새 연결은 운영에서 비활성. 예찰/운송 기존 주행 코드 변경 없음.
+- 검증: 관련 오프라인62개 PASS, 패치 적용 검사와 구문 검사 통과. ROS/Isaac/실물 미실행. 기준8466ac1 + 1·2단계, 원격 미반영.
+- 복원:3단계 패치만 역적용 검사 후 복원. 상세 HARVEST_ROTATION_COMMON_STAGE3_20261018.md.
+
+
+## 2026-10-18 — 배출 Action 단일 요청 4단계 설계
+
+- 구분: 공통 설계 문서. 사용자 확정 및 설계 요청 승인.
+- 대상: PROJECT_STATE §74/75, DECISIONS D-044, 상세 HARVEST_DISCHARGE_ACTION_STAGE4_DESIGN_20261018.md, 이 기록.
+- 내용: Jetson 한 번 요청으로 열기·배출·닫기, 전체 완료 후 인계 완료 보고. 새 어댑터 복원에서 닫기 중복 요청 금지. 공통 미션 순서 유지.
+- 영향: 런타임/환경 설정 변경 없음.3단계까지의 코드는 유지. 실제 Action 규격 미정으로4단계 구현 완료 아님.
+- 검증: 문서 증분 패치 적용 검사 및 diff 검사. 코드 변경이 없어 기존62개 시험 반복 없음. ROS/Isaac/실물 미실행.
+- 복원: 이 문서 패치만 역적용 검사 후 복원. 원격 미반영.
+
+
+## 2026-10-18 — 공통 배출 결과 모의 검증 (승인 후 적용)
+
+- 승인: 사용자가 Result 필드 유지/제외와 감지 방식 보류를 결정하고 PC 모의 검증 승인.
+- 대상: harvest_robot/discharge_result.py, test/test_discharge_result.py, 공통 PROJECT_STATE/DECISIONS/4단계 상세 문서.
+- 전후: 설계만 존재하던 전체 완료 판정을 독립 공통 모듈로 추가. 운영 런치/Trigger 어댑터/FSM/환경 설정은 그대로이며 시험에서만 새 판정을 조합.
+- 이유: 배출 완료와 닫기 실패를 구분하고 미완료·이전 응답이 완료 보고/역회전을 허용하지 않음을 검증.
+- 실물/시뮬: 동일 공통 판정 사용 가능. 실제 연결 활성화 없음, 지도·주행·태그·Zenoh 변경 없음.
+- 직접 검증: 새13개, 기존 회전12개 PASS(총25). 실제 ROS/Isaac/Jetson/실물 미실행. 전체 기존 묶음 재실행 없음.
+- 복원: 이번 증분 패치만 역적용 검사 후 역적용. 기존 단계 변경 보존. 원격 commit/push 없음.
+
+
+## 2026-10-18 — 공통 배출 Result 복수 오류 배열 (승인 후 적용)
+
+- 승인: 사용자가 discharge_complete 제거 및 error_codes 배열 전환 승인.
+- 대상: discharge_result.py, test_discharge_result.py, PROJECT_STATE/DECISIONS/4단계 상세 문서.
+- 전후: 별도 완료 bool/단일 오류/외부 error_free 대신 현재 ID·Action 성공·빈 오류 배열로 전체 성공 판정. 복수 실패 원인 보존.
+- 직접 검증: 관련15개 PASS. 배출·닫기 동시 실패 시 완료 보고/역회전 차단. 이전 회전 전체 묶음 반복 없음.
+- 실물·시뮬 설정/운영 연결/주행/지도/태그 변경 없음. 실제 ROS/Isaac/Jetson/실물 미검증. 원격 미반영.
+- 되돌림: 직전 mock 패치를 유지하고 이번 errors 증분 패치만 역적용 검사 후 역적용.
+
+
+## 2026-10-18 — 공통 Discharge Action 연결 (승인 후 적용)
+
+- 사용자 승인: 합의한 오류 배열 규격으로 실제 Action 정의·클라이언트·장치 어댑터 및 PC 시험 서버 구현.
+- 대상: farm_interfaces Discharge.action/CMakeLists, harvest_robot discharge_client/discharge_devices/configuration/transfer_communication, test_discharge_client, robot/tools/discharge의 공통 PC 시험 도구, 상태·결정·상세 문서.
+- 전후: 결과 판정만 존재하던 구조에서 명시 설정 시 실제 ROS Action 전송과 기존 인계 흐름 조합 지원. TransferMission/차체 회전 정책은 동일, 기존 서비스 방식 기본값 유지.
+- 실물·시뮬 동일 연결 사용. 실물/시뮬 운영 프로파일·지도·태그·Nav2·Zenoh 변경 없음. Action 방식은 운영 활성화하지 않음.
+- 직접57개 오프라인 PASS(client12/result15/rotation12/load18). Python/Bash 구문 PASS. ROS 빌드/실제 DDS/Zenoh/Isaac/Jetson·실물 미실행. PC 실제 ROS 시험 스크립트 제공.
+- 되돌림: 이번5단계 증분 패치만 역적용 검사 후 역적용하고 인터페이스 사용 환경을 해당 버전으로 재빌드.4단계 결과 판정은 보존. commit/push/배포 없음.
+
+
+## 2026-10-18 — PC 배출 Action 검증 결과 및 Jetson 인계 문서
+
+- 사용자 승인: PC 검증 결과 반영과 담당자 전달 규격/남은 합의 정리.
+- 대상: docs/PROJECT_STATE.md, changes/HARVEST_DISCHARGE_ACTION_STAGE5_20261018.md, 신규 docs/JETSON_ARM_COMMUNICATION_HANDOFF_20261018.md, 본 이력.
+- 사용자 제공 로그로 PC 오프라인57개·farm_interfaces 빌드·ROS 송수신4개 PASS 확인. Jetson·Zenoh 기기간·Isaac·실물 검증과 구분.
+- 배출 Action 현재 규격과 미정인 수확 Action/Status Topic/감지/취소 물리 동작을 구분해 전달 문서화. 새 운영 계약이나 설정을 추가하지 않음.
+- 실행 코드/실물·시뮬 설정 영향 없음. 문서 증분 패치 적용·형식 검사만 실행. 코드 재검증 반복 없음. 담당자 직접 메시지 전송 및 commit/push/배포 미수행.
+- 되돌림: 이번 문서 증분 패치만 역적용 검사 후 역적용.
+
+
+## 2026-10-18 — 시뮬 공통 수확 통신 인계 자료
+
+- 사용자 승인: 시뮬 전달 문서/코드 묶음/PC 커밋 준비.
+- 대상: docs/SIM_HARVEST_COMMUNICATION_HANDOFF_20261018.md, PROJECT_STATE, 본 이력. 실행 코드/환경 설정 변경 없음.
+- 공통 구현을 복사하지 않고 시뮬 장치 및 환경 설정으로 연결하는 기준, 미확정 수량/수확 Action/Status와 검증 한계 명시.
+- 전체 변경 패치/파일 해시와 PC 커밋·bundle 생성 도구 제공. 실제 사용자 PC 커밋·원격 반영은 별도 결과 확인 필요.
+- 문서 증분 및 전체 패치 적용·내용 검증 수행. 코드 시험 반복 없음. 되돌림은 문서 증분만 역적용 검사 후 역적용; 기존 코드 단계 보존.

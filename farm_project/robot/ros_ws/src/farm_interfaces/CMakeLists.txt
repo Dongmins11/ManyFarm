@@ -14,6 +14,7 @@ rosidl_generate_interfaces(${PROJECT_NAME}
   "action/HarvestTask.action"
   "action/ReturnToStation.action"
   "action/DockTransfer.action"
+  "action/Discharge.action"
   "srv/TransferEvent.srv"
   "srv/GetHarvestTasks.srv"
   DEPENDENCIES geometry_msgs action_msgs

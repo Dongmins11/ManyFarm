@@ -48,8 +48,13 @@ class HarvestCommunication:
     def arm_feedback(self, success: int, failed: int) -> None:
         """장치가 확정한 수량만 전달합니다. 예상값·도착·접촉으로 성과를 계산하지 않습니다."""
         with self.node.lock:
-            self.node.arm_counts = validate_counts(success, failed, self.node.arm_counts)
+            counts = validate_counts(success, failed, self.node.arm_counts)
+            self.node.harvest_load.observe(success, failed)
+            self.node.arm_counts = counts
             handle = self.node.active_goal
+        transfer = getattr(self.node, 'transfer', None)
+        if transfer is not None:
+            transfer.update_harvest_load()
         if handle is not None:
             self.feedback(handle)
 
@@ -87,6 +92,8 @@ class HarvestCommunication:
         node.active_goal = handle
         node.navigation_log = []
         node.arm_counts = (0, 0)
+        with node.lock:
+            node.harvest_load.begin()
         node.arm_result = node.arrival_result = None
         node.mission_stage = 'NAVIGATION'
         controller = HarvestStateController(HarvestMission(node, goal))
@@ -159,6 +166,10 @@ class HarvestCommunication:
             except Exception as error:
                 node.get_logger().error('작업 진단 이벤트 발행 실패: ' + str(error))
             with node.lock:
+                node.harvest_load.end()
+                # 결과 수량/취소 상태는 보존하되 접힘 미확인 상태에서 다음 이동을 받지 않는다.
+                if not getattr(node, 'arm_travel_ready', True):
+                    node.blocked = True
                 node.active_goal = None
                 node.busy = False
         return result

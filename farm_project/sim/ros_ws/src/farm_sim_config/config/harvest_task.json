@@ -254,5 +254,9 @@
       ]
     }
   },
-  "task_navigation_policy": "robot/config/navigation/harvest_task.yaml"
+  "task_navigation_policy": "robot/config/navigation/harvest_task.yaml",
+  "transfer": {
+    "load_source": "arm_feedback",
+    "request_count": 0
+  }
 }

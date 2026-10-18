@@ -4,6 +4,8 @@ from dataclasses import replace
 import math
 import json
 from farm_navigation.navigation_types import NavigationSettings
+from .transfer_rotation import rotation_parameters
+from .discharge_client import discharge_parameters
 from typing import Any
 
 from farm_navigation.configuration import merge_mappings, read_mapping, resolve_file
@@ -33,10 +35,26 @@ def transfer_parameters(config: dict[str, Any]) -> dict[str, Any]:
     values = config.get('transfer', {})
     if not isinstance(values, dict) or type(values.get('enabled', False)) is not bool:
         raise ValueError('transfer는 객체, enabled는 bool이어야 합니다.')
+    rotation = rotation_parameters(values)
+    discharge = discharge_parameters(values)
     services = values.get('device_services', {})
+    source = values.get('load_source', 'external_topic')
+    threshold = values.get('request_count', 0)
+    if source not in ('external_topic', 'arm_feedback'):
+        raise ValueError('transfer.load_source는 external_topic 또는 arm_feedback이어야 합니다.')
+    if type(threshold) is not int or not 0 <= threshold <= 2147483647:
+        raise ValueError('transfer.request_count는 0 이상의 int32여야 합니다.')
+    if source == 'arm_feedback' and values.get('loaded_count_topic', ''):
+        raise ValueError('팔 누적과 외부 적재 Topic은 동시에 선택할 수 없습니다.')
     if not isinstance(services, dict):
         raise ValueError('transfer.device_services는 객체여야 합니다.')
-    result = {'transfer_enabled': values.get('enabled', False),
+    result = {'transfer_discharge_mode': discharge['discharge_mode'],
+              'transfer_discharge_action': json.dumps(discharge['discharge_action']),
+              'transfer_rotation_mode': rotation['rotation_mode'],
+              'transfer_rotation': json.dumps(rotation['rotation']),
+              'transfer_enabled': values.get('enabled', False),
+              'transfer_load_source': source,
+              'transfer_request_count': threshold,
               'transfer_device_services': json.dumps(services),
               'transfer_capacity_count': values.get('capacity_count', 0),
               'transfer_loaded_count_topic': values.get('loaded_count_topic', '')}

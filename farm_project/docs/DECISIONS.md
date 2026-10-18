@@ -246,3 +246,60 @@ D-026 반복 검증 보완(2026-10-14): CPU/GPU 각2회 추가에서 둘 다1성
 - 실물 주행 수치는 환경 override, 진입 거리·인계는 선택 설정으로 표현한다. 인계 상태기계/장치 어댑터는 기존 구현을 재사용한다.
 - 인계는 작업/복귀와 공통 소유권을 공유하되 중간 선점을 허용하지 않는다. 미등록 장치·불확실한 완료·저널 오류는 실행을 차단한다.
 - 물리 검증 완료를 의미하지 않으며 지도는 순찰 실물도 공유한다. 상세 검증·반영 범위는 PROJECT_STATE §70과 변경 문서를 따른다.
+
+
+### D-041 — 공통 팔 실적 기반 적재량 집계 (2026-10-18)
+
+- 사용자 1단계 승인. 수확 성공·실패 Feedback은 기존대로 관제 전달하고 성공 증가분만 좌표를 넘어 누적한다.
+- 호출은 기존 transfer_required Status로 요청하며 관제가 운송 Action을 전송한다. 현재 좌표 완료 전 DockTransfer를 예약하는 확장은 하지 않는다.
+- 입력은 arm_feedback/external_topic 중 하나를 선택한다. request_count 양수는 개수 기준, 0은 기존 용량80% 기준을 사용하며 용량도0이면 호출 판단 OFF다.
+- 업무는 공통 harvest_robot에서 처리한다. 장치 연결·운영 호출값·재시작 동기화는 별도 확정한다. 상세 HARVEST_LOAD_COMMON_20261018.md.
+
+
+### D-042 — 팔 Action 연결은 공통 정책으로 선택 (2026-10-18)
+
+- 사용자 2단계 PC 범위 승인. mode로 팔을 금지하지 않고 completion_policy와 arm_action.endpoint를 사용한다. 연결값을 sim에서 실물로 자동 복사하지 않는다.
+- 좌표 전체 수확 Action 종료까지 이동을 재개하지 않는다. 개별 성공/실패 Feedback은 중간 보고이며 완료 신호가 아니다. 정상 SUCCESS는 접힘 완료 계약을 전제로 한다.
+- 실패/취소/정지 미확인은 접힘 완료로 추측하지 않고 이후 동작을 차단한다. 오류 후 접힘 확인·해제 및 재시작 동기화 계약은 후속 합의다.
+- 기존 HarvestTask 기반 내부 클라이언트를 재사용하되 Jetson 측 확정 인터페이스로 선언하지 않는다. 팔 Status Topic 및 박스 Action의 형식/이름/완료 조건은 미확정으로 남긴다.
+
+
+### D-043 — 인계 차체는 제자리 정·역각 회전 (2026-10-18)
+
+- 사용자 승인: 준비 왼쪽90도, 복원 오른쪽90도. 복원은 기록된 목표 방향을 향한 이동이나 보정각 계산이 아닌 정확히 반대 상대각 요청이다.
+- 기록한 위치·방향은 허용 오차 검증에만 사용한다. 오차 초과 시 실패·정지 유지, 추가 회전/이동 보정 없음.
+- Nav2 Spin은 공통 주행 계층, 인계 순서는 기존 공통 TransferMission, 팔·박스는 장치 어댑터에서 담당한다. 운송 이격과 장치 복원 완료 전 역회전 금지.
+- 기존 서비스 방식은 기본으로 보존. 새 회전 방식의 운영 연결값/허용 오차는 확인 전 활성화하지 않는다. 장치 미설정을 주행·태그 미완료로 해석하지 않는다.
+
+
+### D-044 — Jetson 배출 Action 한 번으로 열기·배출·닫기 수행 (2026-10-18)
+
+- 사용자 확정. Pinky는 DOCK_STABLE 이후 배출 Action을 한 번 요청하고 Jetson이 열기·배출·닫기를 담당한다. 전체 완료 Result 전에는 TRANSFER_COMPLETE를 보고하지 않는다.
+- TRANSPORT_CLEAR 이후 복원에서 닫기 명령을 다시 보내지 않는다. 새 어댑터는 현재 인계의 닫힘 포함 성공 결과를 확인한 뒤 공통 반대각 회전을 허용한다. 기존 서비스 방식 계약은 유지한다.
+- Action 형식/주소/필드, 완료 확인 방법과 취소·복구 동작은 미확정이다. 이번 변경은 설계 기록이며 구현·배포 승인을 대체하지 않는다.
+
+
+### D-045 — 배출 결과 필드와 PC 모의 검증 (2026-10-18)
+
+- 사용자 승인: transfer_id는 추적용으로 유지, discharge_complete 유지, closed 제외. 닫기 실패는 error_code로 구분하며 error_message로 상세 전달.
+- 성공은 Action 성공 + discharge_complete=true + 오류 없음이다. 성공은 닫기까지 완료했다는 Jetson 계약을 포함한다. 오류 없음의 실제 코드 값은 미확정이다.
+- 배출·걸림 감지 및 수확량 측정 방식은 Jetson 측 논의로 보류. AI 비전 의존성을 추가하지 않는다.
+- 공통 결과 판정 모듈을 추가하고 PC 모의 응답으로 기존 공통 미션·회전을 검증한다. 실제 Action 타입/주소/코드 매핑·취소 물리 동작은 미정이며 운영 연결은 활성화하지 않는다.
+
+
+### D-046 — 배출 완료 bool을 제거하고 복수 오류 배열 사용 (2026-10-18)
+
+- 사용자 승인으로 D-045의 Result 구성을 변경한다. 현재 Result: string transfer_id, string[] error_codes, string error_message. discharge_complete/closed/단일 error_code는 사용하지 않는다.
+- 전체 성공은 현재 인계 ID 일치 + Action 성공 + error_codes=[]다. NONE 코드를 배열에 넣지 않는다. 실패·취소 상태나 Result 미수신은 오류 배열이 없거나 비어 있어도 성공이 아니다.
+- Jetson은 배출·닫기 모두 실패하면 DISCHARGE_FAILED와 CLOSE_FAILED를 함께 전달한다. OPEN_FAILED/INTERNAL_ERROR도 오류 구분에 사용한다. 빈 배열을 근거로 실패 결과의 개별 물리 상태를 추정하지 않는다.
+- 감지 방식과 취소 시 물리 동작은 보류. 이번 구현은 공통 판정 모듈과 모의 시험 변경이며 ROS Action 정의·클라이언트·운영 어댑터 연결은 아직 미구현이다.
+
+
+### D-047 — 배출 Action을 공통 비차체 어댑터에 연결 (2026-10-18)
+
+- 사용자 구현 승인. farm_interfaces/Discharge: Goal string transfer_id; Result string transfer_id, string[] error_codes, string error_message; Feedback string phase.
+- phase=OPENING/DISCHARGING/CLOSING. 오류 OPEN_FAILED/DISCHARGE_FAILED/CLOSE_FAILED/INTERNAL_ERROR, 정상 빈 배열. 임의 추가 코드도 오류로 보존한다. 완료 bool 없음.
+- 공통 discharge_mode는 device_services 기본, action 명시 선택. action은 nav2_spin과 조합하며 명시 endpoint/응답·취소 제한시간 및 prepare_arm/stop 서비스 필요. 이름/시간 운영값은 미지정 유지.
+- 새 인계마다 증거 객체를 생성하고 관제 Goal transfer_id를 배출 Goal로 전달. 자동 재전송 없음. 이전 Goal Feedback/결과가 다음 인계에 섞이지 않게 ticket을 구분한다.
+- 배출 Action 취소 terminal과 물리 정지는 구분한다. stop 서비스는 실제 정지 확인 계약이 필요하며 미설정 상태에서 이를 가짜 성공으로 대체하지 않는다. 젯슨 취소 시 닫기/중간정지 방식은 여전히 보류다.
+- 프로토콜 종료 상태 검증은 구현했으나 실제 젯슨 서버·물리 완료 판정 구현은 사용자 담당 범위가 아니다. PC mock 통과를 실제 장치 검증으로 기록하지 않는다.

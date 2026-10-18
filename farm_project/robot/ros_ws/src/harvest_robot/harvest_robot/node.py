@@ -28,7 +28,8 @@ from std_msgs.msg import String
 from rclpy.qos import QoSProfile, ReliabilityPolicy, DurabilityPolicy
 from .communication import HarvestCommunication
 from .transfer_communication import TransferCommunication
-from .arm_client import ArmActionClient, ArmActionSettings
+from .arm_client import ArmActionClient, configured_arm_settings
+from .harvest_load import HarvestLoad
 
 
 class HarvestNode(Node):
@@ -45,8 +46,7 @@ class HarvestNode(Node):
         if (self.config['robot_id'] != profile['robot_id'] or self.config['map_id'] != profile['map_id']
                 or policy not in ('ARRIVAL_ONLY_NO_HARVEST', 'ARRIVAL_THEN_ARM')):
             raise ValueError('수확 환경 또는 완료 정책 불일치')
-        if policy == 'ARRIVAL_THEN_ARM' and self.mode != 'sim':
-            raise ValueError('도착 후 팔 작업의 실물 장치 연결은 미구현입니다. 시뮬 장치로 대체하지 않습니다.')
+        arm_settings = configured_arm_settings(self.config)
         self.declare_parameter('tag_correction', False)
         self.tag_control = (TagControl(self, profile['robot_id'], profile['map_id'])
                             if self.get_parameter('tag_correction').value else None)
@@ -56,9 +56,11 @@ class HarvestNode(Node):
         self.active_goal = None
         self.busy = self.blocked = self.stopping = False
         self.completed_ids = set()
+        self.harvest_load = HarvestLoad()
+        self.arm_travel_ready = True
         self.navigation_log = []
-        self.arm_client = (ArmActionClient(self, ArmActionSettings.from_mapping(self.config.get('arm_action')),
-                           self.callbacks) if policy == 'ARRIVAL_THEN_ARM' else None)
+        self.arm_client = (ArmActionClient(self, arm_settings, self.callbacks)
+                           if arm_settings is not None else None)
         settings = NavigationSettings.from_mapping(profile['navigation'])
         if settings.mode != 'follow_path':
             raise ValueError('수확 이동 시험은 그래프 FollowPath를 사용합니다.')
@@ -149,7 +151,7 @@ class HarvestNode(Node):
         # 환경 데이터가 선택한 인계 장치만 연결한다. sim/real 업무 코드는 동일하다.
         transfer_config = self.config.get("transfer", {})
         self.declare_parameter("transfer_enabled", transfer_config.get("enabled", False))
-        self.transfer = (TransferCommunication(self)
+        self.transfer = (TransferCommunication(self, settings)
                          if self.get_parameter("transfer_enabled").value else None)
         self.station_return = StationReturn(self, root=self.root, profile=profile, settings=settings,
             poses=self.poses, motion=self.motion, callbacks=self.callbacks, handoff=self.handoff,
@@ -160,8 +162,6 @@ class HarvestNode(Node):
         self.status_reporter = None
         status_config = self.config.get('status_reporting', {})
         if status_config.get('enabled', False):
-            if self.mode != 'real' or policy != 'ARRIVAL_ONLY_NO_HARVEST':
-                raise ValueError('현재 Status는 실물 이동 전용 정책에만 연결됨')
             from .status import HarvestStatus
             self.status_reporter = HarvestStatus(self, settings, status_config)
         self.get_logger().info('HarvestTask 완료 정책: '+policy)
