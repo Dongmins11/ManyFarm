@@ -1,0 +1,28 @@
+{
+  "state": "TO_HOME",
+  "mission_complete": false,
+  "target_priority": "lowest_camera_observed_world_height_first",
+  "ordered_target_ids": [
+    "fruit-000001",
+    "fruit-000002"
+  ],
+  "observed_target_heights_m": {
+    "fruit-000001": 0.8880469040004282,
+    "fruit-000002": 0.9707785731458586
+  },
+  "harvest_successes": 0,
+  "planned_targets": 2,
+  "harvested_ids": [],
+  "failure": null,
+  "events": [
+    {
+      "state": "TO_HOME",
+      "stamp_s": 0.45,
+      "target_id": "fruit-000001"
+    }
+  ],
+  "scene_resets_during_mission": 0,
+  "control_checks": 165,
+  "physics_control_checks": 495,
+  "response6_physics_calls": 495
+}

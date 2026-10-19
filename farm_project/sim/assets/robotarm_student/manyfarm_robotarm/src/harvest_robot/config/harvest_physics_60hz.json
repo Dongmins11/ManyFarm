@@ -1,0 +1,14 @@
+{
+  "schema": 1,
+  "name": "harvest_physics_60hz",
+  "physics_hz": 60,
+  "policy_hz": 20,
+  "physics_dt_s": 0.016666666666666666,
+  "decimation": 3,
+  "contact_substeps": 1,
+  "camera_requested_hz": 30,
+  "render_hz": 30,
+  "status": "failed attachment stability and Teacher validation; not qualified for training",
+  "validation_report": "docs/manipulation/TEACHER_60HZ_COMPARE_20261008_KR.md",
+  "note": "Camera rate is nominal. Physics transfer does not enable or change RGB-D capture. No hidden high-rate substeps; prior 480Hz runs and frozen Student sources remain unchanged."
+}

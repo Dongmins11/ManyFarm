@@ -15,6 +15,7 @@ class Reservation:
     kind: str
     task_id: str
     interrupted: threading.Event = field(default_factory=threading.Event)
+    interruptible: bool = True
 
 
 class ActionHandoff:
@@ -39,12 +40,19 @@ class ActionHandoff:
             return bool(self._active and self._active.kind == 'work'
                         and self._active.interrupted.is_set())
 
-    def reserve(self, kind: str, task_id: str) -> bool:
-        """같은 종류의 중복 실행은 거절한다. 교체 대기는 한 건으로 제한한다."""
+    def reserve(self, kind: str, task_id: str, *, preempt: bool = True,
+                interruptible: bool = True) -> bool:
+        """기본 작업↔복귀 선점을 유지한다. 비선점 예약은 유휴에서만 시작한다.
+
+        장치 인계 등 중간 선점 불가 작업은 interruptible=False로 예약한다.
+        거절된 요청은 진행 중 토큰의 취소 상태를 변경하지 않는다.
+        """
         with self._condition:
             if self._pending is not None or (self._active and self._active.kind == kind):
                 return False
-            token = Reservation(kind, task_id)
+            if self._active and (not preempt or not self._active.interruptible):
+                return False
+            token = Reservation(kind, task_id, interruptible=interruptible)
             if self._active is None:
                 self._active = token
             else:

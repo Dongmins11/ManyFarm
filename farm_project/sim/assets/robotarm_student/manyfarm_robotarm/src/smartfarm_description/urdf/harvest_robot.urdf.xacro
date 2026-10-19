@@ -1,0 +1,71 @@
+<?xml version="1.0"?>
+<robot name="manyfarm_paprika_dual_so101" xmlns:xacro="http://www.ros.org/wiki/xacro">
+  <xacro:arg name="detailed_lids" default="true"/>
+  <xacro:include filename="generated/harvest_lid_mechanism.xacro"/>
+  <xacro:arg name="assembly" default="../config/assembly.yaml"/>
+  <xacro:arg name="mesh_root" default="package://smartfarm_description/meshes"/>
+  <xacro:arg name="enable_arm_2" default="true"/>
+  <xacro:property name="mesh_root" value="$(arg mesh_root)"/>
+  <xacro:property name="c" value="${xacro.load_yaml('$(arg assembly)')}"/>
+  <xacro:property name="L" value="${c['frame_length']}"/>
+  <xacro:property name="W" value="${c['frame_width']}"/>
+  <!-- Rigid front-to-right mapping: (x,y,z) -> (y,(L-W)/2-x,z).
+       The length/width correction keeps mounts seated on the right deck edge. -->
+  <xacro:property name="side_offset" value="${(L-W)/2}"/>
+  <xacro:property name="side_yaw" value="${-pi/2}"/>
+  <xacro:property name="P" value="${c['profile_size']}"/>
+  <xacro:property name="H" value="${c['frame_top_ground']-c['frame_bottom_ground']}"/>
+  <xacro:include filename="generated/vicpinky.xacro"/>
+  <xacro:include filename="generated/so101.xacro"/>
+  <xacro:include filename="primitives.xacro"/>
+  <xacro:include filename="cameras.xacro"/>
+  <xacro:vicpinky_base/>
+  <link name="platform_base"/>
+  <xacro:fixed_joint name="platform_attachment" parent="base_link" child="platform_base"/>
+  <link name="upper_frame"/>
+  <xacro:fixed_joint name="frame_attachment" parent="platform_base" child="upper_frame" xyz="0 0 ${c['frame_bottom_ground']-c['base_ground_offset']}"/>
+  <xacro:frame_post name="front_left_post" x="${(L-P)/2}" y="${(W-P)/2}"/>
+  <xacro:frame_post name="front_right_post" x="${(L-P)/2}" y="${-(W-P)/2}"/>
+  <xacro:frame_post name="rear_left_post" x="${-(L-P)/2}" y="${(W-P)/2}"/>
+  <xacro:frame_post name="rear_right_post" x="${-(L-P)/2}" y="${-(W-P)/2}"/>
+  <xacro:frame_ring name="lower_rail" z="${P/2}"/>
+  <xacro:frame_ring name="upper_rail" z="${H-P/2}"/>
+  <xacro:solid_box name="top_deck" parent="upper_frame" size="${[L,W,c['plate_thickness']]}" xyz="0 0 ${H+c['plate_thickness']/2}" mass="${c['plate_mass']}" color="0.15 0.16 0.17 1"/>
+  <xacro:mounted_arm index="1" y="${c['arm_spacing']/2}" yaw="${c['arm_1_yaw']}"/>
+  <xacro:if value="$(arg enable_arm_2)"><xacro:mounted_arm index="2" y="${-c['arm_spacing']/2}" yaw="${c['arm_2_yaw']}"/></xacro:if>
+  <xacro:if value="${c['overhead_camera_enabled']}"><xacro:overhead_camera/></xacro:if>
+  <!-- Box fixed directly to upper right profile; no middle crossbar or shelf rails. -->
+  <link name="box_support"/>
+  <xacro:fixed_joint name="box_support_attachment" parent="upper_rail_right" child="box_support" xyz="${c['box_center_y']} ${(L-P)/2-c['box_center_x']} ${c['box_bottom_ground']-(c['frame_top_ground']-P/2)}" rpy="0 0 ${side_yaw}"/>
+  <xacro:property name="BX" value="${c['box_length']}"/>
+  <xacro:property name="BY" value="${c['box_width']}"/>
+  <xacro:property name="BZ" value="${c['box_height']}"/>
+  <xacro:property name="T" value="${c['box_wall']}"/>
+  <link name="harvest_box"/>
+  <xacro:fixed_joint name="harvest_box_fixed" parent="box_support" child="harvest_box"/>
+  <!-- Mass distributed by volume across four walls and two sliding floor halves. -->
+  <xacro:property name="V" value="${BX*BY*T+2*BX*T*(BZ-T)+2*T*(BY-2*T)*(BZ-T)}"/>
+  <xacro:property name="rho" value="${c['box_empty_mass']/V}"/>
+  <xacro:property name="slide_valid" lazy_eval="false" value="${True if c['box_bottom_slide_clearance'] >= 0 and c['box_bottom_slide_effort'] > 0 and c['box_bottom_slide_velocity'] > 0 else xacro.fatal('Invalid box bottom slide clearance or limits')}"/>
+  <xacro:macro name="sliding_bottom" params="side direction color">
+    <xacro:solid_box name="box_bottom_${side}" parent="harvest_box" size="${[BX,BY/2,T]}" xyz="0 0 0" mass="${rho*BX*BY*T/2}" color="${color}" attach="${False}"/>
+    <joint name="box_bottom_${side}_joint" type="prismatic">
+      <parent link="harvest_box"/><child link="box_bottom_${side}"/>
+      <origin xyz="0 ${direction*BY/4} ${T/2}"/>
+      <axis xyz="0 ${direction} 0"/>
+      <limit lower="0" upper="${BY/2+c['box_bottom_slide_clearance']}" effort="${c['box_bottom_slide_effort']}" velocity="${c['box_bottom_slide_velocity']}"/>
+    </joint>
+  </xacro:macro>
+  <xacro:unless value="$(arg detailed_lids)">
+  <xacro:sliding_bottom side="left" direction="${1}" color="0.10 0.44 0.28 1"/>
+  <xacro:sliding_bottom side="right" direction="${-1}" color="0.18 0.54 0.36 1"/>
+  </xacro:unless>
+  <xacro:if value="$(arg detailed_lids)"><xacro:harvest_lid_mechanism/></xacro:if>
+  <xacro:solid_box name="box_left_wall" parent="harvest_box" size="${[BX,T,BZ-T]}" xyz="0 ${(BY-T)/2} ${(BZ+T)/2}" mass="${rho*BX*T*(BZ-T)}" color="0.12 0.51 0.32 1"/>
+  <xacro:solid_box name="box_right_wall" parent="harvest_box" size="${[BX,T,BZ-T]}" xyz="0 ${-(BY-T)/2} ${(BZ+T)/2}" mass="${rho*BX*T*(BZ-T)}" color="0.12 0.51 0.32 1"/>
+  <xacro:solid_box name="box_front_wall" parent="harvest_box" size="${[T,BY-2*T,BZ-T]}" xyz="${(BX-T)/2} 0 ${(BZ+T)/2}" mass="${rho*T*(BY-2*T)*(BZ-T)}" color="0.12 0.51 0.32 1"/>
+  <xacro:solid_box name="box_rear_wall" parent="harvest_box" size="${[T,BY-2*T,BZ-T]}" xyz="${-(BX-T)/2} 0 ${(BZ+T)/2}" mass="${rho*T*(BY-2*T)*(BZ-T)}" color="0.12 0.51 0.32 1"/>
+  <link name="place_left"/><link name="place_right"/>
+  <xacro:fixed_joint name="place_left_joint" parent="harvest_box" child="place_left" xyz="0 ${BY/4} ${T+0.05}"/>
+  <xacro:fixed_joint name="place_right_joint" parent="harvest_box" child="place_right" xyz="0 ${-BY/4} ${T+0.05}"/>
+</robot>

@@ -101,15 +101,16 @@ def evaluate_result(result: dict, fixture: dict, log_directory: Path | None, *,
         candidate_ids, selected, policy_ids = [], [], []
     expected_set = set(expected)
     # 전개 중 취소는 후보 선정/정책 실행 전에 끝날 수 있다. 정상 완료에는 적용하지 않는다.
-    canceled_before_selection = (cancel_requested and terminal.get('status') == 'CANCELED'
-        and not candidate_events and not selected and not policy_ids and not attempts)
+    canceled_before_policy = (cancel_requested and terminal.get('status') == 'CANCELED'
+        and not selected and not policy_ids and not attempts)
+    canceled_before_selection = canceled_before_policy and not candidate_events
     check('candidates_match_fixture', canceled_before_selection or (len(candidate_events) == 1
           and set(candidate_ids) == expected_set and len(candidate_ids) == len(expected)))
     check('candidate_count_matches', logged_result.get('candidate_count') == len(candidate_ids))
     check('selected_targets_match_fixture', set(selected) <= expected_set and len(selected) == len(set(selected)))
     check('policy_targets_were_selected', set(policy_ids) <= set(selected))
     check('attempt_targets_match_fixture', set(recorded) <= expected_set and len(recorded) == len(set(recorded)))
-    check('actual_policy_executed', canceled_before_selection or
+    check('actual_policy_executed', canceled_before_policy or
           (bool(policy_ids) if expected else not selected and not policy_ids and not attempts))
     check('completed_window_processed_all', terminal.get('status') != 'SUCCESS' or set(recorded) == expected_set)
     actual_counts = (sum(record['success'] for record in attempts), sum(not record['success'] for record in attempts))
@@ -143,14 +144,27 @@ def evaluate_result(result: dict, fixture: dict, log_directory: Path | None, *,
         and record.get('physical_status') == 'SUCCEEDED' and record.get('physical_in_box') is True
         and type(record.get('physical_place_hold_s')) in (int, float)
         and math.isfinite(record['physical_place_hold_s']) and record['physical_place_hold_s']+1e-9 >= place_hold_s]
-    harvest_confirmed = bool(confirmed) and checks['terminal_counts_valid'] and counts[0] > 0
+    passages = [record for record in attempts if record['success']
+        and record.get('success_source') in ('basket_dual_laser', 'basket_parallel_lasers')
+        and record.get('identity_confirmed') is False
+        and (record.get('passage', {}).get('direction') == 'down'
+             or (record.get('passage', {}).get('direction_confirmed') is False
+                 and bool(record.get('passage', {}).get('beams_seen'))))
+        and record.get('passage', {}).get('stamp_s') == record.get('time_s')
+        and type(record.get('passage', {}).get('sequence')) is int]
+    if passages:
+        check('laser_sequences_unique', len({r['passage']['sequence'] for r in passages}) == len(passages))
+        check('laser_count_matches_feedback', len(passages) == counts[0])
+    harvest_confirmed = bool(confirmed or passages) and checks['terminal_counts_valid'] and counts[0] > 0
     if require_harvest:
-        check('harvest_confirmed_in_basket', harvest_confirmed)
+        check('laser_passage_confirmed' if passages else 'harvest_confirmed_in_basket', harvest_confirmed)
     if not expected:
         check('empty_fixture_completed_normally', terminal.get('status') == 'SUCCESS' and counts == (0, 0))
     return dict(protocol_completed=protocol_completed, task_status=terminal.get('status'),
         harvested_count=counts[0], failure_count=counts[1], require_harvest=require_harvest,
-        harvest_confirmed=harvest_confirmed, confirmed_target_ids=confirmed, policy_steps=len(policy_ids),
+        harvest_confirmed=harvest_confirmed, confirmed_target_ids=confirmed,
+        anonymous_passages=len(passages), passage_associated_attempt_ids=[r['target_id'] for r in passages],
+        policy_steps=len(policy_ids),
         expected_target_ids=expected, candidate_target_ids=candidate_ids, selected_target_ids=selected,
         finalized_target_ids=recorded, checks=checks, verification_errors=errors,
         passed=all(checks.values()) and not errors)
@@ -197,6 +211,8 @@ def main() -> int:
     harvest = None
     for i, file in enumerate(fleet['device_configs']):
         device = json.loads((ROOT/file).read_text())
+        if device['runtime'].get('harvest_arm', {}).get('enabled'):
+            device['runtime']['harvest_arm']['backend'] = 'teacher'
         # 실행 프로세스·포트를 분리하고 센서는 원 설정을 그대로 둡니다.
         device['runtime'].update(command_port=21600+10*i, telemetry_port=21601+10*i)
         for key in ('camera', 'tag_camera'):

@@ -1,0 +1,12 @@
+{
+  "passed": true,
+  "extracted_path": "/tmp/student60_d435_receiver_20261016/manyfarm_robotarm",
+  "trace_bytes": 27042483,
+  "original_workspace_file_opens": [],
+  "installed_vision_venv_allowed": true,
+  "python_original_source_reads_blocked": true,
+  "native_control_steps": 20,
+  "native_physics_steps": 60,
+  "harvest_evaluation": false,
+  "trace_scope": "strace -f file syscalls for relocated native process and detector child; environment libraries allowed"
+}

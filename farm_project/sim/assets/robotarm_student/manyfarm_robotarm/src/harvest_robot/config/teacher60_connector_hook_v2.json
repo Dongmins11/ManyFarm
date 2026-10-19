@@ -1,0 +1,104 @@
+{
+  "schema": "teacher60_hook_candidate_v2",
+  "version": "teacher60_connector_hook_v2",
+  "date": "2026-10-13",
+  "status": "mechanically_verified_candidate_not_active",
+  "hook": {
+    "length_m": 0.06,
+    "final_extension_m": 0.01,
+    "break_force_N": 2.5,
+    "damping_N_s_m": 4.2,
+    "bending_drag_N_s_m": 0.1,
+    "rotation_damping_Nm_s_rad": 0.008,
+    "pivot_offset_direction": [
+      0.0,
+      0.0,
+      1.0
+    ],
+    "solver": "tgs-distributed"
+  },
+  "user_measured": {
+    "hanger_length_m": 0.06,
+    "horizontal_break_force_N": 2.5,
+    "reported_tip_travel_range_m": [
+      0.06,
+      0.08
+    ],
+    "tip_travel_is_approximate": true
+  },
+  "provisional": {
+    "final_extension_not_measured": true,
+    "pivot_above_tip_direction_not_measured": true,
+    "damping_not_measured": true,
+    "friction_not_measured": true
+  },
+  "placement": {
+    "preserve_initial_fruit_root_centers": true,
+    "preserve_initial_fruit_rotation": true,
+    "preserve_robot_root": true,
+    "pivot": "original fruit tip +0.06m worldZ",
+    "during_motion": "PhysX motion; no pose/velocity override"
+  },
+  "physics": {
+    "physics_hz": 60,
+    "policy_hz": 20,
+    "render_hz": 30,
+    "mass_kg": 0.009,
+    "fruit_version": 1,
+    "effective_finger_friction": 1.6,
+    "max_velocity_iterations": 0,
+    "min_position_iterations": 16,
+    "external_forces_every_iteration": true
+  },
+  "fracture": {
+    "owner": "PhysX non-articulation D6 distance constraint",
+    "actual_constraint_break_force_N": 2.5,
+    "displacement_break_enabled": false,
+    "dwell_break_enabled": false,
+    "reconnect": "Explicit episode reset only",
+    "valid_harvest": "Original grip/valid-pull gates and0.5s post-detach retention; physical break alone is not success"
+  },
+  "model": {
+    "length_inside": "No original XYZ/angular restoring stiffness; gravity remains",
+    "terminal_compliance": "Distance above60mm only; K250N/m;10mm is nominal static elastic2.5N, not a hard extension cutoff",
+    "bending_velocity_drag_max_N_per_axis": 0.2,
+    "angular_velocity_drag_max_Nm_per_axis": 0.02,
+    "extra_rigid_bodies": 0,
+    "gripper_weld": false,
+    "legacy_stem_force_disabled": true,
+    "legacy_stem_torque_disabled": true
+  },
+  "controller": {
+    "parent": "teacher60_finger_friction_run_v2",
+    "pull_risk_waypoint_m": 0.09,
+    "original_grip_hold_stop_deposit_gates": true,
+    "weights_and_normalizers_unchanged": true
+  },
+  "mechanical_evidence": {
+    "path": "outputs/harvest_rl/hook_v2_mechanical_20261013_final/result.json",
+    "sha256": "011f2aace90a5fdbc96581d320dc38423c6359b83131e984d11676478beca9ba",
+    "passing_terminal_candidates_mm": [
+      5,
+      10
+    ],
+    "rejected_terminal_candidate_mm": 20,
+    "reason": "post-load recoil>.6m/s engineering bound, not measured real limit"
+  },
+  "entry": "scripts/eval_teacher60_hook.py",
+  "physics_probe": "scripts/probe_teacher60_hook.py",
+  "active_environment_changed": false,
+  "delivery_archive_changed": false,
+  "training_executed": false,
+  "hardware_executed": false,
+  "real_force_curve_calibrated": false,
+  "teacher_transfer_evidence": {
+    "path": "outputs/harvest_rl/hook_v2_chain_validation_20261013_r2/review.json",
+    "sha256": "24cccb914aa5f866599c736b6b1b9c36ed8b06e853d849801313ebd6e3690b85",
+    "grip_confirmation": 32,
+    "post_detach_retention": 2,
+    "deposited": 2,
+    "count": 32,
+    "adoption_passed": false
+  },
+  "visual_smoke_evidence": "outputs/harvest_rl/hook_v2_visual_smoke_20261013/run.json"
+}

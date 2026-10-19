@@ -7,7 +7,7 @@ from launch.launch_description_sources import PythonLaunchDescriptionSource
 from launch.substitutions import LaunchConfiguration
 from launch_ros.actions import Node
 from farm_navigation.configuration import load_environment, resolve_file
-from harvest_robot.configuration import load_harvest_config
+from harvest_robot.configuration import load_harvest_config, transfer_parameters
 
 
 def setup(context) -> list:
@@ -72,7 +72,7 @@ def setup(context) -> list:
     actions.append(Node(package='harvest_robot',executable='harvest_node',namespace=profile['robot_id'],
         output='screen',sigterm_timeout='60',sigkill_timeout='5',remappings=tf_remaps,parameters=[dict(
             project_root=str(root),environment_config=str(environment),mode=mode,use_sim_time=mode=='sim',
-            tag_correction=tag_on)]))
+            tag_correction=tag_on, **transfer_parameters(harvest_config))]))
     actions.extend(tag_actions)
     return actions
 

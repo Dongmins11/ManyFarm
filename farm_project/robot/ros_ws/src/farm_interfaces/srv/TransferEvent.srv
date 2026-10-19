@@ -1,0 +1,13 @@
+# 관제 → 수확. task_id는 수신 측 DOCK 작업 ID다.
+string robot_id
+string task_id
+string transfer_id
+string source_robot_id
+string event
+string timestamp
+---
+# 접수 결과이며 실제 장치 동작의 완료 결과가 아니다.
+bool accepted
+string error_code
+string error_message
+string timestamp

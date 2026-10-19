@@ -1,0 +1,12 @@
+{
+  "model": "D435 nominal pinhole RGB-D; replace with device calibration before deployment",
+  "source": "https://www.realsenseai.com/products/stereo-depth-camera-d435/",
+  "fps": 30,
+  "rgb": {"width": 640, "height": 360, "horizontal_fov_deg": 69.0},
+  "depth": {"width": 848, "height": 480, "horizontal_fov_deg": 87.0},
+  "depth_min_m": 0.28,
+  "depth_max_m": 3.0,
+  "render_near_m": 0.01,
+  "render_far_m": 20.0,
+  "note": "Depth 0.28-3m is a configurable conservative preview validity window, not a universal hardware limit. Ideal RTX geometric depth; no stereo matching, IR interference, material-dependent holes, distortion or measured noise. RGB/depth extrinsics come from current URDF. Display resolutions preserve nominal widescreen FOV; training may downsample explicitly."
+}

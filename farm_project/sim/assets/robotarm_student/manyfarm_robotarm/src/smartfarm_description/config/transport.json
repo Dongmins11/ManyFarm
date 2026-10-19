@@ -1,0 +1,22 @@
+{
+  "box_length": 0.3,
+  "box_width": 0.3,
+  "box_height": 0.19,
+  "box_bottom_ground": 0.255,
+  "wall_thickness": 0.005,
+  "lid_thickness": 0.003,
+  "lid_travel": 0.155,
+  "pinion_pitch_radius": 0.06,
+  "tilt_limit_rad": 0.7853981633974483,
+  "side_lid_limit_rad": 1.5707963267948966,
+  "support_contact_ground": 0.1015,
+  "fabrication_revision": 3,
+  "payload_design_max_kg": 1.0,
+  "cargo_shell_mass_kg": 0.32,
+  "side_gate_mass_kg": 0.04,
+  "tilt_motor_model": "5840-31ZY, 12V, 8rpm, 1000:1 reference",
+  "tilt_motor_required_rated_torque_Nm": 14.0,
+  "tilt_motor_reference_rated_torque_Nm": 9.80665,
+  "hardware_fit_status": "published reference drawing; verify supplier specimen before printing motor interface parts",
+  "tilt_motor_selection_status": "REFERENCE ONLY: 9.80665 Nm is below factor-2 worst-case target 13.3 Nm; purchase not finalized"
+}

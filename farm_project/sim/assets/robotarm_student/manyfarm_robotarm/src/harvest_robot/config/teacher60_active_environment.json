@@ -1,0 +1,20 @@
+{
+  "schema": "teacher60_active_environment_v1",
+  "version": "teacher60_finger_friction_v1",
+  "profile": "src/harvest_robot/config/teacher60_finger_friction_v1.json",
+  "profile_sha256": "59bf1a85be3bf569527b66248e4c612bb6492c941bc8815b9f396dbdb47edcae",
+  "status": "adopted_simulation_development",
+  "evaluation_entry": "scripts/eval_teacher60_environment.py",
+  "training_environment_class": "harvest_rl.teacher_finger_friction_v1_env.TeacherFingerFrictionV1TrainEnv",
+  "adoption_evidence": "outputs/harvest_rl/finger_friction_adoption_20261013/adoption.json",
+  "adoption_evidence_sha256": "696f22296018c1a176df48215f243f18b2969d531dac0f05373f01a69877fa88",
+  "training_executed": false,
+  "previous_selected_profile_preserved": "src/harvest_robot/config/teacher60_stop_floor_selected_20261012.json",
+  "runtime_profile": "src/harvest_robot/config/teacher60_finger_friction_run_v2.json",
+  "runtime_profile_sha256": "69ed74866315fb3339637d97a03070669f56c675e28bbfac39a6bc33473a557c",
+  "recommended_evaluation_entry": "scripts/eval_teacher60_selected.py",
+  "connector_candidate_profile": "src/harvest_robot/config/teacher60_connector_peak_v1.json",
+  "connector_candidate_profile_sha256": "6245d4fae65b99df41090d9592d77a23dfdb503c5ef9c56cb85ae21ae4f2bf54",
+  "connector_candidate_status": "mechanical_peak_passed_existing_teacher_transfer_not_ready",
+  "connector_candidate_entry": "scripts/eval_teacher60_connector.py"
+}

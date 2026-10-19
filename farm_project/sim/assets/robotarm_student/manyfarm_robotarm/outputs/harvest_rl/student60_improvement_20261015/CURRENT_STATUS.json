@@ -1,0 +1,190 @@
+{
+  "schema": "student60_camera_improvement_status_v1",
+  "pure_neural": {
+    "evaluation": "outputs/harvest_rl/student60_improvement_20261015/camera_harvest_comparison_v1/CORRECTED_CAMERA_PURE",
+    "successes": 0,
+    "attempts": 2,
+    "audit_passed": true
+  },
+  "camera_with_assistance": {
+    "evaluation": "faster_capture_regression_v20",
+    "criterion": "box_outcome_v2",
+    "completed": true,
+    "planned_attempts": 4,
+    "completed_attempts": 4,
+    "successes": 4,
+    "audit_passed": true,
+    "independent": false,
+    "commands": 2534,
+    "physics_calls": 7602
+  },
+  "cpu_tests_passed": 88,
+  "original_files_preserved": 17,
+  "independent_test_completed": true,
+  "hardware_execution": false,
+  "production_adoption": false,
+  "next_direction": "Verified simulation candidate and analysis complete; next deployment gate is real camera/motor calibration and measured timing/payload validation.",
+  "active_evaluation": null,
+  "success_criterion": "box_outcome_v2",
+  "position_hold_validation": {
+    "outcome_successes": 2,
+    "attempts": 2,
+    "placement_quality_passes": 1,
+    "audit": "position_hold_validation_v4_outcome_audit.json"
+  },
+  "first_independent_outcome_test": {
+    "evaluation": "position_hold_outcome_test_v5",
+    "successes": 1,
+    "attempts": 4,
+    "placement_quality_successes": 0,
+    "audited": true
+  },
+  "followthrough": "faster_capture_followthrough_v20/status.json",
+  "last_update": "2026-10-15T06:55:48.608557+00:00",
+  "lifted_regression_v10": {
+    "outcome_successes": 1,
+    "attempts": 4,
+    "placement_quality_successes": 0,
+    "audit": "lifted_followthrough_v10/regression_audit.json"
+  },
+  "reobserved_regression_v12": {
+    "completed": false,
+    "reason": "Pregrasp reached; explicitly passing actual tracker-selected mask resolves association ambiguity. Saved observation replay accepts8frames atstep163."
+  },
+  "box_task_budget_s": 60,
+  "reobserved_regression_v13": {
+    "completed": false,
+    "completed_cases": [
+      {
+        "color": "Red",
+        "result": "legacy_bad_detach",
+        "steps": 384
+      },
+      {
+        "color": "Yellow",
+        "result": "actual_harvest_success",
+        "steps": 613
+      }
+    ],
+    "reason": "Switch to user-specified box outcome; no aggregate rate for partial run."
+  },
+  "first_box_outcome_verified": {
+    "color": "Red",
+    "success": true,
+    "steps": 650,
+    "legacy_valid_detach": false,
+    "legacy_has_retained": false,
+    "safety_failure": false,
+    "dwell_s": 0.6000000834465027,
+    "evaluation": "box_outcome_regression_v14/episode_0000"
+  },
+  "last_update_utc": "2026-10-15T06:55:48.608557+00:00",
+  "box_outcome_regression_v14": {
+    "completed": false,
+    "completed_actual_harvests": 3,
+    "completed_cases": 3,
+    "partial_fourth_reason": "Fresh vision gate blocks last6mm under complete hand occlusion; interrupted for bounded-memory correction; no aggregate rate."
+  },
+  "exec_sessions": {},
+  "candidate_frozen_until_followthrough_exit": false,
+  "fresh_test": {
+    "evaluation": "faster_capture_followthrough_v20/fresh_test",
+    "seed": 106146,
+    "status": "COMPLETED",
+    "completed": true,
+    "completed_attempts": 4,
+    "planned_attempts": 4,
+    "successes": 4,
+    "audit_passed": true,
+    "commands": 2873,
+    "physics_calls": 8619,
+    "independent": true
+  },
+  "previous_completed_regression": {
+    "evaluation": "bounded_box_regression_v15",
+    "criterion": "box_outcome_v2",
+    "successes": 4,
+    "attempts": 4,
+    "audit_passed": true,
+    "independent": false,
+    "commands": 2531,
+    "physics_calls": 7593
+  },
+  "standoff_regression_v16": {
+    "completed": false,
+    "reason": "Axial110mm scan still occluded; do not lower0.5 assigned-confidence gate because root bias19mm."
+  },
+  "side_scan_regression_v17": {
+    "completed": false,
+    "vision_reobservation_passed": true,
+    "reason": "Fruit slips during pull after fixed preload relaxes; no success/independent rate."
+  },
+  "current_followthrough_state": "COMPLETED",
+  "best_verified_candidate": "faster_capture_v20",
+  "experimental_candidate": {
+    "name": "faster_capture_v20",
+    "seed": 106143,
+    "minimum_regression_successes": 4,
+    "fresh_seed": 106146,
+    "optimizer_training": false,
+    "status": "VERIFIED_SIMULATION_CANDIDATE",
+    "completed_attempts": 4,
+    "successes": 4,
+    "known_failure_case": {
+      "harvest_completed": true,
+      "steps": 594,
+      "observed_capture_step": 261,
+      "safety_failure": false
+    },
+    "regression_audit_passed": true,
+    "regression_commands": 2534,
+    "fresh_progress": {
+      "completed": true,
+      "executed_attempts": 4,
+      "planned_attempts": 4,
+      "successes": 4
+    }
+  },
+  "previous_verified_candidate": {
+    "name": "flexible_box_v19",
+    "fresh_test": {
+      "evaluation": "flexible_box_followthrough_v19/fresh_test",
+      "seed": 106145,
+      "status": "COMPLETED",
+      "completed": true,
+      "planned_attempts": 4,
+      "candidate_frozen": true,
+      "completed_attempts": 4,
+      "successes": 4,
+      "audit_passed": true,
+      "commands": 2665,
+      "physics_calls": 7995,
+      "independent": true
+    }
+  },
+  "resolved_known_case": {
+    "evaluation": "finite_load_box_regression_v18/episode_0003",
+    "seed": 106143,
+    "color": "Yellow",
+    "failure": "dropped_before_observed_grip",
+    "not_retested_with_v19": true,
+    "reason": "v19 changes transfer only; pre-grip weakness remains relevant",
+    "resolved_by": "faster_capture_v20",
+    "verified_actual_box_success": true
+  },
+  "final_report": "FINAL_REPORT.json",
+  "viewer": {
+    "launcher": "scripts/view_student60_camera.sh",
+    "entry": "scripts/view_student60_camera.py",
+    "check": "GUI_VIEW_CHECK.json",
+    "gui_check_passed": true,
+    "full_harvest_rerun_in_this_viewer_check": false
+  },
+  "latency_candidate": {
+    "summary": "outputs/harvest_rl/student60_improvement_20261015/latency_candidate/summary.json",
+    "status": "ACCELERATED_PERCEPTION_CANDIDATE_NOT_HARDWARE_CERTIFIED",
+    "native_execution_check_passed": true,
+    "hardware_certified": false,
+    "async_integrated": false
+  }
+}

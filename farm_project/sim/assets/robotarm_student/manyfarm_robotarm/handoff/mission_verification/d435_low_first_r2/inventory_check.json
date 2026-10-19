@@ -1,0 +1,100 @@
+{
+  "targets": [
+    {
+      "target_id": "fruit-000001",
+      "label": "Red",
+      "anchor_arm_m": [
+        0.27154399943350616,
+        0.0361450115262065,
+        0.17508987134338927
+      ]
+    },
+    {
+      "target_id": "fruit-000002",
+      "label": "Yellow",
+      "anchor_arm_m": [
+        0.36006992144594674,
+        -0.0254754971102798,
+        0.2578002362965285
+      ]
+    }
+  ],
+  "evaluation_only_slot_mapping": {
+    "fruit-000001": 0,
+    "fruit-000002": 1
+  },
+  "expected_slots": [
+    0,
+    1
+  ],
+  "detections": [
+    {
+      "label": "Red",
+      "confidence": 0.9368302822113037,
+      "candidate_valid": true,
+      "candidate_reason": "ok",
+      "grasp_estimate_arm_m": [
+        0.27154399943350616,
+        0.0361450115262065,
+        0.17508987134338927
+      ],
+      "bbox": [
+        853.5608520507812,
+        257.49542236328125,
+        958.2745971679688,
+        369.9979248046875
+      ]
+    },
+    {
+      "label": "Yellow",
+      "confidence": 0.9234633445739746,
+      "candidate_valid": true,
+      "candidate_reason": "ok",
+      "grasp_estimate_arm_m": [
+        0.36006992144594674,
+        -0.0254754971102798,
+        0.2578002362965285
+      ],
+      "bbox": [
+        928.0863037109375,
+        123.30560302734375,
+        1023.6881103515625,
+        220.78549194335938
+      ]
+    },
+    {
+      "label": "Yellow",
+      "confidence": 0.8688993453979492,
+      "candidate_valid": false,
+      "candidate_reason": "outside_fruit_workspace",
+      "grasp_estimate_arm_m": [
+        0.8361527612964053,
+        -0.277154838522387,
+        -0.43391257946184486
+      ],
+      "bbox": [
+        928.47900390625,
+        449.0518798828125,
+        1010.45068359375,
+        544.611083984375
+      ]
+    },
+    {
+      "label": "Yellow",
+      "confidence": 0.8343496918678284,
+      "candidate_valid": false,
+      "candidate_reason": "outside_fruit_workspace",
+      "grasp_estimate_arm_m": [
+        0.897482236267465,
+        0.1837086837931627,
+        -0.4355829535556249
+      ],
+      "bbox": [
+        641.9603271484375,
+        409.44171142578125,
+        738.1282958984375,
+        520.7029418945312
+      ]
+    }
+  ]
+}

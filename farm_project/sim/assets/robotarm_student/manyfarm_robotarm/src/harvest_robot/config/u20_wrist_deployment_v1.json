@@ -1,0 +1,233 @@
+{
+  "schema": "u20_wrist_rgb_rear_d435_v1",
+  "camera_order": [
+    "right",
+    "rear"
+  ],
+  "fps": 30,
+  "policy_hz": 20,
+  "control_dt": 0.05,
+  "sensor_dt": 0.03333333333333333,
+  "history": 3,
+  "capture_contract": "physics_scheduled_u20_rgb_v1",
+  "depth_min_m": 0.28,
+  "depth_max_m": 3.0,
+  "render_near_m": 0.01,
+  "render_far_m": 20.0,
+  "calibration_verified": false,
+  "sim_depth_model": "ideal geometric optical-Z; not stereo confidence/noise",
+  "sim_ir_model": "U20: unavailable; rear has no IR policy input",
+  "preprocessing": "Wrist RGB and rear RGB-D; aspect-preserving 160x90 RGB/depth. No wrist IR/depth input.",
+  "source": {
+    "kind": "mixed_nominal_U20_and_measured_rear_D435",
+    "rear_factory_calibration": {
+      "kind": "user_supplied_device_calibration",
+      "sha256": "33eb06932395c855f00b6c3fed55079a44b082923f97217576f849cccacf68bf"
+    }
+  },
+  "views": {
+    "right": {
+      "camera_model": "U20CAM-1080P-1",
+      "rgb_optical_frame": "arm_2/wrist_camera_color_optical_frame",
+      "streams": {
+        "rgb": {
+          "width": 1920,
+          "height": 1080,
+          "fps": 30,
+          "format": "MJPEG_to_RGB8",
+          "intrinsics": {
+            "fx": 777.3926718672068,
+            "fy": 777.3926718672068,
+            "ppx": 960.0,
+            "ppy": 540.0,
+            "coeffs": [
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0
+            ],
+            "distortion_model": "nominal_rectified_pinhole_not_measured"
+          }
+        }
+      },
+      "rgb_from_stream": {
+        "rgb": [
+          [
+            1,
+            0,
+            0,
+            0
+          ],
+          [
+            0,
+            1,
+            0,
+            0
+          ],
+          [
+            0,
+            0,
+            1,
+            0
+          ],
+          [
+            0,
+            0,
+            0,
+            1
+          ]
+        ]
+      },
+      "internal_calibration_verified": false,
+      "mount_calibration_verified": false,
+      "mount_reference": "config/u20_wrist_v1_attachment.json; PCB rear face and lens through cross aperture",
+      "depth_available": false,
+      "ir_available": false
+    },
+    "rear": {
+      "serial": "920312070027",
+      "device": {
+        "name": "RealSense D435",
+        "serial_number": "920312070027",
+        "firmware_version": "5.17.0.10",
+        "usb_type_descriptor": "3.2"
+      },
+      "rgb_optical_frame": "top_camera_color_optical_frame",
+      "depth_optical_frame": "top_camera_depth_optical_frame",
+      "internal_calibration_verified": true,
+      "target_profile_verified": true,
+      "mount_calibration_verified": false,
+      "calibration_status": "factory internal parameters read from target30fps profile; external camera mounting not installed",
+      "depth_scale_m": 0.0010000000474974513,
+      "rgb_from_stream": {
+        "rgb": [
+          [
+            1.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          [
+            0.0,
+            1.0,
+            0.0,
+            0.0
+          ],
+          [
+            0.0,
+            0.0,
+            1.0,
+            0.0
+          ],
+          [
+            0.0,
+            0.0,
+            0.0,
+            1.0
+          ]
+        ],
+        "depth": [
+          [
+            0.9998481869697571,
+            0.01658867672085762,
+            0.005327441729605198,
+            0.014905279502272606
+          ],
+          [
+            -0.016601888462901115,
+            0.9998592138290405,
+            0.002445511519908905,
+            -2.3506148863816634e-05
+          ],
+          [
+            -0.005286123603582382,
+            -0.00253358599729836,
+            0.9999828338623047,
+            0.0001395984727423638
+          ],
+          [
+            0.0,
+            0.0,
+            0.0,
+            1.0
+          ]
+        ]
+      },
+      "streams": {
+        "rgb": {
+          "width": 1280,
+          "height": 720,
+          "fps": 30,
+          "calibration_source_fps": 30,
+          "intrinsics": {
+            "fx": 928.9950561523438,
+            "fy": 929.4752197265625,
+            "ppx": 653.1029052734375,
+            "ppy": 373.6087646484375,
+            "distortion_model": "distortion.inverse_brown_conrady",
+            "coeffs": [
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0
+            ]
+          }
+        },
+        "depth": {
+          "width": 848,
+          "height": 480,
+          "fps": 30,
+          "calibration_source_fps": 30,
+          "intrinsics": {
+            "fx": 419.5580749511719,
+            "fy": 419.5580749511719,
+            "ppx": 424.59051513671875,
+            "ppy": 240.18234252929688,
+            "distortion_model": "distortion.brown_conrady",
+            "coeffs": [
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0
+            ]
+          }
+        }
+      },
+      "factory_calibration_read": true,
+      "empirical_intrinsic_accuracy_verified": false,
+      "real_mount_status": "not_installed",
+      "verification_source": {
+        "path": "reports/d435_overhead_factory_20261013_170118/capture/20261013_170204_034425_30973f/snapshot_0001/metadata.json",
+        "sha256": "138cd6ba8b90caee203fe7f3ac5809494fdd28969aaef58435f493e7a5105323",
+        "usb": "3.2",
+        "read_utc": "2026-10-13T08:02:05.733257+00:00"
+      }
+    }
+  },
+  "student_schema_version": 4,
+  "policy_inputs": {
+    "right": [
+      "rgb"
+    ],
+    "rear": [
+      "rgb",
+      "aligned_depth_m",
+      "depth_valid"
+    ]
+  },
+  "revision": "u20_dual_wrist_white_v1_r2_20261015",
+  "previous_profile": {
+    "path": "src/harvest_robot/config/d435_deployment_20261013_overhead30.json",
+    "sha256": "a9e840712a433da7bfd3644acb39cd0ca50088955b7d1870b5484fe872fccb79"
+  },
+  "mount_note": "Both wrists: white original SO101 mount, black U20 camera. Only right wrist RGB and overhead RGB-D are acquired. Estimated lens geometry/nominal wrist K; real hand-eye uncalibrated.",
+  "sensor_reference_urdf": "src/smartfarm_description/urdf/harvest_robot_u20_wrist_v1.urdf",
+  "wrist_visual_arms": [
+    1,
+    2
+  ],
+  "sensor_reference_urdf_sha256": "436c0cc0899b0734c584c951cf203be001def57a48136f77a9cf4e85ab8833f6"
+}

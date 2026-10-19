@@ -249,20 +249,32 @@ def main():
         for robot in robots:
             device = robot['arm_device']
             if device is not None:
-                from farm_sim_devices.teacher_policy import TeacherController
                 device.initialize()
                 profile = robot['arm_profile']
-                profile['joint_limits'] = dict(lower=device.lower.tolist(), upper=device.upper.tolist(),
-                                               home=device.home.tolist())
-                controller = TeacherController(profile, project_root=root, device='cpu')
-                if args.teacher_diagnostic_trace:
-                    controller.enable_diagnostic_trace()
-                robot['arm'] = ArmSession(session, robot['cfg']['robot_id'], task['map_id'],
-                    device, controller, harvest_physics, profile['session'], root/'sim/runs/robotarm/teacher')
-                if args.teacher_diagnostic_trace:
-                    from farm_sim_runtime.teacher_diagnostics import TeacherRuntimeRecorder
-                    robot['teacher_recorder'] = TeacherRuntimeRecorder(robot,
-                        root/'sim/runs/robotarm/diagnostics'/session/robot['cfg']['robot_id'])
+                arm_cfg = robot['cfg']['runtime']['harvest_arm']
+                backend = arm_cfg.get('backend', 'teacher')
+                if backend == 'student_d435':
+                    from farm_sim_devices.student_session import StudentRuntime, StudentArmSession
+                    settings = json.loads((root/arm_cfg['student_profile']).read_text())
+                    controller = StudentRuntime(root, settings, world, device, profile['runtime'])
+                    robot['arm'] = StudentArmSession(session, robot['cfg']['robot_id'], task['map_id'],
+                        device, controller, harvest_physics, profile['session'], root/'sim/runs/robotarm/student')
+                elif backend == 'teacher':
+                    from farm_sim_devices.teacher_policy import TeacherController
+                    profile['joint_limits'] = dict(lower=device.lower.tolist(), upper=device.upper.tolist(),
+                                                   home=device.home.tolist())
+                    controller = TeacherController(profile, project_root=root, device='cpu')
+                    if args.teacher_diagnostic_trace:
+                        controller.enable_diagnostic_trace()
+                    robot['arm'] = ArmSession(session, robot['cfg']['robot_id'], task['map_id'],
+                        device, controller, harvest_physics, profile['session'], root/'sim/runs/robotarm/teacher')
+                    if args.teacher_diagnostic_trace:
+                        from farm_sim_runtime.teacher_diagnostics import TeacherRuntimeRecorder
+                        robot['teacher_recorder'] = TeacherRuntimeRecorder(robot,
+                            root/'sim/runs/robotarm/diagnostics'/session/robot['cfg']['robot_id'])
+                else:
+                    raise ValueError('지원하지 않는 수확 정책 backend: '+backend)
+                print('[harvest_arm] '+json.dumps(dict(robot_id=robot['cfg']['robot_id'], backend=backend)), flush=True)
         # 장면 구성과 PhysX 초기화가 끝난 다음 viewport 물리 메뉴를 등록한다.
         if not args.headless:
             from farm_sim_runtime.harvest_physics_inspector import enable_physics_debug_ui
@@ -364,6 +376,11 @@ def main():
             ticks.step_frame(world, harvest_physics, physics_hz=required_hz, post_step=after_physics)
             step_finished = time.perf_counter()
             now = float(world.current_time)
+            student_camera_started = time.perf_counter()
+            for robot in robots:
+                if robot['cfg']['runtime'].get('harvest_arm', {}).get('backend') == 'student_d435':
+                    robot['arm'].after_frame(now)
+            student_camera_s = time.perf_counter()-student_camera_started
             if test_controller is not None:
                 test_controller.after_frame(now, ticks.physics_hz)
                 test_panel.update(now, ticks.physics_hz)
@@ -413,7 +430,7 @@ def main():
                     frame_s=frame_finished-frame_start, control_s=control_finished-frame_start,
                     arm_s=arm_finished-control_finished, prepare_s=prepare_finished-arm_finished,
                     post_s=truth_started-step_finished, truth_s=frame_finished-truth_started,
-                    sensor_s=sensor_s,
+                    sensor_s=sensor_s, student_camera_s=student_camera_s,
                     **ticks.frame_timings))+'\n')
                 if ticks.frame_count % 60 == 0:
                     performance_log.flush()

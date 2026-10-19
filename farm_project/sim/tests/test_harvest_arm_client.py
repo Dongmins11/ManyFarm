@@ -16,6 +16,7 @@ from harvest_robot.contract import result_fields
 sys.path.insert(0, str(ROOT/'robot/ros_ws/src/farm_common'))
 from farm_common.action_handoff import ActionHandoff
 from harvest_robot.mission import HarvestMission, MissionCanceled
+from harvest_robot.harvest_load import HarvestLoad
 
 
 def done(value: object) -> Future:
@@ -252,18 +253,24 @@ class CommunicationForwardTests(unittest.TestCase):
                             config={'completion_policy': 'ARRIVAL_THEN_ARM'},
                             get_logger=lambda: NS(error=lambda _message: None))
                         node.handoff = ActionHandoff()
+                        node.harvest_load = HarvestLoad()
+                        load_updates = []
+                        node.transfer = NS(update_harvest_load=lambda:
+                            load_updates.append(node.harvest_load.loaded_count))
                         node.handoff.reserve('work', goal().harvest_task.task_id)
                         communication = communication_module.HarvestCommunication(node)
                         def run() -> dict:
                             handle.is_cancel_requested = mode in ('canceled', 'unconfirmed')
                             node.arrival_result = {'stamp_ns': 123}
                             node.mission_stage = 'ARM'
+                            node.arm_travel_ready = mode == 'success'
                             communication.arm_feedback(1, 0)
                             if mode == 'canceled':
                                 raise MissionCanceled('cancel after one harvest')
                             if mode == 'unconfirmed':
                                 node.blocked = True
                                 raise RuntimeError('stop unconfirmed')
+                            communication.arm_feedback(1, 1)
                             communication.arm_feedback(2, 1)
                             node.arm_result = dict(result_code='SUCCESS' if mode == 'success' else 'FAILED',
                                 harvested_count=2, failed_count=1,
@@ -276,11 +283,16 @@ class CommunicationForwardTests(unittest.TestCase):
                             'unconfirmed': ('aborted', 'FAILED', 1, 0)}[mode]
                         self.assertEqual((statuses[-1], result.result_code, result.harvested_count, result.failed_count), expected)
                         self.assertEqual(result.expected_count, 9)
+                        self.assertEqual(node.harvest_load.loaded_count, expected[2])
+                        self.assertEqual(load_updates[-1], expected[2])
                         self.assertTrue(any(message.success_count == 1 for message in messages))
                         self.assertEqual(records[0]['arrival']['stamp_ns'], 123)
                         if mode == 'unconfirmed':
                             self.assertEqual(result.error_code, 'CANCEL_UNCONFIRMED')
                         self.assertFalse(node.busy)
+                        self.assertEqual(node.blocked, mode != 'success')
+                        if mode in ('success', 'failed'):
+                            self.assertIn((1, 1), [(m.success_count, m.failed_count) for m in messages])
             finally:
                 sys.modules.pop('harvest_robot.communication', None)
 

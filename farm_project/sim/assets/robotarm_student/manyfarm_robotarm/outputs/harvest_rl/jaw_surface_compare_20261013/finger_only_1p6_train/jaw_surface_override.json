@@ -1,0 +1,1687 @@
+{
+  "schema": "teacher60_jaw_surface_compare_v2",
+  "spec": {
+    "effective_friction": 1.6,
+    "pad_mode": "none",
+    "thickness_m": 0.001,
+    "recess_m": 0.002,
+    "half_width_m": 0.012
+  },
+  "jaw_static_dynamic_friction": 2.2,
+  "fruit_static_dynamic_friction": 1.0,
+  "effective_pair_friction": 1.6,
+  "combine_mode": "average",
+  "material": "/World/JawSurfaceCompareMaterial",
+  "added_rigid_bodies": 0,
+  "original_assets_modified": false,
+  "silicone_compliance_modelled": false,
+  "rows": [
+    {
+      "env_id": 0,
+      "jaw": "fixed",
+      "body": "/World/envs/env_0/Robot/arm_2_gripper_link",
+      "pads": [],
+      "colliders": [
+        "/World/envs/env_0/Robot/arm_2_gripper_link/collisions/wrist_roll_follower_so101_v1/node_STL_BINARY_"
+      ],
+      "mass_attributes_before": {
+        "physics:centerOfMass": "(-0.0017872028, -0.022896666, -0.026870936)",
+        "physics:density": "0.0",
+        "physics:diagonalInertia": "(0.00015001372, 0.00010463951, 0.00020750536)",
+        "physics:mass": "0.18000000715255737",
+        "physics:principalAxes": "(0.9892154, 0.042423524, -0.04623128, -0.1323475)"
+      },
+      "mass_attributes_after": {
+        "physics:centerOfMass": "(-0.0017872028, -0.022896666, -0.026870936)",
+        "physics:density": "0.0",
+        "physics:diagonalInertia": "(0.00015001372, 0.00010463951, 0.00020750536)",
+        "physics:mass": "0.18000000715255737",
+        "physics:principalAxes": "(0.9892154, 0.042423524, -0.04623128, -0.1323475)"
+      },
+      "baseline_material_colliders": [
+        "/World/envs/env_0/Robot/arm_2_gripper_link/collisions/sts3215_03a_v1/node_STL_BINARY_",
+        "/World/envs/env_0/Robot/arm_2_gripper_link/collisions/d435_wrist_mount/node_STL_BINARY_",
+        "/World/envs/env_0/Robot/arm_2_gripper_link/collisions/mesh_3/box"
+      ]
+    },
+    {
+      "env_id": 0,
+      "jaw": "moving",
+      "body": "/World/envs/env_0/Robot/arm_2_moving_jaw_so101_v1_link",
+      "pads": [],
+      "colliders": [
+        "/World/envs/env_0/Robot/arm_2_moving_jaw_so101_v1_link/collisions/moving_jaw_so101_v1/node_STL_BINARY_"
+      ],
+      "mass_attributes_before": {
+        "physics:centerOfMass": "(-0.00157495, -0.0300244, 0.0192755)",
+        "physics:density": "0.0",
+        "physics:diagonalInertia": "(0.000006635825, 0.0000018652258, 0.00000529092)",
+        "physics:mass": "0.012000000104308128",
+        "physics:principalAxes": "(0.99930465, 0.016051318, -0.0010975002, -0.033638127)"
+      },
+      "mass_attributes_after": {
+        "physics:centerOfMass": "(-0.00157495, -0.0300244, 0.0192755)",
+        "physics:density": "0.0",
+        "physics:diagonalInertia": "(0.000006635825, 0.0000018652258, 0.00000529092)",
+        "physics:mass": "0.012000000104308128",
+        "physics:principalAxes": "(0.99930465, 0.016051318, -0.0010975002, -0.033638127)"
+      },
+      "baseline_material_colliders": []
+    },
+    {
+      "env_id": 1,
+      "jaw": "fixed",
+      "body": "/World/envs/env_1/Robot/arm_2_gripper_link",
+      "pads": [],
+      "colliders": [
+        "/World/envs/env_1/Robot/arm_2_gripper_link/collisions/wrist_roll_follower_so101_v1/node_STL_BINARY_"
+      ],
+      "mass_attributes_before": {
+        "physics:centerOfMass": "(-0.0017872028, -0.022896666, -0.026870936)",
+        "physics:density": "0.0",
+        "physics:diagonalInertia": "(0.00015001372, 0.00010463951, 0.00020750536)",
+        "physics:mass": "0.18000000715255737",
+        "physics:principalAxes": "(0.9892154, 0.042423524, -0.04623128, -0.1323475)"
+      },
+      "mass_attributes_after": {
+        "physics:centerOfMass": "(-0.0017872028, -0.022896666, -0.026870936)",
+        "physics:density": "0.0",
+        "physics:diagonalInertia": "(0.00015001372, 0.00010463951, 0.00020750536)",
+        "physics:mass": "0.18000000715255737",
+        "physics:principalAxes": "(0.9892154, 0.042423524, -0.04623128, -0.1323475)"
+      },
+      "baseline_material_colliders": [
+        "/World/envs/env_1/Robot/arm_2_gripper_link/collisions/sts3215_03a_v1/node_STL_BINARY_",
+        "/World/envs/env_1/Robot/arm_2_gripper_link/collisions/d435_wrist_mount/node_STL_BINARY_",
+        "/World/envs/env_1/Robot/arm_2_gripper_link/collisions/mesh_3/box"
+      ]
+    },
+    {
+      "env_id": 1,
+      "jaw": "moving",
+      "body": "/World/envs/env_1/Robot/arm_2_moving_jaw_so101_v1_link",
+      "pads": [],
+      "colliders": [
+        "/World/envs/env_1/Robot/arm_2_moving_jaw_so101_v1_link/collisions/moving_jaw_so101_v1/node_STL_BINARY_"
+      ],
+      "mass_attributes_before": {
+        "physics:centerOfMass": "(-0.00157495, -0.0300244, 0.0192755)",
+        "physics:density": "0.0",
+        "physics:diagonalInertia": "(0.000006635825, 0.0000018652258, 0.00000529092)",
+        "physics:mass": "0.012000000104308128",
+        "physics:principalAxes": "(0.99930465, 0.016051318, -0.0010975002, -0.033638127)"
+      },
+      "mass_attributes_after": {
+        "physics:centerOfMass": "(-0.00157495, -0.0300244, 0.0192755)",
+        "physics:density": "0.0",
+        "physics:diagonalInertia": "(0.000006635825, 0.0000018652258, 0.00000529092)",
+        "physics:mass": "0.012000000104308128",
+        "physics:principalAxes": "(0.99930465, 0.016051318, -0.0010975002, -0.033638127)"
+      },
+      "baseline_material_colliders": []
+    },
+    {
+      "env_id": 2,
+      "jaw": "fixed",
+      "body": "/World/envs/env_2/Robot/arm_2_gripper_link",
+      "pads": [],
+      "colliders": [
+        "/World/envs/env_2/Robot/arm_2_gripper_link/collisions/wrist_roll_follower_so101_v1/node_STL_BINARY_"
+      ],
+      "mass_attributes_before": {
+        "physics:centerOfMass": "(-0.0017872028, -0.022896666, -0.026870936)",
+        "physics:density": "0.0",
+        "physics:diagonalInertia": "(0.00015001372, 0.00010463951, 0.00020750536)",
+        "physics:mass": "0.18000000715255737",
+        "physics:principalAxes": "(0.9892154, 0.042423524, -0.04623128, -0.1323475)"
+      },
+      "mass_attributes_after": {
+        "physics:centerOfMass": "(-0.0017872028, -0.022896666, -0.026870936)",
+        "physics:density": "0.0",
+        "physics:diagonalInertia": "(0.00015001372, 0.00010463951, 0.00020750536)",
+        "physics:mass": "0.18000000715255737",
+        "physics:principalAxes": "(0.9892154, 0.042423524, -0.04623128, -0.1323475)"
+      },
+      "baseline_material_colliders": [
+        "/World/envs/env_2/Robot/arm_2_gripper_link/collisions/sts3215_03a_v1/node_STL_BINARY_",
+        "/World/envs/env_2/Robot/arm_2_gripper_link/collisions/d435_wrist_mount/node_STL_BINARY_",
+        "/World/envs/env_2/Robot/arm_2_gripper_link/collisions/mesh_3/box"
+      ]
+    },
+    {
+      "env_id": 2,
+      "jaw": "moving",
+      "body": "/World/envs/env_2/Robot/arm_2_moving_jaw_so101_v1_link",
+      "pads": [],
+      "colliders": [
+        "/World/envs/env_2/Robot/arm_2_moving_jaw_so101_v1_link/collisions/moving_jaw_so101_v1/node_STL_BINARY_"
+      ],
+      "mass_attributes_before": {
+        "physics:centerOfMass": "(-0.00157495, -0.0300244, 0.0192755)",
+        "physics:density": "0.0",
+        "physics:diagonalInertia": "(0.000006635825, 0.0000018652258, 0.00000529092)",
+        "physics:mass": "0.012000000104308128",
+        "physics:principalAxes": "(0.99930465, 0.016051318, -0.0010975002, -0.033638127)"
+      },
+      "mass_attributes_after": {
+        "physics:centerOfMass": "(-0.00157495, -0.0300244, 0.0192755)",
+        "physics:density": "0.0",
+        "physics:diagonalInertia": "(0.000006635825, 0.0000018652258, 0.00000529092)",
+        "physics:mass": "0.012000000104308128",
+        "physics:principalAxes": "(0.99930465, 0.016051318, -0.0010975002, -0.033638127)"
+      },
+      "baseline_material_colliders": []
+    },
+    {
+      "env_id": 3,
+      "jaw": "fixed",
+      "body": "/World/envs/env_3/Robot/arm_2_gripper_link",
+      "pads": [],
+      "colliders": [
+        "/World/envs/env_3/Robot/arm_2_gripper_link/collisions/wrist_roll_follower_so101_v1/node_STL_BINARY_"
+      ],
+      "mass_attributes_before": {
+        "physics:centerOfMass": "(-0.0017872028, -0.022896666, -0.026870936)",
+        "physics:density": "0.0",
+        "physics:diagonalInertia": "(0.00015001372, 0.00010463951, 0.00020750536)",
+        "physics:mass": "0.18000000715255737",
+        "physics:principalAxes": "(0.9892154, 0.042423524, -0.04623128, -0.1323475)"
+      },
+      "mass_attributes_after": {
+        "physics:centerOfMass": "(-0.0017872028, -0.022896666, -0.026870936)",
+        "physics:density": "0.0",
+        "physics:diagonalInertia": "(0.00015001372, 0.00010463951, 0.00020750536)",
+        "physics:mass": "0.18000000715255737",
+        "physics:principalAxes": "(0.9892154, 0.042423524, -0.04623128, -0.1323475)"
+      },
+      "baseline_material_colliders": [
+        "/World/envs/env_3/Robot/arm_2_gripper_link/collisions/sts3215_03a_v1/node_STL_BINARY_",
+        "/World/envs/env_3/Robot/arm_2_gripper_link/collisions/d435_wrist_mount/node_STL_BINARY_",
+        "/World/envs/env_3/Robot/arm_2_gripper_link/collisions/mesh_3/box"
+      ]
+    },
+    {
+      "env_id": 3,
+      "jaw": "moving",
+      "body": "/World/envs/env_3/Robot/arm_2_moving_jaw_so101_v1_link",
+      "pads": [],
+      "colliders": [
+        "/World/envs/env_3/Robot/arm_2_moving_jaw_so101_v1_link/collisions/moving_jaw_so101_v1/node_STL_BINARY_"
+      ],
+      "mass_attributes_before": {
+        "physics:centerOfMass": "(-0.00157495, -0.0300244, 0.0192755)",
+        "physics:density": "0.0",
+        "physics:diagonalInertia": "(0.000006635825, 0.0000018652258, 0.00000529092)",
+        "physics:mass": "0.012000000104308128",
+        "physics:principalAxes": "(0.99930465, 0.016051318, -0.0010975002, -0.033638127)"
+      },
+      "mass_attributes_after": {
+        "physics:centerOfMass": "(-0.00157495, -0.0300244, 0.0192755)",
+        "physics:density": "0.0",
+        "physics:diagonalInertia": "(0.000006635825, 0.0000018652258, 0.00000529092)",
+        "physics:mass": "0.012000000104308128",
+        "physics:principalAxes": "(0.99930465, 0.016051318, -0.0010975002, -0.033638127)"
+      },
+      "baseline_material_colliders": []
+    },
+    {
+      "env_id": 4,
+      "jaw": "fixed",
+      "body": "/World/envs/env_4/Robot/arm_2_gripper_link",
+      "pads": [],
+      "colliders": [
+        "/World/envs/env_4/Robot/arm_2_gripper_link/collisions/wrist_roll_follower_so101_v1/node_STL_BINARY_"
+      ],
+      "mass_attributes_before": {
+        "physics:centerOfMass": "(-0.0017872028, -0.022896666, -0.026870936)",
+        "physics:density": "0.0",
+        "physics:diagonalInertia": "(0.00015001372, 0.00010463951, 0.00020750536)",
+        "physics:mass": "0.18000000715255737",
+        "physics:principalAxes": "(0.9892154, 0.042423524, -0.04623128, -0.1323475)"
+      },
+      "mass_attributes_after": {
+        "physics:centerOfMass": "(-0.0017872028, -0.022896666, -0.026870936)",
+        "physics:density": "0.0",
+        "physics:diagonalInertia": "(0.00015001372, 0.00010463951, 0.00020750536)",
+        "physics:mass": "0.18000000715255737",
+        "physics:principalAxes": "(0.9892154, 0.042423524, -0.04623128, -0.1323475)"
+      },
+      "baseline_material_colliders": [
+        "/World/envs/env_4/Robot/arm_2_gripper_link/collisions/sts3215_03a_v1/node_STL_BINARY_",
+        "/World/envs/env_4/Robot/arm_2_gripper_link/collisions/d435_wrist_mount/node_STL_BINARY_",
+        "/World/envs/env_4/Robot/arm_2_gripper_link/collisions/mesh_3/box"
+      ]
+    },
+    {
+      "env_id": 4,
+      "jaw": "moving",
+      "body": "/World/envs/env_4/Robot/arm_2_moving_jaw_so101_v1_link",
+      "pads": [],
+      "colliders": [
+        "/World/envs/env_4/Robot/arm_2_moving_jaw_so101_v1_link/collisions/moving_jaw_so101_v1/node_STL_BINARY_"
+      ],
+      "mass_attributes_before": {
+        "physics:centerOfMass": "(-0.00157495, -0.0300244, 0.0192755)",
+        "physics:density": "0.0",
+        "physics:diagonalInertia": "(0.000006635825, 0.0000018652258, 0.00000529092)",
+        "physics:mass": "0.012000000104308128",
+        "physics:principalAxes": "(0.99930465, 0.016051318, -0.0010975002, -0.033638127)"
+      },
+      "mass_attributes_after": {
+        "physics:centerOfMass": "(-0.00157495, -0.0300244, 0.0192755)",
+        "physics:density": "0.0",
+        "physics:diagonalInertia": "(0.000006635825, 0.0000018652258, 0.00000529092)",
+        "physics:mass": "0.012000000104308128",
+        "physics:principalAxes": "(0.99930465, 0.016051318, -0.0010975002, -0.033638127)"
+      },
+      "baseline_material_colliders": []
+    },
+    {
+      "env_id": 5,
+      "jaw": "fixed",
+      "body": "/World/envs/env_5/Robot/arm_2_gripper_link",
+      "pads": [],
+      "colliders": [
+        "/World/envs/env_5/Robot/arm_2_gripper_link/collisions/wrist_roll_follower_so101_v1/node_STL_BINARY_"
+      ],
+      "mass_attributes_before": {
+        "physics:centerOfMass": "(-0.0017872028, -0.022896666, -0.026870936)",
+        "physics:density": "0.0",
+        "physics:diagonalInertia": "(0.00015001372, 0.00010463951, 0.00020750536)",
+        "physics:mass": "0.18000000715255737",
+        "physics:principalAxes": "(0.9892154, 0.042423524, -0.04623128, -0.1323475)"
+      },
+      "mass_attributes_after": {
+        "physics:centerOfMass": "(-0.0017872028, -0.022896666, -0.026870936)",
+        "physics:density": "0.0",
+        "physics:diagonalInertia": "(0.00015001372, 0.00010463951, 0.00020750536)",
+        "physics:mass": "0.18000000715255737",
+        "physics:principalAxes": "(0.9892154, 0.042423524, -0.04623128, -0.1323475)"
+      },
+      "baseline_material_colliders": [
+        "/World/envs/env_5/Robot/arm_2_gripper_link/collisions/sts3215_03a_v1/node_STL_BINARY_",
+        "/World/envs/env_5/Robot/arm_2_gripper_link/collisions/d435_wrist_mount/node_STL_BINARY_",
+        "/World/envs/env_5/Robot/arm_2_gripper_link/collisions/mesh_3/box"
+      ]
+    },
+    {
+      "env_id": 5,
+      "jaw": "moving",
+      "body": "/World/envs/env_5/Robot/arm_2_moving_jaw_so101_v1_link",
+      "pads": [],
+      "colliders": [
+        "/World/envs/env_5/Robot/arm_2_moving_jaw_so101_v1_link/collisions/moving_jaw_so101_v1/node_STL_BINARY_"
+      ],
+      "mass_attributes_before": {
+        "physics:centerOfMass": "(-0.00157495, -0.0300244, 0.0192755)",
+        "physics:density": "0.0",
+        "physics:diagonalInertia": "(0.000006635825, 0.0000018652258, 0.00000529092)",
+        "physics:mass": "0.012000000104308128",
+        "physics:principalAxes": "(0.99930465, 0.016051318, -0.0010975002, -0.033638127)"
+      },
+      "mass_attributes_after": {
+        "physics:centerOfMass": "(-0.00157495, -0.0300244, 0.0192755)",
+        "physics:density": "0.0",
+        "physics:diagonalInertia": "(0.000006635825, 0.0000018652258, 0.00000529092)",
+        "physics:mass": "0.012000000104308128",
+        "physics:principalAxes": "(0.99930465, 0.016051318, -0.0010975002, -0.033638127)"
+      },
+      "baseline_material_colliders": []
+    },
+    {
+      "env_id": 6,
+      "jaw": "fixed",
+      "body": "/World/envs/env_6/Robot/arm_2_gripper_link",
+      "pads": [],
+      "colliders": [
+        "/World/envs/env_6/Robot/arm_2_gripper_link/collisions/wrist_roll_follower_so101_v1/node_STL_BINARY_"
+      ],
+      "mass_attributes_before": {
+        "physics:centerOfMass": "(-0.0017872028, -0.022896666, -0.026870936)",
+        "physics:density": "0.0",
+        "physics:diagonalInertia": "(0.00015001372, 0.00010463951, 0.00020750536)",
+        "physics:mass": "0.18000000715255737",
+        "physics:principalAxes": "(0.9892154, 0.042423524, -0.04623128, -0.1323475)"
+      },
+      "mass_attributes_after": {
+        "physics:centerOfMass": "(-0.0017872028, -0.022896666, -0.026870936)",
+        "physics:density": "0.0",
+        "physics:diagonalInertia": "(0.00015001372, 0.00010463951, 0.00020750536)",
+        "physics:mass": "0.18000000715255737",
+        "physics:principalAxes": "(0.9892154, 0.042423524, -0.04623128, -0.1323475)"
+      },
+      "baseline_material_colliders": [
+        "/World/envs/env_6/Robot/arm_2_gripper_link/collisions/sts3215_03a_v1/node_STL_BINARY_",
+        "/World/envs/env_6/Robot/arm_2_gripper_link/collisions/d435_wrist_mount/node_STL_BINARY_",
+        "/World/envs/env_6/Robot/arm_2_gripper_link/collisions/mesh_3/box"
+      ]
+    },
+    {
+      "env_id": 6,
+      "jaw": "moving",
+      "body": "/World/envs/env_6/Robot/arm_2_moving_jaw_so101_v1_link",
+      "pads": [],
+      "colliders": [
+        "/World/envs/env_6/Robot/arm_2_moving_jaw_so101_v1_link/collisions/moving_jaw_so101_v1/node_STL_BINARY_"
+      ],
+      "mass_attributes_before": {
+        "physics:centerOfMass": "(-0.00157495, -0.0300244, 0.0192755)",
+        "physics:density": "0.0",
+        "physics:diagonalInertia": "(0.000006635825, 0.0000018652258, 0.00000529092)",
+        "physics:mass": "0.012000000104308128",
+        "physics:principalAxes": "(0.99930465, 0.016051318, -0.0010975002, -0.033638127)"
+      },
+      "mass_attributes_after": {
+        "physics:centerOfMass": "(-0.00157495, -0.0300244, 0.0192755)",
+        "physics:density": "0.0",
+        "physics:diagonalInertia": "(0.000006635825, 0.0000018652258, 0.00000529092)",
+        "physics:mass": "0.012000000104308128",
+        "physics:principalAxes": "(0.99930465, 0.016051318, -0.0010975002, -0.033638127)"
+      },
+      "baseline_material_colliders": []
+    },
+    {
+      "env_id": 7,
+      "jaw": "fixed",
+      "body": "/World/envs/env_7/Robot/arm_2_gripper_link",
+      "pads": [],
+      "colliders": [
+        "/World/envs/env_7/Robot/arm_2_gripper_link/collisions/wrist_roll_follower_so101_v1/node_STL_BINARY_"
+      ],
+      "mass_attributes_before": {
+        "physics:centerOfMass": "(-0.0017872028, -0.022896666, -0.026870936)",
+        "physics:density": "0.0",
+        "physics:diagonalInertia": "(0.00015001372, 0.00010463951, 0.00020750536)",
+        "physics:mass": "0.18000000715255737",
+        "physics:principalAxes": "(0.9892154, 0.042423524, -0.04623128, -0.1323475)"
+      },
+      "mass_attributes_after": {
+        "physics:centerOfMass": "(-0.0017872028, -0.022896666, -0.026870936)",
+        "physics:density": "0.0",
+        "physics:diagonalInertia": "(0.00015001372, 0.00010463951, 0.00020750536)",
+        "physics:mass": "0.18000000715255737",
+        "physics:principalAxes": "(0.9892154, 0.042423524, -0.04623128, -0.1323475)"
+      },
+      "baseline_material_colliders": [
+        "/World/envs/env_7/Robot/arm_2_gripper_link/collisions/sts3215_03a_v1/node_STL_BINARY_",
+        "/World/envs/env_7/Robot/arm_2_gripper_link/collisions/d435_wrist_mount/node_STL_BINARY_",
+        "/World/envs/env_7/Robot/arm_2_gripper_link/collisions/mesh_3/box"
+      ]
+    },
+    {
+      "env_id": 7,
+      "jaw": "moving",
+      "body": "/World/envs/env_7/Robot/arm_2_moving_jaw_so101_v1_link",
+      "pads": [],
+      "colliders": [
+        "/World/envs/env_7/Robot/arm_2_moving_jaw_so101_v1_link/collisions/moving_jaw_so101_v1/node_STL_BINARY_"
+      ],
+      "mass_attributes_before": {
+        "physics:centerOfMass": "(-0.00157495, -0.0300244, 0.0192755)",
+        "physics:density": "0.0",
+        "physics:diagonalInertia": "(0.000006635825, 0.0000018652258, 0.00000529092)",
+        "physics:mass": "0.012000000104308128",
+        "physics:principalAxes": "(0.99930465, 0.016051318, -0.0010975002, -0.033638127)"
+      },
+      "mass_attributes_after": {
+        "physics:centerOfMass": "(-0.00157495, -0.0300244, 0.0192755)",
+        "physics:density": "0.0",
+        "physics:diagonalInertia": "(0.000006635825, 0.0000018652258, 0.00000529092)",
+        "physics:mass": "0.012000000104308128",
+        "physics:principalAxes": "(0.99930465, 0.016051318, -0.0010975002, -0.033638127)"
+      },
+      "baseline_material_colliders": []
+    },
+    {
+      "env_id": 8,
+      "jaw": "fixed",
+      "body": "/World/envs/env_8/Robot/arm_2_gripper_link",
+      "pads": [],
+      "colliders": [
+        "/World/envs/env_8/Robot/arm_2_gripper_link/collisions/wrist_roll_follower_so101_v1/node_STL_BINARY_"
+      ],
+      "mass_attributes_before": {
+        "physics:centerOfMass": "(-0.0017872028, -0.022896666, -0.026870936)",
+        "physics:density": "0.0",
+        "physics:diagonalInertia": "(0.00015001372, 0.00010463951, 0.00020750536)",
+        "physics:mass": "0.18000000715255737",
+        "physics:principalAxes": "(0.9892154, 0.042423524, -0.04623128, -0.1323475)"
+      },
+      "mass_attributes_after": {
+        "physics:centerOfMass": "(-0.0017872028, -0.022896666, -0.026870936)",
+        "physics:density": "0.0",
+        "physics:diagonalInertia": "(0.00015001372, 0.00010463951, 0.00020750536)",
+        "physics:mass": "0.18000000715255737",
+        "physics:principalAxes": "(0.9892154, 0.042423524, -0.04623128, -0.1323475)"
+      },
+      "baseline_material_colliders": [
+        "/World/envs/env_8/Robot/arm_2_gripper_link/collisions/sts3215_03a_v1/node_STL_BINARY_",
+        "/World/envs/env_8/Robot/arm_2_gripper_link/collisions/d435_wrist_mount/node_STL_BINARY_",
+        "/World/envs/env_8/Robot/arm_2_gripper_link/collisions/mesh_3/box"
+      ]
+    },
+    {
+      "env_id": 8,
+      "jaw": "moving",
+      "body": "/World/envs/env_8/Robot/arm_2_moving_jaw_so101_v1_link",
+      "pads": [],
+      "colliders": [
+        "/World/envs/env_8/Robot/arm_2_moving_jaw_so101_v1_link/collisions/moving_jaw_so101_v1/node_STL_BINARY_"
+      ],
+      "mass_attributes_before": {
+        "physics:centerOfMass": "(-0.00157495, -0.0300244, 0.0192755)",
+        "physics:density": "0.0",
+        "physics:diagonalInertia": "(0.000006635825, 0.0000018652258, 0.00000529092)",
+        "physics:mass": "0.012000000104308128",
+        "physics:principalAxes": "(0.99930465, 0.016051318, -0.0010975002, -0.033638127)"
+      },
+      "mass_attributes_after": {
+        "physics:centerOfMass": "(-0.00157495, -0.0300244, 0.0192755)",
+        "physics:density": "0.0",
+        "physics:diagonalInertia": "(0.000006635825, 0.0000018652258, 0.00000529092)",
+        "physics:mass": "0.012000000104308128",
+        "physics:principalAxes": "(0.99930465, 0.016051318, -0.0010975002, -0.033638127)"
+      },
+      "baseline_material_colliders": []
+    },
+    {
+      "env_id": 9,
+      "jaw": "fixed",
+      "body": "/World/envs/env_9/Robot/arm_2_gripper_link",
+      "pads": [],
+      "colliders": [
+        "/World/envs/env_9/Robot/arm_2_gripper_link/collisions/wrist_roll_follower_so101_v1/node_STL_BINARY_"
+      ],
+      "mass_attributes_before": {
+        "physics:centerOfMass": "(-0.0017872028, -0.022896666, -0.026870936)",
+        "physics:density": "0.0",
+        "physics:diagonalInertia": "(0.00015001372, 0.00010463951, 0.00020750536)",
+        "physics:mass": "0.18000000715255737",
+        "physics:principalAxes": "(0.9892154, 0.042423524, -0.04623128, -0.1323475)"
+      },
+      "mass_attributes_after": {
+        "physics:centerOfMass": "(-0.0017872028, -0.022896666, -0.026870936)",
+        "physics:density": "0.0",
+        "physics:diagonalInertia": "(0.00015001372, 0.00010463951, 0.00020750536)",
+        "physics:mass": "0.18000000715255737",
+        "physics:principalAxes": "(0.9892154, 0.042423524, -0.04623128, -0.1323475)"
+      },
+      "baseline_material_colliders": [
+        "/World/envs/env_9/Robot/arm_2_gripper_link/collisions/sts3215_03a_v1/node_STL_BINARY_",
+        "/World/envs/env_9/Robot/arm_2_gripper_link/collisions/d435_wrist_mount/node_STL_BINARY_",
+        "/World/envs/env_9/Robot/arm_2_gripper_link/collisions/mesh_3/box"
+      ]
+    },
+    {
+      "env_id": 9,
+      "jaw": "moving",
+      "body": "/World/envs/env_9/Robot/arm_2_moving_jaw_so101_v1_link",
+      "pads": [],
+      "colliders": [
+        "/World/envs/env_9/Robot/arm_2_moving_jaw_so101_v1_link/collisions/moving_jaw_so101_v1/node_STL_BINARY_"
+      ],
+      "mass_attributes_before": {
+        "physics:centerOfMass": "(-0.00157495, -0.0300244, 0.0192755)",
+        "physics:density": "0.0",
+        "physics:diagonalInertia": "(0.000006635825, 0.0000018652258, 0.00000529092)",
+        "physics:mass": "0.012000000104308128",
+        "physics:principalAxes": "(0.99930465, 0.016051318, -0.0010975002, -0.033638127)"
+      },
+      "mass_attributes_after": {
+        "physics:centerOfMass": "(-0.00157495, -0.0300244, 0.0192755)",
+        "physics:density": "0.0",
+        "physics:diagonalInertia": "(0.000006635825, 0.0000018652258, 0.00000529092)",
+        "physics:mass": "0.012000000104308128",
+        "physics:principalAxes": "(0.99930465, 0.016051318, -0.0010975002, -0.033638127)"
+      },
+      "baseline_material_colliders": []
+    },
+    {
+      "env_id": 10,
+      "jaw": "fixed",
+      "body": "/World/envs/env_10/Robot/arm_2_gripper_link",
+      "pads": [],
+      "colliders": [
+        "/World/envs/env_10/Robot/arm_2_gripper_link/collisions/wrist_roll_follower_so101_v1/node_STL_BINARY_"
+      ],
+      "mass_attributes_before": {
+        "physics:centerOfMass": "(-0.0017872028, -0.022896666, -0.026870936)",
+        "physics:density": "0.0",
+        "physics:diagonalInertia": "(0.00015001372, 0.00010463951, 0.00020750536)",
+        "physics:mass": "0.18000000715255737",
+        "physics:principalAxes": "(0.9892154, 0.042423524, -0.04623128, -0.1323475)"
+      },
+      "mass_attributes_after": {
+        "physics:centerOfMass": "(-0.0017872028, -0.022896666, -0.026870936)",
+        "physics:density": "0.0",
+        "physics:diagonalInertia": "(0.00015001372, 0.00010463951, 0.00020750536)",
+        "physics:mass": "0.18000000715255737",
+        "physics:principalAxes": "(0.9892154, 0.042423524, -0.04623128, -0.1323475)"
+      },
+      "baseline_material_colliders": [
+        "/World/envs/env_10/Robot/arm_2_gripper_link/collisions/sts3215_03a_v1/node_STL_BINARY_",
+        "/World/envs/env_10/Robot/arm_2_gripper_link/collisions/d435_wrist_mount/node_STL_BINARY_",
+        "/World/envs/env_10/Robot/arm_2_gripper_link/collisions/mesh_3/box"
+      ]
+    },
+    {
+      "env_id": 10,
+      "jaw": "moving",
+      "body": "/World/envs/env_10/Robot/arm_2_moving_jaw_so101_v1_link",
+      "pads": [],
+      "colliders": [
+        "/World/envs/env_10/Robot/arm_2_moving_jaw_so101_v1_link/collisions/moving_jaw_so101_v1/node_STL_BINARY_"
+      ],
+      "mass_attributes_before": {
+        "physics:centerOfMass": "(-0.00157495, -0.0300244, 0.0192755)",
+        "physics:density": "0.0",
+        "physics:diagonalInertia": "(0.000006635825, 0.0000018652258, 0.00000529092)",
+        "physics:mass": "0.012000000104308128",
+        "physics:principalAxes": "(0.99930465, 0.016051318, -0.0010975002, -0.033638127)"
+      },
+      "mass_attributes_after": {
+        "physics:centerOfMass": "(-0.00157495, -0.0300244, 0.0192755)",
+        "physics:density": "0.0",
+        "physics:diagonalInertia": "(0.000006635825, 0.0000018652258, 0.00000529092)",
+        "physics:mass": "0.012000000104308128",
+        "physics:principalAxes": "(0.99930465, 0.016051318, -0.0010975002, -0.033638127)"
+      },
+      "baseline_material_colliders": []
+    },
+    {
+      "env_id": 11,
+      "jaw": "fixed",
+      "body": "/World/envs/env_11/Robot/arm_2_gripper_link",
+      "pads": [],
+      "colliders": [
+        "/World/envs/env_11/Robot/arm_2_gripper_link/collisions/wrist_roll_follower_so101_v1/node_STL_BINARY_"
+      ],
+      "mass_attributes_before": {
+        "physics:centerOfMass": "(-0.0017872028, -0.022896666, -0.026870936)",
+        "physics:density": "0.0",
+        "physics:diagonalInertia": "(0.00015001372, 0.00010463951, 0.00020750536)",
+        "physics:mass": "0.18000000715255737",
+        "physics:principalAxes": "(0.9892154, 0.042423524, -0.04623128, -0.1323475)"
+      },
+      "mass_attributes_after": {
+        "physics:centerOfMass": "(-0.0017872028, -0.022896666, -0.026870936)",
+        "physics:density": "0.0",
+        "physics:diagonalInertia": "(0.00015001372, 0.00010463951, 0.00020750536)",
+        "physics:mass": "0.18000000715255737",
+        "physics:principalAxes": "(0.9892154, 0.042423524, -0.04623128, -0.1323475)"
+      },
+      "baseline_material_colliders": [
+        "/World/envs/env_11/Robot/arm_2_gripper_link/collisions/sts3215_03a_v1/node_STL_BINARY_",
+        "/World/envs/env_11/Robot/arm_2_gripper_link/collisions/d435_wrist_mount/node_STL_BINARY_",
+        "/World/envs/env_11/Robot/arm_2_gripper_link/collisions/mesh_3/box"
+      ]
+    },
+    {
+      "env_id": 11,
+      "jaw": "moving",
+      "body": "/World/envs/env_11/Robot/arm_2_moving_jaw_so101_v1_link",
+      "pads": [],
+      "colliders": [
+        "/World/envs/env_11/Robot/arm_2_moving_jaw_so101_v1_link/collisions/moving_jaw_so101_v1/node_STL_BINARY_"
+      ],
+      "mass_attributes_before": {
+        "physics:centerOfMass": "(-0.00157495, -0.0300244, 0.0192755)",
+        "physics:density": "0.0",
+        "physics:diagonalInertia": "(0.000006635825, 0.0000018652258, 0.00000529092)",
+        "physics:mass": "0.012000000104308128",
+        "physics:principalAxes": "(0.99930465, 0.016051318, -0.0010975002, -0.033638127)"
+      },
+      "mass_attributes_after": {
+        "physics:centerOfMass": "(-0.00157495, -0.0300244, 0.0192755)",
+        "physics:density": "0.0",
+        "physics:diagonalInertia": "(0.000006635825, 0.0000018652258, 0.00000529092)",
+        "physics:mass": "0.012000000104308128",
+        "physics:principalAxes": "(0.99930465, 0.016051318, -0.0010975002, -0.033638127)"
+      },
+      "baseline_material_colliders": []
+    },
+    {
+      "env_id": 12,
+      "jaw": "fixed",
+      "body": "/World/envs/env_12/Robot/arm_2_gripper_link",
+      "pads": [],
+      "colliders": [
+        "/World/envs/env_12/Robot/arm_2_gripper_link/collisions/wrist_roll_follower_so101_v1/node_STL_BINARY_"
+      ],
+      "mass_attributes_before": {
+        "physics:centerOfMass": "(-0.0017872028, -0.022896666, -0.026870936)",
+        "physics:density": "0.0",
+        "physics:diagonalInertia": "(0.00015001372, 0.00010463951, 0.00020750536)",
+        "physics:mass": "0.18000000715255737",
+        "physics:principalAxes": "(0.9892154, 0.042423524, -0.04623128, -0.1323475)"
+      },
+      "mass_attributes_after": {
+        "physics:centerOfMass": "(-0.0017872028, -0.022896666, -0.026870936)",
+        "physics:density": "0.0",
+        "physics:diagonalInertia": "(0.00015001372, 0.00010463951, 0.00020750536)",
+        "physics:mass": "0.18000000715255737",
+        "physics:principalAxes": "(0.9892154, 0.042423524, -0.04623128, -0.1323475)"
+      },
+      "baseline_material_colliders": [
+        "/World/envs/env_12/Robot/arm_2_gripper_link/collisions/sts3215_03a_v1/node_STL_BINARY_",
+        "/World/envs/env_12/Robot/arm_2_gripper_link/collisions/d435_wrist_mount/node_STL_BINARY_",
+        "/World/envs/env_12/Robot/arm_2_gripper_link/collisions/mesh_3/box"
+      ]
+    },
+    {
+      "env_id": 12,
+      "jaw": "moving",
+      "body": "/World/envs/env_12/Robot/arm_2_moving_jaw_so101_v1_link",
+      "pads": [],
+      "colliders": [
+        "/World/envs/env_12/Robot/arm_2_moving_jaw_so101_v1_link/collisions/moving_jaw_so101_v1/node_STL_BINARY_"
+      ],
+      "mass_attributes_before": {
+        "physics:centerOfMass": "(-0.00157495, -0.0300244, 0.0192755)",
+        "physics:density": "0.0",
+        "physics:diagonalInertia": "(0.000006635825, 0.0000018652258, 0.00000529092)",
+        "physics:mass": "0.012000000104308128",
+        "physics:principalAxes": "(0.99930465, 0.016051318, -0.0010975002, -0.033638127)"
+      },
+      "mass_attributes_after": {
+        "physics:centerOfMass": "(-0.00157495, -0.0300244, 0.0192755)",
+        "physics:density": "0.0",
+        "physics:diagonalInertia": "(0.000006635825, 0.0000018652258, 0.00000529092)",
+        "physics:mass": "0.012000000104308128",
+        "physics:principalAxes": "(0.99930465, 0.016051318, -0.0010975002, -0.033638127)"
+      },
+      "baseline_material_colliders": []
+    },
+    {
+      "env_id": 13,
+      "jaw": "fixed",
+      "body": "/World/envs/env_13/Robot/arm_2_gripper_link",
+      "pads": [],
+      "colliders": [
+        "/World/envs/env_13/Robot/arm_2_gripper_link/collisions/wrist_roll_follower_so101_v1/node_STL_BINARY_"
+      ],
+      "mass_attributes_before": {
+        "physics:centerOfMass": "(-0.0017872028, -0.022896666, -0.026870936)",
+        "physics:density": "0.0",
+        "physics:diagonalInertia": "(0.00015001372, 0.00010463951, 0.00020750536)",
+        "physics:mass": "0.18000000715255737",
+        "physics:principalAxes": "(0.9892154, 0.042423524, -0.04623128, -0.1323475)"
+      },
+      "mass_attributes_after": {
+        "physics:centerOfMass": "(-0.0017872028, -0.022896666, -0.026870936)",
+        "physics:density": "0.0",
+        "physics:diagonalInertia": "(0.00015001372, 0.00010463951, 0.00020750536)",
+        "physics:mass": "0.18000000715255737",
+        "physics:principalAxes": "(0.9892154, 0.042423524, -0.04623128, -0.1323475)"
+      },
+      "baseline_material_colliders": [
+        "/World/envs/env_13/Robot/arm_2_gripper_link/collisions/sts3215_03a_v1/node_STL_BINARY_",
+        "/World/envs/env_13/Robot/arm_2_gripper_link/collisions/d435_wrist_mount/node_STL_BINARY_",
+        "/World/envs/env_13/Robot/arm_2_gripper_link/collisions/mesh_3/box"
+      ]
+    },
+    {
+      "env_id": 13,
+      "jaw": "moving",
+      "body": "/World/envs/env_13/Robot/arm_2_moving_jaw_so101_v1_link",
+      "pads": [],
+      "colliders": [
+        "/World/envs/env_13/Robot/arm_2_moving_jaw_so101_v1_link/collisions/moving_jaw_so101_v1/node_STL_BINARY_"
+      ],
+      "mass_attributes_before": {
+        "physics:centerOfMass": "(-0.00157495, -0.0300244, 0.0192755)",
+        "physics:density": "0.0",
+        "physics:diagonalInertia": "(0.000006635825, 0.0000018652258, 0.00000529092)",
+        "physics:mass": "0.012000000104308128",
+        "physics:principalAxes": "(0.99930465, 0.016051318, -0.0010975002, -0.033638127)"
+      },
+      "mass_attributes_after": {
+        "physics:centerOfMass": "(-0.00157495, -0.0300244, 0.0192755)",
+        "physics:density": "0.0",
+        "physics:diagonalInertia": "(0.000006635825, 0.0000018652258, 0.00000529092)",
+        "physics:mass": "0.012000000104308128",
+        "physics:principalAxes": "(0.99930465, 0.016051318, -0.0010975002, -0.033638127)"
+      },
+      "baseline_material_colliders": []
+    },
+    {
+      "env_id": 14,
+      "jaw": "fixed",
+      "body": "/World/envs/env_14/Robot/arm_2_gripper_link",
+      "pads": [],
+      "colliders": [
+        "/World/envs/env_14/Robot/arm_2_gripper_link/collisions/wrist_roll_follower_so101_v1/node_STL_BINARY_"
+      ],
+      "mass_attributes_before": {
+        "physics:centerOfMass": "(-0.0017872028, -0.022896666, -0.026870936)",
+        "physics:density": "0.0",
+        "physics:diagonalInertia": "(0.00015001372, 0.00010463951, 0.00020750536)",
+        "physics:mass": "0.18000000715255737",
+        "physics:principalAxes": "(0.9892154, 0.042423524, -0.04623128, -0.1323475)"
+      },
+      "mass_attributes_after": {
+        "physics:centerOfMass": "(-0.0017872028, -0.022896666, -0.026870936)",
+        "physics:density": "0.0",
+        "physics:diagonalInertia": "(0.00015001372, 0.00010463951, 0.00020750536)",
+        "physics:mass": "0.18000000715255737",
+        "physics:principalAxes": "(0.9892154, 0.042423524, -0.04623128, -0.1323475)"
+      },
+      "baseline_material_colliders": [
+        "/World/envs/env_14/Robot/arm_2_gripper_link/collisions/sts3215_03a_v1/node_STL_BINARY_",
+        "/World/envs/env_14/Robot/arm_2_gripper_link/collisions/d435_wrist_mount/node_STL_BINARY_",
+        "/World/envs/env_14/Robot/arm_2_gripper_link/collisions/mesh_3/box"
+      ]
+    },
+    {
+      "env_id": 14,
+      "jaw": "moving",
+      "body": "/World/envs/env_14/Robot/arm_2_moving_jaw_so101_v1_link",
+      "pads": [],
+      "colliders": [
+        "/World/envs/env_14/Robot/arm_2_moving_jaw_so101_v1_link/collisions/moving_jaw_so101_v1/node_STL_BINARY_"
+      ],
+      "mass_attributes_before": {
+        "physics:centerOfMass": "(-0.00157495, -0.0300244, 0.0192755)",
+        "physics:density": "0.0",
+        "physics:diagonalInertia": "(0.000006635825, 0.0000018652258, 0.00000529092)",
+        "physics:mass": "0.012000000104308128",
+        "physics:principalAxes": "(0.99930465, 0.016051318, -0.0010975002, -0.033638127)"
+      },
+      "mass_attributes_after": {
+        "physics:centerOfMass": "(-0.00157495, -0.0300244, 0.0192755)",
+        "physics:density": "0.0",
+        "physics:diagonalInertia": "(0.000006635825, 0.0000018652258, 0.00000529092)",
+        "physics:mass": "0.012000000104308128",
+        "physics:principalAxes": "(0.99930465, 0.016051318, -0.0010975002, -0.033638127)"
+      },
+      "baseline_material_colliders": []
+    },
+    {
+      "env_id": 15,
+      "jaw": "fixed",
+      "body": "/World/envs/env_15/Robot/arm_2_gripper_link",
+      "pads": [],
+      "colliders": [
+        "/World/envs/env_15/Robot/arm_2_gripper_link/collisions/wrist_roll_follower_so101_v1/node_STL_BINARY_"
+      ],
+      "mass_attributes_before": {
+        "physics:centerOfMass": "(-0.0017872028, -0.022896666, -0.026870936)",
+        "physics:density": "0.0",
+        "physics:diagonalInertia": "(0.00015001372, 0.00010463951, 0.00020750536)",
+        "physics:mass": "0.18000000715255737",
+        "physics:principalAxes": "(0.9892154, 0.042423524, -0.04623128, -0.1323475)"
+      },
+      "mass_attributes_after": {
+        "physics:centerOfMass": "(-0.0017872028, -0.022896666, -0.026870936)",
+        "physics:density": "0.0",
+        "physics:diagonalInertia": "(0.00015001372, 0.00010463951, 0.00020750536)",
+        "physics:mass": "0.18000000715255737",
+        "physics:principalAxes": "(0.9892154, 0.042423524, -0.04623128, -0.1323475)"
+      },
+      "baseline_material_colliders": [
+        "/World/envs/env_15/Robot/arm_2_gripper_link/collisions/sts3215_03a_v1/node_STL_BINARY_",
+        "/World/envs/env_15/Robot/arm_2_gripper_link/collisions/d435_wrist_mount/node_STL_BINARY_",
+        "/World/envs/env_15/Robot/arm_2_gripper_link/collisions/mesh_3/box"
+      ]
+    },
+    {
+      "env_id": 15,
+      "jaw": "moving",
+      "body": "/World/envs/env_15/Robot/arm_2_moving_jaw_so101_v1_link",
+      "pads": [],
+      "colliders": [
+        "/World/envs/env_15/Robot/arm_2_moving_jaw_so101_v1_link/collisions/moving_jaw_so101_v1/node_STL_BINARY_"
+      ],
+      "mass_attributes_before": {
+        "physics:centerOfMass": "(-0.00157495, -0.0300244, 0.0192755)",
+        "physics:density": "0.0",
+        "physics:diagonalInertia": "(0.000006635825, 0.0000018652258, 0.00000529092)",
+        "physics:mass": "0.012000000104308128",
+        "physics:principalAxes": "(0.99930465, 0.016051318, -0.0010975002, -0.033638127)"
+      },
+      "mass_attributes_after": {
+        "physics:centerOfMass": "(-0.00157495, -0.0300244, 0.0192755)",
+        "physics:density": "0.0",
+        "physics:diagonalInertia": "(0.000006635825, 0.0000018652258, 0.00000529092)",
+        "physics:mass": "0.012000000104308128",
+        "physics:principalAxes": "(0.99930465, 0.016051318, -0.0010975002, -0.033638127)"
+      },
+      "baseline_material_colliders": []
+    },
+    {
+      "env_id": 16,
+      "jaw": "fixed",
+      "body": "/World/envs/env_16/Robot/arm_2_gripper_link",
+      "pads": [],
+      "colliders": [
+        "/World/envs/env_16/Robot/arm_2_gripper_link/collisions/wrist_roll_follower_so101_v1/node_STL_BINARY_"
+      ],
+      "mass_attributes_before": {
+        "physics:centerOfMass": "(-0.0017872028, -0.022896666, -0.026870936)",
+        "physics:density": "0.0",
+        "physics:diagonalInertia": "(0.00015001372, 0.00010463951, 0.00020750536)",
+        "physics:mass": "0.18000000715255737",
+        "physics:principalAxes": "(0.9892154, 0.042423524, -0.04623128, -0.1323475)"
+      },
+      "mass_attributes_after": {
+        "physics:centerOfMass": "(-0.0017872028, -0.022896666, -0.026870936)",
+        "physics:density": "0.0",
+        "physics:diagonalInertia": "(0.00015001372, 0.00010463951, 0.00020750536)",
+        "physics:mass": "0.18000000715255737",
+        "physics:principalAxes": "(0.9892154, 0.042423524, -0.04623128, -0.1323475)"
+      },
+      "baseline_material_colliders": [
+        "/World/envs/env_16/Robot/arm_2_gripper_link/collisions/sts3215_03a_v1/node_STL_BINARY_",
+        "/World/envs/env_16/Robot/arm_2_gripper_link/collisions/d435_wrist_mount/node_STL_BINARY_",
+        "/World/envs/env_16/Robot/arm_2_gripper_link/collisions/mesh_3/box"
+      ]
+    },
+    {
+      "env_id": 16,
+      "jaw": "moving",
+      "body": "/World/envs/env_16/Robot/arm_2_moving_jaw_so101_v1_link",
+      "pads": [],
+      "colliders": [
+        "/World/envs/env_16/Robot/arm_2_moving_jaw_so101_v1_link/collisions/moving_jaw_so101_v1/node_STL_BINARY_"
+      ],
+      "mass_attributes_before": {
+        "physics:centerOfMass": "(-0.00157495, -0.0300244, 0.0192755)",
+        "physics:density": "0.0",
+        "physics:diagonalInertia": "(0.000006635825, 0.0000018652258, 0.00000529092)",
+        "physics:mass": "0.012000000104308128",
+        "physics:principalAxes": "(0.99930465, 0.016051318, -0.0010975002, -0.033638127)"
+      },
+      "mass_attributes_after": {
+        "physics:centerOfMass": "(-0.00157495, -0.0300244, 0.0192755)",
+        "physics:density": "0.0",
+        "physics:diagonalInertia": "(0.000006635825, 0.0000018652258, 0.00000529092)",
+        "physics:mass": "0.012000000104308128",
+        "physics:principalAxes": "(0.99930465, 0.016051318, -0.0010975002, -0.033638127)"
+      },
+      "baseline_material_colliders": []
+    },
+    {
+      "env_id": 17,
+      "jaw": "fixed",
+      "body": "/World/envs/env_17/Robot/arm_2_gripper_link",
+      "pads": [],
+      "colliders": [
+        "/World/envs/env_17/Robot/arm_2_gripper_link/collisions/wrist_roll_follower_so101_v1/node_STL_BINARY_"
+      ],
+      "mass_attributes_before": {
+        "physics:centerOfMass": "(-0.0017872028, -0.022896666, -0.026870936)",
+        "physics:density": "0.0",
+        "physics:diagonalInertia": "(0.00015001372, 0.00010463951, 0.00020750536)",
+        "physics:mass": "0.18000000715255737",
+        "physics:principalAxes": "(0.9892154, 0.042423524, -0.04623128, -0.1323475)"
+      },
+      "mass_attributes_after": {
+        "physics:centerOfMass": "(-0.0017872028, -0.022896666, -0.026870936)",
+        "physics:density": "0.0",
+        "physics:diagonalInertia": "(0.00015001372, 0.00010463951, 0.00020750536)",
+        "physics:mass": "0.18000000715255737",
+        "physics:principalAxes": "(0.9892154, 0.042423524, -0.04623128, -0.1323475)"
+      },
+      "baseline_material_colliders": [
+        "/World/envs/env_17/Robot/arm_2_gripper_link/collisions/sts3215_03a_v1/node_STL_BINARY_",
+        "/World/envs/env_17/Robot/arm_2_gripper_link/collisions/d435_wrist_mount/node_STL_BINARY_",
+        "/World/envs/env_17/Robot/arm_2_gripper_link/collisions/mesh_3/box"
+      ]
+    },
+    {
+      "env_id": 17,
+      "jaw": "moving",
+      "body": "/World/envs/env_17/Robot/arm_2_moving_jaw_so101_v1_link",
+      "pads": [],
+      "colliders": [
+        "/World/envs/env_17/Robot/arm_2_moving_jaw_so101_v1_link/collisions/moving_jaw_so101_v1/node_STL_BINARY_"
+      ],
+      "mass_attributes_before": {
+        "physics:centerOfMass": "(-0.00157495, -0.0300244, 0.0192755)",
+        "physics:density": "0.0",
+        "physics:diagonalInertia": "(0.000006635825, 0.0000018652258, 0.00000529092)",
+        "physics:mass": "0.012000000104308128",
+        "physics:principalAxes": "(0.99930465, 0.016051318, -0.0010975002, -0.033638127)"
+      },
+      "mass_attributes_after": {
+        "physics:centerOfMass": "(-0.00157495, -0.0300244, 0.0192755)",
+        "physics:density": "0.0",
+        "physics:diagonalInertia": "(0.000006635825, 0.0000018652258, 0.00000529092)",
+        "physics:mass": "0.012000000104308128",
+        "physics:principalAxes": "(0.99930465, 0.016051318, -0.0010975002, -0.033638127)"
+      },
+      "baseline_material_colliders": []
+    },
+    {
+      "env_id": 18,
+      "jaw": "fixed",
+      "body": "/World/envs/env_18/Robot/arm_2_gripper_link",
+      "pads": [],
+      "colliders": [
+        "/World/envs/env_18/Robot/arm_2_gripper_link/collisions/wrist_roll_follower_so101_v1/node_STL_BINARY_"
+      ],
+      "mass_attributes_before": {
+        "physics:centerOfMass": "(-0.0017872028, -0.022896666, -0.026870936)",
+        "physics:density": "0.0",
+        "physics:diagonalInertia": "(0.00015001372, 0.00010463951, 0.00020750536)",
+        "physics:mass": "0.18000000715255737",
+        "physics:principalAxes": "(0.9892154, 0.042423524, -0.04623128, -0.1323475)"
+      },
+      "mass_attributes_after": {
+        "physics:centerOfMass": "(-0.0017872028, -0.022896666, -0.026870936)",
+        "physics:density": "0.0",
+        "physics:diagonalInertia": "(0.00015001372, 0.00010463951, 0.00020750536)",
+        "physics:mass": "0.18000000715255737",
+        "physics:principalAxes": "(0.9892154, 0.042423524, -0.04623128, -0.1323475)"
+      },
+      "baseline_material_colliders": [
+        "/World/envs/env_18/Robot/arm_2_gripper_link/collisions/sts3215_03a_v1/node_STL_BINARY_",
+        "/World/envs/env_18/Robot/arm_2_gripper_link/collisions/d435_wrist_mount/node_STL_BINARY_",
+        "/World/envs/env_18/Robot/arm_2_gripper_link/collisions/mesh_3/box"
+      ]
+    },
+    {
+      "env_id": 18,
+      "jaw": "moving",
+      "body": "/World/envs/env_18/Robot/arm_2_moving_jaw_so101_v1_link",
+      "pads": [],
+      "colliders": [
+        "/World/envs/env_18/Robot/arm_2_moving_jaw_so101_v1_link/collisions/moving_jaw_so101_v1/node_STL_BINARY_"
+      ],
+      "mass_attributes_before": {
+        "physics:centerOfMass": "(-0.00157495, -0.0300244, 0.0192755)",
+        "physics:density": "0.0",
+        "physics:diagonalInertia": "(0.000006635825, 0.0000018652258, 0.00000529092)",
+        "physics:mass": "0.012000000104308128",
+        "physics:principalAxes": "(0.99930465, 0.016051318, -0.0010975002, -0.033638127)"
+      },
+      "mass_attributes_after": {
+        "physics:centerOfMass": "(-0.00157495, -0.0300244, 0.0192755)",
+        "physics:density": "0.0",
+        "physics:diagonalInertia": "(0.000006635825, 0.0000018652258, 0.00000529092)",
+        "physics:mass": "0.012000000104308128",
+        "physics:principalAxes": "(0.99930465, 0.016051318, -0.0010975002, -0.033638127)"
+      },
+      "baseline_material_colliders": []
+    },
+    {
+      "env_id": 19,
+      "jaw": "fixed",
+      "body": "/World/envs/env_19/Robot/arm_2_gripper_link",
+      "pads": [],
+      "colliders": [
+        "/World/envs/env_19/Robot/arm_2_gripper_link/collisions/wrist_roll_follower_so101_v1/node_STL_BINARY_"
+      ],
+      "mass_attributes_before": {
+        "physics:centerOfMass": "(-0.0017872028, -0.022896666, -0.026870936)",
+        "physics:density": "0.0",
+        "physics:diagonalInertia": "(0.00015001372, 0.00010463951, 0.00020750536)",
+        "physics:mass": "0.18000000715255737",
+        "physics:principalAxes": "(0.9892154, 0.042423524, -0.04623128, -0.1323475)"
+      },
+      "mass_attributes_after": {
+        "physics:centerOfMass": "(-0.0017872028, -0.022896666, -0.026870936)",
+        "physics:density": "0.0",
+        "physics:diagonalInertia": "(0.00015001372, 0.00010463951, 0.00020750536)",
+        "physics:mass": "0.18000000715255737",
+        "physics:principalAxes": "(0.9892154, 0.042423524, -0.04623128, -0.1323475)"
+      },
+      "baseline_material_colliders": [
+        "/World/envs/env_19/Robot/arm_2_gripper_link/collisions/sts3215_03a_v1/node_STL_BINARY_",
+        "/World/envs/env_19/Robot/arm_2_gripper_link/collisions/d435_wrist_mount/node_STL_BINARY_",
+        "/World/envs/env_19/Robot/arm_2_gripper_link/collisions/mesh_3/box"
+      ]
+    },
+    {
+      "env_id": 19,
+      "jaw": "moving",
+      "body": "/World/envs/env_19/Robot/arm_2_moving_jaw_so101_v1_link",
+      "pads": [],
+      "colliders": [
+        "/World/envs/env_19/Robot/arm_2_moving_jaw_so101_v1_link/collisions/moving_jaw_so101_v1/node_STL_BINARY_"
+      ],
+      "mass_attributes_before": {
+        "physics:centerOfMass": "(-0.00157495, -0.0300244, 0.0192755)",
+        "physics:density": "0.0",
+        "physics:diagonalInertia": "(0.000006635825, 0.0000018652258, 0.00000529092)",
+        "physics:mass": "0.012000000104308128",
+        "physics:principalAxes": "(0.99930465, 0.016051318, -0.0010975002, -0.033638127)"
+      },
+      "mass_attributes_after": {
+        "physics:centerOfMass": "(-0.00157495, -0.0300244, 0.0192755)",
+        "physics:density": "0.0",
+        "physics:diagonalInertia": "(0.000006635825, 0.0000018652258, 0.00000529092)",
+        "physics:mass": "0.012000000104308128",
+        "physics:principalAxes": "(0.99930465, 0.016051318, -0.0010975002, -0.033638127)"
+      },
+      "baseline_material_colliders": []
+    },
+    {
+      "env_id": 20,
+      "jaw": "fixed",
+      "body": "/World/envs/env_20/Robot/arm_2_gripper_link",
+      "pads": [],
+      "colliders": [
+        "/World/envs/env_20/Robot/arm_2_gripper_link/collisions/wrist_roll_follower_so101_v1/node_STL_BINARY_"
+      ],
+      "mass_attributes_before": {
+        "physics:centerOfMass": "(-0.0017872028, -0.022896666, -0.026870936)",
+        "physics:density": "0.0",
+        "physics:diagonalInertia": "(0.00015001372, 0.00010463951, 0.00020750536)",
+        "physics:mass": "0.18000000715255737",
+        "physics:principalAxes": "(0.9892154, 0.042423524, -0.04623128, -0.1323475)"
+      },
+      "mass_attributes_after": {
+        "physics:centerOfMass": "(-0.0017872028, -0.022896666, -0.026870936)",
+        "physics:density": "0.0",
+        "physics:diagonalInertia": "(0.00015001372, 0.00010463951, 0.00020750536)",
+        "physics:mass": "0.18000000715255737",
+        "physics:principalAxes": "(0.9892154, 0.042423524, -0.04623128, -0.1323475)"
+      },
+      "baseline_material_colliders": [
+        "/World/envs/env_20/Robot/arm_2_gripper_link/collisions/sts3215_03a_v1/node_STL_BINARY_",
+        "/World/envs/env_20/Robot/arm_2_gripper_link/collisions/d435_wrist_mount/node_STL_BINARY_",
+        "/World/envs/env_20/Robot/arm_2_gripper_link/collisions/mesh_3/box"
+      ]
+    },
+    {
+      "env_id": 20,
+      "jaw": "moving",
+      "body": "/World/envs/env_20/Robot/arm_2_moving_jaw_so101_v1_link",
+      "pads": [],
+      "colliders": [
+        "/World/envs/env_20/Robot/arm_2_moving_jaw_so101_v1_link/collisions/moving_jaw_so101_v1/node_STL_BINARY_"
+      ],
+      "mass_attributes_before": {
+        "physics:centerOfMass": "(-0.00157495, -0.0300244, 0.0192755)",
+        "physics:density": "0.0",
+        "physics:diagonalInertia": "(0.000006635825, 0.0000018652258, 0.00000529092)",
+        "physics:mass": "0.012000000104308128",
+        "physics:principalAxes": "(0.99930465, 0.016051318, -0.0010975002, -0.033638127)"
+      },
+      "mass_attributes_after": {
+        "physics:centerOfMass": "(-0.00157495, -0.0300244, 0.0192755)",
+        "physics:density": "0.0",
+        "physics:diagonalInertia": "(0.000006635825, 0.0000018652258, 0.00000529092)",
+        "physics:mass": "0.012000000104308128",
+        "physics:principalAxes": "(0.99930465, 0.016051318, -0.0010975002, -0.033638127)"
+      },
+      "baseline_material_colliders": []
+    },
+    {
+      "env_id": 21,
+      "jaw": "fixed",
+      "body": "/World/envs/env_21/Robot/arm_2_gripper_link",
+      "pads": [],
+      "colliders": [
+        "/World/envs/env_21/Robot/arm_2_gripper_link/collisions/wrist_roll_follower_so101_v1/node_STL_BINARY_"
+      ],
+      "mass_attributes_before": {
+        "physics:centerOfMass": "(-0.0017872028, -0.022896666, -0.026870936)",
+        "physics:density": "0.0",
+        "physics:diagonalInertia": "(0.00015001372, 0.00010463951, 0.00020750536)",
+        "physics:mass": "0.18000000715255737",
+        "physics:principalAxes": "(0.9892154, 0.042423524, -0.04623128, -0.1323475)"
+      },
+      "mass_attributes_after": {
+        "physics:centerOfMass": "(-0.0017872028, -0.022896666, -0.026870936)",
+        "physics:density": "0.0",
+        "physics:diagonalInertia": "(0.00015001372, 0.00010463951, 0.00020750536)",
+        "physics:mass": "0.18000000715255737",
+        "physics:principalAxes": "(0.9892154, 0.042423524, -0.04623128, -0.1323475)"
+      },
+      "baseline_material_colliders": [
+        "/World/envs/env_21/Robot/arm_2_gripper_link/collisions/sts3215_03a_v1/node_STL_BINARY_",
+        "/World/envs/env_21/Robot/arm_2_gripper_link/collisions/d435_wrist_mount/node_STL_BINARY_",
+        "/World/envs/env_21/Robot/arm_2_gripper_link/collisions/mesh_3/box"
+      ]
+    },
+    {
+      "env_id": 21,
+      "jaw": "moving",
+      "body": "/World/envs/env_21/Robot/arm_2_moving_jaw_so101_v1_link",
+      "pads": [],
+      "colliders": [
+        "/World/envs/env_21/Robot/arm_2_moving_jaw_so101_v1_link/collisions/moving_jaw_so101_v1/node_STL_BINARY_"
+      ],
+      "mass_attributes_before": {
+        "physics:centerOfMass": "(-0.00157495, -0.0300244, 0.0192755)",
+        "physics:density": "0.0",
+        "physics:diagonalInertia": "(0.000006635825, 0.0000018652258, 0.00000529092)",
+        "physics:mass": "0.012000000104308128",
+        "physics:principalAxes": "(0.99930465, 0.016051318, -0.0010975002, -0.033638127)"
+      },
+      "mass_attributes_after": {
+        "physics:centerOfMass": "(-0.00157495, -0.0300244, 0.0192755)",
+        "physics:density": "0.0",
+        "physics:diagonalInertia": "(0.000006635825, 0.0000018652258, 0.00000529092)",
+        "physics:mass": "0.012000000104308128",
+        "physics:principalAxes": "(0.99930465, 0.016051318, -0.0010975002, -0.033638127)"
+      },
+      "baseline_material_colliders": []
+    },
+    {
+      "env_id": 22,
+      "jaw": "fixed",
+      "body": "/World/envs/env_22/Robot/arm_2_gripper_link",
+      "pads": [],
+      "colliders": [
+        "/World/envs/env_22/Robot/arm_2_gripper_link/collisions/wrist_roll_follower_so101_v1/node_STL_BINARY_"
+      ],
+      "mass_attributes_before": {
+        "physics:centerOfMass": "(-0.0017872028, -0.022896666, -0.026870936)",
+        "physics:density": "0.0",
+        "physics:diagonalInertia": "(0.00015001372, 0.00010463951, 0.00020750536)",
+        "physics:mass": "0.18000000715255737",
+        "physics:principalAxes": "(0.9892154, 0.042423524, -0.04623128, -0.1323475)"
+      },
+      "mass_attributes_after": {
+        "physics:centerOfMass": "(-0.0017872028, -0.022896666, -0.026870936)",
+        "physics:density": "0.0",
+        "physics:diagonalInertia": "(0.00015001372, 0.00010463951, 0.00020750536)",
+        "physics:mass": "0.18000000715255737",
+        "physics:principalAxes": "(0.9892154, 0.042423524, -0.04623128, -0.1323475)"
+      },
+      "baseline_material_colliders": [
+        "/World/envs/env_22/Robot/arm_2_gripper_link/collisions/sts3215_03a_v1/node_STL_BINARY_",
+        "/World/envs/env_22/Robot/arm_2_gripper_link/collisions/d435_wrist_mount/node_STL_BINARY_",
+        "/World/envs/env_22/Robot/arm_2_gripper_link/collisions/mesh_3/box"
+      ]
+    },
+    {
+      "env_id": 22,
+      "jaw": "moving",
+      "body": "/World/envs/env_22/Robot/arm_2_moving_jaw_so101_v1_link",
+      "pads": [],
+      "colliders": [
+        "/World/envs/env_22/Robot/arm_2_moving_jaw_so101_v1_link/collisions/moving_jaw_so101_v1/node_STL_BINARY_"
+      ],
+      "mass_attributes_before": {
+        "physics:centerOfMass": "(-0.00157495, -0.0300244, 0.0192755)",
+        "physics:density": "0.0",
+        "physics:diagonalInertia": "(0.000006635825, 0.0000018652258, 0.00000529092)",
+        "physics:mass": "0.012000000104308128",
+        "physics:principalAxes": "(0.99930465, 0.016051318, -0.0010975002, -0.033638127)"
+      },
+      "mass_attributes_after": {
+        "physics:centerOfMass": "(-0.00157495, -0.0300244, 0.0192755)",
+        "physics:density": "0.0",
+        "physics:diagonalInertia": "(0.000006635825, 0.0000018652258, 0.00000529092)",
+        "physics:mass": "0.012000000104308128",
+        "physics:principalAxes": "(0.99930465, 0.016051318, -0.0010975002, -0.033638127)"
+      },
+      "baseline_material_colliders": []
+    },
+    {
+      "env_id": 23,
+      "jaw": "fixed",
+      "body": "/World/envs/env_23/Robot/arm_2_gripper_link",
+      "pads": [],
+      "colliders": [
+        "/World/envs/env_23/Robot/arm_2_gripper_link/collisions/wrist_roll_follower_so101_v1/node_STL_BINARY_"
+      ],
+      "mass_attributes_before": {
+        "physics:centerOfMass": "(-0.0017872028, -0.022896666, -0.026870936)",
+        "physics:density": "0.0",
+        "physics:diagonalInertia": "(0.00015001372, 0.00010463951, 0.00020750536)",
+        "physics:mass": "0.18000000715255737",
+        "physics:principalAxes": "(0.9892154, 0.042423524, -0.04623128, -0.1323475)"
+      },
+      "mass_attributes_after": {
+        "physics:centerOfMass": "(-0.0017872028, -0.022896666, -0.026870936)",
+        "physics:density": "0.0",
+        "physics:diagonalInertia": "(0.00015001372, 0.00010463951, 0.00020750536)",
+        "physics:mass": "0.18000000715255737",
+        "physics:principalAxes": "(0.9892154, 0.042423524, -0.04623128, -0.1323475)"
+      },
+      "baseline_material_colliders": [
+        "/World/envs/env_23/Robot/arm_2_gripper_link/collisions/sts3215_03a_v1/node_STL_BINARY_",
+        "/World/envs/env_23/Robot/arm_2_gripper_link/collisions/d435_wrist_mount/node_STL_BINARY_",
+        "/World/envs/env_23/Robot/arm_2_gripper_link/collisions/mesh_3/box"
+      ]
+    },
+    {
+      "env_id": 23,
+      "jaw": "moving",
+      "body": "/World/envs/env_23/Robot/arm_2_moving_jaw_so101_v1_link",
+      "pads": [],
+      "colliders": [
+        "/World/envs/env_23/Robot/arm_2_moving_jaw_so101_v1_link/collisions/moving_jaw_so101_v1/node_STL_BINARY_"
+      ],
+      "mass_attributes_before": {
+        "physics:centerOfMass": "(-0.00157495, -0.0300244, 0.0192755)",
+        "physics:density": "0.0",
+        "physics:diagonalInertia": "(0.000006635825, 0.0000018652258, 0.00000529092)",
+        "physics:mass": "0.012000000104308128",
+        "physics:principalAxes": "(0.99930465, 0.016051318, -0.0010975002, -0.033638127)"
+      },
+      "mass_attributes_after": {
+        "physics:centerOfMass": "(-0.00157495, -0.0300244, 0.0192755)",
+        "physics:density": "0.0",
+        "physics:diagonalInertia": "(0.000006635825, 0.0000018652258, 0.00000529092)",
+        "physics:mass": "0.012000000104308128",
+        "physics:principalAxes": "(0.99930465, 0.016051318, -0.0010975002, -0.033638127)"
+      },
+      "baseline_material_colliders": []
+    },
+    {
+      "env_id": 24,
+      "jaw": "fixed",
+      "body": "/World/envs/env_24/Robot/arm_2_gripper_link",
+      "pads": [],
+      "colliders": [
+        "/World/envs/env_24/Robot/arm_2_gripper_link/collisions/wrist_roll_follower_so101_v1/node_STL_BINARY_"
+      ],
+      "mass_attributes_before": {
+        "physics:centerOfMass": "(-0.0017872028, -0.022896666, -0.026870936)",
+        "physics:density": "0.0",
+        "physics:diagonalInertia": "(0.00015001372, 0.00010463951, 0.00020750536)",
+        "physics:mass": "0.18000000715255737",
+        "physics:principalAxes": "(0.9892154, 0.042423524, -0.04623128, -0.1323475)"
+      },
+      "mass_attributes_after": {
+        "physics:centerOfMass": "(-0.0017872028, -0.022896666, -0.026870936)",
+        "physics:density": "0.0",
+        "physics:diagonalInertia": "(0.00015001372, 0.00010463951, 0.00020750536)",
+        "physics:mass": "0.18000000715255737",
+        "physics:principalAxes": "(0.9892154, 0.042423524, -0.04623128, -0.1323475)"
+      },
+      "baseline_material_colliders": [
+        "/World/envs/env_24/Robot/arm_2_gripper_link/collisions/sts3215_03a_v1/node_STL_BINARY_",
+        "/World/envs/env_24/Robot/arm_2_gripper_link/collisions/d435_wrist_mount/node_STL_BINARY_",
+        "/World/envs/env_24/Robot/arm_2_gripper_link/collisions/mesh_3/box"
+      ]
+    },
+    {
+      "env_id": 24,
+      "jaw": "moving",
+      "body": "/World/envs/env_24/Robot/arm_2_moving_jaw_so101_v1_link",
+      "pads": [],
+      "colliders": [
+        "/World/envs/env_24/Robot/arm_2_moving_jaw_so101_v1_link/collisions/moving_jaw_so101_v1/node_STL_BINARY_"
+      ],
+      "mass_attributes_before": {
+        "physics:centerOfMass": "(-0.00157495, -0.0300244, 0.0192755)",
+        "physics:density": "0.0",
+        "physics:diagonalInertia": "(0.000006635825, 0.0000018652258, 0.00000529092)",
+        "physics:mass": "0.012000000104308128",
+        "physics:principalAxes": "(0.99930465, 0.016051318, -0.0010975002, -0.033638127)"
+      },
+      "mass_attributes_after": {
+        "physics:centerOfMass": "(-0.00157495, -0.0300244, 0.0192755)",
+        "physics:density": "0.0",
+        "physics:diagonalInertia": "(0.000006635825, 0.0000018652258, 0.00000529092)",
+        "physics:mass": "0.012000000104308128",
+        "physics:principalAxes": "(0.99930465, 0.016051318, -0.0010975002, -0.033638127)"
+      },
+      "baseline_material_colliders": []
+    },
+    {
+      "env_id": 25,
+      "jaw": "fixed",
+      "body": "/World/envs/env_25/Robot/arm_2_gripper_link",
+      "pads": [],
+      "colliders": [
+        "/World/envs/env_25/Robot/arm_2_gripper_link/collisions/wrist_roll_follower_so101_v1/node_STL_BINARY_"
+      ],
+      "mass_attributes_before": {
+        "physics:centerOfMass": "(-0.0017872028, -0.022896666, -0.026870936)",
+        "physics:density": "0.0",
+        "physics:diagonalInertia": "(0.00015001372, 0.00010463951, 0.00020750536)",
+        "physics:mass": "0.18000000715255737",
+        "physics:principalAxes": "(0.9892154, 0.042423524, -0.04623128, -0.1323475)"
+      },
+      "mass_attributes_after": {
+        "physics:centerOfMass": "(-0.0017872028, -0.022896666, -0.026870936)",
+        "physics:density": "0.0",
+        "physics:diagonalInertia": "(0.00015001372, 0.00010463951, 0.00020750536)",
+        "physics:mass": "0.18000000715255737",
+        "physics:principalAxes": "(0.9892154, 0.042423524, -0.04623128, -0.1323475)"
+      },
+      "baseline_material_colliders": [
+        "/World/envs/env_25/Robot/arm_2_gripper_link/collisions/sts3215_03a_v1/node_STL_BINARY_",
+        "/World/envs/env_25/Robot/arm_2_gripper_link/collisions/d435_wrist_mount/node_STL_BINARY_",
+        "/World/envs/env_25/Robot/arm_2_gripper_link/collisions/mesh_3/box"
+      ]
+    },
+    {
+      "env_id": 25,
+      "jaw": "moving",
+      "body": "/World/envs/env_25/Robot/arm_2_moving_jaw_so101_v1_link",
+      "pads": [],
+      "colliders": [
+        "/World/envs/env_25/Robot/arm_2_moving_jaw_so101_v1_link/collisions/moving_jaw_so101_v1/node_STL_BINARY_"
+      ],
+      "mass_attributes_before": {
+        "physics:centerOfMass": "(-0.00157495, -0.0300244, 0.0192755)",
+        "physics:density": "0.0",
+        "physics:diagonalInertia": "(0.000006635825, 0.0000018652258, 0.00000529092)",
+        "physics:mass": "0.012000000104308128",
+        "physics:principalAxes": "(0.99930465, 0.016051318, -0.0010975002, -0.033638127)"
+      },
+      "mass_attributes_after": {
+        "physics:centerOfMass": "(-0.00157495, -0.0300244, 0.0192755)",
+        "physics:density": "0.0",
+        "physics:diagonalInertia": "(0.000006635825, 0.0000018652258, 0.00000529092)",
+        "physics:mass": "0.012000000104308128",
+        "physics:principalAxes": "(0.99930465, 0.016051318, -0.0010975002, -0.033638127)"
+      },
+      "baseline_material_colliders": []
+    },
+    {
+      "env_id": 26,
+      "jaw": "fixed",
+      "body": "/World/envs/env_26/Robot/arm_2_gripper_link",
+      "pads": [],
+      "colliders": [
+        "/World/envs/env_26/Robot/arm_2_gripper_link/collisions/wrist_roll_follower_so101_v1/node_STL_BINARY_"
+      ],
+      "mass_attributes_before": {
+        "physics:centerOfMass": "(-0.0017872028, -0.022896666, -0.026870936)",
+        "physics:density": "0.0",
+        "physics:diagonalInertia": "(0.00015001372, 0.00010463951, 0.00020750536)",
+        "physics:mass": "0.18000000715255737",
+        "physics:principalAxes": "(0.9892154, 0.042423524, -0.04623128, -0.1323475)"
+      },
+      "mass_attributes_after": {
+        "physics:centerOfMass": "(-0.0017872028, -0.022896666, -0.026870936)",
+        "physics:density": "0.0",
+        "physics:diagonalInertia": "(0.00015001372, 0.00010463951, 0.00020750536)",
+        "physics:mass": "0.18000000715255737",
+        "physics:principalAxes": "(0.9892154, 0.042423524, -0.04623128, -0.1323475)"
+      },
+      "baseline_material_colliders": [
+        "/World/envs/env_26/Robot/arm_2_gripper_link/collisions/sts3215_03a_v1/node_STL_BINARY_",
+        "/World/envs/env_26/Robot/arm_2_gripper_link/collisions/d435_wrist_mount/node_STL_BINARY_",
+        "/World/envs/env_26/Robot/arm_2_gripper_link/collisions/mesh_3/box"
+      ]
+    },
+    {
+      "env_id": 26,
+      "jaw": "moving",
+      "body": "/World/envs/env_26/Robot/arm_2_moving_jaw_so101_v1_link",
+      "pads": [],
+      "colliders": [
+        "/World/envs/env_26/Robot/arm_2_moving_jaw_so101_v1_link/collisions/moving_jaw_so101_v1/node_STL_BINARY_"
+      ],
+      "mass_attributes_before": {
+        "physics:centerOfMass": "(-0.00157495, -0.0300244, 0.0192755)",
+        "physics:density": "0.0",
+        "physics:diagonalInertia": "(0.000006635825, 0.0000018652258, 0.00000529092)",
+        "physics:mass": "0.012000000104308128",
+        "physics:principalAxes": "(0.99930465, 0.016051318, -0.0010975002, -0.033638127)"
+      },
+      "mass_attributes_after": {
+        "physics:centerOfMass": "(-0.00157495, -0.0300244, 0.0192755)",
+        "physics:density": "0.0",
+        "physics:diagonalInertia": "(0.000006635825, 0.0000018652258, 0.00000529092)",
+        "physics:mass": "0.012000000104308128",
+        "physics:principalAxes": "(0.99930465, 0.016051318, -0.0010975002, -0.033638127)"
+      },
+      "baseline_material_colliders": []
+    },
+    {
+      "env_id": 27,
+      "jaw": "fixed",
+      "body": "/World/envs/env_27/Robot/arm_2_gripper_link",
+      "pads": [],
+      "colliders": [
+        "/World/envs/env_27/Robot/arm_2_gripper_link/collisions/wrist_roll_follower_so101_v1/node_STL_BINARY_"
+      ],
+      "mass_attributes_before": {
+        "physics:centerOfMass": "(-0.0017872028, -0.022896666, -0.026870936)",
+        "physics:density": "0.0",
+        "physics:diagonalInertia": "(0.00015001372, 0.00010463951, 0.00020750536)",
+        "physics:mass": "0.18000000715255737",
+        "physics:principalAxes": "(0.9892154, 0.042423524, -0.04623128, -0.1323475)"
+      },
+      "mass_attributes_after": {
+        "physics:centerOfMass": "(-0.0017872028, -0.022896666, -0.026870936)",
+        "physics:density": "0.0",
+        "physics:diagonalInertia": "(0.00015001372, 0.00010463951, 0.00020750536)",
+        "physics:mass": "0.18000000715255737",
+        "physics:principalAxes": "(0.9892154, 0.042423524, -0.04623128, -0.1323475)"
+      },
+      "baseline_material_colliders": [
+        "/World/envs/env_27/Robot/arm_2_gripper_link/collisions/sts3215_03a_v1/node_STL_BINARY_",
+        "/World/envs/env_27/Robot/arm_2_gripper_link/collisions/d435_wrist_mount/node_STL_BINARY_",
+        "/World/envs/env_27/Robot/arm_2_gripper_link/collisions/mesh_3/box"
+      ]
+    },
+    {
+      "env_id": 27,
+      "jaw": "moving",
+      "body": "/World/envs/env_27/Robot/arm_2_moving_jaw_so101_v1_link",
+      "pads": [],
+      "colliders": [
+        "/World/envs/env_27/Robot/arm_2_moving_jaw_so101_v1_link/collisions/moving_jaw_so101_v1/node_STL_BINARY_"
+      ],
+      "mass_attributes_before": {
+        "physics:centerOfMass": "(-0.00157495, -0.0300244, 0.0192755)",
+        "physics:density": "0.0",
+        "physics:diagonalInertia": "(0.000006635825, 0.0000018652258, 0.00000529092)",
+        "physics:mass": "0.012000000104308128",
+        "physics:principalAxes": "(0.99930465, 0.016051318, -0.0010975002, -0.033638127)"
+      },
+      "mass_attributes_after": {
+        "physics:centerOfMass": "(-0.00157495, -0.0300244, 0.0192755)",
+        "physics:density": "0.0",
+        "physics:diagonalInertia": "(0.000006635825, 0.0000018652258, 0.00000529092)",
+        "physics:mass": "0.012000000104308128",
+        "physics:principalAxes": "(0.99930465, 0.016051318, -0.0010975002, -0.033638127)"
+      },
+      "baseline_material_colliders": []
+    },
+    {
+      "env_id": 28,
+      "jaw": "fixed",
+      "body": "/World/envs/env_28/Robot/arm_2_gripper_link",
+      "pads": [],
+      "colliders": [
+        "/World/envs/env_28/Robot/arm_2_gripper_link/collisions/wrist_roll_follower_so101_v1/node_STL_BINARY_"
+      ],
+      "mass_attributes_before": {
+        "physics:centerOfMass": "(-0.0017872028, -0.022896666, -0.026870936)",
+        "physics:density": "0.0",
+        "physics:diagonalInertia": "(0.00015001372, 0.00010463951, 0.00020750536)",
+        "physics:mass": "0.18000000715255737",
+        "physics:principalAxes": "(0.9892154, 0.042423524, -0.04623128, -0.1323475)"
+      },
+      "mass_attributes_after": {
+        "physics:centerOfMass": "(-0.0017872028, -0.022896666, -0.026870936)",
+        "physics:density": "0.0",
+        "physics:diagonalInertia": "(0.00015001372, 0.00010463951, 0.00020750536)",
+        "physics:mass": "0.18000000715255737",
+        "physics:principalAxes": "(0.9892154, 0.042423524, -0.04623128, -0.1323475)"
+      },
+      "baseline_material_colliders": [
+        "/World/envs/env_28/Robot/arm_2_gripper_link/collisions/sts3215_03a_v1/node_STL_BINARY_",
+        "/World/envs/env_28/Robot/arm_2_gripper_link/collisions/d435_wrist_mount/node_STL_BINARY_",
+        "/World/envs/env_28/Robot/arm_2_gripper_link/collisions/mesh_3/box"
+      ]
+    },
+    {
+      "env_id": 28,
+      "jaw": "moving",
+      "body": "/World/envs/env_28/Robot/arm_2_moving_jaw_so101_v1_link",
+      "pads": [],
+      "colliders": [
+        "/World/envs/env_28/Robot/arm_2_moving_jaw_so101_v1_link/collisions/moving_jaw_so101_v1/node_STL_BINARY_"
+      ],
+      "mass_attributes_before": {
+        "physics:centerOfMass": "(-0.00157495, -0.0300244, 0.0192755)",
+        "physics:density": "0.0",
+        "physics:diagonalInertia": "(0.000006635825, 0.0000018652258, 0.00000529092)",
+        "physics:mass": "0.012000000104308128",
+        "physics:principalAxes": "(0.99930465, 0.016051318, -0.0010975002, -0.033638127)"
+      },
+      "mass_attributes_after": {
+        "physics:centerOfMass": "(-0.00157495, -0.0300244, 0.0192755)",
+        "physics:density": "0.0",
+        "physics:diagonalInertia": "(0.000006635825, 0.0000018652258, 0.00000529092)",
+        "physics:mass": "0.012000000104308128",
+        "physics:principalAxes": "(0.99930465, 0.016051318, -0.0010975002, -0.033638127)"
+      },
+      "baseline_material_colliders": []
+    },
+    {
+      "env_id": 29,
+      "jaw": "fixed",
+      "body": "/World/envs/env_29/Robot/arm_2_gripper_link",
+      "pads": [],
+      "colliders": [
+        "/World/envs/env_29/Robot/arm_2_gripper_link/collisions/wrist_roll_follower_so101_v1/node_STL_BINARY_"
+      ],
+      "mass_attributes_before": {
+        "physics:centerOfMass": "(-0.0017872028, -0.022896666, -0.026870936)",
+        "physics:density": "0.0",
+        "physics:diagonalInertia": "(0.00015001372, 0.00010463951, 0.00020750536)",
+        "physics:mass": "0.18000000715255737",
+        "physics:principalAxes": "(0.9892154, 0.042423524, -0.04623128, -0.1323475)"
+      },
+      "mass_attributes_after": {
+        "physics:centerOfMass": "(-0.0017872028, -0.022896666, -0.026870936)",
+        "physics:density": "0.0",
+        "physics:diagonalInertia": "(0.00015001372, 0.00010463951, 0.00020750536)",
+        "physics:mass": "0.18000000715255737",
+        "physics:principalAxes": "(0.9892154, 0.042423524, -0.04623128, -0.1323475)"
+      },
+      "baseline_material_colliders": [
+        "/World/envs/env_29/Robot/arm_2_gripper_link/collisions/sts3215_03a_v1/node_STL_BINARY_",
+        "/World/envs/env_29/Robot/arm_2_gripper_link/collisions/d435_wrist_mount/node_STL_BINARY_",
+        "/World/envs/env_29/Robot/arm_2_gripper_link/collisions/mesh_3/box"
+      ]
+    },
+    {
+      "env_id": 29,
+      "jaw": "moving",
+      "body": "/World/envs/env_29/Robot/arm_2_moving_jaw_so101_v1_link",
+      "pads": [],
+      "colliders": [
+        "/World/envs/env_29/Robot/arm_2_moving_jaw_so101_v1_link/collisions/moving_jaw_so101_v1/node_STL_BINARY_"
+      ],
+      "mass_attributes_before": {
+        "physics:centerOfMass": "(-0.00157495, -0.0300244, 0.0192755)",
+        "physics:density": "0.0",
+        "physics:diagonalInertia": "(0.000006635825, 0.0000018652258, 0.00000529092)",
+        "physics:mass": "0.012000000104308128",
+        "physics:principalAxes": "(0.99930465, 0.016051318, -0.0010975002, -0.033638127)"
+      },
+      "mass_attributes_after": {
+        "physics:centerOfMass": "(-0.00157495, -0.0300244, 0.0192755)",
+        "physics:density": "0.0",
+        "physics:diagonalInertia": "(0.000006635825, 0.0000018652258, 0.00000529092)",
+        "physics:mass": "0.012000000104308128",
+        "physics:principalAxes": "(0.99930465, 0.016051318, -0.0010975002, -0.033638127)"
+      },
+      "baseline_material_colliders": []
+    },
+    {
+      "env_id": 30,
+      "jaw": "fixed",
+      "body": "/World/envs/env_30/Robot/arm_2_gripper_link",
+      "pads": [],
+      "colliders": [
+        "/World/envs/env_30/Robot/arm_2_gripper_link/collisions/wrist_roll_follower_so101_v1/node_STL_BINARY_"
+      ],
+      "mass_attributes_before": {
+        "physics:centerOfMass": "(-0.0017872028, -0.022896666, -0.026870936)",
+        "physics:density": "0.0",
+        "physics:diagonalInertia": "(0.00015001372, 0.00010463951, 0.00020750536)",
+        "physics:mass": "0.18000000715255737",
+        "physics:principalAxes": "(0.9892154, 0.042423524, -0.04623128, -0.1323475)"
+      },
+      "mass_attributes_after": {
+        "physics:centerOfMass": "(-0.0017872028, -0.022896666, -0.026870936)",
+        "physics:density": "0.0",
+        "physics:diagonalInertia": "(0.00015001372, 0.00010463951, 0.00020750536)",
+        "physics:mass": "0.18000000715255737",
+        "physics:principalAxes": "(0.9892154, 0.042423524, -0.04623128, -0.1323475)"
+      },
+      "baseline_material_colliders": [
+        "/World/envs/env_30/Robot/arm_2_gripper_link/collisions/sts3215_03a_v1/node_STL_BINARY_",
+        "/World/envs/env_30/Robot/arm_2_gripper_link/collisions/d435_wrist_mount/node_STL_BINARY_",
+        "/World/envs/env_30/Robot/arm_2_gripper_link/collisions/mesh_3/box"
+      ]
+    },
+    {
+      "env_id": 30,
+      "jaw": "moving",
+      "body": "/World/envs/env_30/Robot/arm_2_moving_jaw_so101_v1_link",
+      "pads": [],
+      "colliders": [
+        "/World/envs/env_30/Robot/arm_2_moving_jaw_so101_v1_link/collisions/moving_jaw_so101_v1/node_STL_BINARY_"
+      ],
+      "mass_attributes_before": {
+        "physics:centerOfMass": "(-0.00157495, -0.0300244, 0.0192755)",
+        "physics:density": "0.0",
+        "physics:diagonalInertia": "(0.000006635825, 0.0000018652258, 0.00000529092)",
+        "physics:mass": "0.012000000104308128",
+        "physics:principalAxes": "(0.99930465, 0.016051318, -0.0010975002, -0.033638127)"
+      },
+      "mass_attributes_after": {
+        "physics:centerOfMass": "(-0.00157495, -0.0300244, 0.0192755)",
+        "physics:density": "0.0",
+        "physics:diagonalInertia": "(0.000006635825, 0.0000018652258, 0.00000529092)",
+        "physics:mass": "0.012000000104308128",
+        "physics:principalAxes": "(0.99930465, 0.016051318, -0.0010975002, -0.033638127)"
+      },
+      "baseline_material_colliders": []
+    },
+    {
+      "env_id": 31,
+      "jaw": "fixed",
+      "body": "/World/envs/env_31/Robot/arm_2_gripper_link",
+      "pads": [],
+      "colliders": [
+        "/World/envs/env_31/Robot/arm_2_gripper_link/collisions/wrist_roll_follower_so101_v1/node_STL_BINARY_"
+      ],
+      "mass_attributes_before": {
+        "physics:centerOfMass": "(-0.0017872028, -0.022896666, -0.026870936)",
+        "physics:density": "0.0",
+        "physics:diagonalInertia": "(0.00015001372, 0.00010463951, 0.00020750536)",
+        "physics:mass": "0.18000000715255737",
+        "physics:principalAxes": "(0.9892154, 0.042423524, -0.04623128, -0.1323475)"
+      },
+      "mass_attributes_after": {
+        "physics:centerOfMass": "(-0.0017872028, -0.022896666, -0.026870936)",
+        "physics:density": "0.0",
+        "physics:diagonalInertia": "(0.00015001372, 0.00010463951, 0.00020750536)",
+        "physics:mass": "0.18000000715255737",
+        "physics:principalAxes": "(0.9892154, 0.042423524, -0.04623128, -0.1323475)"
+      },
+      "baseline_material_colliders": [
+        "/World/envs/env_31/Robot/arm_2_gripper_link/collisions/sts3215_03a_v1/node_STL_BINARY_",
+        "/World/envs/env_31/Robot/arm_2_gripper_link/collisions/d435_wrist_mount/node_STL_BINARY_",
+        "/World/envs/env_31/Robot/arm_2_gripper_link/collisions/mesh_3/box"
+      ]
+    },
+    {
+      "env_id": 31,
+      "jaw": "moving",
+      "body": "/World/envs/env_31/Robot/arm_2_moving_jaw_so101_v1_link",
+      "pads": [],
+      "colliders": [
+        "/World/envs/env_31/Robot/arm_2_moving_jaw_so101_v1_link/collisions/moving_jaw_so101_v1/node_STL_BINARY_"
+      ],
+      "mass_attributes_before": {
+        "physics:centerOfMass": "(-0.00157495, -0.0300244, 0.0192755)",
+        "physics:density": "0.0",
+        "physics:diagonalInertia": "(0.000006635825, 0.0000018652258, 0.00000529092)",
+        "physics:mass": "0.012000000104308128",
+        "physics:principalAxes": "(0.99930465, 0.016051318, -0.0010975002, -0.033638127)"
+      },
+      "mass_attributes_after": {
+        "physics:centerOfMass": "(-0.00157495, -0.0300244, 0.0192755)",
+        "physics:density": "0.0",
+        "physics:diagonalInertia": "(0.000006635825, 0.0000018652258, 0.00000529092)",
+        "physics:mass": "0.012000000104308128",
+        "physics:principalAxes": "(0.99930465, 0.016051318, -0.0010975002, -0.033638127)"
+      },
+      "baseline_material_colliders": []
+    }
+  ],
+  "material_scope": "finger collision meshes and pads only",
+  "camera_motor_colliders_unchanged": true,
+  "full_mass_inertia_attributes_recorded": true
+}

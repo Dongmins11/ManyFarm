@@ -2455,4 +2455,67 @@
     <child link="apriltag_camera_optical_frame"/>
     <origin xyz="0.0043382200 -0.2504645600 0.2614225400" rpy="-1.528781805701 0.017585836054 3.136130772507"/>
   </joint>
+  <!-- BASKET_LASERS_BEGIN -->
+  <!-- 입구 아래 5mm, 평행 3빔. optical +Y가 송신→수신 방향(m). -->
+  <link name="basket_laser_1_emitter">
+    <visual><geometry><box size="0.012 0.006 0.012"/></geometry>
+      <material name="basket_laser_housing"><color rgba="0.12 0.16 0.20 1"/></material></visual>
+    <collision><geometry><box size="0.012 0.006 0.012"/></geometry></collision>
+  </link>
+  <joint name="basket_laser_1_emitter_joint" type="fixed"><parent link="harvest_box"/><child link="basket_laser_1_emitter"/>
+    <origin xyz="-0.0475 -0.092 0.195" rpy="0 0 0"/></joint>
+  <link name="basket_laser_1_emitter_optical"/>
+  <joint name="basket_laser_1_emitter_optical_joint" type="fixed"><parent link="basket_laser_1_emitter"/><child link="basket_laser_1_emitter_optical"/>
+    <origin xyz="0 0.004 0" rpy="0 0 0"/></joint>
+  <link name="basket_laser_1_receiver">
+    <visual><geometry><box size="0.012 0.006 0.012"/></geometry>
+      <material name="basket_laser_housing"><color rgba="0.12 0.16 0.20 1"/></material></visual>
+    <collision><geometry><box size="0.012 0.006 0.012"/></geometry></collision>
+  </link>
+  <joint name="basket_laser_1_receiver_joint" type="fixed"><parent link="harvest_box"/><child link="basket_laser_1_receiver"/>
+    <origin xyz="-0.0475 0.092 0.195" rpy="0 0 0"/></joint>
+  <link name="basket_laser_1_receiver_optical"/>
+  <joint name="basket_laser_1_receiver_optical_joint" type="fixed"><parent link="basket_laser_1_receiver"/><child link="basket_laser_1_receiver_optical"/>
+    <origin xyz="0 -0.004 0" rpy="0 0 0"/></joint>
+  <link name="basket_laser_2_emitter">
+    <visual><geometry><box size="0.012 0.006 0.012"/></geometry>
+      <material name="basket_laser_housing"><color rgba="0.12 0.16 0.20 1"/></material></visual>
+    <collision><geometry><box size="0.012 0.006 0.012"/></geometry></collision>
+  </link>
+  <joint name="basket_laser_2_emitter_joint" type="fixed"><parent link="harvest_box"/><child link="basket_laser_2_emitter"/>
+    <origin xyz="0 -0.092 0.195" rpy="0 0 0"/></joint>
+  <link name="basket_laser_2_emitter_optical"/>
+  <joint name="basket_laser_2_emitter_optical_joint" type="fixed"><parent link="basket_laser_2_emitter"/><child link="basket_laser_2_emitter_optical"/>
+    <origin xyz="0 0.004 0" rpy="0 0 0"/></joint>
+  <link name="basket_laser_2_receiver">
+    <visual><geometry><box size="0.012 0.006 0.012"/></geometry>
+      <material name="basket_laser_housing"><color rgba="0.12 0.16 0.20 1"/></material></visual>
+    <collision><geometry><box size="0.012 0.006 0.012"/></geometry></collision>
+  </link>
+  <joint name="basket_laser_2_receiver_joint" type="fixed"><parent link="harvest_box"/><child link="basket_laser_2_receiver"/>
+    <origin xyz="0 0.092 0.195" rpy="0 0 0"/></joint>
+  <link name="basket_laser_2_receiver_optical"/>
+  <joint name="basket_laser_2_receiver_optical_joint" type="fixed"><parent link="basket_laser_2_receiver"/><child link="basket_laser_2_receiver_optical"/>
+    <origin xyz="0 -0.004 0" rpy="0 0 0"/></joint>
+  <link name="basket_laser_3_emitter">
+    <visual><geometry><box size="0.012 0.006 0.012"/></geometry>
+      <material name="basket_laser_housing"><color rgba="0.12 0.16 0.20 1"/></material></visual>
+    <collision><geometry><box size="0.012 0.006 0.012"/></geometry></collision>
+  </link>
+  <joint name="basket_laser_3_emitter_joint" type="fixed"><parent link="harvest_box"/><child link="basket_laser_3_emitter"/>
+    <origin xyz="0.0475 -0.092 0.195" rpy="0 0 0"/></joint>
+  <link name="basket_laser_3_emitter_optical"/>
+  <joint name="basket_laser_3_emitter_optical_joint" type="fixed"><parent link="basket_laser_3_emitter"/><child link="basket_laser_3_emitter_optical"/>
+    <origin xyz="0 0.004 0" rpy="0 0 0"/></joint>
+  <link name="basket_laser_3_receiver">
+    <visual><geometry><box size="0.012 0.006 0.012"/></geometry>
+      <material name="basket_laser_housing"><color rgba="0.12 0.16 0.20 1"/></material></visual>
+    <collision><geometry><box size="0.012 0.006 0.012"/></geometry></collision>
+  </link>
+  <joint name="basket_laser_3_receiver_joint" type="fixed"><parent link="harvest_box"/><child link="basket_laser_3_receiver"/>
+    <origin xyz="0.0475 0.092 0.195" rpy="0 0 0"/></joint>
+  <link name="basket_laser_3_receiver_optical"/>
+  <joint name="basket_laser_3_receiver_optical_joint" type="fixed"><parent link="basket_laser_3_receiver"/><child link="basket_laser_3_receiver_optical"/>
+    <origin xyz="0 -0.004 0" rpy="0 0 0"/></joint>
+  <!-- BASKET_LASERS_END -->
 </robot>

@@ -21,7 +21,7 @@
     "control_frame_yaw_rad": 3.141592653589793
   },
   "notes": [
-    "오른팔 arm_2에 전달 Teacher를 연결합니다. 후보 선택·좌표 정답·반복 시도·물리 판정은 sim 전용이며 카메라 정책이 아닙니다."
+    "오른팔 arm_2에 D435 Student를 연결합니다. 정책 입력은 실제 카메라 영상과 관절 피드백이며, 수확 수량은 바구니 평행 세 레이저의 통과로 집계하고, 시뮬 정답은 시도 대응·안전 감시에만 사용합니다. Teacher는 명시적 비교·복원용입니다."
   ],
   "base": {
     "wheel_joints": [
@@ -64,8 +64,10 @@
       "endpoint": "sim/harvest_arm",
       "profile": "sim/ros_ws/src/farm_sim_config/config/teacher_policy.json",
       "lease_s": 2.0,
-      "execution_timeout_s": 600.0,
-      "cancel_timeout_s": 10.0
+      "execution_timeout_s": 1800.0,
+      "cancel_timeout_s": 10.0,
+      "backend": "student_d435",
+      "student_profile": "sim/ros_ws/src/farm_sim_config/config/student_policy.json"
     }
   },
   "frames": {

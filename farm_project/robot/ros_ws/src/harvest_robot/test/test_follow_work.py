@@ -1,6 +1,7 @@
 """실제 수확 초기화와 공통 계획→Path→Action 연결 검사. ROS I/O만 대역이다."""
 from pathlib import Path
 import ast
+from collections.abc import Callable
 import copy
 from dataclasses import replace
 import importlib.util
@@ -15,14 +16,17 @@ import numpy as np
 
 ROOT=Path(__file__).resolve().parents[5]
 SRC=ROOT/'robot/ros_ws/src'
-for package in ('harvest_robot','farm_navigation'):
+for package in ('harvest_robot','farm_navigation','farm_common'):
     sys.path.insert(0,str(SRC/package))
 from farm_navigation.configuration import load_environment, read_mapping, resolve_file
 from farm_navigation.navigation_types import NavigationSettings
 from farm_navigation.route import RouteGraph
 from harvest_robot.staged_navigation import StagedNavigation, load_sections
 from harvest_robot.contract import validate_task
-from harvest_robot.configuration import load_harvest_config
+from harvest_robot.configuration import load_harvest_config, approach_navigation_settings
+from harvest_robot.arm_client import configured_arm_settings
+from harvest_robot.harvest_load import HarvestLoad
+from farm_common.action_handoff import ActionHandoff
 from harvest_robot.mission import HarvestMission, MissionCanceled
 
 
@@ -173,7 +177,9 @@ def construct(mode: str='route_then_follow', approach: str='graph',
             return data
         env=dict(__name__='harvest_robot._follow_verify',__package__='harvest_robot',
             Node=Node,Path=Path,load_environment=load_environment,resolve_file=resolve_file,read_mapping=read_mapping,
-            load_harvest_config=harvest_mapping,
+            load_harvest_config=harvest_mapping, approach_navigation_settings=approach_navigation_settings,
+            configured_arm_settings=configured_arm_settings, HarvestLoad=HarvestLoad,
+            ActionHandoff=ActionHandoff, StationReturn=lambda *a, **k:NS(), Callable=Callable,
             NavigationSettings=NavigationSettings,RouteGraph=RouteGraph,Navigator=navigator.Navigator,
             Nav2Client=client.Nav2Client,PoseProvider=Poses,MotionMonitor=Motion,replace=replace,
             ReentrantCallbackGroup=lambda:None,threading=threading,StagedNavigation=StagedNavigation,

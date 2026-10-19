@@ -145,6 +145,10 @@ class ArmSession:
         """시험 중 박스에 적재된 과실을 두고 차체만 순간 이동하지 않도록 조회한다."""
         return frozenset(self._successful_ids)
 
+    def lost_deposits(self) -> list[str]:
+        """Teacher의 실제 안착 유지 검사. 통과 계수 방식은 별도 의미를 사용한다."""
+        return self.device.escaped_deposits(self._successful_ids)
+
     @property
     def busy(self) -> bool:
         """팔 동작 중 또는 정지 미확인이면 차체 속도 명령도 차단합니다."""
@@ -393,7 +397,7 @@ class ArmSession:
         elif not stationary:
             self._stop(now, 'FAILED', 'BASE_MOVING', 'base_moved_during_harvest')
         if self._successful_ids and self.state['stage'] != 'STOPPING':
-            escaped = self.device.escaped_deposits(self._successful_ids)
+            escaped = self.lost_deposits()
             if escaped:
                 self._stop(now, 'FAILED', 'PREVIOUS_DEPOSIT_LOST', ','.join(escaped))
         stage = self.state['stage']
@@ -413,7 +417,7 @@ class ArmSession:
             self._stop_stable = self._stop_stable+self.dt if slow else 0.
             if self._stop_stable >= self.config['stop_hold_s']:
                 if self._stop_request[0] == 'SUCCESS' and self._successful_ids:
-                    escaped = self.device.escaped_deposits(self._successful_ids)
+                    escaped = self.lost_deposits()
                     if escaped:
                         self._stop_request = ('FAILED', 'PREVIOUS_DEPOSIT_LOST', ','.join(escaped))
                 if self._stop_request[0] == 'SUCCESS' and not self.travel_ready:

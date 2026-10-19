@@ -1,0 +1,12 @@
+# 한 번의 요청으로 열기·배출·닫기 전체 수행. 감지 방식은 장치 책임.
+string transfer_id
+---
+# 요청의 식별값을 그대로 반환. 전체 성공일 때만 SUCCEEDED + 빈 오류 배열.
+# OPEN_FAILED, DISCHARGE_FAILED, CLOSE_FAILED, INTERNAL_ERROR. 복수 오류 허용.
+# 취소/실패 시 빈 배열이라도 성공이 아니며, 물리 정지 증거도 아니다.
+string transfer_id
+string[] error_codes
+string error_message
+---
+# OPENING, DISCHARGING, CLOSING. Feedback은 완료 증거가 아니다.
+string phase

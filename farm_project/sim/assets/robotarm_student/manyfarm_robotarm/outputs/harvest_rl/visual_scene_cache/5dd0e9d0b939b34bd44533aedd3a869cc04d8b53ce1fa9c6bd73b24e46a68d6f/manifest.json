@@ -1,0 +1,90 @@
+{
+  "version": "greenhouse_v1",
+  "sha256": "5dd0e9d0b939b34bd44533aedd3a869cc04d8b53ce1fa9c6bd73b24e46a68d6f",
+  "visual_only": true,
+  "sources": {
+    "src/smartfarm_description/config/harvest_visual_scene.json": "c6a3f2406d81af4a75be1f449cbdd98d1b07db05042fd4dd400a14e8f3ba6ecb",
+    "src/smartfarm_description/scripts/harvest_visual_scene.py": "332cbf25a69bde0a85cb0c7f740bc27435961a468e72c20b59c8617ed47fb926",
+    "src/Pepper_RL_Demo/assets/textures/tree_3.png": "fa9a4dd2cf2a2e94b6d55ab3f59ae6daea3b4fd185baf4f586b6fed3c1f743c4"
+  },
+  "config": {
+    "version": "greenhouse_v1",
+    "seed": 107,
+    "frame": "visual crop frame: +X behind fruit into plants, +Y along bed, +Z up; ground z=0",
+    "visual_only": true,
+    "floor_color": [
+      0.38,
+      0.4,
+      0.42
+    ],
+    "bed_front_m": 0.46,
+    "bed_back_m": 1.22,
+    "bed_length_m": 3.4,
+    "bed_height_m": 0.32,
+    "bed_wall_m": 0.045,
+    "bed_color": [
+      0.55,
+      0.46,
+      0.32
+    ],
+    "soil_color": [
+      0.24,
+      0.19,
+      0.12
+    ],
+    "trellis_color": [
+      0.025,
+      0.22,
+      0.055
+    ],
+    "trellis_front_m": 0.48,
+    "trellis_top_m": 1.9,
+    "wire_spacing_m": 0.15,
+    "wire_radius_m": 0.0008,
+    "leaf_rows_m": [
+      0.6,
+      0.85,
+      1.1
+    ],
+    "plant_columns": 11,
+    "leaves_per_plant": 20,
+    "plant_spacing_m": 0.3,
+    "leaf_height_range_m": [
+      0.44,
+      1.8
+    ],
+    "leaf_length_range_m": [
+      0.18,
+      0.27
+    ],
+    "leaf_width_range_m": [
+      0.12,
+      0.18
+    ],
+    "leaf_texture": "src/Pepper_RL_Demo/assets/textures/tree_3.png",
+    "leaf_uv_bounds": [
+      0.026,
+      0.315,
+      0.418,
+      0.983
+    ]
+  },
+  "meshes": {
+    "Bed": {
+      "vertices": 96,
+      "faces": 24
+    },
+    "Soil": {
+      "vertices": 24,
+      "faces": 6
+    },
+    "Trellis": {
+      "vertices": 1460,
+      "faces": 365
+    },
+    "Leaves": {
+      "vertices": 23760,
+      "faces": 7920
+    }
+  }
+}

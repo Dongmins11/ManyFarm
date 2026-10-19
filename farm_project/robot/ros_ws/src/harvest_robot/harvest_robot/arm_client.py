@@ -45,6 +45,16 @@ class ArmActionSettings:
         return result
 
 
+def configured_arm_settings(config: Mapping) -> ArmActionSettings | None:
+    """환경명 대신 완료 정책으로 선택한다. 미설정 연결 주소를 자동 보완하지 않는다."""
+    policy = config.get('completion_policy')
+    if policy == 'ARRIVAL_ONLY_NO_HARVEST':
+        return None
+    if policy != 'ARRIVAL_THEN_ARM':
+        raise ValueError('알 수 없는 수확 완료 정책')
+    return ArmActionSettings.from_mapping(config.get('arm_action'))
+
+
 class ArmActionClient:
     """별도 executor 스레드가 ROS future를 진행시키는 동안 작업 스레드에서 기다립니다."""
 
@@ -62,6 +72,10 @@ class ArmActionClient:
         self._lock = threading.Lock()
         self._token = 0
         self.last_result: dict | None = None
+
+    def server_is_ready(self) -> bool:
+        """동작 요청 없이 설정된 팔 서버의 연결 상태만 조회한다."""
+        return self._client.server_is_ready()
 
     @property
     def has_goal(self) -> bool:

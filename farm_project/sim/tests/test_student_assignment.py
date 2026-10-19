@@ -1,0 +1,184 @@
+"""영상 목표 목록과 평가 전용 실제 ID의 일대일·모호성 검사를 검증한다."""
+from pathlib import Path
+import sys
+from types import SimpleNamespace
+import unittest
+import tempfile
+import json
+sys.path.insert(0, str(Path(__file__).resolve().parents[1]/'ros_ws/src/farm_sim_devices'))
+from unittest.mock import Mock, patch
+from farm_sim_devices.student_session import map_outcomes, StudentArmSession, mission_session
+
+
+class StudentAssignmentTests(unittest.TestCase):
+    def test_keeps_camera_coordinates_and_ids(self):
+        target = SimpleNamespace(target_id='camera-id', label='Red', anchor_arm_m=(.3, 0., .2))
+        original = target.anchor_arm_m
+        candidates = [dict(target_id='/fruit', color='red', root_arm_m=[.31, 0, .2])]
+        self.assertEqual(map_outcomes([target], candidates, .06, .02), {'camera-id': '/fruit'})
+        self.assertEqual(target.anchor_arm_m, original)
+
+    def test_missing_or_ambiguous_mapping_fails_closed(self):
+        target = SimpleNamespace(target_id='camera-id', label='Red', anchor_arm_m=(.3, 0., .2))
+        with self.assertRaises(ValueError): map_outcomes([target], [], .06, .02)
+        candidates = [dict(target_id=str(i), color='red', root_arm_m=[.3+i*.01, 0, .2]) for i in range(2)]
+        with self.assertRaises(ValueError): map_outcomes([target], candidates, .06, .02)
+
+    def test_duplicate_evaluation_id_is_rejected(self):
+        targets = [SimpleNamespace(target_id=str(i), label='Red', anchor_arm_m=(.3, 0., .2)) for i in range(2)]
+        candidates = [dict(target_id='/fruit', color='red', root_arm_m=[.3, 0, .2])]
+        with self.assertRaises(ValueError): map_outcomes(targets, candidates, .06, .02)
+
+
+class StudentGravityTests(unittest.TestCase):
+    def test_gravity_sort_frame_does_not_change_policy_contract(self):
+        import numpy as np
+        camera = SimpleNamespace(contract=dict(box_from_arm=np.eye(4).tolist()), start=Mock(), step=Mock(), acknowledge=Mock())
+        frame = np.array([[0,0,1,2],[0,1,0,3],[-1,0,0,1],[0,0,0,1]], float)
+        adapter = mission_session(camera, frame)
+        np.testing.assert_array_equal(camera.contract['box_from_arm'], np.eye(4))
+        np.testing.assert_array_equal(adapter.contract['box_from_arm'], frame)
+        self.assertIs(adapter.step, camera.step)
+        first = (np.asarray(adapter.contract['box_from_arm']) @ [.3,0,.1,1])[2]
+        second = (np.asarray(adapter.contract['box_from_arm']) @ [.5,0,.15,1])[2]
+        self.assertLess(second, first)
+
+
+class StudentBoxEvidenceTests(unittest.TestCase):
+    def test_coordinates_inside_box_cannot_create_success(self):
+        import numpy as np
+        arm = object.__new__(StudentArmSession)
+        sample = dict(fruit_position=np.array([.5,.5,.5]), fruit_quaternion=np.array([1.,0.,0.,0.]),
+            fruit_linear_velocity=np.zeros(3), collision_vertices=np.array([[-.05,-.05,-.05],[.05,.05,.05]]),
+            fixed_force=np.zeros(3), moving_force=np.zeros(3), fixed_net_force=np.zeros(3), moving_net_force=np.zeros(3), attached=False)
+        arm.device = SimpleNamespace(sample=lambda: sample)
+        arm.controller = SimpleNamespace(contract=dict(task=dict(box_min=[0,0,0], box_max=[1,1,1],
+            sequence=False, box_contact_tolerance=.003, box_bottom_contact_tolerance=.01,
+            contact_threshold=.08, max_contact_force=25., place_hold_s=.6)))
+        arm._physical_target, arm._fault = '/fruit', ''
+        arm._successful_ids = set()
+        arm._box_evidence = None
+        arm.mission = SimpleNamespace(target=SimpleNamespace(target_id='camera-fruit'))
+        arm._log = Mock()
+        arm._update_box(1/60, 1.)
+        self.assertIsNone(arm._box_evidence)
+        sample['fruit_position'][1] = 1.2
+        arm._update_box(1/60, 1.+1/60)
+        self.assertIsNone(arm._box_evidence)
+
+    def test_anonymous_passage_counts_without_position_or_identity_input(self):
+        arm = object.__new__(StudentArmSession)
+        arm._physical_target, arm._laser_armed = '/active-attempt', True
+        arm._successful_ids, arm._attempts = set(), []
+        arm.state = dict(success_count=0, event_seq=0)
+        arm.mission = SimpleNamespace(target=SimpleNamespace(target_id='camera-attempt'))
+        arm._log = Mock()
+        event = dict(sequence=1, stamp_s=3., entered_s=2.8, beams_seen=[1, 2], direction_confirmed=False,
+                     source='basket_parallel_lasers', identity_confirmed=False)
+        arm._record_laser_passage(event)
+        self.assertEqual(arm.state['success_count'], 1)
+        self.assertFalse(arm._attempts[0]['identity_confirmed'])
+        self.assertNotIn('physical_in_box', arm._attempts[0])
+        self.assertEqual(arm._box_evidence['source'], 'basket_parallel_lasers')
+        self.assertEqual(arm.lost_deposits(), [])
+        with self.assertRaises(RuntimeError): arm._record_laser_passage(event)
+        self.assertEqual(arm.state['success_count'], 1)
+
+
+class StudentCompletionTests(unittest.TestCase):
+    def test_stop_disarms_sensor_and_preserves_completed_counts(self):
+        from farm_sim_devices.arm_session import ArmSession
+        from farm_sim_devices.basket_laser import PassageCounter
+        arm = object.__new__(StudentArmSession)
+        counter = PassageCounter(.05, 2.)
+        counter.arm()
+        arm.controller = SimpleNamespace(basket_sensor=SimpleNamespace(counter=counter),
+            rig=SimpleNamespace(set_active=Mock()))
+        arm._laser_armed = True
+        arm.state = dict(success_count=1)
+        with patch.object(ArmSession, '_stop'):
+            arm._stop(5., 'CANCELED', '', 'operator_cancel')
+        self.assertFalse(arm._laser_armed)
+        self.assertEqual(counter.state, 'DISARMED')
+        self.assertIsNone(counter.update([True, True, True], 5.1))
+        self.assertEqual(arm.state['success_count'], 1)
+
+    def test_outer_stop_failure_keeps_deposit_but_rejects_mission_completion(self):
+        from farm_sim_devices.arm_session import ArmSession
+        arm = object.__new__(StudentArmSession)
+        arm._physical_target = None
+        arm.mission = SimpleNamespace(report=lambda: dict(mission_complete=True, harvest_successes=1))
+        arm.controller = SimpleNamespace(rig=SimpleNamespace(sequence=30, max_fk_error=0., set_active=Mock()), config={})
+        with tempfile.TemporaryDirectory() as folder:
+            arm._directory = Path(folder)
+            with patch.object(ArmSession, '_finish'):
+                arm._finish(1., 'FAILED', 'CANCEL_UNCONFIRMED', 'measured_stop_not_confirmed', safe=False)
+            result = json.loads((arm._directory/'student_mission.json').read_text())
+        self.assertFalse(result['mission_complete'])
+        self.assertTrue(result['controller_mission_complete'])
+        self.assertEqual(result['harvest_successes'], 1)
+        self.assertEqual(result['session_status'], 'FAILED')
+
+
+class PassageFeedbackTests(unittest.TestCase):
+    def test_three_beam_passage_reaches_feedback_and_result_once(self):
+        from farm_sim_devices.basket_laser import PassageCounter
+        from test_arm_ros import ArmRosTests
+        bridge = ArmRosTests()
+        bridge.setUp()
+        arm = object.__new__(StudentArmSession)
+        arm._physical_target, arm._laser_armed = '/active-attempt', True
+        arm._successful_ids, arm._attempts = set(), []
+        arm.state = bridge.state()
+        arm.mission = SimpleNamespace(target=SimpleNamespace(target_id='camera-attempt'))
+        arm._log = Mock()
+        counter = PassageCounter(.05, 2.)
+        counter.arm()
+
+        def peer(message):
+            if message['op'] == 'start':
+                # 세 빔 동시 차단에도 레이저 → 세션 → 서버 누적량은 한 개다.
+                for now, blocked in [(0., [False]*3), (.06, [False]*3),
+                                     (.1, [True]*3), (.15, [False]*3), (.21, [False]*3)]:
+                    event = counter.update(blocked, now)
+                    if event is not None: arm._record_laser_passage(event)
+                bridge.server.observe('session', arm.state)
+            elif message['op'] == 'keepalive':
+                bridge.server.observe('session', dict(arm.state, status='SUCCESS', safe_stopped=True))
+
+        bridge.hook = peer
+        self.assertTrue(bridge.server.accept(bridge.handle.request))
+        result = bridge.server.execute(bridge.handle)
+        self.assertEqual(bridge.handle.feedbacks, [(0, 0), (1, 0)])
+        self.assertEqual((result.result_code, result.harvested_count, result.failed_count), ('SUCCESS', 1, 0))
+        self.assertEqual(len(arm._attempts), 1)
+
+
+class StudentInventoryTests(unittest.TestCase):
+    def test_missing_and_extra_detections_cannot_use_truth_to_complete_list(self):
+        root = Path(__file__).resolve().parents[2]
+        sys.path.insert(0, str(root/'sim/assets/robotarm_student/manyfarm_robotarm/src/harvest_robot'))
+        for count in (0, 2):
+            with self.subTest(visible=count):
+                arm = object.__new__(StudentArmSession)
+                arm.controller = SimpleNamespace(
+                    rig=SimpleNamespace(last=True, capture=lambda: {}),
+                    camera=SimpleNamespace(roi=[[-1]*3, [1]*3], observe=lambda c, t: ({}, [])),
+                    profile=dict(inventory_timeout_s=3.))
+                arm.job = dict(expected_count=1)
+                arm._directory = None
+                arm._inventory_start = 0.
+                arm._log, arm._stop = Mock(), Mock()
+                arm.device = SimpleNamespace(candidates=Mock(side_effect=AssertionError('truth before camera assignment')),
+                    config=dict(workspace_arm_min_m=[0, -1, -1], workspace_arm_max_m=[1, 1, 1],
+                                home_tcp_arm_m=[0, 0, 0], near_home_min_m=.09, near_home_max_m=1.))
+                tracks = {str(i): dict(valid=True, label='Red', position_m=[.3, 0, .2]) for i in range(count)}
+                tracker = SimpleNamespace(update=lambda d, t: None, snapshot=lambda t: tracks)
+                with patch('harvest_vision.student60_tracking.AssignedFruitTracker', return_value=tracker):
+                    arm._inventory(3.1)
+                self.assertEqual(arm._stop.call_args.args[2], 'STUDENT_INVENTORY_INCOMPLETE')
+                arm.device.candidates.assert_not_called()
+
+
+if __name__ == '__main__':
+    unittest.main()

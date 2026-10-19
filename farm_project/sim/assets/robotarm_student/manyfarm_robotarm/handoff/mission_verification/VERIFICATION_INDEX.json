@@ -1,0 +1,19 @@
+{
+  "primary_native_d435": "d435_low_first_r2/result.json",
+  "d435_video_reexecution": "d435_recorded_r2/result.json",
+  "physical_motion": {
+    "d435": "d435_motion_r2/result.json",
+    "u20": "u20_motion/result.json"
+  },
+  "unit_regression": "tests_final.log",
+  "camera_frame_geometry": "camera_geometry_check.json",
+  "preserved_originals": "preservation_check.json",
+  "earlier_attempts": {
+    "d435_motion": "Raw instantaneous velocity-only stop check timed out; replaced by causal measured-position speed plus raw velocity gate.",
+    "d435_mission": "Correctly rejected incomplete camera inventory; revealed original single-workspace-fruit scene.",
+    "d435_multifruit": "First native two-fruit attempt reached one box success but return had gravity tracking error; wall limit interrupted it. Bounded motion bias was added before final candidate.",
+    "d435_recorded": "Video framing pilot intentionally interrupted to fix nested IR display and improve box visibility. Not a completed mission."
+  },
+  "interpretation": "One fixed two-fruit scene, with a later recording re-execution; not an independent multi-scene success-rate estimate.",
+  "u20_native_inference_smoke": "u20_native_smoke/result.json"
+}

@@ -1,0 +1,40 @@
+{
+  "schema": "student60_mission_v1",
+  "base_archive_sha256": "6251bdad2e0e7a9c7dad549056910b42b868cce2084a2e665610e27fa8100e81",
+  "models": {
+    "d435": {
+      "path": "handoff/models/student.pt",
+      "sha256": "e73958a40c227c7ff5ee44e7970f0d93e1273b6b8e949d0b4380f5be8e838403"
+    },
+    "u20": {
+      "path": "handoff/models/u20_student.pt",
+      "sha256": "dd1afeaeccce04593c3c97d544834b9e508ced2c2c2f1d8197994183b68abf1e"
+    },
+    "center": {
+      "path": "handoff/models/center.pt",
+      "sha256": "6a36e0eecba83878582e8f1372b00a9edf0a6cbb25cd92793ed4ce79027fe9ac"
+    },
+    "detector": {
+      "path": "handoff/models/detector.pt",
+      "sha256": "67142fa25599c8147642e0252ce21d05543ecd4fd8e68d8aff555dfd96a305fc"
+    }
+  },
+  "frozen_physics_usd": "outputs/harvest_rl/current_robot/b73ed90a6e56216d/harvest_current.usd",
+  "config": "src/harvest_robot/config/student60_mission_v1.json",
+  "original_d435_single_target_result": "4/4; not multi-fruit or folded-return evidence",
+  "new_mission_status": "candidate; D435 two-fruit native mission completed; see FINAL_CHECKS.json for scope",
+  "u20_status": "RGB-only checkpoint with new mission/v20 assistance; movement/inference checks are not a multi-fruit harvest success claim",
+  "hardware_executed": false,
+  "stow_pose_user_approved": false,
+  "camera_robot": {
+    "d435_usd": "handoff/robot/robot_with_d435.usdc",
+    "u20_urdf": "src/smartfarm_description/urdf/harvest_robot_u20_wrist_v1.urdf",
+    "u20_native_creation": "run_student60_mission.py --camera u20 uses included frozen USD and U20 visuals/rig"
+  },
+  "demonstration_video": {
+    "path": "handoff/mission_demo.mp4",
+    "sha256": "c12484e495b5c57475e5cfff9693c6001ccfd099d295f0477730662213c94c80",
+    "playback": "1x simulation time",
+    "seconds": 126.65
+  }
+}

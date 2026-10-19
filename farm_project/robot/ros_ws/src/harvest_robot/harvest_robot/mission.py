@@ -34,6 +34,7 @@ class HarvestMission:
             arm = getattr(self.node, 'arm_client', None)
             if arm is not None:
                 self.node.mission_stage = 'ARM'
+                self.node.arm_travel_ready = False
                 self.node.arm_result = arm.execute(self.goal, self.node.check, self.node.communication.arm_feedback)
             return arrival
         except Exception:
@@ -57,5 +58,9 @@ class HarvestMission:
                 raise RuntimeError('CANCEL_UNCONFIRMED: ' + '; '.join(errors))
             raise
         finally:
+            if getattr(self.node, 'mission_stage', '') == 'ARM':
+                result = getattr(self.node, 'arm_result', None)
+                # 정상 완료는 좌표 전체 작업 및 접힘 완료 계약이다. 실패/취소는 추측하지 않는다.
+                self.node.arm_travel_ready = bool(result and result['result_code'] == 'SUCCESS')
             if control is not None:
                 control.end()

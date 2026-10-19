@@ -1,0 +1,25 @@
+{
+  "schema": 1,
+  "name": "harvest_physics_60hz_response6",
+  "physics_hz": 60,
+  "policy_hz": 20,
+  "physics_dt_s": 0.016666666666666666,
+  "decimation": 3,
+  "contact_substeps": 1,
+  "stem_response_version": 6,
+  "attachment_model": "coupled_point_orientation_v6",
+  "camera_requested_hz": 30,
+  "render_hz": 30,
+  "status": "isolated attachment fixtures passed; existing Teacher transfer 1/10; experimental fresh grasp training only",
+  "note": "Separate model; frozen response5/480Hz Teacher and Student data are preserved. No hidden higher-rate integration or within-episode pose/velocity correction.",
+  "validation": {
+    "root": "outputs/harvest_rl/attachment_60hz_response6_20261008",
+    "fixture_cases": 8,
+    "fixture_cases_passed": 8,
+    "teacher_success": 1,
+    "teacher_episodes": 10,
+    "fresh_grasp_smoke_envs": 128,
+    "fresh_grasp_smoke_policy_steps": 40,
+    "training_executed": false
+  }
+}

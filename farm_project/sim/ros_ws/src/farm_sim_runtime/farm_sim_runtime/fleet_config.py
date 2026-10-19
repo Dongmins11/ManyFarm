@@ -75,6 +75,11 @@ def validate_harvest_action(task: dict, device: dict, physics: dict) -> None:
     arm = device['runtime'].get('harvest_arm', {})
     if arm.get('enabled') is not True:
         raise ValueError('ARRIVAL_THEN_ARM에는 harvest_arm.enabled=true가 필요합니다.')
+    backend = arm.get('backend', 'teacher')
+    if backend not in ('teacher', 'student_d435'):
+        raise ValueError('지원하지 않는 수확 정책 backend입니다.')
+    if backend == 'student_d435' and not arm.get('student_profile'):
+        raise ValueError('D435 Student에는 student_profile이 필요합니다.')
     endpoint = task.get('arm_action', {}).get('endpoint')
     if not endpoint or endpoint != arm.get('endpoint'):
         raise ValueError('수확 작업과 장치의 팔 Action endpoint가 다릅니다.')

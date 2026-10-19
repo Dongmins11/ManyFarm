@@ -1,0 +1,332 @@
+{
+  "schema": "d435_student_sensor_v1",
+  "source": {
+    "path": "/home/bhc/manyfarm_ws/manyfarm_robotarm/reports/d435_student_alignment_20261013/live/20261013_120440_184672_075655/snapshot_0001/metadata.json",
+    "sha256": "ee06c55a43e812a94987bb0e96c14f71216286a114e2836711d8b3ee12df84ac",
+    "started_utc": "2026-10-13T03:04:40.211520+00:00"
+  },
+  "views": {
+    "right": {
+      "streams": {
+        "rgb": {
+          "stream_type": "stream.color",
+          "stream_index": 0,
+          "format": "format.rgb8",
+          "fps": 6,
+          "width": 1280,
+          "height": 720,
+          "intrinsics": {
+            "fx": 923.1194458007812,
+            "fy": 923.3059692382812,
+            "ppx": 654.8013305664062,
+            "ppy": 355.6888427734375,
+            "distortion_model": "distortion.inverse_brown_conrady",
+            "coeffs": [
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0
+            ]
+          }
+        },
+        "depth": {
+          "stream_type": "stream.depth",
+          "stream_index": 0,
+          "format": "format.z16",
+          "fps": 6,
+          "width": 848,
+          "height": 480,
+          "intrinsics": {
+            "fx": 425.01312255859375,
+            "fy": 425.01312255859375,
+            "ppx": 427.376220703125,
+            "ppy": 241.6244659423828,
+            "distortion_model": "distortion.brown_conrady",
+            "coeffs": [
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0
+            ]
+          }
+        },
+        "ir_left": {
+          "stream_type": "stream.infrared",
+          "stream_index": 1,
+          "format": "format.y8",
+          "fps": 6,
+          "width": 848,
+          "height": 480,
+          "intrinsics": {
+            "fx": 425.01312255859375,
+            "fy": 425.01312255859375,
+            "ppx": 427.376220703125,
+            "ppy": 241.6244659423828,
+            "distortion_model": "distortion.brown_conrady",
+            "coeffs": [
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0
+            ]
+          }
+        },
+        "ir_right": {
+          "stream_type": "stream.infrared",
+          "stream_index": 2,
+          "format": "format.y8",
+          "fps": 6,
+          "width": 848,
+          "height": 480,
+          "intrinsics": {
+            "fx": 425.01312255859375,
+            "fy": 425.01312255859375,
+            "ppx": 427.376220703125,
+            "ppy": 241.6244659423828,
+            "distortion_model": "distortion.brown_conrady",
+            "coeffs": [
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0
+            ]
+          }
+        }
+      },
+      "rgb_from_stream": {
+        "rgb": [
+          [
+            1.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          [
+            0.0,
+            1.0,
+            0.0,
+            0.0
+          ],
+          [
+            0.0,
+            0.0,
+            1.0,
+            0.0
+          ],
+          [
+            0.0,
+            0.0,
+            0.0,
+            1.0
+          ]
+        ],
+        "depth": [
+          [
+            0.9999829530715942,
+            -0.005790132563561201,
+            0.0007864008075557649,
+            0.014988590963184834
+          ],
+          [
+            0.005789410788565874,
+            0.9999828338623047,
+            0.0009173604776151478,
+            3.796919554588385e-05
+          ],
+          [
+            -0.0007916989270597696,
+            -0.0009127920493483543,
+            0.9999992847442627,
+            0.0005209025111980736
+          ],
+          [
+            0.0,
+            0.0,
+            0.0,
+            1.0
+          ]
+        ],
+        "ir_left": [
+          [
+            0.9999829530715942,
+            -0.005790132563561201,
+            0.0007864008075557649,
+            0.014988590963184834
+          ],
+          [
+            0.005789410788565874,
+            0.9999828338623047,
+            0.0009173604776151478,
+            3.796919554588385e-05
+          ],
+          [
+            -0.0007916989270597696,
+            -0.0009127920493483543,
+            0.9999992847442627,
+            0.0005209025111980736
+          ],
+          [
+            0.0,
+            0.0,
+            0.0,
+            1.0
+          ]
+        ],
+        "ir_right": [
+          [
+            0.9999829530715942,
+            -0.005790132563561201,
+            0.0007864008075557649,
+            0.06488772481679916
+          ],
+          [
+            0.005789410788565874,
+            0.9999828338623047,
+            0.0009173604776151478,
+            0.00032686072518117726
+          ],
+          [
+            -0.0007916989270597696,
+            -0.0009127920493483543,
+            0.9999992847442627,
+            0.00048139673890545964
+          ],
+          [
+            0.0,
+            0.0,
+            0.0,
+            1.0
+          ]
+        ]
+      },
+      "internal_calibration_verified": true,
+      "mount_calibration_verified": false,
+      "rgb_optical_frame": "arm_2/wrist_camera_color_optical_frame",
+      "mount_reference": "current composed URDF; real gripper-to-camera hand-eye not measured",
+      "device": {
+        "name": "RealSense D435",
+        "serial_number": "920312072384",
+        "firmware_version": "5.17.3.10",
+        "usb_type_descriptor": "2.1"
+      },
+      "emitter_setting": 1.0,
+      "depth_scale_m": 0.0010000000474974513
+    },
+    "rear": {
+      "streams": {
+        "rgb": {
+          "width": 640,
+          "height": 360,
+          "fps": 30,
+          "intrinsics": {
+            "fx": 465.60288917518244,
+            "fy": 465.60288917518244,
+            "ppx": 320.0,
+            "ppy": 180.0,
+            "coeffs": [
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            "distortion_model": "nominal_pinhole"
+          }
+        },
+        "depth": {
+          "width": 848,
+          "height": 480,
+          "fps": 30,
+          "intrinsics": {
+            "fx": 446.80277311912806,
+            "fy": 446.80277311912806,
+            "ppx": 424.0,
+            "ppy": 240.0,
+            "coeffs": [
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            "distortion_model": "nominal_pinhole"
+          }
+        }
+      },
+      "rgb_from_stream": {
+        "rgb": [
+          [
+            1.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          [
+            0.0,
+            1.0,
+            0.0,
+            0.0
+          ],
+          [
+            0.0,
+            0.0,
+            1.0,
+            0.0
+          ],
+          [
+            0.0,
+            0.0,
+            0.0,
+            1.0
+          ]
+        ],
+        "depth": [
+          [
+            1.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          [
+            0.0,
+            1.0,
+            0.0,
+            0.0
+          ],
+          [
+            0.0,
+            0.0,
+            1.0,
+            0.0
+          ],
+          [
+            0.0,
+            0.0,
+            0.0,
+            1.0
+          ]
+        ]
+      },
+      "internal_calibration_verified": false,
+      "mount_calibration_verified": false,
+      "rgb_optical_frame": "top_camera_color_optical_frame",
+      "mount_reference": "unmeasured rear; nominal composed URDF",
+      "emitter_setting": null,
+      "resolve_depth_extrinsic_from_urdf": true
+    }
+  },
+  "render_near_m": 0.01,
+  "render_far_m": 20.0,
+  "depth_min_m": 0.28,
+  "depth_max_m": 3.0,
+  "sim_depth_model": "ideal optical-Z plus conservative range gate; not physical stereo confidence",
+  "sim_ir_model": "luminance of visible-light render at factory IR pose; not NIR/projector simulation",
+  "acquisition_hz": 6,
+  "policy_hz": 20,
+  "preprocessing": "aspect-preserving letterbox 160x90; depth nearest; RGB/IR area; separate branches",
+  "training_started": false
+}

@@ -1,0 +1,68 @@
+{
+  "version": "harvest_u20_dual_wrist_white_v1_r2_20261015",
+  "base_urdf": "urdf/harvest_robot.urdf",
+  "base_urdf_sha256": "54f3a8ff55f22c2f2c91b40696ae2d31cda4fd7660d4e54e09ee5064da36db5f",
+  "output_urdf": "urdf/harvest_robot_u20_wrist_v1.urdf",
+  "mount_mesh": "meshes/mounts/u20_so101_hexnut_v1.stl",
+  "camera_mesh": "meshes/cameras/u20cam_1080p_v1.stl",
+  "mount_source": "https://github.com/TheRobotStudio/SO-ARM100/blob/main/Optional/SO101_Wrist_Cam_Hex-Nut_Mount_32x32_UVC_Module/stl/SO-ARM101_camera_wrist_mount.stl",
+  "mount_sha256": "e17a626158951ac8cdf8d960962c1a3c8bf23b64635a02f88b62016fe895cef8",
+  "arms": [
+    1,
+    2
+  ],
+  "pcb_wh_m": [
+    0.032,
+    0.032
+  ],
+  "pcb_thickness_m": 0.0016,
+  "pcb_hole_pitch_m": 0.027,
+  "pcb_hole_diameter_m": 0.0022,
+  "lens_thread_diameter_m": 0.012,
+  "lens_seat_spacing_m": 0.018,
+  "lens_holder_square_m": 0.0158,
+  "lens_holder_ear_width_m": 0.0058,
+  "lens_holder_ear_span_m": 0.0248,
+  "lens_holder_height_m": 0.005,
+  "lens_front_diameter_m": 0.0154,
+  "lens_front_height_m": 0.0135,
+  "optical_origin_height_m": 0.0137,
+  "pcb_front_gap_m": 0.0001,
+  "camera_mass_kg": 0.009,
+  "mount_mass_kg": 0.01,
+  "public_dimensions": [
+    "pcb_wh_m",
+    "pcb_hole_diameter_m",
+    "lens_thread_diameter_m",
+    "lens_seat_spacing_m"
+  ],
+  "mount_dimensions_measured_from_stl": [
+    "pcb_hole_pitch_m"
+  ],
+  "estimated_not_real_calibration": [
+    "pcb_thickness_m",
+    "lens_holder_square_m",
+    "lens_holder_ear_width_m",
+    "lens_holder_ear_span_m",
+    "lens_holder_height_m",
+    "lens_front_diameter_m",
+    "lens_front_height_m",
+    "optical_origin_height_m",
+    "pcb_front_gap_m",
+    "camera_mass_kg",
+    "mount_mass_kg"
+  ],
+  "note": "PCB on outer rear face; M12 barrel and cross-shaped lens holder pass through original aperture toward gripper. Preserve original mount mesh. Lens envelope/mass are provisional until measured, not certified real fit.",
+  "mount_rgba": [
+    0.93,
+    0.93,
+    0.93,
+    1.0
+  ],
+  "camera_rgba": [
+    0.025,
+    0.025,
+    0.025,
+    1.0
+  ]
+}

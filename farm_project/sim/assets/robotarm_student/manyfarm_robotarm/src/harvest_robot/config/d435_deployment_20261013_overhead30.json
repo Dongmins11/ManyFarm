@@ -1,0 +1,333 @@
+{
+  "schema": "d435_deployment_v2",
+  "camera_order": [
+    "right",
+    "rear"
+  ],
+  "fps": 30,
+  "policy_hz": 20,
+  "control_dt": 0.05,
+  "sensor_dt": 0.03333333333333333,
+  "history": 3,
+  "capture_contract": "physics_scheduled_multimodal_v3",
+  "depth_min_m": 0.28,
+  "depth_max_m": 3.0,
+  "render_near_m": 0.01,
+  "render_far_m": 20.0,
+  "calibration_verified": false,
+  "sim_depth_model": "ideal geometric optical-Z; not stereo confidence/noise",
+  "sim_ir_model": "visible-light luminance at factory right IR optical pose; not NIR/projector/stereo simulation",
+  "preprocessing": "Separate wrist RGB, wrist right IR, rear RGB-D encoders; RGB/IR bilinear and rear depth nearest at160x90",
+  "source": {
+    "kind": "user_supplied_device_calibration",
+    "sha256": "33eb06932395c855f00b6c3fed55079a44b082923f97217576f849cccacf68bf"
+  },
+  "views": {
+    "right": {
+      "serial": "920312072384",
+      "device": {
+        "name": "RealSense D435",
+        "serial_number": "920312072384",
+        "firmware_version": "5.17.3.10",
+        "usb_type_descriptor": "3.2"
+      },
+      "rgb_optical_frame": "arm_2/wrist_camera_color_optical_frame",
+      "depth_optical_frame": "arm_2/wrist_camera_depth_optical_frame",
+      "internal_calibration_verified": true,
+      "target_profile_verified": true,
+      "mount_calibration_verified": false,
+      "calibration_status": "factory intrinsics supplied; hand-eye pending",
+      "depth_scale_m": 0.0010000000474974513,
+      "rgb_from_stream": {
+        "rgb": [
+          [
+            1.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          [
+            0.0,
+            1.0,
+            0.0,
+            0.0
+          ],
+          [
+            0.0,
+            0.0,
+            1.0,
+            0.0
+          ],
+          [
+            0.0,
+            0.0,
+            0.0,
+            1.0
+          ]
+        ],
+        "depth": [
+          [
+            0.9999829530715942,
+            -0.005790132563561201,
+            0.0007864008075557649,
+            0.014988590963184834
+          ],
+          [
+            0.005789410788565874,
+            0.9999828338623047,
+            0.0009173604776151478,
+            3.796919554588385e-05
+          ],
+          [
+            -0.0007916989270597696,
+            -0.0009127920493483543,
+            0.9999992847442627,
+            0.0005209025111980736
+          ],
+          [
+            0.0,
+            0.0,
+            0.0,
+            1.0
+          ]
+        ],
+        "ir_right": [
+          [
+            0.9999829530715942,
+            -0.005790132563561201,
+            0.0007864008075557649,
+            0.06488772481679916
+          ],
+          [
+            0.005789410788565874,
+            0.9999828338623047,
+            0.0009173604776151478,
+            0.00032686072518117726
+          ],
+          [
+            -0.0007916989270597696,
+            -0.0009127920493483543,
+            0.9999992847442627,
+            0.00048139673890545964
+          ],
+          [
+            0.0,
+            0.0,
+            0.0,
+            1.0
+          ]
+        ]
+      },
+      "streams": {
+        "rgb": {
+          "width": 1280,
+          "height": 720,
+          "fps": 30,
+          "calibration_source_fps": 30,
+          "intrinsics": {
+            "fx": 923.1194458007812,
+            "fy": 923.3059692382812,
+            "ppx": 654.8013305664062,
+            "ppy": 355.6888427734375,
+            "distortion_model": "distortion.inverse_brown_conrady",
+            "coeffs": [
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0
+            ]
+          }
+        },
+        "depth": {
+          "width": 848,
+          "height": 480,
+          "fps": 30,
+          "calibration_source_fps": 30,
+          "intrinsics": {
+            "fx": 425.01312255859375,
+            "fy": 425.01312255859375,
+            "ppx": 427.376220703125,
+            "ppy": 241.6244659423828,
+            "distortion_model": "distortion.brown_conrady",
+            "coeffs": [
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0
+            ]
+          }
+        },
+        "ir_right": {
+          "stream_type": "stream.infrared",
+          "stream_index": 2,
+          "format": "format.y8",
+          "fps": 30,
+          "width": 848,
+          "height": 480,
+          "intrinsics": {
+            "fx": 425.01312255859375,
+            "fy": 425.01312255859375,
+            "ppx": 427.376220703125,
+            "ppy": 241.6244659423828,
+            "distortion_model": "distortion.brown_conrady",
+            "coeffs": [
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0
+            ]
+          },
+          "calibration_source_fps": 30
+        }
+      },
+      "verification_source": {
+        "path": "reports/d435_deployment_20261013/hardware/calibration/20261013_154414_745057_742400/snapshot_0001/metadata.json",
+        "sha256": "8107332c2179321ecdfbd1940f85d81ee33daa427ca126a7114a6882f1a5c9bc",
+        "usb": "3.2"
+      },
+      "wrist_depth_role": "native raw diagnostic only; excluded from policy and target3D; rear determines target3D"
+    },
+    "rear": {
+      "serial": "920312070027",
+      "device": {
+        "name": "RealSense D435",
+        "serial_number": "920312070027",
+        "firmware_version": "5.17.0.10",
+        "usb_type_descriptor": "3.2"
+      },
+      "rgb_optical_frame": "top_camera_color_optical_frame",
+      "depth_optical_frame": "top_camera_depth_optical_frame",
+      "internal_calibration_verified": true,
+      "target_profile_verified": true,
+      "mount_calibration_verified": false,
+      "calibration_status": "factory internal parameters read from target30fps profile; external camera mounting not installed",
+      "depth_scale_m": 0.0010000000474974513,
+      "rgb_from_stream": {
+        "rgb": [
+          [
+            1.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          [
+            0.0,
+            1.0,
+            0.0,
+            0.0
+          ],
+          [
+            0.0,
+            0.0,
+            1.0,
+            0.0
+          ],
+          [
+            0.0,
+            0.0,
+            0.0,
+            1.0
+          ]
+        ],
+        "depth": [
+          [
+            0.9998481869697571,
+            0.01658867672085762,
+            0.005327441729605198,
+            0.014905279502272606
+          ],
+          [
+            -0.016601888462901115,
+            0.9998592138290405,
+            0.002445511519908905,
+            -2.3506148863816634e-05
+          ],
+          [
+            -0.005286123603582382,
+            -0.00253358599729836,
+            0.9999828338623047,
+            0.0001395984727423638
+          ],
+          [
+            0.0,
+            0.0,
+            0.0,
+            1.0
+          ]
+        ]
+      },
+      "streams": {
+        "rgb": {
+          "width": 1280,
+          "height": 720,
+          "fps": 30,
+          "calibration_source_fps": 30,
+          "intrinsics": {
+            "fx": 928.9950561523438,
+            "fy": 929.4752197265625,
+            "ppx": 653.1029052734375,
+            "ppy": 373.6087646484375,
+            "distortion_model": "distortion.inverse_brown_conrady",
+            "coeffs": [
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0
+            ]
+          }
+        },
+        "depth": {
+          "width": 848,
+          "height": 480,
+          "fps": 30,
+          "calibration_source_fps": 30,
+          "intrinsics": {
+            "fx": 419.5580749511719,
+            "fy": 419.5580749511719,
+            "ppx": 424.59051513671875,
+            "ppy": 240.18234252929688,
+            "distortion_model": "distortion.brown_conrady",
+            "coeffs": [
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0
+            ]
+          }
+        }
+      },
+      "factory_calibration_read": true,
+      "empirical_intrinsic_accuracy_verified": false,
+      "real_mount_status": "not_installed",
+      "verification_source": {
+        "path": "reports/d435_overhead_factory_20261013_170118/capture/20261013_170204_034425_30973f/snapshot_0001/metadata.json",
+        "sha256": "138cd6ba8b90caee203fe7f3ac5809494fdd28969aaef58435f493e7a5105323",
+        "usb": "3.2",
+        "read_utc": "2026-10-13T08:02:05.733257+00:00"
+      }
+    }
+  },
+  "student_schema_version": 3,
+  "policy_inputs": {
+    "right": [
+      "rgb",
+      "ir_right"
+    ],
+    "rear": [
+      "rgb",
+      "aligned_depth_m",
+      "depth_valid"
+    ]
+  },
+  "revision": "overhead_factory30_verified_20261013",
+  "previous_profile": {
+    "path": "src/harvest_robot/config/d435_deployment_20261013.json",
+    "sha256": "628e64ca42b7b14e97880a6041fa15f1c114d0c1a231c7028999165e71ffd996"
+  },
+  "mount_note": "Existing URDF optical mounts are initial simulation references; rear physical camera is not installed. Factory internal and world/arm mounting calibrations are separate."
+}

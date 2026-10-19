@@ -1,0 +1,43 @@
+{
+  "state": "RETURN_STOW",
+  "mission_complete": false,
+  "harvest_successes": 1,
+  "planned_targets": 2,
+  "harvested_ids": [
+    "fruit-000001"
+  ],
+  "failure": null,
+  "events": [
+    {
+      "state": "TO_HOME",
+      "stamp_s": 0.45,
+      "target_id": "fruit-000001"
+    },
+    {
+      "state": "HARVEST",
+      "stamp_s": 7.300000000000001,
+      "target_id": "fruit-000001"
+    },
+    {
+      "state": "WAIT_BOX",
+      "stamp_s": 35.1,
+      "target_id": "fruit-000001"
+    },
+    {
+      "state": "BOX_CONFIRMED",
+      "target_id": "fruit-000001",
+      "stamp_s": 36.25,
+      "evidence_source": "simulator_box_outcome_v2"
+    },
+    {
+      "state": "RETURN_STOW",
+      "stamp_s": 36.25,
+      "target_id": "fruit-000001"
+    }
+  ],
+  "scene_resets_during_mission": 0,
+  "control_checks": 1096,
+  "physics_control_checks": 3288,
+  "response6_physics_calls": 3288,
+  "wall_budget_interrupted": true
+}

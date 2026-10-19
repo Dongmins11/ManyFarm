@@ -1,0 +1,21 @@
+D435 카메라 기반 Student 수확 검증 후보 전달드립니다.
+
+첨부: harvest_student60_d435_v20_20261016.tar.gz, SHA256SUMS, README_KR.md
+
+Student 가중치뿐 아니라 v20 보조제어, 탐지/중심보정 모델, 카메라 장착 로봇 URDF·mesh·USD,
+손목 RGB/오른쪽 IR + 후방 RGB-D 센서 설정·생성 코드, 실행기와 검증 자료를 함께 넣었습니다.
+먼저 README의 CPU check → 짧은 native 점검 → GUI 4장면 순서로 확인해 주세요.
+
+검증 환경: Isaac Sim5.1.0.0 / 설치 Isaac Lab0.54.2 / Python3.11.
+고정 프레임·두 SO101 자산이며 실제 제어는 우측 arm_2 한 팔입니다.
+정책 출력은 절대 관절목표6 + 집게 강성/속도2입니다. 기존 Teacher 관측/명령과 다릅니다.
+Student+보조제어가 소스 고정 별도 평가4/4에서 박스 적재에 성공했습니다.
+작은9g 시뮬레이션 검증이며 일반 성공률100%·실시간20Hz·실물 성공을 보증하는 결과는 아닙니다.
+Teacher actor/정답 과실 위치는 제어 입력에 사용하지 않습니다.
+
+독립 시연은 실행 가능하지만 농장 scene에 대한 ROS backend는 별도 통합이 필요합니다.
+USD의 카메라 prim만 열어서는 영상 토픽이 자동 발행되지 않으므로 포함된 rig/render 설정도
+함께 연결해 주세요. 원래 물리 USD와 현재 장착형상 URDF의 용도 구분도 README에 적었습니다.
+
+수신 환경 버전·GPU·CPU/native 점검 결과와 로봇/카메라 화면을 확인한 뒤,
+농장 scene의 좌표·physicsScene·센서/관절/명령 경계부터 맞추면 됩니다.

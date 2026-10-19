@@ -1,0 +1,85 @@
+{
+  "normalized_stl_transform": {
+    "xyz": [
+      0.19286975,
+      -0.0228857,
+      -0.2924658
+    ],
+    "rpy": [
+      0,
+      0,
+      1.5707963267948966
+    ],
+    "scale": 0.001
+  },
+  "five_hole_plate_center": [
+    0.00028,
+    -0.023431,
+    0.065346
+  ],
+  "five_hole_plate_axes": [
+    [
+      0.9993012422455165,
+      0.00010638780682462515,
+      -0.037376676259424785
+    ],
+    [
+      -0.00010499067474737513,
+      0.9999999937145603,
+      3.934256878481089e-05
+    ],
+    [
+      0.037376680210065544,
+      -3.5390875399500005e-05,
+      0.9993012471341964
+    ]
+  ],
+  "five_hole_plate_gripper_anchor": [
+    0.0334,
+    0.0,
+    -0.0234
+  ],
+  "camera_rear_plate_holes": [
+    [
+      0.008849,
+      0.032107,
+      0.004958
+    ],
+    [
+      0.007302,
+      0.031646,
+      0.049929
+    ]
+  ],
+  "camera_rear_plate_normal": [
+    -0.9063072125188303,
+    -0.42112608178059296,
+    -0.035497320750631445
+  ],
+  "camera_rear_gap_m": 0.001,
+  "config": {
+    "wrist_mount_xyz": [
+      -0.031888951990149364,
+      -0.02343328271628381,
+      -0.026124680929335696
+    ],
+    "wrist_mount_rpy": [
+      -0.0028089813760481253,
+      -1.533410790909563,
+      -3.1387462924319376
+    ],
+    "wrist_camera_xyz": [
+      -0.0041823050493171796,
+      0.026180769743917483,
+      0.026963398736847707
+    ],
+    "wrist_camera_rpy": [
+      1.5759923942355833,
+      0.035504779771903694,
+      -2.7066133252089655
+    ]
+  },
+  "note": "STL-derived D435 rear mating face and optical orientation. Five-hole outer plate nominally at the SO101 motor X face + 3 mm plate thickness (x=.0304+.003), centred at gripper z=-.0234. SO100-to-SO101 screw alignment remains unmeasured; not hand-eye calibration.",
+  "mount_mesh_sha256": "dfaeb5ccd510e99cd718ecb59a25a1660318db0b403911f363fe5aea0685daed",
+  "reference": "https://github.com/TheRobotStudio/SO-ARM100/tree/main/Optional/Wrist_Cam_Mount_RealSense_D435"
+}

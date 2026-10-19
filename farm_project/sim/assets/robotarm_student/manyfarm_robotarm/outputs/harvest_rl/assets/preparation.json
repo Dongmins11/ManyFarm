@@ -1,0 +1,40 @@
+{
+  "source_urdf": "/home/bhc/manyfarm_ws/manyfarm_robotarm/src/smartfarm_description/urdf/harvest_robot.urdf",
+  "sha256": "01767ec530ca268f54632d41032f2be27313f7c06f7218bc4899ccca45100cec",
+  "workspace_sha256": "099440084c16487203482b8f647783bce8e735f33479c4c58a446b602c914628",
+  "points": 512,
+  "reachable_min": [
+    0.3064211898494099,
+    -0.3649188246746193,
+    0.6140077889292497
+  ],
+  "reachable_max": [
+    0.5999441794975381,
+    -0.015329942263720045,
+    1.0627487177399682
+  ],
+  "home": [
+    0.0,
+    -1.39,
+    0.77,
+    0.62,
+    0.04879632679489654,
+    1.1
+  ],
+  "original_pepper_size": [
+    0.08572202920913696,
+    0.09052825719118118,
+    0.11704932153224945
+  ],
+  "pepper_scale": [
+    0.7732392312841195,
+    0.7732392312841195,
+    0.640755529534069
+  ],
+  "home_grasp_position": [
+    0.4514044679254591,
+    -0.19039200209628734,
+    0.9870993942419489
+  ],
+  "note": "FK and coarse clearance screening only; not swept-volume collision certification"
+}

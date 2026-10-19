@@ -1,0 +1,22 @@
+{
+  "passed": true,
+  "camera_target_valid": false,
+  "empty_view_steps": 2,
+  "outstanding_command_blocks_step": true,
+  "acknowledgement_unblocks_step": true,
+  "first_joint_goals_rad": [
+    0.01896389841613133,
+    -0.015414860346043113,
+    0.005911275271702987,
+    0.025000000657147137,
+    0.04470110334215649,
+    0.8853984891435396
+  ],
+  "first_jaw_stiffness_velocity": [
+    7.830392271280289,
+    0.9245688825845719
+  ],
+  "teacher_actor_loads": 0,
+  "simulator_or_hardware_reads": 0,
+  "note": "Synthetic empty-view API check, not farm integration or harvest success"
+}

@@ -1,0 +1,189 @@
+{
+  "version": "harvest_u20_dual_wrist_white_v1_r2_20261015",
+  "source_urdf": "src/smartfarm_description/urdf/harvest_robot.urdf",
+  "source_sha256": "54f3a8ff55f22c2f2c91b40696ae2d31cda4fd7660d4e54e09ee5064da36db5f",
+  "urdf": "src/smartfarm_description/urdf/harvest_robot_u20_wrist_v1.urdf",
+  "urdf_sha256": "436c0cc0899b0734c584c951cf203be001def57a48136f77a9cf4e85ab8833f6",
+  "mount_sha256": "e17a626158951ac8cdf8d960962c1a3c8bf23b64635a02f88b62016fe895cef8",
+  "camera_sha256": "033ae302bff2e37e7120c5c3a62175f30cd42743aae0d04ae095eb3563eac3a7",
+  "mount_pose_gripper": {
+    "1": [
+      [
+        1.4730395373676205e-22,
+        5.551119999980455e-17,
+        1.0,
+        -0.014999999999999914
+      ],
+      [
+        -0.9999999999964793,
+        2.65358979335273e-06,
+        0.0,
+        0.024000086917022163
+      ],
+      [
+        -2.65358979335273e-06,
+        -0.9999999999964793,
+        5.55112e-17,
+        -0.0315500997346783
+      ],
+      [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ]
+    ],
+    "2": [
+      [
+        1.4730395373676205e-22,
+        5.551119999980455e-17,
+        1.0,
+        -0.014999999999999914
+      ],
+      [
+        -0.9999999999964793,
+        2.65358979335273e-06,
+        0.0,
+        0.024000086917022163
+      ],
+      [
+        -2.65358979335273e-06,
+        -0.9999999999964793,
+        5.55112e-17,
+        -0.0315500997346783
+      ],
+      [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ]
+    ]
+  },
+  "camera_pose_mount": [
+    [
+      0.42261826174069966,
+      9.384010496231713e-17,
+      -0.9063077870366498,
+      -0.04939101194020183
+    ],
+    [
+      0.9063077870366498,
+      2.0124075451303232e-16,
+      0.42261826174069966,
+      -0.03820603299981478
+    ],
+    [
+      2.220446049250313e-16,
+      -1.0,
+      4.930380657631324e-32,
+      0.017500000006944443
+    ],
+    [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+    ]
+  ],
+  "mounting_hole_axes_holder_m": [
+    [
+      -0.005,
+      -0.02421821467578411,
+      0.02434987
+    ],
+    [
+      0.0031,
+      -0.02421821467578411,
+      0.02434987
+    ]
+  ],
+  "registration_boss_axis_holder_m": [
+    -0.0087,
+    -0.02221821467578411,
+    0.01409987
+  ],
+  "registration_boss_length_m": 0.002,
+  "registration_boss_radius_m": 0.0017,
+  "camera_hole_centres_mount_m": [
+    [
+      -0.061583905325555535,
+      -0.032410055477777776,
+      0.004000000013888889
+    ],
+    [
+      -0.061583905325555535,
+      -0.032410055477777776,
+      0.031
+    ],
+    [
+      -0.037113594902499984,
+      -0.04382074896444445,
+      0.004000000013888889
+    ],
+    [
+      -0.037113594902499984,
+      -0.04382074896444445,
+      0.031
+    ]
+  ],
+  "aperture_thickness_m": 0.0041999998812223376,
+  "arms": [
+    1,
+    2
+  ],
+  "mount_rgba": [
+    0.93,
+    0.93,
+    0.93,
+    1.0
+  ],
+  "camera_rgba": [
+    0.025,
+    0.025,
+    0.025,
+    1.0
+  ],
+  "pcb_on_rear_face": true,
+  "lens_through_cross_aperture": true,
+  "removed_camera_items": [
+    "arm_1/wrist_camera_mount_link",
+    "arm_1/wrist_camera_mount_link_joint",
+    "arm_1/wrist_camera_link",
+    "arm_1/wrist_camera_joint",
+    "arm_1/wrist_camera_depth_frame",
+    "arm_1/wrist_camera_color_frame",
+    "arm_1/wrist_camera_depth_joint",
+    "arm_1/wrist_camera_color_joint",
+    "arm_1/wrist_camera_depth_optical_frame",
+    "arm_1/wrist_camera_color_optical_frame",
+    "arm_1/wrist_camera_depth_optical_joint",
+    "arm_1/wrist_camera_color_optical_joint",
+    "arm_2/wrist_camera_mount_link",
+    "arm_2/wrist_camera_mount_link_joint",
+    "arm_2/wrist_camera_link",
+    "arm_2/wrist_camera_joint",
+    "arm_2/wrist_camera_depth_frame",
+    "arm_2/wrist_camera_color_frame",
+    "arm_2/wrist_camera_depth_joint",
+    "arm_2/wrist_camera_color_joint",
+    "arm_2/wrist_camera_depth_optical_frame",
+    "arm_2/wrist_camera_color_optical_frame",
+    "arm_2/wrist_camera_depth_optical_joint",
+    "arm_2/wrist_camera_color_optical_joint"
+  ],
+  "calibration_verified": false,
+  "estimated_dimensions": [
+    "pcb_thickness_m",
+    "lens_holder_square_m",
+    "lens_holder_ear_width_m",
+    "lens_holder_ear_span_m",
+    "lens_holder_height_m",
+    "lens_front_diameter_m",
+    "lens_front_height_m",
+    "optical_origin_height_m",
+    "pcb_front_gap_m",
+    "camera_mass_kg",
+    "mount_mass_kg"
+  ]
+}

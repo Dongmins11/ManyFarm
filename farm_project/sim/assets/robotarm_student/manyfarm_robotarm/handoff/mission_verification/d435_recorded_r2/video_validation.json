@@ -1,0 +1,32 @@
+{
+  "passed": true,
+  "probe": {
+    "programs": [],
+    "streams": [
+      {
+        "codec_name": "h264",
+        "width": 1280,
+        "height": 800,
+        "avg_frame_rate": "20/1",
+        "nb_frames": "2533"
+      }
+    ],
+    "format": {
+      "duration": "126.650000",
+      "size": "38191474"
+    }
+  },
+  "full_decode_passed": true,
+  "sample_times_s": [
+    0.0,
+    23.0,
+    38.7,
+    59.0,
+    104.0,
+    126.45
+  ],
+  "distinct_sampled_frames": 6,
+  "sha256": "c12484e495b5c57475e5cfff9693c6001ccfd099d295f0477730662213c94c80",
+  "mission_complete": true,
+  "harvest_successes": 2
+}

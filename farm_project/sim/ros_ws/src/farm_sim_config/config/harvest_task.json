@@ -89,7 +89,7 @@
     "endpoint": "sim/harvest_arm",
     "readiness_timeout_s": 5.0,
     "response_timeout_s": 5.0,
-    "execution_timeout_s": 660.0,
+    "execution_timeout_s": 1860.0,
     "cancel_timeout_s": 20.0
   },
   "sections": {
@@ -254,5 +254,10 @@
       ]
     }
   },
-  "task_navigation_policy": "robot/config/navigation/harvest_task.yaml"
+  "task_navigation_policy": "robot/config/navigation/harvest_task.yaml",
+  "transfer": {
+    "enabled": false,
+    "load_source": "arm_feedback",
+    "request_count": 0
+  }
 }

@@ -1,0 +1,727 @@
+{
+  "schema": "student60_d435_v20_sim_handoff_v1",
+  "created_date": "2026-10-16",
+  "role": "camera Student + explicit v20 assistance; right arm only",
+  "model_family": "student60_camera_recurrent_delta_v1",
+  "models": {
+    "student": {
+      "path": "handoff/models/student.pt",
+      "sha256": "e73958a40c227c7ff5ee44e7970f0d93e1273b6b8e949d0b4380f5be8e838403"
+    },
+    "center": {
+      "path": "handoff/models/center.pt",
+      "sha256": "6a36e0eecba83878582e8f1372b00a9edf0a6cbb25cd92793ed4ce79027fe9ac"
+    },
+    "detector": {
+      "path": "handoff/models/detector.pt",
+      "sha256": "67142fa25599c8147642e0252ce21d05543ecd4fd8e68d8aff555dfd96a305fc"
+    }
+  },
+  "contract": {
+    "student60_version": "student60_executed_targets_servo_v1",
+    "observation_contract": "fresh50ms_release_latch_v1",
+    "camera_order": [
+      "right",
+      "rear"
+    ],
+    "camera_config": {
+      "schema": "d435_deployment_v2",
+      "camera_order": [
+        "right",
+        "rear"
+      ],
+      "fps": 30,
+      "policy_hz": 20,
+      "control_dt": 0.05,
+      "sensor_dt": 0.03333333333333333,
+      "history": 3,
+      "capture_contract": "physics_scheduled_multimodal_v3",
+      "depth_min_m": 0.28,
+      "depth_max_m": 3.0,
+      "render_near_m": 0.01,
+      "render_far_m": 20.0,
+      "calibration_verified": false,
+      "sim_depth_model": "ideal geometric optical-Z; not stereo confidence/noise",
+      "sim_ir_model": "visible-light luminance at factory right IR optical pose; not NIR/projector/stereo simulation",
+      "preprocessing": "Separate wrist RGB, wrist right IR, rear RGB-D encoders; RGB/IR bilinear and rear depth nearest at160x90",
+      "source": {
+        "kind": "user_supplied_device_calibration",
+        "sha256": "33eb06932395c855f00b6c3fed55079a44b082923f97217576f849cccacf68bf"
+      },
+      "views": {
+        "right": {
+          "serial": "920312072384",
+          "device": {
+            "name": "RealSense D435",
+            "serial_number": "920312072384",
+            "firmware_version": "5.17.3.10",
+            "usb_type_descriptor": "3.2"
+          },
+          "rgb_optical_frame": "arm_2/wrist_camera_color_optical_frame",
+          "depth_optical_frame": "arm_2/wrist_camera_depth_optical_frame",
+          "internal_calibration_verified": true,
+          "target_profile_verified": true,
+          "mount_calibration_verified": false,
+          "calibration_status": "factory intrinsics supplied; hand-eye pending",
+          "depth_scale_m": 0.0010000000474974513,
+          "rgb_from_stream": {
+            "rgb": [
+              [
+                1.0,
+                0.0,
+                0.0,
+                0.0
+              ],
+              [
+                0.0,
+                1.0,
+                0.0,
+                0.0
+              ],
+              [
+                0.0,
+                0.0,
+                1.0,
+                0.0
+              ],
+              [
+                0.0,
+                0.0,
+                0.0,
+                1.0
+              ]
+            ],
+            "depth": [
+              [
+                0.9999829530715942,
+                -0.005790132563561201,
+                0.0007864008075557649,
+                0.014988590963184834
+              ],
+              [
+                0.005789410788565874,
+                0.9999828338623047,
+                0.0009173604776151478,
+                3.796919554588385e-05
+              ],
+              [
+                -0.0007916989270597696,
+                -0.0009127920493483543,
+                0.9999992847442627,
+                0.0005209025111980736
+              ],
+              [
+                0.0,
+                0.0,
+                0.0,
+                1.0
+              ]
+            ],
+            "ir_right": [
+              [
+                0.9999829530715942,
+                -0.005790132563561201,
+                0.0007864008075557649,
+                0.06488772481679916
+              ],
+              [
+                0.005789410788565874,
+                0.9999828338623047,
+                0.0009173604776151478,
+                0.00032686072518117726
+              ],
+              [
+                -0.0007916989270597696,
+                -0.0009127920493483543,
+                0.9999992847442627,
+                0.00048139673890545964
+              ],
+              [
+                0.0,
+                0.0,
+                0.0,
+                1.0
+              ]
+            ]
+          },
+          "streams": {
+            "rgb": {
+              "width": 1280,
+              "height": 720,
+              "fps": 30,
+              "calibration_source_fps": 30,
+              "intrinsics": {
+                "fx": 923.1194458007812,
+                "fy": 923.3059692382812,
+                "ppx": 654.8013305664062,
+                "ppy": 355.6888427734375,
+                "distortion_model": "distortion.inverse_brown_conrady",
+                "coeffs": [
+                  0.0,
+                  0.0,
+                  0.0,
+                  0.0,
+                  0.0
+                ]
+              }
+            },
+            "depth": {
+              "width": 848,
+              "height": 480,
+              "fps": 30,
+              "calibration_source_fps": 30,
+              "intrinsics": {
+                "fx": 425.01312255859375,
+                "fy": 425.01312255859375,
+                "ppx": 427.376220703125,
+                "ppy": 241.6244659423828,
+                "distortion_model": "distortion.brown_conrady",
+                "coeffs": [
+                  0.0,
+                  0.0,
+                  0.0,
+                  0.0,
+                  0.0
+                ]
+              }
+            },
+            "ir_right": {
+              "stream_type": "stream.infrared",
+              "stream_index": 2,
+              "format": "format.y8",
+              "fps": 30,
+              "width": 848,
+              "height": 480,
+              "intrinsics": {
+                "fx": 425.01312255859375,
+                "fy": 425.01312255859375,
+                "ppx": 427.376220703125,
+                "ppy": 241.6244659423828,
+                "distortion_model": "distortion.brown_conrady",
+                "coeffs": [
+                  0.0,
+                  0.0,
+                  0.0,
+                  0.0,
+                  0.0
+                ]
+              },
+              "calibration_source_fps": 30
+            }
+          },
+          "verification_source": {
+            "path": "reports/d435_deployment_20261013/hardware/calibration/20261013_154414_745057_742400/snapshot_0001/metadata.json",
+            "sha256": "8107332c2179321ecdfbd1940f85d81ee33daa427ca126a7114a6882f1a5c9bc",
+            "usb": "3.2"
+          },
+          "wrist_depth_role": "native raw diagnostic only; excluded from policy and target3D; rear determines target3D"
+        },
+        "rear": {
+          "serial": "920312070027",
+          "device": {
+            "name": "RealSense D435",
+            "serial_number": "920312070027",
+            "firmware_version": "5.17.0.10",
+            "usb_type_descriptor": "3.2"
+          },
+          "rgb_optical_frame": "top_camera_color_optical_frame",
+          "depth_optical_frame": "top_camera_depth_optical_frame",
+          "internal_calibration_verified": true,
+          "target_profile_verified": true,
+          "mount_calibration_verified": false,
+          "calibration_status": "factory internal parameters read from target30fps profile; external camera mounting not installed",
+          "depth_scale_m": 0.0010000000474974513,
+          "rgb_from_stream": {
+            "rgb": [
+              [
+                1.0,
+                0.0,
+                0.0,
+                0.0
+              ],
+              [
+                0.0,
+                1.0,
+                0.0,
+                0.0
+              ],
+              [
+                0.0,
+                0.0,
+                1.0,
+                0.0
+              ],
+              [
+                0.0,
+                0.0,
+                0.0,
+                1.0
+              ]
+            ],
+            "depth": [
+              [
+                0.9998481869697571,
+                0.01658867672085762,
+                0.005327441729605198,
+                0.014905279502272606
+              ],
+              [
+                -0.016601888462901115,
+                0.9998592138290405,
+                0.002445511519908905,
+                -2.3506148863816634e-05
+              ],
+              [
+                -0.005286123603582382,
+                -0.00253358599729836,
+                0.9999828338623047,
+                0.0001395984727423638
+              ],
+              [
+                0.0,
+                0.0,
+                0.0,
+                1.0
+              ]
+            ]
+          },
+          "streams": {
+            "rgb": {
+              "width": 1280,
+              "height": 720,
+              "fps": 30,
+              "calibration_source_fps": 30,
+              "intrinsics": {
+                "fx": 928.9950561523438,
+                "fy": 929.4752197265625,
+                "ppx": 653.1029052734375,
+                "ppy": 373.6087646484375,
+                "distortion_model": "distortion.inverse_brown_conrady",
+                "coeffs": [
+                  0.0,
+                  0.0,
+                  0.0,
+                  0.0,
+                  0.0
+                ]
+              }
+            },
+            "depth": {
+              "width": 848,
+              "height": 480,
+              "fps": 30,
+              "calibration_source_fps": 30,
+              "intrinsics": {
+                "fx": 419.5580749511719,
+                "fy": 419.5580749511719,
+                "ppx": 424.59051513671875,
+                "ppy": 240.18234252929688,
+                "distortion_model": "distortion.brown_conrady",
+                "coeffs": [
+                  0.0,
+                  0.0,
+                  0.0,
+                  0.0,
+                  0.0
+                ]
+              }
+            }
+          },
+          "factory_calibration_read": true,
+          "empirical_intrinsic_accuracy_verified": false,
+          "real_mount_status": "not_installed",
+          "verification_source": {
+            "path": "reports/d435_overhead_factory_20261013_170118/capture/20261013_170204_034425_30973f/snapshot_0001/metadata.json",
+            "sha256": "138cd6ba8b90caee203fe7f3ac5809494fdd28969aaef58435f493e7a5105323",
+            "usb": "3.2",
+            "read_utc": "2026-10-13T08:02:05.733257+00:00"
+          }
+        }
+      },
+      "student_schema_version": 3,
+      "policy_inputs": {
+        "right": [
+          "rgb",
+          "ir_right"
+        ],
+        "rear": [
+          "rgb",
+          "aligned_depth_m",
+          "depth_valid"
+        ]
+      },
+      "revision": "overhead_factory30_verified_20261013",
+      "previous_profile": {
+        "path": "src/harvest_robot/config/d435_deployment_20261013.json",
+        "sha256": "628e64ca42b7b14e97880a6041fa15f1c114d0c1a231c7028999165e71ffd996"
+      },
+      "mount_note": "Existing URDF optical mounts are initial simulation references; rear physical camera is not installed. Factory internal and world/arm mounting calibrations are separate."
+    },
+    "capture_contract": "physics_scheduled_multimodal_v3",
+    "history": 3,
+    "control_dt": 0.05,
+    "sensor_dt": 0.03333333333333333,
+    "timing_contract": {
+      "camera_hz": 30,
+      "policy_hz": 20,
+      "physics_dt": 0.016666666666666666,
+      "capture_stride_physics": 2
+    },
+    "frame_id": "arm_2/base_link",
+    "lower_rad": [
+      -1.9198600053787231,
+      -1.7453299760818481,
+      -1.690000057220459,
+      -1.6580599546432495,
+      -2.743849992752075,
+      -0.17453299462795258
+    ],
+    "upper_rad": [
+      1.9198600053787231,
+      1.7453299760818481,
+      1.690000057220459,
+      1.6580599546432495,
+      2.841209888458252,
+      1.7453299760818481
+    ],
+    "joint_names": [
+      "arm_2_shoulder_pan",
+      "arm_2_shoulder_lift",
+      "arm_2_elbow_flex",
+      "arm_2_wrist_flex",
+      "arm_2_wrist_roll",
+      "arm_2_gripper"
+    ],
+    "detector_sha256": "67142fa25599c8147642e0252ce21d05543ecd4fd8e68d8aff555dfd96a305fc",
+    "action_contract": "teacher60_normalized_executed_joint_target_v1",
+    "centre_offset_m": 0.025936794,
+    "box_from_arm": [
+      [
+        1.0,
+        0.0,
+        0.0,
+        0.235
+      ],
+      [
+        0.0,
+        1.0,
+        0.0,
+        -0.19
+      ],
+      [
+        0.0,
+        0.0,
+        1.0,
+        0.7129999999999999
+      ],
+      [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ]
+    ],
+    "box_min": [
+      0.305,
+      -0.095,
+      0.506
+    ],
+    "box_max": [
+      0.495,
+      0.095,
+      0.701
+    ],
+    "student_schema_version": 3,
+    "visual_scene_sha256": "5dd0e9d0b939b34bd44533aedd3a869cc04d8b53ce1fa9c6bd73b24e46a68d6f",
+    "teacher_runtime": {
+      "schema": "teacher60_friction_selected_runtime_v1",
+      "version": "teacher60_finger_friction_run_v2",
+      "date": "2026-10-13",
+      "status": "adopted_simulation_development_inference",
+      "environment_profile": "src/harvest_robot/config/teacher60_finger_friction_v1.json",
+      "environment_profile_sha256": "59bf1a85be3bf569527b66248e4c612bb6492c941bc8815b9f396dbdb47edcae",
+      "followup": {
+        "bridge_velocity_cap": 0.15,
+        "bridge_rate_deg_s": 6.0,
+        "transport_mode": "progress_budget"
+      },
+      "maximum_extra_transport_s": 6.0,
+      "worker": "scripts/eval_teacher60_friction_verified.py",
+      "entry": "scripts/eval_teacher60_selected.py",
+      "training_executed": false,
+      "hardware_executed": false,
+      "force_calibrated": false,
+      "evidence": "outputs/harvest_rl/friction_followup_20261013/result.json",
+      "transfer": "Inference-only, frozen weights/normalizers; physical actuator cap and conditional deadline changed; not same-physics PPO resume",
+      "pins": {
+        "scripts/eval_teacher60_selected.py": "0781663a420f748e7ddc0a1e27ad204804a4e1c49abd8f2b5f27a5f3f2364bd6",
+        "scripts/eval_teacher60_friction_verified.py": "8e73443f832ccb6afbbbdd13a2d6eb563ab4071aecee5883ef0e7d4270c70783",
+        "scripts/eval_teacher60_friction_progress.py": "a4461982cfe1f101b0ac76f67d538ead104d32d004bcfce49b87e959d91e1cea",
+        "scripts/eval_teacher60_friction_followup_v2.py": "f477c837f00cd4d37cd9f65c04987cafc8fc15dbdec2b7c5c2672fdd3d23c01e",
+        "scripts/eval_teacher60_friction_followup.py": "69dd410876dc9288c82e9ea27c7f18e49f18eaf0903859ea6dd5fa7cb97b595e",
+        "src/harvest_robot/harvest_rl/friction_selected.py": "5eca8018132ed5b706e5fde80ad9761f94de3fd45003363033a918f03472600b",
+        "src/harvest_robot/harvest_rl/friction_followup.py": "accceaa3c391abb12e4e0e130a494f251e5bbd007797e78eb3b01fd2afe077e8",
+        "src/harvest_robot/harvest_rl/teacher_friction_followup_env.py": "4ceca3d4f0c8181bb3866aebbd9ad73b94365cfaed3b84c47934fc23a86e0b05",
+        "src/harvest_robot/harvest_rl/teacher_friction_progress_env.py": "d565be337649d639f89808820eb0c12093c05357481773291600c135e9d4f56d",
+        "src/harvest_robot/harvest_rl/transport_progress_budget.py": "2b027d569c650e69ce9497999018a696b193ea97e1bf6a3327fe2788e5a8c273",
+        "src/harvest_robot/harvest_rl/stem_force_audit.py": "850c59fd347908107be5f29ee4ca27040fc1caab856ab9cc0bda263359b23821",
+        "src/harvest_robot/harvest_rl/stem_force_audit_v2.py": "90cd136bceabad67bb1d1335b120758fb64abc6829c3271ff1161110122bc047",
+        "src/harvest_robot/harvest_rl/stem_force_audit_v3.py": "a80064d600143761c4a70c085dd21466fecb3cd1e663bcf6abbeb72b0f3d5170",
+        "outputs/harvest_rl/friction_followup_20261013/result.json": "5f352b9d1d3ca78867e924a59325b8e7ed2de300b51867fda4ba658cca74fa34",
+        "outputs/harvest_rl/friction_followup_20261013/bridge_cap015_validation/run.json": "365787a379014c136efbc4cbe3af495c33c47749949a4358c1c0e6a4a56d477c",
+        "outputs/harvest_rl/friction_followup_20261013/bridge_cap015_validation/analysis.json": "cecf0c2d2a0efc92a541af3d57d81a64d52ae538b5bcee1bf844f322d40c3424",
+        "outputs/harvest_rl/friction_followup_20261013/bridge_cap015_validation/stem_force_analysis.json": "b1d70433686d08896e7cb8c8ee456b8f9a2faf3065a4f5734e1bc13928bbd07e",
+        "outputs/harvest_rl/friction_followup_20261013/progress_train/run.json": "387948f8e92be6e3f00ad94807f6951cb8045d7c40301ef64083791f39f449a9",
+        "outputs/harvest_rl/friction_followup_20261013/progress_train/analysis.json": "4739e928676d9cf13a33189ac81559eacacbbeccafbec5716ff9e09d9df3c99e",
+        "outputs/harvest_rl/friction_followup_20261013/progress_train/stem_force_analysis.json": "62a9739d29ff9d91bee6444061c6d3f6e0ed9c30ab0cf405d8db18294dc7279e",
+        "outputs/harvest_rl/friction_followup_20261013/baseline_test/run.json": "7b3e63b51260ae2ac10e3c300073b01ca8ae1dcefe2e532f0a1815231c7a20b0",
+        "outputs/harvest_rl/friction_followup_20261013/baseline_test/analysis.json": "b999942016ffc866b15a918bc8dfeb8709ed7bd023b8b9d83704c2bbcbe31ae2",
+        "outputs/harvest_rl/friction_followup_20261013/baseline_test/stem_force_analysis.json": "56261fa123ca512370d31abed0447a1b2c5d8c9ee1a85a75c1f2839598cd6416",
+        "outputs/harvest_rl/friction_followup_20261013/verified_test/run.json": "9c36622c7f193e370daef815867e7f1ee7e2bf418e0d160642d86c0cc04fc563",
+        "outputs/harvest_rl/friction_followup_20261013/verified_test/analysis.json": "d72d825728575bad9098028f788b2f441fe7825bbd3755770a2a5ea889077c40",
+        "outputs/harvest_rl/friction_followup_20261013/verified_test/stem_force_analysis.json": "152dd9014a102124322e51fc217147f01c753871fb1be6ca51ee368ace374bad",
+        "outputs/harvest_rl/friction_followup_20261013/verified_fresh_validation/run.json": "c6f28f897da2a83727157e53817bd2f60f01b5968398aa7e400b748c15365d04",
+        "outputs/harvest_rl/friction_followup_20261013/verified_fresh_validation/analysis.json": "33c42d9ffa0f20a63dcf0fd34f05ddbff68dfcb157144ef3a3a067f204353f44",
+        "outputs/harvest_rl/friction_followup_20261013/verified_fresh_validation/stem_force_analysis.json": "54f3a9af6aaabc7a09aac82c0b8d6a262e81eeb6ca19055d9bab3d1620c907c9"
+      }
+    },
+    "task": {
+      "contract_version": 2,
+      "reward_version": 3,
+      "attachment_version": 4,
+      "entry_first_grasp": true,
+      "entry_capture_shaping": true,
+      "pull_recovery_shaping": false,
+      "pull_squeeze_rearm": true,
+      "pull_squeeze_ramp": true,
+      "pull_direction_shaping": true,
+      "pull_progress_reward": false,
+      "stage_transfer": true,
+      "lock_attachment": false,
+      "native_detach_recovery": true,
+      "captured_break_grace": true,
+      "post_detach_hold_guard": false,
+      "detached_capture_orientation": true,
+      "spring_grasp_grace": true,
+      "native_grasp_grace": true,
+      "grasp_orientation": "horizontal",
+      "grasp_angle_tolerance": 0.4363323129985824,
+      "grasp_orientation_weight": 4.0,
+      "grasp_version": 2,
+      "grasp_center_tolerance": 0.01,
+      "pregrasp_fraction": 0.0,
+      "transport_replay_fraction": 0.0,
+      "transport_start_min": 0.0,
+      "transport_start_max": 0.0,
+      "start_bank": "",
+      "task": "grasp",
+      "target_mode": "nearest",
+      "sequence": false,
+      "random_colors": false,
+      "timeout_scope": "fruit",
+      "background": "single",
+      "num_fruits": 2,
+      "region_origin": [
+        0.3,
+        -0.19,
+        0.713
+      ],
+      "region_min": [
+        0.2,
+        -0.175,
+        0.08700000000000008
+      ],
+      "region_max": [
+        0.3,
+        0.175,
+        0.35
+      ],
+      "diameter": 0.07,
+      "length": 0.075,
+      "mass": 0.009,
+      "spring_k": 60.0,
+      "spring_d": 4.2,
+      "angular_k": 0.015,
+      "angular_d": 0.002,
+      "stem_response_version": 6,
+      "stem_vertical_stiffness": 40.0,
+      "stem_max_extension": 0.04,
+      "tension_axis": [
+        -1.0,
+        0.0,
+        0.0
+      ],
+      "tension_hold_s": 0.04,
+      "lateral_stiffness_ratio": 0.25,
+      "break_force": 2.5,
+      "break_distance": 0.03,
+      "break_hold_s": 0.04,
+      "valid_pull_distance": 0.012,
+      "grip_hold_s": 0.25,
+      "place_hold_s": 0.6,
+      "transport_linear_pose_stop": true,
+      "release_stop_s": 0.3,
+      "release_speed": 0.05,
+      "box_contact_tolerance": 0.003,
+      "shape_placement": true,
+      "box_bottom_contact_tolerance": 0.01,
+      "legacy_box_bottom_margin": 0.01,
+      "contact_threshold": 0.08,
+      "max_contact_force": 25.0,
+      "action_speed": 0.8,
+      "gripper_speed": 1.2,
+      "gripper_effort": 0.5,
+      "gripper_stiffness": 8.0,
+      "gripper_damping": 0.3,
+      "grip_friction": 1.0,
+      "dynamic_friction": 1.0,
+      "restitution": 0.02,
+      "fruit_collision_mode": "legacy",
+      "contact_stiffness": 0.0,
+      "contact_damping": 0.0,
+      "gripper_max_error": 0.04,
+      "contact_substeps": 1,
+      "contact_solver_refine": false,
+      "release_intent_mode": true,
+      "release_measured_open": true,
+      "transport_adaptive_grip": true,
+      "transport_pose_stop": true,
+      "detached_grip_hold": true,
+      "gripper_hold_error": 0.035,
+      "hold_force": 0.6,
+      "hold_s": 1.0,
+      "detached_hold_s": 0.5,
+      "max_slip": 0.012,
+      "physics_dt": 0.016666666666666666,
+      "decimation": 3,
+      "render_hz": 30,
+      "episode_s": 20.0,
+      "tree_position": [
+        0.85,
+        -0.19,
+        0.0
+      ],
+      "tree_scale": [
+        0.75,
+        0.75,
+        1.35
+      ],
+      "box_min": [
+        0.305,
+        -0.095,
+        0.506
+      ],
+      "box_max": [
+        0.495,
+        0.095,
+        0.701
+      ],
+      "curriculum": 0.0,
+      "workspace_split": "eval"
+    },
+    "sensor_mount_reference_urdf_sha256": "54f3a8ff55f22c2f2c91b40696ae2d31cda4fd7660d4e54e09ee5064da36db5f",
+    "deployment_arm_appearance_sha256": "cd44015dfc7acdd6d558fcd71c92c159fc227a56923cf557691cd6b4d0c05620",
+    "robot_asset_sha256": "b73ed90a6e56216d3764c6e7285450d979812f32569a2414df0ce7a29eb7963f"
+  },
+  "data_path": "outputs/harvest_rl/student60_improvement_20261015/round2/data.json",
+  "data_sha256": "b57d4441e7aa4b14cd4ddba06a1c3333ec74b84030f43ee9a563fb9d109f51d3",
+  "input_seeds": [
+    91311,
+    91312,
+    91313,
+    91314,
+    91315,
+    91317,
+    91318,
+    91319,
+    91320,
+    91321,
+    91322,
+    91323,
+    91324,
+    91325,
+    91326,
+    91327,
+    91328,
+    91329,
+    91330,
+    91331,
+    91332,
+    91333,
+    91334,
+    91335,
+    91336,
+    91337,
+    91338,
+    91339,
+    91340,
+    91341,
+    91342,
+    91343,
+    91344,
+    91345,
+    91346,
+    91347,
+    91348,
+    91349,
+    91350,
+    92411,
+    92412,
+    92413,
+    92414,
+    92415,
+    92416,
+    92417,
+    92418,
+    92419,
+    92420,
+    105260,
+    105261
+  ],
+  "source_root": "/home/bhc/manyfarm_ws/manyfarm_robotarm",
+  "robot_root_to_policy_world": [
+    [
+      2.220446049250313e-16,
+      -1.0,
+      0.0,
+      0.050000000000000044
+    ],
+    [
+      1.0,
+      2.220446049250313e-16,
+      0.0,
+      2.7755575615628914e-17
+    ],
+    [
+      0.0,
+      0.0,
+      1.0,
+      0.0
+    ],
+    [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+    ]
+  ],
+  "frozen_physics_usd": "outputs/harvest_rl/current_robot/b73ed90a6e56216d/harvest_current.usd",
+  "robot_with_cameras": "handoff/robot/robot_with_d435.usdc",
+  "validation": {
+    "development": "4/4",
+    "frozen_fresh_test": "4/4",
+    "fresh_seed": 106146,
+    "criterion": "box_outcome_v2",
+    "fruit_mass_kg": 0.009,
+    "neural_policy_only": false,
+    "hardware_executed": false,
+    "wall_clock_20hz_verified": false,
+    "latency_candidate_harvest": "0/4; excluded from defaults"
+  },
+  "teacher_checkpoint_role": "Original physical-profile integrity pins only; actor loads=0 in Student evaluation",
+  "detector_provenance": {
+    "original_filename": "model_yolo11_seg_ver1.2.pt",
+    "note": "Existing user-supplied custom Ultralytics segmentation weight; training data/redistribution terms not established here"
+  },
+  "raw_training_data_included": false
+}

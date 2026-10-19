@@ -1,0 +1,135 @@
+{
+  "schema": "student60_camera_verified_candidate_v1",
+  "finished_utc": "2026-10-15T06:55:48.608557+00:00",
+  "candidate": "faster_capture_v20",
+  "entry_script": "scripts/eval_student60_faster_capture_box.py",
+  "controller": "src/harvest_robot/harvest_runtime/student60_faster_capture.py",
+  "control_source": "camera_student_with_side_scan_finite_preload_flexible_transfer_and_faster_capture",
+  "checkpoint": "round2_train_lr1e4/student_best.pt",
+  "center_correction": "camera_only_center/center_best.pt",
+  "success_criterion": "box_outcome_v2",
+  "box_dwell_s": 0.6,
+  "task_budget_sim_s": 60,
+  "critical_physical_failures_preserved": true,
+  "teacher_or_truth_in_runtime_control": false,
+  "neural_policy_alone": false,
+  "additional_optimizer_training_in_control_repair": false,
+  "hardware_executed": false,
+  "production_adoption": false,
+  "cpu_tests_passed": 88,
+  "original_files_preserved": 17,
+  "source_pins_unchanged": 41,
+  "evaluations": [
+    {
+      "role": "development_regression",
+      "path": "faster_capture_regression_v20",
+      "seed": 106143,
+      "independent": false,
+      "completed": true,
+      "successes": 4,
+      "attempts": 4,
+      "audit_passed": true,
+      "audit_path": "faster_capture_followthrough_v20/regression_audit.json",
+      "commands": 2534,
+      "native_camera_records": 5068,
+      "response6_physics_calls": 7602,
+      "qualified_outcome_successes": 2,
+      "legacy_release_quality_certificates": 0,
+      "episodes": [
+        {
+          "color": "Red",
+          "status": "SUCCEEDED",
+          "steps": 630,
+          "sim_seconds": 31.5,
+          "wall_seconds": 299.4863551579765
+        },
+        {
+          "color": "Yellow",
+          "status": "SUCCEEDED",
+          "steps": 699,
+          "sim_seconds": 34.95,
+          "wall_seconds": 334.5329525010311
+        },
+        {
+          "color": "Red",
+          "status": "SUCCEEDED",
+          "steps": 611,
+          "sim_seconds": 30.55,
+          "wall_seconds": 302.1164069380029
+        },
+        {
+          "color": "Yellow",
+          "status": "SUCCEEDED",
+          "steps": 594,
+          "sim_seconds": 29.700000000000003,
+          "wall_seconds": 281.0824085219647
+        }
+      ],
+      "critical_physical_failure_ticks": 0
+    },
+    {
+      "role": "frozen_fresh_test",
+      "path": "faster_capture_followthrough_v20/fresh_test",
+      "seed": 106146,
+      "independent": true,
+      "completed": true,
+      "successes": 4,
+      "attempts": 4,
+      "audit_passed": true,
+      "audit_path": "faster_capture_followthrough_v20/fresh_test_audit.json",
+      "commands": 2873,
+      "native_camera_records": 5746,
+      "response6_physics_calls": 8619,
+      "qualified_outcome_successes": 2,
+      "legacy_release_quality_certificates": 0,
+      "episodes": [
+        {
+          "color": "Red",
+          "status": "SUCCEEDED",
+          "steps": 679,
+          "sim_seconds": 33.95,
+          "wall_seconds": 304.94008347199997
+        },
+        {
+          "color": "Yellow",
+          "status": "SUCCEEDED",
+          "steps": 581,
+          "sim_seconds": 29.05,
+          "wall_seconds": 262.8833298080135
+        },
+        {
+          "color": "Red",
+          "status": "SUCCEEDED",
+          "steps": 772,
+          "sim_seconds": 38.6,
+          "wall_seconds": 350.73887990700314
+        },
+        {
+          "color": "Yellow",
+          "status": "SUCCEEDED",
+          "steps": 841,
+          "sim_seconds": 42.050000000000004,
+          "wall_seconds": 387.33682662202045
+        }
+      ],
+      "critical_physical_failure_ticks": 0
+    }
+  ],
+  "known_failure_repair": {
+    "before": "finite_load_box_regression_v18/episode_0003",
+    "before_status": "FAILED_dropped",
+    "before_steps": 267,
+    "after": "faster_capture_regression_v20/episode_0003",
+    "after_status": "SUCCEEDED",
+    "after_steps": 594,
+    "observed_capture_step": 261,
+    "all_four_domains_and_entry_steps_matched": true,
+    "comparison": "faster_capture_development_comparison.json"
+  },
+  "limits": [
+    "One-arm simulation with the existing 9g response6 plant; four fresh cases are not a general success-rate estimate.",
+    "Results use explicit camera/joint/URDF assistance and are not neural-policy-only performance.",
+    "Camera mounting/hand-eye calibration, motor-unit/force calibration, real payload and full real-time control remain unverified.",
+    "Legacy grasp/release certificates remain separate diagnostics; their absence is not hidden."
+  ]
+}

@@ -1,0 +1,315 @@
+{
+  "schema": "d435_deployment_v2",
+  "camera_order": [
+    "right",
+    "rear"
+  ],
+  "fps": 30,
+  "policy_hz": 20,
+  "control_dt": 0.05,
+  "sensor_dt": 0.03333333333333333,
+  "history": 3,
+  "capture_contract": "physics_scheduled_multimodal_v3",
+  "depth_min_m": 0.28,
+  "depth_max_m": 3.0,
+  "render_near_m": 0.01,
+  "render_far_m": 20.0,
+  "calibration_verified": false,
+  "sim_depth_model": "ideal geometric optical-Z; not stereo confidence/noise",
+  "sim_ir_model": "visible-light luminance at factory right IR optical pose; not NIR/projector/stereo simulation",
+  "preprocessing": "Separate wrist RGB, wrist right IR, rear RGB-D encoders; RGB/IR bilinear and rear depth nearest at160x90",
+  "source": {
+    "kind": "user_supplied_device_calibration",
+    "sha256": "33eb06932395c855f00b6c3fed55079a44b082923f97217576f849cccacf68bf"
+  },
+  "views": {
+    "right": {
+      "serial": "920312072384",
+      "device": {
+        "name": "RealSense D435",
+        "serial_number": "920312072384",
+        "firmware_version": "5.17.3.10",
+        "usb_type_descriptor": "3.2"
+      },
+      "rgb_optical_frame": "arm_2/wrist_camera_color_optical_frame",
+      "depth_optical_frame": "arm_2/wrist_camera_depth_optical_frame",
+      "internal_calibration_verified": true,
+      "target_profile_verified": true,
+      "mount_calibration_verified": false,
+      "calibration_status": "factory intrinsics supplied; hand-eye pending",
+      "depth_scale_m": 0.0010000000474974513,
+      "rgb_from_stream": {
+        "rgb": [
+          [
+            1.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          [
+            0.0,
+            1.0,
+            0.0,
+            0.0
+          ],
+          [
+            0.0,
+            0.0,
+            1.0,
+            0.0
+          ],
+          [
+            0.0,
+            0.0,
+            0.0,
+            1.0
+          ]
+        ],
+        "depth": [
+          [
+            0.9999829530715942,
+            -0.005790132563561201,
+            0.0007864008075557649,
+            0.014988590963184834
+          ],
+          [
+            0.005789410788565874,
+            0.9999828338623047,
+            0.0009173604776151478,
+            3.796919554588385e-05
+          ],
+          [
+            -0.0007916989270597696,
+            -0.0009127920493483543,
+            0.9999992847442627,
+            0.0005209025111980736
+          ],
+          [
+            0.0,
+            0.0,
+            0.0,
+            1.0
+          ]
+        ],
+        "ir_right": [
+          [
+            0.9999829530715942,
+            -0.005790132563561201,
+            0.0007864008075557649,
+            0.06488772481679916
+          ],
+          [
+            0.005789410788565874,
+            0.9999828338623047,
+            0.0009173604776151478,
+            0.00032686072518117726
+          ],
+          [
+            -0.0007916989270597696,
+            -0.0009127920493483543,
+            0.9999992847442627,
+            0.00048139673890545964
+          ],
+          [
+            0.0,
+            0.0,
+            0.0,
+            1.0
+          ]
+        ]
+      },
+      "streams": {
+        "rgb": {
+          "width": 1280,
+          "height": 720,
+          "fps": 30,
+          "calibration_source_fps": 30,
+          "intrinsics": {
+            "fx": 923.1194458007812,
+            "fy": 923.3059692382812,
+            "ppx": 654.8013305664062,
+            "ppy": 355.6888427734375,
+            "distortion_model": "distortion.inverse_brown_conrady",
+            "coeffs": [
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0
+            ]
+          }
+        },
+        "depth": {
+          "width": 848,
+          "height": 480,
+          "fps": 30,
+          "calibration_source_fps": 30,
+          "intrinsics": {
+            "fx": 425.01312255859375,
+            "fy": 425.01312255859375,
+            "ppx": 427.376220703125,
+            "ppy": 241.6244659423828,
+            "distortion_model": "distortion.brown_conrady",
+            "coeffs": [
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0
+            ]
+          }
+        },
+        "ir_right": {
+          "stream_type": "stream.infrared",
+          "stream_index": 2,
+          "format": "format.y8",
+          "fps": 30,
+          "width": 848,
+          "height": 480,
+          "intrinsics": {
+            "fx": 425.01312255859375,
+            "fy": 425.01312255859375,
+            "ppx": 427.376220703125,
+            "ppy": 241.6244659423828,
+            "distortion_model": "distortion.brown_conrady",
+            "coeffs": [
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0
+            ]
+          },
+          "calibration_source_fps": 30
+        }
+      },
+      "verification_source": {
+        "path": "reports/d435_deployment_20261013/hardware/calibration/20261013_154414_745057_742400/snapshot_0001/metadata.json",
+        "sha256": "8107332c2179321ecdfbd1940f85d81ee33daa427ca126a7114a6882f1a5c9bc",
+        "usb": "3.2"
+      },
+      "wrist_depth_role": "native raw diagnostic only; excluded from policy and target3D; rear determines target3D"
+    },
+    "rear": {
+      "serial": "920312070027",
+      "device": {
+        "serial": "920312070027"
+      },
+      "rgb_optical_frame": "top_camera_color_optical_frame",
+      "depth_optical_frame": "top_camera_depth_optical_frame",
+      "internal_calibration_verified": false,
+      "target_profile_verified": false,
+      "mount_calibration_verified": false,
+      "calibration_status": "provisional factory values at RGB15/depth10fps; target30fps pending",
+      "depth_scale_m": 0.0010000000474974513,
+      "rgb_from_stream": {
+        "rgb": [
+          [
+            1,
+            0,
+            0,
+            0
+          ],
+          [
+            0,
+            1,
+            0,
+            0
+          ],
+          [
+            0,
+            0,
+            1,
+            0
+          ],
+          [
+            0,
+            0,
+            0,
+            1
+          ]
+        ],
+        "depth": [
+          [
+            0.999848187,
+            0.016588677,
+            0.005327442,
+            0.01490528
+          ],
+          [
+            -0.016601888,
+            0.999859214,
+            0.002445512,
+            -2.3506e-05
+          ],
+          [
+            -0.005286124,
+            -0.002533586,
+            0.999982834,
+            0.000139598
+          ],
+          [
+            0,
+            0,
+            0,
+            1
+          ]
+        ]
+      },
+      "streams": {
+        "rgb": {
+          "width": 1280,
+          "height": 720,
+          "fps": 30,
+          "calibration_source_fps": 15,
+          "intrinsics": {
+            "fx": 928.995056,
+            "fy": 929.47522,
+            "ppx": 653.102905,
+            "ppy": 373.608765,
+            "coeffs": [
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            "distortion_model": "inverse_brown_conrady"
+          }
+        },
+        "depth": {
+          "width": 848,
+          "height": 480,
+          "fps": 30,
+          "calibration_source_fps": 10,
+          "intrinsics": {
+            "fx": 419.558075,
+            "fy": 419.558075,
+            "ppx": 424.590515,
+            "ppy": 240.182343,
+            "coeffs": [
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            "distortion_model": "brown_conrady"
+          }
+        }
+      }
+    }
+  },
+  "student_schema_version": 3,
+  "policy_inputs": {
+    "right": [
+      "rgb",
+      "ir_right"
+    ],
+    "rear": [
+      "rgb",
+      "aligned_depth_m",
+      "depth_valid"
+    ]
+  }
+}

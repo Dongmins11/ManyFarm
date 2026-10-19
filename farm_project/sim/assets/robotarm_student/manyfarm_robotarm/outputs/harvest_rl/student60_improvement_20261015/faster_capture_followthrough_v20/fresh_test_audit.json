@@ -1,0 +1,27 @@
+{
+  "passed": true,
+  "root": "/home/bhc/manyfarm_ws/manyfarm_robotarm/outputs/harvest_rl/student60_improvement_20261015/faster_capture_followthrough_v20/fresh_test",
+  "success_criterion": "box_outcome_v2",
+  "criterion_override": false,
+  "actual_rollouts": 4,
+  "policy_commands": 2873,
+  "native_camera_records": 5746,
+  "completed_harvest_attempts": 4,
+  "outcome_successes": 4,
+  "placement_quality_successes": 0,
+  "box_settlement_successes": 4,
+  "qualified_outcome_successes": 2,
+  "checks": [
+    "predicted_equals_applied8",
+    "absolute_joint_servo_bounds",
+    "20Hz_sequential",
+    "30Hz_native_sequence_pose_age_FK",
+    "50ms_target_freshness",
+    "release_latch_monotonic",
+    "real_terminal_or_intentional_partial",
+    "full_started_attempt_denominator",
+    "3physics_per_command",
+    "active_response6_called_each_physics_tick",
+    "physical_outcome_and_process_quality_separated"
+  ]
+}

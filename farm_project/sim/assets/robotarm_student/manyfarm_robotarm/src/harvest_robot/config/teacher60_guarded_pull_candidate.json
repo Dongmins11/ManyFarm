@@ -1,0 +1,83 @@
+{
+  "schema": "teacher60_guarded_pull_candidate_v1",
+  "status": "compared_connection_candidate",
+  "learning": false,
+  "hardware_executed": false,
+  "production_selection_changed": false,
+  "training_gate_eligible": false,
+  "grasp_checkpoint": "runs/harvest_rl/teacher60_grasp_bridge_20261011_162738.9TsEHh/teacher_final.pt",
+  "grasp_checkpoint_sha256": "684cb805303086d6627339d390d305c85a9791f64bb5640eb098f0a73734e9ce",
+  "pull_checkpoint": "runs/harvest_rl/teacher60_bridge_pull_20261011_183519.81Q1hV/teacher_final.pt",
+  "pull_checkpoint_sha256": "7cbc96e0c3e6de3033e6206a80f46e5c7e9a7d5e7ea8d724abe5e38a4f12d75a",
+  "original_training_contract_sha256": "bd5b36b837f4918c8832c77a277e349dba82663444039abc4b63de6895060e0e",
+  "inference_contract_sha256": "f220286817a916cff10afa8ef12bdb1c9046826811c8b6994358e0a521dbea47",
+  "controller": {
+    "speed_m_s": 0.03,
+    "travel_m": 0.055,
+    "gain_s": 4.0,
+    "orientation_length_m": 0.04,
+    "damping_m": 0.003,
+    "joint_speed_rad_s": 0.3,
+    "hold_after_detach": true,
+    "axial": true,
+    "risk_extension_m": 0.028,
+    "risk_lateral_m": 0.025,
+    "risk_axial_m": 0.008
+  },
+  "detached_arm_hold": "All valid physical detachments hold loaded arm targets until original0.5s success/failure/timeout or explicit release",
+  "physics_hz": 60,
+  "policy_hz": 20,
+  "task": {
+    "scope": "grasp bridge, pull and0.5s retained detachment only",
+    "mass_kg": 0.009,
+    "fruit_version": 1,
+    "attachment_version": 4,
+    "stem_response_version": 6
+  },
+  "evaluator": "scripts/eval_teacher60_pull_guarded.py",
+  "command": [
+    "--control",
+    "selective-hold",
+    "--split",
+    "validation",
+    "--headless",
+    "--execute"
+  ],
+  "result": {
+    "validation": {
+      "count": 32,
+      "baseline": 27,
+      "success": 29,
+      "improved_trials": [
+        16,
+        27
+      ],
+      "regressed_trials": []
+    },
+    "test": {
+      "count": 32,
+      "baseline": 25,
+      "success": 26,
+      "improved_trials": [
+        30
+      ],
+      "regressed_trials": []
+    }
+  },
+  "source_files_sha256": {
+    "scripts/train_teacher60_bridge_pull.py": "fb029f35a292ade23f1e8ed93d581e3297ea1afb2bce0f2a68b42c96d2693805",
+    "scripts/analyze_teacher60_bridge_training.py": "4701a4b60b48fc290d5df44c299443634fc20253fdfd38095e7578980c704906",
+    "src/harvest_robot/harvest_rl/bridge_pull_training.py": "d0b4ba050918325cdccace071095ae0a8622297524695cae0e579c75177c008e",
+    "src/harvest_robot/harvest_rl/teacher_bridge_pull_env.py": "6e2829f894353e58dc819f5fd28fe6aaa2dc8a6d79cf0470ac1e61d010ae8e9a",
+    "src/harvest_robot/harvest_rl/bridge_pull_ppo.py": "086f376b0be3728ac3a48eacc47c06418e95c940f79293af439b7105d7884a92",
+    "scripts/eval_teacher60_pull_guarded.py": "805eaadd0146576d9122f6d058c4958788705a909d748aa4f88dc2c5856d5609",
+    "src/harvest_robot/harvest_rl/bridge_pull_path.py": "e6ac724caed752bb28d0afdadd4976310f5aa959559282cb450d67ecc31e044a",
+    "src/harvest_robot/harvest_rl/teacher_bridge_pull_risk_env.py": "17e9656cfa69102f2cf65a4c686f5d7a076d7432f3e8393faa90534a725d4646",
+    "src/harvest_robot/harvest_rl/teacher_bridge_pull_guarded_env.py": "4c809f2a548bf99be0086610b3fd4f601b530dcebbb50470541e21e72d8b19f4",
+    "src/harvest_robot/harvest_rl/bridge_pull_risk.py": "703389cffc06fd214e9f5f13fa89170233f69da44ca2c09b669d2cb285204368",
+    "src/harvest_robot/harvest_rl/matched_pull_60hz.py": "6866a9b03cfb0b47219c806dacf2a3f274d640ebbffe5c5b747e1818e4628ec2"
+  },
+  "report": "docs/manipulation/TEACHER60_PULL_GUARDED_EVALUATION_20261011_KR.md",
+  "evidence": "outputs/harvest_rl/bridge_path_compare_20261011_v5",
+  "integration_note": "End detached arm hold when actual0.5s retention succeeds and transport takes over. Record applied actions for Student labels, not raw actor predictions."
+}

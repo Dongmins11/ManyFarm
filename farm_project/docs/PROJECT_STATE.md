@@ -889,3 +889,66 @@ overrides:
 
 - 사용자 “이 상태로 한번 커밋 푸시하자”에 따라 기준7b0e1a4 이후 현재 작업트리의60Hz Teacher 전환/480Hz 제거, 수확 Action·국소 물리, 바퀴 접촉 수정과 수확 성능 개선을 함께 커밋 대상으로 확정했다. 기존 루트 README 삭제도 현재 상태에 포함한다. 실행 로그·백업·전달 압축은 기존 ignore 정책대로 로컬에 보존한다.
 - 원격 조회: git fetch origin 성공, 준비 시점 HEAD와 origin/main은7b0e1a4로 동일(ahead0/behind0). 기존 검증 결과는 §63~68에 기록했으며 이번 게시 요청을 이유로 사용자 GUI/ROS를 재시작하거나 물리 시험을 반복하지 않았다. 최종 커밋 SHA와 push 결과는 Git 이력 및 작업 응답에서 확인한다.
+
+
+## 70. D435 Student 기본 수확 Action 연결 — 2026-10-16
+
+- 승인/기준: 사용자 “D435 Student 연결까지 진행”. 기준2a397da 위 신규 미커밋 작업이며 기존 주행/60Hz Teacher/성능 수정 보존. 기본 `harvest.json` backend는 `student_d435`, 공통 완료 정책/endpoint는 기존 ARRIVAL_THEN_ARM/sim/harvest_arm이다. Teacher는 명시적 비교/복원 경로, U20는 자산·offline 모델 검사만 보존하고 실행하지 않는다. 공통 로봇 코드·실물 설정은 변경하지 않았다. 신규 commit/push 없음.
+- 전달 무결성: ../robotarm_student 원본 압축 SHA409633afa28bc4c05e1558a4df7f9c1ff9da95e412f4a608b1b8bc7d0c56cbec 일치. `import_student60.py`로 sim/assets/robotarm_student/manyfarm_robotarm에 상대 구조를 보존해 설치했다. 원본 파일1330개 해시/양 모델 로딩/원본 D435 계약 검사 PASS이며 자산 내 제공 소스·모델은 수정하지 않았다. D435 checkpoint SHAe73958a40c227c7ff5ee44e7970f0d93e1273b6b8e949d0b4380f5be8e838403. 최신 기준 MISSION_README/MISSION_RELEASE/run_student60_mission이며 이전 단일 목표 문서를 기준으로 쓰지 않는다.
+- 물성/자산: 제공 frozen 물성의5개 USD layer SHA가 현행 Teacher reference 원본과 모두 같음을 physical_release_match.json으로 확인했다. 현재 바퀴/접지 수정이 있는 로봇을 전체 D435 USD로 교체하거나 URDF에서 물성을 재변환하지 않았다. 전달 카메라/손목 CAD9개 mesh와 외형만 현재 TeacherVisuals 구조에 연결했고2457개 물성 속성이 보존됐다. 기존 농장 양팔 주행 접힘을 mission stow로 사용하고 학습 HOME은 유지한다. 제어는 오른팔6축만, 왼팔은 기존 접힘 유지다.
+- 센서/추론: 새 student_camera.py가 실제 손목 rigid-body와 D435 손목RGB/오른IR·후방RGB-D를 연결한다. 제공K/내부TF/리맵/깊이정렬/원본 영상 크기·30Hz촬영을 유지하고 실제K와 optical FK를 매 촬영에 검사한다. 원본 기준2e-4를 완화하지 않았으며2과실 시험 최대 FK 오차1.8708434e-6. 촬영은 물리 시간을 늘리지 않는 두 render pass이며 화면 render와 별도 비용이다. 유휴 시 센서 갱신을 끄고 외형은 실제 팔을 따라간다. 추론은GPU(cuda:0), CPU 영상 전처리는 제공 실행기와 같은Torch4/OpenCV1스레드다. IR은 제공본과 같은 가시광 휘도 근사이며 실물IR/hand-eye 인증이 아니다.
+- 실행 경계: StudentArmSession은 기존 UDP 검증/lease/중복 방지/차체 잠금/측정 정지를 재사용하고 제공 MissionCameraSession/StudentHarvestMission을 연결한다. 정책은 실제 영상·관절 피드백·카메라 추정 목표만 사용한다. PhysX에서 최종 관절 목표/gain/속도를 읽어 적용 ack하며 제안 명령만으로 ack하지 않는다. 모델/센서URDF/외형 SHA와 물리 task 계약도 검사한다. 기존 teacher_policy.json은 기구·작업 범위·세션 설정으로 계속 참조하지만 Student backend는 Teacher actor를 로드하지 않는다.
+- 목표/완료: 현재 공통 Goal은 기대개수만 전달한다. 제공 tracker의 측정 여유 ROI가 인접 창 과실도 포함하므로 기존 농장 고정 근거리 범위를 **영상 관측 좌표에만** 적용해 현재 작업 목록을 확정한다. 빈/부족/과잉/모호 목록은 실패하고 truth로 채우지 않는다. 초기 관측을 실제 장착점의 중력 world Z로 변환해 낮은 순으로 정렬하되 정책의 학습 박스 좌표 계약은 바꾸지 않는다.2과실 실제 관측으로 최종 중력 정렬 변경의 순서 동등성도 replay 검사했다. 시뮬 truth는 목록 확정 후 outcome ID 일대일 대응/실제 collider 박스 안착·양손가락clear·분리·0.6초 연속 유지/안전 감시에만 쓴다. 안착 조건이 깨지면 제어 tick 전의 과거 확인도 취소한다.
+- 작업 상태: 과실마다 상방→HOME→접힘 복귀 후 다음 목표를 진행하며 적재 과실/장면을 보존한다. 적재 성공 수와 전체 완료를 분리하고 공통 최종 정지 실패 시 controller가DONE이어도 전체 완료를 거짓으로 기록한다. 취소/실패로 접힘 미확인이면 차체 잠금을 유지한다. 물리CPU60Hz/정책20Hz/국소과실 활성화/연결 외력 매물리tick 유지. Student 영상 처리 비용에 맞춰 sim 실시간 Action 예산만1800초/클라이언트1860초로 확대했다.
+- 직접 native: 독립 제공 D435 실행기는 원본 한 장면에서2/2 적재·매 과실 접힘·최종DONE124.4sim초/리셋0/exit0로 재현. 농장 단일007은 실제 손목 센서로1/1·접힘·안전정지69.7167sim초 SUCCESS, 최종 드라이브 readback을 사용한2과실008은 낮은 노랑13→빨강27 순2/2·과실별 접힘·최종정지133.1000sim초 SUCCESS/ROS Action PASS. 활성 과실0→4→2, Teacher actor 미로드. 초기 배치만 fixture로 정하고 작업 중 teleport/reset 없음. 단일/2과실은 같은 농장 일부 과실을 공유하므로 독립 성공률 표본으로 합산하지 않는다.
+- 혼합 센서/취소: 최종 전체 fleet에서 팔 작업 없이 Student 촬영을 강제 활성화한2sim초 시험은120physics tick,60회 예정 촬영구간, 기존 카메라29/19/19프레임·각60telemetry를 확인했다. 추가 render가 기존 카메라 시각 처리를 깨지 않았다. bounded 완료 후 SDK 종료 지연으로 **소유 시험 프로세스만**SIGTERM 정리했으며 정상 종료 검증과 구분한다. 최종009 실제 정책 중 ROS 취소는13.45sim초 CANCELED/safe_stopped=true/성공0/차체 잠금 유지, Action 검증 PASS.
+- 오프라인: 제공 mission14 + 어댑터/설정/기존세션·스케줄37 + Teacher 비교UI launcher10 =61 PASS(별도subtests 제외). 잘못된 목록을 truth로 보충하지 않음, 중력 변환이 정책 계약을 바꾸지 않음, 과거 안착 확인 취소, 외부 정지 실패 때 적재 수 보존·전체 완료 거부를 포함한다. 최초 launcher4개는 sandbox UDP 소켓 제한이었으며 정상 권한 재시험 완료.
+- 실패/한계:001은 vendor의 global /visuals 검색과 농장 TeacherVisuals 구조 차이를 어댑터에서 수정.002/003 센서 영상 없음/초기 렌더 실패 조건에서 GPU Out of memory 로그 확인(RTX4070 SUPER12GB, 기존GUI+독립시연+농장3앱); 이후 순차 실행으로 해결.004/005는 관측 여유ROI가 인접 창을 포함해 기대개수와 불일치한 의도된 안전 실패이며 fixed 작업범위를 영상에 적용한 뒤 해결.006은 중간 FK-pose 센서 버전의1/1 성공으로, 최종 실제 rigid-body 센서는007/008로 별도 검증했다. Nav2 도착 포함 전체 미션·다양한 농장 장면·U20 다중 수확·실물·양팔 협조 성공률은 이번 시험의 인증 범위가 아니다. Student 추가 센서 비용이 있으므로 이전 Teacher FPS 개선 수치를 적용하지 않는다.
+- 증거/적용: sim/runs/student60_20261016/verification_final.json, release_check.json, physical_release_match.json, gravity_replay.json, 원본 및farm_*로그/프레임, sim/runs/robotarm/student/<session>/<job>의 요청/실제영상/모델·제어 SHA/정책 제안·최종 목표·실측각/박스 판정/결과. 실행·설치·비교/복원은 sim/docs/RUN_GUIDE_20261006.md의 D435 Student 절. 기존 사용자 GUI/ROS는 중단하지 않았으며 **종료 후 전체 런치를 다시 시작해야** 새 기본값이 적용된다. Teacher 복원은 backend=teacher이며 비교 UI/평가기는 명시적으로Teacher를 선택한다. 변경 파일 패치는 student60_integration_20261016.tar.gz(전달 자산은 원본 압축을 import)로 제공한다.
+
+## Student 전달본 재확인 — 2026-10-19
+
+- 사용자 `main/robotarm_1019` 최신화 요청으로 재검사. 압축 SHA256 `409633afa28bc4c05e1558a4df7f9c1ff9da95e412f4a608b1b8bc7d0c56cbec`는 기존 10/16 통합본과 동일하며, 압축 내 일반 파일 1,331개를 설치본과 대조해 차이 0개를 확인했다. 새 모델·실행기 변경이 없어 기존 D435 Student 연결을 유지한다.
+- `harvest.json`의 오래된 Teacher 설명만 현재 Student 동작에 맞게 수정. 기본 backend `student_d435`, ARRIVAL_THEN_ARM, 물리60/정책20/촬영30Hz와 근처 과실 물리를 유지하며 공통/실물 변경 없음.
+- 직접 검증: 설정·목표 대응·세션·물리 스케줄 37 PASS(추가 subtests 2). 동일 바이너리여서 native 수확은 재실행하지 않았으며 10/16의 실제 단일/순차 시험과 구분한다. 증거: `sim/runs/student60_20261019/receipt_verification.json`. 기존 실행 프로세스는 재시작하지 않았다. 미커밋·미푸시.
+
+
+## 71. 수확·인계 통신 ZIP과 선행 공통 코드 통합 — 2026-10-19
+
+- 승인/기준: D-041. main/2a397da842300823cec077210ac7857024a6f66a + 기존 Student 미커밋 작업. origin/main pull 결과 동일; 브랜치 전체 merge/reset 없이 8466ac1의 필요한 공통 변경 13파일을 먼저 적용하고 harvest_sim_code_20261018.zip의 증분을 적용했다. ZIP 파일38개 해시 정상 및 원격 b2acf5b와 일치. 후속6f21119의 실물 조정은 이번 범위에서 제외했다.
+- 반영: farm_common/action_handoff의 비선점 인계, farm_bringup/harvest.launch의 설정 전달, farm_interfaces의 DockTransfer/TransferEvent/Discharge, harvest_robot의 transfer_mission/communication/devices와 의존성, ZIP의 수확량 누적·팔 접힘 차단·Spin·단일 배출 Action 및 관련 시험/인계 문서. ZIP 실행 코드/신규 문서 등33파일은 원본 그대로, 기존 상태/결정/시뮬 이력3문서와 실물/시뮬 설정2파일은 현재 상태에 맞춰 병합했다. 과거 담당자 문서의 PC 시험·승인은 전달 기록이며 이번 로컬 결과는 이 절을 따른다.
+- 설정/보존: 양 환경 transfer.enabled=false, load_source=arm_feedback, request_count=0. 호출/인계/새 배출은 비활성. sim은 ARRIVAL_THEN_ARM, endpoint sim/harvest_arm, 클라이언트1860초, Student 모델·카메라·물리 유지. real은 ARRIVAL_ONLY_NO_HARVEST와 기존 지도/좌표/태그/Nav2/통신 설정 유지. 원본 학생 작업 중 의도적 병합 대상4파일을 제외한 기존 수정·미추적 파일1348개의 해시 일치를 확인했다.
+- 추가 시험 보완: 기존 test_follow_work.py의 AST 노드 시험 환경에 실제 생성자가 요구하는 Callable/ActionHandoff/StationReturn 대역과 새 설정/HarvestLoad를 연결하고, sim/test_harvest_action.py의 노드 대역에 HarvestLoad를 추가했다. 주행 알고리즘·시험 기대값을 완화하지 않았다.
+- 직접 오프라인: harvest_robot 전체 시험 + Spin + sim 팔 클라이언트/Action/설정183 PASS, 기존 robot_venv의 Student 목표/안착/정지7 PASS, 팔 세션/물리 스케줄23 PASS, 총213 PASS. 최초 전체 수집은 시스템Python의 torch 부재로 실패해 Student만 기존 전용 환경에서 실행했다. 최초 회귀31실패는 시험 대역 의존성 누락으로 위 두 시험 파일 보완 후 해소했다.
+- 직접 빌드: 운영 robot/ros_ws에서 farm_interfaces/farm_navigation/farm_common/harvest_robot/farm_bringup 5패키지 colcon --symlink-install 성공. 처음 별도 설치 경로 빌드는4패키지 성공 후 farm_bringup의 기존 하위 패키지 설치 부재로 실패했으며, 기존 운영 install을 source한 정상 워크스페이스 빌드로 완료했다. 기존 메시지 필드는 보존하고 새 Action/Service만 추가했다.
+- 직접 ROS: 전달 ros_discharge_smoke.py의 정상/복수오류/거절/취소4시나리오 PASS. 현재 PC에 CycloneDDS 라이브러리가 없어 첫 시도는 실행 실패했고, 설치된 Fast DDS/domain207/LOCALHOST의 고유 test_only 주소에서 실행했다. sandbox UDP 생성 금지 경고가 있으므로 동일 프로세스의 ROS 서버·클라이언트 결과 확인 범위다. UDP 기기간/Zenoh/CycloneDDS 또는 실제 장치 동작 검증으로 해석하지 않는다. 테스트 환경변수는 자식 셸에만 적용했다.
+- 미구현/미검증: transport_robot에는 구현 예정 README만 있고, 기존 운송 경로/자산은 운송 미션 서버가 아니다. 관제 도킹/이격 이벤트, sim 배출·준비·정지 서비스, 운영 주소/임계량/회전/복구 합의가 필요하다. 실제 Isaac 수확/배출/회전/전체 인계 및 Jetson·실물은 이번에 실행하지 않았다. Student와 원본 운영 프로세스는 재시작하지 않았다. 새 설정은 다음 정상 재시작부터 적용한다.
+- 증거/복원: sim/runs/harvest_communication_20261019/의 receipt.json, prerequisite.patch, base_to_final.patch, before.json/before/, user_changes_before.patch, verification.json, offline_tests.log/student_tests.log/session_tests.log, runtime_build_logs, ros_smoke_fastrtps.log. 복원은 before.json의 이번 대상 중 기존 파일을 before/에서 복구하고 원래 없던 이번 신규 파일만 제거한 뒤 해당5패키지를 재빌드한다. 기존 Student 변경이나 미추적 자산은 삭제하지 않는다. 미커밋·미푸시.
+
+
+## 72. 바구니 두 레이저의 익명 통과 계수 — 2026-10-19
+
+- 승인/기준: D-042, 사용자 두 레이저 통과량으로 수확 성공 판정 요청. main/2a397da + 기존 Student/통신 통합 미커밋 작업을 보존했다. 이 절은 §70의 Student collider 안착 성공 설명을 대체한다. 시뮬 전용이며 공통/실물 소스, 모델/vendor, 원본 USD는 변경하지 않았다.
+- 구현: `basket_laser.py`의 두 PhysX ray가 이름/ID 필터 없이 충돌체 차단을 읽는다. 바구니 입구 중앙의 위/아래 빔은 높이 차30mm, 테두리 기준 -5/-35mm다. `student_policy.json`에서 배치를 조정한다. 세션 레이어에 센서·반사판·초록/빨강 빔을 표시하며 표시 변화가 없을 때 USD를 다시 쓰지 않는다. 실제 센서는60Hz 최신 장착 변환으로 검사한다.
+- 실행: `student_session.py`는 실제 배출 허가 `observed_tray_release_latched` 이후 시도당 한 번 계수한다. 위→양쪽→아래→비차단 순서와 시작/끝50ms 비차단을 확인한다. 빠른 동시 진입은 상단이 먼저 열리는 후속 순서가 있어야 인정하며 양쪽 동시 진입/이탈만으로는 성공하지 않는다. 역순/부분 통과/채터/2초 초과/중복은 성공하지 않는다. 취소/정지 때 계수를 닫고 기존 수량을 보존한다.
+- 의미: `success_source=basket_dual_laser`, `identity_confirmed=false`. 현재 목표 ID는 순차 시도의 연결 정보이지 센서가 식별한 ID가 아니다. 위치/정지시간으로 성공시키거나 통과 후 좌표 잔류로 수량을 취소하지 않는다. 미집계 대상의 기존 낙하·이탈/힘·접촉·타 과실 분리 안전 감시는 유지한다. 수량 증가와 최종 접힘/안전정지는 분리한다. 원본 Mission의 외부 `settled` 입력 슬롯에 통과 확인을 연결하되 출력에 물리 안착 성공을 만들지 않는다. 비교용 Teacher는 기존 안착 검사를 유지한다.
+- 직접 오프라인/빌드: sensor/기존 팔·Action/설정52 + Student 목표/계수/취소/정지9 =61 PASS. `farm_sim_config`, `farm_sim_devices` symlink 빌드2패키지 PASS. 초기 익명 중력 낙하 시험은60Hz에서 동시 진입을 거부해0회였고, 하강 후행 순서를 확인하도록 수정한 뒤 정확히1회 PASS. 기본 ROS Action 시험 두 번은 초기 영상 처리 구간의 `ARM_LINK_LOST`로 취소됐고, 시험 전용 통신 제한15초만 적용한 첫 진단은 별도2초 상태감시로 `ARM_STATUS_TIMEOUT`이었다. 운영 제한시간은 변경하지 않았다.
+- 직접 단일 과실 진단: 통신/팔 상태 감시를 시험용 복사본에서만15초로 설정했다. 배출 허가45.5000sim초 → UPPER46.3333 → BOTH46.3667 → LOWER46.4000 → 비차단46.4167 → 계수46.4667, 최종69.2667sim초 SUCCESS/수량1/실패0/safe_stopped=true. 파프리카 ID를 센서 입력으로 사용하지 않았으며 좌표 안착 성공 기록은 없다. 초기2과실 진단은 표시 갱신 최적화 전 코드를 중단하고 최종 단일 시험으로 대체했으므로2과실 통과로 세지 않는다. 결과는 `sim/runs/basket_laser_20261019/verification.json`, 전이 증거는 `student_passage_trace.json`이다. 기본 설정의 전체 수확 통과/다양한 장면/실물 동작을 인증하지 않는다. 센서 종류·배선·I/O 입력은 미연결이며, 빔을 비껴 떨어지는 물체와 이물체/팔의 오계수 가능성은 실제 장착 때 확인해야 한다.
+- 적용/복원: 기존 프로세스는 재시작하지 않았으며 다음 정상 재시작부터 적용된다. 이번 변경만 `sim/runs/basket_laser_20261019/before.json`, `before/`, `applied_changes.patch`로 구분했다. 복원 시 해당 목록의 기존 파일만 before에서 복구하고 새 파일만 제거한 뒤 시뮬2패키지를 다시 빌드한다. 기존 Student/통신 작업에 reset/clean을 사용하지 않는다. 미커밋·미푸시.
+
+
+## 73. 바구니 평행 3빔의 URDF·USD 및 수확 수량 연결 — 2026-10-19
+
+- 기준/승인: main/2a397da + 기존 Student/통신/상하2빔 미커밋 변경을 보존. 사용자 “urdf랑 usd 전부 … 레이저 … feedback이나 result” 및 후속 진행 승인, D-043. §72의 상하2빔 배치는 현재 평행3빔으로 대체한다.
+- 자산: `sim/assets/robots/harvest_robot/urdf/harvest_robot.urdf`에6개 고정 헤드 및 optical 링크, 이 계열과 `harvest_count_test`의 `configuration/harvest_robot_base.usd`에 같은 헤드·3개 광축을 저장. 기본/flat/tire 포함 운영 최상위 USD4개가 참조로 반영된다. 내측190mm 폭을47.5mm 간격으로 나누고 입구 아래5mm에 설치. 임시 헤드12×6×12mm, 광축 끝점은 벽에서7mm 안쪽이다. 기존 센서 외의 URDF 텍스트와 USD layer 내용·물성 보존을 대조 확인했다. 전달 모델의 해시 기준 URDF/USD는 수정하지 않았다.
+- 코드/계약: `basket_laser.py`는 USD optical 위치를 읽고 실제 팔 장착 pose로3개 PhysX ray를 매 물리 tick 검사한다. 실제 배출 허가 뒤 전부 비차단50ms → 어느 빔이든 차단 → 모두 비차단50ms를 한 번 집계하며 동시 빔/반동 중복을 막는다. `student_session.py`가 이 이벤트로 success_count를 올리고 기존 ROS feedback.success_count/result.harvested_count 및 공통 arm_feedback 누적을 사용한다. 좌표 안착은 성공 입력이 아니다. 종류·방향·최종 잔류는 확인하지 않으며 이물체도 감지한다. Teacher 비교 판정/공통 API/실물 I/O는 변경하지 않았다.
+- 직접 검증: 오프라인69개 통과(계수10, Student/계수→feedback/result10, 자산2, 팔 서버9, 세션19, Action/설정8, 상위 팔 클라이언트11). 운영USD4개와 base2개를 URDF/정책 좌표와 대조했다. 실제 PhysX 낙하14건 통과(빈 상태0, 익명 큐브 및 실제 과실12자세/위치 각각1). 시뮬2패키지 빌드 성공. 단순 낙하 시험은 저장된 센서 장착부를 분리한 시험이며 로봇 전체 수확 성공률 인증이 아니다.
+- 전체 Student ROS 시험: 첫 실행은 대화 턴 중단으로sim9.7초에 종료되어 결과 없음. 후속 실행은46.5167sim초에2번 빔 차단,46.5667초에 비차단,46.6167초에1회 계수,69.4167초에 SUCCESS/수량1/실패0/safe_stopped=true를 확인했다. 실제 ROS feedback은(0,0)→(1,0)→(1,0), result는 SUCCESS/harvested_count1/failed_count0이며 모든29개 검사 통과, 정상 종료를 확인했다(501.04wall초). `sim/runs/basket_parallel_lasers_20261019/student_action_resumed.log`와 `sim/runs/harvest_test_ui/20261019T070027_3accxdbv/`에 기록한다. 이전 §72에서 확인한 초기 영상 처리 지연을 분리하기 위해 진단 복사본에서만 transport/status timeout을15초로 지정했다. 운영 timeout과 공통 미션은 바꾸지 않았다.
+- 증거/복원: `sim/runs/basket_parallel_lasers_20261019/`의 before.json·before/, verification.json, student_passage_trace.json, native_sensor.json, *_tests.log, asset_preservation.json, build.log, applied_changes.patch, basket_parallel_lasers_changes.zip. ZIP은 farm_project 내부 상대 경로의 변경17파일만 포함한다. 복원은 목록의 기존 파일만 before에서 복구하고 새 파일2개만 제거한 뒤 시뮬2패키지를 빌드한다. reset/clean으로 기존 작업을 지우지 않는다. 사용자 프로세스는 재시작하지 않았으며 다음 정상 Isaac/장치 재시작부터 적용된다. 실물 센서 입력/배포는 미연결, 미커밋·미푸시.
+
+
+## 74. 현재 수확 통합 상태의 커밋·푸시 승인 — 2026-10-19
+
+- 사용자 “이대로 푸시한번 해”에 따라 D435 Student 연결, 수확·인계 통신 전달본 선택 통합, 평행3빔 URDF/USD·계수·feedback/result와 관련 문서·시험을 함께 커밋/푸시 대상으로 확정했다. §70~73의 “미커밋·미푸시”는 각 구현 완료 당시 기록이며 이번 승인 이전 상태다.
+- 준비 시점 fetch 성공, HEAD와 origin/main은2a397da로 동일(ahead0/behind0). 모델 실행에 필요한 전달 Student 소스·모델·참조 자산을 상대 경로와 원본 해시 그대로 포함한다. manifest1330파일의 해시 일치를 재확인했으며 전달본에 포함된 tests_final.log도 manifest 보존을 위해 포함한다. 이번 로컬 실행 로그/백업/전달 ZIP 및 루트 수신 ZIP 폴더는 커밋 대상에서 제외한다.
+- 검증은 §71의 통신213시험/빌드 및 §73의 센서69시험·낙하14건·실제 Student ROS 단일 수확 결과를 따른다. 푸시 준비에서는 manifest 해시·diff 형식·Git LFS 포인터와 커밋 범위를 확인한다. 실제 센서 I/O 미연결과 기본 초기 영상 지연은 그대로 남는다. 원격 완료 여부와 최종 커밋 SHA는 Git 이력 및 푸시 후 origin/main 조회로 확인한다.

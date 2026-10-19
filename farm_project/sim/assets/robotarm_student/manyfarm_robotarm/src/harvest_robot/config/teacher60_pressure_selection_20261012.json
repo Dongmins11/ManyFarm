@@ -1,0 +1,17 @@
+{
+  "schema": "teacher60_pressure_selection_v1",
+  "selected": "original bounded preload",
+  "additional_pressure_feedback": false,
+  "pressure_goal_N": null,
+  "max_total_close_deg": 4.0,
+  "close_rate_deg_s": 6.0,
+  "gripper_effort_limit_Nm": 0.5,
+  "environment": "height-v2 rootZ0.800..1.063m;9g/v1,response6,physics60/policy20Hz",
+  "evidence": "/home/bhc/manyfarm_ws/manyfarm_robotarm/outputs/harvest_rl/pressure_failed_compare_20261012_150128_84253551",
+  "comparison_sha256": "463a66d04f9135b166c88345eb0b1c3e2f793251fbd4dd44039005efc59b0abb",
+  "existing_models_unchanged": true,
+  "learning": false,
+  "hardware_executed": false,
+  "reason": "1/2N recover0 failures;3N loses2 prior successes;4N recovers1 but loses4. No stronger feedback meets recovery plus preservation criteria.",
+  "numeric_caveat": "No validated optimal constant physical pressure N; existing4deg is selected. Goal0 in CLI disables additional feedback; it does not command zero grip force."
+}

@@ -1,0 +1,239 @@
+{
+  "attachment_runtime": {
+    "model": "coupled_point_orientation_v6",
+    "stem_response_version": 6,
+    "solver": "coupled 6x6 backward Euler with free gravity",
+    "hidden_substeps": 0,
+    "original_apply_sha256": "26d8017c0c9d4ee4a2127b14ad2d88d81248824ff49d475933802a848ac8182e",
+    "adapter_sha256": "3ea75bb2fbc2095e06e8ed42aa5dd6cb5540b78a1cafdb066ecc093e8a4e60d5",
+    "model_sha256": "7941ef6b021fb06fb5cb07cd25983e2eb1966749f478a17e3bc3df5c227b57c0"
+  },
+  "jaw_surface": {
+    "all_clones_verified": true,
+    "num_envs": 1,
+    "pad_shapes": 0,
+    "jaw_material_verified": true,
+    "fruit_material_unchanged": true,
+    "mass_inertia_attributes_unchanged": true,
+    "added_rigid_bodies": 0,
+    "original_assets_modified": false,
+    "spec": {
+      "effective_friction": 1.6,
+      "pad_mode": "none",
+      "thickness_m": 0.001,
+      "recess_m": 0.002,
+      "half_width_m": 0.012
+    },
+    "camera_motor_materials_unchanged": true,
+    "full_mass_inertia_attributes_unchanged": true,
+    "material_scope": "finger collision meshes and pads only"
+  },
+  "floor": {
+    "all_clones_verified": true,
+    "active_floor_colliders": 1,
+    "disabled_floor_colliders": 8,
+    "added_rigid_bodies": 0,
+    "all_contact_and_rest_offsets_verified": true,
+    "rows": [
+      {
+        "env_id": 0,
+        "path": "/World/envs/env_0/Robot/base_footprint/collisions/ClosedDepositFloor",
+        "lower_xyz_m": [
+          0.29999999003484823,
+          -0.09999999276975566,
+          0.45100000505335625
+        ],
+        "upper_xyz_m": [
+          0.4999999995343385,
+          0.10000001672973455,
+          0.5010000050533563
+        ]
+      }
+    ]
+  },
+  "current_asset": {
+    "source_urdf": "/home/bhc/manyfarm_ws/manyfarm_robotarm/outputs/sim_team_delivery/student60_d435_v20_20261016/manyfarm_robotarm/src/smartfarm_description/urdf/harvest_robot.urdf",
+    "source_sha256": "7f489ab111bba0fe6cdaae5809fc89e8174aa312d801c9051a8fdba1a7e415f2",
+    "asset_input_sha256": "b73ed90a6e56216d3764c6e7285450d979812f32569a2414df0ce7a29eb7963f",
+    "source_files": {
+      "src/smartfarm_description/urdf/harvest_robot.urdf": "7f489ab111bba0fe6cdaae5809fc89e8174aa312d801c9051a8fdba1a7e415f2",
+      "src/harvest_robot/config/arm_appearance.json": "cd44015dfc7acdd6d558fcd71c92c159fc227a56923cf557691cd6b4d0c05620",
+      "src/smartfarm_description/meshes/vicpinky/visual/base_link.stl": "e95a4c468b843793f4cdb1195a8a092d88372d9200a0abb7d8279e7d236764db",
+      "src/smartfarm_description/meshes/vicpinky/visual/wheel.stl": "f2094feb04b4699e1386ea1fea1dcff89e662409a815fdf776b0ccd61b6d1a69",
+      "src/smartfarm_description/meshes/vicpinky/visual/caster.stl": "b3844742a98250897ba6589078e045378c5fcf791a2ed6174d80856f7eb8a5e9",
+      "src/smartfarm_description/meshes/vicpinky/visual/lidar.dae": "45dddc70916cadee34ab63cac3b1cec8f3bb9c8c55a015fea1bc8a414014164c",
+      "src/smartfarm_description/meshes/vicpinky/collision/lidar.stl": "7f6e8e5e02d2dd483710098567fcde9be67fd312f381fcecf80e47dfc5f5578d",
+      "src/smartfarm_description/meshes/so101/base_motor_holder_so101_v1.stl": "8cd2f241037ea377af1191fffe0dd9d9006beea6dcc48543660ed41647072424",
+      "src/smartfarm_description/meshes/so101/base_so101_v2.stl": "bb12b7026575e1f70ccc7240051f9d943553bf34e5128537de6cd86fae33924d",
+      "src/smartfarm_description/meshes/so101/sts3215_03a_v1.stl": "a37c871fb502483ab96c256baf457d36f2e97afc9205313d9c5ab275ef941cd0",
+      "src/smartfarm_description/meshes/so101/waveshare_mounting_plate_so101_v2.stl": "e197e24005a07d01bbc06a8c42311664eaeda415bf859f68fa247884d0f1a6e9",
+      "src/smartfarm_description/meshes/so101/motor_holder_so101_base_v1.stl": "31242ae6fb59d8b15c66617b88ad8e9bded62d57c35d11c0c43a70d2f4caa95b",
+      "src/smartfarm_description/meshes/so101/rotation_pitch_so101_v1.stl": "9be900cc2a2bf718102841ef82ef8d2873842427648092c8ed2ca1e2ef4ffa34",
+      "src/smartfarm_description/meshes/so101/upper_arm_so101_v1.stl": "475056e03a17e71919b82fd88ab9a0b898ab50164f2a7943652a6b2941bb2d4f",
+      "src/smartfarm_description/meshes/so101/under_arm_so101_v1.stl": "d01d1f2de365651dcad9d6669e94ff87ff7652b5bb2d10752a66a456a86dbc71",
+      "src/smartfarm_description/meshes/so101/motor_holder_so101_wrist_v1.stl": "887f92e6013cb64ea3a1ab8675e92da1e0beacfd5e001f972523540545e08011",
+      "src/smartfarm_description/meshes/so101/sts3215_03a_no_horn_v1.stl": "75ef3781b752e4065891aea855e34dc161a38a549549cd0970cedd07eae6f887",
+      "src/smartfarm_description/meshes/so101/wrist_roll_pitch_so101_v2.stl": "6c7ec5525b4d8b9e397a30ab4bb0037156a5d5f38a4adf2c7d943d6c56eda5ae",
+      "src/smartfarm_description/meshes/so101/wrist_roll_follower_so101_v1.stl": "4b17b410a12d64ec39554abc3e8054d8a97384b2dc4a8d95a5ecb2a93670f5f4",
+      "src/smartfarm_description/meshes/so101/moving_jaw_so101_v1.stl": "785a9dded2f474bc1d869e0d3dae398a3dcd9c0c345640040472210d2861fa9d",
+      "src/smartfarm_description/meshes/mounts/d435_wrist_mount.stl": "dfaeb5ccd510e99cd718ecb59a25a1660318db0b403911f363fe5aea0685daed",
+      "src/smartfarm_description/meshes/sliding_lids_v3/harvest/rail_n1_segment_1.stl": "121eaabf2268539c8cabe098867f0da82b7e3dd4c4eb23e7cf8c8731f3f86350",
+      "src/smartfarm_description/meshes/sliding_lids_v3/harvest/rail_n1_segment_2.stl": "439452ddf8b1425139f9bf780e9862301a78dda7ce6e0cd5985c1e058e89ef03",
+      "src/smartfarm_description/meshes/sliding_lids_v3/harvest/rail_n1_splice_1.stl": "9e96a0627a63e661bda82aa91e888788344e64d889c4b25849feba93f9a5c240",
+      "src/smartfarm_description/meshes/sliding_lids_v3/harvest/rail_n1_stop_n1.stl": "be0fa7750766d589ac81694a5e5e6d3ccbcd1a72f879675fa93503f328354c15",
+      "src/smartfarm_description/meshes/sliding_lids_v3/harvest/rail_n1_stop_p1.stl": "db2077499e49f1af4aeaa9a799a46b757ef480d3a4a1c062083e6c67919f017b",
+      "src/smartfarm_description/meshes/sliding_lids_v3/harvest/rail_p1_segment_1.stl": "45ea4da6dafed9802883ed23be52c9b69b4108a1d3eb3fa44bb0ebab4f5fee15",
+      "src/smartfarm_description/meshes/sliding_lids_v3/harvest/rail_p1_segment_2.stl": "5fbb689396fc70c8c7c04c1a7f0f7d74f14b0ed43a9abdc5c5a91c109fdae8fe",
+      "src/smartfarm_description/meshes/sliding_lids_v3/harvest/rail_p1_splice_1.stl": "1d6a36b8d05d4f2c9308e82bf097f3fb82d29417e63c1233f2a56e2f68cd5f7b",
+      "src/smartfarm_description/meshes/sliding_lids_v3/harvest/rail_p1_stop_n1.stl": "26a43048793ca5bec1901af65e2489ec74ff3384a9b5047b4e9aa15c9150d58a",
+      "src/smartfarm_description/meshes/sliding_lids_v3/harvest/rail_p1_stop_p1.stl": "a18c0ff84ee13c34f9f56393ef0ed41b49049385672085a211edfe7d24645f6d",
+      "src/smartfarm_description/meshes/sliding_lids_v3/harvest/mg996r_body_cradle.stl": "8474f1076a529e39a7daccd5398c0c411198f82bcd2213af0c6a5980eafab3f9",
+      "src/smartfarm_description/meshes/sliding_lids_v3/harvest/mg996r_retaining_strap_1.stl": "55ca9c8d16cb6f3c5e221c4c7b2a38ebd2dcd6adefe6722ed136b64d6c77ea1b",
+      "src/smartfarm_description/meshes/sliding_lids_v3/harvest/mg996r_retaining_strap_2.stl": "972da7c651fdfbb73bceb60f942bf4df6fe27e1a285efe62a1ad69758e2a300c",
+      "src/smartfarm_description/meshes/sliding_lids_v3/harvest/drive_wall_saddle.stl": "4b687175f811573552f62cc751f434bb83193e58c4c2312cd985993da1c13481",
+      "src/smartfarm_description/meshes/sliding_lids_v3/harvest/rack_backing_guide_n1.stl": "71d9b11a7b28f94f95a1e902751fec3d93accbd6c739694db1e1ae7710f416ee",
+      "src/smartfarm_description/meshes/sliding_lids_v3/harvest/rack_backing_guide_p1.stl": "f548ffb2cd45123e6e1369dfb9d6cc067f61c055575a43e4eea80302d47fb690",
+      "src/smartfarm_description/meshes/sliding_lids_v3/harvest/frame_hanger_1.stl": "5a7cc9369eddbdc05807c389e8a51bcd2e02b726659e91a9b767c6d532b6ac36",
+      "src/smartfarm_description/meshes/sliding_lids_v3/harvest/frame_hanger_2.stl": "4e4f7f665a4a62af3378fca94bd562a5904764c0bb2172897e2cebefe3c4b9ae",
+      "src/smartfarm_description/meshes/sliding_lids_v3/harvest/reference_servo.stl": "972ec3ae0642d20ebfc4f9a6b95c9395f4154b1ef7a283e6c73b81c4c49e20df",
+      "src/smartfarm_description/meshes/sliding_lids_v3/harvest/lid_plus_tile_1.stl": "e5c3b59ba49dabd340893347b7dd67857ca083731652dd04f12220deaf0dddb7",
+      "src/smartfarm_description/meshes/sliding_lids_v3/harvest/lid_plus_tile_2.stl": "40649fd1236338fb65a1cd85c069a7c7f9715650404d791c43cbb8cb75802e38",
+      "src/smartfarm_description/meshes/sliding_lids_v3/harvest/lid_plus_seam_strap_1.stl": "aec11750d063add3e7fddf91e4d638fb35c184be266832d2e7a575958dd28146",
+      "src/smartfarm_description/meshes/sliding_lids_v3/harvest/lid_plus_seam_strap_2.stl": "2417d35bf9e0089e2ec810582c0ee086e324c10c3093cfd4e3bbc7e799da1c12",
+      "src/smartfarm_description/meshes/sliding_lids_v3/harvest/rack_plus_segment_1.stl": "1afdb256c761f59e8fdcc329fd0c14bb98448db9098c9d59ddf9e3a6ef23b6d0",
+      "src/smartfarm_description/meshes/sliding_lids_v3/harvest/rack_to_lid_plus.stl": "09bd7adbee233512dfb377bc0e2dab3c10a8d073618d2e815fea2801559d470f",
+      "src/smartfarm_description/meshes/sliding_lids_v3/harvest/lid_minus_tile_1.stl": "0122d8b99637e1bfe2d0b442db18f4719599de0bf4554afd6883aa4fba2b1141",
+      "src/smartfarm_description/meshes/sliding_lids_v3/harvest/lid_minus_tile_2.stl": "eeef6d889b8b229f307e336dfc00fcc58f9acbd97418e9d2350d14b4258a6005",
+      "src/smartfarm_description/meshes/sliding_lids_v3/harvest/lid_minus_seam_strap_1.stl": "d8283204404b16f7a5411fdd1efcba557ae71d63eeba1e4401b63bbeba423ae4",
+      "src/smartfarm_description/meshes/sliding_lids_v3/harvest/lid_minus_seam_strap_2.stl": "a90ace26e2cc0ac59611f5ce7b5b5aa4584e23b6121775ef3ee5aeb367085dc6",
+      "src/smartfarm_description/meshes/sliding_lids_v3/harvest/rack_minus_segment_1.stl": "6a51eb96d3fe7c228477c03d3d6d0e8648b138764d230bd8d855794e293c85c8",
+      "src/smartfarm_description/meshes/sliding_lids_v3/harvest/rack_to_lid_minus.stl": "9e4656b4585ca22d7a1a673e1bccc00a937160c9976901b791c956bb3a1180af",
+      "src/smartfarm_description/meshes/sliding_lids_v3/harvest/pinion_m2.stl": "a7d2e0d583656a4c968fa2ec757c983cc702607c56b3d2d39b710b932bddce8f",
+      "src/smartfarm_description/meshes/sliding_lids_v3/harvest/horn_retaining_ring.stl": "f26e77a94364acc31951df494290018f1e671b7104a3bf5f418b7dab10f5b7d0",
+      "src/smartfarm_description/meshes/sliding_lids_v3/harvest/reference_horn.stl": "561e8144c4ec0a2eb932f5c95098aa6612e2bbc1f20ba39698a081407ed31ad9"
+    },
+    "usd": "/home/bhc/manyfarm_ws/manyfarm_robotarm/outputs/sim_team_delivery/student60_d435_v20_20261016/manyfarm_robotarm/outputs/harvest_rl/student_deployment_assets/3dc160fb3453f163/harvest_current.usda",
+    "note": "Preserved staged Teacher physics USD through read-only sublayer. Current composed URDF is sensor FK only; current box/mount geometry is not substituted.",
+    "checkpoint_transfer": {
+      "previous_sha256": "3dbfe389ded4102f98b2cfae25332568b0076264697344cfcc7552a9fceac188",
+      "change": "wrist-camera fixed origins/colors only; dynamics require revalidation"
+    },
+    "deployment_physics_source": "/home/bhc/manyfarm_ws/manyfarm_robotarm/outputs/sim_team_delivery/student60_d435_v20_20261016/manyfarm_robotarm/outputs/harvest_rl/current_robot/b73ed90a6e56216d/harvest_current.usd",
+    "preserved_usd_layers": {
+      "/home/bhc/manyfarm_ws/manyfarm_robotarm/outputs/sim_team_delivery/student60_d435_v20_20261016/manyfarm_robotarm/outputs/harvest_rl/current_robot/b73ed90a6e56216d/harvest_current.usd": "3354c11f3628660aab3d6140dbd277ff601122f53ca3f0769b680a75af0a12cf",
+      "/home/bhc/manyfarm_ws/manyfarm_robotarm/outputs/sim_team_delivery/student60_d435_v20_20261016/manyfarm_robotarm/outputs/harvest_rl/current_robot/b73ed90a6e56216d/configuration/harvest_current_physics.usd": "1e7b09df105e7b4d0b45cfa200f1f7099e078b72489e40434cc7bb06fc2f73d1",
+      "/home/bhc/manyfarm_ws/manyfarm_robotarm/outputs/sim_team_delivery/student60_d435_v20_20261016/manyfarm_robotarm/outputs/harvest_rl/current_robot/b73ed90a6e56216d/configuration/harvest_current_sensor.usd": "e85cf604fbb246fea9531cfba49385781489f226ad7debf2e605542020959e85",
+      "/home/bhc/manyfarm_ws/manyfarm_robotarm/outputs/sim_team_delivery/student60_d435_v20_20261016/manyfarm_robotarm/outputs/harvest_rl/current_robot/b73ed90a6e56216d/configuration/harvest_current_base.usd": "6e4faff934f95008554c784de7446712337ccc8cacdb0aa4d95fafef07bec671",
+      "/home/bhc/manyfarm_ws/manyfarm_robotarm/outputs/sim_team_delivery/student60_d435_v20_20261016/manyfarm_robotarm/outputs/harvest_rl/current_robot/b73ed90a6e56216d/configuration/harvest_current_robot.usd": "07b98658c155e41ba99acdc62df81e4c3e6acc636ff2abdb8387e167729cda0f"
+    },
+    "sensor_mount_reference_urdf_sha256": "54f3a8ff55f22c2f2c91b40696ae2d31cda4fd7660d4e54e09ee5064da36db5f",
+    "deployment_arm_appearance_sha256": "cd44015dfc7acdd6d558fcd71c92c159fc227a56923cf557691cd6b4d0c05620"
+  },
+  "visual_scene": {
+    "version": "greenhouse_v1",
+    "sha256": "5dd0e9d0b939b34bd44533aedd3a869cc04d8b53ce1fa9c6bd73b24e46a68d6f",
+    "visual_only": true,
+    "sources": {
+      "src/smartfarm_description/config/harvest_visual_scene.json": "c6a3f2406d81af4a75be1f449cbdd98d1b07db05042fd4dd400a14e8f3ba6ecb",
+      "src/smartfarm_description/scripts/harvest_visual_scene.py": "332cbf25a69bde0a85cb0c7f740bc27435961a468e72c20b59c8617ed47fb926",
+      "src/Pepper_RL_Demo/assets/textures/tree_3.png": "fa9a4dd2cf2a2e94b6d55ab3f59ae6daea3b4fd185baf4f586b6fed3c1f743c4"
+    },
+    "config": {
+      "version": "greenhouse_v1",
+      "seed": 107,
+      "frame": "visual crop frame: +X behind fruit into plants, +Y along bed, +Z up; ground z=0",
+      "visual_only": true,
+      "floor_color": [
+        0.38,
+        0.4,
+        0.42
+      ],
+      "bed_front_m": 0.46,
+      "bed_back_m": 1.22,
+      "bed_length_m": 3.4,
+      "bed_height_m": 0.32,
+      "bed_wall_m": 0.045,
+      "bed_color": [
+        0.55,
+        0.46,
+        0.32
+      ],
+      "soil_color": [
+        0.24,
+        0.19,
+        0.12
+      ],
+      "trellis_color": [
+        0.025,
+        0.22,
+        0.055
+      ],
+      "trellis_front_m": 0.48,
+      "trellis_top_m": 1.9,
+      "wire_spacing_m": 0.15,
+      "wire_radius_m": 0.0008,
+      "leaf_rows_m": [
+        0.6,
+        0.85,
+        1.1
+      ],
+      "plant_columns": 11,
+      "leaves_per_plant": 20,
+      "plant_spacing_m": 0.3,
+      "leaf_height_range_m": [
+        0.44,
+        1.8
+      ],
+      "leaf_length_range_m": [
+        0.18,
+        0.27
+      ],
+      "leaf_width_range_m": [
+        0.12,
+        0.18
+      ],
+      "leaf_texture": "src/Pepper_RL_Demo/assets/textures/tree_3.png",
+      "leaf_uv_bounds": [
+        0.026,
+        0.315,
+        0.418,
+        0.983
+      ]
+    },
+    "world_from_crop": [
+      [
+        1.0,
+        0.0,
+        0.0,
+        0.3
+      ],
+      [
+        0.0,
+        1.0,
+        0.0,
+        -0.19
+      ],
+      [
+        0.0,
+        0.0,
+        1.0,
+        0.0
+      ],
+      [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ]
+    ]
+  },
+  "domain_bank_range": [
+    460,
+    511
+  ],
+  "teacher_actor_loads": 0,
+  "teacher_controllers_called": 0,
+  "command_boundary": "Student60CommandBoundary -> HarvestEnv._apply_action only",
+  "adjudication": "original legacy diagnostics + independent actual mesh settlement; safety terminal retained; fixed60s for box_outcome_v2",
+  "physical_properties_checked": 1338
+}

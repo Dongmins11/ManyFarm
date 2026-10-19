@@ -42,6 +42,7 @@ class HarvestTestUILauncherTests(unittest.TestCase):
             device = launcher.read_sim_config(self.root, fleet['device_configs'][0])
             expected = deepcopy(self.device)
             expected['runtime'].update({key: device['runtime'][key] for key in ('command_port', 'telemetry_port')})
+            expected['runtime']['harvest_arm']['backend'] = 'teacher'
             expected['camera']['enabled'] = expected['lidar']['enabled'] = False
             expected['publish_clock'] = False
             self.assertEqual(device, expected)

@@ -38,6 +38,7 @@ class StatusTests(unittest.TestCase):
         with patch.dict('sys.modules',modules):spec.loader.exec_module(module)
         self.sent=[];self.periods=[]
         self.node=S(config={'robot_id':'harvest_01'},lock=threading.Lock(),busy=False,blocked=False,
+            transfer=None,handoff=S(current=None),
             stopping=False,active_goal=None,get_clock=lambda:S(now=lambda:S(nanoseconds=10_000_000_000)),
             create_publisher=lambda *a:S(publish=self.sent.append),create_subscription=lambda *a,**k:S(),
             create_timer=lambda period,*a,**k:self.periods.append(period),destroy_timer=lambda *a:None)
@@ -59,6 +60,29 @@ class StatusTests(unittest.TestCase):
         self.assertFalse(a.ready);self.assertEqual(a.error_code,'BATTERY_UNAVAILABLE')
         self.assertIn('미측정',a.error_message)
 
+    def test_harvest_stage_reports_existing_protocol_state(self):
+        self.node.busy=True;self.node.mission_stage='ARM'
+        self.node.arm_client=S(server_is_ready=lambda: True)
+        self.reporter.publish()
+        self.assertEqual(self.sent[-1].state,'HARVESTING')
+        self.assertFalse(self.sent[-1].ready)
+        self.node.busy=False
+        self.reporter.publish()
+        self.assertEqual(self.sent[-1].state,'IDLE')
+
+    def test_arm_server_unavailable_prevents_ready(self):
+        self.node.arm_client=S(server_is_ready=lambda: False)
+        self.reporter.publish()
+        self.assertFalse(self.sent[-1].ready)
+        self.assertEqual(self.sent[-1].error_code,'ARM_NOT_READY')
+
+    def test_unconfirmed_fold_after_terminal_is_error(self):
+        self.node.blocked=True;self.node.arm_travel_ready=False
+        self.reporter.publish()
+        self.assertEqual(self.sent[-1].state,'ERROR')
+        self.assertEqual(self.sent[-1].error_code,'ARM_TRAVEL_NOT_READY')
+        self.assertFalse(self.sent[-1].ready)
+
     def test_stale_pose_not_ready_and_no_motion_change(self):
         self.reporter.buffer.stamp=1;self.reporter.publish();a=self.sent[-1]
         self.assertFalse(a.ready);self.assertEqual(a.error_code,'POSE_UNAVAILABLE')
@@ -68,6 +92,21 @@ class StatusTests(unittest.TestCase):
         self.node.blocked=True;self.reporter.publish();a=self.sent[-1]
         self.assertFalse(a.ready);self.assertEqual(a.state,'ERROR')
         self.assertEqual(a.error_code,'CANCEL_UNCONFIRMED')
+
+    def test_return_and_transfer_preserve_task_and_load_status(self):
+        self.node.handoff.current=('return','R1')
+        self.reporter.publish()
+        a=self.sent[-1]
+        self.assertEqual((a.state,a.current_task_id,a.ready),('RETURNING','R1',False))
+        self.node.handoff.current=('transfer','T1')
+        self.node.transfer=S(load_topic='/load',snapshot=lambda:dict(task_id='T1',
+            phase='WAIT_DOCK_STABLE',loaded_count=4,transfer_required=True,error=''))
+        self.reporter.publish()
+        a=self.sent[-1]
+        self.assertEqual((a.state,a.current_task_id),('WAIT_DOCK_STABLE','T1'))
+        self.assertEqual(a.loaded_count,4)
+        self.assertTrue(a.transfer_required)
+        self.assertFalse(a.ready)
 
 
 if __name__=='__main__':unittest.main()

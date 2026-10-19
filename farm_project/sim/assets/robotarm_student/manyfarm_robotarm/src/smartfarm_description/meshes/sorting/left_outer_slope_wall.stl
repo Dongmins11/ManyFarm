@@ -1,0 +1,86 @@
+solid left_outer_slope_wall
+facet normal 0 -1 0
+outer loop
+vertex -0.086 -0.0015 -0.0613198529412
+vertex 0.086 -0.0015 -0.0613198529412
+vertex 0.086 -0.0015 0.0116801470588
+endloop
+endfacet
+facet normal 0 -1 0
+outer loop
+vertex -0.086 -0.0015 -0.0613198529412
+vertex 0.086 -0.0015 0.0116801470588
+vertex -0.086 -0.0015 0.110959558824
+endloop
+endfacet
+facet normal -0 1 -0
+outer loop
+vertex -0.086 0.0015 -0.0613198529412
+vertex 0.086 0.0015 0.0116801470588
+vertex 0.086 0.0015 -0.0613198529412
+endloop
+endfacet
+facet normal -0 1 -0
+outer loop
+vertex -0.086 0.0015 -0.0613198529412
+vertex -0.086 0.0015 0.110959558824
+vertex 0.086 0.0015 0.0116801470588
+endloop
+endfacet
+facet normal -0 -0 -1
+outer loop
+vertex -0.086 -0.0015 -0.0613198529412
+vertex 0.086 0.0015 -0.0613198529412
+vertex 0.086 -0.0015 -0.0613198529412
+endloop
+endfacet
+facet normal -0 -0 -1
+outer loop
+vertex -0.086 -0.0015 -0.0613198529412
+vertex -0.086 0.0015 -0.0613198529412
+vertex 0.086 0.0015 -0.0613198529412
+endloop
+endfacet
+facet normal 1 -0 -0
+outer loop
+vertex 0.086 -0.0015 -0.0613198529412
+vertex 0.086 0.0015 0.0116801470588
+vertex 0.086 -0.0015 0.0116801470588
+endloop
+endfacet
+facet normal 1 -0 -0
+outer loop
+vertex 0.086 -0.0015 -0.0613198529412
+vertex 0.086 0.0015 -0.0613198529412
+vertex 0.086 0.0015 0.0116801470588
+endloop
+endfacet
+facet normal 0.499906209203 -0 0.866079547155
+outer loop
+vertex 0.086 -0.0015 0.0116801470588
+vertex -0.086 0.0015 0.110959558824
+vertex -0.086 -0.0015 0.110959558824
+endloop
+endfacet
+facet normal 0.499906209203 -0 0.866079547155
+outer loop
+vertex 0.086 -0.0015 0.0116801470588
+vertex 0.086 0.0015 0.0116801470588
+vertex -0.086 0.0015 0.110959558824
+endloop
+endfacet
+facet normal -1 -0 -0
+outer loop
+vertex -0.086 -0.0015 0.110959558824
+vertex -0.086 0.0015 -0.0613198529412
+vertex -0.086 -0.0015 -0.0613198529412
+endloop
+endfacet
+facet normal -1 0 -0
+outer loop
+vertex -0.086 -0.0015 0.110959558824
+vertex -0.086 0.0015 0.110959558824
+vertex -0.086 0.0015 -0.0613198529412
+endloop
+endfacet
+endsolid left_outer_slope_wall

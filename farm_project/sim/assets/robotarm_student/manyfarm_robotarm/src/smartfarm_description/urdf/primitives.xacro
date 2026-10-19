@@ -1,0 +1,49 @@
+<?xml version="1.0"?>
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro">
+  <xacro:macro name="fixed_joint" params="name parent child xyz:='0 0 0' rpy:='0 0 0'">
+    <joint name="${name}" type="fixed"><parent link="${parent}"/><child link="${child}"/><origin xyz="${xyz}" rpy="${rpy}"/></joint>
+  </xacro:macro>
+  <xacro:macro name="solid_box" params="name parent size xyz mass color rpy:='0 0 0' attach:=true">
+    <link name="${name}">
+      <visual><geometry><box size="${size[0]} ${size[1]} ${size[2]}"/></geometry><material name="${name}_material"><color rgba="${color}"/></material></visual>
+      <collision><geometry><box size="${size[0]} ${size[1]} ${size[2]}"/></geometry></collision>
+      <inertial><mass value="${mass}"/><inertia ixx="${mass*(size[1]**2+size[2]**2)/12}" ixy="0" ixz="0" iyy="${mass*(size[0]**2+size[2]**2)/12}" iyz="0" izz="${mass*(size[0]**2+size[1]**2)/12}"/></inertial>
+    </link>
+    <xacro:if value="${attach}"><xacro:fixed_joint name="${name}_joint" parent="${parent}" child="${name}" xyz="${xyz}" rpy="${rpy}"/></xacro:if>
+  </xacro:macro>
+  <xacro:macro name="frame_post" params="name x y">
+    <xacro:solid_box name="${name}" parent="upper_frame" size="${[P,P,H-2*P]}" xyz="${x} ${y} ${H/2}" mass="${(H-2*P)*c['profile_linear_mass']}" color="0.09 0.10 0.11 1"/>
+  </xacro:macro>
+  <xacro:macro name="frame_ring" params="name z">
+    <xacro:solid_box name="${name}_front" parent="upper_frame" size="${[P,W,P]}" xyz="${(L-P)/2} 0 ${z}" mass="${W*c['profile_linear_mass']}" color="0.09 0.10 0.11 1"/>
+    <xacro:solid_box name="${name}_rear" parent="upper_frame" size="${[P,W,P]}" xyz="${-(L-P)/2} 0 ${z}" mass="${W*c['profile_linear_mass']}" color="0.09 0.10 0.11 1"/>
+    <xacro:solid_box name="${name}_left" parent="upper_frame" size="${[L-2*P,P,P]}" xyz="0 ${(W-P)/2} ${z}" mass="${(L-2*P)*c['profile_linear_mass']}" color="0.09 0.10 0.11 1"/>
+    <xacro:solid_box name="${name}_right" parent="upper_frame" size="${[L-2*P,P,P]}" xyz="0 ${-(W-P)/2} ${z}" mass="${(L-2*P)*c['profile_linear_mass']}" color="0.09 0.10 0.11 1"/>
+  </xacro:macro>
+  <xacro:macro name="mounted_arm" params="index y yaw">
+    <link name="arm_${index}_mount">
+      <!-- CAD Z=0 is the deck surface; this link remains at the plate mid-height. -->
+      <visual>
+        <origin xyz="0 0 ${-c['arm_mount_thickness']/2}"/>
+        <geometry><mesh filename="${mesh_root}/${c['arm_mount_mesh']}" scale="0.001 0.001 0.001"/></geometry>
+        <material name="arm_${index}_mount_material"><color rgba="0.60 0.63 0.66 1"/></material>
+      </visual>
+      <collision>
+        <origin xyz="0 0 ${-c['arm_mount_thickness']/2}"/>
+        <geometry><mesh filename="${mesh_root}/${c['arm_mount_mesh']}" scale="0.001 0.001 0.001"/></geometry>
+      </collision>
+      <!-- Solid PLA estimate and bounding-box inertia; printed mass is unmeasured. -->
+      <inertial>
+        <origin xyz="0.0125 0 0"/>
+        <mass value="${c['arm_mount_mass']}"/>
+        <inertia ixx="${c['arm_mount_mass']*(c['arm_mount_width']**2+c['arm_mount_thickness']**2)/12}" ixy="0" ixz="0" iyy="${c['arm_mount_mass']*(c['arm_mount_length']**2+c['arm_mount_thickness']**2)/12}" iyz="0" izz="${c['arm_mount_mass']*(c['arm_mount_length']**2+c['arm_mount_width']**2)/12}"/>
+      </inertial>
+    </link>
+    <xacro:fixed_joint name="arm_${index}_mount_joint" parent="top_deck" child="arm_${index}_mount" xyz="${y} ${side_offset-c['arm_mount_x']} ${(c['plate_thickness']+c['arm_mount_thickness'])/2}" rpy="0 0 ${side_yaw}"/>
+    <xacro:so101_arm prefix="arm_${index}/"/>
+    <xacro:fixed_joint name="arm_${index}_attachment" parent="arm_${index}_mount" child="arm_${index}/base_link" xyz="0 0 ${c['arm_mount_thickness']/2}" rpy="0 0 ${yaw}"/>
+    <link name="arm_${index}/tool0"/>
+    <xacro:fixed_joint name="arm_${index}/tool0_joint" parent="arm_${index}/gripper_frame_link" child="arm_${index}/tool0"/>
+    <xacro:if value="${c['wrist_cameras_enabled']}"><xacro:wrist_camera index="${index}"/></xacro:if>
+  </xacro:macro>
+</robot>

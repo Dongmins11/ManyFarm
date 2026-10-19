@@ -1,0 +1,86 @@
+solid intake_floor
+facet normal -0 0 -1
+outer loop
+vertex 0.125 -0.25 -0.0015
+vertex -0.125 0.105662432703 -0.0015
+vertex 0.125 0.25 -0.0015
+endloop
+endfacet
+facet normal -0 -0 -1
+outer loop
+vertex 0.125 -0.25 -0.0015
+vertex -0.125 -0.105662432703 -0.0015
+vertex -0.125 0.105662432703 -0.0015
+endloop
+endfacet
+facet normal 0 -0 1
+outer loop
+vertex 0.125 -0.25 0.0015
+vertex 0.125 0.25 0.0015
+vertex -0.125 0.105662432703 0.0015
+endloop
+endfacet
+facet normal 0 0 1
+outer loop
+vertex 0.125 -0.25 0.0015
+vertex -0.125 0.105662432703 0.0015
+vertex -0.125 -0.105662432703 0.0015
+endloop
+endfacet
+facet normal 1 0 0
+outer loop
+vertex 0.125 -0.25 -0.0015
+vertex 0.125 0.25 -0.0015
+vertex 0.125 0.25 0.0015
+endloop
+endfacet
+facet normal 1 0 0
+outer loop
+vertex 0.125 -0.25 -0.0015
+vertex 0.125 0.25 0.0015
+vertex 0.125 -0.25 0.0015
+endloop
+endfacet
+facet normal -0.5 0.866025403784 0
+outer loop
+vertex 0.125 0.25 -0.0015
+vertex -0.125 0.105662432703 -0.0015
+vertex -0.125 0.105662432703 0.0015
+endloop
+endfacet
+facet normal -0.5 0.866025403784 0
+outer loop
+vertex 0.125 0.25 -0.0015
+vertex -0.125 0.105662432703 0.0015
+vertex 0.125 0.25 0.0015
+endloop
+endfacet
+facet normal -1 0 0
+outer loop
+vertex -0.125 0.105662432703 -0.0015
+vertex -0.125 -0.105662432703 -0.0015
+vertex -0.125 -0.105662432703 0.0015
+endloop
+endfacet
+facet normal -1 0 0
+outer loop
+vertex -0.125 0.105662432703 -0.0015
+vertex -0.125 -0.105662432703 0.0015
+vertex -0.125 0.105662432703 0.0015
+endloop
+endfacet
+facet normal -0.5 -0.866025403784 0
+outer loop
+vertex -0.125 -0.105662432703 -0.0015
+vertex 0.125 -0.25 -0.0015
+vertex 0.125 -0.25 0.0015
+endloop
+endfacet
+facet normal -0.5 -0.866025403784 0
+outer loop
+vertex -0.125 -0.105662432703 -0.0015
+vertex 0.125 -0.25 0.0015
+vertex -0.125 -0.105662432703 0.0015
+endloop
+endfacet
+endsolid intake_floor

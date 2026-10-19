@@ -1,0 +1,16 @@
+{
+  "version": "student_observation_shift_v1",
+  "status": "provisional sensitivity profile; NOT measured D435/SO101 error bounds",
+  "rgb_gain_range": [0.9, 1.1],
+  "rgb_contrast_range": [0.9, 1.1],
+  "depth_noise_std_m": 0.001,
+  "depth_dropout_probability": 0.01,
+  "depth_min_m": 0.28,
+  "depth_max_m": 3.0,
+  "target_bias_bound_m": [0.003, 0.003, 0.003],
+  "target_noise_std_m": 0.001,
+  "single_camera_dropout_probability": 0.02,
+  "camera_delay_steps_max": 1,
+  "target_ttl_s": 0.3,
+  "note": "Photometric settings and target bias/delay stay fixed within a virtual episode. Per-frame depth/target noise is consistent across overlapping histories. Delay affects RGB-D/estimated target only; current proprio/actions remain current. Delayed target deltas use measured TCP metadata. No geometric RGB warps, GT target substitution, action changes or physics changes."
+}

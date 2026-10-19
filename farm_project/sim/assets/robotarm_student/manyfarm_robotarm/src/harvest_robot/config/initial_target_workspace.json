@@ -1,0 +1,9 @@
+{
+  "version": "initial_target_workspace_v1",
+  "frame_id": "arm_2/base_link",
+  "min_m": [0.265, -0.175, -0.10],
+  "max_m": [0.365, 0.175, 0.35],
+  "measurement_margin_m": 0.03,
+  "scope": "initial target assignment only; after assignment continue tracking during pull/transport",
+  "source": "Mount-plate front edge 0.065m ahead of arm base; specified fruit centre 0.20-0.30m ahead of that edge. Fixed setup metadata, not per-fruit simulator truth. Reconfigure/calibrate when the docked real workspace changes."
+}

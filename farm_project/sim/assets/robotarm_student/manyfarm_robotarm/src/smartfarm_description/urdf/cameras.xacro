@@ -1,0 +1,104 @@
+<?xml version="1.0"?>
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro">
+  <!-- Wrist STL meshes are mm. Central support uses new box geometry. -->
+  <xacro:macro name="mount_mesh" params="name parent file xyz rpy mesh_xyz mesh_rpy bounds center mass scale:='0.001 0.001 0.001'">
+    <link name="${name}">
+      <visual>
+        <origin xyz="${mesh_xyz}" rpy="${mesh_rpy}"/>
+        <geometry><mesh filename="${mesh_root}/mounts/${file}" scale="${scale}"/></geometry>
+        <material name="${name}_material"><color rgba="0.22 0.32 0.40 1"/></material>
+      </visual>
+      <collision>
+        <origin xyz="${mesh_xyz}" rpy="${mesh_rpy}"/>
+        <geometry><mesh filename="${mesh_root}/mounts/${file}" scale="${scale}"/></geometry>
+      </collision>
+      <inertial><origin xyz="${center}"/><mass value="${mass}"/>
+        <inertia ixx="${mass*(bounds[1]**2+bounds[2]**2)/12}" ixy="0" ixz="0" iyy="${mass*(bounds[0]**2+bounds[2]**2)/12}" iyz="0" izz="${mass*(bounds[0]**2+bounds[1]**2)/12}"/>
+      </inertial>
+    </link>
+    <xacro:fixed_joint name="${name}_joint" parent="${parent}" child="${name}" xyz="${xyz}" rpy="${rpy}"/>
+  </xacro:macro>
+
+  <xacro:macro name="camera_aperture" params="y radius">
+    <visual><origin xyz="${c['d435_size'][0]/2+0.0007} ${y} 0" rpy="0 ${pi/2} 0"/>
+      <geometry><cylinder radius="${radius}" length="0.0005"/></geometry>
+      <material name="d435_lens"><color rgba="0.12 0.24 0.30 1"/></material>
+    </visual>
+  </xacro:macro>
+
+  <xacro:macro name="d435" params="name parent xyz rpy">
+    <xacro:property name="s" value="${c['d435_size']}"/>
+    <xacro:property name="m" value="${c['d435_mass']}"/>
+    <link name="${name}_link">
+      <!-- Simplified D435 housing, not an OEM CAD model. -->
+      <visual><geometry><box size="${s[0]} ${s[1]} ${s[2]}"/></geometry>
+        <material name="d435_aluminum"><color rgba="0.75 0.78 0.81 1"/></material>
+      </visual>
+      <visual><origin xyz="${s[0]/2} 0 0"/><geometry><box size="0.001 0.083 0.020"/></geometry>
+        <material name="d435_glass"><color rgba="0.025 0.03 0.04 1"/></material>
+      </visual>
+      <xacro:camera_aperture y="0.0325" radius="0.0035"/>
+      <xacro:camera_aperture y="0.0175" radius="0.004"/>
+      <xacro:camera_aperture y="-0.0075" radius="0.005"/>
+      <xacro:camera_aperture y="-0.0325" radius="0.004"/>
+      <collision><geometry><box size="${s[0]+0.002} ${s[1]} ${s[2]}"/></geometry></collision>
+      <inertial><mass value="${m}"/>
+        <inertia ixx="${m*(s[1]**2+s[2]**2)/12}" ixy="0" ixz="0" iyy="${m*(s[0]**2+s[2]**2)/12}" iyz="0" izz="${m*(s[0]**2+s[1]**2)/12}"/>
+      </inertial>
+    </link>
+    <xacro:fixed_joint name="${name}_joint" parent="${parent}" child="${name}_link" xyz="${xyz}" rpy="${rpy}"/>
+    <!-- Nominal depth zero is 4.3 mm behind front face, left IR reference.
+         RGB is 15 mm to its left. Replace with device-calibrated extrinsics. -->
+    <link name="${name}_depth_frame"/><link name="${name}_color_frame"/>
+    <xacro:fixed_joint name="${name}_depth_joint" parent="${name}_link" child="${name}_depth_frame" xyz="${s[0]/2-0.0043} 0.0175 0"/>
+    <xacro:fixed_joint name="${name}_color_joint" parent="${name}_depth_frame" child="${name}_color_frame" xyz="0 0.015 0"/>
+    <link name="${name}_depth_optical_frame"/><link name="${name}_color_optical_frame"/>
+    <xacro:fixed_joint name="${name}_depth_optical_joint" parent="${name}_depth_frame" child="${name}_depth_optical_frame" rpy="${-pi/2} 0 ${-pi/2}"/>
+    <xacro:fixed_joint name="${name}_color_optical_joint" parent="${name}_color_frame" child="${name}_color_optical_frame" rpy="${-pi/2} 0 ${-pi/2}"/>
+  </xacro:macro>
+
+  <xacro:macro name="wrist_camera" params="index">
+    <!-- The broad five-hole plate fastens to the wrist. D435 REAR fastens
+         to the separate oblique two-hole (45 mm pitch) plate; it does not
+         sit on the five-hole plate. See config/d435_wrist_attachment.json. -->
+    <xacro:property name="p" value="${c['wrist_mount_xyz']}"/>
+    <xacro:property name="r" value="${c['wrist_mount_rpy']}"/>
+    <xacro:mount_mesh name="arm_${index}/wrist_camera_mount_link" parent="arm_${index}/gripper_link" file="d435_wrist_mount.stl"
+      xyz="${p[0]} ${p[1]} ${p[2]}" rpy="${r[0]} ${r[1]} ${r[2]}"
+      mesh_xyz="0.19286975 -0.0228857 -0.2924658" mesh_rpy="0 0 ${pi/2}"
+      bounds="${[0.0367519,0.0789078,0.0659069]}" center="0 0 0.03295345" mass="${c['wrist_mount_mass']}"/>
+    <xacro:property name="cp" value="${c['wrist_camera_xyz']}"/>
+    <xacro:property name="cr" value="${c['wrist_camera_rpy']}"/>
+    <xacro:d435 name="arm_${index}/wrist_camera" parent="arm_${index}/wrist_camera_mount_link"
+      xyz="${cp[0]} ${cp[1]} ${cp[2]}" rpy="${cr[0]} ${cr[1]} ${cr[2]}"/>
+  </xacro:macro>
+
+  <xacro:macro name="overhead_camera" params="">
+    <xacro:property name="h" value="${c['overhead_camera_height_above_deck']}"/>
+    <xacro:property name="b" value="${c['overhead_base_thickness']}"/>
+    <xacro:property name="t" value="${c['overhead_bracket_thickness']}"/>
+    <xacro:property name="r" value="${c['overhead_camera_rpy']}"/>
+    <xacro:property name="back" value="${c['overhead_mast_rear_offset']}"/>
+    <xacro:property name="neck_h" value="${c['overhead_neck_height']}"/>
+    <xacro:property name="rotation_check" lazy_eval="false" value="${True if r[0] == 0 and r[2] == 0 and r[1] &gt;= 0 and r[1] &lt;= pi/4 else xacro.fatal('Rear mount supports pitch from 0 to 45 degrees only')}"/>
+    <!-- Rear plate contacts the back of the conservative housing collider.
+         The mast is behind the housing; no floor or cheeks surround the lenses. -->
+    <xacro:property name="d" value="${(c['d435_size'][0]+0.002+t)/2}"/>
+    <xacro:property name="plate_x" value="${-cos(r[1])*d}"/>
+    <xacro:property name="plate_z" value="${h+sin(r[1])*d}"/>
+    <xacro:property name="neck_end" value="${plate_x-t/(2*cos(r[1]))+tan(r[1])*neck_h/2}"/>
+    <xacro:property name="neck_length" value="${back-P/2+neck_end}"/>
+    <xacro:property name="mast" value="${plate_z-neck_h/2-b}"/>
+    <xacro:property name="height_check" lazy_eval="false" value="${True if mast &gt; P and neck_length &gt; 0 and neck_h &gt; 0 and t &gt; sin(r[1])*neck_h else xacro.fatal('Camera height too small or invalid rear mount dimensions')}"/>
+    <xacro:solid_box name="central_camera_foot" parent="top_deck" size="${[0.080,0.080,b]}"
+      xyz="${c['overhead_camera_y']} ${side_offset-c['overhead_camera_x']+back} ${(c['plate_thickness']+b)/2}" rpy="0 0 ${side_yaw}" mass="${c['overhead_base_mass']}" color="0.22 0.32 0.40 1"/>
+    <xacro:solid_box name="central_camera_mast" parent="central_camera_foot" size="${[P,P,mast]}"
+      xyz="0 0 ${(b+mast)/2}" mass="${mast*c['profile_linear_mass']}" color="0.09 0.10 0.11 1"/>
+    <xacro:solid_box name="central_camera_neck" parent="central_camera_mast" size="${[neck_length+P,0.030,neck_h]}"
+      xyz="${neck_length/2} 0 ${(mast+neck_h)/2}" mass="${(neck_length+P)*0.030*neck_h*2700}" color="0.35 0.40 0.45 1"/>
+    <xacro:solid_box name="central_camera_rear_plate" parent="central_camera_neck" size="${[t,0.070,0.020]}"
+      xyz="${back+plate_x-neck_length/2} 0 0" rpy="0 ${r[1]} 0" mass="${t*0.070*0.020*2700}" color="0.35 0.40 0.45 1"/>
+    <!-- Fixed rear fastening representation; holes and hardware require fit checking. -->
+    <xacro:d435 name="top_camera" parent="central_camera_rear_plate" xyz="${d} 0 0" rpy="0 0 0"/>
+  </xacro:macro>
+</robot>

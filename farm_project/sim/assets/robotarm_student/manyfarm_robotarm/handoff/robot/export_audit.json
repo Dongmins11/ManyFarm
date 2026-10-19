@@ -1,0 +1,69 @@
+{
+  "passed": true,
+  "file": "robot_with_d435.usdc",
+  "default_prim": "/World",
+  "cameras": [
+    {
+      "view": "right",
+      "stream": "rgb",
+      "prim_path": "/World/envs/env_0/Robot/arm_2_gripper_link/D435_right_rgb"
+    },
+    {
+      "view": "right",
+      "stream": "depth",
+      "prim_path": "/World/envs/env_0/Robot/arm_2_gripper_link/D435_right_depth"
+    },
+    {
+      "view": "right",
+      "stream": "ir_right",
+      "prim_path": "/World/envs/env_0/Robot/arm_2_gripper_link/D435_right_ir_right"
+    },
+    {
+      "view": "rear",
+      "stream": "rgb",
+      "prim_path": "/World/D435_rear_rgb"
+    },
+    {
+      "view": "rear",
+      "stream": "depth",
+      "prim_path": "/World/D435_rear_depth"
+    }
+  ],
+  "camera_count": 5,
+  "root_to_policy_world": [
+    [
+      2.220446049250313e-16,
+      -1.0,
+      0.0,
+      0.050000000000000044
+    ],
+    [
+      1.0,
+      2.220446049250313e-16,
+      0.0,
+      2.7755575615628914e-17
+    ],
+    [
+      0.0,
+      0.0,
+      1.0,
+      0.0
+    ],
+    [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+    ]
+  ],
+  "frozen_rigid_physics_preserved": true,
+  "current_wrist_visuals_only": true,
+  "physics_attributes_verified": 384,
+  "external_asset_dependencies": [
+    ""
+  ],
+  "sensor_mounts_parented": true,
+  "dangling_relationships": [],
+  "render_products_included": false,
+  "note": "Robot prefab only; farm physicsScene/RTX annotators are owned by receiver. Reference runtime uses the original validated rig."
+}

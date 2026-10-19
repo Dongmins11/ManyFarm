@@ -1,0 +1,317 @@
+{
+  "schema": "student60_real_input_compatibility_audit_v1",
+  "created_utc": "2026-10-16T02:10:54.923312+00:00",
+  "hardware_commands_sent": 0,
+  "baseline_64_files_unchanged": true,
+  "controller_static_guard": {
+    "passed": true,
+    "scope": "MRO helper classes + TimingCore/TimingRuntime, bounded AST attribute/import check",
+    "classes_checked": 21,
+    "source_sha256": {
+      "/home/bhc/manyfarm_ws/manyfarm_robotarm/src/harvest_robot/harvest_runtime/student60_timing/controller.py": "d1f25e4d04d625e406f0a71efd382b6b8044b2f8c9705cd9ae772b5cf07a7108",
+      "/home/bhc/manyfarm_ws/manyfarm_robotarm/src/harvest_robot/harvest_runtime/student60_faster_capture.py": "e321944be4d4fcf208b9e47cee23b85bc11db61b22d31b7a5fa50199f293afd8",
+      "/home/bhc/manyfarm_ws/manyfarm_robotarm/src/harvest_robot/harvest_runtime/student60_flexible_transfer.py": "0ffee055a9606c1ddc461efd6ef0aeeb512f36e5bf2659c40fade79b2c5c5a72",
+      "/home/bhc/manyfarm_ws/manyfarm_robotarm/src/harvest_robot/harvest_runtime/student60_finite_load.py": "12c976490945955e95abbc898e60b98fcd49aea7b6eb689491fb8d0106fff7cd",
+      "/home/bhc/manyfarm_ws/manyfarm_robotarm/src/harvest_robot/harvest_runtime/student60_side_scan.py": "bdbc630d286c8206252b52105696f939658115eb05e173ace1058c217664d29f",
+      "/home/bhc/manyfarm_ws/manyfarm_robotarm/src/harvest_robot/harvest_runtime/student60_bounded_occlusion.py": "c89603959557d5481e5decc09b2f42a3709909b3d8445842cb8647e61a486eb2",
+      "/home/bhc/manyfarm_ws/manyfarm_robotarm/src/harvest_robot/harvest_runtime/student60_reobserved_harvest.py": "ce20b20b889af0d4d082301313db2ae16cc3b87c9131acbea30d2643e66d8985",
+      "/home/bhc/manyfarm_ws/manyfarm_robotarm/src/harvest_robot/harvest_runtime/student60_lifted_harvest.py": "8acce58234980b6bf9f90259c50fce91f7d82acea7a97662c521743583894595",
+      "/home/bhc/manyfarm_ws/manyfarm_robotarm/src/harvest_robot/harvest_runtime/student60_active_view.py": "963dd10c67a3530b50800882555390a05f1d949e7e7be33b8350645a3952ff44",
+      "/home/bhc/manyfarm_ws/manyfarm_robotarm/src/harvest_robot/harvest_runtime/student60_clear_view.py": "ff739138c526627b754a18ab35f22c67ef15c6ccd8afad1f4a69e96d9a0dfdfb",
+      "/home/bhc/manyfarm_ws/manyfarm_robotarm/src/harvest_robot/harvest_runtime/student60_camera_harvest.py": "90dedd08887b3d72bc2f8a70057a840271726977891efa0765869e043bf7e3ad",
+      "/home/bhc/manyfarm_ws/manyfarm_robotarm/src/harvest_robot/harvest_runtime/student60_observed_closure.py": "e09938d9c86b6280c05934bb3c950a5a1b55dd9b5810bfdaafbce86586dcd4ae",
+      "/home/bhc/manyfarm_ws/manyfarm_robotarm/src/harvest_robot/harvest_runtime/student60_pregrasp.py": "e069fe76e940c931ad7593b99ed93aa5bf5b6be1654eca52a5c0347d2763d977",
+      "/home/bhc/manyfarm_ws/manyfarm_robotarm/src/harvest_robot/harvest_runtime/student60_camera_pull.py": "0abcb9dac0a12df6d30a7b6671dae8d9916921af2cae7fa8e33f4b69917c69f0",
+      "/home/bhc/manyfarm_ws/manyfarm_robotarm/src/harvest_robot/harvest_runtime/student60_approach_anchor.py": "20611ef52b19edead07ca4f83e0ecced08477025c5d856281634cdf5056fcb76",
+      "/home/bhc/manyfarm_ws/manyfarm_robotarm/src/harvest_robot/harvest_runtime/student60_retention_guard.py": "910d05a042688b0c3f8579d8544c0639586c0c8ba405e541971df69ab371012f",
+      "/home/bhc/manyfarm_ws/manyfarm_robotarm/src/harvest_robot/harvest_runtime/student60_entry_hold.py": "2693ce0a49f516e45151b750c01acc273d4efabb8141a224853cd53ddeab1bc8",
+      "/home/bhc/manyfarm_ws/manyfarm_robotarm/src/harvest_robot/harvest_runtime/student60_stable_grip.py": "0136ca6a4709754fc4b1c9c66ba6666cb1388a087ccc1370d27824cd20325dbd",
+      "/home/bhc/manyfarm_ws/manyfarm_robotarm/src/harvest_robot/harvest_runtime/student60_entry_servo.py": "68cc16cdb41ac3e4039d2a275464009e7f00c43c86dd10125dee42c5eca384de",
+      "/home/bhc/manyfarm_ws/manyfarm_robotarm/src/harvest_robot/harvest_runtime/student60_timing/runtime.py": "db65e64e2410cb8924da616494687e016fdc7f07225022cf9dd64c2d922a7726"
+    },
+    "forbidden_accesses": [],
+    "consumed_nominal_task_keys": [
+      "diameter",
+      "length",
+      "tension_axis"
+    ],
+    "note": "Manually traced camera/vision/TCP producers in the evaluator separately; this is not a whole-program taint proof"
+  },
+  "student_input_check": {
+    "passed": true,
+    "joint_order": [
+      "arm_2_shoulder_pan",
+      "arm_2_shoulder_lift",
+      "arm_2_elbow_flex",
+      "arm_2_wrist_flex",
+      "arm_2_wrist_roll",
+      "arm_2_gripper"
+    ],
+    "joint_position_unit": "rad",
+    "joint_velocity_unit": "rad/s",
+    "normalized_state": {
+      "q": [
+        0,
+        6
+      ],
+      "qd_divided_by_1_5": [
+        6,
+        12
+      ],
+      "previous_sent_goal": [
+        12,
+        18
+      ],
+      "estimated_target_minus_tcp": [
+        18,
+        21
+      ],
+      "valid": [
+        21,
+        22
+      ],
+      "age_seconds": [
+        22,
+        23
+      ]
+    },
+    "camera_center_inputs": 11,
+    "camera_center_ignores_privileged_state": true,
+    "command_outputs": "6 joint goals + simulator jaw stiffness + jaw speed limit",
+    "jaw_servo_physical_mapping_verified": false
+  },
+  "historical_feedback_check": {
+    "passed": true,
+    "scope": "Historical records and offline/synthetic conversions only, no live sensor accuracy test",
+    "folder": "/home/bhc/manyfarm_ws/manyfarm_robotarm/outputs/so101_bench/ppo_motor_dynamics_20261013_114827_909368935/run",
+    "calibration": "/home/bhc/manyfarm_ws/manyfarm_robotarm/outputs/so101_bench/id2_recenter_20260922/calibration.json",
+    "calibration_purpose": "read_only_visual_alignment_not_motion_authorization",
+    "calibration_note": "User confirmed all six directions +1 on 2026-09-22. Rest pose visually aligned; provisional offsets, independent pose validation pending.",
+    "motors": [
+      {
+        "id": 1,
+        "model": 777,
+        "firmware_major": 3,
+        "firmware_minor": 10,
+        "phase": 12,
+        "mode": 0,
+        "resolution": 1,
+        "speed_unit_coefficient": 50
+      },
+      {
+        "id": 2,
+        "model": 777,
+        "firmware_major": 3,
+        "firmware_minor": 10,
+        "phase": 12,
+        "mode": 0,
+        "resolution": 1,
+        "speed_unit_coefficient": 50
+      },
+      {
+        "id": 3,
+        "model": 777,
+        "firmware_major": 3,
+        "firmware_minor": 10,
+        "phase": 12,
+        "mode": 0,
+        "resolution": 1,
+        "speed_unit_coefficient": 50
+      },
+      {
+        "id": 4,
+        "model": 777,
+        "firmware_major": 3,
+        "firmware_minor": 10,
+        "phase": 12,
+        "mode": 0,
+        "resolution": 1,
+        "speed_unit_coefficient": 50
+      },
+      {
+        "id": 5,
+        "model": 777,
+        "firmware_major": 3,
+        "firmware_minor": 10,
+        "phase": 12,
+        "mode": 0,
+        "resolution": 1,
+        "speed_unit_coefficient": 50
+      },
+      {
+        "id": 6,
+        "model": 777,
+        "firmware_major": 3,
+        "firmware_minor": 10,
+        "phase": 12,
+        "mode": 0,
+        "resolution": 1,
+        "speed_unit_coefficient": 50
+      }
+    ],
+    "nominal_speed_rad_s_per_raw": [
+      0.0015289084247470325,
+      0.0015289084247470325,
+      0.0015289084247470325,
+      0.0015289084247470325,
+      0.0015289084247470325,
+      0.0015289084247470325
+    ],
+    "position_rad_per_tick": 0.0015339807878856412,
+    "position_deg_per_tick": 0.087890625,
+    "one_tick_difference_at20hz_rad_s": 0.030679615757712823,
+    "captured_position_samples": 313,
+    "causal_velocity_windows_checked": 312,
+    "historical_samples_outside_student_joint_bounds": 0,
+    "per_joint_read_spread_s": {
+      "minimum": 0.010001768008805811,
+      "median": 0.01102094650559593,
+      "p95": 0.011870786306099034,
+      "maximum": 0.02284189750207588
+    },
+    "per_joint_sample_interval_s": {
+      "minimum": 0.017672173999017105,
+      "median": 0.050049704252160154,
+      "p95": 0.06789996125080507,
+      "maximum": 0.06885172799229622
+    },
+    "historical_supply_voltage_V": {
+      "minimum": 11.4,
+      "median": 12.1,
+      "p95": 12.2,
+      "maximum": 12.3
+    },
+    "live_registers_verified": false,
+    "register_speed_vs_encoder_derivative_validated": false,
+    "load_semantics": "PWM drive duty, not torque Nm or contact force N",
+    "current_semantics": "motor phase-current feedback, model/firmware capability must be checked; not fingertip force",
+    "no_load_or_current_in_student_observation": true
+  },
+  "simulator_tcp_reconstructed_from_q": {
+    "passed": true,
+    "samples": 2873,
+    "maximum_error_m": 4.983086395472986e-07,
+    "p95_error_m": 3.4331242283233435e-07,
+    "scope": "Same public FK reproduces recorded simulator TCP from q; real FK accuracy/backlash/flexibility remain unverified"
+  },
+  "motor_identity": {
+    "repository_model": "STS3215",
+    "user_confirmed_label": "STS3215 12V",
+    "live_model_firmware_phase_verified": false
+  },
+  "current_hardware_scope": "No ttyACM/ttyUSB or serial/by-id found in read-only host inventory this turn",
+  "findings": [
+    {
+      "id": "NO_FRUIT_ORACLE_AT_CONTROL_INPUT",
+      "severity": "passed_bounded_audit",
+      "detail": "Camera detections/tracker/11-feature camera center; helper receives q,qd,TCP,task geometry and own state"
+    },
+    {
+      "id": "SIM_TCP_REQUIRES_HARDWARE_ESTIMATOR",
+      "severity": "porting_required",
+      "detail": "Evaluator passes env._tcp derived from exact simulated body pose. Hardware must use calibrated FK/visual estimate; FK self-consistency is not independent accuracy proof"
+    },
+    {
+      "id": "CAMERA_EXTRINSICS_REQUIRE_CALIBRATION",
+      "severity": "porting_required",
+      "detail": "Renderer exact camera poses must become calibrated mount+capture-time encoder FK. Real IR/depth have additional noise, occlusion and sensor failure"
+    },
+    {
+      "id": "JOINT_SPEED_AND_TIME_DOMAIN",
+      "severity": "conversion_required",
+      "detail": "Sign-magnitude speed and phase-dependent RPM units -> calibrated direction * rad/s; or causal position differentiation. Preserve per-joint sample times, quantization, delay"
+    },
+    {
+      "id": "SIX_MOTORS_ARE_NOT_SAMPLED_SIMULTANEOUSLY",
+      "severity": "measurement_alignment_required",
+      "detail": "Historical six-angle read spans median11ms, p95about12ms. Preserve per-joint times and align a common past pose; do not mark all samples at receive time or assume simulation60Hz feedback"
+    },
+    {
+      "id": "CALIBRATION_PROVISIONAL_MODE_IS_SIMULATION_ONLY",
+      "severity": "hardware_gate_required",
+      "detail": "AssignedFruitTracker permits provisional detections; real execution must require independently verified camera/mount/center calibration, robot/clock identities and reject unverified geometry"
+    },
+    {
+      "id": "SENT_GOAL_NOT_PHYSICAL_POSITION",
+      "severity": "hardware_ack_contract_required",
+      "detail": "Previous action is sent/accepted goal, not encoder q. SyncWrite packet transmission alone does not prove each servo accepted it; define readback/ack evidence separately from target reached"
+    },
+    {
+      "id": "OFFLINE_SMOOTHING_IS_NONCAUSAL",
+      "severity": "do_not_reuse_live",
+      "detail": "motor_dynamics.derivatives smooth fit uses two future samples. Only raw backward difference is causal; timing runtime currently does not use the offline smoother"
+    },
+    {
+      "id": "SIM_STIFFNESS_NOT_STS_GAIN_OR_TORQUE",
+      "severity": "blocking_for_direct_hardware_output",
+      "detail": "NN outputs6 joint goals + jaw stiffness Nm/rad and velocity limit. STS P/Torque_Limit have different units; no calibrated direct mapping exists"
+    },
+    {
+      "id": "CONTACT_PROXY_NOT_FORCE_SENSOR",
+      "severity": "physical_validation_required",
+      "detail": "Grip inference uses measured jaw position, estimated speed and goal tracking error; does not prove contact, load, actual retention or stem separation"
+    },
+    {
+      "id": "NOMINAL_GEOMETRY_NOT_OBSERVED_PER_FRUIT",
+      "severity": "calibration_or_estimation_required",
+      "detail": "Diameter70mm,length75mm,pull axis/tray/mount transform are configured assumptions, not online fruit truth. grasp_fk TCP offset depends on nominal diameter"
+    },
+    {
+      "id": "SIM_GRADING_AND_SAFETY_USE_TRUTH",
+      "severity": "separate_hardware_evidence_required",
+      "detail": "Actual detach/contact/forces/whole mesh box settlement grade simulation and can terminate it. They are outside neural/helper inputs. Hardware needs separate completion and safety evidence"
+    },
+    {
+      "id": "HISTORICAL_CALIBRATION_PROVISIONAL",
+      "severity": "physical_validation_required",
+      "detail": "User confirmed all six directions +1 on 2026-09-22. Rest pose visually aligned; provisional offsets, independent pose validation pending."
+    }
+  ],
+  "evidence": {
+    "tcp_provider": [
+      {
+        "path": "/home/bhc/manyfarm_ws/manyfarm_robotarm/scripts/eval_student60_timing.py",
+        "line": 323,
+        "text": "tcp=(arm_from_world@np.r_[env._tcp()[0][0].cpu().numpy(),1])[:3]"
+      },
+      {
+        "path": "/home/bhc/manyfarm_ws/manyfarm_robotarm/scripts/eval_student60_timing.py",
+        "line": 411,
+        "text": "tcp=(arm_from_world@np.r_[env._tcp()[0][0].cpu().numpy(),1])[:3]"
+      }
+    ],
+    "neural_state": [
+      {
+        "path": "/home/bhc/manyfarm_ws/manyfarm_robotarm/src/harvest_robot/harvest_rl/target_contract.py",
+        "line": 103,
+        "text": "return torch.cat((proprio, relative, fresh[:, None].to(proprio.dtype),"
+      }
+    ],
+    "simulator_output": [
+      {
+        "path": "/home/bhc/manyfarm_ws/manyfarm_robotarm/src/harvest_robot/harvest_runtime/student60.py",
+        "line": 86,
+        "text": "env.robot.write_joint_stiffness_to_sim(gain,joint_ids=[env.jids[-1]],env_ids=ids)"
+      }
+    ],
+    "grip_proxy": [
+      {
+        "path": "/home/bhc/manyfarm_ws/manyfarm_robotarm/src/harvest_robot/harvest_runtime/student60_observed_closure.py",
+        "line": 37,
+        "text": "stalled=(q[-1]>.25 and q[-1]-self.inner.previous_q[-1]>.015"
+      }
+    ],
+    "camera_pose": [
+      {
+        "path": "/home/bhc/manyfarm_ws/manyfarm_robotarm/src/harvest_robot/harvest_sensors/isaac_rig.py",
+        "line": 69,
+        "text": "t=np.eye(4); t[:3,3]=data.pos_w[0].cpu().numpy()"
+      }
+    ]
+  },
+  "references": [
+    "https://ftservo.github.io/ftservo-wiki/reference/parameter/memory-sts/",
+    "https://ftservo.github.io/ftservo-wiki/en/products/models/st-3215-c018/main/",
+    "https://gitee.com/ftservo/FTServo_Python/blob/main/scservo_sdk/sms_sts.py"
+  ]
+}

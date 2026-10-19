@@ -1,0 +1,214 @@
+{
+  "schema": "pepper_geometry_v2",
+  "profile": {
+    "schema": "pepper_geometry_v2",
+    "body_max_width_m": 0.067,
+    "body_height_m": 0.077,
+    "lower_body_max_width_m": 0.035,
+    "lower_body_height_fraction": 0.15,
+    "taper_blend_end_fraction": 0.5,
+    "source_body_cut_fraction_of_whole_height": 0.425,
+    "mass_kg": 0.009,
+    "legacy_body_extent_length_m": 0.09625,
+    "grasp_center_local_m": [
+      0.0,
+      0.0,
+      -0.0077
+    ],
+    "thickness": "not measured; retain original XY aspect ratio before lower-body taper",
+    "lower_width_interpretation": "maximum transverse width in bottom 15% of body; measurement height unspecified, provisional",
+    "source_body_segmentation": "same asset-specific broad-body cutoff as body_hull_v1; decorative stem is retained",
+    "reference_images": [
+      "/home/bhc/Downloads/Screenshot_20261007_170558_Samsung Notes.jpg",
+      "/home/bhc/Downloads/20261007_170720.jpg"
+    ],
+    "scope": "separate opt-in geometry, visual and collider together; no live collection/default/cache/policy changes",
+    "attachment_version": "unchanged; geometry version2 is unrelated to stem attachment version"
+  },
+  "profile_sha256": "ee2064c58042eac24c51b87b466cffdca0b2acf4122bb28c61496beb7ff7e10b",
+  "assets": {
+    "Red": {
+      "file": "Pepper_Red_v2.usda",
+      "sha256": "770f6e764d4006e618fbb7f0e07c1028782ae3a73d5270d3d13c657ac0cede8f",
+      "source_sha256": "09f43d3924b3e5841cffe18ec8ef519790f33fbc236942faaaca1a04c84e251f",
+      "attachment_local_m": [
+        0.016778553790844936,
+        0.012048660314059581,
+        0.037093453446538915
+      ],
+      "fit": {
+        "source_body_cut_z": 0.04974596165120602,
+        "source_body_bounds": [
+          [
+            -0.04286101460456848,
+            -0.04526412859559059,
+            -0.058524660766124725
+          ],
+          [
+            0.04286101460456848,
+            0.04526412859559059,
+            0.049680694937705994
+          ]
+        ],
+        "lower_radial_factor": 0.6521139209500753,
+        "xy_scale": 0.7401004070862287,
+        "z_scale": 0.7116098782647782,
+        "source_xy_center": [
+          0.0,
+          0.0
+        ],
+        "source_body_center_z": -0.004421982914209366,
+        "visual_whole_bounds_m": [
+          [
+            -0.03172145435696993,
+            -0.0335,
+            -0.0462
+          ],
+          [
+            0.03172145435696993,
+            0.0335,
+            0.037093453446538915
+          ]
+        ],
+        "body_dimensions_m": [
+          0.06344290871393986,
+          0.067,
+          0.077
+        ],
+        "lower_body_dimensions_m": [
+          0.035,
+          0.034456845322946815,
+          0.01150037653866326
+        ]
+      },
+      "actual_body_max_width_m": 0.067,
+      "actual_body_height_m": 0.077,
+      "actual_lower_body_max_width_m": 0.035
+    },
+    "Yellow": {
+      "file": "Pepper_Yellow_v2.usda",
+      "sha256": "3a6f89cb6b7970c40a46815328dbe3dfcb261f2ad6c3fd1f5d7e9bb90fe8f1b7",
+      "source_sha256": "1978f235cc9294620a535fa99a6773177e2627b6e1e91f02cd26886067d319d4",
+      "attachment_local_m": [
+        0.016778555169389368,
+        0.012048658935515148,
+        0.037093459181787664
+      ],
+      "fit": {
+        "source_body_cut_z": 0.04974596165120602,
+        "source_body_bounds": [
+          [
+            -0.04286101460456848,
+            -0.04526412859559059,
+            -0.058524660766124725
+          ],
+          [
+            0.04286101460456848,
+            0.04526412859559059,
+            0.0496806874871254
+          ]
+        ],
+        "lower_radial_factor": 0.6521139209500753,
+        "xy_scale": 0.7401004070862287,
+        "z_scale": 0.7116099272633428,
+        "source_xy_center": [
+          0.0,
+          0.0
+        ],
+        "source_body_center_z": -0.004421986639499664,
+        "visual_whole_bounds_m": [
+          [
+            -0.03172145435696993,
+            -0.0335,
+            -0.0462
+          ],
+          [
+            0.03172145435696993,
+            0.0335,
+            0.037093459181787664
+          ]
+        ],
+        "body_dimensions_m": [
+          0.06344290871393986,
+          0.067,
+          0.077
+        ],
+        "lower_body_dimensions_m": [
+          0.035,
+          0.034456845322946815,
+          0.011500377330532455
+        ]
+      },
+      "actual_body_max_width_m": 0.067,
+      "actual_body_height_m": 0.077,
+      "actual_lower_body_max_width_m": 0.035
+    },
+    "Green": {
+      "file": "Pepper_Green_v2.usda",
+      "sha256": "fc88e3bfca7d6e4e402a2c893d0f9d4434a2ac287c66f90dec686d9b6c4cef17",
+      "source_sha256": "770f799fe2950e1b122395f590da3b78b34a55ef0cf39bac50e0bdf61cbd36bb",
+      "attachment_local_m": [
+        0.016778556547933803,
+        0.012048658935515148,
+        0.037093459181787664
+      ],
+      "fit": {
+        "source_body_cut_z": 0.04974596165120602,
+        "source_body_bounds": [
+          [
+            -0.04286101460456848,
+            -0.04526412859559059,
+            -0.058524660766124725
+          ],
+          [
+            0.04286101460456848,
+            0.04526412859559059,
+            0.0496806874871254
+          ]
+        ],
+        "lower_radial_factor": 0.6521139209500753,
+        "xy_scale": 0.7401004070862287,
+        "z_scale": 0.7116099272633428,
+        "source_xy_center": [
+          0.0,
+          0.0
+        ],
+        "source_body_center_z": -0.004421986639499664,
+        "visual_whole_bounds_m": [
+          [
+            -0.03172145435696993,
+            -0.0335,
+            -0.0462
+          ],
+          [
+            0.03172145435696993,
+            0.0335,
+            0.037093459181787664
+          ]
+        ],
+        "body_dimensions_m": [
+          0.06344290871393986,
+          0.067,
+          0.077
+        ],
+        "lower_body_dimensions_m": [
+          0.035,
+          0.034456845322946815,
+          0.011500377330532455
+        ]
+      },
+      "actual_body_max_width_m": 0.067,
+      "actual_body_height_m": 0.077,
+      "actual_lower_body_max_width_m": 0.035
+    }
+  },
+  "source_files": {
+    "src/Pepper_RL_Demo/assets/Pepper_Red.usdc": "09f43d3924b3e5841cffe18ec8ef519790f33fbc236942faaaca1a04c84e251f",
+    "src/Pepper_RL_Demo/assets/Pepper_Yellow.usdc": "1978f235cc9294620a535fa99a6773177e2627b6e1e91f02cd26886067d319d4",
+    "src/Pepper_RL_Demo/assets/Pepper_Green.usdc": "770f799fe2950e1b122395f590da3b78b34a55ef0cf39bac50e0bdf61cbd36bb",
+    "/home/bhc/Downloads/Screenshot_20261007_170558_Samsung Notes.jpg": "6f2b2b3f40db98313e4a284c7ebe6dd187abb585abcb21480063afbf5fad34bb",
+    "/home/bhc/Downloads/20261007_170720.jpg": "3d52d93b6ea78d206c87d3412c520617281c14c0d23143000fd44a75eff4db64"
+  },
+  "default_environment_modified": false,
+  "policy_evaluated": false
+}

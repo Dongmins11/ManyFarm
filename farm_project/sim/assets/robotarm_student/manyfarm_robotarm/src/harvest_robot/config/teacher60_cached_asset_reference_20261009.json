@@ -1,0 +1,32 @@
+{
+  "schema": "cached_teacher_asset_reference_v1",
+  "student_reference": "outputs/harvest_rl/current_camera_reference_20261008_dagger_fix/reference.json",
+  "student_reference_sha256": "d67f75f644012f5ec8867319b2b00e979b9368d92729e9f4f532df0a73b91daf",
+  "source_run": "outputs/harvest_rl/student_dagger_night_20261008_093415_863754/collect_yellow/run.json",
+  "source_run_sha256": "329fb14494c2a0021ae2a77fd023f090d61180e12e77c5912af4fb0daa116b10",
+  "robot_usd": "outputs/harvest_rl/current_robot/b73ed90a6e56216d/harvest_current.usd",
+  "validated_baseline": "outputs/harvest_rl/teacher60_capture_smoke_20261009_v2/run.json",
+  "validated_baseline_sha256": "3034d9b275648fe3ee68d45642883da38772eb37ca8166c76d05ff2dda34dd73",
+  "authoring_only": [
+    "src/smartfarm_description/urdf/harvest_robot.urdf",
+    "src/smartfarm_description/config/assembly.yaml"
+  ],
+  "files": {
+    "outputs/harvest_rl/current_robot/b73ed90a6e56216d/harvest_current.usd": "3354c11f3628660aab3d6140dbd277ff601122f53ca3f0769b680a75af0a12cf",
+    "outputs/harvest_rl/current_robot/b73ed90a6e56216d/harvest_current.urdf": "48009330cc9fd250382d429e1786d777cea79cc4e8ee981a19c68e8eb2393aa7",
+    "outputs/harvest_rl/current_robot/b73ed90a6e56216d/manifest.json": "bd12b804582f5e7943ca4776544bc0127397f4c4ea44453280ce256a0891949d",
+    "outputs/harvest_rl/current_robot/b73ed90a6e56216d/config.yaml": "e022599d8280fee1c5d8a06bbd52fa91781831e3a976e3e9a067a9717a7b9ba9",
+    "outputs/harvest_rl/current_robot/b73ed90a6e56216d/configuration/harvest_current_base.usd": "6e4faff934f95008554c784de7446712337ccc8cacdb0aa4d95fafef07bec671",
+    "outputs/harvest_rl/current_robot/b73ed90a6e56216d/configuration/harvest_current_physics.usd": "1e7b09df105e7b4d0b45cfa200f1f7099e078b72489e40434cc7bb06fc2f73d1",
+    "outputs/harvest_rl/current_robot/b73ed90a6e56216d/configuration/harvest_current_robot.usd": "07b98658c155e41ba99acdc62df81e4c3e6acc636ff2abdb8387e167729cda0f",
+    "outputs/harvest_rl/current_robot/b73ed90a6e56216d/configuration/harvest_current_sensor.usd": "e85cf604fbb246fea9531cfba49385781489f226ad7debf2e605542020959e85",
+    "outputs/harvest_rl/assets/workspace.npz": "b79684765680ce82b93c9887c1ea1a474df7aa7c3fa4d0db9983fb0aeda992a1",
+    "outputs/harvest_rl/assets/harvest_training.urdf": "4e061e6d1a34c5f44506f45e66b1f7c299755b9ff4a1c51e27ace9c9f70af0ed"
+  },
+  "notes": [
+    "Teacher loads this existing USD and its four local layers; it does not rebuild the editable URDF.",
+    "Existing Student reference is not modified. All other 208 frozen source/assets remain checked.",
+    "Root USD matches the previous no-learning validation; dependency hashes are additionally pinned at this fix.",
+    "Later physical installation CAD changes are not automatically applied to this training robot."
+  ]
+}

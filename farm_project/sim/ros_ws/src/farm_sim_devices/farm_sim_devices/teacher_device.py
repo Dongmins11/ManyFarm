@@ -272,6 +272,18 @@ class TeacherDevice:
             joint_positions=np.clip(values, self.lower, self.upper).astype(np.float32),
             joint_indices=self._joint_indices))
 
+    def applied_command(self) -> dict:
+        """Student ack에 사용할 실제 PhysX drive 목표·gain·속도 한도를 읽는다."""
+        action = self.articulation.get_applied_action()
+        if action is None or action.joint_positions is None:
+            raise RuntimeError('실제 팔 drive 목표를 확인할 수 없습니다.')
+        view = self.articulation._articulation_view
+        gains, _ = view.get_gains(joint_indices=self._joint_indices)
+        limits = view.get_joint_max_velocities(joint_indices=self._joint_indices)
+        return dict(joint_targets=_array(np.asarray(action.joint_positions)[self._joint_indices], (6,), 'applied targets'),
+                    stiffness=_array(np.asarray(gains)[0], (6,), 'applied stiffness'),
+                    velocity_limits=_array(np.asarray(limits)[0], (6,), 'applied velocity limits'))
+
     def configure_actuator(self, settings: Mapping) -> None:
         """원본 단계 제어의 drive gain/실제 속도 한도를 PhysX에 적용한다."""
         gain = _array(settings['stiffness'], (6,), 'stiffness')

@@ -1,0 +1,35 @@
+{
+  "version": 1,
+  "name": "teacher_ramp_20260930",
+  "checkpoints": {
+    "ENTRY_CKPT": {
+      "path": "runs/harvest_rl/entry_grasp_refine_20260929_202452_137384791/train/model_200.pt",
+      "sha256": "e676f43738515446636782f22f51cf81e4fc945210729fdd0ff0458b66b1db9b",
+      "run_sha256": "463dafa1c146561ad5646b66300a0e2196d25a02ce3622e9f4cb05caa921d221"
+    },
+    "PULL_CKPT": {
+      "path": "runs/harvest_rl/pull_direction_20260927_211734_412361705/train/teacher_final.pt",
+      "sha256": "4914107143f59cb321ce332b6cf185fe563cb44522f50ade782b715fccc045fd",
+      "run_sha256": "39fb9332bc7e356ce5cd0e0d90f939df9c9a6fe030299a7d3cc5069b4264dc25"
+    },
+    "TRANSPORT_CKPT": {
+      "path": "outputs/harvest_rl/entry_transport_20260929_220740_390998651/transport_refine/train/teacher_final.pt",
+      "sha256": "47f3b7bf6500d35448ed9510db6884ac584921eeddc072350000728402ddb528",
+      "run_sha256": "cf83b42b709d861758d3d8b02cdf6d7bbc94a292e712fd50b9349a83b665dd04"
+    },
+    "PLACE_CKPT": {
+      "path": "runs/harvest_rl/place_short_hook_20260923_074907_182931509/train/teacher_final.pt",
+      "sha256": "c6c96f0bb81f861519fc5ac0e2467d9083d3c9b5c309d054bd0a7c30c4dcce27",
+      "run_sha256": "30348d079cf2b5fd29482c8f167fd6c64bf0ce4b019cf668f1392cec6c9191c7"
+    }
+  },
+  "flags": [
+    "--detached-capture-orientation",
+    "--captured-break-grace",
+    "--diagnostic-transport-scale",
+    ".25",
+    "--diagnostic-transport-ramp-s",
+    "3"
+  ],
+  "evidence": "outputs/harvest_rl/ramp_generalize_20260930_comparison.json"
+}

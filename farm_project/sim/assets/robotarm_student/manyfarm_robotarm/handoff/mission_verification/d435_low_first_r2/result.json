@@ -1,0 +1,93 @@
+{
+  "state": "DONE",
+  "mission_complete": true,
+  "target_priority": "lowest_camera_observed_world_height_first",
+  "ordered_target_ids": [
+    "fruit-000001",
+    "fruit-000002"
+  ],
+  "observed_target_heights_m": {
+    "fruit-000001": 0.8880898713433891,
+    "fruit-000002": 0.9708002362965283
+  },
+  "harvest_successes": 2,
+  "planned_targets": 2,
+  "harvested_ids": [
+    "fruit-000001",
+    "fruit-000002"
+  ],
+  "failure": null,
+  "events": [
+    {
+      "state": "TO_HOME",
+      "stamp_s": 0.45,
+      "target_id": "fruit-000001"
+    },
+    {
+      "state": "HARVEST",
+      "stamp_s": 8.75,
+      "target_id": "fruit-000001"
+    },
+    {
+      "state": "WAIT_BOX",
+      "stamp_s": 36.550000000000004,
+      "target_id": "fruit-000001"
+    },
+    {
+      "state": "BOX_CONFIRMED",
+      "target_id": "fruit-000001",
+      "stamp_s": 37.800000000000004,
+      "evidence_source": "simulator_box_outcome_v2"
+    },
+    {
+      "state": "RETURN_STOW",
+      "stamp_s": 37.800000000000004,
+      "target_id": "fruit-000001"
+    },
+    {
+      "state": "STOW_WAIT",
+      "stamp_s": 58.95,
+      "target_id": "fruit-000002"
+    },
+    {
+      "state": "TO_HOME",
+      "stamp_s": 59.45,
+      "target_id": "fruit-000002"
+    },
+    {
+      "state": "HARVEST",
+      "stamp_s": 67.75,
+      "target_id": "fruit-000002"
+    },
+    {
+      "state": "WAIT_BOX",
+      "stamp_s": 101.75,
+      "target_id": "fruit-000002"
+    },
+    {
+      "state": "BOX_CONFIRMED",
+      "target_id": "fruit-000002",
+      "stamp_s": 102.75,
+      "evidence_source": "simulator_box_outcome_v2"
+    },
+    {
+      "state": "RETURN_STOW",
+      "stamp_s": 102.75,
+      "target_id": "fruit-000002"
+    },
+    {
+      "state": "FINAL_STOP",
+      "stamp_s": 123.85000000000001,
+      "target_id": "fruit-000002"
+    },
+    {
+      "state": "DONE",
+      "stamp_s": 124.35000000000001,
+      "target_id": "fruit-000002"
+    }
+  ],
+  "scene_resets_during_mission": 0,
+  "control_checks": 2488,
+  "physics_control_checks": 7464,
+  "response6_physics_calls": 7464
+}

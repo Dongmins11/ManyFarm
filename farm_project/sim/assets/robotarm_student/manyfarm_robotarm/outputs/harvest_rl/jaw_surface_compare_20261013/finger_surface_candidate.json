@@ -1,0 +1,50 @@
+{
+  "schema": "teacher60_finger_surface_candidate_v1",
+  "candidate_only": true,
+  "production_selection_changed": false,
+  "learning": false,
+  "checkpoint": "/home/bhc/manyfarm_ws/manyfarm_robotarm/runs/harvest_rl/teacher60_native_contact_control_20261013_080334.p0n3qs8u/teacher_final.pt",
+  "checkpoint_sha256": "40e3e984f478a17a5a5d02c258c0c5a065789de960996637e4ebb8b7fc947a32",
+  "grasp_checkpoint": "/home/bhc/manyfarm_ws/manyfarm_robotarm/runs/harvest_rl/teacher60_grasp_bridge_20261011_162738.9TsEHh/teacher_final.pt",
+  "source_policy_contract_sha256": "9980b4c3380a191f880314da8d400a7141f0c5b8fe7eda4c9019be5d8df0f40d",
+  "physics_hz": 60,
+  "policy_hz": 20,
+  "mass_kg": 0.009,
+  "fruit_version": 1,
+  "material_scope": "Original two finger collision meshes only; camera/motor/fruit/box material unchanged",
+  "jaw_static_friction": 2.2,
+  "jaw_dynamic_friction": 2.2,
+  "fruit_static_friction": 1.0,
+  "fruit_dynamic_friction": 1.0,
+  "friction_combine_mode": "average",
+  "effective_pair_friction": 1.6,
+  "pad_mode": "none",
+  "gripper_effort_limit_Nm": 0.5,
+  "gripper_stiffness_Nm_rad": 8.0,
+  "gripper_damping_Nm_s_rad": 0.3,
+  "source_geometry_changed": false,
+  "real_material_calibrated": false,
+  "model_training_executed": false,
+  "evaluator": "scripts/eval_teacher60_jaw_surface_v2.py",
+  "cli_surface_args": [
+    "--effective-friction",
+    "1.6",
+    "--pad-mode",
+    "none"
+  ],
+  "evidence": "/home/bhc/manyfarm_ws/manyfarm_robotarm/outputs/harvest_rl/jaw_surface_compare_20261013/review.json",
+  "count": 64,
+  "success": 62,
+  "baseline_success": 54,
+  "regressed": 0,
+  "remaining_failures": [
+    {
+      "split": "validation",
+      "trial_id": 1
+    },
+    {
+      "split": "train",
+      "trial_id": 10
+    }
+  ]
+}

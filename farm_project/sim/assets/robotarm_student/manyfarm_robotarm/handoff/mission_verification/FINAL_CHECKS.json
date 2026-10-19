@@ -1,0 +1,461 @@
+{
+  "version": "student60_stow_mission_v1",
+  "date": "2026-10-16",
+  "original_preservation": {
+    "original_files_checked": 551,
+    "changed_docs": [
+      "docs/DECISIONS.md",
+      "docs/INTERFACES.md",
+      "docs/manipulation/PHASE1_DESIGN.md",
+      "docs/manipulation/REQUIREMENTS.md",
+      "docs/manipulation/STATE_DESIGN.md"
+    ],
+    "original_code_model_archive_unchanged": true,
+    "unexpected_changes": []
+  },
+  "cpu_regression": {
+    "passed": 34,
+    "log": "tests_final.log"
+  },
+  "motion": {
+    "d435": {
+      "mode": "physical_stow_home_stow",
+      "status": "SUCCEEDED",
+      "waypoints": [
+        {
+          "waypoint": 0,
+          "stamp_s": 0.5,
+          "q_rad": [
+            -1.1427022400312126e-05,
+            -1.5109987258911133,
+            0.778678297996521,
+            -1.3051692247390747,
+            0.04901518300175667,
+            1.102820873260498
+          ],
+          "max_error_rad": 0.010998725891113281
+        },
+        {
+          "waypoint": 1,
+          "stamp_s": 7.4,
+          "q_rad": [
+            -1.1007738066837192e-05,
+            -1.379384160041809,
+            0.8037757277488708,
+            0.6302470564842224,
+            0.047504570335149765,
+            1.098087191581726
+          ],
+          "max_error_rad": 0.03377572774887083
+        },
+        {
+          "waypoint": 2,
+          "stamp_s": 14.3,
+          "q_rad": [
+            -1.1410396837163717e-05,
+            -1.511000633239746,
+            0.7786799669265747,
+            -1.3051674365997314,
+            0.04901546612381935,
+            1.1034679412841797
+          ],
+          "max_error_rad": 0.011000633239746094
+        }
+      ],
+      "final_q_rad": [
+        -1.1410396837163717e-05,
+        -1.511000633239746,
+        0.7786799669265747,
+        -1.3051674365997314,
+        0.04901546612381935,
+        1.1034679412841797
+      ],
+      "final_qd_rad_s": [
+        0.00555578526109457,
+        0.14093534648418427,
+        -0.16927693784236908,
+        0.07485286891460419,
+        -0.0020140032283961773,
+        -0.01134283933788538
+      ],
+      "scene_resets_during_motion": 0,
+      "harvest_evaluated": false
+    },
+    "u20": {
+      "mode": "physical_stow_home_stow",
+      "status": "SUCCEEDED",
+      "waypoints": [
+        {
+          "waypoint": 0,
+          "stamp_s": 0.5,
+          "q_rad": [
+            -1.1427022400312126e-05,
+            -1.5109987258911133,
+            0.778678297996521,
+            -1.3051692247390747,
+            0.04901518300175667,
+            1.102820873260498
+          ],
+          "max_error_rad": 0.010998725891113281
+        },
+        {
+          "waypoint": 1,
+          "stamp_s": 7.4,
+          "q_rad": [
+            -1.1007738066837192e-05,
+            -1.379384160041809,
+            0.8037757277488708,
+            0.6302470564842224,
+            0.047504570335149765,
+            1.098087191581726
+          ],
+          "max_error_rad": 0.03377572774887083
+        },
+        {
+          "waypoint": 2,
+          "stamp_s": 14.3,
+          "q_rad": [
+            -1.1410396837163717e-05,
+            -1.511000633239746,
+            0.7786799669265747,
+            -1.3051674365997314,
+            0.04901546612381935,
+            1.1034679412841797
+          ],
+          "max_error_rad": 0.011000633239746094
+        }
+      ],
+      "final_q_rad": [
+        -1.1410396837163717e-05,
+        -1.511000633239746,
+        0.7786799669265747,
+        -1.3051674365997314,
+        0.04901546612381935,
+        1.1034679412841797
+      ],
+      "final_qd_rad_s": [
+        0.00555578526109457,
+        0.14093534648418427,
+        -0.16927693784236908,
+        0.07485286891460419,
+        -0.0020140032283961773,
+        -0.01134283933788538
+      ],
+      "scene_resets_during_motion": 0,
+      "harvest_evaluated": false
+    }
+  },
+  "native_d435": {
+    "original_full_mission": {
+      "state": "DONE",
+      "mission_complete": true,
+      "target_priority": "lowest_camera_observed_world_height_first",
+      "ordered_target_ids": [
+        "fruit-000001",
+        "fruit-000002"
+      ],
+      "observed_target_heights_m": {
+        "fruit-000001": 0.8880898713433891,
+        "fruit-000002": 0.9708002362965283
+      },
+      "harvest_successes": 2,
+      "planned_targets": 2,
+      "harvested_ids": [
+        "fruit-000001",
+        "fruit-000002"
+      ],
+      "failure": null,
+      "events": [
+        {
+          "state": "TO_HOME",
+          "stamp_s": 0.45,
+          "target_id": "fruit-000001"
+        },
+        {
+          "state": "HARVEST",
+          "stamp_s": 8.75,
+          "target_id": "fruit-000001"
+        },
+        {
+          "state": "WAIT_BOX",
+          "stamp_s": 36.550000000000004,
+          "target_id": "fruit-000001"
+        },
+        {
+          "state": "BOX_CONFIRMED",
+          "target_id": "fruit-000001",
+          "stamp_s": 37.800000000000004,
+          "evidence_source": "simulator_box_outcome_v2"
+        },
+        {
+          "state": "RETURN_STOW",
+          "stamp_s": 37.800000000000004,
+          "target_id": "fruit-000001"
+        },
+        {
+          "state": "STOW_WAIT",
+          "stamp_s": 58.95,
+          "target_id": "fruit-000002"
+        },
+        {
+          "state": "TO_HOME",
+          "stamp_s": 59.45,
+          "target_id": "fruit-000002"
+        },
+        {
+          "state": "HARVEST",
+          "stamp_s": 67.75,
+          "target_id": "fruit-000002"
+        },
+        {
+          "state": "WAIT_BOX",
+          "stamp_s": 101.75,
+          "target_id": "fruit-000002"
+        },
+        {
+          "state": "BOX_CONFIRMED",
+          "target_id": "fruit-000002",
+          "stamp_s": 102.75,
+          "evidence_source": "simulator_box_outcome_v2"
+        },
+        {
+          "state": "RETURN_STOW",
+          "stamp_s": 102.75,
+          "target_id": "fruit-000002"
+        },
+        {
+          "state": "FINAL_STOP",
+          "stamp_s": 123.85000000000001,
+          "target_id": "fruit-000002"
+        },
+        {
+          "state": "DONE",
+          "stamp_s": 124.35000000000001,
+          "target_id": "fruit-000002"
+        }
+      ],
+      "scene_resets_during_mission": 0,
+      "control_checks": 2488,
+      "physics_control_checks": 7464,
+      "response6_physics_calls": 7464
+    },
+    "recorded_reexecution": {
+      "state": "DONE",
+      "mission_complete": true,
+      "target_priority": "lowest_camera_observed_world_height_first",
+      "ordered_target_ids": [
+        "fruit-000001",
+        "fruit-000002"
+      ],
+      "observed_target_heights_m": {
+        "fruit-000001": 0.8880612204706558,
+        "fruit-000002": 0.9707785731458586
+      },
+      "harvest_successes": 2,
+      "planned_targets": 2,
+      "harvested_ids": [
+        "fruit-000001",
+        "fruit-000002"
+      ],
+      "failure": null,
+      "events": [
+        {
+          "state": "TO_HOME",
+          "stamp_s": 0.45,
+          "target_id": "fruit-000001"
+        },
+        {
+          "state": "HARVEST",
+          "stamp_s": 8.75,
+          "target_id": "fruit-000001"
+        },
+        {
+          "state": "WAIT_BOX",
+          "stamp_s": 36.45,
+          "target_id": "fruit-000001"
+        },
+        {
+          "state": "BOX_CONFIRMED",
+          "target_id": "fruit-000001",
+          "stamp_s": 37.7,
+          "evidence_source": "simulator_box_outcome_v2"
+        },
+        {
+          "state": "RETURN_STOW",
+          "stamp_s": 37.7,
+          "target_id": "fruit-000001"
+        },
+        {
+          "state": "STOW_WAIT",
+          "stamp_s": 58.85,
+          "target_id": "fruit-000002"
+        },
+        {
+          "state": "TO_HOME",
+          "stamp_s": 59.35,
+          "target_id": "fruit-000002"
+        },
+        {
+          "state": "HARVEST",
+          "stamp_s": 67.65,
+          "target_id": "fruit-000002"
+        },
+        {
+          "state": "WAIT_BOX",
+          "stamp_s": 101.60000000000001,
+          "target_id": "fruit-000002"
+        },
+        {
+          "state": "BOX_CONFIRMED",
+          "target_id": "fruit-000002",
+          "stamp_s": 103.0,
+          "evidence_source": "simulator_box_outcome_v2"
+        },
+        {
+          "state": "RETURN_STOW",
+          "stamp_s": 103.0,
+          "target_id": "fruit-000002"
+        },
+        {
+          "state": "FINAL_STOP",
+          "stamp_s": 124.10000000000001,
+          "target_id": "fruit-000002"
+        },
+        {
+          "state": "DONE",
+          "stamp_s": 124.60000000000001,
+          "target_id": "fruit-000002"
+        }
+      ],
+      "scene_resets_during_mission": 0,
+      "control_checks": 2493,
+      "physics_control_checks": 7479,
+      "response6_physics_calls": 7479
+    },
+    "independent_scene_count": 1
+  },
+  "native_u20": {
+    "status": "native_camera_inference_smoke_passed",
+    "control_steps": 240,
+    "camera_policy_steps": 65,
+    "result": {
+      "state": "HARVEST",
+      "mission_complete": false,
+      "target_priority": "lowest_camera_observed_world_height_first",
+      "ordered_target_ids": [
+        "fruit-000001",
+        "fruit-000002"
+      ],
+      "observed_target_heights_m": {
+        "fruit-000001": 0.8875511068695898,
+        "fruit-000002": 0.9696231197881031
+      },
+      "harvest_successes": 0,
+      "planned_targets": 2,
+      "harvested_ids": [],
+      "failure": null,
+      "events": [
+        {
+          "state": "TO_HOME",
+          "stamp_s": 0.45,
+          "target_id": "fruit-000001"
+        },
+        {
+          "state": "HARVEST",
+          "stamp_s": 8.75,
+          "target_id": "fruit-000001"
+        }
+      ],
+      "scene_resets_during_mission": 0,
+      "control_checks": 240,
+      "physics_control_checks": 720,
+      "response6_physics_calls": 720,
+      "intentional_smoke_stop": true
+    },
+    "full_multifruit_harvest_validated": false
+  },
+  "geometry": {
+    "d435": {
+      "sampled_poses": 78,
+      "narrow_checks": 0,
+      "convex_overlaps": [],
+      "sampled_camera_frame_screen_passed": true,
+      "excludes": [
+        "mounted gripper/wrist interfaces",
+        "moving jaw interface",
+        "left-arm moving links"
+      ],
+      "continuous_collision_or_hardware_certificate": false
+    },
+    "u20": {
+      "sampled_poses": 78,
+      "narrow_checks": 0,
+      "convex_overlaps": [],
+      "sampled_camera_frame_screen_passed": true,
+      "excludes": [
+        "mounted gripper/wrist interfaces",
+        "moving jaw interface",
+        "left-arm moving links"
+      ],
+      "continuous_collision_or_hardware_certificate": false
+    }
+  },
+  "source_checks": {
+    "d435_recorded_r2": {
+      "files_checked": 387,
+      "current_sources_match": true
+    },
+    "u20_native_smoke": {
+      "files_checked": 387,
+      "current_sources_match": true
+    }
+  },
+  "video": {
+    "passed": true,
+    "probe": {
+      "programs": [],
+      "streams": [
+        {
+          "codec_name": "h264",
+          "width": 1280,
+          "height": 800,
+          "avg_frame_rate": "20/1",
+          "nb_frames": "2533"
+        }
+      ],
+      "format": {
+        "duration": "126.650000",
+        "size": "38191474"
+      }
+    },
+    "full_decode_passed": true,
+    "sample_times_s": [
+      0.0,
+      23.0,
+      38.7,
+      59.0,
+      104.0,
+      126.45
+    ],
+    "distinct_sampled_frames": 6,
+    "sha256": "c12484e495b5c57475e5cfff9693c6001ccfd099d295f0477730662213c94c80",
+    "mission_complete": true,
+    "harvest_successes": 2
+  },
+  "desktop_copy": {
+    "path": "/home/bhc/Desktop/Student_D435_multifruit_success_20261016.mp4",
+    "bytes": 38191474,
+    "sha256": "c12484e495b5c57475e5cfff9693c6001ccfd099d295f0477730662213c94c80",
+    "copy_verified": true
+  },
+  "hardware_executed": false,
+  "user_stow_pose_approved": false,
+  "limitations": [
+    "Right arm only; left arm remains fixed.",
+    "Complete assigned finite target list required; no hidden-fruit farm completion inference.",
+    "Lowest-first uses initial camera-observed gravity-aligned height.",
+    "Two-colour native scene; same-colour ambiguity/ordering tested on CPU.",
+    "Geometry screening is sampled and excludes mounting interfaces and left moving links.",
+    "No real actuator backend or physical box camera confirmation in this release."
+  ]
+}

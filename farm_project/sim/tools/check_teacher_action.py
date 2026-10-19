@@ -26,6 +26,7 @@ from check_teacher_harvest import evaluate_result
 
 def main() -> int:
     parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument('--policy', choices=('teacher', 'student_d435'), default='teacher', help='검증할 실제 팔 실행기')
     parser.add_argument('--performance-log', type=Path, help='프레임 구간별 성능 기록 경로')
     parser.add_argument('--fixture', type=Path, default=ROOT/'sim/tests/fixtures/teacher60_two.json')
     parser.add_argument('--isaac-python', type=Path, default=Path.home()/'isaac/env_isaaclab/bin/python')
@@ -49,6 +50,10 @@ def main() -> int:
     for camera in ('camera', 'tag_camera'):
         if camera in device:
             device[camera]['enabled'] = False
+    device['runtime']['harvest_arm']['backend'] = args.policy
+    if args.policy == 'student_d435':
+        device['runtime']['harvest_arm']['execution_timeout_s'] = 1800.0
+        device['runtime']['harvest_arm']['student_profile'] = 'sim/ros_ws/src/farm_sim_config/config/student_policy.json'
     device_path.write_text(json.dumps(device, indent=2)+'\n')
     stations_path = Path(fleet['station_config'])
     stations = json.loads(stations_path.read_text())
@@ -86,6 +91,9 @@ def main() -> int:
     rclpy.init(args=['--ros-args','-p','config_file:='+str(device_path), '-r','__ns:='+namespace])
     adapter, node = RecordingAdapter(), Node('teacher_action_client')
     settings = ArmActionSettings.from_mapping(json.loads((ROOT/'sim/ros_ws/src/farm_sim_config/config/harvest_task.json').read_text())['arm_action'])
+    if args.policy == 'student_d435':
+        from dataclasses import replace
+        settings = replace(settings, execution_timeout_s=1860.0)
     client = ArmActionClient(node, settings)
     executor = MultiThreadedExecutor(num_threads=4)
     executor.add_node(adapter); executor.add_node(node)
@@ -149,7 +157,9 @@ def main() -> int:
     state = latest.get('arm', {})
     result.update(job_id=state.get('job_id',''), terminal=state,
         process_returncode=process.returncode, wall_elapsed_s=time.monotonic()-started)
-    logs = ROOT/'sim/runs/robotarm/teacher'/latest.get('session','missing')/result['job_id']
+    log_family = 'teacher' if args.policy == 'teacher' else 'student'
+    logs = ROOT/f'sim/runs/robotarm/{log_family}'/latest.get('session','missing')/result['job_id']
+    result['policy'] = args.policy
     result['teacher_log_dir'] = str(logs)
     result.update(evaluate_result(result, fixture, logs, require_harvest=not canceled,
                                   cancel_requested=canceled, place_hold_s=.6, expected_task_id='teacher60_ros_action'))

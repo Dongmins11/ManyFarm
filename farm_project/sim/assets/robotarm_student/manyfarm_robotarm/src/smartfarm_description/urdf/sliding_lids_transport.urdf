@@ -1,0 +1,789 @@
+<?xml version='1.0' encoding='utf-8'?>
+<robot name="sliding_lids_transport">
+  <link name="world" />
+  <link name="transport_lid_fixed">
+    <visual name="transport_lid_rail_n1_segment_1">
+      <geometry>
+        <mesh filename="package://smartfarm_description/meshes/sliding_lids_v3/transport/rail_n1_segment_1.stl" scale=".001 .001 .001" />
+      </geometry>
+      <material name="transport_lid_rail_n1_segment_1_color">
+        <color rgba="0.43 0.49 0.56 1" />
+      </material>
+    </visual>
+    <visual name="transport_lid_rail_n1_segment_2">
+      <geometry>
+        <mesh filename="package://smartfarm_description/meshes/sliding_lids_v3/transport/rail_n1_segment_2.stl" scale=".001 .001 .001" />
+      </geometry>
+      <material name="transport_lid_rail_n1_segment_2_color">
+        <color rgba="0.43 0.49 0.56 1" />
+      </material>
+    </visual>
+    <visual name="transport_lid_rail_n1_segment_3">
+      <geometry>
+        <mesh filename="package://smartfarm_description/meshes/sliding_lids_v3/transport/rail_n1_segment_3.stl" scale=".001 .001 .001" />
+      </geometry>
+      <material name="transport_lid_rail_n1_segment_3_color">
+        <color rgba="0.43 0.49 0.56 1" />
+      </material>
+    </visual>
+    <visual name="transport_lid_rail_n1_splice_1">
+      <geometry>
+        <mesh filename="package://smartfarm_description/meshes/sliding_lids_v3/transport/rail_n1_splice_1.stl" scale=".001 .001 .001" />
+      </geometry>
+      <material name="transport_lid_rail_n1_splice_1_color">
+        <color rgba="0.3 0.36 0.42 1" />
+      </material>
+    </visual>
+    <visual name="transport_lid_rail_n1_splice_2">
+      <geometry>
+        <mesh filename="package://smartfarm_description/meshes/sliding_lids_v3/transport/rail_n1_splice_2.stl" scale=".001 .001 .001" />
+      </geometry>
+      <material name="transport_lid_rail_n1_splice_2_color">
+        <color rgba="0.3 0.36 0.42 1" />
+      </material>
+    </visual>
+    <visual name="transport_lid_rail_n1_stop_n1">
+      <geometry>
+        <mesh filename="package://smartfarm_description/meshes/sliding_lids_v3/transport/rail_n1_stop_n1.stl" scale=".001 .001 .001" />
+      </geometry>
+      <material name="transport_lid_rail_n1_stop_n1_color">
+        <color rgba="0.85 0.36 0.23 1" />
+      </material>
+    </visual>
+    <visual name="transport_lid_rail_n1_stop_p1">
+      <geometry>
+        <mesh filename="package://smartfarm_description/meshes/sliding_lids_v3/transport/rail_n1_stop_p1.stl" scale=".001 .001 .001" />
+      </geometry>
+      <material name="transport_lid_rail_n1_stop_p1_color">
+        <color rgba="0.85 0.36 0.23 1" />
+      </material>
+    </visual>
+    <visual name="transport_lid_rail_p1_segment_1">
+      <geometry>
+        <mesh filename="package://smartfarm_description/meshes/sliding_lids_v3/transport/rail_p1_segment_1.stl" scale=".001 .001 .001" />
+      </geometry>
+      <material name="transport_lid_rail_p1_segment_1_color">
+        <color rgba="0.43 0.49 0.56 1" />
+      </material>
+    </visual>
+    <visual name="transport_lid_rail_p1_segment_2">
+      <geometry>
+        <mesh filename="package://smartfarm_description/meshes/sliding_lids_v3/transport/rail_p1_segment_2.stl" scale=".001 .001 .001" />
+      </geometry>
+      <material name="transport_lid_rail_p1_segment_2_color">
+        <color rgba="0.43 0.49 0.56 1" />
+      </material>
+    </visual>
+    <visual name="transport_lid_rail_p1_segment_3">
+      <geometry>
+        <mesh filename="package://smartfarm_description/meshes/sliding_lids_v3/transport/rail_p1_segment_3.stl" scale=".001 .001 .001" />
+      </geometry>
+      <material name="transport_lid_rail_p1_segment_3_color">
+        <color rgba="0.43 0.49 0.56 1" />
+      </material>
+    </visual>
+    <visual name="transport_lid_rail_p1_splice_1">
+      <geometry>
+        <mesh filename="package://smartfarm_description/meshes/sliding_lids_v3/transport/rail_p1_splice_1.stl" scale=".001 .001 .001" />
+      </geometry>
+      <material name="transport_lid_rail_p1_splice_1_color">
+        <color rgba="0.3 0.36 0.42 1" />
+      </material>
+    </visual>
+    <visual name="transport_lid_rail_p1_splice_2">
+      <geometry>
+        <mesh filename="package://smartfarm_description/meshes/sliding_lids_v3/transport/rail_p1_splice_2.stl" scale=".001 .001 .001" />
+      </geometry>
+      <material name="transport_lid_rail_p1_splice_2_color">
+        <color rgba="0.3 0.36 0.42 1" />
+      </material>
+    </visual>
+    <visual name="transport_lid_rail_p1_stop_n1">
+      <geometry>
+        <mesh filename="package://smartfarm_description/meshes/sliding_lids_v3/transport/rail_p1_stop_n1.stl" scale=".001 .001 .001" />
+      </geometry>
+      <material name="transport_lid_rail_p1_stop_n1_color">
+        <color rgba="0.85 0.36 0.23 1" />
+      </material>
+    </visual>
+    <visual name="transport_lid_rail_p1_stop_p1">
+      <geometry>
+        <mesh filename="package://smartfarm_description/meshes/sliding_lids_v3/transport/rail_p1_stop_p1.stl" scale=".001 .001 .001" />
+      </geometry>
+      <material name="transport_lid_rail_p1_stop_p1_color">
+        <color rgba="0.85 0.36 0.23 1" />
+      </material>
+    </visual>
+    <visual name="transport_lid_mg996r_body_cradle">
+      <geometry>
+        <mesh filename="package://smartfarm_description/meshes/sliding_lids_v3/transport/mg996r_body_cradle.stl" scale=".001 .001 .001" />
+      </geometry>
+      <material name="transport_lid_mg996r_body_cradle_color">
+        <color rgba="0.18 0.28 0.4 1" />
+      </material>
+    </visual>
+    <visual name="transport_lid_mg996r_retaining_strap_1">
+      <geometry>
+        <mesh filename="package://smartfarm_description/meshes/sliding_lids_v3/transport/mg996r_retaining_strap_1.stl" scale=".001 .001 .001" />
+      </geometry>
+      <material name="transport_lid_mg996r_retaining_strap_1_color">
+        <color rgba="0.25 0.35 0.48 1" />
+      </material>
+    </visual>
+    <visual name="transport_lid_mg996r_retaining_strap_2">
+      <geometry>
+        <mesh filename="package://smartfarm_description/meshes/sliding_lids_v3/transport/mg996r_retaining_strap_2.stl" scale=".001 .001 .001" />
+      </geometry>
+      <material name="transport_lid_mg996r_retaining_strap_2_color">
+        <color rgba="0.25 0.35 0.48 1" />
+      </material>
+    </visual>
+    <visual name="transport_lid_drive_wall_saddle">
+      <geometry>
+        <mesh filename="package://smartfarm_description/meshes/sliding_lids_v3/transport/drive_wall_saddle.stl" scale=".001 .001 .001" />
+      </geometry>
+      <material name="transport_lid_drive_wall_saddle_color">
+        <color rgba="0.35 0.4 0.5 1" />
+      </material>
+    </visual>
+    <visual name="transport_lid_rack_backing_guide_n1">
+      <geometry>
+        <mesh filename="package://smartfarm_description/meshes/sliding_lids_v3/transport/rack_backing_guide_n1.stl" scale=".001 .001 .001" />
+      </geometry>
+      <material name="transport_lid_rack_backing_guide_n1_color">
+        <color rgba="0.5 0.4 0.28 1" />
+      </material>
+    </visual>
+    <visual name="transport_lid_rack_backing_guide_p1">
+      <geometry>
+        <mesh filename="package://smartfarm_description/meshes/sliding_lids_v3/transport/rack_backing_guide_p1.stl" scale=".001 .001 .001" />
+      </geometry>
+      <material name="transport_lid_rack_backing_guide_p1_color">
+        <color rgba="0.5 0.4 0.28 1" />
+      </material>
+    </visual>
+    <visual name="transport_lid_metal_bottom_angle_n1">
+      <geometry>
+        <mesh filename="package://smartfarm_description/meshes/sliding_lids_v3/transport/metal_bottom_angle_n1.stl" scale=".001 .001 .001" />
+      </geometry>
+      <material name="transport_lid_metal_bottom_angle_n1_color">
+        <color rgba="0.58 0.63 0.68 1" />
+      </material>
+    </visual>
+    <visual name="transport_lid_metal_rear_upright_n1">
+      <geometry>
+        <mesh filename="package://smartfarm_description/meshes/sliding_lids_v3/transport/metal_rear_upright_n1.stl" scale=".001 .001 .001" />
+      </geometry>
+      <material name="transport_lid_metal_rear_upright_n1_color">
+        <color rgba="0.58 0.63 0.68 1" />
+      </material>
+    </visual>
+    <visual name="transport_lid_metal_front_upright_n1">
+      <geometry>
+        <mesh filename="package://smartfarm_description/meshes/sliding_lids_v3/transport/metal_front_upright_n1.stl" scale=".001 .001 .001" />
+      </geometry>
+      <material name="transport_lid_metal_front_upright_n1_color">
+        <color rgba="0.58 0.63 0.68 1" />
+      </material>
+    </visual>
+    <visual name="transport_lid_front_rail_frame_shoe_n1">
+      <geometry>
+        <mesh filename="package://smartfarm_description/meshes/sliding_lids_v3/transport/front_rail_frame_shoe_n1.stl" scale=".001 .001 .001" />
+      </geometry>
+      <material name="transport_lid_front_rail_frame_shoe_n1_color">
+        <color rgba="0.2 0.4 0.65 1" />
+      </material>
+    </visual>
+    <visual name="transport_lid_rear_rail_frame_shoe_n1">
+      <geometry>
+        <mesh filename="package://smartfarm_description/meshes/sliding_lids_v3/transport/rear_rail_frame_shoe_n1.stl" scale=".001 .001 .001" />
+      </geometry>
+      <material name="transport_lid_rear_rail_frame_shoe_n1_color">
+        <color rgba="0.2 0.4 0.65 1" />
+      </material>
+    </visual>
+    <visual name="transport_lid_rear_crossbar_end_shoe_n1">
+      <geometry>
+        <mesh filename="package://smartfarm_description/meshes/sliding_lids_v3/transport/rear_crossbar_end_shoe_n1.stl" scale=".001 .001 .001" />
+      </geometry>
+      <material name="transport_lid_rear_crossbar_end_shoe_n1_color">
+        <color rgba="0.2 0.4 0.65 1" />
+      </material>
+    </visual>
+    <visual name="transport_lid_metal_bottom_angle_p1">
+      <geometry>
+        <mesh filename="package://smartfarm_description/meshes/sliding_lids_v3/transport/metal_bottom_angle_p1.stl" scale=".001 .001 .001" />
+      </geometry>
+      <material name="transport_lid_metal_bottom_angle_p1_color">
+        <color rgba="0.58 0.63 0.68 1" />
+      </material>
+    </visual>
+    <visual name="transport_lid_metal_rear_upright_p1">
+      <geometry>
+        <mesh filename="package://smartfarm_description/meshes/sliding_lids_v3/transport/metal_rear_upright_p1.stl" scale=".001 .001 .001" />
+      </geometry>
+      <material name="transport_lid_metal_rear_upright_p1_color">
+        <color rgba="0.58 0.63 0.68 1" />
+      </material>
+    </visual>
+    <visual name="transport_lid_metal_front_upright_p1">
+      <geometry>
+        <mesh filename="package://smartfarm_description/meshes/sliding_lids_v3/transport/metal_front_upright_p1.stl" scale=".001 .001 .001" />
+      </geometry>
+      <material name="transport_lid_metal_front_upright_p1_color">
+        <color rgba="0.58 0.63 0.68 1" />
+      </material>
+    </visual>
+    <visual name="transport_lid_front_rail_frame_shoe_p1">
+      <geometry>
+        <mesh filename="package://smartfarm_description/meshes/sliding_lids_v3/transport/front_rail_frame_shoe_p1.stl" scale=".001 .001 .001" />
+      </geometry>
+      <material name="transport_lid_front_rail_frame_shoe_p1_color">
+        <color rgba="0.2 0.4 0.65 1" />
+      </material>
+    </visual>
+    <visual name="transport_lid_rear_rail_frame_shoe_p1">
+      <geometry>
+        <mesh filename="package://smartfarm_description/meshes/sliding_lids_v3/transport/rear_rail_frame_shoe_p1.stl" scale=".001 .001 .001" />
+      </geometry>
+      <material name="transport_lid_rear_rail_frame_shoe_p1_color">
+        <color rgba="0.2 0.4 0.65 1" />
+      </material>
+    </visual>
+    <visual name="transport_lid_rear_crossbar_end_shoe_p1">
+      <geometry>
+        <mesh filename="package://smartfarm_description/meshes/sliding_lids_v3/transport/rear_crossbar_end_shoe_p1.stl" scale=".001 .001 .001" />
+      </geometry>
+      <material name="transport_lid_rear_crossbar_end_shoe_p1_color">
+        <color rgba="0.2 0.4 0.65 1" />
+      </material>
+    </visual>
+    <visual name="transport_lid_metal_rear_drive_crossbar">
+      <geometry>
+        <mesh filename="package://smartfarm_description/meshes/sliding_lids_v3/transport/metal_rear_drive_crossbar.stl" scale=".001 .001 .001" />
+      </geometry>
+      <material name="transport_lid_metal_rear_drive_crossbar_color">
+        <color rgba="0.58 0.63 0.68 1" />
+      </material>
+    </visual>
+    <visual name="transport_lid_box_rear">
+      <geometry>
+        <mesh filename="package://smartfarm_description/meshes/sliding_lids_v3/transport/box_rear.stl" scale=".001 .001 .001" />
+      </geometry>
+      <material name="transport_lid_box_rear_color">
+        <color rgba="0.5 0.72 0.6 0.22" />
+      </material>
+    </visual>
+    <visual name="transport_lid_box_front">
+      <geometry>
+        <mesh filename="package://smartfarm_description/meshes/sliding_lids_v3/transport/box_front.stl" scale=".001 .001 .001" />
+      </geometry>
+      <material name="transport_lid_box_front_color">
+        <color rgba="0.5 0.72 0.6 0.22" />
+      </material>
+    </visual>
+    <visual name="transport_lid_box_left">
+      <geometry>
+        <mesh filename="package://smartfarm_description/meshes/sliding_lids_v3/transport/box_left.stl" scale=".001 .001 .001" />
+      </geometry>
+      <material name="transport_lid_box_left_color">
+        <color rgba="0.5 0.72 0.6 0.22" />
+      </material>
+    </visual>
+    <visual name="transport_lid_box_right">
+      <geometry>
+        <mesh filename="package://smartfarm_description/meshes/sliding_lids_v3/transport/box_right.stl" scale=".001 .001 .001" />
+      </geometry>
+      <material name="transport_lid_box_right_color">
+        <color rgba="0.5 0.72 0.6 0.22" />
+      </material>
+    </visual>
+    <visual name="transport_lid_box_floor">
+      <geometry>
+        <mesh filename="package://smartfarm_description/meshes/sliding_lids_v3/transport/box_floor.stl" scale=".001 .001 .001" />
+      </geometry>
+      <material name="transport_lid_box_floor_color">
+        <color rgba="0.5 0.72 0.6 0.22" />
+      </material>
+    </visual>
+    <visual name="transport_lid_reference_servo">
+      <geometry>
+        <mesh filename="package://smartfarm_description/meshes/sliding_lids_v3/transport/reference_servo.stl" scale=".001 .001 .001" />
+      </geometry>
+      <material name="transport_lid_reference_servo_color">
+        <color rgba="0.12 0.15 0.2 1" />
+      </material>
+    </visual>
+    <inertial>
+      <origin xyz="-0.08246507005 -0.00241867404 -0.08924814441" />
+      <mass value="1.0452405001508336" />
+      <inertia ixx="0.02412913529127939" iyy="0.023663932598131276" izz="0.0370821201454387" ixy="-0.0003129340010192274" ixz="-0.00019357280287011488" iyz="-2.0907920121905546e-05" />
+    </inertial>
+    <collision name="transport_lid_rail_n1_segment_1">
+      <geometry>
+        <mesh filename="package://smartfarm_description/meshes/sliding_lids_v3/transport/rail_n1_segment_1.stl" scale=".001 .001 .001" />
+      </geometry>
+    </collision>
+    <collision name="transport_lid_rail_n1_segment_2">
+      <geometry>
+        <mesh filename="package://smartfarm_description/meshes/sliding_lids_v3/transport/rail_n1_segment_2.stl" scale=".001 .001 .001" />
+      </geometry>
+    </collision>
+    <collision name="transport_lid_rail_n1_segment_3">
+      <geometry>
+        <mesh filename="package://smartfarm_description/meshes/sliding_lids_v3/transport/rail_n1_segment_3.stl" scale=".001 .001 .001" />
+      </geometry>
+    </collision>
+    <collision name="transport_lid_rail_n1_splice_1">
+      <geometry>
+        <mesh filename="package://smartfarm_description/meshes/sliding_lids_v3/transport/rail_n1_splice_1.stl" scale=".001 .001 .001" />
+      </geometry>
+    </collision>
+    <collision name="transport_lid_rail_n1_splice_2">
+      <geometry>
+        <mesh filename="package://smartfarm_description/meshes/sliding_lids_v3/transport/rail_n1_splice_2.stl" scale=".001 .001 .001" />
+      </geometry>
+    </collision>
+    <collision name="transport_lid_rail_n1_stop_n1">
+      <geometry>
+        <mesh filename="package://smartfarm_description/meshes/sliding_lids_v3/transport/rail_n1_stop_n1.stl" scale=".001 .001 .001" />
+      </geometry>
+    </collision>
+    <collision name="transport_lid_rail_n1_stop_p1">
+      <geometry>
+        <mesh filename="package://smartfarm_description/meshes/sliding_lids_v3/transport/rail_n1_stop_p1.stl" scale=".001 .001 .001" />
+      </geometry>
+    </collision>
+    <collision name="transport_lid_rail_p1_segment_1">
+      <geometry>
+        <mesh filename="package://smartfarm_description/meshes/sliding_lids_v3/transport/rail_p1_segment_1.stl" scale=".001 .001 .001" />
+      </geometry>
+    </collision>
+    <collision name="transport_lid_rail_p1_segment_2">
+      <geometry>
+        <mesh filename="package://smartfarm_description/meshes/sliding_lids_v3/transport/rail_p1_segment_2.stl" scale=".001 .001 .001" />
+      </geometry>
+    </collision>
+    <collision name="transport_lid_rail_p1_segment_3">
+      <geometry>
+        <mesh filename="package://smartfarm_description/meshes/sliding_lids_v3/transport/rail_p1_segment_3.stl" scale=".001 .001 .001" />
+      </geometry>
+    </collision>
+    <collision name="transport_lid_rail_p1_splice_1">
+      <geometry>
+        <mesh filename="package://smartfarm_description/meshes/sliding_lids_v3/transport/rail_p1_splice_1.stl" scale=".001 .001 .001" />
+      </geometry>
+    </collision>
+    <collision name="transport_lid_rail_p1_splice_2">
+      <geometry>
+        <mesh filename="package://smartfarm_description/meshes/sliding_lids_v3/transport/rail_p1_splice_2.stl" scale=".001 .001 .001" />
+      </geometry>
+    </collision>
+    <collision name="transport_lid_rail_p1_stop_n1">
+      <geometry>
+        <mesh filename="package://smartfarm_description/meshes/sliding_lids_v3/transport/rail_p1_stop_n1.stl" scale=".001 .001 .001" />
+      </geometry>
+    </collision>
+    <collision name="transport_lid_rail_p1_stop_p1">
+      <geometry>
+        <mesh filename="package://smartfarm_description/meshes/sliding_lids_v3/transport/rail_p1_stop_p1.stl" scale=".001 .001 .001" />
+      </geometry>
+    </collision>
+    <collision name="transport_lid_mg996r_body_cradle">
+      <geometry>
+        <mesh filename="package://smartfarm_description/meshes/sliding_lids_v3/transport/mg996r_body_cradle.stl" scale=".001 .001 .001" />
+      </geometry>
+    </collision>
+    <collision name="transport_lid_mg996r_retaining_strap_1">
+      <geometry>
+        <mesh filename="package://smartfarm_description/meshes/sliding_lids_v3/transport/mg996r_retaining_strap_1.stl" scale=".001 .001 .001" />
+      </geometry>
+    </collision>
+    <collision name="transport_lid_mg996r_retaining_strap_2">
+      <geometry>
+        <mesh filename="package://smartfarm_description/meshes/sliding_lids_v3/transport/mg996r_retaining_strap_2.stl" scale=".001 .001 .001" />
+      </geometry>
+    </collision>
+    <collision name="transport_lid_drive_wall_saddle">
+      <geometry>
+        <mesh filename="package://smartfarm_description/meshes/sliding_lids_v3/transport/drive_wall_saddle.stl" scale=".001 .001 .001" />
+      </geometry>
+    </collision>
+    <collision name="transport_lid_rack_backing_guide_n1">
+      <geometry>
+        <mesh filename="package://smartfarm_description/meshes/sliding_lids_v3/transport/rack_backing_guide_n1.stl" scale=".001 .001 .001" />
+      </geometry>
+    </collision>
+    <collision name="transport_lid_rack_backing_guide_p1">
+      <geometry>
+        <mesh filename="package://smartfarm_description/meshes/sliding_lids_v3/transport/rack_backing_guide_p1.stl" scale=".001 .001 .001" />
+      </geometry>
+    </collision>
+    <collision name="transport_lid_metal_bottom_angle_n1">
+      <geometry>
+        <mesh filename="package://smartfarm_description/meshes/sliding_lids_v3/transport/metal_bottom_angle_n1.stl" scale=".001 .001 .001" />
+      </geometry>
+    </collision>
+    <collision name="transport_lid_metal_rear_upright_n1">
+      <geometry>
+        <mesh filename="package://smartfarm_description/meshes/sliding_lids_v3/transport/metal_rear_upright_n1.stl" scale=".001 .001 .001" />
+      </geometry>
+    </collision>
+    <collision name="transport_lid_metal_front_upright_n1">
+      <geometry>
+        <mesh filename="package://smartfarm_description/meshes/sliding_lids_v3/transport/metal_front_upright_n1.stl" scale=".001 .001 .001" />
+      </geometry>
+    </collision>
+    <collision name="transport_lid_front_rail_frame_shoe_n1">
+      <geometry>
+        <mesh filename="package://smartfarm_description/meshes/sliding_lids_v3/transport/front_rail_frame_shoe_n1.stl" scale=".001 .001 .001" />
+      </geometry>
+    </collision>
+    <collision name="transport_lid_rear_rail_frame_shoe_n1">
+      <geometry>
+        <mesh filename="package://smartfarm_description/meshes/sliding_lids_v3/transport/rear_rail_frame_shoe_n1.stl" scale=".001 .001 .001" />
+      </geometry>
+    </collision>
+    <collision name="transport_lid_rear_crossbar_end_shoe_n1">
+      <geometry>
+        <mesh filename="package://smartfarm_description/meshes/sliding_lids_v3/transport/rear_crossbar_end_shoe_n1.stl" scale=".001 .001 .001" />
+      </geometry>
+    </collision>
+    <collision name="transport_lid_metal_bottom_angle_p1">
+      <geometry>
+        <mesh filename="package://smartfarm_description/meshes/sliding_lids_v3/transport/metal_bottom_angle_p1.stl" scale=".001 .001 .001" />
+      </geometry>
+    </collision>
+    <collision name="transport_lid_metal_rear_upright_p1">
+      <geometry>
+        <mesh filename="package://smartfarm_description/meshes/sliding_lids_v3/transport/metal_rear_upright_p1.stl" scale=".001 .001 .001" />
+      </geometry>
+    </collision>
+    <collision name="transport_lid_metal_front_upright_p1">
+      <geometry>
+        <mesh filename="package://smartfarm_description/meshes/sliding_lids_v3/transport/metal_front_upright_p1.stl" scale=".001 .001 .001" />
+      </geometry>
+    </collision>
+    <collision name="transport_lid_front_rail_frame_shoe_p1">
+      <geometry>
+        <mesh filename="package://smartfarm_description/meshes/sliding_lids_v3/transport/front_rail_frame_shoe_p1.stl" scale=".001 .001 .001" />
+      </geometry>
+    </collision>
+    <collision name="transport_lid_rear_rail_frame_shoe_p1">
+      <geometry>
+        <mesh filename="package://smartfarm_description/meshes/sliding_lids_v3/transport/rear_rail_frame_shoe_p1.stl" scale=".001 .001 .001" />
+      </geometry>
+    </collision>
+    <collision name="transport_lid_rear_crossbar_end_shoe_p1">
+      <geometry>
+        <mesh filename="package://smartfarm_description/meshes/sliding_lids_v3/transport/rear_crossbar_end_shoe_p1.stl" scale=".001 .001 .001" />
+      </geometry>
+    </collision>
+    <collision name="transport_lid_metal_rear_drive_crossbar">
+      <geometry>
+        <mesh filename="package://smartfarm_description/meshes/sliding_lids_v3/transport/metal_rear_drive_crossbar.stl" scale=".001 .001 .001" />
+      </geometry>
+    </collision>
+    <collision name="transport_lid_reference_servo">
+      <geometry>
+        <mesh filename="package://smartfarm_description/meshes/sliding_lids_v3/transport/reference_servo.stl" scale=".001 .001 .001" />
+      </geometry>
+    </collision>
+  </link>
+  <link name="transport_lid_plus">
+    <visual name="transport_lid_lid_plus_tile_1">
+      <geometry>
+        <mesh filename="package://smartfarm_description/meshes/sliding_lids_v3/transport/lid_plus_tile_1.stl" scale=".001 .001 .001" />
+      </geometry>
+      <material name="transport_lid_lid_plus_tile_1_color">
+        <color rgba="0.35 0.67 0.8 1" />
+      </material>
+    </visual>
+    <visual name="transport_lid_lid_plus_tile_2">
+      <geometry>
+        <mesh filename="package://smartfarm_description/meshes/sliding_lids_v3/transport/lid_plus_tile_2.stl" scale=".001 .001 .001" />
+      </geometry>
+      <material name="transport_lid_lid_plus_tile_2_color">
+        <color rgba="0.35 0.67 0.8 1" />
+      </material>
+    </visual>
+    <visual name="transport_lid_lid_plus_seam_strap_1">
+      <geometry>
+        <mesh filename="package://smartfarm_description/meshes/sliding_lids_v3/transport/lid_plus_seam_strap_1.stl" scale=".001 .001 .001" />
+      </geometry>
+      <material name="transport_lid_lid_plus_seam_strap_1_color">
+        <color rgba="0.25 0.48 0.65 1" />
+      </material>
+    </visual>
+    <visual name="transport_lid_lid_plus_seam_strap_2">
+      <geometry>
+        <mesh filename="package://smartfarm_description/meshes/sliding_lids_v3/transport/lid_plus_seam_strap_2.stl" scale=".001 .001 .001" />
+      </geometry>
+      <material name="transport_lid_lid_plus_seam_strap_2_color">
+        <color rgba="0.25 0.48 0.65 1" />
+      </material>
+    </visual>
+    <visual name="transport_lid_rack_plus_segment_1">
+      <geometry>
+        <mesh filename="package://smartfarm_description/meshes/sliding_lids_v3/transport/rack_plus_segment_1.stl" scale=".001 .001 .001" />
+      </geometry>
+      <material name="transport_lid_rack_plus_segment_1_color">
+        <color rgba="0.93 0.65 0.2 1" />
+      </material>
+    </visual>
+    <visual name="transport_lid_rack_plus_segment_2">
+      <geometry>
+        <mesh filename="package://smartfarm_description/meshes/sliding_lids_v3/transport/rack_plus_segment_2.stl" scale=".001 .001 .001" />
+      </geometry>
+      <material name="transport_lid_rack_plus_segment_2_color">
+        <color rgba="0.93 0.65 0.2 1" />
+      </material>
+    </visual>
+    <visual name="transport_lid_rack_plus_splice_1">
+      <geometry>
+        <mesh filename="package://smartfarm_description/meshes/sliding_lids_v3/transport/rack_plus_splice_1.stl" scale=".001 .001 .001" />
+      </geometry>
+      <material name="transport_lid_rack_plus_splice_1_color">
+        <color rgba="0.75 0.42 0.13 1" />
+      </material>
+    </visual>
+    <visual name="transport_lid_rack_to_lid_plus">
+      <geometry>
+        <mesh filename="package://smartfarm_description/meshes/sliding_lids_v3/transport/rack_to_lid_plus.stl" scale=".001 .001 .001" />
+      </geometry>
+      <material name="transport_lid_rack_to_lid_plus_color">
+        <color rgba="0.75 0.45 0.24 1" />
+      </material>
+    </visual>
+    <inertial>
+      <origin xyz="-0.1099626461 0.03660315883 -0.001684129906" />
+      <mass value="0.09363013535963775" />
+      <inertia ixx="0.0007374658325521496" iyy="0.0008622845285895551" izz="0.0015877342186994482" ixy="-0.0002792283805613107" ixz="-3.377052893113196e-05" iyz="-3.779794649777614e-05" />
+    </inertial>
+    <collision name="transport_lid_lid_plus_tile_1">
+      <geometry>
+        <mesh filename="package://smartfarm_description/meshes/sliding_lids_v3/transport/lid_plus_tile_1.stl" scale=".001 .001 .001" />
+      </geometry>
+    </collision>
+    <collision name="transport_lid_lid_plus_tile_2">
+      <geometry>
+        <mesh filename="package://smartfarm_description/meshes/sliding_lids_v3/transport/lid_plus_tile_2.stl" scale=".001 .001 .001" />
+      </geometry>
+    </collision>
+    <collision name="transport_lid_lid_plus_seam_strap_1">
+      <geometry>
+        <mesh filename="package://smartfarm_description/meshes/sliding_lids_v3/transport/lid_plus_seam_strap_1.stl" scale=".001 .001 .001" />
+      </geometry>
+    </collision>
+    <collision name="transport_lid_lid_plus_seam_strap_2">
+      <geometry>
+        <mesh filename="package://smartfarm_description/meshes/sliding_lids_v3/transport/lid_plus_seam_strap_2.stl" scale=".001 .001 .001" />
+      </geometry>
+    </collision>
+    <collision name="transport_lid_rack_plus_segment_1">
+      <geometry>
+        <mesh filename="package://smartfarm_description/meshes/sliding_lids_v3/transport/rack_plus_segment_1.stl" scale=".001 .001 .001" />
+      </geometry>
+    </collision>
+    <collision name="transport_lid_rack_plus_segment_2">
+      <geometry>
+        <mesh filename="package://smartfarm_description/meshes/sliding_lids_v3/transport/rack_plus_segment_2.stl" scale=".001 .001 .001" />
+      </geometry>
+    </collision>
+    <collision name="transport_lid_rack_plus_splice_1">
+      <geometry>
+        <mesh filename="package://smartfarm_description/meshes/sliding_lids_v3/transport/rack_plus_splice_1.stl" scale=".001 .001 .001" />
+      </geometry>
+    </collision>
+    <collision name="transport_lid_rack_to_lid_plus">
+      <geometry>
+        <mesh filename="package://smartfarm_description/meshes/sliding_lids_v3/transport/rack_to_lid_plus.stl" scale=".001 .001 .001" />
+      </geometry>
+    </collision>
+  </link>
+  <link name="transport_lid_minus">
+    <visual name="transport_lid_lid_minus_tile_1">
+      <geometry>
+        <mesh filename="package://smartfarm_description/meshes/sliding_lids_v3/transport/lid_minus_tile_1.stl" scale=".001 .001 .001" />
+      </geometry>
+      <material name="transport_lid_lid_minus_tile_1_color">
+        <color rgba="0.35 0.67 0.8 1" />
+      </material>
+    </visual>
+    <visual name="transport_lid_lid_minus_tile_2">
+      <geometry>
+        <mesh filename="package://smartfarm_description/meshes/sliding_lids_v3/transport/lid_minus_tile_2.stl" scale=".001 .001 .001" />
+      </geometry>
+      <material name="transport_lid_lid_minus_tile_2_color">
+        <color rgba="0.35 0.67 0.8 1" />
+      </material>
+    </visual>
+    <visual name="transport_lid_lid_minus_seam_strap_1">
+      <geometry>
+        <mesh filename="package://smartfarm_description/meshes/sliding_lids_v3/transport/lid_minus_seam_strap_1.stl" scale=".001 .001 .001" />
+      </geometry>
+      <material name="transport_lid_lid_minus_seam_strap_1_color">
+        <color rgba="0.25 0.48 0.65 1" />
+      </material>
+    </visual>
+    <visual name="transport_lid_lid_minus_seam_strap_2">
+      <geometry>
+        <mesh filename="package://smartfarm_description/meshes/sliding_lids_v3/transport/lid_minus_seam_strap_2.stl" scale=".001 .001 .001" />
+      </geometry>
+      <material name="transport_lid_lid_minus_seam_strap_2_color">
+        <color rgba="0.25 0.48 0.65 1" />
+      </material>
+    </visual>
+    <visual name="transport_lid_rack_minus_segment_1">
+      <geometry>
+        <mesh filename="package://smartfarm_description/meshes/sliding_lids_v3/transport/rack_minus_segment_1.stl" scale=".001 .001 .001" />
+      </geometry>
+      <material name="transport_lid_rack_minus_segment_1_color">
+        <color rgba="0.93 0.65 0.2 1" />
+      </material>
+    </visual>
+    <visual name="transport_lid_rack_minus_segment_2">
+      <geometry>
+        <mesh filename="package://smartfarm_description/meshes/sliding_lids_v3/transport/rack_minus_segment_2.stl" scale=".001 .001 .001" />
+      </geometry>
+      <material name="transport_lid_rack_minus_segment_2_color">
+        <color rgba="0.93 0.65 0.2 1" />
+      </material>
+    </visual>
+    <visual name="transport_lid_rack_minus_splice_1">
+      <geometry>
+        <mesh filename="package://smartfarm_description/meshes/sliding_lids_v3/transport/rack_minus_splice_1.stl" scale=".001 .001 .001" />
+      </geometry>
+      <material name="transport_lid_rack_minus_splice_1_color">
+        <color rgba="0.75 0.42 0.13 1" />
+      </material>
+    </visual>
+    <visual name="transport_lid_rack_to_lid_minus">
+      <geometry>
+        <mesh filename="package://smartfarm_description/meshes/sliding_lids_v3/transport/rack_to_lid_minus.stl" scale=".001 .001 .001" />
+      </geometry>
+      <material name="transport_lid_rack_to_lid_minus_color">
+        <color rgba="0.75 0.45 0.24 1" />
+      </material>
+    </visual>
+    <inertial>
+      <origin xyz="-0.1204036968 -0.04789141195 -0.06645392817" />
+      <mass value="0.10682373535963767" />
+      <inertia ixx="0.0013163267339435865" iyy="0.001425296391040646" izz="0.0017656465274140196" ixy="0.00018987910411263253" ixz="-0.0004542830430273755" iyz="0.0003568740367122233" />
+    </inertial>
+    <collision name="transport_lid_lid_minus_tile_1">
+      <geometry>
+        <mesh filename="package://smartfarm_description/meshes/sliding_lids_v3/transport/lid_minus_tile_1.stl" scale=".001 .001 .001" />
+      </geometry>
+    </collision>
+    <collision name="transport_lid_lid_minus_tile_2">
+      <geometry>
+        <mesh filename="package://smartfarm_description/meshes/sliding_lids_v3/transport/lid_minus_tile_2.stl" scale=".001 .001 .001" />
+      </geometry>
+    </collision>
+    <collision name="transport_lid_lid_minus_seam_strap_1">
+      <geometry>
+        <mesh filename="package://smartfarm_description/meshes/sliding_lids_v3/transport/lid_minus_seam_strap_1.stl" scale=".001 .001 .001" />
+      </geometry>
+    </collision>
+    <collision name="transport_lid_lid_minus_seam_strap_2">
+      <geometry>
+        <mesh filename="package://smartfarm_description/meshes/sliding_lids_v3/transport/lid_minus_seam_strap_2.stl" scale=".001 .001 .001" />
+      </geometry>
+    </collision>
+    <collision name="transport_lid_rack_minus_segment_1">
+      <geometry>
+        <mesh filename="package://smartfarm_description/meshes/sliding_lids_v3/transport/rack_minus_segment_1.stl" scale=".001 .001 .001" />
+      </geometry>
+    </collision>
+    <collision name="transport_lid_rack_minus_segment_2">
+      <geometry>
+        <mesh filename="package://smartfarm_description/meshes/sliding_lids_v3/transport/rack_minus_segment_2.stl" scale=".001 .001 .001" />
+      </geometry>
+    </collision>
+    <collision name="transport_lid_rack_minus_splice_1">
+      <geometry>
+        <mesh filename="package://smartfarm_description/meshes/sliding_lids_v3/transport/rack_minus_splice_1.stl" scale=".001 .001 .001" />
+      </geometry>
+    </collision>
+    <collision name="transport_lid_rack_to_lid_minus">
+      <geometry>
+        <mesh filename="package://smartfarm_description/meshes/sliding_lids_v3/transport/rack_to_lid_minus.stl" scale=".001 .001 .001" />
+      </geometry>
+    </collision>
+  </link>
+  <link name="transport_lid_gear">
+    <visual name="transport_lid_pinion_m2">
+      <geometry>
+        <mesh filename="package://smartfarm_description/meshes/sliding_lids_v3/transport/pinion_m2.stl" scale=".001 .001 .001" />
+      </geometry>
+      <material name="transport_lid_pinion_m2_color">
+        <color rgba="0.95 0.55 0.13 1" />
+      </material>
+    </visual>
+    <visual name="transport_lid_horn_retaining_ring">
+      <geometry>
+        <mesh filename="package://smartfarm_description/meshes/sliding_lids_v3/transport/horn_retaining_ring.stl" scale=".001 .001 .001" />
+      </geometry>
+      <material name="transport_lid_horn_retaining_ring_color">
+        <color rgba="0.92 0.72 0.3 1" />
+      </material>
+    </visual>
+    <visual name="transport_lid_reference_horn">
+      <geometry>
+        <mesh filename="package://smartfarm_description/meshes/sliding_lids_v3/transport/reference_horn.stl" scale=".001 .001 .001" />
+      </geometry>
+      <material name="transport_lid_reference_horn_color">
+        <color rgba="0.8 0.8 0.85 1" />
+      </material>
+    </visual>
+    <inertial>
+      <origin xyz="-0.1828528467 -9.789946193e-18 -2.786513789e-16" />
+      <mass value="0.08385118549583867" />
+      <inertia ixx="0.00020584372686138978" iyy="0.00010483035452738873" izz="0.00010483035452738874" ixy="3.8901870118801745e-22" ixz="1.0723592154335146e-20" iyz="-1.0671834829034936e-35" />
+    </inertial>
+    <collision name="transport_lid_pinion_m2">
+      <geometry>
+        <mesh filename="package://smartfarm_description/meshes/sliding_lids_v3/transport/pinion_m2.stl" scale=".001 .001 .001" />
+      </geometry>
+    </collision>
+    <collision name="transport_lid_horn_retaining_ring">
+      <geometry>
+        <mesh filename="package://smartfarm_description/meshes/sliding_lids_v3/transport/horn_retaining_ring.stl" scale=".001 .001 .001" />
+      </geometry>
+    </collision>
+    <collision name="transport_lid_reference_horn">
+      <geometry>
+        <mesh filename="package://smartfarm_description/meshes/sliding_lids_v3/transport/reference_horn.stl" scale=".001 .001 .001" />
+      </geometry>
+    </collision>
+  </link>
+  <joint name="transport_lid_mount" type="fixed">
+    <parent link="world" />
+    <child link="transport_lid_fixed" />
+    <origin xyz="0 0 0.25" rpy="0 0 0" />
+  </joint>
+  <joint name="transport_lid_pinion_joint" type="revolute">
+    <parent link="transport_lid_fixed" />
+    <child link="transport_lid_gear" />
+    <origin xyz="0 0 -0.074" rpy="0 0 0" />
+    <axis xyz="-1 0 0" />
+    <limit lower="0" upper="2.5833333333333335" effort="1" velocity="0.5" />
+  </joint>
+  <joint name="transport_lid_plus_joint" type="prismatic">
+    <parent link="transport_lid_fixed" />
+    <child link="transport_lid_plus" />
+    <origin xyz="0 0 0" rpy="0 0 0" />
+    <axis xyz="0 1 0" />
+    <limit lower="0" upper="0.155" effort="1" velocity="0.5" />
+    <mimic joint="transport_lid_pinion_joint" multiplier="0.06" offset="0" />
+  </joint>
+  <joint name="transport_lid_minus_joint" type="prismatic">
+    <parent link="transport_lid_fixed" />
+    <child link="transport_lid_minus" />
+    <origin xyz="0 0 0" rpy="0 0 0" />
+    <axis xyz="0 -1 0" />
+    <limit lower="0" upper="0.155" effort="1" velocity="0.5" />
+    <mimic joint="transport_lid_pinion_joint" multiplier="0.06" offset="0" />
+  </joint>
+</robot>

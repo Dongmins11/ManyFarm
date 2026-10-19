@@ -1,0 +1,141 @@
+{
+  "mode": "unified",
+  "shape_type": "Cube",
+  "added_shapes": 1,
+  "disabled_shapes": [
+    "/World/envs/env_0/Robot/base_footprint/collisions/harvest_lid_lid_plus_tile_1/node_STL_BINARY_",
+    "/World/envs/env_0/Robot/base_footprint/collisions/harvest_lid_lid_plus_tile_2/node_STL_BINARY_",
+    "/World/envs/env_0/Robot/base_footprint/collisions/harvest_lid_lid_plus_seam_strap_1/node_STL_BINARY_",
+    "/World/envs/env_0/Robot/base_footprint/collisions/harvest_lid_lid_plus_seam_strap_2/node_STL_BINARY_",
+    "/World/envs/env_0/Robot/base_footprint/collisions/harvest_lid_lid_minus_tile_1/node_STL_BINARY_",
+    "/World/envs/env_0/Robot/base_footprint/collisions/harvest_lid_lid_minus_tile_2/node_STL_BINARY_",
+    "/World/envs/env_0/Robot/base_footprint/collisions/harvest_lid_lid_minus_seam_strap_1/node_STL_BINARY_",
+    "/World/envs/env_0/Robot/base_footprint/collisions/harvest_lid_lid_minus_seam_strap_2/node_STL_BINARY_"
+  ],
+  "added_rigid_bodies": 0,
+  "body": "/World/envs/env_0/Robot/base_footprint",
+  "path": "/World/envs/env_0/Robot/base_footprint/collisions/ClosedDepositFloor",
+  "lower_xyz_m": [
+    67.79999999003485,
+    -66.09999999276975,
+    0.4510000050533563
+  ],
+  "upper_xyz_m": [
+    67.99999999953434,
+    -65.89999998327026,
+    0.5010000050533563
+  ],
+  "original_tiles": [
+    {
+      "path": "/World/envs/env_0/Robot/base_footprint/collisions/harvest_lid_lid_plus_tile_1/node_STL_BINARY_",
+      "original_approximation": "convexDecomposition",
+      "approximation": "convexDecomposition",
+      "original_lower_xyz_m": [
+        67.79999999003485,
+        -65.99979998800752,
+        0.4950000047683716
+      ],
+      "original_upper_xyz_m": [
+        67.8999999947846,
+        -65.89999998327026,
+        0.5010000050533563
+      ],
+      "lower_xyz_m": [
+        67.79999999003485,
+        -65.99979998800752,
+        0.4950000047683716
+      ],
+      "upper_xyz_m": [
+        67.8999999947846,
+        -65.89999998327026,
+        0.5010000050533563
+      ],
+      "mesh_path": "/World/envs/env_0/Robot/base_footprint/collisions/harvest_lid_lid_plus_tile_1/node_STL_BINARY_/mesh"
+    },
+    {
+      "path": "/World/envs/env_0/Robot/base_footprint/collisions/harvest_lid_lid_plus_tile_2/node_STL_BINARY_",
+      "original_approximation": "convexDecomposition",
+      "approximation": "convexDecomposition",
+      "original_lower_xyz_m": [
+        67.8999999947846,
+        -65.99979998800752,
+        0.4950000047683716
+      ],
+      "original_upper_xyz_m": [
+        67.99999999953434,
+        -65.89999998327026,
+        0.5010000050533563
+      ],
+      "lower_xyz_m": [
+        67.8999999947846,
+        -65.99979998800752,
+        0.4950000047683716
+      ],
+      "upper_xyz_m": [
+        67.99999999953434,
+        -65.89999998327026,
+        0.5010000050533563
+      ],
+      "mesh_path": "/World/envs/env_0/Robot/base_footprint/collisions/harvest_lid_lid_plus_tile_2/node_STL_BINARY_/mesh"
+    },
+    {
+      "path": "/World/envs/env_0/Robot/base_footprint/collisions/harvest_lid_lid_minus_tile_1/node_STL_BINARY_",
+      "original_approximation": "convexDecomposition",
+      "approximation": "convexDecomposition",
+      "original_lower_xyz_m": [
+        67.79999999003485,
+        -66.09999999276975,
+        0.4950000047683716
+      ],
+      "original_upper_xyz_m": [
+        67.8999999947846,
+        -66.00019998803249,
+        0.5010000050533563
+      ],
+      "lower_xyz_m": [
+        67.79999999003485,
+        -66.09999999276975,
+        0.4950000047683716
+      ],
+      "upper_xyz_m": [
+        67.8999999947846,
+        -66.00019998803249,
+        0.5010000050533563
+      ],
+      "mesh_path": "/World/envs/env_0/Robot/base_footprint/collisions/harvest_lid_lid_minus_tile_1/node_STL_BINARY_/mesh"
+    },
+    {
+      "path": "/World/envs/env_0/Robot/base_footprint/collisions/harvest_lid_lid_minus_tile_2/node_STL_BINARY_",
+      "original_approximation": "convexDecomposition",
+      "approximation": "convexDecomposition",
+      "original_lower_xyz_m": [
+        67.8999999947846,
+        -66.09999999276975,
+        0.4950000047683716
+      ],
+      "original_upper_xyz_m": [
+        67.99999999953434,
+        -66.00019998803249,
+        0.5010000050533563
+      ],
+      "lower_xyz_m": [
+        67.8999999947846,
+        -66.09999999276975,
+        0.4950000047683716
+      ],
+      "upper_xyz_m": [
+        67.99999999953434,
+        -66.00019998803249,
+        0.5010000050533563
+      ],
+      "mesh_path": "/World/envs/env_0/Robot/base_footprint/collisions/harvest_lid_lid_minus_tile_2/node_STL_BINARY_/mesh"
+    }
+  ],
+  "original_usd_modified": false,
+  "visible_geometry_modified": false,
+  "contact_offset_m": 0.04,
+  "rest_offset_m": 0.0,
+  "depth_m": 0.05,
+  "material": null,
+  "scope": "Runtime-only stationary CLOSED box collision surface; unchanged visible lid/XY/top/walls and same fixed rigid body"
+}

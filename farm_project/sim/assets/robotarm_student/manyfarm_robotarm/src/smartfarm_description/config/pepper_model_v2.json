@@ -1,0 +1,21 @@
+{
+  "schema": "pepper_geometry_v2",
+  "body_max_width_m": 0.067,
+  "body_height_m": 0.077,
+  "lower_body_max_width_m": 0.035,
+  "lower_body_height_fraction": 0.15,
+  "taper_blend_end_fraction": 0.50,
+  "source_body_cut_fraction_of_whole_height": 0.425,
+  "mass_kg": 0.009,
+  "legacy_body_extent_length_m": 0.09625,
+  "grasp_center_local_m": [0.0, 0.0, -0.0077],
+  "thickness": "not measured; retain original XY aspect ratio before lower-body taper",
+  "lower_width_interpretation": "maximum transverse width in bottom 15% of body; measurement height unspecified, provisional",
+  "source_body_segmentation": "same asset-specific broad-body cutoff as body_hull_v1; decorative stem is retained",
+  "reference_images": [
+    "/home/bhc/Downloads/Screenshot_20261007_170558_Samsung Notes.jpg",
+    "/home/bhc/Downloads/20261007_170720.jpg"
+  ],
+  "scope": "separate opt-in geometry, visual and collider together; no live collection/default/cache/policy changes",
+  "attachment_version": "unchanged; geometry version2 is unrelated to stem attachment version"
+}

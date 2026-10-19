@@ -1,0 +1,126 @@
+{
+  "schema": "teacher60_native_alignment_evaluated_candidate_v1",
+  "status": "development_candidate_not_promoted",
+  "checkpoint": "/home/bhc/manyfarm_ws/manyfarm_robotarm/runs/harvest_rl/teacher60_native_alignment_20261012_170952.RKKKIl/teacher_final.pt",
+  "checkpoint_sha256": "2f70ab7870955b7f833a98b197b507dee9b2c66dfb6eb2307d2d3ac262af7491",
+  "training_contract_sha256": "e012375e7a3ca59b57e51e9ab9fe6728f5a086917da788b007aee1423bdb1c69",
+  "baseline_control": "teacher60_transport_posture_candidate.json;pause/gain1/posture-position/height-v2",
+  "evaluation": "/home/bhc/manyfarm_ws/manyfarm_robotarm/outputs/harvest_rl/native_full_pair_20261012_1791800397072",
+  "isolated_evaluation": "/home/bhc/manyfarm_ws/manyfarm_robotarm/outputs/harvest_rl/native_alignment_pair_20261012_1791800054451",
+  "learning_executed_in_evaluation": false,
+  "production_selection_changed": false,
+  "student_changed": false,
+  "real_robot_executed": false,
+  "actual_physics_hz": 60,
+  "actual_policy_hz": 20,
+  "mass_kg": 0.009,
+  "fruit_version": 1,
+  "full_results": [
+    {
+      "split": "train",
+      "count": 32,
+      "baseline_success": 26,
+      "new_success": 27,
+      "baseline_retained": 27,
+      "new_retained": 28,
+      "baseline_stop": 26,
+      "new_stop": 27,
+      "recovered_ids": [
+        3
+      ],
+      "regressed_ids": [],
+      "remaining_failed_ids": [
+        2,
+        10,
+        21,
+        22,
+        24
+      ],
+      "baseline": "/home/bhc/manyfarm_ws/manyfarm_robotarm/outputs/harvest_rl/native_full_pair_20261012_1791800397072/warm_train",
+      "evaluation": "/home/bhc/manyfarm_ws/manyfarm_robotarm/outputs/harvest_rl/native_full_pair_20261012_1791800397072/trained_train",
+      "actual_mesh_dwell_verified": true,
+      "pre_native_prefix_max_difference": 4.76837158203125e-07
+    },
+    {
+      "split": "validation",
+      "count": 32,
+      "baseline_success": 25,
+      "new_success": 26,
+      "baseline_retained": 28,
+      "new_retained": 28,
+      "baseline_stop": 26,
+      "new_stop": 27,
+      "recovered_ids": [
+        4,
+        27
+      ],
+      "regressed_ids": [
+        21
+      ],
+      "remaining_failed_ids": [
+        1,
+        7,
+        14,
+        18,
+        21,
+        30
+      ],
+      "baseline": "/home/bhc/manyfarm_ws/manyfarm_robotarm/outputs/harvest_rl/native_full_pair_20261012_1791800397072/warm_validation",
+      "evaluation": "/home/bhc/manyfarm_ws/manyfarm_robotarm/outputs/harvest_rl/native_full_pair_20261012_1791800397072/trained_validation",
+      "actual_mesh_dwell_verified": true,
+      "pre_native_prefix_max_difference": 4.76837158203125e-07
+    },
+    {
+      "split": "test",
+      "count": 32,
+      "baseline_success": 23,
+      "new_success": 23,
+      "baseline_retained": 25,
+      "new_retained": 25,
+      "baseline_stop": 23,
+      "new_stop": 23,
+      "recovered_ids": [],
+      "regressed_ids": [],
+      "remaining_failed_ids": [
+        3,
+        6,
+        13,
+        15,
+        16,
+        19,
+        21,
+        24,
+        28
+      ],
+      "baseline": "/home/bhc/manyfarm_ws/manyfarm_robotarm/outputs/harvest_rl/native_full_pair_20261012_1791800397072/warm_test",
+      "evaluation": "/home/bhc/manyfarm_ws/manyfarm_robotarm/outputs/harvest_rl/native_full_pair_20261012_1791800397072/trained_test",
+      "actual_mesh_dwell_verified": true,
+      "pre_native_prefix_max_difference": 4.76837158203125e-07
+    }
+  ],
+  "baseline_deposit_success": 74,
+  "new_deposit_success": 76,
+  "count_per_policy": 96,
+  "validation_regression": {
+    "trial_id": 21,
+    "stage": "release/deposit",
+    "symptom": "jaws clear but collider lowerZ0.463m and angular speed18.7rad/s; no actual dwell"
+  },
+  "remaining_priority": [
+    "stationary plateau activation goal<5mm prevents validation7; test6/21 activates at/after finite deadline",
+    "release/floor collision expression and settling sensitivity before further PPO",
+    "remaining native pull contact loss; frozen approach/bridge failures require their own component"
+  ],
+  "runtime": "scripts/eval_teacher60_native_chain.py",
+  "arguments": [
+    "--split",
+    "train",
+    "--policy-role",
+    "trained",
+    "--pressure-reference",
+    "/home/bhc/manyfarm_ws/manyfarm_robotarm/outputs/harvest_rl/native_full_pair_20261012_1791800397072/warm_train",
+    "--headless",
+    "--execute"
+  ],
+  "scope": "Same32 first scenes per split, known development domain; not farm/real/Student certification"
+}

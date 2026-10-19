@@ -1,0 +1,231 @@
+{
+  "schema": "teacher60_fast_preload_contact_pull_v1",
+  "parent": {
+    "schema": "teacher60_pull_contact_reward_v1",
+    "parent": {
+      "schema": "teacher60_pull_refine_v1",
+      "parent": {
+        "schema": "teacher60_pull_ready_v1",
+        "source_grasp_sha256": "0fa45b089f7e860a635215644d239a9f98f7b3e3d59cac86c05a08519b370898",
+        "source_grasp_contract_sha256": "3a6a41e5dc927edced532ae47f8d3d14d1e9040b7afc53a2d76d34282943bfb2",
+        "physical_signature": {
+          "contract_version": 2,
+          "attachment_version": 4,
+          "entry_first_grasp": true,
+          "entry_capture_shaping": true,
+          "pull_squeeze_rearm": true,
+          "pull_squeeze_ramp": true,
+          "pull_progress_reward": false,
+          "stage_transfer": true,
+          "lock_attachment": false,
+          "native_detach_recovery": true,
+          "captured_break_grace": true,
+          "post_detach_hold_guard": false,
+          "detached_capture_orientation": true,
+          "spring_grasp_grace": true,
+          "native_grasp_grace": true,
+          "grasp_orientation": "horizontal",
+          "grasp_angle_tolerance": 0.4363323129985824,
+          "grasp_orientation_weight": 4.0,
+          "grasp_version": 2,
+          "grasp_center_tolerance": 0.01,
+          "pregrasp_fraction": 0.0,
+          "transport_replay_fraction": 0.0,
+          "transport_start_min": 0.0,
+          "transport_start_max": 0.0,
+          "target_mode": "nearest",
+          "sequence": false,
+          "random_colors": false,
+          "timeout_scope": "fruit",
+          "background": "single",
+          "num_fruits": 2,
+          "region_origin": [
+            0.3,
+            -0.19,
+            0.713
+          ],
+          "region_min": [
+            0.2,
+            -0.175,
+            -0.1
+          ],
+          "region_max": [
+            0.3,
+            0.175,
+            0.35
+          ],
+          "diameter": 0.07,
+          "length": 0.075,
+          "mass": 0.009,
+          "spring_k": 60.0,
+          "spring_d": 4.2,
+          "angular_k": 0.015,
+          "angular_d": 0.002,
+          "stem_response_version": 6,
+          "stem_vertical_stiffness": 40.0,
+          "stem_max_extension": 0.04,
+          "tension_axis": [
+            -1.0,
+            0.0,
+            0.0
+          ],
+          "tension_hold_s": 0.04,
+          "lateral_stiffness_ratio": 0.25,
+          "break_force": 2.5,
+          "break_distance": 0.03,
+          "break_hold_s": 0.04,
+          "valid_pull_distance": 0.012,
+          "grip_hold_s": 0.25,
+          "place_hold_s": 0.6,
+          "transport_linear_pose_stop": true,
+          "release_stop_s": 0.3,
+          "release_speed": 0.05,
+          "box_contact_tolerance": 0.003,
+          "shape_placement": true,
+          "box_bottom_contact_tolerance": 0.01,
+          "legacy_box_bottom_margin": 0.01,
+          "contact_threshold": 0.08,
+          "max_contact_force": 25.0,
+          "action_speed": 0.8,
+          "gripper_speed": 1.2,
+          "gripper_effort": 0.5,
+          "gripper_stiffness": 8.0,
+          "gripper_damping": 0.3,
+          "grip_friction": 1.0,
+          "dynamic_friction": 1.0,
+          "restitution": 0.02,
+          "fruit_collision_mode": "legacy",
+          "contact_stiffness": 0.0,
+          "contact_damping": 0.0,
+          "gripper_max_error": 0.04,
+          "contact_substeps": 1,
+          "contact_solver_refine": false,
+          "release_intent_mode": true,
+          "release_measured_open": true,
+          "transport_adaptive_grip": true,
+          "transport_pose_stop": true,
+          "detached_grip_hold": true,
+          "gripper_hold_error": 0.035,
+          "hold_force": 0.6,
+          "hold_s": 1.0,
+          "detached_hold_s": 0.5,
+          "max_slip": 0.012,
+          "physics_dt": 0.016666666666666666,
+          "decimation": 3,
+          "render_hz": 30,
+          "episode_s": 20.0,
+          "tree_position": [
+            0.85,
+            -0.19,
+            0.0
+          ],
+          "tree_scale": [
+            0.75,
+            0.75,
+            1.35
+          ],
+          "box_min": [
+            0.305,
+            -0.095,
+            0.506
+          ],
+          "box_max": [
+            0.495,
+            0.095,
+            0.701
+          ],
+          "curriculum": 0.0
+        },
+        "task": "pull",
+        "reward_version": 6,
+        "normalization_contract": "teacher82_grasp_progress_identity_v1",
+        "pull_direction_shaping": true,
+        "pull_recovery_shaping": true,
+        "maintenance": {
+          "gripper": "bounded-preload",
+          "handoff_arm": "stored",
+          "zero_action": "rate-limited finite preload from latched target",
+          "preload_budget_rad": 0.06981317007977318,
+          "preload_rate_rad_s": 0.03490658503988659,
+          "opening_priority": true
+        },
+        "files": {
+          "scripts/teacher_60hz_followup.py": "0fbfb7acc0b49a7f2e39f79ec9aad7a56b0da102e57cf6d0cffa7ca1c40d56f8",
+          "src/harvest_robot/harvest_rl/followup_60hz.py": "db41ccd4b7ab481283d6fd01f12e49d5d6cbff8281db980bb779ad83649e4401",
+          "src/harvest_robot/harvest_rl/grasp_handoff_60hz.py": "d3530deb4470f842567b4b35ef1f3f8f24e50fa6f36ade486bc39904ab09bb59",
+          "src/harvest_robot/harvest_rl/bounded_grip_60hz.py": "fab03fd223adbafd1e418959c79c238ccd7b23440e0684c2e52e5bcce659db45",
+          "src/harvest_robot/harvest_rl/followup_60hz_probe.py": "f20a11b999da224a77ccc4825155633ab64956b0f01a6a857789d49b553450c6",
+          "scripts/teacher_60hz_pull_ready.py": "53b2897b88a2abc048a0cef6c40af3a0e5b978b70171f8c868505d25e4f07914",
+          "src/harvest_robot/harvest_rl/pull_ready_60hz.py": "eb3298d11e25bd87e6556c7266e8d491e3d15d3c76b2578a898245ced87e05b4",
+          "src/harvest_robot/harvest_rl/pull_ready_probe.py": "e4eeb3ca66d5063b455344cf7c24bf821926d94fe25942905da2f4339860a492",
+          "src/harvest_robot/harvest_rl/pull_speed_probe.py": "ea81b2289376641bcca549d7c3d586c2cc77d4ef8eff4bd57a055b1a5b8018b9",
+          "src/harvest_robot/harvest_rl/pull_speed_comparison.py": "02735cf4eee614d809b40beefa724556dec2d893b019ae6e2e8d3ad01b394002",
+          "src/harvest_robot/harvest_rl/kinematics.py": "dac95e356503b4ace4b8f9177d6a2c5252d175e17422b4d25c69a5b8d005c43b"
+        },
+        "pull_controller": {
+          "arm_settle_s": 2.0,
+          "policy_arm_dofs": 5,
+          "jaw": "neutral after certified grasp; finite preload/hold; release intent has priority",
+          "preload_deg": 4.0,
+          "preload_rate_deg_s": 2.0
+        }
+      },
+      "parent_contract_sha256": "ee9493c8f36b7e22b4b11e0ebdde266bc6821eea42199d3223e6de40e9c1968f",
+      "refinement": {
+        "ramp_s": 0.5,
+        "initial_scale": 0.2,
+        "hold_after_detach": false
+      },
+      "action_semantics": "arm5 bounded ramp after2s; neutral jaw; release intent priority; optional loaded-target hold after valid physical detachment",
+      "files": {
+        "scripts/teacher_60hz_pull_refine.py": "6773ef2b7b6462356aa4e0a7d09268bdf9baaa16b2a8e79b73dd82a024f86818",
+        "src/harvest_robot/harvest_rl/pull_refine_60hz.py": "eca98335e386ebc91f98df0373f21fbbf5365dfc732fe47de9bdecef2d54797b",
+        "scripts/compare_teacher60_pull_policy.py": "97db1174b308f8db7441ca164cb33f7176cd8b3f0b38bc384c0cd875a7fb1ae4"
+      }
+    },
+    "parent_contract_sha256": "76a17796e867d7f77e305aae8280bdb8e83bd4a5a554fee58686ebef2bcfcf7b",
+    "reward": {
+      "axial_target_m": 0.025,
+      "progress_weight": 6.0,
+      "contact_weight": 1.0,
+      "lateral_scale_m": 0.015,
+      "lateral_weight": 0.8,
+      "rotation_scale_rad": 0.3490658503988659,
+      "rotation_weight": 0.3,
+      "timeout_cost": 3.0,
+      "gamma": 0.99
+    },
+    "semantics": "Reward only. Original 2s preload, 0.5s ramp, physical contact/grasp, detachment, retention and failure/timeout unchanged. Potential uses measured calyx displacement and qualified contact; no force threshold incentive.",
+    "files": {
+      "scripts/teacher60_pull_contact.py": "912acaae55285b75a38dbe4f0e613626421fb39c5faa53cae92aadd866929663",
+      "src/harvest_robot/harvest_rl/pull_contact_reward_60hz.py": "71231bfd71a33d00188cb5771b0cbb827740cb318866419209fe5c3815a9adaa",
+      "src/harvest_robot/harvest_rl/contact_points_60hz.py": "51e0b684ca3799a8233ef99216957c298c4186ef73d2aea091d8d066927d9a2e"
+    }
+  },
+  "parent_contract_sha256": "c38f592213b7247134f4325a3f8077b2042fc82786b9a703c7495f3bffdbf1fc",
+  "response": {
+    "mode": "fast",
+    "rate_deg_s": 6.0,
+    "weak_force_N": 0.12,
+    "stop_force_N": 0.2
+  },
+  "control": {
+    "total_preload_deg": 4.0,
+    "preload_rate_deg_s": 6.0,
+    "arm_settle_s": 2.0,
+    "release_priority": true,
+    "measured_angle_rebase": false,
+    "force_feedback": false
+  },
+  "arm_commands": {
+    "scripted_probe": "original joint-driven15mm/s Cartesian feasibility",
+    "learned_policy": "selected0.5s/20-to100 percent bounded proposal ramp"
+  },
+  "files": {
+    "scripts/teacher60_pull_response.py": "5672eb2ef5c37d083b10cc755298c83296759b0049ba2810672d26e6b80976d7",
+    "src/harvest_robot/harvest_rl/pull_response_ready_60hz.py": "adbf2ebb0a85501c67ef0e875b35a62d3409b25c573c6e60891e49c0edc0fbc5",
+    "src/harvest_robot/harvest_rl/handoff_grip_response_60hz.py": "ff9774b677aa7db247c52866df438a0da3d3c41f102d9e6553892706a309fab9",
+    "src/harvest_robot/harvest_rl/pull_transfer_60hz.py": "8af9c797467d012099d36374953d7e40ca9fb017ba3a742429743214bec6db4d"
+  },
+  "meaning": "Same physical source/criteria and contact-axis reward. Faster finite position preload, no simulated-force control or new policy inputs."
+}

@@ -12,6 +12,7 @@ ROOT=Path(__file__).resolve().parents[2]
 sys.path.insert(0,str(ROOT/'robot/ros_ws/src/harvest_robot'))
 sys.path.insert(0, str(ROOT/'robot/ros_ws/src/farm_common'))
 from farm_common.action_handoff import ActionHandoff
+from harvest_robot.harvest_load import HarvestLoad
 from harvest_robot.mission import MissionCanceled
 
 def module(name,**values):
@@ -43,6 +44,7 @@ class ActionTests(unittest.TestCase):
                          completed_ids=set(),mode='sim',output=Path(directory),check=lambda:None,
                          emit_record=records.append,get_logger=lambda:NS(info=lambda s:None,error=lambda s:None))
                     n.handoff = ActionHandoff()
+                    n.harvest_load = HarvestLoad()
                     n.handoff.reserve('work', task.task_id)
                     def run():
                         handle.is_cancel_requested = mode.startswith('cancel')

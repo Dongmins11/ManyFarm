@@ -1,0 +1,26 @@
+{
+  "d435": {
+    "sampled_poses": 78,
+    "narrow_checks": 0,
+    "convex_overlaps": [],
+    "sampled_camera_frame_screen_passed": true,
+    "excludes": [
+      "mounted gripper/wrist interfaces",
+      "moving jaw interface",
+      "left-arm moving links"
+    ],
+    "continuous_collision_or_hardware_certificate": false
+  },
+  "u20": {
+    "sampled_poses": 78,
+    "narrow_checks": 0,
+    "convex_overlaps": [],
+    "sampled_camera_frame_screen_passed": true,
+    "excludes": [
+      "mounted gripper/wrist interfaces",
+      "moving jaw interface",
+      "left-arm moving links"
+    ],
+    "continuous_collision_or_hardware_certificate": false
+  }
+}

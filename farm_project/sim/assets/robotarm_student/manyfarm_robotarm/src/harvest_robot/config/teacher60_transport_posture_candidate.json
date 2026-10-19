@@ -1,0 +1,43 @@
+{
+  "schema": "teacher60_transport_posture_candidate_v1",
+  "status": "development_paired_comparison_only",
+  "learning": false,
+  "hardware_executed": false,
+  "production_selection_changed": false,
+  "training_gate_eligible": false,
+  "pressure": "original4deg at6deg/s,effort_limit0.5Nm;no additional reserve",
+  "stability_mode": "pause",
+  "stationary_plateau_final_stiffness_Nm_rad": 1.0,
+  "gain_ramp_s": 1.0,
+  "original_success_failure_gates": true,
+  "evaluation": "outputs/harvest_rl/transport_posture_20261012_154816_9253a58f/position",
+  "audit": "analysis.json",
+  "baseline_success": 25,
+  "success": 26,
+  "count": 32,
+  "recovered_ids": [
+    1
+  ],
+  "regressed_ids": [],
+  "runtime": "scripts/eval_teacher60_transport_posture.py",
+  "arguments": [
+    "--split",
+    "train",
+    "--stability-mode",
+    "pause",
+    "--settle-gain",
+    "1",
+    "--posture-mode",
+    "position",
+    "--headless",
+    "--execute"
+  ],
+  "source_files": {
+    "scripts/eval_teacher60_transport_posture.py": "6ccd2f5afdee4e10ed2c4f30d62260fe27aae733f348a696f2e2a58d6e3fb04d",
+    "scripts/analyze_teacher60_transport_posture.py": "f1c078c7bfb4a1d5e21dafa38a3322bd260cce35b666fbd546e6a65a5f6923bf",
+    "src/harvest_robot/harvest_rl/teacher_transport_posture_env.py": "d48c432e7e454ae09d7b077e5dbfa58d3caa45f44d6609d9e40315c15c1c18c7",
+    "src/harvest_robot/harvest_rl/transport_posture_escape.py": "f4a172f15243fd033f6eb765960dcd234be74e83b258c3482f407a7de296d27c"
+  },
+  "scope": "HOME through actual box deposit, same32 train development scenes; no independent split/real-robot certification",
+  "posture_mode": "position"
+}

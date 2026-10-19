@@ -17,6 +17,7 @@ class HarvestActionConfigTests(unittest.TestCase):
 
     def test_deployed_action_uses_arm_and_local_physics(self) -> None:
         self.assertEqual(self.task['completion_policy'], 'ARRIVAL_THEN_ARM')
+        self.assertEqual(self.device['runtime']['harvest_arm']['backend'], 'student_d435')
         validate_harvest_action(self.task, self.device, self.physics)
 
     def test_disabled_arm_cannot_silently_complete_on_arrival(self) -> None:
@@ -37,3 +38,13 @@ class HarvestActionConfigTests(unittest.TestCase):
     def test_explicit_navigation_only_test_remains_available(self) -> None:
         self.task['completion_policy'] = 'ARRIVAL_ONLY_NO_HARVEST'
         validate_harvest_action(self.task, {}, {})
+
+    def test_unknown_policy_fails_before_launch(self) -> None:
+        self.device['runtime']['harvest_arm']['backend'] = 'missing_policy'
+        with self.assertRaisesRegex(ValueError, 'backend'):
+            validate_harvest_action(self.task, self.device, self.physics)
+
+    def test_student_requires_its_own_profile(self) -> None:
+        self.device['runtime']['harvest_arm'].pop('student_profile')
+        with self.assertRaisesRegex(ValueError, 'student_profile'):
+            validate_harvest_action(self.task, self.device, self.physics)

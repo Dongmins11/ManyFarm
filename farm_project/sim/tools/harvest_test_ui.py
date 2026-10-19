@@ -77,6 +77,8 @@ def prepare_run(project_root: Path, source_fleet: Path = DEFAULT_FLEET) -> Path:
     if len(selected) != 1:
         raise ValueError('fleet 평가 대상에 해당하는 수확 장치가 정확히 하나 필요합니다.')
     device = selected[0]
+    # 이 독립 UI는 보존한 Teacher 비교기다. Student Action 시험은 명시적으로 덮어쓴다.
+    device['runtime']['harvest_arm']['backend'] = 'teacher'
     if device['map_id'] != evaluation['map_id'] or device['map_id'] != stations['map_id']:
         raise ValueError('수확 장치·평가·station의 map_id가 일치해야 합니다.')
     station = stations['stations'][device['robot_id']]

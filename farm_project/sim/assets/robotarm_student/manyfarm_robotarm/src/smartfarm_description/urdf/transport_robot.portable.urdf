@@ -1,0 +1,1980 @@
+<?xml version="1.0"?>
+<robot name="manyfarm_transport_robot">
+  <material name="black">
+    <color rgba="0.0 0.0 0.0 1.0" />
+  </material>
+  <material name="dark">
+    <color rgba="0.3 0.3 0.3 1.0" />
+  </material>
+  <material name="light_black">
+    <color rgba="0.4 0.4 0.4 1.0" />
+  </material>
+  <material name="blue">
+    <color rgba="0.0 0.0 0.8 1.0" />
+  </material>
+  <material name="green">
+    <color rgba="0.0 0.8 0.0 1.0" />
+  </material>
+  <material name="grey">
+    <color rgba="0.5 0.5 0.5 1.0" />
+  </material>
+  <material name="orange">
+    <color rgba="1.0 0.4235 0.0392 1.0" />
+  </material>
+  <material name="brown">
+    <color rgba="0.8706 0.8118 0.7647 1.0" />
+  </material>
+  <material name="red">
+    <color rgba="0.8 0.0 0.0 1.0" />
+  </material>
+  <material name="white">
+    <color rgba="1.0 1.0 1.0 1.0" />
+  </material>
+  <link name="base_footprint" />
+  <joint name="base_joint" type="fixed">
+    <parent link="base_footprint" />
+    <child link="base_link" />
+    <origin xyz="0 0 0.010" rpy="0 0 0" />
+  </joint>
+  <link name="base_link">
+    <visual>
+      <origin xyz="-0.064 0 0.0" rpy="0 0 0" />
+      <geometry>
+        <mesh filename="../meshes/transport/waffle_base.stl" scale="0.001 0.001 0.001" />
+      </geometry>
+      <material name="light_black" />
+    </visual>
+    <collision>
+      <origin xyz="-0.064 0 0.047" rpy="0 0 0" />
+      <geometry>
+        <box size="0.266 0.266 0.094" />
+      </geometry>
+    </collision>
+    <inertial>
+      <origin xyz="0 0 0" rpy="0 0 0" />
+      <mass value="1.3729096e+00" />
+      <inertia ixx="8.7002718e-03" ixy="-4.7576583e-05" ixz="1.1160499e-04" iyy="8.6195418e-03" iyz="-3.5422299e-06" izz="1.4612727e-02" />
+    </inertial>
+  </link>
+  <joint name="wheel_left_joint" type="continuous">
+    <parent link="base_link" />
+    <child link="wheel_left_link" />
+    <origin xyz="0.0 0.144 0.023" rpy="-1.57 0 0" />
+    <axis xyz="0 0 1" />
+  </joint>
+  <link name="wheel_left_link">
+    <visual>
+      <origin xyz="0 0 0" rpy="1.57 0 0" />
+      <geometry>
+        <mesh filename="../meshes/transport/left_tire.stl" scale="0.001 0.001 0.001" />
+      </geometry>
+      <material name="dark" />
+    </visual>
+    <collision>
+      <origin xyz="0 0 0" rpy="0 0 0" />
+      <geometry>
+        <cylinder length="0.018" radius="0.033" />
+      </geometry>
+    </collision>
+    <inertial>
+      <origin xyz="0 0 0" />
+      <mass value="2.8498940e-02" />
+      <inertia ixx="1.1175580e-05" ixy="-4.2369783e-11" ixz="-5.9381719e-09" iyy="1.1192413e-05" iyz="-1.4400107e-11" izz="2.0712558e-05" />
+    </inertial>
+  </link>
+  <joint name="wheel_right_joint" type="continuous">
+    <parent link="base_link" />
+    <child link="wheel_right_link" />
+    <origin xyz="0.0 -0.144 0.023" rpy="-1.57 0 0" />
+    <axis xyz="0 0 1" />
+  </joint>
+  <link name="wheel_right_link">
+    <visual>
+      <origin xyz="0 0 0" rpy="1.57 0 0" />
+      <geometry>
+        <mesh filename="../meshes/transport/right_tire.stl" scale="0.001 0.001 0.001" />
+      </geometry>
+      <material name="dark" />
+    </visual>
+    <collision>
+      <origin xyz="0 0 0" rpy="0 0 0" />
+      <geometry>
+        <cylinder length="0.018" radius="0.033" />
+      </geometry>
+    </collision>
+    <inertial>
+      <origin xyz="0 0 0" />
+      <mass value="2.8498940e-02" />
+      <inertia ixx="1.1175580e-05" ixy="-4.2369783e-11" ixz="-5.9381719e-09" iyy="1.1192413e-05" iyz="-1.4400107e-11" izz="2.0712558e-05" />
+    </inertial>
+  </link>
+  <joint name="caster_back_right_joint" type="fixed">
+    <parent link="base_link" />
+    <child link="caster_back_right_link" />
+    <origin xyz="-0.177 -0.064 -0.004" rpy="-1.57 0 0" />
+  </joint>
+  <link name="caster_back_right_link">
+    <collision>
+      <origin xyz="0 0.001 0" rpy="0 0 0" />
+      <geometry>
+        <box size="0.030 0.009 0.020" />
+      </geometry>
+    </collision>
+    <inertial>
+      <origin xyz="0 0 0" />
+      <mass value="0.005" />
+      <inertia ixx="0.001" ixy="0.0" ixz="0.0" iyy="0.001" iyz="0.0" izz="0.001" />
+    </inertial>
+  </link>
+  <joint name="caster_back_left_joint" type="fixed">
+    <parent link="base_link" />
+    <child link="caster_back_left_link" />
+    <origin xyz="-0.177 0.064 -0.004" rpy="-1.57 0 0" />
+  </joint>
+  <link name="caster_back_left_link">
+    <collision>
+      <origin xyz="0 0.001 0" rpy="0 0 0" />
+      <geometry>
+        <box size="0.030 0.009 0.020" />
+      </geometry>
+    </collision>
+    <inertial>
+      <origin xyz="0 0 0" />
+      <mass value="0.005" />
+      <inertia ixx="0.001" ixy="0.0" ixz="0.0" iyy="0.001" iyz="0.0" izz="0.001" />
+    </inertial>
+  </link>
+  <joint name="imu_joint" type="fixed">
+    <parent link="base_link" />
+    <child link="imu_link" />
+    <origin xyz="0.0 0 0.068" rpy="0 0 0" />
+  </joint>
+  <link name="imu_link" />
+  <joint name="scan_joint" type="fixed">
+    <parent link="base_link" />
+    <child link="base_scan" />
+    <origin xyz="-0.064 0 0.122" rpy="0 0 0" />
+  </joint>
+  <link name="base_scan">
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0" />
+      <geometry>
+        <mesh filename="../meshes/transport/lds.stl" scale="0.001 0.001 0.001" />
+      </geometry>
+      <material name="dark" />
+    </visual>
+    <collision>
+      <origin xyz="0.015 0 -0.0065" rpy="0 0 0" />
+      <geometry>
+        <cylinder length="0.0315" radius="0.055" />
+      </geometry>
+    </collision>
+    <inertial>
+      <mass value="0.114" />
+      <origin xyz="0 0 0" />
+      <inertia ixx="0.001" ixy="0.0" ixz="0.0" iyy="0.001" iyz="0.0" izz="0.001" />
+    </inertial>
+  </link>
+  <material name="cargo">
+    <color rgba="0.20 0.64 0.43 1" />
+  </material>
+  <material name="lid">
+    <color rgba="0.84 0.91 0.87 1" />
+  </material>
+  <material name="metal">
+    <color rgba="0.55 0.59 0.64 1" />
+  </material>
+  <material name="servo">
+    <color rgba="0.16 0.20 0.28 1" />
+  </material>
+  <material name="gear">
+    <color rgba="0.95 0.62 0.14 1" />
+  </material>
+  <link name="cargo_support">
+    <visual>
+      <origin xyz="-0.164 -0.1 0.16525" rpy="0 0 0" />
+      <geometry>
+        <box size="0.016 0.016 0.1475" />
+      </geometry>
+      <material name="metal" />
+    </visual>
+    <collision>
+      <origin xyz="-0.164 -0.1 0.16525" rpy="0 0 0" />
+      <geometry>
+        <box size="0.016 0.016 0.1475" />
+      </geometry>
+    </collision>
+    <visual>
+      <origin xyz="-0.164 0.1 0.16525" rpy="0 0 0" />
+      <geometry>
+        <box size="0.016 0.016 0.1475" />
+      </geometry>
+      <material name="metal" />
+    </visual>
+    <collision>
+      <origin xyz="-0.164 0.1 0.16525" rpy="0 0 0" />
+      <geometry>
+        <box size="0.016 0.016 0.1475" />
+      </geometry>
+    </collision>
+    <visual>
+      <origin xyz="0.036 -0.1 0.16525" rpy="0 0 0" />
+      <geometry>
+        <box size="0.016 0.016 0.1475" />
+      </geometry>
+      <material name="metal" />
+    </visual>
+    <collision>
+      <origin xyz="0.036 -0.1 0.16525" rpy="0 0 0" />
+      <geometry>
+        <box size="0.016 0.016 0.1475" />
+      </geometry>
+    </collision>
+    <visual>
+      <origin xyz="0.036 0.1 0.16525" rpy="0 0 0" />
+      <geometry>
+        <box size="0.016 0.016 0.1475" />
+      </geometry>
+      <material name="metal" />
+    </visual>
+    <collision>
+      <origin xyz="0.036 0.1 0.16525" rpy="0 0 0" />
+      <geometry>
+        <box size="0.016 0.016 0.1475" />
+      </geometry>
+    </collision>
+    <visual>
+      <origin xyz="-0.064 0 0.242" rpy="0 0 0" />
+      <geometry>
+        <box size="0.3 0.3 0.006" />
+      </geometry>
+      <material name="metal" />
+    </visual>
+    <collision>
+      <origin xyz="-0.064 0 0.242" rpy="0 0 0" />
+      <geometry>
+        <box size="0.3 0.3 0.006" />
+      </geometry>
+    </collision>
+    <inertial>
+      <origin xyz="-0.064 0 0.17" />
+      <mass value="0.65" />
+      <inertia ixx="0.006176354166666668" iyy="0.006176354166666668" izz="0.00975" ixy="0" ixz="0" iyz="0" />
+    </inertial>
+  </link>
+  <joint name="cargo_support_joint" type="fixed">
+    <parent link="base_link" />
+    <child link="cargo_support" />
+    <origin xyz="0 0 0" />
+  </joint>
+  <link name="cargo_box">
+    <visual>
+      <origin xyz="-0.15 0 0.0035" rpy="0 0 0" />
+      <geometry>
+        <box size="0.3 0.3 0.003" />
+      </geometry>
+      <material name="cargo" />
+    </visual>
+    <collision>
+      <origin xyz="-0.15 0 0.0035" rpy="0 0 0" />
+      <geometry>
+        <box size="0.3 0.3 0.003" />
+      </geometry>
+    </collision>
+    <visual>
+      <origin xyz="-0.2975 0 0.0975" rpy="0 0 0" />
+      <geometry>
+        <box size="0.005 0.3 0.185" />
+      </geometry>
+      <material name="cargo" />
+    </visual>
+    <collision>
+      <origin xyz="-0.2975 0 0.0975" rpy="0 0 0" />
+      <geometry>
+        <box size="0.005 0.3 0.185" />
+      </geometry>
+    </collision>
+    <visual>
+      <origin xyz="-0.1475 -0.1475 0.0975" rpy="0 0 0" />
+      <geometry>
+        <box size="0.295 0.005 0.185" />
+      </geometry>
+      <material name="cargo" />
+    </visual>
+    <collision>
+      <origin xyz="-0.1475 -0.1475 0.0975" rpy="0 0 0" />
+      <geometry>
+        <box size="0.295 0.005 0.185" />
+      </geometry>
+    </collision>
+    <visual>
+      <origin xyz="-0.1475 0.1475 0.0975" rpy="0 0 0" />
+      <geometry>
+        <box size="0.295 0.005 0.185" />
+      </geometry>
+      <material name="cargo" />
+    </visual>
+    <collision>
+      <origin xyz="-0.1475 0.1475 0.0975" rpy="0 0 0" />
+      <geometry>
+        <box size="0.295 0.005 0.185" />
+      </geometry>
+    </collision>
+    <inertial>
+      <origin xyz="-0.15 0 0.095" />
+      <mass value="0.32" />
+      <inertia ixx="0.0033626666666666666" iyy="0.0033626666666666666" izz="0.0048" ixy="0" ixz="0" iyz="0" />
+    </inertial>
+    <visual>
+      <origin xyz="-0.0025 0 0.177" rpy="0 0 0" />
+      <geometry>
+        <box size="0.005 0.29 0.026" />
+      </geometry>
+      <material name="metal" />
+    </visual>
+    <collision>
+      <origin xyz="-0.0025 0 0.177" rpy="0 0 0" />
+      <geometry>
+        <box size="0.005 0.29 0.026" />
+      </geometry>
+    </collision>
+  </link>
+  <joint name="box_tilt_joint" type="revolute">
+    <parent link="base_link" />
+    <child link="cargo_box" />
+    <origin xyz="0.086 0 0.245" />
+    <axis xyz="0 1 0" />
+    <limit lower="0" upper="0.7853981633974483" effort="9.80665" velocity="0.25" />
+    <dynamics damping="0.05" friction="0.01" />
+  </joint>
+  <link name="side_lid">
+    <visual>
+      <origin xyz="-0.0025 0 -0.0885" rpy="0 0 0" />
+      <geometry>
+        <box size="0.005 0.29 0.141" />
+      </geometry>
+      <material name="lid" />
+    </visual>
+    <collision>
+      <origin xyz="-0.0025 0 -0.0885" rpy="0 0 0" />
+      <geometry>
+        <box size="0.005 0.29 0.141" />
+      </geometry>
+    </collision>
+    <inertial>
+      <origin xyz="-0.0025 0 -0.0795" />
+      <mass value="0.04" />
+      <inertia ixx="0.00036460333333333334" iyy="8.435333333333334e-05" izz="0.00028041666666666666" ixy="0" ixz="0" iyz="0" />
+    </inertial>
+  </link>
+  <joint name="side_lid_joint" type="revolute">
+    <parent link="cargo_box" />
+    <child link="side_lid" />
+    <origin xyz="0 0 0.164" />
+    <axis xyz="0 -1 0" />
+    <limit lower="0" upper="1.5707963267948966" effort="1" velocity="1" />
+    <dynamics damping="0.05" friction="0.01" />
+  </joint>
+  <link name="tilt_fixed_mounts" />
+  <joint name="tilt_fixed_mounts_joint" type="fixed">
+    <parent link="cargo_support" />
+    <child link="tilt_fixed_mounts" />
+    <origin xyz="0.086 0 0.245" />
+  </joint>
+  <link name="tilt_bearing_carrier_n1">
+    <visual>
+      <geometry>
+        <mesh filename="../meshes/sliding_lids_v3/transport_motors/tilt_bearing_carrier_n1.stl" scale=".001 .001 .001" />
+      </geometry>
+      <material name="metal" />
+    </visual>
+    <collision>
+      <geometry>
+        <mesh filename="../meshes/sliding_lids_v3/transport_motors/tilt_bearing_carrier_n1.stl" scale=".001 .001 .001" />
+      </geometry>
+    </collision>
+    <inertial>
+      <origin xyz="-0.01609396276 -0.1625910223 -0.004448515342" />
+      <mass value="0.01993850516326873" />
+      <inertia ixx="5.371268274484988e-06" iyy="9.392216362617922e-06" izz="1.0455486032587746e-05" ixy="0" ixz="0" iyz="0" />
+    </inertial>
+  </link>
+  <joint name="tilt_bearing_carrier_n1_joint" type="fixed">
+    <parent link="tilt_fixed_mounts" />
+    <child link="tilt_bearing_carrier_n1" />
+    <origin xyz="0 0 0" />
+  </joint>
+  <link name="purchased_tilt_608_n1">
+    <visual>
+      <geometry>
+        <mesh filename="../meshes/sliding_lids_v3/transport_motors/purchased_tilt_608_n1.stl" scale=".001 .001 .001" />
+      </geometry>
+      <material name="metal" />
+    </visual>
+    <collision>
+      <geometry>
+        <mesh filename="../meshes/sliding_lids_v3/transport_motors/purchased_tilt_608_n1.stl" scale=".001 .001 .001" />
+      </geometry>
+    </collision>
+    <inertial>
+      <origin xyz="-4.642398491e-19 -0.1675 -1.858617109e-18" />
+      <mass value="0.012" />
+      <inertia ixx="5.332522766400427e-07" iyy="9.681913812959002e-07" izz="5.330609129441433e-07" ixy="0" ixz="0" iyz="0" />
+    </inertial>
+  </link>
+  <joint name="purchased_tilt_608_n1_joint" type="fixed">
+    <parent link="tilt_fixed_mounts" />
+    <child link="purchased_tilt_608_n1" />
+    <origin xyz="0 0 0" />
+  </joint>
+  <link name="purchased_tilt_shaft_n1">
+    <visual>
+      <geometry>
+        <mesh filename="../meshes/sliding_lids_v3/transport_motors/purchased_tilt_shaft_n1.stl" scale=".001 .001 .001" />
+      </geometry>
+      <material name="metal" />
+    </visual>
+    <collision>
+      <geometry>
+        <mesh filename="../meshes/sliding_lids_v3/transport_motors/purchased_tilt_shaft_n1.stl" scale=".001 .001 .001" />
+      </geometry>
+    </collision>
+    <inertial>
+      <origin xyz="-7.341276552e-20 -0.1665 5.863738672e-19" />
+      <mass value="0.010653769006853707" />
+      <inertia ixx="7.041348622789914e-07" iyy="1.1366267392751147e-07" izz="7.041123967732631e-07" ixy="0" ixz="0" iyz="0" />
+    </inertial>
+  </link>
+  <joint name="purchased_tilt_shaft_n1_joint" type="fixed">
+    <parent link="cargo_box" />
+    <child link="purchased_tilt_shaft_n1" />
+    <origin xyz="0 0 0" />
+  </joint>
+  <link name="tilt_torque_cheek_n1">
+    <visual>
+      <geometry>
+        <mesh filename="../meshes/sliding_lids_v3/transport_motors/tilt_torque_cheek_n1.stl" scale=".001 .001 .001" />
+      </geometry>
+      <material name="metal" />
+    </visual>
+    <collision>
+      <geometry>
+        <mesh filename="../meshes/sliding_lids_v3/transport_motors/tilt_torque_cheek_n1.stl" scale=".001 .001 .001" />
+      </geometry>
+    </collision>
+    <inertial>
+      <origin xyz="-0.008775467632 -0.152 0.00436881053" />
+      <mass value="0.006168366140903632" />
+      <inertia ixx="6.745600823157176e-07" iyy="2.455649946976482e-06" izz="1.7975941703427953e-06" ixy="0" ixz="0" iyz="0" />
+    </inertial>
+  </link>
+  <joint name="tilt_torque_cheek_n1_joint" type="fixed">
+    <parent link="cargo_box" />
+    <child link="tilt_torque_cheek_n1" />
+    <origin xyz="0 0 0" />
+  </joint>
+  <link name="purchased_tilt_flange_hub_n1">
+    <visual>
+      <geometry>
+        <mesh filename="../meshes/sliding_lids_v3/transport_motors/purchased_tilt_flange_hub_n1.stl" scale=".001 .001 .001" />
+      </geometry>
+      <material name="metal" />
+    </visual>
+    <collision>
+      <geometry>
+        <mesh filename="../meshes/sliding_lids_v3/transport_motors/purchased_tilt_flange_hub_n1.stl" scale=".001 .001 .001" />
+      </geometry>
+    </collision>
+    <inertial>
+      <origin xyz="-5.945384211e-19 -0.1560625365 7.931248767e-19" />
+      <mass value="0.02025399863414077" />
+      <inertia ixx="1.8118358867753343e-06" iyy="3.457365827516653e-06" izz="1.8111525360272367e-06" ixy="0" ixz="0" iyz="0" />
+    </inertial>
+  </link>
+  <joint name="purchased_tilt_flange_hub_n1_joint" type="fixed">
+    <parent link="cargo_box" />
+    <child link="purchased_tilt_flange_hub_n1" />
+    <origin xyz="0 0 0" />
+  </joint>
+  <link name="purchased_tilt_inner_spacer_n1">
+    <visual>
+      <geometry>
+        <mesh filename="../meshes/sliding_lids_v3/transport_motors/purchased_tilt_inner_spacer_n1.stl" scale=".001 .001 .001" />
+      </geometry>
+      <material name="metal" />
+    </visual>
+    <collision>
+      <geometry>
+        <mesh filename="../meshes/sliding_lids_v3/transport_motors/purchased_tilt_inner_spacer_n1.stl" scale=".001 .001 .001" />
+      </geometry>
+    </collision>
+    <inertial>
+      <origin xyz="-4.736271823e-19 -0.1625 -1.055472961e-18" />
+      <mass value="0.0014796901398407925" />
+      <inertia ixx="1.887482613135527e-08" iyy="3.551958501041276e-08" izz="1.886780566087368e-08" ixy="0" ixz="0" iyz="0" />
+    </inertial>
+  </link>
+  <joint name="purchased_tilt_inner_spacer_n1_joint" type="fixed">
+    <parent link="cargo_box" />
+    <child link="purchased_tilt_inner_spacer_n1" />
+    <origin xyz="0 0 0" />
+  </joint>
+  <link name="purchased_tilt_outer_spacer_n1">
+    <visual>
+      <geometry>
+        <mesh filename="../meshes/sliding_lids_v3/transport_motors/purchased_tilt_outer_spacer_n1.stl" scale=".001 .001 .001" />
+      </geometry>
+      <material name="metal" />
+    </visual>
+    <collision>
+      <geometry>
+        <mesh filename="../meshes/sliding_lids_v3/transport_motors/purchased_tilt_outer_spacer_n1.stl" scale=".001 .001 .001" />
+      </geometry>
+    </collision>
+    <inertial>
+      <origin xyz="-6.105546887e-19 -0.1735 -1.176098442e-18" />
+      <mass value="0.002466150233067988" />
+      <inertia ixx="3.474819396536064e-08" iyy="5.919930835068795e-08" izz="3.4736493181224654e-08" ixy="0" ixz="0" iyz="0" />
+    </inertial>
+  </link>
+  <joint name="purchased_tilt_outer_spacer_n1_joint" type="fixed">
+    <parent link="cargo_box" />
+    <child link="purchased_tilt_outer_spacer_n1" />
+    <origin xyz="0 0 0" />
+  </joint>
+  <link name="purchased_tilt_shaft_collar_n1">
+    <visual>
+      <geometry>
+        <mesh filename="../meshes/sliding_lids_v3/transport_motors/purchased_tilt_shaft_collar_n1.stl" scale=".001 .001 .001" />
+      </geometry>
+      <material name="metal" />
+    </visual>
+    <collision>
+      <geometry>
+        <mesh filename="../meshes/sliding_lids_v3/transport_motors/purchased_tilt_shaft_collar_n1.stl" scale=".001 .001 .001" />
+      </geometry>
+    </collision>
+    <inertial>
+      <origin xyz="2.339049835e-19 -0.178 1.850504542e-18" />
+      <mass value="0.003255318307649744" />
+      <inertia ixx="5.7537655683802884e-08" iyy="1.0636142349696974e-07" izz="5.751663327502192e-08" ixy="0" ixz="0" iyz="0" />
+    </inertial>
+  </link>
+  <joint name="purchased_tilt_shaft_collar_n1_joint" type="fixed">
+    <parent link="cargo_box" />
+    <child link="purchased_tilt_shaft_collar_n1" />
+    <origin xyz="0 0 0" />
+  </joint>
+  <link name="tilt_5840_mount_with_bearing">
+    <visual>
+      <geometry>
+        <mesh filename="../meshes/sliding_lids_v3/transport_motors/tilt_5840_mount_with_bearing.stl" scale=".001 .001 .001" />
+      </geometry>
+      <material name="metal" />
+    </visual>
+    <collision>
+      <geometry>
+        <mesh filename="../meshes/sliding_lids_v3/transport_motors/tilt_5840_mount_with_bearing.stl" scale=".001 .001 .001" />
+      </geometry>
+    </collision>
+    <inertial>
+      <origin xyz="-0.01741517774 0.184908119 -0.005257577523" />
+      <mass value="0.055523916198947525" />
+      <inertia ixx="3.765580476361244e-05" iyy="3.8334637377408125e-05" izz="4.9995995177695396e-05" ixy="0" ixz="0" iyz="0" />
+    </inertial>
+  </link>
+  <joint name="tilt_5840_mount_with_bearing_joint" type="fixed">
+    <parent link="tilt_fixed_mounts" />
+    <child link="tilt_5840_mount_with_bearing" />
+    <origin xyz="0 0 0" />
+  </joint>
+  <link name="purchased_tilt_608_p1">
+    <visual>
+      <geometry>
+        <mesh filename="../meshes/sliding_lids_v3/transport_motors/purchased_tilt_608_p1.stl" scale=".001 .001 .001" />
+      </geometry>
+      <material name="metal" />
+    </visual>
+    <collision>
+      <geometry>
+        <mesh filename="../meshes/sliding_lids_v3/transport_motors/purchased_tilt_608_p1.stl" scale=".001 .001 .001" />
+      </geometry>
+    </collision>
+    <inertial>
+      <origin xyz="-4.642398491e-19 0.1675 -1.858617109e-18" />
+      <mass value="0.012" />
+      <inertia ixx="5.332522766400427e-07" iyy="9.681913812959002e-07" izz="5.330609129441433e-07" ixy="0" ixz="0" iyz="0" />
+    </inertial>
+  </link>
+  <joint name="purchased_tilt_608_p1_joint" type="fixed">
+    <parent link="tilt_fixed_mounts" />
+    <child link="purchased_tilt_608_p1" />
+    <origin xyz="0 0 0" />
+  </joint>
+  <link name="purchased_tilt_shaft_p1">
+    <visual>
+      <geometry>
+        <mesh filename="../meshes/sliding_lids_v3/transport_motors/purchased_tilt_shaft_p1.stl" scale=".001 .001 .001" />
+      </geometry>
+      <material name="metal" />
+    </visual>
+    <collision>
+      <geometry>
+        <mesh filename="../meshes/sliding_lids_v3/transport_motors/purchased_tilt_shaft_p1.stl" scale=".001 .001 .001" />
+      </geometry>
+    </collision>
+    <inertial>
+      <origin xyz="-9.989030662e-20 0.1715 6.112777766e-20" />
+      <mass value="0.014599609379762485" />
+      <inertia ixx="1.7436098692410612e-06" iyy="1.557599605673305e-07" izz="1.743579083177656e-06" ixy="0" ixz="0" iyz="0" />
+    </inertial>
+  </link>
+  <joint name="purchased_tilt_shaft_p1_joint" type="fixed">
+    <parent link="cargo_box" />
+    <child link="purchased_tilt_shaft_p1" />
+    <origin xyz="0 0 0" />
+  </joint>
+  <link name="tilt_torque_cheek_p1">
+    <visual>
+      <geometry>
+        <mesh filename="../meshes/sliding_lids_v3/transport_motors/tilt_torque_cheek_p1.stl" scale=".001 .001 .001" />
+      </geometry>
+      <material name="metal" />
+    </visual>
+    <collision>
+      <geometry>
+        <mesh filename="../meshes/sliding_lids_v3/transport_motors/tilt_torque_cheek_p1.stl" scale=".001 .001 .001" />
+      </geometry>
+    </collision>
+    <inertial>
+      <origin xyz="-0.008775467632 0.152 0.00436881053" />
+      <mass value="0.006168366140903632" />
+      <inertia ixx="6.745600823157176e-07" iyy="2.455649946976482e-06" izz="1.7975941703427953e-06" ixy="0" ixz="0" iyz="0" />
+    </inertial>
+  </link>
+  <joint name="tilt_torque_cheek_p1_joint" type="fixed">
+    <parent link="cargo_box" />
+    <child link="tilt_torque_cheek_p1" />
+    <origin xyz="0 0 0" />
+  </joint>
+  <link name="purchased_tilt_flange_hub_p1">
+    <visual>
+      <geometry>
+        <mesh filename="../meshes/sliding_lids_v3/transport_motors/purchased_tilt_flange_hub_p1.stl" scale=".001 .001 .001" />
+      </geometry>
+      <material name="metal" />
+    </visual>
+    <collision>
+      <geometry>
+        <mesh filename="../meshes/sliding_lids_v3/transport_motors/purchased_tilt_flange_hub_p1.stl" scale=".001 .001 .001" />
+      </geometry>
+    </collision>
+    <inertial>
+      <origin xyz="-5.945384211e-19 0.1560625365 7.931248767e-19" />
+      <mass value="0.02025399863414077" />
+      <inertia ixx="1.8118358867753343e-06" iyy="3.457365827516653e-06" izz="1.8111525360272367e-06" ixy="0" ixz="0" iyz="0" />
+    </inertial>
+  </link>
+  <joint name="purchased_tilt_flange_hub_p1_joint" type="fixed">
+    <parent link="cargo_box" />
+    <child link="purchased_tilt_flange_hub_p1" />
+    <origin xyz="0 0 0" />
+  </joint>
+  <link name="purchased_tilt_inner_spacer_p1">
+    <visual>
+      <geometry>
+        <mesh filename="../meshes/sliding_lids_v3/transport_motors/purchased_tilt_inner_spacer_p1.stl" scale=".001 .001 .001" />
+      </geometry>
+      <material name="metal" />
+    </visual>
+    <collision>
+      <geometry>
+        <mesh filename="../meshes/sliding_lids_v3/transport_motors/purchased_tilt_inner_spacer_p1.stl" scale=".001 .001 .001" />
+      </geometry>
+    </collision>
+    <inertial>
+      <origin xyz="-4.736271823e-19 0.1625 -1.055472961e-18" />
+      <mass value="0.0014796901398407925" />
+      <inertia ixx="1.887482613135527e-08" iyy="3.551958501041276e-08" izz="1.886780566087368e-08" ixy="0" ixz="0" iyz="0" />
+    </inertial>
+  </link>
+  <joint name="purchased_tilt_inner_spacer_p1_joint" type="fixed">
+    <parent link="cargo_box" />
+    <child link="purchased_tilt_inner_spacer_p1" />
+    <origin xyz="0 0 0" />
+  </joint>
+  <link name="purchased_tilt_outer_spacer_p1">
+    <visual>
+      <geometry>
+        <mesh filename="../meshes/sliding_lids_v3/transport_motors/purchased_tilt_outer_spacer_p1.stl" scale=".001 .001 .001" />
+      </geometry>
+      <material name="metal" />
+    </visual>
+    <collision>
+      <geometry>
+        <mesh filename="../meshes/sliding_lids_v3/transport_motors/purchased_tilt_outer_spacer_p1.stl" scale=".001 .001 .001" />
+      </geometry>
+    </collision>
+    <inertial>
+      <origin xyz="-6.105546887e-19 0.1735 -1.176098442e-18" />
+      <mass value="0.002466150233067988" />
+      <inertia ixx="3.474819396536064e-08" iyy="5.919930835068795e-08" izz="3.4736493181224654e-08" ixy="0" ixz="0" iyz="0" />
+    </inertial>
+  </link>
+  <joint name="purchased_tilt_outer_spacer_p1_joint" type="fixed">
+    <parent link="cargo_box" />
+    <child link="purchased_tilt_outer_spacer_p1" />
+    <origin xyz="0 0 0" />
+  </joint>
+  <link name="purchased_tilt_shaft_collar_p1">
+    <visual>
+      <geometry>
+        <mesh filename="../meshes/sliding_lids_v3/transport_motors/purchased_tilt_shaft_collar_p1.stl" scale=".001 .001 .001" />
+      </geometry>
+      <material name="metal" />
+    </visual>
+    <collision>
+      <geometry>
+        <mesh filename="../meshes/sliding_lids_v3/transport_motors/purchased_tilt_shaft_collar_p1.stl" scale=".001 .001 .001" />
+      </geometry>
+    </collision>
+    <inertial>
+      <origin xyz="2.339049835e-19 0.178 1.850504542e-18" />
+      <mass value="0.003255318307649744" />
+      <inertia ixx="5.7537655683802884e-08" iyy="1.0636142349696974e-07" izz="5.751663327502192e-08" ixy="0" ixz="0" iyz="0" />
+    </inertial>
+  </link>
+  <joint name="purchased_tilt_shaft_collar_p1_joint" type="fixed">
+    <parent link="cargo_box" />
+    <child link="purchased_tilt_shaft_collar_p1" />
+    <origin xyz="0 0 0" />
+  </joint>
+  <link name="reference_5840_body">
+    <visual>
+      <geometry>
+        <mesh filename="../meshes/sliding_lids_v3/transport_motors/reference_5840_body.stl" scale=".001 .001 .001" />
+      </geometry>
+      <material name="servo" />
+    </visual>
+    <collision>
+      <geometry>
+        <mesh filename="../meshes/sliding_lids_v3/transport_motors/reference_5840_body.stl" scale=".001 .001 .001" />
+      </geometry>
+    </collision>
+    <inertial>
+      <origin xyz="-0.02854889056 0.223 -6.899816684e-19" />
+      <mass value="0.36" />
+      <inertia ixx="8.688000091200025e-05" iyy="0.0004447711429727509" izz="0.00043565114292475087" ixy="0" ixz="0" iyz="0" />
+    </inertial>
+  </link>
+  <joint name="reference_5840_body_joint" type="fixed">
+    <parent link="tilt_fixed_mounts" />
+    <child link="reference_5840_body" />
+    <origin xyz="0 0 0" />
+  </joint>
+  <link name="reference_5840_output_shaft">
+    <visual>
+      <geometry>
+        <mesh filename="../meshes/sliding_lids_v3/transport_motors/reference_5840_output_shaft.stl" scale=".001 .001 .001" />
+      </geometry>
+      <material name="metal" />
+    </visual>
+    <collision>
+      <geometry>
+        <mesh filename="../meshes/sliding_lids_v3/transport_motors/reference_5840_output_shaft.stl" scale=".001 .001 .001" />
+      </geometry>
+    </collision>
+    <inertial>
+      <origin xyz="-1.100861048e-19 0.1975 -7.162137949e-19" />
+      <mass value="0.00591876055936317" />
+      <inertia ixx="1.4257936933451095e-07" iyy="6.314592995972859e-08" izz="1.4256688849799523e-07" ixy="0" ixz="0" iyz="0" />
+    </inertial>
+  </link>
+  <joint name="reference_5840_output_shaft_joint" type="fixed">
+    <parent link="cargo_box" />
+    <child link="reference_5840_output_shaft" />
+    <origin xyz="0 0 0" />
+  </joint>
+  <link name="purchased_8mm_shaft_coupling">
+    <visual>
+      <geometry>
+        <mesh filename="../meshes/sliding_lids_v3/transport_motors/purchased_8mm_shaft_coupling.stl" scale=".001 .001 .001" />
+      </geometry>
+      <material name="metal" />
+    </visual>
+    <collision>
+      <geometry>
+        <mesh filename="../meshes/sliding_lids_v3/transport_motors/purchased_8mm_shaft_coupling.stl" scale=".001 .001 .001" />
+      </geometry>
+    </collision>
+    <inertial>
+      <origin xyz="-1.417266112e-19 0.19 1.948565466e-19" />
+      <mass value="0.011026990214100175" />
+      <inertia ixx="6.655436001642521e-07" iyy="5.955752006437353e-07" izz="6.654258843143149e-07" ixy="0" ixz="0" iyz="0" />
+    </inertial>
+  </link>
+  <joint name="purchased_8mm_shaft_coupling_joint" type="fixed">
+    <parent link="cargo_box" />
+    <child link="purchased_8mm_shaft_coupling" />
+    <origin xyz="0 0 0" />
+  </joint>
+  <link name="cut_closed_rest_pad_n240_n100">
+    <visual>
+      <geometry>
+        <mesh filename="../meshes/sliding_lids_v3/transport_motors/cut_closed_rest_pad_n240_n100.stl" scale=".001 .001 .001" />
+      </geometry>
+      <material name="metal" />
+    </visual>
+    <collision>
+      <geometry>
+        <mesh filename="../meshes/sliding_lids_v3/transport_motors/cut_closed_rest_pad_n240_n100.stl" scale=".001 .001 .001" />
+      </geometry>
+    </collision>
+    <inertial>
+      <origin xyz="-0.24 -0.1 0.001" />
+      <mass value="0.002085186112547413" />
+      <inertia ixx="7.020184448896593e-08" iyy="7.020184448896593e-08" izz="1.3901241028341045e-07" ixy="0" ixz="0" iyz="0" />
+    </inertial>
+  </link>
+  <joint name="cut_closed_rest_pad_n240_n100_joint" type="fixed">
+    <parent link="tilt_fixed_mounts" />
+    <child link="cut_closed_rest_pad_n240_n100" />
+    <origin xyz="0 0 0" />
+  </joint>
+  <link name="cut_closed_rest_pad_n240_100">
+    <visual>
+      <geometry>
+        <mesh filename="../meshes/sliding_lids_v3/transport_motors/cut_closed_rest_pad_n240_100.stl" scale=".001 .001 .001" />
+      </geometry>
+      <material name="metal" />
+    </visual>
+    <collision>
+      <geometry>
+        <mesh filename="../meshes/sliding_lids_v3/transport_motors/cut_closed_rest_pad_n240_100.stl" scale=".001 .001 .001" />
+      </geometry>
+    </collision>
+    <inertial>
+      <origin xyz="-0.24 0.1 0.001" />
+      <mass value="0.002085186112547413" />
+      <inertia ixx="7.020184448896593e-08" iyy="7.020184448896593e-08" izz="1.3901241028341045e-07" ixy="0" ixz="0" iyz="0" />
+    </inertial>
+  </link>
+  <joint name="cut_closed_rest_pad_n240_100_joint" type="fixed">
+    <parent link="tilt_fixed_mounts" />
+    <child link="cut_closed_rest_pad_n240_100" />
+    <origin xyz="0 0 0" />
+  </joint>
+  <link name="cut_closed_rest_pad_n60_n100">
+    <visual>
+      <geometry>
+        <mesh filename="../meshes/sliding_lids_v3/transport_motors/cut_closed_rest_pad_n60_n100.stl" scale=".001 .001 .001" />
+      </geometry>
+      <material name="metal" />
+    </visual>
+    <collision>
+      <geometry>
+        <mesh filename="../meshes/sliding_lids_v3/transport_motors/cut_closed_rest_pad_n60_n100.stl" scale=".001 .001 .001" />
+      </geometry>
+    </collision>
+    <inertial>
+      <origin xyz="-0.06 -0.1 0.001" />
+      <mass value="0.0020851861125474125" />
+      <inertia ixx="7.020184448896548e-08" iyy="7.020184448896548e-08" izz="1.390124102834096e-07" ixy="0" ixz="0" iyz="0" />
+    </inertial>
+  </link>
+  <joint name="cut_closed_rest_pad_n60_n100_joint" type="fixed">
+    <parent link="tilt_fixed_mounts" />
+    <child link="cut_closed_rest_pad_n60_n100" />
+    <origin xyz="0 0 0" />
+  </joint>
+  <link name="cut_closed_rest_pad_n60_100">
+    <visual>
+      <geometry>
+        <mesh filename="../meshes/sliding_lids_v3/transport_motors/cut_closed_rest_pad_n60_100.stl" scale=".001 .001 .001" />
+      </geometry>
+      <material name="metal" />
+    </visual>
+    <collision>
+      <geometry>
+        <mesh filename="../meshes/sliding_lids_v3/transport_motors/cut_closed_rest_pad_n60_100.stl" scale=".001 .001 .001" />
+      </geometry>
+    </collision>
+    <inertial>
+      <origin xyz="-0.06 0.1 0.001" />
+      <mass value="0.0020851861125474125" />
+      <inertia ixx="7.020184448896548e-08" iyy="7.020184448896548e-08" izz="1.390124102834096e-07" ixy="0" ixz="0" iyz="0" />
+    </inertial>
+  </link>
+  <joint name="cut_closed_rest_pad_n60_100_joint" type="fixed">
+    <parent link="tilt_fixed_mounts" />
+    <child link="cut_closed_rest_pad_n60_100" />
+    <origin xyz="0 0 0" />
+  </joint>
+  <link name="side_mg996r_frame_cradle">
+    <visual>
+      <geometry>
+        <mesh filename="../meshes/sliding_lids_v3/transport_motors/side_mg996r_frame_cradle.stl" scale=".001 .001 .001" />
+      </geometry>
+      <material name="metal" />
+    </visual>
+    <collision>
+      <geometry>
+        <mesh filename="../meshes/sliding_lids_v3/transport_motors/side_mg996r_frame_cradle.stl" scale=".001 .001 .001" />
+      </geometry>
+    </collision>
+    <inertial>
+      <origin xyz="-0.01046778683 -0.2053933179 0.1597865931" />
+      <mass value="0.03555347949602833" />
+      <inertia ixx="2.034009621483419e-05" iyy="1.4985791721347248e-05" izz="2.887293132943452e-05" ixy="0" ixz="0" iyz="0" />
+    </inertial>
+  </link>
+  <joint name="side_mg996r_frame_cradle_joint" type="fixed">
+    <parent link="cargo_box" />
+    <child link="side_mg996r_frame_cradle" />
+    <origin xyz="0 0 0" />
+  </joint>
+  <link name="reference_side_mg996r">
+    <visual>
+      <geometry>
+        <mesh filename="../meshes/sliding_lids_v3/transport_motors/reference_side_mg996r.stl" scale=".001 .001 .001" />
+      </geometry>
+      <material name="servo" />
+    </visual>
+    <collision>
+      <geometry>
+        <mesh filename="../meshes/sliding_lids_v3/transport_motors/reference_side_mg996r.stl" scale=".001 .001 .001" />
+      </geometry>
+    </collision>
+    <inertial>
+      <origin xyz="-0.0102 -0.21445 0.164" />
+      <mass value="0.055" />
+      <inertia ixx="1.0213958448100027e-05" iyy="9.370991777400031e-06" izz="1.6027458486600046e-05" ixy="0" ixz="0" iyz="0" />
+    </inertial>
+  </link>
+  <joint name="reference_side_mg996r_joint" type="fixed">
+    <parent link="cargo_box" />
+    <child link="reference_side_mg996r" />
+    <origin xyz="0 0 0" />
+  </joint>
+  <link name="purchased_gate_bushing_n1">
+    <visual>
+      <geometry>
+        <mesh filename="../meshes/sliding_lids_v3/transport_motors/purchased_gate_bushing_n1.stl" scale=".001 .001 .001" />
+      </geometry>
+      <material name="metal" />
+    </visual>
+    <collision>
+      <geometry>
+        <mesh filename="../meshes/sliding_lids_v3/transport_motors/purchased_gate_bushing_n1.stl" scale=".001 .001 .001" />
+      </geometry>
+    </collision>
+    <inertial>
+      <origin xyz="-6.401441148e-19 -0.1685 0.164" />
+      <mass value="0.0038704421492226247" />
+      <inertia ixx="6.227869001999032e-08" iyy="9.290897820133488e-08" izz="6.226032649635282e-08" ixy="0" ixz="0" iyz="0" />
+    </inertial>
+  </link>
+  <joint name="purchased_gate_bushing_n1_joint" type="fixed">
+    <parent link="cargo_box" />
+    <child link="purchased_gate_bushing_n1" />
+    <origin xyz="0 0 0" />
+  </joint>
+  <link name="gate_bushing_carrier_p1">
+    <visual>
+      <geometry>
+        <mesh filename="../meshes/sliding_lids_v3/transport_motors/gate_bushing_carrier_p1.stl" scale=".001 .001 .001" />
+      </geometry>
+      <material name="metal" />
+    </visual>
+    <collision>
+      <geometry>
+        <mesh filename="../meshes/sliding_lids_v3/transport_motors/gate_bushing_carrier_p1.stl" scale=".001 .001 .001" />
+      </geometry>
+    </collision>
+    <inertial>
+      <origin xyz="-0.009037549774 0.1772897363 0.1637638837" />
+      <mass value="0.010951429380904144" />
+      <inertia ixx="1.5926065012878004e-06" iyy="3.1832155025866245e-06" izz="3.34483521099361e-06" ixy="0" ixz="0" iyz="0" />
+    </inertial>
+  </link>
+  <joint name="gate_bushing_carrier_p1_joint" type="fixed">
+    <parent link="cargo_box" />
+    <child link="gate_bushing_carrier_p1" />
+    <origin xyz="0 0 0" />
+  </joint>
+  <link name="purchased_gate_bushing_p1">
+    <visual>
+      <geometry>
+        <mesh filename="../meshes/sliding_lids_v3/transport_motors/purchased_gate_bushing_p1.stl" scale=".001 .001 .001" />
+      </geometry>
+      <material name="metal" />
+    </visual>
+    <collision>
+      <geometry>
+        <mesh filename="../meshes/sliding_lids_v3/transport_motors/purchased_gate_bushing_p1.stl" scale=".001 .001 .001" />
+      </geometry>
+    </collision>
+    <inertial>
+      <origin xyz="-6.401441148e-19 0.1815 0.164" />
+      <mass value="0.0038704421492226247" />
+      <inertia ixx="6.227869001999032e-08" iyy="9.290897820133488e-08" izz="6.226032649635282e-08" ixy="0" ixz="0" iyz="0" />
+    </inertial>
+  </link>
+  <joint name="purchased_gate_bushing_p1_joint" type="fixed">
+    <parent link="cargo_box" />
+    <child link="purchased_gate_bushing_p1" />
+    <origin xyz="0 0 0" />
+  </joint>
+  <link name="purchased_gate_servo_horn">
+    <visual>
+      <geometry>
+        <mesh filename="../meshes/sliding_lids_v3/transport_motors/purchased_gate_servo_horn.stl" scale=".001 .001 .001" />
+      </geometry>
+      <material name="metal" />
+    </visual>
+    <collision>
+      <geometry>
+        <mesh filename="../meshes/sliding_lids_v3/transport_motors/purchased_gate_servo_horn.stl" scale=".001 .001 .001" />
+      </geometry>
+    </collision>
+    <inertial>
+      <origin xyz="4.709349184e-19 -0.18975 -9.532806575e-19" />
+      <mass value="0.0020728621027467156" />
+      <inertia ixx="7.020575679283402e-08" iyy="1.3821812852223582e-07" izz="7.017843788419542e-08" ixy="0" ixz="0" iyz="0" />
+    </inertial>
+  </link>
+  <joint name="purchased_gate_servo_horn_joint" type="fixed">
+    <parent link="side_lid" />
+    <child link="purchased_gate_servo_horn" />
+    <origin xyz="0 0 0" />
+  </joint>
+  <link name="purchased_gate_stub_shaft_n1">
+    <visual>
+      <geometry>
+        <mesh filename="../meshes/sliding_lids_v3/transport_motors/purchased_gate_stub_shaft_n1.stl" scale=".001 .001 .001" />
+      </geometry>
+      <material name="metal" />
+    </visual>
+    <collision>
+      <geometry>
+        <mesh filename="../meshes/sliding_lids_v3/transport_motors/purchased_gate_stub_shaft_n1.stl" scale=".001 .001 .001" />
+      </geometry>
+    </collision>
+    <inertial>
+      <origin xyz="-1.273621714e-19 -0.1695 5.219371785e-19" />
+      <mass value="0.01538877745434424" />
+      <inertia ixx="2.0327916785516187e-06" iyy="1.641794178952943e-07" izz="2.032759228376678e-06" ixy="0" ixz="0" iyz="0" />
+    </inertial>
+  </link>
+  <joint name="purchased_gate_stub_shaft_n1_joint" type="fixed">
+    <parent link="side_lid" />
+    <child link="purchased_gate_stub_shaft_n1" />
+    <origin xyz="0 0 0" />
+  </joint>
+  <link name="gate_torque_adapter_n1">
+    <visual>
+      <geometry>
+        <mesh filename="../meshes/sliding_lids_v3/transport_motors/gate_torque_adapter_n1.stl" scale=".001 .001 .001" />
+      </geometry>
+      <material name="metal" />
+    </visual>
+    <collision>
+      <geometry>
+        <mesh filename="../meshes/sliding_lids_v3/transport_motors/gate_torque_adapter_n1.stl" scale=".001 .001 .001" />
+      </geometry>
+    </collision>
+    <inertial>
+      <origin xyz="0.003335370044 -0.1504761285 -0.003690477165" />
+      <mass value="0.003708475161686454" />
+      <inertia ixx="3.770818024657119e-07" iyy="5.588588021119478e-07" izz="3.02968378396426e-07" ixy="0" ixz="0" iyz="0" />
+    </inertial>
+  </link>
+  <joint name="gate_torque_adapter_n1_joint" type="fixed">
+    <parent link="side_lid" />
+    <child link="gate_torque_adapter_n1" />
+    <origin xyz="0 0 0" />
+  </joint>
+  <link name="purchased_gate_flange_hub_n1">
+    <visual>
+      <geometry>
+        <mesh filename="../meshes/sliding_lids_v3/transport_motors/purchased_gate_flange_hub_n1.stl" scale=".001 .001 .001" />
+      </geometry>
+      <material name="metal" />
+    </visual>
+    <collision>
+      <geometry>
+        <mesh filename="../meshes/sliding_lids_v3/transport_motors/purchased_gate_flange_hub_n1.stl" scale=".001 .001 .001" />
+      </geometry>
+    </collision>
+    <inertial>
+      <origin xyz="-5.134698073e-19 -0.1564788219 -4.561828576e-19" />
+      <mass value="0.01662875779153083" />
+      <inertia ixx="1.1756205092024546e-06" iyy="2.173253927609214e-06" izz="1.1751909640602857e-06" ixy="0" ixz="0" iyz="0" />
+    </inertial>
+  </link>
+  <joint name="purchased_gate_flange_hub_n1_joint" type="fixed">
+    <parent link="side_lid" />
+    <child link="purchased_gate_flange_hub_n1" />
+    <origin xyz="0 0 0" />
+  </joint>
+  <link name="purchased_gate_stub_shaft_p1">
+    <visual>
+      <geometry>
+        <mesh filename="../meshes/sliding_lids_v3/transport_motors/purchased_gate_stub_shaft_p1.stl" scale=".001 .001 .001" />
+      </geometry>
+      <material name="metal" />
+    </visual>
+    <collision>
+      <geometry>
+        <mesh filename="../meshes/sliding_lids_v3/transport_motors/purchased_gate_stub_shaft_p1.stl" scale=".001 .001 .001" />
+      </geometry>
+    </collision>
+    <inertial>
+      <origin xyz="-1.273621714e-19 0.1695 5.219371785e-19" />
+      <mass value="0.01538877745434424" />
+      <inertia ixx="2.0327916785516187e-06" iyy="1.641794178952943e-07" izz="2.032759228376678e-06" ixy="0" ixz="0" iyz="0" />
+    </inertial>
+  </link>
+  <joint name="purchased_gate_stub_shaft_p1_joint" type="fixed">
+    <parent link="side_lid" />
+    <child link="purchased_gate_stub_shaft_p1" />
+    <origin xyz="0 0 0" />
+  </joint>
+  <link name="gate_torque_adapter_p1">
+    <visual>
+      <geometry>
+        <mesh filename="../meshes/sliding_lids_v3/transport_motors/gate_torque_adapter_p1.stl" scale=".001 .001 .001" />
+      </geometry>
+      <material name="metal" />
+    </visual>
+    <collision>
+      <geometry>
+        <mesh filename="../meshes/sliding_lids_v3/transport_motors/gate_torque_adapter_p1.stl" scale=".001 .001 .001" />
+      </geometry>
+    </collision>
+    <inertial>
+      <origin xyz="0.003335370044 0.1504761285 -0.003690477165" />
+      <mass value="0.003708475161686454" />
+      <inertia ixx="3.770818024657119e-07" iyy="5.588588021119478e-07" izz="3.02968378396426e-07" ixy="0" ixz="0" iyz="0" />
+    </inertial>
+  </link>
+  <joint name="gate_torque_adapter_p1_joint" type="fixed">
+    <parent link="side_lid" />
+    <child link="gate_torque_adapter_p1" />
+    <origin xyz="0 0 0" />
+  </joint>
+  <link name="purchased_gate_flange_hub_p1">
+    <visual>
+      <geometry>
+        <mesh filename="../meshes/sliding_lids_v3/transport_motors/purchased_gate_flange_hub_p1.stl" scale=".001 .001 .001" />
+      </geometry>
+      <material name="metal" />
+    </visual>
+    <collision>
+      <geometry>
+        <mesh filename="../meshes/sliding_lids_v3/transport_motors/purchased_gate_flange_hub_p1.stl" scale=".001 .001 .001" />
+      </geometry>
+    </collision>
+    <inertial>
+      <origin xyz="-5.134698073e-19 0.1564788219 -5.366857148e-19" />
+      <mass value="0.01662875779153083" />
+      <inertia ixx="1.1756205092024546e-06" iyy="2.173253927609214e-06" izz="1.1751909640602857e-06" ixy="0" ixz="0" iyz="0" />
+    </inertial>
+  </link>
+  <joint name="purchased_gate_flange_hub_p1_joint" type="fixed">
+    <parent link="side_lid" />
+    <child link="purchased_gate_flange_hub_p1" />
+    <origin xyz="0 0 0" />
+  </joint>
+  <link name="metal_gate_top_angle">
+    <visual>
+      <geometry>
+        <mesh filename="../meshes/sliding_lids_v3/transport_motors/metal_gate_top_angle.stl" scale=".001 .001 .001" />
+      </geometry>
+      <material name="metal" />
+    </visual>
+    <collision>
+      <geometry>
+        <mesh filename="../meshes/sliding_lids_v3/transport_motors/metal_gate_top_angle.stl" scale=".001 .001 .001" />
+      </geometry>
+    </collision>
+    <inertial>
+      <origin xyz="0.005628332724 -3.051934275e-18 -0.007358371757" />
+      <mass value="0.05389671186947032" />
+      <inertia ixx="0.00037918133412568673" iyy="1.742683125660793e-06" izz="0.0003780135947457201" ixy="0" ixz="0" iyz="0" />
+    </inertial>
+  </link>
+  <joint name="metal_gate_top_angle_joint" type="fixed">
+    <parent link="side_lid" />
+    <child link="metal_gate_top_angle" />
+    <origin xyz="0 0 0" />
+  </joint>
+  <link name="gate_horn_to_8mm_split_adapter">
+    <visual>
+      <geometry>
+        <mesh filename="../meshes/sliding_lids_v3/transport_motors/gate_horn_to_8mm_split_adapter.stl" scale=".001 .001 .001" />
+      </geometry>
+      <material name="metal" />
+    </visual>
+    <collision>
+      <geometry>
+        <mesh filename="../meshes/sliding_lids_v3/transport_motors/gate_horn_to_8mm_split_adapter.stl" scale=".001 .001 .001" />
+      </geometry>
+    </collision>
+    <inertial>
+      <origin xyz="-0.0003311705779 -0.1835122895 -7.927055865e-09" />
+      <mass value="0.004691234045219227" />
+      <inertia ixx="3.6297787639652313e-07" iyy="6.130551041913188e-07" izz="3.6281397122915085e-07" ixy="0" ixz="0" iyz="0" />
+    </inertial>
+  </link>
+  <joint name="gate_horn_to_8mm_split_adapter_joint" type="fixed">
+    <parent link="side_lid" />
+    <child link="gate_horn_to_8mm_split_adapter" />
+    <origin xyz="0 0 0" />
+  </joint>
+  <link name="lid_drive_mount">
+    <visual name="transport_lid_rail_n1_segment_1">
+      <geometry>
+        <mesh filename="../meshes/sliding_lids_v3/transport/rail_n1_segment_1.stl" scale=".001 .001 .001" />
+      </geometry>
+      <material name="transport_lid_rail_n1_segment_1_color">
+        <color rgba="0.43 0.49 0.56 1" />
+      </material>
+    </visual>
+    <visual name="transport_lid_rail_n1_segment_2">
+      <geometry>
+        <mesh filename="../meshes/sliding_lids_v3/transport/rail_n1_segment_2.stl" scale=".001 .001 .001" />
+      </geometry>
+      <material name="transport_lid_rail_n1_segment_2_color">
+        <color rgba="0.43 0.49 0.56 1" />
+      </material>
+    </visual>
+    <visual name="transport_lid_rail_n1_segment_3">
+      <geometry>
+        <mesh filename="../meshes/sliding_lids_v3/transport/rail_n1_segment_3.stl" scale=".001 .001 .001" />
+      </geometry>
+      <material name="transport_lid_rail_n1_segment_3_color">
+        <color rgba="0.43 0.49 0.56 1" />
+      </material>
+    </visual>
+    <visual name="transport_lid_rail_n1_splice_1">
+      <geometry>
+        <mesh filename="../meshes/sliding_lids_v3/transport/rail_n1_splice_1.stl" scale=".001 .001 .001" />
+      </geometry>
+      <material name="transport_lid_rail_n1_splice_1_color">
+        <color rgba="0.3 0.36 0.42 1" />
+      </material>
+    </visual>
+    <visual name="transport_lid_rail_n1_splice_2">
+      <geometry>
+        <mesh filename="../meshes/sliding_lids_v3/transport/rail_n1_splice_2.stl" scale=".001 .001 .001" />
+      </geometry>
+      <material name="transport_lid_rail_n1_splice_2_color">
+        <color rgba="0.3 0.36 0.42 1" />
+      </material>
+    </visual>
+    <visual name="transport_lid_rail_n1_stop_n1">
+      <geometry>
+        <mesh filename="../meshes/sliding_lids_v3/transport/rail_n1_stop_n1.stl" scale=".001 .001 .001" />
+      </geometry>
+      <material name="transport_lid_rail_n1_stop_n1_color">
+        <color rgba="0.85 0.36 0.23 1" />
+      </material>
+    </visual>
+    <visual name="transport_lid_rail_n1_stop_p1">
+      <geometry>
+        <mesh filename="../meshes/sliding_lids_v3/transport/rail_n1_stop_p1.stl" scale=".001 .001 .001" />
+      </geometry>
+      <material name="transport_lid_rail_n1_stop_p1_color">
+        <color rgba="0.85 0.36 0.23 1" />
+      </material>
+    </visual>
+    <visual name="transport_lid_rail_p1_segment_1">
+      <geometry>
+        <mesh filename="../meshes/sliding_lids_v3/transport/rail_p1_segment_1.stl" scale=".001 .001 .001" />
+      </geometry>
+      <material name="transport_lid_rail_p1_segment_1_color">
+        <color rgba="0.43 0.49 0.56 1" />
+      </material>
+    </visual>
+    <visual name="transport_lid_rail_p1_segment_2">
+      <geometry>
+        <mesh filename="../meshes/sliding_lids_v3/transport/rail_p1_segment_2.stl" scale=".001 .001 .001" />
+      </geometry>
+      <material name="transport_lid_rail_p1_segment_2_color">
+        <color rgba="0.43 0.49 0.56 1" />
+      </material>
+    </visual>
+    <visual name="transport_lid_rail_p1_segment_3">
+      <geometry>
+        <mesh filename="../meshes/sliding_lids_v3/transport/rail_p1_segment_3.stl" scale=".001 .001 .001" />
+      </geometry>
+      <material name="transport_lid_rail_p1_segment_3_color">
+        <color rgba="0.43 0.49 0.56 1" />
+      </material>
+    </visual>
+    <visual name="transport_lid_rail_p1_splice_1">
+      <geometry>
+        <mesh filename="../meshes/sliding_lids_v3/transport/rail_p1_splice_1.stl" scale=".001 .001 .001" />
+      </geometry>
+      <material name="transport_lid_rail_p1_splice_1_color">
+        <color rgba="0.3 0.36 0.42 1" />
+      </material>
+    </visual>
+    <visual name="transport_lid_rail_p1_splice_2">
+      <geometry>
+        <mesh filename="../meshes/sliding_lids_v3/transport/rail_p1_splice_2.stl" scale=".001 .001 .001" />
+      </geometry>
+      <material name="transport_lid_rail_p1_splice_2_color">
+        <color rgba="0.3 0.36 0.42 1" />
+      </material>
+    </visual>
+    <visual name="transport_lid_rail_p1_stop_n1">
+      <geometry>
+        <mesh filename="../meshes/sliding_lids_v3/transport/rail_p1_stop_n1.stl" scale=".001 .001 .001" />
+      </geometry>
+      <material name="transport_lid_rail_p1_stop_n1_color">
+        <color rgba="0.85 0.36 0.23 1" />
+      </material>
+    </visual>
+    <visual name="transport_lid_rail_p1_stop_p1">
+      <geometry>
+        <mesh filename="../meshes/sliding_lids_v3/transport/rail_p1_stop_p1.stl" scale=".001 .001 .001" />
+      </geometry>
+      <material name="transport_lid_rail_p1_stop_p1_color">
+        <color rgba="0.85 0.36 0.23 1" />
+      </material>
+    </visual>
+    <visual name="transport_lid_mg996r_body_cradle">
+      <geometry>
+        <mesh filename="../meshes/sliding_lids_v3/transport/mg996r_body_cradle.stl" scale=".001 .001 .001" />
+      </geometry>
+      <material name="transport_lid_mg996r_body_cradle_color">
+        <color rgba="0.18 0.28 0.4 1" />
+      </material>
+    </visual>
+    <visual name="transport_lid_mg996r_retaining_strap_1">
+      <geometry>
+        <mesh filename="../meshes/sliding_lids_v3/transport/mg996r_retaining_strap_1.stl" scale=".001 .001 .001" />
+      </geometry>
+      <material name="transport_lid_mg996r_retaining_strap_1_color">
+        <color rgba="0.25 0.35 0.48 1" />
+      </material>
+    </visual>
+    <visual name="transport_lid_mg996r_retaining_strap_2">
+      <geometry>
+        <mesh filename="../meshes/sliding_lids_v3/transport/mg996r_retaining_strap_2.stl" scale=".001 .001 .001" />
+      </geometry>
+      <material name="transport_lid_mg996r_retaining_strap_2_color">
+        <color rgba="0.25 0.35 0.48 1" />
+      </material>
+    </visual>
+    <visual name="transport_lid_drive_wall_saddle">
+      <geometry>
+        <mesh filename="../meshes/sliding_lids_v3/transport/drive_wall_saddle.stl" scale=".001 .001 .001" />
+      </geometry>
+      <material name="transport_lid_drive_wall_saddle_color">
+        <color rgba="0.35 0.4 0.5 1" />
+      </material>
+    </visual>
+    <visual name="transport_lid_rack_backing_guide_n1">
+      <geometry>
+        <mesh filename="../meshes/sliding_lids_v3/transport/rack_backing_guide_n1.stl" scale=".001 .001 .001" />
+      </geometry>
+      <material name="transport_lid_rack_backing_guide_n1_color">
+        <color rgba="0.5 0.4 0.28 1" />
+      </material>
+    </visual>
+    <visual name="transport_lid_rack_backing_guide_p1">
+      <geometry>
+        <mesh filename="../meshes/sliding_lids_v3/transport/rack_backing_guide_p1.stl" scale=".001 .001 .001" />
+      </geometry>
+      <material name="transport_lid_rack_backing_guide_p1_color">
+        <color rgba="0.5 0.4 0.28 1" />
+      </material>
+    </visual>
+    <visual name="transport_lid_metal_bottom_angle_n1">
+      <geometry>
+        <mesh filename="../meshes/sliding_lids_v3/transport/metal_bottom_angle_n1.stl" scale=".001 .001 .001" />
+      </geometry>
+      <material name="transport_lid_metal_bottom_angle_n1_color">
+        <color rgba="0.58 0.63 0.68 1" />
+      </material>
+    </visual>
+    <visual name="transport_lid_metal_rear_upright_n1">
+      <geometry>
+        <mesh filename="../meshes/sliding_lids_v3/transport/metal_rear_upright_n1.stl" scale=".001 .001 .001" />
+      </geometry>
+      <material name="transport_lid_metal_rear_upright_n1_color">
+        <color rgba="0.58 0.63 0.68 1" />
+      </material>
+    </visual>
+    <visual name="transport_lid_metal_front_upright_n1">
+      <geometry>
+        <mesh filename="../meshes/sliding_lids_v3/transport/metal_front_upright_n1.stl" scale=".001 .001 .001" />
+      </geometry>
+      <material name="transport_lid_metal_front_upright_n1_color">
+        <color rgba="0.58 0.63 0.68 1" />
+      </material>
+    </visual>
+    <visual name="transport_lid_front_rail_frame_shoe_n1">
+      <geometry>
+        <mesh filename="../meshes/sliding_lids_v3/transport/front_rail_frame_shoe_n1.stl" scale=".001 .001 .001" />
+      </geometry>
+      <material name="transport_lid_front_rail_frame_shoe_n1_color">
+        <color rgba="0.2 0.4 0.65 1" />
+      </material>
+    </visual>
+    <visual name="transport_lid_rear_rail_frame_shoe_n1">
+      <geometry>
+        <mesh filename="../meshes/sliding_lids_v3/transport/rear_rail_frame_shoe_n1.stl" scale=".001 .001 .001" />
+      </geometry>
+      <material name="transport_lid_rear_rail_frame_shoe_n1_color">
+        <color rgba="0.2 0.4 0.65 1" />
+      </material>
+    </visual>
+    <visual name="transport_lid_rear_crossbar_end_shoe_n1">
+      <geometry>
+        <mesh filename="../meshes/sliding_lids_v3/transport/rear_crossbar_end_shoe_n1.stl" scale=".001 .001 .001" />
+      </geometry>
+      <material name="transport_lid_rear_crossbar_end_shoe_n1_color">
+        <color rgba="0.2 0.4 0.65 1" />
+      </material>
+    </visual>
+    <visual name="transport_lid_metal_bottom_angle_p1">
+      <geometry>
+        <mesh filename="../meshes/sliding_lids_v3/transport/metal_bottom_angle_p1.stl" scale=".001 .001 .001" />
+      </geometry>
+      <material name="transport_lid_metal_bottom_angle_p1_color">
+        <color rgba="0.58 0.63 0.68 1" />
+      </material>
+    </visual>
+    <visual name="transport_lid_metal_rear_upright_p1">
+      <geometry>
+        <mesh filename="../meshes/sliding_lids_v3/transport/metal_rear_upright_p1.stl" scale=".001 .001 .001" />
+      </geometry>
+      <material name="transport_lid_metal_rear_upright_p1_color">
+        <color rgba="0.58 0.63 0.68 1" />
+      </material>
+    </visual>
+    <visual name="transport_lid_metal_front_upright_p1">
+      <geometry>
+        <mesh filename="../meshes/sliding_lids_v3/transport/metal_front_upright_p1.stl" scale=".001 .001 .001" />
+      </geometry>
+      <material name="transport_lid_metal_front_upright_p1_color">
+        <color rgba="0.58 0.63 0.68 1" />
+      </material>
+    </visual>
+    <visual name="transport_lid_front_rail_frame_shoe_p1">
+      <geometry>
+        <mesh filename="../meshes/sliding_lids_v3/transport/front_rail_frame_shoe_p1.stl" scale=".001 .001 .001" />
+      </geometry>
+      <material name="transport_lid_front_rail_frame_shoe_p1_color">
+        <color rgba="0.2 0.4 0.65 1" />
+      </material>
+    </visual>
+    <visual name="transport_lid_rear_rail_frame_shoe_p1">
+      <geometry>
+        <mesh filename="../meshes/sliding_lids_v3/transport/rear_rail_frame_shoe_p1.stl" scale=".001 .001 .001" />
+      </geometry>
+      <material name="transport_lid_rear_rail_frame_shoe_p1_color">
+        <color rgba="0.2 0.4 0.65 1" />
+      </material>
+    </visual>
+    <visual name="transport_lid_rear_crossbar_end_shoe_p1">
+      <geometry>
+        <mesh filename="../meshes/sliding_lids_v3/transport/rear_crossbar_end_shoe_p1.stl" scale=".001 .001 .001" />
+      </geometry>
+      <material name="transport_lid_rear_crossbar_end_shoe_p1_color">
+        <color rgba="0.2 0.4 0.65 1" />
+      </material>
+    </visual>
+    <visual name="transport_lid_metal_rear_drive_crossbar">
+      <geometry>
+        <mesh filename="../meshes/sliding_lids_v3/transport/metal_rear_drive_crossbar.stl" scale=".001 .001 .001" />
+      </geometry>
+      <material name="transport_lid_metal_rear_drive_crossbar_color">
+        <color rgba="0.58 0.63 0.68 1" />
+      </material>
+    </visual>
+    <visual name="transport_lid_reference_servo">
+      <geometry>
+        <mesh filename="../meshes/sliding_lids_v3/transport/reference_servo.stl" scale=".001 .001 .001" />
+      </geometry>
+      <material name="transport_lid_reference_servo_color">
+        <color rgba="0.12 0.15 0.2 1" />
+      </material>
+    </visual>
+    <inertial>
+      <origin xyz="-0.08246507005 -0.00241867404 -0.08924814441" />
+      <mass value="1.0452405001508336" />
+      <inertia ixx="0.02412913328770142" iyy="0.023663927348789974" izz="0.03708211357180413" ixy="-0.0003129340010192274" ixz="-0.00019357280287011488" iyz="-2.0907920121905546e-05" />
+    </inertial>
+    <collision name="transport_lid_rail_n1_segment_1">
+      <geometry>
+        <mesh filename="../meshes/sliding_lids_v3/transport/rail_n1_segment_1.stl" scale=".001 .001 .001" />
+      </geometry>
+    </collision>
+    <collision name="transport_lid_rail_n1_segment_2">
+      <geometry>
+        <mesh filename="../meshes/sliding_lids_v3/transport/rail_n1_segment_2.stl" scale=".001 .001 .001" />
+      </geometry>
+    </collision>
+    <collision name="transport_lid_rail_n1_segment_3">
+      <geometry>
+        <mesh filename="../meshes/sliding_lids_v3/transport/rail_n1_segment_3.stl" scale=".001 .001 .001" />
+      </geometry>
+    </collision>
+    <collision name="transport_lid_rail_n1_splice_1">
+      <geometry>
+        <mesh filename="../meshes/sliding_lids_v3/transport/rail_n1_splice_1.stl" scale=".001 .001 .001" />
+      </geometry>
+    </collision>
+    <collision name="transport_lid_rail_n1_splice_2">
+      <geometry>
+        <mesh filename="../meshes/sliding_lids_v3/transport/rail_n1_splice_2.stl" scale=".001 .001 .001" />
+      </geometry>
+    </collision>
+    <collision name="transport_lid_rail_n1_stop_n1">
+      <geometry>
+        <mesh filename="../meshes/sliding_lids_v3/transport/rail_n1_stop_n1.stl" scale=".001 .001 .001" />
+      </geometry>
+    </collision>
+    <collision name="transport_lid_rail_n1_stop_p1">
+      <geometry>
+        <mesh filename="../meshes/sliding_lids_v3/transport/rail_n1_stop_p1.stl" scale=".001 .001 .001" />
+      </geometry>
+    </collision>
+    <collision name="transport_lid_rail_p1_segment_1">
+      <geometry>
+        <mesh filename="../meshes/sliding_lids_v3/transport/rail_p1_segment_1.stl" scale=".001 .001 .001" />
+      </geometry>
+    </collision>
+    <collision name="transport_lid_rail_p1_segment_2">
+      <geometry>
+        <mesh filename="../meshes/sliding_lids_v3/transport/rail_p1_segment_2.stl" scale=".001 .001 .001" />
+      </geometry>
+    </collision>
+    <collision name="transport_lid_rail_p1_segment_3">
+      <geometry>
+        <mesh filename="../meshes/sliding_lids_v3/transport/rail_p1_segment_3.stl" scale=".001 .001 .001" />
+      </geometry>
+    </collision>
+    <collision name="transport_lid_rail_p1_splice_1">
+      <geometry>
+        <mesh filename="../meshes/sliding_lids_v3/transport/rail_p1_splice_1.stl" scale=".001 .001 .001" />
+      </geometry>
+    </collision>
+    <collision name="transport_lid_rail_p1_splice_2">
+      <geometry>
+        <mesh filename="../meshes/sliding_lids_v3/transport/rail_p1_splice_2.stl" scale=".001 .001 .001" />
+      </geometry>
+    </collision>
+    <collision name="transport_lid_rail_p1_stop_n1">
+      <geometry>
+        <mesh filename="../meshes/sliding_lids_v3/transport/rail_p1_stop_n1.stl" scale=".001 .001 .001" />
+      </geometry>
+    </collision>
+    <collision name="transport_lid_rail_p1_stop_p1">
+      <geometry>
+        <mesh filename="../meshes/sliding_lids_v3/transport/rail_p1_stop_p1.stl" scale=".001 .001 .001" />
+      </geometry>
+    </collision>
+    <collision name="transport_lid_mg996r_body_cradle">
+      <geometry>
+        <mesh filename="../meshes/sliding_lids_v3/transport/mg996r_body_cradle.stl" scale=".001 .001 .001" />
+      </geometry>
+    </collision>
+    <collision name="transport_lid_mg996r_retaining_strap_1">
+      <geometry>
+        <mesh filename="../meshes/sliding_lids_v3/transport/mg996r_retaining_strap_1.stl" scale=".001 .001 .001" />
+      </geometry>
+    </collision>
+    <collision name="transport_lid_mg996r_retaining_strap_2">
+      <geometry>
+        <mesh filename="../meshes/sliding_lids_v3/transport/mg996r_retaining_strap_2.stl" scale=".001 .001 .001" />
+      </geometry>
+    </collision>
+    <collision name="transport_lid_drive_wall_saddle">
+      <geometry>
+        <mesh filename="../meshes/sliding_lids_v3/transport/drive_wall_saddle.stl" scale=".001 .001 .001" />
+      </geometry>
+    </collision>
+    <collision name="transport_lid_rack_backing_guide_n1">
+      <geometry>
+        <mesh filename="../meshes/sliding_lids_v3/transport/rack_backing_guide_n1.stl" scale=".001 .001 .001" />
+      </geometry>
+    </collision>
+    <collision name="transport_lid_rack_backing_guide_p1">
+      <geometry>
+        <mesh filename="../meshes/sliding_lids_v3/transport/rack_backing_guide_p1.stl" scale=".001 .001 .001" />
+      </geometry>
+    </collision>
+    <collision name="transport_lid_metal_bottom_angle_n1">
+      <geometry>
+        <mesh filename="../meshes/sliding_lids_v3/transport/metal_bottom_angle_n1.stl" scale=".001 .001 .001" />
+      </geometry>
+    </collision>
+    <collision name="transport_lid_metal_rear_upright_n1">
+      <geometry>
+        <mesh filename="../meshes/sliding_lids_v3/transport/metal_rear_upright_n1.stl" scale=".001 .001 .001" />
+      </geometry>
+    </collision>
+    <collision name="transport_lid_metal_front_upright_n1">
+      <geometry>
+        <mesh filename="../meshes/sliding_lids_v3/transport/metal_front_upright_n1.stl" scale=".001 .001 .001" />
+      </geometry>
+    </collision>
+    <collision name="transport_lid_front_rail_frame_shoe_n1">
+      <geometry>
+        <mesh filename="../meshes/sliding_lids_v3/transport/front_rail_frame_shoe_n1.stl" scale=".001 .001 .001" />
+      </geometry>
+    </collision>
+    <collision name="transport_lid_rear_rail_frame_shoe_n1">
+      <geometry>
+        <mesh filename="../meshes/sliding_lids_v3/transport/rear_rail_frame_shoe_n1.stl" scale=".001 .001 .001" />
+      </geometry>
+    </collision>
+    <collision name="transport_lid_rear_crossbar_end_shoe_n1">
+      <geometry>
+        <mesh filename="../meshes/sliding_lids_v3/transport/rear_crossbar_end_shoe_n1.stl" scale=".001 .001 .001" />
+      </geometry>
+    </collision>
+    <collision name="transport_lid_metal_bottom_angle_p1">
+      <geometry>
+        <mesh filename="../meshes/sliding_lids_v3/transport/metal_bottom_angle_p1.stl" scale=".001 .001 .001" />
+      </geometry>
+    </collision>
+    <collision name="transport_lid_metal_rear_upright_p1">
+      <geometry>
+        <mesh filename="../meshes/sliding_lids_v3/transport/metal_rear_upright_p1.stl" scale=".001 .001 .001" />
+      </geometry>
+    </collision>
+    <collision name="transport_lid_metal_front_upright_p1">
+      <geometry>
+        <mesh filename="../meshes/sliding_lids_v3/transport/metal_front_upright_p1.stl" scale=".001 .001 .001" />
+      </geometry>
+    </collision>
+    <collision name="transport_lid_front_rail_frame_shoe_p1">
+      <geometry>
+        <mesh filename="../meshes/sliding_lids_v3/transport/front_rail_frame_shoe_p1.stl" scale=".001 .001 .001" />
+      </geometry>
+    </collision>
+    <collision name="transport_lid_rear_rail_frame_shoe_p1">
+      <geometry>
+        <mesh filename="../meshes/sliding_lids_v3/transport/rear_rail_frame_shoe_p1.stl" scale=".001 .001 .001" />
+      </geometry>
+    </collision>
+    <collision name="transport_lid_rear_crossbar_end_shoe_p1">
+      <geometry>
+        <mesh filename="../meshes/sliding_lids_v3/transport/rear_crossbar_end_shoe_p1.stl" scale=".001 .001 .001" />
+      </geometry>
+    </collision>
+    <collision name="transport_lid_metal_rear_drive_crossbar">
+      <geometry>
+        <mesh filename="../meshes/sliding_lids_v3/transport/metal_rear_drive_crossbar.stl" scale=".001 .001 .001" />
+      </geometry>
+    </collision>
+    <collision name="transport_lid_reference_servo">
+      <geometry>
+        <mesh filename="../meshes/sliding_lids_v3/transport/reference_servo.stl" scale=".001 .001 .001" />
+      </geometry>
+    </collision>
+  </link>
+  <link name="top_lid_left">
+    <visual name="transport_lid_lid_plus_tile_1">
+      <geometry>
+        <mesh filename="../meshes/sliding_lids_v3/transport/lid_plus_tile_1.stl" scale=".001 .001 .001" />
+      </geometry>
+      <material name="transport_lid_lid_plus_tile_1_color">
+        <color rgba="0.35 0.67 0.8 1" />
+      </material>
+    </visual>
+    <visual name="transport_lid_lid_plus_tile_2">
+      <geometry>
+        <mesh filename="../meshes/sliding_lids_v3/transport/lid_plus_tile_2.stl" scale=".001 .001 .001" />
+      </geometry>
+      <material name="transport_lid_lid_plus_tile_2_color">
+        <color rgba="0.35 0.67 0.8 1" />
+      </material>
+    </visual>
+    <visual name="transport_lid_lid_plus_seam_strap_1">
+      <geometry>
+        <mesh filename="../meshes/sliding_lids_v3/transport/lid_plus_seam_strap_1.stl" scale=".001 .001 .001" />
+      </geometry>
+      <material name="transport_lid_lid_plus_seam_strap_1_color">
+        <color rgba="0.25 0.48 0.65 1" />
+      </material>
+    </visual>
+    <visual name="transport_lid_lid_plus_seam_strap_2">
+      <geometry>
+        <mesh filename="../meshes/sliding_lids_v3/transport/lid_plus_seam_strap_2.stl" scale=".001 .001 .001" />
+      </geometry>
+      <material name="transport_lid_lid_plus_seam_strap_2_color">
+        <color rgba="0.25 0.48 0.65 1" />
+      </material>
+    </visual>
+    <visual name="transport_lid_rack_plus_segment_1">
+      <geometry>
+        <mesh filename="../meshes/sliding_lids_v3/transport/rack_plus_segment_1.stl" scale=".001 .001 .001" />
+      </geometry>
+      <material name="transport_lid_rack_plus_segment_1_color">
+        <color rgba="0.93 0.65 0.2 1" />
+      </material>
+    </visual>
+    <visual name="transport_lid_rack_plus_segment_2">
+      <geometry>
+        <mesh filename="../meshes/sliding_lids_v3/transport/rack_plus_segment_2.stl" scale=".001 .001 .001" />
+      </geometry>
+      <material name="transport_lid_rack_plus_segment_2_color">
+        <color rgba="0.93 0.65 0.2 1" />
+      </material>
+    </visual>
+    <visual name="transport_lid_rack_plus_splice_1">
+      <geometry>
+        <mesh filename="../meshes/sliding_lids_v3/transport/rack_plus_splice_1.stl" scale=".001 .001 .001" />
+      </geometry>
+      <material name="transport_lid_rack_plus_splice_1_color">
+        <color rgba="0.75 0.42 0.13 1" />
+      </material>
+    </visual>
+    <visual name="transport_lid_rack_to_lid_plus">
+      <geometry>
+        <mesh filename="../meshes/sliding_lids_v3/transport/rack_to_lid_plus.stl" scale=".001 .001 .001" />
+      </geometry>
+      <material name="transport_lid_rack_to_lid_plus_color">
+        <color rgba="0.75 0.45 0.24 1" />
+      </material>
+    </visual>
+    <inertial>
+      <origin xyz="-0.1099626461 0.03660315883 -0.001684129906" />
+      <mass value="0.09363013535963775" />
+      <inertia ixx="0.0007374657993859278" iyy="0.0008622844955941157" izz="0.0015877342181875684" ixy="-0.0002792283805613107" ixz="-3.377052893113196e-05" iyz="-3.779794649777614e-05" />
+    </inertial>
+    <collision name="transport_lid_lid_plus_tile_1">
+      <geometry>
+        <mesh filename="../meshes/sliding_lids_v3/transport/lid_plus_tile_1.stl" scale=".001 .001 .001" />
+      </geometry>
+    </collision>
+    <collision name="transport_lid_lid_plus_tile_2">
+      <geometry>
+        <mesh filename="../meshes/sliding_lids_v3/transport/lid_plus_tile_2.stl" scale=".001 .001 .001" />
+      </geometry>
+    </collision>
+    <collision name="transport_lid_lid_plus_seam_strap_1">
+      <geometry>
+        <mesh filename="../meshes/sliding_lids_v3/transport/lid_plus_seam_strap_1.stl" scale=".001 .001 .001" />
+      </geometry>
+    </collision>
+    <collision name="transport_lid_lid_plus_seam_strap_2">
+      <geometry>
+        <mesh filename="../meshes/sliding_lids_v3/transport/lid_plus_seam_strap_2.stl" scale=".001 .001 .001" />
+      </geometry>
+    </collision>
+    <collision name="transport_lid_rack_plus_segment_1">
+      <geometry>
+        <mesh filename="../meshes/sliding_lids_v3/transport/rack_plus_segment_1.stl" scale=".001 .001 .001" />
+      </geometry>
+    </collision>
+    <collision name="transport_lid_rack_plus_segment_2">
+      <geometry>
+        <mesh filename="../meshes/sliding_lids_v3/transport/rack_plus_segment_2.stl" scale=".001 .001 .001" />
+      </geometry>
+    </collision>
+    <collision name="transport_lid_rack_plus_splice_1">
+      <geometry>
+        <mesh filename="../meshes/sliding_lids_v3/transport/rack_plus_splice_1.stl" scale=".001 .001 .001" />
+      </geometry>
+    </collision>
+    <collision name="transport_lid_rack_to_lid_plus">
+      <geometry>
+        <mesh filename="../meshes/sliding_lids_v3/transport/rack_to_lid_plus.stl" scale=".001 .001 .001" />
+      </geometry>
+    </collision>
+  </link>
+  <link name="top_lid_right">
+    <visual name="transport_lid_lid_minus_tile_1">
+      <geometry>
+        <mesh filename="../meshes/sliding_lids_v3/transport/lid_minus_tile_1.stl" scale=".001 .001 .001" />
+      </geometry>
+      <material name="transport_lid_lid_minus_tile_1_color">
+        <color rgba="0.35 0.67 0.8 1" />
+      </material>
+    </visual>
+    <visual name="transport_lid_lid_minus_tile_2">
+      <geometry>
+        <mesh filename="../meshes/sliding_lids_v3/transport/lid_minus_tile_2.stl" scale=".001 .001 .001" />
+      </geometry>
+      <material name="transport_lid_lid_minus_tile_2_color">
+        <color rgba="0.35 0.67 0.8 1" />
+      </material>
+    </visual>
+    <visual name="transport_lid_lid_minus_seam_strap_1">
+      <geometry>
+        <mesh filename="../meshes/sliding_lids_v3/transport/lid_minus_seam_strap_1.stl" scale=".001 .001 .001" />
+      </geometry>
+      <material name="transport_lid_lid_minus_seam_strap_1_color">
+        <color rgba="0.25 0.48 0.65 1" />
+      </material>
+    </visual>
+    <visual name="transport_lid_lid_minus_seam_strap_2">
+      <geometry>
+        <mesh filename="../meshes/sliding_lids_v3/transport/lid_minus_seam_strap_2.stl" scale=".001 .001 .001" />
+      </geometry>
+      <material name="transport_lid_lid_minus_seam_strap_2_color">
+        <color rgba="0.25 0.48 0.65 1" />
+      </material>
+    </visual>
+    <visual name="transport_lid_rack_minus_segment_1">
+      <geometry>
+        <mesh filename="../meshes/sliding_lids_v3/transport/rack_minus_segment_1.stl" scale=".001 .001 .001" />
+      </geometry>
+      <material name="transport_lid_rack_minus_segment_1_color">
+        <color rgba="0.93 0.65 0.2 1" />
+      </material>
+    </visual>
+    <visual name="transport_lid_rack_minus_segment_2">
+      <geometry>
+        <mesh filename="../meshes/sliding_lids_v3/transport/rack_minus_segment_2.stl" scale=".001 .001 .001" />
+      </geometry>
+      <material name="transport_lid_rack_minus_segment_2_color">
+        <color rgba="0.93 0.65 0.2 1" />
+      </material>
+    </visual>
+    <visual name="transport_lid_rack_minus_splice_1">
+      <geometry>
+        <mesh filename="../meshes/sliding_lids_v3/transport/rack_minus_splice_1.stl" scale=".001 .001 .001" />
+      </geometry>
+      <material name="transport_lid_rack_minus_splice_1_color">
+        <color rgba="0.75 0.42 0.13 1" />
+      </material>
+    </visual>
+    <visual name="transport_lid_rack_to_lid_minus">
+      <geometry>
+        <mesh filename="../meshes/sliding_lids_v3/transport/rack_to_lid_minus.stl" scale=".001 .001 .001" />
+      </geometry>
+      <material name="transport_lid_rack_to_lid_minus_color">
+        <color rgba="0.75 0.45 0.24 1" />
+      </material>
+    </visual>
+    <inertial>
+      <origin xyz="-0.1204036968 -0.04789141195 -0.06645392817" />
+      <mass value="0.10682373535963767" />
+      <inertia ixx="0.0013163264923524802" iyy="0.0014252961495917367" izz="0.0017656465268594806" ixy="0.00018987910411263253" ixz="-0.0004542830430273755" iyz="0.0003568740367122233" />
+    </inertial>
+    <collision name="transport_lid_lid_minus_tile_1">
+      <geometry>
+        <mesh filename="../meshes/sliding_lids_v3/transport/lid_minus_tile_1.stl" scale=".001 .001 .001" />
+      </geometry>
+    </collision>
+    <collision name="transport_lid_lid_minus_tile_2">
+      <geometry>
+        <mesh filename="../meshes/sliding_lids_v3/transport/lid_minus_tile_2.stl" scale=".001 .001 .001" />
+      </geometry>
+    </collision>
+    <collision name="transport_lid_lid_minus_seam_strap_1">
+      <geometry>
+        <mesh filename="../meshes/sliding_lids_v3/transport/lid_minus_seam_strap_1.stl" scale=".001 .001 .001" />
+      </geometry>
+    </collision>
+    <collision name="transport_lid_lid_minus_seam_strap_2">
+      <geometry>
+        <mesh filename="../meshes/sliding_lids_v3/transport/lid_minus_seam_strap_2.stl" scale=".001 .001 .001" />
+      </geometry>
+    </collision>
+    <collision name="transport_lid_rack_minus_segment_1">
+      <geometry>
+        <mesh filename="../meshes/sliding_lids_v3/transport/rack_minus_segment_1.stl" scale=".001 .001 .001" />
+      </geometry>
+    </collision>
+    <collision name="transport_lid_rack_minus_segment_2">
+      <geometry>
+        <mesh filename="../meshes/sliding_lids_v3/transport/rack_minus_segment_2.stl" scale=".001 .001 .001" />
+      </geometry>
+    </collision>
+    <collision name="transport_lid_rack_minus_splice_1">
+      <geometry>
+        <mesh filename="../meshes/sliding_lids_v3/transport/rack_minus_splice_1.stl" scale=".001 .001 .001" />
+      </geometry>
+    </collision>
+    <collision name="transport_lid_rack_to_lid_minus">
+      <geometry>
+        <mesh filename="../meshes/sliding_lids_v3/transport/rack_to_lid_minus.stl" scale=".001 .001 .001" />
+      </geometry>
+    </collision>
+  </link>
+  <link name="lid_pinion">
+    <visual name="transport_lid_pinion_m2">
+      <geometry>
+        <mesh filename="../meshes/sliding_lids_v3/transport/pinion_m2.stl" scale=".001 .001 .001" />
+      </geometry>
+      <material name="transport_lid_pinion_m2_color">
+        <color rgba="0.95 0.55 0.13 1" />
+      </material>
+    </visual>
+    <visual name="transport_lid_horn_retaining_ring">
+      <geometry>
+        <mesh filename="../meshes/sliding_lids_v3/transport/horn_retaining_ring.stl" scale=".001 .001 .001" />
+      </geometry>
+      <material name="transport_lid_horn_retaining_ring_color">
+        <color rgba="0.92 0.72 0.3 1" />
+      </material>
+    </visual>
+    <visual name="transport_lid_reference_horn">
+      <geometry>
+        <mesh filename="../meshes/sliding_lids_v3/transport/reference_horn.stl" scale=".001 .001 .001" />
+      </geometry>
+      <material name="transport_lid_reference_horn_color">
+        <color rgba="0.8 0.8 0.85 1" />
+      </material>
+    </visual>
+    <inertial>
+      <origin xyz="-0.1828528467 -9.789946193e-18 -2.786513789e-16" />
+      <mass value="0.08385118549583867" />
+      <inertia ixx="0.00020584372686138978" iyy="0.00010483035452738873" izz="0.00010483035452738874" ixy="3.8901870118801745e-22" ixz="1.0723592154335146e-20" iyz="-1.0671834829034936e-35" />
+    </inertial>
+    <collision name="transport_lid_pinion_m2">
+      <geometry>
+        <mesh filename="../meshes/sliding_lids_v3/transport/pinion_m2.stl" scale=".001 .001 .001" />
+      </geometry>
+    </collision>
+    <collision name="transport_lid_horn_retaining_ring">
+      <geometry>
+        <mesh filename="../meshes/sliding_lids_v3/transport/horn_retaining_ring.stl" scale=".001 .001 .001" />
+      </geometry>
+    </collision>
+    <collision name="transport_lid_reference_horn">
+      <geometry>
+        <mesh filename="../meshes/sliding_lids_v3/transport/reference_horn.stl" scale=".001 .001 .001" />
+      </geometry>
+    </collision>
+  </link>
+  <joint name="transport_lid_mount" type="fixed">
+    <parent link="cargo_box" />
+    <child link="lid_drive_mount" />
+    <origin xyz="-0.15 0 0.195" rpy="0 0 0" />
+  </joint>
+  <joint name="lid_pinion_joint" type="revolute">
+    <parent link="lid_drive_mount" />
+    <child link="lid_pinion" />
+    <origin xyz="0 0 -0.074" rpy="0 0 0" />
+    <axis xyz="-1 0 0" />
+    <limit lower="0" upper="2.5833333333333335" effort="1" velocity="0.5" />
+  </joint>
+  <joint name="top_lid_left_joint" type="prismatic">
+    <parent link="lid_drive_mount" />
+    <child link="top_lid_left" />
+    <origin xyz="0 0 0" rpy="0 0 0" />
+    <axis xyz="0 1 0" />
+    <limit lower="0" upper="0.155" effort="1" velocity="0.5" />
+    <mimic joint="lid_pinion_joint" multiplier="0.06" offset="0" />
+  </joint>
+  <joint name="top_lid_right_joint" type="prismatic">
+    <parent link="lid_drive_mount" />
+    <child link="top_lid_right" />
+    <origin xyz="0 0 0" rpy="0 0 0" />
+    <axis xyz="0 -1 0" />
+    <limit lower="0" upper="0.155" effort="1" velocity="0.5" />
+    <mimic joint="lid_pinion_joint" multiplier="0.06" offset="0" />
+  </joint>
+</robot>

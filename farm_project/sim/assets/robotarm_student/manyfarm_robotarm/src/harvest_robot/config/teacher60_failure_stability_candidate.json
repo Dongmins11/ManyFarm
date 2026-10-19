@@ -1,0 +1,39 @@
+{
+  "schema": "teacher60_failure_stability_candidate_v1",
+  "status": "development_paired_comparison_only",
+  "learning": false,
+  "hardware_executed": false,
+  "production_selection_changed": false,
+  "training_gate_eligible": false,
+  "pressure": "original4deg at6deg/s,effort_limit0.5Nm;no additional reserve",
+  "stability_mode": "pause",
+  "stationary_plateau_final_stiffness_Nm_rad": 1.0,
+  "gain_ramp_s": 1.0,
+  "original_success_failure_gates": true,
+  "evaluation": "outputs/harvest_rl/teacher60_settle_compliance_20261012_153326_869f7842",
+  "audit": "analysis_v2.json",
+  "baseline_success": 24,
+  "success": 25,
+  "count": 32,
+  "recovered_ids": [
+    18
+  ],
+  "regressed_ids": [],
+  "runtime": "scripts/eval_teacher60_settle_compliance_v2.py",
+  "arguments": [
+    "--split",
+    "train",
+    "--stability-mode",
+    "pause",
+    "--settle-gain",
+    "1",
+    "--headless",
+    "--execute"
+  ],
+  "source_files": {
+    "scripts/eval_teacher60_settle_compliance_v2.py": "70af6dcca6bd46145b93934836c385927af3572c20ab77b5d4a03d78a2dc0488",
+    "scripts/analyze_teacher60_settle_compliance_v2.py": "891a57e648456cfadd695f515810be1cd0e694ab18e25f35cb583100797aede3",
+    "src/harvest_robot/harvest_rl/teacher_pull_stability_env.py": "3f654c3ba7591d7d2d1356c6a669fff1f02e3e241fb3aa72efb4a7320e4c5616"
+  },
+  "scope": "HOME through actual box deposit, same32 train development scenes; no independent split/real-robot certification"
+}
