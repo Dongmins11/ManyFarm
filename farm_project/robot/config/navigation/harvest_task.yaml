@@ -4,5 +4,6 @@ movement_mode: route_then_follow
 approach_planner: graph
 approach_controller_id: HarvestApproach
 approach_goal_checker_id: general_goal_checker
+approach_max_start_distance_m: 0.2
 work_controller_id: HarvestWork
 resolve_section_from_goal_pose: true

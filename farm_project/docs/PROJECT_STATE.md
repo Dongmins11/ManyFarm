@@ -1,5 +1,11 @@
 # 농작물 수확 로봇 — 현재 상태 인수인계
 
+> 2026-10-20 수확105 재현/설정 수정: **§78**. 원래 끝점 정체105를 재현했고 sim의 위치 재접근/실제 끝점 추종 설정으로 같은 경로1건과 연속 window 주행3건을 통과했다. 전체 반복 시험은 별도 진행 중이다.
+
+> 2026-10-20 예상 개수 불일치 실패 제거: **§76**. 예찰 예상량은 참고값이며, 팔 카메라의 작업 가능 목록을 수확하고 다음 window로 진행한다. 목록0도 측정 정지 확인 후 수확0으로 완료한다.
+
+> 2026-10-19 SEC01~SEC16 반복 통합 시험 진행 중: **§75**. 각 SEC 예찰→전체 window 수확이 모두 성공해야 다음 SEC로 진행하며 실패 시 전체 시뮬레이션 재기동 후 같은 SEC를 재시도한다. 현재 성공률·전체 완료를 확정한 기록이 아니다.
+
 > 2026-10-16 팔 없이 즉시 완료 원인: **§67**. 실행 명령이 이전 이동 전용 프로파일을 선택했다. 해당 프로파일을 현행 수확 작업 설정에 연결했으며 이미 실행 중인 서버에는 런치 재시작이 필요하다.
 
 > 2026-10-16 수확105 수정: **§66**. 평평한 바퀴 충돌 단면이 저속 회전을 막는 것을 대조 시험으로 확인하고 둥근 타이어 단면을 적용했다. 보정 상한2rad/s·원래 이득 유지. 실제 Nav2 정렬/이동3개와 Teacher 팔 Action2/2 성공. 전체 농장 연속 수확·실물 검증은 별도다.
@@ -952,3 +958,172 @@ overrides:
 - 사용자 “이대로 푸시한번 해”에 따라 D435 Student 연결, 수확·인계 통신 전달본 선택 통합, 평행3빔 URDF/USD·계수·feedback/result와 관련 문서·시험을 함께 커밋/푸시 대상으로 확정했다. §70~73의 “미커밋·미푸시”는 각 구현 완료 당시 기록이며 이번 승인 이전 상태다.
 - 준비 시점 fetch 성공, HEAD와 origin/main은2a397da로 동일(ahead0/behind0). 모델 실행에 필요한 전달 Student 소스·모델·참조 자산을 상대 경로와 원본 해시 그대로 포함한다. manifest1330파일의 해시 일치를 재확인했으며 전달본에 포함된 tests_final.log도 manifest 보존을 위해 포함한다. 이번 로컬 실행 로그/백업/전달 ZIP 및 루트 수신 ZIP 폴더는 커밋 대상에서 제외한다.
 - 검증은 §71의 통신213시험/빌드 및 §73의 센서69시험·낙하14건·실제 Student ROS 단일 수확 결과를 따른다. 푸시 준비에서는 manifest 해시·diff 형식·Git LFS 포인터와 커밋 범위를 확인한다. 실제 센서 I/O 미연결과 기본 초기 영상 지연은 그대로 남는다. 원격 완료 여부와 최종 커밋 SHA는 Git 이력 및 푸시 후 origin/main 조회로 확인한다.
+
+## 75. SEC01~SEC16 예찰·전체 window 수확 반복 시험 — 2026-10-19
+
+- 사용자 요청: 16개 SEC가 각각 예찰과 모든 window 수확에 성공할 때까지 반복한다. 실패한 시도는 상세 기록을 남기고 Isaac·ROS 전체 종료/재기동 후 같은 SEC를 예찰부터 다시 실행한다. 실패 로그를 모아 후속 시스템 문제 분석에 사용한다. 자동으로 운영 코드를 수정하는 작업은 포함하지 않는다.
+- 기준 `e735dc9`, 현행 운영 설정을 유지한다. 시험 전용 실행기 `sim/tools/run_section_campaign.py`, 지속 실행 wrapper와 감독자 시험만 추가했다. domain74/localhost·headless·RViz OFF·태그 보정 ON·D435 Student/평행3빔이다. 모든 시도는 기존 station에서 새 스택으로 시작한다.
+- 성공: ScoutArea ROS SUCCEEDED/result SUCCESS, 반환된 각 HarvestTask ROS SUCCEEDED/result SUCCESS/failed_count=0. 원본 예상개수와 실제 수확량은 함께 보존한다. window0은 empty_harvest로 표시하므로 실제 팔 수확 검증과 구분한다. 부분 성공 후 실패하면 해당 SEC 전체를 재시도한다.
+- 실행/증거: `sim/runs/section_campaign_20261019/summary.json`, 시도별 `result.json`, `events.jsonl`, `telemetry.jsonl`, `stack.log`, `ros/`, `performance.jsonl`, `artifacts/`. `failure_analysis.json`은 오류별 증거 색인이며 근본 원인 확정 보고서가 아니다. 중단 시 체크포인트를 이어받는 사용자 service `farm-section-campaign-20261019`를 등록했다. STOP 파일로 요청 중단 가능하다.
+- 검증: 감독자 오프라인 시험에서 SEC01 실패2회 후 성공해야 SEC02로 이동하며 16SEC/18시도와 전체 재기동 호출·실패 자료 보존·완료SEC 재개 생략을 확인했다. 실제 최초 SEC01 예찰 Goal은 17:40 KST 전송했고 17:46:22에 SUCCESS/5구간/window9개/예상13개를 반환했다. 직후 첫 window의 수확 Goal 수락과 feedback을 확인했다. SEC01 수확 및 실제 전체 완료/성공률은 진행 중인 결과를 확인해야 하며 이 문서로 완료를 주장하지 않는다.
+- 공통/실물 변경 없음. 미커밋·미푸시. 후속 분석은 실패 시점의 Nav2 입력/출력 명령·odom·Isaac 진단·팔 결과를 같은 시간축으로 대조한다.
+
+## 76. 예상 개수 일치 조건 폐기와 가능한 팔 대상만 수확 — 2026-10-20
+
+- 사용자 수정 지시(D-044): 예찰 window 과실 수와 팔 카메라 작업 가능 대상 수가 다르다는 이유로 실패하지 않는다. 기존3초 관측 뒤 팔에서 확인한 작업 가능 목록만 수확하고 실제 수량을 반환한다. 목록0은 측정 정지·접힘 확인 후 SUCCESS/0개로 넘긴다. 예찰 expected_count는 참고값으로 원형 보존한다.
+- 최소 변경: `sim/ros_ws/src/farm_sim_devices/farm_sim_devices/student_session.py`의 양수 expected_count/개수 동등성 실패 조건 제거와 빈 목록 정상 종료. `sim/tests/test_student_assignment.py`에서 부족/초과/예상0/작업범위 밖/관측0·관측시간·원래 예상9/실제0·1·2의 Action 전달을 검증한다. 실제 오류/정지·주행/센서 계수 정책은 유지하며 공통/실물/vendor 모델은 변경하지 않았다.
+- 직접 검증: assignment11 + 팔 세션19 + 팔 ROS9 + 캠페인1 =40시험 통과. 실제 Isaac/ROS에서 station 배치로 예상1/관측 작업가능0을 요청하여 sim4.4초에 SUCCESS/harvested_count0/failed_count0/safe_stopped=true를 확인했다. 로그 `sim/runs/inventory_policy_20261020/zero_action.log`와 `sim/runs/harvest_test_ui/20261020T002245_w_1q7wfa/`를 확인한다. 실제 비어 있지 않은 목록의 개수 불일치 연속 수확은 후속 캠페인에서 확인할 항목이다.
+- 시험 데이터: 이전 `section_campaign_20261019`는 완료46시도 실패(수확105 22/개수 불일치21/기동1/평가ID1/수확 timeout1), 47회차는 정책 교체를 위한 중단이다. 예찰 완료45/개별 수확36성공·36개는 이전46시도 기준이다. 자료를 보존하고 수정 후 `section_campaign_20261020`을 SEC01부터 새로 실행한다. Student 소스 SHA를 캠페인 manifest에 추가 기록한다.
+- 기준 HEAD e735dc9 위 미커밋 변경, 미푸시. 소스 연결 설치(egg-link)로 새 Isaac 프로세스에서 변경을 읽으며 운영 파라미터를 바꾸지 않는다.
+
+## 77. sim 수확 Action 완료와 실적 분리 — 2026-10-20
+
+- 최신 사용자 기준(D-045): 수확 Action SUCCESS는 window 도착·팔 수확 시도의 정상 종료를 의미한다. expected_count와 harvested_count가 다른 것은 수확 실적이며 그 자체로 Action 실패가 아니다. 개별 failed_count가 있어도 정상 종료 Action은 성공이다. 주행/팔 미션 중단, 실행·충돌·통신 오류, 정지/접힘 미확인은 FAILED를 유지한다. D-044의 작업 가능 대상0 정상 종료도 유지한다.
+- `sim/tools/run_section_campaign.py`에서 정상 수확 Action에 failed_count==0을 추가로 요구하던 시험 조건을 제거했다. 이는 §75의 초기 통과 기준을 갱신한다. 기존 공통 Action 전달 경로는 이미 정상 종료와 수량을 분리하므로 수정하지 않았다. Student의 실제 실행 오류를 성공으로 덮어쓰지 않는다.
+- 검증: assignment11시험(예상9/실제1/개별 실패2여도 ROS SUCCESS 포함), 캠페인 감독자1시험 통과, Python 컴파일·diff 형식 확인. 앞선 D-044의 실제0대상 완료 검증은 §76을 따른다. 모든 요청·결과의 예상/실수확량 원본은 유지한다. 실행 중인 worker는 시작 시 읽은 코드를 사용하며 수정한 시험 조건은 다음 worker 시작부터 적용된다. 비어 있지 않은 Student 정상 완료에서 현재 별도의 개별 실패 누적은 없으므로 현재 진행 Action의 수량차 허용은 D-044대로 유지된다.
+- sim만 대상, 미커밋·미푸시. 캠페인 `section_campaign_20261020`은 계속 실행 중이며 전체 완료를 뜻하지 않는다.
+
+## 78. 수확105 재현과 sim 끝점 추종 설정 수정 — 2026-10-20
+
+- 사용자 재발105 원인 규명/수정 요청. HEAD e735dc9 위 기존 미커밋 변경 보존. 변경 파일은 `sim/ros_ws/src/farm_sim_config/config/nav2_harvest.yaml`의 환경 override이며 공통/실물/바퀴 자산·구동 물성 변경 없음.
+- 먼저 기존46시도 중 수확105 22건의 AMCL/odom을 대조했다. 마지막 위치 추정 복원 오차 중앙값 약50.28mm, 방향 오차 중앙값 약0.04785°로 목표 근처의 위치 완료/방향 정렬 부조화가 반복됐다. 복원은 AMCL stamp의 최근 odom 표본을 사용한 근사이며 RPP 내부 latch를 과거 로그에서 직접 관측한 것은 아니다.
+- 직접 원인 분리: 실패44회차 위치(-6.0015,10.7643), yaw -89.7°에서 운영 자산과 물리/PI로 일정 입력을 주면 ±0.05rad/s 4초에 실제 +10.54°/-10.92° 회전(기대±11.41°). ±0.1은+20.78°/-21.73°(기대±22.82°). 바퀴가 회전 명령을 전혀 못 따라가는 물리 정체로 이번 현상을 단정하지 않는다. SDK 순간 관절속도와 실제 위치 차분은 큰 차이가 있어 구분한다.
+- 실제 Nav2 재현: 실패44회차 SECTION_APPROACH 경로를 원래 HarvestApproach 설정으로 재실행. sim167.8초에 RPP 목표거리38.12mm 진입 후 최대56.65mm로 이탈했고 직진을 재개하지 않았다. sim188.48초에 ROS ABORTED/error105. 끝점에서 반복 미세 회전을 계속하는 상태를 직접 계측했다.
+- 기각 후보: stateful=false만 적용한 실행은 끝점 연장 추종으로 지나침/비수렴이 발생했다. 이 실행의 중간에 interpolate_curvature_after_goal=false를 동적으로 적용했지만 sim283.88초에105였다. 이 중간 변경 실행을 “두 옵션을 처음부터 적용한 성공 시험”과 혼동하지 않는다.
+- 채택 후보/적용: 처음부터 stateful=false와 HarvestApproach/HarvestWork의 interpolate_curvature_after_goal=false를 적용한 새 실행은 같은 실제 경로에서 sim184.78초에 SUCCEEDED/error0. sim 환경 override로 RPP.stateful=false, HarvestApproach/HarvestWork는 위 두 값을false로 기록했다. 초기3.8cm 진입을 영구 완료 위치로 취급하지 않고, 경계 이탈 시 다시 접근하며 실제 끝점을 추종한다. 기존4cm/2.5°·진행10cm/0.1rad/20초 유지 및 설정 로더 병합을 확인했다.
+- 추가 주행 검증: 실제 예찰46회차의 처음3 window 좌표에 HarvestWork FollowPath를 순차 요청하여 sim21.27/31.78/40.87초에3/3 SUCCEEDED/error0. 이 시험은 Nav2 직접 시험이고 팔 동작은 없다. fixture의 시작 위치를 진입점으로 바꾸며 station node_id를 갱신하지 않아 공통 HarvestNode는 초기 정합 검사로 종료했지만 Nav2는 정상 활성화/3 Action을 수행했다. 준비 스크립트의 node_id는 이후 기존 진입 노드20102로 바로잡았다. 운영 station/그래프는 변경하지 않았다. 전체 공통 수확 Action 성공 시험으로 확대하지 않는다.
+- 검사: 기존 BT/goal checker5, staged harvest config6, harvest Action config7 =18시험 PASS. 바퀴·질량/마찰·drive·실물 및 공통 Nav2는 미수정. 후속16SEC 반복 시험은 새 `sim/runs/section_campaign_20261020_navfix/`, 사용자 service `farm-section-campaign-20261020-navfix`로 재개한다. 이전 두 캠페인/실패/관리 중단 자료는 보존하며 새 기준 manifest로 구분한다. 전체105 소멸/농장 완주 인증은 아직 아니다.
+- 증거: `sim/runs/navigation_105_20261020/{open_loop_result.json,failure_goal_metrics.json,comparison.json,baseline/,stateless/,endpoint/,windows/}`. 각 case의 profile/goal/ROS·Isaac log/nav_trace/result를 포함한다. 원래 설정의 SDK1.3.12 RPP 구현은 https://github.com/ros-navigation/navigation2/blob/1.3.12/nav2_regulated_pure_pursuit_controller/src/regulated_pure_pursuit_controller.cpp 의 shouldRotateToGoalHeading/getLookAheadPoint와 대조했다. 진단용 초기 경로/센서 설정 오류 로그도 별도 보존했다. 미커밋·미푸시.
+
+
+## 79. SEC01 단독 재시험 시작 — 2026-10-20
+
+- 사용자 “다시 SEC01에 대해서 테스트” 요청에 따라 기존 `section_campaign_20261020_navfix`를 STOP으로 정상 종료하고 자료를 보존했다. 종료 전 예찰은 SUCCESS/window9/예상13이며 첫 수확 진행 중이었으므로 SEC 성공·실패로 집계하지 않는다.
+- 새 실행 `sim/runs/sec01_retest_20261020/`, 사용자 서비스 `farm-sec01-retest-20261020`. `--sections SEC01 --domain 74`로 SEC01만 실행하며 예찰 후 반환된 모든 window의 수확 Action 완료를 확인한다. 실패 시 로그를 보존하고 Isaac/ROS 전체 재시작 후 같은 SEC 예찰부터 재시도한다.
+- 10:28:20 KST 스택 준비, 10:28:29 예찰 Goal 전송 확인. 실제 controller 파라미터는 RPP/HarvestApproach/HarvestWork.stateful=false, 접근/작업 interpolate_curvature_after_goal=false다. headless/태그보정 ON/Student D435/3빔 조건을 유지한다. 아직 전체 수확 완료 결과는 없으며 진행 결과는 summary.json과 시도별 result.json/events.jsonl로 확인한다.
+- 소스·설정 추가 변경 없음. 기존 미커밋 변경 유지, commit/push 미실행. 중단은 실행 폴더 STOP 파일을 사용한다.
+
+
+## 80. 후속 시험 ROS Domain13/SUBNET 기본값 — 2026-10-20
+
+- 사용자 요청(D-047)에 따라 `sim/tools/run_section_campaign.py`의 기본 domain을13, discovery 범위를SUBNET으로 변경하고 `continue_section_campaign.sh`도 domain13을 사용한다. 새 manifest에 discovery 범위를 추가 기록한다.
+- 현재 `sec01_retest_20261020` 실행 프로세스는 기존 domain74/LOCALHOST를 유지한다. 후속 새 실행부터 적용되며 관제 브리지/작업 등록 연결은 별도 확인 대상이다. 공통/실물 변경 없음, 미커밋·미푸시.
+
+
+## 81. Hyaline-52 실물 브랜치·현재 공통·시뮬 주행 판정 정밀 비교 — 2026-10-20
+
+### 결론과 판정 범위
+
+최신 실물 담당 브랜치와 현재 main의 주행 성공/실패 처리 소스 및 명시된 도착·진행 판정 기준은 같다. 그러나 실행 제어 설정과 센서·구동 입력은 다르다. 따라서 **시뮬만 더 엄격한 도착/105 기준을 둔 것은 아니지만, 현재105를 곧바로 공통 코드 결함으로 확정할 수는 없다.** 동일 판정기에 시뮬 구동/위치 추정 문제가 입력되어도105가 발생한다. 공통 Nav2가 오류를 생성한다는 사실과 공통 코드가 원인이라는 주장은 구분해야 한다.
+
+이 보고서는 저장소·설정 로더·기존 시뮬 실행 증거를 직접 비교한 결과다. 실물 PC에 접속하여 설치 패키지/동적 파라미터/미커밋 코드를 읽은 검증은 아니다. 이번에는 운영 소스·주행 설정을 수정하거나 새 실제 주행을 실행하지 않았다.
+
+### 비교 기준과 재현 자료
+
+- 현재 main: `e735dc9ca2b3bb742b7b317c6fce2153f23c82f0` + 기존 sim Nav2/Student 등 미커밋 변경.
+- 원격에는 `Hyaline-52`라는 브랜치가 없다. Hyaline-52 작성자의 최신 실물 기준은 `origin/feat/harvest-handoff-real-20261018`, `6f21119edb2ac3bfa25cb3eb45fad8d6dd03018b`다.
+- 이전 독립 실물 브랜치: `origin/feat/apriltag-localization`, `afdcc051bcb947c4d8e48c6a6da865ee9daf9fbf`.
+- `git ls-remote --heads origin`으로 두 원격 끝 커밋과 로컬 참조 일치를 직접 확인했다. checkout/merge/pull/commit/push는 하지 않았다.
+- 비교 자료: [navigation_parity_20261020](../sim/runs/navigation_parity_20261020/). branch별 텍스트 스냅샷, SHA256 비교, 병합 후 Nav2/policy JSON, 차이 목록, 실제 시뮬 파라미터 대조 및 시험 로그를 보존했다.
+- `all_robot_runtime_source_comparison.json`: 두 트리 합집합의 robot/ros_ws/src 운영 Python/C++/헤더/Action·msg·srv 130개 전부 동일. test/tests는 제외한다. farm_navigation·harvest_robot·bringup·태그·실물장치의 선택 소스/설정 XML 비교76개도 동일하다. 외부 설치 Nav2/vicpinky 드라이버 바이너리까지 같다는 뜻은 아니다.
+- 공통 navigation 정책/YAML/BT도 최신 실물 브랜치와 차이가 없다. 반면 실물 환경 override·지도·태그 등록 자산에는 차이가 있다.
+- 실행 환경에서 import된 nav2_client/navigator/harvest_robot.node의 실제 경로는 현재 robot/ros_ws/src 원본으로 확인했다. sim 별도 복사본을 실행하는 경로는 확인되지 않았다.
+
+### 요청부터 실패 결과까지의 실제 경로
+
+양 환경의 `HarvestCommunication → HarvestMission → StagedNavigation → Navigator/CorridorNavigator → Nav2Client → /harvest_01/follow_path` 경로가 같다. graph Dijkstra/직선 작업 경로를 사용하고, Bed 진입은 HarvestApproach, window 작업 이동은 HarvestWork, 이탈은 RPP를 선택한다. FollowPath 요청에 general_goal_checker/progress_checker ID를 명시한다. 이 경로의 실패를 NavigateToPose로 바꾸는 우회는 없다. 현재105는 직접 FollowPath 결과이므로 NavigateToPose BT의 복구 횟수가 원인은 아니다.
+
+105의 생성 위치는 시뮬 팔 어댑터나 캠페인 성공 판정이 아니라 Nav2 controller_server다. 설치된 FollowPath.action은105를 FAILED_TO_MAKE_PROGRESS로 정의한다. Nav21.3.12는 선택한 progress checker가 false이면 FailedToMakeProgress를 발생시키고, 속도0 발행 후 Action을105로 종료한다. [공식 controller_server 소스](https://github.com/ros-navigation/navigation2/blob/1.3.12/nav2_controller/src/controller_server.cpp)
+
+공통 `nav2_client.py:171`은 ROS status=SUCCEEDED(4)이고 error_code=0인 경우만 정상 반환한다. 105이면 RuntimeError를 내고, `harvest_robot/communication.py:143` 경로가 NAVIGATION_FAILED/ROS ABORTED로 전달한다. mode=sim이라는 이유로105를 추가하거나 실물에서105를 성공으로 바꾸는 분기는 없다.
+
+시뮬 재시험4회차는 실제 stack.log에 `harvest_01.controller_server: Failed to make progress`가 있고 최종 수확 결과에105가 전달됐다. harvest_motion에는 SECTION_APPROACH/목표(-6.015,10.7), arm_operation=SKIPPED가 남아 있다. 팔 결과나 expected/harvested 차이로 만들어진105가 아니다.
+
+### 성공·실패 판정의 동일점과 차이
+
+| 항목 | 최신 실물 브랜치 / 현재 main real / 현재 sim | 판단 |
+|---|---|---|
+| Nav2 도착 checker | SimpleGoalChecker, XY0.04m, yaw0.0436332313rad(2.5°), stateful=true | 명시 기준 동일 |
+| Nav2 진행 checker | PoseProgressChecker, 이동0.1m 또는 회전0.1rad, 20초 | 명시 기준 동일 |
+| Nav2 결과 수락 | ROS SUCCEEDED와 error_code=0 모두 필요 | 소스 동일 |
+| Nav2 이후 차체 정지 | odom 선속도<0.005m/s, 각속도<0.02rad/s, odom stamp 기준0.8초 연속 | 소스·설정 동일 |
+| 정지 대기/신선도 | settle timeout20초 실시간, 수신 odom age0.5초 실시간 | 소스·설정 동일 |
+| 정지 후 위치/방향 검사 | 0.05m/0.05236rad(약3°)로 측정, 초과 시 경고·기록 | 최신 양쪽 모두 추가 실패 조건이 아님 |
+| 다음 작업 경로 진입 | 공통 CorridorNavigator/straight_plan의 방향·횡오차·전방 검사 | 동일; 위 도착 경고와 달리 이 검사는 거부 가능 |
+| 주행 전체 제한 | 수치300초; real 단조 실시간, sim ROS 시뮬 시간 | 의도된 시간축 차이 |
+| Nav2 progress20초 | 노드 시계: real ROS 시스템 시각, sim /clock | 물리 경과시간에 대응; 단순 wall20초 아님 |
+| 최종 HarvestTask 완료 | real ARRIVAL_ONLY_NO_HARVEST; sim ARRIVAL_THEN_ARM | 전체 수확 Action의 완료 조건은 다름;105 생성 전 주행 규칙은 같음 |
+
+PoseProgressChecker는 마지막 기준 pose에서 거리 또는 각도 중 하나가 임계값을 **넘으면** 기준 pose/시간을 갱신한다. 주행 누적 거리나 목표까지 거리 감소량만 검사하는 방식이 아니다. 여기서 pose는 양쪽 local_costmap global_frame=odom의 위치다(프레임 이름은 namespace가 다름). [공식 PoseProgressChecker](https://github.com/ros-navigation/navigation2/blob/1.3.12/nav2_controller/plugins/pose_progress_checker.cpp)
+
+GoalChecker.stateful과 RPP.stateful은 별개다. 이번 sim 변경은 RPP 쪽만 false이며 GoalChecker.stateful은 실물과 같은 true다. 따라서 앞선 단순 설명을 “매 tick 최종 XY4cm를 새로 검사하는 동일한 한 개의 latch”로 이해하면 안 된다. SimpleGoalChecker는 한 번 XY 허용범위에 들어오면 yaw 판정 동안 XY 재검사를 생략할 수 있다. [공식 SimpleGoalChecker](https://github.com/ros-navigation/navigation2/blob/1.3.12/nav2_controller/plugins/simple_goal_checker.cpp)
+
+### 실제 적용 설정의 차이 — 공통 파일 이름만으로 비교하면 놓치는 부분
+
+공통 로더 `load_nav2_parameters`로 shared_nav2 + bindings + overrides를 병합한 결과다. ROS launch의 use_sim_time 치환은 별도 확인했다.
+
+| 항목 | Hyaline 최신 real 6f21119 | 현재 main real | 현재 sim |
+|---|---|---|---|
+| HarvestApproach.lookahead_dist | 0.10m | 0.40m | 0.40m |
+| HarvestApproach.curvature_lookahead_dist | 0.10m | 0.40m | 0.40m |
+| HarvestWork lookahead/curvature | 0.40m /0.40m | 동일 | 동일 |
+| RPP/HarvestApproach/HarvestWork.stateful | 명시 안 함, 설치 버전 기본값 사용 | 동일 | false 명시 |
+| 접근/작업 interpolate_curvature_after_goal | true | true | false |
+| local costmap resolution | 0.02m | 0.05m | 0.05m |
+| local/global footprint(명시 사각형) | 길이0.60m × 폭0.50m | 0.70m ×0.60m | 0.70m ×0.60m |
+| footprint_padding | 0.02m 명시 | 미지정 | 미지정 |
+| 접근 그래프 시작점 허용거리 | 0.20m | 0.10m | 0.10m |
+| local/global 장애물 scan 입력 | /scan_filtered, launch가 /harvest_01/scan_filtered로 remap | 상대 scan_filtered | 상대 scan |
+| 지도·태그 등록 자산 | 10/14 실물 지도·등록 | 이전 실물 지도·등록 | 별도 sim 지도·등록 |
+| use_sim_time | false | false | true |
+
+최신 real 대비 현재 main real의 Nav2 YAML 병합 leaf9개, sim은26개가 다르다.26개에는 프레임/초기위치 같은 정상적인 환경 연결 차이도 포함하므로26개의 결함이라는 뜻은 아니다. 정규화한 전체 차이는 `nav2_effective_differences.json`에 있다. 특히 현재 main의 real 모드를 담당자의 실제 성공 설정과 같은 것으로 사용해서 비교하면 안 된다.
+
+로컬 Nav21.3.12의 RPP.stateful 기본값은 true다. 실물 브랜치가 이를 명시하지 않으므로 동일 버전을 쓴다면 true지만 실물 설치 버전/런타임 dump 없이 실제 true라고 확정하지 않는다. [공식 파라미터 기본값](https://github.com/ros-navigation/navigation2/blob/1.3.12/nav2_regulated_pure_pursuit_controller/src/parameter_handler.cpp)
+
+현재 sim 재시험4회차 controller_server dump의 명시 설정101개를 소스의 병합값과 대조해101개 모두 일치했다(use_sim_time은 launch로 true 치환). 즉 실제105 재발 시험은 sim 변경된 stateful=false/interpolate=false를 적용하고도 실패한 것이다. 수정 전 설정이 남아 있었다는 증거는 없다. local/global costmap 전체 runtime dump는 해당 시도에서 수집하지 않았으므로 costmap 표는 launch 입력 기준이다.
+
+### 장치·시간·위치 입력 차이
+
+- 실물은 `farm_real_devices`가 외부 `vicpinky_bringup`을 실행하며 그 드라이버의 cmd_vel/odom/라이다를 사용한다. 외부 드라이버 구현·펌웨어·현재 설치 Nav2 바이너리는 이 저장소 비교로 확인할 수 없다.
+- sim은 ros_adapter의 UDP 전달 → BaseSim → wheel_targets/PI 서보 → PhysX 바퀴 관절을 구동하고, 바퀴 각도 차분으로 WheelOdometry를 만든다. 차체 world pose를 Nav2 odom으로 직접 넣는 구조가 아니다. 마찰·접촉·미끄러짐·PI와 엔코더/TF 불일치의 영향은 별도 검증 대상이다.
+- 속도 smoother YAML은 두 최신 환경에서 동일하다. 그렇더라도 입력 odom/출력 구동 응답까지 같다는 의미는 아니다.
+- 시뮬 진행20초는 /clock 기준이다. 그러나 ROS 제어 timer/벽시계 수신 freshness/UDP watchdog 등 전체 실행 timing은 별도 경계이므로 느린 시뮬의 모든 영향이 제거됐다고 주장하지 않는다.
+- 태그/AMCL 소스는 동일하고 sim 시험은 tag_correction=true다. 실물은 launch 인자 및 현장 시험에 따라 ON/OFF이며, 태그 등록·라이다·좌표·관측 입력은 다르다. RPP 위치/방향 오차에 어떤 영향을 주는지는 동기 로그가 필요하다.
+
+### 이전 실물 브랜치와 혼동하면 안 되는 차이
+
+afdcc05 원본은 SimpleProgressChecker(0.1m/20초)이며 회전만으로 진행을 인정하지 않는다. 최신6f21119는 현재 main/sim과 같은 PoseProgressChecker(0.1m 또는0.1rad/20초)를 사용한다. 또한 이전 Navigator는 정지 후5cm/3° 초과를 실패 처리했지만 최신/현재는 진단 경고다. 따라서 이전 성공 기록과 현재를 같은 판정 조건으로 묶을 수 없다. 변경 diff는 `legacy_to_current_navigation.diff`, 병합 설정 비교는 `nav2_effective_differences.json`에 남겼다.
+
+실물 브랜치의 `HARVEST_LOCAL_RESOLUTION_TRIAL_20261018.md`에는 local resolution0.025m 때 코너106/collision ahead 실패, 0.02m에서 10/18 18:55~18:56 한 번 성공한 기록이 있다. 문서 자체가 반복 안정성/팔 검증이나 해상도 단일 원인 확정으로 확대하지 말 것을 명시한다. 이번에 원본 bag을 읽은 결과가 아니라 담당자 브랜치의 기록이다. 이106은 현재105와 다른 오류다.
+
+### 책임 구분과 권장 다음 검증
+
+1. **확정:** 현재 확인된105는 공통 Nav2의 진행 실패이며, sim에서 별도 추가한 성공/실패 판정 탓은 아니다. 최신 real과 비교한 공통 Action 전달 결함/판정 기준 불일치는 발견하지 못했다.
+2. **sim 측에서 먼저 분리할 항목:** 실물과 다른 제어 설정(접근 lookahead, 최근 RPP override), 실제 sim 형상에 맞는 footprint/costmap, 명령→바퀴/차체 이동→odom/TF의 일치 여부. 실제 크기가 다른 모델의 footprint나 실물 지도를 단순 복사하는 것은 적절한 대조가 아니다.
+3. **공통 담당과 함께 볼 항목:** 목표 부근 RPP 수렴 및 진행 checker와의 상호작용, 도착 후 잔여 오차를 허용한 뒤 다음 직선 구간에서 거부하는 정책. 후자는 W006 APPROACH_RECOVERY_REQUIRED와 관련된 공통 경계이며105와 별개다. 동일 명령/관측 조건에서 재현되면 공통 수정 근거가 된다.
+4. **권장 순서:** 실물에서 Nav2 버전 및 controller/local/global costmap/smoother runtime dump 확보 → 동일 sim 장면·초기 pose·경로에서 현재 제어 설정과 실물 제어 설정을 A/B 비교 → costmap 등 영향은 별도 요인별 비교 → cmd_vel_nav/cmd_vel/엔코더 odom/TF와 평가용 world pose를 동기 대조. 그때까지 “공통 버그 확정” 또는 “sim 물리만의 문제 확정” 모두 유보한다.
+5. 같은 판정 기준임이 확인돼도 같은 입력/동역학이 보장되지는 않는다. 비교 결과를 전체 공통 주행 코드 수정 승인으로 해석하지 않는다. 이번에는 분석만 수행했다.
+
+### 이번 검증 및 보존
+
+기존 오프라인 시험38개 통과: Nav2 실행 시계12, 주행 경로·정지/결과 계약10, 실제 수확 초기화/단계별 FollowPath16. 실제 ROS 통신·실물 재주행 성공을 뜻하지 않는다. 원격 끝 커밋/130개 소스 바이트/병합 설정/실행 모듈 경로/기존105 시도의101개 실제 controller 설정을 각각 대조했다. 문서와 비교 산출물만 추가했으며 기존 미커밋 작업과 실행 시험을 유지했다. 미커밋·미푸시.
+
+
+## 82. 최신 실물 수확 주행 설정 반영 — 2026-10-20
+
+- 승인/기준: 사용자 “실물 기준으로 반영해”; D-048. main `e735dc9` + 기존 미커밋 작업 보존. 최신 실물 기준 `6f21119`의 주행 값을 공통 설정으로 옮기고 D-046 sim 전용 override를 제거했다. §81의 설정 차이 표는 변경 전 감사 결과로 보존한다.
+- 발생 경위: 10/14 공통화는 `bf10fcd` 기준이었고 `c4d96a9`/`2fcdebf`의 실물 lookahead·실측 footprint·해상도 조정이 공통 기본값에 반영되지 않았다. 10/19 선택 통합(D-041)에서도 실물 Nav2/후속 `6f21119`를 제외했다. 시뮬에 예전 값을 유지해야 한다는 검증 근거가 아니라 통합 누락이다.
+- 변경: 공통 harvest_nav2의 접근 lookahead/curvature 10cm, local costmap 2cm, local/global footprint 60×50cm + padding2cm. 공통 harvest_task 접근 시작점 허용거리20cm. 실물 vicpinky costmap scan 토픽은 기준 브랜치와 같은 절대 `/scan_filtered`. sim Nav2는 공통 기본값과 환경 bindings만 읽는다. 수확 작업 이동의 lookahead40cm와 도착/진행 실패 기준은 유지한다.
+- 실물/시뮬 영향: 다음 launch부터 같은 제어·충돌 검사·접근 정책을 적용한다. 이번에는 주행 알고리즘/Action 성공 실패 코드, 실제 USD/URDF 크기·물리, 지도·태그·초기 위치, 팔, 예찰을 변경하지 않았다. footprint 설정 일치는 모델의 모든 돌출부를 감싼다는 실측 보증은 아니다.
+- 직접 검증: 기존 `load_nav2_parameters`로 병합한 main real Nav2가 감사 시 보존한 `6f21119` 최종 값과 차이0. main sim controller_server/velocity_smoother는 real과 완전히 같다. 기준 대비 sim 차이14개는 TF 프레임·scan 토픽·초기 pose/사용 여부이며 다른 차이는0. 양쪽 실제 접근 설정 생성 결과 max_start_distance_m=0.2로 일치한다.
+- 기존 검사 39/39 통과: farm_navigation/test/test_shared_configuration.py, harvest_robot/test/test_shared_navigation_policy.py, test_entry_controller.py, sim/tests/test_harvest_arm_geometry.py, test_staged_harvest_config.py. 기존 검사의 이전값(.4/접근 허용거리) 기대값을 새 실물 기준에 맞췄다. 최초 실행은 ROS 환경 미로딩으로 collection 오류; ROS setup 이후 기존 기대값2건 실패를 확인·갱신하고 전체39건 통과했다. 각 실행 로그를 보존한다.
+- 자료: `sim/runs/navigation_parity_20261020/real_baseline_apply/`의 before.json, comparison.json, 병합 Nav2 JSON, tests*.txt, changes.patch. sim 설치 설정은 source까지 연결된 symlink임을 확인했다.
+- 실행 경계: 파일 변경 및 오프라인 검증 완료. 기존 실행 프로세스에 동적 파라미터 적용/재시작은 하지 않았으며 현재 실행 중인 시험에 반영됐다고 주장하지 않는다. 이후 새 launch는 새 값을 읽으므로 기존 조건 시험과 구분해야 한다. 새 시험은 D-047대로 ROS_DOMAIN_ID=13/SUBNET 사용. 실제 SEC01 재주행/실물 실행·배포·105 해결 확인은 미실행이다.
+- 원격: 미커밋·미푸시. 다음 단계는 새 조건으로 재시작한 SEC01에서 controller/costmap runtime dump를 함께 수집해 동일 조건 적용과 105 재발 여부를 확인하는 것이다.
+
+### 커밋·푸시 승인 및 최종 확인
+
+- 사용자 “이상태로 커밋푸쉬해” 요청으로 D-044~D-048 관련 현재 작업을 함께 커밋·푸시한다. 별도 untracked 작업 디렉터리 multirobottrafficcontrol/와 robotarm_harvest_communication/는 제외한다. sim/runs 원본 로그는 기존 ignore 정책대로 로컬 보존한다.
+- 최종 추가 검증: 기존 robot_venv에서 unittest로 Student 수확 처리 및 반복 감독자 12/12 통과, 셸 문법 및 git diff --check 정상. 앞선 주행 관련39개와 합계51개 통과. 시스템Python에는 torch, robot_venv에는 pytest가 없어 unittest로 실행했다. 반복 감독자 검사는 대역 시험이며 실제 SEC16 완주 결과가 아니다.
+- 커밋 전 원격 main=e735dc9를 직접 확인했다. 커밋 식별자와 최종 원격 반영 결과는 Git 기록 및 완료 응답을 따른다. 실행 프로세스 재시작은 하지 않는다.

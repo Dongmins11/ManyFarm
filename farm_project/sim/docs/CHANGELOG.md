@@ -2,6 +2,48 @@
 
 시뮬 전용 변경과 시뮬 통합에 필요한 공통 변경을 기록한다. 공통 변경은 사용자 승인 전 적용하지 않는다.
 
+
+
+
+## NAVIGATION-PARITY-20261020 — 실물 담당 브랜치와 주행 성공/실패 판정 비교
+
+- 승인/목적: 사용자 Hyaline-52 실물 브랜치와 공통·실물·시뮬 주행 정밀 비교 요청. 운영 소스/설정 변경 없이 분석한다.
+- 비교: 원격 최신 real6f21119, 이전afdcc05, main e735dc9+기존 sim override. 최신 real와 운영 소스/인터페이스130개 동일, 목표·진행 판정 기준 동일. 실제 제어 설정은 접근 lookahead0.1/0.4m, RPP stateful/끝점 연장, costmap/footprint 등 차이가 있다. 현재 main real도 실물 성공 설정과 다르다.
+- 증거/결론: PROJECT_STATE §81 및 runs/navigation_parity_20261020. 실패4회차 명시 controller 파라미터101개 일치, controller_server 실제105 기록, 기존 오프라인 시험38개 통과. 실물 런타임/바이너리·동적 설정은 미확인. 같은 판정만으로 공통 코드 결함을 확정하지 않는다.
+- 변경: 문서/분석 산출물만 추가. 공통/실물/sim 운영 동작 영향 없음. 되돌릴 경우 이번 문서 절과 비교 산출물만 제거하며 원본 시험 로그는 보존한다. 미커밋·미푸시.
+
+## SIM-ROS-DISCOVERY-20261020 — 후속 시험 Domain13/SUBNET
+
+- 승인: 사용자 “다음부터 시험할때 ROS Domain 13, 통신 범위 SUBNET”.
+- 대상: `tools/run_section_campaign.py`, `tools/continue_section_campaign.sh`, 기존 감독자 시험 fixture. 기본 Domain74→13, discovery LOCALHOST→SUBNET; 새 manifest에 discovery 범위를 기록한다. 현재 실행은 유지하며 후속 새 실행부터 적용한다. 공통/실물 설정 영향 없음.
+- 검증: 기존 감독자 회귀 시험과 셸 구문 확인. 실제 Domain13 관제 연결 시험은 아직 미실행이다. 복원은 해당 기본값/셸 인자만 역적용한다. 미커밋·미푸시.
+
+## SEC01-RETEST-20261020 — SEC01 단독 통합 재시험
+
+- 승인: 사용자 SEC01 재시험 요청. 소스·설정은 추가 수정하지 않고 D-044~046 적용본을 실행한다. 실물 영향 없음.
+- 기존 navfix 캠페인은 STOP 정상 종료·자료 보존. 새 `sim/runs/sec01_retest_20261020/`에서 SEC01 예찰→전체 window 수확, 실패 시 전체 Isaac/ROS 재기동·동일 SEC 재시도를 시작했다. SEC02 이후는 실행하지 않는다.
+- 10:28:20 KST 준비/10:28:29 예찰 Goal 전송과 실제 Nav2 수정 파라미터를 확인했다. 아직 SEC01 완료를 주장하지 않는다. 서비스 `farm-sec01-retest-20261020`, 상세 PROJECT_STATE §79. STOP 파일로 중단 가능. 미커밋·미푸시.
+
+## STUDENT-AVAILABLE-TARGETS-20261020 — 예찰 예상량과 무관하게 팔 관측 목록 수확
+
+- 승인: 사용자 “로봇팔 입장에서 할수있는만큼만 하고 넘어가야지 다음윈도우로”. D-040의 예찰 기대개수 일치 전제는 이번 요청으로 폐기한다.
+- 대상/전후: `farm_sim_devices/student_session.py`에서 expected_count 양수/영상 작업가능 개수의 동등성 조건을 제거했다. 기존3초 관측시간 후 팔 카메라로 확인된 익은 과실 중 기존 작업 범위를 통과한 목록만 실행한다. 적거나 많아도 수량 불일치로 실패하지 않는다. 목록0은 측정 정지/접힘 확인을 거쳐 SUCCESS/수확0/실패0으로 반환한다. 원래 expected_count는 요청·결과·로그의 참고값으로 보존한다. 실제 수확량은 기존 평행3빔 통과로만 센다. 주행·충돌·팔 제어/정지 실패는 기존 오류로 전달한다.
+- 영향: 공통 메시지/미션/실물/전달 vendor·가중치·작업 범위를 변경하지 않았다. 기존 공통 Action은 예상량과 실수확량이 달라도 SUCCESS를 전달하므로 시뮬 Student 어댑터만 수정했다. 기존 inventory_timeout_s 설정 이름은 호환을 위해 유지하며 현재 목록 확정 관측시간으로 사용한다.
+- 검증: assignment11·팔 세션19·팔 ROS9·캠페인 감독자1, 총40시험 통과. 예상량보다 적음/많음/예상0/작업범위 밖/관측0과 원래 예상9→실제0/1/2의 ROS 결과 보존을 검사했다. 실제 Isaac/ROS에서 예상1·작업가능0 요청은 sim4.4초에 SUCCESS/수확0/실패0/safe_stopped=true를 반환했다. 로그 `sim/runs/inventory_policy_20261020/zero_action.log`, 원본 `sim/runs/harvest_test_ui/20261020T002245_w_1q7wfa/`.
+- 이번 변경 추가 검증 기록: 실제0대상 시험의 최초 검증기는 ArmActionClient 반환 dict에 없는 expected_count를 조회해 해당 검사만 false였다. 원본 요청(request.json)의 expected_count=1로 정정한 독립 검증 `sim/runs/inventory_policy_20261020/zero_action_verified.json`에서10검사 통과를 확인했다. 최초 보고서는 보존했다. 새 서비스 `farm-section-campaign-20261020`는09:24 KST 시작했고 새 manifest의 Student 소스 SHA가 수정본과 일치함을 확인했다.
+- 반복 시험: 기존 `section_campaign_20261019`의 실패46건과 정책 교체를 위한 중단47회차는 보존한다. 구정책·신정책 자료를 섞지 않도록 새 `section_campaign_20261020`에서 SEC01부터 같은 반복 조건으로 재개한다. 실행기가 Student 세션 소스 SHA도 manifest에 기록하도록 보완했다.
+- 복원: 이번 student_session.py/시험/실행기 변경만 역적용한다. 새 캠페인은 STOP 요청 후 종료 확인/서비스 중지한다. 미커밋·미푸시.
+
+## SECTION-CAMPAIGN-20261019 — 16개 SEC 예찰·전체 window 수확 반복 시험
+
+- 승인/목적: 사용자 요청에 따라 SEC01~SEC16 각각 예찰 성공 후 반환된 모든 window를 수확한다. 중간 실패 시 자료를 보존하고 Isaac·ROS 전체를 종료/재기동하여 같은 SEC의 예찰부터 반복한다. 재시도 횟수 제한은 없다.
+- 대상: `sim/tools/run_section_campaign.py`, `sim/tools/continue_section_campaign.sh`, `sim/tests/test_section_campaign.py`. 공통 로봇 소스·운영 파라미터·실물 설정을 변경하지 않는다. 기준 HEAD `e735dc9`.
+- 시험 조건: 독립 ROS domain74/localhost, headless, RViz OFF, 태그 보정 ON, 현행 D435 Student 및 평행3빔, 기존 station 시작. 비교 가능한 독립 시도를 위해 성공 후 다음 SEC도 전체 스택을 새로 시작한다. 예찰 SUCCESS + 반환된 모든 수확 Action SUCCEEDED/SUCCESS/failed_count=0일 때 SEC 성공이다. 예상 수량과 실수확 수량의 일치를 별도로 강제하지 않으며 window0은 empty_harvest로 표시한다.
+- 자료: `sim/runs/section_campaign_20261019/` 아래 시도별 Action 전체 요청/피드백/결과, cmd_vel_nav/cmd_vel/odom/AMCL/TF/clock/ROS 경고, 실제 Nav2 파라미터, 프레임 성능, 호스트 GPU/프로세스 상태, ROS/Isaac 로그 및 기존 예찰/구동/팔/평가 산출물 사본. 실패 자료는 덮어쓰거나 삭제하지 않는다. 원본 설정 해시·실행 명령·PID·시각을 기록하고 summary/failure_analysis JSON으로 집계한다.
+- 지속 실행: 사용자 transient service `farm-section-campaign-20261019`가 현재 감독자 종료 후 배타 잠금을 얻어 체크포인트를 인계한다. 중단된 시도는 시스템 실패와 별도 표시하고 같은 SEC를 재시도한다. STOP 파일이 있으면 중단한다. 저장공간10GiB 미만이면 증거 보존을 위해 BLOCKED로 중단한다.
+- 검증: Python 컴파일/셸 구문/기존 ROS·비전 import/16SEC 설정 확인. 감독자 시험은 실패2회→같은 SEC 재시도→16SEC 완료/18시도·36프로세스 종료 호출·재개 시 성공SEC 재실행 없음/실패 자료 보존을 검증했다. 이는 실제 로봇 성공률 시험과 구분한다. 실제 첫 SEC01 예찰은 17:40 KST 시작; 캠페인 전체 완료는 아직 미확인이다.
+- 복원: 캠페인 폴더에 STOP 파일을 만들고 시험 종료/로그 보존을 확인한 후 사용자 서비스를 중지한다. 새 실행기/시험 파일 및 이 기록만 되돌린다. 실행 결과는 증거로 보존한다. 미커밋·미푸시.
+
 ## HARVEST-COMPLETION-PROFILE-20261016 — 이동 전용 실행 경로의 팔 생략 수정
 
 - 요청/범위: 팔 작업 없이 완료되는 현상 확인 요청. 실제 런치·서버 파라미터·로그로 ARRIVAL_ONLY_NO_HARVEST 선택 확인.
@@ -859,3 +901,29 @@
 - 검증: 오프라인69 PASS, 실제 PhysX 낙하14 PASS, 운영USD4+base2 좌표 일치, 시뮬2패키지 빌드 PASS. 전체 Student ROS 단일 수확은46.6167sim초에1회 계수 후69.4167초 SUCCESS/안전정지, 실제 feedback0→1/result1, 모든29개 검사 통과. 진단 timeout15초 조건은 PROJECT_STATE §73 및 이번 runs/verification.json 참조. 턴 중단으로 끝나지 않은 첫 실행은 통과로 세지 않는다.
 - 실물 영향/한계: 운영 모델 형상에만 센서 장착부를 추가했으며 실제 GPIO/PLC 입력·제품 규격·질량/관성·배포는 미확정. 종류·통과 방향·박스 잔류는 판정하지 않는다. 비교 Teacher 판정과 전달 모델 해시 기준 자산은 유지한다. 기본 초기 영상 지연 해결은 이번 범위가 아니다.
 - 복원/다음: 이번 before.json·before/로 해당 파일만 복구하고 새 파일2개만 제거한 뒤 시뮬2패키지 재빌드. 기존 Student/통신 작업 보존, 사용자 실행 프로세스 재시작·commit/push 없음. 다음 정상 재시작 때 적용하며 실물 센서는 별도 입력 드라이버가 필요하다.
+
+## SIM-ACTION-OUTCOME-20261020 — 실행 완료와 수확 실적 분리
+
+- 승인: 사용자 “윈도우에 도착하고 팔이 실행이 됐고 수확을 시도했으면 일단 성공 … expected 수와 harvested 수가 다른걸로 … 판단”. 최신 의미는 DECISIONS D-045/PROJECT_STATE §77.
+- 변경: `tools/run_section_campaign.py`의 ROS SUCCEEDED/result SUCCESS 외 failed_count==0 추가 조건을 제거했다. 예상량 부족/개별 수확 실패 수량만으로 정상 완료 window를 실패/재시도하지 않는다. 요청·피드백·결과의 수량은 보존한다. Student의 미션 중단/정지 미확인/주행 오류를 임의 SUCCESS로 변환하지 않는다. 현재 실행 worker는 시작 때 읽은 조건을 사용하며 다음 worker부터 새 시험 조건을 읽는다.
+- 검증: `tests/test_student_assignment.py`에 원래 예상9/수확1/개별실패2의 정상 ROS SUCCESS 전달을 추가했다. assignment11·캠페인1시험, Python 컴파일·diff 확인 통과. 공통/실물/Student vendor 파일은 변경하지 않았다.
+- 복원: 이번 실행기 조건과 추가 검증만 역적용한다. 실행 중인 캠페인/기존 로그는 유지한다. 미커밋·미푸시.
+
+## HARVEST-ENDPOINT-105-20261020 — sim 끝점 추종과 위치 재접근 설정
+
+- 승인/범위: 사용자 “원인이 … 시뮬레이션 세팅문제같은데 … 역할을 못하고” 원인 규명/해소 요청. 공통/실물/자산/물성을 수정하지 않고 sim 수확 Nav2 환경 override만 변경했다. DECISIONS D-046/PROJECT_STATE §78.
+- 원래 설정: 실패44회차 진입 경로를 그대로 재현하여 목표38.12mm 안으로 들어온 뒤56.65mm로 이탈, 직진0/미세 회전 반복, sim188.48초에105를 확인했다. 일정 ±0.05rad/s 입력은 같은 실패 자세에서 실제+10.54°/-10.92° 회전했다. 따라서 이번 목표 근처105를 바퀴가 전혀 못 도는 물리 문제로 설명하지 않는다.
+- 수정: `ros_ws/src/farm_sim_config/config/nav2_harvest.yaml`의 RPP/HarvestApproach/HarvestWork stateful=false. HarvestApproach/HarvestWork interpolate_curvature_after_goal=false. 경계 이탈 후 실제 끝점으로 재접근하도록 한다. 도착4cm/2.5°와 progress10cm/0.1rad/20초는 그대로다. stateful 해제만 한 비수렴 후보와 중간 동적 변경 후105도 모두 보존했다.
+- 검증: 두 설정을 처음부터 적용한 동일 실제 경로1/1 SUCCEEDED/error0, 실제 예찰 연속3 window의 Nav2 직접 이동3/3 SUCCEEDED/error0. 이 window fixture에서는 station node_id 불일치로 공통 HarvestNode가 종료했으므로 공통 수확/팔 성공 검증으로 확대하지 않는다. 기존 BT5/staged config6/Action config7 =18검사 PASS와 canonical 환경 로더의 기준값 보존 확인. 후속 전체 캠페인으로 통합 검증을 계속한다.
+- 자료/재개: `runs/navigation_105_20261020/comparison.json`과 각 case 원본. 이전 캠페인은 관리 중단/자료 보존 후 `runs/section_campaign_20261020_navfix`를 새 서비스에서 시작했다. 복원은 이번 nav2_harvest.yaml overrides만 제거한 뒤 시험 스택을 재시작한다. 미커밋·미푸시.
+
+
+## 2026-10-20 — 최신 실물 주행 기준을 공통 설정에 반영 (D-048)
+
+- 구분/승인: 공통·실물·시뮬 수확 주행 설정 변경. 사용자 “실물 기준으로 반영해” 승인. 운영 공통 소스는 변경하지 않는다.
+- 대상: robot/config/navigation/{harvest_nav2.yaml,harvest_task.yaml}, robot/config/robots/vicpinky/nav2.yaml, sim/ros_ws/src/farm_sim_config/config/nav2_harvest.yaml; 기존 test_entry_controller.py/test_harvest_arm_geometry.py 기대값 갱신; DECISIONS/PROJECT_STATE 갱신.
+- 이유/전후: bf10fcd 시점 기본값으로 남은 접근 추종40cm→10cm, local costmap5cm→2cm, footprint70×60cm→60×50cm+padding2cm, 접근 시작점 허용10cm→20cm. 최신 실물6f21119를 공통 기준으로 삼는다. D-046 sim 전용 override를 제거해 실물과 같은 RPP 옵션을 사용한다. 실물 costmap의 절대 scan 토픽도 담당자 설정과 일치시킨다.
+- 실물 영향: 현재 main real의 다음 launch에 새 공통 설정 및 scan remap 입력이 반영된다. 물리 장비에 배포하거나 프로세스를 재시작하지 않았다. 지도·장치별 연결은 기존 환경을 유지한다.
+- 검증: 병합 Nav2 main real↔6f21119 차이0; sim 제어/속도 동일, 환경 연결 차이14개만 허용. 접근 설정 양쪽0.2m. 관련 기존 검사39/39 통과. 최초 ROS 환경 누락 및 이전 기대값2건 실패도 로그 보존. 실제 주행/105 해소는 미검증.
+- 자료/복원: sim/runs/navigation_parity_20261020/real_baseline_apply/에 이번 변경 전 파일 before.json, 비교/검사 로그, 변경분 changes.patch를 보존한다. 이번 변경만 복원할 때 해당 패치를 역적용하며 기존 Student/시험 실행기 등 다른 미커밋 작업은 보존한다.
+- 실행 중 시험에는 hot reload하지 않았다. 다음 신규 launch부터 반영되므로 기존 조건 결과와 혼합하지 않는다. 후속 시험 통신은 domain13/SUBNET. 미커밋·미푸시.

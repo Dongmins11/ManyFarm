@@ -11,3 +11,17 @@ bindings:
     y: 0.357
     z: 0.0
     yaw: -1.5707963267948966
+overrides:
+  # 실물 launch의 절대 토픽 remap을 사용해 costmap 하위 namespace를 피한다.
+  local_costmap:
+    local_costmap:
+      ros__parameters:
+        voxel_layer:
+          scan:
+            topic: /scan_filtered
+  global_costmap:
+    global_costmap:
+      ros__parameters:
+        obstacle_layer:
+          scan:
+            topic: /scan_filtered

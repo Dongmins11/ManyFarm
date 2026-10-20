@@ -121,6 +121,24 @@ class StudentCompletionTests(unittest.TestCase):
 
 
 class PassageFeedbackTests(unittest.TestCase):
+    def test_partial_or_zero_result_keeps_advisory_expected_count(self):
+        from test_arm_ros import ArmRosTests
+        for actual, missed in ((0, 0), (1, 0), (2, 0), (1, 2)):
+            with self.subTest(actual=actual, missed=missed):
+                bridge = ArmRosTests()
+                bridge.setUp()
+                def peer(message):
+                    if message['op'] == 'start':
+                        bridge.observe()
+                    elif message['op'] == 'keepalive':
+                        bridge.observe('SUCCESS', counts=(actual, missed))
+                bridge.hook = peer
+                self.assertTrue(bridge.server.accept(bridge.handle.request))
+                result = bridge.server.execute(bridge.handle)
+                self.assertEqual(result.expected_count, 9)
+                self.assertEqual((result.result_code, result.harvested_count, result.failed_count),
+                                 ('SUCCESS', actual, missed))
+
     def test_three_beam_passage_reaches_feedback_and_result_once(self):
         from farm_sim_devices.basket_laser import PassageCounter
         from test_arm_ros import ArmRosTests
@@ -155,29 +173,55 @@ class PassageFeedbackTests(unittest.TestCase):
 
 
 class StudentInventoryTests(unittest.TestCase):
-    def test_missing_and_extra_detections_cannot_use_truth_to_complete_list(self):
+    def test_camera_workspace_targets_are_independent_of_scout_count(self):
         root = Path(__file__).resolve().parents[2]
         sys.path.insert(0, str(root/'sim/assets/robotarm_student/manyfarm_robotarm/src/harvest_robot'))
-        for count in (0, 2):
-            with self.subTest(visible=count):
+        for expected, count, inside in ((1, 0, True), (1, 1, False), (3, 1, True),
+                                        (1, 2, True), (0, 1, True)):
+            with self.subTest(expected=expected, visible=count, inside=inside):
                 arm = object.__new__(StudentArmSession)
                 arm.controller = SimpleNamespace(
                     rig=SimpleNamespace(last=True, capture=lambda: {}),
                     camera=SimpleNamespace(roi=[[-1]*3, [1]*3], observe=lambda c, t: ({}, [])),
-                    profile=dict(inventory_timeout_s=3.))
-                arm.job = dict(expected_count=1)
+                    profile=dict(inventory_timeout_s=3., assignment_gate_m=.06, assignment_ambiguity_m=.02),
+                    config={}, kin=Mock(), contract={})
+                arm.job = dict(expected_count=expected)
                 arm._directory = None
                 arm._inventory_start = 0.
                 arm._log, arm._stop = Mock(), Mock()
-                arm.device = SimpleNamespace(candidates=Mock(side_effect=AssertionError('truth before camera assignment')),
+                arm._all_attempted = set()
+                arm._dock_arm = None
+                arm.state = dict(success_count=0, failed_count=0)
+                arm.device = SimpleNamespace(candidates=Mock(return_value=[]),
                     config=dict(workspace_arm_min_m=[0, -1, -1], workspace_arm_max_m=[1, 1, 1],
                                 home_tcp_arm_m=[0, 0, 0], near_home_min_m=.09, near_home_max_m=1.))
-                tracks = {str(i): dict(valid=True, label='Red', position_m=[.3, 0, .2]) for i in range(count)}
+                tracks = {str(i): dict(valid=True, label='Red', position_m=[.3, 0 if inside else 1.1, .2])
+                          for i in range(count)}
                 tracker = SimpleNamespace(update=lambda d, t: None, snapshot=lambda t: tracks)
-                with patch('harvest_vision.student60_tracking.AssignedFruitTracker', return_value=tracker):
+                with patch('harvest_vision.student60_tracking.AssignedFruitTracker', return_value=tracker), \
+                        patch('farm_sim_devices.student_session.map_outcomes',
+                              return_value={str(i): '/fruit'+str(i) for i in range(count)}) as mapping, \
+                        patch('farm_sim_devices.student_session.mission_session'), \
+                        patch('harvest_runtime.student60_mission.StudentHarvestMission') as mission:
+                    arm._inventory(1.)
+                    mission.assert_not_called()
+                    arm._stop.assert_not_called()
+                    arm.device.candidates.assert_not_called()
+                    mission.return_value.targets = [SimpleNamespace(target_id=str(i)) for i in range(count)]
                     arm._inventory(3.1)
-                self.assertEqual(arm._stop.call_args.args[2], 'STUDENT_INVENTORY_INCOMPLETE')
-                arm.device.candidates.assert_not_called()
+                self.assertEqual(arm.job['expected_count'], expected)
+                self.assertEqual((arm.state['success_count'], arm.state['failed_count']), (0, 0))
+                if count and inside:
+                    arm._stop.assert_not_called()
+                    self.assertEqual(len(mission.call_args.args[1]), count)
+                    self.assertTrue(mission.call_args.kwargs['task_list_complete'])
+                    self.assertEqual(arm.state['stage'], 'STOW_WAIT')
+                else:
+                    self.assertEqual(arm._stop.call_args.args[1:],
+                        ('SUCCESS', '', 'student_no_reachable_targets_arms_stowed'))
+                    arm.device.candidates.assert_not_called()
+                    mission.assert_not_called()
+                    mapping.assert_not_called()
 
 
 if __name__ == '__main__':

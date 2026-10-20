@@ -16,7 +16,10 @@ class EntryController(unittest.TestCase):
             self.assertEqual(goal.progress_checker_id, 'progress_checker')
         entry = asdict(node.client._settings)
         work = asdict(node.work_client._settings)
-        self.assertEqual({k for k in entry if entry[k] != work[k]}, {'controller_id'})
+        self.assertEqual({k for k in entry if entry[k] != work[k]},
+                         {'controller_id', 'max_start_distance_m'})
+        self.assertEqual(entry['max_start_distance_m'], .2)
+        self.assertEqual(work['max_start_distance_m'], .1)
 
     def test_exit_and_same_section_keep_work_controller(self) -> None:
         node = construct()
@@ -124,8 +127,8 @@ class EntryController(unittest.TestCase):
         data = load_nav2_parameters(ROOT/'robot/config/robots/vicpinky/nav2.yaml', ROOT)
         params = data['controller_server']['ros__parameters']
         self.assertIn('HarvestApproach', params['controller_plugins'])
-        expected = dict(params['RPP'], use_fixed_curvature_lookahead=True,
-                        curvature_lookahead_dist=0.4, interpolate_curvature_after_goal=True)
+        expected = dict(params['RPP'], lookahead_dist=0.1, use_fixed_curvature_lookahead=True,
+                        curvature_lookahead_dist=0.1, interpolate_curvature_after_goal=True)
         self.assertEqual(params['HarvestApproach'], expected)
         self.assertTrue(expected['use_collision_detection'])
         checker = params['general_goal_checker']

@@ -273,3 +273,37 @@ D-026 반복 검증 보완(2026-10-14): CPU/GPU 각2회 추가에서 둘 다1성
 - 운영 URDF와 두 USD base layer에 헤드/광축을 저장한다. USD 참조를 통해 기본/flat/tire 계열에 적용하며 기존 링크·관절·질량·drive 값은 보존한다. vendor/학습 검증용 자산을 같은 파일명이라는 이유로 변경하지 않는다.
 - 실제 배출 허가 뒤 비차단50ms → 어느 빔이든 차단 → 모두 비차단50ms를 한 시도당 한 번 집계한다. 평행 빔은 방향/종류를 식별하지 않으며 동시 세 빔 차단을 세 과실로 세지 않는다. 기존 success_count/feedback/result/arm_feedback 적재 누적을 사용한다. 좌표 안착을 성공으로 만들지 않고 안전 감시와 접힘 확인은 유지한다.
 - 적용·검증·제약은 PROJECT_STATE §73. 실물 GPIO/PLC 입력/배포, 기본 초기 영상 지연 해결, Teacher 비교 판정 교체는 이번 범위가 아니다.
+
+### D-044 — 예찰 예상량은 참고값, Student는 팔에서 관측한 작업 가능 목록만 실행 (2026-10-20)
+
+- 사용자 “로봇팔 입장에서 할수있는만큼만 하고 넘어가야지 다음윈도우로” 지시로 D-040의 기대개수 일치를 필수 조건으로 삼은 구현을 정정한다. 예상량 부족/초과만으로 window를 실패 처리하지 않는다.
+- Student는 기존3초 관측 뒤 팔 카메라에서 확인한 빨강/노랑 중 기존 작업 범위에 들어온 목록을 확정하고 실행한다. 0개면 팔 접힘·측정 정지 확인 후 SUCCESS/수확0으로 다음 window에 넘긴다. 예상량은 보존하며 실제 수확량은 센서 통과 집계를 사용한다.
+- 예상량 차이를 실제 failed_count로 만들어내지 않는다. 실제 주행·팔/충돌·정지 실패는 기존 계약으로 전달한다. 공통/실물·vendor 모델·작업 범위는 변경하지 않으며 sim Student 어댑터에 적용한다. 근거와 검증은 PROJECT_STATE §76.
+
+### D-045 — sim 수확 Action의 실행 완료와 수확 실적을 분리 (2026-10-20)
+
+- 사용자 정의: 주행 실패나 버그/오류로 동작이 중단된 경우 FAILED. window에 도착하고 팔의 수확 시도를 정상 종료했으면 실제 수확량이 예상량보다 부족해도 SUCCESS를 반환한다. 팔의 접힘·안전 정지 확인은 정상 종료 계약에 포함한다.
+- expected_count와 harvested_count의 차이는 예상 대비 누락 수량을 판단하는 실적 데이터다. 개별 failed_count도 정상 종료 Action을 다시 FAILED로 바꾸는 조건이 아니다. 0대상 처리 방식은 D-044를 유지한다.
+- sim 반복 시험의 failed_count==0 통과 조건도 제거한다. Action status SUCCEEDED/result SUCCESS이면 다음 window로 진행하며 요청·피드백·결과의 수량은 원형 보존한다. 팔 미션이 실제 STOPPING/FAILED로 중단된 시간초과/충돌/통신/정지 오류는 기존 실패를 전달한다. 이번에는 sim 시험 실행기와 관련 회귀 검증·문서만 변경했으며 공통/실물/vendor 소스 변경은 없다.
+
+### D-046 — sim 수확 RPP 끝점 추종·위치 재접근 설정 (2026-10-20)
+
+- 사용자105 재발 원인 규명/해소 요청에 따라 sim 설정만 조정한다. 바퀴 형상/질량/마찰·실물·공통 Nav2 기본값, 도착4cm/2.5°와 PoseProgressChecker10cm/0.1rad/20초는 유지한다.
+- 동일 실패 위치의 일정 회전 입력은 실제 회전을 만들었다. 원래 HarvestApproach 경로에서 RPP가3.8cm에 진입한 뒤5.3cm로 벗어나도 직진을 재개하지 않는105를 직접 재현했다. RPP.stateful만 해제한 후보는 끝점 이후 연장 추종으로 비수렴했고, 중간 옵션 변경 후에도105였다. 처음부터 위치 재접근 허용과 실제 끝점 추종을 함께 적용한 후보는 같은 경로를 SUCCEEDED/error0으로 통과했다.
+- sim의 RPP/HarvestApproach/HarvestWork stateful=false. HarvestApproach/HarvestWork interpolate_curvature_after_goal=false로 목표점을 지나치는 연장 추종을 제거한다. 반경/시간을 늘려 진행 실패를 숨기지 않는다.
+- 실제 예찰의 연속3 window 좌표 Nav2 이동도3/3 SUCCEEDED. 팔 실행이나16SEC 완주 검증으로 확대하지 않는다. 상세 실패/기각 후보/시험 fixture 제약과 재개 시험은 PROJECT_STATE §78 및 비교 JSON에 남긴다.
+
+
+### D-047 — 후속 시뮬 시험의 ROS 통신 기본값 (2026-10-20)
+
+- 사용자 명시 지시: 다음 시험부터 ROS_DOMAIN_ID=13, ROS_AUTOMATIC_DISCOVERY_RANGE=SUBNET을 사용한다. 반복 시험 실행기 기본 domain과 재개 셸의 명시 인자에 적용하며 새 manifest에 discovery 범위를 기록한다.
+- 이미 실행 중인 SEC01 시험(domain74/LOCALHOST)은 중단하거나 변경하지 않는다. 관제 브리지·작업 등록은 별도이며 이 통신 기본값만으로 연결 완료를 주장하지 않는다. 공통/실물 설정은 변경하지 않는다.
+
+
+### D-048 — 최신 실물 수확 주행 설정을 공통 기준에 반영 (2026-10-20)
+
+- 승인: 사용자 “실물 기준으로 반영해”. 기준은 Hyaline-52 작성 `feat/harvest-handoff-real-20261018`의 `6f21119edb2ac3bfa25cb3eb45fad8d6dd03018b`. 기존 동일 조건 지시에 맞춰 실물 현장 조정 중 주행 설정을 공통 기본값에 반영한다.
+- `robot/config/navigation/harvest_nav2.yaml`: HarvestApproach lookahead/curvature 0.4→0.1m, local costmap resolution 0.05→0.02m, local/global footprint 0.70×0.60→0.60×0.50m, padding 0.02m 명시. `harvest_task.yaml`: approach_max_start_distance_m=0.2를 공통으로 명시한다.
+- D-046의 sim 전용 RPP stateful=false 및 접근/작업 interpolate_curvature_after_goal=false override를 제거한다. 접근/작업 연장 추종은 공통 true, RPP stateful은 실물 브랜치와 같이 미지정이다(현재 로컬 Nav2 1.3.12 기본 true). StationReverse의 기존 전용 설정은 보존한다.
+- 실물 vicpinky Nav2에는 담당자 브랜치의 costmap `/scan_filtered` 연결만 환경 override로 반영한다. 지도·태그·초기 pose·TF·장치·시계는 각 환경 것을 유지하고 수확 실행 정책·팔·예찰 설정은 변경하지 않는다. 공통 운영 Python/C++ 코드는 수정하지 않는다.
+- 환경별 공통 파일 참조만으로 동등성을 판단하지 않고 병합 후 값을 대조한다. 이번 main real Nav2는 기준 브랜치와 전 항목 동일, sim 제어기/속도 설정도 동일하며 남은 14개 차이는 환경 bindings다. 적용·검증 범위는 PROJECT_STATE §82. 실제 실물 설치 버전/동적 파라미터와 105 해소는 별도 검증 대상이다.

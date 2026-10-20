@@ -196,7 +196,8 @@ class HarvestArmGeometryTests(unittest.TestCase):
                              'nav2_regulated_pure_pursuit_controller::RegulatedPurePursuitController')
             self.assertTrue(parameters[name]['use_fixed_curvature_lookahead'])
             self.assertTrue(parameters[name]['interpolate_curvature_after_goal'])
-            self.assertEqual(parameters[name]['curvature_lookahead_dist'], .4)
+            self.assertEqual(parameters[name]['curvature_lookahead_dist'],
+                             .1 if name == 'HarvestApproach' else .4)
         self.assertLess(nav['arrival_tolerance_m'], .06)
         self.assertEqual(controller['velocity_smoother']['ros__parameters']['deadband_velocity'], [0, 0, 0])
         # 20Hz에서 최소 접근속도 0.05m/s의 1step 이동량은 2.5mm로 40mm gate보다 작습니다.

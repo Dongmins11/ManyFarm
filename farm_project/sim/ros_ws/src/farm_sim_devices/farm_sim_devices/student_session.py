@@ -178,9 +178,6 @@ class StudentArmSession(ArmSession):
             if not self.travel_ready:
                 self._stop(now, 'FAILED', 'ARM_NOT_STOWED', 'initial_measured_stow_required')
                 return
-            if self.job['expected_count'] <= 0:
-                self._stop(now, 'FAILED', 'STUDENT_INVENTORY_REQUIRED', 'nonempty_complete_target_count_required')
-                return
             self.controller.rig.set_active(True)
             camera = self.controller.camera
             base = self.controller.kin.fk(np.zeros(6), 'arm_2/base_link')
@@ -293,9 +290,12 @@ class StudentArmSession(ArmSession):
             task_workspace_max_m=self.device.config['workspace_arm_max_m'],
             targets=[dict(target_id=t.target_id, label=t.label, anchor_arm_m=t.anchor_arm_m) for t in targets],
             detections=[{k: d.get(k) for k in ('label', 'confidence', 'candidate_valid', 'candidate_reason', 'grasp_estimate_arm_m', 'bbox')} for d in detections])
-        if len(targets) != self.job['expected_count']:
-            if now-self._inventory_start >= runtime.profile['inventory_timeout_s']:
-                self._stop(now, 'FAILED', 'STUDENT_INVENTORY_INCOMPLETE', 'camera_count_does_not_match_assigned_count')
+        # 예찰 예상량은 참고값이다. 관측 시간을 확보한 뒤 팔 카메라에서 확인한
+        # 작업 가능 목록만 확정하며, 예상량과의 차이로 작업을 거부하지 않는다.
+        if now-self._inventory_start < runtime.profile['inventory_timeout_s']:
+            return
+        if not targets:
+            self._stop(now, 'SUCCESS', '', 'student_no_reachable_targets_arms_stowed')
             return
         # 영상 목표 목록 확정 뒤 outcome만 실제 prim에 대응한다. truth로 빈 목록을 채우지 않는다.
         candidates = self.device.candidates(self._all_attempted)
