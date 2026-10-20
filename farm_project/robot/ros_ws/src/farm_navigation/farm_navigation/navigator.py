@@ -20,10 +20,14 @@ from .arrival import measure_arrival, arrival_description
 
 class Navigator:
     def __init__(self, node: Node, settings: NavigationSettings, client: Nav2Client,
-                 poses: PoseProvider, motion: MotionMonitor, check: Callable[[],None],
+                 poses: PoseProvider | None, motion: MotionMonitor, check: Callable[[],None],
                  graph: RouteGraph | None = None,
                  record: Callable[[dict[str,Any]],None] | None = None,
-                 route_planner: Any = None) -> None:
+                 route_planner: Any = None, *,
+                 explicit_routes: bool = False,
+                 stop_output: Callable[[], None] | None = None,
+                 settling_check: Callable[[], None] | None = None,
+                 arrival_validator: Callable[[int, Callable[[], None]], dict[str, Any]] | None = None) -> None:
         self._node=node
         self._settings=settings
         self._client=client
@@ -33,12 +37,23 @@ class Navigator:
         self._graph=graph
         self._route_planner=route_planner
         self._record=record
+        self._explicit_routes=explicit_routes
+        self._stop_output=stop_output
+        self._settling_check=settling_check or check
+        self._arrival_validator=arrival_validator
+        if (stop_output is not None or arrival_validator is not None or settling_check is not None) and not explicit_routes:
+            raise ValueError('출력 차단·별도 완료 판정은 명시적 경로 실행에서만 지정합니다.')
+        if explicit_routes and (settings.mode != 'follow_path' or settings.parallel_approach
+                                or graph is not None or route_planner is not None):
+            raise ValueError('명시적 경로 실행에는 그래프·평행 접근을 함께 지정하지 않습니다.')
+        if poses is None and (arrival_validator is None or settings.tf_recovery_enabled):
+            raise ValueError('TF 위치 조회 또는 명시적 완료 판정기가 필요합니다.')
         if settings.tf_recovery_enabled:
             client.set_recovery_probe(lambda: poses.recovery_ready() and motion.stationary_now())
         self._lock=threading.Lock()
         self._status=NavigationStatus()
         self._needs_stop_confirmation=False
-        if settings.mode=='follow_path' and graph is None and route_planner is None:
+        if settings.mode=='follow_path' and graph is None and route_planner is None and not explicit_routes:
             raise ValueError('follow_path 모드에는 경로 그래프가 필요합니다.')
 
     @property
@@ -53,6 +68,7 @@ class Navigator:
         """명령을 보내지 않고 경로만 계산합니다. pose 모드는 Nav2가 계획합니다."""
         self._check()
         if self._settings.mode=='navigate_to_pose': return None
+        if self._explicit_routes: raise ValueError('호출자가 계산한 RoutePlan이 필요합니다.')
         actual=self._poses.current(self._check)
         if self._route_planner is not None:
             return self._route_planner.plan((float(actual[0,3]),float(actual[1,3])),xy,self._check)
@@ -81,6 +97,8 @@ class Navigator:
             if self._record is not None: self._record(entry)
             if reverse and (route_plan is None or self._settings.mode != 'follow_path'):
                 raise ValueError('후진 실행에는 명시적 FollowPath 경로가 필요합니다.')
+            if self._explicit_routes and route_plan is None:
+                raise ValueError('명시적 RoutePlan 누락')
             plan = route_plan
             if route_plan is not None:
                 if (route_plan.frame_id != self._settings.map_frame or not route_plan.points
@@ -156,10 +174,16 @@ class Navigator:
             entry['nav2_status']=self._client.execute(target,yaw,path,self._check)
             self._status=NavigationStatus(request_id,'SETTLING',plan_id)
             entry['status']='SETTLING'
-            stamp=self._motion.wait_stopped(self._check)
-            transform=self._poses.lookup(self._settings.map_frame,self._settings.base_frame,stamp,self._check)
-            measured=measure_arrival(transform,target,yaw,self._settings.arrival_tolerance_m,self._settings.heading_tolerance_rad)
+            if self._stop_output is not None: self._stop_output()
+            stamp=self._motion.wait_stopped(self._settling_check)
+            if self._arrival_validator is None:
+                transform=self._poses.lookup(self._settings.map_frame,self._settings.base_frame,stamp,self._check)
+                measured=measure_arrival(transform,target,yaw,self._settings.arrival_tolerance_m,self._settings.heading_tolerance_rad)
+            else:
+                measured=self._arrival_validator(stamp,self._settling_check)
             entry.update(measured,stamp_ns=stamp,finished_at=datetime.now(timezone.utc).isoformat())
+            if self._arrival_validator is not None and measured.get('accepted') is not True:
+                raise RuntimeError('정지 후 목표 오차 초과')
             # 잔여 자세 오차는 진단값이다. 완료·정지가 확인된 이동의 다음 출발을 막지 않는다.
             if not measured['accepted']:
                 self._node.get_logger().warning('정지 후 도착 오차 기록: '+arrival_description(measured))
@@ -167,7 +191,11 @@ class Navigator:
             self._status=NavigationStatus(request_id,'ARRIVED',plan_id)
             entry['status']='ARRIVED'
             return NavigationResult(request_id,plan_id,stamp,measured)
-        except Exception as error:
+        except BaseException as error:
+            # 실패 즉시 릴레이를 닫는다. Goal 취소·정지 확인 책임은 cancel_nav에 남긴다.
+            if self._needs_stop_confirmation and self._stop_output is not None:
+                try: self._stop_output()
+                except Exception as stop_error: entry['stop_output_error']=str(stop_error)
             self._status=NavigationStatus(request_id,'INTERRUPTED',plan_id,str(error))
             entry.update(status='INTERRUPTED',error=str(error))
             # 목표 실행 또는 종료 확인 실패 때 Goal/정지 플래그를 유지합니다.
@@ -182,10 +210,16 @@ class Navigator:
         try:
             if self._route_planner is not None:
                 self._route_planner.cancel()
+            stop_error=None
+            if self._needs_stop_confirmation and self._stop_output is not None:
+                try:self._stop_output()
+                except Exception as error:stop_error=error
+            # 출력 차단 콜백 실패가 자신의 Goal 취소까지 건너뛰게 하지 않는다.
             self._client.cancel()
             if self._needs_stop_confirmation:
                 self._status=NavigationStatus(self._status.request_id,'STOPPING',self._status.plan_id)
                 self._motion.wait_stopped(lambda: None)
+                if stop_error is not None:raise stop_error
                 self._needs_stop_confirmation=False
                 self._status=NavigationStatus(self._status.request_id,'STOPPED',self._status.plan_id)
         finally:

@@ -77,7 +77,7 @@ class Nav2Client:
         finally:
             if not future.done(): self._parameters.remove_pending_request(future)
 
-    def preflight(self, check: Callable[[],None]) -> dict[str,Any]:
+    def preflight(self, check: Callable[[],None], *, wall_parameters: dict[str,Any] | None = None) -> dict[str,Any]:
         s=self._settings
         client=self._follow if s.mode=='follow_path' else self._navigate
         deadline=time.monotonic()+s.readiness_timeout_s
@@ -92,15 +92,26 @@ class Nav2Client:
             for name,value in [('goal_checker_plugins',s.goal_checker_id),('controller_plugins',s.controller_id),('progress_checker_plugins',s.progress_checker_id)]:
                 if value not in (values.get(name) or []): raise RuntimeError(f'{name}에 {value}가 없습니다.')
             ids=[s.goal_checker_id]
-        values.update(self._read_parameters([f'{name}.{key}' for name in ids for key in ('plugin','xy_goal_tolerance','yaw_goal_tolerance','stateful','symmetric_yaw_tolerance')],check))
+        # 먼저 종류만 읽는다. 미선언 파라미터가 섞이면 실제 ROS는 전체 요청을 실패시킨다.
+        values.update(self._read_parameters([f'{name}.plugin' for name in ids],check))
+        standard_ids=[name for name in ids if values.get(f'{name}.plugin') in
+                      ('nav2_controller::SimpleGoalChecker','nav2_controller::StoppedGoalChecker')]
+        if standard_ids:
+            values.update(self._read_parameters([f'{name}.{key}' for name in standard_ids
+                for key in ('xy_goal_tolerance','yaw_goal_tolerance','stateful','symmetric_yaw_tolerance')],check))
         stopped_ids = [name for name in ids if values.get(f'{name}.plugin') == 'nav2_controller::StoppedGoalChecker']
         if stopped_ids:
             values.update(self._read_parameters([f'{name}.{key}' for name in stopped_ids
                 for key in ('trans_stopped_velocity', 'rot_stopped_velocity')]
                 + ['min_x_velocity_threshold', 'min_y_velocity_threshold', 'min_theta_velocity_threshold'], check))
+        if wall_parameters is not None:
+            if s.mode != 'follow_path': raise ValueError('벽 완료 판정은 명시적 FollowPath 전용입니다.')
+            if values.get(f'{s.goal_checker_id}.plugin') != 'farm_wall_controller::WallGoalChecker':
+                raise ValueError('선택한 벽 완료 판정기 종류 불일치')
+            values.update(self._read_parameters([f'wall_alignment.{key}' for key in wall_parameters],check))
         checked=dict(values,goal_checker_plugins=ids)
         checkers=validate_goal_checkers(checked,s.arrival_tolerance_m,s.heading_tolerance_rad,
-            stopped_linear_limit=s.stopped_linear_mps, stopped_angular_limit=s.stopped_angular_rps)
+            stopped_linear_limit=s.stopped_linear_mps, stopped_angular_limit=s.stopped_angular_rps, wall_parameters=wall_parameters)
         return {'mode':s.mode,'controller_node':s.controller_node,'parameters':values,'checkers':checkers,'status':'OK'}
 
     def set_recovery_probe(self, probe: Callable[[], bool]) -> None:

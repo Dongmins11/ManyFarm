@@ -23,6 +23,7 @@ def validate_goal_checkers(
     parameters: dict[str, Any], position_limit: float, heading_limit: float, *,
     stopped_linear_limit: float = NavigationSettings.stopped_linear_mps,
     stopped_angular_limit: float = NavigationSettings.stopped_angular_rps,
+    wall_parameters: dict[str, Any] | None = None,
 ) -> list[dict[str, Any]]:
     """Nav2의 도착 기준이 최종 위치·방향·정지 검사보다 느슨하지 않은지 확인합니다.
 
@@ -38,6 +39,26 @@ def validate_goal_checkers(
     for checker in ids:
         get = lambda suffix: parameters.get(f'{checker}.{suffix}')
         plugin = get('plugin')
+        if plugin == 'farm_wall_controller::WallGoalChecker' and wall_parameters is not None:
+            get = lambda suffix: parameters.get(f'wall_alignment.{suffix}')
+            required={'target_distance','target_angle','distance_tolerance','angle_tolerance',
+                      'stopped_linear','stopped_angular','dwell'}
+            if not required <= wall_parameters.keys():
+                raise NavigationConfigurationError('벽 완료 판정 기준 누락')
+            for name, expected in wall_parameters.items():
+                if isinstance(expected, bool):
+                    valid = get(name) is expected
+                else:
+                    valid = (isinstance(expected, (int,float)) and math.isfinite(expected)
+                             and not isinstance(get(name), bool) and get(name) == expected)
+                if not valid: raise NavigationConfigurationError(f'{checker}.{name}: 요청한 벽 설정과 불일치')
+            if (positive_number(get('distance_tolerance'),'distance_tolerance') > position_limit
+                    or positive_number(get('angle_tolerance'),'angle_tolerance') > heading_limit
+                    or positive_number(get('stopped_linear'),'stopped_linear') > stopped_linear_limit
+                    or positive_number(get('stopped_angular'),'stopped_angular') > stopped_angular_limit):
+                raise NavigationConfigurationError('벽 완료/정지 허용오차 불일치')
+            checkers.append(dict(id=checker, plugin=plugin, **wall_parameters))
+            continue
         if plugin not in ('nav2_controller::SimpleGoalChecker', 'nav2_controller::StoppedGoalChecker'):
             raise NavigationConfigurationError(f'{checker}: unsupported goal checker {plugin!r}')
         xy = positive_number(get('xy_goal_tolerance'), f'{checker}.xy_goal_tolerance')

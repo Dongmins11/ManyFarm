@@ -25,6 +25,8 @@ from harvest_robot.staged_navigation import StagedNavigation, load_sections
 from harvest_robot.contract import validate_task
 from harvest_robot.configuration import load_harvest_config, approach_navigation_settings
 from farm_common.action_handoff import ActionHandoff
+from harvest_robot.arm_client import configured_arm_settings
+from harvest_robot.harvest_load import HarvestLoad
 
 GRAPH_FIXTURE = Path(__file__).parent/"fixtures/navigation_graph_20261007.geojson"
 
@@ -184,6 +186,7 @@ def construct(mode: str='route_then_follow', approach: str='graph',
         env=dict(__name__='harvest_robot._follow_verify',__package__='harvest_robot',
             Node=Node,Path=Path,load_environment=fixture_environment,resolve_file=resolve_file,read_mapping=read_mapping,
             load_harvest_config=harvest_mapping, approach_navigation_settings=approach_navigation_settings,
+            configured_arm_settings=configured_arm_settings, HarvestLoad=HarvestLoad,
             ActionHandoff=ActionHandoff, StationReturn=lambda *a, **k:NS(), Callable=Callable,
             NavigationSettings=NavigationSettings,RouteGraph=RouteGraph,Navigator=navigator.Navigator,
             Nav2Client=client.Nav2Client,PoseProvider=Poses,MotionMonitor=Motion,replace=replace,

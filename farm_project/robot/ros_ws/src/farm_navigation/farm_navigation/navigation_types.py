@@ -71,6 +71,8 @@ class RoutePlan:
     points: tuple[tuple[float, float], ...]
     edge_ids: tuple[str, ...]  # 경유 순서이며 현재 점유/진입 허가를 뜻하지 않습니다.
     distance_m: float
+    # 명시한 차체 방향은 보간·후진 방향 반전 없이 각 점에 그대로 적용한다.
+    headings: tuple[float, ...] | None = None
 
 
 @dataclass(frozen=True)
