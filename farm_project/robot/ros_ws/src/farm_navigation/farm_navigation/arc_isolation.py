@@ -43,7 +43,12 @@ def isolated_parameters(controller: dict, costmap: dict, prefix: str, scan_topic
 
 class CommandGate:
     """명시 실행 중에만 새 명령을 전달한다. 이상은 유지해 후속 명령도 차단한다."""
-    def __init__(self) -> None:
+    def __init__(self, *, direction: str = 'reverse_left') -> None:
+        # 기존 호출은 후진 좌회전만 허용한다. 복귀는 명시 선택하며 부호만 대칭이다.
+        if direction not in ('reverse_left', 'forward_right', 'retreat', 'align'):
+            raise ValueError('곡선 gate 방향은 reverse_left 또는 forward_right여야 합니다.')
+        self._direction = direction
+        self._sign = 1 if direction == 'reverse_left' else -1
         self.enabled=False
         self.error=''
         self.last_received=None
@@ -59,7 +64,12 @@ class CommandGate:
     def accept(self, linear: float, angular: float, now: float, conflict: bool=False) -> bool:
         if not self.enabled or self.error:return False
         if self.expired(now):return False
-        if conflict or not all(math.isfinite(x) for x in (linear,angular)) or not -.025 <= linear <= 0.000001 or not -.001 <= angular <= .18:
+        in_range = (-.025 <= self._sign*linear <= 0.000001 and -.001 <= self._sign*angular <= .18)
+        if self._direction == 'retreat':
+            in_range = -.010000001 <= linear <= .000001 and abs(angular) <= .05
+        elif self._direction == 'align':
+            in_range = abs(linear) <= .000001 and abs(angular) <= .030000001
+        if conflict or not all(math.isfinite(x) for x in (linear,angular)) or not in_range:
             self.error='다른 동작 또는 곡선 속도 범위 위반';self.enabled=False;return False
         self.last_received=now
         return True

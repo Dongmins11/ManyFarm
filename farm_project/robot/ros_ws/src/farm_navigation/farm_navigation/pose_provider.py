@@ -52,6 +52,36 @@ class PoseProvider:
                 time.sleep(.02)
         raise RuntimeError(f'TF 조회 실패: {target} ← {source}, stamp={stamp_ns}: {error}')
 
+    def lookup_available_pair(self, targets: tuple[str, str], source: str,
+                              sample_stamp: Callable[[], int], check: Callable[[], None]
+                              ) -> tuple[int, tuple[NDArray[np.float64], NDArray[np.float64]]]:
+        """진행하는 표본 중 두 TF가 함께 존재하는 시각을 선택한다. 최신 TF로 대체하지 않는다."""
+        deadline = time.monotonic() + self._settings.tf_timeout_s
+        stamps: list[int] = []
+        previous: int | None = None
+        while time.monotonic() < deadline:
+            check()
+            stamp = int(sample_stamp())
+            if stamp <= 0 or (previous is not None and stamp < previous):
+                raise RuntimeError('기준 표본 시각이 유효하지 않거나 역행했습니다.')
+            if previous != stamp:
+                stamps.append(stamp)
+            previous = stamp
+            now = self._node.get_clock().now().nanoseconds
+            stamps = [s for s in stamps if 0 <= now-s <= int(self._settings.tf_max_age_s*1e9)]
+            for candidate in stamps:
+                when = Time(nanoseconds=candidate)
+                if not all(self._buffer.can_transform(t, source, when) for t in targets):
+                    continue
+                # 기존 lookup의 quaternion/유한값 검사를 그대로 사용한다.
+                values = tuple(self.lookup(t, source, candidate, check) for t in targets)
+                check()
+                if not 0 <= self._node.get_clock().now().nanoseconds-candidate <= int(self._settings.tf_max_age_s*1e9):
+                    raise RuntimeError('조회 완료 시 기준 표본이 오래되었습니다.')
+                return candidate, values
+            time.sleep(.02)
+        raise RuntimeError('기준 저장 실패: 동일 시각의 TF 두 개를 확보하지 못했습니다.')
+
     def current(self, check: Callable[[],None]) -> NDArray[np.float64]:
         return self.lookup(self._settings.map_frame,self._settings.base_frame,0,check)
 
