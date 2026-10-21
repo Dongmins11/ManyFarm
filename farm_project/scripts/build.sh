@@ -7,7 +7,7 @@ if [[ "$farm_mode" != sim && "$farm_mode" != real ]]; then
 fi
 command -v colcon >/dev/null || { echo '현재 터미널에 colcon 환경이 필요합니다.' >&2; exit 2; }
 farm_root="$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")/.." && pwd)"
-(cd "$farm_root/robot/ros_ws" && colcon build --symlink-install)
+(cd "$farm_root/robot/ros_ws" && colcon build --symlink-install --allow-overriding nav2_controller)
 # ROS setup 스크립트는 미정의 환경변수를 읽을 수 있습니다.
 set +u
 source "$farm_root/robot/ros_ws/install/setup.bash"

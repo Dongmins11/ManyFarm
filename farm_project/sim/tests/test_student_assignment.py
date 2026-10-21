@@ -1,4 +1,4 @@
-"""영상 목표 목록과 평가 전용 실제 ID의 일대일·모호성 검사를 검증한다."""
+"""영상 제어와 평가 ID 분리, 실적 집계·정상 완료를 검증한다."""
 from pathlib import Path
 import sys
 from types import SimpleNamespace
@@ -18,16 +18,16 @@ class StudentAssignmentTests(unittest.TestCase):
         self.assertEqual(map_outcomes([target], candidates, .06, .02), {'camera-id': '/fruit'})
         self.assertEqual(target.anchor_arm_m, original)
 
-    def test_missing_or_ambiguous_mapping_fails_closed(self):
+    def test_missing_or_ambiguous_mapping_is_unresolved_without_rejecting_camera(self):
         target = SimpleNamespace(target_id='camera-id', label='Red', anchor_arm_m=(.3, 0., .2))
-        with self.assertRaises(ValueError): map_outcomes([target], [], .06, .02)
+        self.assertEqual(map_outcomes([target], [], .06, .02), {'camera-id': None})
         candidates = [dict(target_id=str(i), color='red', root_arm_m=[.3+i*.01, 0, .2]) for i in range(2)]
-        with self.assertRaises(ValueError): map_outcomes([target], candidates, .06, .02)
+        self.assertEqual(map_outcomes([target], candidates, .06, .02), {'camera-id': None})
 
-    def test_duplicate_evaluation_id_is_rejected(self):
+    def test_duplicate_evaluation_id_is_not_arbitrarily_assigned(self):
         targets = [SimpleNamespace(target_id=str(i), label='Red', anchor_arm_m=(.3, 0., .2)) for i in range(2)]
         candidates = [dict(target_id='/fruit', color='red', root_arm_m=[.3, 0, .2])]
-        with self.assertRaises(ValueError): map_outcomes(targets, candidates, .06, .02)
+        self.assertEqual(map_outcomes(targets, candidates, .06, .02), {'0': None, '1': None})
 
 
 class StudentGravityTests(unittest.TestCase):
@@ -48,6 +48,7 @@ class StudentBoxEvidenceTests(unittest.TestCase):
     def test_coordinates_inside_box_cannot_create_success(self):
         import numpy as np
         arm = object.__new__(StudentArmSession)
+        arm._reset_window_metrics()
         sample = dict(fruit_position=np.array([.5,.5,.5]), fruit_quaternion=np.array([1.,0.,0.,0.]),
             fruit_linear_velocity=np.zeros(3), collision_vertices=np.array([[-.05,-.05,-.05],[.05,.05,.05]]),
             fixed_force=np.zeros(3), moving_force=np.zeros(3), fixed_net_force=np.zeros(3), moving_net_force=np.zeros(3), attached=False)
@@ -65,9 +66,15 @@ class StudentBoxEvidenceTests(unittest.TestCase):
         sample['fruit_position'][1] = 1.2
         arm._update_box(1/60, 1.+1/60)
         self.assertIsNone(arm._box_evidence)
+        sample['fruit_position'][2] = .2
+        arm._update_box(1/60, 2.)
+        arm._update_box(1/60, 3.)
+        self.assertEqual(arm._fault, '')
+        self.assertEqual([e['reason'] for e in arm._performance_events], ['target_dropped_below_box'])
 
     def test_anonymous_passage_counts_without_position_or_identity_input(self):
         arm = object.__new__(StudentArmSession)
+        arm._reset_window_metrics()
         arm._physical_target, arm._laser_armed = '/active-attempt', True
         arm._successful_ids, arm._attempts = set(), []
         arm.state = dict(success_count=0, event_seq=0)
@@ -90,6 +97,7 @@ class StudentCompletionTests(unittest.TestCase):
         from farm_sim_devices.arm_session import ArmSession
         from farm_sim_devices.basket_laser import PassageCounter
         arm = object.__new__(StudentArmSession)
+        arm._reset_window_metrics()
         counter = PassageCounter(.05, 2.)
         counter.arm()
         arm.controller = SimpleNamespace(basket_sensor=SimpleNamespace(counter=counter),
@@ -106,7 +114,10 @@ class StudentCompletionTests(unittest.TestCase):
     def test_outer_stop_failure_keeps_deposit_but_rejects_mission_completion(self):
         from farm_sim_devices.arm_session import ArmSession
         arm = object.__new__(StudentArmSession)
+        arm._reset_window_metrics()
         arm._physical_target = None
+        arm.job = dict(window_id='W001', expected_count=1)
+        arm.state = dict(success_count=1, failed_count=0)
         arm.mission = SimpleNamespace(report=lambda: dict(mission_complete=True, harvest_successes=1))
         arm.controller = SimpleNamespace(rig=SimpleNamespace(sequence=30, max_fk_error=0., set_active=Mock()), config={})
         with tempfile.TemporaryDirectory() as folder:
@@ -145,6 +156,7 @@ class PassageFeedbackTests(unittest.TestCase):
         bridge = ArmRosTests()
         bridge.setUp()
         arm = object.__new__(StudentArmSession)
+        arm._reset_window_metrics()
         arm._physical_target, arm._laser_armed = '/active-attempt', True
         arm._successful_ids, arm._attempts = set(), []
         arm.state = bridge.state()
@@ -180,6 +192,7 @@ class StudentInventoryTests(unittest.TestCase):
                                         (1, 2, True), (0, 1, True)):
             with self.subTest(expected=expected, visible=count, inside=inside):
                 arm = object.__new__(StudentArmSession)
+                arm._reset_window_metrics()
                 arm.controller = SimpleNamespace(
                     rig=SimpleNamespace(last=True, capture=lambda: {}),
                     camera=SimpleNamespace(roi=[[-1]*3, [1]*3], observe=lambda c, t: ({}, [])),
@@ -190,6 +203,7 @@ class StudentInventoryTests(unittest.TestCase):
                 arm._inventory_start = 0.
                 arm._log, arm._stop = Mock(), Mock()
                 arm._all_attempted = set()
+                arm._successful_ids = set()
                 arm._dock_arm = None
                 arm.state = dict(success_count=0, failed_count=0)
                 arm.device = SimpleNamespace(candidates=Mock(return_value=[]),

@@ -1,8 +1,9 @@
 #!/usr/bin/env python3
-"""SEC01~16 예찰→모든 window 수확. 실패 시 전체 스택 재기동, 원본 로그 보존."""
+"""SEC01~16 예찰→모든 window 수확. 재기동 시 성공한 예찰을 재사용하고 로그 보존."""
 from __future__ import annotations
 
 import argparse
+import copy
 from datetime import datetime, timezone
 import hashlib
 import json
@@ -32,6 +33,68 @@ def save(path: Path, value: dict) -> None:
     temp.replace(path)
 
 
+def validate_scout_result(data: dict, section: str) -> None:
+    """성공한 해당 SEC의 완전한 window 목록만 재사용한다."""
+    result = data.get('result', {})
+    tasks = result.get('harvest_tasks')
+    if (data.get('status') != 4 or result.get('result_code') != 'SUCCESS'
+            or result.get('section_id') != section):
+        raise ValueError('재사용할 예찰 결과가 해당 SEC의 SUCCESS가 아님')
+    if not isinstance(tasks, list) or len(tasks) != result.get('harvest_task_count'):
+        raise ValueError('예찰 결과 window 개수와 목록 불일치')
+
+
+def cache_scout_result(directory: Path, section: str, data: dict) -> dict:
+    """지도 불변인 동일 캠페인 안에서 원본 결과와 출처를 원자적으로 보존한다."""
+    validate_scout_result(data, section)
+    cache = dict(section=section, map_id='farm_map_v1', saved_at=utc(),
+                 source_attempt=directory.name, scout_result=data)
+    path = directory.parent / 'scout_cache' / f'{section}.json'
+    path.parent.mkdir(exist_ok=True)
+    save(path, cache)
+    return cache
+
+
+def load_scout_cache(output: Path, section: str) -> dict | None:
+    """기존 실행 중 도입할 때도 가장 최근 성공 예찰을 찾아 수확 실패와 무관하게 보존한다."""
+    path = output / 'scout_cache' / f'{section}.json'
+    if path.exists():
+        cache = json.loads(path.read_text())
+        if cache.get('map_id') != 'farm_map_v1' or cache.get('section') != section:
+            raise ValueError('예찰 캐시 지도/SEC 불일치')
+        validate_scout_result(cache['scout_result'], section)
+        return cache
+    for directory in sorted(output.glob(f'{section}_attempt_*'), reverse=True):
+        result_path = directory / 'result.json'
+        if not result_path.exists():
+            continue
+        result = json.loads(result_path.read_text())
+        data = result.get('scout_result', {})
+        try:
+            validate_scout_result(data, section)
+        except ValueError:
+            continue
+        return cache_scout_result(directory, section, data)
+    return None
+
+
+def dump_parameters(directory: Path, robot_ids: tuple, event: object) -> None:
+    """진단 설정 복사 실패는 별도 기록하며 정상 준비된 로봇의 시험을 중단하지 않는다."""
+    for rid in robot_ids:
+        for name in ('controller_server', 'velocity_smoother'):
+            path = directory / f'{rid}_{name}_params.yaml'
+            with path.open('w') as output:
+                try:
+                    result = subprocess.run(['ros2', 'param', 'dump', f'/{rid}/{name}'],
+                                            stdout=output, stderr=subprocess.STDOUT, timeout=20)
+                    if result.returncode:
+                        event('diagnostic_error', dict(operation='param_dump', node=f'/{rid}/{name}',
+                                                      returncode=result.returncode))
+                except (subprocess.TimeoutExpired, OSError) as error:
+                    event('diagnostic_error', dict(operation='param_dump', node=f'/{rid}/{name}',
+                                                  error=str(error)))
+
+
 def run_worker(directory: Path, section: str) -> int:
     """실제 공통 Action 계약을 사용하고 독립 구독으로 명령/위치를 기록한다."""
     import rclpy
@@ -39,6 +102,7 @@ def run_worker(directory: Path, section: str) -> int:
     from rclpy.node import Node
     from rclpy.qos import qos_profile_sensor_data
     from rosidl_runtime_py.convert import message_to_ordereddict
+    from rosidl_runtime_py.set_message import set_message_fields
     from rosidl_runtime_py.utilities import get_message
     from lifecycle_msgs.srv import GetState
     from farm_interfaces.action import ScoutArea, HarvestTask
@@ -48,7 +112,8 @@ def run_worker(directory: Path, section: str) -> int:
     events = (directory / 'events.jsonl').open('a', buffering=1)
     telemetry = (directory / 'telemetry.jsonl').open('a', buffering=1)
     state = {'section': section, 'status': 'STARTING', 'started_at': utc(),
-             'harvest_results': [], 'phase': 'startup'}
+             'harvest_results': [], 'phase': 'startup',
+             'harvest_policy': 'camera_attempt_retry_once_v1'}
     latest, last_logged, subscriptions = {}, {}, {}
     sim_clock = [None, time.monotonic()]
     handle = None
@@ -118,45 +183,66 @@ def run_worker(directory: Path, section: str) -> int:
         return response, data
 
     try:
-        # 양쪽 Action 발견과 fresh odom, Nav2 lifecycle active를 모두 기다린다.
+        cache = load_scout_cache(directory.parent, section)
+        state['scout_reused'] = cache is not None
+        if cache is not None:
+            state.update(scout_result=cache['scout_result'],
+                         scout_source_attempt=cache['source_attempt'])
+            event('scout_reused', cache)
+        save(directory / 'result.json', state)
+        # 캐시가 있으면 예찰 준비를 기다리지 않고 수확 로봇만 확인한다.
+        robot_ids = ('harvest_01',) if cache is not None else ('scout_01', 'harvest_01')
         lifecycle = [node.create_client(GetState, f'/{rid}/{name}/get_state')
-                     for rid in ('scout_01', 'harvest_01')
+                     for rid in robot_ids
                      for name in ('controller_server', 'planner_server', 'amcl')]
         deadline = time.monotonic() + 300
         while True:
             discover()
             rclpy.spin_once(node, timeout_sec=.2)
             fresh = all(time.monotonic() - latest.get(f'/{rid}/odom', -1e9) < 2
-                        for rid in ('scout_01', 'harvest_01'))
-            if scout.server_is_ready() and harvest.server_is_ready() and fresh:
+                        for rid in robot_ids)
+            if (cache is not None or scout.server_is_ready()) and harvest.server_is_ready() and fresh:
                 if all(c.service_is_ready() for c in lifecycle):
                     states = [wait(c.call_async(GetState.Request()), 10).current_state.id
                               for c in lifecycle]
                     if all(s == 3 for s in states):
                         break
             if time.monotonic() > deadline:
-                raise TimeoutError('300초 내 두 로봇 Action/Nav2/odom 준비 실패')
+                raise TimeoutError(f'300초 내 {robot_ids} Action/Nav2/odom 준비 실패')
             time.sleep(.5)
         event('ready', {'sim_time_s': sim_clock[0]})
-        for rid in ('scout_01', 'harvest_01'):
-            for name in ('controller_server', 'velocity_smoother'):
-                with (directory / f'{rid}_{name}_params.yaml').open('w') as output:
-                    subprocess.run(['ros2', 'param', 'dump', f'/{rid}/{name}'],
-                                   stdout=output, stderr=subprocess.STDOUT, timeout=20)
-        state.update(status='RUNNING', phase='scout')
+        try:
+            snapshot = json.loads((RUNS / 'runtime/harvest_scene.json').read_text())
+            if not snapshot.get('complete') or not 0 <= time.monotonic()-snapshot['written_monotonic_s'] < 5:
+                raise ValueError('수확 전 정답 snapshot이 불완전하거나 오래됨')
+            save(directory / 'initial_scene.json', snapshot)
+            baseline = directory.parent / 'evaluation_scene_initial.json'
+            if not baseline.exists():
+                save(baseline, snapshot)
+        except (OSError, ValueError, KeyError) as error:
+            event('diagnostic_error', dict(operation='initial_scene', error=str(error)))
+        dump_parameters(directory, robot_ids, event)
+        state.update(status='RUNNING', phase='harvest' if cache is not None else 'scout')
         save(directory / 'result.json', state)
-        goal = ScoutArea.Goal()
-        goal.robot_id, goal.map_id, goal.frame_id = 'scout_01', 'farm_map_v1', 'map'
-        goal.task_id, goal.section_id = 'CAMPAIGN_' + directory.name, section
-        goal.crop_type, goal.target_ripeness, goal.timestamp = 'PAPRIKA', 'RIPE', utc()
-        response, data = action(scout, goal, 1800)
-        state['scout_result'] = data
-        save(directory / 'result.json', state)
-        if response.status != 4 or response.result.result_code != 'SUCCESS':
-            raise RuntimeError('예찰 실패: ' + response.result.error_code + ' ' + response.result.error_message)
-        tasks = response.result.harvest_tasks
-        if len(tasks) != response.result.harvest_task_count:
-            raise RuntimeError('예찰 결과 window 개수와 목록 불일치')
+        if cache is None:
+            goal = ScoutArea.Goal()
+            goal.robot_id, goal.map_id, goal.frame_id = 'scout_01', 'farm_map_v1', 'map'
+            goal.task_id, goal.section_id = 'CAMPAIGN_' + directory.name, section
+            goal.crop_type, goal.target_ripeness, goal.timestamp = 'PAPRIKA', 'RIPE', utc()
+            response, data = action(scout, goal, 1800)
+            state['scout_result'] = data
+            save(directory / 'result.json', state)
+            if response.status != 4 or response.result.result_code != 'SUCCESS':
+                raise RuntimeError('예찰 실패: ' + response.result.error_code + ' ' + response.result.error_message)
+            cache = cache_scout_result(directory, section, data)
+            state['scout_source_attempt'] = cache['source_attempt']
+            event('scout_cached', cache)
+        # 원래 순서/좌표/수량을 복원한다. 전체 재시작으로 과실도 초기화되므로
+        # 이전 시도에서 완료한 window까지 포함해 W001부터 다시 수확한다.
+        scout_result = ScoutArea.Result()
+        # ROS 변환은 입력의 중첩 목록도 수정하므로 로그 원본은 별도로 유지한다.
+        set_message_fields(scout_result, copy.deepcopy(cache['scout_result']['result']))
+        tasks = scout_result.harvest_tasks
         state['window_count'] = len(tasks)
         state['empty_harvest'] = not tasks
         for index, task in enumerate(tasks):
@@ -165,7 +251,7 @@ def run_worker(directory: Path, section: str) -> int:
             goal = HarvestTask.Goal()
             goal.robot_id, goal.map_id, goal.timestamp = 'harvest_01', 'farm_map_v1', utc()
             goal.harvest_task = task
-            response, data = action(harvest, goal, 3600)
+            response, data = action(harvest, goal, 7500)
             state['harvest_results'].append(data)
             save(directory / 'result.json', state)
             # Action 완료 여부와 수확 실적은 별개다. 개별 시도의 실패 수량으로
@@ -251,6 +337,12 @@ def write_analysis(output: Path, summary: dict) -> None:
         failure_groups=[dict(signature=k, count=len(v), evidence=v) for k, v in groups.items()],
         sections=sections,
         interpretation='오류 문구별 집계이며 근본 원인 확정은 events/telemetry/stack/drive/arm 원본 대조 필요'))
+    # 오프라인 성능 집계 오류가 다음 SEC 실행을 중단시키지 않도록 분리한다.
+    try:
+        from campaign_performance import write_performance
+        write_performance(output)
+    except Exception as error:
+        save(output / 'performance_error.json', dict(updated_at=utc(), error=str(error)))
 
 
 def campaign(output: Path, args: argparse.Namespace) -> int:
@@ -268,6 +360,7 @@ def campaign(output: Path, args: argparse.Namespace) -> int:
                     headless=True, rviz=False, tag_correction=True,
                     success_rule='Scout SUCCESS then every returned window ROS SUCCEEDED/result SUCCESS; counts are yield only',
                     reset_rule='Every attempt starts a fresh full Isaac + ROS stack; failures retry same SEC',
+                    scout_reuse_rule='Same unchanged-map campaign: persist successful scout; retry all cached windows from harvest',
                     empty_harvest_rule='Zero returned windows is logged explicitly; no synthetic harvest',
                     git_head=subprocess.check_output(['git', 'rev-parse', 'HEAD'], cwd=ROOT, text=True).strip(),
                     source_hashes={})

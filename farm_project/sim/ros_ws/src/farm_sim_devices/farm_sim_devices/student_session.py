@@ -1,7 +1,7 @@
 """기존 팔 UDP/정차 계약에 전달 D435 Student mission을 연결한다.
 
 영상 관측만 정책에 전달한다. 성공량은 평행 세 빔의 익명 통과로 센다.
-시뮬 과실 ID/접촉은 목표 대응·안전 감시에만 쓰며 레이저가 ID를 식별했다고 주장하지 않는다.
+시뮬 과실 ID는 선택적인 평가 대응이다. ID 미확정도 영상 제어·레이저 계수를 막지 않는다.
 World.step/reset 또는 관절·과실 teleport를 호출하지 않는다.
 """
 import hashlib
@@ -15,17 +15,19 @@ from .arm_session import ArmSession
 
 
 def map_outcomes(targets: list, candidates: list, gate: float, ambiguity: float) -> dict:
-    """확정된 영상 목록 이후 평가 ID만 매칭한다. 정책 위치/순서를 바꾸지 않는다."""
+    """평가 ID를 알 수 없으면 None이다. 영상 목표를 거부하거나 좌표를 바꾸지 않는다."""
     result = {}
     for target in targets:
         distances = sorted((float(np.linalg.norm(np.asarray(c['root_arm_m'])-target.anchor_arm_m)), c['target_id'])
             for c in candidates if c['color'].capitalize() == target.label)
         if (not distances or distances[0][0] > gate or
                 (len(distances) > 1 and distances[1][0]-distances[0][0] < ambiguity)):
-            raise ValueError('Student 평가 ID 대응이 없거나 모호합니다: '+target.target_id)
-        result[target.target_id] = distances[0][1]
-    if len(set(result.values())) != len(result):
-        raise ValueError('Student 평가 ID가 중복됩니다.')
+            result[target.target_id] = None
+        else:
+            result[target.target_id] = distances[0][1]
+    duplicates = {path for path in result.values() if path is not None
+                  and list(result.values()).count(path) > 1}
+    result = {key: None if path in duplicates else path for key, path in result.items()}
     return result
 
 
@@ -126,6 +128,41 @@ class StudentArmSession(ArmSession):
         self._confirmed_targets = 0
         self._fault = ''
         self._inventory_start = 0.
+        self._reset_window_metrics()
+
+    def _reset_window_metrics(self) -> None:
+        """윈도우 성능과 재시도 상태를 초기화한다. 실제 적재량은 별도로 유지한다."""
+        self._performance_events, self._mission_history = [], []
+        self._performance_seen = set()
+        self._detachment_seen = set()
+        self._remaining_targets = []
+        self._retry_target = None
+        self._is_retry = False
+        self._active_camera_id = None
+        self._passage_recorded = False
+
+    def _metric(self, now: float, reason: str, *, target_id: str | None = None,
+                classification: str = 'harvest_performance', **details: object) -> None:
+        """성능 사건을 한 번 기록한다. 이 기록으로 Action을 중단하지 않는다."""
+        key = (reason, target_id, self._is_retry if reason not in
+               ('unassigned_fruit_detached', 'target_dropped_below_box', 'target_stray') else False)
+        if key in self._performance_seen:
+            return
+        self._performance_seen.add(key)
+        record = dict(time_s=now, reason=reason, target_id=target_id,
+                      retry=self._is_retry, classification=classification, **details)
+        self._performance_events.append(record)
+        self._log('PERFORMANCE_EVENT', **record)
+
+    def _miss(self, now: float, reason: str, target: object) -> None:
+        """재관측에서 없거나 재시도까지 놓친 대상은 수확 실적 실패로 한 번 집계한다."""
+        record = dict(target_id=None, camera_target_id=target.target_id,
+                      success=False, reason=reason, time_s=now)
+        self._attempts.append(record)
+        self.state['failed_count'] += 1
+        self.state['event_seq'] += 1
+        self._metric(now, reason, target_id=target.target_id)
+        self._log('ATTEMPT_RESULT', **record)
 
     def _stop(self, now: float, status: str, code: str, reason: str) -> None:
         self.controller.basket_sensor.counter.disarm()
@@ -154,6 +191,14 @@ class StudentArmSession(ArmSession):
                 mission_config=self.controller.config, success_criterion='basket_parallel_lasers',
                 object_identity_confirmed=False, physical_retention_confirmed=False)
             (self._directory/'student_mission.json').write_text(json.dumps(report, indent=2)+'\n')
+        if self._directory is not None:
+            (self._directory/'performance.json').write_text(json.dumps(dict(
+                policy='camera_attempt_retry_once_v1', window_id=self.job['window_id'],
+                expected_count=self.job['expected_count'], harvested_count=self.state['success_count'],
+                failed_target_count=self.state['failed_count'], action_status=status,
+                events=self._performance_events, missions=self._mission_history,
+                current_mission=self.mission.report() if self.mission is not None else None,
+                identity_confirmed=False), ensure_ascii=False, indent=2)+'\n')
         self.controller.rig.set_active(False)
         super()._finish(now, status, code, reason, safe=safe)
 
@@ -162,6 +207,7 @@ class StudentArmSession(ArmSession):
             super()._tick(now, stationary, wall_now)
             return
         if self.state['stage'] == 'PREPARE':
+            self._reset_window_metrics()
             self._open_log(now)
             self.physics.set_activity(self.robot_id, True)
             self.mission = None
@@ -211,16 +257,25 @@ class StudentArmSession(ArmSession):
         command, note = mission.tick(now, self.device.joint_positions(), self.device.joint_velocities(), now,
             self.controller.rig.capture(), box_evidence=self._box_evidence)
         self._box_evidence = None
-        if mission.state in ('HARVEST', 'WAIT_BOX') and self._physical_target is None:
-            path = self._outcomes[mission.target.target_id]
-            self.device.select_target(path, self._successful_ids)
+        if mission.state in ('HARVEST', 'WAIT_BOX') and self._active_camera_id != mission.target.target_id:
+            self._active_camera_id = mission.target.target_id
+            self._passage_recorded = False
+            path = self._outcomes.get(mission.target.target_id)
+            if path is not None:
+                try:
+                    self.device.select_target(path, self._successful_ids)
+                    self._all_attempted.add(path)
+                except Exception as error:
+                    self._metric(now, 'evaluation_unavailable', target_id=path,
+                                 classification='evaluation_diagnostic', error=str(error))
+                    self.device.clear_target()
+                    path = None
             self._physical_target = path
-            self._all_attempted.add(path)
             self._log('TARGET', time_s=now, target_id=path, role='Student', camera_target_id=mission.target.target_id)
         # 전달 제어기의 실제 배출 열기 허용 이후에만 통과를 받는다.
         # 일반 release_latched는 관측 억제 신호이므로 배출 허가로 사용하지 않는다.
         servo_note = (note.get('policy_note') or {}).get('visual_servo') or {}
-        if (not self._laser_armed and self._physical_target is not None
+        if (not self._laser_armed and self._active_camera_id is not None and not self._passage_recorded
                 and servo_note.get('observed_tray_release_latched')):
             self.controller.basket_sensor.counter.arm()
             self._laser_armed = True
@@ -244,21 +299,90 @@ class StudentArmSession(ArmSession):
             self._laser_armed = False
             self.device.clear_target()
             self._physical_target = None
+            self._active_camera_id = None
+        if mission.harvest_timed_out:
+            self.controller.basket_sensor.counter.disarm()
+            self._laser_armed = False
+            self._metric(now, 'harvest_or_box_timeout', target_id=mission.target.target_id,
+                         timeout_s=self.controller.config['harvest_timeout_s'])
         self.state['stage'] = mission.state
         self._log('STUDENT_CONTROL', time_s=now, q=self.device.joint_positions(), qd=self.device.joint_velocities(),
             final_joint_targets=written['joint_targets'], applied_actuator=written, command=actual, note=note,
             camera_stamps={k: d['stamp_s'] for k, d in self.controller.rig.capture().items()})
         if mission.state == 'DONE':
-            self._stop(now, 'SUCCESS', '', 'student_laser_passages_confirmed_arms_stowed')
+            self._mission_done(now)
         elif mission.state in ('STOPPING', 'FAILED'):
             # ArmSession의 정지 측정 상태를 사용한다. vendor STOPPING 표시는 먼저 되돌린다.
             self.state['stage'] = 'STUDENT_FAILED'
             self._stop(now, 'FAILED', 'STUDENT_MISSION_FAILED', str(mission.failure))
 
+    def _mission_done(self, now: float) -> None:
+        """측정 복귀 완료 뒤에만 재관측하거나 남은 영상 대상을 실행한다."""
+        mission = self.mission
+        self._mission_history.append(mission.report())
+        self.controller.basket_sensor.counter.disarm()
+        self._laser_armed = False
+        self.device.clear_target()
+        self._physical_target = self._active_camera_id = None
+        if mission.harvest_timed_out:
+            self._metric(now, 'harvest_or_box_timeout', target_id=mission.target.target_id,
+                         timeout_s=self.controller.config['harvest_timeout_s'])
+            if not self._is_retry:
+                self._remaining_targets = mission.targets[mission.index+1:]
+                self._retry_target = mission.target
+                self._is_retry = True
+                self.controller.camera.target = None
+                self._inventory_start = now
+                self.state['stage'] = 'CAMERA_INVENTORY'
+                self._log('RETRY_INVENTORY', time_s=now, camera_target_id=mission.target.target_id)
+                return
+            self._miss(now, 'retry_timeout_exhausted', mission.target)
+        if self._is_retry:
+            self._continue_targets(now)
+        else:
+            self._stop(now, 'SUCCESS', '', 'student_attempts_completed_arms_stowed')
+
+    def _continue_targets(self, now: float) -> None:
+        """한 대상의 재시도는 최대 한 번이며 그 뒤에는 원래의 다음 대상으로 간다."""
+        remaining, self._remaining_targets = self._remaining_targets, []
+        self._is_retry, self._retry_target = False, None
+        if remaining:
+            self._start_mission(now, remaining)
+        else:
+            self._stop(now, 'SUCCESS', '', 'student_attempts_completed_arms_stowed')
+
+    def _start_mission(self, now: float, targets: list) -> None:
+        from harvest_runtime.student60_mission import StudentHarvestMission
+        from harvest_runtime.student60_mission_session import lifted_return_path
+        runtime = self.controller
+        try:
+            candidates = self.device.candidates(self._successful_ids)
+            self._outcomes = map_outcomes(targets, candidates, runtime.profile['assignment_gate_m'],
+                                          runtime.profile['assignment_ambiguity_m'])
+        except Exception as error:
+            self._outcomes = {target.target_id: None for target in targets}
+            self._metric(now, 'evaluation_unavailable', classification='evaluation_diagnostic',
+                         error=str(error))
+        for target in targets:
+            if self._outcomes[target.target_id] is None:
+                self._metric(now, 'evaluation_id_unresolved', target_id=target.target_id,
+                             classification='evaluation_diagnostic', anchor_arm_m=list(target.anchor_arm_m))
+        self.mission = StudentHarvestMission(mission_session(runtime.camera, self._dock_arm), targets, runtime.config,
+            lambda q, home: lifted_return_path(runtime.kin, runtime.contract, runtime.config, q, home),
+            task_list_complete=True, recover_harvest_timeout=True)
+        self._confirmed_targets = 0
+        self._active_camera_id = None
+        self._passage_recorded = False
+        self._box_evidence = None
+        self._candidates = [dict(target_id=self._outcomes[t.target_id], camera_target_id=t.target_id)
+                            for t in self.mission.targets]
+        self._log('CANDIDATES', time_s=now, role='Student', candidates=self._candidates)
+        self.state['stage'] = 'STOW_WAIT'
+        self._log('STUDENT_ASSIGNED', time_s=now, outcome_only_mapping=self._outcomes, mission=self.mission.report())
+
     def _inventory(self, now: float) -> None:
         from harvest_vision.student60_tracking import AssignedFruitTracker
-        from harvest_runtime.student60_mission import HarvestTarget, StudentHarvestMission
-        from harvest_runtime.student60_mission_session import lifted_return_path
+        from harvest_runtime.student60_mission import HarvestTarget
         runtime = self.controller
         if not runtime.rig.last:
             return
@@ -294,36 +418,61 @@ class StudentArmSession(ArmSession):
         # 작업 가능 목록만 확정하며, 예상량과의 차이로 작업을 거부하지 않는다.
         if now-self._inventory_start < runtime.profile['inventory_timeout_s']:
             return
+        if self._retry_target is not None:
+            # 실제 ID가 아니라 새 카메라 관측끼리만 기존 추적기의 기준으로 연결한다.
+            from harvest_runtime.student60_mission_session import select_anchored_track
+            snapshot = {t.target_id: dict(valid=True, label=t.label, position_m=t.anchor_arm_m)
+                        for t in targets}
+            key = select_anchored_track(snapshot, self._retry_target)
+            if key is None:
+                self._miss(now, 'retry_target_not_observed', self._retry_target)
+                self._continue_targets(now)
+            else:
+                self._start_mission(now, [t for t in targets if t.target_id == key])
+            return
         if not targets:
             self._stop(now, 'SUCCESS', '', 'student_no_reachable_targets_arms_stowed')
             return
         # 영상 목표 목록 확정 뒤 outcome만 실제 prim에 대응한다. truth로 빈 목록을 채우지 않는다.
-        candidates = self.device.candidates(self._all_attempted)
-        self._outcomes = map_outcomes(targets, candidates, runtime.profile['assignment_gate_m'], runtime.profile['assignment_ambiguity_m'])
-        self.mission = StudentHarvestMission(mission_session(runtime.camera, self._dock_arm), targets, runtime.config,
-            lambda q, home: lifted_return_path(runtime.kin, runtime.contract, runtime.config, q, home), task_list_complete=True)
-        self._candidates = [dict(target_id=self._outcomes[t.target_id], camera_target_id=t.target_id) for t in self.mission.targets]
-        self._log('CANDIDATES', time_s=now, role='Student', candidates=self._candidates)
-        self.state['stage'] = 'STOW_WAIT'
-        self._log('STUDENT_ASSIGNED', time_s=now, outcome_only_mapping=self._outcomes, mission=self.mission.report())
+        self._start_mission(now, targets)
 
     def observe_physics_tick(self, dt_s: float, sim_time_s: float) -> None:
         if self.state['status'] != 'RUNNING' or self._blocked:
             return
         try:
-            self.device.observe_physics_tick(dt_s, sim_time_s)
+            try:
+                self.device.observe_physics_tick(dt_s, sim_time_s)
+            except Exception as error:
+                self._metric(sim_time_s, 'evaluation_unavailable', target_id=self._physical_target,
+                             classification='evaluation_diagnostic', error=str(error))
+                self.device.clear_target()
+                self._physical_target = None
             contacts = self.device.contacts_for_recovery()
             fingers = np.linalg.norm(contacts['finger_net_forces_world'], axis=1)
             if np.linalg.norm(contacts['arm_forces_world'], axis=1).max() > 12.:
                 self._fault = 'arm_collision'
-            if self._physical_target is None and fingers.max() > 2.:
+            if self._physical_target is None and self._active_camera_id is None and fingers.max() > 2.:
                 self._fault = 'motion_finger_collision'
+            if fingers.max() > self.controller.contract['task']['max_contact_force']:
+                self._fault = 'finger_high_force'
             allowed = self._successful_ids | ({self._physical_target} if self._physical_target else set())
-            if any(self._initial_attached[i] and not self.device.attachments.attached[i] and path not in allowed
-                   for i, path in enumerate(self.device.paths)):
-                self._fault = 'unassigned_fruit_detached'
+            for i, path in enumerate(self.device.paths):
+                if (self._initial_attached[i] and not self.device.attachments.attached[i]
+                        and path not in allowed and path not in self._detachment_seen):
+                    self._detachment_seen.add(path)
+                    unresolved = self._active_camera_id is not None and self._physical_target is None
+                    self._metric(sim_time_s, 'detachment_identity_unresolved' if unresolved else 'unassigned_fruit_detached', target_id=path,
+                                 classification='evaluation_diagnostic' if unresolved else 'harvest_performance',
+                                 active_evaluation_id=self._physical_target,
+                                 active_camera_id=self._active_camera_id)
             if self._physical_target is not None:
-                self._update_box(dt_s, sim_time_s)
+                try:
+                    self._update_box(dt_s, sim_time_s)
+                except Exception as error:
+                    self._metric(sim_time_s, 'evaluation_unavailable', target_id=self._physical_target,
+                                 classification='evaluation_diagnostic', error=str(error))
+                    self.device.clear_target()
+                    self._physical_target = None
             event = self.controller.basket_sensor.sample(sim_time_s)
             sample = self.controller.basket_sensor.last
             key = (tuple(sample['blocked']), sample['state'])
@@ -336,28 +485,23 @@ class StudentArmSession(ArmSession):
             self._handle_error(sim_time_s, error)
 
     def _update_box(self, dt: float, now: float) -> None:
-        """기존 접촉·낙하 안전을 검사한다. 위치·속도·안착 시간은 성공 입력이 아니다."""
+        """과실 손실 실적만 기록한다. 접촉 안전은 ID와 무관한 실제 net force로 검사한다."""
         sample = self.device.sample()
-        target_force = max(np.linalg.norm(sample['fixed_force']), np.linalg.norm(sample['moving_force']))
-        unwanted = max(np.linalg.norm(sample['fixed_net_force']-sample['fixed_force']),
-                       np.linalg.norm(sample['moving_net_force']-sample['moving_force']))
-        if target_force > self.controller.contract['task']['max_contact_force']:
-            self._fault = 'finger_high_force'
-        if unwanted > 12.:
-            self._fault = 'unwanted_finger_collision'
-        # 미집계 시도의 기존 낙하/이탈 안전 감시는 유지한다. 성공 근거로는 쓰지 않는다.
+        # 낙하/이탈은 실적이다. 영상 시도는 60초까지 진행한 뒤 한 번 재관측한다.
         if self._physical_target not in self._successful_ids:
             if sample['fruit_position'][2] < .48:
-                self._fault = 'target_dropped_below_box'
+                self._metric(now, 'target_dropped_below_box', target_id=self._physical_target)
             if np.linalg.norm(sample['fruit_position'][:2]) > 1.5:
-                self._fault = 'target_stray'
+                self._metric(now, 'target_stray', target_id=self._physical_target)
 
     def _record_laser_passage(self, event: dict) -> None:
         """익명 통과 한 건을 현재 순차 시도에 연결한다. 정지 실패/취소에도 개수는 보존한다."""
         path = self._physical_target
-        if not self._laser_armed or path is None or path in self._successful_ids:
+        if not self._laser_armed or self._passage_recorded:
             raise RuntimeError('활성 배출 시도 없는 레이저 통과')
-        self._successful_ids.add(path)
+        self._passage_recorded = True
+        if path is not None:
+            self._successful_ids.add(path)
         record = dict(target_id=path, camera_target_id=self.mission.target.target_id,
             success=True, reason='basket_laser_passage', time_s=event['stamp_s'],
             success_source='basket_parallel_lasers', identity_confirmed=False,

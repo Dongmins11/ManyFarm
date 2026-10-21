@@ -1127,3 +1127,84 @@ afdcc05 원본은 SimpleProgressChecker(0.1m/20초)이며 회전만으로 진행
 - 사용자 “이상태로 커밋푸쉬해” 요청으로 D-044~D-048 관련 현재 작업을 함께 커밋·푸시한다. 별도 untracked 작업 디렉터리 multirobottrafficcontrol/와 robotarm_harvest_communication/는 제외한다. sim/runs 원본 로그는 기존 ignore 정책대로 로컬 보존한다.
 - 최종 추가 검증: 기존 robot_venv에서 unittest로 Student 수확 처리 및 반복 감독자 12/12 통과, 셸 문법 및 git diff --check 정상. 앞선 주행 관련39개와 합계51개 통과. 시스템Python에는 torch, robot_venv에는 pytest가 없어 unittest로 실행했다. 반복 감독자 검사는 대역 시험이며 실제 SEC16 완주 결과가 아니다.
 - 커밋 전 원격 main=e735dc9를 직접 확인했다. 커밋 식별자와 최종 원격 반영 결과는 Git 기록 및 완료 응답을 따른다. 실행 프로세스 재시작은 하지 않는다.
+
+
+## 83. SEC01 W001의 RPP 회전 전환과 도착 판정 시각 불일치 — 2026-10-20
+
+- 요청: 사용자 “왜멈추는데”, “확인해그럼 왜바꼈는지 이유가있을거아니야”. 코드/설정을 바꾸지 않고 domain13/SUBNET 기존 시험에 읽기 전용 RPP 토픽 기록기를 붙였다. 공통/실물 기준은 커밋47fabb5 그대로다.
+- 직접 재현: sec01_real_baseline_20261020_164129의 17회차. 예찰 SUCCESS, 8window/expected11. SECTION_APPROACH는 오차3.17cm로 ARRIVED. W001 WINDOW_MOVE에서 다시105; 팔 미실행. 10회차는 상세 RPP 토픽이 없으므로 그 내부 분기까지 직접 관측했다고 소급하지 않는다.
+- 회전 전환 시뮬296.083348775초: 공개 lookahead_point 거리0.03940737218m, 직전 약0.041047m. 4cm 안으로 들어온 순간 선속도0으로 전환했다. 경로 방향 정렬용 curvature carrot은 약0.56°로 경로 회전 임계6°보다 작다. RPP1.3.12의 shouldRotateToGoalHeading/stateful 경로가 성립한다. 위치 도착 기억은 이후 XY 범위 밖에서도 유지된다.
+- **원인 연결:** RPP는 현재 robot pose 시각으로 map 경로를 변환한다. 공통 build_path는 생성 당시 시각을 모든 pose에 넣고, Nav2 ControllerServer는 마지막 pose의 시각을 보존한다. isGoalReached는 그 예전 시각으로 map→odom 변환을 요청한다. TF 캐시 범위를 벗어나면 nav_2d_utils::transformPose가 최신 변환을 대신 사용한다. AMCL의 미래 시각 TF 때문에 현재 pose 시각 변환과 최신 변환이 서로 다르다.
+- 수치 검증: 같은 전환 순간 현재 pose 시각296.083348775 TF로는3.9407cm, 최신 map→odom TF(297.050015440초)로는5.0957cm. 앞은 RPP 공개 출력 직접 관측, 뒤는 도착 판정 소스가 사용하는 변환을 로그로 재계산한 값이다. 도착 checker 내부 인자를 직접 계측한 것은 아니다. 실제 tf2 BufferCore 재생에서도 경로 시작 무렵278.516681초 조회는 earliest287.050015 때문에 과거 외삽 실패하고, 현재/최신 조회는 각각 다른 변환을 반환한다.
+- 기록1005샘플에서 현재 시각 TF 재계산과 공개 RPP 거리 차이는 최대8.81e-15m. 회전 전환 이후 검사한 구간에서 최신 TF 기준 거리는 최소4.029cm~최대6.209cm로4cm 밖이다. 즉 제어기는 위치 도착 기억으로 전진을 막고 도착 판정은 위치 미달로 성공을 주지 않아 진행 부족105로 끝나는 조합이 재현됐다. 목표 뒤 경로 연장이나 바퀴 물리를 단독 원인으로 확정하지 않는다.
+- 책임 범위: 분기·시각 처리 경로는 공통 Nav2/공통 경로 메시지 구성이다. 발현에는 시간에 따라 변하는 위치 보정/TF 입력이 관여한다. 실물 실행에서 재현했다는 의미는 아니다. 시뮬 전용 완화로 덮기 전에 추종·도착 판정의 좌표 변환 기준 시각을 일치시키는 공통 수정안을 검증해야 한다. 이번 운영 수정/배포/commit/push 없음.
+- 증거: sim/runs/sec01_real_baseline_20261020_164129/{rpp_decision_trace.jsonl,rpp_decision_analysis.json,tf_time_replay.json,tf2_buffer_replay.json,SEC01_attempt_0017/rpp_stop_cause.json}. 분석 스크립트도 같은 디렉터리에 보존했다. 기존 반복 시험은 유지하며 기록기는30분 제한의 별도 읽기 전용 서비스다.
+- 소스 대조: Nav21.3.12 regulated_pure_pursuit_controller.cpp:218/291, path_handler.cpp:89, controller_server.cpp:587/743, nav_2d_utils/src/tf_help.cpp:40 및 공통 farm_navigation/path_builder.py:9. 원본: https://github.com/ros-navigation/navigation2/tree/1.3.12
+
+## 84. 공통 Nav2 제어·도착 판정 시각 수정 — 2026-10-20
+
+- 승인/기준: 사용자 “당연히 일치시켜야지 뭐하는거야?”, D-049. HEAD47fabb5 + 미커밋 수정. §83의 확인된 불일치만 수정하며 현재 실물 기준 제어·도착·진행 파라미터와 팔은 유지한다.
+- 구현: 공통 `robot/ros_ws/src/nav2_controller`에 공식1.3.12 패키지를 보존했다. `computeAndPublishVelocity()`가 실제 제어기에 전달한 pose를 반환하고 `isGoalReached(pose)`가 이를 사용한다. 목표 stamp도 이 pose stamp로 맞춘다. 시각을 바꾸는 nav_2d_utils의 latest 대체를 제거하고, 해당 시각 변환 실패는 ControllerTFError로 전달한다. 원본 대비 운영 수정은 controller_server.cpp/.hpp에 한정된다. 패키지 출처·원본 파일별SHA256·라이선스는 PROVENANCE.json/LICENSE, 빌드 override는 scripts/build.sh에 있다.
+- 직접 검증: 공통 colcon 빌드 성공. 새 C++ 회귀6개, 원본 진행/도착 checker10개·동적 파라미터1개 합계17개 통과. 기존 공통/환경 병합 검사39개 통과. lint도 통과했으나 cppcheck는 설치 버전2.13.0에 대한 도구 자체 정책으로17파일 skip이므로 검사 완료로 세지 않는다. 최초 빌드에서 시험 코드 Duration 참조 인자를 수정했고, 최초 sandbox 시험의 ROS 로그 쓰기/스키마 접근 제한 및 들여쓰기를 정정해 재실행했다.
+- 원인 재현 검증: 동일 TF 조건에서 원본 nav2_controller를 `/tmp/farm_nav2_goal_time_baseline`에 별도 빌드했다. 실제 RPP는3.940737cm, 예전 목표 변환은5.095747cm이며 원본 ControllerServer의 도착 검사 실패를 확인했다. 수정본 실제 ControllerServer는3.940737cm로 RPP와 일치하며 성공한다. 경로 stamp0/과거/현재/미래에도 같은 결과, 새 odom TF가 들어와도 전달받은 제어 pose 사용, XY/방향 범위 밖 실패, 같은 프레임 성공, 과거·미래·누락 TF 실패를 검증했다. 허용치를 완화한 성공이 아니다.
+- 실행: 이전 sec01_real_baseline 캠페인은18회차에서 수정 배포를 위해 STOP으로 정상 종료하고 실패 로그를 보존했다. 새 `sim/runs/sec01_goal_time_fix_20261020_183345`에서18:33:57 KST부터 SEC01 예찰→모든 window 수확을 재개했다. Domain13/SUBNET, 실패 시 전체 Isaac/ROS 재시작 유지. 예찰·수확 두 실제 프로세스 모두 공통 overlay의 executable과 libcontroller_server_core.so를 로드한 것을 /proc에서 확인했다.
+- 현재 통합 결과: 첫 시도는 주행 전에 `ros2 param dump /scout_01/controller_server`가20초 초과해 실패했다. 기존 시험 실행기의 파라미터 수집 실패이며105 또는 이번 주행 수정의 성공으로 분류하지 않는다. 두 번째 시도는18:35:23 KST 예찰 Goal을 시작해 SEGMENT_COMPLETE 후 다음 주행으로 진행 중이다. SEC01 완주/실물 검증 완료는 아직 아니다. 두 번째 시도의 수확 controller/smoother 및 예찰 smoother runtime dump는 유효하지만 예찰 controller dump는 `Node not found`이며 재조회도 같은 결과라 파라미터 확인 완료로 세지 않는다.
+- 환경 선택 검증: `source scripts/env.sh real` 및 `sim`에서 `ros2 pkg prefix nav2_controller`가 모두 같은 `robot/ros_ws/install/nav2_controller`를 반환한다. 실물 실행을 했다는 의미는 아니다.
+- 자료: `sim/runs/nav2_goal_time_fix_20261020/`에 upstream_delta.diff, 원본 실패 로그, 빌드·시험 로그와 XML; 새 캠페인에 navigation_fix_manifest.json(소스/바이너리 해시), runtime_controller_binaries.json, RPP·TF 원본 기록. 웹 표시 소스의 줄 번호와 내려받은1.3.12 원본의 줄 번호가 다르므로 이후 위치는 저장소 함수명/실제 파일로 확인한다.
+- 남은 범위/복원: 실제 SEC01 W001 통과와 전체 수확 결과 확인, 실물 담당 환경에서 재빌드 후 검증. 다른105 원인이 모두 제거됐다고 주장하지 않는다. 복원 시 시험을 정지하고 이번 nav2_controller overlay 소스·해당 build/install만 제거한 뒤 공통 workspace 재빌드, 새 셸에서 env 로딩·패키지 prefix 확인·재시작한다. 기존 로그와 다른 작업은 보존한다. 미커밋·미푸시.
+
+## 85. SEC01 수정본 통합 재시험: W001 성공, W002 명령 전달 중단 — 2026-10-20
+
+- 요청: 사용자 “다시 테스트해봐 … 진행좀 해보자”. §84에서 시작한 캠페인을 확인하고 계속 감독한다. Domain13/SUBNET 및 공통 시각 수정본을 유지하며 다른 제어·판정 설정은 변경하지 않는다. 두 서버 실제 실행 파일/메모리 매핑과 환경변수를 `SEC01_attempt_0002/runtime_controllers.json`에 확인했다.
+- 2회차 예찰: 18:41:58 KST SUCCESS, 5구간 완료, 9window/예상13개. 앞선 수정 전17회차의8window/11개를 이번 결과로 사용하지 않는다.
+- W001: SECTION_APPROACH 및 WINDOW_MOVE 모두 ARRIVED. 18:47:17부터 팔을 실행했고 박스 센서 수확1개·팔 접힘 확인 후18:55:48 SUCCESS(expected1/harvested1/failed0). 정지 후 진단 위치 오차4.8947cm·방향1.667°는 별도 시점의 Navigator 진단값이며 Nav2의 제어 주기 판정값으로 혼용하지 않는다.
+- W002: 18:55:48 이동 시작, 18:56:44 NAVIGATION_FAILED/105. 팔 SKIPPED. 경로는 현재 위치에서 다음 목표까지0.6704m이다. RPP 공개 회전 상태1080샘플 전부false, carrot40cm, cmd_vel_nav1081메시지(전진최대0.1m/s)가 나왔지만 같은 구간 최종 cmd_vel은0메시지였다. 두 독립 기록기가 같은 결과다. odom 변위0.1796mm, 평가용 world 이동약0.014mm에 그쳤다.
+- 구동 전달 증거: simulator transport의 수신/허용 패킷 수6294가 W002 내내 늘지 않았고 거절0. 마지막 수신은 W001 정지 시각의0명령으로, W002에서는 벽시계513~564초 전 명령이었다. watchdog 적용 명령/바퀴 목표는0이다. 따라서 이번105는 RPP가 위치 도착을 기억해 전진을 막은 §83과 다르며, 새 전진 명령이 최종 출력/구동 입력으로 재개되지 않은 현상이다. 물리가 받은 전진 명령을 무시했다는 증거가 아니다.
+- 미확정: velocity_smoother 입력 callback·timer·publisher·DDS 중 어느 지점이 멈췄는지는 2회차 내부 계측이 없어 확정하지 않는다. 프로세스 종료/lifecycle 비활성은 시험 실패 후 정리 때 기록됐다. `command_chain_trace.jsonl`로 후속 시도의 topic endpoint/GID/QoS, smoother lifecycle·파라미터 응답을 추가 수집한다. 현재 probe의 응답 latency_s는5초 timer에서 완료를 관측한 지연 상한이며 실제 RPC 지연으로 해석하지 않는다.
+- 재시도: 2회차 원본은 artifacts/에 보존 후 전체 Isaac/ROS 재시작. 3회차도 예찰 controller 파라미터 수집20초 시간초과, 4회차는 예찰 진행 중이다. 캠페인 서비스는 `farm-sec01-goal-time-20261020-183345`, 읽기 전용 기록기는 `farm-rpp-goal-time-long-20261020` 및 `farm-command-chain-20261020`. RPP 기록기는 만료 방지를 위해 예찰 중 교체해 같은 파일에 이어 쓴다.
+- 분리 검증: 설치된 기본 velocity_smoother를 `/command_resume_probe` namespace와 전용clock에서 실행했다. 이동→정지→clock600초 전진/4초 대기→재명령에서 출력이 정상 재개(재명령 구간60/60 nonzero)됐다. 실제 로봇 토픽에는 명령을 보내지 않았다. 이 검사는600초의 실제 벽시계 대기·GPU 부하·동일 DDS publisher 수명까지 재현한 시험이 아니므로 본 실패를 해결/반증했다고 해석하지 않는다. 자료 smoother_idle_result.json 및 probe_smoother_idle.py.
+- 자료: `sim/runs/sec01_goal_time_fix_20261020_183345/SEC01_attempt_0002/{result.json,failure_105_command_chain.json,events.jsonl,telemetry.jsonl,stack.log,artifacts/}` 및 캠페인 루트의 rpp_decision_trace.jsonl. GPU100%가 관측됐고 팔 구간은 실제1분당 시뮬약7초로 느렸지만 clock/팔 상태는 진행했다. 속도 저하 원인 최적화나 새로운 공통 코드 변경은 이번 시험에서 하지 않았다. SEC01 전체/16SEC 완주 미완료, 미커밋·미푸시.
+
+## 86. 성공 예찰 캐시 및 SEC01~16 야간 연속 시험 — 2026-10-20
+
+- 승인: 사용자 예찰 성공 데이터 보존/수확부터 재시도 및 밤샘 SEC01~16 진행 요청, D-050. 기준47fabb5 + §84 공통 수정 및 기존 미커밋 변경을 유지한다.
+- 변경: `sim/tools/run_section_campaign.py`가 동일 캠페인의 `scout_cache/SECxx.json`에 성공 예찰 원본과 출처를 원자적으로 보존한다. 캐시가 있으면 수확 로봇 준비 후 예찰 없이 모든 window를 원래 순서로 실행한다. 수확 결과가 FAILED여도 성공한 예찰은 유지한다. 다른 SEC/캠페인 데이터는 재사용하지 않고 잘못된 캐시는 오류로 기록한다.
+- 현재 캠페인 `sim/runs/sec01_goal_time_fix_20261020_183345`의 4회차 성공 예찰(8window/예상12개)을 보존했다. 실제 ROS 메시지 왕복 변환으로 ID/좌표/수량 전체 일치를 확인했다. ROS 변환 함수가 입력 목록을 수정하므로 deepcopy로 로그 원본의 JSON 직렬화 가능성을 보존한다.
+- 19:20 KST 직접 상태: 4회차 W001 SUCCESS/수확0, W002 SUCCESS/수확1·팔 접힘 완료, W003 이동 진행 중. 현재 시도는 이미 로드한 실행기로 계속하며 다음 worker부터 새 캐시 분기를 실행한다. 실제 캐시 재시작 E2E 및 전체 SEC01/16 완료는 아직 확인 전이다.
+- 19:21 KST 추가 확인: 4회차 W003까지 Action SUCCESS, W004 진행 중. 두 추가 원본 기록 파일도 계속 갱신 중이다.
+- 야간 서비스: 현재 `farm-sec01-goal-time-20261020-183345`는 계속 실행한다. 독립 `farm-sections-overnight-20261020.service`가 종료를 기다린 뒤 같은 캠페인을 `--resume` 및 기본 SEC01~16으로 실행한다. 기존 성공 SEC는 건너뛰고 미완료 SEC부터 이어 간다. 시간 제한 없음, 감독 프로세스 비정상 종료 시30초 뒤 재개, STOP 요청은 재시작하지 않는다. `overnight_policy.json`, `start_overnight.sh`, `overnight_supervisor.log`에 범위/명령/이력을 보존하며 기존 manifest를 덮어쓰지 않는다.
+- 기록: 읽기 전용 `farm-rpp-overnight-20261020`, `farm-command-chain-overnight-20261020`가 기존 원본 JSONL에 이어 기록한다. 기존3시간 제한 기록기를 교체했고 모두 실제 active/RuntimeMaxSec=infinity 확인. `farm-overnight-awake-20261020`의 sleep/idle inhibitor도 활성 확인했다. 이 세 서비스는 야간 감독 서비스 종료 시 함께 정리된다. PC 재부팅·사용자 로그아웃 후 자동 복구를 구성한 것은 아니다.
+- 검증: 감독자/캐시 회귀6개 통과(수확 실패 후 전체 목록 복원, 최신 성공 예찰 이전, 실패/다른SEC/개수 불일치 거부, 빈 성공, 재시도·재개, SEC01 완료 후 SEC02~16 연결). 실제 예찰 메시지 왕복 검증 PASS. 실행 래퍼 셸 문법 및 git diff --check 정상. 자료 `scout_cache_tests.log`, `scout_cache_roundtrip.json`, `runner_snapshot_scout_reuse.py`.
+- §85 보완: command_chain의 새 `reply_received.latency_s`는 응답 callback 시각으로 측정한다(기존 timer 관측 지연과 구분). 별도8분 유휴 smoother probe는 실행 프로세스/완료 결과가 남아 있지 않아 완료 검증으로 세지 않는다. 주행·팔 운영 코드/물리/파라미터는 이번 변경에서 수정하지 않았다.
+- 중지/복원: 캠페인 루트에 STOP 파일을 만들면 현재 및 대기 감독자가 정리한다. 정책을 되돌리려면 시험 종료 후 이번 실행기/시험 변경만 역적용한다. 캐시와 실패 원본은 보존한다. 공간10GiB 미만 시 기존 보호 동작으로 새 시도를 차단한다. 완료 후 failure_analysis.json과 각 시도 원본을 대조해 실패 원인 보고서를 작성할 수 있다. 미커밋·미푸시.
+
+
+## 87. 야간 시험 중간 결과 — 2026-10-21 09:27 KST
+
+- 사용자 결과 보고 요청. 운영 변경/시험 중단 없이 원본 result/events/팔 trace 및 서비스 상태를 직접 확인했다. 캠페인 sec01_goal_time_fix_20261020_183345 전체 누적18시도: 성공5, 실패12, 진행1. 이 수치는 야간 지시 전3시도도 포함한다.
+- SEC01: 7회차 성공, 8window, expected12/harvested7, 10/20 22:28 완료. SEC02: 1회차, 8window, 11/7, 10/21 00:01 완료. SEC03: 3회차, 7window, 10/9, 03:23 완료. SEC04: 1회차, 7window, 12/4, 04:31 완료. SEC05: 1회차, 9window, 11/7, 05:51 완료. 성공한 최종 시도만 합산하면39window, 예상56/수확34/차이22다. 실패 시도의 중복 수확은 합산하지 않았다.
+- SEC06: 앞선4회 모두W003 실패 후5회차에서W003을 통과했다. 현재W007까지 성공, 마지막W008 진행 중. SEC07~16은 아직 시작하지 않았다. 감독자와 두 독립 기록기는 active이며 원본 로그가 계속 갱신된다.
+- 실패12건: 주행105 1건(10/20 18:56, §85 명령 전달 중단), 시험 준비 param dump20초 초과2건, 팔/시뮬 수확9건. 이후105 Action 실패는 추가 관측되지 않았지만 완전 해소를 입증한 것은 아니다.
+- SEC01 팔3건: 4~6회차 모두W006, 최종 CANCEL_UNCONFIRMED/measured_stop_not_confirmed. 각각 trace에서 먼저 unassigned_fruit_detached가 발생하고3시뮬초 뒤 정지 확인 실패가 기록됐다. 현재 작업/기존 성공 목록 밖 과실의 부착 해제를 감시한 결과이며, 최종 오류만 근본 원인으로 해석하지 않는다. 실제 충돌 상대/낙하 물리 원인까지는 추가 분석 대상이다.
+- SEC03 팔2건: W006/W007에서 ARM_RUNTIME_ERROR. student_session.map_outcomes가 영상 목표와 시뮬 평가용 과실 ID를 대응하지 못하거나 모호하다고 판단해 ValueError를 발생시켰다. sim 어댑터 평가 매칭이 실제 Action을 중단시키는 경로가 확인되며, 영상 검출 자체 실패 또는 실물 공통 주행 결함으로 분류하지 않는다.
+- SEC06 팔4건: 모두W003의 /World/Vegetation/Bed_06/Fruits/Pepper_0025_yellow. harvest_or_box_timeout2회, target_dropped_below_box2회. 후자는 미집계 목표의 높이가 감시 기준0.48m 아래인 경우 sim 감독자가 실패로 처리한다. 박스 센서 미통과와 실제 낙하 경로/팔 동작의 구체 원인은 trace/영상 추가 분석이 필요하다. 5회차의 해당W003은 수확1/SUCCESS다.
+- 예찰 재사용은 실제 SEC01/03/06 후속 시도에서 scout_reused=true, 원래 window ID 유지로 확인됐다. 현재 병목은 팔/시뮬 평가·안전 감시 및 느린 실제 실행 시간이다. 다음 분석은 평가 ID 실패가 전체 Action 실패로 전파되는 경로, 비대상 과실 이탈→정지 확인, SEC06 목표 낙하/시간초과 순이다. 이번 보고에서 판정 조건을 변경하지 않았다.
+- 근거 스냅샷: sim/runs/sec01_goal_time_fix_20261020_183345/morning_report_20261021_0927.json. 원본은 각 SECxx_attempt_xxxx/result.json 및 artifacts/robotarm/student 아래 trace.jsonl/result.json. 시험은 계속 실행하며 전체16SEC 최종 보고가 아니다. 문서/보고 스냅샷만 추가, 미커밋·미푸시.
+
+
+## 88. 카메라 기준 수확·1회 재시도 및 성능 지표 분리 — 2026-10-21
+
+- 승인/범위: D-051 사용자 지시. HEAD47fabb5 + 기존 미커밋 공통 TF 시각 수정 및 예찰 캐시를 유지한다. 이번 운영 변경은 sim 하위만이며 공통/실물 코드·주행 파라미터·학습 가중치·물리는 변경하지 않는다.
+- 구현: student_session.py의 map_outcomes는 불명 ID를 None으로 남긴다. 영상 목표는 그대로 실행하고 선택적 평가 조회 예외도 계수·제어를 차단하지 않는다. 레이저는 현재 영상 시도에 익명 통과를 연결하며 actual ID를 성공 조건으로 쓰지 않는다. 비대상 이탈/낙하/이탈은 PERFORMANCE_EVENT이며 ID 불명 중 분리는 평가 진단으로 따로 기록한다. 실제 접촉 안전은 net force로 검사한다.
+- 재시도: 전달 student60_mission.py에 기본False인 recover_harvest_timeout 인자를 추가했다. 농장 sim 어댑터만True를 전달하며, 기존 사용자의 시간초과 실패 동작은 유지한다. True에서는60시뮬초 뒤 기존 return_path→STOW→측정 정지 완료를 거쳐 반환한다. 어댑터가3초 새 영상 관측, 기존 카메라 select_anchored_track(4cm/모호성2cm)로 재시도 목표를 찾는다. 찾으면1회 더60초, 없으면 다음 대상. 실패한 미션을 성공으로 덮어쓰거나 실제 복귀 없이 다음 주행을 보내지 않는다. 원래 남은 영상 대상 목록과 앞선 레이저 성공량은 유지한다.
+- 실적: 첫 시간초과는 시도 사건, 재시도 소진/재탐색 미관측은 최종 수확 실패1개로 기록한다. 비대상 과실 이탈은 별도 사건/고유 과실 목록이며 같은 이탈을 프레임마다 중복 집계하지 않는다. 평가 ID 불명은 실제 미수확 확정과 구분한다. performance.json에 window expected/harvested/failed_target_count와 사건·미션 이력을 보존한다.
+- 집계: 새 sim/tools/campaign_performance.py가 기존 compare_scout_truth를 사용한다. 각 시도의 수확 전 initial_scene.json과 예찰 상세 보고를 비교해 실제 red/yellow 대상 수, expected, harvested, 예찰 누락/중복/미대응/색 일치 및 비율을 performance_report.json에 저장한다. performance_summary.json은 SEC별 성공한 최종 시도(미완료는 최신 시도)를 보여 주며 중복 수확을 더하지 않는다. 이전 시도의 수확 전 snapshot이 없으면 동일 지도 가정의 최초 새 초기 장면을 retrospective_same_scene=true로 명시하며, 평가 불가를0으로 만들지 않는다. 정답은 로봇 입력으로 보내지 않는다.
+- 준비 오류: run_section_campaign.py의 ROS param dump 시간초과/명령 실패는 diagnostic_error로 분리했다. 수확 전 snapshot/오프라인 성능 집계 실패도 시험을 중단시키지 않는다. sim/harvest.json의 팔 실행 제한1800→7200벽시계초, harvest_task.json 상위1860→7260초, 시험 window 대기3600→7500초. 과실60시뮬초·통신 단절/진행 제한을 늘린 변경이 아니다.
+- 직접 검증81개: Student20개(실제 세션/미션 FSM + 물리 명령 추종 대역 포함), 반복 감독자7개, 성능 집계2개, 기존 팔/ROS/레이저38개, 전달 미션 기본 동작14개 통과. 두 번의 실제60시뮬초 경과·새 영상 ID 재시도·재탐색 대상 없음·다음 대상 진행·앞선 수량 유지·ID 불명/평가 예외 상태 레이저 집계·비대상 이탈 비중단·복귀 실패 시 Action FAILED를 검증했다. 실제 Isaac의 모든 실패 시나리오를 재현한 것은 아니다. 시스템Python의 torch 부재로 전달 미션 검사를 robot_venv+기설치 pytest 경로에서 재실행했으며 새 의존성은 설치하지 않았다. diff/컴파일 검사 정상.
+- 배포: SEC06은09:33 KST 완료했다. SEC07 1회차는 정책 변경을 위해 STOP으로 정상 취소·원본 보존(시스템 실패와 별도).09:52 KST 같은 캠페인을 --resume으로 재개해 SEC07 2회차가 새 정책/기존 예찰8window·expected11을 사용한다. 완료 SEC01~06은 유지한다. 기존 야간 감독자·두 읽기 전용 기록기를 재시작했고 자동 정리된 절전 방지 서비스도 재생성했다. Domain13/SUBNET, 이후 SEC16까지 자동 진행.
+- 근거/버전: sim/runs/sec01_goal_time_fix_20261020_183345/policy_camera_retry_once_20261021에 운영 수정 파일 스냅샷·SHA256·검증 로그·manifest.json. 중단 사유는 policy_transition_20261021.json, 새 worker에는 harvest_policy=camera_attempt_retry_once_v1. 이전 시도는 legacy로 분리하며 새 정책의 성공률로 섞지 않는다.
+- 당장 반영한 개선: 실적 손실의 Action 중단 전파 제거, 평가 ID 의존 제거, 유한한 재관측/재시도, 진단 복사 실패 분리, 세 종류 수량/사건 기록. 장기 개선으로 남긴 것: 영상 오검출·미검출/중복·좌표 품질, 주변 과실을 건드리는 팔 경로·파지/줄기 분리, 박스 이송 중 낙하 및 수확 속도, 복귀 경로 충돌/불능, GPU 부하·시뮬 속도, 이전105의 smoother 명령 전달 단절 근본 원인. 현재 자료만으로 모든 누락을 특정 알고리즘 원인으로 확정하지 않는다.
+- 복원: 시험을 STOP으로 정리한 뒤 이번 sim 파일/환경 대기값/전달 미션 opt-in 변경만 역적용한다. 공통 TF 수정과 예찰 캐시·실패 원본은 보존한다. 미커밋·미푸시. 새 정책의 실제 Isaac 진행/성능 집계 확인을 이어간다.
+
+- 09:53 KST 실배포 확인: SEC07_attempt_0002가 RUNNING/harvest/W001, scout_reused=true, harvest_policy=camera_attempt_retry_once_v1이며 예찰 Goal 없이 수확 Goal을 전송했다. 실제 초기 scene snapshot을 확보했고 배포 스냅샷 SHA256은 현재 운영 소스/설정6개와 모두 일치한다. 아직 새 정책의 실제 팔 전체 window 완료를 주장하지 않는다.
+- 최초 세 수량 집계(actual/expected/harvested): SEC01 13/12/7, SEC02 11/11/7, SEC03 12/10/9, SEC04 12/12/4, SEC05 13/11/7, SEC06 11/12/8. 합계72/68/42. 모두 기존 정책에서 성공한 시도이며 새 정책 성능으로 사용하지 않는다. 실제 대상 수는 후속 초기 장면으로 소급 평가했고 범위는 기존 작업면·높이·경로 내 red/yellow다. SEC06 expected가actual보다1개 많은 것도 그대로 보존하며 개수 차이를 객체별 정밀도/재현율로 부르지 않는다. 보고서는 캠페인 performance_summary.json 및 각 시도 performance_report.json이다.

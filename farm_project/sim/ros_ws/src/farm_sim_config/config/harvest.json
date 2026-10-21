@@ -64,7 +64,7 @@
       "endpoint": "sim/harvest_arm",
       "profile": "sim/ros_ws/src/farm_sim_config/config/teacher_policy.json",
       "lease_s": 2.0,
-      "execution_timeout_s": 1800.0,
+      "execution_timeout_s": 7200.0,
       "cancel_timeout_s": 10.0,
       "backend": "student_d435",
       "student_profile": "sim/ros_ws/src/farm_sim_config/config/student_policy.json"

@@ -17,7 +17,8 @@ class HarvestTarget:
 
 
 class StudentHarvestMission:
-    def __init__(self, session, targets, config, return_path, *, task_list_complete):
+    def __init__(self, session, targets, config, return_path, *, task_list_complete,
+                 recover_harvest_timeout=False):
         if not task_list_complete or not targets:
             raise ValueError('A nonempty, explicitly complete assigned target list is required')
         self.targets = list(targets)
@@ -51,6 +52,9 @@ class StudentHarvestMission:
         self.phase_start = None; self.path = []; self.path_index = 0
         self.last_measured_q = None; self.measured_speed = float('inf')
         self.motion_bias = np.zeros(6)
+        # 농장 sim만 선택한다. 수확 시간초과는 측정 복귀 후 호출자가 재관측한다.
+        self.recover_harvest_timeout = recover_harvest_timeout
+        self.harvest_timed_out = False
 
     def _pose(self, values):
         q = np.asarray(values, dtype=float)
@@ -138,7 +142,7 @@ class StudentHarvestMission:
                     if self.state == 'TO_HOME':
                         self.session.start(self.target, self.previous.copy())
                         self.harvest_start = now; self._enter('HARVEST', now)
-                    elif len(self.harvested) == len(self.targets): self._enter('FINAL_STOP', now)
+                    elif self.harvest_timed_out or len(self.harvested) == len(self.targets): self._enter('FINAL_STOP', now)
                     else:
                         self.index += 1; self._enter('STOW_WAIT', now)
                 else: goal = self.path[self.path_index]
@@ -174,6 +178,16 @@ class StudentHarvestMission:
         return self._issued(self._move(q, goal, dt), False)
 
     def _fail(self, now, q, reason):
+        if reason == 'harvest_or_box_timeout' and self.recover_harvest_timeout:
+            self.harvest_timed_out = True
+            self.events.append(dict(state='HARVEST_TIMEOUT', stamp_s=now,
+                                    target_id=self.target.target_id))
+            try:
+                route = self.return_path(q.copy(), self.home.copy())
+                self._route(list(route)+self.via+[self.stow], 'RETURN_STOW', now)
+                return self._issued(self._move(q, self.path[0], .05), False)
+            except (ValueError, RuntimeError) as error:
+                reason = 'return_path_rejected: '+str(error)
         self.failure = reason; self.stop_goal = q.copy(); self._enter('STOPPING', now)
         return self._issued(encode_command(q, [1., .3], self.lower, self.upper), False)
 
@@ -195,4 +209,5 @@ class StudentHarvestMission:
                     ordered_target_ids=[t.target_id for t in self.targets],
                     observed_target_heights_m=self.target_heights,
                     harvest_successes=len(self.harvested), planned_targets=len(self.targets),
-                    harvested_ids=list(self.harvested), failure=self.failure, events=self.events)
+                    harvested_ids=list(self.harvested), failure=self.failure, events=self.events,
+                    harvest_timed_out=self.harvest_timed_out)
