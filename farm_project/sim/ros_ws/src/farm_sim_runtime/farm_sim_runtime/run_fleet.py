@@ -197,6 +197,10 @@ def main():
             context = world.get_physics_context()
             context.enable_gpu_dynamics(args.physics_device == 'gpu')
             context.set_broadphase_type('GPU' if args.physics_device == 'gpu' else 'MBP')
+        context = world.get_physics_context()
+        print('[physics_device] '+json.dumps(dict(requested=args.physics_device or 'profile',
+            gpu_dynamics=context.is_gpu_dynamics_enabled(),
+            broadphase=context.get_broadphase_type())), flush=True)
         clock_transport = LocalDatagrams(task['clock']['command_port'], task['clock']['telemetry_port'])
         diagnostic = DriveDiagnostics(root/'sim/runs/drive_diagnostics'/session, session)
         for cfg,robot_path,body_path,static,T_scan,camera_path,T_camera,tag_camera_path,T_tag_camera,T_asset_control in bindings:
@@ -294,6 +298,9 @@ def main():
             for robot in robots:
                 if robot['arm'] is not None:
                     robot['arm'].observe_physics_tick(dt_s, sim_s)
+                if ((ticks.frame_count+1) % ticks.render_every == 0 and
+                        robot['cfg']['runtime'].get('harvest_arm', {}).get('backend') == 'student_d435'):
+                    robot['arm'].prepare_capture(sim_s)
         hcfg = task['harvest_robot']
         truth = SceneTruth(stage,root/hcfg['scene_snapshot_file'],hcfg['robot_id'],task['map_id'],session,hcfg['workspace'])
         previous = float(world.current_time)
@@ -431,6 +438,8 @@ def main():
                     arm_s=arm_finished-control_finished, prepare_s=prepare_finished-arm_finished,
                     post_s=truth_started-step_finished, truth_s=frame_finished-truth_started,
                     sensor_s=sensor_s, student_camera_s=student_camera_s,
+                    camera_timings={r['cfg']['robot_id']: r['arm'].controller.rig.frame_timings
+                        for r in robots if r['cfg']['runtime'].get('harvest_arm', {}).get('backend') == 'student_d435'},
                     **ticks.frame_timings))+'\n')
                 if ticks.frame_count % 60 == 0:
                     performance_log.flush()

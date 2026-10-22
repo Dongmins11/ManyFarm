@@ -1,7 +1,34 @@
 """농장 World 위의 D435 rig. 전달 보정/리맵과 실제 렌더 배열만 사용한다."""
 import json
+import time
 import numpy as np
 from scipy.spatial.transform import Rotation
+
+
+def align_depth_to_color(depth: np.ndarray, kd: np.ndarray, kc: np.ndarray,
+                         color_from_depth: np.ndarray, color_shape: tuple) -> np.ndarray:
+    """기존 optical-Z 전방 투영/최근접 z-buffer를 큰 행렬곱 없이 계산한다.
+
+    좌표 계산은 원본과 같은 float64, 출력은 float32다. 보간·구멍 채우기나
+    측정 캐시를 사용하지 않으며, 정렬 충돌에서는 가장 가까운 깊이를 남긴다.
+    """
+    h, w = color_shape
+    y, x = np.nonzero(np.isfinite(depth) & (depth > 0))
+    z = depth[y, x].astype(np.float64)
+    xx = (x-kd[0, 2])*z/kd[0, 0]
+    yy = (y-kd[1, 2])*z/kd[1, 1]
+    t = color_from_depth
+    px = xx*t[0, 0] + yy*t[0, 1] + z*t[0, 2] + t[0, 3]
+    py = xx*t[1, 0] + yy*t[1, 1] + z*t[1, 2] + t[1, 3]
+    pz = xx*t[2, 0] + yy*t[2, 1] + z*t[2, 2] + t[2, 3]
+    keep = pz > 0
+    px, py, pz = px[keep], py[keep], pz[keep]
+    u = np.rint(px/pz*kc[0, 0] + kc[0, 2]).astype(np.int64)
+    v = np.rint(py/pz*kc[1, 1] + kc[1, 2]).astype(np.int64)
+    keep = (u >= 0) & (u < w) & (v >= 0) & (v < h)
+    out = np.full(h*w, np.inf, dtype=np.float32)
+    np.minimum.at(out, v[keep]*w+u[keep], pz[keep])
+    return np.where(np.isfinite(out), out, 0).reshape(h, w)
 
 
 class FarmD435Rig:
@@ -21,6 +48,22 @@ class FarmD435Rig:
         self.sequence = 0
         self.max_fk_error = 0.
         self.start_time = 0.
+        self.frame_timings = {}
+        self._prepared_capture = None
+        self.align_depth = align_depth_to_color
+        self.native_processor = None
+        try:
+            from harvest_sensors.student60_low_latency import (
+                align_depth_to_color as compiled_align, process_native, warmup)
+        except ImportError:
+            # 기존 환경에 선택적 가속기가 없으면 NumPy 경로를 유지한다.
+            print('[student_camera] geometry backend: numpy', flush=True)
+        else:
+            # JIT 최초 컴파일은 제어/촬영 deadline이 시작되기 전에 끝낸다.
+            warmup()
+            self.align_depth = compiled_align
+            self.native_processor = process_native
+            print('[student_camera] geometry backend: compiled_cpu', flush=True)
         self.world_from_robot = self.robot_transform()
         for name, view in config['views'].items():
             self.cameras[name] = {}
@@ -115,18 +158,21 @@ class FarmD435Rig:
         base = self.kin.fk(np.zeros(6), 'arm_2/base_link')
         return self.device.arm_world_transform() @ np.linalg.inv(base)
 
-    def set_active(self, active: bool) -> None:
+    def set_active(self, active: bool, *, reset_capture: bool = True) -> None:
         self.active = active
+        self._prepared_capture = None
         for pair in self.cameras.values():
             for camera in pair.values():
                 (camera.resume if active else camera.pause)()
                 camera._render_product.hydra_texture.set_updates_enabled(active)
         if active:
-            self.sequence = 0
-            self.start_time = float(self.world.current_time)
+            now = float(self.world.current_time)
+            if reset_capture:
+                self.sequence = 0
+                self.start_time = now
+                self.max_fk_error = 0.
             self.last = {}
-            self.max_fk_error = 0.
-            self.acquire(self.start_time)
+            self.acquire(now)
 
     def update_poses(self) -> tuple[np.ndarray, dict]:
         from harvest_sensors.profile import optical_poses
@@ -153,7 +199,22 @@ class FarmD435Rig:
         self.visual_transform.Set(Gf.Matrix4d(wrist.T))
         return q, expected
 
+    def capture_due(self, now: float) -> bool:
+        """기존30Hz 촬영 시각만 판정하며 영상/물리를 진행하지 않는다."""
+        physics_steps = round((now-self.start_time)*60)
+        return (self.active and physics_steps % 2 == 0
+                and (not self.last or self.last['rear']['stamp_s'] < now-1e-8))
+
+    def prepare_capture(self, now: float) -> None:
+        """물리 직후 일반 렌더가 예정된 경우 현재 카메라 pose를 먼저 맞춘다."""
+        self._prepared_capture = None
+        if self.capture_due(now):
+            started = time.perf_counter()
+            q, expected = self.update_poses()
+            self._prepared_capture = (now, q, expected, time.perf_counter()-started)
+
     def after_frame(self, now: float) -> None:
+        self.frame_timings = {}
         if not self.active:
             from pxr import Gf
             positions, orientations = self.device._pose_view.get_world_poses()
@@ -163,8 +224,7 @@ class FarmD435Rig:
             wrist[:3, :3] = Rotation.from_quat(np.asarray(orientations[index])[[1, 2, 3, 0]]).as_matrix()
             self.visual_transform.Set(Gf.Matrix4d(wrist.T))
             return
-        physics_steps = round((now-self.start_time)*60)
-        if physics_steps % 2 or (self.last and self.last['rear']['stamp_s'] >= now-1e-8):
+        if not self.capture_due(now):
             return
         self.acquire(now)
 
@@ -172,11 +232,23 @@ class FarmD435Rig:
         """같은 물리 pose에서 전달본과 동일한 두 렌더 pass 뒤 센서 배열을 읽는다."""
         from harvest_sensors.profile import matrix
         from harvest_sensors.student60_eval_camera_cache import remap_render, centred_render_spec
-        from harvest_rl.rgbd_geometry import valid_depth, align_depth_to_color
-        q, expected = self.update_poses()
+        from harvest_rl.rgbd_geometry import valid_depth
+        started = time.perf_counter()
+        prepared, self._prepared_capture = self._prepared_capture, None
+        reused = prepared is not None and abs(prepared[0]-now) < 1e-9
+        if reused:
+            _, q, expected, pose_s = prepared
+        else:
+            q, expected = self.update_poses()
+            pose_s = time.perf_counter()-started
+        timings = dict(camera_pose_s=pose_s, camera_reused_render_passes=int(reused))
         before = float(self.world.current_time)
-        self.world.render()
-        self.world.render()
+        # 같은 물리 tick의 일반 렌더도 현재 pose라면 첫 pass로 쓴다.
+        # 촬영/일반 렌더 위상이 다르면 원래 두 pass를 그대로 실행한다.
+        for index in range(int(reused), 2):
+            mark = time.perf_counter()
+            self.world.render()
+            timings[f'camera_render_{index+1}_s'] = time.perf_counter()-mark
         if abs(float(self.world.current_time)-before) > 1e-9:
             raise RuntimeError('Student 촬영 중 물리 시간이 진행됐습니다.')
         result = {}
@@ -184,6 +256,7 @@ class FarmD435Rig:
             images, poses, ks, checks = {}, {}, {}, {}
             error = 0.
             for stream, camera in pair.items():
+                mark = time.perf_counter()
                 pos, quat = camera.get_world_pose(camera_axes='ros')
                 transform = np.eye(4)
                 transform[:3, 3] = np.asarray(pos)
@@ -197,20 +270,33 @@ class FarmD435Rig:
                 if not np.allclose(actual_k, expected_k, atol=1e-3):
                     raise RuntimeError('Student 촬영 중 실제 render K가 바뀌었습니다.')
                 checks[stream] = dict(render_wh=[width, height], render_k=actual_k.tolist(), native_k=ks[stream].tolist())
-                array = camera.get_depth() if stream == 'depth' else camera.get_rgb()
+                timings['camera_metadata_s'] = timings.get('camera_metadata_s', 0.) + time.perf_counter()-mark
+                mark = time.perf_counter()
+                array = camera.get_depth() if stream == 'depth' else camera.get_rgba()
+                timings['camera_readback_s'] = timings.get('camera_readback_s', 0.) + time.perf_counter()-mark
                 if array is None or not np.asarray(array).size:
                     raise RuntimeError('Student 실제 센서 영상이 없습니다: '+name+'/'+stream)
+                mark = time.perf_counter()
                 image = remap_render(np.asarray(array), spec, depth=stream == 'depth')
+                if stream != 'depth':
+                    # SDK RGB는 RGBA의 비연속 view다. RGBA로 리맵 후 RGB를 추출하면
+                    # OpenCV의 큰 입력 영상 암묵 복사를 피하며 RGB 보간값은 같다.
+                    image = np.ascontiguousarray(image[:, :, :3])
+                timings['camera_remap_s'] = timings.get('camera_remap_s', 0.) + time.perf_counter()-mark
                 if stream == 'ir_right':
+                    mark = time.perf_counter()
                     image = np.rint(image.astype(float) @ [.299, .587, .114]).astype(np.uint8)
+                    timings['camera_ir_s'] = time.perf_counter()-mark
                 images[stream] = image
             self.max_fk_error = max(self.max_fk_error, error)
             if error > 2e-4:
                 raise RuntimeError(f'Student 센서 optical FK 불일치: {name}: {error}')
             raw = images['depth']
+            mark = time.perf_counter()
             depth, mask = valid_depth(raw, self.config['depth_min_m'], self.config['depth_max_m'])
             relative = np.linalg.inv(poses['rgb']) @ poses['depth']
-            aligned = align_depth_to_color(depth, ks['depth'], ks['rgb'], relative, images['rgb'].shape[:2])
+            aligned = self.align_depth(depth, ks['depth'], ks['rgb'], relative, images['rgb'].shape[:2])
+            timings[f'camera_align_{name}_s'] = time.perf_counter()-mark
             view = self.config['views'][name]
             result[name] = dict(rgb=images['rgb'], ir={k: v for k, v in images.items() if k.startswith('ir_')},
                 raw_depth_m=raw, depth_m=depth, depth_valid=mask, aligned_depth_m=aligned,
@@ -223,6 +309,8 @@ class FarmD435Rig:
                 mount_calibration_verified=view['mount_calibration_verified'])
         self.last = result
         self.sequence += 1
+        timings['camera_acquire_s'] = time.perf_counter()-started + (pose_s if reused else 0.)
+        self.frame_timings = timings
 
     def capture(self) -> dict:
         if not self.last:

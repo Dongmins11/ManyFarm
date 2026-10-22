@@ -155,5 +155,40 @@ class ExecutionClockTests(unittest.TestCase):
         self.assertGreater(self.wall, 700.)
 
 
+    def adaptive_route(self):
+        self.client._nominal_linear_speed_mps = .1
+        self.client._node.get_logger = lambda:NS(warning=lambda _:None, info=lambda _:None)
+        self.path.poses[1].pose.position.x = 27.5
+
+    def test_long_trip_can_finish_after_old_deadline(self):
+        self.adaptive_route(); self.finish_sim = 400.
+        self.assertEqual(self.execute(), GoalStatus.STATUS_SUCCEEDED)
+        self.assertGreater(self.sim, 300.)
+        self.assertFalse(self.client.has_goal)
+
+    def test_long_trip_still_times_out_and_keeps_cancel_handle(self):
+        self.adaptive_route()
+        with self.assertRaisesRegex(TimeoutError, '주행 완료 시간 초과'):
+            self.execute()
+        self.assertGreaterEqual(self.sim, 610.)
+        self.assertLess(self.sim, 611.)
+        self.assertTrue(self.client.has_goal)
+
+    def test_tf_recovery_uses_same_adaptive_outer_budget(self):
+        self.adaptive_route()
+        self.client._settings = NavigationSettings(mode='follow_path', tf_recovery_enabled=True)
+        self.client._recovery_probe = lambda:True
+        self.client._last_control_feedback = 0.
+        self.client._stop_publishers = []
+        self.finish_sim = 400.
+        self.assertEqual(self.execute(), GoalStatus.STATUS_SUCCEEDED)
+
+    def test_real_uses_adaptive_wall_budget(self):
+        self.adaptive_route(); self.clock.ros_time_is_active = False; self.rate = 0.
+        with self.assertRaisesRegex(TimeoutError, '주행 완료 시간 초과'):
+            self.execute()
+        self.assertEqual(self.wall, 610.)
+
+
 if __name__ == '__main__':
     unittest.main()

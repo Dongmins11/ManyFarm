@@ -1,0 +1,194 @@
+{
+  "status": "COMPLETE",
+  "started_at": "2026-10-21T08:23:47.302433+00:00",
+  "completed_sections": [
+    "SEC01",
+    "SEC02",
+    "SEC03",
+    "SEC04",
+    "SEC05",
+    "SEC06",
+    "SEC07",
+    "SEC08",
+    "SEC09",
+    "SEC10",
+    "SEC11",
+    "SEC12",
+    "SEC13",
+    "SEC14",
+    "SEC15",
+    "SEC16"
+  ],
+  "skipped_sections": [],
+  "attempts": [
+    {
+      "section": "SEC01",
+      "attempt": 1,
+      "status": "SUCCESS",
+      "phase": "complete",
+      "error": null,
+      "directory": "/home/ysy/main/farm_project/sim/runs/sec01_16_fresh_metrics_20261021_172329/SEC01_attempt_0001"
+    },
+    {
+      "section": "SEC02",
+      "attempt": 1,
+      "status": "SUCCESS",
+      "phase": "complete",
+      "error": null,
+      "directory": "/home/ysy/main/farm_project/sim/runs/sec01_16_fresh_metrics_20261021_172329/SEC02_attempt_0001"
+    },
+    {
+      "section": "SEC03",
+      "attempt": 1,
+      "status": "SUCCESS",
+      "phase": "complete",
+      "error": null,
+      "directory": "/home/ysy/main/farm_project/sim/runs/sec01_16_fresh_metrics_20261021_172329/SEC03_attempt_0001"
+    },
+    {
+      "section": "SEC04",
+      "attempt": 1,
+      "status": "SUCCESS",
+      "phase": "complete",
+      "error": null,
+      "directory": "/home/ysy/main/farm_project/sim/runs/sec01_16_fresh_metrics_20261021_172329/SEC04_attempt_0001"
+    },
+    {
+      "section": "SEC05",
+      "attempt": 1,
+      "status": "SUCCESS",
+      "phase": "complete",
+      "error": null,
+      "directory": "/home/ysy/main/farm_project/sim/runs/sec01_16_fresh_metrics_20261021_172329/SEC05_attempt_0001"
+    },
+    {
+      "section": "SEC06",
+      "attempt": 1,
+      "status": "FAILED",
+      "phase": "scout",
+      "error": "예찰 실패: SURVEY_FAILED Nav2 실패: status=6, error_code=105, ",
+      "directory": "/home/ysy/main/farm_project/sim/runs/sec01_16_fresh_metrics_20261021_172329/SEC06_attempt_0001"
+    },
+    {
+      "section": "SEC06",
+      "attempt": 2,
+      "status": "SUCCESS",
+      "phase": "complete",
+      "error": null,
+      "directory": "/home/ysy/main/farm_project/sim/runs/sec01_16_fresh_metrics_20261021_172329/SEC06_attempt_0002"
+    },
+    {
+      "section": "SEC07",
+      "attempt": 1,
+      "status": "SUCCESS",
+      "phase": "complete",
+      "error": null,
+      "directory": "/home/ysy/main/farm_project/sim/runs/sec01_16_fresh_metrics_20261021_172329/SEC07_attempt_0001"
+    },
+    {
+      "section": "SEC08",
+      "attempt": 1,
+      "status": "SUCCESS",
+      "phase": "complete",
+      "error": null,
+      "directory": "/home/ysy/main/farm_project/sim/runs/sec01_16_fresh_metrics_20261021_172329/SEC08_attempt_0001"
+    },
+    {
+      "section": "SEC09",
+      "attempt": 1,
+      "status": "SUCCESS",
+      "phase": "complete",
+      "error": null,
+      "directory": "/home/ysy/main/farm_project/sim/runs/sec01_16_fresh_metrics_20261021_172329/SEC09_attempt_0001"
+    },
+    {
+      "section": "SEC10",
+      "attempt": 1,
+      "status": "SUCCESS",
+      "phase": "complete",
+      "error": null,
+      "directory": "/home/ysy/main/farm_project/sim/runs/sec01_16_fresh_metrics_20261021_172329/SEC10_attempt_0001"
+    },
+    {
+      "section": "SEC11",
+      "attempt": 1,
+      "status": "SUCCESS",
+      "phase": "complete",
+      "error": null,
+      "directory": "/home/ysy/main/farm_project/sim/runs/sec01_16_fresh_metrics_20261021_172329/SEC11_attempt_0001"
+    },
+    {
+      "section": "SEC12",
+      "attempt": 1,
+      "status": "SUCCESS",
+      "phase": "complete",
+      "error": null,
+      "directory": "/home/ysy/main/farm_project/sim/runs/sec01_16_fresh_metrics_20261021_172329/SEC12_attempt_0001"
+    },
+    {
+      "section": "SEC13",
+      "attempt": 1,
+      "status": "SUCCESS",
+      "phase": "complete",
+      "error": null,
+      "directory": "/home/ysy/main/farm_project/sim/runs/sec01_16_fresh_metrics_20261021_172329/SEC13_attempt_0001"
+    },
+    {
+      "section": "SEC14",
+      "attempt": 1,
+      "status": "FAILED",
+      "phase": "harvest",
+      "error": "수확 실패: NAVIGATION_FAILED WORK_TARGET_NOT_AHEAD: 목표가 현재 위치의 전방이 아닙니다. 회전/후진은 요청하지 않았습니다.",
+      "directory": "/home/ysy/main/farm_project/sim/runs/sec01_16_fresh_metrics_20261021_172329/SEC14_attempt_0001"
+    },
+    {
+      "section": "SEC14",
+      "attempt": 2,
+      "status": "SUCCESS",
+      "phase": "complete",
+      "error": null,
+      "directory": "/home/ysy/main/farm_project/sim/runs/sec01_16_fresh_metrics_20261021_172329/SEC14_attempt_0002"
+    },
+    {
+      "section": "SEC15",
+      "attempt": 1,
+      "status": "FAILED",
+      "phase": "startup",
+      "error": "300초 내 ('scout_01', 'harvest_01') Action/Nav2/odom 준비 실패",
+      "directory": "/home/ysy/main/farm_project/sim/runs/sec01_16_fresh_metrics_20261021_172329/SEC15_attempt_0001"
+    },
+    {
+      "section": "SEC15",
+      "attempt": 2,
+      "status": "SUCCESS",
+      "phase": "complete",
+      "error": null,
+      "directory": "/home/ysy/main/farm_project/sim/runs/sec01_16_fresh_metrics_20261021_172329/SEC15_attempt_0002"
+    },
+    {
+      "section": "SEC16",
+      "attempt": 1,
+      "status": "FAILED",
+      "phase": "harvest",
+      "error": "수확 실패: CANCEL_UNCONFIRMED CANCEL_UNCONFIRMED: measured_stop_not_confirmed",
+      "directory": "/home/ysy/main/farm_project/sim/runs/sec01_16_fresh_metrics_20261021_172329/SEC16_attempt_0001"
+    },
+    {
+      "section": "SEC16",
+      "attempt": 2,
+      "status": "FAILED",
+      "phase": "harvest",
+      "error": "수확 실패: NAVIGATION_FAILED WORK_TARGET_NOT_AHEAD: 목표가 현재 위치의 전방이 아닙니다. 회전/후진은 요청하지 않았습니다.",
+      "directory": "/home/ysy/main/farm_project/sim/runs/sec01_16_fresh_metrics_20261021_172329/SEC16_attempt_0002"
+    },
+    {
+      "section": "SEC16",
+      "attempt": 3,
+      "status": "SUCCESS",
+      "phase": "complete",
+      "error": null,
+      "directory": "/home/ysy/main/farm_project/sim/runs/sec01_16_fresh_metrics_20261021_172329/SEC16_attempt_0003"
+    }
+  ],
+  "finished_at": "2026-10-21T21:50:44.078582+00:00"
+}

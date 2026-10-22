@@ -8,6 +8,7 @@ from datetime import datetime, timezone
 import hashlib
 import json
 import os
+import re
 from pathlib import Path
 import shutil
 import signal
@@ -95,7 +96,7 @@ def dump_parameters(directory: Path, robot_ids: tuple, event: object) -> None:
                                                   error=str(error)))
 
 
-def run_worker(directory: Path, section: str) -> int:
+def run_worker(directory: Path, section: str, fresh_scout: bool = False) -> int:
     """실제 공통 Action 계약을 사용하고 독립 구독으로 명령/위치를 기록한다."""
     import rclpy
     from rclpy.action import ActionClient
@@ -183,7 +184,7 @@ def run_worker(directory: Path, section: str) -> int:
         return response, data
 
     try:
-        cache = load_scout_cache(directory.parent, section)
+        cache = None if fresh_scout else load_scout_cache(directory.parent, section)
         state['scout_reused'] = cache is not None
         if cache is not None:
             state.update(scout_result=cache['scout_result'],
@@ -322,6 +323,29 @@ def archive(directory: Path, before: dict) -> None:
     save(directory / 'artifacts.json', dict(files=copied, archived_at=utc()))
 
 
+def failure_signature(item: dict) -> str:
+    """가변 작업 ID/시각을 제외하고 단계와 실제 오류 문구로 동일 현상을 센다."""
+    message = item.get('error') or 'unknown'
+    message = re.sub(r'\b[0-9a-f]{12,}\b', '<id>', message)
+    message = re.sub(r'SEC\d+_attempt_\d+|SEC\d+_(?:TASK|W)\d+|fruit-\d+', '<target>', message)
+    message = re.sub(r'\d+\.\d+', '<number>', message)
+    return (item.get('phase') or 'unknown') + ': ' + message
+
+
+def repeated_failure(attempts: list, section: str, limit: int) -> dict | None:
+    """같은 SEC에서 같은 오류가 누적 limit회면 생략한다. 운영 중단은 제외한다."""
+    if limit <= 0:
+        return None
+    groups = {}
+    for item in attempts:
+        if item['section'] == section and item['status'] == 'FAILED':
+            groups.setdefault(failure_signature(item), []).append(item['directory'])
+    for signature, evidence in groups.items():
+        if len(evidence) >= limit:
+            return dict(section=section, signature=signature, count=len(evidence), evidence=evidence)
+    return None
+
+
 def write_analysis(output: Path, summary: dict) -> None:
     """성공률 분모에서 실패 시도를 숨기지 않고 원인별 증거 색인을 갱신한다."""
     groups = {}
@@ -357,10 +381,11 @@ def campaign(output: Path, args: argparse.Namespace) -> int:
                ROS_AUTOMATIC_DISCOVERY_RANGE='SUBNET', PYTHONUNBUFFERED='1')
     metadata = dict(started_at=utc(), sections=args.sections, ros_domain_id=args.domain,
                     ros_automatic_discovery_range=env['ROS_AUTOMATIC_DISCOVERY_RANGE'],
-                    headless=True, rviz=False, tag_correction=True,
+                    headless=True, rviz=False, tag_correction=True, physics_device='cpu',
                     success_rule='Scout SUCCESS then every returned window ROS SUCCEEDED/result SUCCESS; counts are yield only',
                     reset_rule='Every attempt starts a fresh full Isaac + ROS stack; failures retry same SEC',
-                    scout_reuse_rule='Same unchanged-map campaign: persist successful scout; retry all cached windows from harvest',
+                    scout_reuse_rule=('Fresh scouting on every retry' if getattr(args, 'fresh_scout', False) else 'Reuse successful scouting'),
+                    max_identical_failures=getattr(args, 'max_identical_failures', 0),
                     empty_harvest_rule='Zero returned windows is logged explicitly; no synthetic harvest',
                     git_head=subprocess.check_output(['git', 'rev-parse', 'HEAD'], cwd=ROOT, text=True).strip(),
                     source_hashes={})
@@ -368,14 +393,29 @@ def campaign(output: Path, args: argparse.Namespace) -> int:
         for path in (ROOT / tree).rglob('*'):
             if path.is_file():
                 metadata['source_hashes'][str(path.relative_to(ROOT))] = hashlib.sha256(path.read_bytes()).hexdigest()
-    session_source = ROOT / 'sim/ros_ws/src/farm_sim_devices/farm_sim_devices/student_session.py'
-    metadata['source_hashes'][str(session_source.relative_to(ROOT))] = hashlib.sha256(session_source.read_bytes()).hexdigest()
+    # 재실행 시 버전 비교가 가능하도록 제어·장치·평가 코드와 환경 설정을 보존한다.
+    snapshot = output / ('source_snapshot_' + datetime.now().strftime('%Y%m%d_%H%M%S'))
+    for tree in ('robot/ros_ws/src/farm_navigation', 'robot/ros_ws/src/scout_robot',
+                 'robot/ros_ws/src/harvest_robot', 'sim/ros_ws/src/farm_sim_devices',
+                 'sim/ros_ws/src/farm_sim_runtime', 'sim/ros_ws/src/farm_sim_config',
+                 'sim/assets/robotarm_student/manyfarm_robotarm/src/harvest_robot',
+                 'sim/tools', 'robot/config/navigation'):
+        for path in (ROOT / tree).rglob('*'):
+            if path.is_file() and path.suffix in ('.py', '.yaml', '.yml', '.json', '.geojson', '.pgm'):
+                rel = path.relative_to(ROOT)
+                metadata['source_hashes'][str(rel)] = hashlib.sha256(path.read_bytes()).hexdigest()
+                target = snapshot / rel
+                target.parent.mkdir(parents=True, exist_ok=True)
+                shutil.copy2(path, target)
+    metadata['source_snapshot'] = str(snapshot)
+    save(snapshot / 'manifest.json', metadata)
     if not (output / 'manifest.json').exists():
         save(output / 'manifest.json', metadata)
     shutil.copy2(__file__, output / ('runner_snapshot_' + datetime.now().strftime('%H%M%S') + '.py'))
     completed = []
+    skipped = []
     attempts = []
-    summary = dict(status='RUNNING', started_at=utc(), completed_sections=completed, attempts=attempts)
+    summary = dict(status='RUNNING', started_at=utc(), completed_sections=completed, skipped_sections=skipped, attempts=attempts)
     if (output / 'summary.json').exists():
         if not args.resume:
             raise RuntimeError('기존 시험 폴더는 --resume으로만 이어 실행할 수 있습니다.')
@@ -414,6 +454,11 @@ def campaign(output: Path, args: argparse.Namespace) -> int:
     for section in args.sections:
         if section in completed:
             continue
+        repetition = repeated_failure(attempts, section, getattr(args, 'max_identical_failures', 0))
+        if repetition:
+            skipped.append(repetition)
+            save(output / 'summary.json', summary)
+            continue
         attempt = max([a['attempt'] for a in attempts if a['section'] == section], default=0)
         while not (output / 'STOP').exists():
             if shutil.disk_usage(output).free < 10 * 1024**3:
@@ -430,7 +475,7 @@ def campaign(output: Path, args: argparse.Namespace) -> int:
             command = ['ros2', 'launch', 'farm_sim_runtime', 'all.launch.py',
                        f'project_root:={ROOT}', f'isaac_python:={args.isaac_python}',
                        f'vision_python:={args.vision_python}', 'harvest:=true', 'headless:=true',
-                       'rviz:=false', 'tag_correction:=true',
+                       'rviz:=false', 'tag_correction:=true', 'physics_device:=cpu',
                        f'performance_log:={directory / "performance.jsonl"}']
             save(directory / 'launch.json', dict(command=command, started_at=utc()))
             print(f'{utc()} START {directory.name}', flush=True)
@@ -440,7 +485,7 @@ def campaign(output: Path, args: argparse.Namespace) -> int:
                     launch = subprocess.Popen(command, cwd=ROOT, env=launch_env,
                         stdout=log, stderr=subprocess.STDOUT, start_new_session=True)
                     worker = subprocess.Popen([sys.executable, __file__, '--worker', str(directory),
-                        '--sections', section], cwd=ROOT, env=launch_env, stdout=worker_log,
+                        '--sections', section] + (['--fresh-scout'] if getattr(args, 'fresh_scout', False) else []), cwd=ROOT, env=launch_env, stdout=worker_log,
                         stderr=subprocess.STDOUT, start_new_session=True)
                     save(directory / 'pids.json', dict(launch=launch.pid, worker=worker.pid))
                     last_health = 0.
@@ -484,12 +529,19 @@ def campaign(output: Path, args: argparse.Namespace) -> int:
             write_analysis(output, summary)
             if result['status'] == 'SUCCESS':
                 break
+            repetition = repeated_failure(attempts, section, getattr(args, 'max_identical_failures', 0))
+            if repetition:
+                skipped.append(repetition)
+                save(directory / 'skip_reason.json', repetition)
+                save(output / 'summary.json', summary)
+                print(f'{utc()} SKIPPED {section}: {repetition}', flush=True)
+                break
         if (output / 'STOP').exists():
             summary.update(status='STOPPED', finished_at=utc())
             save(output / 'summary.json', summary)
             lock.close()
             return 130
-    summary.update(status='COMPLETE', finished_at=utc())
+    summary.update(status='COMPLETE_WITH_SKIPS' if skipped else 'COMPLETE', finished_at=utc())
     save(output / 'summary.json', summary)
     write_analysis(output, summary)
     lock.close()
@@ -500,6 +552,8 @@ def main() -> int:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--output', type=Path)
     parser.add_argument('--worker', type=Path)
+    parser.add_argument('--fresh-scout', action='store_true', help='실패 재시도도 예찰부터 새로 수행')
+    parser.add_argument('--max-identical-failures', type=int, default=0, help='같은 SEC/오류 누적 한도. 0은 무제한')
     parser.add_argument('--resume', action='store_true', help='보존한 시도/성공 SEC 이후부터 재개')
     parser.add_argument('--sections', nargs='+', default=[f'SEC{i:02d}' for i in range(1, 17)])
     parser.add_argument('--domain', type=int, default=13)
@@ -507,7 +561,7 @@ def main() -> int:
     parser.add_argument('--vision-python', default='/home/ysy/venv/robot_venv/bin/python')
     args = parser.parse_args()
     if args.worker:
-        return run_worker(args.worker.resolve(), args.sections[0])
+        return run_worker(args.worker.resolve(), args.sections[0], args.fresh_scout)
     output = args.output or RUNS / ('section_campaign_' + datetime.now().strftime('%Y%m%d_%H%M%S'))
     return campaign(output.resolve(), args)
 

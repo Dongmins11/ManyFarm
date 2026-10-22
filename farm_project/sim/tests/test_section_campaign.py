@@ -171,6 +171,8 @@ class CampaignTest(unittest.TestCase):
             self.assertEqual(workers[:4], ['SEC01', 'SEC01', 'SEC01', 'SEC02'])
             self.assertEqual(workers[-1], 'SEC16')
             self.assertEqual(len(launches), 18)
+            # 초기 실행과 모든 재시도에서 검증된 CPU 물리를 명시한다.
+            self.assertTrue(all('physics_device:=cpu' in command for command in launches))
             self.assertEqual(len(stops), 36)
             summary = json.loads((output / 'summary.json').read_text())
             self.assertEqual(len(summary['completed_sections']), 16)
@@ -183,6 +185,51 @@ class CampaignTest(unittest.TestCase):
                 self.assertEqual(CAMPAIGN.campaign(output, args), 0)
             analysis = json.loads((output / 'failure_analysis.json').read_text())
             self.assertEqual(analysis['failure_groups'][0]['count'], 2)
+
+    def test_three_identical_failures_skip_and_fresh_scout_reaches_next_section(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            output = Path(tmp)
+            workers = []
+            class Process:
+                pid = 999999
+                def __init__(self, command, **kwargs):
+                    if '--worker' not in command:
+                        return
+                    assert '--fresh-scout' in command
+                    directory = Path(command[command.index('--worker')+1])
+                    section = command[command.index('--sections')+1]
+                    workers.append(section)
+                    CAMPAIGN.save(directory/'result.json', dict(
+                        status='FAILED' if section == 'SEC01' else 'SUCCESS',
+                        phase='harvest', error='Nav2 error_code=105' if section == 'SEC01' else None))
+                def poll(self):
+                    return 0
+            args = argparse.Namespace(domain=13, sections=['SEC01','SEC02'], resume=False,
+                isaac_python='unused', vision_python='unused', fresh_scout=True, max_identical_failures=3)
+            with patch.object(CAMPAIGN.subprocess, 'Popen', Process), \
+                 patch.object(CAMPAIGN.subprocess, 'check_output', return_value='test'), \
+                 patch.object(CAMPAIGN, 'inventory', return_value={}), \
+                 patch.object(CAMPAIGN, 'stop_group'), patch.object(CAMPAIGN, 'write_analysis'):
+                self.assertEqual(CAMPAIGN.campaign(output,args), 0)
+                self.assertEqual(workers,['SEC01','SEC01','SEC01','SEC02'])
+                summary=json.loads((output/'summary.json').read_text())
+                self.assertEqual(summary['status'],'COMPLETE_WITH_SKIPS')
+                self.assertEqual(summary['completed_sections'],['SEC02'])
+                self.assertEqual(summary['skipped_sections'][0]['count'],3)
+                self.assertTrue((output/'SEC01_attempt_0003/skip_reason.json').exists())
+                args.resume=True
+                self.assertEqual(CAMPAIGN.campaign(output,args),0)
+                self.assertEqual(len(workers),4)
+
+    def test_signature_ignores_ids_but_does_not_merge_different_errors_or_stops(self):
+        items=[dict(section='SEC01',status='FAILED',phase='harvest',
+                    error=f'fruit-{i:06d} timeout',directory=str(i)) for i in range(2)]
+        items += [dict(section='SEC01',status='STOPPED',phase='harvest',error='fruit-000003 timeout',directory='stop')]
+        self.assertIsNone(CAMPAIGN.repeated_failure(items,'SEC01',3))
+        items.append(dict(items[0],error='fruit-000004 other_error'))
+        self.assertIsNone(CAMPAIGN.repeated_failure(items,'SEC01',3))
+        items.append(dict(items[0],error='fruit-000005 timeout'))
+        self.assertEqual(CAMPAIGN.repeated_failure(items,'SEC01',3)['count'],3)
 
 
 if __name__ == '__main__':

@@ -1208,3 +1208,106 @@ afdcc05 원본은 SimpleProgressChecker(0.1m/20초)이며 회전만으로 진행
 
 - 09:53 KST 실배포 확인: SEC07_attempt_0002가 RUNNING/harvest/W001, scout_reused=true, harvest_policy=camera_attempt_retry_once_v1이며 예찰 Goal 없이 수확 Goal을 전송했다. 실제 초기 scene snapshot을 확보했고 배포 스냅샷 SHA256은 현재 운영 소스/설정6개와 모두 일치한다. 아직 새 정책의 실제 팔 전체 window 완료를 주장하지 않는다.
 - 최초 세 수량 집계(actual/expected/harvested): SEC01 13/12/7, SEC02 11/11/7, SEC03 12/10/9, SEC04 12/12/4, SEC05 13/11/7, SEC06 11/12/8. 합계72/68/42. 모두 기존 정책에서 성공한 시도이며 새 정책 성능으로 사용하지 않는다. 실제 대상 수는 후속 초기 장면으로 소급 평가했고 범위는 기존 작업면·높이·경로 내 red/yellow다. SEC06 expected가actual보다1개 많은 것도 그대로 보존하며 개수 차이를 객체별 정밀도/재현율로 부르지 않는다. 보고서는 캠페인 performance_summary.json 및 각 시도 performance_report.json이다.
+
+
+## 89. 재부팅 후 SEC07 재개 및 터미널 감시 — 2026-10-21
+
+- 사용자 “진행하는데 … bash에 feedback이랑 result … 임시” 요청. 기준 e145d9d. PC 재부팅 이후 시험/기록기가 사라진 상태에서 기존 캠페인을 --resume으로 재개했다. SEC07 2회차는 원본을 보존하고 INTERRUPTED로 분류했다. 완료 SEC01~06과 성공 예찰 캐시를 유지한다.
+- 10:45 KST SEC07_attempt_0003 시작, 10:46 W001 Goal/feedback 직접 확인. scout_reused=true, 8window, Domain13/SUBNET, 새 수확 정책 유지. 초기화된 과실에 맞춰 W001부터 모든 window를 다시 실행한다. 기존 감독자·두 읽기 전용 기록기·절전 방지도 복구했다. 재부팅을 넘어선 자동 시작은 구성하지 않았다.
+- 임시 도구 sim/tools/watch_section_campaign.sh: bash로 실행하면 현재 시도의 기존 이벤트를 재생한 뒤 새 goal/feedback/result를 0.5초 간격으로 따라간다. 결과 요청은 기존 ActionClient가 수행하고 감시기는 events.jsonl만 읽는다. 추가 Goal/수확 명령을 보내지 않는다. 다음 시도를 자동 추적하고 30초마다 상태/마지막 ROS 로그 갱신 나이를 표시한다. 상태의 RUNNING만으로 프로세스 생존을 보장하지 않는다.
+- 실행: bash sim/tools/watch_section_campaign.sh [캠페인폴더]. 기본은 sec01_goal_time_fix_20261020_183345. 표시 내용은 해당 캠페인 terminal_feedback.log에 append, 원본 전체는 각 시도의 events.jsonl이다. Ctrl+C는 감시기만 종료하며 시험은 계속된다. 재실행 시 현재 시도 이벤트가 다시 표시/기록될 수 있다.
+- 검증: bash 문법, 실제 새 시도의 READY/GOAL/FEEDBACK 출력 및 종료 확인. 임시 fixture에서 result 표시/파일 저장, 쓰는 중인 부분 줄 대기, 다음 시도 자동 추적 확인. 공통/실물 운영 코드·시험 판정 변경 없음. 도구 제거로 복원 가능하며 원본/캐시는 보존한다. 이번 도구/문서는 미커밋·미푸시.
+
+
+## 90. 캠페인 CPU 물리 실행 옵션 누락 복구 — 2026-10-21
+
+- 사용자: CPU 전환으로 성능이 개선됐는데 GPU로 실행되는 이유 확인/복원 요청. 기준 e145d9d와 §89 미커밋 변경 보존. §67~69/§71의 CPU 검증과 달리 연속 시험 실행기가 physics_device:=cpu를 전달하지 않았다. git blame상 해당 launch 명령은47fabb5(10/20)에 추가됐다. teacher_arm_alignment.py의 기존 GPU 설정 자체는 a393f1a부터 유지됐고, profile 기본값이 이를 선택했다. 최근 GPU 코드 역변경이 아니라 새 실행 경로에 기존 CPU 선택을 이관하지 않은 오류다. GPU 사용률만으로 카메라 병목으로 설명한 기존 해석은 불충분하다.
+- 수정: sim/tools/run_section_campaign.py의 launch에 physics_device:=cpu와 manifest physics_device=cpu를 명시. 기존 run_fleet의 프로파일 적용 후 CPU override 순서를 사용하며, run_fleet에 실제 gpu_dynamics/broadphase readback 출력을 추가했다. 일반 launch의 기본 profile 및 Teacher 비교기는 변경하지 않는다. 물성·주기·카메라·정책·공통/실물 코드 변경 없음.
+- 배포: SEC07 3회차는 설정 변경 STOP으로 종료하고 원본/종료 전 결과를 physics_cpu_transition_20261021.json에 보존했다. 완료 SEC01~06/예찰 캐시 유지, 4회차부터 CPU로 전체 스택 재개. 기존 GPU 시도의 수확/성능을 CPU 결과에 합치지 않는다.
+- 검증: 기존 감독자7검사 통과. 그중 실패 후 모든18회 실행 명령에 CPU 옵션이 있는지 회귀 검사를 추가했다. Python 컴파일/diff 정상. 실제 장치 readback과 통합 진행 결과는 후속 확인으로 기록한다. 미커밋·미푸시.
+
+- CPU 실배포 확인: SEC07_attempt_0004 stack.log에서 [physics_device] requested=cpu, gpu_dynamics=false, broadphase=MBP를 직접 확인했다. 성능 개선 폭/CPU 수확 완주 결과는 아직 측정 전이다.
+
+
+## 91. Student 카메라 병목 분리·출력 보존 최적화 — 2026-10-21
+
+- 승인/기준: 사용자 “확인해봐 가능한 개선할수있는만큼 … 개선” 요청. e145d9d + §89~90 미커밋 변경을 보존한다. CPU 물리 복구 후에도 팔 구간이 느려 카메라/기하 처리만 개선한다. SEC07 4회차는 설정 개선을 위한 STOP으로 원본 보존, 캠페인은 격리 비교 동안 잠시 중단한다. 중단 전 결과/사유는 sim/runs/camera_optimization_20261021/campaign_pause.json.
+- 계측: student_camera.py에서 pose·각 render pass·메타데이터·GPU readback·리맵·IR·카메라별 깊이 정렬을 분리하고 run_fleet performance.jsonl의 camera_timings에 기록한다. 기존 student_camera_s와 포함 관계이므로 서로 더하지 않는다. prepare_capture의 pose 준비는 contacts_s에도 포함되며 재사용된 일반 render는 기존 render_s에 남는다. 전체 비교는 frame_s/실제 wall-sim 비율을 사용한다.
+- 원본 실제 정차 촬영1회97.4ms 중 깊이 정렬39.9ms(후방36.2), 두 추가 render23.9ms, 리맵20.7ms. 측정은 단일 정차 수확 로봇/실제5스트림/CPU60Hz/촬영30Hz이며 모델 제어·ROS/Nav2를 포함한 전체 미션 속도가 아니다. 동일 지도·초기 배치, 시뮬2~7.5초의165촬영을 비교했다. 별도 프로세스의 초기 물리/렌더 결과를 프레임 단위로 동일하다고 가정하지 않는다.
+- 개선1: 기존 전달 패키지의 student60_low_latency.py를 sim rig에서 선택해 깊이 z-buffer와 native mask 투영을 CPU 컴파일 경로로 실행한다. 제어 시작 전 warmup, fastmath 없음, 새 패키지 설치 없음. 선택적 가속기 import가 불가하면 NumPy 대체 경로로 호환한다. 제공 MissionCameraSession에 기본None인 native_processor 인자만 추가하며 sim만 이를 전달한다. 원래 detector/모델·정책·기본 사용자 경로는 유지한다. 실제80뷰 깊이 정렬은 원본과 bit-identical, 12개 실제 rear영상+고정검출mask의 검출/좌표 기록도 일치. 원래 기하 처리37.2→12.8ms(검출 추론 시간 제외). 그려서 사용하지 않는 overlay 생성도 가속 경로에서 생략한다.
+- 개선2: SDK get_rgb의 RGBA-strided view를 OpenCV에 넣을 때 생기는 큰 암묵 복사를 피한다. get_rgba→동일 보간 리맵→연속 RGB 배열로 반환하며 RGB 값/배열 shape·dtype·연속성을 보존한다. 리맵20.7→15.0ms.
+- 개선3: 물리 직후 일반 render가 예정되고 해당 시각에 촬영할 때만 실제 손목/차체 pose를 먼저 맞추고 그 render를 첫 촬영 pass로 사용한다. 같은 stamp에서 추가1회 render로 원래 현재-pose 두 pass를 유지한다. 촬영/일반 render 위상이 다르면 기존 별도2pass로 돌아간다. pose 준비 오류도 기존 팔 fault handler로 전달한다. 물리·카메라/정책 주기와 영상 시각을 바꾸지 않고, 다음 프레임/오래된 pose를 재사용하지 않는다.
+- 비교: 정차 카메라 benchmark 전체 프레임 평균69.7→41.3ms, RTF0.239→0.403(약1.69배). 촬영1회 내부 측정97.4→51.3ms이나 후자는 공유된 일반 render 시간이 별도 render_s에 포함되므로 전체 카메라 비용47% 개선으로 단정하지 않는다. 깊이 정렬 합계39.9→4.1ms. 캡처/일반 렌더가 맞는 위상의 비교이며 모든 Action에서 항상 같은 개선 폭을 보장하지 않는다.
+- 기각 후보: render product를 매 촬영 켰다 끄면 SDK 재활성화 비용으로163.5ms까지 증가해 역적용했다. 카메라를 축별8cm 움직인 probe에서 첫/둘째 RGB·IR이 달라지는 경우가 있어 현재-pose 두 pass는 유지한다. 해상도·FOV·K·왜곡 보정·깊이 구멍·촬영fps·충돌/물리 정밀도·모델 가중치를 낮추는 변경 없음.
+- 직접 오프라인 검증: Student28개(새 영상/시각/렌더 재사용/오래된 pose 거부/default API·오류 전달 포함), 물리 스케줄4, fleet 진입점2, 전달 미션 기본14 PASS. 실제기록80뷰/12비전 결과 일치. robot_venv에는 scipy가 없어 새 카메라 검사를 실제 Isaac Python에서 실행했으며 의존성은 설치하지 않았다. Python 컴파일/diff 정상. 원본 모델4개 SHA 일치.
+- 통합/자료: 실제 내부 ROS 팔 Action을 Domain13/SUBNET·CPU·단일 과실 fixture·운영 timeout으로 진행 중. 아직 Nav2 통합/CPU 카메라 최적화의 전체 SEC 완주 결과는 아니다. sim/runs/camera_optimization_20261021/{verification.json,*_performance.jsonl,geometry_compiled_replay.json,vision_replay.json,render_probe.json,action.log}와 before/에 기준 소스 보존. SDK 종료 단계 경고/오류는 원본 로그에 남기며 유한 계측 완료를 정상 앱 종료와 구분한다.
+- 복원/다음: 시험 종료 후 이번 student_camera/session/제공 camera-session의 processor 인자·run_fleet 촬영 준비/세부 계측 diff와 새 검사만 역적용한다. §90 CPU 옵션·도착 시각 수정·수확 정책·예찰 캐시·기존 로그는 유지한다. 실제 Action 결과 확인 후 같은 캠페인의 SEC07 수확부터 자동 시험 재개. 이번 변경은 미커밋·미푸시.
+
+- 실검증 완료: 실제 ROS 팔 Action 29개 검증 항목 PASS, result SUCCESS/harvested1/failed0/safe_stopped=true, sim71.433초 완료. 운영 timeout 변경 없음. SDK 자연 종료0/process_exit, exception 없음. 수확 중 RTF0.2746(1sim초=3.64wall초), 복귀 RTF0.3765(2.66wall초). 단일 로봇·Nav2 없는 검증 조건이므로 기존 다중 로봇 캠페인과 동일 조건의 배속 비교는 아니다.
+
+- 재배포 확인: SEC07_attempt_0005에서 physics_device requested=cpu/gpu_dynamics=false/broadphase=MBP 및 student_camera geometry backend=compiled_cpu를 직접 확인했다. 기존 예찰 재사용, Domain13/SUBNET·완료 SEC01~06 보존. 최종 소스 사본/해시는 runs/camera_optimization_20261021/applied 및 verification.json에 기록한다.
+
+- 최종 연속 시험 확인(11:46 KST): SEC07 5회차는 수확 controller_server configure 응답 timeout 로그와 함께 Nav2 준비300초 실패로 원본 보존했다. 기존 감독자가 전체 스택을 자동 재시작했고 SEC07_attempt_0006은11:46:52 기존 예찰8window로 W001 Goal/feedback을 수신해 RUNNING/harvest다. 준비 오류 원인을 카메라 개선이나 DDS로 단정하지 않는다. CPU/compiled_cpu 설정 유지, 이후 SEC16까지 감독을 계속한다.
+
+
+### 2026-10-21 14:12 KST SEC10 W001 접근 주행 전체 시간 초과
+
+- 사용자 방금 NAV 실패 원인 확인 요청. 운영 변경 없이 원본과 공통 실행 경로를 분석했다. SEC07~09는 성공 완료했고 SEC10 1회차 W001의 SECTION_APPROACH에서 실패, 팔 SKIPPED다.
+- 원인: 경로27.535m/희망속도0.1m/s로 직진만275.35초 필요. 실제 제자리회전 명령32.83sim초/감속48.78sim초가 더해져 공통 harvest_navigation.yaml/NavigationSettings의 goal_timeout_s=300을 초과했다. Nav2Client._wait가 ROS 시계300초에서 timeout을 발생시켰고 controller_server는 취소 성공을 기록했다.105/팔 실패/최종 도착 불일치로 분류하지 않는다.
+- 근거: controller goal14:06:33.823→cancel14:12:38.773, cmd_vel_nav7300·최종cmd_vel7322메시지, odom 이동25.871m. 마지막 AMCL(-3.01386,-11.40379)로부터 남은 경로 약1.9m. 최종 프로세스 종료/-2 로그는 시험 정리 시점이다. 느린 wall시간 자체가300초를 소모한 것은 아니며 sim에서는 ROS 시간이 예산 기준이다.
+- 공통/실물 영향: 동일 설정의 긴 경로/같은 속도라면 실물에서도 가능한 시간 예산 문제. 경로 길이·회전 여유를 반영한 예산 검토가 필요하며 이번에는 공통 설정/코드를 수정하지 않았다. 기존 자동 재시도로 SEC10 2회차 수확부터 진행 중, 예찰 재사용. 상세 runs/sec01_goal_time_fix_20261020_183345/SEC10_attempt_0001/failure_navigation_timeout_20261021.json. 분석 문서는 미커밋·미푸시.
+
+
+### 2026-10-21 경로 길이 기반 공통 timeout 제안 — 승인 대기
+
+- 사용자 “경로 길이에 따라 타임아웃이 달라져야할거같은데”에 따라 공통 변경안을 준비했다. AGENTS.md의 공통 소스 적용 전 구체안/명시 확인 규칙을 따른다. 운영 farm_navigation 소스/설정은 수정하지 않았다.
+- 대상: nav2_client.py의 preflight에 선택 제어기 desired_linear_vel 읽기를 기존 RPC에 추가하고, 실제 FollowPath XY 누적 길이 L로 max(기존 goal_timeout_s, ceil(2*L/v+60))을 계산한다. TF 복구 바깥 예산과 각 FollowPath 결과 대기에 같이 쓴다. 실제 SEC10 조건27.535m/0.1m/s는611초. 현재300초는 하한이다.
+- 영향: 공통 실물/시뮬 FollowPath에 같은 계산. 기존 진행 정체105·도착 범위·취소/응답 제한은 유지한다. 직접 경로가 없거나 제어기가 속도 파라미터를 제공하지 않으면 기존 제한 유지. 속도는 사전 점검 기준이며 동적 변경은 다음 점검 때 갱신한다.
+- 검증: /tmp의 제안 소스만 별도 프로세스로 로드해 기존 시계/취소/TF 및 추가 경로 예산21검사 통과. 실제 Isaac 배포/실물 검증은 미실행. 적용 전 검토 자료 sim/runs/goal_timeout_proposal_20261021/{proposal.patch,README.md,proposed/,tests.log}. 기존 test_nav2_execution_clock.py 보완과 test_nav2_route_timeout.py 추가도 패치에 포함한다.
+- 다음: 사용자 확인 후 공통 소스·검사 적용, 기존 검사/실패 경로 재시험. 승인 전 운영 적용/빌드/재시작 없음. 기존 자동 캠페인과 원본은 유지한다.
+
+
+### 2026-10-21 경로 길이 기반 공통 timeout 적용 — D-052
+
+- 사용자 “적용해” 승인 후 공통 nav2_client.py와 관련 시험2개에 제안 패치를 그대로 적용했다. `max(기존 제한, ceil(2*경로길이/설정속도 + 60))`초이며 SEC10 접근은 약611초다. 실물/시뮬 공통이며 기존105/도착/취소 조건은 유지했다.
+- 적용 소스로 farm_navigation 전체 단위시험48개 PASS. 실제 ROS overlay에서 수정 함수 로드 확인. 원본 로그: `sim/runs/goal_timeout_proposal_20261021/applied_tests.log`, 적용 기록 applied_status.json. 기준 HEAD e145d9de 및 기존 미커밋 변경 보존, 이번 commit/push 없음.
+- SEC10_attempt_0003은 배포를 위해 STOPPED로 정상 중단(주행 실패 아님). SEC01~09 완료 및 SEC10 성공 예찰8window/expected11을 보존한 채 attempt_0004부터 수확 재개했다. Domain13/SUBNET, CPU 물리와 기존 진단 기록기를 유지했다. 실제 장거리 접근 완료 여부 확인 중이며 실물 검증은 미실행이다.
+- 되돌리기: 제안 proposal.patch의 이번3파일 변경만 역적용하고 시험 프로세스를 재시작한다. 다른 미커밋 변경은 되돌리지 않는다.
+
+- **적용 후 실제 Isaac 확인 완료:** SEC10_attempt_0004에서 제한611초 로그 확인. SECTION_APPROACH는 약341.47시뮬초(벽시계401.85초)에 `Reached the goal!`로 완료해 기존300초 제한을 넘는 정상 주행이 성공했다. 이어 WINDOW_MOVE도 도착했고 팔 CAMERA_INVENTORY에 진입했다. SECTION 전체 수확 완료와 구별하며 캠페인은 계속 실행 중이다. 원본 stack.log/telemetry.jsonl 및 `sim/runs/goal_timeout_proposal_20261021/applied_status.json`에 도착 근거를 보존했다.
+
+
+### 2026-10-21 복귀 중 불필요한 팔 카메라 중지
+
+- 승인: 사용자 “그래 그렇게하는게 맞지”. sim 전용 student_session.py/student_camera.py 및 관련 시험2개에 한정한다. 공통/실물 제어는 변경하지 않는다.
+- 원인: SEC10_attempt_0004 RETURN_STOW에서 카메라5218회 처리. 시뮬173.95초/실제688.21초 중 student_camera_s371.85초(약54%), arm_s6.30초였다. 일반 render126.03초와 카메라 내부 세부 시간은 중첩되므로 단순 합산하지 않는다.
+- 변경: RETURN_STOW/FINAL_STOP에서 센서/렌더 제품을 pause한다. 다른 작업 단계에서 재개하며, 재시도 CAMERA_INVENTORY 진입 시 즉시 현재 자세로 새 촬영한다. 재개 시 누적 sequence/FK오차/촬영 기준시간은 유지하고 이전 영상 캐시는 비운다. 관절 피드백·복귀 경로·정지/레이저 판정은 유지한다.
+- 검증: Isaac Python에서 student 관련30개 단위시험 PASS. 복귀/최종정지 중 중지, 탐색/수확 재개, 새 프레임 요청과 누적 계수 보존 확인. 실제 캠페인 성능 개선 배율은 아직 미측정이다.
+- 배포: 기존 SEC11 시도를 STOP으로 정상 중단해 수정 모듈을 로드하는 프로세스로 재개한다. 이는 시스템 실패가 아닌 설정 적용 중단이다. 성공 SEC01~10과 예찰 캐시는 보존한다.
+- 복원: 이번 stage별 카메라 활성 제어 및 reset_capture 선택 변경만 제거하고 프로세스를 재시작한다. 기존 영상 최적화/CPU 물리 변경은 유지한다. 커밋/푸시는 미실행.
+
+
+### 2026-10-21 SEC01~16 전면 재예찰·수확 성능 캠페인
+
+- 승인: 사용자 SEC01~16을 예찰부터 다시 밤새 실행, A/B/C와 누락 원인·중복·정량 비율, 오류 시 전체 재시작 후 같은 SEC 예찰부터, 동일 현상3회면 생략 지시. 공통 코드는 변경하지 않고 sim 시험 감독자/오프라인 보고서/시험을 수정했다.
+- 새 캠페인: `sim/runs/sec01_16_fresh_metrics_20261021_172329`, 서비스 `farm-fresh-metrics-20261021.service`. Domain13/SUBNET, CPU 물리, 경로별 제한시간/복귀 카메라 중지 유지. `--fresh-scout --max-identical-failures 3`. 기존 캠페인은 정상 STOP 후 보존했다.
+- FAILED에 한해 SEC/단계/가변 ID를 제거한 오류 서명별 누적3회면 skipped_sections 및 skip_reason.json으로 생략한다. 다른 오류는 별도 누적, STOPPED/INTERRUPTED는 실패3회에서 제외. 완료 상태 COMPLETE_WITH_SKIPS를 전체 성공과 구분한다. 기존 기본 재사용/무제한 동작은 옵션 없는 호출에 유지한다.
+- A는 전체 배치 수를 별도 기록하고 비교 분모는 관측면/높이/경로 내 red/yellow다. B는 window expected, C는 레이저 통과다. A-B/B-C 개수 차이와 객체 대응 누락을 분리한다. 정답은 오프라인 평가에만 사용한다. ID 미대응을 AI 미검출로 확정하지 않고 가림/깊이/위치 오차 등 후보와 증거 미확인을 표시한다. 레이저 물체 ID 역시 확정하지 않는다.
+- 원본 장면/예찰 RGB-D·좌표/윈도우 소속/팔 관측·시도·낙하·레이저·제어/주행·프레임 시간 및 코드·설정 snapshot/해시를 보존한다. 이전 비교 보고서는 previous_comparison에 복사, 전체 원본은 기존 폴더 유지. report.md/performance_summary.json/시도별 performance_report.json을 시도 종료마다 자동 갱신한다. 원본 파일 손상은 evidence_errors에 남기며 집계 전체를 막지 않는다.
+- 검증: 감독자/보고서12개 단위시험 PASS. 3회 실패→생략→다음 SEC, 재개 시 생략 유지, fresh-scout 전달, 가변ID/운영중단 구분, 예찰 누락·윈도우 미생성·중복·팔 손실 분류 확인. 기존 실제 캠페인 로그로 새 보고서 생성 확인. 새 SEC01~16 결과는 아직 미완료.
+- 되돌리기: 이번 감독자 옵션/실패 서명/보고서 분류 변경만 제거하고 기존 실행 옵션을 사용한다. 기존 CPU/카메라/공통 제한시간 변경은 유지한다. commit/push 미실행.
+
+
+### 2026-10-22 야간 SEC01~16 완료 및 보고서 자료
+
+- 사용자 요청으로 완료된 캠페인 원본을 조회해 `sim/docs/SEC01_16_NIGHT_TEST_REPORT_MATERIAL_20261022.md` 작성. 운영 코드 수정/재시험/커밋·푸시는 하지 않았다.
+- 새 캠페인 sec01_16_fresh_metrics_20261021_172329는 KST10/21 17:23~10/22 06:50 COMPLETE,16SEC 완료/생략0,21시도 중 실패5회. SEC06 예찰105가1회 재발했고, 전방 목표 거부2회·준비 지연1회·정지 미확인1회가 있었다.
+- 최종 성공 시도 기준133윈도우, A192/B180/C98, C/A51.0%. 객체별 예찰 윈도우 누락32개(최종ID 미대응23+검출 후 윈도우 없음9), 미대응 expected20개가 단순 A-B12개를 상쇄한다. 팔 대상 미선택53건은 AI 미검출로 단정하지 않는다. ID 대응/익명 레이저 및 사건 중첩의 한계를 자료에 명시했다.
+- 자료의 SEC별 수치/합계/실패 목록을 summary.json, performance_summary.json 및 실패 stack.log와 대조했다. 원인 후보와 확정 관측을 구분했으며 parser evidence_errors0을 확인했다.
+
+
+### 2026-10-22 시험 결과 및 검증 코드 Git 반영
+
+- 사용자 “테스트 결과 커밋푸쉬해줘” 승인. 야간 시험에 사용한 공통 경로별 timeout/시뮬 CPU·카메라 최적화/복귀 카메라 중지/새 캠페인·보고서 코드와 결과 자료를 함께 반영한다. 별도 multirobottrafficcontrol 및 robotarm_harvest_communication 폴더는 제외한다.
+- 원격 재검토용 완료 집계5개(summary/performance_summary/failure_analysis/manifest/evaluation_contract)를 `sim/docs/test_results/20261022_sec01_16/`에 보존했다. 대용량 원본 로그는 기존 로컬 sim/runs 경로에 유지하며 보고서에 상대 링크를 추가했다.
+- 커밋 전 검증: farm_navigation48 + student30 + campaign12 =90개 PASS, git diff --check 통과. 실제 통합 결과는 야간16SEC 완료/실패 재시작5회 기록을 따른다. 실물 주행 시험은 미실행.

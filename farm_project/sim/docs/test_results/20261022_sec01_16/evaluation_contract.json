@@ -1,0 +1,36 @@
+{
+  "sections": [
+    "SEC01",
+    "SEC02",
+    "SEC03",
+    "SEC04",
+    "SEC05",
+    "SEC06",
+    "SEC07",
+    "SEC08",
+    "SEC09",
+    "SEC10",
+    "SEC11",
+    "SEC12",
+    "SEC13",
+    "SEC14",
+    "SEC15",
+    "SEC16"
+  ],
+  "fresh_scout_every_attempt": true,
+  "max_identical_failure_count": 3,
+  "previous_comparison_campaign": "/home/ysy/main/farm_project/sim/runs/sec01_goal_time_fix_20261020_183345",
+  "A": "전체 배치 수 별도 기록. 비교 분모는 해당 관측면/작업높이/경로 내 red/yellow",
+  "B": "예찰 윈도우 expected 합계, 객체 대응/중복/미대응 별도",
+  "C": "바구니 레이저 통과 수, 물체 ID 확정 아님",
+  "loss_categories": "객체별 근거 분류. AI 미검출/가림/깊이거부를 확정할 수 없으면 미확인",
+  "error_policy": "FAILED는 전체 시뮬/ROS 재시작 후 같은 SEC 예찰부터. 동일 서명 누적3회 SKIPPED. STOPPED/INTERRUPTED는 오류3회에서 제외",
+  "performance": "예찰원본 RGB/depth/검출좌표/window member ID, 팔 초기RGB/depth/관측/시도/낙하/비대상이탈/레이저/제어trace 및 프레임 시간",
+  "reports": [
+    "summary.json",
+    "failure_analysis.json",
+    "performance_summary.json",
+    "report.md",
+    "SECxx_attempt_xxxx/performance_report.json"
+  ]
+}

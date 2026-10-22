@@ -43,11 +43,12 @@ def select_anchored_track(snapshot, target, gate=.04, ambiguity_margin=.02):
 
 class MissionCameraSession:
     def __init__(self, checkpoint, contract, detector, kin, world_from_robot, *,
-                 camera_kind='d435', center_checkpoint=None, device='cpu'):
+                 camera_kind='d435', center_checkpoint=None, device='cpu', native_processor=None):
         from .student60_camera_controller import make_controller
         from .student60_faster_capture import FasterCaptureCameraHarvestController
         from harvest_vision.workspace import load_workspace
         self.contract = contract; self.kin = kin; self.detector = detector
+        self.native_processor = native_processor
         self.camera_kind = camera_kind; self.roi, _ = load_workspace()
         base = kin.fk(np.zeros(6), 'arm_2/base_link')
         self.arm_from_robot = np.linalg.inv(base)
@@ -70,7 +71,8 @@ class MissionCameraSession:
         frames = {name: Frame(d['rgb'], d['aligned_depth_m'], d['intrinsics']['rgb'],
                   self.arm_from_world @ d['world_from_optical']['rgb'], d['stamp_s'], d['pose_stamp_s'], name)
                   for name, d in capture.items()}
-        detections, _ = process_native(frames['rear'], capture['rear'], self.detector, now,
+        processor = self.native_processor if self.native_processor is not None else process_native
+        detections, _ = processor(frames['rear'], capture['rear'], self.detector, now,
                                       self.contract['centre_offset_m'], arm_roi=self.roi if self.target is None or self.tracker.selected is None else None)
         return frames, detections
 

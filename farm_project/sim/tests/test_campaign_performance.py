@@ -8,7 +8,7 @@ import unittest
 ROOT = Path(__file__).resolve().parents[2]
 sys.path.insert(0, str(ROOT/'sim/tools'))
 sys.path.insert(0, str(ROOT/'robot/ros_ws/src/farm_navigation'))
-from campaign_performance import ratios, write_performance
+from campaign_performance import ratios, write_performance, loss_breakdown
 
 
 class PerformanceTests(unittest.TestCase):
@@ -48,6 +48,23 @@ class PerformanceTests(unittest.TestCase):
             self.assertEqual(len(row['scout_evaluation']['excluded_gt']), 3)
             self.assertEqual(len(report['attempt_reports']), 2)
             self.assertTrue(row['scout_evaluation']['retrospective_same_scene'])
+
+    def test_missing_detection_window_duplicate_and_arm_loss_are_separate(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            root=Path(tmp)
+            d=root/'artifacts/robotarm/student/session/job';d.mkdir(parents=True)
+            (d/'performance.json').write_text(json.dumps(dict(window_id='w')))
+            events=[dict(event='CANDIDATES',candidates=[dict(target_id='a',camera_target_id='1')]),
+                    dict(event='TARGET',target_id='a')]
+            (d/'trace.jsonl').write_text('\n'.join(json.dumps(x) for x in events))
+            evaluation=dict(status='OK',matches=[dict(gt_id=x) for x in ['a','b','c']],
+                missed_gt_ids=['d'],possible_duplicate_ids=['dup'],duplicate_window_gt_owners={},
+                unmatched_ids=['dup'],window_checks=[dict(window_id='w',matched_gt_ids=['a','b'],unmatched_member_ids=[])])
+            r=loss_breakdown(evaluation,[],root)
+            self.assertEqual(r['scout']['detected_without_window_gt_ids'],['c'])
+            self.assertEqual(r['scout']['unique_gt_missing_from_windows'],['c','d'])
+            self.assertEqual(r['arm']['matched_window_object_case_counts'],dict(
+                attempted_without_confirmed_basket_passage=1,not_selected_by_arm_camera=1))
 
 
 if __name__ == '__main__':

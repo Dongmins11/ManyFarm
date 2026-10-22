@@ -17,6 +17,40 @@ from harvest_runtime.student60 import encode_command
 
 
 class StudentRetryTests(unittest.TestCase):
+    def test_camera_prepare_error_uses_existing_arm_fault_handler(self):
+        session = StudentArmSession.__new__(StudentArmSession)
+        error = RuntimeError('sensor pose read failed')
+        session.controller = SimpleNamespace(rig=SimpleNamespace(
+            active=True, set_active=Mock(), prepare_capture=Mock(side_effect=error)))
+        session.state = dict(status='RUNNING', stage='HARVEST')
+        session._handle_error = Mock()
+        session.prepare_capture(1.)
+        session._handle_error.assert_called_once_with(1., error)
+        session.state['status'] = 'IDLE'
+        with self.assertRaises(RuntimeError):
+            session.prepare_capture(2.)
+
+    def test_return_pauses_camera_and_retry_inventory_resumes(self):
+        session = StudentArmSession.__new__(StudentArmSession)
+        rig = SimpleNamespace(active=True, prepare_capture=Mock())
+        def set_active(active, *, reset_capture):
+            self.assertFalse(reset_capture)
+            rig.active = active
+        rig.set_active = Mock(side_effect=set_active)
+        session.controller = SimpleNamespace(rig=rig)
+        session.state = dict(status='RUNNING', stage='RETURN_STOW')
+        session.prepare_capture(1.)
+        self.assertFalse(rig.active)
+        session.state['stage'] = 'FINAL_STOP'
+        session.prepare_capture(2.)
+        self.assertEqual(rig.set_active.call_count, 1)
+        session.state['stage'] = 'CAMERA_INVENTORY'
+        session.prepare_capture(3.)
+        self.assertTrue(rig.active)
+        session.state['stage'] = 'HARVEST'
+        session.prepare_capture(4.)
+        self.assertEqual(rig.set_active.call_count, 2)
+
     def run_session(self, *, retry_visible=True, laser_for=(), two_targets=False, stuck=False, mapped=False,
                     evaluation_fault=''):
         """동역학 대역은 명령을 따라 움직인다. 제어/재시도/Action 완료 FSM은 실제 코드다."""
@@ -80,7 +114,7 @@ class StudentRetryTests(unittest.TestCase):
                 emitted.add(key)
                 return dict(stamp_s=now, sequence=len(emitted))
             return None
-        rig = SimpleNamespace(last=True, set_active=Mock(), capture=lambda: {},
+        rig = SimpleNamespace(last=True, active=True, set_active=Mock(), capture=lambda: {},
                               robot_transform=lambda: np.eye(4), sequence=0, max_fk_error=0.)
         controller = SimpleNamespace(profile=dict(inventory_timeout_s=3., assignment_gate_m=.06,
                                                    assignment_ambiguity_m=.02),

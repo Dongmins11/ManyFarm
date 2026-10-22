@@ -99,7 +99,8 @@ class StudentRuntime:
             self.rig = FarmD435Rig(world, device, self.kin, self.contract['camera_config'], device.robot_id)
             self.camera = MissionCameraSession(release/manifest['models']['d435']['path'], self.contract,
                 self.detector, self.kin, self.rig.world_from_robot, camera_kind='d435',
-                center_checkpoint=release/manifest['models']['center']['path'], device=settings['device'])
+                center_checkpoint=release/manifest['models']['center']['path'], device=settings['device'],
+                native_processor=self.rig.native_processor)
             from .basket_laser import BasketLaserSensor
             self.basket_sensor = BasketLaserSensor(world, device, settings['basket_lasers'])
         except Exception:
@@ -334,6 +335,7 @@ class StudentArmSession(ArmSession):
                 self.controller.camera.target = None
                 self._inventory_start = now
                 self.state['stage'] = 'CAMERA_INVENTORY'
+                self._sync_camera_activity()
                 self._log('RETRY_INVENTORY', time_s=now, camera_target_id=mission.target.target_id)
                 return
             self._miss(now, 'retry_timeout_exhausted', mission.target)
@@ -514,6 +516,24 @@ class StudentArmSession(ArmSession):
         # 승인된 통과 완료를 매핑한다. 출력 로그에 physical_in_box/안착 성공을 만들지 않는다.
         self._box_evidence = dict(target_id=self.mission.target.target_id, settled=True,
             stamp_s=event['stamp_s'], source='basket_parallel_lasers', identity_confirmed=False)
+
+    def _sync_camera_activity(self) -> None:
+        """복귀 중 촬영을 멈추고 재개 시 현재 자세로 새 촬영한다. 누적 계수는 유지한다."""
+        rig = self.controller.rig
+        active = (self.state['status'] == 'RUNNING'
+                  and self.state['stage'] not in ('RETURN_STOW', 'FINAL_STOP'))
+        if active != rig.active:
+            rig.set_active(active, reset_capture=False)
+
+    def prepare_capture(self, now: float) -> None:
+        """일반 렌더 직전의 센서 준비 오류도 기존 팔 정지 경로로 전달한다."""
+        try:
+            self._sync_camera_activity()
+            self.controller.rig.prepare_capture(now)
+        except Exception as error:
+            if self.state['status'] != 'RUNNING':
+                raise
+            self._handle_error(now, error)
 
     def after_frame(self, now: float) -> None:
         try:

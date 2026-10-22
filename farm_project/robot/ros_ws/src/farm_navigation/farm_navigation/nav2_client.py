@@ -34,6 +34,7 @@ class Nav2Client:
                                  for topic in ('cmd_vel_nav', 'cmd_vel')]
                                 if settings.tf_recovery_enabled else [])
         self._last_control_feedback = 0.0
+        self._nominal_linear_speed_mps: float | None = None
 
     @property
     def has_goal(self) -> bool:
@@ -85,7 +86,14 @@ class Nav2Client:
             check()
             if time.monotonic()>deadline: raise RuntimeError('Nav2 액션/파라미터 서버가 준비되지 않았습니다.')
             time.sleep(.05)
-        values=self._read_parameters(['goal_checker_plugins','controller_plugins','progress_checker_plugins'],check)
+        names = ['goal_checker_plugins', 'controller_plugins', 'progress_checker_plugins']
+        speed_parameter = f'{s.controller_id}.desired_linear_vel'
+        if s.mode == 'follow_path':
+            names.append(speed_parameter)
+        values=self._read_parameters(names,check)
+        speed = values.get(speed_parameter)
+        self._nominal_linear_speed_mps = (float(speed) if isinstance(speed, (int, float))
+            and not isinstance(speed, bool) and math.isfinite(speed) and speed > 0 else None)
         ids=values.get('goal_checker_plugins')
         if not isinstance(ids,list) or not ids: raise RuntimeError('goal_checker_plugins 누락')
         if s.mode=='follow_path':
@@ -114,13 +122,25 @@ class Nav2Client:
     def _control_feedback(self, message: Any) -> None:
         self._last_control_feedback = time.monotonic()
 
+    def _execution_timeout(self, path: Path | None) -> float:
+        """전송 경로 길이/설정 속도의2배+60초. 기존 제한시간을 하한으로 둔다."""
+        base = self._settings.goal_timeout_s
+        speed = getattr(self, '_nominal_linear_speed_mps', None)
+        if self._settings.mode != 'follow_path' or path is None or speed is None:
+            return base
+        points = [(pose.pose.position.x, pose.pose.position.y) for pose in path.poses]
+        distance = sum(math.dist(a, b) for a, b in zip(points, points[1:]))
+        if not math.isfinite(distance):
+            raise ValueError('주행 경로 길이는 유한해야 합니다.')
+        return max(base, float(math.ceil(2.0*distance/speed + 60.0)))
+
     def execute(self, xy: tuple[float,float], yaw: float, path: Path | None, check: Callable[[],None]) -> int:
         if not self._settings.tf_recovery_enabled or self._settings.mode != 'follow_path':
             return self._execute_once(xy, yaw, path, check)
         if self._recovery_probe is None:
             raise RuntimeError('TF 복구 준비 확인 연결 누락')
         execution_clock = self._execution_clock()
-        deadline = execution_clock() + self._settings.goal_timeout_s
+        deadline = execution_clock() + self._execution_timeout(path)
         def bounded_check() -> None:
             check()
             if execution_clock() >= deadline:
@@ -164,7 +184,12 @@ class Nav2Client:
             self._clear()
             raise RuntimeError('Nav2 Goal 거절')
         self._result=self._handle.get_result_async()
-        response=self._wait(self._result,self._settings.goal_timeout_s,check,
+        timeout = self._execution_timeout(path)
+        if timeout > self._settings.goal_timeout_s:
+            self._node.get_logger().info(
+                f'경로별 주행 제한 {timeout:.1f}초 '
+                f'(기본 {self._settings.goal_timeout_s:.1f}초, 설정 속도 {self._nominal_linear_speed_mps:.3f}m/s)')
+        response=self._wait(self._result,timeout,check,
             clock=self._execution_clock(),
             timeout_message='Nav2 주행 완료 시간 초과; 요청 종료 여부 확인 필요')
         self._clear()
