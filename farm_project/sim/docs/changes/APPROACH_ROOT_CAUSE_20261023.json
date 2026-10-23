@@ -1,0 +1,136 @@
+{
+  "SEC12": {
+    "association_limit_m": 0.065,
+    "pairs": [
+      {
+        "ids": [
+          3,
+          8
+        ],
+        "estimated_distance_m": 0.09404893753461267,
+        "actual_pose_reprojection_distance_m": 0.040605796851840445
+      },
+      {
+        "ids": [
+          4,
+          7
+        ],
+        "estimated_distance_m": 0.09580392985807332,
+        "actual_pose_reprojection_distance_m": 0.04114582494849288
+      }
+    ],
+    "observations": [
+      {
+        "id": 3,
+        "estimated": [
+          -1.4830909989745642,
+          -8.182359669344155,
+          0.8249554481178181
+        ],
+        "actual_pose_reprojection": [
+          -1.458436702953978,
+          -8.317173912205103,
+          0.8294118457879729
+        ],
+        "sample_bracket_s": 0.9000000469386578,
+        "nearest_gt": "/World/Vegetation/Bed_03/Fruits/Pepper_0012_red",
+        "nearest_aabb_distance_m": 0.0
+      },
+      {
+        "id": 4,
+        "estimated": [
+          -1.4833563558367677,
+          -8.187358203330017,
+          0.9491140310664928
+        ],
+        "actual_pose_reprojection": [
+          -1.4586549090908323,
+          -8.322820656628544,
+          0.9535427288896139
+        ],
+        "sample_bracket_s": 0.9000000469386578,
+        "nearest_gt": "/World/Vegetation/Bed_03/Fruits/Pepper_0004_red",
+        "nearest_aabb_distance_m": 0.0
+      },
+      {
+        "id": 7,
+        "estimated": [
+          -1.4504004525402414,
+          -8.277168890107077,
+          0.9542464724732163
+        ],
+        "actual_pose_reprojection": [
+          -1.4506525708899036,
+          -8.282566459186217,
+          0.9506202158812302
+        ],
+        "sample_bracket_s": 0.9333333820104599,
+        "nearest_gt": "/World/Vegetation/Bed_03/Fruits/Pepper_0004_red",
+        "nearest_aabb_distance_m": 0.0
+      },
+      {
+        "id": 8,
+        "estimated": [
+          -1.4552067044405743,
+          -8.271992079157119,
+          0.8307606079650629
+        ],
+        "actual_pose_reprojection": [
+          -1.4554751253623288,
+          -8.276738692820272,
+          0.8271639958280812
+        ],
+        "sample_bracket_s": 0.9333333820104599,
+        "nearest_gt": "/World/Vegetation/Bed_03/Fruits/Pepper_0012_red",
+        "nearest_aabb_distance_m": 0.0
+      }
+    ]
+  },
+  "SEC16": {
+    "association_limit_m": 0.065,
+    "pairs": [
+      {
+        "ids": [
+          4,
+          6
+        ],
+        "estimated_distance_m": 0.06922849347245331,
+        "actual_pose_reprojection_distance_m": 0.08579027862381172
+      }
+    ],
+    "observations": [
+      {
+        "id": 4,
+        "estimated": [
+          5.473229983603877,
+          -8.18946706440748,
+          0.9634487789659744
+        ],
+        "actual_pose_reprojection": [
+          5.521966731083657,
+          -8.297951499575829,
+          0.9680207041171509
+        ],
+        "sample_bracket_s": 0.950000049546361,
+        "nearest_gt": "/World/Vegetation/Bed_07/Fruits/Pepper_0026_red",
+        "nearest_aabb_distance_m": 0.0
+      },
+      {
+        "id": 6,
+        "estimated": [
+          5.523025876005221,
+          -8.23641870094411,
+          0.973864979566556
+        ],
+        "actual_pose_reprojection": [
+          5.53572375357297,
+          -8.213305759103363,
+          0.9704321058770738
+        ],
+        "sample_bracket_s": 0.950000049546361,
+        "nearest_gt": "/World/Vegetation/Bed_07/Fruits/Pepper_0026_red",
+        "nearest_aabb_distance_m": 0.0
+      }
+    ]
+  }
+}

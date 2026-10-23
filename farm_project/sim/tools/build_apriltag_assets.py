@@ -15,6 +15,7 @@ def build() -> dict:
     task = yaml.safe_load((CONFIG / 'task.yaml').read_text())
     spec = json.loads((ASSETS / 'placement.json').read_text())
     records = []
+    pattern_cells = {}
     # Bed_Edge 외측면은 중심에서 0.5m. 1mm는 z-fighting 방지용 오프셋입니다.
     profile = json.loads((CONFIG / 'apriltag_layout.json').read_text())
     for section_id, assignment in profile['sections'].items():
@@ -33,6 +34,19 @@ def build() -> dict:
             texture = ASSETS / 'textures' / f'tag36h11_ID{tag_id}_64x69mm.png'
             if not texture.is_file():
                 raise FileNotFoundError(texture)
+            if str(tag_id) not in pattern_cells:
+                # 제공 PNG의 실제 36h11 셀을 보존한다. 런타임에는 영상 라이브러리가 필요 없다.
+                import cv2
+                picture = cv2.imread(str(texture), cv2.IMREAD_GRAYSCALE)
+                pixels_per_m = picture.shape[1] / (spec['paper_size'][0]/1000)
+                edge_px = spec['black_edge']/1000 * pixels_per_m
+                center_x = picture.shape[1]/2
+                center_y = picture.shape[0]/2 - (
+                    spec['black_center_height']-spec['paper_plane_center_height'])/1000*pixels_per_m
+                pattern_cells[str(tag_id)] = [[int(picture[
+                    int(center_y-edge_px/2+(row+.5)*edge_px/8),
+                    int(center_x-edge_px/2+(column+.5)*edge_px/8)] > 127)
+                    for column in range(8)] for row in range(8)]
             xy = start + tangent * source['tag_center_s_mm'] / 1000
             records.append(dict(id=tag_id, family=spec['family'], section_id=section_id,
                 bed_prim=section['evaluation_bed_prim'], wall_prim=assignment['wall_prim'],
@@ -49,6 +63,7 @@ def build() -> dict:
         identity_fields=['section_id','id'], requires_active_section=True,
         T_map_world=task['evaluation']['T_map_world'],
         note='시뮬 배치. 실물 설치 완료/독립 측량 좌표가 아님.', tags=records)
+    result['pattern_cells'] = pattern_cells
     (CONFIG / 'apriltag_map.json').write_text(json.dumps(result, ensure_ascii=False, indent=2)+'\n')
     return result
 

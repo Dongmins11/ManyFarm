@@ -18,7 +18,7 @@ from rcl_interfaces.srv import GetParameters
 from tf2_ros import Buffer, TransformListener
 from .runtime import load_observer, Lease, Journal, time_valid, resolve
 from .pixel_bias import load_profile, compensate
-from .tag_adapter import observe, transported, correction, OBSERVATION_ROI
+from .tag_adapter import observe, transported, correction, OBSERVATION_ROI, approach_allowed, quality_gain
 
 
 def stamp_ns(stamp: object) -> int:
@@ -81,6 +81,7 @@ class TagAdapter(Node):
         self._last_stamp = -1
         self._last_send = -math.inf
         self._count = 0
+        self._last_multi_applied = None
         self._timer = self.create_timer(.02, self._tick)
         self._owner_timer = self.create_timer(1.0, self._poll_owner)
         self._log('start', tf_owner='AMCL', method='bounded_tag_scan_sync' if self._scan_sync else 'bounded_tag_initialpose',
@@ -113,6 +114,11 @@ class TagAdapter(Node):
                 return
             kind = event.pop('kind')
             self._log(kind, **event)
+            if (kind == 'tag_correction_applied' and event.get('observation_kind') == 'multi_tag'
+                    and event.get('token') == self._lease.token
+                    and self._lease.accepts(event['token'], event['source_stamp_ns'], time.monotonic())):
+                self._last_multi_applied = dict(token=event['token'],
+                    scan_stamp_ns=event['scan_stamp_ns'], odom_anchor=event['odom_anchor'])
             if kind == 'tag_correction_applied':
                 self.get_logger().info(f"TAG_CORRECTION_APPLIED: {event['sequence']}")
         except (ValueError, KeyError, TypeError):
@@ -157,7 +163,7 @@ class TagAdapter(Node):
     def _solve(self, record: dict) -> tuple:
         begin = time.monotonic()
         candidate, result = observe(self._observer, record)
-        if candidate is not None:
+        if candidate is not None and result['selected'].get('observation_kind') != 'multi_tag':
             candidate = dict(candidate, _bias_tag=result['selected']['tag'],
                 _bias_corners=result['selected']['detection']['corners'])
         return candidate, result, time.monotonic() - begin
@@ -185,6 +191,13 @@ class TagAdapter(Node):
             if not 0 <= now - stamp <= 1_000_000_000:
                 self._log('skip', reason='old_image_skip_only', source_stamp_ns=stamp)
                 return
+            gate = self._lease.approach_pose
+            if gate is not None:
+                current = self._buffer.lookup_transform(self._config['map_frame'], self._config['base_frame'], Time())
+                if (not self._observer.multi_model_id or
+                        not 0 <= now-stamp_ns(current.header.stamp) <= 500_000_000 or
+                        not approach_allowed(gate, planar(current))):
+                    return
             # 카메라 기록이 아닌 현재 작업 신호가 반복 ID의 구간을 결정한다.
             record = dict(record, section_id=self._lease.section_id)
             self._pending_record, self._pending_token = record, self._lease.token
@@ -199,19 +212,26 @@ class TagAdapter(Node):
                 record.get('section_id') != self._lease.section_id or
                 not self._amcl_owns_tf or mono - self._owner_checked > 3.0):
             return
+        if (getattr(self._lease, 'approach_pose', None) is not None and
+                candidate.get('observation_kind') != 'multi_tag'):
+            self._log('quality_skip', reason='approach_requires_multi_tag', source_stamp_ns=record['source_stamp_ns'])
+            return
         c = self._config
         stamp = int(record['source_stamp_ns'])
         old = self._buffer.lookup_transform(c['odom_frame'], c['base_frame'], Time(nanoseconds=stamp))
         new = self._buffer.lookup_transform(c['odom_frame'], c['base_frame'], Time())
         pose_ns = stamp_ns(new.header.stamp)
         current = self._buffer.lookup_transform(c['map_frame'], c['base_frame'], Time(nanoseconds=pose_ns))
+        if not approach_allowed(getattr(self._lease, 'approach_pose', None), planar(current)):
+            return
         try:
             observed, bias_audit = compensate(candidate, getattr(self, '_bias_profile', None))
         except (ValueError, KeyError, TypeError) as exc:
             self._log('pixel_bias_skip', source_stamp_ns=stamp, reason=str(exc))
             return  # 이 관측의 보정만 생략한다. 주행 상태는 변경하지 않는다.
         tag = transported(observed, planar(old), planar(new))
-        target, delta = correction(planar(current), tag)
+        gain = quality_gain(candidate, getattr(self, '_last_multi_applied', None), token, pose_ns, planar(new))
+        target, delta = correction(planar(current), tag, gain=gain)
         message = PoseWithCovarianceStamped()
         message.header.frame_id, message.header.stamp = c['map_frame'], new.header.stamp
         message.pose.pose.position.x, message.pose.pose.position.y = float(target[0]), float(target[1])
@@ -235,7 +255,8 @@ class TagAdapter(Node):
             payload = dict(protocol=1, robot_id=c['robot_id'], map_id=c['map_id'],
                 token=token, producer_session=self._session, sequence=self._count + 1,
                 source_stamp_ns=stamp, pose_stamp_ns=pose_ns, sent_stamp_ns=now,
-                frame_id=c['map_frame'], pose=target.tolist(), covariance=cov)
+                frame_id=c['map_frame'], pose=target.tolist(), covariance=cov,
+                observation_kind=candidate.get('observation_kind', 'single_tag'))
             if self._lease.section_id is not None:
                 payload['section_id'] = self._lease.section_id
             message = String()
@@ -248,7 +269,8 @@ class TagAdapter(Node):
             output_stamp_ns=pose_ns, send_ros_ns=now, compute_s=compute_s,
             image_age_at_send_s=(now-stamp)/1e9, pose_age_at_send_s=(now-pose_ns)/1e9,
             tag=[d['id'] for d in record['detections']], before=planar(current), tag_current=tag.tolist(),
-            requested=target.tolist(), residual=delta.tolist(), covariance=cov, pixel_bias=bias_audit)
+            requested=target.tolist(), residual=delta.tolist(), covariance=cov, pixel_bias=bias_audit, correction_gain=gain,
+            observation_kind=candidate.get('observation_kind', 'single_tag'))
         self.get_logger().info(f'TAG_CORRECTION_SENT: {self._count}')
 
     def close(self) -> None:

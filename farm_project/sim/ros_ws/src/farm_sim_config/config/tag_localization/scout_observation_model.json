@@ -11,8 +11,9 @@
       ]
     },
     "model_ids": {
-      "tag": "sim-scout-geometry-tag-v1"
+      "tag": "sim-scout-geometry-tag-v1",
+      "tag_multi": "sim-scout-multitag-ippe-lm-conservative-v1"
     }
   },
-  "evidence": "시뮬 예찰 파이캠에서 태그 평면까지 약1.091m, 50mm 태그 투영 약48px. 실물 카메라 보정값이 아니며 실제 예찰에는 재사용하지 않는다."
+  "evidence": "시뮬 예찰 파이캠에서 태그 평면까지 약1.091m, 50mm 태그 투영 약48px. 실물 카메라 보정값이 아니며 실제 예찰에는 재사용하지 않는다. 복수 태그는 기존 단일 태그 공분산 상한을 유지하며 실물/수확 프로파일은 활성화하지 않는다."
 }

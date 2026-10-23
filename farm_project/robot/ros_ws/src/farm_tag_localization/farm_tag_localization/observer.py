@@ -154,6 +154,35 @@ class Camera:
         return sorted(candidates,key=lambda c:(c['rms_px'],c['candidate_id']))
 
 
+    def solve_group(self, points: np.ndarray, corners: np.ndarray) -> list:
+        """같은 평면의 등록 코너를 6D IPPE로 계산한다. 두 가설을 유지한다."""
+        points = np.ascontiguousarray(points, dtype=float)
+        corners = np.ascontiguousarray(corners, dtype=float)
+        result = cv().solvePnPGeneric(points, corners, self.k, self.d, flags=cv().SOLVEPNP_IPPE)
+        pair = []
+        for index, (rv, tv) in enumerate(zip(result[1], result[2])):
+            if self.pose_solver == 'ippe_lm':
+                rv, tv = cv().solvePnPRefineLM(points, corners, self.k, self.d, rv, tv,
+                    criteria=(cv().TERM_CRITERIA_EPS+cv().TERM_CRITERIA_COUNT, 100, 1e-10))
+            t = np.eye(4)
+            t[:3, :3], _ = cv().Rodrigues(rv)
+            t[:3, 3] = tv.reshape(3)
+            if not np.isfinite(t).all() or np.min((points @ t[:3,:3].T+t[:3,3])[:,2]) <= 0:
+                continue
+            projected, _ = cv().projectPoints(points, rv, tv, self.k, self.d)
+            errors = np.sum((projected.reshape(-1,2)-corners)**2, axis=1)
+            if self.rectified:
+                rect = np.eye(4); rect[:3,:3] = self.rectification_r.T
+                t = rect @ t
+            candidate = dict(candidate_id=index, t_camera_tag=t, rms_px=float(np.sqrt(errors.mean())),
+                tag_rms_px=np.sqrt(errors.reshape(-1,4).mean(axis=1)).tolist(),
+                solver='multi_'+self.pose_solver)
+            # LM이 같은 최적점으로 수렴했을 때만 중복 가설을 합친다.
+            if not any(np.linalg.norm(old['t_camera_tag']-t) <= 1e-6 for old in pair):
+                pair.append(candidate)
+        return sorted(pair, key=lambda x:(x['rms_px'], x['candidate_id']))
+
+
 @dataclass
 class Landmark:
     family: str
@@ -196,7 +225,7 @@ class QualityLimits:
 
 class Observer:
     def __init__(self, context, camera, landmarks, t_base_camera, quality, *, uncertainty_model=None,
-                 covariance_model_id=None):
+                 covariance_model_id=None, multi_model_id=None):
         self.context, self.camera, self.quality = context,camera,quality
         self.t_base_camera = transform(t_base_camera)
         # 반복 ID 지도는 구간 안에서만 태그가 유일하다. 실물의 전역 유일 ID 계약도 유지한다.
@@ -214,6 +243,7 @@ class Observer:
         if camera.version != context.calibration_version or not context.tag_map_version or not context.extrinsics_version:
             raise ValueError('registered_asset_versions_required')
         self.uncertainty_model,self.model_id=uncertainty_model,covariance_model_id
+        self.multi_model_id = multi_model_id
 
     def project_map_base(self,t_map_base,landmark):
         t_camera_tag = inverse(transform(t_map_base) @ self.t_base_camera) @ landmark.t_map_tag
@@ -314,7 +344,82 @@ class Observer:
         elif valid:
             chosen=min(valid,key=lambda p:(-p['area_px2'],p['tag']))
         else: chosen=None
-        return {'selected':chosen,'all_packets':packets,'excluded':excluded,'stamp_ns':frame['stamp_ns']}
+        joint, audit = self._joint(frame, valid, landmarks)
+        if joint is not None:
+            packets.append(joint)
+            if len(joint['usable_candidates']) == 1:
+                chosen = joint
+        return {'selected':chosen,'all_packets':packets,'excluded':excluded,
+                'multi_tag':audit,'stamp_ns':frame['stamp_ns']}
+
+    def _joint(self, frame: dict, valid: list, landmarks: dict) -> tuple:
+        """기존 단일 품질검사를 통과한 같은 구간 태그만 묶고 실패 시 fallback한다."""
+        if not self.multi_model_id:
+            return None, dict(reason='disabled')
+        valid = sorted(valid, key=lambda p:p['tag'])
+        if len(valid) < 2:
+            return None, dict(reason='insufficient_usable_tags')
+        ref = landmarks[valid[0]['tag']].t_map_tag
+        objects = []
+        for packet in valid:
+            tag = landmarks[packet['tag']]
+            local = inverse(ref) @ tag.t_map_tag
+            # IPPE 입력은 기준 태그의 평면이어야 한다. 법선 반대/기울어진 태그는 섞지 않는다.
+            if (np.linalg.norm(local[:3,2]-[0,0,1]) > 1e-6 or abs(local[2,3]) > 1e-6):
+                return None, dict(reason='noncoplanar_registration')
+            objects.append(square(tag.edge_m) @ local[:3,:3].T + local[:3,3])
+        centers = np.array([x.mean(axis=0) for x in objects])
+        separation = max(np.linalg.norm(a-b) for a in centers for b in centers)
+        if separation < 2*max(landmarks[p['tag']].edge_m for p in valid):
+            return None, dict(reason='insufficient_tag_separation')
+        packet = dict(frame=deepcopy(frame), tag=valid[0]['tag'],
+            tags=[p['tag'] for p in valid], observation_kind='multi_tag',
+            covariance_model_id=self.multi_model_id, candidates=[],
+            area_px2=sum(p['area_px2'] for p in valid))
+        if 'section_id' in frame:
+            packet['section_id'] = frame['section_id']
+        try:
+            solutions = self.camera.solve_group(np.concatenate(objects),
+                np.concatenate([p['corners'] for p in valid]))
+            for solution in solutions:
+                t_map_base = ref @ inverse(solution['t_camera_tag']) @ inverse(self.t_base_camera)
+                p6 = pose6(t_map_base)
+                reasons = []
+                # 각 태그도 한계 안에 있어야 한다. 전체 평균으로 나쁜 코너를 숨기지 않는다.
+                if max([solution['rms_px']]+solution['tag_rms_px']) > self.quality.max_rms_px:
+                    reasons.append('reprojection_quality')
+                if (abs(p6[2]-self.quality.base_z_m) > self.quality.max_z_error_m or
+                        abs(p6[3]) > self.quality.max_roll_rad or abs(p6[4]) > self.quality.max_pitch_rad):
+                    reasons.append('outside_planar_model')
+                cov6 = None
+                try:
+                    # 환경 모델의 거리 범위를 모든 구성 태그에 적용한다. 공분산은 축소하지 않는다.
+                    bounds = []
+                    for original in valid:
+                        t_camera_tag = inverse(t_map_base @ self.t_base_camera) @ landmarks[original['tag']].t_map_tag
+                        bounds.append(covariance(self.uncertainty_model(self, deepcopy(original),
+                            dict(solution, t_camera_tag=t_camera_tag), t_map_base.copy()), 6))
+                    # 구성 태그의 모델이 다르면 근거 없는 결합 공분산을 만들지 않는다.
+                    if not all(np.allclose(bounds[0], b) for b in bounds[1:]):
+                        raise ValueError('inconsistent_covariance_bounds')
+                    cov6 = bounds[0]
+                except (ValueError, np.linalg.LinAlgError) as exc:
+                    reasons.append('invalid_uncertainty_model:'+str(exc))
+                packet['candidates'].append(dict(candidate_id=solution['candidate_id'],
+                    q=p6[[0,1,5]].tolist(), pose6=p6.tolist(), t_map_base=t_map_base.tolist(),
+                    t_camera_tag=solution['t_camera_tag'].tolist(), rms_px=solution['rms_px'],
+                    tag_rms_px=solution['tag_rms_px'], solver=solution['solver'],
+                    observation_kind='multi_tag', model_id=self.multi_model_id,
+                    p6=None if cov6 is None else cov6.tolist(),
+                    p=None if cov6 is None else cov6[np.ix_([0,1,5],[0,1,5])].tolist(),
+                    usable=not reasons, reasons=reasons))
+        except (cv().error, ValueError, np.linalg.LinAlgError) as exc:
+            return None, dict(reason='joint_pnp_failed', detail=str(exc), tags=packet['tags'])
+        packet['usable_candidates'] = [x for x in packet['candidates'] if x['usable']]
+        packet['ambiguous'] = len(packet['usable_candidates']) > 1
+        reason = ('selected' if len(packet['usable_candidates']) == 1 else
+                  'ambiguous' if packet['ambiguous'] else 'quality_rejected')
+        return packet, dict(reason=reason, tags=packet['tags'])
 
     def estimator_event(self,packet):
         c=self.context; f=packet['frame']; candidates=packet['usable_candidates']
@@ -322,6 +427,6 @@ class Observer:
         return {'schema':'estimator_event_v1','kind':'tag','uid':f['image_uid'],'image_uid':f['image_uid'],
                 'session_id':c.session_id,'epoch':c.epoch,'environment_id':c.environment_id,'map_version':c.map_version,
                 'source':c.tag_source,'stamp_ns':f['stamp_ns'],'frame_id':c.map_frame,'base_frame':c.base_frame,
-                'model_id':self.model_id,'tag_map_version':c.tag_map_version,'calibration_version':c.calibration_version,
+                'model_id':packet['covariance_model_id'],'tag_map_version':c.tag_map_version,'calibration_version':c.calibration_version,
                 'extrinsics_version':c.extrinsics_version,'quality_valid':True,
                 'candidates':[{'q':p['q'],'p':p['p'],'candidate_id':p['candidate_id']} for p in candidates]}

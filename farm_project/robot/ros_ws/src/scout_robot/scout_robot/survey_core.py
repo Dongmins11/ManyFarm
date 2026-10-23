@@ -51,6 +51,7 @@ class StraightBed:
             work_distance=float(work@self.n),depth=h['depth_m'],z_min=h['height_offsets_m'][0],
             z_max=h['height_offsets_m'][1],bed_y=self.bed_n,route_start=0.,route_end=self.length,
             range_tolerance=h.get('range_tolerance_m',0.0),
+            depth_tolerance=h.get('depth_tolerance_m',0.0),
             membership_margin=h.get('membership_margin_m',h['side_margin_m']))
         self.plan_cfg.validate()
 
@@ -157,12 +158,17 @@ class Survey:
                 for n in [task.window_y_min,task.window_y_max] for s in [task.window_x_min,task.window_x_max]]
             tol=self.bed.plan_cfg.range_tolerance
             d['range_tolerance_m']=tol
+            depth_tol=self.bed.plan_cfg.depth_tolerance
+            d['depth_tolerance_m']=depth_tol
             d['acceptance_corners_map_m']=[self.bed.world(s,n,z)
                 for z in [task.window_z_min-tol,task.window_z_max+tol]
-                for n in [task.window_y_min-tol,task.window_y_max+tol]
+                for n in [task.window_y_min-tol-depth_tol,task.window_y_max+tol+depth_tol]
                 for s in [task.safe_x_min-tol,task.safe_x_max+tol]]
             d['expected_count']=len(task.member_ids);out.append(d)
-        return out
+        # 추가 관측으로 뒤늦게 생성된 창도 ID는 유지하고 실제 수확 진행 방향으로 반환한다.
+        forward = (math.cos(self.bed.harvest_yaw), math.sin(self.bed.harvest_yaw))
+        return sorted(out, key=lambda window: sum(
+            window['goal_pose']['position'][i]*forward[i] for i in (0, 1)))
 
     def record(self):
         return {'fruits':self.fruits,'windows':self.windows(),'holds':[vars(h) for h in self.plan.holds],
@@ -173,6 +179,7 @@ class Survey:
                 'position_fusion':('componentwise_median_all_observations; two observations use their midpoint'
                     if self._policy is SurveyPolicy.MEDIAN_REVALIDATE else 'first_observation_position'),
                 'range_tolerance_m':self.bed.plan_cfg.range_tolerance,
+                'depth_tolerance_m':self.bed.plan_cfg.depth_tolerance,
                 'membership_margin_m':self.bed.plan_cfg.membership_margin,
                 'reserved_empty_window_count':sum(not t.member_ids for t in self.plan.tasks),
                 'identity_method':'B baseline greedy 3D one-to-one; identity errors remain possible'}

@@ -1,0 +1,2832 @@
+[
+  {
+    "section": "SEC01",
+    "observation": "observation_001",
+    "stamp_s": 80.700004209,
+    "pose_sample_age_s": 0.23333334566963515,
+    "capture_pose_stamp_delta_s": 0.0,
+    "metadata_odom_planar_residual": 1.1102230246251565e-16,
+    "map_base_normal_error_m": 0.029303768868729207,
+    "map_yaw_error_deg": 1.8703867186222194,
+    "raw_odom_normal_error_m": 0.3924670575962166,
+    "raw_odom_yaw_error_deg": 9.893452410072534,
+    "actual_roll_deg": -6.6098998993745814e-06,
+    "actual_pitch_deg": -0.2984640928464877,
+    "points": [
+      {
+        "normal_total_error_m": 0.021828330329222823,
+        "normal_2d_pose_error_m": 0.021916125544139575,
+        "normal_omitted_tilt_error_m": -8.779521491675268e-05,
+        "height_omitted_tilt_error_m": 0.001205962613532785
+      },
+      {
+        "normal_total_error_m": 0.04240103940204598,
+        "normal_2d_pose_error_m": 0.04248873638829753,
+        "normal_omitted_tilt_error_m": -8.769698625155087e-05,
+        "height_omitted_tilt_error_m": -0.0020763713777329773
+      },
+      {
+        "normal_total_error_m": 0.054084804546194576,
+        "normal_2d_pose_error_m": 0.054172754697142445,
+        "normal_omitted_tilt_error_m": -8.795015094786862e-05,
+        "height_omitted_tilt_error_m": -0.003940749449240499
+      }
+    ]
+  },
+  {
+    "section": "SEC01",
+    "observation": "observation_002",
+    "stamp_s": 101.166671943,
+    "pose_sample_age_s": 0.016666667455396578,
+    "capture_pose_stamp_delta_s": 0.0,
+    "metadata_odom_planar_residual": 1.1102230246251565e-16,
+    "map_base_normal_error_m": -0.004822198794065535,
+    "map_yaw_error_deg": 0.13029205899628837,
+    "raw_odom_normal_error_m": 0.6589888115362239,
+    "raw_odom_yaw_error_deg": 9.937872281051165,
+    "actual_roll_deg": -4.296938216601402e-05,
+    "actual_pitch_deg": -0.2981660052708188,
+    "points": [
+      {
+        "normal_total_error_m": -0.004678885444816316,
+        "normal_2d_pose_error_m": -0.004516478845353333,
+        "normal_omitted_tilt_error_m": -0.00016240659946298308,
+        "height_omitted_tilt_error_m": -0.0005042562040669107
+      },
+      {
+        "normal_total_error_m": -0.0037313379993690887,
+        "normal_2d_pose_error_m": -0.0035724589392058803,
+        "normal_omitted_tilt_error_m": -0.0001588790601632084,
+        "height_omitted_tilt_error_m": -0.0026617680155371914
+      },
+      {
+        "normal_total_error_m": -0.006677482964293269,
+        "normal_2d_pose_error_m": -0.00652670565037905,
+        "normal_omitted_tilt_error_m": -0.00015077731391421878,
+        "height_omitted_tilt_error_m": 0.004096325512872978
+      },
+      {
+        "normal_total_error_m": -0.005162724692703513,
+        "normal_2d_pose_error_m": -0.00497982226489313,
+        "normal_omitted_tilt_error_m": -0.00018290242781038302,
+        "height_omitted_tilt_error_m": 0.0005609210633157335
+      }
+    ],
+    "last_tag": {
+      "age_s": 0.21666667799999573,
+      "normal_error_m": -0.010739446856584678,
+      "yaw_error_deg": 0.12923805554397974
+    }
+  },
+  {
+    "section": "SEC01",
+    "observation": "observation_003",
+    "stamp_s": 125.700006556,
+    "pose_sample_age_s": 0.1333333405213466,
+    "capture_pose_stamp_delta_s": 0.0,
+    "metadata_odom_planar_residual": 1.1102230246251565e-16,
+    "map_base_normal_error_m": -0.02959900235152091,
+    "map_yaw_error_deg": -1.002051827990576,
+    "raw_odom_normal_error_m": 0.9478553506104364,
+    "raw_odom_yaw_error_deg": 10.658212758266552,
+    "actual_roll_deg": -7.81396424511559e-05,
+    "actual_pitch_deg": -0.2983472976729814,
+    "points": [
+      {
+        "normal_total_error_m": -0.03300790182585267,
+        "normal_2d_pose_error_m": -0.03326359800532419,
+        "normal_omitted_tilt_error_m": 0.0002556961794715207,
+        "height_omitted_tilt_error_m": -0.0013385713607664274
+      },
+      {
+        "normal_total_error_m": -0.032653212915406904,
+        "normal_2d_pose_error_m": -0.03288062348110987,
+        "normal_omitted_tilt_error_m": 0.00022741056570296792,
+        "height_omitted_tilt_error_m": -0.0012243016053290479
+      },
+      {
+        "normal_total_error_m": -0.0232581420974185,
+        "normal_2d_pose_error_m": -0.023535128700115315,
+        "normal_omitted_tilt_error_m": 0.00027698660269681596,
+        "height_omitted_tilt_error_m": 0.001557451802378651
+      },
+      {
+        "normal_total_error_m": -0.012121550399836423,
+        "normal_2d_pose_error_m": -0.01236419404424094,
+        "normal_omitted_tilt_error_m": 0.00024264364440451658,
+        "height_omitted_tilt_error_m": 0.004873500406472275
+      }
+    ],
+    "last_tag": {
+      "age_s": 0.7500000389999997,
+      "normal_error_m": -0.028239706282365162,
+      "yaw_error_deg": -2.2392540761008672
+    }
+  },
+  {
+    "section": "SEC01",
+    "observation": "observation_004",
+    "stamp_s": 150.433341179,
+    "pose_sample_age_s": 0.35000001829698135,
+    "capture_pose_stamp_delta_s": 0.0,
+    "metadata_odom_planar_residual": 1.1102230246251565e-16,
+    "map_base_normal_error_m": 0.0021422895294032074,
+    "map_yaw_error_deg": -1.205928755915237,
+    "raw_odom_normal_error_m": 1.2345504149754616,
+    "raw_odom_yaw_error_deg": 11.425784339336442,
+    "actual_roll_deg": 9.544217596861869e-06,
+    "actual_pitch_deg": -0.2982880755609134,
+    "points": [
+      {
+        "normal_total_error_m": 0.01392954942427771,
+        "normal_2d_pose_error_m": 0.01401223662950457,
+        "normal_omitted_tilt_error_m": -8.268720522686124e-05,
+        "height_omitted_tilt_error_m": 0.0030959329981797845
+      },
+      {
+        "normal_total_error_m": 0.013717070186705982,
+        "normal_2d_pose_error_m": 0.013788450959570042,
+        "normal_omitted_tilt_error_m": -7.13807728640603e-05,
+        "height_omitted_tilt_error_m": 0.003038835612823698
+      }
+    ],
+    "last_tag": {
+      "age_s": 0.18333334299998683,
+      "normal_error_m": -0.015039089323474641,
+      "yaw_error_deg": -0.19161767676872538
+    }
+  },
+  {
+    "section": "SEC01",
+    "observation": "observation_005",
+    "stamp_s": 172.166675646,
+    "pose_sample_age_s": 0.08333333753756733,
+    "capture_pose_stamp_delta_s": 0.0,
+    "metadata_odom_planar_residual": 1.1102230246251565e-16,
+    "map_base_normal_error_m": -0.01093568042323767,
+    "map_yaw_error_deg": 0.4863295260911311,
+    "raw_odom_normal_error_m": 1.5264679182777483,
+    "raw_odom_yaw_error_deg": 11.567239527165468,
+    "actual_roll_deg": -4.85605439432714e-07,
+    "actual_pitch_deg": -0.2980055154749883,
+    "points": [
+      {
+        "normal_total_error_m": -0.012712342021376166,
+        "normal_2d_pose_error_m": -0.012891433798240648,
+        "normal_omitted_tilt_error_m": 0.00017909177686448174,
+        "height_omitted_tilt_error_m": 0.000979841841003859
+      },
+      {
+        "normal_total_error_m": -0.012583432245591553,
+        "normal_2d_pose_error_m": -0.012744892996791712,
+        "normal_omitted_tilt_error_m": 0.0001614607512001598,
+        "height_omitted_tilt_error_m": 0.0008913655436422196
+      }
+    ],
+    "last_tag": {
+      "age_s": 0.016666667999999163,
+      "normal_error_m": -0.01630603258072405,
+      "yaw_error_deg": 0.6992041535168529
+    }
+  },
+  {
+    "section": "SEC02",
+    "observation": "observation_001",
+    "stamp_s": 158.233341586,
+    "pose_sample_age_s": 0.333333350562782,
+    "capture_pose_stamp_delta_s": 0.0,
+    "metadata_odom_planar_residual": 1.1102230246251565e-16,
+    "map_base_normal_error_m": 0.018238640356569302,
+    "map_yaw_error_deg": 0.9598861620143496,
+    "raw_odom_normal_error_m": -0.8233404484686857,
+    "raw_odom_yaw_error_deg": 1.5467501667784067,
+    "actual_roll_deg": 4.987953101629876e-05,
+    "actual_pitch_deg": -0.29858783383073784,
+    "points": [
+      {
+        "normal_total_error_m": 0.028670351872079003,
+        "normal_2d_pose_error_m": 0.028549016130988036,
+        "normal_omitted_tilt_error_m": 0.00012133574109096656,
+        "height_omitted_tilt_error_m": -0.0033977666647803106
+      }
+    ]
+  },
+  {
+    "section": "SEC02",
+    "observation": "observation_002",
+    "stamp_s": 182.766676199,
+    "pose_sample_age_s": 0.25000001334737476,
+    "capture_pose_stamp_delta_s": 0.0,
+    "metadata_odom_planar_residual": 1.1102230246251565e-16,
+    "map_base_normal_error_m": 0.007027404547201854,
+    "map_yaw_error_deg": 0.8396371560242863,
+    "raw_odom_normal_error_m": -0.7914832120094704,
+    "raw_odom_yaw_error_deg": 1.5477539760418277,
+    "actual_roll_deg": 2.168812515285506e-05,
+    "actual_pitch_deg": -0.2982522375335842,
+    "points": [
+      {
+        "normal_total_error_m": 0.006729574099295199,
+        "normal_2d_pose_error_m": 0.006771266011097232,
+        "normal_omitted_tilt_error_m": -4.169191180203313e-05,
+        "height_omitted_tilt_error_m": 0.000100207436315225
+      },
+      {
+        "normal_total_error_m": -0.0002648332645724949,
+        "normal_2d_pose_error_m": -0.00022450287624398158,
+        "normal_omitted_tilt_error_m": -4.033038832851332e-05,
+        "height_omitted_tilt_error_m": 0.002584732394885103
+      },
+      {
+        "normal_total_error_m": 0.005468554125608094,
+        "normal_2d_pose_error_m": 0.005507858903095908,
+        "normal_omitted_tilt_error_m": -3.9304777487814135e-05,
+        "height_omitted_tilt_error_m": 0.0005482198111043113
+      }
+    ],
+    "last_tag": {
+      "age_s": 0.51666669399998,
+      "normal_error_m": -0.0039979932466840395,
+      "yaw_error_deg": 0.6704323616539136
+    }
+  },
+  {
+    "section": "SEC02",
+    "observation": "observation_003",
+    "stamp_s": 206.76667745,
+    "pose_sample_age_s": 0.13333334067587543,
+    "capture_pose_stamp_delta_s": 0.0,
+    "metadata_odom_planar_residual": 1.1102230246251565e-16,
+    "map_base_normal_error_m": 0.005216290011297975,
+    "map_yaw_error_deg": -0.11757119215522745,
+    "raw_odom_normal_error_m": -0.7595526065839264,
+    "raw_odom_yaw_error_deg": 1.2714252533971409,
+    "actual_roll_deg": -4.016892218854135e-05,
+    "actual_pitch_deg": -0.29813421986450794,
+    "points": [
+      {
+        "normal_total_error_m": 0.0033978513335597427,
+        "normal_2d_pose_error_m": 0.0035634967449365007,
+        "normal_omitted_tilt_error_m": -0.00016564541137675803,
+        "height_omitted_tilt_error_m": -0.003994600435679452
+      },
+      {
+        "normal_total_error_m": 0.004463181611098932,
+        "normal_2d_pose_error_m": 0.004605210979816476,
+        "normal_omitted_tilt_error_m": -0.00014202936871754446,
+        "height_omitted_tilt_error_m": -0.0013551150874283602
+      },
+      {
+        "normal_total_error_m": 0.0032685686932882874,
+        "normal_2d_pose_error_m": 0.003422716353906452,
+        "normal_omitted_tilt_error_m": -0.00015414766061816465,
+        "height_omitted_tilt_error_m": -0.004348495721641421
+      }
+    ],
+    "last_tag": {
+      "age_s": 0.316666682999994,
+      "normal_error_m": -0.004388499800402901,
+      "yaw_error_deg": -0.7582876218288577
+    }
+  },
+  {
+    "section": "SEC02",
+    "observation": "observation_004",
+    "stamp_s": 227.700011875,
+    "pose_sample_age_s": 0.23333334502220282,
+    "capture_pose_stamp_delta_s": 0.0,
+    "metadata_odom_planar_residual": 1.1102230246251565e-16,
+    "map_base_normal_error_m": 0.0006400197344267333,
+    "map_yaw_error_deg": 1.2264780544301346,
+    "raw_odom_normal_error_m": -0.6789042060637849,
+    "raw_odom_yaw_error_deg": 3.714536307436507,
+    "actual_roll_deg": -1.38214702665033e-06,
+    "actual_pitch_deg": -0.29825148578722704,
+    "points": [
+      {
+        "normal_total_error_m": -0.013376787315291239,
+        "normal_2d_pose_error_m": -0.013554921312333157,
+        "normal_omitted_tilt_error_m": 0.00017813399704191824,
+        "height_omitted_tilt_error_m": 0.00319799947082422
+      },
+      {
+        "normal_total_error_m": 0.0005927631141329215,
+        "normal_2d_pose_error_m": 0.00041687502163156864,
+        "normal_omitted_tilt_error_m": 0.00017588809250135284,
+        "height_omitted_tilt_error_m": -0.0001982094558623526
+      },
+      {
+        "normal_total_error_m": -0.011869718302586207,
+        "normal_2d_pose_error_m": -0.012035229871655062,
+        "normal_omitted_tilt_error_m": 0.00016551156906885467,
+        "height_omitted_tilt_error_m": 0.002822903081118988
+      },
+      {
+        "normal_total_error_m": 0.016202751436154017,
+        "normal_2d_pose_error_m": 0.01604624741453531,
+        "normal_omitted_tilt_error_m": 0.00015650402161870858,
+        "height_omitted_tilt_error_m": -0.003999642294449601
+      },
+      {
+        "normal_total_error_m": 0.016162942820439063,
+        "normal_2d_pose_error_m": 0.015988434730867418,
+        "normal_omitted_tilt_error_m": 0.00017450808957164554,
+        "height_omitted_tilt_error_m": -0.003982874187166807
+      }
+    ],
+    "last_tag": {
+      "age_s": 1.0500000540000087,
+      "normal_error_m": -0.006577929865310583,
+      "yaw_error_deg": 0.6160966358870205
+    }
+  },
+  {
+    "section": "SEC02",
+    "observation": "observation_005",
+    "stamp_s": 247.833346259,
+    "pose_sample_age_s": 0.016666667686990877,
+    "capture_pose_stamp_delta_s": 0.0,
+    "metadata_odom_planar_residual": 1.1102230246251565e-16,
+    "map_base_normal_error_m": -0.001966968533640312,
+    "map_yaw_error_deg": 0.625698279948045,
+    "raw_odom_normal_error_m": -0.5952338962685508,
+    "raw_odom_yaw_error_deg": 3.2411256951746483,
+    "actual_roll_deg": 1.0171174061314407e-05,
+    "actual_pitch_deg": -0.2980888285168027,
+    "points": [
+      {
+        "normal_total_error_m": -0.010004322645655428,
+        "normal_2d_pose_error_m": -0.010169817151846061,
+        "normal_omitted_tilt_error_m": 0.00016549450619063322,
+        "height_omitted_tilt_error_m": 0.003693638033665625
+      },
+      {
+        "normal_total_error_m": 0.0029236333856790253,
+        "normal_2d_pose_error_m": 0.0027813918231132106,
+        "normal_omitted_tilt_error_m": 0.00014224156256581466,
+        "height_omitted_tilt_error_m": -0.0024760117129414283
+      },
+      {
+        "normal_total_error_m": -0.010032763537560108,
+        "normal_2d_pose_error_m": -0.010181830380254553,
+        "normal_omitted_tilt_error_m": 0.00014906684269444526,
+        "height_omitted_tilt_error_m": 0.003697086642191927
+      }
+    ],
+    "last_tag": {
+      "age_s": 1.8833334320000006,
+      "normal_error_m": -0.008468506023661782,
+      "yaw_error_deg": 0.40460540396987393
+    }
+  },
+  {
+    "section": "SEC03",
+    "observation": "observation_001",
+    "stamp_s": 73.700003844,
+    "pose_sample_age_s": 0.2833333478648541,
+    "capture_pose_stamp_delta_s": 0.0,
+    "metadata_odom_planar_residual": 2.7755575615628914e-17,
+    "map_base_normal_error_m": -0.027051994932596024,
+    "map_yaw_error_deg": -1.4056827645526893,
+    "raw_odom_normal_error_m": 0.18743014875626374,
+    "raw_odom_yaw_error_deg": 4.201449435288472,
+    "actual_roll_deg": -2.069424733373973e-06,
+    "actual_pitch_deg": -0.2982080676695372,
+    "points": [
+      {
+        "normal_total_error_m": -0.020008500160333842,
+        "normal_2d_pose_error_m": -0.020320429276951657,
+        "normal_omitted_tilt_error_m": 0.0003119291166178151,
+        "height_omitted_tilt_error_m": 0.0011462651497422538
+      }
+    ]
+  },
+  {
+    "section": "SEC03",
+    "observation": "observation_002",
+    "stamp_s": 94.633338269,
+    "pose_sample_age_s": 0.4333333557796948,
+    "capture_pose_stamp_delta_s": 0.0,
+    "metadata_odom_planar_residual": 1.3877787807814457e-17,
+    "map_base_normal_error_m": -0.01307555097834312,
+    "map_yaw_error_deg": 0.7654710006103057,
+    "raw_odom_normal_error_m": 0.30531763769963627,
+    "raw_odom_yaw_error_deg": 4.551084682436105,
+    "actual_roll_deg": -1.9585777805387436e-05,
+    "actual_pitch_deg": -0.2983327736088642,
+    "points": [
+      {
+        "normal_total_error_m": -0.022533781605666547,
+        "normal_2d_pose_error_m": -0.022388934637569857,
+        "normal_omitted_tilt_error_m": -0.00014484696809669018,
+        "height_omitted_tilt_error_m": 0.0037848659389307926
+      },
+      {
+        "normal_total_error_m": -0.004759394275751561,
+        "normal_2d_pose_error_m": -0.004614979945244624,
+        "normal_omitted_tilt_error_m": -0.00014441433050693675,
+        "height_omitted_tilt_error_m": -0.0031391893271794924
+      }
+    ],
+    "last_tag": {
+      "age_s": 1.3833334060000055,
+      "normal_error_m": -0.017461902132062335,
+      "yaw_error_deg": 1.173974437027187
+    }
+  },
+  {
+    "section": "SEC03",
+    "observation": "observation_003",
+    "stamp_s": 117.633339468,
+    "pose_sample_age_s": 0.23333334589236188,
+    "capture_pose_stamp_delta_s": 0.0,
+    "metadata_odom_planar_residual": 2.220446049250313e-16,
+    "map_base_normal_error_m": -0.02110179201983131,
+    "map_yaw_error_deg": 0.16179564943468816,
+    "raw_odom_normal_error_m": 0.4215002105010628,
+    "raw_odom_yaw_error_deg": 4.469790289770794,
+    "actual_roll_deg": -2.306174892405894e-05,
+    "actual_pitch_deg": -0.2986545858135138,
+    "points": [
+      {
+        "normal_total_error_m": -0.022099198610614046,
+        "normal_2d_pose_error_m": -0.022191071436953536,
+        "normal_omitted_tilt_error_m": 9.187282633948968e-05,
+        "height_omitted_tilt_error_m": 0.0018925025846852073
+      },
+      {
+        "normal_total_error_m": -0.020196584092345482,
+        "normal_2d_pose_error_m": -0.020284110640042652,
+        "normal_omitted_tilt_error_m": 8.752654769716983e-05,
+        "height_omitted_tilt_error_m": -0.0016268592009408556
+      },
+      {
+        "normal_total_error_m": -0.022031273796543793,
+        "normal_2d_pose_error_m": -0.022135193738181513,
+        "normal_omitted_tilt_error_m": 0.00010391994163772011,
+        "height_omitted_tilt_error_m": 0.0017912734714786716
+      },
+      {
+        "normal_total_error_m": -0.023577337874870707,
+        "normal_2d_pose_error_m": -0.023662675701541236,
+        "normal_omitted_tilt_error_m": 8.533782667052847e-05,
+        "height_omitted_tilt_error_m": 0.004607791127321015
+      }
+    ],
+    "last_tag": {
+      "age_s": 0.5833333630000084,
+      "normal_error_m": -0.016252674094291653,
+      "yaw_error_deg": 0.25544627346344734
+    }
+  },
+  {
+    "section": "SEC03",
+    "observation": "observation_004",
+    "stamp_s": 139.766673956,
+    "pose_sample_age_s": 0.3333333506516567,
+    "capture_pose_stamp_delta_s": 0.0,
+    "metadata_odom_planar_residual": 6.938893903907228e-18,
+    "map_base_normal_error_m": -0.013502355158040658,
+    "map_yaw_error_deg": -1.37458353175089,
+    "raw_odom_normal_error_m": 0.5363665841306591,
+    "raw_odom_yaw_error_deg": 4.231588715810788,
+    "actual_roll_deg": 7.5535827793856815e-06,
+    "actual_pitch_deg": -0.29811387661298866,
+    "points": [
+      {
+        "normal_total_error_m": -0.01478867493515068,
+        "normal_2d_pose_error_m": -0.014726935198367208,
+        "normal_omitted_tilt_error_m": -6.173973678347267e-05,
+        "height_omitted_tilt_error_m": -0.0001137338083415651
+      },
+      {
+        "normal_total_error_m": -0.014252093166628121,
+        "normal_2d_pose_error_m": -0.01418108960672404,
+        "normal_omitted_tilt_error_m": -7.100355990408147e-05,
+        "height_omitted_tilt_error_m": 8.545843141805065e-06
+      }
+    ],
+    "last_tag": {
+      "age_s": 0.9166667140000015,
+      "normal_error_m": -0.014037455153419476,
+      "yaw_error_deg": 0.33433354813234184
+    }
+  },
+  {
+    "section": "SEC03",
+    "observation": "observation_005",
+    "stamp_s": 159.500008319,
+    "pose_sample_age_s": 0.21666667753996194,
+    "capture_pose_stamp_delta_s": 0.0,
+    "metadata_odom_planar_residual": 1.1102230246251565e-16,
+    "map_base_normal_error_m": -0.012444909443517727,
+    "map_yaw_error_deg": 0.7539097156013846,
+    "raw_odom_normal_error_m": 0.6595867288182768,
+    "raw_odom_yaw_error_deg": 4.85794354835391,
+    "actual_roll_deg": -4.041143927974623e-05,
+    "actual_pitch_deg": -0.29812307134904703,
+    "points": [
+      {
+        "normal_total_error_m": -0.004424870268970871,
+        "normal_2d_pose_error_m": -0.004574866136562328,
+        "normal_omitted_tilt_error_m": 0.000149995867591457,
+        "height_omitted_tilt_error_m": -0.003343915088982019
+      },
+      {
+        "normal_total_error_m": -0.003848972887103841,
+        "normal_2d_pose_error_m": -0.00402818144899264,
+        "normal_omitted_tilt_error_m": 0.00017920856188879952,
+        "height_omitted_tilt_error_m": -0.003556091303633435
+      },
+      {
+        "normal_total_error_m": -0.01535201194290492,
+        "normal_2d_pose_error_m": -0.01553545291705749,
+        "normal_omitted_tilt_error_m": 0.0001834409741525711,
+        "height_omitted_tilt_error_m": 0.000992606714349531
+      },
+      {
+        "normal_total_error_m": -0.012124186591617736,
+        "normal_2d_pose_error_m": -0.012274334963776834,
+        "normal_omitted_tilt_error_m": 0.00015014837215909793,
+        "height_omitted_tilt_error_m": -0.00029887149444074446
+      }
+    ],
+    "last_tag": {
+      "age_s": 0.7500000399999749,
+      "normal_error_m": -0.01665316119850946,
+      "yaw_error_deg": 0.6229478866198818
+    }
+  },
+  {
+    "section": "SEC04",
+    "observation": "observation_001",
+    "stamp_s": 174.833342452,
+    "pose_sample_age_s": 0.43333335553563757,
+    "capture_pose_stamp_delta_s": 0.0,
+    "metadata_odom_planar_residual": 1.1102230246251565e-16,
+    "map_base_normal_error_m": 0.019021244496043255,
+    "map_yaw_error_deg": -0.1666511510157682,
+    "raw_odom_normal_error_m": -0.29479972779552555,
+    "raw_odom_yaw_error_deg": -2.7657684172780135,
+    "actual_roll_deg": 8.666215488005262e-06,
+    "actual_pitch_deg": -0.2982251741059991,
+    "points": []
+  },
+  {
+    "section": "SEC04",
+    "observation": "observation_002",
+    "stamp_s": 196.166676898,
+    "pose_sample_age_s": 0.01666666709149922,
+    "capture_pose_stamp_delta_s": 0.0,
+    "metadata_odom_planar_residual": 1.1102230246251565e-16,
+    "map_base_normal_error_m": -0.0031332661689753016,
+    "map_yaw_error_deg": 0.017858420001191685,
+    "raw_odom_normal_error_m": -0.3472503233062158,
+    "raw_odom_yaw_error_deg": -1.826013325917951,
+    "actual_roll_deg": -6.626862427772366e-06,
+    "actual_pitch_deg": -0.29819062073778196,
+    "points": [
+      {
+        "normal_total_error_m": -0.0030535745868935926,
+        "normal_2d_pose_error_m": -0.0031766941461370823,
+        "normal_omitted_tilt_error_m": 0.00012311955924348972,
+        "height_omitted_tilt_error_m": 0.0005656983727800879
+      },
+      {
+        "normal_total_error_m": -0.003161355980301872,
+        "normal_2d_pose_error_m": -0.0032807330271062973,
+        "normal_omitted_tilt_error_m": 0.00011937704680442529,
+        "height_omitted_tilt_error_m": 0.00230134002901905
+      },
+      {
+        "normal_total_error_m": -0.003038098176640691,
+        "normal_2d_pose_error_m": -0.003180147688838897,
+        "normal_omitted_tilt_error_m": 0.00014204951219820572,
+        "height_omitted_tilt_error_m": 0.0006269486148924308
+      },
+      {
+        "normal_total_error_m": -0.003143163307564256,
+        "normal_2d_pose_error_m": -0.0032883668981993353,
+        "normal_omitted_tilt_error_m": 0.00014520359063507904,
+        "height_omitted_tilt_error_m": 0.0024332372412279035
+      }
+    ],
+    "last_tag": {
+      "age_s": 0.6166666989999783,
+      "normal_error_m": -0.003784307904553863,
+      "yaw_error_deg": 0.2801520388624327
+    }
+  },
+  {
+    "section": "SEC04",
+    "observation": "observation_003",
+    "stamp_s": 218.500011396,
+    "pose_sample_age_s": 0.40000002119859346,
+    "capture_pose_stamp_delta_s": 0.0,
+    "metadata_odom_planar_residual": 1.1102230246251565e-16,
+    "map_base_normal_error_m": 0.006773428119043523,
+    "map_yaw_error_deg": 0.008703500304697204,
+    "raw_odom_normal_error_m": -0.3959309836109443,
+    "raw_odom_yaw_error_deg": -1.527015148807108,
+    "actual_roll_deg": 3.90854362573498e-06,
+    "actual_pitch_deg": -0.29826278035813575,
+    "points": [
+      {
+        "normal_total_error_m": 0.0067872067859009455,
+        "normal_2d_pose_error_m": 0.0068490437063590814,
+        "normal_omitted_tilt_error_m": -6.183692045813594e-05,
+        "height_omitted_tilt_error_m": -0.0025085966601471332
+      },
+      {
+        "normal_total_error_m": 0.006657038284607175,
+        "normal_2d_pose_error_m": 0.006728805664368398,
+        "normal_omitted_tilt_error_m": -7.176737976122283e-05,
+        "height_omitted_tilt_error_m": 0.0016144110792821742
+      },
+      {
+        "normal_total_error_m": 0.006661155174612743,
+        "normal_2d_pose_error_m": 0.00672252384355021,
+        "normal_omitted_tilt_error_m": -6.136866893746706e-05,
+        "height_omitted_tilt_error_m": 0.0018279616320657777
+      }
+    ],
+    "last_tag": {
+      "age_s": 1.0500000549999982,
+      "normal_error_m": 0.0021976783317176896,
+      "yaw_error_deg": -1.3582470091705001
+    }
+  },
+  {
+    "section": "SEC04",
+    "observation": "observation_004",
+    "stamp_s": 239.700012501,
+    "pose_sample_age_s": 0.1333333406163888,
+    "capture_pose_stamp_delta_s": 0.0,
+    "metadata_odom_planar_residual": 1.1102230246251565e-16,
+    "map_base_normal_error_m": 0.003521349152461717,
+    "map_yaw_error_deg": 0.22048436457306947,
+    "raw_odom_normal_error_m": -0.44076683724378896,
+    "raw_odom_yaw_error_deg": -1.6366143272352058,
+    "actual_roll_deg": -1.0876508512780909e-05,
+    "actual_pitch_deg": -0.29820653081388543,
+    "points": [
+      {
+        "normal_total_error_m": 0.003792492305932482,
+        "normal_2d_pose_error_m": 0.003548613830368641,
+        "normal_omitted_tilt_error_m": 0.00024387847556384123,
+        "height_omitted_tilt_error_m": -0.00031301641255487844
+      },
+      {
+        "normal_total_error_m": -5.909299943551716e-05,
+        "normal_2d_pose_error_m": -0.00027035549193810127,
+        "normal_omitted_tilt_error_m": 0.0002112624925025841,
+        "height_omitted_tilt_error_m": 0.0048449543430838515
+      }
+    ],
+    "last_tag": {
+      "age_s": 0.7500000390000139,
+      "normal_error_m": -0.0014036757136999256,
+      "yaw_error_deg": 0.38877735650837414
+    }
+  },
+  {
+    "section": "SEC04",
+    "observation": "observation_005",
+    "stamp_s": 261.700013649,
+    "pose_sample_age_s": 0.10000000493397465,
+    "capture_pose_stamp_delta_s": 0.0,
+    "metadata_odom_planar_residual": 1.3877787807814457e-17,
+    "map_base_normal_error_m": 0.008336780209781625,
+    "map_yaw_error_deg": 0.5961371016637519,
+    "raw_odom_normal_error_m": -0.48449252365776146,
+    "raw_odom_yaw_error_deg": -1.684870146137612,
+    "actual_roll_deg": 1.4415882044829498e-05,
+    "actual_pitch_deg": -0.2981964719214117,
+    "points": [
+      {
+        "normal_total_error_m": 0.00760424242352431,
+        "normal_2d_pose_error_m": 0.007847547280119604,
+        "normal_omitted_tilt_error_m": -0.00024330485659529444,
+        "height_omitted_tilt_error_m": 0.0005102965632888257
+      },
+      {
+        "normal_total_error_m": 0.011523999395653073,
+        "normal_2d_pose_error_m": 0.011741349504514886,
+        "normal_omitted_tilt_error_m": -0.0002173501088618135,
+        "height_omitted_tilt_error_m": -0.0014342082695427694
+      },
+      {
+        "normal_total_error_m": 0.01165208977734622,
+        "normal_2d_pose_error_m": 0.01191815560003473,
+        "normal_omitted_tilt_error_m": -0.0002660658226885104,
+        "height_omitted_tilt_error_m": -0.0015185872366523245
+      },
+      {
+        "normal_total_error_m": 0.01193213056677811,
+        "normal_2d_pose_error_m": 0.012172468004518322,
+        "normal_omitted_tilt_error_m": -0.00024033743774021232,
+        "height_omitted_tilt_error_m": -0.0016459350120709981
+      }
+    ],
+    "last_tag": {
+      "age_s": 0.7500000390000423,
+      "normal_error_m": 0.001998514292099962,
+      "yaw_error_deg": 0.6859667840831498
+    }
+  },
+  {
+    "section": "SEC05",
+    "observation": "observation_001",
+    "stamp_s": 101.900005314,
+    "pose_sample_age_s": 0.21666667746757184,
+    "capture_pose_stamp_delta_s": 0.0,
+    "metadata_odom_planar_residual": 1.1102230246251565e-16,
+    "map_base_normal_error_m": -0.015821879438616016,
+    "map_yaw_error_deg": -0.9029027800931013,
+    "raw_odom_normal_error_m": 0.20702879123410423,
+    "raw_odom_yaw_error_deg": 4.422018757445033,
+    "actual_roll_deg": -1.6537021598914996e-05,
+    "actual_pitch_deg": -0.2981468468131856,
+    "points": [
+      {
+        "normal_total_error_m": -0.028889879190195478,
+        "normal_2d_pose_error_m": -0.028727831264263592,
+        "normal_omitted_tilt_error_m": -0.00016204792593188522,
+        "height_omitted_tilt_error_m": -0.0040322189696313515
+      },
+      {
+        "normal_total_error_m": -0.021415960993907524,
+        "normal_2d_pose_error_m": -0.021273836881957164,
+        "normal_omitted_tilt_error_m": -0.00014212411195035912,
+        "height_omitted_tilt_error_m": -0.0015706011989460311
+      }
+    ]
+  },
+  {
+    "section": "SEC05",
+    "observation": "observation_002",
+    "stamp_s": 121.433339667,
+    "pose_sample_age_s": 0.3666666862146286,
+    "capture_pose_stamp_delta_s": 0.0,
+    "metadata_odom_planar_residual": 1.1102230246251565e-16,
+    "map_base_normal_error_m": -0.02657371964133226,
+    "map_yaw_error_deg": -0.6021665817617865,
+    "raw_odom_normal_error_m": 0.33907731020844967,
+    "raw_odom_yaw_error_deg": 4.3250761046354205,
+    "actual_roll_deg": 5.357102550256259e-05,
+    "actual_pitch_deg": -0.2980490047414913,
+    "points": [
+      {
+        "normal_total_error_m": -0.019637537900469626,
+        "normal_2d_pose_error_m": -0.01941871830710129,
+        "normal_omitted_tilt_error_m": -0.00021881959336833567,
+        "height_omitted_tilt_error_m": 0.003808605504072471
+      },
+      {
+        "normal_total_error_m": -0.027434142236585135,
+        "normal_2d_pose_error_m": -0.027229761808652997,
+        "normal_omitted_tilt_error_m": -0.00020438042793213818,
+        "height_omitted_tilt_error_m": -5.2248594784698454e-05
+      },
+      {
+        "normal_total_error_m": -0.03284806486970804,
+        "normal_2d_pose_error_m": -0.03262987402836748,
+        "normal_omitted_tilt_error_m": -0.00021819084134055977,
+        "height_omitted_tilt_error_m": -0.0027198030786301786
+      }
+    ],
+    "last_tag": {
+      "age_s": 1.283333400999993,
+      "normal_error_m": -0.025337277072512876,
+      "yaw_error_deg": 0.5512291105684248
+    }
+  },
+  {
+    "section": "SEC05",
+    "observation": "observation_003",
+    "stamp_s": 145.166674238,
+    "pose_sample_age_s": 0.4000000211633221,
+    "capture_pose_stamp_delta_s": 0.0,
+    "metadata_odom_planar_residual": 1.1102230246251565e-16,
+    "map_base_normal_error_m": -0.03414888284078732,
+    "map_yaw_error_deg": 0.9539299607989229,
+    "raw_odom_normal_error_m": 0.4766744091559091,
+    "raw_odom_yaw_error_deg": 6.043288907640021,
+    "actual_roll_deg": -8.583446679536555e-06,
+    "actual_pitch_deg": -0.29838702378047605,
+    "points": [
+      {
+        "normal_total_error_m": -0.029294078151947733,
+        "normal_2d_pose_error_m": -0.02955980817175008,
+        "normal_omitted_tilt_error_m": 0.000265730019802346,
+        "height_omitted_tilt_error_m": -0.0017814679451895188
+      },
+      {
+        "normal_total_error_m": -0.03985157118412164,
+        "normal_2d_pose_error_m": -0.0401355865396984,
+        "normal_omitted_tilt_error_m": 0.00028401535557676105,
+        "height_omitted_tilt_error_m": 0.0015223015189869127
+      },
+      {
+        "normal_total_error_m": -0.03923504631693109,
+        "normal_2d_pose_error_m": -0.03947541621858863,
+        "normal_omitted_tilt_error_m": 0.00024036990165754446,
+        "height_omitted_tilt_error_m": 0.0013105695990043298
+      },
+      {
+        "normal_total_error_m": -0.04972155602302153,
+        "normal_2d_pose_error_m": -0.05000607377630195,
+        "normal_omitted_tilt_error_m": 0.00028451775328042217,
+        "height_omitted_tilt_error_m": 0.004600070026662184
+      },
+      {
+        "normal_total_error_m": -0.029187174020852247,
+        "normal_2d_pose_error_m": -0.029427113385842585,
+        "normal_omitted_tilt_error_m": 0.00023993936499033808,
+        "height_omitted_tilt_error_m": -0.0018229084934876516
+      }
+    ],
+    "last_tag": {
+      "age_s": 0.9166667150000194,
+      "normal_error_m": -0.02923587352534085,
+      "yaw_error_deg": -1.7289700892784678
+    }
+  },
+  {
+    "section": "SEC05",
+    "observation": "observation_004",
+    "stamp_s": 166.700008694,
+    "pose_sample_age_s": 0.03333333498929392,
+    "capture_pose_stamp_delta_s": 0.0,
+    "metadata_odom_planar_residual": 1.1102230246251565e-16,
+    "map_base_normal_error_m": -0.027120300292902244,
+    "map_yaw_error_deg": -0.3142729346160844,
+    "raw_odom_normal_error_m": 0.6238294233144387,
+    "raw_odom_yaw_error_deg": 5.596608596740852,
+    "actual_roll_deg": 5.460941666135865e-06,
+    "actual_pitch_deg": -0.29818324618728587,
+    "points": [
+      {
+        "normal_total_error_m": -0.024182888260638524,
+        "normal_2d_pose_error_m": -0.024094956153617453,
+        "normal_omitted_tilt_error_m": -8.793210702107146e-05,
+        "height_omitted_tilt_error_m": 0.0030052955836159523
+      },
+      {
+        "normal_total_error_m": -0.02760812699359727,
+        "normal_2d_pose_error_m": -0.02750147269054848,
+        "normal_omitted_tilt_error_m": -0.00010665430304879209,
+        "height_omitted_tilt_error_m": -0.00022341911291690053
+      },
+      {
+        "normal_total_error_m": -0.02704120439379243,
+        "normal_2d_pose_error_m": -0.026939884567578343,
+        "normal_omitted_tilt_error_m": -0.00010131982621408575,
+        "height_omitted_tilt_error_m": 0.0003061194216515961
+      }
+    ],
+    "last_tag": {
+      "age_s": 0.3500000180000029,
+      "normal_error_m": -0.02199456509165998,
+      "yaw_error_deg": -0.5008666978087698
+    }
+  },
+  {
+    "section": "SEC05",
+    "observation": "observation_005",
+    "stamp_s": 186.433343057,
+    "pose_sample_age_s": 0.33333335112865825,
+    "capture_pose_stamp_delta_s": 0.0,
+    "metadata_odom_planar_residual": 2.7755575615628914e-17,
+    "map_base_normal_error_m": -0.024520040184527414,
+    "map_yaw_error_deg": 0.815628902240633,
+    "raw_odom_normal_error_m": 0.7756209566671501,
+    "raw_odom_yaw_error_deg": 5.887841040825005,
+    "actual_roll_deg": 1.7047802966746982e-05,
+    "actual_pitch_deg": -0.29819018406275527,
+    "points": [
+      {
+        "normal_total_error_m": -0.02678667693918446,
+        "normal_2d_pose_error_m": -0.02697725680408758,
+        "normal_omitted_tilt_error_m": 0.00019057986490311762,
+        "height_omitted_tilt_error_m": 0.0006536774987668803
+      },
+      {
+        "normal_total_error_m": -0.017864095591488827,
+        "normal_2d_pose_error_m": -0.01805619038562689,
+        "normal_omitted_tilt_error_m": 0.00019209479413806463,
+        "height_omitted_tilt_error_m": -0.0026009530656545543
+      }
+    ],
+    "last_tag": {
+      "age_s": 0.28333334900000295,
+      "normal_error_m": -0.025821766174094485,
+      "yaw_error_deg": 0.8724834458749439
+    }
+  },
+  {
+    "section": "SEC06",
+    "observation": "observation_001",
+    "stamp_s": 218.033344705,
+    "pose_sample_age_s": 0.43333335559123043,
+    "capture_pose_stamp_delta_s": 0.0,
+    "metadata_odom_planar_residual": 1.1102230246251565e-16,
+    "map_base_normal_error_m": 0.004827328480872417,
+    "map_yaw_error_deg": -0.7585585161290161,
+    "raw_odom_normal_error_m": -0.7621358898306783,
+    "raw_odom_yaw_error_deg": 0.43745596736969955,
+    "actual_roll_deg": 4.506303248579494e-08,
+    "actual_pitch_deg": -0.29825073440086,
+    "points": [
+      {
+        "normal_total_error_m": 0.00987575579217781,
+        "normal_2d_pose_error_m": 0.009646639540747515,
+        "normal_omitted_tilt_error_m": 0.00022911625143029468,
+        "height_omitted_tilt_error_m": 0.001623254533655083
+      },
+      {
+        "normal_total_error_m": 0.01007366886191452,
+        "normal_2d_pose_error_m": 0.009794209794824926,
+        "normal_omitted_tilt_error_m": 0.00027945906708959356,
+        "height_omitted_tilt_error_m": 0.0016817758201363997
+      },
+      {
+        "normal_total_error_m": 0.008757472724116422,
+        "normal_2d_pose_error_m": 0.008493379341344642,
+        "normal_omitted_tilt_error_m": 0.0002640933827717795,
+        "height_omitted_tilt_error_m": 0.0011728794488855554
+      },
+      {
+        "normal_total_error_m": 0.001428390057167661,
+        "normal_2d_pose_error_m": 0.0011752802506812543,
+        "normal_omitted_tilt_error_m": 0.0002531098064864068,
+        "height_omitted_tilt_error_m": -0.001707599540870186
+      }
+    ]
+  },
+  {
+    "section": "SEC06",
+    "observation": "observation_002",
+    "stamp_s": 240.100012522,
+    "pose_sample_age_s": 0.2000000106216362,
+    "capture_pose_stamp_delta_s": 0.0,
+    "metadata_odom_planar_residual": 6.938893903907228e-18,
+    "map_base_normal_error_m": -0.003464176870867419,
+    "map_yaw_error_deg": -0.41501394231981803,
+    "raw_odom_normal_error_m": -0.7400744329837297,
+    "raw_odom_yaw_error_deg": 0.9329771953786967,
+    "actual_roll_deg": -8.89366653380056e-05,
+    "actual_pitch_deg": -0.2984690011248172,
+    "points": [
+      {
+        "normal_total_error_m": -0.0072437388992705465,
+        "normal_2d_pose_error_m": -0.007411087341127498,
+        "normal_omitted_tilt_error_m": 0.00016734844185695152,
+        "height_omitted_tilt_error_m": -0.0030146711784468927
+      },
+      {
+        "normal_total_error_m": -0.0031104315266219373,
+        "normal_2d_pose_error_m": -0.0032952709982554396,
+        "normal_omitted_tilt_error_m": 0.00018483947163350223,
+        "height_omitted_tilt_error_m": -5.629808816198789e-05
+      }
+    ],
+    "last_tag": {
+      "age_s": 0.3500000179999745,
+      "normal_error_m": -0.009851567802780181,
+      "yaw_error_deg": -0.3304512238671141
+    }
+  },
+  {
+    "section": "SEC06",
+    "observation": "observation_003",
+    "stamp_s": 263.766680423,
+    "pose_sample_age_s": 0.2833333479400153,
+    "capture_pose_stamp_delta_s": 0.0,
+    "metadata_odom_planar_residual": 1.1102230246251565e-16,
+    "map_base_normal_error_m": 0.00826713308696636,
+    "map_yaw_error_deg": 0.3045877189516654,
+    "raw_odom_normal_error_m": -0.7138441201661552,
+    "raw_odom_yaw_error_deg": 1.8193318615415046,
+    "actual_roll_deg": 6.19618789609861e-06,
+    "actual_pitch_deg": -0.29834867662958153,
+    "points": [
+      {
+        "normal_total_error_m": 0.003193247652582887,
+        "normal_2d_pose_error_m": 0.0030838225203155822,
+        "normal_omitted_tilt_error_m": 0.00010942513226730455,
+        "height_omitted_tilt_error_m": 0.004929268989096847
+      },
+      {
+        "normal_total_error_m": 0.011272880622228865,
+        "normal_2d_pose_error_m": 0.0111603907108484,
+        "normal_omitted_tilt_error_m": 0.00011248991138046449,
+        "height_omitted_tilt_error_m": -0.002976212236305731
+      }
+    ],
+    "last_tag": {
+      "age_s": 0.91666671400003,
+      "normal_error_m": 0.0021751891337071783,
+      "yaw_error_deg": -2.3923265994630105
+    }
+  },
+  {
+    "section": "SEC06",
+    "observation": "observation_004",
+    "stamp_s": 283.633348126,
+    "pose_sample_age_s": 0.0666666701080203,
+    "capture_pose_stamp_delta_s": 0.0,
+    "metadata_odom_planar_residual": 1.1102230246251565e-16,
+    "map_base_normal_error_m": 0.009793759328944773,
+    "map_yaw_error_deg": 0.3196103699371879,
+    "raw_odom_normal_error_m": -0.6857286994781875,
+    "raw_odom_yaw_error_deg": 1.0746642505634658,
+    "actual_roll_deg": 1.832804263728578e-05,
+    "actual_pitch_deg": -0.2981992889743234,
+    "points": [
+      {
+        "normal_total_error_m": 0.009927696009722098,
+        "normal_2d_pose_error_m": 0.010159590279087638,
+        "normal_omitted_tilt_error_m": -0.00023189426936554014,
+        "height_omitted_tilt_error_m": -9.21720429793993e-05
+      },
+      {
+        "normal_total_error_m": 0.012862082930709562,
+        "normal_2d_pose_error_m": 0.013094070079331832,
+        "normal_omitted_tilt_error_m": -0.0002319871486222702,
+        "height_omitted_tilt_error_m": -0.002829492244484033
+      },
+      {
+        "normal_total_error_m": 0.01294764041164953,
+        "normal_2d_pose_error_m": 0.013158635966792787,
+        "normal_omitted_tilt_error_m": -0.0002109955551432563,
+        "height_omitted_tilt_error_m": -0.0028916654137489672
+      }
+    ],
+    "last_tag": {
+      "age_s": 0.08333333799998854,
+      "normal_error_m": 0.004814700510873848,
+      "yaw_error_deg": -0.7387723405403706
+    }
+  },
+  {
+    "section": "SEC06",
+    "observation": "observation_005",
+    "stamp_s": 304.833349232,
+    "pose_sample_age_s": 0.16666667572843608,
+    "capture_pose_stamp_delta_s": 0.0,
+    "metadata_odom_planar_residual": 1.1102230246251565e-16,
+    "map_base_normal_error_m": -0.00552823593869034,
+    "map_yaw_error_deg": 0.1576605015123043,
+    "raw_odom_normal_error_m": -0.6550746753751979,
+    "raw_odom_yaw_error_deg": 1.3999287340195512,
+    "actual_roll_deg": 1.8383469422196796e-05,
+    "actual_pitch_deg": -0.2981853519444327,
+    "points": [
+      {
+        "normal_total_error_m": -0.007808213149897991,
+        "normal_2d_pose_error_m": -0.008042299547302179,
+        "normal_omitted_tilt_error_m": 0.00023408639740418735,
+        "height_omitted_tilt_error_m": 0.004489544226793818
+      },
+      {
+        "normal_total_error_m": -0.004185730966081103,
+        "normal_2d_pose_error_m": -0.004417434094463157,
+        "normal_omitted_tilt_error_m": 0.00023170312838205476,
+        "height_omitted_tilt_error_m": -0.0023611121571566196
+      },
+      {
+        "normal_total_error_m": -0.0078024388011881385,
+        "normal_2d_pose_error_m": -0.008015860141823872,
+        "normal_omitted_tilt_error_m": 0.00021342134063573326,
+        "height_omitted_tilt_error_m": 0.0044386475372252265
+      }
+    ],
+    "last_tag": {
+      "age_s": 0.38333335400000124,
+      "normal_error_m": -0.009641317109196024,
+      "yaw_error_deg": 0.13129537769978472
+    }
+  },
+  {
+    "section": "SEC07",
+    "observation": "observation_001",
+    "stamp_s": 129.166673403,
+    "pose_sample_age_s": 0.08333333791279074,
+    "capture_pose_stamp_delta_s": 0.0,
+    "metadata_odom_planar_residual": 2.7755575615628914e-17,
+    "map_base_normal_error_m": -0.025154869859553397,
+    "map_yaw_error_deg": -0.65207128244232,
+    "raw_odom_normal_error_m": 0.230713774422735,
+    "raw_odom_yaw_error_deg": 6.628189374928999,
+    "actual_roll_deg": -1.52079007189728e-05,
+    "actual_pitch_deg": -0.29822891544374514,
+    "points": [
+      {
+        "normal_total_error_m": -0.02881662495991577,
+        "normal_2d_pose_error_m": -0.028760247724629373,
+        "normal_omitted_tilt_error_m": -5.637723528639782e-05,
+        "height_omitted_tilt_error_m": -0.0015384821577818508
+      },
+      {
+        "normal_total_error_m": -0.028867065813788173,
+        "normal_2d_pose_error_m": -0.028798830898520755,
+        "normal_omitted_tilt_error_m": -6.823491526741776e-05,
+        "height_omitted_tilt_error_m": -0.0015550123513725644
+      }
+    ]
+  },
+  {
+    "section": "SEC07",
+    "observation": "observation_002",
+    "stamp_s": 151.366674561,
+    "pose_sample_age_s": 0.3333333506645033,
+    "capture_pose_stamp_delta_s": 0.0,
+    "metadata_odom_planar_residual": 2.220446049250313e-16,
+    "map_base_normal_error_m": -0.005184749563609703,
+    "map_yaw_error_deg": 1.2378999011072838,
+    "raw_odom_normal_error_m": 0.42040990056036653,
+    "raw_odom_yaw_error_deg": 7.749401283016479,
+    "actual_roll_deg": -2.959084382011288e-05,
+    "actual_pitch_deg": -0.29828745411246355,
+    "points": [
+      {
+        "normal_total_error_m": 0.006133805532081205,
+        "normal_2d_pose_error_m": 0.006369209267887754,
+        "normal_omitted_tilt_error_m": -0.00023540373580654972,
+        "height_omitted_tilt_error_m": -0.0025319837627095776
+      },
+      {
+        "normal_total_error_m": -0.008413919406331516,
+        "normal_2d_pose_error_m": -0.00816704374493149,
+        "normal_omitted_tilt_error_m": -0.0002468756614000256,
+        "height_omitted_tilt_error_m": 0.0009695348064786558
+      },
+      {
+        "normal_total_error_m": -0.020165832932142358,
+        "normal_2d_pose_error_m": -0.019931207741384682,
+        "normal_omitted_tilt_error_m": -0.00023462519075767574,
+        "height_omitted_tilt_error_m": 0.0038030811163611844
+      }
+    ],
+    "last_tag": {
+      "age_s": 0.11666667299999745,
+      "normal_error_m": -0.016335107638403734,
+      "yaw_error_deg": 0.11365263716720468
+    }
+  },
+  {
+    "section": "SEC07",
+    "observation": "observation_003",
+    "stamp_s": 173.500009049,
+    "pose_sample_age_s": 0.01666666726603694,
+    "capture_pose_stamp_delta_s": 0.0,
+    "metadata_odom_planar_residual": 1.1102230246251565e-16,
+    "map_base_normal_error_m": -0.030115930385361533,
+    "map_yaw_error_deg": -0.8013811514492902,
+    "raw_odom_normal_error_m": 0.6031269342190693,
+    "raw_odom_yaw_error_deg": 6.948506320088437,
+    "actual_roll_deg": -3.644159770948593e-05,
+    "actual_pitch_deg": -0.29839597837058457,
+    "points": [
+      {
+        "normal_total_error_m": -0.03251154233362907,
+        "normal_2d_pose_error_m": -0.032752759125822095,
+        "normal_omitted_tilt_error_m": 0.00024121679219302194,
+        "height_omitted_tilt_error_m": -0.0011952767941214582
+      },
+      {
+        "normal_total_error_m": -0.016556448543989966,
+        "normal_2d_pose_error_m": -0.016756820522315863,
+        "normal_omitted_tilt_error_m": 0.00020037197832589726,
+        "height_omitted_tilt_error_m": 0.004749743473524526
+      },
+      {
+        "normal_total_error_m": -0.02549701898617407,
+        "normal_2d_pose_error_m": -0.02572329854333244,
+        "normal_omitted_tilt_error_m": 0.0002262795571583709,
+        "height_omitted_tilt_error_m": 0.0014194519971901798
+      },
+      {
+        "normal_total_error_m": -0.026666664983451938,
+        "normal_2d_pose_error_m": -0.026908465162208017,
+        "normal_omitted_tilt_error_m": 0.00024180017875607973,
+        "height_omitted_tilt_error_m": 0.0009792937302592897
+      }
+    ],
+    "last_tag": {
+      "age_s": 0.9500000499999999,
+      "normal_error_m": -0.026507807333931765,
+      "yaw_error_deg": -1.0013005790399427
+    }
+  },
+  {
+    "section": "SEC07",
+    "observation": "observation_004",
+    "stamp_s": 196.566676918,
+    "pose_sample_age_s": 0.4500000230521266,
+    "capture_pose_stamp_delta_s": 0.0,
+    "metadata_odom_planar_residual": 1.1102230246251565e-16,
+    "map_base_normal_error_m": -0.015252116662079818,
+    "map_yaw_error_deg": -1.0935516886924173,
+    "raw_odom_normal_error_m": 0.7905309862832346,
+    "raw_odom_yaw_error_deg": 7.2052862040678445,
+    "actual_roll_deg": 6.7547838266055876e-06,
+    "actual_pitch_deg": -0.29832756372864605,
+    "points": [
+      {
+        "normal_total_error_m": -0.004643933462392447,
+        "normal_2d_pose_error_m": -0.0045413141747783214,
+        "normal_omitted_tilt_error_m": -0.0001026192876141252,
+        "height_omitted_tilt_error_m": 0.003100639455543286
+      },
+      {
+        "normal_total_error_m": -0.004319537627122116,
+        "normal_2d_pose_error_m": -0.004231444238931736,
+        "normal_omitted_tilt_error_m": -8.809338819038004e-05,
+        "height_omitted_tilt_error_m": 0.003182411858124734
+      },
+      {
+        "normal_total_error_m": -0.028892839362064215,
+        "normal_2d_pose_error_m": -0.02879815565379662,
+        "normal_omitted_tilt_error_m": -9.468370826759553e-05,
+        "height_omitted_tilt_error_m": -0.0035191451812095487
+      }
+    ],
+    "last_tag": {
+      "age_s": 0.516666693000019,
+      "normal_error_m": -0.01805934831559952,
+      "yaw_error_deg": -0.9944755767738971
+    }
+  },
+  {
+    "section": "SEC07",
+    "observation": "observation_005",
+    "stamp_s": 215.70001125,
+    "pose_sample_age_s": 0.3666666854214782,
+    "capture_pose_stamp_delta_s": 0.0,
+    "metadata_odom_planar_residual": 1.1102230246251565e-16,
+    "map_base_normal_error_m": -0.015698518873241696,
+    "map_yaw_error_deg": 1.0377616497121718,
+    "raw_odom_normal_error_m": 0.9726888204953834,
+    "raw_odom_yaw_error_deg": 7.176639518836955,
+    "actual_roll_deg": -1.2341943248382922e-05,
+    "actual_pitch_deg": -0.2983216883352328,
+    "points": [
+      {
+        "normal_total_error_m": -0.029239119909623135,
+        "normal_2d_pose_error_m": -0.029114599664103125,
+        "normal_omitted_tilt_error_m": -0.00012452024552001006,
+        "height_omitted_tilt_error_m": 0.003961571915245932
+      },
+      {
+        "normal_total_error_m": -0.015351356213700207,
+        "normal_2d_pose_error_m": -0.015210530672172595,
+        "normal_omitted_tilt_error_m": -0.00014082554152761162,
+        "height_omitted_tilt_error_m": -3.296429446164595e-05
+      },
+      {
+        "normal_total_error_m": -0.01596861416409201,
+        "normal_2d_pose_error_m": -0.01585296063664643,
+        "normal_omitted_tilt_error_m": -0.00011565352744558055,
+        "height_omitted_tilt_error_m": 0.00014983807124868687
+      }
+    ],
+    "last_tag": {
+      "age_s": 0.6500000339999872,
+      "normal_error_m": -0.019507656526605466,
+      "yaw_error_deg": 1.1645054954039917
+    }
+  },
+  {
+    "section": "SEC08",
+    "observation": "observation_001",
+    "stamp_s": 268.900014024,
+    "pose_sample_age_s": 0.36666668556193827,
+    "capture_pose_stamp_delta_s": 0.0,
+    "metadata_odom_planar_residual": 1.1102230246251565e-16,
+    "map_base_normal_error_m": 0.04962240110603133,
+    "map_yaw_error_deg": -0.7652574699058498,
+    "raw_odom_normal_error_m": -0.7178364901539318,
+    "raw_odom_yaw_error_deg": -0.9314410119551111,
+    "actual_roll_deg": 1.9899018553735322e-07,
+    "actual_pitch_deg": -0.2984700316671273,
+    "points": [
+      {
+        "normal_total_error_m": 0.04539303088182933,
+        "normal_2d_pose_error_m": 0.04513830387310058,
+        "normal_omitted_tilt_error_m": 0.0002547270087287501,
+        "height_omitted_tilt_error_m": -0.002021479630571421
+      },
+      {
+        "normal_total_error_m": 0.053362916037129615,
+        "normal_2d_pose_error_m": 0.05313493545413106,
+        "normal_omitted_tilt_error_m": 0.00022798058299855484,
+        "height_omitted_tilt_error_m": 0.001093736728687067
+      }
+    ]
+  },
+  {
+    "section": "SEC08",
+    "observation": "observation_002",
+    "stamp_s": 292.833348606,
+    "pose_sample_age_s": 0.20000001064903472,
+    "capture_pose_stamp_delta_s": 0.0,
+    "metadata_odom_planar_residual": 1.1102230246251565e-16,
+    "map_base_normal_error_m": 0.011860770221811201,
+    "map_yaw_error_deg": 0.5389710748277085,
+    "raw_odom_normal_error_m": -0.7557785315008703,
+    "raw_odom_yaw_error_deg": -1.0572961795605609,
+    "actual_roll_deg": -1.8853442558641498e-05,
+    "actual_pitch_deg": -0.29806301753994896,
+    "points": [
+      {
+        "normal_total_error_m": 0.016525983081391082,
+        "normal_2d_pose_error_m": 0.016372437283157737,
+        "normal_omitted_tilt_error_m": 0.00015354579823334547,
+        "height_omitted_tilt_error_m": -0.002728149492697618
+      },
+      {
+        "normal_total_error_m": 0.012695767700763305,
+        "normal_2d_pose_error_m": 0.012540979737019065,
+        "normal_omitted_tilt_error_m": 0.00015478796374424064,
+        "height_omitted_tilt_error_m": -0.0006089566801781299
+      },
+      {
+        "normal_total_error_m": 0.017685674444406274,
+        "normal_2d_pose_error_m": 0.017506401494789436,
+        "normal_omitted_tilt_error_m": 0.0001792729496168377,
+        "height_omitted_tilt_error_m": -0.0035656051941939104
+      }
+    ],
+    "last_tag": {
+      "age_s": 0.9833333850000372,
+      "normal_error_m": 0.003761053268810599,
+      "yaw_error_deg": -1.0179629024609362
+    }
+  },
+  {
+    "section": "SEC08",
+    "observation": "observation_003",
+    "stamp_s": 314.833349753,
+    "pose_sample_age_s": 0.10000000504419404,
+    "capture_pose_stamp_delta_s": 0.0,
+    "metadata_odom_planar_residual": 1.3877787807814457e-17,
+    "map_base_normal_error_m": 0.02284634602339697,
+    "map_yaw_error_deg": -0.589982275193582,
+    "raw_odom_normal_error_m": -0.7863054752508774,
+    "raw_odom_yaw_error_deg": -0.9884863914681995,
+    "actual_roll_deg": 3.882496965411126e-05,
+    "actual_pitch_deg": -0.2982271627193344,
+    "points": [
+      {
+        "normal_total_error_m": 0.020715730174710956,
+        "normal_2d_pose_error_m": 0.02095208331981535,
+        "normal_omitted_tilt_error_m": -0.00023635314510439542,
+        "height_omitted_tilt_error_m": -0.0006563571391509093
+      },
+      {
+        "normal_total_error_m": 0.024421366984046067,
+        "normal_2d_pose_error_m": 0.02461621597650243,
+        "normal_omitted_tilt_error_m": -0.00019484899245636456,
+        "height_omitted_tilt_error_m": 0.0011961512322656853
+      },
+      {
+        "normal_total_error_m": 0.013031956967313185,
+        "normal_2d_pose_error_m": 0.013269036309905502,
+        "normal_omitted_tilt_error_m": -0.00023707934259231678,
+        "height_omitted_tilt_error_m": -0.004528504528077404
+      }
+    ],
+    "last_tag": {
+      "age_s": 0.8833333790000211,
+      "normal_error_m": 0.008771283613651093,
+      "yaw_error_deg": 0.7589799920363526
+    }
+  },
+  {
+    "section": "SEC08",
+    "observation": "observation_004",
+    "stamp_s": 337.766684283,
+    "pose_sample_age_s": 0.11666667232236705,
+    "capture_pose_stamp_delta_s": 0.0,
+    "metadata_odom_planar_residual": 1.1102230246251565e-16,
+    "map_base_normal_error_m": 0.019560509038865526,
+    "map_yaw_error_deg": -0.6637576336593575,
+    "raw_odom_normal_error_m": -0.8111788698239684,
+    "raw_odom_yaw_error_deg": -0.8236892297729075,
+    "actual_roll_deg": 5.242892442866876e-06,
+    "actual_pitch_deg": -0.29816514958435997,
+    "points": [
+      {
+        "normal_total_error_m": 0.01150445752959417,
+        "normal_2d_pose_error_m": 0.011610853318193115,
+        "normal_omitted_tilt_error_m": -0.00010639578859894527,
+        "height_omitted_tilt_error_m": -0.00339756781023004
+      },
+      {
+        "normal_total_error_m": 0.02593960481982993,
+        "normal_2d_pose_error_m": 0.026057510933813255,
+        "normal_omitted_tilt_error_m": -0.00011790611398332373,
+        "height_omitted_tilt_error_m": 0.003091463503951397
+      },
+      {
+        "normal_total_error_m": 0.019023953773228186,
+        "normal_2d_pose_error_m": 0.019142357629347906,
+        "normal_omitted_tilt_error_m": -0.00011840385611971982,
+        "height_omitted_tilt_error_m": -1.3889918677234547e-05
+      },
+      {
+        "normal_total_error_m": 0.018766990423824126,
+        "normal_2d_pose_error_m": 0.018870704652471204,
+        "normal_omitted_tilt_error_m": -0.00010371422864707824,
+        "height_omitted_tilt_error_m": -0.00014003447811572478
+      }
+    ],
+    "last_tag": {
+      "age_s": 0.8166667099999927,
+      "normal_error_m": 0.007605684340806107,
+      "yaw_error_deg": -1.2051088667128382
+    }
+  },
+  {
+    "section": "SEC08",
+    "observation": "observation_005",
+    "stamp_s": 359.300018739,
+    "pose_sample_age_s": 0.10000000517067065,
+    "capture_pose_stamp_delta_s": 0.0,
+    "metadata_odom_planar_residual": 1.1102230246251565e-16,
+    "map_base_normal_error_m": 0.010967059093666798,
+    "map_yaw_error_deg": 0.1386851201773683,
+    "raw_odom_normal_error_m": -0.8169224518168647,
+    "raw_odom_yaw_error_deg": -0.13779142988707557,
+    "actual_roll_deg": 6.79869596106952e-06,
+    "actual_pitch_deg": -0.2982926897785559,
+    "points": [
+      {
+        "normal_total_error_m": 0.009141603364783535,
+        "normal_2d_pose_error_m": 0.009043680496104045,
+        "normal_omitted_tilt_error_m": 9.792286867948974e-05,
+        "height_omitted_tilt_error_m": 0.004012219396714478
+      },
+      {
+        "normal_total_error_m": 0.01183317153856045,
+        "normal_2d_pose_error_m": 0.011744731713294598,
+        "normal_omitted_tilt_error_m": 8.843982526585137e-05,
+        "height_omitted_tilt_error_m": -0.0017952678536449218
+      }
+    ],
+    "last_tag": {
+      "age_s": 0.45000002400001904,
+      "normal_error_m": 0.0007201821565319122,
+      "yaw_error_deg": 0.12063260612753988
+    }
+  },
+  {
+    "section": "SEC10",
+    "observation": "observation_001",
+    "stamp_s": 260.366680246,
+    "pose_sample_age_s": 0.38333335347920183,
+    "capture_pose_stamp_delta_s": 0.0,
+    "metadata_odom_planar_residual": 1.1102230246251565e-16,
+    "map_base_normal_error_m": 0.028506254105218343,
+    "map_yaw_error_deg": 1.3068531418828335,
+    "raw_odom_normal_error_m": -2.379315824549633,
+    "raw_odom_yaw_error_deg": 13.063826653636418,
+    "actual_roll_deg": 3.0043190534898365e-05,
+    "actual_pitch_deg": -0.29832240511014235,
+    "points": [
+      {
+        "normal_total_error_m": 0.03297343281685183,
+        "normal_2d_pose_error_m": 0.03329052216264827,
+        "normal_omitted_tilt_error_m": -0.00031708934579643966,
+        "height_omitted_tilt_error_m": -0.0007935260068712147
+      },
+      {
+        "normal_total_error_m": 0.032213872980642044,
+        "normal_2d_pose_error_m": 0.032472849895796685,
+        "normal_omitted_tilt_error_m": -0.0002589769151546406,
+        "height_omitted_tilt_error_m": -0.0006111640397078455
+      },
+      {
+        "normal_total_error_m": 0.018938599313889526,
+        "normal_2d_pose_error_m": 0.019221357664958028,
+        "normal_omitted_tilt_error_m": -0.00028275835106850167,
+        "height_omitted_tilt_error_m": 0.002409117947622219
+      },
+      {
+        "normal_total_error_m": 0.04830010537244167,
+        "normal_2d_pose_error_m": 0.04856200851282999,
+        "normal_omitted_tilt_error_m": -0.00026190314038831985,
+        "height_omitted_tilt_error_m": -0.004275161819666362
+      }
+    ]
+  },
+  {
+    "section": "SEC10",
+    "observation": "observation_002",
+    "stamp_s": 282.700014744,
+    "pose_sample_age_s": 0.11666667279735066,
+    "capture_pose_stamp_delta_s": 0.0,
+    "metadata_odom_planar_residual": 5.551115123125783e-17,
+    "map_base_normal_error_m": 0.0021048168243917864,
+    "map_yaw_error_deg": 0.21598438951961554,
+    "raw_odom_normal_error_m": -2.0185477610667246,
+    "raw_odom_yaw_error_deg": 13.25318151399967,
+    "actual_roll_deg": -1.0895443847951837e-05,
+    "actual_pitch_deg": -0.2982759011092043,
+    "points": [
+      {
+        "normal_total_error_m": -0.00024249997727920913,
+        "normal_2d_pose_error_m": -0.0004490506385463888,
+        "normal_omitted_tilt_error_m": 0.0002065506612671797,
+        "height_omitted_tilt_error_m": 0.003236748303491521
+      }
+    ],
+    "last_tag": {
+      "age_s": 1.4500000759999807,
+      "normal_error_m": 0.0013566907885720347,
+      "yaw_error_deg": -0.7140208513589046
+    }
+  },
+  {
+    "section": "SEC10",
+    "observation": "observation_003",
+    "stamp_s": 304.700015891,
+    "pose_sample_age_s": 0.3666666854464893,
+    "capture_pose_stamp_delta_s": 0.0,
+    "metadata_odom_planar_residual": 1.1102230246251565e-16,
+    "map_base_normal_error_m": 0.004361356141832751,
+    "map_yaw_error_deg": -0.1418716388282599,
+    "raw_odom_normal_error_m": -1.6680051339741802,
+    "raw_odom_yaw_error_deg": 13.592181434318181,
+    "actual_roll_deg": 1.0496685594745535e-05,
+    "actual_pitch_deg": -0.2983156359097188,
+    "points": [
+      {
+        "normal_total_error_m": 0.0035563078794416114,
+        "normal_2d_pose_error_m": 0.003543610618195636,
+        "normal_omitted_tilt_error_m": 1.2697261245975255e-05,
+        "height_omitted_tilt_error_m": -0.0017255380148528676
+      },
+      {
+        "normal_total_error_m": 0.003568021098211638,
+        "normal_2d_pose_error_m": 0.0035532378283633648,
+        "normal_omitted_tilt_error_m": 1.478326984827305e-05,
+        "height_omitted_tilt_error_m": -0.0017034781209624983
+      },
+      {
+        "normal_total_error_m": 0.0048034069610878305,
+        "normal_2d_pose_error_m": 0.004789444951844857,
+        "normal_omitted_tilt_error_m": 1.396200924297375e-05,
+        "height_omitted_tilt_error_m": 0.0008952262553011403
+      }
+    ],
+    "last_tag": {
+      "age_s": 0.4500000230000296,
+      "normal_error_m": -0.0033970636263047638,
+      "yaw_error_deg": -0.5368630795208693
+    }
+  },
+  {
+    "section": "SEC10",
+    "observation": "observation_004",
+    "stamp_s": 325.700016987,
+    "pose_sample_age_s": 0.43333335635475123,
+    "capture_pose_stamp_delta_s": 0.0,
+    "metadata_odom_planar_residual": 1.1102230246251565e-16,
+    "map_base_normal_error_m": 0.000911650960607524,
+    "map_yaw_error_deg": 0.14127327684867189,
+    "raw_odom_normal_error_m": -1.3176625384522818,
+    "raw_odom_yaw_error_deg": 13.906720796959164,
+    "actual_roll_deg": 3.16532697448684e-05,
+    "actual_pitch_deg": -0.29831405768047153,
+    "points": [
+      {
+        "normal_total_error_m": 0.001084111438991897,
+        "normal_2d_pose_error_m": 0.0009769365310816625,
+        "normal_omitted_tilt_error_m": 0.00010717490791023465,
+        "height_omitted_tilt_error_m": -0.0002870471888024584
+      },
+      {
+        "normal_total_error_m": 0.00014533556217699584,
+        "normal_2d_pose_error_m": 3.63547786488283e-05,
+        "normal_omitted_tilt_error_m": 0.00010898078352816754,
+        "height_omitted_tilt_error_m": 0.0016983848110481148
+      },
+      {
+        "normal_total_error_m": 0.0027636123654044553,
+        "normal_2d_pose_error_m": 0.0026401073566271194,
+        "normal_omitted_tilt_error_m": 0.00012350500877733595,
+        "height_omitted_tilt_error_m": -0.003795561003843928
+      },
+      {
+        "normal_total_error_m": 8.15392316075858e-05,
+        "normal_2d_pose_error_m": -4.772884682147094e-05,
+        "normal_omitted_tilt_error_m": 0.00012926807842905674,
+        "height_omitted_tilt_error_m": 0.0018750900418684768
+      },
+      {
+        "normal_total_error_m": 5.464208135208537e-05,
+        "normal_2d_pose_error_m": -7.38528779820058e-05,
+        "normal_omitted_tilt_error_m": 0.00012849495933409116,
+        "height_omitted_tilt_error_m": 0.0019323931247670068
+      },
+      {
+        "normal_total_error_m": 0.00023226401236442484,
+        "normal_2d_pose_error_m": 0.00010528489950090147,
+        "normal_omitted_tilt_error_m": 0.00012697911286352337,
+        "height_omitted_tilt_error_m": 0.0015559748343052515
+      },
+      {
+        "normal_total_error_m": 0.0001702823554925459,
+        "normal_2d_pose_error_m": 4.222811683707306e-05,
+        "normal_omitted_tilt_error_m": 0.00012805423865547283,
+        "height_omitted_tilt_error_m": 0.0016873023272958587
+      }
+    ],
+    "last_tag": {
+      "age_s": 1.7500000920000502,
+      "normal_error_m": -0.005377422667993237,
+      "yaw_error_deg": 0.003729823803266193
+    }
+  },
+  {
+    "section": "SEC10",
+    "observation": "observation_005",
+    "stamp_s": 346.03335138,
+    "pose_sample_age_s": 0.033333334693793404,
+    "capture_pose_stamp_delta_s": 0.0,
+    "metadata_odom_planar_residual": 1.1102230246251565e-16,
+    "map_base_normal_error_m": -0.0007446261372310303,
+    "map_yaw_error_deg": -0.07176878410371228,
+    "raw_odom_normal_error_m": -0.963345167756366,
+    "raw_odom_yaw_error_deg": 13.530880654487067,
+    "actual_roll_deg": 8.796453932806498e-06,
+    "actual_pitch_deg": -0.29809984983923676,
+    "points": [
+      {
+        "normal_total_error_m": 0.00022910351866123335,
+        "normal_2d_pose_error_m": 0.0002472846841392595,
+        "normal_omitted_tilt_error_m": -1.8181165478026173e-05,
+        "height_omitted_tilt_error_m": 0.00414967724377846
+      }
+    ],
+    "last_tag": {
+      "age_s": 0.8833333790000211,
+      "normal_error_m": -0.0036639986962501148,
+      "yaw_error_deg": 0.140480742313989
+    }
+  },
+  {
+    "section": "SEC11",
+    "observation": "observation_001",
+    "stamp_s": 164.9000086,
+    "pose_sample_age_s": 0.10000000542058274,
+    "capture_pose_stamp_delta_s": 0.0,
+    "metadata_odom_planar_residual": 2.7755575615628914e-17,
+    "map_base_normal_error_m": -0.02244310662548976,
+    "map_yaw_error_deg": -2.127291346846735,
+    "raw_odom_normal_error_m": 0.9809869099452335,
+    "raw_odom_yaw_error_deg": 4.02408652384012,
+    "actual_roll_deg": -4.6850093286339694e-06,
+    "actual_pitch_deg": -0.2981698471188991,
+    "points": [
+      {
+        "normal_total_error_m": -0.02724193484162374,
+        "normal_2d_pose_error_m": -0.027631770778406395,
+        "normal_omitted_tilt_error_m": 0.0003898359367826565,
+        "height_omitted_tilt_error_m": -0.0010405620642841562
+      }
+    ]
+  },
+  {
+    "section": "SEC11",
+    "observation": "observation_002",
+    "stamp_s": 186.033343036,
+    "pose_sample_age_s": 0.43333335620567937,
+    "capture_pose_stamp_delta_s": 0.0,
+    "metadata_odom_planar_residual": 1.1102230246251565e-16,
+    "map_base_normal_error_m": -0.01961895304929273,
+    "map_yaw_error_deg": 0.7696918337031656,
+    "raw_odom_normal_error_m": 1.0892794327752333,
+    "raw_odom_yaw_error_deg": 4.360033901798787,
+    "actual_roll_deg": -1.5939040739249947e-05,
+    "actual_pitch_deg": -0.29836913455809827,
+    "points": [
+      {
+        "normal_total_error_m": -0.013764218000376527,
+        "normal_2d_pose_error_m": -0.013681227611239244,
+        "normal_omitted_tilt_error_m": -8.299038913728296e-05,
+        "height_omitted_tilt_error_m": -0.002244449735977483
+      },
+      {
+        "normal_total_error_m": -0.020060778717049033,
+        "normal_2d_pose_error_m": -0.019983894993997886,
+        "normal_omitted_tilt_error_m": -7.688372305114655e-05,
+        "height_omitted_tilt_error_m": 0.00019770504796812194
+      },
+      {
+        "normal_total_error_m": -0.012920612629089057,
+        "normal_2d_pose_error_m": -0.012847271392529613,
+        "normal_omitted_tilt_error_m": -7.334123655944325e-05,
+        "height_omitted_tilt_error_m": -0.0025689468938665527
+      },
+      {
+        "normal_total_error_m": -0.011209683788587999,
+        "normal_2d_pose_error_m": -0.011130926226691873,
+        "normal_omitted_tilt_error_m": -7.87575618961256e-05,
+        "height_omitted_tilt_error_m": -0.0031841217433005164
+      }
+    ],
+    "last_tag": {
+      "age_s": 1.0833333899999786,
+      "normal_error_m": -0.018663915524473218,
+      "yaw_error_deg": -0.8668095127755013
+    }
+  },
+  {
+    "section": "SEC11",
+    "observation": "observation_003",
+    "stamp_s": 210.300010968,
+    "pose_sample_age_s": 0.33333335071833403,
+    "capture_pose_stamp_delta_s": 0.0,
+    "metadata_odom_planar_residual": 1.1102230246251565e-16,
+    "map_base_normal_error_m": -0.023711105005096655,
+    "map_yaw_error_deg": -1.4801090507252117,
+    "raw_odom_normal_error_m": 1.1987890678318922,
+    "raw_odom_yaw_error_deg": 4.6012566507749835,
+    "actual_roll_deg": -2.262616693850207e-05,
+    "actual_pitch_deg": -0.29829443165798347,
+    "points": [
+      {
+        "normal_total_error_m": -0.028166959792011337,
+        "normal_2d_pose_error_m": -0.028502158963808366,
+        "normal_omitted_tilt_error_m": 0.0003351991717970293,
+        "height_omitted_tilt_error_m": -0.0012473770323386812
+      },
+      {
+        "normal_total_error_m": -0.02859389425245018,
+        "normal_2d_pose_error_m": -0.028872214819075648,
+        "normal_omitted_tilt_error_m": 0.00027832056662546734,
+        "height_omitted_tilt_error_m": -0.0013230980262671777
+      },
+      {
+        "normal_total_error_m": -0.014324365522718097,
+        "normal_2d_pose_error_m": -0.01466004542115007,
+        "normal_omitted_tilt_error_m": 0.0003356798984319731,
+        "height_omitted_tilt_error_m": 0.0015340924770721465
+      },
+      {
+        "normal_total_error_m": 0.0026896137888252625,
+        "normal_2d_pose_error_m": 0.0023919600357862336,
+        "normal_omitted_tilt_error_m": 0.00029765375303902886,
+        "height_omitted_tilt_error_m": 0.004957937510494226
+      }
+    ],
+    "last_tag": {
+      "age_s": 0.25000001300000463,
+      "normal_error_m": -0.02590860317322008,
+      "yaw_error_deg": -2.302452154906318
+    }
+  },
+  {
+    "section": "SEC11",
+    "observation": "observation_004",
+    "stamp_s": 231.300012063,
+    "pose_sample_age_s": 0.40000002062657813,
+    "capture_pose_stamp_delta_s": 0.0,
+    "metadata_odom_planar_residual": 1.1102230246251565e-16,
+    "map_base_normal_error_m": -0.0069179642467851465,
+    "map_yaw_error_deg": 0.8352819178966088,
+    "raw_odom_normal_error_m": 1.3056468662982712,
+    "raw_odom_yaw_error_deg": 4.865651629425277,
+    "actual_roll_deg": -1.1091459069338723e-05,
+    "actual_pitch_deg": -0.29836095082563474,
+    "points": [
+      {
+        "normal_total_error_m": 0.0028811993626889354,
+        "normal_2d_pose_error_m": 0.0029853049316819202,
+        "normal_omitted_tilt_error_m": -0.00010410556899298484,
+        "height_omitted_tilt_error_m": -0.0034455312265007088
+      },
+      {
+        "normal_total_error_m": -0.00598567956529461,
+        "normal_2d_pose_error_m": -0.005871793501922795,
+        "normal_omitted_tilt_error_m": -0.00011388606337181528,
+        "height_omitted_tilt_error_m": -0.00028165896900866905
+      },
+      {
+        "normal_total_error_m": -0.015370448741494958,
+        "normal_2d_pose_error_m": -0.015272311281234074,
+        "normal_omitted_tilt_error_m": -9.81374602608831e-05,
+        "height_omitted_tilt_error_m": 0.003075552061113873
+      }
+    ],
+    "last_tag": {
+      "age_s": 1.0500000549999982,
+      "normal_error_m": -0.009041206782890221,
+      "yaw_error_deg": -0.7929116669485113
+    }
+  },
+  {
+    "section": "SEC11",
+    "observation": "observation_005",
+    "stamp_s": 252.566679839,
+    "pose_sample_age_s": 0.20000001047563387,
+    "capture_pose_stamp_delta_s": 0.0,
+    "metadata_odom_planar_residual": 1.3877787807814457e-17,
+    "map_base_normal_error_m": -0.006724150439100018,
+    "map_yaw_error_deg": 1.1230055974891486,
+    "raw_odom_normal_error_m": 1.4152599683487206,
+    "raw_odom_yaw_error_deg": 4.24628913926678,
+    "actual_roll_deg": 1.1753971252000803e-05,
+    "actual_pitch_deg": -0.29815346300171214,
+    "points": [
+      {
+        "normal_total_error_m": -0.022546142278445203,
+        "normal_2d_pose_error_m": -0.02258699246516116,
+        "normal_omitted_tilt_error_m": 4.085018671595719e-05,
+        "height_omitted_tilt_error_m": 0.004108742172895807
+      }
+    ],
+    "last_tag": {
+      "age_s": 0.4166666879999923,
+      "normal_error_m": -0.01666221225362019,
+      "yaw_error_deg": 0.5632962186958387
+    }
+  },
+  {
+    "section": "SEC12",
+    "observation": "observation_001",
+    "stamp_s": 266.166680548,
+    "pose_sample_age_s": 0.016666667875995245,
+    "capture_pose_stamp_delta_s": 0.0,
+    "metadata_odom_planar_residual": 1.1102230246251565e-16,
+    "map_base_normal_error_m": 0.06124492187685665,
+    "map_yaw_error_deg": -2.624359494334314,
+    "raw_odom_normal_error_m": -3.3333992597566753,
+    "raw_odom_yaw_error_deg": 2.6004210092260402,
+    "actual_roll_deg": -4.078026071069063e-06,
+    "actual_pitch_deg": -0.2981950194539925,
+    "points": [
+      {
+        "normal_total_error_m": 0.041333662059217735,
+        "normal_2d_pose_error_m": 0.04096316397235111,
+        "normal_omitted_tilt_error_m": 0.0003704980868666219,
+        "height_omitted_tilt_error_m": -0.0026675744603990026
+      },
+      {
+        "normal_total_error_m": 0.04235132086735227,
+        "normal_2d_pose_error_m": 0.04190635473592086,
+        "normal_omitted_tilt_error_m": 0.0004449661314314124,
+        "height_omitted_tilt_error_m": -0.0025593187766950187
+      }
+    ]
+  },
+  {
+    "section": "SEC12",
+    "observation": "observation_002",
+    "stamp_s": 290.30001514,
+    "pose_sample_age_s": 0.30000001597102255,
+    "capture_pose_stamp_delta_s": 0.0,
+    "metadata_odom_planar_residual": 1.8277075172234868e-31,
+    "map_base_normal_error_m": 0.0008696506948661642,
+    "map_yaw_error_deg": 1.2127546440711778,
+    "raw_odom_normal_error_m": -3.2483348802698866,
+    "raw_odom_yaw_error_deg": 3.1978163941981452,
+    "actual_roll_deg": 1.7633755366384553e-05,
+    "actual_pitch_deg": -0.2984891325759834,
+    "points": [
+      {
+        "normal_total_error_m": 0.0164241529675484,
+        "normal_2d_pose_error_m": 0.016336719946694167,
+        "normal_omitted_tilt_error_m": 8.743302085423288e-05,
+        "height_omitted_tilt_error_m": -0.003967459283982011
+      },
+      {
+        "normal_total_error_m": 0.016620148508338817,
+        "normal_2d_pose_error_m": 0.016542518747515444,
+        "normal_omitted_tilt_error_m": 7.762976082337225e-05,
+        "height_omitted_tilt_error_m": -0.004019993541332312
+      },
+      {
+        "normal_total_error_m": -0.014709056990378278,
+        "normal_2d_pose_error_m": -0.014786877746505,
+        "normal_omitted_tilt_error_m": 7.782075612672301e-05,
+        "height_omitted_tilt_error_m": 0.00369030282115812
+      },
+      {
+        "normal_total_error_m": -0.0006208130090727959,
+        "normal_2d_pose_error_m": -0.0007069059240623066,
+        "normal_omitted_tilt_error_m": 8.609291498951066e-05,
+        "height_omitted_tilt_error_m": 0.00022763940640091462
+      },
+      {
+        "normal_total_error_m": -0.01478386533026832,
+        "normal_2d_pose_error_m": -0.014873380743289921,
+        "normal_omitted_tilt_error_m": 8.951541302160138e-05,
+        "height_omitted_tilt_error_m": 0.003714176520410728
+      }
+    ],
+    "last_tag": {
+      "age_s": 0.05000000200004706,
+      "normal_error_m": -0.005346464596549083,
+      "yaw_error_deg": 1.3871066239349048
+    }
+  },
+  {
+    "section": "SEC12",
+    "observation": "observation_003",
+    "stamp_s": 312.166682947,
+    "pose_sample_age_s": 0.11666667317831525,
+    "capture_pose_stamp_delta_s": 0.0,
+    "metadata_odom_planar_residual": 1.1102230246251565e-16,
+    "map_base_normal_error_m": 0.00431870504315518,
+    "map_yaw_error_deg": 0.007155649669434024,
+    "raw_odom_normal_error_m": -3.1704368478774905,
+    "raw_odom_yaw_error_deg": 3.129783960432927,
+    "actual_roll_deg": -0.00023159116554758425,
+    "actual_pitch_deg": -0.2986147168693695,
+    "points": [
+      {
+        "normal_total_error_m": 0.0040787461497520106,
+        "normal_2d_pose_error_m": 0.004283302991363591,
+        "normal_omitted_tilt_error_m": -0.0002045568416115806,
+        "height_omitted_tilt_error_m": 0.001716047640314633
+      },
+      {
+        "normal_total_error_m": 0.004026301640965624,
+        "normal_2d_pose_error_m": 0.004226484603532921,
+        "normal_omitted_tilt_error_m": -0.00020018296256729684,
+        "height_omitted_tilt_error_m": 0.004087837635771141
+      },
+      {
+        "normal_total_error_m": 0.004051654307281272,
+        "normal_2d_pose_error_m": 0.004228051334860927,
+        "normal_omitted_tilt_error_m": -0.00017639702757965559,
+        "height_omitted_tilt_error_m": 0.004019294647975458
+      },
+      {
+        "normal_total_error_m": 0.0040980052590262606,
+        "normal_2d_pose_error_m": 0.004283584426783893,
+        "normal_omitted_tilt_error_m": -0.0001855791677576324,
+        "height_omitted_tilt_error_m": 0.0017033872068501488
+      },
+      {
+        "normal_total_error_m": 0.0042309999525229625,
+        "normal_2d_pose_error_m": 0.0044346928794172236,
+        "normal_omitted_tilt_error_m": -0.0002036929268942611,
+        "height_omitted_tilt_error_m": -0.004587657421561975
+      }
+    ],
+    "last_tag": {
+      "age_s": 0.01666666700003816,
+      "normal_error_m": -0.0009579129665908681,
+      "yaw_error_deg": -0.24913984384194676
+    }
+  },
+  {
+    "section": "SEC12",
+    "observation": "observation_004",
+    "stamp_s": 334.033350755,
+    "pose_sample_age_s": 0.2666666810451943,
+    "capture_pose_stamp_delta_s": 0.0,
+    "metadata_odom_planar_residual": 1.1102230246251565e-16,
+    "map_base_normal_error_m": 9.971494508154155e-06,
+    "map_yaw_error_deg": -0.3123793435583243,
+    "raw_odom_normal_error_m": -3.0844363755274946,
+    "raw_odom_yaw_error_deg": 2.956005920422766,
+    "actual_roll_deg": 1.3020743537613375e-05,
+    "actual_pitch_deg": -0.2981244290912794,
+    "points": [
+      {
+        "normal_total_error_m": -0.003912892371521481,
+        "normal_2d_pose_error_m": -0.0036754903594182764,
+        "normal_omitted_tilt_error_m": -0.000237402012103205,
+        "height_omitted_tilt_error_m": -0.003226322994321573
+      },
+      {
+        "normal_total_error_m": -0.0005040448082882509,
+        "normal_2d_pose_error_m": -0.00026510829131098923,
+        "normal_omitted_tilt_error_m": -0.0002389365169772617,
+        "height_omitted_tilt_error_m": 2.335851654233778e-05
+      },
+      {
+        "normal_total_error_m": 0.0028802353638921474,
+        "normal_2d_pose_error_m": 0.0031066525076526297,
+        "normal_omitted_tilt_error_m": -0.00022641714376048228,
+        "height_omitted_tilt_error_m": 0.0032359557671255423
+      },
+      {
+        "normal_total_error_m": -0.003917859495956577,
+        "normal_2d_pose_error_m": -0.0037220882706794356,
+        "normal_omitted_tilt_error_m": -0.00019577122527714153,
+        "height_omitted_tilt_error_m": -0.0032682583374057383
+      },
+      {
+        "normal_total_error_m": 0.002735623685341082,
+        "normal_2d_pose_error_m": 0.002932940400481643,
+        "normal_omitted_tilt_error_m": -0.00019731671514056082,
+        "height_omitted_tilt_error_m": 0.003069556175377963
+      }
+    ],
+    "last_tag": {
+      "age_s": 1.1833333960000232,
+      "normal_error_m": -0.0008868767860841231,
+      "yaw_error_deg": 0.24461823594829232
+    }
+  },
+  {
+    "section": "SEC12",
+    "observation": "observation_005",
+    "stamp_s": 358.966685388,
+    "pose_sample_age_s": 0.21666667772944948,
+    "capture_pose_stamp_delta_s": 0.0,
+    "metadata_odom_planar_residual": 2.220446049250313e-16,
+    "map_base_normal_error_m": -0.003574859679580711,
+    "map_yaw_error_deg": -0.05486775025210512,
+    "raw_odom_normal_error_m": -2.959631611175707,
+    "raw_odom_yaw_error_deg": 5.319055916412435,
+    "actual_roll_deg": 9.754313313570216e-06,
+    "actual_pitch_deg": -0.29818953185063474,
+    "points": [
+      {
+        "normal_total_error_m": -0.002566516860240897,
+        "normal_2d_pose_error_m": -0.002787846171740993,
+        "normal_omitted_tilt_error_m": 0.00022132931150009583,
+        "height_omitted_tilt_error_m": 0.004035940465832333
+      },
+      {
+        "normal_total_error_m": -0.002619434931941722,
+        "normal_2d_pose_error_m": -0.002801751771862815,
+        "normal_omitted_tilt_error_m": 0.00018231683992109282,
+        "height_omitted_tilt_error_m": 0.0039550947891651145
+      }
+    ],
+    "last_tag": {
+      "age_s": 0.316666682999994,
+      "normal_error_m": -0.0056262104410862435,
+      "yaw_error_deg": 0.5544758300448143
+    }
+  },
+  {
+    "section": "SEC13",
+    "observation": "observation_001",
+    "stamp_s": 203.233343933,
+    "pose_sample_age_s": 0.4000000210839687,
+    "capture_pose_stamp_delta_s": 0.0,
+    "metadata_odom_planar_residual": 2.7755575615628914e-17,
+    "map_base_normal_error_m": -0.00424405557475499,
+    "map_yaw_error_deg": -1.7528923668503837,
+    "raw_odom_normal_error_m": 1.6827665335885107,
+    "raw_odom_yaw_error_deg": 8.719404383435524,
+    "actual_roll_deg": 6.620020568121222e-06,
+    "actual_pitch_deg": -0.29795931427267003,
+    "points": [
+      {
+        "normal_total_error_m": -0.018260373757962522,
+        "normal_2d_pose_error_m": -0.018404585504488535,
+        "normal_omitted_tilt_error_m": 0.00014421174652601287,
+        "height_omitted_tilt_error_m": -0.002510213505084291
+      },
+      {
+        "normal_total_error_m": -0.029085147034156433,
+        "normal_2d_pose_error_m": -0.029261583204019725,
+        "normal_omitted_tilt_error_m": 0.00017643616986329214,
+        "height_omitted_tilt_error_m": -0.004355858384798239
+      }
+    ]
+  },
+  {
+    "section": "SEC13",
+    "observation": "observation_002",
+    "stamp_s": 221.766678233,
+    "pose_sample_age_s": 0.08333333797986597,
+    "capture_pose_stamp_delta_s": 0.0,
+    "metadata_odom_planar_residual": 1.1102230246251565e-16,
+    "map_base_normal_error_m": -0.02154941710696162,
+    "map_yaw_error_deg": 1.7006283326273304,
+    "raw_odom_normal_error_m": 1.9457053551654484,
+    "raw_odom_yaw_error_deg": 10.097171853147069,
+    "actual_roll_deg": -2.0417828412215993e-05,
+    "actual_pitch_deg": -0.2982274896110995,
+    "points": [
+      {
+        "normal_total_error_m": -0.01835402967685429,
+        "normal_2d_pose_error_m": -0.01836018177659593,
+        "normal_omitted_tilt_error_m": 6.152099741640882e-06,
+        "height_omitted_tilt_error_m": -0.0006474265700476822
+      },
+      {
+        "normal_total_error_m": -0.04203050977073097,
+        "normal_2d_pose_error_m": -0.04203769268147628,
+        "normal_omitted_tilt_error_m": 7.18291074530697e-06,
+        "height_omitted_tilt_error_m": 0.003506556898183133
+      }
+    ],
+    "last_tag": {
+      "age_s": 0.916666714999991,
+      "normal_error_m": -0.029359250581038054,
+      "yaw_error_deg": 1.6554020262796236
+    }
+  },
+  {
+    "section": "SEC13",
+    "observation": "observation_003",
+    "stamp_s": 246.366679516,
+    "pose_sample_age_s": 0.350000017943529,
+    "capture_pose_stamp_delta_s": 0.0,
+    "metadata_odom_planar_residual": 1.1102230246251565e-16,
+    "map_base_normal_error_m": -0.024844513814909375,
+    "map_yaw_error_deg": 1.1962384620222952,
+    "raw_odom_normal_error_m": 2.221892486644262,
+    "raw_odom_yaw_error_deg": 10.913079350962805,
+    "actual_roll_deg": -3.398459962820385e-06,
+    "actual_pitch_deg": -0.29852228386034546,
+    "points": [
+      {
+        "normal_total_error_m": -0.01862971992198048,
+        "normal_2d_pose_error_m": -0.018782525050573762,
+        "normal_omitted_tilt_error_m": 0.00015280512859328077,
+        "height_omitted_tilt_error_m": -0.0017351767397961737
+      },
+      {
+        "normal_total_error_m": -0.018853763834680404,
+        "normal_2d_pose_error_m": -0.018981058083376245,
+        "normal_omitted_tilt_error_m": 0.00012729424869584172,
+        "height_omitted_tilt_error_m": -0.0016830306273195594
+      },
+      {
+        "normal_total_error_m": -0.028850720737124913,
+        "normal_2d_pose_error_m": -0.029004500930335464,
+        "normal_omitted_tilt_error_m": 0.00015378019321055092,
+        "height_omitted_tilt_error_m": 0.0006026247392986184
+      }
+    ],
+    "last_tag": {
+      "age_s": 0.11666667299999745,
+      "normal_error_m": -0.025539397560795152,
+      "yaw_error_deg": -0.3666725316341788
+    }
+  },
+  {
+    "section": "SEC13",
+    "observation": "observation_004",
+    "stamp_s": 268.900014024,
+    "pose_sample_age_s": 0.31666668295423506,
+    "capture_pose_stamp_delta_s": 0.0,
+    "metadata_odom_planar_residual": 1.1102230246251565e-16,
+    "map_base_normal_error_m": -0.009553359130313133,
+    "map_yaw_error_deg": -0.4710255918836221,
+    "raw_odom_normal_error_m": 2.492774659686892,
+    "raw_odom_yaw_error_deg": 10.58531406261624,
+    "actual_roll_deg": -5.921061533682221e-06,
+    "actual_pitch_deg": -0.298233850349615,
+    "points": [
+      {
+        "normal_total_error_m": -0.004536316516781547,
+        "normal_2d_pose_error_m": -0.004297705796403761,
+        "normal_omitted_tilt_error_m": -0.0002386107203777854,
+        "height_omitted_tilt_error_m": 0.003616144823042289
+      },
+      {
+        "normal_total_error_m": -0.01537597346941677,
+        "normal_2d_pose_error_m": -0.015161642025273148,
+        "normal_omitted_tilt_error_m": -0.00021433144414362282,
+        "height_omitted_tilt_error_m": -0.003262217526185829
+      },
+      {
+        "normal_total_error_m": -0.01516098363396079,
+        "normal_2d_pose_error_m": -0.014966215986997433,
+        "normal_omitted_tilt_error_m": -0.00019476764696335636,
+        "height_omitted_tilt_error_m": -0.003139484583399632
+      },
+      {
+        "normal_total_error_m": -0.004457558095930736,
+        "normal_2d_pose_error_m": -0.004262684318960819,
+        "normal_omitted_tilt_error_m": -0.00019487377696991715,
+        "height_omitted_tilt_error_m": 0.0036329333136894126
+      },
+      {
+        "normal_total_error_m": -0.015360941734620326,
+        "normal_2d_pose_error_m": -0.015124461908994968,
+        "normal_omitted_tilt_error_m": -0.00023647982562535752,
+        "height_omitted_tilt_error_m": -0.0032420676410548355
+      },
+      {
+        "normal_total_error_m": -0.011868476632725278,
+        "normal_2d_pose_error_m": -0.011648762626277787,
+        "normal_omitted_tilt_error_m": -0.00021971400644749117,
+        "height_omitted_tilt_error_m": -0.0010379033480256705
+      }
+    ],
+    "last_tag": {
+      "age_s": 0.7500000389999855,
+      "normal_error_m": -0.017854397528461963,
+      "yaw_error_deg": -0.9799471623799717
+    }
+  },
+  {
+    "section": "SEC13",
+    "observation": "observation_005",
+    "stamp_s": 289.433348428,
+    "pose_sample_age_s": 0.08333333813749277,
+    "capture_pose_stamp_delta_s": 0.0,
+    "metadata_odom_planar_residual": 1.1102230246251565e-16,
+    "map_base_normal_error_m": -0.02423233245011641,
+    "map_yaw_error_deg": 0.41806287629008576,
+    "raw_odom_normal_error_m": 2.762573624043774,
+    "raw_odom_yaw_error_deg": 10.444627144652353,
+    "actual_roll_deg": -9.014481130551868e-07,
+    "actual_pitch_deg": -0.29824337507078896,
+    "points": [
+      {
+        "normal_total_error_m": -0.030302642507481936,
+        "normal_2d_pose_error_m": -0.030091690057564513,
+        "normal_omitted_tilt_error_m": -0.00021095244991742312,
+        "height_omitted_tilt_error_m": 0.004438859531416539
+      },
+      {
+        "normal_total_error_m": -0.019996615579810584,
+        "normal_2d_pose_error_m": -0.019785838802123035,
+        "normal_omitted_tilt_error_m": -0.0002107767776875491,
+        "height_omitted_tilt_error_m": -0.002906521542737961
+      },
+      {
+        "normal_total_error_m": -0.030206489123147273,
+        "normal_2d_pose_error_m": -0.02997464088862989,
+        "normal_omitted_tilt_error_m": -0.00023184823451738445,
+        "height_omitted_tilt_error_m": 0.004352608781456047
+      },
+      {
+        "normal_total_error_m": -0.030250851844953575,
+        "normal_2d_pose_error_m": -0.02999535778058693,
+        "normal_omitted_tilt_error_m": -0.0002554940643666459,
+        "height_omitted_tilt_error_m": 0.004366405083461533
+      },
+      {
+        "normal_total_error_m": -0.02443842957504838,
+        "normal_2d_pose_error_m": -0.02421181040613729,
+        "normal_omitted_tilt_error_m": -0.0002266191689110908,
+        "height_omitted_tilt_error_m": 0.0002441471488092706
+      },
+      {
+        "normal_total_error_m": -0.019402583124109807,
+        "normal_2d_pose_error_m": -0.019157907568679633,
+        "normal_omitted_tilt_error_m": -0.00024467555543017383,
+        "height_omitted_tilt_error_m": -0.003350628743699513
+      }
+    ],
+    "last_tag": {
+      "age_s": 0.5833333630000084,
+      "normal_error_m": -0.020288954743200804,
+      "yaw_error_deg": 0.07744952866264895
+    }
+  },
+  {
+    "section": "SEC14",
+    "observation": "observation_001",
+    "stamp_s": 323.300016861,
+    "pose_sample_age_s": 0.33333335112695295,
+    "capture_pose_stamp_delta_s": 0.0,
+    "metadata_odom_planar_residual": 1.1102230246251565e-16,
+    "map_base_normal_error_m": 0.019761129864434235,
+    "map_yaw_error_deg": -1.0740434029391968,
+    "raw_odom_normal_error_m": -2.5387123681516113,
+    "raw_odom_yaw_error_deg": 1.9407393260007761,
+    "actual_roll_deg": 5.301365789953022e-05,
+    "actual_pitch_deg": -0.2987907483858094,
+    "points": [
+      {
+        "normal_total_error_m": 0.014456780925991453,
+        "normal_2d_pose_error_m": 0.014198526041533377,
+        "normal_omitted_tilt_error_m": 0.00025825488445807565,
+        "height_omitted_tilt_error_m": -0.0018363178913323175
+      },
+      {
+        "normal_total_error_m": 0.024990126687611358,
+        "normal_2d_pose_error_m": 0.024707071798545588,
+        "normal_omitted_tilt_error_m": 0.00028305488906577025,
+        "height_omitted_tilt_error_m": 0.0010813962530502597
+      }
+    ]
+  },
+  {
+    "section": "SEC14",
+    "observation": "observation_002",
+    "stamp_s": 347.033351433,
+    "pose_sample_age_s": 0.033333334603867115,
+    "capture_pose_stamp_delta_s": 0.0,
+    "metadata_odom_planar_residual": 1.1102230246251565e-16,
+    "map_base_normal_error_m": -0.000257106421014619,
+    "map_yaw_error_deg": -0.3416130596922133,
+    "raw_odom_normal_error_m": -2.4981938558866483,
+    "raw_odom_yaw_error_deg": 1.6123480539353485,
+    "actual_roll_deg": -1.654547598815461e-05,
+    "actual_pitch_deg": -0.2983191976848677,
+    "points": [
+      {
+        "normal_total_error_m": 0.00432285278568223,
+        "normal_2d_pose_error_m": 0.0041470657701543345,
+        "normal_omitted_tilt_error_m": 0.0001757870155278951,
+        "height_omitted_tilt_error_m": 0.0036565502410939033
+      },
+      {
+        "normal_total_error_m": 0.0005264980915211659,
+        "normal_2d_pose_error_m": 0.00036474884281068043,
+        "normal_omitted_tilt_error_m": 0.00016174924871048546,
+        "height_omitted_tilt_error_m": 0.0003558317846367176
+      },
+      {
+        "normal_total_error_m": -0.0036366120630169085,
+        "normal_2d_pose_error_m": -0.0038100133465803765,
+        "normal_omitted_tilt_error_m": 0.00017340128356346796,
+        "height_omitted_tilt_error_m": -0.0032872664547092256
+      },
+      {
+        "normal_total_error_m": -0.007470219175434334,
+        "normal_2d_pose_error_m": -0.007623997315742592,
+        "normal_omitted_tilt_error_m": 0.00015377814030825832,
+        "height_omitted_tilt_error_m": -0.006796658519207632
+      }
+    ],
+    "last_tag": {
+      "age_s": 0.18333334300001525,
+      "normal_error_m": -0.00443092139508483,
+      "yaw_error_deg": 0.43550194022836886
+    }
+  },
+  {
+    "section": "SEC14",
+    "observation": "observation_003",
+    "stamp_s": 368.166685868,
+    "pose_sample_age_s": 0.2000000103761863,
+    "capture_pose_stamp_delta_s": 0.0,
+    "metadata_odom_planar_residual": 1.1102230246251565e-16,
+    "map_base_normal_error_m": 0.013873812154518994,
+    "map_yaw_error_deg": 0.47483173707133636,
+    "raw_odom_normal_error_m": -2.4537766684169044,
+    "raw_odom_yaw_error_deg": 1.937011396558778,
+    "actual_roll_deg": 4.6043205499784134e-05,
+    "actual_pitch_deg": -0.2982690172043339,
+    "points": [
+      {
+        "normal_total_error_m": 0.01563857581577288,
+        "normal_2d_pose_error_m": 0.01570952371147971,
+        "normal_omitted_tilt_error_m": -7.094789570682991e-05,
+        "height_omitted_tilt_error_m": -0.001089979831484622
+      },
+      {
+        "normal_total_error_m": 0.00652381056421758,
+        "normal_2d_pose_error_m": 0.006590959003873298,
+        "normal_omitted_tilt_error_m": -6.71484396557176e-05,
+        "height_omitted_tilt_error_m": 0.004636935617154392
+      },
+      {
+        "normal_total_error_m": 0.010513026157923822,
+        "normal_2d_pose_error_m": 0.010582365369590008,
+        "normal_omitted_tilt_error_m": -6.933921166618617e-05,
+        "height_omitted_tilt_error_m": 0.0021302287885198723
+      },
+      {
+        "normal_total_error_m": 0.021002331720569423,
+        "normal_2d_pose_error_m": 0.021068934754229218,
+        "normal_omitted_tilt_error_m": -6.660303365979559e-05,
+        "height_omitted_tilt_error_m": -0.004456010319210391
+      }
+    ],
+    "last_tag": {
+      "age_s": 0.21666667800002415,
+      "normal_error_m": -0.002807902572196319,
+      "yaw_error_deg": -0.5180675547192277
+    }
+  },
+  {
+    "section": "SEC14",
+    "observation": "observation_004",
+    "stamp_s": 390.166687015,
+    "pose_sample_age_s": 0.40000002130568646,
+    "capture_pose_stamp_delta_s": 0.0,
+    "metadata_odom_planar_residual": 1.1102230246251565e-16,
+    "map_base_normal_error_m": 0.0025079367483340498,
+    "map_yaw_error_deg": -0.40711218416611844,
+    "raw_odom_normal_error_m": -2.4070716656952693,
+    "raw_odom_yaw_error_deg": 1.3010814944043454,
+    "actual_roll_deg": -6.870292834391268e-06,
+    "actual_pitch_deg": -0.2981089391390568,
+    "points": [
+      {
+        "normal_total_error_m": 0.0067593700035750715,
+        "normal_2d_pose_error_m": 0.006905506489761404,
+        "normal_omitted_tilt_error_m": -0.00014613648618633235,
+        "height_omitted_tilt_error_m": 0.003421665059200718
+      }
+    ],
+    "last_tag": {
+      "age_s": 0.2166666779999673,
+      "normal_error_m": -0.0026519371492188526,
+      "yaw_error_deg": -0.07889427519045676
+    }
+  },
+  {
+    "section": "SEC14",
+    "observation": "observation_005",
+    "stamp_s": 411.433354791,
+    "pose_sample_age_s": 0.28333334836412405,
+    "capture_pose_stamp_delta_s": 0.0,
+    "metadata_odom_planar_residual": 6.938893903907228e-18,
+    "map_base_normal_error_m": -0.005193485553240507,
+    "map_yaw_error_deg": 0.1587406391145073,
+    "raw_odom_normal_error_m": -2.35646079763192,
+    "raw_odom_yaw_error_deg": 1.9600154300257517,
+    "actual_roll_deg": 1.2947865990707676e-06,
+    "actual_pitch_deg": -0.2982114812633085,
+    "points": [
+      {
+        "normal_total_error_m": -0.0041209205472405586,
+        "normal_2d_pose_error_m": -0.00418182052168703,
+        "normal_omitted_tilt_error_m": 6.0899974446471106e-05,
+        "height_omitted_tilt_error_m": -0.001969473463394378
+      },
+      {
+        "normal_total_error_m": -0.005834248833267441,
+        "normal_2d_pose_error_m": -0.005892129829201842,
+        "normal_omitted_tilt_error_m": 5.788099593440066e-05,
+        "height_omitted_tilt_error_m": 0.0012430934424638718
+      }
+    ],
+    "last_tag": {
+      "age_s": 0.6833333690000245,
+      "normal_error_m": -0.006773542257883847,
+      "yaw_error_deg": 0.35955939806446074
+    }
+  },
+  {
+    "section": "SEC15",
+    "observation": "observation_001",
+    "stamp_s": 234.30001222,
+    "pose_sample_age_s": 0.4000000205588492,
+    "capture_pose_stamp_delta_s": 0.0,
+    "metadata_odom_planar_residual": 1.1102230246251565e-16,
+    "map_base_normal_error_m": -0.015328415207068957,
+    "map_yaw_error_deg": 1.3101689266848828,
+    "raw_odom_normal_error_m": 0.7506501239212318,
+    "raw_odom_yaw_error_deg": 4.316032519382616,
+    "actual_roll_deg": -1.803396458138149e-06,
+    "actual_pitch_deg": -0.29825212736213425,
+    "points": [
+      {
+        "normal_total_error_m": -0.01103346373507641,
+        "normal_2d_pose_error_m": -0.011082478894805625,
+        "normal_omitted_tilt_error_m": 4.901515972921544e-05,
+        "height_omitted_tilt_error_m": -0.001080311823426383
+      },
+      {
+        "normal_total_error_m": -0.011512166849205308,
+        "normal_2d_pose_error_m": -0.011555723326130973,
+        "normal_omitted_tilt_error_m": 4.355647692566578e-05,
+        "height_omitted_tilt_error_m": -0.0009741104676972423
+      },
+      {
+        "normal_total_error_m": -0.023781498628827613,
+        "normal_2d_pose_error_m": -0.02382463387318534,
+        "normal_omitted_tilt_error_m": 4.31352443577282e-05,
+        "height_omitted_tilt_error_m": 0.001819849675391727
+      },
+      {
+        "normal_total_error_m": 0.00976812983095865,
+        "normal_2d_pose_error_m": 0.00971656137760668,
+        "normal_omitted_tilt_error_m": 5.156845335196891e-05,
+        "height_omitted_tilt_error_m": -0.005855781426643114
+      }
+    ]
+  },
+  {
+    "section": "SEC15",
+    "observation": "observation_002",
+    "stamp_s": 255.366679985,
+    "pose_sample_age_s": 0.20000001050701144,
+    "capture_pose_stamp_delta_s": 0.0,
+    "metadata_odom_planar_residual": 2.220446049250313e-16,
+    "map_base_normal_error_m": -0.016693066248710142,
+    "map_yaw_error_deg": 0.38168034616939955,
+    "raw_odom_normal_error_m": 0.8666861079599353,
+    "raw_odom_yaw_error_deg": 4.539783570981412,
+    "actual_roll_deg": 9.337122554883574e-05,
+    "actual_pitch_deg": -0.2985161681350501,
+    "points": [
+      {
+        "normal_total_error_m": -0.021077103141987408,
+        "normal_2d_pose_error_m": -0.02122375760488815,
+        "normal_omitted_tilt_error_m": 0.00014665446290074158,
+        "height_omitted_tilt_error_m": 0.0033576001306770964
+      },
+      {
+        "normal_total_error_m": -0.013165083414753198,
+        "normal_2d_pose_error_m": -0.013305871954625736,
+        "normal_omitted_tilt_error_m": 0.00014078853987253837,
+        "height_omitted_tilt_error_m": -0.0028330159739127225
+      },
+      {
+        "normal_total_error_m": -0.020980842225719165,
+        "normal_2d_pose_error_m": -0.021114925231517034,
+        "normal_omitted_tilt_error_m": 0.00013408300579786925,
+        "height_omitted_tilt_error_m": 0.003270072790325318
+      }
+    ],
+    "last_tag": {
+      "age_s": 0.11666667299999745,
+      "normal_error_m": -0.020148121779538286,
+      "yaw_error_deg": -0.0666491222401433
+    }
+  },
+  {
+    "section": "SEC15",
+    "observation": "observation_003",
+    "stamp_s": 277.300014462,
+    "pose_sample_age_s": 0.03333333539382011,
+    "capture_pose_stamp_delta_s": 0.0,
+    "metadata_odom_planar_residual": 1.1102230246251565e-16,
+    "map_base_normal_error_m": -0.016635615630585576,
+    "map_yaw_error_deg": -0.8944350688013648,
+    "raw_odom_normal_error_m": 0.9899822013673649,
+    "raw_odom_yaw_error_deg": 4.649074594314777,
+    "actual_roll_deg": -4.661599973002997e-05,
+    "actual_pitch_deg": -0.29825334193317227,
+    "points": [],
+    "last_tag": {
+      "age_s": 0.15000000800000635,
+      "normal_error_m": -0.028351768735706884,
+      "yaw_error_deg": -1.141744667849481
+    }
+  },
+  {
+    "section": "SEC15",
+    "observation": "observation_004",
+    "stamp_s": 301.366682384,
+    "pose_sample_age_s": 0.4333333560965684,
+    "capture_pose_stamp_delta_s": 0.0,
+    "metadata_odom_planar_residual": 1.1102230246251565e-16,
+    "map_base_normal_error_m": -0.024187743128277983,
+    "map_yaw_error_deg": -1.6827814795139107,
+    "raw_odom_normal_error_m": 1.1584092802299373,
+    "raw_odom_yaw_error_deg": 5.627118739463974,
+    "actual_roll_deg": 2.1499201001495025e-05,
+    "actual_pitch_deg": -0.2979773519825814,
+    "points": [
+      {
+        "normal_total_error_m": -0.007021326371168257,
+        "normal_2d_pose_error_m": -0.007022183328214027,
+        "normal_omitted_tilt_error_m": 8.569570457694908e-07,
+        "height_omitted_tilt_error_m": 0.003127758943031078
+      },
+      {
+        "normal_total_error_m": -0.03143144049649038,
+        "normal_2d_pose_error_m": -0.03143221209734559,
+        "normal_omitted_tilt_error_m": 7.716008552094422e-07,
+        "height_omitted_tilt_error_m": -0.0011950918055911863
+      },
+      {
+        "normal_total_error_m": -0.04900943180552986,
+        "normal_2d_pose_error_m": -0.049010196756449353,
+        "normal_omitted_tilt_error_m": 7.649509194962434e-07,
+        "height_omitted_tilt_error_m": -0.004305771420456739
+      },
+      {
+        "normal_total_error_m": -0.04940130669943166,
+        "normal_2d_pose_error_m": -0.04940217726301199,
+        "normal_omitted_tilt_error_m": 8.705635803352152e-07,
+        "height_omitted_tilt_error_m": -0.004373141343781084
+      }
+    ],
+    "last_tag": {
+      "age_s": 0.9166667139999731,
+      "normal_error_m": -0.02112423327496815,
+      "yaw_error_deg": -1.8618153623409264
+    }
+  },
+  {
+    "section": "SEC15",
+    "observation": "observation_005",
+    "stamp_s": 319.100016642,
+    "pose_sample_age_s": 0.23333334514074977,
+    "capture_pose_stamp_delta_s": 0.0,
+    "metadata_odom_planar_residual": 1.1102230246251565e-16,
+    "map_base_normal_error_m": -0.018749591920022457,
+    "map_yaw_error_deg": 0.5626319396527442,
+    "raw_odom_normal_error_m": 1.3251584952300006,
+    "raw_odom_yaw_error_deg": 6.5490679957556175,
+    "actual_roll_deg": 1.214288809632239e-05,
+    "actual_pitch_deg": -0.2982071974225262,
+    "points": [
+      {
+        "normal_total_error_m": -0.020539677949772184,
+        "normal_2d_pose_error_m": -0.02047095298149415,
+        "normal_omitted_tilt_error_m": -6.872496827803332e-05,
+        "height_omitted_tilt_error_m": 0.0009647589032788506
+      },
+      {
+        "normal_total_error_m": -0.015272600747363363,
+        "normal_2d_pose_error_m": -0.015204692087075422,
+        "normal_omitted_tilt_error_m": -6.790866028794085e-05,
+        "height_omitted_tilt_error_m": -0.0018259604413874975
+      },
+      {
+        "normal_total_error_m": -0.0246136203559848,
+        "normal_2d_pose_error_m": -0.02455710262133426,
+        "normal_omitted_tilt_error_m": -5.6517734650540774e-05,
+        "height_omitted_tilt_error_m": 0.0031289050725031853
+      },
+      {
+        "normal_total_error_m": -0.024487896663691444,
+        "normal_2d_pose_error_m": -0.024423464023171526,
+        "normal_omitted_tilt_error_m": -6.443264051991804e-05,
+        "height_omitted_tilt_error_m": 0.0030595929766554786
+      },
+      {
+        "normal_total_error_m": -0.02027147994517353,
+        "normal_2d_pose_error_m": -0.020214147775072355,
+        "normal_omitted_tilt_error_m": -5.7332170101176416e-05,
+        "height_omitted_tilt_error_m": 0.0008263732766077281
+      }
+    ],
+    "last_tag": {
+      "age_s": 0.8500000440000122,
+      "normal_error_m": -0.019740207535580367,
+      "yaw_error_deg": -1.1783803810844533
+    }
+  },
+  {
+    "section": "SEC16",
+    "observation": "observation_001",
+    "stamp_s": 323.833350223,
+    "pose_sample_age_s": 0.36666668623206533,
+    "capture_pose_stamp_delta_s": 0.0,
+    "metadata_odom_planar_residual": 1.1102230246251565e-16,
+    "map_base_normal_error_m": 0.052309073648343585,
+    "map_yaw_error_deg": -1.2464939908147774,
+    "raw_odom_normal_error_m": -2.4065014806691005,
+    "raw_odom_yaw_error_deg": 3.331900002500059,
+    "actual_roll_deg": 1.0395817759482634e-05,
+    "actual_pitch_deg": -0.2987148736137846,
+    "points": [
+      {
+        "normal_total_error_m": 0.05855434975820284,
+        "normal_2d_pose_error_m": 0.05827201786943981,
+        "normal_omitted_tilt_error_m": 0.00028233188876303217,
+        "height_omitted_tilt_error_m": 0.0010968336687120495
+      },
+      {
+        "normal_total_error_m": 0.04692571438047288,
+        "normal_2d_pose_error_m": 0.04658385718962332,
+        "normal_omitted_tilt_error_m": 0.00034185719084955934,
+        "height_omitted_tilt_error_m": -0.0016915028581623304
+      },
+      {
+        "normal_total_error_m": 0.046428657169884424,
+        "normal_2d_pose_error_m": 0.0461450628907496,
+        "normal_omitted_tilt_error_m": 0.0002835942791348245,
+        "height_omitted_tilt_error_m": -0.00179948110253636
+      }
+    ]
+  },
+  {
+    "section": "SEC16",
+    "observation": "observation_002",
+    "stamp_s": 344.766684648,
+    "pose_sample_age_s": 0.01666666718540455,
+    "capture_pose_stamp_delta_s": 0.0,
+    "metadata_odom_planar_residual": 1.1102230246251565e-16,
+    "map_base_normal_error_m": 0.02100741399433126,
+    "map_yaw_error_deg": 0.04900184601090806,
+    "raw_odom_normal_error_m": -2.3376182582206475,
+    "raw_odom_yaw_error_deg": 2.506241645121263,
+    "actual_roll_deg": -7.868374727301155e-06,
+    "actual_pitch_deg": -0.2982322686773271,
+    "points": [
+      {
+        "normal_total_error_m": 0.021054305409316854,
+        "normal_2d_pose_error_m": 0.020935293984004844,
+        "normal_omitted_tilt_error_m": 0.00011901142531201003,
+        "height_omitted_tilt_error_m": 0.00031023418353615106
+      },
+      {
+        "normal_total_error_m": 0.020544337723190864,
+        "normal_2d_pose_error_m": 0.02042949319144327,
+        "normal_omitted_tilt_error_m": 0.00011484453174759324,
+        "height_omitted_tilt_error_m": 0.0033867978392375653
+      },
+      {
+        "normal_total_error_m": 0.021054311432673778,
+        "normal_2d_pose_error_m": 0.020948310469606213,
+        "normal_omitted_tilt_error_m": 0.00010600096306756512,
+        "height_omitted_tilt_error_m": 0.0002278723816444561
+      },
+      {
+        "normal_total_error_m": 0.020036155230974906,
+        "normal_2d_pose_error_m": 0.019936037385267724,
+        "normal_omitted_tilt_error_m": 0.00010011784570718163,
+        "height_omitted_tilt_error_m": 0.0062626904561582375
+      }
+    ],
+    "last_tag": {
+      "age_s": 1.116666725000016,
+      "normal_error_m": 0.009798600918907496,
+      "yaw_error_deg": -0.31409875693439615
+    }
+  },
+  {
+    "section": "SEC16",
+    "observation": "observation_003",
+    "stamp_s": 367.366685826,
+    "pose_sample_age_s": 0.3500000185853196,
+    "capture_pose_stamp_delta_s": 0.0,
+    "metadata_odom_planar_residual": 1.1102230246251565e-16,
+    "map_base_normal_error_m": 0.015763219538129647,
+    "map_yaw_error_deg": 1.274301127345574,
+    "raw_odom_normal_error_m": -2.2687613765615975,
+    "raw_odom_yaw_error_deg": 3.418260214907529,
+    "actual_roll_deg": 4.966827864617116e-05,
+    "actual_pitch_deg": -0.2985394418850149,
+    "points": [
+      {
+        "normal_total_error_m": 0.009142312190380864,
+        "normal_2d_pose_error_m": 0.009036501039080491,
+        "normal_omitted_tilt_error_m": 0.00010581115130037233,
+        "height_omitted_tilt_error_m": 0.0013982387348807634
+      }
+    ],
+    "last_tag": {
+      "age_s": 0.8166667090000033,
+      "normal_error_m": -0.0012945290064720893,
+      "yaw_error_deg": 1.2811303427516476
+    }
+  },
+  {
+    "section": "SEC16",
+    "observation": "observation_004",
+    "stamp_s": 388.300020251,
+    "pose_sample_age_s": 0.4333333563565702,
+    "capture_pose_stamp_delta_s": 0.0,
+    "metadata_odom_planar_residual": 1.3877787807814457e-17,
+    "map_base_normal_error_m": 0.016529640392676903,
+    "map_yaw_error_deg": 0.41277503998074855,
+    "raw_odom_normal_error_m": -2.1942667534529283,
+    "raw_odom_yaw_error_deg": 3.274423663900812,
+    "actual_roll_deg": 2.695086436410613e-06,
+    "actual_pitch_deg": -0.298130387003971,
+    "points": [
+      {
+        "normal_total_error_m": 0.012738590043617215,
+        "normal_2d_pose_error_m": 0.012667074905173159,
+        "normal_omitted_tilt_error_m": 7.151513844405599e-05,
+        "height_omitted_tilt_error_m": 0.002675714488431291
+      }
+    ],
+    "last_tag": {
+      "age_s": 0.3500000180000029,
+      "normal_error_m": 0.0037000169321537157,
+      "yaw_error_deg": 0.048011345094057925
+    }
+  },
+  {
+    "section": "SEC16",
+    "observation": "observation_005",
+    "stamp_s": 409.166688006,
+    "pose_sample_age_s": 0.10000000484416205,
+    "capture_pose_stamp_delta_s": 0.0,
+    "metadata_odom_planar_residual": 1.1102230246251565e-16,
+    "map_base_normal_error_m": 0.007324410292837591,
+    "map_yaw_error_deg": 0.10820242321841783,
+    "raw_odom_normal_error_m": -2.1119965672431107,
+    "raw_odom_yaw_error_deg": 3.149180920594476,
+    "actual_roll_deg": -6.623459639504591e-06,
+    "actual_pitch_deg": -0.29844009348447614,
+    "points": [
+      {
+        "normal_total_error_m": 0.007941172156636256,
+        "normal_2d_pose_error_m": 0.008104451048475347,
+        "normal_omitted_tilt_error_m": -0.0001632788918390915,
+        "height_omitted_tilt_error_m": -0.00196589477234399
+      },
+      {
+        "normal_total_error_m": 0.007929420802405218,
+        "normal_2d_pose_error_m": 0.008075218597005218,
+        "normal_omitted_tilt_error_m": -0.00014579779459999997,
+        "height_omitted_tilt_error_m": -0.0018892487129323898
+      },
+      {
+        "normal_total_error_m": 0.007977526008663638,
+        "normal_2d_pose_error_m": 0.008110773852208375,
+        "normal_omitted_tilt_error_m": -0.00013324784354473707,
+        "height_omitted_tilt_error_m": -0.0019862548360175536
+      }
+    ],
+    "last_tag": {
+      "age_s": 0.8166667090000033,
+      "normal_error_m": -0.000898268564197835,
+      "yaw_error_deg": 1.2452419425131933
+    }
+  }
+]

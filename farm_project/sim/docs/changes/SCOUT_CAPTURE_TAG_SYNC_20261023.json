@@ -1,0 +1,875 @@
+{
+  "baseline_commit": "0832b6f1827d912d827667e4c50aacf3a3f4e549",
+  "uncommitted": true,
+  "tests_passed": 34,
+  "prior": {
+    "run": "07_multitag",
+    "status": "SUCCESS",
+    "observations": [
+      {
+        "name": "observation_001",
+        "stamp_s": 61.433336537,
+        "normal_error_m": 0.03264568895667175,
+        "xy_error_m": 0.046794850431863294,
+        "yaw_error_deg": 0.3717392388180888,
+        "points_depth_error_m": [
+          0.03519143663023527,
+          0.031125992771261046,
+          0.0375366067647116
+        ]
+      },
+      {
+        "name": "observation_002",
+        "stamp_s": 78.033337403,
+        "normal_error_m": 0.00037228842485070857,
+        "xy_error_m": 0.0071657815718307455,
+        "yaw_error_deg": 0.222058341272252,
+        "points_depth_error_m": [
+          0.002477320283653661,
+          0.0008721780514813204,
+          -0.0025568280583163627,
+          6.928141638073981e-05
+        ]
+      },
+      {
+        "name": "observation_003",
+        "stamp_s": 96.300005022,
+        "normal_error_m": -0.010299143416904855,
+        "xy_error_m": 0.01792684020010107,
+        "yaw_error_deg": 0.45255428797843283,
+        "points_depth_error_m": [
+          -0.008494241066332897,
+          -0.012886452891057942,
+          -0.008678438597462979,
+          -0.01786960869196985
+        ]
+      },
+      {
+        "name": "observation_004",
+        "stamp_s": 113.70000593,
+        "normal_error_m": -0.008144341829194879,
+        "xy_error_m": 0.008187875896723597,
+        "yaw_error_deg": -0.42801720356615564,
+        "points_depth_error_m": [
+          -0.00438589319172511,
+          -0.004328542395070301
+        ]
+      },
+      {
+        "name": "observation_005",
+        "stamp_s": 130.100006785,
+        "normal_error_m": -0.001842844110671038,
+        "xy_error_m": 0.014713306986213624,
+        "yaw_error_deg": 0.753920818174164,
+        "points_depth_error_m": [
+          -0.004938258986554089,
+          -0.0046581114018771075
+        ]
+      }
+    ],
+    "window_count": 9,
+    "expected_count": 13,
+    "survey_keys": [
+      "design",
+      "status",
+      "survey",
+      "segments",
+      "batch",
+      "post_capture_navigation"
+    ],
+    "normal_mean_mm": 2.546329604950337,
+    "normal_abs_mean_mm": 10.660861347658646,
+    "yaw_abs_mean_deg": 0.44565797796181866,
+    "point_depth_abs_mean_mm": 11.737946079872685,
+    "evaluation": {
+      "section_status": "COMPLETE",
+      "placed_target_count": 13,
+      "work_range_tolerance_m": 0.0,
+      "evaluation_height_limits_m": [
+        0.7999999999999999,
+        1.063
+      ],
+      "detected_id_count": 13,
+      "evaluated_id_count": 13,
+      "excluded_prediction_ids": [],
+      "matched_count": 13,
+      "precision_in_evaluation_scope": 1.0,
+      "placed_target_recall": 1.0,
+      "correct_color_count": 13,
+      "possible_duplicate_ids": [],
+      "unmatched_ids": [],
+      "missed_gt_ids": [],
+      "matches": [
+        {
+          "fruit_id": "ed1e1607c22b_SEC01_F0001",
+          "gt_id": "/World/Vegetation/Bed_02/Fruits/Pepper_0010_red",
+          "point_to_aabb_m": 0.0,
+          "surface_to_bbox_center_m": 0.02377852942732389,
+          "class_correct": true
+        },
+        {
+          "fruit_id": "ed1e1607c22b_SEC01_F0002",
+          "gt_id": "/World/Vegetation/Bed_02/Fruits/Pepper_0034_yellow",
+          "point_to_aabb_m": 0.0,
+          "surface_to_bbox_center_m": 0.03373102920454853,
+          "class_correct": true
+        },
+        {
+          "fruit_id": "ed1e1607c22b_SEC01_F0003",
+          "gt_id": "/World/Vegetation/Bed_02/Fruits/Pepper_0028_yellow",
+          "point_to_aabb_m": 0.0,
+          "surface_to_bbox_center_m": 0.022319814086466966,
+          "class_correct": true
+        },
+        {
+          "fruit_id": "ed1e1607c22b_SEC01_F0004",
+          "gt_id": "/World/Vegetation/Bed_02/Fruits/Pepper_0032_red",
+          "point_to_aabb_m": 0.0,
+          "surface_to_bbox_center_m": 0.02762389065899912,
+          "class_correct": true
+        },
+        {
+          "fruit_id": "ed1e1607c22b_SEC01_F0005",
+          "gt_id": "/World/Vegetation/Bed_02/Fruits/Pepper_0030_yellow",
+          "point_to_aabb_m": 0.0,
+          "surface_to_bbox_center_m": 0.03550829694718255,
+          "class_correct": true
+        },
+        {
+          "fruit_id": "ed1e1607c22b_SEC01_F0006",
+          "gt_id": "/World/Vegetation/Bed_02/Fruits/Pepper_0003_red",
+          "point_to_aabb_m": 0.0,
+          "surface_to_bbox_center_m": 0.03243319932713197,
+          "class_correct": true
+        },
+        {
+          "fruit_id": "ed1e1607c22b_SEC01_F0007",
+          "gt_id": "/World/Vegetation/Bed_02/Fruits/Pepper_0011_yellow",
+          "point_to_aabb_m": 0.0,
+          "surface_to_bbox_center_m": 0.03790134505284775,
+          "class_correct": true
+        },
+        {
+          "fruit_id": "ed1e1607c22b_SEC01_F0008",
+          "gt_id": "/World/Vegetation/Bed_02/Fruits/Pepper_0004_red",
+          "point_to_aabb_m": 0.0006219752413496593,
+          "surface_to_bbox_center_m": 0.04353901626818196,
+          "class_correct": true
+        },
+        {
+          "fruit_id": "ed1e1607c22b_SEC01_F0009",
+          "gt_id": "/World/Vegetation/Bed_02/Fruits/Pepper_0015_red",
+          "point_to_aabb_m": 0.0,
+          "surface_to_bbox_center_m": 0.045857093779995826,
+          "class_correct": true
+        },
+        {
+          "fruit_id": "ed1e1607c22b_SEC01_F0010",
+          "gt_id": "/World/Vegetation/Bed_02/Fruits/Pepper_0036_yellow",
+          "point_to_aabb_m": 0.0,
+          "surface_to_bbox_center_m": 0.04359132498785201,
+          "class_correct": true
+        },
+        {
+          "fruit_id": "ed1e1607c22b_SEC01_F0011",
+          "gt_id": "/World/Vegetation/Bed_02/Fruits/Pepper_0029_red",
+          "point_to_aabb_m": 0.0,
+          "surface_to_bbox_center_m": 0.03353003449550353,
+          "class_correct": true
+        },
+        {
+          "fruit_id": "ed1e1607c22b_SEC01_F0012",
+          "gt_id": "/World/Vegetation/Bed_02/Fruits/Pepper_0026_yellow",
+          "point_to_aabb_m": 0.001331429221942848,
+          "surface_to_bbox_center_m": 0.04057589011676138,
+          "class_correct": true
+        },
+        {
+          "fruit_id": "ed1e1607c22b_SEC01_F0013",
+          "gt_id": "/World/Vegetation/Bed_02/Fruits/Pepper_0033_red",
+          "point_to_aabb_m": 0.0,
+          "surface_to_bbox_center_m": 0.043268661715480924,
+          "class_correct": true
+        }
+      ],
+      "excluded_gt": [
+        {
+          "gt_id": "/World/Vegetation/Bed_02/Fruits/Pepper_0001_green",
+          "reason": "class_not_in_model"
+        },
+        {
+          "gt_id": "/World/Vegetation/Bed_02/Fruits/Pepper_0002_yellow",
+          "reason": "other_side_or_depth_band"
+        },
+        {
+          "gt_id": "/World/Vegetation/Bed_02/Fruits/Pepper_0005_green",
+          "reason": "class_not_in_model"
+        },
+        {
+          "gt_id": "/World/Vegetation/Bed_02/Fruits/Pepper_0006_yellow",
+          "reason": "other_side_or_depth_band"
+        },
+        {
+          "gt_id": "/World/Vegetation/Bed_02/Fruits/Pepper_0007_red",
+          "reason": "other_side_or_depth_band"
+        },
+        {
+          "gt_id": "/World/Vegetation/Bed_02/Fruits/Pepper_0008_green",
+          "reason": "class_not_in_model"
+        },
+        {
+          "gt_id": "/World/Vegetation/Bed_02/Fruits/Pepper_0009_green",
+          "reason": "class_not_in_model"
+        },
+        {
+          "gt_id": "/World/Vegetation/Bed_02/Fruits/Pepper_0012_green",
+          "reason": "class_not_in_model"
+        },
+        {
+          "gt_id": "/World/Vegetation/Bed_02/Fruits/Pepper_0013_yellow",
+          "reason": "other_side_or_depth_band"
+        },
+        {
+          "gt_id": "/World/Vegetation/Bed_02/Fruits/Pepper_0014_green",
+          "reason": "class_not_in_model"
+        },
+        {
+          "gt_id": "/World/Vegetation/Bed_02/Fruits/Pepper_0016_red",
+          "reason": "other_side_or_depth_band"
+        },
+        {
+          "gt_id": "/World/Vegetation/Bed_02/Fruits/Pepper_0017_yellow",
+          "reason": "other_side_or_depth_band"
+        },
+        {
+          "gt_id": "/World/Vegetation/Bed_02/Fruits/Pepper_0018_green",
+          "reason": "class_not_in_model"
+        },
+        {
+          "gt_id": "/World/Vegetation/Bed_02/Fruits/Pepper_0019_green",
+          "reason": "class_not_in_model"
+        },
+        {
+          "gt_id": "/World/Vegetation/Bed_02/Fruits/Pepper_0020_yellow",
+          "reason": "other_side_or_depth_band"
+        },
+        {
+          "gt_id": "/World/Vegetation/Bed_02/Fruits/Pepper_0021_red",
+          "reason": "other_side_or_depth_band"
+        },
+        {
+          "gt_id": "/World/Vegetation/Bed_02/Fruits/Pepper_0022_green",
+          "reason": "class_not_in_model"
+        },
+        {
+          "gt_id": "/World/Vegetation/Bed_02/Fruits/Pepper_0023_green",
+          "reason": "class_not_in_model"
+        },
+        {
+          "gt_id": "/World/Vegetation/Bed_02/Fruits/Pepper_0024_green",
+          "reason": "class_not_in_model"
+        },
+        {
+          "gt_id": "/World/Vegetation/Bed_02/Fruits/Pepper_0025_red",
+          "reason": "other_side_or_depth_band"
+        },
+        {
+          "gt_id": "/World/Vegetation/Bed_02/Fruits/Pepper_0027_red",
+          "reason": "other_side_or_depth_band"
+        },
+        {
+          "gt_id": "/World/Vegetation/Bed_02/Fruits/Pepper_0031_yellow",
+          "reason": "other_side_or_depth_band"
+        },
+        {
+          "gt_id": "/World/Vegetation/Bed_02/Fruits/Pepper_0035_green",
+          "reason": "class_not_in_model"
+        }
+      ],
+      "window_checks": [
+        {
+          "window_id": "ed1e1607c22b_SEC01_W001",
+          "expected_count": 1,
+          "matched_unique_gt_count": 1,
+          "matched_gt_ids": [
+            "/World/Vegetation/Bed_02/Fruits/Pepper_0034_yellow"
+          ],
+          "unmatched_member_ids": []
+        },
+        {
+          "window_id": "ed1e1607c22b_SEC01_W002",
+          "expected_count": 1,
+          "matched_unique_gt_count": 1,
+          "matched_gt_ids": [
+            "/World/Vegetation/Bed_02/Fruits/Pepper_0010_red"
+          ],
+          "unmatched_member_ids": []
+        },
+        {
+          "window_id": "ed1e1607c22b_SEC01_W003",
+          "expected_count": 1,
+          "matched_unique_gt_count": 1,
+          "matched_gt_ids": [
+            "/World/Vegetation/Bed_02/Fruits/Pepper_0028_yellow"
+          ],
+          "unmatched_member_ids": []
+        },
+        {
+          "window_id": "ed1e1607c22b_SEC01_W004",
+          "expected_count": 2,
+          "matched_unique_gt_count": 2,
+          "matched_gt_ids": [
+            "/World/Vegetation/Bed_02/Fruits/Pepper_0003_red",
+            "/World/Vegetation/Bed_02/Fruits/Pepper_0030_yellow"
+          ],
+          "unmatched_member_ids": []
+        },
+        {
+          "window_id": "ed1e1607c22b_SEC01_W005",
+          "expected_count": 1,
+          "matched_unique_gt_count": 1,
+          "matched_gt_ids": [
+            "/World/Vegetation/Bed_02/Fruits/Pepper_0032_red"
+          ],
+          "unmatched_member_ids": []
+        },
+        {
+          "window_id": "ed1e1607c22b_SEC01_W006",
+          "expected_count": 1,
+          "matched_unique_gt_count": 1,
+          "matched_gt_ids": [
+            "/World/Vegetation/Bed_02/Fruits/Pepper_0004_red"
+          ],
+          "unmatched_member_ids": []
+        },
+        {
+          "window_id": "ed1e1607c22b_SEC01_W007",
+          "expected_count": 2,
+          "matched_unique_gt_count": 2,
+          "matched_gt_ids": [
+            "/World/Vegetation/Bed_02/Fruits/Pepper_0015_red",
+            "/World/Vegetation/Bed_02/Fruits/Pepper_0011_yellow"
+          ],
+          "unmatched_member_ids": []
+        },
+        {
+          "window_id": "ed1e1607c22b_SEC01_W008",
+          "expected_count": 2,
+          "matched_unique_gt_count": 2,
+          "matched_gt_ids": [
+            "/World/Vegetation/Bed_02/Fruits/Pepper_0029_red",
+            "/World/Vegetation/Bed_02/Fruits/Pepper_0036_yellow"
+          ],
+          "unmatched_member_ids": []
+        },
+        {
+          "window_id": "ed1e1607c22b_SEC01_W009",
+          "expected_count": 2,
+          "matched_unique_gt_count": 2,
+          "matched_gt_ids": [
+            "/World/Vegetation/Bed_02/Fruits/Pepper_0026_yellow",
+            "/World/Vegetation/Bed_02/Fruits/Pepper_0033_red"
+          ],
+          "unmatched_member_ids": []
+        }
+      ],
+      "duplicate_window_gt_owners": {},
+      "task_count": 9
+    },
+    "window_matched_unique_gt": 13,
+    "hold_reasons": [],
+    "raw_tag_unique_count": 62,
+    "raw_tag_normal_mean_mm": -11.961310443996133
+  },
+  "current": {
+    "run": "08_capture_sync",
+    "status": "SUCCESS",
+    "observations": [
+      {
+        "name": "observation_001",
+        "stamp_s": 61.500003207,
+        "normal_error_m": 0.004548575865049642,
+        "xy_error_m": 0.005664546968464219,
+        "yaw_error_deg": -0.9985371449893308,
+        "points_depth_error_m": [
+          0.008405447360202878,
+          -0.002565693674195124,
+          -0.008617996318746712
+        ]
+      },
+      {
+        "name": "observation_002",
+        "stamp_s": 79.566670816,
+        "normal_error_m": -0.003781875670916257,
+        "xy_error_m": 0.009608940137104404,
+        "yaw_error_deg": -0.698016610032741,
+        "points_depth_error_m": [
+          0.004873699226810579,
+          -0.005902658074168343,
+          -0.0034111015780675658,
+          -0.01095866231084841
+        ]
+      },
+      {
+        "name": "observation_003",
+        "stamp_s": 104.766672131,
+        "normal_error_m": -0.012523087313244474,
+        "xy_error_m": 0.05278266553811757,
+        "yaw_error_deg": -1.790880913024616,
+        "points_depth_error_m": [
+          -0.02008076899379141,
+          -0.002784465507807532,
+          -0.01954073231865916,
+          0.01712245762520137
+        ]
+      },
+      {
+        "name": "observation_004",
+        "stamp_s": 124.166673142,
+        "normal_error_m": -0.000573868856256432,
+        "xy_error_m": 0.04136370380559878,
+        "yaw_error_deg": -0.13698131644791436,
+        "points_depth_error_m": [
+          0.0005884464708643122,
+          0.0005755501740720703
+        ]
+      },
+      {
+        "name": "observation_005",
+        "stamp_s": 143.100007463,
+        "normal_error_m": 0.005671387128762362,
+        "xy_error_m": 0.005743941065573225,
+        "yaw_error_deg": 0.22688239262860832,
+        "points_depth_error_m": [
+          0.004967510222440019,
+          0.005036993486944752
+        ]
+      }
+    ],
+    "window_count": 9,
+    "expected_count": 12,
+    "survey_keys": [
+      "design",
+      "status",
+      "survey",
+      "segments",
+      "batch",
+      "post_capture_navigation"
+    ],
+    "normal_mean_mm": -1.3317737693210319,
+    "normal_abs_mean_mm": 5.4197589668458335,
+    "yaw_abs_mean_deg": 0.7702596754246421,
+    "point_depth_abs_mean_mm": 7.6954788895213495,
+    "evaluation": {
+      "section_status": "COMPLETE",
+      "placed_target_count": 13,
+      "work_range_tolerance_m": 0.0,
+      "evaluation_height_limits_m": [
+        0.7999999999999999,
+        1.063
+      ],
+      "detected_id_count": 13,
+      "evaluated_id_count": 13,
+      "excluded_prediction_ids": [],
+      "matched_count": 13,
+      "precision_in_evaluation_scope": 1.0,
+      "placed_target_recall": 1.0,
+      "correct_color_count": 13,
+      "possible_duplicate_ids": [],
+      "unmatched_ids": [],
+      "missed_gt_ids": [],
+      "matches": [
+        {
+          "fruit_id": "51fd03920d5a_SEC01_F0001",
+          "gt_id": "/World/Vegetation/Bed_02/Fruits/Pepper_0034_yellow",
+          "point_to_aabb_m": 0.0,
+          "surface_to_bbox_center_m": 0.03628500817239153,
+          "class_correct": true
+        },
+        {
+          "fruit_id": "51fd03920d5a_SEC01_F0002",
+          "gt_id": "/World/Vegetation/Bed_02/Fruits/Pepper_0010_red",
+          "point_to_aabb_m": 0.0,
+          "surface_to_bbox_center_m": 0.03130997222623519,
+          "class_correct": true
+        },
+        {
+          "fruit_id": "51fd03920d5a_SEC01_F0003",
+          "gt_id": "/World/Vegetation/Bed_02/Fruits/Pepper_0028_yellow",
+          "point_to_aabb_m": 0.0,
+          "surface_to_bbox_center_m": 0.029689811812852008,
+          "class_correct": true
+        },
+        {
+          "fruit_id": "51fd03920d5a_SEC01_F0004",
+          "gt_id": "/World/Vegetation/Bed_02/Fruits/Pepper_0030_yellow",
+          "point_to_aabb_m": 0.0,
+          "surface_to_bbox_center_m": 0.04323674887131131,
+          "class_correct": true
+        },
+        {
+          "fruit_id": "51fd03920d5a_SEC01_F0005",
+          "gt_id": "/World/Vegetation/Bed_02/Fruits/Pepper_0003_red",
+          "point_to_aabb_m": 0.0,
+          "surface_to_bbox_center_m": 0.03929495351331609,
+          "class_correct": true
+        },
+        {
+          "fruit_id": "51fd03920d5a_SEC01_F0006",
+          "gt_id": "/World/Vegetation/Bed_02/Fruits/Pepper_0032_red",
+          "point_to_aabb_m": 0.0,
+          "surface_to_bbox_center_m": 0.022320589673641984,
+          "class_correct": true
+        },
+        {
+          "fruit_id": "51fd03920d5a_SEC01_F0007",
+          "gt_id": "/World/Vegetation/Bed_02/Fruits/Pepper_0011_yellow",
+          "point_to_aabb_m": 0.0,
+          "surface_to_bbox_center_m": 0.05075796422880037,
+          "class_correct": true
+        },
+        {
+          "fruit_id": "51fd03920d5a_SEC01_F0008",
+          "gt_id": "/World/Vegetation/Bed_02/Fruits/Pepper_0004_red",
+          "point_to_aabb_m": 0.0,
+          "surface_to_bbox_center_m": 0.03275747532347229,
+          "class_correct": true
+        },
+        {
+          "fruit_id": "51fd03920d5a_SEC01_F0009",
+          "gt_id": "/World/Vegetation/Bed_02/Fruits/Pepper_0015_red",
+          "point_to_aabb_m": 0.008083355802242842,
+          "surface_to_bbox_center_m": 0.06028938099276941,
+          "class_correct": true
+        },
+        {
+          "fruit_id": "51fd03920d5a_SEC01_F0010",
+          "gt_id": "/World/Vegetation/Bed_02/Fruits/Pepper_0029_red",
+          "point_to_aabb_m": 0.0,
+          "surface_to_bbox_center_m": 0.022783702472629862,
+          "class_correct": true
+        },
+        {
+          "fruit_id": "51fd03920d5a_SEC01_F0011",
+          "gt_id": "/World/Vegetation/Bed_02/Fruits/Pepper_0036_yellow",
+          "point_to_aabb_m": 0.0,
+          "surface_to_bbox_center_m": 0.030027191459272767,
+          "class_correct": true
+        },
+        {
+          "fruit_id": "51fd03920d5a_SEC01_F0012",
+          "gt_id": "/World/Vegetation/Bed_02/Fruits/Pepper_0026_yellow",
+          "point_to_aabb_m": 0.0,
+          "surface_to_bbox_center_m": 0.02980695448666934,
+          "class_correct": true
+        },
+        {
+          "fruit_id": "51fd03920d5a_SEC01_F0013",
+          "gt_id": "/World/Vegetation/Bed_02/Fruits/Pepper_0033_red",
+          "point_to_aabb_m": 0.0,
+          "surface_to_bbox_center_m": 0.032898820144755876,
+          "class_correct": true
+        }
+      ],
+      "excluded_gt": [
+        {
+          "gt_id": "/World/Vegetation/Bed_02/Fruits/Pepper_0001_green",
+          "reason": "class_not_in_model"
+        },
+        {
+          "gt_id": "/World/Vegetation/Bed_02/Fruits/Pepper_0002_yellow",
+          "reason": "other_side_or_depth_band"
+        },
+        {
+          "gt_id": "/World/Vegetation/Bed_02/Fruits/Pepper_0005_green",
+          "reason": "class_not_in_model"
+        },
+        {
+          "gt_id": "/World/Vegetation/Bed_02/Fruits/Pepper_0006_yellow",
+          "reason": "other_side_or_depth_band"
+        },
+        {
+          "gt_id": "/World/Vegetation/Bed_02/Fruits/Pepper_0007_red",
+          "reason": "other_side_or_depth_band"
+        },
+        {
+          "gt_id": "/World/Vegetation/Bed_02/Fruits/Pepper_0008_green",
+          "reason": "class_not_in_model"
+        },
+        {
+          "gt_id": "/World/Vegetation/Bed_02/Fruits/Pepper_0009_green",
+          "reason": "class_not_in_model"
+        },
+        {
+          "gt_id": "/World/Vegetation/Bed_02/Fruits/Pepper_0012_green",
+          "reason": "class_not_in_model"
+        },
+        {
+          "gt_id": "/World/Vegetation/Bed_02/Fruits/Pepper_0013_yellow",
+          "reason": "other_side_or_depth_band"
+        },
+        {
+          "gt_id": "/World/Vegetation/Bed_02/Fruits/Pepper_0014_green",
+          "reason": "class_not_in_model"
+        },
+        {
+          "gt_id": "/World/Vegetation/Bed_02/Fruits/Pepper_0016_red",
+          "reason": "other_side_or_depth_band"
+        },
+        {
+          "gt_id": "/World/Vegetation/Bed_02/Fruits/Pepper_0017_yellow",
+          "reason": "other_side_or_depth_band"
+        },
+        {
+          "gt_id": "/World/Vegetation/Bed_02/Fruits/Pepper_0018_green",
+          "reason": "class_not_in_model"
+        },
+        {
+          "gt_id": "/World/Vegetation/Bed_02/Fruits/Pepper_0019_green",
+          "reason": "class_not_in_model"
+        },
+        {
+          "gt_id": "/World/Vegetation/Bed_02/Fruits/Pepper_0020_yellow",
+          "reason": "other_side_or_depth_band"
+        },
+        {
+          "gt_id": "/World/Vegetation/Bed_02/Fruits/Pepper_0021_red",
+          "reason": "other_side_or_depth_band"
+        },
+        {
+          "gt_id": "/World/Vegetation/Bed_02/Fruits/Pepper_0022_green",
+          "reason": "class_not_in_model"
+        },
+        {
+          "gt_id": "/World/Vegetation/Bed_02/Fruits/Pepper_0023_green",
+          "reason": "class_not_in_model"
+        },
+        {
+          "gt_id": "/World/Vegetation/Bed_02/Fruits/Pepper_0024_green",
+          "reason": "class_not_in_model"
+        },
+        {
+          "gt_id": "/World/Vegetation/Bed_02/Fruits/Pepper_0025_red",
+          "reason": "other_side_or_depth_band"
+        },
+        {
+          "gt_id": "/World/Vegetation/Bed_02/Fruits/Pepper_0027_red",
+          "reason": "other_side_or_depth_band"
+        },
+        {
+          "gt_id": "/World/Vegetation/Bed_02/Fruits/Pepper_0031_yellow",
+          "reason": "other_side_or_depth_band"
+        },
+        {
+          "gt_id": "/World/Vegetation/Bed_02/Fruits/Pepper_0035_green",
+          "reason": "class_not_in_model"
+        }
+      ],
+      "window_checks": [
+        {
+          "window_id": "51fd03920d5a_SEC01_W001",
+          "expected_count": 1,
+          "matched_unique_gt_count": 1,
+          "matched_gt_ids": [
+            "/World/Vegetation/Bed_02/Fruits/Pepper_0034_yellow"
+          ],
+          "unmatched_member_ids": []
+        },
+        {
+          "window_id": "51fd03920d5a_SEC01_W002",
+          "expected_count": 1,
+          "matched_unique_gt_count": 1,
+          "matched_gt_ids": [
+            "/World/Vegetation/Bed_02/Fruits/Pepper_0010_red"
+          ],
+          "unmatched_member_ids": []
+        },
+        {
+          "window_id": "51fd03920d5a_SEC01_W003",
+          "expected_count": 1,
+          "matched_unique_gt_count": 1,
+          "matched_gt_ids": [
+            "/World/Vegetation/Bed_02/Fruits/Pepper_0028_yellow"
+          ],
+          "unmatched_member_ids": []
+        },
+        {
+          "window_id": "51fd03920d5a_SEC01_W004",
+          "expected_count": 2,
+          "matched_unique_gt_count": 2,
+          "matched_gt_ids": [
+            "/World/Vegetation/Bed_02/Fruits/Pepper_0003_red",
+            "/World/Vegetation/Bed_02/Fruits/Pepper_0030_yellow"
+          ],
+          "unmatched_member_ids": []
+        },
+        {
+          "window_id": "51fd03920d5a_SEC01_W005",
+          "expected_count": 1,
+          "matched_unique_gt_count": 1,
+          "matched_gt_ids": [
+            "/World/Vegetation/Bed_02/Fruits/Pepper_0032_red"
+          ],
+          "unmatched_member_ids": []
+        },
+        {
+          "window_id": "51fd03920d5a_SEC01_W006",
+          "expected_count": 1,
+          "matched_unique_gt_count": 1,
+          "matched_gt_ids": [
+            "/World/Vegetation/Bed_02/Fruits/Pepper_0004_red"
+          ],
+          "unmatched_member_ids": []
+        },
+        {
+          "window_id": "51fd03920d5a_SEC01_W007",
+          "expected_count": 1,
+          "matched_unique_gt_count": 1,
+          "matched_gt_ids": [
+            "/World/Vegetation/Bed_02/Fruits/Pepper_0011_yellow"
+          ],
+          "unmatched_member_ids": []
+        },
+        {
+          "window_id": "51fd03920d5a_SEC01_W008",
+          "expected_count": 2,
+          "matched_unique_gt_count": 2,
+          "matched_gt_ids": [
+            "/World/Vegetation/Bed_02/Fruits/Pepper_0029_red",
+            "/World/Vegetation/Bed_02/Fruits/Pepper_0036_yellow"
+          ],
+          "unmatched_member_ids": []
+        },
+        {
+          "window_id": "51fd03920d5a_SEC01_W009",
+          "expected_count": 2,
+          "matched_unique_gt_count": 2,
+          "matched_gt_ids": [
+            "/World/Vegetation/Bed_02/Fruits/Pepper_0026_yellow",
+            "/World/Vegetation/Bed_02/Fruits/Pepper_0033_red"
+          ],
+          "unmatched_member_ids": []
+        }
+      ],
+      "duplicate_window_gt_owners": {},
+      "task_count": 9
+    },
+    "window_matched_unique_gt": 12,
+    "hold_reasons": [
+      "depth_out_of_range"
+    ],
+    "raw_tag_unique_count": 72,
+    "raw_tag_normal_mean_mm": -11.81235727671881
+  },
+  "capture_sync": [
+    {
+      "reason": "applied",
+      "applied_count": 3,
+      "elapsed_wall_s": 2.6125048969997806,
+      "after_stamp_ns": 61450003205,
+      "applications": [
+        {
+          "source_stamp_ns": 59333336428,
+          "scan_stamp_ns": 59550003106,
+          "receiver_stamp_ns": 59550003106
+        },
+        {
+          "source_stamp_ns": 60433336485,
+          "scan_stamp_ns": 60550003158,
+          "receiver_stamp_ns": 60550003158
+        },
+        {
+          "source_stamp_ns": 61333336532,
+          "scan_stamp_ns": 61450003205,
+          "receiver_stamp_ns": 61450003205
+        }
+      ]
+    },
+    {
+      "reason": "applied",
+      "applied_count": 3,
+      "elapsed_wall_s": 2.3136100570000053,
+      "after_stamp_ns": 79550004149,
+      "applications": [
+        {
+          "source_stamp_ns": 77533337377,
+          "scan_stamp_ns": 77650004050,
+          "receiver_stamp_ns": 77650004050
+        },
+        {
+          "source_stamp_ns": 78533337429,
+          "scan_stamp_ns": 78650004102,
+          "receiver_stamp_ns": 78650004102
+        },
+        {
+          "source_stamp_ns": 79433337476,
+          "scan_stamp_ns": 79550004149,
+          "receiver_stamp_ns": 79550004149
+        }
+      ]
+    },
+    {
+      "reason": "application_timeout",
+      "applied_count": 1,
+      "elapsed_wall_s": 8.039745518999553,
+      "after_stamp_ns": 104750005463,
+      "applications": [
+        {
+          "source_stamp_ns": 104233338770,
+          "scan_stamp_ns": 104350005442,
+          "receiver_stamp_ns": 104350005442
+        }
+      ]
+    },
+    {
+      "reason": "applied",
+      "applied_count": 3,
+      "elapsed_wall_s": 3.434260912999889,
+      "after_stamp_ns": 124150006475,
+      "applications": [
+        {
+          "source_stamp_ns": 121533339672,
+          "scan_stamp_ns": 121650006345,
+          "receiver_stamp_ns": 121650006345
+        },
+        {
+          "source_stamp_ns": 123033339750,
+          "scan_stamp_ns": 123150006423,
+          "receiver_stamp_ns": 123150006423
+        },
+        {
+          "source_stamp_ns": 124033339802,
+          "scan_stamp_ns": 124150006475,
+          "receiver_stamp_ns": 124150006475
+        }
+      ]
+    },
+    {
+      "reason": "applied",
+      "applied_count": 3,
+      "elapsed_wall_s": 3.2698326949994225,
+      "after_stamp_ns": 143050007461,
+      "applications": [
+        {
+          "source_stamp_ns": 141033340689,
+          "scan_stamp_ns": 141150007362,
+          "receiver_stamp_ns": 141166674029
+        },
+        {
+          "source_stamp_ns": 142033340741,
+          "scan_stamp_ns": 142150007414,
+          "receiver_stamp_ns": 142150007414
+        },
+        {
+          "source_stamp_ns": 142933340788,
+          "scan_stamp_ns": 143050007461,
+          "receiver_stamp_ns": 143050007461
+        }
+      ]
+    }
+  ],
+  "source_sha256": {
+    "robot/ros_ws/src/farm_navigation/farm_navigation/tag_control.py": "c702d08cab4f64113c2a8c092b6103d10c8e707eae378a032c994ff576fced70",
+    "robot/ros_ws/src/scout_robot/scout_new/states/segment_progress_state.py": "c02a18e86c566668f3ae92a8bdf198ff13c50fd519af5fdd46e919a08c7aa92c"
+  }
+}

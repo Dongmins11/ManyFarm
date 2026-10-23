@@ -14,6 +14,7 @@ class TagControl:
         self._begin_ns = 0
         self._enabled = False
         self._section_id = None
+        self._approach_pose = None
         self._publisher = node.create_publisher(String, 'tag_localization/control', 10)
         self._timer = node.create_timer(.5, self._heartbeat)
 
@@ -26,13 +27,15 @@ class TagControl:
                 stamp_ns=self._node.get_clock().now().nanoseconds, enabled=self._enabled)
             if self._section_id is not None:
                 payload['section_id'] = self._section_id
+            if self._approach_pose is not None:
+                payload['approach_pose'] = self._approach_pose
             message.data = json.dumps(payload)
             self._publisher.publish(message)
         except Exception as exc:
             # 종료 시 DDS context 무효/보정 노드 부재도 기존 주행 결과를 바꾸지 않는다.
             self._node.get_logger().warning('태그 보정 사용 신호 전송 실패: ' + str(exc))
 
-    def begin(self, section_id: str | None = None) -> None:
+    def begin(self, section_id: str | None = None, *, approach_pose: list | None = None) -> None:
         with self._lock:
             if self._enabled:
                 self._enabled = False
@@ -42,6 +45,7 @@ class TagControl:
             self._begin_ns = self._node.get_clock().now().nanoseconds
             self._enabled = True
             self._section_id = section_id
+            self._approach_pose = approach_pose
             self._publish()
 
     def end(self) -> None:

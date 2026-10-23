@@ -22,13 +22,14 @@ def inside_corridor(corridor: dict, xy: tuple, margin: float) -> bool:
 
 def straight_plan(template: RoutePlan, corridor: dict, xy: tuple, yaw: float,
                   goal: tuple, position_limit: float, heading_limit: float) -> RoutePlan:
-    """정렬된 차체에서 전방 목표로만 진행한다. 좁은 구간 후진/제자리 회전은 요청하지 않는다."""
+    """차체 방향·횡오차를 별도로 검사하고 전방 목표의 추종 경로를 만든다."""
     direction = (math.cos(corridor['yaw']), math.sin(corridor['yaw']))
     delta = (goal[0]-xy[0], goal[1]-xy[1])
     lateral = abs(delta[0]*direction[1]-delta[1]*direction[0])
     forward = delta[0]*direction[0]+delta[1]*direction[1]
     if (abs(math.remainder(yaw-corridor['yaw'], 2*math.pi)) > heading_limit
-            or lateral > position_limit or forward <= 0
-            or abs(math.atan2(lateral, forward)) > heading_limit):
+            or lateral > position_limit or forward <= 1e-9):
         raise RuntimeError('APPROACH_RECOVERY_REQUIRED: 평행 구간에서 방향/횡오차/전방 조건 불충족. 넓은 진입부에서 재정렬 필요')
+    # 목표선 각도는 가까운 목표에서 커지므로 차체 정렬 기준으로 사용하지 않는다.
+    # 허용 횡오차의 실제 보정·충돌 검사·최종 방향 정렬은 기존 FollowPath가 수행한다.
     return replace(template, points=(tuple(xy), tuple(goal)), distance_m=math.dist(xy, goal), edge_ids=())

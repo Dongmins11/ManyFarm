@@ -12,7 +12,7 @@ import numpy as np
 ROOT = Path(__file__).resolve().parents[2]
 sys.path.insert(0, str(ROOT/'sim/ros_ws/src/farm_sim_devices'))
 sys.path.insert(0, str(ROOT/'sim/assets/robotarm_student/manyfarm_robotarm/src/harvest_robot'))
-from farm_sim_devices.student_session import StudentArmSession
+from farm_sim_devices.student_session import StudentArmSession, mission_session
 from harvest_runtime.student60 import encode_command
 
 
@@ -50,6 +50,42 @@ class StudentRetryTests(unittest.TestCase):
         session.state['stage'] = 'HARVEST'
         session.prepare_capture(4.)
         self.assertEqual(rig.set_active.call_count, 2)
+
+    def test_only_inventory_and_visual_policy_stages_enable_camera(self):
+        session = StudentArmSession.__new__(StudentArmSession)
+        rig = SimpleNamespace(active=False)
+        def set_active(active, *, reset_capture):
+            rig.active = active
+        rig.set_active = Mock(side_effect=set_active)
+        session.controller = SimpleNamespace(rig=rig)
+        for status in ('RUNNING', 'IDLE', 'STOPPING'):
+            for stage in ('CAMERA_INVENTORY','HARVEST','WAIT_BOX','PREPARE',
+                          'STOW_WAIT','TO_HOME','RETURN_STOW','FINAL_STOP','STOPPING','DONE'):
+                with self.subTest(status=status, stage=stage):
+                    session.state = dict(status=status,stage=stage)
+                    session._sync_camera_activity()
+                    self.assertEqual(rig.active, status == 'RUNNING' and stage in
+                                     ('CAMERA_INVENTORY','HARVEST','WAIT_BOX'))
+
+    def test_policy_resumes_and_reads_fresh_capture_before_first_inference(self):
+        session = StudentArmSession.__new__(StudentArmSession)
+        stale, fresh = {'stamp': 0.}, {'stamp': 5.}
+        rig = SimpleNamespace(active=False, last=stale)
+        def set_active(active, *, reset_capture):
+            rig.active = active
+            rig.last = fresh
+        rig.set_active = Mock(side_effect=set_active)
+        rig.capture = lambda: rig.last
+        camera = SimpleNamespace(contract={},start=Mock(),step=Mock(),acknowledge=Mock())
+        session.controller = SimpleNamespace(rig=rig)
+        adapter = mission_session(camera,np.eye(4),session._policy_capture)
+        adapter.start('target',np.zeros(6))
+        self.assertFalse(rig.active)
+        adapter.step(stale,np.zeros(6),np.zeros(6),5.)
+        self.assertIs(camera.step.call_args.args[0],fresh)
+        rig.set_active.assert_called_once_with(True,reset_capture=False)
+        adapter.step(stale,np.zeros(6),np.zeros(6),5.05)
+        self.assertEqual(rig.set_active.call_count,1)
 
     def run_session(self, *, retry_visible=True, laser_for=(), two_targets=False, stuck=False, mapped=False,
                     evaluation_fault=''):

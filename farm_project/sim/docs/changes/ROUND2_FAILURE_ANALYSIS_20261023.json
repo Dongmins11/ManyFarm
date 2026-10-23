@@ -1,0 +1,82 @@
+{
+  "date": "2026-10-23",
+  "scope": "2차 시험4개 질문의 로그/동결 소스/오프라인 수치 재현. 운영 코드 수정 없음",
+  "scout": {
+    "comparable_sections": 15,
+    "round1": {
+      "actual": 180,
+      "matched_detection": 157,
+      "window_matched_actual": 148,
+      "expected": 168
+    },
+    "round2": {
+      "actual": 180,
+      "matched_detection": 160,
+      "window_matched_actual": 131,
+      "expected": 152
+    },
+    "detected_actual_without_window": 29,
+    "reason": "29개 모두 depth_out_of_range. 실제 시뮬 차체 자세로 같은 RGB-D 점을 변환하면29개 모두 깊이 범위 안. map 변환의 베드 바깥쪽 편차12.1~36.1mm 및 여유0 조합.",
+    "pose_replay_limit": "진단의 실제 자세/바퀴 odom은 촬영 시각 최근 샘플, 최대0.45시뮬초 차이. 촬영은 정지 상태. 정답 자세는 오프라인 진단에만 사용.",
+    "counterfactual_expected_2cm": 184,
+    "recommendation": "팔 필터를 넓히기보다 map/odom 위치·방향 오차 및 표면점 의미를 보정/불확실성 처리. 정답 자세를 운영 입력에 주입하지 않는다."
+  },
+  "return_path": {
+    "same_as_round1": true,
+    "fruit": "/World/Vegetation/Bed_01/Fruits/Pepper_0033_yellow",
+    "round1_targeted": false,
+    "sequence": "대상 낙하→60시뮬초 만료→재관측을 위한 측정 복귀→고정XY/13cm상승 IK실패→안전정지",
+    "start_height_m": "1.004~1.009",
+    "clearance_threshold_m": 0.881,
+    "requested_height_m": "1.134~1.139",
+    "error_m": [
+      0.01620063554466315,
+      0.022572831584925443,
+      0.015676170139087658
+    ],
+    "allowed_error_m": 0.015,
+    "recommendation": "현재 자세/상자 위치 기반으로 도달 가능한 인출·복귀 후보를 검증한다. 무조건13cm상승 전제/단일해를 개선하고 실패 판정을 숨기지 않는다."
+  },
+  "approach": {
+    "same_as_round1": true,
+    "all_targets_ahead": true,
+    "samples": [
+      {
+        "attempt": "SEC12_attempt_0001",
+        "position": [
+          -1.003109734122007,
+          -8.359531202899957
+        ],
+        "lateral_m": 0.018109734122007115,
+        "forward_m": 0.12717299956993955,
+        "heading_error_deg": -0.28225705313894045,
+        "bearing_error_deg": 8.104564228711492
+      },
+      {
+        "attempt": "SEC16_attempt_0001",
+        "position": [
+          6.02783797488497,
+          -8.324667566378123
+        ],
+        "lateral_m": 0.012837974884969405,
+        "forward_m": 0.09020050197064222,
+        "heading_error_deg": 0.04455199439099696,
+        "bearing_error_deg": 8.100337704307488
+      }
+    ],
+    "heading_limit_deg": 3,
+    "position_limit_m": 0.05,
+    "reason": "차체 방향 오차는0.3도 이내. 전방9~13cm에 옆오차1.3~1.8cm가 남아 목표선각8.1도가3도 제한을 넘음. 도착 허용과 다음 짧은구간 직진 조건의 불일치.",
+    "recommendation": "안전한 측편차 허용과 평행 경로 구성/정렬 복구 기준을 도착 판정과 일치시킨다."
+  },
+  "startup": {
+    "attempts": {
+      "SEC05_attempt_0001": "scout bt_navigator configure 전이에서 정체. harvest Nav2는약17초에active",
+      "SEC16_attempt_0002": "scout bt_navigator/get_state 서비스 발견 대기가147회 반복. harvest Nav2 active"
+    },
+    "odom_ready_wall_s": "두 시도 모두 양 로봇 odom이약15~17초 내 시작해300초까지갱신",
+    "dds_note": "SEC16 SHM lock 오류 동반. 같은 오류가 준비 성공 시도에도 있어 단독 근본 원인으로 확정하지 않음.",
+    "unresolved": "bt_navigator 내부 configure 정체와 DDS 서비스 발견/응답 문제의 정확한 원인은 스택/서비스응답 계측 필요",
+    "recommendation": "300초 전체 제한 증가 대신 lifecycle 단계/서비스 가용·전이 응답을 계측하고 준비/재시작 순서 및 DDS 자원 충돌을 검증"
+  }
+}

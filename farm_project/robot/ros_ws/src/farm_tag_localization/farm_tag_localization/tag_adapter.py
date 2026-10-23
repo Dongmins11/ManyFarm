@@ -13,14 +13,15 @@ def matrix(q):
 def pose(t):return np.array([t[0,2],t[1,2],math.atan2(t[1,0],t[0,0])])
 def transported(tag,old_odom,new_odom):
  return pose(matrix(tag)@np.linalg.inv(matrix(old_odom))@matrix(new_odom))
-def correction(current,tag):
+def correction(current,tag, *, gain=.5):
  # Bound each update, not departure error. Larger offsets converge in increments.
  current=np.asarray(current,float);tag=np.asarray(tag,float)
  if current.shape!=(3,) or tag.shape!=(3,) or not np.isfinite([current,tag]).all():raise ValueError('nonfinite_pose')
  delta=tag-current;delta[2]=wrap(delta[2])
  if np.linalg.norm(delta[:2])>.5 or abs(delta[2])>math.radians(30):
   raise ValueError('observation_disagreement_skip_only')
- step=.5*delta
+ if not 0 < gain <= .5:raise ValueError('invalid_correction_gain')
+ step=gain*delta
  length=np.linalg.norm(step[:2])
  if length>.08:step[:2]*=.08/length
  step[2]=np.clip(step[2],-math.radians(5),math.radians(5))
@@ -38,3 +39,20 @@ def observe(observer,record):
  if len(packet['usable_candidates'])!=1:return None,result
  return packet['usable_candidates'][0],result
 
+
+
+def approach_allowed(gate: list | None, current: list) -> bool:
+ """접근 보정은 목표 0.1~0.5m/30도 안에서만 허용한다. 도착 직전에는 새 보정을 동결한다."""
+ if gate is None:return True
+ return (.1 < np.linalg.norm(np.asarray(current[:2])-gate[:2]) <= .5 and
+         abs(wrap(current[2]-gate[2])) <= math.radians(30))
+
+
+def quality_gain(candidate: dict, reference: dict | None, token: str, stamp_ns: int, odom: list) -> float:
+ """최근 실제 적용된 복수 관측 근처에서는 단일 관측의 영향만 낮춘다."""
+ if candidate.get('observation_kind')=='multi_tag' or reference is None:return .5
+ if reference['token'] != token or not 0 <= stamp_ns-reference['scan_stamp_ns'] <= 3_000_000_000:return .5
+ anchor=reference['odom_anchor']
+ if (np.linalg.norm(np.asarray(odom[:2])-anchor[:2]) > .3 or
+     abs(wrap(odom[2]-anchor[2])) > math.radians(20)):return .5
+ return .1

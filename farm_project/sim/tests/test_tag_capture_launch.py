@@ -27,6 +27,13 @@ class Config:
         return context[self.key]
 
 
+class Context(dict):
+    """전체 launch의 환경 범위도 제공하는 조립 시험 컨텍스트."""
+    def __init__(self, **kwargs: object) -> None:
+        super().__init__(**kwargs)
+        self.environment = {}
+
+
 class CaptureLaunchTests(unittest.TestCase):
     def assemble(self, enabled: bool, robot: str = 'harvest') -> tuple[list, object]:
         path = ROOT / f'sim/ros_ws/src/farm_sim_runtime/launch/{robot}.launch.py'
@@ -106,12 +113,13 @@ class CaptureLaunchTests(unittest.TestCase):
                             PythonLaunchDescriptionSource=Action, LaunchConfiguration=Config,
                             get_package_share_directory=lambda package: '/share/' + package):
             for enabled in ('true', 'false'):
-                actions = module.setup(dict(project_root=str(ROOT),
+                actions = module.setup(Context(project_root=str(ROOT),
                     environment_config='sim/ros_ws/src/farm_sim_config/config/scout_runtime.yaml',
                     harvest_environment_config='sim/ros_ws/src/farm_sim_config/config/harvest_runtime.yaml',
                     isaac='false', rviz='false', scout='true', harvest='true',
                     navigation='true', survey='true', vision_python='', device='0',
                     headless='true', tag_correction=enabled))
+                actions = [a for a in actions[0].get_sub_entities() if isinstance(a, Action)]
                 self.assertEqual(len(actions), 2)
                 self.assertEqual([dict(a.kwargs['launch_arguments'])['tag_correction'] for a in actions], [enabled, enabled])
 
@@ -123,7 +131,7 @@ class CaptureLaunchTests(unittest.TestCase):
         with patch.multiple(module, IncludeLaunchDescription=Action,
                             PythonLaunchDescriptionSource=Action, LaunchConfiguration=Config,
                             get_package_share_directory=lambda package: '/share/' + package):
-            actions = module.setup(dict(project_root=str(ROOT),
+            actions = module.setup(Context(project_root=str(ROOT),
                 environment_config='sim/ros_ws/src/farm_sim_config/config/scout_runtime.yaml',
                 harvest_environment_config='sim/ros_ws/src/farm_sim_config/config/harvest_runtime.yaml',
                 isaac='true', rviz='false', scout='true', harvest='true',
@@ -131,6 +139,7 @@ class CaptureLaunchTests(unittest.TestCase):
                 headless='true', tag_correction='true', isaac_python='/isaac/python',
                 assets_root='', fleet_config='sim/fleet.json', physics_device='cpu',
                 performance_log='sim/runs/test/frames.jsonl'))
+        actions = [a for a in actions[0].get_sub_entities() if isinstance(a, Action)]
         arguments = [dict(a.kwargs['launch_arguments']) for a in actions]
         self.assertEqual(arguments[0]['physics_device'], 'cpu')
         self.assertEqual(arguments[0]['performance_log'], 'sim/runs/test/frames.jsonl')

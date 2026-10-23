@@ -1,0 +1,32 @@
+{
+  "authorization": "그래 좋아 잘했어 수정해",
+  "unit_tests_passed": 11,
+  "real_runs": [
+    {
+      "index": 0,
+      "ready": [
+        "scout_01",
+        "harvest_01"
+      ],
+      "elapsed_s": 18.69046598500063,
+      "response_warnings": []
+    },
+    {
+      "index": 1,
+      "ready": [
+        "scout_01",
+        "harvest_01"
+      ],
+      "elapsed_s": 18.080198416000712,
+      "response_warnings": []
+    }
+  ],
+  "external_profile_injected": false,
+  "scope": "all.launch.py 기동만, 이동/수확 없음",
+  "source_hashes": {
+    "sim/ros_ws/src/farm_sim_runtime/launch/all.launch.py": "d997a3147f73ebc0a19933e53052b8f73d6caa953d2ce64e9113b91600d78a4e",
+    "sim/ros_ws/src/farm_sim_config/config/fastdds_discovery.xml": "e0eb5c6054bb2ec05c65c445986988bdd562901073a2aab8812875952af850a0",
+    "sim/tests/test_dds_launch_profile.py": "a00b79c24d1455edd0fb9c387c31482e76c6a3f497f182bd245d3b19e54ac1d0",
+    "sim/tests/test_tag_capture_launch.py": "f6ea885fd823890d52e2e2d8e074af2f7a630d2a937a63d56c8640da3027b477"
+  }
+}

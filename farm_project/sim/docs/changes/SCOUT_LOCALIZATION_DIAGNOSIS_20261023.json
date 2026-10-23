@@ -1,0 +1,203 @@
+{
+  "date": "2026-10-23",
+  "scope": "2차 최종 성공15SEC의75관측 및 저장된 실제 물리 자세/원시태그/바퀴로그 분석. 운영 코드 미변경",
+  "extrinsics": {
+    "T_base_camera": [
+      [
+        1.0,
+        1.8047804629605035e-15,
+        1.5750080491834234e-17,
+        -0.04899999999999949
+      ],
+      [
+        1.5750080491647595e-17,
+        -0.017452406437443606,
+        0.9998476951563885,
+        0.054999999999999716
+      ],
+      [
+        1.804780462960505e-15,
+        -0.9998476951563885,
+        -0.017452406437443606,
+        0.595
+      ],
+      [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ]
+    ],
+    "T_base_link": [
+      [
+        1.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      [
+        0.0,
+        1.0,
+        0.0,
+        0.0
+      ],
+      [
+        0.0,
+        0.0,
+        1.0,
+        0.009999999776482582
+      ],
+      [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ]
+    ],
+    "render_vs_urdf_max_abs": 0.0,
+    "T_base_picam": [
+      [
+        1.0,
+        0.0,
+        0.0,
+        -0.03200000000000003
+      ],
+      [
+        0.0,
+        -1.0341155355510722e-13,
+        1.0,
+        0.06299999999999972
+      ],
+      [
+        0.0,
+        -1.0,
+        -1.0341155355510722e-13,
+        0.117
+      ],
+      [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ]
+    ],
+    "picam_config_difference": 1.0341155355510722e-13
+  },
+  "timing": {
+    "observations": 75,
+    "capture_pose_stamp_delta_s_max": 0.0,
+    "lookup": "공통 survey_server.lookup은 Time(nanoseconds=촬영stamp) 사용. CameraSim은 촬영render_time에 가장 가까운history sample만 허용한다.",
+    "limitation": "메타데이터 일치는 확인했으나 렌더실제노출시각을 외부독립계측한 것은 아니다. 물리 진단 자세는샘플보간이므로 동작중 픽셀투영 오차에는 근사오차가 포함된다."
+  },
+  "excluded_29": {
+    "count": 29,
+    "normal_error_mm_range": [
+      -36.083351730107125,
+      -12.124322187033965
+    ],
+    "outside_after_physics_pose": 0,
+    "method": "같은RGB-D점,동일정답매칭에서 실제차체자세를 오프라인 적용. 태그나GT를운영입력으로넣지않음"
+  },
+  "decomposition": {
+    "mean_abs_depth_error_from_2d_pose_mm": 15.985886121451916,
+    "mean_abs_depth_error_from_omitted_tilt_mm": 0.1588143436958652,
+    "mean_abs_height_error_from_omitted_tilt_mm": 2.349556072685956
+  },
+  "tag_samples": 1090,
+  "tag_summary": {
+    "odd": {
+      "raw_pose_samples": 502,
+      "raw_normal_error_mean_mm": -20.49925064159611,
+      "projection_samples": 98,
+      "mean_detected_minus_projected_side_px": -0.8629901221141595,
+      "mean_projected_side_px": 49.063460854158926
+    },
+    "even": {
+      "raw_pose_samples": 588,
+      "raw_normal_error_mean_mm": -8.289747444493168,
+      "projection_samples": 114,
+      "mean_detected_minus_projected_side_px": -0.3475033212472652,
+      "mean_projected_side_px": 47.95367128329286
+    }
+  },
+  "wheel_summary": {
+    "physical_separation_m": 0.1599999964237213,
+    "configured_separation_m": 0.16,
+    "examples": [
+      {
+        "section": "SEC01",
+        "turn_actual_per_odom": 0.8898722333118068,
+        "rotation_radians": [
+          1.2600638469608847,
+          1.41600535424209,
+          8
+        ],
+        "straight_actual_per_odom": 0.9984770450260118,
+        "straight_metres": [
+          0.7132741811500553,
+          0.714362122497742,
+          6
+        ]
+      },
+      {
+        "section": "SEC02",
+        "turn_actual_per_odom": 0.9660635958276692,
+        "rotation_radians": [
+          4.969742772534065,
+          5.144322582900216,
+          39
+        ],
+        "straight_actual_per_odom": 0.998344269824894,
+        "straight_metres": [
+          3.211363450988134,
+          3.216689420725974,
+          31
+        ]
+      },
+      {
+        "section": "SEC03",
+        "turn_actual_per_odom": 0.935893902106258,
+        "rotation_radians": [
+          1.2662871270989116,
+          1.353024230897427,
+          8
+        ],
+        "straight_actual_per_odom": 0.9985252116044876,
+        "straight_metres": [
+          1.5499186073201003,
+          1.5522077853493577,
+          14
+        ]
+      },
+      {
+        "section": "SEC04",
+        "turn_actual_per_odom": 0.968274698948647,
+        "rotation_radians": [
+          4.139826389864831,
+          4.27546686323608,
+          32
+        ],
+        "straight_actual_per_odom": 0.9983357605872711,
+        "straight_metres": [
+          4.050504745432221,
+          4.057256992426587,
+          34
+        ]
+      }
+    ],
+    "interpretation": "실제회전/바퀴odom회전의차이가확인됨. 트레드숫자불일치는없음. 접촉/미끄러짐/가속동특성의각기여는미확정. 임의odom보정계수를적용하지않음"
+  },
+  "historical": "PROJECT_STATE §38(2026-10-13)에도 PiCam 태그 횡3.72cm/진행7.16cm/yaw3.41도 오차와정확도미달이기록돼있음",
+  "unknowns": [
+    "태그ON/OFF동일물리경로비교로LiDAR-AMCL단독오차분리",
+    "원시태그코너편향의렌더/안티앨리어싱/검출/시각기여분리",
+    "회전odom초과의접촉/미끄러짐/구동기여분리",
+    "지도5cm격자/실제충돌체와scan일치정밀검증"
+  ],
+  "next_experiments": [
+    "같은정차포즈에서태그ON/OFF 위치추정비교(GT는평가만)",
+    "같은태그를정지상태여러거리/각도/픽셀위상에서검출,렌더CameraParams로독립투영",
+    "±90도/180도회전과직진을분리해encoder와실제변위를비교"
+  ],
+  "changes": "운영코드/설정/장면수정및3차실험미시작. 분석자료만추가"
+}

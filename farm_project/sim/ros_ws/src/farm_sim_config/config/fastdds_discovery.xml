@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!-- 동시 기동 시 DDS 발견 패킷 유실을 줄인다. 전송 방식·서비스 QoS는 유지한다. -->
+<dds xmlns="http://www.eprosima.com/XMLSchemas/fastRTPS_Profiles">
+  <profiles>
+    <participant profile_name="farm_sim_discovery_buffer" is_default_profile="true">
+      <rtps>
+        <listenSocketBufferSize>2097152</listenSocketBufferSize>
+      </rtps>
+    </participant>
+  </profiles>
+</dds>

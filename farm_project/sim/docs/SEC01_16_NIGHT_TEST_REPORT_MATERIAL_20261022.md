@@ -157,3 +157,33 @@
 - [failure_analysis.json](test_results/20261022_sec01_16/failure_analysis.json)
 - [manifest.json](test_results/20261022_sec01_16/manifest.json)
 - [evaluation_contract.json](test_results/20261022_sec01_16/evaluation_contract.json)
+
+
+## 11. 추가 확인: 공통 범위 계산과 전체 배치 커버리지 (2026-10-22)
+
+이 절은 야간 시험 이후 변경한 시뮬 범위를 검사한 결과다. 위 야간 시험 당시 A/B/C 결과를 소급 변경하지 않는다.
+
+- 예찰 범위를 계산하는 알고리즘은 **공통 코드** `robot/ros_ws/src/scout_robot/scout_robot/survey_core.py` 및 `b_planner.py`다. 실행 환경의 설정을 읽어 정차 위치·윈도우·멤버를 생성한다.
+- 이번 수정은 **시뮬 설정** 원본 `sim/ros_ws/src/farm_sim_config/config/task.yaml`, 파생 `scout_survey.json`/`harvest_audit.json`의 높이/여유 값만 변경했다. 실물 설정 `robot/config/survey/scout_real.json`과 공통 계산 알고리즘은 바꾸지 않았다.
+- 현재 sim 팔 대상 선택은 `student_session.py`에서 `teacher_device.py:continuous_near_mask`를 호출한다. 이것이 실물 팔에도 동일 적용된다고 확인한 것은 아니다.
+
+### 전체 빨강·노랑192개 중심점 검사
+
+야간 초기 장면의 실제 위치/크기와 새 sim 설정을 대조했다. 계획 정차 위치를 경로 안에서 조절할 수 있다고 가정해 중심점에 대해 상자 및 HOME 거리 조건을 검사했다.
+
+| 항목 | 개수 |
+|---|---:|
+| 빨강/노랑 전체 | 192 (각96) |
+| 중심점 기준 가능한 정차 위치 있음 | 153 (79.7%) |
+| 중심점 기준 범위 밖 | 39 (20.3%) |
+| 높이 하한 미달 | 10 |
+| 높이 상한 초과 | 8 |
+| 깊이 범위 초과 | 25 |
+
+높이/깊이 위반은4개에서 겹치므로 단순 합산하지 않는다. 실행 높이는 팔 상대0.087~0.35m, 장착 높이0.713m를 더한 지면 기준0.800~1.063m다. 실제 중심 높이는0.785711~1.071028m다.
+
+**중심점39개 초과가 곧 수확 불가능39개라는 뜻은 아니다.**192개 모두 과실 AABB 일부가 깊이·높이 작업 상자와 겹쳤다(완전히 포함되는 AABB는16개). 카메라 실행 필터는 과실 중심이 아니라 `grasp_estimate_arm_m`에 적용된다. 따라서 실제 수확 가능성을 확정하려면 영상 파지점 및 접근/파지 동작을 검증해야 한다. AABB 겹침도 실제 파지점·IK/충돌 성공을 보장하지 않는다.
+
+결론: 예찰 범위 정렬은 expected에 실행 상자 밖 점을 넣던 불일치를 줄였지만, 전체192개의 파지점이 실행 필터 안에 있다는 보장은 아직 없다. 전체 수확 시험을 위한 배치 조정은 팔 실행/학습 조건을 기준으로 파지점과 여유를 검증한 후 수행해야 한다. 과실 이동 또는 팔 필터 확대는 이번 확인에서 하지 않았다.
+
+근거: `sim/runs/workspace_alignment_proposal_20261022/all_ripe_coverage.json`. 정적 오프라인 평가이며 새 Isaac/실물 주행 시험은 미실행이다.

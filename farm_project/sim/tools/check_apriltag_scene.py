@@ -42,6 +42,19 @@ def check() -> dict:
         assert np.all(points[:,1:] >= low[1:]-1e-6) and np.all(points[:,1:] <= high[1:]+1e-6)
         np.testing.assert_allclose(np.linalg.norm(points[1]-points[0]),.064,atol=1e-6)
         np.testing.assert_allclose(np.linalg.norm(points[2]-points[1]),.069,atol=1e-6)
+        pattern = UsdGeom.Mesh(stage.GetPrimAtPath(str(prim.GetPath())+'/Pattern'))
+        code_points = np.array(pattern.GetPointsAttr().Get())
+        assert code_points.shape == (256, 3)
+        center = np.array(tag['tag_center_map_m'])
+        for axis in (np.array(tag['right_map']), np.array([0.,0.,1.])):
+            projected = (code_points-center)@axis
+            np.testing.assert_allclose([projected.min(),projected.max()],
+                                      [-tag['black_edge_m']/2,tag['black_edge_m']/2],atol=1e-6)
+        np.testing.assert_allclose((code_points-center)@normal,1e-5,atol=1e-6)
+        assert np.dot(np.cross(code_points[3]-code_points[0],code_points[2]-code_points[0]),normal)>0
+        colors = np.array(pattern.GetDisplayColorAttr().Get())
+        cells = np.array(data['pattern_cells'][str(tag['id'])]).reshape(-1)
+        np.testing.assert_array_equal(colors,np.repeat(cells[:,None],3,axis=1))
     return dict(tags=count, walls=len({t['wall_prim'] for t in data['tags']}),
                 optical_transform=optical.tolist(), status='PASS', physics_or_render_test=False)
 

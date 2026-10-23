@@ -79,4 +79,47 @@ def install_tags(stage: object, project_root: Path, config: dict) -> int:
         material.CreateSurfaceOutput().ConnectToSource(shader.ConnectableAPI(), 'surface')
         UsdShade.MaterialBindingAPI.Apply(mesh.GetPrim()).Bind(material)
         mesh.GetPrim().CreateAttribute('apriltag:id', Sdf.ValueTypeNames.Int).Set(tag['id'])
+        cells = data.get('pattern_cells', {}).get(str(tag['id']))
+        if cells is not None:
+            _install_pattern(stage, path, tag, cells, world_map)
     return len(data['tags'])
+
+
+def _install_pattern(stage: object, path: str, tag: dict, cells: list,
+                     world_map: np.ndarray) -> None:
+    """태그 셀만 실제 크기의 면으로 표현해 텍스처 축소 필터의 코너 편향을 줄인다."""
+    from pxr import UsdGeom, UsdShade, Sdf, Gf
+    values = np.asarray(cells)
+    if values.shape != (8, 8) or not np.isin(values, [0, 1]).all():
+        raise ValueError('tag36h11 패턴은 흑백 8×8 셀이어야 합니다.')
+    # 원래 종이·인쇄 ID는 보존하고 코드 영역만 덮는다. 10µm는 z-fighting 방지용이다.
+    center = np.asarray(tag['tag_center_map_m']) + np.asarray(tag['normal_map'])*1e-5
+    right, up = np.asarray(tag['right_map']), np.array([0., 0., 1.])
+    edge = tag['black_edge_m']
+    points, colors = [], []
+    for row in range(8):
+        for column in range(8):
+            for dx, dy in ((0, 0), (1, 0), (1, 1), (0, 1)):
+                point = center + right*((column+dx)/8-.5)*edge + up*(.5-(row+dy)/8)*edge
+                points.append(Gf.Vec3f(*(world_map@np.r_[point, 1.])[:3]))
+            value = float(values[row, column])
+            colors.append(Gf.Vec3f(value, value, value))
+    pattern = UsdGeom.Mesh.Define(stage, path+'/Pattern')
+    pattern.CreatePointsAttr(points)
+    pattern.CreateFaceVertexCountsAttr([4]*64)
+    pattern.CreateFaceVertexIndicesAttr([i for n in range(64) for i in (4*n,4*n+3,4*n+2,4*n+1)])
+    pattern.CreateSubdivisionSchemeAttr('none')
+    pattern.CreateDoubleSidedAttr(False)
+    pattern.CreateDisplayColorAttr(colors)
+    pattern.GetDisplayColorPrimvar().SetInterpolation('uniform')
+    material = UsdShade.Material.Define(stage, path+'/PatternMaterial')
+    shader = UsdShade.Shader.Define(stage, path+'/PatternMaterial/Surface')
+    shader.CreateIdAttr('UsdPreviewSurface')
+    shader.CreateInput('roughness', Sdf.ValueTypeNames.Float).Set(1.)
+    shader.CreateInput('metallic', Sdf.ValueTypeNames.Float).Set(0.)
+    reader = UsdShade.Shader.Define(stage, path+'/PatternMaterial/Color')
+    reader.CreateIdAttr('UsdPrimvarReader_float3')
+    reader.CreateInput('varname', Sdf.ValueTypeNames.Token).Set('displayColor')
+    shader.CreateInput('diffuseColor', Sdf.ValueTypeNames.Color3f).ConnectToSource(reader.ConnectableAPI(), 'result')
+    material.CreateSurfaceOutput().ConnectToSource(shader.ConnectableAPI(), 'surface')
+    UsdShade.MaterialBindingAPI.Apply(pattern.GetPrim()).Bind(material)

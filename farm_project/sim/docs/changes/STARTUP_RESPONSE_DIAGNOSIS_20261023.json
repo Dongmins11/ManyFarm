@@ -1,0 +1,135 @@
+{
+  "scope": "저장 로그 전체에서 lifecycle 응답 송신 실패 검색; 동일 캠페인 반복 시도 포함, 모집단 통계 아님",
+  "warning_count": 14,
+  "events": [
+    {
+      "log": "sim/runs/section_campaign_20261019/SEC01_attempt_0014/stack.log",
+      "line": "[map_server-7] [WARN] [1792414800.791081369] [scout_01.map_server.rclcpp]: failed to send response to /scout_01/map_server/change_state (timeout): client will not receive response, at ./src/rmw_response.cpp:153, at ./src/rcl/service.c:400"
+    },
+    {
+      "log": "sim/runs/sec01_16_fresh_metrics_20261021_172329/SEC15_attempt_0001/stack.log",
+      "line": "[planner_server-25] [WARN] [1792610094.971700219] [harvest_01.planner_server.rclcpp]: failed to send response to /harvest_01/planner_server/change_state (timeout): client will not receive response, at ./src/rmw_response.cpp:153, at ./src/rcl/service.c:400"
+    },
+    {
+      "log": "sim/runs/sec01_16_fresh_metrics_20261021_172329/SEC14_attempt_0002/stack.log",
+      "line": "[velocity_smoother-28] [WARN] [1792608392.377727674] [harvest_01.velocity_smoother.rclcpp]: failed to send response to /harvest_01/velocity_smoother/get_state (timeout): client will not receive response, at ./src/rmw_response.cpp:153, at ./src/rcl/service.c:400"
+    },
+    {
+      "log": "sim/runs/sec01_real_baseline_20261020_164129/SEC01_attempt_0001/stack.log",
+      "line": "[map_server-7] [WARN] [1792482108.388567771] [scout_01.map_server.rclcpp]: failed to send response to /scout_01/map_server/change_state (timeout): client will not receive response, at ./src/rmw_response.cpp:153, at ./src/rcl/service.c:400"
+    },
+    {
+      "log": "sim/runs/sec01_real_baseline_20261020_164129/SEC01_attempt_0007/stack.log",
+      "line": "[amcl-8] [WARN] [1792484536.910896418] [scout_01.amcl.rclcpp]: failed to send response to /scout_01/amcl/change_state (timeout): client will not receive response, at ./src/rmw_response.cpp:153, at ./src/rcl/service.c:400"
+    },
+    {
+      "log": "sim/runs/sec01_real_baseline_20261020_164129/SEC01_attempt_0009/stack.log",
+      "line": "[controller_server-24] [WARN] [1792485661.108522194] [harvest_01.controller_server.rclcpp]: failed to send response to /harvest_01/controller_server/get_state (timeout): client will not receive response, at ./src/rmw_response.cpp:153, at ./src/rcl/service.c:400"
+    },
+    {
+      "log": "sim/runs/sec01_goal_time_fix_20261020_183345/SEC07_attempt_0004/stack.log",
+      "line": "[amcl-8] [WARN] [1792548826.350133854] [scout_01.amcl.rclcpp]: failed to send response to /scout_01/amcl/change_state (timeout): client will not receive response, at ./src/rmw_response.cpp:153, at ./src/rcl/service.c:400"
+    },
+    {
+      "log": "sim/runs/sec01_goal_time_fix_20261020_183345/SEC10_attempt_0002/stack.log",
+      "line": "[amcl-8] [WARN] [1792559581.144595589] [scout_01.amcl.rclcpp]: failed to send response to /scout_01/amcl/change_state (timeout): client will not receive response, at ./src/rmw_response.cpp:153, at ./src/rcl/service.c:400"
+    },
+    {
+      "log": "sim/runs/sec01_goal_time_fix_20261020_183345/SEC12_attempt_0001/stack.log",
+      "line": "[amcl-8] [WARN] [1792569020.325755729] [scout_01.amcl.rclcpp]: failed to send response to /scout_01/amcl/change_state (timeout): client will not receive response, at ./src/rmw_response.cpp:153, at ./src/rcl/service.c:400"
+    },
+    {
+      "log": "sim/runs/sec01_goal_time_fix_20261020_183345/SEC10_attempt_0004/stack.log",
+      "line": "[amcl-8] [WARN] [1792560118.186652511] [scout_01.amcl.rclcpp]: failed to send response to /scout_01/amcl/change_state (timeout): client will not receive response, at ./src/rmw_response.cpp:153, at ./src/rcl/service.c:400"
+    },
+    {
+      "log": "sim/runs/sec01_goal_time_fix_20261020_183345/SEC07_attempt_0005/stack.log",
+      "line": "[controller_server-24] [WARN] [1792550478.328644452] [harvest_01.controller_server.rclcpp]: failed to send response to /harvest_01/controller_server/change_state (timeout): client will not receive response, at ./src/rmw_response.cpp:153, at ./src/rcl/service.c:400"
+    },
+    {
+      "log": "sim/runs/sec01_16_round2_20261022_151624/SEC05_attempt_0001/stack.log",
+      "line": "[bt_navigator-12] [WARN] [1792660947.264920565] [scout_01.bt_navigator.rclcpp]: failed to send response to /scout_01/bt_navigator/change_state (timeout): client will not receive response, at ./src/rmw_response.cpp:153, at ./src/rcl/service.c:400"
+    },
+    {
+      "log": "sim/runs/scout_no_wait_20261023/preparation_failures/12_terminal_freeze_attempt1/stack.log",
+      "line": "[map_server-7] [WARN] [1792725399.206356074] [scout_01.map_server.rclcpp]: failed to send response to /scout_01/map_server/change_state (timeout): client will not receive response, at ./src/rmw_response.cpp:153, at ./src/rcl/service.c:400"
+    },
+    {
+      "log": "sim/runs/scout_no_wait_20261023/preparation_failures/12_terminal_freeze_attempt1/stack.log",
+      "line": "[bt_navigator-27] [WARN] [1792725400.007742635] [harvest_01.bt_navigator.rclcpp]: failed to send response to /harvest_01/bt_navigator/change_state (timeout): client will not receive response, at ./src/rmw_response.cpp:153, at ./src/rcl/service.c:400"
+    }
+  ],
+  "controlled_reproduction_20261023": {
+    "default": {
+      "batches": 12,
+      "pairs": 24,
+      "failed": 0,
+      "response_warnings": 0
+    },
+    "burst": {
+      "batches": 6,
+      "pairs": 96,
+      "failed": 1,
+      "response_warnings": 1
+    },
+    "burst32": {
+      "batches": 6,
+      "pairs": 192,
+      "failed": 20,
+      "response_warnings": 20,
+      "host_udp_receive_buffer_drops_during_observation": 204247
+    },
+    "buffer32": {
+      "batches": 6,
+      "pairs": 192,
+      "failed": 0,
+      "response_warnings": 0,
+      "host_udp_receive_buffer_drops_during_observation": 0
+    },
+    "udp32": {
+      "batches": 6,
+      "pairs": 192,
+      "failed": 4,
+      "response_warnings": 4,
+      "host_udp_receive_buffer_drops_during_observation": 166434
+    },
+    "full_default": {
+      "runs": 4,
+      "both_robots_ready": 4,
+      "readiness_seconds": [
+        18.26046788399981,
+        18.44861462100016,
+        17.643566343000202,
+        18.654009316000156
+      ],
+      "response_warnings": 0
+    },
+    "full_buffer": {
+      "runs": 2,
+      "both_robots_ready": 2,
+      "readiness_seconds": [
+        18.078583458998764,
+        18.680648502000622
+      ],
+      "response_warnings": 0
+    },
+    "socket_receive_buffers_bytes": {
+      "burst32": {
+        "212992": 128
+      },
+      "buffer32": {
+        "4194304": 128
+      },
+      "udp32": {
+        "212992": 128
+      }
+    },
+    "independent_probe": {
+      "service_present": true,
+      "response": true,
+      "state": "inactive"
+    },
+    "failure_stack": "burst32/00/stack44.log",
+    "test_scope": "실제 설치 Nav2 map_server+manager 쌍의32쌍 동시기동6묶음/조건. 운영 실패율 추정이 아닌 인과 분리 부하 시험. Isaac 미사용. 전체 기동 확인은 별도."
+  }
+}

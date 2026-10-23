@@ -4,7 +4,8 @@ from farm_sim_runtime.launch_environment import default_vision_python
 from pathlib import Path
 from ament_index_python.packages import get_package_share_directory
 from launch import LaunchDescription
-from launch.actions import DeclareLaunchArgument, IncludeLaunchDescription, OpaqueFunction
+from launch.actions import (DeclareLaunchArgument, GroupAction, IncludeLaunchDescription,
+                            LogInfo, OpaqueFunction, SetEnvironmentVariable)
 from launch.launch_description_sources import PythonLaunchDescriptionSource
 from launch.substitutions import LaunchConfiguration
 
@@ -17,6 +18,18 @@ def setup(context) -> list:
     if value('harvest') == 'true' and shared['environment_config'] == 'sim/ros_ws/src/farm_sim_config/config/scout_runtime.yaml':
         shared['environment_config'] = 'sim/ros_ws/src/farm_sim_config/config/scout_fleet_runtime.yaml'
     actions = []
+    # 전체 시뮬의 ROS 자식 프로세스에만 적용한다. 호출자/실물 실행 환경은 바꾸지 않는다.
+    external_dds = (context.environment.get('FASTRTPS_DEFAULT_PROFILES_FILE')
+                    or context.environment.get('FASTDDS_DEFAULT_PROFILES_FILE'))
+    if external_dds:
+        actions.append(LogInfo(msg='외부 DDS 프로파일 유지(기본 프로파일 자동 선택 생략): ' + external_dds))
+    else:
+        dds_profile = (Path(value('project_root')).expanduser().resolve()
+                       / 'sim/ros_ws/src/farm_sim_config/config/fastdds_discovery.xml')
+        if not dds_profile.is_file():
+            raise FileNotFoundError(f'시뮬 DDS 수신 버퍼 프로파일이 없습니다: {dds_profile}')
+        actions += [SetEnvironmentVariable('FASTRTPS_DEFAULT_PROFILES_FILE', str(dds_profile)),
+                    LogInfo(msg='시뮬 DDS 수신 버퍼: 2MiB 요청, 프로파일=' + str(dds_profile))]
 
     def include(package: str, filename: str, arguments: dict) -> None:
         path = Path(get_package_share_directory(package)) / 'launch' / filename
@@ -41,7 +54,7 @@ def setup(context) -> list:
         include('farm_sim_runtime', 'harvest.launch.py', dict(project_root=value('project_root'),
             mode='sim', environment_config=value('harvest_environment_config'),
             tag_correction=value('tag_correction')))
-    return actions
+    return [GroupAction(actions=actions, scoped=True)]
 
 
 def generate_launch_description() -> LaunchDescription:

@@ -268,7 +268,7 @@ class SurveyServer(Node):
             for a,b in edges:
                 for j in [a,b]:m.points.append(Point(x=w['corners_map_m'][j][0],y=w['corners_map_m'][j][1],z=w['corners_map_m'][j][2]))
             array.markers.append(m)
-            if w.get('range_tolerance_m',0)>0:
+            if w.get('range_tolerance_m',0)>0 or w.get('depth_tolerance_m',0)>0:
                 outer=Marker();outer.header.frame_id='map';outer.ns='window_tolerance';outer.id=i
                 outer.type=Marker.LINE_LIST;outer.action=Marker.ADD;outer.pose.orientation.w=1.
                 outer.scale.x=.004;outer.color.g=outer.color.b=outer.color.a=1.

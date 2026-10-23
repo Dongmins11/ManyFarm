@@ -40,6 +40,9 @@ class TagTests(unittest.TestCase):
             self.assertEqual(picture.shape, (1380,1280))
             expected = cv2.aruco.drawMarker(dictionary, tag['id'], 1000)
             np.testing.assert_array_equal(picture[140:1140,140:1140], expected)
+            cells = np.array(data['pattern_cells'][str(tag['id'])], dtype=np.uint8)
+            # 기하 셀의 방향·ID가 기존 인쇄 패턴과 정확히 같아야 한다.
+            np.testing.assert_array_equal(np.repeat(np.repeat(cells,125,0),125,1)*255, expected)
             corners, ids, _ = cv2.aruco.detectMarkers(cv2.resize(picture,(640,690)), dictionary)
             self.assertIsNotNone(ids)
             # OpenCV 4.6은 같은 ID의 중첩 후보를 중복 반환할 수 있습니다.

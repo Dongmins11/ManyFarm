@@ -1,0 +1,153 @@
+{
+  "baseline_commit": "0832b6f1827d912d827667e4c50aacf3a3f4e549",
+  "uncommitted": true,
+  "depth_allowance_m": 0.02,
+  "sections": 16,
+  "physical_depth_m": 0.1,
+  "acceptance_depth_m": 0.14,
+  "generated_config_other_fields_unchanged": true,
+  "config_comparison_note": "직전 런타임 설정에서 외부 patrol_file로 병합된 patrol_segments를 제외하고 비교",
+  "replay": [
+    {
+      "run": "08_capture_sync",
+      "section": "SEC01",
+      "recorded_expected": 12,
+      "variants": [
+        {
+          "depth_tolerance_m": 0.0,
+          "expected": 12,
+          "window_count": 9,
+          "holds": [
+            {
+              "anchor_id": "51fd03920d5a_SEC01_F0009",
+              "reason": "depth_out_of_range"
+            }
+          ],
+          "existing_window_geometry_unchanged": true
+        },
+        {
+          "depth_tolerance_m": 0.02,
+          "expected": 13,
+          "window_count": 9,
+          "holds": [],
+          "existing_window_geometry_unchanged": true
+        }
+      ]
+    },
+    {
+      "run": "10_no_wait_repeat",
+      "section": "SEC01",
+      "recorded_expected": 13,
+      "variants": [
+        {
+          "depth_tolerance_m": 0.0,
+          "expected": 13,
+          "window_count": 9,
+          "holds": [],
+          "existing_window_geometry_unchanged": true
+        },
+        {
+          "depth_tolerance_m": 0.02,
+          "expected": 13,
+          "window_count": 9,
+          "holds": [],
+          "existing_window_geometry_unchanged": true
+        }
+      ]
+    },
+    {
+      "run": "13_terminal_freeze_repeat",
+      "section": "SEC01",
+      "recorded_expected": 13,
+      "variants": [
+        {
+          "depth_tolerance_m": 0.0,
+          "expected": 13,
+          "window_count": 9,
+          "holds": [],
+          "existing_window_geometry_unchanged": true
+        },
+        {
+          "depth_tolerance_m": 0.02,
+          "expected": 13,
+          "window_count": 9,
+          "holds": [],
+          "existing_window_geometry_unchanged": true
+        }
+      ]
+    },
+    {
+      "run": "09_no_wait",
+      "section": "SEC01",
+      "recorded_expected": 13,
+      "variants": [
+        {
+          "depth_tolerance_m": 0.0,
+          "expected": 13,
+          "window_count": 9,
+          "holds": [],
+          "existing_window_geometry_unchanged": true
+        },
+        {
+          "depth_tolerance_m": 0.02,
+          "expected": 13,
+          "window_count": 9,
+          "holds": [],
+          "existing_window_geometry_unchanged": true
+        }
+      ]
+    },
+    {
+      "run": "12_terminal_freeze",
+      "section": "SEC01",
+      "recorded_expected": 13,
+      "variants": [
+        {
+          "depth_tolerance_m": 0.0,
+          "expected": 13,
+          "window_count": 9,
+          "holds": [],
+          "existing_window_geometry_unchanged": true
+        },
+        {
+          "depth_tolerance_m": 0.02,
+          "expected": 13,
+          "window_count": 9,
+          "holds": [],
+          "existing_window_geometry_unchanged": true
+        }
+      ]
+    },
+    {
+      "run": "11_reference_repeat",
+      "section": "SEC01",
+      "recorded_expected": 13,
+      "variants": [
+        {
+          "depth_tolerance_m": 0.0,
+          "expected": 13,
+          "window_count": 9,
+          "holds": [],
+          "existing_window_geometry_unchanged": true
+        },
+        {
+          "depth_tolerance_m": 0.02,
+          "expected": 13,
+          "window_count": 9,
+          "holds": [],
+          "existing_window_geometry_unchanged": true
+        }
+      ]
+    }
+  ],
+  "source_sha256": {
+    "robot/ros_ws/src/scout_robot/scout_robot/b_planner.py": "c295ba46ee8f8b7f2dbadfe6e35b35a0e31262dc814bb9bf15909a08cda4296e",
+    "robot/ros_ws/src/scout_robot/scout_robot/survey_core.py": "4c0b4cb1fd43e1ee7b069af0ab87bf69120745b2af199bd7352a851380244b7c",
+    "robot/ros_ws/src/scout_robot/scout_new/scout_node.py": "9393968fd350f6e13a4f8df6979812f384e8ffbceb04b10bb3642a3bb1f285e8",
+    "robot/ros_ws/src/scout_robot/scout_robot/survey_server.py": "7f70cec75c90e287aba2dc2ac5ec6e7d7db73d596991084d7042bd8d9a29d3b7",
+    "sim/ros_ws/src/farm_sim_config/config/task.yaml": "4c1005f788b128449620c1b1dc770be1ce29345d8477fc659580c8ba3b8ced44",
+    "sim/ros_ws/src/farm_sim_config/config/scout_survey.json": "0e93befac48b46027a720de835312a0fbe94aa037ec61386c4584bf6faca4fec"
+  },
+  "tests_passed": 13,
+  "isaac_or_harvest_run": false
+}

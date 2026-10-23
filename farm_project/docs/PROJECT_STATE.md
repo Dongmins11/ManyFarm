@@ -1311,3 +1311,178 @@ afdcc05 원본은 SimpleProgressChecker(0.1m/20초)이며 회전만으로 진행
 - 사용자 “테스트 결과 커밋푸쉬해줘” 승인. 야간 시험에 사용한 공통 경로별 timeout/시뮬 CPU·카메라 최적화/복귀 카메라 중지/새 캠페인·보고서 코드와 결과 자료를 함께 반영한다. 별도 multirobottrafficcontrol 및 robotarm_harvest_communication 폴더는 제외한다.
 - 원격 재검토용 완료 집계5개(summary/performance_summary/failure_analysis/manifest/evaluation_contract)를 `sim/docs/test_results/20261022_sec01_16/`에 보존했다. 대용량 원본 로그는 기존 로컬 sim/runs 경로에 유지하며 보고서에 상대 링크를 추가했다.
 - 커밋 전 검증: farm_navigation48 + student30 + campaign12 =90개 PASS, git diff --check 통과. 실제 통합 결과는 야간16SEC 완료/실패 재시작5회 기록을 따른다. 실물 주행 시험은 미실행.
+
+### 2026-10-22 예찰 윈도우와 팔 실행 상자 범위 정렬
+
+- 사용자 “팔 실행필터보다 예찰 윈도우 생성 범위가 더커서 … 해결” 요청. sim 설정만 수정했다. 공통 플래너/팔 실행 필터·실물 설정은 변경하지 않았다.
+- 원인: 예찰 task.yaml의 팔 상대 높이는−0.10..0.35m 및 축별 여유0.02m였으나 실제 continuous_near_mask는 x0.265..0.365/y±0.175/z0.087..0.35m와 HOME 거리0.09<d<0.34m를 사용했다. 계획 pose로 야간 expected180개를 변환하면37개가 상자 밖(x29/z11, 중복3)이다.
+- 변경:16SEC의 원본 task.yaml height_offsets 하한을0.087m, range_tolerance를0으로 정렬. 파생 scout_survey.json과 harvest_audit.json의 평가 상자도 재생성했다. 다른 생성 파일의 주석/키 순서 차이는 제외했다.
+- 검증: 원본 map_detections를 관측 순서대로 공통 Survey에 재생한 결과 expected143개, 팔 상자 및 HOME 거리 필터 밖0개(부동소수 비교1e-9). 경로 검증16SEC/80관측/371경로 통과. 실제 Isaac/실물 주행은 미실행이며 실제 도착 pose·표면점/파지점 차이는 남는다.
+- 근거: sim/runs/workspace_alignment_proposal_20261022/replay.json 및 aligned_replay.json. 기존 야간 결과192/180/98과 보고서는 수정하지 않는다. 새 높이 범위로 평가 분모도 달라지므로 후속 성능 비교에서는 전체 배치 수와 작업 범위 제외 수를 함께 표시해야 한다. 예상량 감소를 수확 성공 증가로 해석하지 않는다.
+- 되돌리기: 위3개 sim 설정의 이번 높이/여유/기하 주석 및 파생 평가 상자 변경만 복원. 다른 작업자의 교통 제어 변경은 유지했다. 커밋·푸시 및 새 장시간 시험은 수행하지 않았다.
+
+
+### 2026-10-22 전체 빨강·노랑 과실 작업 범위 확인
+
+- 사용자 요청으로 공통 예찰 알고리즘과 sim 설정 책임을 확인했다. 공통 survey_core/b_planner는 불변, 직전 변경은 sim task/scout_survey/harvest_audit 높이·여유 설정이다.
+- 야간 초기 snapshot192개(red96/yellow96) 중심점 중153개는 경로 내 정차 위치에서 현재 상자/HOME 조건 충족,39개는 초과(하한10/상한8/깊이25, 중복4). 실제 중심높이0.785711~1.071028m 대 실행높이0.800~1.063m.
+-192개 모두 AABB 일부는 깊이/높이 상자와 겹침. 필터 입력은 중심이 아닌 영상 파지점이므로39개를 수확 불가능으로 확정하지 않았다. 실제 파지점/IK/충돌 검증은 미실행. 배치·팔 필터·공통 코드는 이번에 바꾸지 않았다.
+- 근거 JSON은 sim/runs/workspace_alignment_proposal_20261022/all_ripe_coverage.json, 기존 시험 자료 MD §11에 한계와 결과 추가. 커밋/푸시 미실행.
+
+
+### 2026-10-22 전체 빨강·노랑 작업 범위 내 재배치
+
+- 승인: 사용자 “로봇팔 필터 조정은 성능 변수 … 밖에있는 열매들을 안으로 재배치해”. 팔 필터/예찰 범위/공통·실물 코드는 이번에 변경하지 않았다.
+- 실제 장면 sim/assets/envs/output/farm_with_plants_v5.usd에서 빨강·노랑192개 중 실제 물리모델 외곽이 깊이/높이 경계 밖이거나 안쪽1mm 여유가 없는180개를 최소 이동. 중심만 벗어났던39개와 달리 외곽 기준이다. 나머지12개와 초록96개는 위치 유지. ID/색/회전/크기/개수 보존. 연결 줄기는 식물 쪽 끝 유지, 과실 쪽 끝만 이동했다.
+- 깊이/높이 이동으로 새로 겹칠 수 있는7쌍은 베드 길이 방향 최소 이동으로 해소했다. 기존 AABB 겹침5쌍은 유지되며 새 겹침0쌍. 단위m, 전체 외곽 검증은 실제 runtime 과실 자산의 AABB를 사용했다.
+- 검증: 저장 장면 재개방 후 재배치 후보0개.192개 모두 계획 상자 내 외곽 및 팔 box/HOME 범위를 만족하는 경로 내 정차점 존재. 실제 과실 중심을 평가 전용으로 공통 plan_harvest에 입력한 오프라인 시험에서192/192 window 소속 생성, 보류0. 원본 레이어 변경은 과실 translate180개+줄기 points180개만 확인. 실제 USD/PhysX 과실 자산 검사4개 PASS. 비전 검출/도착 오차/IK·충돌·수확 성공의 새 통합 시험은 미실행.
+- 재현 도구 sim/tools/align_ripe_fruit_workspace.py는 기본 dry-run, --apply 명시 시 원본 백업 후 저장한다. 근거 및 이동 전후 좌표/해시: sim/docs/changes/FRUIT_WORKSPACE_RELOCATION_20261022.json. 원본 백업·검증 원문은 sim/runs/fruit_relocation_20261022.
+- 기존 야간 시험은 이전 배치 결과이므로 그대로 보존한다. 이후 비교는 새 장면 해시/새 캠페인을 사용해야 한다. 복원은 백업 USD를 원래 장면 경로로 복사한다. 커밋/푸시 및 장시간 캠페인은 이번에 수행하지 않았다. 다른 작업자의 교통 제어 변경은 유지했다.
+
+
+### 2026-10-22 역순 윈도우 전달 수정 — D-054
+
+- 승인: 사용자 “그래 정렬해야지 순서대로가야지 …”. 실제 SEC14 W003→W004는6.1cm 역방향, SEC16은11.4cm 역방향이었다. 단순 정차 오차 추정에서 목록 자체 역순으로 원인을 확인했다.
+- 공통 Survey.windows() 반환 시 실제 수확 heading의 map 방향 투영값으로 정렬한다. 윈도우 번호는 생성 ID로 유지하므로 예: W001/W002/W004/W003/W005로 전달될 수 있다. 생성 계획·멤버·예상량·좌표·구간 연결은 바꾸지 않는다. 실물/시뮬 공통 동작 변경이다.
+- 검증: 실제 Survey 누적 관측에서 늦게 생성된 뒤쪽 창을4개 지도 진행 방향으로 검사(1test/4subcases) PASS, 기존 메시지 프로토콜6개 PASS. 야간 두 실패 report로 실제 task_messages 변환 후 모든 구간 전진 순서/ID·좌표·멤버·expected 보존 확인. 근거 sim/docs/changes/WINDOW_EXECUTION_ORDER_REPLAY_20261022.json. 실제 재주행은 미실행.
+- 변경: robot/ros_ws/src/scout_robot/scout_robot/survey_core.py, test/test_window_execution_order.py. 이전 성공 캐시/완료 결과는 소급 변경하지 않는다. 복원은 반환 정렬을 제거하고 해당 회귀 시험을 원복한다. 다른 교통 코드/과실 재배치 변경은 유지했다. 커밋/푸시 미실행.
+
+
+### 2026-10-22 영상 사용 단계에만 팔 카메라 활성화
+
+- 승인: 사용자 “영상이 필요하지 않은 동안에는 켜져있을 이유가 없어”. sim student_session.py 및 test_student_retry.py만 이번에 수정했다. 공통/실물·전달 미션 상태기계는 변경하지 않았다.
+- 기존 RUNNING 중 RETURN_STOW/FINAL_STOP만 제외하던 조건을 CAMERA_INVENTORY/HARVEST/WAIT_BOX 허용 목록으로 변경했다. TO_HOME/STOW_WAIT/PREPARE/정지·종료·주행에서는 촬영/렌더 제품을 pause한다. WAIT_BOX는 실제 영상 정책이 계속 호출되므로 유지한다.
+- 같은 tick에 TO_HOME→HARVEST로 전환되는 경우, sim 미션 세션 어댑터의 step 경계에서 지연 capture_provider를 호출해 새 현재 자세 프레임을 확보한 뒤 영상 정책에 전달한다. 기존 사용자는 provider 미지정 시 원래 camera.step을 그대로 사용한다. 재개 시 누적 촬영/FK계수는 유지한다.
+- 검증: student 관련32개 PASS. 상태3종×단계10종 활성 조건, 정책 첫 호출 전까지 비활성, 재개 직후 새 프레임 전달/불필요한 재개 반복 없음, 기존 재시도/레이저/복귀 완료 회귀 포함. 실제 Isaac 성능 배율은 새로 측정하지 않았으며 새 장시간 시험/커밋·푸시는 미실행. 다른 작업자 및 이전 미커밋 변경은 유지했다.
+- 복원: 이번 허용 목록 및 지연 촬영 어댑터 변경만 제거한다. 이전 복귀 카메라 중지/카메라 처리 최적화/과실 재배치/윈도우 정렬은 유지한다.
+
+
+### 2026-10-22 2차 SEC01~16 시험 시작
+
+- 사용자 “2차 테스트 가자” 승인. 새 캠페인 `sim/runs/sec01_16_round2_20261022_151624`, 서비스 `farm-round2-20261022.service`로 시작했다. 성공 예찰 재사용 없이 SEC01부터 매 시도 예찰→모든 window 수확. 같은 오류 누적3회면 SEC 생략, 그 외 실패는 전체 Isaac/ROS 재시작 후 해당 SEC 예찰부터 반복한다.
+- Domain13/SUBNET, CPU/headless, 기본 교통 비활성 프로파일 유지. 수정된 공통 예찰 정렬과 sim 카메라 활성 조건의 실제 ROS/Isaac Python 모듈 로드를 확인했다.
+- 과실 재배치 USD(sha256 22be2e1f423ab553eee3d471f321ea2fb49761a6cab8ddfe0648d6d3182207f3), 범위 정렬/태스크 진행 방향 정렬/영상 단계 촬영 조건 적용. 장면 복사·코드 해시는 round2_contract.json, 이전 비교 결과는 round1_comparison에 보존했다. 배치가 바뀐 비교이므로 알고리즘 단독 개선 효과와 구분한다.
+- A/B/C·객체별 손실/중복/성능 사건·실패/명령체인/RPP/프레임 시간 기록 및 시도 종료별 report.md 자동 갱신. 새 결과는 아직 미완료다. 시험 시작 자체에 따른 코드 변경·커밋·푸시는 하지 않았다.
+
+
+### 2026-10-23 2차 예찰/복귀/진입/준비 오류 원인 분석
+
+- 사용자4항목 분석 요청으로 운영 코드는 수정하지 않고 동결 소스·원본 로그·오프라인 수치 재현을 대조했다. 근거 sim/docs/changes/ROUND2_FAILURE_ANALYSIS_20261023.json 및 ROUND2_* 상세 JSON.
+- 동일15SEC 검출 객체 대응은157→160으로 감소하지 않음. 실제 윈도우 대상은148→131로 감소. 검출 후 미소속29개는 모두 깊이 hold이며 map 변환 오차12~36mm와 여유0 조합. 실제 시뮬 차체 자세로 재변환하면29개 모두 범위 내(최근 진단 pose 최대0.45시뮬초, 정지 촬영). 이전2cm여유 재생시 expected152→184이나 실행 범위 문제를 가릴 수 있어 그대로 복원하지 않았다.
+- SEC09는1차에 팔 대상이 아니던 동일 Pepper_0033_yellow가 낙하한 뒤60초 만료, 기존 고정XY/13cm상승 복귀 IK가15.7~22.6mm 오차로15mm한도를 초과. 함수는1/2차동일. 현재TCP높이1.004~1.009m는 상자여유높이0.881m보다 높았으나 추가13cm상승을 요청했다.
+- SEC12/16 작업 진입 실패는 역순이 아님. 전체TF기록 실패 직전 재구성에서 목표전방12.7/9.0cm, 횡오차1.81/1.28cm, 차체방향오차−0.28/+0.04도, 목표선각둘다8.1도로3도제한초과. 함수/설정은1/2차동일. 도착5cm허용과 짧은구간 진입3도기준 불일치다.
+- 준비2회는 양 로봇odom15~17초에정상, harvest Nav2 active 후 scout bt_navigator configure전이 또는 get_state서비스발견에서정체. 300초부팅지연으로 보지않는다. SHM lock오류는 성공시도에도있어 단독원인확정불가. 정확한 내부대기/DDS경로는 추가계측이 필요하다.
+- 수정/실제재주행/커밋·푸시는 수행하지 않았다. 후속 우선순위는 예찰map정합, 도달가능한복귀후보, 짧은직진기준정렬, lifecycle단계계측이다.
+
+
+### 2026-10-23 예찰 좌표 정합 심층 분리 조사
+
+- 사용자 “파악할수있는만큼 … 아주예전부터” 요청. 운영 코드/설정/장면은 수정하지 않았다. 실제 USD/URDF 센서 장착과2차75개관측, 실제물리자세/encoder, 원시태그1090개, 태그투영212개를 대조했다. 상세 sim/docs/changes/SCOUT_LOCALIZATION_DIAGNOSIS_20261023.json 및 LOCALIZATION_* JSON. 재현스크립트는 sim/runs/round2_failure_analysis_20261023.
+- D435 렌더광학프레임과URDF프레임의행렬차이0, PiCam실장과설정차이약1e-13. 같은실제행렬이CameraSim metadata/TF에연결됨.75개촬영/pose stamp차이0, 공통코드는촬영시각TF를조회함. 독립렌더시각계측까지완료한것은아님.
+- map평면자세가과실깊이에주는오차평균약16.0mm, 실제roll/pitch를2D에서생략한깊이영향평균0.159mm(높이영향2.35mm). 현재깊이누락의주원인은장착행렬이나기울기가아닌평면위치/방향추정.29개제외점은실제자세재변환시모두깊이범위내.
+- 태그보정이실제로켜져있어LiDAR단독원인으로해석하면안됨. 원시태그후보홀수SEC502개는바깥쪽평균20.50mm,짝수588개는8.29mm편향.212개투영표본에서태그변검출폭은약49px대비홀수0.863px/짝수0.348px작음. 렌더/검출코너/시각기여는아직분리미확정이며단순보정상수를적용하지않음.
+- 바퀴odom은회전에서실제각도와불일치:SEC01표본실제/odom0.890,SEC03 0.936;같은직진비는약0.9985. USD바퀴간격0.159999996m로설정0.16m와일치. 접촉/미끄러짐/가속기여미확정. AMCL/태그가큰누적오차를보정해도cm잔차는남는다.
+- §38(10/13)에이미PiCam태그횡3.72cm/진행7.16cm/yaw3.41도정확도미달기록이있다. 기존정합문제에예찰여유0이겹쳐expected누락이표면화된것으로확인했다. 후속은동일포즈태그ON/OFF·정지태그픽셀위상/거리·회전전용encoder/실제비교. GT는평가에만사용한다. 커밋/푸시·3차실험미실행.
+
+### 2026-10-23 예찰 위치 정합 통제 비교 및 시뮬 태그 표현 개선
+
+- 승인: 사용자 ON/OFF 등 비교, 재부팅 후 재개, 최대한 원인 파악/해결. 보고서 `sim/docs/SCOUT_LOCALIZATION_COMPARISON_20261023.md`, 재현/수치/소스 해시 `sim/docs/changes/LOCALIZATION_CONTROLLED_COMPARISON_20261023.json`, 원본 `sim/runs/localization_compare_20261023`.
+- 기본 CPU/headless/Domain13/SUBNET에서 SEC01 ON/OFF/OFF/ON 독립 예찰4회 모두 성공. 과실 깊이 평균 절대 오차 ON17.54/21.64mm, OFF35.63/33.38mm. 태그 OFF는 해결책 아님. 원시 태그 법선 편향 ON−22.49/−22.94mm.
+- 동일 RGB 시각의 정지 CameraParams와 실제 태그 투영을 비교: 기본 텍스처 약25.73mm 거리 편향 대 이상적 PNG 투영 최대절대1.51mm. decimate1, AA변경, 기본 USD 투영 K정렬만으로 해결 안됨. 흑백 기하 셀 기본렌더 평균10.6~11.3mm로 감소하나 화소 위상/PnP 잔차 남음.
+- 시뮬 전용 개선 적용: 제공 PNG의36h11 셀을 생성 배치표에 보존, 기존 종이/PNG/ID 위 코드 영역만50mm 기하 셀로 표현. 카메라 K/TF·검출기·AA·Nav2·팔 필터·공통/실물 코드 불변. 변경은 sim 내 생성기/배치표/runtime 및 기존 검증파일. 기존 배치표 입력은 텍스처 방식 호환.
+- 검증: 패턴/장착3개 PASS, 실제 USD240태그 크기/위치/색/면방향 및 기존 종이/카메라 변환 PASS. 적용 후 SEC01 예찰 SUCCESS(5관측9윈도우expected14/실제대응11of13). 원시 태그 평균−16.32mm, 차체 법선 절대13.02mm, 과실 깊이 절대17.65mm. 최종 예찰 오차는 기존ON 범위 안으로 단회 개선 한계, 다른SEC/수확 미검증.
+- 추가 측정: 정지 AMCL12회 갱신 시 X오차24.45→−0.81mm이나 Y−56.83→−49.37mm잔류. 회전 실제/encoder0.953~0.967, 명령 각속도 자체도 충분히 추종하지 못함. 지도 고정 오프셋 단독 원인 근거 부족. AMCL/회전 문제 미해결이며 정답 보정/범위 완화는 하지 않음.
+- 실패 보존: 사용자 재부팅으로 세번째 OFF중단, 적용 후 첫검증 TF102(요청17.116668초/latest16.750001초) 출발전실패 후 재기동. 105 없음. 진단SDK호출예외 및 렌더 저장완료 후 종료단계비정상 종료는 로봇오류와 구분해 기록.
+- 작업은 미커밋/미푸시. 기존 다른 작업자의 교통 관련 변경과 이전 과실/카메라 변경을 보존했다. 다음은 여러 구간 예찰 재검증, 정지 정합/회전 구동·접촉 분리다.
+
+### 2026-10-23 예찰 캐스터 회전 물리 개선 및 AMCL 분리 검증
+
+- 승인: 사용자 “그것도 진행해”. 보고서 `sim/docs/SCOUT_MOTION_AMCL_ISOLATION_20261023.md`, 원본 `sim/runs/localization_motion_20261023`, 수치/소스해시 `sim/docs/changes/SCOUT_MOTION_AMCL_ISOLATION_20261023.json`.
+- Nav2/업무/센서를 끄고 단일 cmd_vel 발행자로6물리조건 정상완료. 기존 고정상자 캐스터의 접촉마찰이 회전 저항/미끄럼에 기여. 재질마찰0+min결합에서 실제/encoder0.9950~1.0038(기존0.948~0.965)로 개선. damping10배/속도solver1→8은 추가개선없어 유지하지않음. 저속명령추종은 여전히약80%, 고속약89%로100%해결아님.
+- sim 자산 scout_robot/urdf/scout_robot_camera_fixed.usd 캐스터에만 자유구름 근사용 마찰0·반발0·min결합재질 적용. 바퀴/질량/gain/odom치수/TF/공통/실물/주행설정불변. 재현도구 sim/tools/configure_scout_caster.py dry-run/--apply, 백업scout_before_caster_fix.usd. Sdf전체비교8spec변경이 캐스터 binding/신규재질뿐임을 검증PASS. 비교6조건은 자산수정후에도 원본백업을 명시참조하도록 고정, 실행레이어별도보존.
+- 기존 태그개선 유지한 실제 SEC01재검증06 SUCCESS, 오류/105없음. 5관측9윈도우expected13/실제평가범위13/윈도우대응13. 차체법선절대11.17mm·yaw절대0.407도·과실깊이절대12.27mm(직전05각13.02mm/1.135도/17.65mm). 각1회비교, 다른SEC/수확/실물미검증.
+- 집계정정: 직전 보고의SEC01 “11of12”는 균등배치가정에 따른 잘못된분모. 원본JSON의placed_target_count는 모든비교13이므로11of13으로 문서정정, 원본측정값불변. 이번06은13of13.
+- 실제scan의지도5cm이동점수민감도X3.7%/Y0.13%,360빔도유사. 실제farm_tag_amcl에추정초기분포+동일정지scan/encoder를재생해기본/360빔/σ.05·nomotion35회 비교(각3회동일난수재현). Y약142/150/204mm잔차로단순설정해결불가. GT는별도평가파일, 재생입력에없음.
+- 복수태그6D PnP 공통개선후보를 저장로그로검증. 기존usable 태그만묶고Hamming0/margin80유지, 기하태그23프레임RMS≤1px동일표본에서단일X14.1/Y21.7mm/yaw.861도→복수X7.1/Y12.6mm/yaw.565도. 평면강제는기울기문제로제외. 공통소스는미변경, 구체안/실물영향/품질·공분산·fallback검증은 sim/docs/MULTITAG_LOCALIZATION_PROPOSAL_20261023.md에 승인전제안으로 정리.
+- 준비의station파일/상위USD단위누락은 preparation_failure에보존후수정, 로봇실패와구분. 모든비교완료. 커밋/푸시미수행, 기존다른작업미커밋변경보존.
+
+
+### 2026-10-23 예찰 복수 태그 공통 관측 적용 (D-055)
+
+- 승인: 사용자 “예찰은 거리가 머니까 복수태그 적용해도 괜찮을듯 반영해봐”. 공통 farm_tag_localization observer/runtime/node/pixel_bias와 회귀시험, 시뮬 예찰 모델 ID만 수정. 실물/수확 프로파일·AMCL 보정량·주행·Action 판정 불변. 기존 미커밋 교통/팔 변경 보존.
+- 동일 시각/활성구간의 기존 usable 태그2개 이상을 coplanar IPPE+LM 6D로 계산. 각 태그/전체 RMS·거리·높이/기울기·동일 공분산 검증, 부족/불량/모호 시 단일 fallback. 공분산 축소 없음. 단일 pixel-bias 적용 차단. 별도 모델 ID/원본 IDs/각 RMS/거부 이유 기록.
+- 회귀76개 PASS(신규11개 포함). 기존 수확 launch stub의 transfer_parameters 누락으로15개 ImportError는 별도 미통과 기록. 원시 로그재생05/06 복수선택116/67프레임, 같은표본X/Y13.56/24.99→5.45/10.83mm 및13.72/17.68→6.26/13.48mm. 정답은 사후평가에만 사용.
+- Domain13/SUBNET/CPU/headless 실제 SEC01 예찰07 첫시도 SUCCESS,5구간9윈도우expected13/실제대응13of13,105없음. 복수선택12회/태그부족54회/복수품질거부2회,보정요청61회. 직전06 대비 과실깊이절대12.27→11.74mm,차체법선11.17→10.66mm이나yaw.407→.446도로 단회 개선폭 제한. 실물/다른SEC/수확 미검증.
+- 상세 sim/docs/changes/MULTITAG_IMPLEMENTATION_20261023.md 및JSON, 원본 sim/runs/multitag_validation_20261023. 시험종료·프로세스정리. 복원은 시뮬예찰 model_ids.tag_multi 제거(기능OFF) 또는 이번 공통diff만 되돌림. 미커밋/미푸시.
+
+
+### 2026-10-23 정지 촬영 전 실제 태그 보정 확인 (D-056)
+
+- 승인: 구체적인 첫 촬영 전 보정 공백 개선안에 사용자 “ㅇㅋ 그렇게 ㄱ”. 공통 TagControl에 현재 token/구간/로봇/지도/시각이 맞는 실제 AMCL 적용 이벤트 확인, SegmentProgressState 촬영 전에 정지 상태에서 해당 구간 권한을 열어3회/최대8초 확인 후 새 시각 capture 요청. finally에서 사용권 종료. 적용 부재는 사유를 저장하고 예찰 진행. 접근 중 보정/이동계약/AMCL gain·공분산/Action 판정 불변.
+- 신규10개 및 기존 프로토콜/이동/정렬/사용권/복수태그 총34개 독립 회귀 PASS. harvest 사용권 mock에 신규 구독 API만 추가. 다른 교통/주행/팔 미커밋 작업 보존.
+- Domain13/SUBNET/CPU/headless 실제 SEC01 첫 시도 SUCCESS,105없음. 첫 촬영 위치추정 기여 과실깊이절대34.62→6.53mm,전체11.74→7.70mm,차체법선10.66→5.42mm. 단회비교. yaw평균.446→.770도로증가,검출13개/윈도우대응12of13으로 후퇴도 있음. G03 보정1회 후8초timeout,같은촬영F0009 depth_out_of_range hold. 이를 숨기거나 범위완화하지않음. 남은 방향잔차/단일태그편향·관측부족은 미해결.
+- G01~05 대기2.61/2.31/8.04(timeout)/3.43/3.27초, 총19.67초. 첫촬영공백개선과전구간정확도해결을구분. 실제/추정자세로동일카메라점을재변환한오차이며 센서측정포함전체과실오차아님. 실물/다른SEC/수확미검증.
+- 상세 sim/docs/changes/SCOUT_CAPTURE_TAG_SYNC_20261023.md 및JSON, 원본sim/runs/capture_tag_sync_20261023(소스사본/해시/시험/적용이벤트보존). 실행종료·시뮬정리. 복원은이번TagControl/SegmentProgressState diff와관련시험만대상. 미커밋/미푸시.
+
+
+### 2026-10-23 추가 정지 없는 예찰 태그 보정 (D-057, D-056 대체)
+
+- 승인: 시간 증가 없이 정확도/윈도우 누락을 개선한다는 제안에 사용자 “그렇게 잡고 ㄱ”. 공통 SegmentProgressState의3회/8초 촬영 전 대기 및 미커밋 TagControl 대기 API 제거. 기존 capture after_stamp 경로 복원. TagControl/NavigationMoveState에 section_start 목표pose 전달, Lease는 유한성/같은token 불변검증. 다른 교통/주행/팔 미커밋 변경 보존.
+- adapter는 목표0.1~0.5m/방향30도/TF0.5초 이내의 접근에서 유효 복수 태그만 보정. 마지막0.1m 새 요청은 동결. 실제 적용된 복수태그 기준3초/odom0.3m/회전20도·동일token 안에서 단일gain0.5→0.1, 그외기존0.5. 별도 카메라/정지대기·공분산축소·PnP prior·Nav2속도/도착/Action판정 변경 없음. 실물/수확 설정 미변경(복수모델OFF에서는 접근보정OFF).
+- 회귀100 PASS, 기존 수확launch stub transfer_parameters 누락15개 ImportError는 별도 미통과. Domain13/SUBNET/CPU/headless 실제 SEC01 기준07/11 2회평균137.51초/깊이위치추정기여11.60mm. 초기무대기09/10 평균140.25초/6.23mm로 시간조건미달. 마지막10cm동결 최종12/13 평균138.60초/8.14mm, 각9윈도우expected13/대응13of13,holds없음/성공실행105없음. 정확도약29.8%개선이나 실제시간평균+1.09초(+0.79%)로 **엄밀한 시간비증가조건은 아직달성/입증하지못함**. 명시적촬영대기0과시간비증가를구분한다.
+- 실패도보존:12최초시도는odom/clock정상이나 scout map_server configure/harvest bt_navigator configure 준비정체로goal전종료후재기동. 둘째시도ActionFAILED102: RPP가11.350001초요청/latestmapodom10.950001초(0.4초부족),완료구간0/태그보정요청전. 이후전체재시작성공. 정확한lifecycle내부원인은미확정. 두실패는preparation_failures원본/진단에남김.
+- 기준11은보존07공통소스를잠시실행후4파일finally복원(다른동시수정은해시검사로보호),최종소스해시일치검증. 최종근거sim/docs/changes/SCOUT_NO_WAIT_LOCALIZATION_20261023.md/JSON,원본sim/runs/scout_no_wait_20261023. GT평가전용. 실물/다른SEC/수확미검증. 모든시험종료/개선코드적용상태,미커밋/미푸시. 복원은이번TagControl/Node/runtime/tag_adapter/NavigationMoveState diff만대상,촬영즉시진행은기존상태유지.
+
+
+### 2026-10-23 예찰 깊이 방향 ±2cm 판정 여유 (D-058)
+
+- 승인: 사용자 “그정도면됐고 … 허용 범위를 … 넓히자”, 축 질문에 “베드 깊이 방향에 ±2cm 추가” 선택. 직전 D-057의 실제시간+1.09초/정확도 개선 수준 수용. 기존 수치를 바꾸어 시간비증가 달성을 주장하지 않는다.
+- 공통 b_planner Config.depth_tolerance 기본0, survey_core harvest.depth_tolerance_m 연결. 신규 생성/기존 창 편입/재검증/관측 목록 모두 깊이 축에만 추가. 시뮬 task.yaml SEC01~16 .02 지정,공식build로 scout_survey.json만재생성. 실제 명목 작업 깊이10cm·팔필터/높이/진행방향/실물설정/과실배치/경로 불변. 판정 깊이만14cm(±7cm). 보고서·허용범위마커도 깊이 여유 반영, 기존 교통/정렬 변경 보존.
+- 신규6+기존프로토콜6/정렬1 총13회귀 PASS, route검증16SEC/80관측/371경로 PASS. 저장된기존Plan/등록좌표 재생에서08case expected12→13/hold1→0,기존9창물리위치보존. 최근5기록13→13/hold0유지. 실제Isaac/수확/실물 재시험은하지않음.
+- 상세sim/docs/changes/DEPTH_WINDOW_ALLOWANCE_20261023.md/JSON,원본sim/runs/depth_window_allowance_20261023. 복원은시뮬depth_tolerance_m=0및예찰파생만재생성. 미커밋/미푸시.
+
+
+### 2026-10-23 작업구간 짧은 이동 실패 원인 추가 확정
+
+- 사용자 원인 조사 요청. 운영 코드/설정 수정 없이1·2차 원본 로그, 동결 소스, 실제 차체 진단을 대조. 상세 `sim/docs/changes/APPROACH_ROOT_CAUSE_20261023.md`/JSON.
+- 최초 베드 진입이 아니라 윈도우 사이 이동 전 resume_current의 straight_plan 각도 검사 실패. 중복 관측 ID가 별도 겹치는 창을 만들어 목표 간격SEC12 8.98cm/SEC16 4.70cm가 됐고, 기존 허용 횡오차를 가까운 목표선3도 조건이 거부. 팔 작업 중 실제 차체 이동은1mm 미만이며 실제 자세로도3도 초과.
+- SEC12 관측 쌍9.4~9.6cm가 실제 자세 재변환 후4.1cm로 줄어6.5cm 연결 기준 내. SEC16은 재변환 후도8.6cm로 표면점 차이 기여가 남음. GT는 평가 전용,0.90~0.95시뮬초 진단 보간 한계 표시.
+- 1차SEC16 attempt2에도 관련 중복/역순창으로 WORK_TARGET_NOT_AHEAD 실패 존재. 2차는 순방향 정렬됐지만 가까운 전방 목표 조건에 걸림. 판정 두 소스는1·2차SHA256 동일. ‘1차 관련 문제 없음’ 해석 정정.
+- 공통 주행의 짧은 구간 경로/허용 조건 정합이 필요하며 미적용. 실물 가능성/실물 재현을 구분. Isaac 재실행·커밋·푸시 없음.
+
+
+### 2026-10-23 짧은 작업구간 전방 이동 조건 수정 완료
+
+- 승인: 사용자 “그래 해 작업”. 공통 farm_navigation/parallel_approach.py에서 목표선각 제한을 제거하고 차체yaw/횡오차/전방 조건을 독립 유지. 순수횡이동의 부동소수점 잔차는 전방1e-9m 이하 거부. 새 제어기/설정 변경 없이 기존 실제 목표·FollowPath 유지.
+- 새 회귀5+기존48=53개 PASS. Domain13/SUBNET CPU/headless 실제 Isaac HarvestTask 이동 전용2회 SUCCESS: SEC12 6.72초/최종3.33cm·1.74°, SEC16 5.76초/최종2.15cm·0.25°. 시작위치는 실패추정XY, yaw는정렬. 과거전체상태/팔수확 검증과 구분.
+- 기존 RPP 제자리 방향 보정 명령은 있었고 실제진단yaw 최대4.77/5.14°.3도는 시작/최종 판정이며 주행중 무회전 보장은 아님. 샘플 횡오차초과 없음, 충돌검사 유지.
+- 준비프로파일 오류와SEC12 lifecycle 응답10초만료를 별도보존, 시험도구60초로 재시도성공. 종료단계Isaac−11은 Action성공후 supervisor종료 중 발생. 상세 sim/docs/changes/PARALLEL_APPROACH_FIX_20261023.md/JSON 및 sim/runs/parallel_approach_fix_20261023.
+- 실물/전체SEC 수확 미검증. 중복 ID는미해결. 다른작업변경보존, 미커밋/미푸시.
+
+
+### 2026-10-23 반복 시작 준비 오류 응답 손실 경로 확인
+
+- 사용자 반복문제 지적에 저장로그/설치헤더/동일릴리스공식소스확인. SEC05 bt_navigator configure 후change_state응답송신실패가직접확인됨. 다른기간AMCL/map/planner/smoother에도동일경고. rmw_fastrtps8.4.4의응답구독자매칭실패→RMW_RET_TIMEOUT,Nav2기한없는change_state응답대기가300초전체실패로확대하는경로확인.
+- SEC16 get_state서비스발견불가/Creating정체는별도형태이며동일근본원인미확정. SHM경고만으로원인단정안함. 상세sim/docs/changes/STARTUP_RESPONSE_DIAGNOSIS_20261023.md/JSON. 운영변경/신규시험/커밋/푸시없음,해결완료아님. 다음은단계별응답/스택계측과시험전용동시기동·전송비교.
+
+
+### 2026-10-23 반복 시작 준비 오류 통제 재현/버퍼 포화 경로 확인
+
+- 사용자 “확인해봐 이유가있겠지”. Isaac없는실제Nav2 map_server+manager 부하에서동일응답누락재현. 별도GetState는inactive, manager GDB는change_state 응답 무기한대기.
+- 32쌍동시×6묶음: 기본20/192실패·호스트UDP수신버퍼드롭204247, DDS수신버퍼만확대0/192·드롭0, UDP전용4/192·드롭166434. 기본수신상한212992B→시험XML요청2MiB/커널상한4MiB. SHM단독원인아님. 부하시험결과를실운영실패율로해석하지않음.
+- 정상전체구성기본4회성공,후보버퍼2회모두18초대양로봇active. CPU/headless Domain13/SUBNET,이동/수확명령없음. 운영프로파일·공통코드·sysctl변경없음. SEC16 Creating/get_state불가형태는동일원인확정아님. 상세sim/docs/changes/STARTUP_RESPONSE_DIAGNOSIS_20261023.md/JSON,원본sim/runs/startup_discovery_20261023.
+- 다음권장: 시뮬기동에검증한DDS버퍼프로파일연결. 응답대기상한/상태기반복구는별도검토. 미커밋/미푸시.
+
+
+### 2026-10-23 전체 시뮬 기동 DDS 수신 버퍼 기본 적용
+
+- 승인 사용자 “그래 좋아 잘했어 수정해”. sim config fastdds_discovery.xml의listenSocketBufferSize2MiB를all.launch.py에서scoped자식환경에기본연결. 기존외부DDS프로파일은보존/로그표시. setup기존glob포함,실물/공통/전역환경/sysctl/기동제한불변. 개별launch직접실행은미적용.
+- 신규4+기존7=11개PASS. 외부프로파일미지정일반명령으로실제CPU/headless Domain13/SUBNET전체기동2회모두양로봇active18.690/18.080초,응답누락0. DDS발견소켓64개수신상한4MiB확인. 이동/수확Goal없음.
+- 상세sim/docs/changes/STARTUP_DDS_BUFFER_FIX_20261023.md/JSON,원본sim/runs/startup_discovery_20261023/full_integrated. 모든Creating정체해결보장은아님. 미커밋/미푸시,시험프로세스종료.
+
+
+### 2026-10-23 사용자 요청 커밋·푸시 준비
+
+- 사용자 “이상태로 커밋푸쉬” 승인. 예찰 창/과실 정렬·배치/태그 표현·캐스터/복수태그·추가정지없는보정·깊이±2cm·팔카메라활성·짧은전방이동·DDS기동프로파일과관련시험/보고서만선별했다. 다른작업자의교통코드/설정/문서는작업트리에보존하고혼합파일도해당부분제외.
+- 이번직접회귀148개PASS,git diff --cached --check PASS. 기존 farm_tag_localization test_launch_contract의transfer_parameters mock ImportError15개는범위밖기존오류로제외명시. 결과sim/docs/test_results/20261023_regression.json. 실제Isaac결과는각상세보고서따름,실물검증미실행. 대용량sim/runs원본은로컬유지,재검토용수치/분석JSON은함께커밋.
+- origin/main직접조회0832b6f로로컬기준과일치확인. git fetch는로컬refs/codex/turn-diffs 임시참조의누락객체때문에실패해원격직접조회로대체했고임시참조는변경하지않음. 이항목작성시커밋/푸시대기,최종원격반영상태는해당커밋과최종보고참조.

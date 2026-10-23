@@ -1,0 +1,120 @@
+[
+  {
+    "attempt": "SEC12_attempt_0001",
+    "position": [
+      -1.003109734122007,
+      -8.359531202899957
+    ],
+    "lateral_m": 0.018109734122007115,
+    "forward_m": 0.12717299956993955,
+    "heading_error_deg": -0.28225705313894045,
+    "bearing_error_deg": 8.104564228711492,
+    "transforms": [
+      {
+        "header": {
+          "stamp": {
+            "sec": 875,
+            "nanosec": 116712308
+          },
+          "frame_id": "harvest_01/odom"
+        },
+        "child_frame_id": "harvest_01/base_footprint",
+        "transform": {
+          "translation": {
+            "x": 21.589447486622664,
+            "y": 0.6731355987942733,
+            "z": 0.0
+          },
+          "rotation": {
+            "x": 0.0,
+            "y": 0.0,
+            "z": 0.9997730266872975,
+            "w": 0.021304814209944945
+          }
+        }
+      },
+      {
+        "header": {
+          "stamp": {
+            "sec": 876,
+            "nanosec": 50045637
+          },
+          "frame_id": "map"
+        },
+        "child_frame_id": "harvest_01/odom",
+        "transform": {
+          "translation": {
+            "x": -2.4892063108724156,
+            "y": 13.189224475249361,
+            "z": -0.0
+          },
+          "rotation": {
+            "x": 0.0,
+            "y": 0.0,
+            "z": -0.6936578344882609,
+            "w": 0.7203046637729458
+          }
+        }
+      }
+    ]
+  },
+  {
+    "attempt": "SEC16_attempt_0001",
+    "position": [
+      6.02783797488497,
+      -8.324667566378123
+    ],
+    "lateral_m": 0.012837974884969405,
+    "forward_m": 0.09020050197064222,
+    "heading_error_deg": 0.04455199439099696,
+    "bearing_error_deg": 8.100337704307488,
+    "transforms": [
+      {
+        "header": {
+          "stamp": {
+            "sec": 1091,
+            "nanosec": 316723583
+          },
+          "frame_id": "harvest_01/odom"
+        },
+        "child_frame_id": "harvest_01/base_footprint",
+        "transform": {
+          "translation": {
+            "x": 21.70746865569253,
+            "y": 7.577975893994119,
+            "z": 0.0
+          },
+          "rotation": {
+            "x": 0.0,
+            "y": 0.0,
+            "z": 0.9996072025995125,
+            "w": 0.028025711608755485
+          }
+        }
+      },
+      {
+        "header": {
+          "stamp": {
+            "sec": 1092,
+            "nanosec": 250056913
+          },
+          "frame_id": "map"
+        },
+        "child_frame_id": "harvest_01/odom",
+        "transform": {
+          "translation": {
+            "x": -2.7710103507140045,
+            "y": 12.917276370816838,
+            "z": -0.0
+          },
+          "rotation": {
+            "x": 0.0,
+            "y": 0.0,
+            "z": -0.6867292964284353,
+            "w": 0.7269132502760604
+          }
+        }
+      }
+    ]
+  }
+]

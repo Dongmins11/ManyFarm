@@ -1,0 +1,175 @@
+{
+  "records": [
+    {
+      "file": "robot/ros_ws/src/farm_navigation/test/test_navigation.py",
+      "tests": 10,
+      "passed": true,
+      "output": "----------------------------------------------------------------------\nRan 10 tests in 0.002s\n\nOK\n"
+    },
+    {
+      "file": "robot/ros_ws/src/farm_navigation/test/test_parallel_approach.py",
+      "tests": 5,
+      "passed": true,
+      "output": "----------------------------------------------------------------------\nRan 5 tests in 0.000s\n\nOK\n"
+    },
+    {
+      "file": "robot/ros_ws/src/farm_navigation/test/test_tag_capture_sync.py",
+      "tests": 1,
+      "passed": true,
+      "output": "----------------------------------------------------------------------\nRan 1 test in 0.000s\n\nOK\n"
+    },
+    {
+      "file": "robot/ros_ws/src/farm_tag_localization/test/test_bundled_capture.py",
+      "tests": 8,
+      "passed": true,
+      "output": "----------------------------------------------------------------------\nRan 8 tests in 0.104s\n\nOK\n"
+    },
+    {
+      "file": "robot/ros_ws/src/farm_tag_localization/test/test_capture_session.py",
+      "tests": 5,
+      "passed": true,
+      "output": "----------------------------------------------------------------------\nRan 5 tests in 0.033s\n\nOK\n"
+    },
+    {
+      "file": "robot/ros_ws/src/farm_tag_localization/test/test_field_profile.py",
+      "tests": 2,
+      "passed": true,
+      "output": "----------------------------------------------------------------------\nRan 2 tests in 0.011s\n\nOK\n"
+    },
+    {
+      "file": "robot/ros_ws/src/farm_tag_localization/test/test_integration.py",
+      "tests": 10,
+      "passed": true,
+      "output": "----------------------------------------------------------------------\nRan 10 tests in 0.024s\n\nOK\n"
+    },
+    {
+      "file": "robot/ros_ws/src/farm_tag_localization/test/test_multitag.py",
+      "tests": 11,
+      "passed": true,
+      "output": "----------------------------------------------------------------------\nRan 11 tests in 0.192s\n\nOK\n"
+    },
+    {
+      "file": "robot/ros_ws/src/farm_tag_localization/test/test_pixel_bias.py",
+      "tests": 9,
+      "passed": true,
+      "output": "----------------------------------------------------------------------\nRan 9 tests in 0.120s\n\nOK\n"
+    },
+    {
+      "file": "robot/ros_ws/src/farm_tag_localization/test/test_quality_gain.py",
+      "tests": 5,
+      "passed": true,
+      "output": "----------------------------------------------------------------------\nRan 5 tests in 0.000s\n\nOK\n"
+    },
+    {
+      "file": "robot/ros_ws/src/farm_tag_localization/test/test_ros_contract.py",
+      "tests": 9,
+      "passed": true,
+      "output": "----------------------------------------------------------------------\nRan 9 tests in 0.009s\n\nOK\n"
+    },
+    {
+      "file": "robot/ros_ws/src/farm_tag_localization/test/test_runtime_regressions.py",
+      "tests": 4,
+      "passed": true,
+      "output": "----------------------------------------------------------------------\nRan 4 tests in 0.565s\n\nOK\n"
+    },
+    {
+      "file": "robot/ros_ws/src/farm_tag_localization/test/test_scan_sync_launch.py",
+      "tests": 2,
+      "passed": true,
+      "output": "----------------------------------------------------------------------\nRan 2 tests in 0.016s\n\nOK\n"
+    },
+    {
+      "file": "robot/ros_ws/src/farm_tag_localization/test/test_scout_launch_contract.py",
+      "tests": 3,
+      "passed": true,
+      "output": "----------------------------------------------------------------------\nRan 3 tests in 0.008s\n\nOK\n"
+    },
+    {
+      "file": "robot/ros_ws/src/farm_tag_localization/test/test_section_identity.py",
+      "tests": 6,
+      "passed": true,
+      "output": "----------------------------------------------------------------------\nRan 6 tests in 0.121s\n\nOK\n"
+    },
+    {
+      "file": "robot/ros_ws/src/farm_tag_localization/test/test_shared_tag_configuration.py",
+      "tests": 7,
+      "passed": true,
+      "output": "----------------------------------------------------------------------\nRan 7 tests in 0.102s\n\nOK\n"
+    },
+    {
+      "file": "robot/ros_ws/src/farm_tag_localization/test/test_trial_configuration_snapshot.py",
+      "tests": 3,
+      "passed": true,
+      "output": "----------------------------------------------------------------------\nRan 3 tests in 0.155s\n\nOK\n"
+    },
+    {
+      "file": "robot/ros_ws/src/harvest_robot/test/test_tag_control.py",
+      "tests": 1,
+      "passed": true,
+      "output": "----------------------------------------------------------------------\nRan 1 test in 0.001s\n\nOK\n"
+    },
+    {
+      "file": "robot/ros_ws/src/scout_robot/test/test_capture_tag_sync.py",
+      "tests": 2,
+      "passed": true,
+      "output": "----------------------------------------------------------------------\nRan 2 tests in 0.000s\n\nOK\n"
+    },
+    {
+      "file": "robot/ros_ws/src/scout_robot/test/test_depth_tolerance.py",
+      "tests": 6,
+      "passed": true,
+      "output": "----------------------------------------------------------------------\nRan 6 tests in 0.052s\n\nOK\n"
+    },
+    {
+      "file": "robot/ros_ws/src/scout_robot/test/test_protocol_v2.py",
+      "tests": 6,
+      "passed": true,
+      "output": "----------------------------------------------------------------------\nRan 6 tests in 0.010s\n\nOK\n"
+    },
+    {
+      "file": "robot/ros_ws/src/scout_robot/test/test_tag_navigation.py",
+      "tests": 5,
+      "passed": true,
+      "output": "----------------------------------------------------------------------\nRan 5 tests in 0.000s\n\nOK\n"
+    },
+    {
+      "file": "robot/ros_ws/src/scout_robot/test/test_window_execution_order.py",
+      "tests": 1,
+      "passed": true,
+      "output": "----------------------------------------------------------------------\nRan 1 test in 0.001s\n\nOK\n"
+    },
+    {
+      "file": "sim/tests/test_apriltag_assets.py",
+      "tests": 3,
+      "passed": true,
+      "output": "----------------------------------------------------------------------\nRan 3 tests in 2.855s\n\nOK\n"
+    },
+    {
+      "file": "sim/tests/test_dds_launch_profile.py",
+      "tests": 4,
+      "passed": true,
+      "output": "----------------------------------------------------------------------\nRan 4 tests in 0.002s\n\nOK\n"
+    },
+    {
+      "file": "sim/tests/test_fleet_entrypoint.py",
+      "tests": 2,
+      "passed": true,
+      "output": "----------------------------------------------------------------------\nRan 2 tests in 0.123s\n\nOK\n"
+    },
+    {
+      "file": "sim/tests/test_student_retry.py",
+      "tests": 13,
+      "passed": true,
+      "output": "----------------------------------------------------------------------\nRan 13 tests in 1.655s\n\nOK\n"
+    },
+    {
+      "file": "sim/tests/test_tag_capture_launch.py",
+      "tests": 5,
+      "passed": true,
+      "output": "----------------------------------------------------------------------\nRan 5 tests in 0.190s\n\nOK\n"
+    }
+  ],
+  "tests": 148,
+  "failed_files": [],
+  "excluded_known_issue": "farm_tag_localization/test_launch_contract.py: 기존 transfer_parameters mock ImportError15개, 이번 변경 대상 아님"
+}

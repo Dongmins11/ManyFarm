@@ -72,6 +72,40 @@ class SendTests(unittest.TestCase):
         self.assertEqual(data['sequence'],1)
         self.assertAlmostEqual(data['pose'][0],.05)
 
+    def test_quality_reference_requires_actual_applied_event_in_current_lease(self):
+        import json
+        a=self.adapter
+        a._config.update(robot_id='h',map_id='m')
+        a._session='session'
+        event=dict(kind='tag_correction_queued',robot_id='h',map_id='m',producer_session='session',
+            token='task',source_stamp_ns=1_000_000_000,scan_stamp_ns=1_100_000_000,
+            odom_anchor=[.1,0,0],observation_kind='multi_tag',sequence=1)
+        a._on_receiver_event(NS(data=json.dumps(event)))
+        self.assertIsNone(getattr(a,'_last_multi_applied',None))
+        event['kind']='tag_correction_applied'
+        a._on_receiver_event(NS(data=json.dumps(dict(event,token='old'))))
+        self.assertIsNone(getattr(a,'_last_multi_applied',None))
+        a._on_receiver_event(NS(data=json.dumps(event)))
+        self.assertEqual(a._last_multi_applied['token'],'task')
+
+    def test_recent_applied_multi_lowers_single_step(self):
+        self.adapter._last_multi_applied = dict(token='task',scan_stamp_ns=1_000_000_000,odom_anchor=[.1,0,0])
+        self.adapter._send(self.candidate,self.record,'task',.01)
+        self.assertAlmostEqual(self.sent[0].pose.pose.position.x,.01)
+        self.assertEqual(self.logs[-1][1]['correction_gain'],.1)
+
+    def test_approach_requires_multi_and_proximity(self):
+        self.adapter._lease.approach_pose = [.2,0.,0.]
+        self.adapter._send(self.candidate,self.record,'task',.01)
+        self.assertEqual(self.sent,[])
+        multi=dict(self.candidate, observation_kind='multi_tag')
+        self.adapter._lease.approach_pose = [5.,0.,0.]
+        self.adapter._send(multi,self.record,'task',.01)
+        self.assertEqual(self.sent,[])
+        self.adapter._lease.approach_pose = [.2,0.,0.]
+        self.adapter._send(multi,self.record,'task',.01)
+        self.assertEqual(len(self.sent),1)
+
     def test_expired_compute_cannot_publish(self):
         self.adapter.get_clock=lambda:NS(now=lambda:NS(nanoseconds=3_000_000_000))
         self.adapter._send(self.candidate,self.record,'task',2.)

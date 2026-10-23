@@ -9,6 +9,7 @@ import json
 from pathlib import Path
 import sys
 from types import SimpleNamespace
+from typing import Callable
 import numpy as np
 import torch
 from .arm_session import ArmSession
@@ -31,10 +32,16 @@ def map_outcomes(targets: list, candidates: list, gate: float, ambiguity: float)
     return result
 
 
-def mission_session(camera: object, world_from_arm: np.ndarray) -> SimpleNamespace:
+def mission_session(camera: object, world_from_arm: np.ndarray,
+                    capture_provider: Callable[[], dict] | None = None) -> SimpleNamespace:
     """목표 정렬만 실제 중력 world Z를 쓴다. 정책의 학습 박스 좌표는 보존한다."""
     contract = dict(camera.contract, box_from_arm=np.asarray(world_from_arm, float).tolist())
-    return SimpleNamespace(contract=contract, start=camera.start, step=camera.step, acknowledge=camera.acknowledge)
+    step = camera.step
+    if capture_provider is not None:
+        def step(capture, q, qd, now):
+            # TO_HOME→HARVEST가 같은 tick에 일어나도 정책 직전에 새 영상을 확보한다.
+            return camera.step(capture_provider(), q, qd, now)
+    return SimpleNamespace(contract=contract, start=camera.start, step=step, acknowledge=camera.acknowledge)
 
 
 class StudentRuntime:
@@ -369,7 +376,7 @@ class StudentArmSession(ArmSession):
             if self._outcomes[target.target_id] is None:
                 self._metric(now, 'evaluation_id_unresolved', target_id=target.target_id,
                              classification='evaluation_diagnostic', anchor_arm_m=list(target.anchor_arm_m))
-        self.mission = StudentHarvestMission(mission_session(runtime.camera, self._dock_arm), targets, runtime.config,
+        self.mission = StudentHarvestMission(mission_session(runtime.camera, self._dock_arm, self._policy_capture), targets, runtime.config,
             lambda q, home: lifted_return_path(runtime.kin, runtime.contract, runtime.config, q, home),
             task_list_complete=True, recover_harvest_timeout=True)
         self._confirmed_targets = 0
@@ -517,11 +524,18 @@ class StudentArmSession(ArmSession):
         self._box_evidence = dict(target_id=self.mission.target.target_id, settled=True,
             stamp_s=event['stamp_s'], source='basket_parallel_lasers', identity_confirmed=False)
 
+    def _policy_capture(self) -> dict:
+        """정책이 영상을 실제 사용하는 순간 재개한다. 이동 중 캐시를 재사용하지 않는다."""
+        rig = self.controller.rig
+        if not rig.active:
+            rig.set_active(True, reset_capture=False)
+        return rig.capture()
+
     def _sync_camera_activity(self) -> None:
-        """복귀 중 촬영을 멈추고 재개 시 현재 자세로 새 촬영한다. 누적 계수는 유지한다."""
+        """탐색/영상 정책 단계에만 촬영하고, 관절 이동·대기·정지 중에는 끈다."""
         rig = self.controller.rig
         active = (self.state['status'] == 'RUNNING'
-                  and self.state['stage'] not in ('RETURN_STOW', 'FINAL_STOP'))
+                  and self.state['stage'] in ('CAMERA_INVENTORY', 'HARVEST', 'WAIT_BOX'))
         if active != rig.active:
             rig.set_active(active, reset_capture=False)
 

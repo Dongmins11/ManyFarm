@@ -13,7 +13,7 @@ class TagNavigationTests(unittest.TestCase):
     def move(self, purpose: str, error: Exception | None = None, enabled: bool = True,
              section: str = 'SEC01', canceled_before: bool = False) -> list:
         events = []
-        control = NS(begin=lambda value: events.append(('begin', value)),
+        control = NS(begin=lambda value, **kwargs: events.append(('begin', value, kwargs) if kwargs else ('begin', value)),
                      end=lambda: events.append(('end',))) if enabled else None
         def navigate(xy, yaw):
             events.append(('navigate', xy, yaw))
@@ -38,13 +38,10 @@ class TagNavigationTests(unittest.TestCase):
         self.assertEqual(self.move('observation',section='SEC16'),
             [('begin','SEC16'),('navigate',(1.,0.),0.),('end',)])
 
-    def test_approach_and_exit_never_enable_repeated_ids(self):
-        for purpose in ('section_start','section_exit'):
-            with self.subTest(purpose=purpose):
-                events=self.move(purpose)
-                self.assertFalse(any(e[0]=='begin' for e in events))
-                self.assertEqual(events[0],('end',))
-                self.assertEqual(events[-1],('end',))
+    def test_approach_has_pose_gate_and_exit_closes(self):
+        self.assertEqual(self.move('section_start'),
+            [('begin','SEC01',{'approach_pose':[0.,0.,0.]}),('navigate',(0.,0.),0.),('end',)])
+        self.assertEqual(self.move('section_exit'),[('end',),('navigate',(3.,0.),0.),('end',)])
 
     def test_failure_and_cancel_close_permission(self):
         for reason in ('navigation failed','canceled'):

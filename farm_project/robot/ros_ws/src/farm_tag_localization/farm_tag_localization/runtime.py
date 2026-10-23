@@ -61,7 +61,8 @@ def load_observer(config_file: str, project_root: str, session_id: str) -> tuple
         [Landmark(x['family'], x['tag_id'], x['edge_m'], x['t_map_tag'],
                   section_id=x.get('section_id')) for x in assets['tags']],
         assets['t_base_camera'], QualityLimits(**model['quality']),
-        uncertainty_model=bound, covariance_model_id=model['model_ids']['tag'])
+        uncertainty_model=bound, covariance_model_id=model['model_ids']['tag'],
+        multi_model_id=model['model_ids'].get('tag_multi'))
     return cfg, observer
 
 
@@ -93,6 +94,7 @@ class Lease:
         self.closed = set()
         self.begin_ns = 0
         self.section_id = None
+        self.approach_pose = None
 
     def update(self, data: dict, ros_ns: int, mono: float) -> None:
         if data['robot_id'] != self.robot_id or data['map_id'] != self.map_id:
@@ -116,14 +118,24 @@ class Lease:
         section_id = data.get('section_id')
         if section_id is not None and (not isinstance(section_id, str) or not section_id):
             return
+        approach_pose = data.get('approach_pose')
+        if approach_pose is not None:
+            try:
+                approach_pose = np.asarray(approach_pose, dtype=float)
+                if approach_pose.shape != (3,) or not np.isfinite(approach_pose).all():
+                    return
+                approach_pose = approach_pose.tolist()
+            except (ValueError, TypeError):
+                return
         # 계산 중인 관측이 다른 구간으로 재해석되지 않도록 구간 전환은 새 토큰으로 한다.
-        if token == self.token and section_id != self.section_id:
+        if token == self.token and (section_id != self.section_id or approach_pose != self.approach_pose):
             return
         self.sequence[token] = seq
         begin_ns = int(data['begin_ns'])
         if not 0 < begin_ns <= int(data['stamp_ns']):
             return
         self.token, self.begin_ns, self.section_id = token, begin_ns, section_id
+        self.approach_pose = approach_pose
         self.deadline = mono + 2.0
 
     def active(self, mono: float) -> bool:

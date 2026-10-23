@@ -201,7 +201,7 @@ class ScoutNode(Node):
                 for j in [a, b]:
                     m.points.append(Point(x=w['corners_map_m'][j][0], y=w['corners_map_m'][j][1], z=w['corners_map_m'][j][2]))
             array.markers.append(m)
-            if w.get('range_tolerance_m', 0) > 0:
+            if w.get('range_tolerance_m', 0) > 0 or w.get('depth_tolerance_m', 0) > 0:
                 outer = Marker()
                 outer.header.frame_id = 'map'
                 outer.ns = 'window_tolerance'

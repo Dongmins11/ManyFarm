@@ -67,12 +67,15 @@ class NavigationMoveState(MissionState):
         target_xy = (float(xy[0]), float(xy[1]))
         node = self._mission.node
         control = getattr(node, '_tag_control', None)
-        # 반복 ID는 진입 후 해당 구역의 관측 이동에서만 보정에 사용한다.
-        # 접근/이탈에서는 구역 권한을 열지 않으며 완료·실패·취소 시 즉시 닫는다.
+        # 반복 ID는 관측 이동과 위치/방향 게이트를 통과한 접근에서만 보정에 사용한다.
+        # 이탈에서는 사용권을 열지 않으며 완료·실패·취소 시 즉시 닫는다.
         node.check()
         if control is not None:
             if self._purpose == 'observation':
                 control.begin(context.section)
+            elif self._purpose == 'section_start':
+                # 접근 중 계산은 허용하되 실제 보정은 adapter의 위치/방향 게이트 안에서만 한다.
+                control.begin(context.section, approach_pose=[*target_xy, context.bed.yaw])
             else:
                 control.end()
         try:

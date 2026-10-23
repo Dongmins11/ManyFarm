@@ -37,6 +37,7 @@ class Config:
     work_side: int = 1
     range_tolerance: float = 0.0
     membership_margin: float = 0.03
+    depth_tolerance: float = 0.0  # 깊이(Y) 측정 오차 여유(m). 실제 작업 상자는 유지한다.
 
     @property
     def mount_world_xy(self) -> tuple[float, float]:
@@ -76,6 +77,8 @@ class Config:
             raise ValueError("membership_margin must be nonnegative and less than width / 2")
         if self.range_tolerance < 0:
             raise ValueError("range_tolerance must be nonnegative")
+        if self.depth_tolerance < 0:
+            raise ValueError("depth_tolerance must be nonnegative")
         if self.depth <= 0:
             raise ValueError("depth must be positive")
         if self.work_distance <= 0:
@@ -224,7 +227,7 @@ def plan_harvest(fruits: Iterable[Fruit], config: Config | None = None) -> PlanR
 
     while pending:
         anchor = pending[0]
-        if not _inside(anchor.y, y_min, y_max, config.range_tolerance):
+        if not _inside(anchor.y, y_min, y_max, config.range_tolerance + config.depth_tolerance):
             hold(anchor, "depth_out_of_range")
             continue
         if not _inside(anchor.z, z_min, z_max, config.range_tolerance):
@@ -247,7 +250,7 @@ def plan_harvest(fruits: Iterable[Fruit], config: Config | None = None) -> PlanR
 
         def fits(fruit: Fruit, x_min: float, x_max: float) -> bool:
             return (_inside(fruit.x, x_min, x_max, config.range_tolerance)
-                    and _inside(fruit.y, y_min, y_max, config.range_tolerance)
+                    and _inside(fruit.y, y_min, y_max, config.range_tolerance + config.depth_tolerance)
                     and _inside(fruit.z, z_min, z_max, config.range_tolerance))
 
         members = tuple(fruit.id for fruit in pending if fits(fruit, safe_left, safe_right))
@@ -282,10 +285,11 @@ def plan_harvest(fruits: Iterable[Fruit], config: Config | None = None) -> PlanR
     return result
 
 
-def _fits_task(fruit: Fruit, task: Task, *, safe: bool, tolerance: float = 0.0) -> bool:
+def _fits_task(fruit: Fruit, task: Task, *, safe: bool, tolerance: float = 0.0,
+               depth_tolerance: float = 0.0) -> bool:
     return (_inside(fruit.x, task.safe_x_min if safe else task.window_x_min,
                     task.safe_x_max if safe else task.window_x_max, tolerance)
-            and _inside(fruit.y, task.window_y_min, task.window_y_max, tolerance)
+            and _inside(fruit.y, task.window_y_min, task.window_y_max, tolerance + depth_tolerance)
             and _inside(fruit.z, task.window_z_min, task.window_z_max, tolerance))
 
 
@@ -333,10 +337,10 @@ def extend_plan(previous: PlanResult, observed: Iterable[Fruit],
         if revalidate:
             members = tuple(fid for fid in task.member_ids
                             if fid not in by_id or _fits_task(by_id[fid], task, safe=True,
-                                                             tolerance=config.range_tolerance))
+                                                             tolerance=config.range_tolerance, depth_tolerance=config.depth_tolerance))
             seen = tuple(fid for fid in task.observed_ids
                          if fid not in by_id or _fits_task(by_id[fid], task, safe=False,
-                                                          tolerance=config.range_tolerance))
+                                                          tolerance=config.range_tolerance, depth_tolerance=config.depth_tolerance))
             task = replace(task, member_ids=members, observed_ids=seen)
         prepared.append(task)
 
@@ -345,11 +349,11 @@ def extend_plan(previous: PlanResult, observed: Iterable[Fruit],
     pending = [fruit for fruit in observations if fruit.id not in owners]
     tasks: list[Task] = []
     for task in prepared:
-        additions = tuple(fruit.id for fruit in pending if _fits_task(fruit, task, safe=True, tolerance=config.range_tolerance))
+        additions = tuple(fruit.id for fruit in pending if _fits_task(fruit, task, safe=True, tolerance=config.range_tolerance, depth_tolerance=config.depth_tolerance))
         seen_ids = list(task.observed_ids)
         seen = set(seen_ids)
         for fruit in observations:
-            if fruit.id not in seen and _fits_task(fruit, task, safe=False, tolerance=config.range_tolerance):
+            if fruit.id not in seen and _fits_task(fruit, task, safe=False, tolerance=config.range_tolerance, depth_tolerance=config.depth_tolerance):
                 seen_ids.append(fruit.id)
                 seen.add(fruit.id)
         updated = replace(task, member_ids=task.member_ids + additions,
@@ -365,7 +369,7 @@ def extend_plan(previous: PlanResult, observed: Iterable[Fruit],
         if event.kind == "task" and event.task is not None:
             task = replace(event.task, task_id=next_task_id,
                            observed_ids=tuple(fruit.id for fruit in observations
-                                              if _fits_task(fruit, event.task, safe=False, tolerance=config.range_tolerance)))
+                                              if _fits_task(fruit, event.task, safe=False, tolerance=config.range_tolerance, depth_tolerance=config.depth_tolerance)))
             tasks.append(task)
             owners.update(task.member_ids)
             appended_events.append(Event("task", task.anchor_id, task=task))
