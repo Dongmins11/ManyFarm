@@ -89,6 +89,9 @@ class HarvestCommunication:
 
     def _execute_work(self, handle: Any) -> Any:
         node, goal = self.node, handle.request
+        runtime = getattr(node, 'handoff_runtime', None)
+        if runtime is not None:
+            runtime.invalidate_window()
         node.active_goal = handle
         node.navigation_log = []
         node.arm_counts = (0, 0)
@@ -122,6 +125,8 @@ class HarvestCommunication:
             # 완료 직전 취소 요청도 완료로 덮어쓰지 않습니다.
             node.check()
             if code == 'SUCCESS':
+                if runtime is not None:
+                    runtime.remember_window(goal, controller.outcome)
                 node.completed_ids.add(goal.harvest_task.task_id)
                 handle.succeed()
             else:
@@ -149,6 +154,8 @@ class HarvestCommunication:
             handle.abort()
         finally:
             controller.close()
+            if runtime is not None and code != 'SUCCESS':
+                runtime.invalidate_window()
             fields = result_fields(goal, code, error_code, error_message,
                 harvested_count=node.arm_counts[0], failed_count=node.arm_counts[1])
             fields['timestamp'] = timestamp()

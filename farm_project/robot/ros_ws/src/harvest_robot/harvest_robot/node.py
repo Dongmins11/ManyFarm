@@ -10,6 +10,8 @@ from .corridor_navigation import CorridorNavigator, load_corridors
 from .configuration import load_harvest_config, approach_navigation_settings
 import rclpy
 from rclpy.node import Node
+import os
+from .handoff_pose_context import HarvestPoseContext
 from rclpy.callback_groups import ReentrantCallbackGroup
 from rclpy.executors import MultiThreadedExecutor
 from rclpy.signals import SignalHandlerOptions
@@ -35,13 +37,18 @@ from .harvest_load import HarvestLoad
 class HarvestNode(Node):
     def __init__(self) -> None:
         super().__init__('harvest_motion_server')
-        for key, default in [('project_root', ''), ('environment_config', ''), ('mode', 'sim')]:
+        for key, default in [('project_root', ''), ('environment_config', ''), ('mode', 'sim'), ('handoff_config', '')]:
             self.declare_parameter(key, default)
         self.root = Path(self.get_parameter('project_root').value).expanduser().resolve()
         self.mode = self.get_parameter('mode').value
         environment = resolve_file(self.root, self.get_parameter('environment_config').value)
         profile = load_environment(environment, self.root, self.mode, require_survey=False)
         self.config = load_harvest_config(resolve_file(self.root, profile['harvest_config']), self.root)
+        handoff_file = self.get_parameter('handoff_config').value
+        if handoff_file:
+            self.config['handoff_runtime'] = read_mapping(resolve_file(self.root, handoff_file))
+            self.config.setdefault('transfer', {})['rotation_mode'] = 'components'
+            self.config['transfer']['rotation'] = {}
         policy = self.config.get('completion_policy')
         if (self.config['robot_id'] != profile['robot_id'] or self.config['map_id'] != profile['map_id']
                 or policy not in ('ARRIVAL_ONLY_NO_HARVEST', 'ARRIVAL_THEN_ARM')):
@@ -78,7 +85,14 @@ class HarvestNode(Node):
                 raise ValueError('approach_goal_checker_id는 비어 있지 않은 문자열이어야 합니다.')
             approach_settings = approach_navigation_settings(
                 settings, self.config, controller_id, goal_checker_id)
-        self.poses = PoseProvider(self, settings)
+        # 수확 실물 인계 비교에서만 별도 TF executor를 명시 선택한다.
+        isolate_tf = os.environ.get('HANDOFF_TF_EXECUTOR', '')
+        if isolate_tf not in ('', 'dedicated'):
+            raise ValueError('HANDOFF_TF_EXECUTOR는 dedicated 또는 빈 값이어야 합니다.')
+        if isolate_tf and (self.mode != 'real' or not handoff_file):
+            raise ValueError('전용 TF 문맥은 실물 handoff 설정에서만 선택할 수 있습니다.')
+        self.pose_context = HarvestPoseContext(self, settings) if isolate_tf else None
+        self.poses = self.pose_context.provider if self.pose_context else PoseProvider(self, settings)
         self.motion = MotionMonitor(self, settings, self.callbacks)
         self.client = Nav2Client(self, approach_settings, self.callbacks)
         self.navigator = Navigator(self, approach_settings, self.client, self.poses, self.motion, self.check,
@@ -126,7 +140,8 @@ class HarvestNode(Node):
             if corridors and (movement_mode != 'route_then_follow' or work_settings.parallel_approach):
                 raise ValueError('중간 시작은 일반 FollowPath 작업 모드에서만 사용합니다.')
             work_class = CorridorNavigator if corridors else Navigator
-            work_options = {'corridors': corridors} if corridors else {}
+            work_options = {'corridors': corridors,
+                'path_heading_limit': self.config.get('work_path_heading_limit_rad')} if corridors else {}
             work = work_class(self, work_settings, self.work_client, self.poses, self.motion,
                 self.check, graph=graph if movement_mode == 'route_then_follow' else None,
                 record=lambda item: self.navigation_log.append(item), **work_options)
@@ -151,8 +166,20 @@ class HarvestNode(Node):
         # 환경 데이터가 선택한 인계 장치만 연결한다. sim/real 업무 코드는 동일하다.
         transfer_config = self.config.get("transfer", {})
         self.declare_parameter("transfer_enabled", transfer_config.get("enabled", False))
+        self.handoff_runtime = None
+        if self.get_parameter("transfer_enabled").value and transfer_config.get('rotation_mode') == 'components':
+            from .handoff_runtime import HandoffRuntime
+            self.handoff_runtime = HandoffRuntime(self, profile, settings)
         self.transfer = (TransferCommunication(self, settings)
                          if self.get_parameter("transfer_enabled").value else None)
+        self.body_trial = None
+        trial_enabled = self.config.get('handoff_runtime', {}).get('body_trial_enabled', False)
+        self.declare_parameter('handoff_body_trial_enabled', trial_enabled)
+        if trial_enabled:
+            if self.handoff_runtime is None:
+                raise ValueError('차체 시험에는 handoff runtime이 필요합니다.')
+            from .handoff_body_trial import BodyTrial
+            self.body_trial = BodyTrial(self)
         self.station_return = StationReturn(self, root=self.root, profile=profile, settings=settings,
             poses=self.poses, motion=self.motion, callbacks=self.callbacks, handoff=self.handoff,
             unavailable=lambda: self.blocked or self.stopping,
@@ -175,6 +202,8 @@ class HarvestNode(Node):
     def prepare_station_return(self, check: Callable[[], None]) -> None:
         """인계 조건의 확장 지점. 팔이 중단된 경우 안전한 주행 준비를 먼저 확인한다."""
         check()
+        if self.handoff_runtime is not None:
+            self.handoff_runtime.invalidate_window()
         if self.arm_client is not None and getattr(self, 'mission_stage', '') == 'ARM':
             result = getattr(self, 'arm_result', None)
             if result is None or result['result_code'] != 'SUCCESS':
@@ -211,13 +240,20 @@ def main(args=None) -> None:
             node.work_client.close()
         if node.exit_client is not None:
             node.exit_client.close()
+        if node.body_trial is not None:
+            node.body_trial.close()
         node.station_return.close()
         if node.transfer is not None:
             node.transfer.close()
+        if node.handoff_runtime is not None:
+            node.handoff_runtime.close()
         node.client.close()
         if node.arm_client is not None:
             node.arm_client.close()
         node.motion.close()
-        node.poses.close()
+        if node.pose_context is not None:
+            node.pose_context.close()
+        else:
+            node.poses.close()
         node.destroy_node()
         if rclpy.ok(): rclpy.shutdown()

@@ -23,7 +23,10 @@ class HarvestStatus:
         self.battery = None
         self.group = MutuallyExclusiveCallbackGroup()
         self.buffer = Buffer()
-        self.listener = TransformListener(self.buffer, node)
+        # 주행과 상태의 buffer는 독립적이며 TF 수신 executor만 선택적으로 공유한다.
+        pose_context = getattr(node, 'pose_context', None)
+        tf_node = pose_context.node if pose_context is not None else node
+        self.listener = TransformListener(self.buffer, tf_node)
         self.client = ActionClient(node, FollowPath, settings.follow_action, callback_group=self.group)
         self.publisher = node.create_publisher(RobotStatus, 'status', 10)
         self.subscription = node.create_subscription(BatteryState, config['battery_topic'],

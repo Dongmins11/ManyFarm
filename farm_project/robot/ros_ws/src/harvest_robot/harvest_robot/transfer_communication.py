@@ -93,7 +93,20 @@ class TransferCommunication:
         discharge_parameters({'discharge_mode': discharge_mode, 'discharge_action': discharge,
                               'rotation_mode': mode})
         self._discharge_devices = None
-        if mode == 'nav2_spin':
+        if mode == 'components':
+            from .handoff_devices import ComponentTransferDevices
+            runtime = getattr(node, 'handoff_runtime', None)
+            if runtime is None:
+                raise ValueError('차체 컴포넌트 실행 환경 미구성')
+            if discharge_mode == 'action':
+                auxiliary = TriggerTransferDevices(node, services, operations=('prepare_arm', 'stop'))
+                client = DischargeClient(node, **discharge, group=node.callbacks)
+                devices = self._discharge_devices = DischargeDevices(auxiliary, client)
+            else:
+                devices = TriggerTransferDevices(node, services, operations=ROTATION_DEVICE_OPERATIONS)
+            self.devices = ComponentTransferDevices(devices, runtime.build_body, runtime.ready,
+                self.stage_timeout_s, self.stop_timeout_s)
+        elif mode == 'nav2_spin':
             if navigation_settings is None:
                 raise ValueError('공통 회전에는 기존 주행 설정과 위치/정지 관측 연결이 필요합니다.')
             from farm_navigation.spin_client import SpinClient
@@ -200,6 +213,8 @@ class TransferCommunication:
                     'error': self.error}
 
     def accept(self, goal: Any) -> Any:
+        if getattr(self.node, 'body_trial', None) is not None:
+            return GoalResponse.REJECT  # 시험 모드에서는 운영 인계 요청을 받지 않는다.
         valid = (goal.robot_id == self.node.config['robot_id']
                  and all(valid_id(v) for v in (goal.task_id, goal.transfer_id, goal.transport_robot_id))
                  and goal.transport_robot_id != goal.robot_id

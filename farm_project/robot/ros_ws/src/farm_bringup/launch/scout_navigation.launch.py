@@ -61,7 +61,7 @@ def setup(context):
             extra = [bt_xml]
         remaps = []
         if name in ('controller_server', 'behavior_server'):
-            remaps = [('cmd_vel', 'cmd_vel_nav')]
+            remaps = [('cmd_vel', value('controller_output'))]
         elif name == 'velocity_smoother':
             remaps = [('cmd_vel', 'cmd_vel_nav'), ('cmd_vel_smoothed', 'cmd_vel')]
         if not sim:
@@ -88,6 +88,7 @@ def setup(context):
 
 def generate_launch_description():
     return LaunchDescription([
+        DeclareLaunchArgument('controller_output', default_value='cmd_vel_nav'),
         DeclareLaunchArgument('robot_id', default_value='scout_01'),
         DeclareLaunchArgument('project_root', default_value=str(Path.cwd())),
         DeclareLaunchArgument('mode', default_value='sim', choices=['sim', 'real']),

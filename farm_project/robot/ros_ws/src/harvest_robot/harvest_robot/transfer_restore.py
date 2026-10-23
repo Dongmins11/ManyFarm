@@ -91,16 +91,23 @@ class RestoreReference:
                          tuple(p[2] for p in path))
 
     def check_reentry(self, current_odom: tuple[float, float, float],
-                      heading_limit: float = math.pi / 180) -> dict[str, float]:
+                      heading_limit: float = math.pi / 180, *,
+                      position_limit: float | None = None) -> dict[str, float]:
         """벽 이탈 후 원호 시작 자세 확인. 이 함수는 보정 회전이나 이동을 요청하지 않는다."""
         positive_number(heading_limit, '재진입 방향 허용오차')
+        limit = self.arc_spec.endpoint_tolerance if position_limit is None else position_limit
+        positive_number(limit, '재진입 위치 허용오차')
+        if limit > self.arc_spec.deviation:
+            raise ValueError('재진입 위치 허용오차는 실행 중 경로 이탈 한계 이하여야 합니다.')
         if len(current_odom) != 3 or not all(math.isfinite(v) for v in current_odom):
             raise ValueError('유효한 현재 odom 자세 필요')
         target = arc_path(self.arc_origin_odom, self.arc_spec)[-1]
         distance = math.hypot(current_odom[0]-target[0], current_odom[1]-target[1])
         angle = abs(wrap(current_odom[2]-target[2]))
-        if distance > self.arc_spec.endpoint_tolerance or angle > heading_limit:
-            raise RuntimeError('복귀 원호 재진입 위치·방향 오차 초과')
+        if distance > limit or angle > heading_limit:
+            raise RuntimeError('복귀 원호 재진입 위치·방향 오차 초과 '
+                f'(위치={distance:.6f}m/한계={limit:.6f}m, '
+                f'방향={angle:.6f}rad/한계={heading_limit:.6f}rad)')
         return {'position_error_m': distance, 'heading_error_rad': angle}
 
     def arrival_validator(self, poses: PoseLookup, *, map_id: str, window_id: str,

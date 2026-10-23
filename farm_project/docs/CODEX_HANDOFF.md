@@ -1,3 +1,12 @@
+
+## 2026-10-22 수확 인계 컴포넌트 연결 (별도 수정본)
+
+사용자의 컴포넌트 조합 설계 및 진행 요청을 근거로 구현했다. 상태별 공통값 변경 대신 시작 시 전용 controller/저속 Spin 객체를 구성한다. 관제 window 좌표를 사용하고 기존 TransferMission의 TRANSPORT_CLEAR 이후 복귀한다. 다음 window는 다음 관제 목표로 받는다.
+
+기준 커밋: 4b5c5b13605216d1b8b163ea988805572a6a908a. 대상: harvest_robot 연결/런타임/시험, farm_bringup의 선택적 출력 라우팅, vicpinky 전용 설정, 점검 도구. handoff_config 기본값은 빈 값으로 기존 실행을 유지한다. 시뮬에서는 새 기능 선택을 거부한다. 공통 Navigator/StationReverse 알고리즘은 변경하지 않았다.
+
+직접 검증: 오프라인 64+58개 통과 및 정적 컴파일. 로그: 전달 패키지 component_checks.log, regression_checks.log. 실제 ROS/실물 주행은 미실행이다. 사용자 PC 적용 및 commit/push는 미실행. 실제 장치 서비스와 TF/odom/명령 라우팅 확인이 남았다. 변경 전 파일은 패키지 baseline에 보관하며 적용 도구는 기존 파일 비교 및 백업 후 변경한다. 상세 및 되돌리기: docs/changes/HARVEST_HANDOFF_COMPONENT_INTEGRATION_20261022.md.
+
 # Codex 시작 및 ChatGPT 프로젝트 인계 절차
 
 ## 2026-10-21 복귀 단독 시험 보존 및 커밋 준비
@@ -235,3 +244,100 @@ arc_trial.py의 기존 속도 전달 검사에 6축 유한성 검사를 추가�
 사용자 “확인하고 확실하게 고쳐와서 말해” 승인. 독립 Downloads 후보만 변경한다. 정지 확인 시각이 TF 버퍼보다 45.223ms 이른 실물 plan 실패를 확인했다. PoseProvider.lookup_available_pair는 기존 lookup을 재사용하여 진행하는 odom 표본 중 map/odom을 같은 시각에 조회할 수 있는 표본을 선택한다. TF가 지연될 때 최신 표본만 추격하지 않도록 유효 기간 내 표본을 보관한다. 시각 역행, 오래된 표본, 정지 상실, 다른 Action, TF 누락은 실패한다. 출발 경로 원점도 저장한 odom 자세와 일치시킨다. 기존 lookup/current 및 도착 판정 호출, 컨트롤러, 충돌/정지/속도 기준은 불변이다. 최신 TF 두 개를 독립 조회하는 대체 동작은 없다.
 
 로컬 검증은 대역 TF 버퍼 및 기존 회귀이며 실제 ROS/실물 결과가 아니다. 배포 전 PC Jazzy tf2 Buffer 검사, 로봇 적용 후 설치 위치 및 무이동 departure plan 검사를 요구한다. 해당 결과가 나오기 전 실물 해결 완료로 표시하지 않는다. Git 커밋/푸시 없음. 원본 및 진입 도구 해시는 Downloads 백업으로 보존한다.
+
+
+## 2026-10-23 수확 인계 지연 재조사 (PC 확인, 로봇 인증 대기)
+
+HEAD `4b5c5b13605216d1b8b163ea988805572a6a908a` 및 기존 미커밋 변경 기준. PC에는 body_trial/locking/window/transfer_sequence 일부가 없으며 최신 현장본으로 간주하지 않는다. SSH 서버 접속 후 인증 거절로 로봇 현재 소스·설치본·patch state는 미확인이다. Downloads의 최신 capture를 직접 읽어 odom 만료 실패를 확인했지만 긴 runtime lock 점유를 원인으로 확정하지 않았다. fixed 적용 없음.
+
+사용자 요청에 따라 `robot/tools/transfer/handoff_diagnostics/`에 읽기 전용 수집·외부 관측·내부 계측 제안 생성 도구를 추가했다. 운영 코드/설정 변경 없음. 이번 오프라인 검사 6개와 ROS 메시지 import 통과, 실기/DDS 미검증. 전체 인계 완료·팔 시험 완료 아님. 상세 호출/잠금 표, 변경·원복·로그·후속 절차: [HANDOFF_DELAY_AUDIT_20261023](changes/HANDOFF_DELAY_AUDIT_20261023.md). Git commit/push 없음.
+
+
+## 2026-10-23 직접 로봇 수정·실기 확인 후속
+
+로봇 SSH 접근 확인. fixed 위 수확 전용 입력 계측 및 선택형 전용 TF node/executor를 적용·빌드했다. 주행용·상태용 TF buffer는 독립 유지한다. 같은 시각 외부 TF는 최신인데 기존 buffer만 약2.95초 오래된 증거를 확보했고, 전용 문맥의 이번 이동 구간 최대 age는 약0.077초였다. 허용시간·공통 PoseProvider·충돌 조건 변경 없음.
+
+PC→Zenoh→HarvestTask window 이동 1회는 일반 controller의 collision ahead/status6/error106으로 실패했다. 사용자 실제 정지 확인. window 미도착이므로 body enter/restore 미호출, 전체 인계 미완료/팔 미시험. 수정 소스 동시성20·계측3·기존 인계64 검사 및 무동작 ROS TF 문맥 검사 통과. 원본 백업/원복/실기 로그는 [상세 기록](changes/HANDOFF_DELAY_AUDIT_20261023.md). PC 운영 소스를 로봇본으로 덮어쓰지 않았다. commit/push 없음.
+
+## 2026-10-23 17:53 코너 비교 이동 후 상태
+
+카메라만 복구하고 기존 정지 위치에서 1회 window 이동: SECTION_APPROACH/WINDOW_MOVE/최종 Action SUCCESS. 위치오차2.13cm, yaw오차0.01224rad. 속도 명령과 odom에서 전진·회전 복합 동작 확인. 해상도/footprint 수정 없음. 현재 window 위치이며 스테이션 초기 좌표를 보내면 안 된다. body enter/restore 미실행, 팔 미시험. 태그 보정 적용은 확인되지 않았고 control 거절 이벤트가 있어 별도 조사 필요. 상세 증거·bag 종료 한계는 docs/changes/HANDOFF_DELAY_AUDIT_20261023.md의 최신 절. commit/push 없음.
+
+## 2026-10-23 18:00 인계 시험 후 상태
+
+body enter 1회: 동일 시각 TF/경로 준비 통과, 인계 controller goal 수신 및 실제 회전 후 곡선 속도 입력 시간 초과로 RECOVERY_REQUIRED. controller 취소 성공·실측 속도0·사용자 정지 확인. 현재 map=(1.10706,-.04465),yaw=.62728rad, ERROR/ready=false. window 도착 당시 자세와 다르므로 자동 restore/enter/initialpose 금지. 원인 후보는 fixed 검사 후 속도 승인 공백이며 raw 속도 미수집으로 확정하지 않음. 상세 증거/단계 시각/계측 한계: docs/changes/HANDOFF_DELAY_AUDIT_20261023.md. 팔 미시험, 전체 인계 미완료, commit/push 없음.
+
+### 2026-10-23 정지 유지 오프라인 후속
+
+현장 fixed의 snapshot identity 변경 거절로 정상20Hz 명령/최신 odom 상태에서도 .3초 승인 공백 오류가 발생할 수 있음을 실제 메서드 오프라인 주입으로 재현. 실기 원인 확정은 아님. 출력 수신/거절/승인/expiry 계측 v2를 별도 준비, 제어 AST 동일 및 곡선·벽·정지 회귀6개 PC/로봇 통과. 운영 미적용, 재시작/이동 없음. 기존 RECOVERY_REQUIRED 유지. 상세: docs/changes/HANDOFF_DELAY_AUDIT_20261023.md.
+
+
+### 2026-10-23 성공 독립 시험 대비 구조 대조
+공통 Navigator 사용 후 독립 곡선·벽 정렬 실기 성공 원본을 확인했다. 성공 설정 대비 곡선 관련25개/주요 costmap8개는 동일하며 전체 서버 설정은 차이가 있다. fixed의 검사 중 센서 객체 변경 거절은 이전 출력 경로에 없던 조건이고 승인 공백을 만들 수 있다. 실제 실패 직전 연속 거절 여부는 raw 기록 누락으로 미확정이다. 상세는 docs/changes/HANDOFF_DELAY_AUDIT_20261023.md의 마지막 절 참고. 이번에는 읽기 비교·증거 보존·문서만 추가. 운영 코드/프로세스/위치 변경 없음, 전체 인계 미완료, commit/push 없음.
+
+
+### 2026-10-23 센서 갱신 출력 수정 후보 검증 완료
+사용자 승인으로 현재 현장 원본 기준 departure/return/retreat의 객체 동일성 거절을 최신 입력 유효성 재검사로 변경한 별도 수정본을 작성했다. 취소·정지·epoch/소유권 검사는 유지. PC/로봇 회귀20개, 로봇 격리 빌드 및 기존 인계64개 통과. window/align/wall 보호는 기존 유지하며 전체 시퀀스 해결은 미확인. 운영 소스/설치본에는 미적용, 프로세스 재시작·이동 없음. 산출물 sensor_commit_fix_v1 및 적용/원복 경계는 HANDOFF_DELAY_AUDIT_20261023.md 마지막 절. 기존 핫픽스11개/patch state 보존 확인, commit/push 없음.
+
+
+### 2026-10-23 18:39 KST 운영 적용 완료
+사용자 승인으로 sensor_commit_fix_v1을 로봇 소스·운영 install에 적용/빌드하고 수확 노드만 PID51504→85474 단독 재시작했다. AMCL/Nav2/드라이버/Zenoh 유지. 기존 핫픽스·state 보존 및 설치본 전체 백업 완료. body IDLE, 일반 ready=true이나 window 기준은 소실되어 재도착 필요. 현재 x1.107109,y-.044614,yaw.627572, odom0. 이동/초기위치/enter/restore 요청 없음. 자동 스테이션 복귀 미설정. 단독 PID85474는 원래 launch 자식이 아니므로 다음 전체 종료 시 별도로 정상 종료할 것. 상세 백업/원복/로그는 HANDOFF_DELAY_AUDIT_20261023.md 마지막 절. 전체 인계 실기 미완료, commit/push 없음.
+
+
+### 2026-10-23 18:44 window 재확보 실패 — 정지 유지
+사용자 승인1회 요청은 수락됐으나 이동 전 APPROACH_RECOVERY_REQUIRED(body_heading,path_heading)로 실패했다. corridor 내부에서 현재 약36° 자세가 직선 접근 계약과 맞지 않아 SECTION_APPROACH로 우회되지 않았다. 위치 동일/odom0, window 기준 미확보. PC는 최신 상태 미수신으로 전송 전 종료, 실제1회 Action은 로봇 로컬에서 전송(Zenoh ON). PC 통신 정상 검증 아님. 상세 HANDOFF_DELAY_AUDIT_20261023.md 마지막 절. 재이동·인계 enter 없음.
+
+
+### 2026-10-23 현재 자세 복구 후보 준비(미실행)
+현재 자세에서 시계방향35.96°회전→6.11cm후진→window14cm전방 접근 후보를 계산했다. 실제 snapshot에서 회전/후진 footprint 검사 및 후진 자세의 기존 straight_plan 통과. 동적 안전/실기 검증 아님. IDLE에서 부분 복구할 기존 서비스가 없으므로 단일 출력/취소 보호를 갖춘 명시적 연결 및 검증 후에만 실행 가능. 안전 설정 변경·이동 없음. 상세 HANDOFF_DELAY_AUDIT_20261023.md 및 recovery_plan_v1/RECOVERY_PLAN.md.
+
+
+### 2026-10-23 부분 복구 실행 연결 후보 완료
+사용자 승인으로 recovery_connection_v1에 opt-in start/stop/status 서비스 및 정확한 복구 토큰/취소 commit 검사를 구현했다. 약36°를 기존15° 제한 내12°씩3회 정지 검증 후 후진, 최종 work._plan_current 통과 시 READY_FOR_WINDOW만 보고. window 성공 모사 없음. 정지 미확인은 소유권 유지. 신규23+기존64=87개 및 출력22개, 보존 grid preflight/격리 빌드 통과. 운영은 기존 PID85474/센서 commit 수정본 유지, 복구 후보 미적용·이동 없음. align 승인 고갈 가능성·실기 미검증은 남음. 상세 HANDOFF_DELAY_AUDIT_20261023.md 및 recovery_connection_v1/IMPLEMENTATION_NOTE.md.
+
+
+### 2026-10-23 19:14 스테이션 재주행 중단
+사용자 스테이션 재배치 후 기존 initialpose 설정 및 정지 scan/map 정합 확인. 일반 window 이동1회는 시작 후 약.9초 제자리 회전(v0,w.1)에서 collision ahead/status6/error106으로 중단. window 기준 미확보/인계 미실행. 최종 odom0, 스테이션 부근 자세 유지. 복구 후보 미적용, 센서 commit 운영본 유지. 실패 순간 costmap/예측 arc/속도 bag 확보, 반복 이동 없음. 상세 HANDOFF_DELAY_AUDIT_20261023.md 마지막 절.
+
+
+### 2026-10-23 19:21 일반 local costmap 정지 초기화 비교
+사용자 수동 재배치/costmap 잔상 제안 확인. 실패 당시 회전 footprint 충돌 셀과 실제 scan 차이 확인 후, IDLE/odom0에서 일반 local costmap만1회 초기화하고6초 재생성 비교. 셀254→253, 동일 회전 경로 오프라인 충돌→통과. 잔존 정보 영향 근거 확보, 비상정지 자체 원인은 미확정. 초기위치 재발행/재이동/인계 없음. 상세 HANDOFF_DELAY_AUDIT_20261023.md 마지막 절.
+
+
+### 2026-10-23 19:29 window 재주행 성공
+일반 local costmap 초기화 후 사용자 승인1회 이동 최종 SUCCESS. 현재 window 위치(1.15805,-.03114), yaw.01863rad, 목표 오차2.82cm/1.07°, IDLE/odom0 확인. Zenoh ON/요청은 로봇 로컬. 초기위치 재발행·복구 후보 적용·안전 설정 변경 없음. 인계 enter/restore 미실행, 팔 미시험. 근거/한계/로그는 docs/changes/HANDOFF_DELAY_AUDIT_20261023.md 최신 절. 문서·수집 자료만 갱신, commit/push 없음.
+
+
+### 2026-10-23 19:33 차체 인계 후 정지 유지
+사용자 승인 enter/restore 각1회. departure·wall 완료/ENTERED 및 정지 확인 후 restore. retreat와 Spin 제어기는 성공했으나 align 정지 후 재진입 검사 실패: RECOVERY_REQUIRED. 전진 복귀 미시작. odom 재구성 위치오차 약8.77mm(한계8mm), 방향약.70도(한계1도); 정확한 runtime reference 미노출로 재구성 근거임을 구분. map=(1.059564,-.124540),yaw1.648618, odom0 및 사용자 현장 정지 확인. 재진입/초기위치/추가 이동 없음. Zenoh ON, 팔 미시험, 전체 인계 미완료. 안전조건/운영 코드 변경 없음. 상세·로그·잔여 범위: docs/changes/HANDOFF_DELAY_AUDIT_20261023.md 최신 절. commit/push 없음.
+
+
+### 2026-10-23 복귀 재진입 정책 후보 검증 완료(운영 미적용)
+사용자 승인으로 현장 최신본 백업 후 reentry_policy_v1 별도 후보4파일 수정. 재진입 위치는 선택형 설정으로 분리하여 body_trial만10mm, 기존 사용처/출발·최종 곡선8mm/방향·정지·충돌·출력 보호 유지. 현재 자세→원호 시작점 충돌 검사 추가, controller 원형 경로는 불변. PC/로봇 신규18+기존64=82개 및 출력20개 PASS, 로봇 격리 빌드/설치 해시 확인. 보존 costmap/실제 C++ 제어식 이상 모델로 다음 복귀·window 보정 계약 통과했으나 최대 이탈9.55mm로10mm 대비 여유가 작아 실기 성공은 미확정. 운영152파일 및 기존 핫픽스 상태 보존. 재시작/이동 없음, RECOVERY_REQUIRED 정지 상태 유지. 상세·초기 시험 실패·원복 경계는 docs/changes/HANDOFF_DELAY_AUDIT_20261023.md 최신 절. commit/push 없음.
+
+
+### 2026-10-23 19:55 재진입 정책 적용/재배치 대기
+사용자 승인으로 reentry_policy_v1 원본4파일·운영 설치본 백업 후 PID85474 정상 종료,4파일 적용 및 harvest 빌드/설치 해시 일치 확인. 기존 핫픽스 상태/백업 유지. 수확 노드는 아직 미기동, 기존 launch·Zenoh·AMCL/Nav2/드라이버 유지. odom0/cmd_vel_nav publisher0/사용한 Action terminal 확인 후 사용자에게 비상정지 유지하여 스테이션 재배치 안내. 재기동 검사 도구 CHECK_ONLY_OK, 실제 기동/초기위치/이동 없음. 다음은 재배치 확인 후 재기동·정합·costmap 확인·window 재확보. 상세 백업/원복은 docs/changes/HANDOFF_DELAY_AUDIT_20261023.md 최신 절. commit/push 없음.
+
+
+### 2026-10-23 21:05 수정본 재기동·스테이션 정합 확인
+사용자 스테이션 재배치 확인 후 수확 PID129702 재기동, 기존 초기좌표 설정. scan/map 중앙오차6mm/p90 2.17cm, odom300개0, 중첩 그림 확인. 일반/인계 local costmap의 현재 차체 및 +.1rad 회전 검사 통과하여 이번 clear 미실행. cmd_vel_nav/odom publisher각1개, IDLE/ready·body IDLE, 전용TF 유지. 전체 경로/비상정지 해제/실기 이동 안전 보장은 아님. 주행·enter/restore 미요청, window 기준 재확보 필요. 상세 docs/changes/HANDOFF_DELAY_AUDIT_20261023.md 최신 절. commit/push 없음.
+
+
+### 2026-10-23 21:11 수정본 일반 window 재주행 성공
+사용자 승인 단발 window 이동 status4/SUCCESS. 현재(1.156699,-.037115),yaw-.007667rad, 목표 오차2.94cm/.44도, IDLE 및 odom31표본0. PID129702/Zenoh 유지, 요청은 로봇 로컬. bag·외부/내부 계측 마감 보존. body IDLE, enter/restore 미요청. 재진입10mm 수정의 실기 검증은 아직 아님. 초기위치 재발행 금지, 인계 전 안내. 상세 HANDOFF_DELAY_AUDIT_20261023.md 최신 절. commit/push 없음.
+
+
+### 2026-10-23 21:15 전체 차체 인계 실기1회 완료
+사용자 승인 enter/restore 각1회. 적용10mm 재진입 정책·Zenoh ON 상태에서 후진 곡선/벽 정렬/후진 이탈/Spin/전진 복귀/최종 window 도착 검증 COMPLETED. 추가 window 보정 이동은 없었음. 최종(1.184048,-.028186),yaw-.002234, 관제 goal오차7.09mm/.128도; IDLE·최근odom30표본0 별도 확인. bag 재구성 재진입오차6.08mm로 기존8mm 이내여서8~10mm 실기 통과·완화의 인과 효과는 아직 미확인. 팔 NOT_TESTED, 반복신뢰성/PC관제왕복/타로봇 실기 미검증. 현재 body COMPLETED이므로 자동 enter 반복 금지. 로봇 body-reentry-policy-nVLFxOy9 및 PC body_reentry_policy에 로그/분석 저장. 상세 HANDOFF_DELAY_AUDIT_20261023.md 최신 절. commit/push 없음.
+
+
+### 2026-10-23 21:31 인계 후 그래프14 일반 주행 연속 시험 성공
+사용자 요청으로 관제 웹을 직접 조회: #59/25fabab7b348_SEC01_TASK001(표시 목표1.601,-.035)은21:25:15 대기열 등록 후 Action 전송 전. 수확 Action 서버 대기, 인계 수확Status는18:38:38의 이전boot ERROR/CANCEL_UNCONFIRMED에 정체되어 최신 로봇IDLE/ready와 불일치. 지도 위치 수신은 최신이었다. 근본 통신 원인 미확정. 이후 화면에서 해당 작업의 전송 전 취소 및 수확 대기열 일시정지 확인(에이전트가 취소 버튼을 누르지 않음).
+사용자 “일단14번 노드로” 승인으로 실제 graph.geojson 노드14=(3.576,-.035) 읽고 yaw0, expected_count0 시험 HarvestTask NODE14_79189ba30dfe_TASK001을 로봇 로컬에서1회 요청. 현재 위치·정지 확인 및 경로 안내 후21:30:03 수락→21:30:43 status4/SUCCESS. 실제 SECTION_RESUME→WINDOW_MOVE→ARRIVED, 현 위치에서 목표까지2.392278m 직선 FollowPath(reverse=false, graph edge_ids=[]); 그래프 전체 경로 추종 시험으로 확대 해석하지 않는다. 도착 판정오차28.060mm/.5154도, 최종Status(3.550325,-.023535),yaw-.009290;21:31 IDLE/ready 및 최근odom30표본 전부0. PID129702/Zenoh 유지, 재시작·초기위치·코드/안전설정 변경·추가 인계 없음.
+새 시험 goal의 arrival와SUCCESS 이벤트를 확인. 현재 communication.py의 remember_window→handle.succeed 순서에 근거하여 새 기준 저장 경로 완료를 판단했으며 메모리를 직접 조회한 것은 아니다. body-only 팔 NOT_TESTED. 인계 완료→일반 주행 전환1회는 실기 확인했으나 관제 웹 다음 실제window 전달은 미완료이며 후속 인계 반복 검증도 별도다.
+로그: 로봇 runs/handoff_diagnostics/web-next-window-AiZhUerb (bag 정상 마감, 외부 계측), 하위node14/goal.json,action.log,final.json; PC runs/handoff_diagnostics/20261023_review/web_next_window에 웹 관측과 단발 결과 보존. 기존 핫픽스/백업 보존, 문서만 추가, commit/push 없음. 원복할 운영 변경 없음.
+
+
+### 2026-10-23 실기 성공본 PC 커밋 준비
+사용자 승인으로 로봇 실행/설치 출처 대조 후 최신 핫픽스25파일을 PC에 반영. 기존 dirty 원본 및 시험/로그/백업은 /home/eunbi/vmany_artifacts/handoff-success-20261023-commit-prep에 보존. 관련 없는 예찰/Burger 차이 및 기존 추적 시험 보존. 성공 실행의 dedicated TF 환경 선택과 body-only 프로필을 문서화. 이번 PC 오프라인64+18+20검사,4패키지 격리 빌드 통과. 인계→일반주행 실기1회 성공이며 웹 관제 전달/반복/팔 검증은 미완료. 운영 로봇 변경/이동/commit/push/staging 없음. 상세 docs/changes/HANDOFF_SUCCESS_COMMIT_PREP_20261023.md.

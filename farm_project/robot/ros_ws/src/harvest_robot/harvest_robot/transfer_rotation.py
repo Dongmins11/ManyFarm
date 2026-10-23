@@ -42,11 +42,14 @@ class RotationSettings:
 def rotation_parameters(config: Mapping) -> dict:
     """기존 전체 서비스 방식을 기본으로 보존한다. 새 방식은 명시 선택한다."""
     mode = config.get('rotation_mode', 'device_services')
-    if mode not in ('device_services', 'nav2_spin'):
+    if mode not in ('device_services', 'nav2_spin', 'components'):
         raise ValueError('알 수 없는 transfer.rotation_mode')
     values = config.get('rotation', {})
     if mode == 'nav2_spin':
         RotationSettings.from_mapping(values)
+    elif mode == 'components':
+        if values:
+            raise ValueError('components 방식은 rotation 설정을 사용하지 않습니다.')
     elif values:
         raise ValueError('rotation 설정은 nav2_spin 방식에서만 사용합니다.')
     return {'rotation_mode': mode, 'rotation': values}

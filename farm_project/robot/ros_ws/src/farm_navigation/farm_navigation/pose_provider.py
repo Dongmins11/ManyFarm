@@ -80,7 +80,24 @@ class PoseProvider:
                     raise RuntimeError('조회 완료 시 기준 표본이 오래되었습니다.')
                 return candidate, values
             time.sleep(.02)
-        raise RuntimeError('기준 저장 실패: 동일 시각의 TF 두 개를 확보하지 못했습니다.')
+        details = {
+            'targets': targets,
+            'source': source,
+            'tf_timeout_s': self._settings.tf_timeout_s,
+            'tf_max_age_s': self._settings.tf_max_age_s,
+            'last_sample_ns': previous,
+            'retained_samples': len(stamps),
+        }
+        now_ns = self._node.get_clock().now().nanoseconds
+        if previous is not None:
+            details['sample_age_s'] = (now_ns-previous)/1e9
+            when = Time(nanoseconds=previous)
+            for target in targets:
+                details[target] = self._buffer.can_transform(
+                    target, source, when, return_debug_tuple=True)
+        details['buffer_frames'] = self._buffer.all_frames_as_yaml()
+        raise RuntimeError('기준 저장 실패 상세: '+str(details))
+
 
     def current(self, check: Callable[[],None]) -> NDArray[np.float64]:
         return self.lookup(self._settings.map_frame,self._settings.base_frame,0,check)
