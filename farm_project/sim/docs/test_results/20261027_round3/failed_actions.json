@@ -1,0 +1,157 @@
+{
+  "SEC07": {
+    "event_id": "b223aede099140d88727f0b5f62e6ee6",
+    "robot_id": "harvest_01",
+    "map_id": "farm_map_v1",
+    "task_id": "7302fe84207e_SEC07_TASK003",
+    "window_id": "7302fe84207e_SEC07_W003",
+    "started_at": "2026-10-23T13:03:36.088480+00:00",
+    "mode": "sim",
+    "arm_operation": "SKIPPED",
+    "completion_policy": "ARRIVAL_THEN_ARM",
+    "goal_pose": {
+      "x": 3.9850000000000003,
+      "y": 7.709953161411873,
+      "yaw": -1.5707963267948966
+    },
+    "result": {
+      "robot_id": "harvest_01",
+      "task_id": "7302fe84207e_SEC07_TASK003",
+      "window_id": "7302fe84207e_SEC07_W003",
+      "result_code": "FAILED",
+      "expected_count": 1,
+      "harvested_count": 0,
+      "failed_count": 0,
+      "error_code": "NAVIGATION_FAILED",
+      "error_message": "APPROACH_RECOVERY_REQUIRED: 평행 구간에서 방향/횡오차/전방 조건 불충족. 넓은 진입부에서 재정렬 필요",
+      "timestamp": "2026-10-23T13:03:36.089394+00:00"
+    },
+    "navigation": [],
+    "final_stage": "NAVIGATION",
+    "evaluation": {
+      "status": "SKIPPED_NOT_ARRIVED"
+    }
+  },
+  "SEC09": {
+    "event_id": "ebeec229fe1a49c8b1a4b03d74678e4f",
+    "robot_id": "harvest_01",
+    "map_id": "farm_map_v1",
+    "task_id": "6c3ee0872ac2_SEC09_TASK004",
+    "window_id": "6c3ee0872ac2_SEC09_W004",
+    "started_at": "2026-10-23T15:12:58.155541+00:00",
+    "mode": "sim",
+    "arm_operation": "EXECUTED",
+    "completion_policy": "ARRIVAL_THEN_ARM",
+    "goal_pose": {
+      "x": -6.015000000000001,
+      "y": -4.896882779456863,
+      "yaw": -1.5707963267948966
+    },
+    "arrival": {
+      "request_id": "88e3a8d6da21434ba8d9241374408cba",
+      "plan_id": "1502d0c076c7482fa96fad4481202914",
+      "stamp_ns": 824550043004,
+      "measurement": {
+        "goal_map": {
+          "x": -6.015000000000001,
+          "y": -4.896882779456863,
+          "yaw": -1.5707963267948966
+        },
+        "actual_map": {
+          "x": -6.016791623708247,
+          "y": -4.867415804864283,
+          "yaw": -1.5815534767292472
+        },
+        "position_error_m": 0.029521390671032384,
+        "heading_error_rad": 0.010757149934350618,
+        "position_tolerance_m": 0.05,
+        "heading_tolerance_rad": 0.05236,
+        "accepted": true
+      }
+    },
+    "result": {
+      "robot_id": "harvest_01",
+      "task_id": "6c3ee0872ac2_SEC09_TASK004",
+      "window_id": "6c3ee0872ac2_SEC09_W004",
+      "result_code": "FAILED",
+      "expected_count": 2,
+      "harvested_count": 1,
+      "failed_count": 1,
+      "error_code": "STUDENT_MISSION_FAILED",
+      "error_message": "return_path_rejected: Public-geometry return lift is unreachable",
+      "timestamp": "2026-10-23T15:20:48.347595+00:00"
+    },
+    "navigation": [
+      {
+        "phase": "SECTION_RESUME",
+        "section_id": "SEC09",
+        "target_xy": [
+          -6.015000000000001,
+          -4.896882779456863
+        ]
+      },
+      {
+        "phase": "WINDOW_MOVE",
+        "section_id": "SEC09",
+        "target_xy": [
+          -6.015000000000001,
+          -4.896882779456863
+        ],
+        "target_yaw": -1.5707963267948966
+      },
+      {
+        "request_id": "88e3a8d6da21434ba8d9241374408cba",
+        "goal_map": {
+          "x": -6.015000000000001,
+          "y": -4.896882779456863,
+          "yaw": -1.5707963267948966
+        },
+        "mode": "follow_path",
+        "status": "ARRIVED",
+        "started_at": "2026-10-23T15:12:58.197517+00:00",
+        "route": {
+          "plan_id": "1502d0c076c7482fa96fad4481202914",
+          "graph_revision": "2ff1cd7b1dd355f46ee4b05fb71b961e57c4f5fc22134bedfbb6908072ed4cdc",
+          "frame_id": "map",
+          "points": [
+            [
+              -6.009554302848556,
+              -4.340211510280563
+            ],
+            [
+              -6.015000000000001,
+              -4.896882779456863
+            ]
+          ],
+          "edge_ids": [],
+          "distance_m": 0.5566979051009788
+        },
+        "reverse": false,
+        "nav2_status": 4,
+        "actual_map": {
+          "x": -6.016791623708247,
+          "y": -4.867415804864283,
+          "yaw": -1.5815534767292472
+        },
+        "position_error_m": 0.029521390671032384,
+        "heading_error_rad": 0.010757149934350618,
+        "position_tolerance_m": 0.05,
+        "heading_tolerance_rad": 0.05236,
+        "accepted": true,
+        "stamp_ns": 824550043004,
+        "finished_at": "2026-10-23T15:13:11.585212+00:00"
+      }
+    ],
+    "arm_result": {
+      "result_code": "FAILED",
+      "harvested_count": 1,
+      "failed_count": 1,
+      "error_code": "STUDENT_MISSION_FAILED",
+      "error_message": "return_path_rejected: Public-geometry return lift is unreachable"
+    },
+    "final_stage": "ARM",
+    "evaluation": {
+      "status": "SKIPPED_NOT_ARRIVED"
+    }
+  }
+}

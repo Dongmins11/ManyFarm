@@ -1,0 +1,299 @@
+{
+  "campaign": "sec01_16_round3_20261023_151213",
+  "started_kst": "2026-10-23 15:12:25 KST",
+  "finished_kst": "2026-10-24 08:39:18 KST",
+  "elapsed_wall_s": 62813.915943,
+  "after_resume_s": 60516.396817,
+  "successful_section_work_s": 57048.586676,
+  "mean_successful_section_s": 3565.53666725,
+  "attempt_status_counts": {
+    "INTERRUPTED": 1,
+    "SUCCESS": 16,
+    "FAILED": 2
+  },
+  "A": 192,
+  "B": 195,
+  "C": 125,
+  "successful_window_count": 137,
+  "scout": {
+    "unique_detected_gt": 182,
+    "unique_window_gt": 181,
+    "not_matched_to_scout_ids": 10,
+    "detected_without_window_gt_ids": 1,
+    "unique_gt_missing_from_windows": 11,
+    "possible_duplicate_detection_ids": 2,
+    "unmatched_prediction_ids": 14,
+    "duplicate_window_gt_owners": 0
+  },
+  "arm_matched_object_cases": {
+    "attempted_without_confirmed_basket_passage": 48,
+    "not_selected_by_arm_camera": 6,
+    "laser_passage_associated_with_target": 122,
+    "camera_target_not_attempted": 4,
+    "camera_identity_unresolved": 1
+  },
+  "successful_attempt_performance_event_counts": {
+    "harvest_or_box_timeout": 59,
+    "retry_timeout_exhausted": 3,
+    "unassigned_fruit_detached": 53,
+    "retry_target_not_observed": 49,
+    "target_dropped_below_box": 3,
+    "evaluation_id_unresolved": 3,
+    "detachment_identity_unresolved": 1,
+    "evaluation_unavailable": 2
+  },
+  "all_attempt_performance_event_counts": {
+    "target_dropped_below_box": 5,
+    "harvest_or_box_timeout": 63,
+    "unassigned_fruit_detached": 54,
+    "retry_target_not_observed": 51,
+    "retry_timeout_exhausted": 3,
+    "evaluation_id_unresolved": 3,
+    "detachment_identity_unresolved": 1,
+    "evaluation_unavailable": 2
+  },
+  "holds": {
+    "depth_out_of_range": 1
+  },
+  "sections": [
+    {
+      "section": "SEC01",
+      "attempt": "SEC01_attempt_0002",
+      "A": 13,
+      "B": 14,
+      "C": 8,
+      "unique_window_gt": 11,
+      "windows": 9,
+      "duration_s": 3676.004227
+    },
+    {
+      "section": "SEC02",
+      "attempt": "SEC02_attempt_0001",
+      "A": 11,
+      "B": 11,
+      "C": 7,
+      "unique_window_gt": 11,
+      "windows": 8,
+      "duration_s": 3386.478822
+    },
+    {
+      "section": "SEC03",
+      "attempt": "SEC03_attempt_0001",
+      "A": 12,
+      "B": 12,
+      "C": 5,
+      "unique_window_gt": 11,
+      "windows": 8,
+      "duration_s": 3451.901748
+    },
+    {
+      "section": "SEC04",
+      "attempt": "SEC04_attempt_0001",
+      "A": 12,
+      "B": 13,
+      "C": 10,
+      "unique_window_gt": 12,
+      "windows": 7,
+      "duration_s": 3777.869493
+    },
+    {
+      "section": "SEC05",
+      "attempt": "SEC05_attempt_0001",
+      "A": 13,
+      "B": 13,
+      "C": 11,
+      "unique_window_gt": 13,
+      "windows": 10,
+      "duration_s": 3723.185162
+    },
+    {
+      "section": "SEC06",
+      "attempt": "SEC06_attempt_0001",
+      "A": 11,
+      "B": 12,
+      "C": 8,
+      "unique_window_gt": 11,
+      "windows": 8,
+      "duration_s": 3108.376731
+    },
+    {
+      "section": "SEC07",
+      "attempt": "SEC07_attempt_0002",
+      "A": 13,
+      "B": 13,
+      "C": 10,
+      "unique_window_gt": 13,
+      "windows": 9,
+      "duration_s": 3537.490181
+    },
+    {
+      "section": "SEC08",
+      "attempt": "SEC08_attempt_0001",
+      "A": 11,
+      "B": 11,
+      "C": 5,
+      "unique_window_gt": 9,
+      "windows": 10,
+      "duration_s": 2662.567586
+    },
+    {
+      "section": "SEC09",
+      "attempt": "SEC09_attempt_0002",
+      "A": 12,
+      "B": 12,
+      "C": 8,
+      "unique_window_gt": 12,
+      "windows": 9,
+      "duration_s": 4445.318004
+    },
+    {
+      "section": "SEC10",
+      "attempt": "SEC10_attempt_0001",
+      "A": 12,
+      "B": 12,
+      "C": 9,
+      "unique_window_gt": 12,
+      "windows": 8,
+      "duration_s": 3630.284372
+    },
+    {
+      "section": "SEC11",
+      "attempt": "SEC11_attempt_0001",
+      "A": 10,
+      "B": 10,
+      "C": 9,
+      "unique_window_gt": 10,
+      "windows": 8,
+      "duration_s": 2733.807545
+    },
+    {
+      "section": "SEC12",
+      "attempt": "SEC12_attempt_0001",
+      "A": 14,
+      "B": 14,
+      "C": 10,
+      "unique_window_gt": 14,
+      "windows": 8,
+      "duration_s": 4311.986032
+    },
+    {
+      "section": "SEC13",
+      "attempt": "SEC13_attempt_0001",
+      "A": 14,
+      "B": 14,
+      "C": 4,
+      "unique_window_gt": 14,
+      "windows": 9,
+      "duration_s": 5005.724713
+    },
+    {
+      "section": "SEC14",
+      "attempt": "SEC14_attempt_0001",
+      "A": 10,
+      "B": 11,
+      "C": 8,
+      "unique_window_gt": 8,
+      "windows": 11,
+      "duration_s": 2650.757006
+    },
+    {
+      "section": "SEC15",
+      "attempt": "SEC15_attempt_0001",
+      "A": 13,
+      "B": 12,
+      "C": 7,
+      "unique_window_gt": 12,
+      "windows": 8,
+      "duration_s": 3986.142114
+    },
+    {
+      "section": "SEC16",
+      "attempt": "SEC16_attempt_0001",
+      "A": 11,
+      "B": 11,
+      "C": 6,
+      "unique_window_gt": 8,
+      "windows": 7,
+      "duration_s": 2960.69294
+    }
+  ],
+  "comparisons": [
+    {
+      "label": "1차",
+      "sections": [
+        "SEC01",
+        "SEC02",
+        "SEC03",
+        "SEC04",
+        "SEC05",
+        "SEC06",
+        "SEC07",
+        "SEC08",
+        "SEC09",
+        "SEC10",
+        "SEC11",
+        "SEC12",
+        "SEC13",
+        "SEC14",
+        "SEC15",
+        "SEC16"
+      ],
+      "previous": {
+        "actual_target_count": 192,
+        "expected_count": 180,
+        "harvested_count": 98,
+        "unique_window_gt": 160
+      },
+      "round3": {
+        "actual_target_count": 192,
+        "expected_count": 195,
+        "harvested_count": 125,
+        "unique_window_gt": 181
+      }
+    },
+    {
+      "label": "2차",
+      "sections": [
+        "SEC01",
+        "SEC02",
+        "SEC03",
+        "SEC04",
+        "SEC05",
+        "SEC06",
+        "SEC07",
+        "SEC08",
+        "SEC10",
+        "SEC11",
+        "SEC12",
+        "SEC13",
+        "SEC14",
+        "SEC15",
+        "SEC16"
+      ],
+      "previous": {
+        "actual_target_count": 180,
+        "expected_count": 152,
+        "harvested_count": 101,
+        "unique_window_gt": 131
+      },
+      "round3": {
+        "actual_target_count": 180,
+        "expected_count": 183,
+        "harvested_count": 117,
+        "unique_window_gt": 169
+      }
+    }
+  ],
+  "limits": [
+    "개수 비율은 객체별 정밀도/재현율이 아니다.",
+    "실제 수확은 익명 레이저 통과이며 물체 ID를 확정하지 않는다.",
+    "retrospective_same_scene은 동일 지도 가정의 후속 초기 장면 평가다.",
+    "legacy 시도에는 새 성능 사건 계측이 없으므로 사건0으로 해석하지 않는다."
+  ],
+  "git_remote_review": {
+    "main": "92ad63acc17a6725a7e1288965a8acfb16be9cda",
+    "new_real_branch_commit": "cf870daa00e7b752a39bbb3c84fc61c412cb2de7",
+    "new_real_branch_commit_kst": "2026-10-23T21:39:31+09:00",
+    "merged": false
+  }
+}

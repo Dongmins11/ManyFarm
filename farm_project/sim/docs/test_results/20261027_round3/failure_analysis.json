@@ -1,0 +1,233 @@
+{
+  "updated_at": "2026-10-23T23:39:18.977745+00:00",
+  "campaign_status": "COMPLETE",
+  "completed_sections": [
+    "SEC01",
+    "SEC02",
+    "SEC03",
+    "SEC04",
+    "SEC05",
+    "SEC06",
+    "SEC07",
+    "SEC08",
+    "SEC09",
+    "SEC10",
+    "SEC11",
+    "SEC12",
+    "SEC13",
+    "SEC14",
+    "SEC15",
+    "SEC16"
+  ],
+  "total_attempts": 19,
+  "failure_groups": [
+    {
+      "signature": "harvest: 사용자 보고: 컴퓨터 멈춤 후 재부팅. 로봇 Action 실패와 별도 분류",
+      "count": 1,
+      "evidence": [
+        "/home/ysy/main/farm_project/sim/runs/sec01_16_round3_20261023_151213/SEC01_attempt_0001"
+      ]
+    },
+    {
+      "signature": "harvest: 수확 실패: NAVIGATION_FAILED APPROACH_RECOVERY_REQUIRED: 평행 구간에서 방향/횡오차/전방 조건 불충족. 넓은 진입부에서 재정렬 필요",
+      "count": 1,
+      "evidence": [
+        "/home/ysy/main/farm_project/sim/runs/sec01_16_round3_20261023_151213/SEC07_attempt_0001"
+      ]
+    },
+    {
+      "signature": "harvest: 수확 실패: STUDENT_MISSION_FAILED return_path_rejected: Public-geometry return lift is unreachable",
+      "count": 1,
+      "evidence": [
+        "/home/ysy/main/farm_project/sim/runs/sec01_16_round3_20261023_151213/SEC09_attempt_0001"
+      ]
+    }
+  ],
+  "sections": {
+    "SEC01": [
+      {
+        "section": "SEC01",
+        "attempt": 1,
+        "status": "INTERRUPTED",
+        "phase": "harvest",
+        "error": "사용자 보고: 컴퓨터 멈춤 후 재부팅. 로봇 Action 실패와 별도 분류",
+        "directory": "/home/ysy/main/farm_project/sim/runs/sec01_16_round3_20261023_151213/SEC01_attempt_0001"
+      },
+      {
+        "section": "SEC01",
+        "attempt": 2,
+        "status": "SUCCESS",
+        "phase": "complete",
+        "error": null,
+        "directory": "/home/ysy/main/farm_project/sim/runs/sec01_16_round3_20261023_151213/SEC01_attempt_0002"
+      }
+    ],
+    "SEC02": [
+      {
+        "section": "SEC02",
+        "attempt": 1,
+        "status": "SUCCESS",
+        "phase": "complete",
+        "error": null,
+        "directory": "/home/ysy/main/farm_project/sim/runs/sec01_16_round3_20261023_151213/SEC02_attempt_0001"
+      }
+    ],
+    "SEC03": [
+      {
+        "section": "SEC03",
+        "attempt": 1,
+        "status": "SUCCESS",
+        "phase": "complete",
+        "error": null,
+        "directory": "/home/ysy/main/farm_project/sim/runs/sec01_16_round3_20261023_151213/SEC03_attempt_0001"
+      }
+    ],
+    "SEC04": [
+      {
+        "section": "SEC04",
+        "attempt": 1,
+        "status": "SUCCESS",
+        "phase": "complete",
+        "error": null,
+        "directory": "/home/ysy/main/farm_project/sim/runs/sec01_16_round3_20261023_151213/SEC04_attempt_0001"
+      }
+    ],
+    "SEC05": [
+      {
+        "section": "SEC05",
+        "attempt": 1,
+        "status": "SUCCESS",
+        "phase": "complete",
+        "error": null,
+        "directory": "/home/ysy/main/farm_project/sim/runs/sec01_16_round3_20261023_151213/SEC05_attempt_0001"
+      }
+    ],
+    "SEC06": [
+      {
+        "section": "SEC06",
+        "attempt": 1,
+        "status": "SUCCESS",
+        "phase": "complete",
+        "error": null,
+        "directory": "/home/ysy/main/farm_project/sim/runs/sec01_16_round3_20261023_151213/SEC06_attempt_0001"
+      }
+    ],
+    "SEC07": [
+      {
+        "section": "SEC07",
+        "attempt": 1,
+        "status": "FAILED",
+        "phase": "harvest",
+        "error": "수확 실패: NAVIGATION_FAILED APPROACH_RECOVERY_REQUIRED: 평행 구간에서 방향/횡오차/전방 조건 불충족. 넓은 진입부에서 재정렬 필요",
+        "directory": "/home/ysy/main/farm_project/sim/runs/sec01_16_round3_20261023_151213/SEC07_attempt_0001"
+      },
+      {
+        "section": "SEC07",
+        "attempt": 2,
+        "status": "SUCCESS",
+        "phase": "complete",
+        "error": null,
+        "directory": "/home/ysy/main/farm_project/sim/runs/sec01_16_round3_20261023_151213/SEC07_attempt_0002"
+      }
+    ],
+    "SEC08": [
+      {
+        "section": "SEC08",
+        "attempt": 1,
+        "status": "SUCCESS",
+        "phase": "complete",
+        "error": null,
+        "directory": "/home/ysy/main/farm_project/sim/runs/sec01_16_round3_20261023_151213/SEC08_attempt_0001"
+      }
+    ],
+    "SEC09": [
+      {
+        "section": "SEC09",
+        "attempt": 1,
+        "status": "FAILED",
+        "phase": "harvest",
+        "error": "수확 실패: STUDENT_MISSION_FAILED return_path_rejected: Public-geometry return lift is unreachable",
+        "directory": "/home/ysy/main/farm_project/sim/runs/sec01_16_round3_20261023_151213/SEC09_attempt_0001"
+      },
+      {
+        "section": "SEC09",
+        "attempt": 2,
+        "status": "SUCCESS",
+        "phase": "complete",
+        "error": null,
+        "directory": "/home/ysy/main/farm_project/sim/runs/sec01_16_round3_20261023_151213/SEC09_attempt_0002"
+      }
+    ],
+    "SEC10": [
+      {
+        "section": "SEC10",
+        "attempt": 1,
+        "status": "SUCCESS",
+        "phase": "complete",
+        "error": null,
+        "directory": "/home/ysy/main/farm_project/sim/runs/sec01_16_round3_20261023_151213/SEC10_attempt_0001"
+      }
+    ],
+    "SEC11": [
+      {
+        "section": "SEC11",
+        "attempt": 1,
+        "status": "SUCCESS",
+        "phase": "complete",
+        "error": null,
+        "directory": "/home/ysy/main/farm_project/sim/runs/sec01_16_round3_20261023_151213/SEC11_attempt_0001"
+      }
+    ],
+    "SEC12": [
+      {
+        "section": "SEC12",
+        "attempt": 1,
+        "status": "SUCCESS",
+        "phase": "complete",
+        "error": null,
+        "directory": "/home/ysy/main/farm_project/sim/runs/sec01_16_round3_20261023_151213/SEC12_attempt_0001"
+      }
+    ],
+    "SEC13": [
+      {
+        "section": "SEC13",
+        "attempt": 1,
+        "status": "SUCCESS",
+        "phase": "complete",
+        "error": null,
+        "directory": "/home/ysy/main/farm_project/sim/runs/sec01_16_round3_20261023_151213/SEC13_attempt_0001"
+      }
+    ],
+    "SEC14": [
+      {
+        "section": "SEC14",
+        "attempt": 1,
+        "status": "SUCCESS",
+        "phase": "complete",
+        "error": null,
+        "directory": "/home/ysy/main/farm_project/sim/runs/sec01_16_round3_20261023_151213/SEC14_attempt_0001"
+      }
+    ],
+    "SEC15": [
+      {
+        "section": "SEC15",
+        "attempt": 1,
+        "status": "SUCCESS",
+        "phase": "complete",
+        "error": null,
+        "directory": "/home/ysy/main/farm_project/sim/runs/sec01_16_round3_20261023_151213/SEC15_attempt_0001"
+      }
+    ],
+    "SEC16": [
+      {
+        "section": "SEC16",
+        "attempt": 1,
+        "status": "SUCCESS",
+        "phase": "complete",
+        "error": null,
+        "directory": "/home/ysy/main/farm_project/sim/runs/sec01_16_round3_20261023_151213/SEC16_attempt_0001"
+      }
+    ]
+  },
+  "interpretation": "오류 문구별 집계이며 근본 원인 확정은 events/telemetry/stack/drive/arm 원본 대조 필요"
+}
