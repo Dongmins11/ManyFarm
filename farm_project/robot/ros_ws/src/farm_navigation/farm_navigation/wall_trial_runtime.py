@@ -46,8 +46,6 @@ def main() -> None:
     parser.add_argument('--exclusive',action='store_true')
     parser.add_argument('--observe-seconds',type=float,default=0.)
     parser.add_argument('--use-sim-time',action='store_true')
-    parser.add_argument('--expected-session',default='')
-    parser.add_argument('--cycle-id',default='')
     args=parser.parse_args()
     if not math.isfinite(args.observe_seconds) or not 0<=args.observe_seconds<=60:parser.error('관측 시간은 0~60초')
     if args.observe_seconds and args.mode!='plan':parser.error('--observe-seconds는 plan 전용')
@@ -128,17 +126,7 @@ def main() -> None:
         if stamp<=0 or not 0<=now_ns-stamp<=round(c['observation_age']*1e9):
             raise RuntimeError('입력 시각 오류: '+json.dumps(detail))
         return msg
-    session_cache=[0.,'']
-    def session_check() -> str:
-        from .motion_reference import session_identity
-        if time.monotonic()-session_cache[0]>.2:
-            value=session_identity(Path('/proc/sys/kernel/random/boot_id').read_text(),node.get_publishers_info_by_topic(ns+'/odom'))
-            session_cache[:]=[time.monotonic(),value]
-        if args.expected_session and session_cache[1]!=args.expected_session:
-            raise RuntimeError('벽 접근 중 odom 세션 변경')
-        return session_cache[1]
     def position() -> tuple:
-        if args.expected_session:session_check()
         msg=fresh('odom')
         if msg.header.frame_id!='odom':raise RuntimeError('odom 프레임 불일치')
         p=msg.pose.pose.position;q=msg.pose.pose.orientation
@@ -222,7 +210,6 @@ def main() -> None:
                 time.sleep(.1)
         motion.wait_stopped(check)
         origin=position();distance,angle=wall_error()
-        if args.cycle_id:report.update(odom_session=session_check(),cycle_id=args.cycle_id)
         if distance<c['target_distance']-c['distance_tolerance'] or distance-c['target_distance']>c['max_distance']:
             raise RuntimeError('목표 거리와 시작 거리 범위 불일치')
         if abs(angle)>c['max_yaw'] or abs(angle_error(angle))>c['max_yaw']:raise RuntimeError('시작 각도 범위 초과')
@@ -289,7 +276,6 @@ def main() -> None:
         def validate_arrival(stamp: int, check_input: Callable[[], None]) -> dict:
             check_input()
             d,a=wall_error()
-            report.update(final_pose=position(),final_stamp_ns=stamp)
             measured=dict(final_distance=d,final_angle=a,final_angle_error=angle_error(a),
                 accepted=abs(d-c['target_distance'])<=c['distance_tolerance'] and abs(angle_error(a))<=c['angle_tolerance'])
             report.update(measured)

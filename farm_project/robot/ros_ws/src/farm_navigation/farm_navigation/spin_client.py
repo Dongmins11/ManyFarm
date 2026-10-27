@@ -6,7 +6,7 @@ from typing import Any, Callable
 
 class SpinClient:
     def __init__(self, node: Any, endpoint: str, settings: Any, group: Any = None,
-                 *, client: Any = None, goal_factory: Callable | None = None) -> None:
+                 *, client: Any = None, goal_factory: Callable | None = None, execution_clock=None) -> None:
         if not isinstance(endpoint, str) or not endpoint or any(c.isspace() for c in endpoint):
             raise ValueError('Spin endpoint를 명시해야 합니다.')
         if client is None or goal_factory is None:
@@ -16,6 +16,7 @@ class SpinClient:
                 client = ActionClient(node, Spin, endpoint, callback_group=group)
             if goal_factory is None:
                 goal_factory = Spin.Goal
+        self._pause_clock_factory = execution_clock
         self._client, self._goal_factory, self.settings = client, goal_factory, settings
         self._pending = self._handle = self._result = None
 
@@ -26,11 +27,11 @@ class SpinClient:
     def ready(self) -> bool:
         return self._client.server_is_ready()
 
-    def _wait(self, future: Any, timeout: float, check: Callable[[], None]) -> Any:
-        deadline = time.monotonic() + timeout
+    def _wait(self, future: Any, timeout: float, check: Callable[[], None], *, clock=time.monotonic) -> Any:
+        deadline = clock() + timeout
         while not future.done():
             check()
-            if time.monotonic() >= deadline:
+            if clock() >= deadline:
                 raise TimeoutError('Spin 응답/종료 시간 초과; 요청 종료 확인 필요')
             time.sleep(.01)
         check()
@@ -56,7 +57,8 @@ class SpinClient:
             self._clear()
             raise RuntimeError('Spin Goal 거절')
         self._result = self._handle.get_result_async()
-        response = self._wait(self._result, allowance + self.settings.response_timeout_s, check)
+        response = self._wait(self._result, allowance + self.settings.response_timeout_s, check,
+            clock=self._pause_clock_factory() if self._pause_clock_factory is not None else time.monotonic)
         # 잘못된/비종결 응답은 소유권을 유지하여 stop에서 다시 확인한다.
         if response.status not in (4, 5, 6):
             raise RuntimeError('Spin terminal 상태 미확인')

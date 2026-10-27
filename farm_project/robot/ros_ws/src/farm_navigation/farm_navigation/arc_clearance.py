@@ -7,6 +7,10 @@ This preflight never replaces Nav2's live collision checking.
 import math
 import numpy as np
 
+class ObstacleBlocked(RuntimeError):
+    """경로에 장애물/unknown 셀이 접촉함. 계산·입력 오류와 구분한다."""
+
+
 _EPS = 1e-9
 _MAX_DEPTH = 16
 _MAX_EVALUATIONS = 20000
@@ -103,7 +107,7 @@ def check_grid(poses: list, footprint: list, current: tuple, grid: dict) -> floa
             raise RuntimeError('시험 경로 footprint가 costmap 경계와 접촉/이탈합니다.')
         distance = _cell_distance(p, half, centers, res)
         if distance <= _EPS:
-            raise RuntimeError('경로의 장애물/unknown 셀과 footprint 접촉/겹침')
+            raise ObstacleBlocked('경로의 장애물/unknown 셀과 footprint 접촉/겹침')
         return min(boundary, distance)
 
     for p in path:

@@ -75,7 +75,12 @@ class HarvestNode(Node):
         if movement_mode not in ('graph_only', 'route_then_pose', 'route_then_follow'):
             raise ValueError('알 수 없는 movement_mode')
         # 진입 FollowPath만 별도 제어기·도착 검사를 선택한다. 작업·이탈은 기존 설정이다.
-        approach_settings = settings
+        if settings.collision_retry_count:
+            raise ValueError('수확 재시도는 harvest_config.navigation_collision_retry_count로 선택해야 합니다.')
+        retry_count = self.config.get('navigation_collision_retry_count', 0)
+        if type(retry_count) is not int or not 0 <= retry_count <= 20:
+            raise ValueError('navigation_collision_retry_count: 0~20 정수 필요')
+        approach_settings = replace(settings, collision_retry_count=retry_count)
         if movement_mode in ('route_then_pose', 'route_then_follow'):
             controller_id = self.config.get('approach_controller_id', settings.controller_id)
             if not isinstance(controller_id, str) or not controller_id.strip():
@@ -84,7 +89,7 @@ class HarvestNode(Node):
             if not isinstance(goal_checker_id, str) or not goal_checker_id.strip():
                 raise ValueError('approach_goal_checker_id는 비어 있지 않은 문자열이어야 합니다.')
             approach_settings = approach_navigation_settings(
-                settings, self.config, controller_id, goal_checker_id)
+                approach_settings, self.config, controller_id, goal_checker_id)
         # 수확 실물 인계 비교에서만 별도 TF executor를 명시 선택한다.
         isolate_tf = os.environ.get('HANDOFF_TF_EXECUTOR', '')
         if isolate_tf not in ('', 'dedicated'):
@@ -127,7 +132,7 @@ class HarvestNode(Node):
                 work_id = self.config.get('work_controller_id', settings.controller_id)
                 if not isinstance(work_id, str) or not work_id.strip():
                     raise ValueError('work_controller_id는 비어 있지 않은 문자열이어야 합니다.')
-                work_settings = replace(work_settings, controller_id=work_id)
+                work_settings = replace(work_settings, controller_id=work_id, collision_retry_count=retry_count)
             self.get_logger().info('수확 작업 제어기=' + work_settings.controller_id
                                    + ', 이탈 제어기=' + settings.controller_id)
             self.work_client = Nav2Client(self, work_settings, self.callbacks)
@@ -147,8 +152,9 @@ class HarvestNode(Node):
                 record=lambda item: self.navigation_log.append(item), **work_options)
             exit_navigator = work
             if corridors or work_settings.controller_id != settings.controller_id:
-                self.exit_client = Nav2Client(self, settings, self.callbacks)
-                exit_navigator = Navigator(self, settings, self.exit_client, self.poses, self.motion,
+                exit_settings = replace(settings, collision_retry_count=retry_count)
+                self.exit_client = Nav2Client(self, exit_settings, self.callbacks)
+                exit_navigator = Navigator(self, exit_settings, self.exit_client, self.poses, self.motion,
                     self.check, graph=graph, record=lambda item: self.navigation_log.append(item))
             def current_xy() -> tuple[float, float]:
                 transform = self.poses.current(self.check)
@@ -170,6 +176,12 @@ class HarvestNode(Node):
         if self.get_parameter("transfer_enabled").value and transfer_config.get('rotation_mode') == 'components':
             from .handoff_runtime import HandoffRuntime
             self.handoff_runtime = HandoffRuntime(self, profile, settings)
+        if retry_count:
+            if self.handoff_runtime is None:
+                raise ValueError('일반 주행 재시도는 기존 출력 소유자 연결이 필요합니다.')
+            for client in (self.client, self.work_client, self.exit_client):
+                if client is not None:
+                    client.set_recovery_stop(self.handoff_runtime.stop_navigation_recovery)
         self.transfer = (TransferCommunication(self, settings)
                          if self.get_parameter("transfer_enabled").value else None)
         self.body_trial = None

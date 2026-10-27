@@ -62,7 +62,8 @@ def setup(context) -> list:
         cfg = read_mapping(resolve_file(root, handoff_file))
         wall = read_mapping(resolve_file(root, cfg['wall_config']))
         bundle = build_server_config(load_nav2_parameters(profile['nav_params'], root),
-            profile['robot_id'], wall, NavigationSettings.from_mapping(profile['navigation']), False)
+            profile['robot_id'], wall, NavigationSettings.from_mapping(profile['navigation']), False,
+            footprint_padding=cfg.get('footprint_padding'))
         prefix = bundle['prefix']
         cp = bundle['values'][prefix+'/controller_server']['ros__parameters']
         cm = bundle['values'][prefix+'/local_costmap/local_costmap']['ros__parameters']

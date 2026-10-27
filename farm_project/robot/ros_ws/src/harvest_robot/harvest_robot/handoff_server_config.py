@@ -1,5 +1,6 @@
 """기존 주행 파라미터로 영구 인계 서버 구성을 만든다. 원본은 수정하지 않는다."""
 from copy import deepcopy
+import math
 from dataclasses import asdict, replace
 from farm_navigation.arc_isolation import isolated_parameters
 from farm_navigation.wall_trial_support import isolated_parameters as wall_parameters
@@ -19,11 +20,19 @@ def flatten(values: dict, prefix: str = '') -> dict:
 
 
 def build_server_config(nav: dict, robot_id: str, wall: dict,
-                        settings: NavigationSettings, use_sim_time: bool) -> dict:
+                        settings: NavigationSettings, use_sim_time: bool,
+                        *, footprint_padding: float | None = None) -> dict:
     prefix = '/' + robot_id + '/handoff'
     root = '/' + robot_id
     cp = flatten(nav['controller_server']['ros__parameters'])
     cm = flatten(nav['local_costmap']['local_costmap']['ros__parameters'])
+    # 인계 전용 복사본에만 적용한다. 일반 주행 원본과 실행 중 설정은 수정하지 않는다.
+    if footprint_padding is not None:
+        if (isinstance(footprint_padding, bool)
+                or not isinstance(footprint_padding, (int, float))
+                or not math.isfinite(footprint_padding) or footprint_padding < 0):
+            raise ValueError('인계 footprint padding은 유한한 0 이상의 m 값이어야 합니다.')
+        cm['footprint_padding'] = float(footprint_padding)
     cm['use_sim_time'] = cp['use_sim_time'] = use_sim_time
     scan, odom = root + '/scan_filtered', root + '/odom'
     values = isolated_parameters(cp, cm, prefix, scan, odom)
@@ -55,6 +64,9 @@ def build_server_config(nav: dict, robot_id: str, wall: dict,
     # 작은 실제 속도도 완료 판정기에 전달한다. 기존 일반 서버에는 적용하지 않는다.
     for axis in ('x', 'y', 'theta'):
         server['min_' + axis + '_velocity_threshold'] = 0.0
+    for plugin in server['progress_checker_plugins']:
+        if server.get(plugin+'.plugin') == 'nav2_controller::PoseProgressChecker':
+            server[plugin+'.plugin'] = 'farm_wall_controller::WaitingProgressChecker'
     profiles = {}
     for stage, ids in {
         'departure': ('TransferArc', 'transfer_arc_goal', 'transfer_arc_progress'),
@@ -72,5 +84,6 @@ def build_server_config(nav: dict, robot_id: str, wall: dict,
                             heading_tolerance_rad=wall['controller']['angle_tolerance'])
     profiles['retreat']['heading_tolerance_rad'] = .2617993877991494
     spin = alignment_parameters(prefix, settings.base_frame, use_sim_time=use_sim_time)
+    spin['spin.plugin'] = 'farm_wall_controller::WaitingSpin'
     return dict(prefix=prefix, values=values, spin=spin, costmap=deepcopy(cm),
                 profile={'navigation': profiles, 'spin_endpoint': prefix+'/spin'}, scan=scan, odom=odom)

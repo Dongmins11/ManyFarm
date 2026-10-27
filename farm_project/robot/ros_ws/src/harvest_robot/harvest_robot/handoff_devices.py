@@ -3,7 +3,7 @@ from concurrent.futures import ThreadPoolExecutor
 import threading
 import time
 from typing import Any, Callable
-from .transfer_devices import DeviceResult
+from .transfer_devices import DeviceResult, DeviceNotStarted
 
 
 class ComponentTransferDevices:
@@ -13,7 +13,8 @@ class ComponentTransferDevices:
 restore는 기존 미션이 TRANSPORT_CLEAR를 확인한 뒤에만 요청한다.
 """
     def __init__(self, devices: Any, build_body: Callable, ready: Callable,
-                 timeout_s: float, stop_timeout_s: float) -> None:
+                 timeout_s: float, stop_timeout_s: float, *, clock_factory=None) -> None:
+        self.clock_factory = clock_factory
         self.devices = devices
         self._build, self._ready = build_body, ready
         self._timeout, self._stop_timeout = timeout_s, stop_timeout_s
@@ -50,15 +51,18 @@ restore는 기존 미션이 TRANSPORT_CLEAR를 확인한 뒤에만 요청한다.
         try:
             ticket.result()
             return DeviceResult(True, True)
+        except DeviceNotStarted as error:
+            return DeviceResult(True, False, str(error), not_started=True)
         except Exception as error:
             return DeviceResult(True, False, str(error))
 
     def _await(self, source: Any, ticket: Any, *, stopping: bool = False) -> None:
-        deadline = time.monotonic() + (self._stop_timeout if stopping else self._timeout)
+        clock = (self.clock_factory() if self.clock_factory is not None and source is self._body and not stopping else time.monotonic)
+        deadline = clock() + (self._stop_timeout if stopping else self._timeout)
         while True:
             if not stopping and self._cancel.is_set():
                 raise RuntimeError('차체 인계 중단')
-            if time.monotonic() >= deadline:
+            if clock() >= deadline:
                 raise TimeoutError('인계 동작 완료 시간 초과')
             result = source.poll(ticket)
             if result.completed:

@@ -85,11 +85,12 @@ class BodyTrial:
                 self.request_stop()
 
     def wait(self, ticket: Any, *, stopping: bool = False) -> None:
-        deadline = time.monotonic() + (30 if stopping else 240)
+        clock = time.monotonic if stopping else self.runtime.pause_clock.scoped()
+        deadline = clock() + (30 if stopping else 240)
         while not ticket.done():
             if not stopping and self.cancel.is_set():
                 raise RuntimeError('차체 시험 취소')
-            if time.monotonic() > deadline:
+            if clock() > deadline:
                 raise TimeoutError('차체 시험 완료 시간 초과')
             time.sleep(.02)
         ticket.result()

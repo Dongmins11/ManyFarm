@@ -1,0 +1,12 @@
+configured: true
+robot_id: harvest_01
+map_id: many_farm_v1
+assets_file: robot/config/localization/reference_20261014/assets.candidate.json
+model_file: robot/config/localization/common_observation_model.json
+map_yaml_sha256: d56627220f61708f56b5ebe6e682726a0f45ce25f008dab4e1ab96f42987b157
+map_image_sha256: c16144d12bf45bafbb122f2fa34bd0243a39f25e525349e92195fc0223ae410b
+map_frame: map
+odom_frame: odom
+base_frame: base_footprint
+correction_transport: scan_sync
+pixel_bias_profile: robot/config/localization/bias_trial_20261014/profile.json

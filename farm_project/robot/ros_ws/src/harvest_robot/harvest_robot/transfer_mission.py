@@ -8,6 +8,7 @@ import math
 import threading
 import time
 from typing import Any, Callable
+from .transfer_devices import DeviceNotStarted
 
 
 class TransferFailure(RuntimeError):
@@ -38,10 +39,15 @@ class TransferMission:
     def __init__(self, devices: Any, feedback: Callable[[str], None],
                  canceled: Callable[[], bool], shutting_down: Callable[[], bool],
                  timeout_s: float = 120.0, stop_timeout_s: float = 10.0,
-                 clock: Callable[[], float] = time.monotonic) -> None:
+                 clock: Callable[[], float] = time.monotonic, *,
+                 event_timeout_s: float | None = -1.) -> None:
         for value in (timeout_s, stop_timeout_s):
             if isinstance(value, bool) or not math.isfinite(value) or value <= 0:
                 raise ValueError('인계 제한 시간은 유한한 양수여야 합니다.')
+        if event_timeout_s is not None and event_timeout_s != -1. and (
+                not math.isfinite(event_timeout_s) or event_timeout_s <= 0):
+            raise ValueError('이벤트 대기 시간은 양수 초 또는 None이어야 합니다.')
+        self.event_timeout_s = timeout_s if event_timeout_s == -1. else event_timeout_s
         self.devices, self.feedback = devices, feedback
         self.canceled, self.shutting_down = canceled, shutting_down
         self.timeout_s, self.stop_timeout_s, self.clock = timeout_s, stop_timeout_s, clock
@@ -89,30 +95,43 @@ class TransferMission:
             self._condition.wait(timeout=0.02)
 
     def _perform(self, operation: str) -> None:
-        self._check()
-        # start 예외도 전송 여부 불명으로 취급한다.
-        self._begun = True
-        deadline = self.clock() + self.timeout_s
-        ticket = self.devices.start(operation)
+        previous_begun = self._begun
         while True:
             self._check()
-            if self.clock() >= deadline:
-                raise TransferFailure('DEVICE_TIMEOUT', operation + ' 완료 확인 시간 초과')
-            result = self.devices.poll(ticket)
-            if result.completed:
-                if not result.ok:
-                    raise TransferFailure('DEVICE_FAILED', operation + ': ' + result.detail)
-                return
-            self._wait_tick()
+            # 일반 예외는 전송 여부 불명이다. 명시적 전송 전 예외만 재시도한다.
+            self._begun = True
+            try:
+                ticket = self.devices.start(operation)
+            except DeviceNotStarted:
+                self._begun = previous_begun
+                self._wait_tick()
+                continue
+            factory = getattr(self.devices, 'clock_factory', None)
+            clock = factory() if factory is not None and operation in ('prepare_arm', 'rotate_to_transfer', 'restore') else self.clock
+            deadline = clock() + self.timeout_s
+            while True:
+                self._check()
+                if clock() >= deadline:
+                    raise TransferFailure('DEVICE_TIMEOUT', operation + ' 완료 확인 시간 초과')
+                result = self.devices.poll(ticket)
+                if result.completed:
+                    if getattr(result, 'not_started', False):
+                        self._begun = previous_begun
+                        self._wait_tick()
+                        break
+                    if not result.ok:
+                        raise TransferFailure('DEVICE_FAILED', operation + ': ' + result.detail)
+                    return
+                self._wait_tick()
 
     def _wait_event(self, event: str) -> None:
-        deadline = self.clock() + self.timeout_s
+        deadline = None if self.event_timeout_s is None else self.clock() + self.event_timeout_s
         while True:
             self._check()
             with self._condition:
                 if event in self._events:
                     return
-            if self.clock() >= deadline:
+            if deadline is not None and self.clock() >= deadline:
                 raise TransferFailure('EVENT_TIMEOUT', event + ' 수신 시간 초과')
             self._wait_tick()
 

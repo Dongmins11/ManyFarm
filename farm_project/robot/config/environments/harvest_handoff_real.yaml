@@ -1,0 +1,17 @@
+schema_version: 1
+configured: true
+mode: real
+robot_id: harvest_01
+map_id: many_farm_v1
+map_yaml: robot/config/maps/many_farm/many_farm.yaml
+route_graph: robot/config/maps/many_farm/graph.geojson
+nav_params: robot/config/robots/vicpinky/nav2.yaml
+device_config: robot/config/robots/vicpinky/devices.json
+harvest_config: robot/config/harvest/harvest_handoff_real.json
+tag_localization_config: robot/config/localization/harvest_handoff_real.yaml
+tag_capture_config: robot/config/cameras/harvest_tag_capture.yaml
+navigation_policy: robot/config/navigation/harvest_navigation.yaml
+navigation:
+  map_frame: map
+  base_frame: base_footprint
+route_server_params: robot/config/harvest/route_server.yaml

@@ -47,7 +47,10 @@ class WallTracker:
                 if abs(da)>c['normal_jump_rad'] or delta>c['plane_jump_m']:
                     raise ValueError('벽 후보 변경 또는 위치 추정 불연속')
         if self.last and (stamp-self.last['stamp_ns'])*1e-9>c['max_gap_s']:
-            raise ValueError('벽 관측 간격 초과')
+            if not c.get('reacquire_after_gap', False):
+                raise ValueError('벽 관측 간격 초과')
+            # 같은 벽 anchor 검사를 통과한 경우에만 연속 표본 수를 다시 센다.
+            self.count = 0
         self.last=result
         if self.anchor is None:self.anchor=result
         self.count += 1

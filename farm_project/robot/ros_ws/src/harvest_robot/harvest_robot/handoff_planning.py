@@ -110,6 +110,9 @@ class HandoffPlanner:
             retreat = retreat_route(reference, current)
             route = retreat.route
         elif stage == 'align':
+            if hasattr(self._inputs, 'alignment_pose'):
+                limit = reference.arc_spec.endpoint_tolerance if policy.reentry_position is None else policy.reentry_position
+                current = self._inputs.alignment_pose(target[:2], limit, check)
             angle, path = alignment(reference, current)
             if math.dist(current[:2], target[:2]) > (reference.arc_spec.endpoint_tolerance
                     if policy.reentry_position is None else policy.reentry_position):
@@ -137,12 +140,20 @@ class HandoffPlanner:
             path = tuple((*point, yaw) for point, yaw in zip(route.points, headings))
         # 제어기에 보낼 원호는 보존한다. 실제 자세와 시작점 사이도 충돌 검사한다.
         guard_path = (current,) + path if stage == 'return' else path
-        guard = self._guard(stage, guard_path, check)
+        if stage == 'align':
+            limit = reference.arc_spec.endpoint_tolerance if policy.reentry_position is None else policy.reentry_position
+            guard = self._guard(stage, guard_path, check, envelope=(target[:2], limit))
+        else:
+            guard = self._guard(stage, guard_path, check)
 
         def monitor() -> None:
             reference.require_context(*self._inputs.context())
             guard()
-            pose = self._inputs.pose(0, check)
+            if stage == 'align' and hasattr(self._inputs, 'alignment_pose'):
+                pose = self._inputs.alignment_pose(target[:2], reference.arc_spec.endpoint_tolerance
+                    if policy.reentry_position is None else policy.reentry_position, check, origin=current)
+            else:
+                pose = self._inputs.pose(0, check)
             if stage in ('departure', 'return'):
                 limits = reference.arc_spec
                 if stage == 'return':
@@ -151,7 +162,10 @@ class HandoffPlanner:
             elif stage == 'retreat':
                 retreat_error(retreat, pose)
             elif stage == 'align':
-                if math.dist(pose[:2], current[:2]) > .005 or abs(wrap(pose[2]-current[2])) > math.radians(16):
+                # 5mm 증명 재사용 한계는 runtime의 현재 자세 충돌 재검사로 담당한다.
+                # 실제 재진입 가능 영역과 회전 범위는 시작 기준에 고정한다.
+                limit = reference.arc_spec.endpoint_tolerance if policy.reentry_position is None else policy.reentry_position
+                if math.dist(pose[:2], target[:2]) > limit or abs(wrap(pose[2]-current[2])) > math.radians(16):
                     raise RuntimeError('방향 조정 이동 범위 초과')
 
         def validate(stamp: int, stopped_check: Check) -> dict:
@@ -189,6 +203,8 @@ class HandoffPlanner:
             return dict(result, accepted=True)
 
         if stage == 'align':
+            current = self._inputs.pose(0, check)
+            angle, _ = alignment(reference, current)
             return AlignmentStep(angle, policy.spin_allowance, abs(angle) <= policy.alignment_skip, validate, monitor)
         return NavigationStep(route, path[-1][2], validate, monitor,
             reverse=stage == 'retreat',

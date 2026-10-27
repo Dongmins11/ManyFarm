@@ -105,7 +105,7 @@ class TransferCommunication:
             else:
                 devices = TriggerTransferDevices(node, services, operations=ROTATION_DEVICE_OPERATIONS)
             self.devices = ComponentTransferDevices(devices, runtime.build_body, runtime.ready,
-                self.stage_timeout_s, self.stop_timeout_s)
+                self.stage_timeout_s, self.stop_timeout_s, clock_factory=runtime.pause_clock.scoped)
         elif mode == 'nav2_spin':
             if navigation_settings is None:
                 raise ValueError('공통 회전에는 기존 주행 설정과 위치/정지 관측 연결이 필요합니다.')
@@ -306,7 +306,7 @@ class TransferCommunication:
         goal = handle.request
         mission = TransferMission(self.devices, lambda event: self._feedback(handle, event),
             lambda: self._cancel_requested or handle.is_cancel_requested, lambda: self.node.stopping,
-            self.stage_timeout_s, self.stop_timeout_s)
+            self.stage_timeout_s, self.stop_timeout_s, event_timeout_s=None)
         with self.node.lock:
             self.active = (handle, mission)
         if self._discharge_devices is not None:

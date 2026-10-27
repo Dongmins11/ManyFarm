@@ -10,6 +10,14 @@ from tf2_ros import Buffer, TransformListener, TransformException
 from .navigation_types import NavigationSettings
 
 
+class TransformUnavailable(RuntimeError):
+    """TF 버퍼에 요청 시각이 아직 없거나 최신 자료가 만료됨. 유효성 오류와 구분."""
+
+
+class TransformStale(TransformUnavailable):
+    pass
+
+
 class PoseProvider:
     def __init__(self, node: Node, settings: NavigationSettings) -> None:
         self._node: Node = node
@@ -17,7 +25,8 @@ class PoseProvider:
         self._buffer: Buffer = Buffer(cache_time=Duration(seconds=30))
         self._listener: TransformListener = TransformListener(self._buffer,node)
 
-    def lookup(self, target: str, source: str, stamp_ns: int, check: Callable[[],None]) -> NDArray[np.float64]:
+    def lookup(self, target: str, source: str, stamp_ns: int, check: Callable[[],None], *,
+               on_unavailable: Callable[[Exception], None] | None = None) -> NDArray[np.float64]:
         """stamp=0은 최신 위치, 양수는 촬영 등 특정 ROS 시각의 변환입니다."""
         end=time.monotonic()+self._settings.tf_timeout_s
         error: Exception | None = None
@@ -28,8 +37,10 @@ class PoseProvider:
                 stamp=message.header.stamp.sec*10**9+message.header.stamp.nanosec
                 if stamp_ns==0 and stamp!=0:
                     age=(self._node.get_clock().now().nanoseconds-stamp)/1e9
-                    if age<0 or age>self._settings.tf_max_age_s:
-                        raise RuntimeError('최신 위치 TF가 오래되었거나 미래 시각입니다.')
+                    if age < 0:
+                        raise RuntimeError('최신 위치 TF가 미래 시각입니다.')
+                    if age > self._settings.tf_max_age_s:
+                        raise TransformStale('최신 위치 TF가 오래되었습니다.')
                 transform=message.transform
                 q=transform.rotation
                 quaternion=np.array([q.x,q.y,q.z,q.w],dtype=float)
@@ -49,8 +60,11 @@ class PoseProvider:
                 return result
             except (TransformException,RuntimeError,ValueError) as exc:
                 error=exc
+                if on_unavailable is not None:
+                    on_unavailable(exc)
                 time.sleep(.02)
-        raise RuntimeError(f'TF 조회 실패: {target} ← {source}, stamp={stamp_ns}: {error}')
+        kind = TransformUnavailable if isinstance(error, (TransformException, TransformUnavailable)) else RuntimeError
+        raise kind(f'TF 조회 실패: {target} ← {source}, stamp={stamp_ns}: {error}') from error
 
     def lookup_available_pair(self, targets: tuple[str, str], source: str,
                               sample_stamp: Callable[[], int], check: Callable[[], None]
@@ -77,7 +91,7 @@ class PoseProvider:
                 values = tuple(self.lookup(t, source, candidate, check) for t in targets)
                 check()
                 if not 0 <= self._node.get_clock().now().nanoseconds-candidate <= int(self._settings.tf_max_age_s*1e9):
-                    raise RuntimeError('조회 완료 시 기준 표본이 오래되었습니다.')
+                    raise TransformUnavailable('조회 완료 시 기준 표본이 오래되었습니다.')
                 return candidate, values
             time.sleep(.02)
         details = {
@@ -96,7 +110,7 @@ class PoseProvider:
                 details[target] = self._buffer.can_transform(
                     target, source, when, return_debug_tuple=True)
         details['buffer_frames'] = self._buffer.all_frames_as_yaml()
-        raise RuntimeError('기준 저장 실패 상세: '+str(details))
+        raise TransformUnavailable('기준 저장 실패 상세: '+str(details))
 
 
     def current(self, check: Callable[[],None]) -> NDArray[np.float64]:

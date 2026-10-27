@@ -5,6 +5,8 @@ import multiprocessing as mp
 import queue
 import threading
 import time
+from .handoff_wait import InputUnavailable
+from farm_navigation.arc_clearance import ObstacleBlocked
 
 
 def grid_key(metadata: dict, data: bytes, region=None) -> str:
@@ -57,6 +59,8 @@ def _process(requests, responses, solver) -> None:
             distance=solver(job)
             if not math.isfinite(distance) or distance<=0:raise ValueError('유효한 충돌 여유 없음')
             result={'job':job['certificate'],'clearance':distance,'elapsed_s':time.monotonic()-start}
+        except ObstacleBlocked as error:
+            result={'pending':str(error),'elapsed_s':time.monotonic()-start}
         except BaseException as error:
             result={'error':str(error) or type(error).__name__,'elapsed_s':time.monotonic()-start}
         responses.put(result)
@@ -65,6 +69,7 @@ def _process(requests, responses, solver) -> None:
 def usable(result: dict | None, current: tuple, key: str, now_ns: int, now: float,
            radius: float) -> tuple[bool,str]:
     if result is None:return False,'검사 결과 대기'
+    if result.get('pending'):return False,result['pending']
     if result.get('error'):raise RuntimeError(result['error'])
     job=result['job']
     if not all(math.isfinite(v) for v in (*current,*job['pose'],radius,result['clearance'])):raise RuntimeError('비유한 검사 결과/자세')
@@ -80,7 +85,10 @@ def usable(result: dict | None, current: tuple, key: str, now_ns: int, now: floa
 
 
 class AsyncClearance:
-    def __init__(self, snapshot, *, solver=solve):
+    def __init__(self, snapshot, *, solver=solve, response_timeout_s: float = 3.):
+        if not math.isfinite(response_timeout_s) or response_timeout_s <= 0:
+            raise ValueError('충돌 계산 응답 제한은 양수 초 필요')
+        self._response_timeout = response_timeout_s
         self._snapshot=snapshot
         context=mp.get_context('spawn')
         self._requests=context.Queue(maxsize=1);self._responses=context.Queue(maxsize=1)
@@ -97,11 +105,17 @@ class AsyncClearance:
             while not self._stop.is_set():
                 if not self._process.is_alive():raise RuntimeError('충돌 계산 프로세스 종료')
                 if not pending:
-                    job=self._snapshot()
+                    try:
+                        job=self._snapshot()
+                    except InputUnavailable:
+                        with self._lock:
+                            self._result = None
+                        self._stop.wait(.02)
+                        continue
                     self._requests.put_nowait(job);pending=True;sent=time.monotonic()
                 try:result=self._responses.get(timeout=.01)
                 except queue.Empty:
-                    if time.monotonic()-sent>3.:raise RuntimeError('충돌 계산 응답 시간 초과')
+                    if time.monotonic()-sent>self._response_timeout:raise RuntimeError('충돌 계산 응답 시간 초과')
                     continue
                 with self._lock:
                     self._result=result;self._statistics.append(result['elapsed_s'])

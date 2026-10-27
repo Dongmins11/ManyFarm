@@ -46,9 +46,9 @@ class Navigator:
         if explicit_routes and (settings.mode != 'follow_path' or settings.parallel_approach
                                 or graph is not None or route_planner is not None):
             raise ValueError('명시적 경로 실행에는 그래프·평행 접근을 함께 지정하지 않습니다.')
-        if poses is None and (arrival_validator is None or settings.tf_recovery_enabled):
+        if poses is None and (arrival_validator is None or settings.tf_recovery_enabled or settings.collision_retry_count):
             raise ValueError('TF 위치 조회 또는 명시적 완료 판정기가 필요합니다.')
-        if settings.tf_recovery_enabled:
+        if settings.tf_recovery_enabled or settings.collision_retry_count:
             client.set_recovery_probe(lambda: poses.recovery_ready() and motion.stationary_now())
         self._lock=threading.Lock()
         self._status=NavigationStatus()

@@ -38,6 +38,7 @@ class NavigationSettings:
     parallel_approach: bool = False
     tf_recovery_enabled: bool = False
     tf_recovery_timeout_s: float = 10.0
+    collision_retry_count: int = 0  # 명시적 선택만 허용; 일반/타 로봇 기본값 불변
 
     @classmethod
     def from_mapping(cls, values: dict[str, Any]) -> NavigationSettings:
@@ -56,10 +57,15 @@ class NavigationSettings:
             elif isinstance(f.default, bool):
                 if not isinstance(value, bool):
                     raise ValueError(f'{f.name}: bool 필요')
+            elif isinstance(f.default, int):
+                if isinstance(value, bool) or not isinstance(value, int) or not 0 <= value <= 20:
+                    raise ValueError(f'{f.name}: 0~20 정수 필요')
             elif not isinstance(value, str) or not value.strip():
                 raise ValueError(f'{f.name}: 비어 있지 않은 문자열 필요')
         if settings.settle_timeout_s <= settings.settle_s:
             raise ValueError('settle_timeout_s는 settle_s보다 커야 합니다.')
+        if settings.collision_retry_count and settings.mode != 'follow_path':
+            raise ValueError('충돌 재시도는 FollowPath 전용')
         return settings
 
 

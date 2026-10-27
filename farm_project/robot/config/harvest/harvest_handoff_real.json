@@ -1,0 +1,64 @@
+{
+  "schema_version": 1,
+  "robot_id": "harvest_01",
+  "map_id": "many_farm_v1",
+  "control_aliases": {
+    "map_ids": {
+      "farm_map_v1": "many_farm_v1"
+    },
+    "section_ids": {
+      "SEC01": "SEC_01"
+    }
+  },
+  "status_reporting": {
+    "enabled": true,
+    "map_id": "farm_map_v1",
+    "battery_topic": "battery_state"
+  },
+  "default_section_id": "SEC_01",
+  "completion_policy": "ARRIVAL_THEN_ARM",
+  "sections": {
+    "SEC_01": {
+      "entry_node": 11,
+      "entry_heading_node": 12,
+      "exit_node": 11,
+      "exit_heading_node": 10,
+      "work_corridor_nodes": [
+        10,
+        14
+      ]
+    }
+  },
+  "task_navigation_policy": "robot/config/navigation/harvest_task.yaml",
+  "approach_max_start_distance_m": 0.2,
+  "transfer": {
+    "enabled": true,
+    "device_services": {
+      "prepare_arm": "/harvest_01/arm/prepare",
+      "stop": "/harvest_01/arm/stop"
+    },
+    "capacity_count": 0,
+    "loaded_count_topic": "",
+    "stage_timeout_s": 120.0,
+    "stop_timeout_s": 10.0,
+    "load_source": "arm_feedback",
+    "request_count": 0,
+    "rotation_mode": "components",
+    "rotation": {},
+    "discharge_mode": "action",
+    "discharge_action": {
+      "endpoint": "/harvest_01/arm/discharge",
+      "response_timeout_s": 5.0,
+      "cancel_timeout_s": 10.0
+    }
+  },
+  "work_path_heading_limit_rad": 0.08726646259971647,
+  "arm_action": {
+    "endpoint": "/harvest_01/arm/harvest_task",
+    "readiness_timeout_s": 5.0,
+    "response_timeout_s": 5.0,
+    "execution_timeout_s": 180.0,
+    "cancel_timeout_s": 10.0
+  },
+  "navigation_collision_retry_count": 5
+}

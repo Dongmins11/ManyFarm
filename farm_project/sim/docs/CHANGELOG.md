@@ -1201,3 +1201,288 @@ arc_trial.py의 기존 속도 전달 검사에 6축 유한성 검사를 추가�
 
 ### 2026-10-23 실기 성공본 PC 커밋 준비
 사용자 승인으로 로봇 실행/설치 출처 대조 후 최신 핫픽스25파일을 PC에 반영. 기존 dirty 원본 및 시험/로그/백업은 /home/eunbi/vmany_artifacts/handoff-success-20261023-commit-prep에 보존. 관련 없는 예찰/Burger 차이 및 기존 추적 시험 보존. 성공 실행의 dedicated TF 환경 선택과 body-only 프로필을 문서화. 이번 PC 오프라인64+18+20검사,4패키지 격리 빌드 통과. 인계→일반주행 실기1회 성공이며 웹 관제 전달/반복/팔 검증은 미완료. 운영 로봇 변경/이동/commit/push/staging 없음. 상세 docs/changes/HANDOFF_SUCCESS_COMMIT_PREP_20261023.md.
+
+
+### 2026-10-24 공통 launch 후보 검토 — 미적용
+사용자 승인한 실물 인계 전용 padding62×52 후보 준비. 공통 farm_bringup harvest.launch.py는 기존 인계 JSON의 선택형 padding을 구성함수에 전달하는 제안diff만 Git밖에 작성. 시뮬/일반주행/운영소스 변경없음. launch와 runtime 동일전달 및 기존기본값보존 등 오프라인15PASS; 실제launch/실기미검증. 외부 handoff_padding_candidate_20261024에 원본백업/manifest/후보/검증/원복보존. 적용은 사용자안내후별도진행,현재원복불필요. 상세 docs/changes/HANDOFF_DELAY_AUDIT_20261023.md 최신절.
+
+
+### 2026-10-24 인계62×52 로봇실행본적용·미기동
+사용자승인으로원본/설치본백업후3소스+FSM JSON적용,2패키지빌드/설치해시·형상검증완료. 일반64×54/안전보호유지. 기존런치종료(수확SIGINT60초지연→SIGTERM종료경고보존),사용자스테이션복귀확인. 실패1건은FAILED기록보존+수동복구근거를남기고recovery_required해제. 새window기준/더미수확필요. 로봇/PC브리지·PC더미유지,사용자laun→vinit→웹확인대기. 실제기동/이동없음. 상세audit최신절/외부배포검증자료참조. PC운영소스는미반영,commit/push없음.
+
+
+### 2026-10-24 TBB 잔존 arena 추적·v2 후보 오프라인 검증
+OpenCV 전역 task_arena가 노드 소멸 뒤 남는 구조 확인. 설치 ARM disassembly와 카메라 없는 remap 대조로 PC/ARM 각각 보존5회 finalize실패, 해제5회 정상종료 재현. v2 후보는 node/executor 정리 후 cv::setNumThreads(0)→TBB finalize→loader 해제, 실패 보호 유지. 양측 합성 OpenCV 노드 SIGINT/SIGTERM/생성실패·순서·링크 검사 통과. 운영원본/설정 SHA·백업 바이트 일치, harvest270128 유지. 카메라 재실행/운영 적용/이동/commit/push 없음. 실제 영상 재검증 전 해결 확정 금지. 근거 runs/tbb_shutdown_candidate_v2_20261024/README.md 및 상세 인계감사문서. 이전 v1과 백업 보존.
+
+
+### 2026-10-24 TBB v2 실제 영상 종료 시험 통과 (1회)
+사용자 카메라 전용 v2 실행 승인. 원본 카메라/monitor 및 영상 설정 그대로, rectify/apriltag 실행 파일만 runs/tbb_shutdown_candidate_v2_20261024/build 후보 선택. 운영 launch/바이너리 교체와 보정 adapter·이동 요청 없음. 기준 cf870da 및 기존 미커밋 변경 보존.
+120.035초 실행, raw/rect/detections 각각939표본, tag100 검출. camera/검출기/rectify/monitor 모두SIGINT 종료0. 검출기0.264714초, rectify0.267155초(신호 전송~프로세스 wait 관측의 monotonic 경과). camera0.465257초,monitor1.867278초,전체3.865244초(카메라 후1초 대기 포함). 기존 검출기/rectify4초 제한 내 종료,TERM/KILL없음. 두 로그 모두 OPENCV_ARENA_RELEASED→TBB_FINALIZE_BEGIN→TBB_FINALIZED→COMPONENT_LIBRARY_RELEASED 확인. 이전 원본-11/v1 exit3과 달리 이번 v2 실제 영상 종료 정상.
+운영 카메라3스크립트/설정SHA 전후동일, /opt/ros 실행파일2개 원본 백업과 동일, harvest270128/launch270080 유지. 시험 자식모두종료. 영상 중 별도15초 읽기 odom453개 비영0/IDLE 확인(전체120초 연속 odom계측은 아님). 카메라 설정 복원 기록 보존. PC·로봇 runs/tag_tbb_v2_trial_20261024에 commands/settings/후보SHA/영상표본/로그/receipt.json/보존검사 저장,31파일복사SHA일치검증. Git commit/push없음.
+이번 한 차례 카메라 종료 시험 통과이며 장시간/반복 종료·주행과 태그보정 통합·control_readback_stale 원인 해결은 별도. 운영 설정은 여전히 원본 실행 파일 사용. 다음 운영 적용은 사전 안내 필요.
+
+
+### 2026-10-24 v2 종료 처리 운영 경로 반영 — 재기동 대기
+사용자 운영 적용·백업·원복 준비 승인. Git cf870da+기존 미커밋 변경 유지. PC/로봇 robot/ros_ws/src/farm_tag_camera_runtime에 실제 시험한 v2 C++/헤더 바이트 그대로 추가, ament 설치용 CMake/package.xml과 설치 선택 검사 추가. 양측 colcon에서 새 패키지만 빌드. 기존 harvest/Nav2/AMCL 패키지는 빌드·재시작하지 않음.
+robot/tools/tag_camera/pinky_tag_capture_compare.py가 기존 /opt/ros 실행 파일 대신 ament index의 farm_tag_camera_runtime/{apriltag_safe,rectify_safe}를 선택. 기존 명령 인자/검출·카메라 설정/종료 제한은 불변. 누락·권한 오류 시 시작 전 실패, 자동 원본 fallback 없음. settings.json에 실행 파일 경로·SHA 기록 추가. /opt/ros 바이너리와 기존 v1/v2 후보·백업 보존. 시뮬 ROS 영상 launch 불변.
+PC 오프라인 캡처/설정/세션/실행 선택21건 통과. 최초2건은 시험명령 PYTHONPATH에서 ROS 경로를 제외한 ModuleNotFoundError; 환경 수정 후21건 통과. 임시 복사본 원복3건(정상복원/원본상태/추가변경거부) 통과. 로봇 새 env source에서 설치된 두 바이너리 경로 확인, v2 소스동일, 나머지 카메라2파일+trial_io 및 설정SHA 동일, harvest270128유지. 캡처 적용 SHA 2f21f848041b5e2307233387ec33a0ccd74d3c82c961d48abcd88fc0d1450451. 카메라 재기동/이동/commit/push 없음. 운영 경로 실제 재기동 검증은 아직 미수행.
+PC/로봇 runs/tag_tbb_v2_deploy_20261024에 capture.before.py/after.py, 빌드·적용 receipt 및 rollback.py 보존. 카메라 종료 상태에서 로봇 터미널 `python3 /home/vic/vmany/main/farm_project/runs/tag_tbb_v2_deploy_20261024/rollback.py`로 실행 선택 원복. PC는 같은 경로의 /home/eunbi 사용. 실행 중 카메라 또는 적용 후 추가변경이 있으면 거부. 새 패키지는 남아도 원본 스크립트가 참조하지 않으며 삭제/기존노드 재기동 불필요. 새 설치만 복사할 때 farm_tag_camera_runtime을 빌드 목록에 명시한다. 원복 도구는 프로세스 시작/종료하지 않는다.
+
+
+### 2026-10-24 운영 캡처 경로 v2 실영상·종료 검증 통과
+사용자 카메라만 재기동/정상종료 검증 승인. 운영 pinky_tag_capture_compare.py를 변경 없이 subprocess 실행, 기존 캘리브레이션·manual_2ms·검출 파라미터 그대로 사용하고 출력 폴더만 별도 지정. 실제 ament 설치 경로 farm_tag_camera_runtime의 apriltag_safe/rectify_safe 선택을 settings.component_runtime 및 commands.json으로 확인. fleet 주행 노드·보정 adapter 재기동/주행 명령 없음.
+약2분 시험, raw/rect/detections 각950표본,tag100검출. 운영 부모+camera/detector/rectify/monitor 모두exit0,process_exits.clean_shutdown=true,예기치않은종료없음,SIGINT만 사용. 검출기·rectify 각각 OpenCV arena 해제→TBB_FINALIZED→COMPONENT_LIBRARY_RELEASED 확인. -11/TERM/KILL없음. 운영 스크립트는 수정하지 않고 외부 수집기가 STOPPING/EXIT 출력 수신시각(monotonic)을 기록: 검출기0.264560초,rectify0.265867초,camera0.414579초,monitor0.565077초. 이는 정확한 OS 신호~exit 시각이 아닌 로그 관측 구간이다. 부모 SIGINT 요청~수집 종료2.736272초.
+기존 운영 코드3파일/카메라설정 SHA 전후동일, 기존 성공 주행 PID270128/launch270080유지,시험자식 모두 종료. 별도15초 odom455개 비영0/IDLE. 카메라 controls_restored=true. 검출파라미터 이전v2시험과동일. 로그·종료시간·실행해시·표본은 PC/로봇 runs/tag_operational_v2_trial_20261024, 실제 세션 capture/20261024_060235_la99uakv. PC복사32파일SHA일치 확인. 원복백업/도구 유지,commit/push없음.
+검증 범위는 운영 캡처 스크립트와 설치 실행파일의 카메라 전용 시작·영상처리·정상종료 1회. 전체launch 재기동·태그보정/주행 통합·장시간 반복·설정조회 stale 원인 해결은 이번 검증에 포함하지 않는다. 현재 카메라는 종료 상태,주행노드는 유지.
+
+
+### 2026-10-24 카메라→태그 보정 정지 연결 확인
+사용자 정지 연결 확인 요청 후 카메라·어댑터가 모두 종료 상태임을 확인하고 재기동 범위를 사전 고지. 운영 tag_capture_session만 기존 environment에 지정된 capture config와 runs/tag_bias_trial/20261023_165950_381707_on/localization.yaml로 잠시 실행. 주행/AMCL 유지, 작업 활성화·보정·initialpose·이동 명령 미발행. 설정/코드 변경 없음.
+새세션 runs/harvest_tag/20261024_060658_l_wtlwis,하위20261024_060659_8h_4ce7t:raw/rect/detections418개,tag100검출. 실제어댑터FD17이새detections.jsonl을열었고5초간읽기위치89623→114588로각시점파일끝까지전진. 이전세션재사용아님.
+DDSgraph: harvest_motion_server control publisher→adapter/AMCL subscriber, adapter correction publisher→AMCL subscriber, AMCL events publisher→adapter subscriber 확인. AMCL read-only parameters tf_broadcast=true,protocol=scan_sync_v1,robot=harvest_01,map=many_farm_v1 일치. 이는 연결·계약 확인이며 실제 보정 적용 왕복 성공을 의미하지 않음.
+35초읽기관측control/correction/events각0,odom1052표본비영0. 어댑터 start/closed 기록 correction_requests=0. 유효작업lease없으면출력을차단하는기존보호를유지했으므로정지대기는정상이며보정성공으로표기하지않음. 영상→관측계산→AMCL 실제적용은유효작업구간에서별도확인필요,이번에는작업신호를인위적으로발행하지않음.
+시험후adapter/capture부모및camera/detector/rectify/monitor전부exit0,clean_shutdown=true,-11/강제종료없음. 세션SIGINT→부모종료3.834초. 시험자식종료,기존launch270080/AMCL270098/harvest270128유지. 설정·설치/소스모듈전후SHA동일. 현재카메라·어댑터는시험종료상태. 로그는PC/로봇runs/tag_stationary_link_20261024,로봇원세션도보존;PC에원세션전체추가복사. commit/push없음.
+
+
+### 2026-10-24 사용자 요청: 벽 시간 임계값 조정 후보
+사용자 반복 차단 조건 제거 또는 임계값 확대 요청에 따라 실제 로봇 wall/handoff 설정 원본을 runs/wall_timing_candidate_20261024에 보존. 운영소스/설정/프로세스 불변,PC 후보만 작성. 변경2개: controller.observation_age .3→.45초, observation.max_gap_s .3→.45초. dwell .5초와충돌/취소/정지/속도/미래시각거절유지,일반주행변경없음. .45는원인확정후도출한해결값이아닌제한된실험후보이며이번오류가future분기면해결못함. 최대설정속도.02m/s·.05rad/s에서추가150ms는3mm/.0075rad 이동분에해당하나실물안전증명아님.
+실제C++헤더와후보설정생성검사: .35/.44초수락/.451초만료/미래1ms거절/기존.3초거절/실측비영속도정지우선/같은stamp반복성공금지확인. 기존C++회귀도실행,로그test.log. ROS부하·실기검증아님. 이전성공코드및핫픽스보존,이번에는적용/재기동/이동없음. 운영적용은Python과controller가같은설정을기동때읽어야하며수확노드만값변경으로불일치시키지않는다. 현재recovery_required유지. 원복은미적용후보불사용,추후배포시원본설정복원필요. commit/push없음.
+
+
+### 2026-10-24 0.45초 후보 운영 설정 적용·종료 확인
+사용자백업유지/실행본적용/종료·재기동절차승인. 종료전ERROR·odom91표본0,실패transfer기록백업. 카메라311318→launch311278→로봇브리지311773/311836 정상종료,자식포함remaining[];PCdummy196592/bridge196652도기록백업후종료remaining[].최종로봇관련프로세스검색없음. 런치종료중harvest Destroyable 경고1회후finished cleanly;정상종료경고문제까지해결됐다고표시하지않음.
+공용wall_alignment_trial.json불변. /home/vic/Downloads/pc_dummy_dock_fsm_20261024/wall_alignment_045.json 신규전용후보배치,동폴더handoff_fsm.json의wall_config참조만변경. observation_age/max_gap_s=.45,dwell=.5,padding=.01 유지. 실제설치구성생성기로controller/observer설정오프라인일치검증,노드기동없음/빌드불필요(JSON선택변경). runs/wall_timing_deploy_20261024에로봇·PC원본/배포receipt/검증/종료PID/rollback.py보존. 원복은프로세스부재·afterSHA검증후원래handoff참조복원,신규설정파일미참조로보존.
+현재실패journalrecovery_required유지(물리복구전해제하지않음). 사용자에게드라이버종료확인후스테이션재배치가능시점안내. 스테이션위치·방향이동확인받은뒤이번실패원문보존+수동복구기록을추가하고재기동하도록할것. 아직재배치확인/복구해제/재기동/초기위치/이동없음. PC더미도기동후복구상태조회필요. 사용자기동순서PCdummy→PCbridge→로봇laun→vinit→zen→dzen→vstat,웹연결확인후파라미터·정합·costmap·더미·새window기준점검. commit/push없음.
+
+
+### 2026-10-24 인계 중단 조건 전체 검토·정지 대기 후보
+사용자가 벽 관측 외의 불필요한 중단 조건도 제거/조정 요청. 로봇 최신 소스를 runs/handoff_guard_audit_20261024/source에 확보하고 후보 디렉터리만 수정했다. PC runtime은 로봇과 달라 덮어쓰기 금지 유지. 공통 wall_controller/WallTracker 및 harvest runtime 후보5개 파일, 전용JSON과 patch 작성. 벽header만료·수신없음·표본gap·tracker재획득·준비단계 stale pair를 통합 처리하며 default는 기존정책, 후보만 observation_wait=.8초/stable재획득 선택. 충돌/취소/소유권/미래시각/odom/costmap 유효성 유지. 상세 중단조건 표·남은문제는 runs/handoff_guard_audit_20261024/REVIEW.md.
+PC Jazzy 공유라이브러리 별도빌드 성공, 기존861assertions/ctest1통과, 새정지대기C++/tracker/runtime분류오프라인검사통과. ROS통합·전체인계·실기미검증; wall/align snapshot 및 상위watchdog 경로가 남아 모든 지연해결로 표시하지않음. 운영소스/설치/실행설정 불변,재기동/이동/commit/push없음. 후보 적용 전 안내 필요.
+
+
+### 2026-10-24 watchdog·wall/align 후보 v2 통합검사
+사용자 후보 보완·통합검증 승인, 운영 적용/재기동/이동 전 안내 유지. 후보 runtime에서 wall 최신 입력 재검증, align 최신 costmap 키·최신 자세 clearance 재검증을 연결했다. 증명 재계산은 실제 controller 입력을 받은 경우 0 출력으로 최대3초 대기하며 기존 .3초 watchdog은 유지한다. Navigator live guard도 취소 가능한 bounded wait로 연결하여 callback 외 경로의 즉시 실패를 보완했다. epoch/취소/정지/소유권/세션·충돌·freshness보호 유지.
+실제 메서드/gate/clearance 통합16, guard 경로4, 실제스레드경쟁4 검사 통과. 실패bag→후보C++ Control 199개 재생(max age .502972초) 통과. PC격리loopback domain191 시험토픽 DDS→실제후보메서드/gate 199개 일치, 입력단절시watchdog정지 확인. 기존861assertions/ctest 및기타후보검사통과. 주변Node/센서/시각은harness이며전체Nav2 Action/실물부하 통합검증과구분한다. 모든조건/지연해결이나실기성공으로보고하지않음.
+로봇현재원본5파일hash가보관source와일치. 운영소스/설치/설정/프로세스불변,실물이동/재기동/commit/push없음. runs/handoff_guard_audit_20261024/REVIEW.md의v2표·검증한계와candidate.patch/manifest/검사로그참고. 적용전로봇아키텍처빌드·배포·재기동절차준비필요.
+
+
+### 2026-10-24 정지 대기 v2 로봇 빌드·설치 적용
+사용자 기존핫픽스백업/로봇빌드/실행본적용/종료·재기동절차 승인. 적용전odom91개비영0 확인. camera324570,launch324533 및자식,로봇브리지325032/325095 SIGINT종료,선택28개remaining[] 및최종프로세스부재확인. 드라이버종료후사용자에게스테이션재배치가능안내. 아직물리재배치확인없어실패DOCK_TEST_5793582207d24bc4a9beabdafcae85b8의recovery_required=true는유지했다. 실패원문/결과FAILED 보존.
+로봇원본5파일hash와후보manifest대조후 source5개+install3패키지 original.tar.gz 백업. PC/로봇SHA256 6cd5f3ff8f408cc4a7a5ef80d5973ce47afd4115c4c6efed46b12f5f8628c509일치. 로봇colcon farm_navigation/farm_wall_controller/harvest_robot 순차빌드27초성공. underlay재선택경고있음;빌드실패아님. 로봇ctest1/1 및새C++정지대기검사통과. 설치Python2개hash후보와일치,설정생성기로 .45/.8/.5 및재획득선택검증.
+/home/vic/Downloads/pc_dummy_dock_fsm_20261024/wall_alignment_wait_v2.json신규,기존handoff_fsm.json의wall_config참조만변경. age=.45/observation_wait=.8/dwell=.5/footprint_padding=.01,충돌·취소·정지·소유권보호유지. 실제노드기동없음. PC운영소스덮어쓰기없음. runs/handoff_wait_deploy_20261024에원본/배포receipt/빌드·검증/종료/rollback.py 보존. rollback은프로세스부재·afterhash일치후원본tar/설정복원,후보C++빌드캐시보존이동으로재설치혼입방지;문법검사만수행,실제원복미실행.
+PCdummy204039/bridge204098은계속실행중으로중복기동금지. 재배치확인→실패기록보존수동복구→사용자로봇laun→vinit→zen→dzen→vstat 순서. 웹확인후실제파라미터·정합·costmap·더미복구상태확인필요. laun카메라포함. 종료중harvest Destroyable경고후finishedcleanly확인,기존종료경고까지해결했다고표시하지않음. 실기성공미검증/초기위치발행/재기동/이동/commit/push없음.
+
+
+### 2026-10-24 코너 종료 대신 전진 곡선 대안 후보
+사용자 방향 승인 후 운영파일을보존한별도runs/corner_alternative_candidate_20261024에Corner RPP 후보구현/PC빌드. 정상RPP유지,경로방향맞춤NoValidControl시에만속도규제/각속도·가속제한을따르는전진곡선3개기존충돌검사,전부불가시0출력후재평가/기존progresschecker유지. 취소/TF/최종자세/후진보호유지의도. 실패저장입력에서제자리v0,w-.1은.89초충돌,전진v.02이상+w-.1의1초표본검사통과. PC기존회귀CTest1/1통과는새fallback전체검증아님. 새메서드전체취소/실패/재개통합,실제제동·smoother궤적,진행성,로봇1.3.11호환미검증이므로운영적용준비완료아님. 운영코드/설정/설치본/기동/이동/commit/push없음. 원본hash와한계/후속검증REVIEW.md보존.
+
+
+### 2026-10-24 일시적 실패 대기 1차 후보·운영 미적용
+사용자승인으로현재로봇설치코드/선택설정백업,조사기준74개hash일치확인. 별도runs/transient_wait_candidate_20261024/candidate에수확모듈6개변경:명령공백watchdog0출력대기/최신연속정지증거후재개,전송전DeviceNotStarted만FSM재대기,비동기어댑터분류전달,운송이벤트대기기한을장치실행기한과분리. 취소/epoch/owner/실제충돌/센서만료/전송불명보호유지. 일반normal출력AST불변.
+실제후보gate/FSM경계23개+실제runtime메서드통합harness18개=41오프라인검사통과. 전체ROS/DDS/실기검증아님. 센서/TF만료래치·odom샘플간격·align5mm/3초등은이번미변경,전체12개개선완료아님. 상세REVIEW.md/patch/hash/tests로그보존. 운영소스/설정/설치본변경·재기동·이동·commit/push없음.
+
+
+### 2026-10-24 센서·TF 재관측 및 align 보완 후보 — 운영 미적용
+사용자 승인으로 1차 후보 위에 2차 후보를 별도 `runs/transient_sensor_candidate_20261024`에 작성했다. 운영 설치 Python 74개를 SSH로 다시 읽어 기존 백업 해시 일치를 확인했다. 입력 과거 만료/TF 부재를 0출력 재관측으로 분리, worker 대기 중 raw 명령 재개 차단, 최신 연속 정지 확인 후 재개, odom 간격만 인계 선택형 대기로 분리했다. 실제 과속·미래/역행·형상·취소·epoch·소유권·충돌 보호는 유지한다. align의 5mm 즉시 실패는 현재 자세 증명 재계산으로 대체하되 고정 원호 끝점 재진입 한계와 16도 한계를 출력 직전에도 검사한다. 전체 장애물 마스크 키에서 갱신 시각을 제외했다.
+후보 재관측/벽 관측 대기는 5초로 맞췄으며 센서 유효기간(odom 등 .5초, wall .45초)은 불변. 상위 전체 Action/FSM/Spin/progress 기한은 계속 진행하므로 잔여 기한을 넘는 대기는 여전히 실패할 수 있다. 자동 Goal 재전송 없음. 1차 후보의 장치 생성자에 잘못 전달된 event_timeout_s도 제거하고 실제 signature 검사를 추가했다(운영 미적용 후보 오류).
+실제 runtime/FSM/비동기 어댑터와 대역 입력을 연결한 검사 포함 Python 137개, 로봇 동일 헤더 C++ 7개 시나리오 통과. 실제 spawn 충돌 프로세스의 입력 공백/3.15초 계산 후 복구·종료 포함. 전체 ROS/DDS/Nav2 서버·실기·다른 로봇 E2E 검증은 아님. 공통 모듈 2개는 후보에서만 수정했다. 운영 소스/설치/설정·기동·이동·commit/push 변경 없음. 상세 변경·검증 로그·잔여 기한 한계·원복은 후보 REVIEW.md와 verification.json에 보존. 기존 백업·미커밋 변경·1차 후보 보존.
+
+
+### 2026-10-24 실제 ROS 서버 격리 검증 — 상위 기한 경합 확인
+사용자 요청으로 PC domain191/loopback/validation_no_hardware namespace에서 실제 Nav2 ControllerServer·BehaviorServer와 로봇 현재 WallController 소스의 격리 빌드, 후보 runtime/Navigator/SpinClient/TransferMission을 검증했다. 구동기 연결 없음, 고정 자세·시험 관측·빈 costmap 사용. odom/wall/costmap 지연 중 0출력 및 복구 후 동일 Goal 재개, TF 재조회 중0/복구 후 worker 반환, 취소 후 terminal/출력 차단, 실제 spawn 충돌계산 포함 align 지연·재개·취소 확인. 관측 지속 중단은 약5.494초 후106, 고정 자세에서7초 후 관측 중단하면 총10초/대기3초에 progress105 발생. 후보만으로 상위 기한 소진에 따른 종료를 방지하지 못함을 확인했다.
+검증용2초 Navigator/FSM/Spin 기한은 각각 timeout/DEVICE_TIMEOUT/Spin701로 종료하고 자기 Goal 정리 및0출력을 확인했다. 운영120초 등을 그대로 경과시킨 시험은 아님. 시험 settle_s=.3/tf_timeout_s=.5 사용, PC Nav2 1.3.13과 로봇1.3.11 차이 명시. 실기/Zenoh/팔/운영 FSM 전체 성공 아님. 후보 추가수정·운영 적용/재기동/이동 없음. 운영 설치 Python74개 백업 해시 및 후보 해시 불변, 검증 프로세스 모두 종료. 상위 기한 정책 보완 또는 한계 수용 전 운영 준비 완료로 표시하지 않는다. 로그/소스/YAML/버전/상세결과는 runs/transient_ros_validation_20261024/REPORT.md 및 run1~3에 보존. commit/push 없음.
+
+
+## 2026-10-24 인계 정지 대기 실행시간 후보 및 실제 ROS 무구동 검증
+
+사용자 승인 범위: 일시 정지로 progress·상위 FSM이 먼저 만료되지 않도록 후보 보완, 실제 ROS 무구동 검증. 운영 적용·재기동은 승인 범위 밖이며 하지 않았다. 기준 HEAD `cf870da`; 기존 미커밋 변경과 성공 실행본·백업 보존.
+
+`runs/pause_budget_candidate_20261024/REPORT.md`에 변경표·검증·한계를 기록했다. 인계 전용 0 출력 대기 누계로 progress/Spin/wall/차체 상위 기한을 연결하고 실행별 제외 상한 30초, 연속 입력 대기 5초와 취소·정지·충돌 보호를 유지한다. 후보 Python 9개 및 전용 C++ 패키지만 별도 경로에서 변경했다. 일반 주행 설정과 운영 실행본은 변경하지 않았다.
+
+직접 검증: 격리 PC ROS domain191의 실제 Nav2 서버에서 progress 10초를 넘는 관측 대기 후 같은 Goal 완료(10.548초), 상위 FSM 2초를 넘는 관측 대기 후 완료(3.562초), odom 지연 중 Spin 0 출력·복구·취소 확인. 대기가 없으면 progress/FSM/Spin의 원래 제한이 작동했고 지속 벽 관측 단절 5.499초에 중단했다. 초기 시계 계산 결함과 실패 로그도 보존하고 수정 후 재검증했다. Python 143개·C++ 7개 통과. PC Nav2 1.3.13, 로봇 1.3.11 차이가 있어 로봇용 빌드와 전체 실기/FSM 시험은 남았다. 전체 운영 완료·실기 성공으로 해석하지 않는다.
+
+다음 작업: 운영 적용 전에 버전별 빌드·기존 설치본 대조와 사용자 사전 안내. 원복: 후보 overlay 미사용 시 기존 실행본 유지. 시험 프로세스 종료 확인, 로봇 이동/재기동 및 Git commit/push 미수행.
+
+
+### 2026-10-24 로봇용 pause budget 후보 빌드·플러그인 로드 확인 (운영 미적용)
+사용자 승인으로 로봇 Downloads/pause_budget_robot_20261024에서 ARM64/Nav2 1.3.11용 farm_wall_controller 및 farm_navigation/harvest_robot 별도 빌드. ROS init/노드/Goal 없는 pluginlib 생성·해제로 4종 플러그인 로드, 기존 underlay 위 후보 library 경로, 설치 Python import·전용 설정 선택 확인. 사용 API 헤더3종은 PC1.3.13과 동일하나 전체 동작 동등성 검증 아님. 운영 소스/설치/설정250개 전후 불변, 기존 성공 Python74개 해시 일치, 주요 운영 PID 유지. 기존 백업 유지 및 PC 추가 스냅샷 보존.
+실제 laun의 run.bash→terminal.py 경로를 확인하여 launch 분기만 후보 overlay 및 handoff JSON을 선택하는 적용 제안 diff를 준비했다. 운영 파일 수정/재기동/이동/commit/push 없음. 적용 전 사용자 안내·승인 및 현재 상태 확인 필요. 원복은 적용 직전 별칭 wrapper 백업 복원+새 터미널 재기동. 상세 빌드·버전·로드·증거·한계·적용 순서: runs/pause_budget_robot_20261024/REPORT.md. 로봇 lifecycle/전체 FSM 실기 검증은 남았다.
+
+
+### 인계 pause budget 후보 실행 선택 적용 — 2026-10-24
+사용자 승인으로 실제 laun wrapper 두 파일만 백업 후 적용. 기존 운영 소스/install/설정250개 불변, 로봇 후보 overlay와 새 handoff JSON 선택. --check 통과/충돌PID없음. 이번 확인 시 양측 실행은 이미 종료되어 종료신호 미전송. 영구 인계 journal 4건 모두 active/recovery false이며 원본 보존. 사용자 스테이션 재배치 확인 대기, 실제 재기동/초기위치/이동 없음. 원복 백업 activation-backup-20261024_183013; 상세 runs/pause_budget_apply_20261024/REPORT.md. commit/push 없음.
+
+
+### 2026-10-24 pause budget 운영 기동 후 정지 확인
+사용자 스테이션재배치·기동·웹표시 확인 후 실제 PID 후보경로/libmaps·파라미터·lifecycle active 확인. progress4종/Spin후보 및wall .45초/대기5초 반영. IDLE/ready,최근정지odom30개,출력·odom단일publisher. 일반/인계2cm grid와64×54/62×52형상유지,현재정지충돌검사통과. 레이저지도689점 중앙1.44cm/p903.16cm. PC더미ready/recoveryfalse 및로봇prepare왕복success(DUMMY_ONLY). 이번이동/재설정/Action실행없음. 상세 runs/pause_budget_restart_check_20261024/REPORT.md. 반복허용·window/인계실기는아직미수행,commit/push없음.
+
+
+### 2026-10-24 후보 #59 반복 준비
+사용자 승인으로 PC 더미 기록 백업 후 ready/prepare 확인, 25fabab7b348 작업 1회 반복 허용(300초). 로봇 구독 전용 bag PID525077/startticks10184311,15분상한,모든토픽 구독·파일증가 확인. runs/pause_budget_window_20261024에 근거 보존. 사용자 웹 전송 대기이며 이동/수확/인계 요청 미전송,도착·더미완료·새기준저장은아직미확인.
+
+
+### 2026-10-24 18:39 후보 window+PC더미 성공
+사용자 #59 웹 요청, task25fabab7b348 SEC01_TASK001. 이번 accepted 도착 위치오차34.83mm/방향1.345도, request cb7e3a995a2e4b6bb26915ee55fbbaaa. PC더미 새attempt7a064d19… SUCCESS수확2,전체SUCCESS,최종IDLE/ready적재2. SUCCESS전 remember_window 저장 호출·실패시invalidate 계약과 이번이벤트로 새기준저장경로확인(메모리직접조회아님). 인계 동일시각map/odom기준은아직미확보. 수집기만종료,인계요청없음. runs/pause_budget_window_20261024/RESULT.md/이벤트/저널보존. 실제팔·전체인계성공아님,commit/push없음.
+
+
+### 2026-10-24 후보 인계 웹 시험 준비
+사용자window위치유지·이동가능확인. 동일PID/IDLEready적재2/정지/현재형상검사통과/더미prepare성공/인계endpoint확인. wall관측은tracker생성전미발행하는구조,진입후검증필요. 수집PID527824 startticks10210120,15분상한/모든토픽구독. runs/pause_budget_handoff_20261024/READY.md에근거. 사용자버튼대기,인계요청·이동·재기동·설정변경없음.
+
+
+### 2026-10-24 18:45 인계 후보 DOCK_READY 실기 확인
+사용자dock_transfer task7974ad4f…/transfer41fffa2d… 진입goal완료→벽정렬goal완료→DOCK_READY feedback18:45:42 수신. TF/벽준비일시대기후재개확인. WAIT_DOCK_STABLE/최근odom30개0/적재2. 다음사용자DOCK_STABLE만안내,배출·복귀아직미수행. bagPID527824 계속수집(15분상한). 상세runs/pause_budget_handoff_20261024/DOCK_READY.md. 에이전트추가명령·설정변경·재기동·commit/push없음.
+
+
+### 2026-10-24 운송 대기 중 로그 수집 종료 확인
+사용자 STABLE 전까지 수집중지요청. PID527824는이미15분상한으로18:56:45정상기록종료,이번조회에서부재확인하여추가종료신호없음. bag_20261024_184145 metadata/mcap완결,로봇원본유지/PC사본보존진행. 운영PID522218/522199/522200유지,이벤트·정지서비스·취소요청없음. WAIT_DOCK_STABLE의새상태조회는이번미실행이므로직전확인상태로만기록. 사용자STABLE전알림후새상태/준비검사와수집재개필요.
+
+
+### 2026-10-24 운송연동 재시험 전체종료
+사용자 스테이션→#59수확→새관제운송인계 재시험 승인. 기존DOCK_TEST7974…의 정확한ActionUUID만취소,return_code0/terminal5(CANCELED)/최근odom30개0 확인. 이동/복귀/배출요청없음. 취소뒤ERROR/recovery_required=true이며성공으로덮어쓰지않음. PC더미도stop에따라전역recovery_required=true. 기존기록전후백업보존.
+수확launch522163와자식·드라이버,로봇hubbridge522657/dummybridge522712,PC더미252660/bridge252718를검증한PID/startticks기반SIGINT로종료. 양측remaining0. 수확노드종료시Destroyable경고있으나cleanexit/잔존없음,원인해결주장없음. 관제서버·운송로봇미접근/미변경.
+스테이션수동재배치가능안내. 아직사용자재배치확인전이므로복구journal해제/새기동/초기위치발행없음. 사용자재배치확인뒤취소기록보존한수동복구처리와PC더미복구,기동순서안내필요. 기존성공코드/후보선택/백업유지,commit/push없음.
+
+
+### 2026-10-24 스테이션 재배치 후 복구 표시만 해제
+사용자 명시승인/실제스테이션재배치확인/양측종료확인. 로봇 DOCK_TEST7974…의 recovery_required만false 및manual_recovery근거추가,기존CANCELED결과/ID/시각/다른records불변 검증. PC더미는종료중exclusive journal.lock확보후전역recovery_required만false,records/history완전동일. 전후백업runs/transport_restart_20261024/manual_recovery 및manual_recovery_pc. 기존운영소스/install/설정250개해시불변. 후보재빌드/교체/초기위치/기동/이동없음. 다음사용자PC더미→PCbridge→로봇laun까지실행,에이전트IDLE/정지확인후vinit,그뒤zen/dzen. 아직IDLE실행확인전. commit/push없음.
+
+
+### 2026-10-24 20:18 운송 연동 재시험 #59 준비
+사용자 웹 연결 확인 및 동일 작업 1회 반복 승인. 기존 코드·설정·기동 상태 변경 없이 최신 IDLE/ready, 최근 odom30개 정지, 출력/odom 각 단일 publisher 확인. 일반64×54/인계62×52cm 및2cm costmap 유지, 현재 정지 형상 검사 통과(전체 경로 통과 보장 아님). PC더미 이력 백업/records·history 불변 확인 후 prepare 성공 및 #59 task25fabab7b348 1회 반복 허용(20:18:32부터300초). 구독 전용 수집 PID555201/startticks10790370,15분상한,전체14토픽 구독 및mcap생성 확인. 증거 runs/transport_window_retest_20261024. 사용자 웹 전송 대기; 이동·인계 요청/재기동/commit/push 없음. 다음 window 도착·새 더미attempt 완료·새 도착기준 저장 확인 후 인계 사전 안내.
+
+
+### 2026-10-24 20:22 운송 연동 재시험 window 완료
+사용자 #59 웹 요청으로 SECTION_APPROACH/WINDOW_MOVE accepted, 도착오차26.97mm/1.22도. 새 arrival bfe32fc5… 및 PC더미 새attempt c04c6969… SUCCESS수확2/실패0, 최종IDLE/ready/적재2/최근odom30개0. 실행본 SUCCESS전 remember_window 호출과 이번성공 이벤트로 저장경로확인(메모리직접조회 아님). 별도카메라 control_readback_stale 종료1, detector/rectify종료0; 이번태그보정성공아님. 코드·설정·재기동·인계명령변경없음. 수집기만종료하고 로봇원본/PC사본보존. 상세 runs/transport_window_retest_20261024/RESULT.md. 다음인계전안내필요,commit/push없음.
+
+
+### 2026-10-24 20:51 실제 운송 연동 인계 준비 결과
+사용자dock_transfer a64d… 진입·벽정렬 완료, DOCK_READY20:51:03.538 직접수신/관제수신확인. 수확WAIT_DOCK_STABLE/최근odom30개0/적재2. 운송은20:50:07부터대기해20:51:07 DOCK_READY시간초과FAILED,수확보고후약3.87초뿐. 웹실물snapshot에서다음이벤트allowedfalse,DOCK_READY전달기록없음. 운송내부원인은직접미확인. 다음버튼보류안내,강제이벤트/배출/복귀/재기동/코드설정변경없음. 수집563856은15분상한으로계속,초반진입은수집전이라launch로그보완. 상세runs/transport_handoff_retest_20261024/RESULT.md. 전체인계미완료,commit/push없음.
+
+
+### 2026-10-24 20:55 운송 연동 재시험 종료
+사용자 전체종료/재배치후재시험 요청. 현재 수확 인계 a64d… UUID만 CancelGoal, ack0/terminal5(CANCELED)/최근odom31개0 확인. 종료직전ERROR(CANCELED·복구필요),IDLE확인아님. 로봇launch552969와자식·driver,bridge553658/553713,recorder563856 및PCdummy264119/bridge264177 SIGINT 종료,양측selected remaining0/로봇별도ps잔존없음. 수확노드는종료시Destroyable경고후cleanexit. 기존코드/설정/저널취소결과/로그보존,복구표시해제미수행. 관제서버·타팀운송로봇미변경. 근거runs/transport_shutdown_20261024. 사용자스테이션재배치가능,재배치확인후복구처리/재기동/IDLE확인→vinit 순서 필요. commit/push없음.
+
+
+### 2026-10-24 인계 a64d 재배치 후 복구 표시 해제
+사용자 스테이션 위치·방향 재배치 확인 및 명시 승인. 로봇 수확/드라이버 부재 재확인 후 해당 CANCELED 레코드만 recovery_required=false/manual_recovery근거추가,기존결과/ID/시각/다른레코드불변 검증. PC더미 종료확인+exclusive journal.lock으로 전역 recovery_required만false,records/history완전동일 검증. 전후백업runs/transport_shutdown_20261024/manual_recovery 및manual_recovery_pc(로봇백업도PC복사). 코드·설정·초기위치·재기동·이동 변경 없음. 다음 PCdummy→PCbridge→로봇laun 사용자기동,IDLE/정지확인후vinit,이후zen/dzen/vstat. 현재종료상태여서IDLE미확인. commit/push없음.
+
+
+### 2026-10-24 21:00 재배치 후 #59 재시험 준비
+사용자기동·웹표시·vinit성공확인후 read-only검사: 새boot ee021a052ae6421ab32371238464fb66,IDLE/ready/적재0,최근odom29개0,일반64×54/인계62×52 및2cm costmap 유지/현재형상검사통과. scan693점 지도거리중앙2.07cm/p904.46cm. 더미prepare성공/recoveryfalse/기록백업후동일#59 1회반복허용21:00:05부터300초. 구독수집PID568140/startticks11041844,15분상한,전체14토픽구독/mcap생성확인. runs/transport_retry2_window_20261024에보존. 코드·설정·이동요청·인계요청·commit/push없음. 사용자웹전송대기.
+
+
+### 2026-10-24 21:02 #59/태그/더미 완료
+이번웹#59 accepted 도착오차27.89mm/0.659도,새arrival9a8add9f…/event7f1e3b8f…,더미새attemptbb70efb4…SUCCESS수확2/실패0. 동일실행본저장계약+이번이벤트로새window기준저장경로확인(메모리직접조회아님). AMCL21:01:50 TAG_CORRECTION_APPLIED:1 확인. 최종IDLE/ready/적재2/odom30개0. 수집기만종료,로봇원본/PC사본보존. 코드설정·재기동·인계/운송요청없음. 상세runs/transport_retry2_window_20261024/RESULT.md. 인계전양측이벤트순서및수집준비필요,commit/push없음.
+
+
+### 2026-10-24 21:04 인계 재시험 벽 관측 대기초과
+사용자dock_transfer6b4c… 진입완료후wall21:04:20.509시작→28.135 Wall observation wait exceeded.23.479runtime costmap headerage.5319>.5로대기로그,연쇄원인미확정. ERROR/DEVICE_FAILED/DOCK_READY미확인/배출복귀없음. odom31개0+사용자정지확인. bag은실행후수집시작해초반누락,launch/저널보완. 수집기만종료,코드설정/재기동/추가명령없음. runs/transport_retry2_handoff_20261024/RESULT.md 및로그보존. commit/push없음.
+
+
+### 2026-10-24 센서 정지대기 작업 유지 후보·통합 검증(운영 미적용)
+사용자 센서지연 중 정지/작업유지/회복재개 및벽·watchdog·상위FSM 통합검증 승인. runs/sensor_hold_candidate_20261024에 별도후보. 로봇실행선택본백업/설치Python바이트대조일치,기존성공본·백업·미커밋변경보존. 인계전용 명시선택으로센서재관측5초·벽관측5초 실패와정지누계30초제외상한해제;취소/소유권/epoch/충돌/공간/속도/시각보호유지. 상위FSM/body/Nav2/Spin은기존주입시계를통해동일정책사용,일반주행미변경.
+Python147/C++wall10/CTest1 통과. 실제PC ROS domain191무구동:wall38초정지중1488개출력0/동일Goal완료,상위FSM2초제한에서도38초대기후완료,wall+costmap/odom각8초동시지연후복구성공,6초대기취소후출력차단. 정상입력무진행FSM2초/progress10초제한유지. 로봇1.3.11빌드/실기/전체FSM미검증,PC1.3.13결과와구분. runtime자체heartbeat단절·프로세스장애까지무조건유지하는수정아님. 운영적용/재기동/이동/commit/push없음. 상세변경표/검증/남은범위/원복은runs/sensor_hold_candidate_20261024/REPORT.md,시험프로세스정리확인.
+
+
+### 2026-10-24 센서 정지대기 후보 로봇 빌드·플러그인 로드 완료(운영 미적용)
+사용자 로봇용 빌드·로드·적용 준비 승인에 따라 /home/vic/Downloads/sensor_hold_robot_20261024 별도 후보에서 3개 패키지 빌드 완료. ARM64/Nav2 1.3.11에서 플러그인 4종 생성·해제 및 실제 로드 경로, Python 설치 경로·정책 선택 확인. ROS 노드/Goal 없이 검사. C++ assertions 10개/CTest 통과, ldd -r 누락·미해결 없음. 운영 관련 비교 파일 468개 해시 및 주요 PID 5개/명령 동일. 기존 성공본·백업·실패 기록 보존, 운영 적용/재기동/이동/복구 해제/commit/push 없음. 운영 wrapper 두 파일 변경 제안과 적용 직전 백업·원복 절차 준비. 실제 lifecycle/인계 실기 미검증. 상세 runs/sensor_hold_robot_20261024/REPORT.md 및 ACTIVATION_PLAN.md. 이전 PC ROS 검증과 이번 로봇 빌드·로드 범위를 구분한다.
+
+
+### 2026-10-24 21:25 센서 대기 후보 운영 경로 적용·재기동 전
+사용자 후보 운영 적용/종료/재기동 안내 승인. 종료 직전 ERROR/DEVICE_FAILED, task 없음, 최근 odom30개 속도0. 실패 인계 DOCK_TEST_6b4c… active=false/recovery_required=true 기록 보존. 런치566901과 자식 총18개 SIGINT 종료 확인(추가 SIGINT로 수확 노드 종료), 잔존 없음. 종료 중 기존 드라이버 context invalid(exit1), sllidar exit-6 기록 보존하며 이번 변경 원인으로 단정하지 않음. PC 더미/브리지 및 로봇 브리지 실행 없음, PC 더미 recovery_required=true.
+실행 선택 run.bash/terminal.py 두 파일만 sensor_hold_robot_20261024로 전환. 로봇 원본 백업 /home/vic/Downloads/sensor_hold_robot_20261024/activation-backup-20261024_212510. 이전 비교대상468개 중 해당2개만 변경, 기존 성공 설치본/설정 유지. launch --check 후보 경로/충돌PID없음 확인(실제 기동 아님). 사용자가 스테이션 재배치 후 알려주도록 안내했으며 현재 확인 대기: 복구 표시 미해제, 초기위치 발행/재기동/이동 없음. 상세 runs/sensor_hold_robot_20261024/activation 및 ACTIVATION_PLAN.md. Git stage/commit/push 없음.
+
+스테이션 재배치 사용자 확인 수신 후, 종료 상태를 재확인하여 실패 인계 한 건의 recovery_required만 false로 변경하고 manual_recovery 근거 추가. FAILED 결과/시간/다른 기록 동일 검증. PC 더미는 활성 작업 없음·모든 기록 terminal 확인 후 최상위 recovery_required만 false 변경; history/records 바이트 의미 동일 검증. 양측 원본 백업 보존. 로봇·PC 프로세스 재기동/초기위치/이동 없음. 다음: PC dummy→PC bridge→로봇 laun, 에이전트 IDLE/정지 확인 후 vinit→zen→dzen→vstat. 같은 #59 반복 허용은 기동 후 별도 서비스 준비 필요하며 아직 수행하지 않음.
+
+
+### 2026-10-24 21:30 후보 실행 후 웹 #59 관찰
+사용자가 직접 기동/초기위치/웹 명령. 에이전트는 읽기·경량 구독만 수행. 후보 sensor_hold 설치 경로 및 handoff controller 로드 maps, wall_alignment.wait_until_fresh=true 확인. 초기위치 발행 기록 및 IDLE/ready/odom30개0 확인 뒤 웹 주행 시작.
+
+SECTION_APPROACH와 WINDOW_MOVE 완료. 21:29:59 window accepted, 오차29.086mm/0.005274rad. arrival request29251f4b8db44783b2d5f32663a7b596 및 새 stamp1792844999178232191 이벤트 기록. 이후 ARM_REJECTED: PC 더미21:29:59.208 duplicate ID 실제 로그 확인. 재기동 후 반복 허용권 미설정 상태였으며 새 더미 수확 완료 아님. 최종 ERROR/ARM_TRAVEL_NOT_READY/loaded0, 최근 odom30개0. 같은 작업 반복 허용 서비스 호출/복구/재전송/인계/이동/재기동/설정 변경은 수행하지 않음.
+
+태그 캡처도 code1로 종료 기록. 상세 원인은 아직 미확정이며 이번 더미 duplicate 거절과 구분. 현재 도착 이벤트를 메모리 내부 저장/복구 후 재사용 가능성까지 검증한 것으로 간주하지 않음. 기록: console.log, live.jsonl, latest.json, dummy.log. 인계 진행 전 더미 반복 준비 및 수확 노드 복구 필요.
+
+### 2026-10-24 21:35 중복 ID 실패 후 수확·더미 복구
+사용자 다시 시험 가능하도록 복구 승인. 이후 운송측 개입 금지 명시: 관제 읽기 확인 이후 운송 명령/변경 없음. 수확 노드578985만 SIGINT종료 후 동일 인자/환경/후보로582108 재기동, Nav2/AMCL/드라이버 기존PID 유지. 실패 저널/명령/로그 백업, 코드·설정·초기위치/이동 명령 변경없음. PC 더미 공식 recover/prepare 성공, records/history 동일 검증, IDLE/ready/복구false 확인. repeat_last_harvest21:34:53 성공으로 #59 1회300초(21:39:53까지) 허용. 수확 IDLE/ready,odom30개0 확인. 다만 pose 약(1.455,-1.319),yaw1.527로 이전window와 달라 사용자 실제 재배치 여부 질문 대기; 이동 준비완료로 단정하지 않음. 카메라 control_readback_stale 종료 확인, detector/rectify는code0/TBB_FINALIZED. 카메라 복구는 미완료. 수확 재기동으로 이전 메모리 도착기준은 소실, 새 작업 도착기준 필요. 상세 runs/sensor_hold_recovery_20261024.
+
+21:36 사용자 초기스테이션 수동재배치 확인. 기존 vinit IDLE/정지보호 통과후(21:36:21) x.104/y-1.105/yaw87.79 초기추정 발행. 이후IDLE/ready,odom30개0,pose(.09487,-1.11590),yaw1.52543. 레이저-map 끝점687개 median34.06mm/p90 80.78mm/5cm이내75.55%, 전체주행 안전증명 아님. 두 costmap2cm,일반64x54/인계62x52 현재자세검사통과. 일반제자리+.1rad 가상경로는충돌검사실패(실제주행경로아님),안전조건 유지/clear서비스 미호출. 출력publisher/odom 각1. 기존코드설정으로카메라만583295재기동,raw/rect/detect약8Hz/TAG_ADAPTER_RUNNING 확인. 과거control_readback_stale근본원인 수정없어재발가능성남음. #59허용21:39:53까지1회,실제이동명령없음.
+
+### 2026-10-24 21:41 브리지 복구 후 #59 실패
+사용자 더미반복허용→브리지복구→대기작업관찰 승인. PC더미recover/prepare/repeat 성공21:41:04(300초). 로봇 관제브리지만579435→585474 동일 인자/환경/바이너리/설정 재시작. 관제ready.harvest=true 복구 및 대기#59 자동시작21:41:19.559. 일반controller Goal21:41:19.651→20.353 detected collision ahead/106, 작업FAILED21.351. SECTION_APPROACH 단계,window도착/더미수확/새도착기준 없음. 더미repeat는소비되지않음(21:46:04만료). 최종IDLE/ready/loaded0/odom31개0. 기존정적검사에서 일반costmap제자리+.1rad 접촉이 있었으나 이번controller 실제검사점과 동일원인인지 미검증. 충돌조건변경/재전송/인계/운송명령 없음. 카메라약8Hz 유지. 실패이벤트5b87baca…및launch.log/web.after.json/robot/live.jsonl 보존. 관찰프로세스585472만종료,운영프로세스유지.
+
+### 2026-10-24 21:44 전체 종료·costmap 메모리 정리
+사용자 이전대조 분석을 중단하고 초기위치 재배치/내부정리/costmap정리 요청. 조회 시 기존 메인launch/Nav2/드라이버/PC더미·PC브리지는 이미없음. 남은 별도수확582108/카메라583295/관제브리지585474와 자식10개 SIGINT 종료,잔존없음. 전체controller/behavior/driver/AMCL/velocitysmoother/카메라/bridge 프로세스없음 확인. costmap 프로세스 종료로 이전 휘발성 격자/voxel 상태 소멸,다음기동에서 재생성;지도/설정/충돌보호 변경·로그삭제 없음. PC더미 journal recoveryfalse/미완료없음/row복구없음 확인,원본백업만. 사용자에게 스테이션 재배치 가능 안내. 다음 재기동후 초기위치/새관측costmap 확인 및 같은#59반복허용을 주행 직전에 수행해야함. 이동/초기위치발행/재기동/운송명령없음. 자료 runs/station_clean_restart_20261024.
+
+### 2026-10-24 21:47 완전종료 후 스테이션 재기동 준비 확인
+사용자 재배치/수동기동 확인 후 읽기검증 및 더미반복허용 승인. 후보수확587544/런치587515,새boot2381… IDLE/ready/odom29개0. 사용자vinit21:46:11발행기록 확인. 레이저끝점690개 median21.87mm/p90 70.20mm/5cm82.61%. 새일반/인계costmap해상도2cm,형상64x54/62x52,stationary 및+.1rad가상회전 모두통과. 일반최소거리약.210m(이전유지시.018m),lethal454(이전1305);rolling창/좌표다르므로 단순cellcount로잔존원인확정불가. cmd_vel_nav/odom 각단일publisher. 카메라raw/rect/detect약8Hz/adapter기동. 웹ready.harvest=true,paused.harvest=true(사용자웹해제필요),#59과거FAILED/재시도가능. 더미recover/prepare/IDLE검증/이력동일/반복1회성공21:47:30→21:52:30까지. 이동/웹버튼/재시작/설정변경없음. 자료 runs/clean_station_ready_20261024.
+
+### 2026-10-24 21:49 완전재기동 후 #59 성공
+사용자웹전송,관찰만수행. SECTION_APPROACH/WINDOW_MOVE 완료,이벤트SUCCESS21:49:15.886/더미새attempt1976d76be6484a11806139c449cadf0a SUCCESS 수확2/실패0(expected1과더미2기존동작구분). 새arrivalrequest79b17b064b5e4934a4b78aa73597a159,plan13ed447738e54c08bf843121d8657d5a,stamp1792846154151270408,accepted true,오차29.106mm/0.02727rad. 실행설치communication 성공콜백remember_window 계약과이번이벤트로새기준저장경로확인(메모리직접조회아님). 최종IDLE/ready/loaded2. AMCL TAG_CORRECTION_APPLIED:1 21:49:04 확인. 인계경량관찰590109 10분제한으로기동,clean_handoff/live.jsonl;인계명령없음,사용자버튼대기. 기존코드설정/안전조건변경/운송개입없음. 자료 runs/clean_station_window_20261024.
+
+2026-10-25 20:52 사용자 스테이션 위치·방향 재배치 확인. 종료 재확인 및 원본SHA동일 확인 후 인계009b… 한건 active/recoveryfalse, resultFAILED 및 manual_recovery 추가. 실제 종료시각/ROS취소응답은 미확인이므로 생성하지 않음. previous_record에 원래 필드 전체 보존,다른행 동일 검증. 로봇백업 /home/vic/Downloads/sensor_hold_robot_20261024/manual-recovery-20261025_205244. 코드설정/PC더미이력/운송측변경없음. 재기동은 사용자 수행,더미반복허용은기동후별도.
+
+### 2026-10-25 20:55 재기동 준비 검사
+사용자 정합/costmap/더미/웹확인 및#59반복허용 승인. 새boot e1ddee… IDLE/ready/최근odom23개0. 실행sensor_hold후보3954,초기위치발행20:53:35확인. 레이저694끝점 median29.82mm/p90 58.55mm/5cm86.46%. 일반64x54/인계62x52,2cm costmap현재자세 및+.1rad검사 모두통과(일반여유약16cm);전체경로보장아님. 출력/odom publisher각1. TAG_ADAPTER_STARTED. 웹 Action ready.harvest=true지만 paused.harvest=true 및 수동인계미확정 차단. 어제DOCK_TEST_009b… 관제UNKNOWN 남음,로봇저널복구와관제정리별개. 사용자웹조작원칙에따라관제수정/명령없음. 더미recover/prepare/IDLE/이력보존 검증 및repeat1회성공;유효기간은repeat_last_harvest.json wall_s+300초. 관제미확정정리 전 주행보내지않도록안내. 자료 runs/station_ready_20261025.
+
+### 2026-10-25 21:04 #59 window/더미 성공
+관제재개후 사용자#59전송,에이전트구독만. SECTION_APPROACH/WINDOW_MOVE 완료,이번SUCCESS21:04:27.031/수확2실패0(expected1과더미출력2 구분). 더미새attemptdf64c252ca714e7eb38318fe0472fa4c,완료21:04:26.910. 새arrivalf326a7f14bf8496bb10b45cd0f6a1867/plan904683bced3b47aba66aed8a6c6ff50d/stamp1792929864965796828 accepted true,오차28.613mm/0.015325rad. 기존실행설치본의SUCCESS후remember_window계약 및새이벤트로저장경로확인;내부메모리직접조회와구분. 최종IDLE/ready/loaded2,별도인계명령없음. 인계관찰8792 600초제한구독/handoff_20261025,사용자버튼대기. 코드설정/재기동/운송개입없음. runs/window_retry_20261025 기록.
+
+## 2026-10-25 — 실물 반복 시험 웹 도구 후보
+- 사용자 승인: PC 미니 관제 요청. 대상: robot/tools/trial_console, 인계 문서.
+- 변경: 종료/복구/더미 반복·수량 후보 및 격리 검증. 시뮬 공통 로직/설정 변경 없음. 실제 운영 적용 없음.
+- 검증: HTTP·저널 테스트 2개 및 domain191 실제 ROS 완료·반복·취소·수량 검증 통과. 실기 미실시.
+- 원복: 신규 도구 서버 종료. 운영 더미 원본 미변경. 상세 TRIAL_CONSOLE_20261025.md.
+
+## 2026-10-26 — 반복 시험 콘솔 추가검증
+- 사용자 검증 요청에 따라 tests/ros_http_integration.py 추가. HTTP→ROS 실제 격리 더미 완료·취소·반복·수량 검사 통과. 시뮬/실물 운영 로직·설정 변경 없음, 운영 적용 없음. 자료 runs/trial_console_20261026. 원복은 추가 시험 파일 제거로 충분하며 기존 실행본은 변경하지 않음.
+
+## 2026-10-26 — 벽 시간 보정 별도 후보
+- 승인: 사용자 시간계산 분리 후보 및 오프라인검증 요청. 운영공통소스 수정 없음, 별도 runs/wall_clock_candidate_20261026 후보2파일.
+- 고정시작시각/유효실행누계분리 및 수치진단. 기존안전/설정 유지. 신규19·기존대기10·CTest1/1 및 PC ROS빌드통과. ARM/실기미검증.
+- 영향: 아직 실물/시뮬 실행경로 미적용. 원복: 후보미사용. 운영적용전별도안내. 상세 WALL_CLOCK_REPRO_20261026.md.
+
+## 2026-10-26 — wall clock ARM 검증
+- 사용자 별도빌드/로드검증 승인. 로봇 별도후보 ARM빌드·신규19/기존10/CTest1·4종pluginlib 생성소멸 통과. 운영/시뮬 소스·설정 적용 없음, 기존운영프로세스 유지. 실기미검증. 운영백업/해시/교체원복절차 준비, 상세 WALL_CLOCK_REPRO_20261026.md.
+
+## 2026-10-26 — wall clock 실물 실행 overlay 적용
+- 사용자 종료·적용 승인 후 로봇 sensor_hold 실행overlay4파일만 교체, 원본코드/설정/저널 추가백업. PC공통소스/시뮬선택경로미변경.
+- 운영경로plugin4종생성/소멸검증통과,설정/기록불변,재기동/실기미실시. 원복은before/after해시검증 및4파일복원,기록미복원. 상세 WALL_CLOCK_REPRO_20261026.md.
+
+
+## 2026-10-26 회전 검사 대기·재개 후보 (운영 미적용)
+
+사용자 승인으로 로봇 현장 원본을 백업하고 PC runs/align_recovery_candidate_20261026에 별도 후보 작성. align 영역 밖 costmap 변경의 재검사 무효화 방지, 장애물·정지 자세 변화의 정지 대기, 취소·정지 보호 유지. 공통 arc_clearance 예외 하위형 추가는 후보에만 존재하며 실물·시뮬 원본 미수정. 오프라인 91개 통과, 로봇 빌드·ROS/실기 미검증. 설정·운영 프로세스·이동·commit/push 없음. 상세/백업/원복/로그: docs/changes/ALIGN_RECOVERY_CANDIDATE_20261026.md.
+
+
+- 2026-10-26 사용자 승인 후 align 후보 ARM64 별도 빌드2패키지·설치모듈9개/entrypoint 로드·오프라인91개 통과. 운영 소스/설치본/설정10파일 추가 백업 및 PC전송SHA확인. 운영 교체·재기동·이동 없음. PC 기존 테스트의 상대경로 직접로드 한계를 정정하고 로봇 후보 설치본으로 재검증. 적용·원복계획 및 초기실패 포함 로그: docs/changes/ALIGN_RECOVERY_CANDIDATE_20261026.md. 실기미검증/commit·push없음.
+
+- 2026-10-26 사용자 종료 확인·적용 승인 후 align 후보 운영 소스4/설치본4 적용 완료. 원본·설정·캐시·런치로그 추가백업/PC전송SHA확인. 운영 모듈9+진입점 로드, 오프라인44개 통과. 설정·복구기록 불변, 재기동·이동 없음/실기미검증. 상세 ALIGN_RECOVERY_CANDIDATE_20261026.md. commit/push 없음.
+
+- 2026-10-26 사용자 일반 주행 다회 재시도 요청: 별도 collision retry 후보 작성, PC17개 통과. 기본off/선택5회·정지2초, 충돌검사·취소유지. 운영미적용/실제Action문구·상위시간제한통합검증남음. 상세 docs/changes/NAVIGATION_COLLISION_RETRY_20261026.md.
+
+- 2026-10-26 일반주행 재시도 후보 통합검증: 실제 PC Nav2는106/error_msg빈값 반환, 분류보완. 충돌대기를 전체주행시계에서 제외. 운영 TF복구off/단일출력 계약 유지하도록 수확전용선택·기존runtime zero콜백 분리. 단위18+소유권2, 격리ROS/FSM5시나리오 및 실제Nav2오류1건 확인. 로봇Nav2버전차/ARM빌드/전체노드조립·실기미검증, 운영미적용. 상세 NAVIGATION_COLLISION_RETRY_20261026.md.
+
+- 2026-10-26 재시도 후보 ARM2패키지빌드·모듈11/진입점로드·단위20·격리ROS/FSM5 통과. 로봇Nav2 1.3.11 실제격리controller에서106/빈문구 재현. 운영원본/설정백업·PC전송SHA검증·시험프로세스종료. harvest 전용retry5 설정은제안파일만준비. 운영미적용/재기동·이동없음,전체노드조립·실기미검증. 상세 NAVIGATION_COLLISION_RETRY_20261026.md.
+
+- 2026-10-26 14:47 사용자 승인·잔존프로세스 없음 확인 후 일반주행 retry 후보 소스6/설치6 및 수확전용5회 설정 운영적용. 기존핫픽스/기록 추가백업·PC전송SHA확인. 운영11모듈/진입점로드·수확retry5/공통retry0/TF복구off 확인. 인계설정·복구저널불변. 재기동·이동없음/실기미검증. 상세 NAVIGATION_COLLISION_RETRY_20261026.md.
+
+
+### 2026-10-26 전진 곡선 대체·지속 대기 후보 (운영 미적용)
+사용자 “다시 안멈추게 고쳐와” 요청. 로봇 운영 소스 읽기 백업 후 runs/forward_recovery_candidate_20261026에 별도 후보 작성. 기본 RPP 경로 방향 회전이 막혔을 때 동일 충돌 검사를 통과한 전진 곡선만 선택하는 새 플러그인, 수확 전용 선택형 지속 대기 연결. 횟수 소진/30초 준비 지연으로 종료하지 않되 취소·소유권·기타 오류/실행 제한 유지. 합성 Nav2 costmap 복합1+기존C++12, Python18+4, 격리 Action/실제 Harvest FSM6 시나리오 통과. 지속 대기에서 6회 abort 후7번째 성공, 사용자 취소 전달 확인. PC 빌드 성공; ARM/운영 로드·실물 통과는 미검증. 원본 설정·운영 프로세스·이동·commit/push 변경 없음. 상세 docs/changes/FORWARD_RECOVERY_CANDIDATE_20261026.md. 실제로 막힌 모든 경우에도 계속 움직이는 변경은 아니다.
+
+
+- 2026-10-26 전진/지속대기 후보 ARM3패키지 빌드 및 로봇 Nav2 1.3.11 검증 완료. 후보 pluginlib3종/설치Python10모듈, C++1+12/Python18+4/격리FSM6 통과. 운영292파일 추가백업·PC전송SHA/내용 검증 및 불변 확인, 운영미적용·재기동/이동없음. 사용자 과도한 변경 지적으로 A(기존 controller 유지·종료 방지 Python4+설정)와 B(새 전진 플러그인 추가)를 명시 분리. 실제 코너 통과·전체노드 기동 미검증. 상세 FORWARD_RECOVERY_CANDIDATE_20261026.md.
+
+- 2026-10-26 사용자 기존 성공 전진·회전 복원/최소 수정 요청으로 새 플러그인 적용 보류. 성공 보존 일반Nav2 설정↔현재 실행값 전체 동일, 성공 runtime baseline↔현재 normal 출력분기 AST 동일 확인. 되돌릴 전진 제거 변경은 미발견. 입력 위치/셀 차이는 있으나 최신실패 controller 내부 기하 기록이 부족해 직접원인·수정완료 미확정. 추가추측수정/운영적용/이동없음. 상세 FORWARD_RECOVERY_CANDIDATE_20261026.md 및 runs/success_motion_compare_20261026.
+
+- 2026-10-26 전진 전환 판단 수집 도구 준비/별도 로봇 Downloads 배치. 기존 코드·설정·프로세스 유지, 수집 미기동. 실제 RPP경로점/회전선택/raw출력·TF/odom/scan/costmap full/update 및 실행params/launch로그 보존. foreground/Ctrl+C/5분·용량한도, CAPTURE_READY 후 사용자웹전송. PC 더미7183/브리지7242/웹7267 실행중, 로봇잔존없음, 위치답변대기. 상세 FORWARD_TRANSITION_CAPTURE_20261026.md.
+
+- 2026-10-26 사용자 재시작 정리 승인 및 스테이션 재배치 확인. 로봇 수확 관련 잔존0/미완료 복구표시0, 저널 전후SHA불변. PC 더미7183/브리지7242 정확한argv확인후SIGINT정상종료·잔존0. 더미저널전후PC백업, records/history동일/recoveryfalse 확인. 미니웹7267 유지. 코드·설정·초기위치·이동·프로세스기동 없음. 근거 runs/restart_cleanup_20261026. 사용자 PC더미→PC브리지→로봇laun 후 IDLE/정지 확인, 이후vinit/zen/dzen. 수집 도구는 아직 미기동.
+
+
+### 2026-10-27 공통 운영 소스 PC 반영
+사용자가 로봇 성공 코드 PC 반영을 명시 승인. farm_navigation/harvest_robot/farm_wall_controller/farm_bringup에 로봇 운영 핫픽스를 반영했다. 모든 로봇 재시도 기본값0 및 명시 실물 프로필 선택 유지, sim 데이터/설정 변경 없음. 실물 인계/복귀 성공 저널은 확인했지만 이번 시뮬 실기 검증은 미수행. PC 별도4패키지빌드/재시도18/벽시각19/CTest1 통과. 백업/파일/원복은 docs/changes/ROBOT_PC_SYNC_20261027.md. Git commit/push 없음.
+
+
+### 2026-10-27 로봇 프로젝트 실행 경로 전환 완료
+사용자 승인으로 성공 overlay 운영 코드를 로봇 프로젝트에 반영·ARM4패키지빌드하고 laun을 project install/상대경로프로필로 전환. 기존70모듈SHA·모든 생성서버설정 동일, 플러그인4로드/소멸·CTest1 통과. 기존 Downloads 성공본과 변경전src/install/별칭 백업 보존. 다른별칭/브리지/저널 불변. 신규 PC 도우미도 저장소에 포함. 실기기동/이동/commit/push 없음. 디스크여유2.7GiB로 기존카메라3GiB시작검사보다부족, 기록임의삭제없음. 상세 docs/changes/PROJECT_RUNTIME_MIGRATION_20261027.md.

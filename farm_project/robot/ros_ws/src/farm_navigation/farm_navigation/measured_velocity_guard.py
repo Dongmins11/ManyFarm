@@ -20,8 +20,10 @@ class MeasuredVelocityLimits:
             raise ValueError('전진 상한 오류')
 
 class MeasuredVelocityGuard:
-    def __init__(self, limits: MeasuredVelocityLimits) -> None:
+    def __init__(self, limits: MeasuredVelocityLimits, *, allow_sample_gap: bool = False) -> None:
         self.limits=limits
+        self.allow_sample_gap = allow_sample_gap
+        self.sample_gap = False
         self.last_stamp=None
         self.excess_since=None
         self.error=''
@@ -31,11 +33,13 @@ class MeasuredVelocityGuard:
         """수신 표본마다 호출. 오류는 래치되어 이후 정상 표본으로 사라지지 않는다."""
         if self.error:raise RuntimeError(self.error)
         reason=''
+        self.sample_gap = (self.last_stamp is not None and
+            (stamp_ns-self.last_stamp)/1e9 > self.limits.sample_gap_s)
         if not all(math.isfinite(x) for x in (linear,angular)):
             reason='비유한 측정 속도'
         elif stamp_ns<=0 or (self.last_stamp is not None and stamp_ns<=self.last_stamp):
             reason='odom 시각 중복/역행'
-        elif self.last_stamp is not None and (stamp_ns-self.last_stamp)/1e9>self.limits.sample_gap_s:
+        elif self.sample_gap and not self.allow_sample_gap:
             reason='odom 표본 간격 초과'
         elif linear>self.limits.forward_mps or abs(linear)>self.limits.linear_abs_mps:
             reason='측정 선속도 범위 이탈'

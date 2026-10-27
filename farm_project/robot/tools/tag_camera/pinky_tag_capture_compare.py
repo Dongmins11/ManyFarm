@@ -334,6 +334,18 @@ def monitor(output):
         rclpy.try_shutdown()
 
 
+def camera_binaries(prefix: Path) -> dict[str, str]:
+    """설치된 종료 보호 실행 파일을 확인한다. 누락 시 카메라 시작 전에 실패한다."""
+    binaries = {}
+    for component, executable in [('apriltag_ros', 'apriltag_safe'),
+                                  ('image_proc', 'rectify_safe')]:
+        binary = prefix / 'lib' / 'farm_tag_camera_runtime' / executable
+        if not binary.is_file() or not os.access(binary, os.X_OK):
+            raise RuntimeError('Missing camera runtime executable: ' + str(binary))
+        binaries[component] = str(binary)
+    return binaries
+
+
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     # 이전 수동 명령은 명시적인 --workspace로만 지원한다. 기본값은 저장소 내부다.
@@ -417,12 +429,12 @@ def main():
     from ament_index_python.packages import get_package_prefix
     import yaml
     get_package_prefix('rmw_cyclonedds_cpp')
-    binaries = {}
-    for package, executable in [('apriltag_ros','apriltag_node'),('image_proc','rectify_node')]:
-        binary = Path(get_package_prefix(package))/'lib'/package/executable
-        if not binary.is_file():
-            raise RuntimeError('Missing executable: ' + package + '/' + executable)
-        binaries[package] = str(binary)
+    # 전용 실행 프로세스에서만 OpenCV/TBB 수명을 정리한다. 원본으로 자동 우회하지 않는다.
+    binaries = camera_binaries(Path(get_package_prefix('farm_tag_camera_runtime')))
+    settings['component_runtime'] = {
+        key: {'path': value, 'sha256': hashlib.sha256(Path(value).read_bytes()).hexdigest()}
+        for key, value in binaries.items()
+    }
     if not Path(args.device).exists():
         raise FileNotFoundError(args.device)
     args.output_root.mkdir(parents=True, exist_ok=True)
