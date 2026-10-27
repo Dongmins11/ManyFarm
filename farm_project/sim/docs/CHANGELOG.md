@@ -1486,3 +1486,36 @@ SECTION_APPROACH와 WINDOW_MOVE 완료. 21:29:59 window accepted, 오차29.086mm
 
 ### 2026-10-27 로봇 프로젝트 실행 경로 전환 완료
 사용자 승인으로 성공 overlay 운영 코드를 로봇 프로젝트에 반영·ARM4패키지빌드하고 laun을 project install/상대경로프로필로 전환. 기존70모듈SHA·모든 생성서버설정 동일, 플러그인4로드/소멸·CTest1 통과. 기존 Downloads 성공본과 변경전src/install/별칭 백업 보존. 다른별칭/브리지/저널 불변. 신규 PC 도우미도 저장소에 포함. 실기기동/이동/commit/push 없음. 디스크여유2.7GiB로 기존카메라3GiB시작검사보다부족, 기록임의삭제없음. 상세 docs/changes/PROJECT_RUNTIME_MIGRATION_20261027.md.
+
+
+### 2026-10-27 실물 인계 프로필 주행 방향 허용치 6도
+사용자 “허용치가 또 왤케 빡빡하게 되어있어 6도로 바꿔봐” 승인. 기준 HEAD 5ff5b503. robot/config/environments/harvest_handoff_real.yaml의 navigation.heading_tolerance_rad만 0.10471975511965978로 명시했다. 공통 기본값 약3도와 인계 전용 복귀 완료 조건은 보존한다. 이 값은 해당 프로필의 일반 주행 출발·도착·요청 방향 검사에 적용되며, 경로각5도·횡오차·충돌·취소·정지 조건은 변경하지 않는다. 시뮬 및 다른 프로필 영향 없음.
+실제 straight_plan 함수로 실패 표본3.03358도는 기존값에서 거절/새값에서 통과, 6도 통과/6.01도 거절을 오프라인 확인했다. 실물 검증은 미실행. 로봇 실행본 배포·재기동·이동·commit/push 없음. 원복은 추가한 환경 override 키와 주석 제거(원본은 기준 커밋에 보존). 복귀 후 다음 이동의 실기 성공은 아직 미확인.
+
+2026-10-27 로봇 적용: 사용자 실행본 적용 승인 후 SSH로 런치/수확/Nav2/드라이버/브리지 잔존 없음 확인. laun의 프로젝트 환경 경로 확인 후 해당 YAML만 PC와 동일하게 반영했다. 원본 백업: /home/vic/vmany-runtime-backups/heading_6deg_20261027_111130/harvest_handoff_real.yaml (receipt.json에 전후 SHA256). 적용 SHA256 1b357280ad9ab8d4b8b1f96eb203ae005274efe17cd837b6c8814fcbd5665f7a. 운영 install의 load_environment 및 NavigationSettings로 0.10471975511965978rad=6도 확인. ROS 노드 기동/재기동/이동 없음. 다음 사용자 laun 기동부터 반영되며 실기 결과 미확인. 원복은 종료 상태에서 위 원본을 동일 환경 YAML로 복원.
+
+
+### 2026-10-27 복귀 위치 허용치 5cm 후보 (로봇 미적용)
+사용자 복귀 위치 허용치 5cm 및 오프라인 검증 승인. robot/config/robots/vicpinky/transfer/handoff_fsm.json의 completion.return_position=0.05만 추가했다. 기존 공통 기본값0.02·복귀 방향3도·재진입 위치0.01·원호 끝점0.008·충돌/취소/정지 코드는 변경하지 않았다. 해당 실물 인계 프로필만 선택 적용, 시뮬 및 다른 프로필 영향 없음. 기존 6도 일반 주행 변경은 보존했다.
+원본 PC 백업: /home/eunbi/vmany_artifacts/return_position_5cm_20261027_143416/handoff_fsm.json (backup.json SHA256 포함). 기존 성공 백업/로봇 설정 불변.
+직접 검증: 실제 CompletionPolicy/correction_path/measure_arrival 함수로 이번 실패 표본(전방0.0106m,횡오차-0.0304m)과 5cm 경계 정지 완료 허용, 횡방향5.001cm 거절, 5.5cm 전방/1cm 횡오차는 기존 직진 보정 유지, 2cm 횡오차 보정 거절 및 3.1도 방향 거절 확인. 기존 test_transfer_restore 15개와 test_restore_navigation 5개 통과(ROS 환경에서 오프라인 실행, 노드 기동 아님). 실제 정지 실패·TF 실패 등의 기존 회귀 검증과 실제 로봇 시험을 구분한다.
+로봇 배포·재빌드·재기동·이동·commit/push 미실행. 5cm 초과는 기존 보정 조건을 사용하며 다음 window 출발 조건도 별도로 유지되므로 모든 위치에서 성공함을 보장하지 않는다. 원복: 추가한 completion.return_position 키 제거 또는 위 원본 복원. 운영 적용 전 사용자에게 알린다.
+
+
+### 2026-10-27 복귀 정지 후 완료 판정 5cm·6도 후보
+사용자 “동작은 그대로 두고 복귀 종료 후 완료 판정만 5cm·6도” 승인. 기준 HEAD 5ff5b503와 기존 미커밋 6도/5cm 설정을 보존했다. handoff_fsm.json에 return_endpoint_position=0.05, return_heading=6도 추가. handoff_planning.py에서 명시 프로필의 정지 후 원호 끝점 판정을 5cm·6도로 선택하고, 최종 map 판정도 기존 return_position/return_heading으로 5cm·6도를 사용한다. 위치·방향 초과 오류에 실제값/한계를 포함한다. 미지정 프로필의 기존 원호 완료 판정은 유지한다.
+완료 방향과 실행 중 감시가 공유하던 값을 motion_heading으로 분리하여 원호 monitor와 handoff_window.py의 보정 중 방향 변화 한계는 기존 최대3도를 유지한다. 정지 후 최종 판정에 실행 중 경로 오차1cm를 중복 적용하지 않지만, 실행 중 monitor/C++ controller의 경로·각도 검사와 충돌·소유권·취소·정지 확인은 유지한다. controller/goal checker/서버 설정/경로 계산은 변경하지 않았다. 복귀 방향 기준은 기존 저장 출발 방향이며 구간 방향으로 바꾸지 않았다. 다음 window 출발 검사는 별도다.
+백업 및 신규 오프라인 검증: /home/eunbi/vmany_artifacts/return_completion_20261027_144650 (변경 전 파일·check_return_completion.py). 실제 HandoffPlanner.plan 반환 validate/monitor와 RestoreReference.arrival_validator로 신규5개 테스트 통과: 원호 및 map 완료5cm·6도 경계/초과, 실패표본, 비정상값 거절, 충돌·취소 콜백, 기존 실행 중 제한, 경로 동일, 기본 프로필8mm 유지. 기존 test_transfer_restore15개/test_restore_navigation5개 통과. 초기 검증 스크립트의 파일 미닫힘 ResourceWarning은 read_text로 수정 후 재실행했다.
+PC 후보만 수정. 로봇 배포·재기동·이동·commit/push 미실행, 실기 성공 미확인. 실행 중 제한은 그대로이므로 모든5cm·6도 표본이 주행 중 허용된다는 뜻은 아니다. 원복은 백업의 두 Python 파일/JSON 복원(기존6도 환경 설정은 별도 보존). 시뮬/다른 프로필은 기본값 유지, 운영 적용 전 사용자에게 알린다.
+
+
+2026-10-27 로봇 후보 빌드/로드 검증: 사용자 별도 후보 빌드 승인. /home/vic/vmany-candidates/return_completion_20261027_144906에 로봇 harvest_robot 패키지를 복사하고 후보 두 모듈/JSON을 반영, 별도 build/install/log로 colcon 빌드 성공(5.17초). 운영 underlay와 같은 패키지명에 대한 override 경고는 있었으나 설치 경로는 후보로 분리. 후보 install의 node/handoff_planning/handoff_window/handoff_runtime import 및 두 변경 모듈 소스/설치 바이트 동일 확인. ROS 노드 생성 없음.
+초기 회귀 discover는 로봇에 테스트가 없어 0개/exit5로 중단했으며 통과로 계산하지 않았다. PC 테스트2파일을 후보 루트에만 복사 후 신규5개+기존20개 모두 통과. 운영 소스/설치 Python 및 설정160파일 해시 불변 확인. PC 증거: /home/eunbi/vmany_artifacts/return_completion_20261027_144650/robot_build/. 원본은 후보 backup/ 및 기존 성공 백업 유지.
+운영 적용 대기: 사용자 종료 확인 후 운영 파일을 다시 대조/백업하고 두 Python 파일과 handoff_fsm.json만 반영, 프로젝트 install로 재빌드/로드 확인할 예정. 운영 교체는 아직 없고 laun 경로도 그대로다. 원복은 적용 직전 백업 소스/설정을 복원하여 프로젝트 설치본 재빌드(이번 후보 경로를 laun에 연결하지 않음). 프로세스 기동/종료·재기동·이동·commit/push 없음. 실기 검증 미실행.
+
+
+2026-10-27 운영 적용 완료: 사용자 laun/zen/dzen 종료 확인 후 SSH 잔존0 및 후보 빌드 이후 운영160파일 불변 확인. /home/vic/vmany-runtime-backups/return_completion_20261027_145454/before.tar.gz에 운영 harvest_robot 소스/설치본·handoff_fsm.json·transfer.json 백업 후 후보 두 Python 소스/설정 반영. 프로젝트 colcon harvest_robot 빌드2.36초 성공. 프로젝트 운영 install에서 주요4모듈 로드, 후보/소스/설치 변경 모듈 바이트 동일, 완료 위치5cm/방향6도 및 실행중 방향3도 유지 확인. 운영 설치본으로 신규5+회귀20 테스트 통과. 운영 변경은 지정 소스2/설치2/설정1뿐이며 저널 SHA256 불변. PC 원복 사본 /home/eunbi/vmany_artifacts/return_completion_20261027_144650/operating_deploy, archive SHA256 5c51fe79ea60fb10847b895347dd1577937c2e2911b1f169c52ce576cc58f9d9 로봇과 일치 확인. 기존 성공 백업 보존. 원복 시 종료 상태에서 before.tar.gz의 해당 소스/설치본/설정만 복원하고 모듈 확인(저널은 기록 보존용이며 자동 복원하지 않음). 최종 관련 프로세스 잔존0. 재기동/초기위치/이동/복구표시 해제/commit/push 미실행, 실기 검증 남음.
+
+
+### 2026-10-27 성공 기준 고정 및 커밋 준비
+사용자 실기 확인과 관제 결과 대조: 15:20:06 인계·복귀 SUCCESS, 15:20:32 다음 #60 수확 SUCCESS. 현재 5cm·6도 완료 판정/일반 주행6도 프로필을 유지하고 추가 동작 변경 없음. PC 수확 운영 파일과 로봇 소스 일치, 설치74모듈 동일. 실제 팔/운송 도킹·이격 미검증(PC 더미·수확 단독). 시험자료와 실행본은 Git 밖 success_freeze_20261027_152308에 보존, 기존 백업 유지. 다른 담당 scout/burger 차이는 미병합. 시뮬 동작 변경 없음. commit/push/스테이징 미수행. 상세: docs/changes/HARVEST_SUCCESS_FREEZE_20261027.md.

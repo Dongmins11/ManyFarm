@@ -83,7 +83,7 @@ def plan_window(reference, poses, motion, inputs, guard, policy, check) -> Navig
         c, s = math.cos(odom_start[2]), math.sin(odom_start[2])
         dx, dy = pose[0]-odom_start[0], pose[1]-odom_start[1]
         if (abs(-dx*s+dy*c) > .005 or not -.003 <= dx*c+dy*s <= length+.008
-                or abs(wrap(pose[2]-odom_start[2])) > policy.return_heading):
+                or abs(wrap(pose[2]-odom_start[2])) > policy.motion_heading):
             raise RuntimeError('WINDOW_PATH_DEVIATION: 보정 경로 이탈')
     def validate(at: int, stopped_check) -> dict:
         reference.require_context(*inputs.context())

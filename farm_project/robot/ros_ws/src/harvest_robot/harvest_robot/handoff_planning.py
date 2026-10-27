@@ -9,7 +9,7 @@ from typing import Any, Callable, Protocol
 import uuid
 
 from farm_navigation.navigation_types import RoutePlan
-from farm_navigation.transfer_arc import ArcSpec, arc_path, check_complete, check_motion, wrap
+from farm_navigation.transfer_arc import ArcSpec, arc_path, check_complete, check_motion, measure, wrap
 from .handoff_navigation import NavigationStep, AlignmentStep, Check
 from .handoff_paths import departure_route, return_route, retreat_route, alignment
 from .transfer_retreat import retreat_error
@@ -32,13 +32,20 @@ class CompletionPolicy:
     alignment_skip: float = math.radians(.5)
     spin_allowance: float = 40.
     reentry_position: float | None = None
+    # 정지 후 원호 끝점 판정 전용(m). 미지정 프로필은 기존 원호 조건 유지.
+    return_endpoint_position: float | None = None
 
     def __post_init__(self) -> None:
         if any(not math.isfinite(v) or v <= 0 for k, v in vars(self).items()
-               if not (k == 'reentry_position' and v is None)):
+               if not (k in ('reentry_position', 'return_endpoint_position') and v is None)):
             raise ValueError('완료 설정은 유한한 양수여야 합니다.')
-        if self.return_heading > math.radians(3.) or self.alignment_skip > self.alignment_heading:
+        if self.return_heading > math.radians(6.) or self.alignment_skip > self.alignment_heading:
             raise ValueError('완료 설정 범위 초과')
+
+    @property
+    def motion_heading(self) -> float:
+        """실행 중 각도 한계(rad)는 완료 허용치 확대와 독립적으로 기존 범위를 유지한다."""
+        return min(self.return_heading, math.radians(3.))
 
 
 class HandoffPlanner:
@@ -157,7 +164,7 @@ class HandoffPlanner:
             if stage in ('departure', 'return'):
                 limits = reference.arc_spec
                 if stage == 'return':
-                    limits = replace(limits, yaw_tolerance=max(limits.yaw_tolerance, policy.return_heading))
+                    limits = replace(limits, yaw_tolerance=max(limits.yaw_tolerance, policy.motion_heading))
                 check_motion(reference.arc_origin_odom, pose, limits)
             elif stage == 'retreat':
                 retreat_error(retreat, pose)
@@ -187,12 +194,21 @@ class HandoffPlanner:
                     accepted=abs(distance-self._wall['target_distance']) <= self._wall['distance_tolerance']
                         and abs(error) <= self._wall['angle_tolerance'])
             else:
-                limits = replace(reference.arc_spec, yaw_tolerance=max(reference.arc_spec.yaw_tolerance, policy.return_heading))
-                result = check_motion(reference.arc_origin_odom, pose, limits)
+                limits = replace(reference.arc_spec, yaw_tolerance=max(reference.arc_spec.yaw_tolerance, policy.motion_heading))
+                # 실행 중 경로 검사는 monitor가 담당한다. 정지 후 판정에서는
+                # 명시 선택한 완료 허용치를 더 엄격한 경로 한계로 다시 덮어쓰지 않는다.
+                stopped_check()
+                result = (check_motion(reference.arc_origin_odom, pose, limits)
+                          if policy.return_endpoint_position is None else
+                          measure(reference.arc_origin_odom, pose, limits))
+                endpoint_limit = (limits.endpoint_tolerance if policy.return_endpoint_position is None
+                                  else policy.return_endpoint_position)
                 result.update(endpoint_error=math.dist(pose[:2], reference.arc_origin_odom[:2]),
                               yaw_error=abs(wrap(pose[2]-reference.arc_origin_odom[2])))
-                if result['endpoint_error'] > limits.endpoint_tolerance or result['yaw_error'] > policy.return_heading:
-                    raise RuntimeError('복귀 종료 위치·방향 오차 초과')
+                if result['endpoint_error'] > endpoint_limit or result['yaw_error'] > policy.return_heading:
+                    raise RuntimeError('복귀 종료 위치·방향 오차 초과 '
+                        f"(위치={result['endpoint_error']:.6f}m/{endpoint_limit:.6f}m, "
+                        f"방향={result['yaw_error']:.6f}rad/{policy.return_heading:.6f}rad)")
                 if self._window_correction:
                     return dict(result, accepted=True, window_pending=True)
                 result['map_arrival'] = reference.arrival_validator(self._poses,

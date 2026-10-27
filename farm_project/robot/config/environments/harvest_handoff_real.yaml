@@ -14,4 +14,6 @@ navigation_policy: robot/config/navigation/harvest_navigation.yaml
 navigation:
   map_frame: map
   base_frame: base_footprint
+  # 실물 수확 주행의 출발·도착 방향 허용치 6도. 인계 전용 완료 조건은 별도 유지.
+  heading_tolerance_rad: 0.10471975511965978
 route_server_params: robot/config/harvest/route_server.yaml
