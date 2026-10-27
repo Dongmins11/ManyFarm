@@ -10,6 +10,8 @@ setup(
         ('share/' + package_name, ['package.xml']),
         ('share/' + package_name + '/maps', glob('maps/*')),
         ('share/' + package_name + '/config', [p for p in glob('config/*') if Path(p).is_file()]),
+        ('share/' + package_name + '/config/traffic', [p for p in glob('config/traffic/*') if Path(p).is_file()]),
+        ('share/' + package_name + '/config/traffic/sources', glob('config/traffic/sources/*')),
         ('share/' + package_name + '/config/tag_localization', glob('config/tag_localization/*')),
     ],
     install_requires=['setuptools'], zip_safe=True,

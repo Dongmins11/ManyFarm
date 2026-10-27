@@ -18,7 +18,8 @@ class HarvestStatus:
     """환경 설정에서 선택적으로 활성화한다. 타이머는 주행 명령을 보내지 않는다."""
     def __init__(self, node, settings, config: dict) -> None:
         self.node, self.settings, self.config = node, settings, config
-        self.boot_id = uuid.uuid4().hex
+        self.traffic = getattr(node, '_traffic', None)
+        self.boot_id = self.traffic.boot_id if self.traffic is not None else uuid.uuid4().hex
         self.sequence = 0
         self.battery = None
         self.group = MutuallyExclusiveCallbackGroup()
@@ -76,6 +77,7 @@ class HarvestStatus:
         if not arm_ready:
             errors.append(('ARM_NOT_READY', '팔 Action 서버 연결 대기'))
         if stopping: errors.append(('SHUTDOWN', '서버 종료 중'))
+        stamp = 0
         try:
             tf = self.buffer.lookup_transform(self.settings.map_frame, self.settings.base_frame, Time())
             stamp = tf.header.stamp.sec*10**9 + tf.header.stamp.nanosec
@@ -103,6 +105,8 @@ class HarvestStatus:
         status.error_code = errors[0][0] if errors else 'NONE'
         status.error_message = '; '.join(code+': '+message for code,message in errors)
         self.publisher.publish(status)
+        if self.traffic is not None:
+            self.traffic.on_status(status, stamp)
 
     def close(self) -> None:
         self.node.destroy_timer(self.timer)

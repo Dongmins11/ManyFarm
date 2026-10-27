@@ -1,0 +1,41 @@
+# Goal. Registration must match before granting. permit_id is empty.
+farm_interfaces/TrafficContext context
+string sync_id
+string task_id
+string map_id
+string map_revision
+string graph_id
+string graph_revision
+string zone_revision
+string route_revision
+# Nonempty node path; edges[i] connects nodes[i] to nodes[i+1].
+# A stationary request uses one node and zero edges.
+string[] route_node_ids
+string[] route_edge_ids
+string stop_node_id
+string footprint_profile_id
+---
+# Result. ROS terminal status and result_code are specified in README.md.
+string GRANTED=GRANTED
+string DENIED=DENIED
+string CANCELED=CANCELED
+
+farm_interfaces/TrafficContext context
+string result_code
+string permission_state
+string[] granted_node_ids
+string[] granted_edge_ids
+string[] allocated_zone_ids
+string stop_node_id
+string error_code
+string error_message
+---
+# Feedback replaces the full request-scoped blocked list. No ETA/TTL fields.
+string WAITING=WAITING
+
+farm_interfaces/TrafficContext context
+uint64 feedback_sequence
+string request_state
+string[] blocked_edge_ids
+string[] blocked_node_ids
+string reason_code

@@ -36,6 +36,7 @@ class NavigationSettings:
     max_goal_distance_m: float = .02
     path_spacing_m: float = .04
     parallel_approach: bool = False
+    collision_retry_count: int = 0
     tf_recovery_enabled: bool = False
     tf_recovery_timeout_s: float = 10.0
 
@@ -56,6 +57,9 @@ class NavigationSettings:
             elif isinstance(f.default, bool):
                 if not isinstance(value, bool):
                     raise ValueError(f'{f.name}: bool 필요')
+            elif isinstance(f.default, int):
+                if isinstance(value, bool) or not isinstance(value, int) or value < 0:
+                    raise ValueError(f'{f.name}: 0 이상의 정수 필요')
             elif not isinstance(value, str) or not value.strip():
                 raise ValueError(f'{f.name}: 비어 있지 않은 문자열 필요')
         if settings.settle_timeout_s <= settings.settle_s:

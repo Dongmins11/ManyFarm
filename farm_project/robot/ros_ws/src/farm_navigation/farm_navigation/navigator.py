@@ -33,7 +33,7 @@ class Navigator:
         self._graph=graph
         self._route_planner=route_planner
         self._record=record
-        if settings.tf_recovery_enabled:
+        if settings.tf_recovery_enabled or settings.collision_retry_count:
             client.set_recovery_probe(lambda: poses.recovery_ready() and motion.stationary_now())
         self._lock=threading.Lock()
         self._status=NavigationStatus()

@@ -1,0 +1,24 @@
+schema_version: 1
+configured: true
+mode: sim
+robot_id: scout_01
+map_id: farm_map_v1
+map_yaml: sim/ros_ws/src/farm_sim_config/maps/count_test_farm_map.yaml
+route_graph: sim/ros_ws/src/farm_sim_config/maps/graph.geojson
+nav_params: sim/ros_ws/src/farm_sim_config/config/nav2_scout.yaml
+survey_config: sim/ros_ws/src/farm_sim_config/config/scout_survey.json
+device_config: sim/ros_ws/src/farm_sim_config/config/scout_fleet.json
+rviz_config: sim/ros_ws/src/farm_sim_config/config/scout.rviz
+tag_localization_config: sim/ros_ws/src/farm_sim_config/config/tag_localization/scout.yaml
+navigation_policy: robot/config/navigation/scout_navigation.yaml
+navigation:
+  map_frame: map
+  base_frame: scout_01/base_footprint
+patrol_config: sim/ros_ws/src/farm_sim_config/config/scout_patrol.json
+station_config: sim/ros_ws/src/farm_sim_config/config/station_spawn.json
+
+traffic:
+  enabled: true
+  test_drive_enabled: true
+  registry: sim/ros_ws/src/farm_sim_config/config/traffic/traffic_zones.yaml
+  state_file: sim/state/traffic/scout_01.sqlite3

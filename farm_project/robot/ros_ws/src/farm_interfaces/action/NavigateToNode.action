@@ -1,0 +1,12 @@
+# Single-node driving test. The robot resolves coordinates from its own graph.
+string task_id
+string map_id
+string target_node_id
+---
+# SUCCESS / FAILED / CANCELED. Must agree with the ROS terminal status.
+string result_code
+string error_code
+string error_message
+---
+# PLANNING / MOVING
+string phase

@@ -1,0 +1,185 @@
+{
+  "main": {
+    "real_effective": {
+      "HarvestApproach": {
+        "desired_linear_vel": 0.1,
+        "lookahead_dist": 0.1,
+        "curvature_lookahead_dist": 0.1,
+        "use_rotate_to_heading": true,
+        "interpolate_curvature_after_goal": true
+      },
+      "HarvestWork": {
+        "desired_linear_vel": 0.1,
+        "lookahead_dist": 0.4,
+        "curvature_lookahead_dist": 0.4,
+        "interpolate_curvature_after_goal": true
+      },
+      "local_costmap": {
+        "resolution": 0.02,
+        "footprint": "[[0.30, -0.25], [0.30, 0.25], [-0.30, 0.25], [-0.30, -0.25]]",
+        "footprint_padding": 0.02
+      },
+      "global_costmap": {
+        "resolution": 0.05,
+        "footprint": "[[0.30, -0.25], [0.30, 0.25], [-0.30, 0.25], [-0.30, -0.25]]",
+        "footprint_padding": 0.02
+      },
+      "goal_checkers": {
+        "general_goal_checker": {
+          "stateful": true,
+          "plugin": "nav2_controller::SimpleGoalChecker",
+          "xy_goal_tolerance": 0.04,
+          "yaw_goal_tolerance": 0.04363323129985824
+        }
+      }
+    },
+    "sim_effective": {
+      "HarvestApproach": {
+        "desired_linear_vel": 0.1,
+        "lookahead_dist": 0.1,
+        "curvature_lookahead_dist": 0.1,
+        "use_rotate_to_heading": true,
+        "interpolate_curvature_after_goal": true
+      },
+      "HarvestWork": {
+        "desired_linear_vel": 0.1,
+        "lookahead_dist": 0.4,
+        "curvature_lookahead_dist": 0.4,
+        "interpolate_curvature_after_goal": true
+      },
+      "local_costmap": {
+        "resolution": 0.02,
+        "footprint": "[[0.30, -0.25], [0.30, 0.25], [-0.30, 0.25], [-0.30, -0.25]]",
+        "footprint_padding": 0.02
+      },
+      "global_costmap": {
+        "resolution": 0.05,
+        "footprint": "[[0.30, -0.25], [0.30, 0.25], [-0.30, 0.25], [-0.30, -0.25]]",
+        "footprint_padding": 0.02
+      },
+      "goal_checkers": {
+        "general_goal_checker": {
+          "stateful": true,
+          "plugin": "nav2_controller::SimpleGoalChecker",
+          "xy_goal_tolerance": 0.04,
+          "yaw_goal_tolerance": 0.04363323129985824
+        }
+      }
+    },
+    "short_move_replay": [
+      {
+        "lateral": 0.018109734122,
+        "forward": 0.12717299957,
+        "path_limit": null,
+        "result": "ACCEPTED"
+      },
+      {
+        "lateral": 0.012837974885,
+        "forward": 0.09020050197,
+        "path_limit": null,
+        "result": "ACCEPTED"
+      }
+    ]
+  },
+  "real": {
+    "real_effective": {
+      "HarvestApproach": {
+        "desired_linear_vel": 0.1,
+        "lookahead_dist": 0.1,
+        "curvature_lookahead_dist": 0.1,
+        "use_rotate_to_heading": true,
+        "interpolate_curvature_after_goal": true
+      },
+      "HarvestWork": {
+        "desired_linear_vel": 0.1,
+        "lookahead_dist": 0.4,
+        "curvature_lookahead_dist": 0.4,
+        "interpolate_curvature_after_goal": true
+      },
+      "local_costmap": {
+        "resolution": 0.02,
+        "footprint": "[[0.30, -0.25], [0.30, 0.25], [-0.30, 0.25], [-0.30, -0.25]]",
+        "footprint_padding": 0.02
+      },
+      "global_costmap": {
+        "resolution": 0.05,
+        "footprint": "[[0.30, -0.25], [0.30, 0.25], [-0.30, 0.25], [-0.30, -0.25]]",
+        "footprint_padding": 0.02
+      },
+      "goal_checkers": {
+        "general_goal_checker": {
+          "stateful": true,
+          "plugin": "nav2_controller::SimpleGoalChecker",
+          "xy_goal_tolerance": 0.04,
+          "yaw_goal_tolerance": 0.04363323129985824
+        }
+      }
+    },
+    "sim_effective": {
+      "HarvestApproach": {
+        "desired_linear_vel": 0.1,
+        "lookahead_dist": 0.4,
+        "curvature_lookahead_dist": 0.4,
+        "use_rotate_to_heading": true,
+        "interpolate_curvature_after_goal": true
+      },
+      "HarvestWork": {
+        "desired_linear_vel": 0.1,
+        "lookahead_dist": 0.4,
+        "curvature_lookahead_dist": 0.4,
+        "interpolate_curvature_after_goal": true
+      },
+      "local_costmap": {
+        "resolution": 0.05,
+        "footprint": "[[0.35, -0.30], [0.35, 0.30], [-0.35, 0.30], [-0.35, -0.30]]",
+        "footprint_padding": null
+      },
+      "global_costmap": {
+        "resolution": 0.05,
+        "footprint": "[[0.35, -0.30], [0.35, 0.30], [-0.35, 0.30], [-0.35, -0.30]]",
+        "footprint_padding": null
+      },
+      "goal_checkers": {
+        "general_goal_checker": {
+          "stateful": true,
+          "plugin": "nav2_controller::SimpleGoalChecker",
+          "xy_goal_tolerance": 0.04,
+          "yaw_goal_tolerance": 0.04363323129985824
+        }
+      }
+    },
+    "short_move_replay": [
+      {
+        "lateral": 0.018109734122,
+        "forward": 0.12717299957,
+        "path_limit": null,
+        "result": "APPROACH_RECOVERY_REQUIRED: path_heading; current_xy=(0.018109734122, 0.0), goal_xy=(0.0, 0.12717299957), forward_m=0.127173, lateral_m=0.018110/0.050000, body_heading_rad=0.000000/0.052360, path_heading_rad=0.141451/0.052360"
+      },
+      {
+        "lateral": 0.018109734122,
+        "forward": 0.12717299957,
+        "path_limit": 0.08726646259971647,
+        "result": "APPROACH_RECOVERY_REQUIRED: path_heading; current_xy=(0.018109734122, 0.0), goal_xy=(0.0, 0.12717299957), forward_m=0.127173, lateral_m=0.018110/0.050000, body_heading_rad=0.000000/0.052360, path_heading_rad=0.141451/0.087266"
+      },
+      {
+        "lateral": 0.012837974885,
+        "forward": 0.09020050197,
+        "path_limit": null,
+        "result": "APPROACH_RECOVERY_REQUIRED: path_heading; current_xy=(0.012837974885, 0.0), goal_xy=(0.0, 0.09020050197), forward_m=0.090201, lateral_m=0.012838/0.050000, body_heading_rad=0.000000/0.052360, path_heading_rad=0.141378/0.052360"
+      },
+      {
+        "lateral": 0.012837974885,
+        "forward": 0.09020050197,
+        "path_limit": 0.08726646259971647,
+        "result": "APPROACH_RECOVERY_REQUIRED: path_heading; current_xy=(0.012837974885, 0.0), goal_xy=(0.0, 0.09020050197), forward_m=0.090201, lateral_m=0.012838/0.050000, body_heading_rad=0.000000/0.052360, path_heading_rad=0.141378/0.087266"
+      }
+    ]
+  },
+  "refs": {
+    "main": "68e5ef7f6ab9217817f899580911ed848800e04e",
+    "real": "cf870daa00e7b752a39bbb3c84fc61c412cb2de7",
+    "merge_base": "2a397da842300823cec077210ac7857024a6f66a"
+  },
+  "scope": "커밋 HEAD 사이 비교. 미커밋 교통 작업 및 실물 설치 바이너리는 별도.",
+  "verification": "YAML 최종 적용값 비교 및 양 브랜치 실제 함수의 오프라인 기하 재생. 실물/Isaac 주행 미실행."
+}

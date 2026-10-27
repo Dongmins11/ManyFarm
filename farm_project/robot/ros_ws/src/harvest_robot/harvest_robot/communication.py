@@ -83,6 +83,8 @@ class HarvestCommunication:
             node.handoff.release('work', task_id)
             return result
         try:
+            if getattr(node, '_traffic', None) is not None:
+                node._traffic.begin_task()
             return self._execute_work(handle)
         finally:
             node.handoff.release('work', task_id)

@@ -27,7 +27,7 @@ class TestNavigatorDispatch(unittest.TestCase):
             def __getitem__(self,key):return 1. if key==(0,3) else 2.
         self.poses=S(current=lambda check:Matrix())
         self.settings=S(mode='follow_path',max_start_distance_m=.1,max_goal_distance_m=.02,
-                        tf_recovery_enabled=False)
+                        tf_recovery_enabled=False,collision_retry_count=0)
     def nav(self,graph=None,planner=None,client=None):
         return self.Nav(S(),self.settings,client or S(),self.poses,S(),lambda:None,graph,route_planner=planner)
     def test_existing_graph_unchanged(self):

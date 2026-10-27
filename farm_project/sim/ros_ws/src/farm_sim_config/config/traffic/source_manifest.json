@@ -1,0 +1,60 @@
+{
+  "baseline": "dashboard/config/environments.yaml simul.saved_routes",
+  "original_sources": [
+    {
+      "path": "dashboard/maps/saved_routes/simul/count_test_farm_map.yaml",
+      "snapshot": "sources/count_test_farm_map.yaml",
+      "sha256": "3669207256030ede0d5c58acef44af58e8d77867350a235c3b92b0d7b3addce8"
+    },
+    {
+      "path": "dashboard/maps/saved_routes/simul/count_test_farm_map.png",
+      "snapshot": "sources/count_test_farm_map.png",
+      "sha256": "d6f3146c411a9fdb2ad6f4c2c1ef6383f2ad0f852c06dc8e6f09396426a5039d"
+    },
+    {
+      "path": "dashboard/maps/saved_routes/simul/graph.geojson",
+      "snapshot": "sources/graph.geojson",
+      "sha256": "9f217dc579ffe21de4758a04f0c3a93ff9f22b669215cfebf6f22ecdc7d8820b"
+    },
+    {
+      "path": "dashboard/maps/saved_routes/simul/harvest_graph.geojson",
+      "snapshot": "sources/harvest_graph.geojson",
+      "sha256": "2ff1cd7b1dd355f46ee4b05fb71b961e57c4f5fc22134bedfbb6908072ed4cdc"
+    }
+  ],
+  "harvest_sections_source": {
+    "path": "/tmp/manifarm-traffic-review-20261020/main-main/farm_project/sim/ros_ws/src/farm_sim_config/config/harvest_task.json",
+    "sha256": "998fd8147a42cf65ccd8ad7f47fa63838ec99186b98d4f1344154c066d0ecbbe",
+    "snapshot": "sources/harvest_sections.json",
+    "snapshot_sha256": "e43705666092a775aa5da7f4959694fc97aa58a8ce283a9bc97a16b24312d1da"
+  },
+  "map_revision": "map_01",
+  "zone_revision": "zone_01",
+  "graph_revisions": {
+    "sim_scout_v1": "graph_01",
+    "sim_harvest_v1": "graph_01"
+  },
+  "new_graph_ids": "design registry IDs, not current graph metadata values",
+  "revision_catalog": {
+    "map": {
+      "map_id": "farm_map_v1",
+      "revision": "map_01",
+      "canonical_input_sha256": "3dbaed508df8aaafe7bc65479c3677edab8deee186d380e2a1fbc9451bdf3319"
+    },
+    "graphs": {
+      "sim_scout_v1": {
+        "revision": "graph_01",
+        "source_sha256": "9f217dc579ffe21de4758a04f0c3a93ff9f22b669215cfebf6f22ecdc7d8820b"
+      },
+      "sim_harvest_v1": {
+        "revision": "graph_01",
+        "source_sha256": "2ff1cd7b1dd355f46ee4b05fb71b961e57c4f5fc22134bedfbb6908072ed4cdc"
+      }
+    },
+    "zones": {
+      "revision": "zone_01",
+      "file": "traffic_zones.yaml",
+      "file_sha256": "cd72e33cf03f153b64b0b69258e6e9f013c84ffc031b728be6e647c705b68829"
+    }
+  }
+}

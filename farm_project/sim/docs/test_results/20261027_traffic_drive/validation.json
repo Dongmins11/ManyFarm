@@ -1,0 +1,79 @@
+{
+  "baseline": "68e5ef7 + existing traffic/recovery worktree changes",
+  "source_bundle": "traffic_and_drive_tests_sim_20261027",
+  "source_manifest_sha256": "982b12f72cb014cf1b21742cdac583a492fe3a7833262193e44fd00822df95a6",
+  "bundle_check": {
+    "result": "PASS",
+    "checked_files": 98
+  },
+  "interface_types_sha256": {
+    "msg/TrafficProgress.msg": "f811fbd698f5e758a82234fea2139538a956256e0c6cebcdf9afdc0563348fd5",
+    "msg/TrafficContext.msg": "b2aa34f29a32fa7c591d2543ec5525cc6c47843318212fc961107ee9a304e43d",
+    "msg/TrafficCodes.msg": "0cb5523039d71027577ba9c3f894274750958d1089c6c22882c15f9b0d38b178",
+    "msg/TrafficControlState.msg": "6100b11e848b3f774991dd10d951eda9c6cd185a5f32ea47104a85b4d12ebace",
+    "msg/TrafficRegistration.msg": "c93b85414d2846df8416a02b57ce1feea1fe2d88784f6b160c7cc8cb620126ba",
+    "action/NavigateToNode.action": "3c589b9cc907bb432840c044833d0ea07d292cf2f2c8e9e1388c2ef71cbb7535",
+    "action/AcquirePassage.action": "4d85bba9e05642cf6bc76fe7e8e75cdcc6bb55b7ef6602a07d2b2485ab8ecfb8",
+    "srv/ReleasePassage.srv": "c0843e5f80d0ccd64eb501228ecfb4d94c0b1bc14de25b6974f7de4d97ca6120",
+    "srv/GetPassageState.srv": "78ec0b244095e059e860797741bb6fee92ae63c4a1478cb0b0016946e8faf10c"
+  },
+  "ros_examples": {
+    "result": "PASS",
+    "count": 35,
+    "nodes_created": 0
+  },
+  "build": {
+    "common": [
+      "farm_interfaces",
+      "farm_navigation",
+      "harvest_robot",
+      "scout_robot"
+    ],
+    "sim": [
+      "farm_sim_runtime",
+      "farm_sim_config"
+    ],
+    "result": "PASS"
+  },
+  "regression": {
+    "result": "PASS",
+    "passed": 117
+  },
+  "dds_action": {
+    "result": "PASS",
+    "scope": "DDS Action transport with fake navigation, no physical motion",
+    "domain": "13",
+    "discovery": "SUBNET",
+    "namespace": "/traffic_contract_probe_929677",
+    "cases": [
+      {
+        "scenario": "success",
+        "status": 4,
+        "result_code": "SUCCESS",
+        "same_uuid_result_query": "PASS"
+      },
+      {
+        "scenario": "fail",
+        "status": 6,
+        "result_code": "FAILED",
+        "same_uuid_result_query": "PASS"
+      },
+      {
+        "scenario": "cancel",
+        "status": 5,
+        "result_code": "CANCELED",
+        "same_uuid_result_query": "PASS"
+      }
+    ]
+  },
+  "geometry": {
+    "start": "9010",
+    "target": "10103",
+    "occupied_scout": "9004",
+    "detour_distance_m": 47.5,
+    "result": "PASS",
+    "scope": "offline graph/zone calculation"
+  },
+  "physical_joint_tests": "NOT_RUN",
+  "commit_push": "NOT_DONE"
+}

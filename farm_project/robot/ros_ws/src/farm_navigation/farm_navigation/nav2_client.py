@@ -16,6 +16,7 @@ from nav_msgs.msg import Path
 from geometry_msgs.msg import Twist
 from .tf_recovery import run_with_tf_recovery, Nav2TFError
 from .navigation_types import NavigationSettings
+from .collision_recovery import Nav2ControlUnavailable, run_with_collision_recovery
 from .arrival import validate_goal_checkers
 
 
@@ -30,9 +31,10 @@ class Nav2Client:
         self._handle: ClientGoalHandle | None = None
         self._result: Future | None = None
         self._recovery_probe = None
+        self._recovery_stop = None
         self._stop_publishers = ([node.create_publisher(Twist, topic, 10)
                                  for topic in ('cmd_vel_nav', 'cmd_vel')]
-                                if settings.tf_recovery_enabled else [])
+                                if settings.tf_recovery_enabled or settings.collision_retry_count else [])
         self._last_control_feedback = 0.0
         self._nominal_linear_speed_mps: float | None = None
 
@@ -114,8 +116,15 @@ class Nav2Client:
     def set_recovery_probe(self, probe: Callable[[], bool]) -> None:
         self._recovery_probe = probe
 
+    def set_recovery_stop(self, stop: Callable[[], None]) -> None:
+        """현재 출력 소유자가 제공하는 정지 함수. 추가 publisher를 생성하지 않는다."""
+        self._recovery_stop = stop
+
     def _stop_for_recovery(self) -> None:
         # 자신의 Nav2 Goal이 종료된 뒤에만 호출한다. smoother 입력과 모터 입력에 0을 보낸다.
+        if self._recovery_stop is not None:
+            self._recovery_stop()
+            return
         for publisher in self._stop_publishers:
             publisher.publish(Twist())
 
@@ -134,23 +143,77 @@ class Nav2Client:
             raise ValueError('주행 경로 길이는 유한해야 합니다.')
         return max(base, float(math.ceil(2.0*distance/speed + 60.0)))
 
+    def request_stop(self) -> None:
+        """교통 콜백에서 기다리지 않고 자신의 진행/지연 승인 Goal에 취소를 보낸다."""
+        self._stop_for_recovery()
+        if self._handle is not None and self._handle.accepted:
+            self._handle.cancel_goal_async()
+        elif self._pending is not None:
+            def cancel_late(future: Any) -> None:
+                handle = future.result()
+                if handle is not None and handle.accepted:
+                    handle.cancel_goal_async()
+            self._pending.add_done_callback(cancel_late)
+
     def execute(self, xy: tuple[float,float], yaw: float, path: Path | None, check: Callable[[],None]) -> int:
-        if not self._settings.tf_recovery_enabled or self._settings.mode != 'follow_path':
+        """접근·작업·이탈·복귀가 공유하는 최종 출발 경계. 허가 대기는 주행 제한시간 밖이다."""
+        traffic = getattr(self._node, '_traffic', None)
+        if traffic is None:
+            return self._execute_authorized(xy, yaw, path, check)
+        if self not in traffic.motion_clients:
+            traffic.motion_clients.append(self)
+        path, generation = traffic.acquire(path, check)
+        def guarded() -> None:
+            check()
+            traffic.check(generation)
+        try:
+            guarded()
+            return self._execute_authorized(xy, yaw, path, guarded)
+        finally:
+            # 정상/실패 모두 먼저 정지 명령을 보내며 점유는 실제 위치로 별도 반납한다.
+            traffic.movement_finished()
+
+    def _execute_authorized(self, xy: tuple[float,float], yaw: float, path: Path | None, check: Callable[[],None]) -> int:
+        if (not self._settings.tf_recovery_enabled and not self._settings.collision_retry_count) or self._settings.mode != 'follow_path':
             return self._execute_once(xy, yaw, path, check)
         if self._recovery_probe is None:
             raise RuntimeError('TF 복구 준비 확인 연결 누락')
+        if self._settings.collision_retry_count and not self._settings.tf_recovery_enabled and self._recovery_stop is None:
+            raise RuntimeError('재시도 정지 출력 소유자 연결 누락')
         execution_clock = self._execution_clock()
-        deadline = execution_clock() + self._execution_timeout(path)
+        excluded = 0.0
+        wait_start = None
+        def retry_waiting(active: bool) -> None:
+            nonlocal excluded, wait_start
+            now = execution_clock()
+            if active:
+                wait_start = now
+            elif wait_start is not None:
+                excluded += now - wait_start
+                wait_start = None
+        def active_clock() -> float:
+            now = execution_clock()
+            return now - excluded - (now-wait_start if wait_start is not None else 0.)
+        deadline = active_clock() + self._execution_timeout(path)
         def bounded_check() -> None:
             check()
-            if execution_clock() >= deadline:
+            if active_clock() >= deadline:
                 raise TimeoutError('Nav2 전체 주행 시간 초과')
-        return run_with_tf_recovery(
-            lambda: self._execute_once(xy, yaw, path, bounded_check),
-            self._recovery_probe, self._stop_for_recovery, bounded_check,
-            lambda: self._last_control_feedback,
-            self._settings.tf_recovery_timeout_s,
-            lambda text: self._node.get_logger().warning(text))
+        def execute_with_tf_recovery() -> int:
+            if not self._settings.tf_recovery_enabled:
+                return self._execute_once(xy, yaw, path, bounded_check)
+            return run_with_tf_recovery(
+                lambda: self._execute_once(xy, yaw, path, bounded_check),
+                self._recovery_probe, self._stop_for_recovery, bounded_check,
+                lambda: self._last_control_feedback,
+                self._settings.tf_recovery_timeout_s,
+                lambda text: self._node.get_logger().warning(text))
+        if self._settings.collision_retry_count:
+            return run_with_collision_recovery(execute_with_tf_recovery,
+                self._recovery_probe, self._stop_for_recovery, bounded_check,
+                self._settings.collision_retry_count,
+                lambda text: self._node.get_logger().warning(text), waiting=retry_waiting)
+        return execute_with_tf_recovery()
 
     def _execute_once(self, xy: tuple[float,float], yaw: float, path: Path | None, check: Callable[[],None]) -> int:
         check()
@@ -169,7 +232,7 @@ class Nav2Client:
             goal.pose.pose.position.x=float(xy[0]);goal.pose.pose.position.y=float(xy[1])
             goal.pose.pose.orientation.z=math.sin(yaw/2);goal.pose.pose.orientation.w=math.cos(yaw/2)
             client=self._navigate
-        if self._settings.tf_recovery_enabled:
+        if self._settings.tf_recovery_enabled or self._settings.collision_retry_count:
             # 이전 경로의 좌표·순서는 유지하고 전송 시각만 갱신한다.
             if path is not None:
                 path.header.stamp = self._node.get_clock().now().to_msg()
@@ -200,6 +263,13 @@ class Nav2Client:
                     and response.status == GoalStatus.STATUS_ABORTED
                     and code == getattr(FollowPath.Result, 'TF_ERROR', -1)):
                 raise Nav2TFError(message)
+            if (self._settings.collision_retry_count
+                    and self._settings.mode == 'follow_path'
+                    and response.status == GoalStatus.STATUS_ABORTED
+                    and code == getattr(FollowPath.Result, 'NO_VALID_CONTROL', -1)
+                    and (not getattr(response.result, 'error_msg', '').strip()
+                         or 'collision ahead' in getattr(response.result, 'error_msg', '').lower())):
+                raise Nav2ControlUnavailable(message)
             raise RuntimeError(message)
         return int(response.status)
 

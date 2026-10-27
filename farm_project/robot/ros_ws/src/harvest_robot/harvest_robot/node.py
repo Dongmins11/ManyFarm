@@ -78,6 +78,12 @@ class HarvestNode(Node):
                 raise ValueError('approach_goal_checker_id는 비어 있지 않은 문자열이어야 합니다.')
             approach_settings = approach_navigation_settings(
                 settings, self.config, controller_id, goal_checker_id)
+        self._traffic = None
+        if profile.get('traffic', {}).get('enabled', False):
+            from farm_navigation.traffic_client import configure_traffic
+            configure_traffic(self, self.root, profile, settings,
+                lambda: self.handoff.current[1] if self.handoff.current else
+                    self.active_goal.request.harvest_task.task_id if self.active_goal else '')
         self.poses = PoseProvider(self, settings)
         self.motion = MotionMonitor(self, settings, self.callbacks)
         self.client = Nav2Client(self, approach_settings, self.callbacks)
@@ -158,10 +164,20 @@ class HarvestNode(Node):
             unavailable=lambda: self.blocked or self.stopping,
             block=lambda: setattr(self, 'blocked', True), prepare=self.prepare_station_return,
             tag_control=self.tag_control)
+        self.traffic_test = None
+        if profile.get('traffic', {}).get('test_drive_enabled', False):
+            if self.mode != 'sim':
+                raise ValueError('교통 주행 시험은 sim 전용입니다.')
+            from farm_sim_runtime.traffic_drive_test import TrafficDriveTest
+            self.traffic_test = TrafficDriveTest(self, profile, approach_settings,
+                self.client, self.poses, self.motion, self.handoff,
+                unavailable=lambda: self.busy or self.blocked or self.stopping,
+                block=lambda: setattr(self, 'blocked', True),
+                record=lambda entry: self.navigation_log.append(entry))
         self.communication = HarvestCommunication(self)
         self.status_reporter = None
         status_config = self.config.get('status_reporting', {})
-        if status_config.get('enabled', False):
+        if status_config.get('enabled', False) or self._traffic is not None:
             from .status import HarvestStatus
             self.status_reporter = HarvestStatus(self, settings, status_config)
         self.get_logger().info('HarvestTask 완료 정책: '+policy)
@@ -181,6 +197,8 @@ class HarvestNode(Node):
                 raise RuntimeError('ARM_TRAVEL_NOT_READY: 중단된 팔의 접힘 확인이 필요합니다.')
 
     def check(self) -> None:
+        if getattr(self, '_traffic', None) is not None:
+            self._traffic.check_work()
         if self.handoff.work_interrupted or self.stopping or not rclpy.ok() or (self.active_goal and self.active_goal.is_cancel_requested):
             raise MissionCanceled('수확 작업 취소/종료 요청')
 
@@ -202,6 +220,10 @@ def main(args=None) -> None:
     finally:
         if node.tag_control is not None:
             node.tag_control.end()
+        if node._traffic is not None:
+            node._traffic.close()
+        if node.traffic_test is not None:
+            node.traffic_test.close()
         executor.shutdown()
         if node.status_reporter is not None:
             node.status_reporter.close()

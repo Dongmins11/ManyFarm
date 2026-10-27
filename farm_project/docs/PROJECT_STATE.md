@@ -1312,6 +1312,13 @@ afdcc05 원본은 SimpleProgressChecker(0.1m/20초)이며 회전만으로 진행
 - 원격 재검토용 완료 집계5개(summary/performance_summary/failure_analysis/manifest/evaluation_contract)를 `sim/docs/test_results/20261022_sec01_16/`에 보존했다. 대용량 원본 로그는 기존 로컬 sim/runs 경로에 유지하며 보고서에 상대 링크를 추가했다.
 - 커밋 전 검증: farm_navigation48 + student30 + campaign12 =90개 PASS, git diff --check 통과. 실제 통합 결과는 야간16SEC 완료/실패 재시작5회 기록을 따른다. 실물 주행 시험은 미실행.
 
+## 92. 교통 제어 공통 로봇 클라이언트와 시뮬 프로파일 — 2026-10-22
+
+- 기준 main/0832b6f 이후 사용자 승인 D-053, 미커밋/미푸시. 전달본의 교통 타입 8개와 로봇 측 등록·허가·진행·반납·차단 변경 우회를 공통 Nav2 실행 경계에 연결했다. 관제 서버 구현은 포함하지 않는다.
+- `scout_traffic_runtime.yaml`/`harvest_traffic_runtime.yaml`을 선택해야 활성화된다. 기존 기본 시뮬·실물 환경은 유지했다. 시뮬 그래프 원본과 24개 공통 노드의 6cm 차이를 보존한다.
+- 상세 파일·실물 담당 작업·실행 선택·검증/미검증·되돌리기는 [실물 인계 문서](changes/TRAFFIC_ROBOT_HANDOFF_20261022.md)에 기록했다. 실제 교통 시험/실물 배포 완료를 뜻하지 않는다. 전체 초기화의 시뮬 완료 이벤트는 관제 실행기와 연결할 후속 통합 지점이다.
+
+
 ### 2026-10-22 예찰 윈도우와 팔 실행 상자 범위 정렬
 
 - 사용자 “팔 실행필터보다 예찰 윈도우 생성 범위가 더커서 … 해결” 요청. sim 설정만 수정했다. 공통 플래너/팔 실행 필터·실물 설정은 변경하지 않았다.
@@ -1509,3 +1516,28 @@ afdcc05 원본은 SimpleProgressChecker(0.1m/20초)이며 회전만으로 진행
 - 시작준비오류재시작/105기록0,SEC07정렬조건과SEC09팔복귀각1회실패후재시도성공. SEC07직전TF재구성yaw약3.53도로차체3도초과의심이나정확한판정TF미저장한계명시.
 - 보고서sim/docs/SEC01_16_ROUND3_TEST_REPORT_20261027.md,검토용원본/집계/실패Action/SHA256은sim/docs/test_results/20261027_round3/. 전체숫자·창결과·분모/해시검증PASS. 제어코드변경/새시험없음.
 - git fetch복구: 0바이트Codex임시참조백업후격리,원격main92ad63a동일확인. 실물담당브랜치4b5c5b1→cf870da(10/23 21:39KST)인계통합/TF·취소/주행판정변경확인. 공통파일이현재main과겹쳐자동병합하지않음. 다른교통미커밋작업보존. 사용자보고서/결과커밋푸시승인,이기록작성시푸시대기.
+
+
+### 2026-10-27 현재 main/실물 담당 브랜치 비교
+
+- 사용자비교요청,fetch후main68e5ef7/실물cf870da를비교. 공통조상2a397da,고유커밋6/8. 공통실행코드도달라‘설정만차이’아님. 우리Nav2시각패치·경로별제한·목표선각분리와실물의인계/TF/취소·잠금개선이분기됨.
+- YAML실제병합으로VicPinky핵심RPP/footprint/costmap/도착값은일치확인. 공통기본yaml만덮으면실물브랜치sim에큰차체/0.4주시가적용되는차이있음. 양브랜치실제함수재생에서SEC12/16기하 main허용,실물기본3도/선택5도모두path_heading거부.
+- 상세sim/docs/changes/REAL_BRANCH_COMPARISON_20261027.md/JSON,재현sim/runs/branch_comparison_20261027. 실물설치Nav2패치여부미확인. 소스수정/병합/주행/커밋푸시없음,교통미커밋변경보존.
+
+
+### 2026-10-27 공통 주행 재시도 선별 통합 준비
+
+- 사용자 승인으로 실물5ff5b50의 제한106재시도를 공통farm_navigation에 선별 반영. 기본0/운영 비활성, 거리 기반 제한·교통 미커밋 변경 보존. 대기시간만 총 실행 제한에서 제외. 105는 대상 아님.
+- 관련32검사 통과, 교통 생성메시지 미빌드로 해당검사 미실행. 실제 주행/빌드/인계 전체 통합 미실행. 상세 sim/docs/changes/NAVIGATION_RECOVERY_INTEGRATION_20261027.md. 미커밋/미푸시.
+
+
+### 2026-10-27 관제 교통·주행 시험 전달본 반영
+
+- 사용자 traffic_and_drive_tests_sim_20261027 반영 승인. 9타입 중 기존8동일/NavigateToNode 추가, 두 시뮬 교통 프로필에 시험 서버 연결. 공통 ActionHandoff/계획·주행·허가 재사용, 작업 구간 예약/출구 차단 우회와 취소 정리 확인 보완. 기존 업무·실물 설정 보존.
+- 공통4+sim2패키지 빌드,117회귀,Domain13/SUBNET 대역 주행의 실제DDS Action 성공/실패/취소·동일UUID조회 통과. 저장그래프47.5m우회 확인. Isaac/실제관제 공동시험 NOT_RUN. 상세 sim/docs/changes/TRAFFIC_DRIVE_HANDOFF_20261027.md, 공유검증 sim/docs/test_results/20261027_traffic_drive/. 미커밋/미푸시.
+
+
+### 2026-10-27 교통 시험 반영분 커밋·푸시 및 실물 추가 업데이트 확인
+
+- 사용자 커밋·푸시 승인. 기존 교통 연동과 테스트 Action, 기본 비활성106재시도 및 검증자료를 함께 반영한다. 117회귀/공통4+sim2빌드/대역DDS Action 검증 결과 유지, 실제 공동 주행 NOT_RUN. 원본 전달 폴더와 runs/build/state는 커밋에서 제외.
+- fetch 후 실물 브랜치5ff5b50→48d2d1c(15:32KST) 확인: 일반 방향6도, 정지 후 복귀5cm/6도, 실행 중 최대3도 유지, PC더미 기반 인계·복귀 후 다음window 성공1회 기록. 자동병합 없음. 상세 sim/docs/changes/REAL_BRANCH_UPDATE_20261027.md.

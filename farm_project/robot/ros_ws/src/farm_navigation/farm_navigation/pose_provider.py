@@ -52,6 +52,10 @@ class PoseProvider:
                 time.sleep(.02)
         raise RuntimeError(f'TF 조회 실패: {target} ← {source}, stamp={stamp_ns}: {error}')
 
+    def latest_sample(self):
+        """등록 보고용 원본 TF와 샘플 시각을 반환한다. 캐시를 새 시각으로 포장하지 않는다."""
+        return self._buffer.lookup_transform(self._settings.map_frame, self._settings.base_frame, Time())
+
     def current(self, check: Callable[[],None]) -> NDArray[np.float64]:
         return self.lookup(self._settings.map_frame,self._settings.base_frame,0,check)
 

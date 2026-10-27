@@ -3,3 +3,6 @@
 
 # 사용자 요청으로 저장한 과실 회전 변경 전 로컬 복원본
 /assets/envs/output/*.usd.before_rotation_*
+
+# 로봇별 영속 교통 ID. 시험 종료/전체 초기화에서도 삭제하지 않는다.
+/state/traffic/

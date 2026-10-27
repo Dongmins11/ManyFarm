@@ -1,0 +1,22 @@
+string EXITED=EXITED
+string UNUSED=UNUSED
+
+farm_interfaces/TrafficContext context
+uint64 operation_sequence
+string[] release_zone_ids
+string release_mode
+uint64 progress_sequence
+# The first logical request's timestamp; preserve on explicit replay.
+string timestamp
+---
+farm_interfaces/TrafficContext context
+uint64 operation_sequence
+string current_server_epoch
+# Atomic: all requested links released, or none.
+bool released
+string[] released_zone_ids
+string[] remaining_zone_ids
+bool permit_closed
+string error_code
+string error_message
+string timestamp

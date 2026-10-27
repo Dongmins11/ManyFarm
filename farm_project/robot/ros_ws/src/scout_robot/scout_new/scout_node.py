@@ -115,6 +115,12 @@ class ScoutNode(Node):
         # 역할을 각각 만들고 명시적으로 연결합니다. Mission이 Controller를 소유하지 않습니다.
         self._tag_control = (TagControl(self, self._cfg['robot_id'], self._cfg['map_id'])
                              if self.get_parameter('tag_correction').value else None)
+        self._traffic = None
+        if self._environment.get('traffic', {}).get('enabled', False):
+            from farm_navigation.traffic_client import configure_traffic
+            configure_traffic(self, self._root, self._environment, self._navigation_settings,
+                lambda: self._handoff.current[1] if self._handoff.current else
+                    self._active_goal.request.task_id if self._active_goal else '')
         self._poses = PoseProvider(self,self._navigation_settings)
         self._motion = MotionMonitor(self,self._navigation_settings,self._cb)
         self._nav2 = Nav2Client(self,self._navigation_settings,self._cb)
@@ -130,6 +136,20 @@ class ScoutNode(Node):
             callbacks=self._cb, handoff=self._handoff,
             unavailable=lambda: self._motion_uncertain or self._shutdown_requested,
             block=lambda: setattr(self, '_motion_uncertain', True), tag_control=self._tag_control)
+        self._status_reporter = None
+        if self._traffic is not None:
+            from .traffic_status import ScoutTrafficStatus
+            self._status_reporter = ScoutTrafficStatus(self)
+        self._traffic_test = None
+        if self._environment.get('traffic', {}).get('test_drive_enabled', False):
+            if self._environment['mode'] != 'sim':
+                raise ValueError('교통 주행 시험은 sim 전용입니다.')
+            from farm_sim_runtime.traffic_drive_test import TrafficDriveTest
+            self._traffic_test = TrafficDriveTest(self, self._environment, self._navigation_settings,
+                self._nav2, self._poses, self._motion, self._handoff,
+                unavailable=lambda: self._busy or self._motion_uncertain or self._shutdown_requested,
+                block=lambda: setattr(self, '_motion_uncertain', True),
+                record=lambda entry: self._navigation_log.append(entry))
         self._communication: ScoutCommunication = ScoutCommunication(self, self._state_controller)
         self._state_group: MutuallyExclusiveCallbackGroup = MutuallyExclusiveCallbackGroup()
         self._state_clock: Clock = Clock(clock_type=ClockType.STEADY_TIME)
@@ -148,6 +168,8 @@ class ScoutNode(Node):
             self._markers.publish(self._last_markers)
 
     def check(self) -> None:
+        if getattr(self, '_traffic', None) is not None:
+            self._traffic.check_work()
         if self._handoff.work_interrupted or self._state_controller.stop_requested or self._shutdown_requested or not rclpy.ok() or (self._active_goal and self._active_goal.is_cancel_requested):
             raise MissionCanceled('ScoutArea canceled')
 
@@ -234,6 +256,10 @@ def main(args: list[str] | None = None) -> None:
         while rclpy.ok() and (not node._shutdown_requested or node._busy or node._handoff.busy):
             executor.spin_once(timeout_sec=0.1)
     finally:
+        if node._traffic is not None:
+            node._traffic.close()
+        if node._traffic_test is not None:
+            node._traffic_test.close()
         executor.shutdown()
         node._state_controller.close()
         if node._tag_control is not None:

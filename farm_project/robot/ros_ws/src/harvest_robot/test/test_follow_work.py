@@ -85,13 +85,15 @@ class Parameters:
         base={'goal_checker_plugins':list(self.checkers),'controller_plugins':list(self.controllers),
               'progress_checker_plugins':['progress_checker'], 'min_x_velocity_threshold':.001,
               'min_y_velocity_threshold':.001, 'min_theta_velocity_threshold':.001}
+        # 공통 preflight가 읽는 실제 제어기 속도 파라미터도 가짜 서버에서 제공한다.
+        base.update({name+'.desired_linear_vel':.1 for name in self.controllers})
         checker={'plugin':'nav2_controller::SimpleGoalChecker','xy_goal_tolerance':.04,
                  'yaw_goal_tolerance':.043633,'stateful':True,'symmetric_yaw_tolerance':False}
         base.update({'general_goal_checker.'+k:v for k,v in checker.items()})
         approach = dict(checker, plugin='nav2_controller::StoppedGoalChecker', stateful=False,
                         trans_stopped_velocity=.005, rot_stopped_velocity=.02)
         base.update({'approach_goal_checker.'+k:v for k,v in approach.items()})
-        return Future(NS(values=[base[name] for name in request.names]))
+        return Future(NS(values=[base.get(name) for name in request.names]))
     def remove_pending_request(self, future: object) -> None:pass
 
 

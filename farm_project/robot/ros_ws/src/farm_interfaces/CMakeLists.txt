@@ -7,6 +7,15 @@ find_package(action_msgs REQUIRED)
 find_package(rosidl_default_generators REQUIRED)
 
 rosidl_generate_interfaces(${PROJECT_NAME}
+  "msg/TrafficCodes.msg"
+  "msg/TrafficContext.msg"
+  "msg/TrafficControlState.msg"
+  "msg/TrafficProgress.msg"
+  "msg/TrafficRegistration.msg"
+  "srv/GetPassageState.srv"
+  "srv/ReleasePassage.srv"
+  "action/AcquirePassage.action"
+  "action/NavigateToNode.action"
   "msg/RobotPose.msg"
   "msg/RobotStatus.msg"
   "msg/HarvestTask.msg"

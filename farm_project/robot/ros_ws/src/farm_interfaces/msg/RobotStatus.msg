@@ -9,7 +9,7 @@ bool transfer_required
 int32 loaded_count
 string error_code
 string error_message
-# 프로세스 시작마다 새 UUID. Status 발행마다 sequence 증가.
+# 프로세스 시작마다 새 boot. 교통 활성 시 영속 연번 boot_01 형식. Status마다 sequence 증가.
 string boot_id
 uint64 sequence
 string timestamp
