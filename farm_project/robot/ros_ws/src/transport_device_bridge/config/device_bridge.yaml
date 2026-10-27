@@ -4,7 +4,7 @@
     robot_ns: transport_01      # 서비스 앞부분 → /transport_01/device/...
     port: /dev/ttyS0            # 라즈베리파이 UART (OpenCR Serial1)
     baud: 115200
-    lid_timeout: 10.0           # 덮개 열기·닫기 제한 시간 [초] (실제 약 4.4초)
+    lid_timeout: 10.0           # 덮개 열기·닫기 제한 시간 [초] (실제 약 4.0초)
     gate_timeout: 5.0           # 앞문 [초] (실제 약 1.2초)
     dump_timeout: 30.0          # 틸트 쏟기 [초] (실제 약 20초)
     stop_timeout: 1.0

@@ -12,7 +12,7 @@
 토픽
   /transport_01/device/raw  (std_msgs/String)  OpenCR 회신 원문
 
-- 서비스는 동작이 끝나야 응답한다 (덮개 약 4.4초, unload 약 23초) → 호출 쪽은 call_async 사용
+- 서비스는 동작이 끝나야 응답한다 (덮개 약 4.0초, unload 약 23초) → 호출 쪽은 call_async 사용
 - 동작 서비스는 한 번에 하나. 다른 동작 중이면 success=false 'busy'
 - stop 은 언제든 받음. 진행 중인 동작은 success=false 로 끝남
 - 실패(STOPPED / ERR / 시간 초과 / READY) 시 안전을 위해 stop 을 보내고 success=false
@@ -49,7 +49,7 @@ class DeviceBridge(Node):
         self.declare_parameter('robot_ns', 'transport_01')
         self.declare_parameter('port', '/dev/ttyS0')
         self.declare_parameter('baud', 115200)
-        self.declare_parameter('lid_timeout', 10.0)    # 실제 약 4.4초
+        self.declare_parameter('lid_timeout', 10.0)    # 실제 약 4.0초
         self.declare_parameter('gate_timeout', 5.0)    # 실제 약 1.2초
         self.declare_parameter('dump_timeout', 30.0)   # 실제 약 20초
         self.declare_parameter('stop_timeout', 1.0)
