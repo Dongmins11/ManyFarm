@@ -1,0 +1,54 @@
+{
+  "mode": "peer",
+  "listen": {
+    "endpoints": []
+  },
+  "connect": {
+    "endpoints": [
+      "tcp/192.168.0.29:18449"
+    ]
+  },
+  "scouting": {
+    "multicast": {
+      "enabled": false
+    },
+    "gossip": {
+      "enabled": false
+    }
+  },
+  "plugins": {
+    "ros2dds": {
+      "domain": 77,
+      "namespace": "/",
+      "ros_automatic_discovery_range": "LOCALHOST",
+      "allow": {
+        "publishers": [
+          "^/harvest_01/control_state$"
+        ],
+        "subscribers": [
+          "^/harvest_01/arm/runtime_status$"
+        ],
+        "action_servers": [
+          "^$"
+        ],
+        "action_clients": [
+          "^/harvest_01/arm/(harvest_task|discharge)$"
+        ],
+        "service_servers": [
+          "^$"
+        ],
+        "service_clients": [
+          "^/harvest_01/arm/(prepare|stop|get_operation|recover)$"
+        ]
+      },
+      "queries_timeout": {
+        "default": 20.0,
+        "actions": {
+          "send_goal": 5.0,
+          "cancel_goal": 5.0,
+          "get_result": 1300.0
+        }
+      }
+    }
+  }
+}

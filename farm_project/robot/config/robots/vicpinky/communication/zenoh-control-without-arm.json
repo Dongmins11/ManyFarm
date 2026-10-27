@@ -1,0 +1,41 @@
+{
+  "plugins": {
+    "ros2dds": {
+      "deny": {
+        "publishers": [
+          "^/harvest_01/cmd_vel.*$",
+          "^/harvest_01/handoff/.*$",
+          "^/harvest_01/control_state$",
+          "^/harvest_01/arm/runtime_status$",
+          "^/harvest_01/transfer_test_mode/enabled$"
+        ],
+        "subscribers": [
+          "^/harvest_01/cmd_vel.*$",
+          "^/harvest_01/odom$",
+          "^/harvest_01/handoff/.*$",
+          "^/harvest_01/control_state$",
+          "^/harvest_01/arm/runtime_status$",
+          "^/harvest_01/transfer_test_mode/enabled$"
+        ],
+        "service_servers": [
+          "^/harvest_01/handoff/.*$",
+          "^/harvest_01/arm/(prepare|stop|get_operation|recover)$",
+          "^/harvest_01/transfer_test_mode/set_enabled$"
+        ],
+        "service_clients": [
+          "^/harvest_01/handoff/.*$",
+          "^/harvest_01/arm/(prepare|stop|get_operation|recover)$",
+          "^/harvest_01/transfer_test_mode/set_enabled$"
+        ],
+        "action_servers": [
+          "^/harvest_01/handoff/.*$",
+          "^/harvest_01/arm/(harvest_task|discharge)$"
+        ],
+        "action_clients": [
+          "^/harvest_01/handoff/.*$",
+          "^/harvest_01/arm/(harvest_task|discharge)$"
+        ]
+      }
+    }
+  }
+}

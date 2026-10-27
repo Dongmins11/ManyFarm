@@ -19,3 +19,67 @@ python3 robot/tools/trial_console/app.py
 표시된 정지는 표본 구간의 결과이며 위치 정합 검증을 대신하지 않는다. 오류 응답을 성공으로 처리하거나 자동 재시도하지 않는다.
 
 후보 생성기·패치·통합시험은 2026-10-27에 Git 밖 `/home/eunbi/vmany_artifacts/robot_sync_20261027/excluded/robot/tools/trial_console/`로 보존했다. 현재 도구 실행에는 필요하지 않다. PC 더미 서버와 수정 Zenoh 바이너리도 저장소 외부 의존성이다. 원본·설정·저널 백업과 배포 범위는 `docs/changes/ROBOT_PC_SYNC_20261027.md`를 참고한다.
+
+## 실제 Jetson 팔 통신 시험 — 2026-10-27
+
+웹 상단의 **이동 없는 팔 시험**을 사용한다. 기존 더미/복구 기능은 아래에 그대로 있다.
+코드 갱신 뒤에는 기존 PC 미니관제 터미널만 사용자가 종료하고 위 app.py 명령으로 다시 실행한다.
+8091의 서버를 중복 기동하지 않는다. 브라우저도 새로고침한다.
+
+1. 로봇의 새 laun/zen/dzen을 사용자 터미널에서 실행한 상태에서 **팔 시험 연결**을 누른다.
+   PC→SSH→Pinky 시험 클라이언트→기존 팔 전용 Zenoh→Jetson 경로다. Jetson SSH는 사용하지 않는다.
+   연결은 RuntimeStatus/ControlState/RobotStatus/AMCL 구독과 Action/Service 클라이언트만 생성한다.
+2. RuntimeStatus의 마지막 수신·sequence·ready/phase/error, ControlState 원문, 서버 발견 상태를 확인한다.
+   서버 발견, 콘솔 접수, ROS 요청 송신, Jetson Goal 수락, Feedback, terminal Result는 서로 다르게 표시한다.
+3. 수확은 원본 HarvestTask Goal JSON을 붙여넣거나 **관측 자세로 수확 요청 초안**을 만든 뒤 내용을 확인하여 전송한다.
+   초안은 관측한 AMCL 자세/RobotStatus robot/map 값과 사용자가 입력한 expected_count를 사용한다.
+   시험 task/window ID는 새 UUID이며 초안 작성만으로 전송하지 않는다. 오래된 관측은 현재 자세로 가정하지 않는다.
+4. 수확 요청은 /harvest_01/arm/harvest_task에 직접 보낸다. 기존 차체 미션·관제 대기열을 실행하지 않는다.
+   이 시험의 결과를 Pinky의 운영 적재량에 자동 반영하지 않으므로 실제 수량은 별도로 대조한다.
+5. 실행 중에도 **내 Goal 취소 요청**, **stop 정지 요청**을 보낼 수 있다. 취소 접수만으로 완료라고 표시하지 않는다.
+   이 콘솔이 소유한 Goal만 Action 취소한다. stop은 Jetson 서비스 요청이며 실제 정지 응답을 확인해야 한다.
+6. prepare, Discharge, GetOperation, Recover도 지원한다. 현재 Jetson 회신상 Discharge는 거절 상태다.
+   Recover에는 실제 장치/수량 대조 확인과 DEVICE_AND_LOAD_RECONCILED를 사용한다. 저널 삭제·재실행 없음.
+7. 유휴 연결 종료는 미완료 요청이 있으면 거절한다. **시험 클라이언트 정리**는 자신이 생성한 SSH/ROS 관찰 연결을 닫는다.
+   이것은 팔 정지가 아니다. 끊긴 요청의 종료 여부는 GetOperation으로 대조하며 같은 Goal을 자동 재전송하지 않는다.
+
+회신의 수확 준비 기준(depth_v11/ready/TTL2.5초 및 boot/sequence)은 기존 jetson_state를 재사용한다.
+설정의 준비10초/응답5초/실행1260초/취소20초와 서비스 응답20초를 사용한다.
+실행 중 ready=false는 정상 진행을 차단하지 않는다. 박스·팔 자세에 추가 준비 조건을 붙이지 않는다.
+차체 이동/초기위치/ControlState 발행은 제공하지 않는다. V3에서는 비상정지 필드가 삭제되었다.
+PC와 로봇 격리 설치본의 V3 재빌드 완료. 사용자 기동·실제 Jetson 왕복 검증은 남았다.
+
+### 프로세스 조회와 종료
+
+- 그룹별: Pinky 팔 브리지(이전 더미 포함), Pinky 관제 브리지, PC 더미 서버, PC 더미 브리지.
+- 먼저 조회하고 표시된 목록에 대해 종료 확인을 한다. 목록 해시와 PID 시작 tick을 확인해 다른/재사용 PID를 종료하지 않는다.
+- SIGINT만 보내고 잔존 목록을 반환한다. SIGKILL·자동 재기동·Jetson 서비스 조작 없음.
+- 기존 수확 전체 종료는 새 격리 브리지 경로도 포함한다. 기존 저널 수동 복구와 프로세스 종료는 별개다.
+
+### 구성·기록·검증
+
+- app.py: HTTP 세션/CSRF 및 기존 작업 큐. 팔 통신은 별도 /api/arm 경로라 긴 요청 중 취소/상태 조회가 가능하다.
+- arm_session.py: 지속 SSH 연결, 웹 요청/원격 JSONL 이벤트 중계와 감사 기록.
+- arm_agent.py: Pinky에 파일을 설치하지 않고 SSH로 전달하는 ROS 시험 클라이언트. 기존 인터페이스/계약/상태 추적 재사용.
+- process_agent.py: 제한된 프로세스 그룹 조회/종료. backend.py가 고정된 서버 설정으로만 실행 경로를 결정한다.
+- config.json의 robot_arm_setup/robot_jetson_release는 현재 격리 설치 경로다. 다른 배포를 선택하면 두 경로를 함께 변경한다.
+- 기존 audit.jsonl과 별도 arm-audit.jsonl에 요청/수신 이벤트를 기록한다. 브라우저에는 최근 명령 이벤트600개, 목록100개를 표시한다.
+- PC 단위7개 및 격리 domain231/loopback 가짜 팔 서버 ROS3개 통과. 실제 팔 동작/Jetson 접속/프로세스 종료 시험 아님.
+  별도 8092 모의 웹 서버에서 표시·명령 확인·응답 상세·프로세스 조회 UI를 확인했다. 8091 운영 서버는 재기동하지 않았다.
+
+초안용 AMCL은 transient-local로 마지막 보존 표본도 수신한다. 초안 안내의 원본 측정 시각과 실제 자세를 확인한다.
+초안/전송 오류는 버튼 인근에도 표시된다. 이 수정은 웹 새로고침 및 유휴 시험 연결 재연결로 적용하며 로봇 런치 재시작은 필요 없다.
+
+팔 상태 요약에는 준비됨/수확 중/최종 완료/오류와 ready 값, 수확·실패 개수를 표시한다.
+진행 수량은 해당 요청 Feedback, 최종 수량은 Result 기준이다. ready=true만으로 완료를 표시하지 않는다.
+연결이 끊기면 현재 상태 미확인으로 바뀌며 마지막 결과는 남는다.
+
+## 배출 시험 모드 (PC 구현, 로봇 적용 전)
+
+새 Pinky 설치본 적용 후 실제 명령 확인란을 체크하고 배출 시험 모드 켜기 → 수신 켜짐 확인 → Discharge 요청 → 종료·정지 확인 → 모드 끄기 순서다.
+기존 ControlState의 transfer_active만 시험값으로 바꾸며 base_stopped는 실제 측정이다.
+모드를 켜는 것만으로 배출/이동/도킹 완료/적재량 변경을 요청하지 않는다.
+운영 작업 중 활성화는 거절하고 운영 작업 시작 시 자동 해제한다. 웹 연결 종료만으로는 해제하지 않는다.
+현재 로봇 설치본에는 이 기능을 아직 배포하지 않았다. PC 서버의 새 명령 목록 적용도 사용자 재시작이 필요하다.
+
+2026-10-27 후속: 배출 시험 모드 로봇 격리 설치본 재빌드 완료. 사용자가 laun/zen 및 PC 미니관제를 재시작하면 적용된다. 기존 dzen 설정은 유지. 실제 on/off·Discharge 왕복은 아직 미검증.

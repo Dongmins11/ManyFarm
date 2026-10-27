@@ -7,6 +7,8 @@ import subprocess
 import time
 import urllib.request
 
+from arm_session import ArmSession
+
 ROOT = Path(__file__).resolve().parent
 
 
@@ -22,6 +24,7 @@ class Backend:
     def __init__(self, config: dict) -> None:
         self.config = config
         self.last_permit = None
+        self.arm = ArmSession(config)
 
     def robot(self, action: str, **kwargs: object) -> dict:
         req = dict(action=action, journal=self.config['robot_journal'], **kwargs)
@@ -80,7 +83,39 @@ class Backend:
                 result[key] = {'error': str(error)}
         return result
 
+    def process_rules(self, group: str) -> tuple[bool, list]:
+        """경로는 서버 설정에서만 가져온다. 웹 요청으로 실행 파일을 지정할 수 없다."""
+        cfg = self.config
+        release = cfg['robot_jetson_release']
+        markers = {
+            'robot_control_bridge': (True, ['zenoh-bridge-ros2dds'], [
+                '/home/vic/Downloads/handoff_completion_fix/zenoh_harvest_handoff_v2.json5',
+                release+'/config/zenoh-control-without-arm.json']),
+            'robot_arm_bridge': (True, ['zenoh-bridge-ros2dds'], [
+                '/home/vic/Downloads/pc_dummy_fsm_candidate_20261023/robot-bridge.json',
+                release+'/config/zenoh-pinky-jetson.json']),
+            'pc_dummy': (False, ['python3','python3.12'], [cfg['dummy_root']+'/server.py']),
+            'pc_dummy_bridge': (False, ['zenoh-bridge-ros2dds'], [cfg['dummy_root']+'/fsm_live_20261024/pc-bridge.json'])}
+        if group not in markers:
+            raise ValueError('지원하지 않는 프로세스 그룹')
+        remote, executables, paths = markers[group]
+        return remote, [dict(executables=executables, marker=p) for p in paths]
+
+    def process(self, action: str, group: str, snapshot: str = '') -> dict:
+        remote, rules = self.process_rules(group)
+        req = dict(action=action, rules=rules, snapshot=snapshot)
+        script = (ROOT/'process_agent.py').read_text()
+        if remote:
+            return run(['ssh','-o','BatchMode=yes','-o','ConnectTimeout=5', self.config['robot_ssh'],
+                        'python3 - '+shlex.quote(json.dumps(req))], data=script)
+        return run(['python3',str(ROOT/'process_agent.py'),json.dumps(req)])
+
     def perform(self, action: str, body: dict) -> dict:
+        if action in ('process_list','process_stop'):
+            if action == 'process_stop' and body.get('confirmed') is not True:
+                raise ValueError('선택한 프로세스 종료 확인이 필요합니다.')
+            return dict(group=body['group'], **self.process('stop' if action=='process_stop' else 'list',
+                body['group'], body.get('snapshot','')))
         if action == 'robot_stop':
             if body.get('confirmed') is not True:
                 raise ValueError('수확 시험 전체 종료 확인이 필요합니다.')

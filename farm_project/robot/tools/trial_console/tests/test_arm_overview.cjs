@@ -1,0 +1,21 @@
+// 순수 화면 요약 검사. ROS/HTTP 요청을 보내지 않는다.
+const assert=require('node:assert/strict'),fs=require('node:fs'),vm=require('node:vm'),path=require('node:path');
+const source=fs.readFileSync(path.join(__dirname,'../static/app.js'),'utf8');
+const context={};vm.createContext(context);vm.runInContext(source.slice(source.indexOf('function armOverview('),source.indexOf('function renderArmOverview(')),context);
+const view=context.armOverview;
+const base=()=>({connected:true,stale:false,snapshot:{runtime:{stale:false,status:{ready:true,state:'IDLE',error_code:'NONE'}}},events:[]});
+const request={kind:'requested',action:'harvest',id:'one',body:{goal:{harvest_task:{task_id:'task-one'}}}};
+let a=base();assert.equal(view(a).label,'준비됨');assert.equal(view(a).count,'—');
+a.events=[request];assert.equal(view(a).label,'요청 대기');
+a.events.push({kind:'goal_response',id:'one',accepted:true});assert.equal(view(a).label,'수확 중');
+a.snapshot.runtime.status.ready=false;assert.equal(view(a).label,'수확 중');
+a.events.push({kind:'feedback',id:'one',payload:{success_count:2,failed_count:1}});assert.equal(view(a).count,'2개');assert.equal(view(a).failed,'1개');
+a.events.push({kind:'result',id:'one',action:'harvest',success:true,at:1,payload:{result_code:'SUCCESS',harvested_count:3,failed_count:1}});assert.equal(view(a).label,'수확 완료');assert.equal(view(a).count,'3개');
+a.snapshot.runtime.status.ready=true;assert.equal(view(a).label,'수확 완료');assert(view(a).ready.includes('ready=true'));
+a.events.at(-1).success=false;a.events.at(-1).payload.error_message='backend failed';assert.equal(view(a).label,'오류');assert(view(a).detail.includes('backend failed'));
+a.snapshot.runtime.status.recovery_required=true;assert.equal(view(a).label,'오류');
+a.connected=false;assert.equal(view(a).label,'상태 확인 필요');assert.equal(view(a).count,'3개');
+a=base();a.events=[request,{kind:'goal_response',id:'one',accepted:false}];assert.equal(view(a).label,'요청 거절 / 미전송');
+a.events=[request,{kind:'result',id:'one',action:'harvest',success:true,at:1,payload:{harvested_count:4}},{...request,id:'two'}];assert.equal(view(a).label,'요청 대기');assert.equal(view(a).count,'—');
+a.events.push({kind:'unknown',id:'two'});assert.equal(view(a).label,'결과 확인 필요');
+console.log('arm overview: ready, pending, active, counts, success, failure, recovery, disconnect, rejection, new request, unknown passed');

@@ -11,7 +11,7 @@ import time
 from backend import Backend
 
 ROOT = Path(__file__).resolve().parent
-ACTIONS = {'robot_stop', 'robot_reconcile', 'dummy_recover', 'dummy_prepare', 'dummy_stop', 'dummy_repeat', 'dummy_count'}
+ACTIONS = {'robot_stop', 'robot_reconcile', 'dummy_recover', 'dummy_prepare', 'dummy_stop', 'dummy_repeat', 'dummy_count', 'process_list', 'process_stop'}
 
 
 class Console:
@@ -54,7 +54,7 @@ class Console:
         def work() -> None:
             try:
                 result = self.backend.perform(action, body)
-                state = 'FAILED' if result.get('ok') is False else 'SUCCEEDED'
+                state = 'FAILED' if result.get('ok') is False or result.get('success') is False else 'SUCCEEDED'
             except Exception as error:
                 result = {'error': str(error)}; state = 'FAILED'
             with self.lock:
@@ -69,7 +69,7 @@ class Console:
 
     def view(self) -> dict:
         with self.lock:
-            return dict(snapshot=self.snapshot, active=self.active, refreshing=self.refreshing, jobs=list(self.jobs))
+            return dict(snapshot=self.snapshot, active=self.active, refreshing=self.refreshing, jobs=list(self.jobs), arm=self.backend.arm.view())
 
 
 def handler(console: Console) -> type:
@@ -113,11 +113,22 @@ def handler(console: Console) -> type:
                 if not isinstance(body,dict):raise ValueError('JSON object 필요')
                 if self.path=='/api/refresh':
                     console.refresh();result={'accepted':True}
+                elif self.path=='/api/arm':
+                    action=body.get('action')
+                    if action=='connect':
+                        result=console.backend.arm.connect()
+                    elif action=='close_connection':
+                        if body.get('confirmed') is not True:
+                            raise ValueError('시험 연결 종료 확인이 필요합니다.')
+                        console.backend.arm.close()
+                        result={'note':'시험 클라이언트 연결 종료 요청. 팔 정지/작업 완료를 뜻하지 않습니다.'}
+                    else:
+                        result=console.backend.arm.send(action,body)
                 elif self.path=='/api/action':
                     result=console.submit(body.get('action'),body)
                 else:raise ValueError('지원하지 않는 경로')
                 self.send(202,json.dumps(result,ensure_ascii=False).encode())
-            except (ValueError,KeyError,TypeError) as error:
+            except (ValueError,KeyError,TypeError,OSError,RuntimeError) as error:
                 self.send(409,json.dumps({'error':str(error)},ensure_ascii=False).encode())
     return Handler
 
@@ -131,6 +142,6 @@ def main() -> None:
     print(f'시험 콘솔: http://127.0.0.1:{args.port} (이동 기능 없음)',flush=True)
     try:server.serve_forever()
     except KeyboardInterrupt:pass
-    finally:server.server_close();console.pool.shutdown(wait=True)
+    finally:server.server_close();console.backend.arm.close();console.pool.shutdown(wait=True)
 
 if __name__=='__main__':main()

@@ -197,6 +197,8 @@ class HarvestNode(Node):
             unavailable=lambda: self.blocked or self.stopping,
             block=lambda: setattr(self, 'blocked', True), prepare=self.prepare_station_return,
             tag_control=self.tag_control)
+        from .jetson_connection import create_jetson_connection
+        self.jetson_connection = create_jetson_connection(self, settings)
         self.communication = HarvestCommunication(self)
         self.status_reporter = None
         status_config = self.config.get('status_reporting', {})
@@ -244,6 +246,8 @@ def main(args=None) -> None:
         if node.tag_control is not None:
             node.tag_control.end()
         executor.shutdown()
+        if node.jetson_connection is not None:
+            node.jetson_connection.close()
         if node.status_reporter is not None:
             node.status_reporter.close()
         if node.route_planner is not None:

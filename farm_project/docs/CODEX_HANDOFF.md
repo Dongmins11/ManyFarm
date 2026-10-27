@@ -1,3 +1,144 @@
+## 2026-10-27 현재 로봇 실행본 PC 수집·커밋 준비
+
+사용자 “현재코드 git에 올릴수있도록 PC에 가져오고 커밋 준비” 요청으로 로봇을 읽기 전용 조회했다.
+기준 HEAD `48d2d1c812a968058254ddb2355ee5dfc9b96c68`, 기존 PC 미커밋 변경 보존.
+로봇 release의 두 패키지 소스82파일은 PC와 일치하며 수확 설치 Python48파일도 소스와 일치했다.
+누락된 실제 run.bash/terminal.py/aliases.bash를 `robot/tools/terminal/jetson_release_20261027/`에,
+실행 중 관제 브리지 전체 설정을 `robot/config/robots/vicpinky/communication/zenoh-control-without-arm.json`에 보존했다.
+환경 YAML은 배치 JSON 경로만 다르므로 PC 상대경로 원본 유지. 로봇의 오래된 제외 참고 목록은 PC에 덮어쓰지 않았다.
+이번 신규 실행 동작 변경 없음. 기존 성공 주행 프로필·인계 FSM·handoff_planning/window는 HEAD와 동일.
+직접 PC 검사37개 통과(14.51초, domain231/loopback), JS 상태 표시/문법·Bash 문법·diff 공백 검사 통과.
+PC 백업 `/home/eunbi/vmany_artifacts/commit_prepare_20261027/`에 수집본과 기존 미커밋 파일 보관.
+실물 재시험·로봇 변경·프로세스 조작·초기위치·명령 발행 없음. staging/commit/push 미수행.
+상세/커밋 범위/복원: `docs/changes/JETSON_COMMIT_PREPARATION_20261027.md`.
+
+## 2026-10-27 후속 — 배출 시험 모드 로봇 반영·재빌드 완료
+
+사용자 “시험용 상태 전환 기능 로봇에 반영하고 재빌드 … 백업 PC … 프로세스 직접” 승인.
+로봇 격리 경로 jetson_reply_20261027_1741의 jetson_connection.py, 관련 ROS 시험,
+config/zenoh-control-without-arm.json 3파일만 갱신. 기존 관제 deny 보존 후 시험 서비스/토픽 제외 추가.
+PC 백업 /home/eunbi/vmany_artifacts/robot_backups/transfer_test_20261027_194653/before.tar.gz,
+manifest.json(해시) 및 verification.json(설치/프로세스 검증). 로봇에는 백업을 생성하지 않았다.
+첫 빌드 후 이전 설치 Python 복사본이 남은 것을 해시 검사로 발견했고 소스 수정시각 갱신 후 재빌드했다.
+최종 harvest_robot 빌드 성공(5.92초), 설치 import 경로/소스 동일, 기존 V3 6필드/SetBool import 확인.
+소스·설정88파일 해시 대조로 지정한3파일 외 보존 확인. 실제 운영 노드/브리지 PID161238/161273/161722/161786 유지.
+ROS 노드·명령·초기위치·이동/프로세스 기동·종료·저널 변경 없음. 실제 시험 서비스 왕복은 사용자 전환 후 필요.
+다음: 사용자 laun/zen 재시작, PC 미니관제 서버 재시작과 웹 새로고침/시험 연결.
+dzen 설정 변경 없음. 아래 로봇 미배포 기록은 이전 상태. commit/push/staging 없음.
+
+## 2026-10-27 배출 시험 모드 PC 구현 — 로봇 미배포
+
+사용자 “미니관제에서 배출 시험 모드 켜고 끌 수 있게 … transfer_active만 … PC 수정/검증” 승인.
+기존 JetsonConnection 발행기가 시험 활성 시 transfer_active만 true로 보낸다. 실제 정지/관측0.2초/10Hz/원본stamp는 유지.
+Pinky /harvest_01/transfer_test_mode/set_enabled(SetBool), enabled(Bool 상태10Hz)를 미니관제 SSH ROS 클라이언트에 연결.
+초기값 off, 영속 저장 없음. 실제 운영 작업 중 on 거절, 운영 작업이 시작되면 시험값 자동 해제.
+주행/인계 작업 수락·FSM·완료·제어·적재량·저널·ControlState IDL 변경 없음.
+모드만으로 배출을 요청하지 않는다. 별도 Discharge 버튼 사용. 웹 연결 종료만으로 모드는 해제되지 않음.
+PC37개(격리 domain231/loopback 포함) 및 기존 JS 요약 테스트/문법 검사 통과.
+로그 /tmp/manyfarm_control_v3/transfer_test_check.log. 실제 로봇/Jetson 접속·동작/배포/재시작 없음.
+후속 적용 시 harvest_robot 재빌드, 관제 브리지 deny에 시험 토픽/서비스 제외 항목 추가, 사용자 프로세스 전환 필요.
+그 후 PC 미니관제 재시작/시험 연결로 사용. 현재 운영 설치본은 새 시험 서비스를 제공하지 않는다.
+상세: docs/changes/DISCHARGE_TEST_MODE_PC_20261027.md. commit/push/staging 없음.
+
+## 2026-10-27 미니관제 팔 상태·수량 요약 추가
+
+사용자 요청으로 static/index.html/app.js/style.css에 준비됨·요청 대기·수확 중·수확 완료·오류/취소와 수확/실패 개수를 표시했다.
+ready는 별도 문구로 노출하고 완료는 검증된 최종 Result.success로만 표시한다.
+진행 개수는 해당 요청 Feedback, 종료 개수는 최종 Result를 사용한다. 새 요청은 이전 개수를 이어받지 않는다.
+수신 만료/연결 종료 시 현재 상태 확인 필요로 표시하며 마지막 수량·결과는 보존한다.
+오류 코드/메시지·복구 필요 및 작업 ID도 원문을 펼치지 않고 확인 가능하다.
+검증: tests/test_arm_overview.cjs의 준비/수락/진행/수량/성공/실패/복구/단절/거절/새 요청/미확정 시나리오 통과,
+JS 문법·git diff --check 통과. 표시 로직만 변경, ROS/서버/프로세스/실물 명령 변경 없음.
+웹 새로고침만으로 적용하며 연결 재시작·로봇 재빌드 불필요. commit/push 없음.
+
+## 2026-10-27 미니관제 수확 초안 무반응 수정
+
+사용자 연결 후 초안/수확 버튼 무반응 보고를 조사했다. 실제 PC arm-audit.jsonl에 prepare 송신 및
+success=true 응답이 있으며, 최근 snapshot에는 robot/control/runtime만 있고 pose는 없었다.
+기존 volatile AMCL 구독을 transient-local reliable depth1로 수정해 정지 중 뒤늦게 연결해도 보존 표본을 받는다.
+보존 표본을 최신으로 오인하지 않도록 초안 안내에 원본 header 측정 시각을 표시한다.
+static/app.js/index.html/style.css에 버튼 인근 안내와 빈 JSON 오류 설명·초안 예외 표시를 추가했다.
+기존 RobotStatus·ControlState·팔 명령·주행 로직 변경 없음. 실제 명령 송신/프로세스 재시작 없음.
+PC 단위/격리 ROS33개 통과(9.72초), JS 모의 DOM에서 자세 없음/초안 생성/빈 요청 안내 통과.
+로그 /tmp/manyfarm_control_v3/console_pose_check.log, check_console_ui.cjs.
+사용자 웹 새로고침→유휴 연결 종료→팔 시험 연결로 새 SSH 클라이언트 적용. 로봇 재빌드 불필요.
+
+## 2026-10-27 백업 보관 위치 변경
+
+사용자 요청으로 이번 V3 백업을 PC /home/eunbi/vmany_artifacts/robot_backups/control_state_v3_20261027_184225/before.tar.gz로 이전했다.
+SHA256 e7f056489d44f6bae15a777e669bb0ce7a48a6daeb8a9e2586317a268a77feac 일치 및 tar473항목 읽기 검증 후
+로봇 /home/vic/vmany-runtime-backups/control_state_v3_20261027_184225의 백업 파일과 빈 디렉터리를 삭제했다.
+아래 해당 로봇 백업 경로는 생성 당시 기록이며 복원 시 PC 보관본을 사용한다.
+이전부터 있던 다른 백업은 이번 작업에서 삭제하지 않았다. 앞으로 백업은 PC Git 외부에 보관한다.
+실행본·프로세스·저널 변경 없음.
+
+## 2026-10-27 후속 — 로봇 ControlState V3 재빌드 완료
+
+사용자 “재빌드해줘” 요청으로 로봇 격리 경로
+/home/vic/vmany-runtime-staging/jetson_reply_20261027_1741의 V3 대상7파일만 갱신했다.
+설정의 기존 차이는 estop 두 항목뿐임을 확인하고 원본 src/install/config/manifest를
+/home/vic/vmany-runtime-backups/control_state_v3_20261027_184225/before.tar.gz에 백업했다.
+jetson_harvest_interfaces/harvest_robot 빌드 성공(15.4초). 설치본 6필드/CDR/설정,
+PC→로봇7파일 해시 및 설치 Python2모듈 일치 확인. launch/팔 브리지 --check 통과(충돌 PID 없음).
+운영 ROS/브리지 기동·종료·이동·초기위치·저널 변경 없음. 기존 alias 경로 유지.
+다음 사용자 기동부터 V3 설치본 사용. 실제 Jetson 왕복/팔 동작 검증은 아직 남았다.
+로봇 로그 build_control_v3.log, log_control_v3/, manifest_control_v3.json;
+PC 증거 /tmp/manyfarm_control_v3/robot_verify.log. 원래 manifest.json은 이전 배치 기록으로 보존.
+원복은 관련 프로세스 종료 확인 후 백업에서 필요한 소스·설정·설치본을 대조 복원하며 저널은 복원하지 않는다.
+아래 “로봇 미배포”는 이번 재빌드 전 상태다. commit/push/staging 없음.
+
+## 2026-10-27 후속 — ControlState V3 PC 반영 완료, 로봇 미배포
+
+사용자 “그럼 일단 그대로 수정” 승인으로 PINKY_CONTROL_STATE_V3_20261027.zip 기준을 반영했다.
+ControlState의 estop_active와 발행·입력·설정·미니관제 표시를 제거하고 패키지를 3.0.0으로 맞췄다.
+관측 없음/수신 또는 측정 나이 0.2초 초과 시 발행하지 않으며 최신 관측 수신 시 재개한다.
+원본 측정 시각과 기존 차체 정지·인계 판정, 주행·인계 알고리즘 및 허용오차는 유지한다.
+구형 생성 메시지 환경은 발행 전에 CONTROL_STATE_SCHEMA_MISMATCH로 알린다.
+PC 격리 인터페이스 빌드 및 단위/최소 준비/ROS 상태/미니관제 32개 검사 통과.
+ROS는 domain231/loopback 모의 서버만 사용했으며 실물·Isaac 시험이 아니다.
+로그: /tmp/manyfarm_control_v3/check.log 및 log/. 상세: docs/changes/CONTROL_STATE_V3_PC_20261027.md.
+로봇 격리 설치본과 alias는 이번에 변경하지 않았다. 로봇 적용·재빌드 및 사용자 재시작이 남았다.
+아래 비상정지 미확정 설명은 V3 이전 기록이다. commit/push/staging 없음.
+
+## 최신 미니관제 변경 — 2026-10-27
+실제 팔 수동 통신/응답 확인/프로세스 정리 UI를 PC에 구현했다. 운영8091 서버는 사용자가 재시작해야 한다. 실물 명령은 개발 중 보내지 않았다. [구현/검증 기록](changes/JETSON_TRIAL_CONSOLE_20261027.md).
+
+## 최신 alias 상태 — 2026-10-27 17:50 KST
+사용자 승인으로 로봇 laun/zen/dzen이 새 격리 버전을 가리키도록 변경·백업 완료. 기존 프로세스는 계속 실행 중이며 재시작은 사용자가 수행한다. 열린 셸은 source ~/.bashrc 필요. 백업·검증: [로봇 배치 기록](changes/JETSON_ROBOT_STAGING_20261027.md)의 마지막 절.
+
+# 최신: 로봇 격리 설치 완료·운영 전환 전
+
+[2026-10-27 로봇 배치 기록과 사용자 실행 명령](changes/JETSON_ROBOT_STAGING_20261027.md)을 먼저 읽는다. 기존 성공 프로세스는 계속 실행 중이며 새 버전은 별도 경로에만 설치했다. 비상정지 입력 계약은 미확정이다.
+
+---
+
+
+### 2026-10-27 후속 — Jetson 담당자 회신 기준 최소 준비 확인
+사용자 승인으로 별도 Jetson 프로필의 팔 준비10/응답5/실행1260/취소20초 및 인계 정지20초,
+전용 peer192.168.0.29:18449/domain77/get_result1300/default20초 설정을 PC에 준비했다.
+팔 Goal 직전에만 depth_v11·ready=true·TTL2.5초 및 boot/sequence 유효 수신을 확인한다.
+서버 발견과 상태 대기는 10초 예산 공유. 일반 주행/인계 수락/실행 중 ready=false 차단은 추가하지 않는다.
+박스/팔자세 등 별도 조건 없음. 관제 브리지 실제 수정 없이 팔 주소 제외 목록 조각만 작성했다.
+비상정지 신호는 미확정이며 토픽·고정 false를 만들지 않았다. PC 드라이버 백업에서 버튼 읽기 기능은 확인되지 않았으나 실제 배선/로봇 설치본은 미확인.
+PC106개+격리 ROS3개 검증, 기존 정책 불일치3개 제외. 운영 배포·접속·재기동·이동/commit/push 없음.
+원복: 이번 팔 콜백·회신 설정만 대조하고 기존 문서 변경 보존. 실물·Isaac 시험 아님.
+최신 파일/검증/남은 범위는 docs/changes/JETSON_STATE_PC_IMPLEMENTATION_20261027.md의 **맨 앞 회신 반영 절**을 따른다.
+
+---
+# PC 미배포 변경 — 2026-10-27 Jetson 상태 통신
+
+사용자 승인으로 ControlState/RuntimeStatus 선택형 연결을 PC에 구현했다. 로봇 성공 운영본은 기존 `48d2d1c…`이며 로봇 배포·재기동은 하지 않았다. 후속 요청으로 작업 차단을 제거하고 상태 발행·수신·조회만 남겼다. 비상정지 미확인은 발행값에 보수적으로 표시하며 Pinky 미션에는 연결하지 않는다. 기존 성공 프로필과 주행·복귀 완료 설정은 그대로다. 구현·시험·미검증·되돌리기는 [상세 기록](changes/JETSON_STATE_PC_IMPLEMENTATION_20261027.md)을 먼저 읽는다. 적재량 영속화/GetOperation 복구 연동은 후속 범위이며 실제 운영 준비 완료가 아니다. commit/push/staging 없음.
+
+---
+
+# 현재 인계 시작점 — 2026-10-27
+
+성공 기준 커밋: `48d2d1c812a968058254ddb2355ee5dfc9b96c68` (사용자 커밋 확인). **[현재 상태·장비별 전체 실행 명령·복구·남은 문제](changes/HARVEST_CURRENT_HANDOFF_20261027.md)를 먼저 읽는다.** 인계 진입·벽 정렬·PC 더미 배출·복귀·다음 window 수확 성공을 보존했다. 실제 팔/운송 물리 통합 및 반복 안정성은 별도다.
+
+코드·설정은 유지하며 기동/종료와 웹 버튼은 사용자가 수행한다. 과거 아래 기록은 작성 당시 상태다. 현재 로봇 위치/프로세스는 다시 확인하고, Git 밖 실행 의존성과 백업도 위 문서를 확인한다. 이번 갱신은 문서만 변경, 원격 push 여부 미확인.
+
+---
+
 
 ## 2026-10-22 수확 인계 컴포넌트 연결 (별도 수정본)
 

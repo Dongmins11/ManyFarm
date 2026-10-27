@@ -1,0 +1,7 @@
+# kind: harvest or discharge. Harvest key is JSON [robot_id,map_id,task_id,window_id].
+string kind
+string key
+---
+bool found
+bool terminal
+string result_json

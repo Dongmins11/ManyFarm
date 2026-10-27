@@ -1,11 +1,14 @@
 {
   "robot_ssh": "vic@192.168.0.12",
   "robot_id": "harvest_01",
-  "robot_environment": "/home/vic/Downloads/handoff_completion_fix/environment.bash",
+  "robot_environment": "/home/vic/vmany/main/farm_project/robot/tools/terminal/environment.bash",
   "dummy_root": "/home/eunbi/vmany_artifacts/jetson_dummy_pc_20261023",
   "project_setup": "/home/eunbi/vmany/main/farm_project/robot/ros_ws/install/setup.bash",
   "web_control": "http://192.168.0.20:8000/api/control?environment=real",
   "robot_journal": "/home/vic/.local/state/manyfarm/harvest_01/transfer.json",
   "state_dir": "/home/eunbi/vmany_artifacts/trial_console",
-  "dummy_journal": "/home/eunbi/vmany_artifacts/jetson_dummy_pc_20261023/fsm_live_20261024/journal.json"
+  "dummy_journal": "/home/eunbi/vmany_artifacts/jetson_dummy_pc_20261023/fsm_live_20261024/journal.json",
+  "robot_arm_setup": "/home/vic/vmany-runtime-staging/jetson_reply_20261027_1741/install/local_setup.bash",
+  "robot_jetson_release": "/home/vic/vmany-runtime-staging/jetson_reply_20261027_1741",
+  "arm_profile": "/home/eunbi/vmany/main/farm_project/robot/config/harvest/harvest_handoff_jetson_real.json"
 }

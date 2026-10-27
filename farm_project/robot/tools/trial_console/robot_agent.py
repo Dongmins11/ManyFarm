@@ -32,7 +32,9 @@ def processes() -> dict:
                  or ('tag_capture_session' in names and 'harvest_01' in args)
                  or ('zenoh-bridge-ros2dds' in names and any(
                      a in args for a in ('/home/vic/Downloads/handoff_completion_fix/zenoh_harvest_handoff_v2.json5',
-                                        '/home/vic/Downloads/pc_dummy_fsm_candidate_20261023/robot-bridge.json')))
+                                        '/home/vic/Downloads/pc_dummy_fsm_candidate_20261023/robot-bridge.json',
+                                        '/home/vic/vmany-runtime-staging/jetson_reply_20261027_1741/config/zenoh-control-without-arm.json',
+                                        '/home/vic/vmany-runtime-staging/jetson_reply_20261027_1741/config/zenoh-pinky-jetson.json')))
                  or ('/harvest_01' in joined and bool(names & {
                      'controller_server', 'behavior_server', 'amcl', 'map_server',
                      'velocity_smoother', 'planner_server', 'bt_navigator', 'sllidar_node',
@@ -108,9 +110,12 @@ def main() -> None:
     req = json.loads(sys.argv[1]); action = req['action']
     journal = Path(req['journal'])
     if action == 'status':
-        raw = journal.read_bytes()
-        result = dict(processes=processes(), journal_sha256=hashlib.sha256(raw).hexdigest(),
-                      journal=json.loads(raw))
+        result = dict(processes=processes())
+        try:
+            raw = journal.read_bytes()
+            result.update(journal_sha256=hashlib.sha256(raw).hexdigest(), journal=json.loads(raw))
+        except (OSError,ValueError) as error:
+            result['journal_error'] = str(error)
     elif action == 'stop':
         result = stop()
     elif action == 'reconcile':
