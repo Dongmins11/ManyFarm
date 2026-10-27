@@ -1,0 +1,13 @@
+{
+  "schema_version": 1,
+  "station_config": "sim/runs/docking_alignment_20261027/41/stations.json",
+  "device_configs": [
+    "sim/runs/docking_alignment_20261027/41/harvest.json",
+    "sim/runs/docking_alignment_20261027/41/transport.json"
+  ],
+  "clock": {
+    "command_port": 17690,
+    "telemetry_port": 17691
+  },
+  "docking_markers": "sim/assets/docking_markers/layout.provisional.json"
+}

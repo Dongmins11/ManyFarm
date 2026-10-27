@@ -1,0 +1,69 @@
+{
+  "scope": "기록된 도킹 상대 자세에서 한 알 낙하·수용을 검사한다. 원본 USD/업무 판정은 불변.\n\n수확 바닥과 운송 상단 덮개가 완전히 열린 조건으로 해당 덮개만 시험에서 제외한다.\n바구니/벽의 원본 collision, 실제 과실을 참조하며 액추에이터·주행·동시 배출은 없다.\n",
+  "alignment_source": "/home/ysy/main/farm_project/sim/runs/docking_alignment_fix_20261027/41/basket_alignment.json",
+  "diagnostics": "/home/ysy/main/farm_project/sim/runs/drive_diagnostics/aa4c1a37bc004c0bb6d95523ec2304b0",
+  "overlap": 0.7211812166453401,
+  "center_delta_m": [
+    -0.002058854870351379,
+    0.10499701750723955,
+    0.05646317773647169
+  ],
+  "physics_hz": 120,
+  "physics_device": "cpu",
+  "backend_broadphase": "MBP",
+  "gravity_mps2": 9.81,
+  "fruit_mass_kg": 0.009,
+  "initial_velocity_mps": [
+    0,
+    0,
+    0
+  ],
+  "trials": 150,
+  "shape_checks": [
+    {
+      "path": "/World/Trial_000/cargo_box/collisions/mesh_0/box",
+      "size_m": [
+        0.30000001192092896,
+        0.30000001192092896,
+        0.0030000000260770325
+      ]
+    },
+    {
+      "path": "/World/Trial_000/cargo_box/collisions/mesh_1/box",
+      "size_m": [
+        0.0030000000260770317,
+        0.30000001192092896,
+        0.1870000064373016
+      ]
+    },
+    {
+      "path": "/World/Trial_000/cargo_box/collisions/mesh_2/box",
+      "size_m": [
+        0.296999990940094,
+        0.003000000026077032,
+        0.1870000064373016
+      ]
+    },
+    {
+      "path": "/World/Trial_000/cargo_box/collisions/mesh_3/box",
+      "size_m": [
+        0.296999990940094,
+        0.003000000026077032,
+        0.1870000064373016
+      ]
+    }
+  ],
+  "asset_hashes_before": {
+    "harvest": "633931607b064d6a87316aa99095fa2ddfd6107f5d204b559cc24b1250efc56d",
+    "transport": "5c743e47231bbc10bed8bc9ce41c2ecc4d3de55da4e692b1562b981eaa8ae556",
+    "red": "6e254b8333244b39e437fe4504093f7ef499f6cafb4054e88815acfa38816269",
+    "yellow": "233a0325b6a7e4d241f9b77908f4dff16dba5ce5f899a3e8a6465b4f2f6fe007"
+  },
+  "assumptions": [
+    "한 알씩 독립 시험; 과실 간 충돌 없음",
+    "양쪽 배출/상단 덮개 완전 개방",
+    "차체 고정; 실제 바구니 충돌 형상/장착값 유지",
+    "release grid는 실제 적재 분포가 아닌 민감도 표본",
+    "centered_control만 비교를 위해 수용 바구니 전체를 수평 이동; 운영 자산 수정 없음"
+  ]
+}

@@ -1,0 +1,20 @@
+string robot_id
+string task_id
+string station_id
+string map_id
+string timestamp
+---
+string robot_id
+string task_id
+string station_id
+string result_code
+string error_code
+string error_message
+string timestamp
+---
+string robot_id
+string task_id
+string station_id
+string event
+float32 progress_ratio
+string timestamp

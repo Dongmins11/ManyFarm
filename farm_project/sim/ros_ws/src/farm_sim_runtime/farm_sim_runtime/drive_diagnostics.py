@@ -11,6 +11,7 @@ class DriveDiagnostics:
         directory.mkdir(parents=True, exist_ok=True)
         self.states = {}
         self.last = {}
+        self.frame_prims = {}
 
     def received(self, robot_id: str, message: dict, accepted: bool) -> None:
         state = self.states.setdefault(robot_id, dict(received=0, accepted=0, rejected=0))
@@ -21,6 +22,13 @@ class DriveDiagnostics:
 
     def describe(self, stage, config: dict, robot_path: str) -> None:
         from pxr import Usd
+        frames = {}
+        for relative in config['runtime'].get('diagnostic_frames', []):
+            prim = stage.GetPrimAtPath(robot_path+'/'+relative)
+            if not prim.IsValid():
+                raise ValueError('평가용 프레임 없음: '+relative)
+            frames[relative] = prim
+        self.frame_prims[config['robot_id']] = frames
         names = set(config['base']['wheel_joints'])
         joints = []
         for prim in Usd.PrimRange(stage.GetPrimAtPath(robot_path)):
@@ -44,7 +52,10 @@ class DriveDiagnostics:
         from farm_common.kinematics import wheel_targets
         now = time.monotonic()
         rid = robot['cfg']['robot_id']
-        if now - self.last.get(rid, -math.inf) < 1.0: return
+        period = robot['cfg']['runtime'].get('diagnostic_period_s', 1.0)
+        if not math.isfinite(period) or period <= 0:
+            raise ValueError('diagnostic_period_s는 양수여야 합니다.')
+        if now - self.last.get(rid, -math.inf) < period: return
         self.last[rid] = now
         base, gate = robot['base'], robot['gate']
         cfg = robot['cfg']['base']
@@ -62,8 +73,18 @@ class DriveDiagnostics:
             measured_control_wheel_position_rad=[float(v) for v in positions],
             wheel_odom=[float(v) for v in odom],
             T_world_base=robot['T_world_base'].tolist())
+        if self.frame_prims.get(rid):
+            from pxr import UsdGeom
+            import numpy as np
+            cache = UsdGeom.XformCache()
+            # USD 실위치는 진단 파일에만 기록한다. ROS/제어기로 전달하지 않는다.
+            record['T_world_evaluation_frames'] = {
+                name: np.asarray(cache.GetLocalToWorldTransform(prim)).T.tolist()
+                for name, prim in self.frame_prims[rid].items()}
         with (self.directory/(rid+'.jsonl')).open('a') as stream:
             stream.write(json.dumps(record,ensure_ascii=False,allow_nan=False)+'\n')
         # 자세 행렬은 파일에 저장하고 터미널에는 주요 값만 표시합니다.
-        summary = {k:v for k,v in record.items() if k not in ('T_world_base','measured_control_wheel_position_rad')}
-        print('[drive_diag] '+json.dumps(summary,ensure_ascii=False,allow_nan=False),flush=True)
+        if period >= 1.0:
+            summary = {k:v for k,v in record.items() if k not in (
+                'T_world_base','measured_control_wheel_position_rad','T_world_evaluation_frames')}
+            print('[drive_diag] '+json.dumps(summary,ensure_ascii=False,allow_nan=False),flush=True)

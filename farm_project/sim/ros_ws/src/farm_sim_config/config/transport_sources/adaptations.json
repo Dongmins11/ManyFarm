@@ -1,0 +1,79 @@
+{
+  "commit": "9686aca909cb52191862ee3500c62fadf7a8ed38",
+  "source": "farm_project/robot/config/robots/waffle/transport_nav2.yaml",
+  "bindings": [
+    {
+      "path": "/amcl/ros__parameters/base_frame_id",
+      "before": "base_footprint",
+      "after": "transport_01/base_footprint"
+    },
+    {
+      "path": "/amcl/ros__parameters/odom_frame_id",
+      "before": "odom",
+      "after": "transport_01/odom"
+    },
+    {
+      "path": "/amcl/ros__parameters/scan_topic",
+      "before": "scan_filtered",
+      "after": "scan"
+    },
+    {
+      "path": "/bt_navigator/ros__parameters/robot_base_frame",
+      "before": "base_link",
+      "after": "transport_01/base_link"
+    },
+    {
+      "path": "/local_costmap/local_costmap/ros__parameters/global_frame",
+      "before": "odom",
+      "after": "transport_01/odom"
+    },
+    {
+      "path": "/local_costmap/local_costmap/ros__parameters/robot_base_frame",
+      "before": "base_link",
+      "after": "transport_01/base_link"
+    },
+    {
+      "path": "/local_costmap/local_costmap/ros__parameters/obstacle_layer/scan/topic",
+      "before": "/scan_filtered",
+      "after": "scan"
+    },
+    {
+      "path": "/local_costmap/local_costmap/ros__parameters/voxel_layer/scan/topic",
+      "before": "/scan_filtered",
+      "after": "scan"
+    },
+    {
+      "path": "/global_costmap/global_costmap/ros__parameters/robot_base_frame",
+      "before": "base_link",
+      "after": "transport_01/base_link"
+    },
+    {
+      "path": "/global_costmap/global_costmap/ros__parameters/obstacle_layer/scan/topic",
+      "before": "/scan_filtered",
+      "after": "scan"
+    },
+    {
+      "path": "/global_costmap/global_costmap/ros__parameters/voxel_layer/scan/topic",
+      "before": "/scan_filtered",
+      "after": "scan"
+    },
+    {
+      "path": "/behavior_server/ros__parameters/local_frame",
+      "before": "odom",
+      "after": "transport_01/odom"
+    },
+    {
+      "path": "/behavior_server/ros__parameters/robot_base_frame",
+      "before": "base_link",
+      "after": "transport_01/base_link"
+    }
+  ],
+  "other_changes": [
+    "use_sim_time=true throughout",
+    "AMCL set_initial_pose=true and station_spawn pose"
+  ],
+  "controller_numeric_changes": [],
+  "notes": [
+    "odom frame names are namespaced; odom_topic remains relative odom"
+  ]
+}

@@ -1,0 +1,99 @@
+{
+  "source": "sim/assets/robots/transport_robot/urdf/transport_robot.portable/transport_robot.portable.usd",
+  "source_sha256": "43afbfaa3a4f3f54a38ba531a95bc9e11919a287eb3d98df624ba76104cf518a",
+  "output": "sim/assets/robots/transport_robot/urdf/transport_robot.portable/transport_robot.sim.usda",
+  "output_sha256": "5c743e47231bbc10bed8bc9ce41c2ecc4d3de55da4e692b1562b981eaa8ae556",
+  "wheels": [
+    {
+      "wheel": "wheel_left_link",
+      "original": "/manyfarm_transport_robot/wheel_left_link/collisions/mesh_0/cylinder",
+      "radius_m": 0.032999999821186066,
+      "width_m": 0.017999999225139618,
+      "slices": 21,
+      "central_contact_width_m": 0.0008571428202447437
+    },
+    {
+      "wheel": "wheel_right_link",
+      "original": "/manyfarm_transport_robot/wheel_right_link/collisions/mesh_0/cylinder",
+      "radius_m": 0.032999999821186066,
+      "width_m": 0.017999999225139618,
+      "slices": 21,
+      "central_contact_width_m": 0.0008571428202447437
+    }
+  ],
+  "materials": [
+    {
+      "material": "PassiveCaster",
+      "friction": 0.0,
+      "paths": [
+        "/manyfarm_transport_robot/caster_back_left_link/collisions/mesh_0/box",
+        "/manyfarm_transport_robot/caster_back_right_link/collisions/mesh_0/box"
+      ]
+    },
+    {
+      "material": "DriveTire",
+      "friction": 0.8,
+      "paths": [
+        "/manyfarm_transport_robot/wheel_left_link/TireCollision00",
+        "/manyfarm_transport_robot/wheel_left_link/TireCollision01",
+        "/manyfarm_transport_robot/wheel_left_link/TireCollision02",
+        "/manyfarm_transport_robot/wheel_left_link/TireCollision03",
+        "/manyfarm_transport_robot/wheel_left_link/TireCollision04",
+        "/manyfarm_transport_robot/wheel_left_link/TireCollision05",
+        "/manyfarm_transport_robot/wheel_left_link/TireCollision06",
+        "/manyfarm_transport_robot/wheel_left_link/TireCollision07",
+        "/manyfarm_transport_robot/wheel_left_link/TireCollision08",
+        "/manyfarm_transport_robot/wheel_left_link/TireCollision09",
+        "/manyfarm_transport_robot/wheel_left_link/TireCollision10",
+        "/manyfarm_transport_robot/wheel_left_link/TireCollision11",
+        "/manyfarm_transport_robot/wheel_left_link/TireCollision12",
+        "/manyfarm_transport_robot/wheel_left_link/TireCollision13",
+        "/manyfarm_transport_robot/wheel_left_link/TireCollision14",
+        "/manyfarm_transport_robot/wheel_left_link/TireCollision15",
+        "/manyfarm_transport_robot/wheel_left_link/TireCollision16",
+        "/manyfarm_transport_robot/wheel_left_link/TireCollision17",
+        "/manyfarm_transport_robot/wheel_left_link/TireCollision18",
+        "/manyfarm_transport_robot/wheel_left_link/TireCollision19",
+        "/manyfarm_transport_robot/wheel_left_link/TireCollision20",
+        "/manyfarm_transport_robot/wheel_right_link/TireCollision00",
+        "/manyfarm_transport_robot/wheel_right_link/TireCollision01",
+        "/manyfarm_transport_robot/wheel_right_link/TireCollision02",
+        "/manyfarm_transport_robot/wheel_right_link/TireCollision03",
+        "/manyfarm_transport_robot/wheel_right_link/TireCollision04",
+        "/manyfarm_transport_robot/wheel_right_link/TireCollision05",
+        "/manyfarm_transport_robot/wheel_right_link/TireCollision06",
+        "/manyfarm_transport_robot/wheel_right_link/TireCollision07",
+        "/manyfarm_transport_robot/wheel_right_link/TireCollision08",
+        "/manyfarm_transport_robot/wheel_right_link/TireCollision09",
+        "/manyfarm_transport_robot/wheel_right_link/TireCollision10",
+        "/manyfarm_transport_robot/wheel_right_link/TireCollision11",
+        "/manyfarm_transport_robot/wheel_right_link/TireCollision12",
+        "/manyfarm_transport_robot/wheel_right_link/TireCollision13",
+        "/manyfarm_transport_robot/wheel_right_link/TireCollision14",
+        "/manyfarm_transport_robot/wheel_right_link/TireCollision15",
+        "/manyfarm_transport_robot/wheel_right_link/TireCollision16",
+        "/manyfarm_transport_robot/wheel_right_link/TireCollision17",
+        "/manyfarm_transport_robot/wheel_right_link/TireCollision18",
+        "/manyfarm_transport_robot/wheel_right_link/TireCollision19",
+        "/manyfarm_transport_robot/wheel_right_link/TireCollision20"
+      ]
+    }
+  ],
+  "visual_instances_expanded": [
+    "/manyfarm_transport_robot/base_link/visuals",
+    "/manyfarm_transport_robot/cargo_box/visuals",
+    "/manyfarm_transport_robot/lid_drive_mount/visuals",
+    "/manyfarm_transport_robot/top_mg996r/visuals",
+    "/manyfarm_transport_robot/lid_pinion/visuals",
+    "/manyfarm_transport_robot/side_lid/visuals",
+    "/manyfarm_transport_robot/side_mg996r/visuals",
+    "/manyfarm_transport_robot/top_lid_left/visuals",
+    "/manyfarm_transport_robot/top_lid_right/visuals",
+    "/manyfarm_transport_robot/cargo_support/visuals",
+    "/manyfarm_transport_robot/tilt_motor_5840_31zy/visuals",
+    "/manyfarm_transport_robot/base_scan/visuals",
+    "/manyfarm_transport_robot/wheel_left_link/visuals",
+    "/manyfarm_transport_robot/wheel_right_link/visuals"
+  ],
+  "note": "실물 마찰 측정값이 아닌 sim 접촉 근사. 과실 배출/덮개/틸트 작동은 추가하지 않는다."
+}

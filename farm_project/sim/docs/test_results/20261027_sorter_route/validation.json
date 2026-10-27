@@ -1,0 +1,53 @@
+{
+  "tests_passed": 75,
+  "route_checks": 371,
+  "successful_isaac_sequences": 2,
+  "active_rpp_source_parameters_match_runtime": true,
+  "controller_value_differences": {},
+  "source_fields_not_declared_by_runtime": [
+    "FollowPath.stateful"
+  ],
+  "note": "FollowPath.stateful belongs to unused DWB plugin; source value preserved, not declared by this runtime. Active controller is RPP.",
+  "assets_unchanged": {
+    "harvest": true,
+    "transport": true,
+    "red": true,
+    "yellow": true
+  },
+  "common_docking_unchanged": {
+    "sorter_departure.py": true,
+    "departure.py": true,
+    "legacy_aruco.py": true,
+    "pose_control.py": true,
+    "lidar_approach.py": true,
+    "profiles.py": true,
+    "__init__.py": true,
+    "recovery.py": true,
+    "station_entry.py": true,
+    "initial_marker_recovery.py": true,
+    "harvest_motion.py": true,
+    "precision_server.py": true,
+    "pose_path.py": true,
+    "marker_geometry.py": true,
+    "approach_gate.py": true,
+    "route_observer.py": true,
+    "target_tracker.py": true,
+    "motion_gate.py": true,
+    "target_surface.py": true,
+    "clients.py": true,
+    "pose_session.py": true,
+    "staged_dock.py": true,
+    "footprint_guard.py": true,
+    "distance_heading.py": true,
+    "exit_heading.py": true,
+    "camera_input.py": true,
+    "clearance.py": true
+  },
+  "source_commit": "9686aca909cb52191862ee3500c62fadf7a8ed38",
+  "command_publishers": 1,
+  "command_owner": "motion_gate",
+  "limitations": [
+    "GT localization error retained",
+    "post-result Isaac child exit -11 and ROS shutdown exceptions retained"
+  ]
+}

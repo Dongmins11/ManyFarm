@@ -1,0 +1,72 @@
+{
+  "kind": "actual_isaac_ros_hardware",
+  "checks": {
+    "watchdog_stop": true,
+    "forward_odom": false,
+    "positive_yaw": false,
+    "lidar": true,
+    "wheel_names": true,
+    "tf": true,
+    "image_info_sync": true,
+    "camera_restart": true
+  },
+  "phases": {
+    "initial": [
+      -7.06909429938298e-07,
+      3.0847395751677216e-12,
+      -5.228275388920583e-07
+    ],
+    "forward": [
+      0.00039010613377005404,
+      3.18239431211663e-08,
+      0.00015510982484556718
+    ],
+    "watchdog": [
+      0.0004168240742628733,
+      3.59424302322599e-08,
+      0.00016531371511518944
+    ],
+    "turn": [
+      0.00041660326839373,
+      3.5903474420434524e-08,
+      0.00026506797682183486
+    ]
+  },
+  "counts": {
+    "clock": 2304,
+    "odom": 1152,
+    "joints": 1152,
+    "scan": 384
+  },
+  "image_count": 167,
+  "info_count": 109,
+  "image_sample": {
+    "frame": "transport_01/camera_optical_frame",
+    "size": [
+      1280,
+      720
+    ],
+    "encoding": "rgb8",
+    "low": 1,
+    "high": 240
+  },
+  "tf_pairs": [
+    [
+      "transport_01/base_footprint",
+      "transport_01/base_link"
+    ],
+    [
+      "transport_01/base_link",
+      "transport_01/base_scan"
+    ],
+    [
+      "transport_01/base_link",
+      "transport_01/camera_optical_frame"
+    ],
+    [
+      "transport_01/odom",
+      "transport_01/base_footprint"
+    ]
+  ],
+  "error": "하드웨어 검사 실패"
+}

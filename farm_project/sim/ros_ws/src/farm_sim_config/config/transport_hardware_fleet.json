@@ -1,0 +1,11 @@
+{
+  "schema_version": 1,
+  "station_config": "sim/ros_ws/src/farm_sim_config/config/station_spawn.json",
+  "device_configs": [
+    "sim/ros_ws/src/farm_sim_config/config/transport.json"
+  ],
+  "clock": {
+    "command_port": 17690,
+    "telemetry_port": 17691
+  }
+}

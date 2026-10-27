@@ -1319,3 +1319,101 @@
 
 - 사용자 커밋·푸시 승인. 기존 교통 연동과 테스트 Action, 기본 비활성106재시도 및 검증자료를 함께 반영한다. 117회귀/공통4+sim2빌드/대역DDS Action 검증 결과 유지, 실제 공동 주행 NOT_RUN. 원본 전달 폴더와 runs/build/state는 커밋에서 제외.
 - fetch 후 실물 브랜치5ff5b50→48d2d1c(15:32KST) 확인: 일반 방향6도, 정지 후 복귀5cm/6도, 실행 중 최대3도 유지, PC더미 기반 인계·복귀 후 다음window 성공1회 기록. 자동병합 없음. 상세 sim/docs/changes/REAL_BRANCH_UPDATE_20261027.md.
+
+
+### 2026-10-27 공용 코드 로컬/실물 사전 병합 검토
+
+- 사용자 검토 요청. main b5ef6f2/실물48d2d1c,공통조상2a397da를3방향비교. src변경경로 로컬만66/실물만83/양쪽37(17동일/20상이). 실행코드 변경·병합 없음.
+- 우선 ActionHandoff 외부check잠금밖/재시도설정검증/TF구분·조회API, 인계 API는묶음검토.106핵심동일SHA. 로컬교통·거리예산·D059·TF원본조회·예찰개선/vendorNav2보존필요. 인계유일출력검사와교통정지publisher다중생성의구성충돌확인.
+- 잠금/설정실제함수오프라인경계검사실행, 운영교착/실주행재현아님. 상세sim/docs/changes/COMMON_CODE_MERGE_REVIEW_20261027.md/JSON. 문서만미커밋/미푸시.
+
+
+### 2026-10-27 — 최신 운송 통합 브랜치 검토·시험 환경 설계
+
+- 구분: 사전 검토/설계, 사용자 최신본 비교 요청 범위. main b5ef6f2 / feature_dongmin9686aca.
+- 대상: sim/docs/changes/TRANSPORT_SIM_SCOPE_REVIEW_20261027.md 및 JSON, docs/PROJECT_STATE.md. 기존 미커밋 검토 문서 보존.
+- 전후: 실행 동작 변경 없음. 추가 기능/실행 장애/반영 파일 경계/마커·카메라·기구·시간·관제·교통 시험 순서와 수량A~F 기록계획을 문서화. sim station복귀의 marker32 생략은 사용자 요구이며 구현 전 상태. pickup42/41와 sorter40 도킹은 유지.
+- 실물 영향: 없음. 공통 코드/실물 설정 변경안은 보고서에 제안만 기록. 승인 전 적용하지 않음. 커밋/푸시 없음.
+- 검증: 전체Git inventory, actual config함수 sim거절/ROS입력확인, 기존RouteGraph station-sorter 양방향6.5m, 원격FSM 대역12검사PASS. Isaac/실기/통합빌드/E2E 미실행. 로그 sim/runs/transport_scope_review_20261027/.
+- 되돌리기: 새 보고서/JSON과 이번 문서 추가 항목만 제거. 기존 검토자료/코드/자산 영향 없음.
+
+
+### 2026-10-27 — 인계 시험 범위 축소 (D-063)
+
+- 사용자 지시: 과실 배출·낙하 물리/하역 기구 구현 제외, 도킹 후 두 바구니 정렬·정지 유지로 sim 인계 성공 판정. 기존 설계의 실제 과실 전달 시험/D~F 측정을 대체. 허용 오차·유지 시간은 형상 확인 후 결정. 마커 도킹/주행/이격/복귀와 A/B/C 유지.
+- 운송 URDF/portable URDF/USD 및 cargo_box·바퀴·덮개·틸트 관절 존재 직접 확인. 실제 런타임 연결·시험 미실행.
+- 변경: TRANSPORT_SIM_SCOPE_REVIEW_20261027.md 상단에 우선 적용되는 범위 조정, DECISIONS D-063. 문서만 변경/실물 영향 없음/커밋·푸시 없음. 되돌리기는 이번 문서 추가 항목만 제거.
+
+
+### 2026-10-27 — 운송 시뮬 구현 1단계: 계약·공통 운송/도킹·복귀
+
+- 사용자 “구현해야되는 파트 확인하고 하나씩 작업시작해” 승인으로 사전 검토 범위의 실행 코드 통합 시작. 바구니 정렬 유지 기준 D-063, 기구/낙하 구현 제외 유지.
+- feature_dongmin9686aca에서 transport_robot/farm_docking 선별 도입 및 메시지8종 추가. 기존 교통·NavigateToNode·공통주행/예찰/수확 코드는 보존. sim 환경 허용·경로/시계 검증, sim return에 한정한 navigation_only 정책 구현. 실제 도착/정지 실패와 취소는 실패/취소 유지. 실물 기본 마커 도킹/하드웨어 검증 유지.
+- 운송 교통 미연결 상태에서 traffic.enabled 시작 거절. 도킹 단일 출력과 충돌하는 별도 Nav2 정지 설정 거절. 도킹 비활성 close/pending 처리 보완. 기존 all.launch/fleet는 변경하지 않아 운송 자동 기동 없음.
+- 검증: 3패키지 빌드/기존117+새24=141시험PASS, 최종 운송24재확인PASS, 실제DDS Domain13/SUBNET의 대역주행 성공·실패·취소·같은UUID조회·중복task거절PASS. 실제USD 읽기 확인. Isaac/실물/전체E2E NOT_RUN.
+- 상세 sim/docs/changes/TRANSPORT_SIM_IMPLEMENTATION_20261027.md. 자료 sim/docs/test_results/20261027_transport_integration, 로컬로그 sim/runs/transport_integration_20261027. 공통코드 적용됨/미커밋·미푸시. 다음: 가상운송 차체·센서/마커/바구니정렬→관제인계→선별장이동→교통통합.
+- 복원: 이번 추가패키지/메시지와 CMake등록, sim시험·문서만 제거하고 인터페이스 재빌드. 기존 사용자 미커밋 검토문서/전달폴더 보존.
+
+### 2026-10-27 — 운송 가상 하드웨어 연결
+
+- 승인: 사용자 “가상 하드웨어 연결해”. sim 장치/자산/실행/시험 및 상태 문서만 변경. 공통 주행·미션/실물 설정 추가 변경 없음.
+- 운송 wheel/cmd_vel/관절 odom/PhysX scan/카메라/TF 연결. transport 기본 false, 운송 단독·3대 fleet 및 장치 launch 추가. 수확 없는 fleet의 평가 선택화, 팔 없는 운송의 공통 월드 물리 사용. 수확 평가/프로파일 검증 보존.
+- station 8003 yaw를 기존 출구 edge 방향으로 원본 task/generated spawn에 같이 확정. 카메라 장착은 실물 waffle 기준, 내부 보정 미제공으로 임시 K 명시. 구독 없는 동안 렌더 OFF, 2초 wall lease. 기존 카메라 설정 유지.
+- 첫 실제 구동 실패: 원통 바퀴/고정 캐스터 접촉에서 차체 정지. 진단 후 원본 보존 파생 USD의 둥근 단면·캐스터 자유 구름 근사·타이어 마찰 반영. 질량/관성/drive/바퀴 외경·폭 보존. visual instance 재개 렌더 오류도 파생 자산에서 수정.
+- 직접 검증: sim 3패키지 빌드, 87 구성/ROS 시험 + 5 USD 검사 PASS. Domain13/SUBNET/CPU 실제 농장 단독 및 3대 실행, ROS 8검사 PASS, 최종60초완료/정상종료. GT 순변위0.1906m/yaw0.4390rad, 카메라 OFF/ON/OFF/ON/OFF. SDK 종료 메뉴 AttributeError2건 별도 기록. 고속/정밀도킹/E2E 미검증. 구식 mock4개 제외 사유와 수정 전 HEAD 재현 포함.
+- 상세 `changes/TRANSPORT_VIRTUAL_HARDWARE_20261027.md`, 공유자료 `test_results/20261027_transport_hardware/`, 원본 `sim/runs/transport_hardware_20261027/`. 복원은 이번 sim 변경/새 설정/파생 자산만 제거. 미커밋·미푸시.
+
+### 2026-10-27 — 담당자 브랜치 원본 보존 통합 규칙
+
+- 사용자 지시: 병합 중 수치/판정 변경 및 코드 누락 재발 금지. 프로젝트 AGENTS.md에 원본 커밋 고정, 의존/호출 코드 포함 반영 목록, 최종 실행 설정 비교, 승인된 sim 예외 명시, 동작 검증과 미검증 구분을 추가했다.
+- 이번 변경은 작업 규칙/이력 문서뿐이며 실행 코드·수치·판정을 변경하거나 추가 병합하지 않았다. 기존 통합 전체의 동등성을 새로 검증한 것은 아니다. 문서 diff/공백 검사 수행, 미커밋·미푸시. 복원은 이번 규칙과 이력 항목만 제거한다.
+
+
+### 2026-10-27 — 실측 대기 없는 임시 도킹 마커 배치
+
+- 승인: 사용자 “마커위치 추정…답변 기다리는건 지금 시간없어서 곤란해”. 원본 담당자 브랜치 수치/판정 보존 조건 유지. 실측값 아님을 PROVISIONAL_NOT_MEASURED로 표시.
+- 변경: sim/assets/docking_markers의 배치표/PNG3개, runtime/docking_marker_scene.py·run_fleet.py·fleet_config.py, transport_fleet.json, 정차 렌더 도구와 USD 검사. 이전에는 도킹 마커 없음; 이후 운송3대 fleet에서만42/41/40을 모델에 부착. 원본USD/공통/실물/마커32 변경 없음.
+- 검증: PNG3개·실제Isaac 정차RGB3개 모두ID검출, USD장착/부모이동/물리보존2검사 및 기존19검사 PASS,2패키지빌드 PASS. 초기GPU접근/시험clipping/mimic API 실패원인·로그보존. 최종렌더Error0. 실제주행/도킹전환/라이다/바구니정렬/E2E 미검증.
+- 발견: 선별장 자산(-7,14)과 그래프8004(5,13.25) 불일치. 자동이동하지 않고 후속정합항목으로기록.
+- 상세 sim/docs/changes/DOCKING_MARKER_PROVISIONAL_20261027.md, 공유 sim/docs/test_results/20261027_docking_markers/, 원본 sim/runs/docking_markers_20261027/. 되돌림:transport_fleet의docking_markers항목제거. 미커밋·미푸시.
+
+### 2026-10-27 — 도킹·바구니 정렬 실제 검증
+
+- 승인: 사용자 “도킹 바구니 정렬 검증 시작해”. 공통 farm_docking27파일 원본9686aca와 동일, 선택42/41프로필 숫자 변경0. Domain13/SUBNET/CPU/headless 실제센서·PrecisionMotion 실행.
+- 결과:42접근 성공. 기존41임시마커/라이다면 약20cm 불일치 및TF시각오류로실패. 시험복사본만41면을 맞춘 경우 최종20cm 도킹 성공했으나 바구니겹침72.84%/중심오차10.36cm/높이차5.65cm로정렬실패. 운영마커/로봇USD/공통판정불변. 연속E2E·인계이벤트아님.
+- sim수정:팔비활성 student 카메라 호출2곳None보호; 운송CameraInfo reliable선택으로공통구독연결; 평가용프레임/주기선택진단파일추가. 진단/분석/시험도구·명목개구부평가설정·회귀추가. 다른로봇기본QoS/기록주기보존. GT는파일평가만.
+- TF진단:원본fresh()반환값불변 sys.monitoring으로 음수age -16.7ms 184회확인. 성공실행에서도발생; 이전실패순간내부age미계측한계명시. 해결완료아님.
+- 검증:회귀24/3패키지빌드PASS. 시작오류2/카메라frame오류1/도킹실패2·성공2로그보존.42종료시SDK-11별도기록. 상세DOCKING_BASKET_ALIGNMENT_20261027.md 및 test_results/20261027_docking_alignment.
+- 복원:이번sim연결diff/선택진단·평가·시험파일만제거,선행미커밋통합보존. 실물파일변경/커밋/푸시없음.
+
+### 2026-10-27 — 최신 도킹 재시험 실패, 진행 상태 정정
+
+- `final100/41/result.json`: status6, success=false, stopped=true, `모터 제어권 상실: LEASE_EXPIRED`. 공통 제어 스케줄 지연21030.1ms, odom/scan 수신 공백22~23초. 양 sim 어댑터에도 같은 시각 telemetry 중단 경고가 기록됐다. 지연의 근본 원인은 미확정이며,100ms 전달 대기로 안정화 완료됐다고 보지 않는다.
+- 같은 실행에서 `on_odom`의 미래 시각 거절1회(-16.7ms)도 남았다. 최종100ms 설정은 검증 미완료/실패 상태. 앞선50ms 설정의41 두 회 성공과42 한 회 성공은 이전 시험 결과로만 유지한다.
+- 대화 중단으로 runner가 사라진 뒤 남은 해당 시험 전용 ROS 프로세스 그룹을 확인하고 SIGINT 종료했다. Isaac은 기존 로그상 종료 완료. 최신 실패를 성공으로 집계하지 않는다.
+- sim 전용 marker41 면 보정(-0.455→-0.251m), 운송 센서 시계 대기0.1s/유한 큐/영상 발행 고갈 수정. 공통27파일·수치·판정·원본 USD 보존. 회귀31PASS,3패키지빌드PASS,실행 안정화 미완료. 복원/실물 영향 없음/승인 근거는 상세 보고서 참조.
+
+### 2026-10-27 — 72.1% 겹침 바구니 독립 낙하 시험
+
+- 사용자 “그 조건만 … 테스트” 승인으로 원본 USD를 변경하지 않고 개방된 배출구/상단 덮개 조건의 한 알 낙하만 추가했다. 공통 코드·도킹·인계 성공 판정 변경 없음.
+- 실제 성공 도킹 상대 자세에서 위치25×자세3=75조건: 수용60, 외부 낙하10, 가장자리 부근잔류5. 중심 정렬 비교75/75수용. CPU60Hz/120Hz 각150조건의 개별 분류 모두 동일. 80%는 선정한 표본 수용률이며 실제 일괄 배출 확률로 해석하지 않는다.
+- 원본 자산4개 SHA256불변, 실제 CPU/MBP확인,문법/diff검사통과. Isaac 종료 잔존은 결과 저장 뒤 정리(exit143/124); 물리 결과와 별도 기록. 이번 시험 종료.
+- 구현 sim/tools/check_partial_basket_transfer.py, 분석 analyze_partial_basket_transfer.py. 상세 sim/docs/changes/PARTIAL_BASKET_TRANSFER_20261027.md, 공유 sim/docs/test_results/20261027_partial_basket_transfer/, 원시 sim/runs/partial_basket_transfer_20261027/.
+- 이번 한 알 시험은 동시 배출·덮개 구동·실물·전체 E2E를 검증하지 않았다. 현행72%조건의 무조건 인계 성공 전환은 하지 않음. 원복은 이번 독립 도구/자료만 제거. 미커밋·미푸시.
+
+## 2026-10-27 — D-065 72% 도킹 승인 및 시뮬 인계·이격
+
+- 승인: 사용자 “72% 겹친 상태를 정상도킹이라고 보고 다음단계 가자”. 완전포함 평가에서 최소72%+높이양수+기존정지0.8초로 변경, 이전 물리낙하 실패기록 보존.
+- 대상: config/docking/basket_alignment_evaluation.json, transport.json/transport_fleet.json; sim_devices basket_alignment.py/mechanical_ros.py/ros_adapter.py; sim_runtime basket_monitor.py/fleet_config.py/run_fleet.py; 도킹 분석·준비·실행 probe 도구 및 신규 probe_sim_handoff.py; 관련 시험/보고서.
+- 실물 영향 없음: 공통 도킹27파일9686aca원본일치, USD/과실4자산hash불변, 공통FSM·20cm도킹·25.2cm이격·오차수치 보존. 기구는 추상 상태만 변경하며 실수령량을 만들지 않는다.
+- 검증: 36시험PASS,3패키지빌드PASS, 문법/diff검사. 기록재평가5.183초PASS. 새 Isaac CPU/Domain13/SUBNET 실제 DOCK41→가상인계→CLEAR 성공(72.4506%,정지1.10초,후진24.4198cm). freshness3218회거부0. SIGINT 종료 gate1/precision-2는 별도 종료오류로 기록; 업무 중 실패 없음.
+- 미검증: 전체TransportPickup/TransferEvent DDS/관제/선별장 이동. 다음 운송환경·목적지 정합 후 이동 연결. 상세 changes/BASKET_HANDOFF_ACCEPTANCE_20261027.md, test_results/20261027_basket_handoff/.
+- 원복: 가상기구enabled와fleet평가연결 해제, minimum_coverage=1.0 복귀. 기존공통/자산 변경없음. 미커밋·미푸시.
+
+## 2026-10-27 — D-066 선별장 실제 위치 정합·운송 Nav2 연결
+
+- 승인: 사용자 선별장이동연결/성공후커밋푸시 및 실제모델위치에접근점·경로맞추기 선택. 8004 (5,13.25)→(-7,13.25),yaw북쪽,연결9019→9001. 원본task/scout_harvest 및생성station/역할graph만수정,USD불변.
+- 대상: transport_runtime/nav2_transport/transport_destinations/transport_sources 및도킹시험fixture; transport_navigation.launch.py와package의기존Nav2의존성선언; prepare_sorter_route_trial/analyze_sorter_route_trial와기존실행probe연결; test_sorter_navigation_config; config패키징/보고서.
+- 실제실행: Domain13/SUBNET,CPU MBP60Hz,도킹→가상인계→이격→선별장CheckRoute 2회성공. Nav이동141.34/147.37초,실제오차11.19/9.82cm별도기록. 업무중오류없음. 종료뒤SDKchild-11,gate1,precision-2는잔존종료문제로보존.
+- 보존/검증: 공통실행소스이번턴변경없음,활성RPP원본지정값런타임일치,원본도킹수치와27파일/4자산hash불변,75단위회귀PASS·371경로PASS·2sim패키지빌드PASS. 비활성DWB stateful런타임미선언은검증한계로명시.
+- 실제도착/정지와추정오차/실과실수량미측정/관제전체업무미검증을구분. 상세 changes/SORTER_ROUTE_CONNECTION_20261027.md,공유test_results/20261027_sorter_route/. 원복은원본접근점/연결복귀후재생성및신규운송navigation조립해제. 기존도킹/바구니수정불필요.

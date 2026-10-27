@@ -1,0 +1,33 @@
+schema_version: 1
+configured: true
+mode: sim
+robot_id: transport_01
+map_id: farm_map_v1
+map_yaml: sim/ros_ws/src/farm_sim_config/maps/count_test_farm_map.yaml
+route_graph: sim/ros_ws/src/farm_sim_config/maps/transport_graph.geojson
+nav_params: sim/ros_ws/src/farm_sim_config/config/nav2_transport.yaml
+device_config: sim/ros_ws/src/farm_sim_config/config/transport.json
+destinations: sim/ros_ws/src/farm_sim_config/config/transport_destinations.yaml
+execution_enabled: true
+precision_enabled: true
+precision_profiles: sim/ros_ws/src/farm_sim_config/config/docking/transport_profiles.yaml
+station_return_mode: navigation_only
+mechanical_device:
+  backend: action
+navigation:
+  base_frame: transport_01/base_footprint
+  goal_timeout_s: 300.0
+  arrival_tolerance_m: 0.1
+  heading_tolerance_rad: 0.12
+  settle_s: 0.8
+  mode: follow_path
+  map_frame: map
+  controller_id: RPP
+  goal_checker_id: goal_checker
+  progress_checker_id: progress_checker
+  max_start_distance_m: 0.15
+  max_goal_distance_m: 0.02
+  path_spacing_m: 0.04
+  tf_recovery_enabled: false
+  collision_retry_count: 0
+scan_topic: scan

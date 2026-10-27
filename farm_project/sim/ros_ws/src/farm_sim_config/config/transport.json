@@ -1,0 +1,161 @@
+{
+  "schema_version": 1,
+  "robot_id": "transport_01",
+  "map_id": "farm_map_v1",
+  "frame_id": "map",
+  "scene": "envs/output/farm_with_plants_v5.usd",
+  "map_yaml": "maps/count_test_farm_map.yaml",
+  "route": "maps/transport_graph.geojson",
+  "use_sim_time": true,
+  "scene_binding": {
+    "robot_prim": "/World/transport_robot",
+    "asset_file": "robots/transport_robot/urdf/transport_robot.portable/transport_robot.sim.usda",
+    "articulation_relative": "base_footprint",
+    "base_link_relative": "base_link",
+    "lidar_relative": "base_scan",
+    "camera_relative": "base_link/docking_camera"
+  },
+  "notes": [
+    "운송 URDF의 바퀴 반경 0.033m/간격 0.288m. odom은 관절 회전 적분이며 실제 위치를 제어 입력에 주입하지 않는다.",
+    "도킹 카메라 장착은 feature_dongmin 9686aca의 T_base_camera. 실제 IMX219 내부 보정 파일은 미제공이므로 K는 임시 90도 수평 FOV, 왜곡 0. 정밀 도킹 검증 전에 교체/검토한다.",
+    "덮개/틸트 액추에이터와 과실 배출 물리는 이번 연결 범위가 아니다.",
+    "원본 참조 sim 레이어: 외경/폭 보존 둥근 타이어 21분할, 타이어 마찰 0.8, 고정 캐스터 마찰 0. 실물 마찰 실측값이 아닌 접촉 근사.",
+    "속도 상한 0.15m/s·1.0rad/s는 실물 feature_dongmin 9686aca transport_nav2.yaml의 velocity_smoother 상한과 일치. 이번 구동 시험은 0.05m/s·0.2rad/s 저속 범위."
+  ],
+  "base": {
+    "wheel_joints": [
+      "wheel_left_joint",
+      "wheel_right_joint"
+    ],
+    "wheel_signs": [
+      1,
+      1
+    ],
+    "wheel_radius_m": 0.033,
+    "wheel_separation_m": 0.288,
+    "max_linear_mps": 0.15,
+    "max_angular_rps": 1.0,
+    "command_timeout_s": 0.5
+  },
+  "runtime": {
+    "physics_hz": 60,
+    "render_hz": 30,
+    "realtime": true,
+    "command_port": 17620,
+    "telemetry_port": 17621,
+    "telemetry_hz": 30,
+    "transport_timeout_s": 2.0,
+    "drop_limit_m": 0.25,
+    "state_clock_delay_s": 0.1,
+    "mechanical_device": {
+      "enabled": true
+    }
+  },
+  "frames": {
+    "odom": "transport_01/odom",
+    "base_footprint": "transport_01/base_footprint",
+    "base_link": "transport_01/base_link",
+    "scan": "transport_01/base_scan",
+    "camera_optical": "transport_01/camera_optical_frame"
+  },
+  "camera": {
+    "enabled": true,
+    "width": 1280,
+    "height": 720,
+    "fps": 10,
+    "shm_name": "farm_transport_01_camera",
+    "depth_min_m": 0.1,
+    "depth_max_m": 5.0,
+    "odom_frame": "transport_01/odom",
+    "render_rgb_only": true,
+    "publish_ros": true,
+    "ros_image_topic": "camera/image_raw",
+    "ros_info_topic": "camera/camera_info",
+    "ros_info_reliable": true,
+    "T_base_optical": [
+      [
+        0.1391731009600655,
+        6.063643103410976e-17,
+        0.9902680687415704,
+        0.069
+      ],
+      [
+        -0.9902680687415704,
+        8.521894630907781e-18,
+        0.1391731009600655,
+        -0.0015
+      ],
+      [
+        0.0,
+        -1.0,
+        6.123233995736766e-17,
+        0.117
+      ],
+      [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ]
+    ],
+    "camera_info": {
+      "width": 1280,
+      "height": 720,
+      "distortion_model": "plumb_bob",
+      "k": [
+        640.0,
+        0.0,
+        640.0,
+        0.0,
+        640.0,
+        360.0,
+        0.0,
+        0.0,
+        1.0
+      ],
+      "d": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "r": [
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ],
+      "p": [
+        640.0,
+        0.0,
+        640.0,
+        0.0,
+        0.0,
+        640.0,
+        360.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0,
+        0.0
+      ],
+      "frame_id": "transport_01/camera_optical_frame"
+    },
+    "on_demand": true
+  },
+  "lidar": {
+    "enabled": true,
+    "fps": 10,
+    "samples": 360,
+    "range_min_m": 0.12,
+    "range_max_m": 12.0
+  },
+  "publish_clock": false,
+  "model": "waffle"
+}

@@ -1,0 +1,15 @@
+# 내부 공통 정밀주행 계약. 외부 관제 프로토콜과 분리.
+string session_id
+string profile_id
+# TAG / DOCK / CLEAR
+string operation
+farm_interfaces/RobotPose clearance_pose
+# 업무 역할 ID. 기존 far/near 매핑은 profile에서 따로 검증.
+int32 target_marker_id
+int32 docking_marker_id
+---
+bool success
+string error_message
+bool stopped
+---
+string phase

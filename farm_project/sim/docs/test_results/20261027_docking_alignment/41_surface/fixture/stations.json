@@ -1,0 +1,71 @@
+{
+  "schema_version": 1,
+  "map_id": "farm_map_v1",
+  "stations": {
+    "scout_01": {
+      "node_id": 8001,
+      "xy_m": [
+        -5.0,
+        13.25
+      ],
+      "yaw_rad": -1.5707963267948966,
+      "station_id": "STATION_SCOUT_01"
+    },
+    "harvest_01": {
+      "node_id": 8002,
+      "xy_m": [
+        0,
+        0
+      ],
+      "yaw_rad": 3.141592653589793,
+      "station_id": "STATION_HARVEST_01"
+    },
+    "transport_01": {
+      "node_id": 8003,
+      "xy_m": [
+        0,
+        -1.105
+      ],
+      "yaw_rad": 1.5707963267948966,
+      "status": "CONFIGURED",
+      "source": "transport_graph edge 30513 (8003 to 9014); forward station exit",
+      "station_id": "STATION_TRANSPORT_01"
+    },
+    "sorting_station": {
+      "node_id": 8004,
+      "xy_m": [
+        5.0,
+        13.25
+      ],
+      "yaw_rad": null,
+      "status": "DESIGN_PROPOSAL",
+      "source": "sim_route_design_v1 / P4; coordinate matches latest graph"
+    }
+  },
+  "T_map_world": [
+    [
+      1,
+      0,
+      0,
+      0
+    ],
+    [
+      0,
+      1,
+      0,
+      0
+    ],
+    [
+      0,
+      0,
+      1,
+      0
+    ],
+    [
+      0,
+      0,
+      0,
+      1
+    ]
+  ]
+}

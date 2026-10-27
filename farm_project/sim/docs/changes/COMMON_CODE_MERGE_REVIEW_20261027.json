@@ -1,0 +1,1340 @@
+{
+  "local": "b5ef6f2fd428b6d4d3d5b7973053ae0026f16ea8",
+  "real": "48d2d1c812a968058254ddb2355ee5dfc9b96c68",
+  "merge_base": "2a397da842300823cec077210ac7857024a6f66a",
+  "three_way_counts": {
+    "both_changed": 37,
+    "local_only": 66,
+    "real_only": 83
+  },
+  "both_changed_identical": 17,
+  "files": [
+    {
+      "path": "farm_project/robot/ros_ws/src/farm_arc_controller/CMakeLists.txt",
+      "category": "real_only",
+      "identical_final_blob": false,
+      "local": null,
+      "real": "A"
+    },
+    {
+      "path": "farm_project/robot/ros_ws/src/farm_arc_controller/controller_plugins.xml",
+      "category": "real_only",
+      "identical_final_blob": false,
+      "local": null,
+      "real": "A"
+    },
+    {
+      "path": "farm_project/robot/ros_ws/src/farm_arc_controller/include/farm_arc_controller/arc_math.hpp",
+      "category": "real_only",
+      "identical_final_blob": false,
+      "local": null,
+      "real": "A"
+    },
+    {
+      "path": "farm_project/robot/ros_ws/src/farm_arc_controller/package.xml",
+      "category": "real_only",
+      "identical_final_blob": false,
+      "local": null,
+      "real": "A"
+    },
+    {
+      "path": "farm_project/robot/ros_ws/src/farm_arc_controller/src/arc_controller.cpp",
+      "category": "real_only",
+      "identical_final_blob": false,
+      "local": null,
+      "real": "A"
+    },
+    {
+      "path": "farm_project/robot/ros_ws/src/farm_arc_controller/test/test_arc_math.cpp",
+      "category": "real_only",
+      "identical_final_blob": false,
+      "local": null,
+      "real": "A"
+    },
+    {
+      "path": "farm_project/robot/ros_ws/src/farm_arc_controller/test/test_arc_return.cpp",
+      "category": "real_only",
+      "identical_final_blob": false,
+      "local": null,
+      "real": "A"
+    },
+    {
+      "path": "farm_project/robot/ros_ws/src/farm_bringup/launch/harvest.launch.py",
+      "category": "both_changed",
+      "identical_final_blob": false,
+      "local": "M",
+      "real": "M"
+    },
+    {
+      "path": "farm_project/robot/ros_ws/src/farm_bringup/launch/scout_navigation.launch.py",
+      "category": "real_only",
+      "identical_final_blob": false,
+      "local": null,
+      "real": "M"
+    },
+    {
+      "path": "farm_project/robot/ros_ws/src/farm_common/farm_common/action_handoff.py",
+      "category": "both_changed",
+      "identical_final_blob": false,
+      "local": "M",
+      "real": "M"
+    },
+    {
+      "path": "farm_project/robot/ros_ws/src/farm_interfaces/CMakeLists.txt",
+      "category": "both_changed",
+      "identical_final_blob": false,
+      "local": "M",
+      "real": "M"
+    },
+    {
+      "path": "farm_project/robot/ros_ws/src/farm_interfaces/action/AcquirePassage.action",
+      "category": "local_only",
+      "identical_final_blob": false,
+      "local": "A",
+      "real": null
+    },
+    {
+      "path": "farm_project/robot/ros_ws/src/farm_interfaces/action/Discharge.action",
+      "category": "both_changed",
+      "identical_final_blob": true,
+      "local": "A",
+      "real": "A"
+    },
+    {
+      "path": "farm_project/robot/ros_ws/src/farm_interfaces/action/DockTransfer.action",
+      "category": "both_changed",
+      "identical_final_blob": true,
+      "local": "A",
+      "real": "A"
+    },
+    {
+      "path": "farm_project/robot/ros_ws/src/farm_interfaces/action/NavigateToNode.action",
+      "category": "local_only",
+      "identical_final_blob": false,
+      "local": "A",
+      "real": null
+    },
+    {
+      "path": "farm_project/robot/ros_ws/src/farm_interfaces/msg/RobotStatus.msg",
+      "category": "local_only",
+      "identical_final_blob": false,
+      "local": "M",
+      "real": null
+    },
+    {
+      "path": "farm_project/robot/ros_ws/src/farm_interfaces/msg/TrafficCodes.msg",
+      "category": "local_only",
+      "identical_final_blob": false,
+      "local": "A",
+      "real": null
+    },
+    {
+      "path": "farm_project/robot/ros_ws/src/farm_interfaces/msg/TrafficContext.msg",
+      "category": "local_only",
+      "identical_final_blob": false,
+      "local": "A",
+      "real": null
+    },
+    {
+      "path": "farm_project/robot/ros_ws/src/farm_interfaces/msg/TrafficControlState.msg",
+      "category": "local_only",
+      "identical_final_blob": false,
+      "local": "A",
+      "real": null
+    },
+    {
+      "path": "farm_project/robot/ros_ws/src/farm_interfaces/msg/TrafficProgress.msg",
+      "category": "local_only",
+      "identical_final_blob": false,
+      "local": "A",
+      "real": null
+    },
+    {
+      "path": "farm_project/robot/ros_ws/src/farm_interfaces/msg/TrafficRegistration.msg",
+      "category": "local_only",
+      "identical_final_blob": false,
+      "local": "A",
+      "real": null
+    },
+    {
+      "path": "farm_project/robot/ros_ws/src/farm_interfaces/srv/GetPassageState.srv",
+      "category": "local_only",
+      "identical_final_blob": false,
+      "local": "A",
+      "real": null
+    },
+    {
+      "path": "farm_project/robot/ros_ws/src/farm_interfaces/srv/ReleasePassage.srv",
+      "category": "local_only",
+      "identical_final_blob": false,
+      "local": "A",
+      "real": null
+    },
+    {
+      "path": "farm_project/robot/ros_ws/src/farm_interfaces/srv/TransferEvent.srv",
+      "category": "both_changed",
+      "identical_final_blob": true,
+      "local": "A",
+      "real": "A"
+    },
+    {
+      "path": "farm_project/robot/ros_ws/src/farm_navigation/farm_navigation/arc_clearance.py",
+      "category": "real_only",
+      "identical_final_blob": false,
+      "local": null,
+      "real": "A"
+    },
+    {
+      "path": "farm_project/robot/ros_ws/src/farm_navigation/farm_navigation/arc_isolation.py",
+      "category": "real_only",
+      "identical_final_blob": false,
+      "local": null,
+      "real": "A"
+    },
+    {
+      "path": "farm_project/robot/ros_ws/src/farm_navigation/farm_navigation/arc_profile.py",
+      "category": "real_only",
+      "identical_final_blob": false,
+      "local": null,
+      "real": "A"
+    },
+    {
+      "path": "farm_project/robot/ros_ws/src/farm_navigation/farm_navigation/arrival.py",
+      "category": "real_only",
+      "identical_final_blob": false,
+      "local": null,
+      "real": "M"
+    },
+    {
+      "path": "farm_project/robot/ros_ws/src/farm_navigation/farm_navigation/collision_recovery.py",
+      "category": "both_changed",
+      "identical_final_blob": true,
+      "local": "A",
+      "real": "A"
+    },
+    {
+      "path": "farm_project/robot/ros_ws/src/farm_navigation/farm_navigation/measured_velocity_guard.py",
+      "category": "real_only",
+      "identical_final_blob": false,
+      "local": null,
+      "real": "A"
+    },
+    {
+      "path": "farm_project/robot/ros_ws/src/farm_navigation/farm_navigation/motion_reference.py",
+      "category": "real_only",
+      "identical_final_blob": false,
+      "local": null,
+      "real": "A"
+    },
+    {
+      "path": "farm_project/robot/ros_ws/src/farm_navigation/farm_navigation/nav2_client.py",
+      "category": "both_changed",
+      "identical_final_blob": false,
+      "local": "M",
+      "real": "M"
+    },
+    {
+      "path": "farm_project/robot/ros_ws/src/farm_navigation/farm_navigation/navigation_types.py",
+      "category": "both_changed",
+      "identical_final_blob": false,
+      "local": "M",
+      "real": "M"
+    },
+    {
+      "path": "farm_project/robot/ros_ws/src/farm_navigation/farm_navigation/navigator.py",
+      "category": "both_changed",
+      "identical_final_blob": false,
+      "local": "M",
+      "real": "M"
+    },
+    {
+      "path": "farm_project/robot/ros_ws/src/farm_navigation/farm_navigation/parallel_approach.py",
+      "category": "both_changed",
+      "identical_final_blob": false,
+      "local": "M",
+      "real": "M"
+    },
+    {
+      "path": "farm_project/robot/ros_ws/src/farm_navigation/farm_navigation/path_builder.py",
+      "category": "real_only",
+      "identical_final_blob": false,
+      "local": null,
+      "real": "M"
+    },
+    {
+      "path": "farm_project/robot/ros_ws/src/farm_navigation/farm_navigation/pose_provider.py",
+      "category": "both_changed",
+      "identical_final_blob": false,
+      "local": "M",
+      "real": "M"
+    },
+    {
+      "path": "farm_project/robot/ros_ws/src/farm_navigation/farm_navigation/route.py",
+      "category": "local_only",
+      "identical_final_blob": false,
+      "local": "M",
+      "real": null
+    },
+    {
+      "path": "farm_project/robot/ros_ws/src/farm_navigation/farm_navigation/spin_client.py",
+      "category": "both_changed",
+      "identical_final_blob": false,
+      "local": "A",
+      "real": "A"
+    },
+    {
+      "path": "farm_project/robot/ros_ws/src/farm_navigation/farm_navigation/tag_control.py",
+      "category": "local_only",
+      "identical_final_blob": false,
+      "local": "M",
+      "real": null
+    },
+    {
+      "path": "farm_project/robot/ros_ws/src/farm_navigation/farm_navigation/traffic_client.py",
+      "category": "local_only",
+      "identical_final_blob": false,
+      "local": "A",
+      "real": null
+    },
+    {
+      "path": "farm_project/robot/ros_ws/src/farm_navigation/farm_navigation/traffic_contract.py",
+      "category": "local_only",
+      "identical_final_blob": false,
+      "local": "A",
+      "real": null
+    },
+    {
+      "path": "farm_project/robot/ros_ws/src/farm_navigation/farm_navigation/transfer_arc.py",
+      "category": "real_only",
+      "identical_final_blob": false,
+      "local": null,
+      "real": "A"
+    },
+    {
+      "path": "farm_project/robot/ros_ws/src/farm_navigation/farm_navigation/wall_observation.py",
+      "category": "real_only",
+      "identical_final_blob": false,
+      "local": null,
+      "real": "A"
+    },
+    {
+      "path": "farm_project/robot/ros_ws/src/farm_navigation/farm_navigation/wall_observer_node.py",
+      "category": "real_only",
+      "identical_final_blob": false,
+      "local": null,
+      "real": "A"
+    },
+    {
+      "path": "farm_project/robot/ros_ws/src/farm_navigation/farm_navigation/wall_reference.py",
+      "category": "real_only",
+      "identical_final_blob": false,
+      "local": null,
+      "real": "A"
+    },
+    {
+      "path": "farm_project/robot/ros_ws/src/farm_navigation/farm_navigation/wall_shutdown.py",
+      "category": "real_only",
+      "identical_final_blob": false,
+      "local": null,
+      "real": "A"
+    },
+    {
+      "path": "farm_project/robot/ros_ws/src/farm_navigation/farm_navigation/wall_trial_runtime.py",
+      "category": "real_only",
+      "identical_final_blob": false,
+      "local": null,
+      "real": "A"
+    },
+    {
+      "path": "farm_project/robot/ros_ws/src/farm_navigation/farm_navigation/wall_trial_support.py",
+      "category": "real_only",
+      "identical_final_blob": false,
+      "local": null,
+      "real": "A"
+    },
+    {
+      "path": "farm_project/robot/ros_ws/src/farm_navigation/package.xml",
+      "category": "local_only",
+      "identical_final_blob": false,
+      "local": "M",
+      "real": null
+    },
+    {
+      "path": "farm_project/robot/ros_ws/src/farm_navigation/test/data/arc_odom_failure_20261020.json",
+      "category": "real_only",
+      "identical_final_blob": false,
+      "local": null,
+      "real": "A"
+    },
+    {
+      "path": "farm_project/robot/ros_ws/src/farm_navigation/test/test_arc_clearance.py",
+      "category": "real_only",
+      "identical_final_blob": false,
+      "local": null,
+      "real": "A"
+    },
+    {
+      "path": "farm_project/robot/ros_ws/src/farm_navigation/test/test_arc_common_stop_replay.py",
+      "category": "real_only",
+      "identical_final_blob": false,
+      "local": null,
+      "real": "A"
+    },
+    {
+      "path": "farm_project/robot/ros_ws/src/farm_navigation/test/test_arc_isolation.py",
+      "category": "real_only",
+      "identical_final_blob": false,
+      "local": null,
+      "real": "A"
+    },
+    {
+      "path": "farm_project/robot/ros_ws/src/farm_navigation/test/test_arc_profile.py",
+      "category": "real_only",
+      "identical_final_blob": false,
+      "local": null,
+      "real": "A"
+    },
+    {
+      "path": "farm_project/robot/ros_ws/src/farm_navigation/test/test_arc_return_gate.py",
+      "category": "real_only",
+      "identical_final_blob": false,
+      "local": null,
+      "real": "A"
+    },
+    {
+      "path": "farm_project/robot/ros_ws/src/farm_navigation/test/test_collision_recovery.py",
+      "category": "local_only",
+      "identical_final_blob": false,
+      "local": "A",
+      "real": null
+    },
+    {
+      "path": "farm_project/robot/ros_ws/src/farm_navigation/test/test_explicit_navigation.py",
+      "category": "real_only",
+      "identical_final_blob": false,
+      "local": null,
+      "real": "A"
+    },
+    {
+      "path": "farm_project/robot/ros_ws/src/farm_navigation/test/test_measured_velocity_guard.py",
+      "category": "real_only",
+      "identical_final_blob": false,
+      "local": null,
+      "real": "A"
+    },
+    {
+      "path": "farm_project/robot/ros_ws/src/farm_navigation/test/test_nav2_execution_clock.py",
+      "category": "local_only",
+      "identical_final_blob": false,
+      "local": "M",
+      "real": null
+    },
+    {
+      "path": "farm_project/robot/ros_ws/src/farm_navigation/test/test_nav2_route_timeout.py",
+      "category": "local_only",
+      "identical_final_blob": false,
+      "local": "A",
+      "real": null
+    },
+    {
+      "path": "farm_project/robot/ros_ws/src/farm_navigation/test/test_parallel_approach.py",
+      "category": "local_only",
+      "identical_final_blob": false,
+      "local": "A",
+      "real": null
+    },
+    {
+      "path": "farm_project/robot/ros_ws/src/farm_navigation/test/test_spin_client.py",
+      "category": "both_changed",
+      "identical_final_blob": true,
+      "local": "A",
+      "real": "A"
+    },
+    {
+      "path": "farm_project/robot/ros_ws/src/farm_navigation/test/test_tag_capture_sync.py",
+      "category": "local_only",
+      "identical_final_blob": false,
+      "local": "A",
+      "real": null
+    },
+    {
+      "path": "farm_project/robot/ros_ws/src/farm_navigation/test/test_traffic.py",
+      "category": "local_only",
+      "identical_final_blob": false,
+      "local": "A",
+      "real": null
+    },
+    {
+      "path": "farm_project/robot/ros_ws/src/farm_navigation/test/test_transfer_arc.py",
+      "category": "real_only",
+      "identical_final_blob": false,
+      "local": null,
+      "real": "A"
+    },
+    {
+      "path": "farm_project/robot/ros_ws/src/farm_navigation/test/test_wall_alignment.py",
+      "category": "real_only",
+      "identical_final_blob": false,
+      "local": null,
+      "real": "A"
+    },
+    {
+      "path": "farm_project/robot/ros_ws/src/farm_navigation/test/test_wall_reference.py",
+      "category": "real_only",
+      "identical_final_blob": false,
+      "local": null,
+      "real": "A"
+    },
+    {
+      "path": "farm_project/robot/ros_ws/src/farm_navigation/test/test_wall_reference_capture.py",
+      "category": "real_only",
+      "identical_final_blob": false,
+      "local": null,
+      "real": "A"
+    },
+    {
+      "path": "farm_project/robot/ros_ws/src/farm_tag_camera_runtime/CMakeLists.txt",
+      "category": "real_only",
+      "identical_final_blob": false,
+      "local": null,
+      "real": "A"
+    },
+    {
+      "path": "farm_project/robot/ros_ws/src/farm_tag_camera_runtime/README.md",
+      "category": "real_only",
+      "identical_final_blob": false,
+      "local": null,
+      "real": "A"
+    },
+    {
+      "path": "farm_project/robot/ros_ws/src/farm_tag_camera_runtime/package.xml",
+      "category": "real_only",
+      "identical_final_blob": false,
+      "local": null,
+      "real": "A"
+    },
+    {
+      "path": "farm_project/robot/ros_ws/src/farm_tag_camera_runtime/src/finalize_order.hpp",
+      "category": "real_only",
+      "identical_final_blob": false,
+      "local": null,
+      "real": "A"
+    },
+    {
+      "path": "farm_project/robot/ros_ws/src/farm_tag_camera_runtime/src/safe_node_main.cpp",
+      "category": "real_only",
+      "identical_final_blob": false,
+      "local": null,
+      "real": "A"
+    },
+    {
+      "path": "farm_project/robot/ros_ws/src/farm_tag_localization/farm_tag_localization/node.py",
+      "category": "local_only",
+      "identical_final_blob": false,
+      "local": "M",
+      "real": null
+    },
+    {
+      "path": "farm_project/robot/ros_ws/src/farm_tag_localization/farm_tag_localization/observer.py",
+      "category": "local_only",
+      "identical_final_blob": false,
+      "local": "M",
+      "real": null
+    },
+    {
+      "path": "farm_project/robot/ros_ws/src/farm_tag_localization/farm_tag_localization/pixel_bias.py",
+      "category": "local_only",
+      "identical_final_blob": false,
+      "local": "M",
+      "real": null
+    },
+    {
+      "path": "farm_project/robot/ros_ws/src/farm_tag_localization/farm_tag_localization/runtime.py",
+      "category": "local_only",
+      "identical_final_blob": false,
+      "local": "M",
+      "real": null
+    },
+    {
+      "path": "farm_project/robot/ros_ws/src/farm_tag_localization/farm_tag_localization/tag_adapter.py",
+      "category": "local_only",
+      "identical_final_blob": false,
+      "local": "M",
+      "real": null
+    },
+    {
+      "path": "farm_project/robot/ros_ws/src/farm_tag_localization/test/test_capture_session.py",
+      "category": "real_only",
+      "identical_final_blob": false,
+      "local": null,
+      "real": "M"
+    },
+    {
+      "path": "farm_project/robot/ros_ws/src/farm_tag_localization/test/test_launch_contract.py",
+      "category": "real_only",
+      "identical_final_blob": false,
+      "local": null,
+      "real": "M"
+    },
+    {
+      "path": "farm_project/robot/ros_ws/src/farm_tag_localization/test/test_multitag.py",
+      "category": "local_only",
+      "identical_final_blob": false,
+      "local": "A",
+      "real": null
+    },
+    {
+      "path": "farm_project/robot/ros_ws/src/farm_tag_localization/test/test_pixel_bias.py",
+      "category": "real_only",
+      "identical_final_blob": false,
+      "local": null,
+      "real": "M"
+    },
+    {
+      "path": "farm_project/robot/ros_ws/src/farm_tag_localization/test/test_quality_gain.py",
+      "category": "local_only",
+      "identical_final_blob": false,
+      "local": "A",
+      "real": null
+    },
+    {
+      "path": "farm_project/robot/ros_ws/src/farm_tag_localization/test/test_ros_contract.py",
+      "category": "local_only",
+      "identical_final_blob": false,
+      "local": "M",
+      "real": null
+    },
+    {
+      "path": "farm_project/robot/ros_ws/src/farm_tag_localization/test/test_trial_configuration_snapshot.py",
+      "category": "real_only",
+      "identical_final_blob": false,
+      "local": null,
+      "real": "M"
+    },
+    {
+      "path": "farm_project/robot/ros_ws/src/farm_wall_controller/CMakeLists.txt",
+      "category": "real_only",
+      "identical_final_blob": false,
+      "local": null,
+      "real": "A"
+    },
+    {
+      "path": "farm_project/robot/ros_ws/src/farm_wall_controller/controller_plugins.xml",
+      "category": "real_only",
+      "identical_final_blob": false,
+      "local": null,
+      "real": "A"
+    },
+    {
+      "path": "farm_project/robot/ros_ws/src/farm_wall_controller/include/farm_wall_controller/wait_clock.hpp",
+      "category": "real_only",
+      "identical_final_blob": false,
+      "local": null,
+      "real": "A"
+    },
+    {
+      "path": "farm_project/robot/ros_ws/src/farm_wall_controller/include/farm_wall_controller/wall_control.hpp",
+      "category": "real_only",
+      "identical_final_blob": false,
+      "local": null,
+      "real": "A"
+    },
+    {
+      "path": "farm_project/robot/ros_ws/src/farm_wall_controller/include/farm_wall_controller/wall_input.hpp",
+      "category": "real_only",
+      "identical_final_blob": false,
+      "local": null,
+      "real": "A"
+    },
+    {
+      "path": "farm_project/robot/ros_ws/src/farm_wall_controller/package.xml",
+      "category": "real_only",
+      "identical_final_blob": false,
+      "local": null,
+      "real": "A"
+    },
+    {
+      "path": "farm_project/robot/ros_ws/src/farm_wall_controller/src/wait_plugins.cpp",
+      "category": "real_only",
+      "identical_final_blob": false,
+      "local": null,
+      "real": "A"
+    },
+    {
+      "path": "farm_project/robot/ros_ws/src/farm_wall_controller/src/wall_plugins.cpp",
+      "category": "real_only",
+      "identical_final_blob": false,
+      "local": null,
+      "real": "A"
+    },
+    {
+      "path": "farm_project/robot/ros_ws/src/farm_wall_controller/test/test_wall_control.cpp",
+      "category": "real_only",
+      "identical_final_blob": false,
+      "local": null,
+      "real": "A"
+    },
+    {
+      "path": "farm_project/robot/ros_ws/src/harvest_robot/harvest_robot/arm_client.py",
+      "category": "both_changed",
+      "identical_final_blob": true,
+      "local": "M",
+      "real": "M"
+    },
+    {
+      "path": "farm_project/robot/ros_ws/src/harvest_robot/harvest_robot/communication.py",
+      "category": "both_changed",
+      "identical_final_blob": false,
+      "local": "M",
+      "real": "M"
+    },
+    {
+      "path": "farm_project/robot/ros_ws/src/harvest_robot/harvest_robot/configuration.py",
+      "category": "both_changed",
+      "identical_final_blob": true,
+      "local": "M",
+      "real": "M"
+    },
+    {
+      "path": "farm_project/robot/ros_ws/src/harvest_robot/harvest_robot/corridor_navigation.py",
+      "category": "real_only",
+      "identical_final_blob": false,
+      "local": null,
+      "real": "M"
+    },
+    {
+      "path": "farm_project/robot/ros_ws/src/harvest_robot/harvest_robot/discharge_client.py",
+      "category": "both_changed",
+      "identical_final_blob": false,
+      "local": "A",
+      "real": "A"
+    },
+    {
+      "path": "farm_project/robot/ros_ws/src/harvest_robot/harvest_robot/discharge_devices.py",
+      "category": "both_changed",
+      "identical_final_blob": true,
+      "local": "A",
+      "real": "A"
+    },
+    {
+      "path": "farm_project/robot/ros_ws/src/harvest_robot/harvest_robot/discharge_result.py",
+      "category": "both_changed",
+      "identical_final_blob": true,
+      "local": "A",
+      "real": "A"
+    },
+    {
+      "path": "farm_project/robot/ros_ws/src/harvest_robot/harvest_robot/handoff_body_trial.py",
+      "category": "real_only",
+      "identical_final_blob": false,
+      "local": null,
+      "real": "A"
+    },
+    {
+      "path": "farm_project/robot/ros_ws/src/harvest_robot/harvest_robot/handoff_clearance.py",
+      "category": "real_only",
+      "identical_final_blob": false,
+      "local": null,
+      "real": "A"
+    },
+    {
+      "path": "farm_project/robot/ros_ws/src/harvest_robot/harvest_robot/handoff_components.py",
+      "category": "real_only",
+      "identical_final_blob": false,
+      "local": null,
+      "real": "A"
+    },
+    {
+      "path": "farm_project/robot/ros_ws/src/harvest_robot/harvest_robot/handoff_cycle.py",
+      "category": "real_only",
+      "identical_final_blob": false,
+      "local": null,
+      "real": "A"
+    },
+    {
+      "path": "farm_project/robot/ros_ws/src/harvest_robot/harvest_robot/handoff_devices.py",
+      "category": "real_only",
+      "identical_final_blob": false,
+      "local": null,
+      "real": "A"
+    },
+    {
+      "path": "farm_project/robot/ros_ws/src/harvest_robot/harvest_robot/handoff_entry.py",
+      "category": "real_only",
+      "identical_final_blob": false,
+      "local": null,
+      "real": "A"
+    },
+    {
+      "path": "farm_project/robot/ros_ws/src/harvest_robot/harvest_robot/handoff_factory.py",
+      "category": "real_only",
+      "identical_final_blob": false,
+      "local": null,
+      "real": "A"
+    },
+    {
+      "path": "farm_project/robot/ros_ws/src/harvest_robot/harvest_robot/handoff_input_trace.py",
+      "category": "real_only",
+      "identical_final_blob": false,
+      "local": null,
+      "real": "A"
+    },
+    {
+      "path": "farm_project/robot/ros_ws/src/harvest_robot/harvest_robot/handoff_locking.py",
+      "category": "real_only",
+      "identical_final_blob": false,
+      "local": null,
+      "real": "A"
+    },
+    {
+      "path": "farm_project/robot/ros_ws/src/harvest_robot/harvest_robot/handoff_motion.py",
+      "category": "real_only",
+      "identical_final_blob": false,
+      "local": null,
+      "real": "A"
+    },
+    {
+      "path": "farm_project/robot/ros_ws/src/harvest_robot/harvest_robot/handoff_navigation.py",
+      "category": "real_only",
+      "identical_final_blob": false,
+      "local": null,
+      "real": "A"
+    },
+    {
+      "path": "farm_project/robot/ros_ws/src/harvest_robot/harvest_robot/handoff_paths.py",
+      "category": "real_only",
+      "identical_final_blob": false,
+      "local": null,
+      "real": "A"
+    },
+    {
+      "path": "farm_project/robot/ros_ws/src/harvest_robot/harvest_robot/handoff_planning.py",
+      "category": "real_only",
+      "identical_final_blob": false,
+      "local": null,
+      "real": "A"
+    },
+    {
+      "path": "farm_project/robot/ros_ws/src/harvest_robot/harvest_robot/handoff_pose_context.py",
+      "category": "real_only",
+      "identical_final_blob": false,
+      "local": null,
+      "real": "A"
+    },
+    {
+      "path": "farm_project/robot/ros_ws/src/harvest_robot/harvest_robot/handoff_profile.py",
+      "category": "real_only",
+      "identical_final_blob": false,
+      "local": null,
+      "real": "A"
+    },
+    {
+      "path": "farm_project/robot/ros_ws/src/harvest_robot/harvest_robot/handoff_runtime.py",
+      "category": "real_only",
+      "identical_final_blob": false,
+      "local": null,
+      "real": "A"
+    },
+    {
+      "path": "farm_project/robot/ros_ws/src/harvest_robot/harvest_robot/handoff_server_config.py",
+      "category": "real_only",
+      "identical_final_blob": false,
+      "local": null,
+      "real": "A"
+    },
+    {
+      "path": "farm_project/robot/ros_ws/src/harvest_robot/harvest_robot/handoff_vicpinky.py",
+      "category": "real_only",
+      "identical_final_blob": false,
+      "local": null,
+      "real": "A"
+    },
+    {
+      "path": "farm_project/robot/ros_ws/src/harvest_robot/harvest_robot/handoff_wait.py",
+      "category": "real_only",
+      "identical_final_blob": false,
+      "local": null,
+      "real": "A"
+    },
+    {
+      "path": "farm_project/robot/ros_ws/src/harvest_robot/harvest_robot/handoff_window.py",
+      "category": "real_only",
+      "identical_final_blob": false,
+      "local": null,
+      "real": "A"
+    },
+    {
+      "path": "farm_project/robot/ros_ws/src/harvest_robot/harvest_robot/harvest_load.py",
+      "category": "both_changed",
+      "identical_final_blob": true,
+      "local": "A",
+      "real": "A"
+    },
+    {
+      "path": "farm_project/robot/ros_ws/src/harvest_robot/harvest_robot/mission.py",
+      "category": "both_changed",
+      "identical_final_blob": true,
+      "local": "M",
+      "real": "M"
+    },
+    {
+      "path": "farm_project/robot/ros_ws/src/harvest_robot/harvest_robot/node.py",
+      "category": "both_changed",
+      "identical_final_blob": false,
+      "local": "M",
+      "real": "M"
+    },
+    {
+      "path": "farm_project/robot/ros_ws/src/harvest_robot/harvest_robot/pause_clock.py",
+      "category": "real_only",
+      "identical_final_blob": false,
+      "local": null,
+      "real": "A"
+    },
+    {
+      "path": "farm_project/robot/ros_ws/src/harvest_robot/harvest_robot/status.py",
+      "category": "both_changed",
+      "identical_final_blob": false,
+      "local": "M",
+      "real": "M"
+    },
+    {
+      "path": "farm_project/robot/ros_ws/src/harvest_robot/harvest_robot/transfer_communication.py",
+      "category": "both_changed",
+      "identical_final_blob": false,
+      "local": "A",
+      "real": "A"
+    },
+    {
+      "path": "farm_project/robot/ros_ws/src/harvest_robot/harvest_robot/transfer_devices.py",
+      "category": "both_changed",
+      "identical_final_blob": false,
+      "local": "A",
+      "real": "A"
+    },
+    {
+      "path": "farm_project/robot/ros_ws/src/harvest_robot/harvest_robot/transfer_mission.py",
+      "category": "both_changed",
+      "identical_final_blob": false,
+      "local": "A",
+      "real": "A"
+    },
+    {
+      "path": "farm_project/robot/ros_ws/src/harvest_robot/harvest_robot/transfer_restore.py",
+      "category": "real_only",
+      "identical_final_blob": false,
+      "local": null,
+      "real": "A"
+    },
+    {
+      "path": "farm_project/robot/ros_ws/src/harvest_robot/harvest_robot/transfer_retreat.py",
+      "category": "real_only",
+      "identical_final_blob": false,
+      "local": null,
+      "real": "A"
+    },
+    {
+      "path": "farm_project/robot/ros_ws/src/harvest_robot/harvest_robot/transfer_rotation.py",
+      "category": "both_changed",
+      "identical_final_blob": false,
+      "local": "A",
+      "real": "A"
+    },
+    {
+      "path": "farm_project/robot/ros_ws/src/harvest_robot/harvest_robot/transfer_sequence.py",
+      "category": "real_only",
+      "identical_final_blob": false,
+      "local": null,
+      "real": "A"
+    },
+    {
+      "path": "farm_project/robot/ros_ws/src/harvest_robot/harvest_robot/transient_gate.py",
+      "category": "real_only",
+      "identical_final_blob": false,
+      "local": null,
+      "real": "A"
+    },
+    {
+      "path": "farm_project/robot/ros_ws/src/harvest_robot/package.xml",
+      "category": "both_changed",
+      "identical_final_blob": false,
+      "local": "M",
+      "real": "M"
+    },
+    {
+      "path": "farm_project/robot/ros_ws/src/harvest_robot/test/fixtures/navigation_graph_20261007.geojson",
+      "category": "real_only",
+      "identical_final_blob": false,
+      "local": null,
+      "real": "A"
+    },
+    {
+      "path": "farm_project/robot/ros_ws/src/harvest_robot/test/test_arm_connection.py",
+      "category": "both_changed",
+      "identical_final_blob": true,
+      "local": "A",
+      "real": "A"
+    },
+    {
+      "path": "farm_project/robot/ros_ws/src/harvest_robot/test/test_discharge_client.py",
+      "category": "both_changed",
+      "identical_final_blob": true,
+      "local": "A",
+      "real": "A"
+    },
+    {
+      "path": "farm_project/robot/ros_ws/src/harvest_robot/test/test_discharge_result.py",
+      "category": "both_changed",
+      "identical_final_blob": true,
+      "local": "A",
+      "real": "A"
+    },
+    {
+      "path": "farm_project/robot/ros_ws/src/harvest_robot/test/test_entry_controller.py",
+      "category": "both_changed",
+      "identical_final_blob": false,
+      "local": "M",
+      "real": "M"
+    },
+    {
+      "path": "farm_project/robot/ros_ws/src/harvest_robot/test/test_follow_work.py",
+      "category": "both_changed",
+      "identical_final_blob": false,
+      "local": "M",
+      "real": "M"
+    },
+    {
+      "path": "farm_project/robot/ros_ws/src/harvest_robot/test/test_harvest_load.py",
+      "category": "both_changed",
+      "identical_final_blob": true,
+      "local": "A",
+      "real": "A"
+    },
+    {
+      "path": "farm_project/robot/ros_ws/src/harvest_robot/test/test_navigator_dispatch.py",
+      "category": "local_only",
+      "identical_final_blob": false,
+      "local": "M",
+      "real": null
+    },
+    {
+      "path": "farm_project/robot/ros_ws/src/harvest_robot/test/test_real_common_integration.py",
+      "category": "real_only",
+      "identical_final_blob": false,
+      "local": null,
+      "real": "A"
+    },
+    {
+      "path": "farm_project/robot/ros_ws/src/harvest_robot/test/test_restore_navigation.py",
+      "category": "real_only",
+      "identical_final_blob": false,
+      "local": null,
+      "real": "A"
+    },
+    {
+      "path": "farm_project/robot/ros_ws/src/harvest_robot/test/test_shared_map.py",
+      "category": "real_only",
+      "identical_final_blob": false,
+      "local": null,
+      "real": "M"
+    },
+    {
+      "path": "farm_project/robot/ros_ws/src/harvest_robot/test/test_status_reporting.py",
+      "category": "both_changed",
+      "identical_final_blob": true,
+      "local": "M",
+      "real": "M"
+    },
+    {
+      "path": "farm_project/robot/ros_ws/src/harvest_robot/test/test_transfer_restore.py",
+      "category": "real_only",
+      "identical_final_blob": false,
+      "local": null,
+      "real": "A"
+    },
+    {
+      "path": "farm_project/robot/ros_ws/src/harvest_robot/test/test_transfer_rotation.py",
+      "category": "both_changed",
+      "identical_final_blob": true,
+      "local": "A",
+      "real": "A"
+    },
+    {
+      "path": "farm_project/robot/ros_ws/src/nav2_controller/CMakeLists.txt",
+      "category": "local_only",
+      "identical_final_blob": false,
+      "local": "A",
+      "real": null
+    },
+    {
+      "path": "farm_project/robot/ros_ws/src/nav2_controller/LICENSE",
+      "category": "local_only",
+      "identical_final_blob": false,
+      "local": "A",
+      "real": null
+    },
+    {
+      "path": "farm_project/robot/ros_ws/src/nav2_controller/PROVENANCE.json",
+      "category": "local_only",
+      "identical_final_blob": false,
+      "local": "A",
+      "real": null
+    },
+    {
+      "path": "farm_project/robot/ros_ws/src/nav2_controller/README.md",
+      "category": "local_only",
+      "identical_final_blob": false,
+      "local": "A",
+      "real": null
+    },
+    {
+      "path": "farm_project/robot/ros_ws/src/nav2_controller/include/nav2_controller/controller_server.hpp",
+      "category": "local_only",
+      "identical_final_blob": false,
+      "local": "A",
+      "real": null
+    },
+    {
+      "path": "farm_project/robot/ros_ws/src/nav2_controller/include/nav2_controller/plugins/pose_progress_checker.hpp",
+      "category": "local_only",
+      "identical_final_blob": false,
+      "local": "A",
+      "real": null
+    },
+    {
+      "path": "farm_project/robot/ros_ws/src/nav2_controller/include/nav2_controller/plugins/position_goal_checker.hpp",
+      "category": "local_only",
+      "identical_final_blob": false,
+      "local": "A",
+      "real": null
+    },
+    {
+      "path": "farm_project/robot/ros_ws/src/nav2_controller/include/nav2_controller/plugins/simple_goal_checker.hpp",
+      "category": "local_only",
+      "identical_final_blob": false,
+      "local": "A",
+      "real": null
+    },
+    {
+      "path": "farm_project/robot/ros_ws/src/nav2_controller/include/nav2_controller/plugins/simple_progress_checker.hpp",
+      "category": "local_only",
+      "identical_final_blob": false,
+      "local": "A",
+      "real": null
+    },
+    {
+      "path": "farm_project/robot/ros_ws/src/nav2_controller/include/nav2_controller/plugins/stopped_goal_checker.hpp",
+      "category": "local_only",
+      "identical_final_blob": false,
+      "local": "A",
+      "real": null
+    },
+    {
+      "path": "farm_project/robot/ros_ws/src/nav2_controller/package.xml",
+      "category": "local_only",
+      "identical_final_blob": false,
+      "local": "A",
+      "real": null
+    },
+    {
+      "path": "farm_project/robot/ros_ws/src/nav2_controller/plugins.xml",
+      "category": "local_only",
+      "identical_final_blob": false,
+      "local": "A",
+      "real": null
+    },
+    {
+      "path": "farm_project/robot/ros_ws/src/nav2_controller/plugins/pose_progress_checker.cpp",
+      "category": "local_only",
+      "identical_final_blob": false,
+      "local": "A",
+      "real": null
+    },
+    {
+      "path": "farm_project/robot/ros_ws/src/nav2_controller/plugins/position_goal_checker.cpp",
+      "category": "local_only",
+      "identical_final_blob": false,
+      "local": "A",
+      "real": null
+    },
+    {
+      "path": "farm_project/robot/ros_ws/src/nav2_controller/plugins/simple_goal_checker.cpp",
+      "category": "local_only",
+      "identical_final_blob": false,
+      "local": "A",
+      "real": null
+    },
+    {
+      "path": "farm_project/robot/ros_ws/src/nav2_controller/plugins/simple_progress_checker.cpp",
+      "category": "local_only",
+      "identical_final_blob": false,
+      "local": "A",
+      "real": null
+    },
+    {
+      "path": "farm_project/robot/ros_ws/src/nav2_controller/plugins/stopped_goal_checker.cpp",
+      "category": "local_only",
+      "identical_final_blob": false,
+      "local": "A",
+      "real": null
+    },
+    {
+      "path": "farm_project/robot/ros_ws/src/nav2_controller/plugins/test/CMakeLists.txt",
+      "category": "local_only",
+      "identical_final_blob": false,
+      "local": "A",
+      "real": null
+    },
+    {
+      "path": "farm_project/robot/ros_ws/src/nav2_controller/plugins/test/goal_checker.cpp",
+      "category": "local_only",
+      "identical_final_blob": false,
+      "local": "A",
+      "real": null
+    },
+    {
+      "path": "farm_project/robot/ros_ws/src/nav2_controller/plugins/test/progress_checker.cpp",
+      "category": "local_only",
+      "identical_final_blob": false,
+      "local": "A",
+      "real": null
+    },
+    {
+      "path": "farm_project/robot/ros_ws/src/nav2_controller/src/controller_server.cpp",
+      "category": "local_only",
+      "identical_final_blob": false,
+      "local": "A",
+      "real": null
+    },
+    {
+      "path": "farm_project/robot/ros_ws/src/nav2_controller/src/main.cpp",
+      "category": "local_only",
+      "identical_final_blob": false,
+      "local": "A",
+      "real": null
+    },
+    {
+      "path": "farm_project/robot/ros_ws/src/nav2_controller/test/CMakeLists.txt",
+      "category": "local_only",
+      "identical_final_blob": false,
+      "local": "A",
+      "real": null
+    },
+    {
+      "path": "farm_project/robot/ros_ws/src/nav2_controller/test/test_dynamic_parameters.cpp",
+      "category": "local_only",
+      "identical_final_blob": false,
+      "local": "A",
+      "real": null
+    },
+    {
+      "path": "farm_project/robot/ros_ws/src/nav2_controller/test/test_goal_transform_time.cpp",
+      "category": "local_only",
+      "identical_final_blob": false,
+      "local": "A",
+      "real": null
+    },
+    {
+      "path": "farm_project/robot/ros_ws/src/scout_robot/scout_new/scout_communication.py",
+      "category": "local_only",
+      "identical_final_blob": false,
+      "local": "M",
+      "real": null
+    },
+    {
+      "path": "farm_project/robot/ros_ws/src/scout_robot/scout_new/scout_node.py",
+      "category": "local_only",
+      "identical_final_blob": false,
+      "local": "M",
+      "real": null
+    },
+    {
+      "path": "farm_project/robot/ros_ws/src/scout_robot/scout_new/states/navigation_move_state.py",
+      "category": "local_only",
+      "identical_final_blob": false,
+      "local": "M",
+      "real": null
+    },
+    {
+      "path": "farm_project/robot/ros_ws/src/scout_robot/scout_new/traffic_status.py",
+      "category": "local_only",
+      "identical_final_blob": false,
+      "local": "A",
+      "real": null
+    },
+    {
+      "path": "farm_project/robot/ros_ws/src/scout_robot/scout_robot/b_planner.py",
+      "category": "local_only",
+      "identical_final_blob": false,
+      "local": "M",
+      "real": null
+    },
+    {
+      "path": "farm_project/robot/ros_ws/src/scout_robot/scout_robot/survey_core.py",
+      "category": "local_only",
+      "identical_final_blob": false,
+      "local": "M",
+      "real": null
+    },
+    {
+      "path": "farm_project/robot/ros_ws/src/scout_robot/scout_robot/survey_server.py",
+      "category": "local_only",
+      "identical_final_blob": false,
+      "local": "M",
+      "real": null
+    },
+    {
+      "path": "farm_project/robot/ros_ws/src/scout_robot/test/test_capture_tag_sync.py",
+      "category": "local_only",
+      "identical_final_blob": false,
+      "local": "A",
+      "real": null
+    },
+    {
+      "path": "farm_project/robot/ros_ws/src/scout_robot/test/test_depth_tolerance.py",
+      "category": "local_only",
+      "identical_final_blob": false,
+      "local": "A",
+      "real": null
+    },
+    {
+      "path": "farm_project/robot/ros_ws/src/scout_robot/test/test_tag_navigation.py",
+      "category": "local_only",
+      "identical_final_blob": false,
+      "local": "M",
+      "real": null
+    },
+    {
+      "path": "farm_project/robot/ros_ws/src/scout_robot/test/test_window_execution_order.py",
+      "category": "local_only",
+      "identical_final_blob": false,
+      "local": "A",
+      "real": null
+    }
+  ],
+  "probes": {
+    "local": {
+      "external_check_allows_other_thread_to_read_handoff": [
+        false
+      ],
+      "settings": {
+        "retry21": "ACCEPT",
+        "pose_retry": "ACCEPT"
+      }
+    },
+    "real": {
+      "external_check_allows_other_thread_to_read_handoff": [
+        true
+      ],
+      "settings": {
+        "retry21": "collision_retry_count: 0~20 정수 필요",
+        "pose_retry": "충돌 재시도는 FollowPath 전용"
+      }
+    }
+  },
+  "collision_recovery_sha256": {
+    "local": "d22b25e5f2d2c9c249f0b578f26dfcbe13b308d953b7c440721054709fbafc9a",
+    "real": "d22b25e5f2d2c9c249f0b578f26dfcbe13b308d953b7c440721054709fbafc9a"
+  },
+  "scope": "Git source inventory and offline API/lock probes; no ROS/robot movement or merge"
+}

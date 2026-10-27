@@ -1,0 +1,151 @@
+{
+  "basis": "main b5ef6f2 + uncommitted sim changes; common docking source 9686aca",
+  "scope": "Isaac DOCK41 -> common ReceiveLid/WaitTransfer/Clearing states -> actual CLEAR; isolated post-docking harness",
+  "domain": 13,
+  "discovery": "SUBNET",
+  "physics": "CPU MBP 60Hz",
+  "session": "6c02fdab5d674d7a9ffccb6521280cca",
+  "result": {
+    "scope": "actual Isaac + common PrecisionMotion; isolated final/approach stage",
+    "marker": 41,
+    "status": 4,
+    "success": true,
+    "stopped": true,
+    "error_message": "",
+    "handoff": {
+      "result_code": "SUCCESS",
+      "count_valid": false,
+      "loaded_count": null
+    }
+  },
+  "handoff_wall_s": 9.80644702911377,
+  "transfer_proof": {
+    "session": "6c02fdab5d674d7a9ffccb6521280cca",
+    "proof": {
+      "sim_time_s": 26.566668052226305,
+      "coverage": 0.7245057462936735,
+      "minimum_coverage": 0.72,
+      "full_containment": false,
+      "center_delta_m": [
+        -0.0023570917066273803,
+        0.10436516982102334,
+        0.05646457685479567
+      ],
+      "horizontal_distance_m": 0.10439178393477377,
+      "positive_height_clearance_m": 0.05598509309418581,
+      "aligned": true,
+      "wheel_stopped": true,
+      "world_stopped": true,
+      "held_s": 1.1000000573694706,
+      "hold_pass": true,
+      "harvest_corners_world": [
+        [
+          -0.0944264516362395,
+          -0.25500535588850826,
+          0.5014016815375418
+        ],
+        [
+          -0.09441615412978088,
+          -0.445005355609403,
+          0.5014015354216345
+        ],
+        [
+          0.09558373561735853,
+          -0.4449950579516947,
+          0.5011971093148975
+        ],
+        [
+          0.09557343811089991,
+          -0.2549950582307999,
+          0.5011972554308048
+        ]
+      ],
+      "transport_corners_world": [
+        [
+          0.1488327486364106,
+          -0.6024596670463399,
+          0.4444577100743068
+        ],
+        [
+          0.15103050408230093,
+          -0.30846884934409,
+          0.44521201622071166
+        ],
+        [
+          -0.1429612812420368,
+          -0.30627108643590967,
+          0.44521192706854135
+        ],
+        [
+          -0.14515903668792712,
+          -0.6002619041381596,
+          0.4444576209221365
+        ]
+      ]
+    },
+    "fresh": true,
+    "lid_open": true,
+    "task_id": "sim_handoff_1793101432136496392",
+    "count_valid": false
+  },
+  "clearance_odom_distance_m": 0.2441984155791545,
+  "clearance_target_m": 0.252,
+  "clearance_tolerance_m": 0.01,
+  "count_valid": false,
+  "loaded_count": null,
+  "freshness": {
+    "calls": 3218,
+    "rejected": 0,
+    "future": 0
+  },
+  "process_exit": {
+    "harvest_adapter": 0,
+    "transport_adapter": 0,
+    "gate": 1,
+    "precision": -2,
+    "isaac": 0,
+    "probe": 0
+  },
+  "assets_unchanged": {
+    "harvest": true,
+    "transport": true,
+    "red": true,
+    "yellow": true
+  },
+  "common_docking_files_unchanged": {
+    "sorter_departure.py": true,
+    "departure.py": true,
+    "legacy_aruco.py": true,
+    "pose_control.py": true,
+    "lidar_approach.py": true,
+    "profiles.py": true,
+    "__init__.py": true,
+    "recovery.py": true,
+    "station_entry.py": true,
+    "initial_marker_recovery.py": true,
+    "harvest_motion.py": true,
+    "precision_server.py": true,
+    "pose_path.py": true,
+    "marker_geometry.py": true,
+    "approach_gate.py": true,
+    "route_observer.py": true,
+    "target_tracker.py": true,
+    "motion_gate.py": true,
+    "target_surface.py": true,
+    "clients.py": true,
+    "pose_session.py": true,
+    "staged_dock.py": true,
+    "footprint_guard.py": true,
+    "distance_heading.py": true,
+    "exit_heading.py": true,
+    "camera_input.py": true,
+    "clearance.py": true
+  },
+  "not_tested": [
+    "TransportPickup server/mission admission",
+    "TransferEvent DDS service (common TransferSession called directly)",
+    "harvest unloading hardware/fruit count",
+    "sorter navigation"
+  ],
+  "logging_note": "handoff events outer sim_ns held while probe waits; use wall times and embedded proof sim_time_s. Follow-up logger adds handoff_sim_ns from spinning node."
+}

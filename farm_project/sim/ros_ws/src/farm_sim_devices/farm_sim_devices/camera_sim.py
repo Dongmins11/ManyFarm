@@ -1,5 +1,6 @@
 """同じ描画フレームのRGB/光軸Depthを共有メモリへ出力します。"""
 import math
+import time
 import numpy as np
 from farm_common.rgbd_shm import RgbdWriter
 
@@ -14,6 +15,10 @@ class CameraSim:
         self.T_base_optical=T_base_optical
         self.last_stamp=-1.0
         self.writer=None
+        self.active=True
+        self.activity_sequence=-1
+        self.activity_deadline=-math.inf
+        self.activity_requested=False
 
     def initialize(self):
         self.camera.initialize()
@@ -26,8 +31,35 @@ class CameraSim:
         if not self.config.get('render_rgb_only', False):
             self.camera.add_distance_to_image_plane_to_frame()
         self.writer=RgbdWriter(self.config['shm_name'],self.config['width'],self.config['height'])
+        self.update_activity()
+
+    def accept_activity(self, message: dict, now: float | None = None) -> bool:
+        """영상 구독 요구는 현재 세션에서만 수락하고 2초 후 자동 만료한다."""
+        now=time.monotonic() if now is None else now
+        if not self.config.get('on_demand',False):return False
+        if message.get('kind')!='camera_activity' or message.get('session')!=self.session:return False
+        seq,sent,active=message.get('seq'),message.get('sent'),message.get('active')
+        if type(seq) is not int or seq<=self.activity_sequence or type(active) is not bool:return False
+        if type(sent) not in (float,int) or not math.isfinite(sent) or not 0<=now-sent<=2.:return False
+        self.activity_sequence,self.activity_deadline,self.activity_requested=seq,sent+2.,active
+        return True
+
+    def update_activity(self, now: float | None = None) -> None:
+        """구독 종료/어댑터 유실 시 RGB 발행뿐 아니라 Hydra 렌더도 중단한다."""
+        now=time.monotonic() if now is None else now
+        active=(not self.config.get('on_demand',False)
+                or (self.activity_requested and now<=self.activity_deadline))
+        if active==self.active:return
+        # 재개 직후 이전 렌더 프레임을 새 영상으로 발행하지 않는다.
+        stamp=float(self.camera.get_current_frame().get('rendering_time',0.))
+        if math.isfinite(stamp):self.last_stamp=max(self.last_stamp,stamp)
+        (self.camera.resume if active else self.camera.pause)()
+        self.camera._render_product.hydra_texture.set_updates_enabled(active)
+        self.active=active
+        print('[camera_activity] '+self.config['shm_name']+' active='+str(active),flush=True)
 
     def publish(self,pose_history,tolerance):
+        if not self.active:return False
         frame=self.camera.get_current_frame()
         stamp=float(frame.get('rendering_time',0.0))
         if not math.isfinite(stamp) or stamp<=self.last_stamp:return False

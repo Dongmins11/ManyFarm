@@ -53,15 +53,26 @@ def load_fleet(root: Path, path: Path) -> tuple[list, dict]:
         ports.add(port)
     if len({c['scene'] for c in configs}) != 1 or len({(c['runtime']['physics_hz'], c['runtime']['render_hz']) for c in configs}) != 1:
         raise ValueError('로봇들은 같은 씬과 물리/렌더 주기를 사용해야 합니다.')
-    evaluation = read(fleet['evaluation_config'])
-    if evaluation['robot_id'] not in ids or evaluation['map_id'] != stations['map_id']:
-        raise ValueError('평가 대상 로봇/지도 불일치')
-    output = (root / evaluation['evaluation']['snapshot_file']).resolve()
-    if not output.is_relative_to(root / 'sim'):
-        raise ValueError('정답 snapshot은 sim 안에 저장해야 합니다.')
-    harvest = dict(evaluation['evaluation'], robot_id=evaluation['robot_id'], scene_snapshot_file=str(output))
+    harvest = None
+    if fleet.get('evaluation_config'):
+        evaluation = read(fleet['evaluation_config'])
+        if evaluation['robot_id'] not in ids or evaluation['map_id'] != stations['map_id']:
+            raise ValueError('평가 대상 로봇/지도 불일치')
+        output = (root / evaluation['evaluation']['snapshot_file']).resolve()
+        if not output.is_relative_to(root / 'sim'):
+            raise ValueError('정답 snapshot은 sim 안에 저장해야 합니다.')
+        harvest = dict(evaluation['evaluation'], robot_id=evaluation['robot_id'], scene_snapshot_file=str(output))
+    elif any(c['runtime'].get('harvest_arm', {}).get('enabled') for c in configs):
+        raise ValueError('수확 팔 실행에는 evaluation_config가 필요합니다.')
+    basket=None
+    if fleet.get('basket_alignment'):
+        basket=dict(fleet['basket_alignment'])
+        basket['spec']=read(basket['evaluation_config'])
+        if set(basket['robots'])!={'harvest','transport'} or not set(basket['robots'].values())<=ids:
+            raise ValueError('인계 평가 로봇 구성 오류')
     return configs, dict(map_id=stations['map_id'], stations=stations['stations'],
-                         evaluation=dict(T_map_world=stations['T_map_world']), harvest_robot=harvest, clock=fleet['clock'])
+                         evaluation=dict(T_map_world=stations['T_map_world']), harvest_robot=harvest, clock=fleet['clock'],
+                         docking_markers=fleet.get('docking_markers'),basket_alignment=basket)
 
 
 def validate_harvest_action(task: dict, device: dict, physics: dict) -> None:

@@ -30,7 +30,8 @@ class Config:
 class Context(dict):
     """전체 launch의 환경 범위도 제공하는 조립 시험 컨텍스트."""
     def __init__(self, **kwargs: object) -> None:
-        super().__init__(**kwargs)
+        super().__init__(dict(transport='false', duration_s='',
+            fleet_config='sim/ros_ws/src/farm_sim_config/config/harvest_fleet.json') | kwargs)
         self.environment = {}
 
 
@@ -148,6 +149,26 @@ class CaptureLaunchTests(unittest.TestCase):
         for robot in arguments[1:]:
             self.assertNotIn('physics_device', robot)
             self.assertEqual(robot['tag_correction'], 'true')
+
+    def test_transport_selects_standalone_or_three_robot_hardware(self) -> None:
+        path = ROOT / 'sim/ros_ws/src/farm_sim_runtime/launch/all.launch.py'
+        spec = importlib.util.spec_from_file_location('sim_transport_launch_contract', path)
+        module = importlib.util.module_from_spec(spec)
+        spec.loader.exec_module(module)
+        with patch.multiple(module, IncludeLaunchDescription=Action,
+                            PythonLaunchDescriptionSource=Action, LaunchConfiguration=Config,
+                            get_package_share_directory=lambda package: '/share/' + package):
+            for scout, fleet in [('false', 'transport_hardware_fleet.json'),
+                                 ('true', 'transport_fleet.json')]:
+                context=Context(project_root=str(ROOT), transport='true', scout=scout, harvest='false',
+                    isaac='true', rviz='false', environment_config='sim/ros_ws/src/farm_sim_config/config/scout_runtime.yaml',
+                    isaac_python='/isaac/python', assets_root='', headless='true', physics_device='cpu',
+                    performance_log='', navigation='false', survey='false', vision_python='', device='0', tag_correction='false')
+                actions=[a for a in module.setup(context)[0].get_sub_entities() if isinstance(a,Action)]
+                args=[dict(a.kwargs['launch_arguments']) for a in actions]
+                self.assertTrue(args[0]['fleet_config'].endswith('/'+fleet))
+                self.assertEqual(actions[1].args[0].args[0], '/share/farm_sim_runtime/launch/transport_hardware.launch.py')
+                self.assertEqual(args[1], dict(project_root=str(ROOT)))
 
 
 if __name__ == '__main__':

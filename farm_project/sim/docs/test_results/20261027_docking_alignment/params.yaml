@@ -1,0 +1,21 @@
+/**:
+  ros__parameters:
+    use_sim_time: true
+    profiles_file: /home/ysy/main/farm_project/sim/runs/docking_alignment_20261027/profiles.yaml
+    sites_file: /home/ysy/main/farm_project/sim/runs/docking_alignment_20261027/sites.yaml
+    pose_control_file: /home/ysy/main/farm_project/sim/runs/docking_alignment_20261027/targets.yaml
+    pose_control_target: harvest_42_wait_pose
+    log_dir: /home/ysy/main/farm_project/sim/runs/docking_alignment_20261027/precision
+    skip_staging: true
+    cam_auto: false
+    autostart: false
+    dry_run: false
+    camera_input_backend: ros
+    image_topic: camera/image_raw
+    info_topic: camera/camera_info
+    lidar_topic: scan
+    marker_pose_mode: tf_observe
+    marker_base_frame: transport_01/base_footprint
+    odom_frame: transport_01/odom
+    pose_output_enabled: true
+    camera_frame_id: transport_01/camera_optical_frame

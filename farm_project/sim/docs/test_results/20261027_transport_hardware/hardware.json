@@ -1,0 +1,71 @@
+{
+  "kind": "actual_isaac_ros_hardware",
+  "checks": {
+    "watchdog_stop": true,
+    "forward_odom": true,
+    "positive_yaw": true,
+    "lidar": true,
+    "wheel_names": true,
+    "tf": true,
+    "image_info_sync": true,
+    "camera_restart": true
+  },
+  "phases": {
+    "initial": [
+      -6.566495862568727e-05,
+      -1.425307558109888e-08,
+      9.992609799761949e-06
+    ],
+    "forward": [
+      0.16497009380790256,
+      0.0007301101972892732,
+      0.0073422541220982875
+    ],
+    "watchdog": [
+      0.19139067674306942,
+      0.0009356235718001899,
+      0.007941573858261108
+    ],
+    "turn": [
+      0.19101123835114248,
+      0.0008347208376015127,
+      0.43204389727657155
+    ]
+  },
+  "counts": {
+    "clock": 1975,
+    "odom": 987,
+    "scan": 329,
+    "joints": 987
+  },
+  "image_count": 144,
+  "info_count": 97,
+  "image_sample": {
+    "frame": "transport_01/camera_optical_frame",
+    "size": [
+      1280,
+      720
+    ],
+    "encoding": "rgb8",
+    "low": 1,
+    "high": 234
+  },
+  "tf_pairs": [
+    [
+      "transport_01/base_footprint",
+      "transport_01/base_link"
+    ],
+    [
+      "transport_01/base_link",
+      "transport_01/base_scan"
+    ],
+    [
+      "transport_01/base_link",
+      "transport_01/camera_optical_frame"
+    ],
+    [
+      "transport_01/odom",
+      "transport_01/base_footprint"
+    ]
+  ]
+}

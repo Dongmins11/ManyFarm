@@ -1,0 +1,6178 @@
+{
+  "scope": "isolated CPU PhysX gravity drop; not unload mechanism or fleet E2E",
+  "wall_seconds": 7.416592376001063,
+  "sim_seconds": 4.033333543688059,
+  "asset_hashes_unchanged": true,
+  "actual_physics": {
+    "gpu_dynamics": false,
+    "broadphase": "MBP"
+  },
+  "summary": [
+    {
+      "condition": "overlap72",
+      "total": 75,
+      "captured": 60,
+      "floor_loss": 10,
+      "other": 5
+    },
+    {
+      "condition": "centered_control",
+      "total": 75,
+      "captured": 75,
+      "floor_loss": 0,
+      "other": 0
+    }
+  ],
+  "cases": [
+    {
+      "id": 0,
+      "condition": "overlap72",
+      "orientation": "upright",
+      "color": "red",
+      "release_xy_m": [
+        -0.055,
+        -0.055
+      ],
+      "crossed_inlet": false,
+      "outcome": "not_settled_or_retained",
+      "captured": false,
+      "final": {
+        "time_s": 4.033333543688059,
+        "position_world_m": [
+          -0.05236276239156723,
+          -0.28719693422317505,
+          0.4787503778934479
+        ],
+        "center_in_receiver_m": [
+          0.017428283875609737,
+          0.056376874587557274,
+          0.2234863529396104
+        ],
+        "speed_mps": 0.008526182733476162,
+        "inside_xy": false,
+        "settled": false,
+        "collision_bounds_in_receiver_m": [
+          [
+            -0.018162931997716625,
+            0.022416808729745066,
+            0.18382312175829818
+          ],
+          [
+            0.05430431344261555,
+            0.08980381636348325,
+            0.2597393415061056
+          ]
+        ]
+      }
+    },
+    {
+      "id": 1,
+      "condition": "overlap72",
+      "orientation": "upright",
+      "color": "yellow",
+      "release_xy_m": [
+        -0.055,
+        -0.0275
+      ],
+      "crossed_inlet": false,
+      "outcome": "not_settled_or_retained",
+      "captured": false,
+      "final": {
+        "time_s": 4.033333543688059,
+        "position_world_m": [
+          -0.025051999092102095,
+          -0.2871443033218384,
+          0.4786222279071808
+        ],
+        "center_in_receiver_m": [
+          0.017705234213437424,
+          0.02906746829614315,
+          0.2233574694611215
+        ],
+        "speed_mps": 0.008957956917583942,
+        "inside_xy": false,
+        "settled": false,
+        "collision_bounds_in_receiver_m": [
+          [
+            -0.017964835518338662,
+            -0.004718342994782798,
+            0.1837212570299111
+          ],
+          [
+            0.05455954873126842,
+            0.06247927546693921,
+            0.2596783997738735
+          ]
+        ]
+      }
+    },
+    {
+      "id": 2,
+      "condition": "overlap72",
+      "orientation": "upright",
+      "color": "red",
+      "release_xy_m": [
+        -0.055,
+        0.0
+      ],
+      "crossed_inlet": false,
+      "outcome": "not_settled_or_retained",
+      "captured": false,
+      "final": {
+        "time_s": 4.033333543688059,
+        "position_world_m": [
+          0.0021934747695921963,
+          -0.28700870275497437,
+          0.47845548391342163
+        ],
+        "center_in_receiver_m": [
+          0.018064515452827,
+          0.0018240317515951787,
+          0.22318978149007063
+        ],
+        "speed_mps": 0.006265055853873491,
+        "inside_xy": false,
+        "settled": false,
+        "collision_bounds_in_receiver_m": [
+          [
+            -0.01785757243973285,
+            -0.03161345243463454,
+            0.18355898739523457
+          ],
+          [
+            0.05487561286522377,
+            0.03523910400010366,
+            0.25971519390880177
+          ]
+        ]
+      }
+    },
+    {
+      "id": 3,
+      "condition": "overlap72",
+      "orientation": "upright",
+      "color": "yellow",
+      "release_xy_m": [
+        -0.055,
+        0.027500000000000004
+      ],
+      "crossed_inlet": false,
+      "outcome": "not_settled_or_retained",
+      "captured": false,
+      "final": {
+        "time_s": 4.033333543688059,
+        "position_world_m": [
+          0.029588079452514293,
+          -0.2870436906814575,
+          0.4784037172794342
+        ],
+        "center_in_receiver_m": [
+          0.01825473508226611,
+          -0.025569933882207074,
+          0.2231375032001215
+        ],
+        "speed_mps": 0.00960724800825119,
+        "inside_xy": false,
+        "settled": false,
+        "collision_bounds_in_receiver_m": [
+          [
+            -0.017637582691798437,
+            -0.05897463812813353,
+            0.18352415397159516
+          ],
+          [
+            0.05507420534432811,
+            0.007826035135686915,
+            0.2596640697428938
+          ]
+        ]
+      }
+    },
+    {
+      "id": 4,
+      "condition": "overlap72",
+      "orientation": "upright",
+      "color": "red",
+      "release_xy_m": [
+        -0.055,
+        0.055
+      ],
+      "crossed_inlet": false,
+      "outcome": "not_settled_or_retained",
+      "captured": false,
+      "final": {
+        "time_s": 4.033333543688059,
+        "position_world_m": [
+          0.05711989402770978,
+          -0.287109911441803,
+          0.47836050391197205
+        ],
+        "center_in_receiver_m": [
+          0.018414873537941676,
+          -0.05310136168559598,
+          0.2230938549585314
+        ],
+        "speed_mps": 0.011495896615087986,
+        "inside_xy": false,
+        "settled": false,
+        "collision_bounds_in_receiver_m": [
+          [
+            -0.01727463681711422,
+            -0.08671664107933541,
+            0.18349742417013792
+          ],
+          [
+            0.055265746470928356,
+            -0.01972380268395968,
+            0.25947417694495045
+          ]
+        ]
+      }
+    },
+    {
+      "id": 5,
+      "condition": "overlap72",
+      "orientation": "upright",
+      "color": "yellow",
+      "release_xy_m": [
+        -0.0275,
+        -0.055
+      ],
+      "crossed_inlet": true,
+      "outcome": "captured",
+      "captured": true,
+      "final": {
+        "time_s": 4.033333543688059,
+        "position_world_m": [
+          -0.06728696823120117,
+          -0.3933021128177643,
+          0.28707098960876465
+        ],
+        "center_in_receiver_m": [
+          -0.0892856094009063,
+          0.07042796505749971,
+          0.03207908929452913
+        ],
+        "speed_mps": 0.001501197461038828,
+        "inside_xy": true,
+        "settled": true,
+        "collision_bounds_in_receiver_m": [
+          [
+            -0.1250480025487296,
+            0.03468659819728925,
+            0.0023166320695890974
+          ],
+          [
+            -0.05014277691896085,
+            0.10305161875846736,
+            0.06987528851282282
+          ]
+        ]
+      }
+    },
+    {
+      "id": 6,
+      "condition": "overlap72",
+      "orientation": "upright",
+      "color": "red",
+      "release_xy_m": [
+        -0.0275,
+        -0.0275
+      ],
+      "crossed_inlet": true,
+      "outcome": "captured",
+      "captured": true,
+      "final": {
+        "time_s": 4.033333543688059,
+        "position_world_m": [
+          -0.0388443946838386,
+          -0.3892248868942261,
+          0.28708189725875854
+        ],
+        "center_in_receiver_m": [
+          -0.08497454806226026,
+          0.042019891727525405,
+          0.03207895257379667
+        ],
+        "speed_mps": 0.0034047605004161596,
+        "inside_xy": true,
+        "settled": true,
+        "collision_bounds_in_receiver_m": [
+          [
+            -0.1204115762216525,
+            0.005852313960375,
+            0.002301588447963354
+          ],
+          [
+            -0.04583222457070768,
+            0.07419708418780147,
+            0.06987618471962914
+          ]
+        ]
+      }
+    },
+    {
+      "id": 7,
+      "condition": "overlap72",
+      "orientation": "upright",
+      "color": "yellow",
+      "release_xy_m": [
+        -0.0275,
+        0.0
+      ],
+      "crossed_inlet": true,
+      "outcome": "captured",
+      "captured": true,
+      "final": {
+        "time_s": 4.033333543688059,
+        "position_world_m": [
+          -0.011701202392578658,
+          -0.3904179036617279,
+          0.2870778441429138
+        ],
+        "center_in_receiver_m": [
+          -0.08594426040049694,
+          0.014867804356254233,
+          0.03207735271717399
+        ],
+        "speed_mps": 0.004892055410891771,
+        "inside_xy": true,
+        "settled": true,
+        "collision_bounds_in_receiver_m": [
+          [
+            -0.12150886507859171,
+            -0.021125473589134636,
+            0.002311032887803266
+          ],
+          [
+            -0.046808751865904163,
+            0.04723372759382549,
+            0.06987387994839234
+          ]
+        ]
+      }
+    },
+    {
+      "id": 8,
+      "condition": "overlap72",
+      "orientation": "upright",
+      "color": "red",
+      "release_xy_m": [
+        -0.0275,
+        0.027500000000000004
+      ],
+      "crossed_inlet": true,
+      "outcome": "captured",
+      "captured": true,
+      "final": {
+        "time_s": 4.033333543688059,
+        "position_world_m": [
+          0.015771961212157848,
+          -0.39035746455192566,
+          0.2870803773403168
+        ],
+        "center_in_receiver_m": [
+          -0.08565783229809759,
+          -0.012603932639147608,
+          0.03207912847596761
+        ],
+        "speed_mps": 0.0021921268198639154,
+        "inside_xy": true,
+        "settled": true,
+        "collision_bounds_in_receiver_m": [
+          [
+            -0.12146415364289948,
+            -0.04831049644366825,
+            0.0023062557106681703
+          ],
+          [
+            -0.04649932197157297,
+            0.02005495808259461,
+            0.06987611422169954
+          ]
+        ]
+      }
+    },
+    {
+      "id": 9,
+      "condition": "overlap72",
+      "orientation": "upright",
+      "color": "yellow",
+      "release_xy_m": [
+        -0.0275,
+        0.055
+      ],
+      "crossed_inlet": true,
+      "outcome": "captured",
+      "captured": true,
+      "final": {
+        "time_s": 4.033333543688059,
+        "position_world_m": [
+          0.04260377883911115,
+          -0.38685259222984314,
+          0.2870871126651764
+        ],
+        "center_in_receiver_m": [
+          -0.08193236351380488,
+          -0.039406012539050295,
+          0.0320763175494283
+        ],
+        "speed_mps": 0.0047830576077103615,
+        "inside_xy": true,
+        "settled": true,
+        "collision_bounds_in_receiver_m": [
+          [
+            -0.11803907438463787,
+            -0.07506999787908519,
+            0.0023139821744309064
+          ],
+          [
+            -0.04279472232252765,
+            -0.006335530759935537,
+            0.06987267074691966
+          ]
+        ]
+      }
+    },
+    {
+      "id": 10,
+      "condition": "overlap72",
+      "orientation": "upright",
+      "color": "red",
+      "release_xy_m": [
+        0.0,
+        -0.055
+      ],
+      "crossed_inlet": true,
+      "outcome": "captured",
+      "captured": true,
+      "final": {
+        "time_s": 4.033333543688059,
+        "position_world_m": [
+          -0.051825523376464844,
+          -0.3504403531551361,
+          0.2946810722351074
+        ],
+        "center_in_receiver_m": [
+          -0.04627880962408079,
+          0.05531960354351817,
+          0.03957926671053774
+        ],
+        "speed_mps": 0.001233419287018478,
+        "inside_xy": true,
+        "settled": true,
+        "collision_bounds_in_receiver_m": [
+          [
+            -0.08083260695876282,
+            0.02101245330774759,
+            0.001955367328894675
+          ],
+          [
+            -0.010924571210879475,
+            0.08858341632838229,
+            0.07608429171639242
+          ]
+        ]
+      }
+    },
+    {
+      "id": 11,
+      "condition": "overlap72",
+      "orientation": "upright",
+      "color": "yellow",
+      "release_xy_m": [
+        0.0,
+        -0.0275
+      ],
+      "crossed_inlet": true,
+      "outcome": "captured",
+      "captured": true,
+      "final": {
+        "time_s": 4.033333543688059,
+        "position_world_m": [
+          -0.024353790283203836,
+          -0.3504622280597687,
+          0.2946811616420746
+        ],
+        "center_in_receiver_m": [
+          -0.04607471049515584,
+          0.027848619924379037,
+          0.03957880908669542
+        ],
+        "speed_mps": 0.0016113381134346128,
+        "inside_xy": true,
+        "settled": true,
+        "collision_bounds_in_receiver_m": [
+          [
+            -0.08061596587435604,
+            -0.006465203740933845,
+            0.001955266456985072
+          ],
+          [
+            -0.010710903500299795,
+            0.06110717341599958,
+            0.07608331288075859
+          ]
+        ]
+      }
+    },
+    {
+      "id": 12,
+      "condition": "overlap72",
+      "orientation": "upright",
+      "color": "red",
+      "release_xy_m": [
+        0.0,
+        0.0
+      ],
+      "crossed_inlet": true,
+      "outcome": "captured",
+      "captured": true,
+      "final": {
+        "time_s": 4.033333543688059,
+        "position_world_m": [
+          0.003145599365232954,
+          -0.35046160221099854,
+          0.294684499502182
+        ],
+        "center_in_receiver_m": [
+          -0.04584787565195317,
+          0.0003501657668127933,
+          0.03958154179362744
+        ],
+        "speed_mps": 0.0019842591136693954,
+        "inside_xy": true,
+        "settled": true,
+        "collision_bounds_in_receiver_m": [
+          [
+            -0.08039053517094238,
+            -0.033963205972197485,
+            0.00195759835585102
+          ],
+          [
+            -0.010484697220856376,
+            0.03360854812774505,
+            0.07608735990746907
+          ]
+        ]
+      }
+    },
+    {
+      "id": 13,
+      "condition": "overlap72",
+      "orientation": "upright",
+      "color": "yellow",
+      "release_xy_m": [
+        0.0,
+        0.027500000000000004
+      ],
+      "crossed_inlet": true,
+      "outcome": "captured",
+      "captured": true,
+      "final": {
+        "time_s": 4.033333543688059,
+        "position_world_m": [
+          0.03062210083007777,
+          -0.3504641056060791,
+          0.2946834862232208
+        ],
+        "center_in_receiver_m": [
+          -0.045624369327347855,
+          -0.027125426717649503,
+          0.03957993187539138
+        ],
+        "speed_mps": 0.002735485788434744,
+        "inside_xy": true,
+        "settled": true,
+        "collision_bounds_in_receiver_m": [
+          [
+            -0.0801885957778305,
+            -0.06142591053584212,
+            0.0019559835891161947
+          ],
+          [
+            -0.010275096146055429,
+            0.0061357455316670695,
+            0.07609759206474465
+          ]
+        ]
+      }
+    },
+    {
+      "id": 14,
+      "condition": "overlap72",
+      "orientation": "upright",
+      "color": "red",
+      "release_xy_m": [
+        0.0,
+        0.055
+      ],
+      "crossed_inlet": true,
+      "outcome": "captured",
+      "captured": true,
+      "final": {
+        "time_s": 4.033333543688059,
+        "position_world_m": [
+          0.05812625885009659,
+          -0.3504650890827179,
+          0.29468369483947754
+        ],
+        "center_in_receiver_m": [
+          -0.04539911252451938,
+          -0.05462866232038621,
+          0.03957953935696257
+        ],
+        "speed_mps": 0.0058822184801101685,
+        "inside_xy": true,
+        "settled": true,
+        "collision_bounds_in_receiver_m": [
+          [
+            -0.07996869468328527,
+            -0.08892701079233589,
+            0.0019547259724941868
+          ],
+          [
+            -0.010053619712161926,
+            -0.021365500589615394,
+            0.07609772508898482
+          ]
+        ]
+      }
+    },
+    {
+      "id": 15,
+      "condition": "overlap72",
+      "orientation": "upright",
+      "color": "yellow",
+      "release_xy_m": [
+        0.027500000000000004,
+        -0.055
+      ],
+      "crossed_inlet": true,
+      "outcome": "captured",
+      "captured": true,
+      "final": {
+        "time_s": 4.033333543688059,
+        "position_world_m": [
+          0.0062062423676252365,
+          -0.3720002353191376,
+          0.29075753688812256
+        ],
+        "center_in_receiver_m": [
+          -0.06737057037634524,
+          -0.002887540049440109,
+          0.03570957072253739
+        ],
+        "speed_mps": 0.0030277783516794443,
+        "inside_xy": true,
+        "settled": true,
+        "collision_bounds_in_receiver_m": [
+          [
+            -0.102809100539207,
+            -0.039364914579620144,
+            0.0036082991567046863
+          ],
+          [
+            -0.030909291179401832,
+            0.03538190491816065,
+            0.06951616001324229
+          ]
+        ]
+      }
+    },
+    {
+      "id": 16,
+      "condition": "overlap72",
+      "orientation": "upright",
+      "color": "red",
+      "release_xy_m": [
+        0.027500000000000004,
+        -0.0275
+      ],
+      "crossed_inlet": true,
+      "outcome": "captured",
+      "captured": true,
+      "final": {
+        "time_s": 4.033333543688059,
+        "position_world_m": [
+          0.03371949195861812,
+          -0.3720010101795197,
+          0.29075807332992554
+        ],
+        "center_in_receiver_m": [
+          -0.067145029343026,
+          -0.030399865199860487,
+          0.035709505295890176
+        ],
+        "speed_mps": 0.003343273187056184,
+        "inside_xy": true,
+        "settled": true,
+        "collision_bounds_in_receiver_m": [
+          [
+            -0.1025828376693233,
+            -0.06687823462511477,
+            0.003607961162475748
+          ],
+          [
+            -0.030684402610418993,
+            0.007868826931122785,
+            0.06951589533499059
+          ]
+        ]
+      }
+    },
+    {
+      "id": 17,
+      "condition": "overlap72",
+      "orientation": "upright",
+      "color": "yellow",
+      "release_xy_m": [
+        0.027500000000000004,
+        0.0
+      ],
+      "crossed_inlet": true,
+      "outcome": "captured",
+      "captured": true,
+      "final": {
+        "time_s": 4.033333543688059,
+        "position_world_m": [
+          0.061214232444763095,
+          -0.3720016658306122,
+          0.29075902700424194
+        ],
+        "center_in_receiver_m": [
+          -0.06691952028799425,
+          -0.057893680891431876,
+          0.03570985720196124
+        ],
+        "speed_mps": 0.0027705298271030188,
+        "inside_xy": true,
+        "settled": true,
+        "collision_bounds_in_receiver_m": [
+          [
+            -0.10235567493491238,
+            -0.09437435722811949,
+            0.0036076465967790905
+          ],
+          [
+            -0.03046037574270627,
+            -0.01962672224895501,
+            0.069515835562379
+          ]
+        ]
+      }
+    },
+    {
+      "id": 18,
+      "condition": "overlap72",
+      "orientation": "upright",
+      "color": "red",
+      "release_xy_m": [
+        0.027500000000000004,
+        0.027500000000000004
+      ],
+      "crossed_inlet": true,
+      "outcome": "captured",
+      "captured": true,
+      "final": {
+        "time_s": 4.033333543688059,
+        "position_world_m": [
+          0.08870754241943324,
+          -0.3719969272613526,
+          0.29075881838798523
+        ],
+        "center_in_receiver_m": [
+          -0.06668863195016947,
+          -0.08538602174769805,
+          0.035709033066741
+        ],
+        "speed_mps": 0.0032779492903500795,
+        "inside_xy": true,
+        "settled": true,
+        "collision_bounds_in_receiver_m": [
+          [
+            -0.10212746088186209,
+            -0.12186389355431748,
+            0.003607731616306342
+          ],
+          [
+            -0.030227555296106823,
+            -0.04711693385832305,
+            0.06951600790271378
+          ]
+        ]
+      }
+    },
+    {
+      "id": 19,
+      "condition": "overlap72",
+      "orientation": "upright",
+      "color": "yellow",
+      "release_xy_m": [
+        0.027500000000000004,
+        0.055
+      ],
+      "crossed_inlet": true,
+      "outcome": "captured",
+      "captured": true,
+      "final": {
+        "time_s": 4.033333543688059,
+        "position_world_m": [
+          0.10934453010559064,
+          -0.3710385143756867,
+          0.2935393154621124
+        ],
+        "center_in_receiver_m": [
+          -0.06555339555490189,
+          -0.10601443022243462,
+          0.03848661873121895
+        ],
+        "speed_mps": 0.0024042355362325907,
+        "inside_xy": true,
+        "settled": true,
+        "collision_bounds_in_receiver_m": [
+          [
+            -0.1013263335265448,
+            -0.14504346136854362,
+            0.003950706210035626
+          ],
+          [
+            -0.029369310735456455,
+            -0.06656151919663911,
+            0.0745529052506369
+          ]
+        ]
+      }
+    },
+    {
+      "id": 20,
+      "condition": "overlap72",
+      "orientation": "upright",
+      "color": "red",
+      "release_xy_m": [
+        0.055,
+        -0.055
+      ],
+      "crossed_inlet": true,
+      "outcome": "captured",
+      "captured": true,
+      "final": {
+        "time_s": 4.033333543688059,
+        "position_world_m": [
+          0.006178855895996094,
+          -0.3995428264141083,
+          0.29068663716316223
+        ],
+        "center_in_receiver_m": [
+          -0.09491254618876636,
+          -0.0030867110908143758,
+          0.03570906192685347
+        ],
+        "speed_mps": 0.0028522752691060305,
+        "inside_xy": true,
+        "settled": true,
+        "collision_bounds_in_receiver_m": [
+          [
+            -0.13034615236381086,
+            -0.03958242803812784,
+            0.003607011618259215
+          ],
+          [
+            -0.058464151481338766,
+            0.03516896705499439,
+            0.0695155017297942
+          ]
+        ]
+      }
+    },
+    {
+      "id": 21,
+      "condition": "overlap72",
+      "orientation": "upright",
+      "color": "yellow",
+      "release_xy_m": [
+        0.055,
+        -0.0275
+      ],
+      "crossed_inlet": true,
+      "outcome": "captured",
+      "captured": true,
+      "final": {
+        "time_s": 4.033333543688059,
+        "position_world_m": [
+          0.03368349075317312,
+          -0.3995405018329621,
+          0.2906877100467682
+        ],
+        "center_in_receiver_m": [
+          -0.09468397531970175,
+          -0.03059039630433702,
+          0.03570952520814302
+        ],
+        "speed_mps": 0.00339167146012187,
+        "inside_xy": true,
+        "settled": true,
+        "collision_bounds_in_receiver_m": [
+          [
+            -0.130117114754164,
+            -0.06709061256313209,
+            0.00360798230990933
+          ],
+          [
+            -0.05823909244844122,
+            0.007661881152602135,
+            0.06951595101441355
+          ]
+        ]
+      }
+    },
+    {
+      "id": 22,
+      "condition": "overlap72",
+      "orientation": "upright",
+      "color": "red",
+      "release_xy_m": [
+        0.055,
+        0.0
+      ],
+      "crossed_inlet": true,
+      "outcome": "captured",
+      "captured": true,
+      "final": {
+        "time_s": 4.033333543688059,
+        "position_world_m": [
+          0.0611838340759272,
+          -0.3995424091815949,
+          0.2906881868839264
+        ],
+        "center_in_receiver_m": [
+          -0.09445967304746448,
+          -0.058089824938593715,
+          0.0357094033545855
+        ],
+        "speed_mps": 0.0028226885478943586,
+        "inside_xy": true,
+        "settled": true,
+        "collision_bounds_in_receiver_m": [
+          [
+            -0.12989221335676904,
+            -0.09458967164095267,
+            0.0036071720918836037
+          ],
+          [
+            -0.05801417479702792,
+            -0.019837261410254214,
+            0.06951586303244445
+          ]
+        ]
+      }
+    },
+    {
+      "id": 23,
+      "condition": "overlap72",
+      "orientation": "upright",
+      "color": "yellow",
+      "release_xy_m": [
+        0.055,
+        0.027500000000000004
+      ],
+      "crossed_inlet": true,
+      "outcome": "captured",
+      "captured": true,
+      "final": {
+        "time_s": 4.033333543688059,
+        "position_world_m": [
+          0.0886870384216305,
+          -0.3995389819145203,
+          0.29068905115127563
+        ],
+        "center_in_receiver_m": [
+          -0.09423001183344817,
+          -0.0855920706184996,
+          0.035709655233581494
+        ],
+        "speed_mps": 0.0033591091632843018,
+        "inside_xy": true,
+        "settled": true,
+        "collision_bounds_in_receiver_m": [
+          [
+            -0.12966353978041656,
+            -0.12209067331570989,
+            0.003608104440950277
+          ],
+          [
+            -0.05778394085095612,
+            -0.047338571647874694,
+            0.06951612013659653
+          ]
+        ]
+      }
+    },
+    {
+      "id": 24,
+      "condition": "overlap72",
+      "orientation": "upright",
+      "color": "red",
+      "release_xy_m": [
+        0.055,
+        0.055
+      ],
+      "crossed_inlet": true,
+      "outcome": "captured",
+      "captured": true,
+      "final": {
+        "time_s": 4.033333543688059,
+        "position_world_m": [
+          0.10900907516479474,
+          -0.3985830426216126,
+          0.2935822308063507
+        ],
+        "center_in_receiver_m": [
+          -0.09309955162550254,
+          -0.10590555925668177,
+          0.038599936345087016
+        ],
+        "speed_mps": 0.0024958106223493814,
+        "inside_xy": true,
+        "settled": true,
+        "collision_bounds_in_receiver_m": [
+          [
+            -0.1288669096145973,
+            -0.1450222481161001,
+            0.003963283675156193
+          ],
+          [
+            -0.05693145121517462,
+            -0.06639328539986966,
+            0.07474787853632747
+          ]
+        ]
+      }
+    },
+    {
+      "id": 25,
+      "condition": "overlap72",
+      "orientation": "side_x",
+      "color": "yellow",
+      "release_xy_m": [
+        -0.055,
+        -0.055
+      ],
+      "crossed_inlet": false,
+      "outcome": "floor_loss",
+      "captured": false,
+      "final": {
+        "time_s": 4.033333543688059,
+        "position_world_m": [
+          -0.10657882690429688,
+          -0.2421162605285645,
+          0.029072409495711327
+        ],
+        "center_in_receiver_m": [
+          0.06091204649688932,
+          0.11096234000705607,
+          -0.22630416875638656
+        ],
+        "speed_mps": 0.04661870375275612,
+        "inside_xy": false,
+        "settled": false,
+        "collision_bounds_in_receiver_m": [
+          [
+            0.024044816568319027,
+            0.0743846801628667,
+            -0.25609223545357923
+          ],
+          [
+            0.09995675744653498,
+            0.14496461289750773,
+            -0.18850735518605147
+          ]
+        ]
+      }
+    },
+    {
+      "id": 26,
+      "condition": "overlap72",
+      "orientation": "side_x",
+      "color": "red",
+      "release_xy_m": [
+        -0.055,
+        -0.0275
+      ],
+      "crossed_inlet": false,
+      "outcome": "floor_loss",
+      "captured": false,
+      "final": {
+        "time_s": 4.033333543688059,
+        "position_world_m": [
+          -0.04726963043212962,
+          -0.2604401588439942,
+          0.029072821140289307
+        ],
+        "center_in_receiver_m": [
+          0.04307668597962071,
+          0.05150442345633621,
+          -0.22625822874962254
+        ],
+        "speed_mps": 0.04645419865846634,
+        "inside_xy": false,
+        "settled": false,
+        "collision_bounds_in_receiver_m": [
+          [
+            0.007491441831749879,
+            0.01548086722557862,
+            -0.2560445265890959
+          ],
+          [
+            0.0822524786607749,
+            0.08383689331103028,
+            -0.18846198996505353
+          ]
+        ]
+      }
+    },
+    {
+      "id": 27,
+      "condition": "overlap72",
+      "orientation": "side_x",
+      "color": "yellow",
+      "release_xy_m": [
+        -0.055,
+        0.0
+      ],
+      "crossed_inlet": false,
+      "outcome": "floor_loss",
+      "captured": false,
+      "final": {
+        "time_s": 4.033333543688059,
+        "position_world_m": [
+          -0.010536766052247515,
+          -0.18500291109085087,
+          0.03657972440123558
+        ],
+        "center_in_receiver_m": [
+          0.1188324730327292,
+          0.015393317829401454,
+          -0.2189449497959838
+        ],
+        "speed_mps": 0.046671804040670395,
+        "inside_xy": false,
+        "settled": false,
+        "collision_bounds_in_receiver_m": [
+          [
+            0.08901284502108864,
+            -0.021495621981838298,
+            -0.25656249304907847
+          ],
+          [
+            0.15610355497288164,
+            0.04746119328734899,
+            -0.182479518755007
+          ]
+        ]
+      }
+    },
+    {
+      "id": 28,
+      "condition": "overlap72",
+      "orientation": "side_x",
+      "color": "red",
+      "release_xy_m": [
+        -0.055,
+        0.027500000000000004
+      ],
+      "crossed_inlet": false,
+      "outcome": "floor_loss",
+      "captured": false,
+      "final": {
+        "time_s": 4.033333543688059,
+        "position_world_m": [
+          0.0037618637084957385,
+          -0.287702488899231,
+          0.029073065146803856
+        ],
+        "center_in_receiver_m": [
+          0.01623513536448562,
+          0.00025040447481039507,
+          -0.2261894309188921
+        ],
+        "speed_mps": 0.046481210738420486,
+        "inside_xy": false,
+        "settled": false,
+        "collision_bounds_in_receiver_m": [
+          [
+            -0.018757012864518474,
+            -0.03650357872631638,
+            -0.25597566386025333
+          ],
+          [
+            0.05539379199388206,
+            0.031868056095737174,
+            -0.18839325661693285
+          ]
+        ]
+      }
+    },
+    {
+      "id": 29,
+      "condition": "overlap72",
+      "orientation": "side_x",
+      "color": "yellow",
+      "release_xy_m": [
+        -0.055,
+        0.055
+      ],
+      "crossed_inlet": false,
+      "outcome": "floor_loss",
+      "captured": false,
+      "final": {
+        "time_s": 4.033333543688059,
+        "position_world_m": [
+          0.03696231842040909,
+          -0.26947276592254643,
+          0.029069814831018448
+        ],
+        "center_in_receiver_m": [
+          0.03473726923921058,
+          -0.03279897507116125,
+          -0.2262399992607994
+        ],
+        "speed_mps": 0.04575979337096214,
+        "inside_xy": false,
+        "settled": false,
+        "collision_bounds_in_receiver_m": [
+          [
+            -0.0005994173326729912,
+            -0.06914334635368036,
+            -0.2560246015859847
+          ],
+          [
+            0.07389956570718437,
+            -0.0008056899733404066,
+            -0.1884445084032892
+          ]
+        ]
+      }
+    },
+    {
+      "id": 30,
+      "condition": "overlap72",
+      "orientation": "side_x",
+      "color": "red",
+      "release_xy_m": [
+        -0.0275,
+        -0.055
+      ],
+      "crossed_inlet": true,
+      "outcome": "captured",
+      "captured": true,
+      "final": {
+        "time_s": 4.033333543688059,
+        "position_world_m": [
+          -0.07339387387037277,
+          -0.3640920877456666,
+          0.2871437668800354
+        ],
+        "center_in_receiver_m": [
+          -0.0601267152396332,
+          0.07677493646061921,
+          0.0320773488322173
+        ],
+        "speed_mps": 0.004962787963449955,
+        "inside_xy": true,
+        "settled": true,
+        "collision_bounds_in_receiver_m": [
+          [
+            -0.09597482948512481,
+            0.037200391604008114,
+            0.002308811534055266
+          ],
+          [
+            -0.02043392257077925,
+            0.10998230864616124,
+            0.06987404692608878
+          ]
+        ]
+      }
+    },
+    {
+      "id": 31,
+      "condition": "overlap72",
+      "orientation": "side_x",
+      "color": "yellow",
+      "release_xy_m": [
+        -0.0275,
+        -0.0275
+      ],
+      "crossed_inlet": true,
+      "outcome": "captured",
+      "captured": true,
+      "final": {
+        "time_s": 4.033333543688059,
+        "position_world_m": [
+          -0.04450886249542241,
+          -0.3634620666503907,
+          0.28714728355407715
+        ],
+        "center_in_receiver_m": [
+          -0.059259110395808084,
+          0.04789608466048667,
+          0.032078621407641617
+        ],
+        "speed_mps": 0.0021047655027359724,
+        "inside_xy": true,
+        "settled": true,
+        "collision_bounds_in_receiver_m": [
+          [
+            -0.09479246277772813,
+            0.009016440170412698,
+            0.0023163054806570327
+          ],
+          [
+            -0.02028600245140466,
+            0.08061975060936821,
+            0.06987481917018579
+          ]
+        ]
+      }
+    },
+    {
+      "id": 32,
+      "condition": "overlap72",
+      "orientation": "side_x",
+      "color": "red",
+      "release_xy_m": [
+        -0.0275,
+        0.0
+      ],
+      "crossed_inlet": true,
+      "outcome": "captured",
+      "captured": true,
+      "final": {
+        "time_s": 4.033333543688059,
+        "position_world_m": [
+          -0.01749262809753427,
+          -0.3636568546295167,
+          0.2871484160423279
+        ],
+        "center_in_receiver_m": [
+          -0.05923166203590825,
+          0.020879161997229945,
+          0.03207965876951702
+        ],
+        "speed_mps": 0.003285360289737582,
+        "inside_xy": true,
+        "settled": true,
+        "collision_bounds_in_receiver_m": [
+          [
+            -0.0948688278417964,
+            -0.01821913299149358,
+            0.002318968083537487
+          ],
+          [
+            -0.020204630185106875,
+            0.05375045031786052,
+            0.06987575186829442
+          ]
+        ]
+      }
+    },
+    {
+      "id": 33,
+      "condition": "overlap72",
+      "orientation": "side_x",
+      "color": "yellow",
+      "release_xy_m": [
+        -0.0275,
+        0.027500000000000004
+      ],
+      "crossed_inlet": true,
+      "outcome": "captured",
+      "captured": true,
+      "final": {
+        "time_s": 4.033333543688059,
+        "position_world_m": [
+          0.010026788711547496,
+          -0.3631053924560548,
+          0.28714847564697266
+        ],
+        "center_in_receiver_m": [
+          -0.05845385494457518,
+          -0.006634787634836048,
+          0.03207770502982005
+        ],
+        "speed_mps": 0.005873622838407755,
+        "inside_xy": true,
+        "settled": true,
+        "collision_bounds_in_receiver_m": [
+          [
+            -0.09412982177719931,
+            -0.04579539269162014,
+            0.002308981964791179
+          ],
+          [
+            -0.019337809080888668,
+            0.026278118185642185,
+            0.06987442068012018
+          ]
+        ]
+      }
+    },
+    {
+      "id": 34,
+      "condition": "overlap72",
+      "orientation": "side_x",
+      "color": "red",
+      "release_xy_m": [
+        -0.0275,
+        0.055
+      ],
+      "crossed_inlet": true,
+      "outcome": "captured",
+      "captured": true,
+      "final": {
+        "time_s": 4.033333543688059,
+        "position_world_m": [
+          0.03707509040832502,
+          -0.36276230812072763,
+          0.2871500849723816
+        ],
+        "center_in_receiver_m": [
+          -0.057888289230656184,
+          -0.03367935214482376,
+          0.032077843893056235
+        ],
+        "speed_mps": 0.005780075676739216,
+        "inside_xy": true,
+        "settled": true,
+        "collision_bounds_in_receiver_m": [
+          [
+            -0.09380336251704824,
+            -0.07338320505558116,
+            0.0023090434857759856
+          ],
+          [
+            -0.01801143810886585,
+            -0.00035308022653479654,
+            0.0698745562061821
+          ]
+        ]
+      }
+    },
+    {
+      "id": 35,
+      "condition": "overlap72",
+      "orientation": "side_x",
+      "color": "yellow",
+      "release_xy_m": [
+        0.0,
+        -0.055
+      ],
+      "crossed_inlet": true,
+      "outcome": "captured",
+      "captured": true,
+      "final": {
+        "time_s": 4.033333543688059,
+        "position_world_m": [
+          -0.06664609909057617,
+          -0.34583876132965097,
+          0.287374883890152
+        ],
+        "center_in_receiver_m": [
+          -0.04181797042487646,
+          0.07017753585037134,
+          0.0322616672980337
+        ],
+        "speed_mps": 0.0016502004582434893,
+        "inside_xy": true,
+        "settled": true,
+        "collision_bounds_in_receiver_m": [
+          [
+            -0.07716876982685905,
+            0.03393590086119147,
+            0.0030870903607551625
+          ],
+          [
+            -0.0032879792890700976,
+            0.10217418502679276,
+            0.06993414676586995
+          ]
+        ]
+      }
+    },
+    {
+      "id": 36,
+      "condition": "overlap72",
+      "orientation": "side_x",
+      "color": "red",
+      "release_xy_m": [
+        0.0,
+        -0.0275
+      ],
+      "crossed_inlet": true,
+      "outcome": "captured",
+      "captured": true,
+      "final": {
+        "time_s": 4.033333543688059,
+        "position_world_m": [
+          -0.03894023895263743,
+          -0.3459561824798585,
+          0.2873955965042114
+        ],
+        "center_in_receiver_m": [
+          -0.04170743544046553,
+          0.04247164715513296,
+          0.03228207186121884
+        ],
+        "speed_mps": 0.0015942312311381102,
+        "inside_xy": true,
+        "settled": true,
+        "collision_bounds_in_receiver_m": [
+          [
+            -0.07725000980646546,
+            0.006316966742671681,
+            0.0031546555230411166
+          ],
+          [
+            -0.0032827261878363156,
+            0.07453700001742991,
+            0.06992195209163238
+          ]
+        ]
+      }
+    },
+    {
+      "id": 37,
+      "condition": "overlap72",
+      "orientation": "side_x",
+      "color": "yellow",
+      "release_xy_m": [
+        0.0,
+        0.0
+      ],
+      "crossed_inlet": true,
+      "outcome": "captured",
+      "captured": true,
+      "final": {
+        "time_s": 4.033333543688059,
+        "position_world_m": [
+          -0.011303997039795455,
+          -0.34610280990600595,
+          0.28740745782852173
+        ],
+        "center_in_receiver_m": [
+          -0.041626700925918365,
+          0.014835134096286673,
+          0.03229370133345466
+        ],
+        "speed_mps": 0.0016143227694556117,
+        "inside_xy": true,
+        "settled": true,
+        "collision_bounds_in_receiver_m": [
+          [
+            -0.07727390427065739,
+            -0.02128697410278857,
+            0.0031650895649937283
+          ],
+          [
+            -0.003272137069425307,
+            0.04691912789348951,
+            0.06991055801311163
+          ]
+        ]
+      }
+    },
+    {
+      "id": 38,
+      "condition": "overlap72",
+      "orientation": "side_x",
+      "color": "red",
+      "release_xy_m": [
+        0.0,
+        0.027500000000000004
+      ],
+      "crossed_inlet": true,
+      "outcome": "captured",
+      "captured": true,
+      "final": {
+        "time_s": 4.033333543688059,
+        "position_world_m": [
+          0.01623640060424769,
+          -0.34624741077423105,
+          0.2874179184436798
+        ],
+        "center_in_receiver_m": [
+          -0.04154473189039866,
+          -0.012705521265197639,
+          0.032303927025417734
+        ],
+        "speed_mps": 0.002342031802982092,
+        "inside_xy": true,
+        "settled": true,
+        "collision_bounds_in_receiver_m": [
+          [
+            -0.07727589773846222,
+            -0.04881416211630185,
+            0.003167123105632774
+          ],
+          [
+            -0.003257140014133464,
+            0.019377087876887522,
+            0.0698974573252224
+          ]
+        ]
+      }
+    },
+    {
+      "id": 39,
+      "condition": "overlap72",
+      "orientation": "side_x",
+      "color": "yellow",
+      "release_xy_m": [
+        0.0,
+        0.055
+      ],
+      "crossed_inlet": true,
+      "outcome": "captured",
+      "captured": true,
+      "final": {
+        "time_s": 4.033333543688059,
+        "position_world_m": [
+          0.0441067695617674,
+          -0.3463320493698121,
+          0.28743964433670044
+        ],
+        "center_in_receiver_m": [
+          -0.04140005978503076,
+          -0.04057564355643439,
+          0.03232525747192205
+        ],
+        "speed_mps": 0.002259079832583666,
+        "inside_xy": true,
+        "settled": true,
+        "collision_bounds_in_receiver_m": [
+          [
+            -0.07760088155510503,
+            -0.07631899803249365,
+            0.003158373556635119
+          ],
+          [
+            -0.003308742999037051,
+            -0.0081588219305182,
+            0.06985642877562659
+          ]
+        ]
+      }
+    },
+    {
+      "id": 40,
+      "condition": "overlap72",
+      "orientation": "side_x",
+      "color": "red",
+      "release_xy_m": [
+        0.027500000000000004,
+        -0.055
+      ],
+      "crossed_inlet": true,
+      "outcome": "captured",
+      "captured": true,
+      "final": {
+        "time_s": 4.033333543688059,
+        "position_world_m": [
+          -0.07229089736938477,
+          -0.3534862756729127,
+          0.2871699631214142
+        ],
+        "center_in_receiver_m": [
+          -0.04951215695905341,
+          0.07575923730988698,
+          0.03207641570039721
+        ],
+        "speed_mps": 0.001952490652911365,
+        "inside_xy": true,
+        "settled": true,
+        "collision_bounds_in_receiver_m": [
+          [
+            -0.08708149889057659,
+            0.038226072352157026,
+            0.00230778160141093
+          ],
+          [
+            -0.010812339022610251,
+            0.11072509738899683,
+            0.06987319538323505
+          ]
+        ]
+      }
+    },
+    {
+      "id": 41,
+      "condition": "overlap72",
+      "orientation": "side_x",
+      "color": "yellow",
+      "release_xy_m": [
+        0.027500000000000004,
+        -0.0275
+      ],
+      "crossed_inlet": true,
+      "outcome": "captured",
+      "captured": true,
+      "final": {
+        "time_s": 4.033333543688059,
+        "position_world_m": [
+          -0.04461936950683665,
+          -0.3537410259246827,
+          0.2871718406677246
+        ],
+        "center_in_receiver_m": [
+          -0.049539276525310955,
+          0.04808655012014107,
+          0.032078336980331024
+        ],
+        "speed_mps": 0.0025475427974015474,
+        "inside_xy": true,
+        "settled": true,
+        "collision_bounds_in_receiver_m": [
+          [
+            -0.08715210405224338,
+            0.010502861997988333,
+            0.0023030574048504837
+          ],
+          [
+            -0.010842938624008092,
+            0.08309591968383323,
+            0.06987544508921151
+          ]
+        ]
+      }
+    },
+    {
+      "id": 42,
+      "condition": "overlap72",
+      "orientation": "side_x",
+      "color": "red",
+      "release_xy_m": [
+        0.027500000000000004,
+        0.0
+      ],
+      "crossed_inlet": true,
+      "outcome": "captured",
+      "captured": true,
+      "final": {
+        "time_s": 4.033333543688059,
+        "position_world_m": [
+          -0.01709423065185689,
+          -0.35398480892181405,
+          0.2871711552143097
+        ],
+        "center_in_receiver_m": [
+          -0.04955663993968444,
+          0.020560337200942413,
+          0.03207767045297055
+        ],
+        "speed_mps": 0.0025190780870616436,
+        "inside_xy": true,
+        "settled": true,
+        "collision_bounds_in_receiver_m": [
+          [
+            -0.08715929726512339,
+            -0.017023444696281587,
+            0.0023086263166986476
+          ],
+          [
+            -0.01086935952694379,
+            0.055569936024326694,
+            0.06987438690296827
+          ]
+        ]
+      }
+    },
+    {
+      "id": 43,
+      "condition": "overlap72",
+      "orientation": "side_x",
+      "color": "yellow",
+      "release_xy_m": [
+        0.027500000000000004,
+        0.027500000000000004
+      ],
+      "crossed_inlet": true,
+      "outcome": "captured",
+      "captured": true,
+      "final": {
+        "time_s": 4.033333543688059,
+        "position_world_m": [
+          0.010451889038085582,
+          -0.3542150020599366,
+          0.28716927766799927
+        ],
+        "center_in_receiver_m": [
+          -0.04956024446481305,
+          -0.006986744056415972,
+          0.03207577664477684
+        ],
+        "speed_mps": 0.0032064770348370075,
+        "inside_xy": true,
+        "settled": true,
+        "collision_bounds_in_receiver_m": [
+          [
+            -0.08716085885485492,
+            -0.044567450050838175,
+            0.002306012596425877
+          ],
+          [
+            -0.010871595797230293,
+            0.02801959620468253,
+            0.06987264592843595
+          ]
+        ]
+      }
+    },
+    {
+      "id": 44,
+      "condition": "overlap72",
+      "orientation": "side_x",
+      "color": "red",
+      "release_xy_m": [
+        0.027500000000000004,
+        0.055
+      ],
+      "crossed_inlet": true,
+      "outcome": "captured",
+      "captured": true,
+      "final": {
+        "time_s": 4.033333543688059,
+        "position_world_m": [
+          0.03797798156738175,
+          -0.3544466257095338,
+          0.2871706187725067
+        ],
+        "center_in_receiver_m": [
+          -0.049565435958708784,
+          -0.03451381060058978,
+          0.032077105572366926
+        ],
+        "speed_mps": 0.006358597427606583,
+        "inside_xy": true,
+        "settled": true,
+        "collision_bounds_in_receiver_m": [
+          [
+            -0.08715217416529408,
+            -0.0720885497642012,
+            0.002314467955571664
+          ],
+          [
+            -0.010884880146807552,
+            0.0004883216413205105,
+            0.06987338184005865
+          ]
+        ]
+      }
+    },
+    {
+      "id": 45,
+      "condition": "overlap72",
+      "orientation": "side_x",
+      "color": "yellow",
+      "release_xy_m": [
+        0.055,
+        -0.055
+      ],
+      "crossed_inlet": true,
+      "outcome": "captured",
+      "captured": true,
+      "final": {
+        "time_s": 4.033333543688059,
+        "position_world_m": [
+          -0.07295241951942444,
+          -0.37335457801818883,
+          0.2871207892894745
+        ],
+        "center_in_receiver_m": [
+          -0.06938528937248215,
+          0.07625730674756485,
+          0.03207803360497752
+        ],
+        "speed_mps": 0.002749479841440916,
+        "inside_xy": true,
+        "settled": true,
+        "collision_bounds_in_receiver_m": [
+          [
+            -0.10677840774604941,
+            0.038964354199624705,
+            0.0023138540355588932
+          ],
+          [
+            -0.030628967581688205,
+            0.11099386668577896,
+            0.06987440116866167
+          ]
+        ]
+      }
+    },
+    {
+      "id": 46,
+      "condition": "overlap72",
+      "orientation": "side_x",
+      "color": "red",
+      "release_xy_m": [
+        0.055,
+        -0.0275
+      ],
+      "crossed_inlet": true,
+      "outcome": "captured",
+      "captured": true,
+      "final": {
+        "time_s": 4.033333543688059,
+        "position_world_m": [
+          -0.04545449018478398,
+          -0.3733920097351078,
+          0.28712180256843567
+        ],
+        "center_in_receiver_m": [
+          -0.06919652863627754,
+          0.04875999980702883,
+          0.032078539033430664
+        ],
+        "speed_mps": 0.0029209223575890064,
+        "inside_xy": true,
+        "settled": true,
+        "collision_bounds_in_receiver_m": [
+          [
+            -0.1065988747683766,
+            0.01145385478091232,
+            0.0023149860222423935
+          ],
+          [
+            -0.03044464435525418,
+            0.08351004564082498,
+            0.06987484554280049
+          ]
+        ]
+      }
+    },
+    {
+      "id": 47,
+      "condition": "overlap72",
+      "orientation": "side_x",
+      "color": "yellow",
+      "release_xy_m": [
+        0.055,
+        0.0
+      ],
+      "crossed_inlet": true,
+      "outcome": "captured",
+      "captured": true,
+      "final": {
+        "time_s": 4.033333543688059,
+        "position_world_m": [
+          -0.01795694828033456,
+          -0.37337079048156774,
+          0.2871217727661133
+        ],
+        "center_in_receiver_m": [
+          -0.06894912495816108,
+          0.021263562728892405,
+          0.03207785149929693
+        ],
+        "speed_mps": 0.005616418085992336,
+        "inside_xy": true,
+        "settled": true,
+        "collision_bounds_in_receiver_m": [
+          [
+            -0.10636037032285595,
+            -0.016044336392572633,
+            0.0023089713079636476
+          ],
+          [
+            -0.03019032820898948,
+            0.05601456765317714,
+            0.06987458474230351
+          ]
+        ]
+      }
+    },
+    {
+      "id": 48,
+      "condition": "overlap72",
+      "orientation": "side_x",
+      "color": "red",
+      "release_xy_m": [
+        0.055,
+        0.027500000000000004
+      ],
+      "crossed_inlet": true,
+      "outcome": "captured",
+      "captured": true,
+      "final": {
+        "time_s": 4.033333543688059,
+        "position_world_m": [
+          0.009542322158813121,
+          -0.3733684062957767,
+          0.28712227940559387
+        ],
+        "center_in_receiver_m": [
+          -0.06872054005970672,
+          -0.006234757757275666,
+          0.032077748503715475
+        ],
+        "speed_mps": 0.005568315740674734,
+        "inside_xy": true,
+        "settled": true,
+        "collision_bounds_in_receiver_m": [
+          [
+            -0.10613143555649396,
+            -0.04354251191201319,
+            0.0023090835818061484
+          ],
+          [
+            -0.029961979296734498,
+            0.0285161644682832,
+            0.06987446070801234
+          ]
+        ]
+      }
+    },
+    {
+      "id": 49,
+      "condition": "overlap72",
+      "orientation": "side_x",
+      "color": "yellow",
+      "release_xy_m": [
+        0.055,
+        0.055
+      ],
+      "crossed_inlet": true,
+      "outcome": "captured",
+      "captured": true,
+      "final": {
+        "time_s": 4.033333543688059,
+        "position_world_m": [
+          0.037021446228027166,
+          -0.3732744693756107,
+          0.2871224582195282
+        ],
+        "center_in_receiver_m": [
+          -0.06840057237817797,
+          -0.033712179470922976,
+          0.032077084146171
+        ],
+        "speed_mps": 0.0035617034882307053,
+        "inside_xy": true,
+        "settled": true,
+        "collision_bounds_in_receiver_m": [
+          [
+            -0.10582759984289103,
+            -0.0710142539577503,
+            0.0022908923971851902
+          ],
+          [
+            -0.02961664097681993,
+            0.0010279974541549386,
+            0.06987545849897228
+          ]
+        ]
+      }
+    },
+    {
+      "id": 50,
+      "condition": "overlap72",
+      "orientation": "side_y",
+      "color": "red",
+      "release_xy_m": [
+        -0.055,
+        -0.055
+      ],
+      "crossed_inlet": false,
+      "outcome": "floor_loss",
+      "captured": false,
+      "final": {
+        "time_s": 4.033333543688059,
+        "position_world_m": [
+          -0.01654672622680664,
+          -0.15300288200378453,
+          0.028425324708223343
+        ],
+        "center_in_receiver_m": [
+          0.1507610383273234,
+          0.021666304345478782,
+          -0.2271809728425901
+        ],
+        "speed_mps": 0.04790553078055382,
+        "inside_xy": false,
+        "settled": false,
+        "collision_bounds_in_receiver_m": [
+          [
+            0.11353091412592287,
+            -0.018303031962707106,
+            -0.2548767727594406
+          ],
+          [
+            0.1858532884037678,
+            0.06112542027881496,
+            -0.18632665673581994
+          ]
+        ]
+      }
+    },
+    {
+      "id": 51,
+      "condition": "overlap72",
+      "orientation": "side_y",
+      "color": "yellow",
+      "release_xy_m": [
+        -0.055,
+        -0.0275
+      ],
+      "crossed_inlet": false,
+      "outcome": "floor_loss",
+      "captured": false,
+      "final": {
+        "time_s": 4.033333543688059,
+        "position_world_m": [
+          -0.005947399139405007,
+          -0.22125592231750524,
+          0.03889579325914383
+        ],
+        "center_in_receiver_m": [
+          0.08262447659862715,
+          0.010505898224612231,
+          -0.2165363380693003
+        ],
+        "speed_mps": 0.04831254854798317,
+        "inside_xy": false,
+        "settled": false,
+        "collision_bounds_in_receiver_m": [
+          [
+            0.04602093756076897,
+            -0.02861783526944972,
+            -0.2538162584842948
+          ],
+          [
+            0.11439780067546845,
+            0.04879618374476369,
+            -0.1847274984192299
+          ]
+        ]
+      }
+    },
+    {
+      "id": 52,
+      "condition": "overlap72",
+      "orientation": "side_y",
+      "color": "red",
+      "release_xy_m": [
+        -0.055,
+        0.0
+      ],
+      "crossed_inlet": false,
+      "outcome": "floor_loss",
+      "captured": false,
+      "final": {
+        "time_s": 4.033333543688059,
+        "position_world_m": [
+          -0.00039920806884818916,
+          -0.1918925285339359,
+          0.028426140546798706
+        ],
+        "center_in_receiver_m": [
+          0.11200566049679106,
+          0.005199438536880763,
+          -0.22708112184547044
+        ],
+        "speed_mps": 0.046158045530319214,
+        "inside_xy": false,
+        "settled": false,
+        "collision_bounds_in_receiver_m": [
+          [
+            0.0741796500181513,
+            -0.03601089108026567,
+            -0.2547835886703302
+          ],
+          [
+            0.14801068583102683,
+            0.044179924566770445,
+            -0.18623757508278693
+          ]
+        ]
+      }
+    },
+    {
+      "id": 53,
+      "condition": "overlap72",
+      "orientation": "side_y",
+      "color": "yellow",
+      "release_xy_m": [
+        -0.055,
+        0.027500000000000004
+      ],
+      "crossed_inlet": false,
+      "outcome": "floor_loss",
+      "captured": false,
+      "final": {
+        "time_s": 4.033333543688059,
+        "position_world_m": [
+          0.019326782226562145,
+          -0.23391094207763707,
+          0.03889516741037369
+        ],
+        "center_in_receiver_m": [
+          0.070177821398671,
+          -0.014871524271097947,
+          -0.21650517641837577
+        ],
+        "speed_mps": 0.047359056770801544,
+        "inside_xy": false,
+        "settled": false,
+        "collision_bounds_in_receiver_m": [
+          [
+            0.0340377162071035,
+            -0.05430453901907306,
+            -0.2537830943137533
+          ],
+          [
+            0.10246490083790638,
+            0.023709608582786146,
+            -0.18469743929661597
+          ]
+        ]
+      }
+    },
+    {
+      "id": 54,
+      "condition": "overlap72",
+      "orientation": "side_y",
+      "color": "red",
+      "release_xy_m": [
+        -0.055,
+        0.055
+      ],
+      "crossed_inlet": false,
+      "outcome": "floor_loss",
+      "captured": false,
+      "final": {
+        "time_s": 4.033333543688059,
+        "position_world_m": [
+          0.059543418884277166,
+          -0.2863308429718021,
+          0.032706938683986664
+        ],
+        "center_in_receiver_m": [
+          0.018074857591295908,
+          -0.05551798416024045,
+          -0.22256029900594881
+        ],
+        "speed_mps": 0.048484984785318375,
+        "inside_xy": false,
+        "settled": false,
+        "collision_bounds_in_receiver_m": [
+          [
+            -0.017785139483523782,
+            -0.09454313334179165,
+            -0.25464605546058156
+          ],
+          [
+            0.052516248864555415,
+            -0.01708445081229737,
+            -0.18874077031340936
+          ]
+        ]
+      }
+    },
+    {
+      "id": 55,
+      "condition": "overlap72",
+      "orientation": "side_y",
+      "color": "yellow",
+      "release_xy_m": [
+        -0.0275,
+        -0.055
+      ],
+      "crossed_inlet": true,
+      "outcome": "captured",
+      "captured": true,
+      "final": {
+        "time_s": 4.033333543688059,
+        "position_world_m": [
+          -0.06302261352539062,
+          -0.41228868961334264,
+          0.2870207130908966
+        ],
+        "center_in_receiver_m": [
+          -0.10823653322989525,
+          0.06600757708599136,
+          0.03207724299623754
+        ],
+        "speed_mps": 0.003640218637883663,
+        "inside_xy": true,
+        "settled": true,
+        "collision_bounds_in_receiver_m": [
+          [
+            -0.14224284211991023,
+            0.0291796557469457,
+            0.0023100238773432757
+          ],
+          [
+            -0.0716505829711589,
+            0.10501137215295042,
+            0.06987385902587981
+          ]
+        ]
+      }
+    },
+    {
+      "id": 56,
+      "condition": "overlap72",
+      "orientation": "side_y",
+      "color": "red",
+      "release_xy_m": [
+        -0.0275,
+        -0.0275
+      ],
+      "crossed_inlet": true,
+      "outcome": "captured",
+      "captured": true,
+      "final": {
+        "time_s": 4.033333543688059,
+        "position_world_m": [
+          -0.033936309814453836,
+          -0.4024497509002689,
+          0.28704607486724854
+        ],
+        "center_in_receiver_m": [
+          -0.09815864080254687,
+          0.037003189386386026,
+          0.03207682112232246
+        ],
+        "speed_mps": 0.005842209327965975,
+        "inside_xy": true,
+        "settled": true,
+        "collision_bounds_in_receiver_m": [
+          [
+            -0.13199005740307523,
+            0.0003268764491224374,
+            0.0023115679998839955
+          ],
+          [
+            -0.061745972626897405,
+            0.0760467486294889,
+            0.06987339286743513
+          ]
+        ]
+      }
+    },
+    {
+      "id": 57,
+      "condition": "overlap72",
+      "orientation": "side_y",
+      "color": "yellow",
+      "release_xy_m": [
+        -0.0275,
+        0.0
+      ],
+      "crossed_inlet": true,
+      "outcome": "captured",
+      "captured": true,
+      "final": {
+        "time_s": 4.033333543688059,
+        "position_world_m": [
+          -0.007467842102052202,
+          -0.4025287866592411,
+          0.28704383969306946
+        ],
+        "center_in_receiver_m": [
+          -0.09801995886326084,
+          0.010534967021142094,
+          0.03207420702904179
+        ],
+        "speed_mps": 0.003527479013428092,
+        "inside_xy": true,
+        "settled": true,
+        "collision_bounds_in_receiver_m": [
+          [
+            -0.1318515426531679,
+            -0.026156843771452998,
+            0.002302720445022305
+          ],
+          [
+            -0.06160993603085041,
+            0.04959236007562673,
+            0.06987063672831015
+          ]
+        ]
+      }
+    },
+    {
+      "id": 58,
+      "condition": "overlap72",
+      "orientation": "side_y",
+      "color": "red",
+      "release_xy_m": [
+        -0.0275,
+        0.027500000000000004
+      ],
+      "crossed_inlet": true,
+      "outcome": "captured",
+      "captured": true,
+      "final": {
+        "time_s": 4.033333543688059,
+        "position_world_m": [
+          0.019489860534667613,
+          -0.3981327056884769,
+          0.28705963492393494
+        ],
+        "center_in_receiver_m": [
+          -0.09340225585006885,
+          -0.01638566283726206,
+          0.03207817557040321
+        ],
+        "speed_mps": 0.005149072036147118,
+        "inside_xy": true,
+        "settled": true,
+        "collision_bounds_in_receiver_m": [
+          [
+            -0.12747740524047124,
+            -0.05327755500301912,
+            0.0023089236891297993
+          ],
+          [
+            -0.05675137534115571,
+            0.02260262617939368,
+            0.0698749175673424
+          ]
+        ]
+      }
+    },
+    {
+      "id": 59,
+      "condition": "overlap72",
+      "orientation": "side_y",
+      "color": "yellow",
+      "release_xy_m": [
+        -0.0275,
+        0.055
+      ],
+      "crossed_inlet": true,
+      "outcome": "captured",
+      "captured": true,
+      "final": {
+        "time_s": 4.033333543688059,
+        "position_world_m": [
+          0.049313354492186434,
+          -0.39025082588195836,
+          0.287078857421875
+        ],
+        "center_in_receiver_m": [
+          -0.08527530154563355,
+          -0.04614331398572702,
+          0.0320765998783229
+        ],
+        "speed_mps": 0.002285012509673834,
+        "inside_xy": true,
+        "settled": true,
+        "collision_bounds_in_receiver_m": [
+          [
+            -0.11892284711392032,
+            -0.0826898362494326,
+            0.0023095547467458233
+          ],
+          [
+            -0.0490457125667878,
+            -0.00706036670143817,
+            0.06987325225196622
+          ]
+        ]
+      }
+    },
+    {
+      "id": 60,
+      "condition": "overlap72",
+      "orientation": "side_y",
+      "color": "red",
+      "release_xy_m": [
+        0.0,
+        -0.055
+      ],
+      "crossed_inlet": true,
+      "outcome": "captured",
+      "captured": true,
+      "final": {
+        "time_s": 4.033333543688059,
+        "position_world_m": [
+          -0.05981023609638214,
+          -0.3508791446685793,
+          0.29080960154533386
+        ],
+        "center_in_receiver_m": [
+          -0.04679315896119882,
+          0.06330044034746875,
+          0.035709105320908874
+        ],
+        "speed_mps": 0.003230914706364274,
+        "inside_xy": true,
+        "settled": true,
+        "collision_bounds_in_receiver_m": [
+          [
+            -0.08286249399633094,
+            0.024131610977279054,
+            0.0036074594767470936
+          ],
+          [
+            -0.012448065273775288,
+            0.10175885481082941,
+            0.0695156178732281
+          ]
+        ]
+      }
+    },
+    {
+      "id": 61,
+      "condition": "overlap72",
+      "orientation": "side_y",
+      "color": "yellow",
+      "release_xy_m": [
+        0.0,
+        -0.0275
+      ],
+      "crossed_inlet": true,
+      "outcome": "captured",
+      "captured": true,
+      "final": {
+        "time_s": 4.033333543688059,
+        "position_world_m": [
+          -0.03230904340744023,
+          -0.35087747573852557,
+          0.2908105254173279
+        ],
+        "center_in_receiver_m": [
+          -0.046565272413831856,
+          0.03580019179268601,
+          0.035709421342255576
+        ],
+        "speed_mps": 0.0030223377980291843,
+        "inside_xy": true,
+        "settled": true,
+        "collision_bounds_in_receiver_m": [
+          [
+            -0.08263548850265856,
+            -0.0033691135628338698,
+            0.003607898651974778
+          ],
+          [
+            -0.01222064355851371,
+            0.07425872330996375,
+            0.06951608245532484
+          ]
+        ]
+      }
+    },
+    {
+      "id": 62,
+      "condition": "overlap72",
+      "orientation": "side_y",
+      "color": "red",
+      "release_xy_m": [
+        0.0,
+        0.0
+      ],
+      "crossed_inlet": true,
+      "outcome": "captured",
+      "captured": true,
+      "final": {
+        "time_s": 4.033333543688059,
+        "position_world_m": [
+          -0.004811739921569913,
+          -0.3508798599243166,
+          0.29081106185913086
+        ],
+        "center_in_receiver_m": [
+          -0.04634147181337611,
+          0.008303798970105136,
+          0.035709360378508914
+        ],
+        "speed_mps": 0.0027029719203710556,
+        "inside_xy": true,
+        "settled": true,
+        "collision_bounds_in_receiver_m": [
+          [
+            -0.08241048543415408,
+            -0.030865406573082454,
+            0.003607025481122128
+          ],
+          [
+            -0.011995879174241164,
+            0.04676232802570368,
+            0.0695155781099423
+          ]
+        ]
+      }
+    },
+    {
+      "id": 63,
+      "condition": "overlap72",
+      "orientation": "side_y",
+      "color": "yellow",
+      "release_xy_m": [
+        0.0,
+        0.027500000000000004
+      ],
+      "crossed_inlet": true,
+      "outcome": "captured",
+      "captured": true,
+      "final": {
+        "time_s": 4.033333543688059,
+        "position_world_m": [
+          0.022711372375487926,
+          -0.35069174766540545,
+          0.2908127009868622
+        ],
+        "center_in_receiver_m": [
+          -0.04592696672254819,
+          -0.019216834827967322,
+          0.03570991468236856
+        ],
+        "speed_mps": 0.0022641578689217567,
+        "inside_xy": true,
+        "settled": true,
+        "collision_bounds_in_receiver_m": [
+          [
+            -0.08166626799145238,
+            -0.058175939827946443,
+            0.003607576307331606
+          ],
+          [
+            -0.011420921576491772,
+            0.019199937918708,
+            0.06951494270541131
+          ]
+        ]
+      }
+    },
+    {
+      "id": 64,
+      "condition": "overlap72",
+      "orientation": "side_y",
+      "color": "red",
+      "release_xy_m": [
+        0.0,
+        0.055
+      ],
+      "crossed_inlet": true,
+      "outcome": "captured",
+      "captured": true,
+      "final": {
+        "time_s": 4.033333543688059,
+        "position_world_m": [
+          0.05021147727966291,
+          -0.35069007873535174,
+          0.29081329703330994
+        ],
+        "center_in_receiver_m": [
+          -0.045699089960770926,
+          -0.046715995634481366,
+          0.03570990290311393
+        ],
+        "speed_mps": 0.002311885356903076,
+        "inside_xy": true,
+        "settled": true,
+        "collision_bounds_in_receiver_m": [
+          [
+            -0.08143775052109614,
+            -0.08567501260897226,
+            0.0036071931632355447
+          ],
+          [
+            -0.011192631884675563,
+            -0.008299197200483999,
+            0.06951482865277198
+          ]
+        ]
+      }
+    },
+    {
+      "id": 65,
+      "condition": "overlap72",
+      "orientation": "side_y",
+      "color": "yellow",
+      "release_xy_m": [
+        0.027500000000000004,
+        -0.055
+      ],
+      "crossed_inlet": true,
+      "outcome": "captured",
+      "captured": true,
+      "final": {
+        "time_s": 4.033333543688059,
+        "position_world_m": [
+          -0.059793949127197266,
+          -0.37820620536804217,
+          0.2907399833202362
+        ],
+        "center_in_receiver_m": [
+          -0.07411924985585039,
+          0.06305937022656938,
+          0.03570932623528694
+        ],
+        "speed_mps": 0.00282524642534554,
+        "inside_xy": true,
+        "settled": true,
+        "collision_bounds_in_receiver_m": [
+          [
+            -0.10986466033626385,
+            0.024096029653026818,
+            0.0036069430798164603
+          ],
+          [
+            -0.039616248017388056,
+            0.10147748274485568,
+            0.06951519521281901
+          ]
+        ]
+      }
+    },
+    {
+      "id": 66,
+      "condition": "overlap72",
+      "orientation": "side_y",
+      "color": "red",
+      "release_xy_m": [
+        0.027500000000000004,
+        -0.0275
+      ],
+      "crossed_inlet": true,
+      "outcome": "captured",
+      "captured": true,
+      "final": {
+        "time_s": 4.033333543688059,
+        "position_world_m": [
+          -0.03228788375854563,
+          -0.37820453643798846,
+          0.2907406687736511
+        ],
+        "center_in_receiver_m": [
+          -0.07389132383684699,
+          0.035554249157147666,
+          0.03570940373189013
+        ],
+        "speed_mps": 0.002824646420776844,
+        "inside_xy": true,
+        "settled": true,
+        "collision_bounds_in_receiver_m": [
+          [
+            -0.10963704567687538,
+            -0.003409329685741369,
+            0.0036069622931481915
+          ],
+          [
+            -0.03938843617599552,
+            0.07397240094249913,
+            0.06951521072800651
+          ]
+        ]
+      }
+    },
+    {
+      "id": 67,
+      "condition": "overlap72",
+      "orientation": "side_y",
+      "color": "yellow",
+      "release_xy_m": [
+        0.027500000000000004,
+        0.0
+      ],
+      "crossed_inlet": true,
+      "outcome": "captured",
+      "captured": true,
+      "final": {
+        "time_s": 4.033333543688059,
+        "position_world_m": [
+          -0.004788970947266158,
+          -0.37820382118225115,
+          0.2907412648200989
+        ],
+        "center_in_receiver_m": [
+          -0.07366441051975242,
+          0.00805627255857555,
+          0.03570939441608695
+        ],
+        "speed_mps": 0.002815516432747245,
+        "inside_xy": true,
+        "settled": true,
+        "collision_bounds_in_receiver_m": [
+          [
+            -0.10941011374235021,
+            -0.03090728724809999,
+            0.003606996296915771
+          ],
+          [
+            -0.03916155515961117,
+            0.046474462208338174,
+            0.06951531727656932
+          ]
+        ]
+      }
+    },
+    {
+      "id": 68,
+      "condition": "overlap72",
+      "orientation": "side_y",
+      "color": "red",
+      "release_xy_m": [
+        0.027500000000000004,
+        0.027500000000000004
+      ],
+      "crossed_inlet": true,
+      "outcome": "captured",
+      "captured": true,
+      "final": {
+        "time_s": 4.033333543688059,
+        "position_world_m": [
+          0.023147678375243785,
+          -0.3784815788269045,
+          0.29074010252952576
+        ],
+        "center_in_receiver_m": [
+          -0.07371236359690761,
+          -0.019881716370407254,
+          0.03570832884988606
+        ],
+        "speed_mps": 0.0061460998840630054,
+        "inside_xy": true,
+        "settled": true,
+        "collision_bounds_in_receiver_m": [
+          [
+            -0.10992937306270667,
+            -0.05914305766572969,
+            0.003603644101071196
+          ],
+          [
+            -0.03942552962351309,
+            0.018587592104971407,
+            0.06950672434670127
+          ]
+        ]
+      }
+    },
+    {
+      "id": 69,
+      "condition": "overlap72",
+      "orientation": "side_y",
+      "color": "yellow",
+      "release_xy_m": [
+        0.027500000000000004,
+        0.055
+      ],
+      "crossed_inlet": true,
+      "outcome": "captured",
+      "captured": true,
+      "final": {
+        "time_s": 4.033333543688059,
+        "position_world_m": [
+          0.05064945220947248,
+          -0.37848014831542987,
+          0.2907406985759735
+        ],
+        "center_in_receiver_m": [
+          -0.07348471151682333,
+          -0.047382548011668746,
+          0.03570831764332455
+        ],
+        "speed_mps": 0.006052683107554913,
+        "inside_xy": true,
+        "settled": true,
+        "collision_bounds_in_receiver_m": [
+          [
+            -0.10970157477565623,
+            -0.08664393402711124,
+            0.003603513868934566
+          ],
+          [
+            -0.03919780211084056,
+            -0.008913159251644487,
+            0.06950678732148532
+          ]
+        ]
+      }
+    },
+    {
+      "id": 70,
+      "condition": "overlap72",
+      "orientation": "side_y",
+      "color": "red",
+      "release_xy_m": [
+        0.055,
+        -0.055
+      ],
+      "crossed_inlet": true,
+      "outcome": "captured",
+      "captured": true,
+      "final": {
+        "time_s": 4.033333543688059,
+        "position_world_m": [
+          -0.059838294982910156,
+          -0.4056884765625002,
+          0.29067036509513855
+        ],
+        "center_in_receiver_m": [
+          -0.10160104423228244,
+          0.06287765416677704,
+          0.03570994514902914
+        ],
+        "speed_mps": 0.0025063510984182358,
+        "inside_xy": true,
+        "settled": true,
+        "collision_bounds_in_receiver_m": [
+          [
+            -0.13734006395898835,
+            0.023918816056571757,
+            0.0036076813017041354
+          ],
+          [
+            -0.06709487446334084,
+            0.10129432797211546,
+            0.06951492711772339
+          ]
+        ]
+      }
+    },
+    {
+      "id": 71,
+      "condition": "overlap72",
+      "orientation": "side_y",
+      "color": "yellow",
+      "release_xy_m": [
+        0.055,
+        -0.0275
+      ],
+      "crossed_inlet": true,
+      "outcome": "captured",
+      "captured": true,
+      "final": {
+        "time_s": 4.033333543688059,
+        "position_world_m": [
+          -0.03234844207763743,
+          -0.40568609237670916,
+          0.29067036509513855
+        ],
+        "center_in_receiver_m": [
+          -0.10137253809406785,
+          0.03538875089634175,
+          0.03570933572231311
+        ],
+        "speed_mps": 0.0029832462314516306,
+        "inside_xy": true,
+        "settled": true,
+        "collision_bounds_in_receiver_m": [
+          [
+            -0.13711201793008732,
+            -0.003570154032768613,
+            0.0036073448799674446
+          ],
+          [
+            -0.06686667496271959,
+            0.07380542023394376,
+            0.0695144234587548
+          ]
+        ]
+      }
+    },
+    {
+      "id": 72,
+      "condition": "overlap72",
+      "orientation": "side_y",
+      "color": "red",
+      "release_xy_m": [
+        0.055,
+        0.0
+      ],
+      "crossed_inlet": true,
+      "outcome": "captured",
+      "captured": true,
+      "final": {
+        "time_s": 4.033333543688059,
+        "position_world_m": [
+          -0.004846191406251421,
+          -0.40568513870239276,
+          0.29067128896713257
+        ],
+        "center_in_receiver_m": [
+          -0.10114535807330545,
+          0.007887438511440692,
+          0.03570965354840583
+        ],
+        "speed_mps": 0.0029710193630307913,
+        "inside_xy": true,
+        "settled": true,
+        "collision_bounds_in_receiver_m": [
+          [
+            -0.13688441283164376,
+            -0.031071396444696475,
+            0.003607596461890794
+          ],
+          [
+            -0.06663940752816577,
+            0.046304325086680365,
+            0.06951521480819073
+          ]
+        ]
+      }
+    },
+    {
+      "id": 73,
+      "condition": "overlap72",
+      "orientation": "side_y",
+      "color": "yellow",
+      "release_xy_m": [
+        0.055,
+        0.027500000000000004
+      ],
+      "crossed_inlet": true,
+      "outcome": "captured",
+      "captured": true,
+      "final": {
+        "time_s": 4.033333543688059,
+        "position_world_m": [
+          0.023143386840819957,
+          -0.40597672462463397,
+          0.2906697690486908
+        ],
+        "center_in_receiver_m": [
+          -0.10120670445400934,
+          -0.02010359129814887,
+          0.03570826453452308
+        ],
+        "speed_mps": 0.006123851519078016,
+        "inside_xy": true,
+        "settled": true,
+        "collision_bounds_in_receiver_m": [
+          [
+            -0.13743712680714193,
+            -0.0593737582131908,
+            0.0036030455655294835
+          ],
+          [
+            -0.06692563673117347,
+            0.01836713978836535,
+            0.06950679070327759
+          ]
+        ]
+      }
+    },
+    {
+      "id": 74,
+      "condition": "overlap72",
+      "orientation": "side_y",
+      "color": "red",
+      "release_xy_m": [
+        0.055,
+        0.055
+      ],
+      "crossed_inlet": true,
+      "outcome": "captured",
+      "captured": true,
+      "final": {
+        "time_s": 4.033333543688059,
+        "position_world_m": [
+          0.05015640258788956,
+          -0.40568227767944354,
+          0.2906714975833893
+        ],
+        "center_in_receiver_m": [
+          -0.10069006427127797,
+          -0.04711327112812036,
+          0.035708647682786754
+        ],
+        "speed_mps": 0.0036064202431589365,
+        "inside_xy": true,
+        "settled": true,
+        "collision_bounds_in_receiver_m": [
+          [
+            -0.13642807364127574,
+            -0.08607210798196441,
+            0.003605909251838596
+          ],
+          [
+            -0.06618348707419708,
+            -0.008696179123624859,
+            0.06951428890151543
+          ]
+        ]
+      }
+    },
+    {
+      "id": 75,
+      "condition": "centered_control",
+      "orientation": "upright",
+      "color": "yellow",
+      "release_xy_m": [
+        -0.055,
+        -0.055
+      ],
+      "crossed_inlet": true,
+      "outcome": "captured",
+      "captured": true,
+      "final": {
+        "time_s": 4.033333543688059,
+        "position_world_m": [
+          0.006204224657267332,
+          -0.28951454162597656,
+          0.29069969058036804
+        ],
+        "center_in_receiver_m": [
+          -0.08986428808896046,
+          -0.0051294786070888955,
+          0.03570921124010146
+        ],
+        "speed_mps": 0.002793668769299984,
+        "inside_xy": true,
+        "settled": true,
+        "collision_bounds_in_receiver_m": [
+          [
+            -0.12530175283230882,
+            -0.041607548887467254,
+            0.003606974625189885
+          ],
+          [
+            -0.05340301267413761,
+            0.03313946021134881,
+            0.06951588119724997
+          ]
+        ]
+      }
+    },
+    {
+      "id": 76,
+      "condition": "centered_control",
+      "orientation": "upright",
+      "color": "red",
+      "release_xy_m": [
+        -0.055,
+        -0.0275
+      ],
+      "crossed_inlet": true,
+      "outcome": "captured",
+      "captured": true,
+      "final": {
+        "time_s": 4.033333543688059,
+        "position_world_m": [
+          0.03371144533157344,
+          -0.28951239585876465,
+          0.2907005250453949
+        ],
+        "center_in_receiver_m": [
+          -0.08963587536650247,
+          -0.03263575102090566,
+          0.035709436503829795
+        ],
+        "speed_mps": 0.0034870102535933256,
+        "inside_xy": true,
+        "settled": true,
+        "collision_bounds_in_receiver_m": [
+          [
+            -0.12507307642490773,
+            -0.06911749486432461,
+            0.00360786922603365
+          ],
+          [
+            -0.05317761555585898,
+            0.005630423383685357,
+            0.06951594694117591
+          ]
+        ]
+      }
+    },
+    {
+      "id": 77,
+      "condition": "centered_control",
+      "orientation": "upright",
+      "color": "yellow",
+      "release_xy_m": [
+        -0.055,
+        0.0
+      ],
+      "crossed_inlet": true,
+      "outcome": "captured",
+      "captured": true,
+      "final": {
+        "time_s": 4.033333543688059,
+        "position_world_m": [
+          0.061283254623413,
+          -0.2896139621734619,
+          0.2907010614871979
+        ],
+        "center_in_receiver_m": [
+          -0.08951064035651425,
+          -0.0602074629696665,
+          0.035709627382821185
+        ],
+        "speed_mps": 0.003364349016919732,
+        "inside_xy": true,
+        "settled": true,
+        "collision_bounds_in_receiver_m": [
+          [
+            -0.12492926857929909,
+            -0.09677328996709145,
+            0.003608027037753536
+          ],
+          [
+            -0.053112305603198795,
+            -0.0220036942072952,
+            0.06951594426652108
+          ]
+        ]
+      }
+    },
+    {
+      "id": 78,
+      "condition": "centered_control",
+      "orientation": "upright",
+      "color": "red",
+      "release_xy_m": [
+        -0.055,
+        0.027500000000000004
+      ],
+      "crossed_inlet": true,
+      "outcome": "captured",
+      "captured": true,
+      "final": {
+        "time_s": 4.033333543688059,
+        "position_world_m": [
+          0.08870992660522425,
+          -0.28950977325439453,
+          0.2907019853591919
+        ],
+        "center_in_receiver_m": [
+          -0.08918085060497043,
+          -0.08763235004142977,
+          0.035709683031248884
+        ],
+        "speed_mps": 0.0033432086929678917,
+        "inside_xy": true,
+        "settled": true,
+        "collision_bounds_in_receiver_m": [
+          [
+            -0.12461780227687358,
+            -0.1241133765003517,
+            0.00360803171311444
+          ],
+          [
+            -0.05272213532468584,
+            -0.04936565084790834,
+            0.06951591535613463
+          ]
+        ]
+      }
+    },
+    {
+      "id": 79,
+      "condition": "centered_control",
+      "orientation": "upright",
+      "color": "yellow",
+      "release_xy_m": [
+        -0.055,
+        0.055
+      ],
+      "crossed_inlet": true,
+      "outcome": "captured",
+      "captured": true,
+      "final": {
+        "time_s": 4.033333543688059,
+        "position_world_m": [
+          0.10639863014221174,
+          -0.2886691093444824,
+          0.2944380044937134
+        ],
+        "center_in_receiver_m": [
+          -0.08818516828482864,
+          -0.10531354356118383,
+          0.039443153271751574
+        ],
+        "speed_mps": 0.004665940068662167,
+        "inside_xy": true,
+        "settled": true,
+        "collision_bounds_in_receiver_m": [
+          [
+            -0.12390660150168076,
+            -0.14484155436754298,
+            0.003992440057144442
+          ],
+          [
+            -0.05200057670116598,
+            -0.06546121906812274,
+            0.07622063732811993
+          ]
+        ]
+      }
+    },
+    {
+      "id": 80,
+      "condition": "centered_control",
+      "orientation": "upright",
+      "color": "red",
+      "release_xy_m": [
+        -0.0275,
+        -0.055
+      ],
+      "crossed_inlet": true,
+      "outcome": "captured",
+      "captured": true,
+      "final": {
+        "time_s": 4.033333543688059,
+        "position_world_m": [
+          0.006117343902587891,
+          -0.3170299530029297,
+          0.290629506111145
+        ],
+        "center_in_receiver_m": [
+          -0.11737957274306363,
+          -0.005268933807081488,
+          0.03570934954086091
+        ],
+        "speed_mps": 0.003345680423080921,
+        "inside_xy": true,
+        "settled": true,
+        "collision_bounds_in_receiver_m": [
+          [
+            -0.15280514588229321,
+            -0.04180324241683753,
+            0.0036078281689262137
+          ],
+          [
+            -0.08095965251196935,
+            0.03295732768895565,
+            0.069515792705279
+          ]
+        ]
+      }
+    },
+    {
+      "id": 81,
+      "condition": "centered_control",
+      "orientation": "upright",
+      "color": "yellow",
+      "release_xy_m": [
+        -0.0275,
+        -0.0275
+      ],
+      "crossed_inlet": true,
+      "outcome": "captured",
+      "captured": true,
+      "final": {
+        "time_s": 4.033333543688059,
+        "position_world_m": [
+          0.033610057830809836,
+          -0.31702470779418945,
+          0.290630042552948
+        ],
+        "center_in_receiver_m": [
+          -0.1171481807832245,
+          -0.032760674470298845,
+          0.03570926917953943
+        ],
+        "speed_mps": 0.0033801288809627295,
+        "inside_xy": true,
+        "settled": true,
+        "collision_bounds_in_receiver_m": [
+          [
+            -0.1525752562624536,
+            -0.06928887677220619,
+            0.0036077790071556703
+          ],
+          [
+            -0.08072374499227397,
+            0.00547028926073434,
+            0.06951578533192651
+          ]
+        ]
+      }
+    },
+    {
+      "id": 82,
+      "condition": "centered_control",
+      "orientation": "upright",
+      "color": "red",
+      "release_xy_m": [
+        -0.0275,
+        0.0
+      ],
+      "crossed_inlet": true,
+      "outcome": "captured",
+      "captured": true,
+      "final": {
+        "time_s": 4.033333543688059,
+        "position_world_m": [
+          0.06110849380493111,
+          -0.31702613830566406,
+          0.2906303107738495
+        ],
+        "center_in_receiver_m": [
+          -0.11692341791388623,
+          -0.06025819189794479,
+          0.03570893753362403
+        ],
+        "speed_mps": 0.0032377776224166155,
+        "inside_xy": true,
+        "settled": true,
+        "collision_bounds_in_receiver_m": [
+          [
+            -0.15234788946492284,
+            -0.09678847710426997,
+            0.0036067521060642316
+          ],
+          [
+            -0.080500635620532,
+            -0.022028900432706777,
+            0.06951422569355659
+          ]
+        ]
+      }
+    },
+    {
+      "id": 83,
+      "condition": "centered_control",
+      "orientation": "upright",
+      "color": "yellow",
+      "release_xy_m": [
+        -0.0275,
+        0.027500000000000004
+      ],
+      "crossed_inlet": true,
+      "outcome": "captured",
+      "captured": true,
+      "final": {
+        "time_s": 4.033333543688059,
+        "position_world_m": [
+          0.08862314224243129,
+          -0.31702756881713867,
+          0.2906312644481659
+        ],
+        "center_in_receiver_m": [
+          -0.11669851993455484,
+          -0.08777192124111277,
+          0.035709290983061914
+        ],
+        "speed_mps": 0.003313371678814292,
+        "inside_xy": true,
+        "settled": true,
+        "collision_bounds_in_receiver_m": [
+          [
+            -0.15212422927700286,
+            -0.1243072486583543,
+            0.0036077958824055067
+          ],
+          [
+            -0.08027925466200436,
+            -0.049546421785479744,
+            0.06951603104885223
+          ]
+        ]
+      }
+    },
+    {
+      "id": 84,
+      "condition": "centered_control",
+      "orientation": "upright",
+      "color": "red",
+      "release_xy_m": [
+        -0.0275,
+        0.055
+      ],
+      "crossed_inlet": true,
+      "outcome": "captured",
+      "captured": true,
+      "final": {
+        "time_s": 4.033333543688059,
+        "position_world_m": [
+          0.10609178543090803,
+          -0.31621456146240234,
+          0.2944520115852356
+        ],
+        "center_in_receiver_m": [
+          -0.1157320867382908,
+          -0.10523328942974786,
+          0.039527564460517695
+        ],
+        "speed_mps": 0.0025130456779152155,
+        "inside_xy": true,
+        "settled": true,
+        "collision_bounds_in_receiver_m": [
+          [
+            -0.15144993877746948,
+            -0.1448241675983608,
+            0.003985002570583179
+          ],
+          [
+            -0.07956873704677347,
+            -0.06535049272977211,
+            0.07637305516281129
+          ]
+        ]
+      }
+    },
+    {
+      "id": 85,
+      "condition": "centered_control",
+      "orientation": "upright",
+      "color": "yellow",
+      "release_xy_m": [
+        0.0,
+        -0.055
+      ],
+      "crossed_inlet": true,
+      "outcome": "captured",
+      "captured": true,
+      "final": {
+        "time_s": 4.033333543688059,
+        "position_world_m": [
+          0.006389617919921875,
+          -0.34471893310546875,
+          0.290558785200119
+        ],
+        "center_in_receiver_m": [
+          -0.14506546677165227,
+          -0.005768959349344627,
+          0.03570938710544025
+        ],
+        "speed_mps": 0.0029589722398668528,
+        "inside_xy": true,
+        "settled": true,
+        "collision_bounds_in_receiver_m": [
+          [
+            -0.18046820757692394,
+            -0.04240780959775492,
+            0.0036070540235571824
+          ],
+          [
+            -0.10871287593008239,
+            0.032386867104421846,
+            0.06951536493959515
+          ]
+        ]
+      }
+    },
+    {
+      "id": 86,
+      "condition": "centered_control",
+      "orientation": "upright",
+      "color": "red",
+      "release_xy_m": [
+        0.0,
+        -0.0275
+      ],
+      "crossed_inlet": true,
+      "outcome": "captured",
+      "captured": true,
+      "final": {
+        "time_s": 4.033333543688059,
+        "position_world_m": [
+          0.03415031433105398,
+          -0.3448324203491211,
+          0.29055875539779663
+        ],
+        "center_in_receiver_m": [
+          -0.14495059997533544,
+          -0.0335296500843274,
+          0.03570903806265624
+        ],
+        "speed_mps": 0.003335510613396764,
+        "inside_xy": true,
+        "settled": true,
+        "collision_bounds_in_receiver_m": [
+          [
+            -0.1803507588473101,
+            -0.07019337775808232,
+            0.003607785953608722
+          ],
+          [
+            -0.10861404126276142,
+            0.004609577330125347,
+            0.06951634379864022
+          ]
+        ]
+      }
+    },
+    {
+      "id": 87,
+      "condition": "centered_control",
+      "orientation": "upright",
+      "color": "yellow",
+      "release_xy_m": [
+        0.0,
+        0.0
+      ],
+      "crossed_inlet": true,
+      "outcome": "captured",
+      "captured": true,
+      "final": {
+        "time_s": 4.033333543688059,
+        "position_world_m": [
+          0.06103363037109233,
+          -0.3444228172302246,
+          0.29056069254875183
+        ],
+        "center_in_receiver_m": [
+          -0.14431987422273318,
+          -0.06040868735709992,
+          0.03570933837055096
+        ],
+        "speed_mps": 0.003137521678581834,
+        "inside_xy": true,
+        "settled": true,
+        "collision_bounds_in_receiver_m": [
+          [
+            -0.17975295208350905,
+            -0.09691060988894584,
+            0.0036078250666051193
+          ],
+          [
+            -0.10787615362254543,
+            -0.022157687488832067,
+            0.06951601097781898
+          ]
+        ]
+      }
+    },
+    {
+      "id": 88,
+      "condition": "centered_control",
+      "orientation": "upright",
+      "color": "red",
+      "release_xy_m": [
+        0.0,
+        0.027500000000000004
+      ],
+      "crossed_inlet": true,
+      "outcome": "captured",
+      "captured": true,
+      "final": {
+        "time_s": 4.033333543688059,
+        "position_world_m": [
+          0.08858833312988246,
+          -0.3445274829864502,
+          0.29056093096733093
+        ],
+        "center_in_receiver_m": [
+          -0.14419788001340794,
+          -0.08796331884630249,
+          0.035709239523923464
+        ],
+        "speed_mps": 0.0032823197543621063,
+        "inside_xy": true,
+        "settled": true,
+        "collision_bounds_in_receiver_m": [
+          [
+            -0.17962089763456923,
+            -0.12451126917374822,
+            0.0036079236176957685
+          ],
+          [
+            -0.10778805728206553,
+            -0.049747582486247666,
+            0.06951599911654716
+          ]
+        ]
+      }
+    },
+    {
+      "id": 89,
+      "condition": "centered_control",
+      "orientation": "upright",
+      "color": "yellow",
+      "release_xy_m": [
+        0.0,
+        0.055
+      ],
+      "crossed_inlet": true,
+      "outcome": "captured",
+      "captured": true,
+      "final": {
+        "time_s": 4.033333543688059,
+        "position_world_m": [
+          0.10582141876220597,
+          -0.3437337875366211,
+          0.29446837306022644
+        ],
+        "center_in_receiver_m": [
+          -0.14325247404790656,
+          -0.10518929638183216,
+          0.03961426219904074
+        ],
+        "speed_mps": 0.0027428886387497187,
+        "inside_xy": true,
+        "settled": true,
+        "collision_bounds_in_receiver_m": [
+          [
+            -0.17896359438447984,
+            -0.1448062823396672,
+            0.003975736180337003
+          ],
+          [
+            -0.10708246505726837,
+            -0.06528386611983095,
+            0.07653036615808337
+          ]
+        ]
+      }
+    },
+    {
+      "id": 90,
+      "condition": "centered_control",
+      "orientation": "upright",
+      "color": "red",
+      "release_xy_m": [
+        0.027500000000000004,
+        -0.055
+      ],
+      "crossed_inlet": true,
+      "outcome": "captured",
+      "captured": true,
+      "final": {
+        "time_s": 4.033333543688059,
+        "position_world_m": [
+          0.006269111298024654,
+          -0.3720391273498542,
+          0.29048869013786316
+        ],
+        "center_in_receiver_m": [
+          -0.17238581790150345,
+          -0.005873184025361966,
+          0.0357091166380209
+        ],
+        "speed_mps": 0.0033450424671173096,
+        "inside_xy": true,
+        "settled": true,
+        "collision_bounds_in_receiver_m": [
+          [
+            -0.2077847268227897,
+            -0.04253942960526763,
+            0.003607731748985432
+          ],
+          [
+            -0.13605100187659236,
+            0.03226431616849997,
+            0.06951593117170354
+          ]
+        ]
+      }
+    },
+    {
+      "id": 91,
+      "condition": "centered_control",
+      "orientation": "upright",
+      "color": "yellow",
+      "release_xy_m": [
+        0.027500000000000004,
+        -0.0275
+      ],
+      "crossed_inlet": true,
+      "outcome": "captured",
+      "captured": true,
+      "final": {
+        "time_s": 4.033333543688059,
+        "position_world_m": [
+          0.03351296186447139,
+          -0.37176923751831126,
+          0.29049038887023926
+        ],
+        "center_in_receiver_m": [
+          -0.17189183523003942,
+          -0.03311389286425015,
+          0.0357095276779793
+        ],
+        "speed_mps": 0.0034509054385125637,
+        "inside_xy": true,
+        "settled": true,
+        "collision_bounds_in_receiver_m": [
+          [
+            -0.20733806246006026,
+            -0.06955122894152277,
+            0.0036079024709033125
+          ],
+          [
+            -0.1354020726299776,
+            0.005185127260365463,
+            0.06951591396204959
+          ]
+        ]
+      }
+    },
+    {
+      "id": 92,
+      "condition": "centered_control",
+      "orientation": "upright",
+      "color": "red",
+      "release_xy_m": [
+        0.027500000000000004,
+        0.0
+      ],
+      "crossed_inlet": true,
+      "outcome": "captured",
+      "captured": true,
+      "final": {
+        "time_s": 4.033333543688059,
+        "position_world_m": [
+          0.06106402873992911,
+          -0.37203054428100657,
+          0.29048988223075867
+        ],
+        "center_in_receiver_m": [
+          -0.1719265080279348,
+          -0.06066617707186639,
+          0.035709084180081285
+        ],
+        "speed_mps": 0.00330918887630105,
+        "inside_xy": true,
+        "settled": true,
+        "collision_bounds_in_receiver_m": [
+          [
+            -0.20734928847475143,
+            -0.09721550641743226,
+            0.0036078616564945154
+          ],
+          [
+            -0.13551776280742533,
+            -0.022451513285508984,
+            0.06951583107312762
+          ]
+        ]
+      }
+    },
+    {
+      "id": 93,
+      "condition": "centered_control",
+      "orientation": "upright",
+      "color": "yellow",
+      "release_xy_m": [
+        0.027500000000000004,
+        0.027500000000000004
+      ],
+      "crossed_inlet": true,
+      "outcome": "captured",
+      "captured": true,
+      "final": {
+        "time_s": 4.033333543688059,
+        "position_world_m": [
+          0.08845624923706019,
+          -0.3718045234680183,
+          0.2904917299747467
+        ],
+        "center_in_receiver_m": [
+          -0.1714751719269263,
+          -0.08805561167468356,
+          0.03570975309006502
+        ],
+        "speed_mps": 0.0028382197488099337,
+        "inside_xy": true,
+        "settled": true,
+        "collision_bounds_in_receiver_m": [
+          [
+            -0.2069104358645495,
+            -0.12453975354497349,
+            0.0036075366355511063
+          ],
+          [
+            -0.13501856048187033,
+            -0.04979125437436327,
+            0.0695156048410612
+          ]
+        ]
+      }
+    },
+    {
+      "id": 94,
+      "condition": "centered_control",
+      "orientation": "upright",
+      "color": "red",
+      "release_xy_m": [
+        0.027500000000000004,
+        0.055
+      ],
+      "crossed_inlet": true,
+      "outcome": "captured",
+      "captured": true,
+      "final": {
+        "time_s": 4.033333543688059,
+        "position_world_m": [
+          0.10557894706726056,
+          -0.37123613357544016,
+          0.29445385932922363
+        ],
+        "center_in_receiver_m": [
+          -0.17075583140400633,
+          -0.10517305848556369,
+          0.039670041080185736
+        ],
+        "speed_mps": 0.0024976530112326145,
+        "inside_xy": true,
+        "settled": true,
+        "collision_bounds_in_receiver_m": [
+          [
+            -0.20646145773262603,
+            -0.1447902782232524,
+            0.003970058773149071
+          ],
+          [
+            -0.13456995068789013,
+            -0.06525737172681545,
+            0.07663087652916195
+          ]
+        ]
+      }
+    },
+    {
+      "id": 95,
+      "condition": "centered_control",
+      "orientation": "upright",
+      "color": "yellow",
+      "release_xy_m": [
+        0.055,
+        -0.055
+      ],
+      "crossed_inlet": true,
+      "outcome": "captured",
+      "captured": true,
+      "final": {
+        "time_s": 4.033333543688059,
+        "position_world_m": [
+          0.005947113037109375,
+          -0.39932327270507884,
+          0.2904191017150879
+        ],
+        "center_in_receiver_m": [
+          -0.1996717775853269,
+          -0.0057756273528282165,
+          0.03570926510117761
+        ],
+        "speed_mps": 0.003270447952672839,
+        "inside_xy": true,
+        "settled": true,
+        "collision_bounds_in_receiver_m": [
+          [
+            -0.23511075229112066,
+            -0.042252145067245284,
+            0.0036080648707687846
+          ],
+          [
+            -0.16320985919324027,
+            0.03249446401953193,
+            0.06951602080204572
+          ]
+        ]
+      }
+    },
+    {
+      "id": 96,
+      "condition": "centered_control",
+      "orientation": "upright",
+      "color": "red",
+      "release_xy_m": [
+        0.055,
+        -0.0275
+      ],
+      "crossed_inlet": true,
+      "outcome": "captured",
+      "captured": true,
+      "final": {
+        "time_s": 4.033333543688059,
+        "position_world_m": [
+          0.0334522247314446,
+          -0.3993161201477058,
+          0.2904195189476013
+        ],
+        "center_in_receiver_m": [
+          -0.1994383766725403,
+          -0.03327974967336367,
+          0.03570906038428001
+        ],
+        "speed_mps": 0.003212186973541975,
+        "inside_xy": true,
+        "settled": true,
+        "collision_bounds_in_receiver_m": [
+          [
+            -0.2348773294339921,
+            -0.06975715339804811,
+            0.0036078876748964206
+          ],
+          [
+            -0.16297706178682958,
+            0.004989682050841715,
+            0.06951593776736831
+          ]
+        ]
+      }
+    },
+    {
+      "id": 97,
+      "condition": "centered_control",
+      "orientation": "upright",
+      "color": "yellow",
+      "release_xy_m": [
+        0.055,
+        0.0
+      ],
+      "crossed_inlet": true,
+      "outcome": "captured",
+      "captured": true,
+      "final": {
+        "time_s": 4.033333543688059,
+        "position_world_m": [
+          0.06096353530883736,
+          -0.39932231903076243,
+          0.2904205024242401
+        ],
+        "center_in_receiver_m": [
+          -0.19921827426781477,
+          -0.06079018049249374,
+          0.035709455895640785
+        ],
+        "speed_mps": 0.00331491488032043,
+        "inside_xy": true,
+        "settled": true,
+        "collision_bounds_in_receiver_m": [
+          [
+            -0.23465518825430642,
+            -0.09727319808541246,
+            0.0036079549417844525
+          ],
+          [
+            -0.1627609892875057,
+            -0.022524960602210875,
+            0.06951589190525981
+          ]
+        ]
+      }
+    },
+    {
+      "id": 98,
+      "condition": "centered_control",
+      "orientation": "upright",
+      "color": "red",
+      "release_xy_m": [
+        0.055,
+        0.027500000000000004
+      ],
+      "crossed_inlet": true,
+      "outcome": "captured",
+      "captured": true,
+      "final": {
+        "time_s": 4.033333543688059,
+        "position_world_m": [
+          0.08846054077148402,
+          -0.3993175506591804,
+          0.2904210686683655
+        ],
+        "center_in_receiver_m": [
+          -0.1989873237505952,
+          -0.08828621646728241,
+          0.035709406460999904
+        ],
+        "speed_mps": 0.0032301819883286953,
+        "inside_xy": true,
+        "settled": true,
+        "collision_bounds_in_receiver_m": [
+          [
+            -0.23442448224735912,
+            -0.12476822610518923,
+            0.0036079468527208947
+          ],
+          [
+            -0.16252933822136661,
+            -0.05002024623020329,
+            0.06951583006361148
+          ]
+        ]
+      }
+    },
+    {
+      "id": 99,
+      "condition": "centered_control",
+      "orientation": "upright",
+      "color": "yellow",
+      "release_xy_m": [
+        0.055,
+        0.055
+      ],
+      "crossed_inlet": true,
+      "outcome": "captured",
+      "captured": true,
+      "final": {
+        "time_s": 4.033333543688059,
+        "position_world_m": [
+          0.10542945861816388,
+          -0.3985894203186042,
+          0.29439347982406616
+        ],
+        "center_in_receiver_m": [
+          -0.19810948736871142,
+          -0.10524857453230485,
+          0.03967957134810668
+        ],
+        "speed_mps": 0.0025411981623619795,
+        "inside_xy": true,
+        "settled": true,
+        "collision_bounds_in_receiver_m": [
+          [
+            -0.23380784991486703,
+            -0.14478925531057207,
+            0.003969298585925984
+          ],
+          [
+            -0.16186383320826092,
+            -0.06534631712871075,
+            0.07664791850045846
+          ]
+        ]
+      }
+    },
+    {
+      "id": 100,
+      "condition": "centered_control",
+      "orientation": "side_x",
+      "color": "red",
+      "release_xy_m": [
+        -0.055,
+        -0.055
+      ],
+      "crossed_inlet": true,
+      "outcome": "captured",
+      "captured": true,
+      "final": {
+        "time_s": 4.033333543688059,
+        "position_world_m": [
+          -0.07296466827392578,
+          -0.2633641242980964,
+          0.28713393211364746
+        ],
+        "center_in_receiver_m": [
+          -0.06437517013747827,
+          0.0742518442879101,
+          0.0320783698346801
+        ],
+        "speed_mps": 0.0036306444089859724,
+        "inside_xy": true,
+        "settled": true,
+        "collision_bounds_in_receiver_m": [
+          [
+            -0.1017897332901665,
+            0.03694391581954637,
+            0.002307328284858745
+          ],
+          [
+            -0.025613318253923545,
+            0.10900265888087812,
+            0.0698752572783275
+          ]
+        ]
+      }
+    },
+    {
+      "id": 101,
+      "condition": "centered_control",
+      "orientation": "side_x",
+      "color": "yellow",
+      "release_xy_m": [
+        -0.055,
+        -0.0275
+      ],
+      "crossed_inlet": true,
+      "outcome": "captured",
+      "captured": true,
+      "final": {
+        "time_s": 4.033333543688059,
+        "position_world_m": [
+          -0.045467185974121804,
+          -0.2633746147155769,
+          0.2871372699737549
+        ],
+        "center_in_receiver_m": [
+          -0.06415946683733241,
+          0.04675520597555405,
+          0.03208113099311222
+        ],
+        "speed_mps": 0.004849433433264494,
+        "inside_xy": true,
+        "settled": true,
+        "collision_bounds_in_receiver_m": [
+          [
+            -0.10156773537633423,
+            0.009445153440461596,
+            0.00231160835485153
+          ],
+          [
+            -0.025402459883786754,
+            0.0815054469659593,
+            0.06987832436222105
+          ]
+        ]
+      }
+    },
+    {
+      "id": 102,
+      "condition": "centered_control",
+      "orientation": "side_x",
+      "color": "red",
+      "release_xy_m": [
+        -0.055,
+        0.0
+      ],
+      "crossed_inlet": true,
+      "outcome": "captured",
+      "captured": true,
+      "final": {
+        "time_s": 4.033333543688059,
+        "position_world_m": [
+          -0.017958259582520952,
+          -0.2633622169494636,
+          0.28713563084602356
+        ],
+        "center_in_receiver_m": [
+          -0.06392079478760232,
+          0.01924731223414078,
+          0.032078856433878755
+        ],
+        "speed_mps": 0.005985718686133623,
+        "inside_xy": true,
+        "settled": true,
+        "collision_bounds_in_receiver_m": [
+          [
+            -0.10133478401519636,
+            -0.01806160916870425,
+            0.002307975230962017
+          ],
+          [
+            -0.025159830255821802,
+            0.05399859031413712,
+            0.06987581329139797
+          ]
+        ]
+      }
+    },
+    {
+      "id": 103,
+      "condition": "centered_control",
+      "orientation": "side_x",
+      "color": "yellow",
+      "release_xy_m": [
+        -0.055,
+        0.027500000000000004
+      ],
+      "crossed_inlet": true,
+      "outcome": "captured",
+      "captured": true,
+      "final": {
+        "time_s": 4.033333543688059,
+        "position_world_m": [
+          0.009533500671386363,
+          -0.2633660316467292,
+          0.28713586926460266
+        ],
+        "center_in_receiver_m": [
+          -0.0636984710039462,
+          -0.008243549310673615,
+          0.03207850122547373
+        ],
+        "speed_mps": 0.005040724761784077,
+        "inside_xy": true,
+        "settled": true,
+        "collision_bounds_in_receiver_m": [
+          [
+            -0.10111118439276012,
+            -0.04555259798130784,
+            0.0023085959544787427
+          ],
+          [
+            -0.02493887427016972,
+            0.0265080180374877,
+            0.06987537934889565
+          ]
+        ]
+      }
+    },
+    {
+      "id": 104,
+      "condition": "centered_control",
+      "orientation": "side_x",
+      "color": "red",
+      "release_xy_m": [
+        -0.055,
+        0.055
+      ],
+      "crossed_inlet": true,
+      "outcome": "captured",
+      "captured": true,
+      "final": {
+        "time_s": 4.033333543688059,
+        "position_world_m": [
+          0.03704814910888565,
+          -0.2634051322937019,
+          0.28713861107826233
+        ],
+        "center_in_receiver_m": [
+          -0.063511237192567,
+          -0.03575758851812516,
+          0.0320807390812915
+        ],
+        "speed_mps": 0.0017564769368618727,
+        "inside_xy": true,
+        "settled": true,
+        "collision_bounds_in_receiver_m": [
+          [
+            -0.10090672663307565,
+            -0.07306357207279035,
+            0.0023220212412252417
+          ],
+          [
+            -0.02476591392947025,
+            -0.0010068959315940873,
+            0.06987663650743006
+          ]
+        ]
+      }
+    },
+    {
+      "id": 105,
+      "condition": "centered_control",
+      "orientation": "side_x",
+      "color": "yellow",
+      "release_xy_m": [
+        -0.0275,
+        -0.055
+      ],
+      "crossed_inlet": true,
+      "outcome": "captured",
+      "captured": true,
+      "final": {
+        "time_s": 4.033333543688059,
+        "position_world_m": [
+          -0.07295618951320648,
+          -0.2908974647521978,
+          0.2870638072490692
+        ],
+        "center_in_receiver_m": [
+          -0.09190759865681401,
+          0.07401688531969511,
+          0.03207861146800167
+        ],
+        "speed_mps": 0.001799252349883318,
+        "inside_xy": true,
+        "settled": true,
+        "collision_bounds_in_receiver_m": [
+          [
+            -0.12930843344214438,
+            0.03671167213483266,
+            0.0023159210662136998
+          ],
+          [
+            -0.05315651447121006,
+            0.1087663408258362,
+            0.0698748157932913
+          ]
+        ]
+      }
+    },
+    {
+      "id": 106,
+      "condition": "centered_control",
+      "orientation": "side_x",
+      "color": "red",
+      "release_xy_m": [
+        -0.0275,
+        -0.0275
+      ],
+      "crossed_inlet": true,
+      "outcome": "captured",
+      "captured": true,
+      "final": {
+        "time_s": 4.033333543688059,
+        "position_world_m": [
+          -0.04545979499816899,
+          -0.2908831596374517,
+          0.28706324100494385
+        ],
+        "center_in_receiver_m": [
+          -0.09166711967004777,
+          0.046521538719127564,
+          0.03207740518933744
+        ],
+        "speed_mps": 0.0034041800536215305,
+        "inside_xy": true,
+        "settled": true,
+        "collision_bounds_in_receiver_m": [
+          [
+            -0.12907389941867908,
+            0.00921415888503685,
+            0.0023114507769524395
+          ],
+          [
+            -0.05291219198874764,
+            0.08127250863507451,
+            0.06987389957881229
+          ]
+        ]
+      }
+    },
+    {
+      "id": 107,
+      "condition": "centered_control",
+      "orientation": "side_x",
+      "color": "yellow",
+      "release_xy_m": [
+        -0.0275,
+        0.0
+      ],
+      "crossed_inlet": true,
+      "outcome": "captured",
+      "captured": true,
+      "final": {
+        "time_s": 4.033333543688059,
+        "position_world_m": [
+          -0.01794931888580331,
+          -0.2908836364746099,
+          0.2870643138885498
+        ],
+        "center_in_receiver_m": [
+          -0.09144130206721378,
+          0.01901198940445248,
+          0.03207787550195951
+        ],
+        "speed_mps": 0.00499375257641077,
+        "inside_xy": true,
+        "settled": true,
+        "collision_bounds_in_receiver_m": [
+          [
+            -0.12884322029451667,
+            -0.01828363712910619,
+            0.0023090240669164375
+          ],
+          [
+            -0.052679117605353376,
+            0.053750601225743155,
+            0.06987460708311086
+          ]
+        ]
+      }
+    },
+    {
+      "id": 108,
+      "condition": "centered_control",
+      "orientation": "side_x",
+      "color": "red",
+      "release_xy_m": [
+        -0.0275,
+        0.027500000000000004
+      ],
+      "crossed_inlet": true,
+      "outcome": "captured",
+      "captured": true,
+      "final": {
+        "time_s": 4.033333543688059,
+        "position_world_m": [
+          0.009535646438598278,
+          -0.2908507347106939,
+          0.28706544637680054
+        ],
+        "center_in_receiver_m": [
+          -0.09118231679216453,
+          -0.00847177542355615,
+          0.03207832067384908
+        ],
+        "speed_mps": 0.005265652202069759,
+        "inside_xy": true,
+        "settled": true,
+        "collision_bounds_in_receiver_m": [
+          [
+            -0.12860351671814296,
+            -0.045780392984896334,
+            0.0023039433661635744
+          ],
+          [
+            -0.05241550152655705,
+            0.026279929331697538,
+            0.06987536276994177
+          ]
+        ]
+      }
+    },
+    {
+      "id": 109,
+      "condition": "centered_control",
+      "orientation": "side_x",
+      "color": "yellow",
+      "release_xy_m": [
+        -0.0275,
+        0.055
+      ],
+      "crossed_inlet": true,
+      "outcome": "captured",
+      "captured": true,
+      "final": {
+        "time_s": 4.033333543688059,
+        "position_world_m": [
+          0.03703408241271955,
+          -0.2908798217773443,
+          0.28706446290016174
+        ],
+        "center_in_receiver_m": [
+          -0.09098521265107345,
+          -0.035969520344130146,
+          0.03207680801583407
+        ],
+        "speed_mps": 0.0047953310422599316,
+        "inside_xy": true,
+        "settled": true,
+        "collision_bounds_in_receiver_m": [
+          [
+            -0.12839053984711768,
+            -0.07327747455036615,
+            0.0023109700321532756
+          ],
+          [
+            -0.05223125607294321,
+            -0.0012188350763961964,
+            0.06987341950349044
+          ]
+        ]
+      }
+    },
+    {
+      "id": 110,
+      "condition": "centered_control",
+      "orientation": "side_x",
+      "color": "red",
+      "release_xy_m": [
+        0.0,
+        -0.055
+      ],
+      "crossed_inlet": true,
+      "outcome": "captured",
+      "captured": true,
+      "final": {
+        "time_s": 4.033333543688059,
+        "position_world_m": [
+          -0.07296204566955566,
+          -0.3183341979980474,
+          0.28699448704719543
+        ],
+        "center_in_receiver_m": [
+          -0.11934353940931429,
+          0.07379705544320414,
+          0.03207941117873886
+        ],
+        "speed_mps": 0.004090005531907082,
+        "inside_xy": true,
+        "settled": true,
+        "collision_bounds_in_receiver_m": [
+          [
+            -0.1567766089651581,
+            0.03648862676081288,
+            0.0022974823432856395
+          ],
+          [
+            -0.08056578398543213,
+            0.10854806162948671,
+            0.06987692042546598
+          ]
+        ]
+      }
+    },
+    {
+      "id": 111,
+      "condition": "centered_control",
+      "orientation": "side_x",
+      "color": "yellow",
+      "release_xy_m": [
+        0.0,
+        -0.0275
+      ],
+      "crossed_inlet": true,
+      "outcome": "captured",
+      "captured": true,
+      "final": {
+        "time_s": 4.033333543688059,
+        "position_world_m": [
+          -0.04546051025390696,
+          -0.3183785438537603,
+          0.2869933247566223
+        ],
+        "center_in_receiver_m": [
+          -0.11916166845329783,
+          0.046296085672150156,
+          0.0320777586359568
+        ],
+        "speed_mps": 0.005397537257522345,
+        "inside_xy": true,
+        "settled": true,
+        "collision_bounds_in_receiver_m": [
+          [
+            -0.15657230405066258,
+            0.008988574320726528,
+            0.002309167348029717
+          ],
+          [
+            -0.08040313969739188,
+            0.08104679159682959,
+            0.0698744620032421
+          ]
+        ]
+      }
+    },
+    {
+      "id": 112,
+      "condition": "centered_control",
+      "orientation": "side_x",
+      "color": "red",
+      "release_xy_m": [
+        0.0,
+        0.0
+      ],
+      "crossed_inlet": true,
+      "outcome": "captured",
+      "captured": true,
+      "final": {
+        "time_s": 4.033333543688059,
+        "position_world_m": [
+          -0.01796207427978569,
+          -0.3183775901794439,
+          0.2869936525821686
+        ],
+        "center_in_receiver_m": [
+          -0.11893452133427945,
+          0.018798587856006854,
+          0.032077480501271516
+        ],
+        "speed_mps": 0.0019680822733789682,
+        "inside_xy": true,
+        "settled": true,
+        "collision_bounds_in_receiver_m": [
+          [
+            -0.15634617166908793,
+            -0.018509155220018947,
+            0.0023082144895085754
+          ],
+          [
+            -0.08017516624757981,
+            0.05354935975424002,
+            0.06987424704719492
+          ]
+        ]
+      }
+    },
+    {
+      "id": 113,
+      "condition": "centered_control",
+      "orientation": "side_x",
+      "color": "yellow",
+      "release_xy_m": [
+        0.0,
+        0.027500000000000004
+      ],
+      "crossed_inlet": true,
+      "outcome": "captured",
+      "captured": true,
+      "final": {
+        "time_s": 4.033333543688059,
+        "position_world_m": [
+          0.009532070159911754,
+          -0.31836948394775444,
+          0.2869917154312134
+        ],
+        "center_in_receiver_m": [
+          -0.11870026301268245,
+          -0.00869455973412947,
+          0.032074919212010444
+        ],
+        "speed_mps": 0.002919527469202876,
+        "inside_xy": true,
+        "settled": true,
+        "collision_bounds_in_receiver_m": [
+          [
+            -0.15611425220654862,
+            -0.046003596773402045,
+            0.0023032740116216144
+          ],
+          [
+            -0.07993873320181422,
+            0.02605611707380806,
+            0.06987202254478969
+          ]
+        ]
+      }
+    },
+    {
+      "id": 114,
+      "condition": "centered_control",
+      "orientation": "side_x",
+      "color": "red",
+      "release_xy_m": [
+        0.0,
+        0.055
+      ],
+      "crossed_inlet": true,
+      "outcome": "captured",
+      "captured": true,
+      "final": {
+        "time_s": 4.033333543688059,
+        "position_world_m": [
+          0.037039566040038885,
+          -0.3183666229248052,
+          0.286995530128479
+        ],
+        "center_in_receiver_m": [
+          -0.1184711251804671,
+          -0.03620110146374511,
+          0.03207812286423806
+        ],
+        "speed_mps": 0.0021156498696655035,
+        "inside_xy": true,
+        "settled": true,
+        "collision_bounds_in_receiver_m": [
+          [
+            -0.1558863128292476,
+            -0.07350778890249465,
+            0.002306609138085114
+          ],
+          [
+            -0.07970797756481218,
+            -0.0014511546320310487,
+            0.06987498033442185
+          ]
+        ]
+      }
+    },
+    {
+      "id": 115,
+      "condition": "centered_control",
+      "orientation": "side_x",
+      "color": "yellow",
+      "release_xy_m": [
+        0.027500000000000004,
+        -0.055
+      ],
+      "crossed_inlet": true,
+      "outcome": "captured",
+      "captured": true,
+      "final": {
+        "time_s": 4.033333543688059,
+        "position_world_m": [
+          -0.07295989990234375,
+          -0.34588155746460014,
+          0.2869219481945038
+        ],
+        "center_in_receiver_m": [
+          -0.14689004468366262,
+          0.07356831394050634,
+          0.03207727479895833
+        ],
+        "speed_mps": 0.0037791153881698847,
+        "inside_xy": true,
+        "settled": true,
+        "collision_bounds_in_receiver_m": [
+          [
+            -0.18430126791571855,
+            0.03625944860409547,
+            0.0023086540027979774
+          ],
+          [
+            -0.10813198659754253,
+            0.10832013716198485,
+            0.06987401605546747
+          ]
+        ]
+      }
+    },
+    {
+      "id": 116,
+      "condition": "centered_control",
+      "orientation": "side_x",
+      "color": "red",
+      "release_xy_m": [
+        0.027500000000000004,
+        -0.0275
+      ],
+      "crossed_inlet": true,
+      "outcome": "captured",
+      "captured": true,
+      "final": {
+        "time_s": 4.033333543688059,
+        "position_world_m": [
+          -0.045451927185059304,
+          -0.34588012695312553,
+          0.2869221568107605
+        ],
+        "center_in_receiver_m": [
+          -0.1466623426038917,
+          0.046061283626263716,
+          0.0320768760274211
+        ],
+        "speed_mps": 0.0026037655770778656,
+        "inside_xy": true,
+        "settled": true,
+        "collision_bounds_in_receiver_m": [
+          [
+            -0.18406495881176355,
+            0.008756166344644711,
+            0.0023119417128263375
+          ],
+          [
+            -0.10790867080157263,
+            0.08080960880937305,
+            0.06987336242756628
+          ]
+        ]
+      }
+    },
+    {
+      "id": 117,
+      "condition": "centered_control",
+      "orientation": "side_x",
+      "color": "yellow",
+      "release_xy_m": [
+        0.027500000000000004,
+        0.0
+      ],
+      "crossed_inlet": true,
+      "outcome": "captured",
+      "captured": true,
+      "final": {
+        "time_s": 4.033333543688059,
+        "position_world_m": [
+          -0.017954444885255327,
+          -0.34591255187988335,
+          0.28692758083343506
+        ],
+        "center_in_receiver_m": [
+          -0.14646856766754673,
+          0.018564464885637122,
+          0.03208177939923135
+        ],
+        "speed_mps": 0.0020950420293956995,
+        "inside_xy": true,
+        "settled": true,
+        "collision_bounds_in_receiver_m": [
+          [
+            -0.18385147040084604,
+            -0.0187269818590039,
+            0.0023256196804827822
+          ],
+          [
+            -0.10772251389786724,
+            0.05330192571267922,
+            0.06987731308500236
+          ]
+        ]
+      }
+    },
+    {
+      "id": 118,
+      "condition": "centered_control",
+      "orientation": "side_x",
+      "color": "red",
+      "release_xy_m": [
+        0.027500000000000004,
+        0.027500000000000004
+      ],
+      "crossed_inlet": true,
+      "outcome": "captured",
+      "captured": true,
+      "final": {
+        "time_s": 4.033333543688059,
+        "position_world_m": [
+          0.009555435180663707,
+          -0.3459030151367193,
+          0.2869238257408142
+        ],
+        "center_in_receiver_m": [
+          -0.14623275409796554,
+          -0.008944406029746332,
+          0.03207739617295241
+        ],
+        "speed_mps": 0.00519515248015523,
+        "inside_xy": true,
+        "settled": true,
+        "collision_bounds_in_receiver_m": [
+          [
+            -0.18363260369988588,
+            -0.04624685483070223,
+            0.002313138587796665
+          ],
+          [
+            -0.10747929451234395,
+            0.02580143772470045,
+            0.0698738120860041
+          ]
+        ]
+      }
+    },
+    {
+      "id": 119,
+      "condition": "centered_control",
+      "orientation": "side_x",
+      "color": "yellow",
+      "release_xy_m": [
+        0.027500000000000004,
+        0.055
+      ],
+      "crossed_inlet": true,
+      "outcome": "captured",
+      "captured": true,
+      "final": {
+        "time_s": 4.033333543688059,
+        "position_world_m": [
+          0.03705101013183487,
+          -0.34588489532470756,
+          0.2869243323802948
+        ],
+        "center_in_receiver_m": [
+          -0.1459884645548502,
+          -0.03643890171667152,
+          0.03207725304322534
+        ],
+        "speed_mps": 0.002836134284734726,
+        "inside_xy": true,
+        "settled": true,
+        "collision_bounds_in_receiver_m": [
+          [
+            -0.1833949069261651,
+            -0.07374746781734487,
+            0.0023122153112197508
+          ],
+          [
+            -0.10723505568917258,
+            -0.0016865547821875992,
+            0.06987366748499557
+          ]
+        ]
+      }
+    },
+    {
+      "id": 120,
+      "condition": "centered_control",
+      "orientation": "side_x",
+      "color": "red",
+      "release_xy_m": [
+        0.055,
+        -0.055
+      ],
+      "crossed_inlet": true,
+      "outcome": "captured",
+      "captured": true,
+      "final": {
+        "time_s": 4.033333543688059,
+        "position_world_m": [
+          -0.0729585811495781,
+          -0.3733967781066898,
+          0.2868516743183136
+        ],
+        "center_in_receiver_m": [
+          -0.1744044133397791,
+          0.0733406637859977,
+          0.032077321269826486
+        ],
+        "speed_mps": 0.005588413216173649,
+        "inside_xy": true,
+        "settled": true,
+        "collision_bounds_in_receiver_m": [
+          [
+            -0.21180734334962725,
+            0.0360323605909686,
+            0.0023138015211261465
+          ],
+          [
+            -0.13565348280781553,
+            0.10809237948066519,
+            0.06987369871390484
+          ]
+        ]
+      }
+    },
+    {
+      "id": 121,
+      "condition": "centered_control",
+      "orientation": "side_x",
+      "color": "yellow",
+      "release_xy_m": [
+        0.055,
+        -0.0275
+      ],
+      "crossed_inlet": true,
+      "outcome": "captured",
+      "captured": true,
+      "final": {
+        "time_s": 4.033333543688059,
+        "position_world_m": [
+          -0.04546456336975102,
+          -0.3733376502990726,
+          0.2868536114692688
+        ],
+        "center_in_receiver_m": [
+          -0.17411912647503455,
+          0.04584806253522711,
+          0.032078503877693176
+        ],
+        "speed_mps": 0.0013103793608024716,
+        "inside_xy": true,
+        "settled": true,
+        "collision_bounds_in_receiver_m": [
+          [
+            -0.21155014822357998,
+            0.00853700271016522,
+            0.002298770751074125
+          ],
+          [
+            -0.13534538376927774,
+            0.08060159966834513,
+            0.06987592089917458
+          ]
+        ]
+      }
+    },
+    {
+      "id": 122,
+      "condition": "centered_control",
+      "orientation": "side_x",
+      "color": "red",
+      "release_xy_m": [
+        0.055,
+        0.0
+      ],
+      "crossed_inlet": true,
+      "outcome": "captured",
+      "captured": true,
+      "final": {
+        "time_s": 4.033333543688059,
+        "position_world_m": [
+          -0.018032646179199308,
+          -0.37327947616577184,
+          0.2868531346321106
+        ],
+        "center_in_receiver_m": [
+          -0.17383531023685106,
+          0.018417551930383302,
+          0.032077276305571056
+        ],
+        "speed_mps": 0.0061196680180728436,
+        "inside_xy": true,
+        "settled": true,
+        "collision_bounds_in_receiver_m": [
+          [
+            -0.21118064705516648,
+            -0.018808676263611046,
+            0.0023106015287502613
+          ],
+          [
+            -0.13504677429289647,
+            0.05308603605695894,
+            0.06987389994212923
+          ]
+        ]
+      }
+    },
+    {
+      "id": 123,
+      "condition": "centered_control",
+      "orientation": "side_x",
+      "color": "yellow",
+      "release_xy_m": [
+        0.055,
+        0.027500000000000004
+      ],
+      "crossed_inlet": true,
+      "outcome": "captured",
+      "captured": true,
+      "final": {
+        "time_s": 4.033333543688059,
+        "position_world_m": [
+          0.00947651863098109,
+          -0.37331380844116246,
+          0.28685882687568665
+        ],
+        "center_in_receiver_m": [
+          -0.17364334579657198,
+          -0.009090964614878239,
+          0.03208245251558095
+        ],
+        "speed_mps": 0.0022176052443683147,
+        "inside_xy": true,
+        "settled": true,
+        "collision_bounds_in_receiver_m": [
+          [
+            -0.21097418772234722,
+            -0.046313597195612566,
+            0.0023249592375627903
+          ],
+          [
+            -0.13486662939602212,
+            0.025575981777426815,
+            0.06987823196337423
+          ]
+        ]
+      }
+    },
+    {
+      "id": 124,
+      "condition": "centered_control",
+      "orientation": "side_x",
+      "color": "red",
+      "release_xy_m": [
+        0.055,
+        0.055
+      ],
+      "crossed_inlet": true,
+      "outcome": "captured",
+      "captured": true,
+      "final": {
+        "time_s": 4.033333543688059,
+        "position_world_m": [
+          0.037036705017089666,
+          -0.37339105606079137,
+          0.2868536412715912
+        ],
+        "center_in_receiver_m": [
+          -0.17349390322395195,
+          -0.036650854007937106,
+          0.032076859471611374
+        ],
+        "speed_mps": 0.005645488854497671,
+        "inside_xy": true,
+        "settled": true,
+        "collision_bounds_in_receiver_m": [
+          [
+            -0.21089583981734794,
+            -0.0739604249775474,
+            0.0023140779202674155
+          ],
+          [
+            -0.13474464545555254,
+            -0.0018982097582598279,
+            0.06987324280454954
+          ]
+        ]
+      }
+    },
+    {
+      "id": 125,
+      "condition": "centered_control",
+      "orientation": "side_y",
+      "color": "yellow",
+      "release_xy_m": [
+        -0.055,
+        -0.055
+      ],
+      "crossed_inlet": true,
+      "outcome": "captured",
+      "captured": true,
+      "final": {
+        "time_s": 4.033333543688059,
+        "position_world_m": [
+          -0.059797048568725586,
+          -0.29573478698730504,
+          0.29068198800086975
+        ],
+        "center_in_receiver_m": [
+          -0.09662725163010125,
+          0.060818395939423286,
+          0.035708854248622135
+        ],
+        "speed_mps": 0.00339540489949286,
+        "inside_xy": true,
+        "settled": true,
+        "collision_bounds_in_receiver_m": [
+          [
+            -0.13235404211869728,
+            0.021866806299848385,
+            0.003606087686939541
+          ],
+          [
+            -0.06211546102324572,
+            0.09923382466449882,
+            0.06951440079179089
+          ]
+        ]
+      }
+    },
+    {
+      "id": 126,
+      "condition": "centered_control",
+      "orientation": "side_y",
+      "color": "red",
+      "release_xy_m": [
+        -0.055,
+        -0.0275
+      ],
+      "crossed_inlet": true,
+      "outcome": "captured",
+      "captured": true,
+      "final": {
+        "time_s": 4.033333543688059,
+        "position_world_m": [
+          -0.03229026794433665,
+          -0.295732402801514,
+          0.29068416357040405
+        ],
+        "center_in_receiver_m": [
+          -0.09639860069004402,
+          0.03331256552055084,
+          0.035710420012813826
+        ],
+        "speed_mps": 0.0025916993618011475,
+        "inside_xy": true,
+        "settled": true,
+        "collision_bounds_in_receiver_m": [
+          [
+            -0.1321241119025034,
+            -0.005637813644589151,
+            0.0036076367164597223
+          ],
+          [
+            -0.061885859272534205,
+            0.07172711397888332,
+            0.06951462351421164
+          ]
+        ]
+      }
+    },
+    {
+      "id": 127,
+      "condition": "centered_control",
+      "orientation": "side_y",
+      "color": "yellow",
+      "release_xy_m": [
+        -0.055,
+        0.0
+      ],
+      "crossed_inlet": true,
+      "outcome": "captured",
+      "captured": true,
+      "final": {
+        "time_s": 4.033333543688059,
+        "position_world_m": [
+          -0.004796123504639205,
+          -0.2957281112670902,
+          0.2906841039657593
+        ],
+        "center_in_receiver_m": [
+          -0.09616815212561,
+          0.005819386550183658,
+          0.03570974601288318
+        ],
+        "speed_mps": 0.0023538777604699135,
+        "inside_xy": true,
+        "settled": true,
+        "collision_bounds_in_receiver_m": [
+          [
+            -0.13189268247586217,
+            -0.033130084312149144,
+            0.003607304715733811
+          ],
+          [
+            -0.0616550894165373,
+            0.04423372779488499,
+            0.06951412960334416
+          ]
+        ]
+      }
+    },
+    {
+      "id": 128,
+      "condition": "centered_control",
+      "orientation": "side_y",
+      "color": "red",
+      "release_xy_m": [
+        -0.055,
+        0.027500000000000004
+      ],
+      "crossed_inlet": true,
+      "outcome": "captured",
+      "captured": true,
+      "final": {
+        "time_s": 4.033333543688059,
+        "position_world_m": [
+          0.022654628753661754,
+          -0.2956804275512699,
+          0.29068416357040405
+        ],
+        "center_in_receiver_m": [
+          -0.0958946696139494,
+          -0.021630044776546065,
+          0.03570908127759764
+        ],
+        "speed_mps": 0.0038573667407035828,
+        "inside_xy": true,
+        "settled": true,
+        "collision_bounds_in_receiver_m": [
+          [
+            -0.13163198216030914,
+            -0.06058750976456562,
+            0.0036075980465758717
+          ],
+          [
+            -0.061388322012335905,
+            0.01678685980007355,
+            0.06951566308275514
+          ]
+        ]
+      }
+    },
+    {
+      "id": 129,
+      "condition": "centered_control",
+      "orientation": "side_y",
+      "color": "yellow",
+      "release_xy_m": [
+        -0.055,
+        0.055
+      ],
+      "crossed_inlet": true,
+      "outcome": "captured",
+      "captured": true,
+      "final": {
+        "time_s": 4.033333543688059,
+        "position_world_m": [
+          0.050154495239257635,
+          -0.2956832885742191,
+          0.2906853258609772
+        ],
+        "center_in_receiver_m": [
+          -0.0956713231510814,
+          -0.04912900443503254,
+          0.03570964732296983
+        ],
+        "speed_mps": 0.002342663239687681,
+        "inside_xy": true,
+        "settled": true,
+        "collision_bounds_in_receiver_m": [
+          [
+            -0.13140857920347582,
+            -0.08808695588609528,
+            0.003607118783684249
+          ],
+          [
+            -0.06116427176350303,
+            -0.010712466285809796,
+            0.06951462327976402
+          ]
+        ]
+      }
+    },
+    {
+      "id": 130,
+      "condition": "centered_control",
+      "orientation": "side_y",
+      "color": "red",
+      "release_xy_m": [
+        -0.0275,
+        -0.055
+      ],
+      "crossed_inlet": true,
+      "outcome": "captured",
+      "captured": true,
+      "final": {
+        "time_s": 4.033333543688059,
+        "position_world_m": [
+          -0.0598444938659668,
+          -0.3231920242309574,
+          0.29061174392700195
+        ],
+        "center_in_receiver_m": [
+          -0.12408404007888603,
+          0.060639985138246644,
+          0.03570878340485256
+        ],
+        "speed_mps": 0.0031660355161875486,
+        "inside_xy": true,
+        "settled": true,
+        "collision_bounds_in_receiver_m": [
+          [
+            -0.15982862093081618,
+            0.021677950556488135,
+            0.003607478353685273
+          ],
+          [
+            -0.08958114470090361,
+            0.09905794205976548,
+            0.06951553123224119
+          ]
+        ]
+      }
+    },
+    {
+      "id": 131,
+      "condition": "centered_control",
+      "orientation": "side_y",
+      "color": "yellow",
+      "release_xy_m": [
+        -0.0275,
+        -0.0275
+      ],
+      "crossed_inlet": true,
+      "outcome": "captured",
+      "captured": true,
+      "final": {
+        "time_s": 4.033333543688059,
+        "position_world_m": [
+          -0.032341766357422586,
+          -0.3231939315795902,
+          0.2906131446361542
+        ],
+        "center_in_receiver_m": [
+          -0.12385971583395058,
+          0.033138172398006205,
+          0.03570958536794483
+        ],
+        "speed_mps": 0.003066545818001032,
+        "inside_xy": true,
+        "settled": true,
+        "collision_bounds_in_receiver_m": [
+          [
+            -0.15960400411792897,
+            -0.005823807116321689,
+            0.0036081543319326503
+          ],
+          [
+            -0.08935666606358161,
+            0.07155616805093956,
+            0.06951637686640977
+          ]
+        ]
+      }
+    },
+    {
+      "id": 132,
+      "condition": "centered_control",
+      "orientation": "side_y",
+      "color": "red",
+      "release_xy_m": [
+        -0.0275,
+        0.0
+      ],
+      "crossed_inlet": true,
+      "outcome": "captured",
+      "captured": true,
+      "final": {
+        "time_s": 4.033333543688059,
+        "position_world_m": [
+          -0.004377937316895952,
+          -0.3234724044799808,
+          0.2906116247177124
+        ],
+        "center_in_receiver_m": [
+          -0.12390816148334749,
+          0.00517299878740296,
+          0.035708163406482474
+        ],
+        "speed_mps": 0.006133987568318844,
+        "inside_xy": true,
+        "settled": true,
+        "collision_bounds_in_receiver_m": [
+          [
+            -0.16014744805775116,
+            -0.03410270103237423,
+            0.0036028652592754173
+          ],
+          [
+            -0.08963097457419789,
+            0.04364447785156855,
+            0.06950666893214749
+          ]
+        ]
+      }
+    },
+    {
+      "id": 133,
+      "condition": "centered_control",
+      "orientation": "side_y",
+      "color": "yellow",
+      "release_xy_m": [
+        -0.0275,
+        0.027500000000000004
+      ],
+      "crossed_inlet": true,
+      "outcome": "captured",
+      "captured": true,
+      "final": {
+        "time_s": 4.033333543688059,
+        "position_world_m": [
+          0.023121452331542613,
+          -0.323470497131348,
+          0.29061225056648254
+        ],
+        "center_in_receiver_m": [
+          -0.12368005211911523,
+          -0.022325444826446272,
+          0.035708180835828884
+        ],
+        "speed_mps": 0.006143713369965553,
+        "inside_xy": true,
+        "settled": true,
+        "collision_bounds_in_receiver_m": [
+          [
+            -0.1599193876163616,
+            -0.06160117966181744,
+            0.0036028915818972773
+          ],
+          [
+            -0.08940290851201382,
+            0.016146061195545514,
+            0.06950673581038433
+          ]
+        ]
+      }
+    },
+    {
+      "id": 134,
+      "condition": "centered_control",
+      "orientation": "side_y",
+      "color": "red",
+      "release_xy_m": [
+        -0.0275,
+        0.055
+      ],
+      "crossed_inlet": true,
+      "outcome": "captured",
+      "captured": true,
+      "final": {
+        "time_s": 4.033333543688059,
+        "position_world_m": [
+          0.05062179565429581,
+          -0.323470497131348,
+          0.29061293601989746
+        ],
+        "center_in_receiver_m": [
+          -0.12345384203582635,
+          -0.049824857771644915,
+          0.03570826272327077
+        ],
+        "speed_mps": 0.006137812975794077,
+        "inside_xy": true,
+        "settled": true,
+        "collision_bounds_in_receiver_m": [
+          [
+            -0.15969294877174267,
+            -0.08910043338693718,
+            0.0036029991651883586
+          ],
+          [
+            -0.08917661453265513,
+            -0.011353368343105075,
+            0.06950684171298843
+          ]
+        ]
+      }
+    },
+    {
+      "id": 135,
+      "condition": "centered_control",
+      "orientation": "side_y",
+      "color": "yellow",
+      "release_xy_m": [
+        0.0,
+        -0.055
+      ],
+      "crossed_inlet": true,
+      "outcome": "captured",
+      "captured": true,
+      "final": {
+        "time_s": 4.033333543688059,
+        "position_world_m": [
+          -0.059839073568582535,
+          -0.35070629119873065,
+          0.2905425429344177
+        ],
+        "center_in_receiver_m": [
+          -0.15159741861612383,
+          0.06040824142151209,
+          0.035709900228515945
+        ],
+        "speed_mps": 0.0027238514740020037,
+        "inside_xy": true,
+        "settled": true,
+        "collision_bounds_in_receiver_m": [
+          [
+            -0.1873439224795561,
+            0.021444339213711777,
+            0.0036073959108947895
+          ],
+          [
+            -0.1170946648268778,
+            0.09882610893213328,
+            0.0695148948894884
+          ]
+        ]
+      }
+    },
+    {
+      "id": 136,
+      "condition": "centered_control",
+      "orientation": "side_y",
+      "color": "red",
+      "release_xy_m": [
+        0.0,
+        -0.0275
+      ],
+      "crossed_inlet": true,
+      "outcome": "captured",
+      "captured": true,
+      "final": {
+        "time_s": 4.033333543688059,
+        "position_world_m": [
+          -0.032339620590210005,
+          -0.350700092315674,
+          0.29054221510887146
+        ],
+        "center_in_receiver_m": [
+          -0.1513650197931204,
+          0.032909769781560905,
+          0.035708953017474676
+        ],
+        "speed_mps": 0.003173807403072715,
+        "inside_xy": true,
+        "settled": true,
+        "collision_bounds_in_receiver_m": [
+          [
+            -0.18711339892216827,
+            -0.006054748857391323,
+            0.0036075110372745245
+          ],
+          [
+            -0.11686376769752371,
+            0.07132816411938236,
+            0.0695153751442022
+          ]
+        ]
+      }
+    },
+    {
+      "id": 137,
+      "condition": "centered_control",
+      "orientation": "side_y",
+      "color": "yellow",
+      "release_xy_m": [
+        0.0,
+        0.0
+      ],
+      "crossed_inlet": true,
+      "outcome": "captured",
+      "captured": true,
+      "final": {
+        "time_s": 4.033333543688059,
+        "position_world_m": [
+          -0.00484023094177255,
+          -0.3507034301757814,
+          0.2905437648296356
+        ],
+        "center_in_receiver_m": [
+          -0.15114215308183568,
+          0.0054112830214307905,
+          0.035709907720881895
+        ],
+        "speed_mps": 0.002605270827189088,
+        "inside_xy": true,
+        "settled": true,
+        "collision_bounds_in_receiver_m": [
+          [
+            -0.18688866705441853,
+            -0.0335525658197493,
+            0.003607390905596336
+          ],
+          [
+            -0.11663933725986997,
+            0.043829031026480836,
+            0.06951466028101236
+          ]
+        ]
+      }
+    },
+    {
+      "id": 138,
+      "condition": "centered_control",
+      "orientation": "side_y",
+      "color": "red",
+      "release_xy_m": [
+        0.0,
+        0.027500000000000004
+      ],
+      "crossed_inlet": true,
+      "outcome": "captured",
+      "captured": true,
+      "final": {
+        "time_s": 4.033333543688059,
+        "position_world_m": [
+          0.02266011238098109,
+          -0.350697708129883,
+          0.29054346680641174
+        ],
+        "center_in_receiver_m": [
+          -0.15091022367846701,
+          -0.022088082855118873,
+          0.03570899151116885
+        ],
+        "speed_mps": 0.003211808390915394,
+        "inside_xy": true,
+        "settled": true,
+        "collision_bounds_in_receiver_m": [
+          [
+            -0.18665825793588287,
+            -0.06105245080400401,
+            0.0036074730780356057
+          ],
+          [
+            -0.11640879180250163,
+            0.016330294693628566,
+            0.06951540867510889
+          ]
+        ]
+      }
+    },
+    {
+      "id": 139,
+      "condition": "centered_control",
+      "orientation": "side_y",
+      "color": "yellow",
+      "release_xy_m": [
+        0.0,
+        0.055
+      ],
+      "crossed_inlet": true,
+      "outcome": "captured",
+      "captured": true,
+      "final": {
+        "time_s": 4.033333543688059,
+        "position_world_m": [
+          0.05015950202941877,
+          -0.35069341659545916,
+          0.29054397344589233
+        ],
+        "center_in_receiver_m": [
+          -0.15067973052156344,
+          -0.04958650685729671,
+          0.03570888363839497
+        ],
+        "speed_mps": 0.0031509711407124996,
+        "inside_xy": true,
+        "settled": true,
+        "collision_bounds_in_receiver_m": [
+          [
+            -0.18642827327227618,
+            -0.08855108756198327,
+            0.003607570595152043
+          ],
+          [
+            -0.11617865617980438,
+            -0.011168008044026845,
+            0.0695155739995652
+          ]
+        ]
+      }
+    },
+    {
+      "id": 140,
+      "condition": "centered_control",
+      "orientation": "side_y",
+      "color": "red",
+      "release_xy_m": [
+        0.027500000000000004,
+        -0.055
+      ],
+      "crossed_inlet": true,
+      "outcome": "captured",
+      "captured": true,
+      "final": {
+        "time_s": 4.033333543688059,
+        "position_world_m": [
+          -0.05984759330749512,
+          -0.37823648452758807,
+          0.29047122597694397
+        ],
+        "center_in_receiver_m": [
+          -0.17912684299747791,
+          0.06019030626620436,
+          0.03570894210285941
+        ],
+        "speed_mps": 0.0031506195664405823,
+        "inside_xy": true,
+        "settled": true,
+        "collision_bounds_in_receiver_m": [
+          [
+            -0.21487465370928405,
+            0.02122621763327892,
+            0.003607657954198207
+          ],
+          [
+            -0.1446254426194553,
+            0.09860870063008953,
+            0.06951565842219604
+          ]
+        ]
+      }
+    },
+    {
+      "id": 141,
+      "condition": "centered_control",
+      "orientation": "side_y",
+      "color": "yellow",
+      "release_xy_m": [
+        0.027500000000000004,
+        -0.0275
+      ],
+      "crossed_inlet": true,
+      "outcome": "captured",
+      "captured": true,
+      "final": {
+        "time_s": 4.033333543688059,
+        "position_world_m": [
+          -0.03231697082519602,
+          -0.3782250404357912,
+          0.29047268629074097
+        ],
+        "center_in_receiver_m": [
+          -0.17888893820065577,
+          0.03266070932061549,
+          0.03570976893614469
+        ],
+        "speed_mps": 0.003032549750059843,
+        "inside_xy": true,
+        "settled": true,
+        "collision_bounds_in_receiver_m": [
+          [
+            -0.21465902999532904,
+            -0.006318320641737429,
+            0.0036073868739393278
+          ],
+          [
+            -0.14439725271597936,
+            0.07108194642841514,
+            0.06951490791820833
+          ]
+        ]
+      }
+    },
+    {
+      "id": 142,
+      "condition": "centered_control",
+      "orientation": "side_y",
+      "color": "red",
+      "release_xy_m": [
+        0.027500000000000004,
+        0.0
+      ],
+      "crossed_inlet": true,
+      "outcome": "captured",
+      "captured": true,
+      "final": {
+        "time_s": 4.033333543688059,
+        "position_world_m": [
+          -0.004826164245606002,
+          -0.37821693420410174,
+          0.29047295451164246
+        ],
+        "center_in_receiver_m": [
+          -0.17865470169870695,
+          0.00517089947562166,
+          0.035709413084795194
+        ],
+        "speed_mps": 0.0028747660107910633,
+        "inside_xy": true,
+        "settled": true,
+        "collision_bounds_in_receiver_m": [
+          [
+            -0.21442429112117622,
+            -0.033807989749956135,
+            0.0036071764914903104
+          ],
+          [
+            -0.1441630984339577,
+            0.043592569321020846,
+            0.06951563903555763
+          ]
+        ]
+      }
+    },
+    {
+      "id": 143,
+      "condition": "centered_control",
+      "orientation": "side_y",
+      "color": "yellow",
+      "release_xy_m": [
+        0.027500000000000004,
+        0.027500000000000004
+      ],
+      "crossed_inlet": true,
+      "outcome": "captured",
+      "captured": true,
+      "final": {
+        "time_s": 4.033333543688059,
+        "position_world_m": [
+          0.02268276214599574,
+          -0.37822170257568377,
+          0.2904745936393738
+        ],
+        "center_in_receiver_m": [
+          -0.17843318677136671,
+          -0.022337135472048963,
+          0.03571046064150196
+        ],
+        "speed_mps": 0.003558890661224723,
+        "inside_xy": true,
+        "settled": true,
+        "collision_bounds_in_receiver_m": [
+          [
+            -0.21420291169179784,
+            -0.061316010269147014,
+            0.003607841179511101
+          ],
+          [
+            -0.14394114456868135,
+            0.016083899466122986,
+            0.06951510411872028
+          ]
+        ]
+      }
+    },
+    {
+      "id": 144,
+      "condition": "centered_control",
+      "orientation": "side_y",
+      "color": "red",
+      "release_xy_m": [
+        0.027500000000000004,
+        0.055
+      ],
+      "crossed_inlet": true,
+      "outcome": "captured",
+      "captured": true,
+      "final": {
+        "time_s": 4.033333543688059,
+        "position_world_m": [
+          0.0506070137023924,
+          -0.37846202850341815,
+          0.29047244787216187
+        ],
+        "center_in_receiver_m": [
+          -0.17844381401351178,
+          -0.050262419151967386,
+          0.03570831621041948
+        ],
+        "speed_mps": 0.0060448795557022095,
+        "inside_xy": true,
+        "settled": true,
+        "collision_bounds_in_receiver_m": [
+          [
+            -0.21469416811568198,
+            -0.08954423663389921,
+            0.003603701033030704
+          ],
+          [
+            -0.14417171025739517,
+            -0.011790423414694828,
+            0.06950668696903814
+          ]
+        ]
+      }
+    },
+    {
+      "id": 145,
+      "condition": "centered_control",
+      "orientation": "side_y",
+      "color": "yellow",
+      "release_xy_m": [
+        0.055,
+        -0.055
+      ],
+      "crossed_inlet": true,
+      "outcome": "captured",
+      "captured": true,
+      "final": {
+        "time_s": 4.033333543688059,
+        "position_world_m": [
+          -0.059406280517578125,
+          -0.4059812545776369,
+          0.2903992831707001
+        ],
+        "center_in_receiver_m": [
+          -0.20686713757221317,
+          0.05952078876084865,
+          0.035707896647582726
+        ],
+        "speed_mps": 0.005970766767859459,
+        "inside_xy": true,
+        "settled": true,
+        "collision_bounds_in_receiver_m": [
+          [
+            -0.2431240740535019,
+            0.020234012622750264,
+            0.003602308109302982
+          ],
+          [
+            -0.17259760843755867,
+            0.09799367435886364,
+            0.06950616409359822
+          ]
+        ]
+      }
+    },
+    {
+      "id": 146,
+      "condition": "centered_control",
+      "orientation": "side_y",
+      "color": "red",
+      "release_xy_m": [
+        0.055,
+        -0.0275
+      ],
+      "crossed_inlet": true,
+      "outcome": "captured",
+      "captured": true,
+      "final": {
+        "time_s": 4.033333543688059,
+        "position_world_m": [
+          -0.0316417694091804,
+          -0.4058444023132326,
+          0.29040008783340454
+        ],
+        "center_in_receiver_m": [
+          -0.20650190704369092,
+          0.03175834267057631,
+          0.035707742195271897
+        ],
+        "speed_mps": 0.005931510590016842,
+        "inside_xy": true,
+        "settled": true,
+        "collision_bounds_in_receiver_m": [
+          [
+            -0.24263771395826694,
+            -0.007453167314688258,
+            0.003602503343330815
+          ],
+          [
+            -0.17217991354939954,
+            0.07022057538148374,
+            0.0695060695792051
+          ]
+        ]
+      }
+    },
+    {
+      "id": 147,
+      "condition": "centered_control",
+      "orientation": "side_y",
+      "color": "yellow",
+      "release_xy_m": [
+        0.055,
+        0.0
+      ],
+      "crossed_inlet": true,
+      "outcome": "captured",
+      "captured": true,
+      "final": {
+        "time_s": 4.033333543688059,
+        "position_world_m": [
+          -0.004140472412110796,
+          -0.405842971801758,
+          0.2904011905193329
+        ],
+        "center_in_receiver_m": [
+          -0.20627425759104762,
+          0.004257987849873857,
+          0.03570823763700165
+        ],
+        "speed_mps": 0.005862664896994829,
+        "inside_xy": true,
+        "settled": true,
+        "collision_bounds_in_receiver_m": [
+          [
+            -0.24240894746403896,
+            -0.03495201885835186,
+            0.003603706110923588
+          ],
+          [
+            -0.17195185786218303,
+            0.04271955304060704,
+            0.0695061076337875
+          ]
+        ]
+      }
+    },
+    {
+      "id": 148,
+      "condition": "centered_control",
+      "orientation": "side_y",
+      "color": "red",
+      "release_xy_m": [
+        0.055,
+        0.027500000000000004
+      ],
+      "crossed_inlet": true,
+      "outcome": "captured",
+      "captured": true,
+      "final": {
+        "time_s": 4.033333543688059,
+        "position_world_m": [
+          0.023357009887694957,
+          -0.40583391189575213,
+          0.2904014587402344
+        ],
+        "center_in_receiver_m": [
+          -0.20603901253799195,
+          -0.023238489644862526,
+          0.03570787920184881
+        ],
+        "speed_mps": 0.005991935729980469,
+        "inside_xy": true,
+        "settled": true,
+        "collision_bounds_in_receiver_m": [
+          [
+            -0.24217287160516232,
+            -0.06244830770853049,
+            0.0036031573470473033
+          ],
+          [
+            -0.1717164025099871,
+            0.01522336588285711,
+            0.0695062769256447
+          ]
+        ]
+      }
+    },
+    {
+      "id": 149,
+      "condition": "centered_control",
+      "orientation": "side_y",
+      "color": "yellow",
+      "release_xy_m": [
+        0.055,
+        0.055
+      ],
+      "crossed_inlet": true,
+      "outcome": "captured",
+      "captured": true,
+      "final": {
+        "time_s": 4.033333543688059,
+        "position_world_m": [
+          0.05060081481933487,
+          -0.4059793472290041,
+          0.2904021143913269
+        ],
+        "center_in_receiver_m": [
+          -0.20596034266510477,
+          -0.050482569183101234,
+          0.03570830860386448
+        ],
+        "speed_mps": 0.006109549663960934,
+        "inside_xy": true,
+        "settled": true,
+        "collision_bounds_in_receiver_m": [
+          [
+            -0.24222297102510648,
+            -0.08977203311255622,
+            0.003603658622981565
+          ],
+          [
+            -0.17169379189041845,
+            -0.012009456390096318,
+            0.06950692664616015
+          ]
+        ]
+      }
+    }
+  ]
+}

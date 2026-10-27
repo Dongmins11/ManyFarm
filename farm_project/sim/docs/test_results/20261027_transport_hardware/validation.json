@@ -1,0 +1,148 @@
+{
+  "code_base": "b5ef6f2 + uncommitted transport integration and hardware",
+  "domain": 13,
+  "discovery": "SUBNET",
+  "physics": {
+    "device": "CPU",
+    "gpu_dynamics": false,
+    "broadphase": "MBP"
+  },
+  "actual_hardware": {
+    "kind": "actual_isaac_ros_hardware",
+    "checks": {
+      "watchdog_stop": true,
+      "forward_odom": true,
+      "positive_yaw": true,
+      "lidar": true,
+      "wheel_names": true,
+      "tf": true,
+      "image_info_sync": true,
+      "camera_restart": true
+    },
+    "phases": {
+      "initial": [
+        -6.566495862568727e-05,
+        -1.425307558109888e-08,
+        9.992609799761949e-06
+      ],
+      "forward": [
+        0.16497009380790256,
+        0.0007301101972892732,
+        0.0073422541220982875
+      ],
+      "watchdog": [
+        0.19139067674306942,
+        0.0009356235718001899,
+        0.007941573858261108
+      ],
+      "turn": [
+        0.19101123835114248,
+        0.0008347208376015127,
+        0.43204389727657155
+      ]
+    },
+    "counts": {
+      "clock": 1975,
+      "odom": 987,
+      "scan": 329,
+      "joints": 987
+    },
+    "image_count": 144,
+    "info_count": 97,
+    "image_sample": {
+      "frame": "transport_01/camera_optical_frame",
+      "size": [
+        1280,
+        720
+      ],
+      "encoding": "rgb8",
+      "low": 1,
+      "high": 234
+    },
+    "tf_pairs": [
+      [
+        "transport_01/base_footprint",
+        "transport_01/base_link"
+      ],
+      [
+        "transport_01/base_link",
+        "transport_01/base_scan"
+      ],
+      [
+        "transport_01/base_link",
+        "transport_01/camera_optical_frame"
+      ],
+      [
+        "transport_01/odom",
+        "transport_01/base_footprint"
+      ]
+    ]
+  },
+  "fleet": {
+    "simulated_s": 60.00000312924385,
+    "render_frames": 3600,
+    "physics_ticks": 3600,
+    "robots": [
+      {
+        "robot_id": "scout_01",
+        "camera_frames": 899,
+        "tag_camera_frames": 599,
+        "position_world_m": [
+          -4.999998569488525,
+          13.246418952941895,
+          8.24879407446133e-06
+        ],
+        "telemetry_packets": 1800
+      },
+      {
+        "robot_id": "harvest_01",
+        "camera_frames": 599,
+        "tag_camera_frames": 0,
+        "position_world_m": [
+          -2.0,
+          13.249998092651367,
+          0.000300307001452893
+        ],
+        "telemetry_packets": 1800
+      },
+      {
+        "robot_id": "transport_01",
+        "camera_frames": 147,
+        "tag_camera_frames": 0,
+        "position_world_m": [
+          2.000980854034424,
+          13.059164047241211,
+          9.589152227817976e-08
+        ],
+        "telemetry_packets": 1800
+      }
+    ]
+  },
+  "drive_session": "41457741536d404986fb5d37100b00b1",
+  "physical_displacement_m": 0.19058384084662283,
+  "physical_yaw_change_rad": 0.4389852794433746,
+  "wheel_odom_displacement_m": 0.19096002206326262,
+  "measured_wall_seconds_per_sim_second": 1.1781185533437437,
+  "camera_activity": [
+    "farm_transport_01_camera active=False",
+    "farm_transport_01_camera active=True",
+    "farm_transport_01_camera active=False",
+    "farm_transport_01_camera active=True",
+    "farm_transport_01_camera active=False"
+  ],
+  "runtime_error_lines": [],
+  "shutdown_menu_attribute_errors": 2,
+  "clean_process_exit": true,
+  "tests": {
+    "ros_and_configuration": 87,
+    "usd_geometry": 5,
+    "legacy_mock_class_deselected": 4
+  },
+  "limits": [
+    "도킹 마커/정밀주행/운송 업무/바구니 정렬/교통/선별장 이동 E2E 미실행",
+    "실물 IMX219 내부 보정값 미제공: 임시 90도 수평 FOV K, 왜곡 0",
+    "타이어/캐스터 마찰은 sim 접촉 근사이며 실물 측정값 아님",
+    "실제 주행은 0.05m/s 및 0.2rad/s 범위; 최종 프로필 상한 0.15m/s 및 1rad/s의 고속 검증 없음",
+    "SDK 종료 GUI 메뉴 callback AttributeError 2건; 실행 완료/정상 프로세스 종료와 구분"
+  ]
+}

@@ -1,0 +1,412 @@
+{
+  "baseline": "b5ef6f2",
+  "upstream": "9686aca909cb52191862ee3500c62fadf7a8ed38",
+  "scope": "contracts/common transport + sim station return; physical E2E NOT_RUN",
+  "build_packages": [
+    "farm_interfaces",
+    "farm_docking",
+    "transport_robot"
+  ],
+  "unit_tests_passed": 141,
+  "dds": {
+    "result": "PASS",
+    "scope": "DDS Action / simulated navigation double / no physical motion",
+    "domain": 13,
+    "discovery": "SUBNET",
+    "namespace": "/transport_contract_probe_2140526",
+    "cases": [
+      {
+        "scenario": "success",
+        "status": 4,
+        "result_code": "SUCCESS",
+        "docked": true,
+        "same_uuid_query": "PASS",
+        "duplicate_task_rejected": true
+      },
+      {
+        "scenario": "failure",
+        "status": 6,
+        "result_code": "FAILED",
+        "docked": false,
+        "same_uuid_query": "PASS",
+        "duplicate_task_rejected": true
+      },
+      {
+        "scenario": "cancel",
+        "status": 5,
+        "result_code": "CANCELED",
+        "docked": false,
+        "same_uuid_query": "PASS",
+        "duplicate_task_rejected": true
+      }
+    ]
+  },
+  "preserved_packages": [
+    "farm_navigation",
+    "harvest_robot",
+    "scout_robot",
+    "farm_common"
+  ],
+  "files": [
+    {
+      "path": "farm_project/robot/ros_ws/src/transport_robot/README.md",
+      "upstream_sha256": "be18ae8a3e77bbdd9c56c24b6a1b1b1ce7e8c0227f5cf94e3b24a8de69522b61",
+      "local_sha256": "0397242858be3c8478bf6932abeb8801236294a7c2f5a7a557ddfeaef70bc1d4",
+      "modified": true
+    },
+    {
+      "path": "farm_project/robot/ros_ws/src/transport_robot/package.xml",
+      "upstream_sha256": "e37699174736867e4484a0f1795eef59b55158b9a0427e689ed52455b1e507bc",
+      "local_sha256": "e37699174736867e4484a0f1795eef59b55158b9a0427e689ed52455b1e507bc",
+      "modified": false
+    },
+    {
+      "path": "farm_project/robot/ros_ws/src/transport_robot/resource/transport_robot",
+      "upstream_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "local_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "modified": false
+    },
+    {
+      "path": "farm_project/robot/ros_ws/src/transport_robot/setup.cfg",
+      "upstream_sha256": "bf8e7be3b904c2212f78d47e1ac8c9e3b902e1baf95ebd501d4b4754aa6b4c43",
+      "local_sha256": "bf8e7be3b904c2212f78d47e1ac8c9e3b902e1baf95ebd501d4b4754aa6b4c43",
+      "modified": false
+    },
+    {
+      "path": "farm_project/robot/ros_ws/src/transport_robot/setup.py",
+      "upstream_sha256": "e96f119a6f315e9d020832489f8ee5883be1b19a758dcdfa6dfc782378cc1d71",
+      "local_sha256": "e96f119a6f315e9d020832489f8ee5883be1b19a758dcdfa6dfc782378cc1d71",
+      "modified": false
+    },
+    {
+      "path": "farm_project/robot/ros_ws/src/transport_robot/transport_robot/__init__.py",
+      "upstream_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "local_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "modified": false
+    },
+    {
+      "path": "farm_project/robot/ros_ws/src/transport_robot/transport_robot/configuration.py",
+      "upstream_sha256": "40b849841b4d8e30bd6b444ad488456efcede675b537a20a1f67d7be3404c6c3",
+      "local_sha256": "2a2141d39ccbcd52136f6e20fb70441ccbc4b9d60068e84d2c8108e231f4ab03",
+      "modified": true
+    },
+    {
+      "path": "farm_project/robot/ros_ws/src/transport_robot/transport_robot/device_bridge.py",
+      "upstream_sha256": "1dc94bc52f3f4e1fc2737635e9a86e84c4a8f1a2bfc85ebc2b4c62185628966b",
+      "local_sha256": "1dc94bc52f3f4e1fc2737635e9a86e84c4a8f1a2bfc85ebc2b4c62185628966b",
+      "modified": false
+    },
+    {
+      "path": "farm_project/robot/ros_ws/src/transport_robot/transport_robot/device_port.py",
+      "upstream_sha256": "7445a956983bbf1e847f414971394612c1f59ddbf9ce6be8889be468c9665585",
+      "local_sha256": "7445a956983bbf1e847f414971394612c1f59ddbf9ce6be8889be468c9665585",
+      "modified": false
+    },
+    {
+      "path": "farm_project/robot/ros_ws/src/transport_robot/transport_robot/docking_port.py",
+      "upstream_sha256": "2e48b8b8c4e0ef618c135296c2519e7d5b0598407c15245bcd96c1502d054183",
+      "local_sha256": "d9a6c8e32432a37f7f31b916d16ccecfd9da48faf440d1b4c855b8ec5571d38c",
+      "modified": true
+    },
+    {
+      "path": "farm_project/robot/ros_ws/src/transport_robot/transport_robot/harvest_approach.py",
+      "upstream_sha256": "0ca2d8cee7a8097d44d6211866f0bc3d2e3763c678572a1626f5c059599d61df",
+      "local_sha256": "0ca2d8cee7a8097d44d6211866f0bc3d2e3763c678572a1626f5c059599d61df",
+      "modified": false
+    },
+    {
+      "path": "farm_project/robot/ros_ws/src/transport_robot/transport_robot/mission_types.py",
+      "upstream_sha256": "41dd42d173546523853657c6d45017979e2213b9a54752a5b0ffccba7c41503a",
+      "local_sha256": "41dd42d173546523853657c6d45017979e2213b9a54752a5b0ffccba7c41503a",
+      "modified": false
+    },
+    {
+      "path": "farm_project/robot/ros_ws/src/transport_robot/transport_robot/navigation_adapter.py",
+      "upstream_sha256": "44b07caffe8c855cc7190534fcb7586592fa7c22cef423ccd073fccb991385fd",
+      "local_sha256": "44b07caffe8c855cc7190534fcb7586592fa7c22cef423ccd073fccb991385fd",
+      "modified": false
+    },
+    {
+      "path": "farm_project/robot/ros_ws/src/transport_robot/transport_robot/pickup_workflow.py",
+      "upstream_sha256": "2c60b597019a6cf86c2f4cacc88e615b0765260579f3b0932b516582ea9a7dd4",
+      "local_sha256": "2c60b597019a6cf86c2f4cacc88e615b0765260579f3b0932b516582ea9a7dd4",
+      "modified": false
+    },
+    {
+      "path": "farm_project/robot/ros_ws/src/transport_robot/transport_robot/route_cli.py",
+      "upstream_sha256": "ae74382cdd73fc46ea1550cafafdd3d551c4a38f72ef4863e776c07b6857cfcb",
+      "local_sha256": "9be8a2f035da44bb44ed3a506167772e0a4e4cf194474962b58c39286e46b533",
+      "modified": true
+    },
+    {
+      "path": "farm_project/robot/ros_ws/src/transport_robot/transport_robot/route_policy.py",
+      "upstream_sha256": "73f64ee02bf7dcddeca0f64109e8f40ab2938a6954971f828aec227fd84185e3",
+      "local_sha256": "73f64ee02bf7dcddeca0f64109e8f40ab2938a6954971f828aec227fd84185e3",
+      "modified": false
+    },
+    {
+      "path": "farm_project/robot/ros_ws/src/transport_robot/transport_robot/sorter_approach.py",
+      "upstream_sha256": "8578adbb7a74517ed3e82afe2581894cfe3f0d1476e1a62a2d50da0479c4a2af",
+      "local_sha256": "8578adbb7a74517ed3e82afe2581894cfe3f0d1476e1a62a2d50da0479c4a2af",
+      "modified": false
+    },
+    {
+      "path": "farm_project/robot/ros_ws/src/transport_robot/transport_robot/states/__init__.py",
+      "upstream_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "local_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "modified": false
+    },
+    {
+      "path": "farm_project/robot/ros_ws/src/transport_robot/transport_robot/states/docking_state.py",
+      "upstream_sha256": "6609d1a78ca7ce315caede8e6498f6f89bb1db61658ce46a093fc48692724a40",
+      "local_sha256": "6609d1a78ca7ce315caede8e6498f6f89bb1db61658ce46a093fc48692724a40",
+      "modified": false
+    },
+    {
+      "path": "farm_project/robot/ros_ws/src/transport_robot/transport_robot/states/mission_state.py",
+      "upstream_sha256": "a96fb5e594794ade4dbaf22a859939835e4c7c3234a8500566a14e3cfa01b1be",
+      "local_sha256": "a96fb5e594794ade4dbaf22a859939835e4c7c3234a8500566a14e3cfa01b1be",
+      "modified": false
+    },
+    {
+      "path": "farm_project/robot/ros_ws/src/transport_robot/transport_robot/states/navigation_move_state.py",
+      "upstream_sha256": "7c7f1ef526af0122c271646bb20d7adac4fc834c21704835cc4faee56b8a7284",
+      "local_sha256": "7c7f1ef526af0122c271646bb20d7adac4fc834c21704835cc4faee56b8a7284",
+      "modified": false
+    },
+    {
+      "path": "farm_project/robot/ros_ws/src/transport_robot/transport_robot/states/transfer_states.py",
+      "upstream_sha256": "be4389159ec87a26e0f66060a71454d419a5f8d5901054c6663a7432f6c7fd70",
+      "local_sha256": "be4389159ec87a26e0f66060a71454d419a5f8d5901054c6663a7432f6c7fd70",
+      "modified": false
+    },
+    {
+      "path": "farm_project/robot/ros_ws/src/transport_robot/transport_robot/transfer_session.py",
+      "upstream_sha256": "1e668d3ea6be679b6811a1ff4f4ca5b8771de6175c80c144f22fc555ab160db1",
+      "local_sha256": "1e668d3ea6be679b6811a1ff4f4ca5b8771de6175c80c144f22fc555ab160db1",
+      "modified": false
+    },
+    {
+      "path": "farm_project/robot/ros_ws/src/transport_robot/transport_robot/transport_communication.py",
+      "upstream_sha256": "ff952b2dc096602710eaad00d6f1eff4fe576323a96f4dee1b7efe903cddb9d4",
+      "local_sha256": "57b148af70932fd4ba003ff5c3ae14224970a06aff8df447bb674882db8bd20b",
+      "modified": true
+    },
+    {
+      "path": "farm_project/robot/ros_ws/src/transport_robot/transport_robot/transport_mission.py",
+      "upstream_sha256": "b4a1647c856a06253567b32887b3562c6a48e36935fb37a5e844c3e9c1b5508f",
+      "local_sha256": "b4a1647c856a06253567b32887b3562c6a48e36935fb37a5e844c3e9c1b5508f",
+      "modified": false
+    },
+    {
+      "path": "farm_project/robot/ros_ws/src/transport_robot/transport_robot/transport_node.py",
+      "upstream_sha256": "2e1cf1e1f7358873790c2633160da2148cdffc7597f5ff6d07a9e544389e4f2a",
+      "local_sha256": "d4447f51b5578a82af553d139b42d33b65bd65af33bc189f88fd5d02c28c3e38",
+      "modified": true
+    },
+    {
+      "path": "farm_project/robot/ros_ws/src/transport_robot/transport_robot/transport_state_controller.py",
+      "upstream_sha256": "0f07e01bba7d2627e1c62ead39485d0b184f5912798ca2b293f75edd348f2b35",
+      "local_sha256": "5b812de0a8241db2bd36fd955a918131602829a0518d94ae9f0a97876124c8e9",
+      "modified": true
+    },
+    {
+      "path": "farm_project/robot/ros_ws/src/transport_robot/transport_robot/trigger_device.py",
+      "upstream_sha256": "824e9af33dd8a7d9a3532ce538167d21aee573593c7e408f7b9f241df68cc712",
+      "local_sha256": "824e9af33dd8a7d9a3532ce538167d21aee573593c7e408f7b9f241df68cc712",
+      "modified": false
+    },
+    {
+      "path": "farm_project/robot/ros_ws/src/transport_robot/transport_robot/unload_session.py",
+      "upstream_sha256": "7e9a7a80e0723294e9ea1c05f7700cca764f2691b31953e8568ebdb335f05819",
+      "local_sha256": "7e9a7a80e0723294e9ea1c05f7700cca764f2691b31953e8568ebdb335f05819",
+      "modified": false
+    },
+    {
+      "path": "farm_project/robot/ros_ws/src/farm_docking/farm_docking/__init__.py",
+      "upstream_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "local_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "modified": false
+    },
+    {
+      "path": "farm_project/robot/ros_ws/src/farm_docking/farm_docking/approach_gate.py",
+      "upstream_sha256": "63f0ff7a3d07f6c95f6e1d9a1824a7fcf6a093d147b21da83c7d9ed2b3178208",
+      "local_sha256": "63f0ff7a3d07f6c95f6e1d9a1824a7fcf6a093d147b21da83c7d9ed2b3178208",
+      "modified": false
+    },
+    {
+      "path": "farm_project/robot/ros_ws/src/farm_docking/farm_docking/camera_input.py",
+      "upstream_sha256": "d15be3b9a3ee3e34b877bbd2825969b1e9462b8b555aa01e5657faab4fca774e",
+      "local_sha256": "d15be3b9a3ee3e34b877bbd2825969b1e9462b8b555aa01e5657faab4fca774e",
+      "modified": false
+    },
+    {
+      "path": "farm_project/robot/ros_ws/src/farm_docking/farm_docking/clearance.py",
+      "upstream_sha256": "203c2f25874fdc40505556eac1c500f1d629a7736b08150ae8df23ad0fd4818f",
+      "local_sha256": "203c2f25874fdc40505556eac1c500f1d629a7736b08150ae8df23ad0fd4818f",
+      "modified": false
+    },
+    {
+      "path": "farm_project/robot/ros_ws/src/farm_docking/farm_docking/clients.py",
+      "upstream_sha256": "8c1f085180fe33bbf49b4d1084637b90a427198917d86b0eed301954d0983684",
+      "local_sha256": "8c1f085180fe33bbf49b4d1084637b90a427198917d86b0eed301954d0983684",
+      "modified": false
+    },
+    {
+      "path": "farm_project/robot/ros_ws/src/farm_docking/farm_docking/departure.py",
+      "upstream_sha256": "dc1eee6748e0ef1a8cc07440e695f4fe4202658a199965160b64304ed1dbd17f",
+      "local_sha256": "dc1eee6748e0ef1a8cc07440e695f4fe4202658a199965160b64304ed1dbd17f",
+      "modified": false
+    },
+    {
+      "path": "farm_project/robot/ros_ws/src/farm_docking/farm_docking/distance_heading.py",
+      "upstream_sha256": "015a24ee0ba05b36c35a8cdc9aa9e60eb4d85d5f92655e05d7c91a99c5df6d34",
+      "local_sha256": "015a24ee0ba05b36c35a8cdc9aa9e60eb4d85d5f92655e05d7c91a99c5df6d34",
+      "modified": false
+    },
+    {
+      "path": "farm_project/robot/ros_ws/src/farm_docking/farm_docking/exit_heading.py",
+      "upstream_sha256": "6a334b1285615a5f0e0af1da295fd0c0efbb1623a235ede5407ec5bee06b96d6",
+      "local_sha256": "6a334b1285615a5f0e0af1da295fd0c0efbb1623a235ede5407ec5bee06b96d6",
+      "modified": false
+    },
+    {
+      "path": "farm_project/robot/ros_ws/src/farm_docking/farm_docking/footprint_guard.py",
+      "upstream_sha256": "87e7eaeef22ecfa2f379a2abd078c3b1dc19d4952f620749dbcbcc028d437dd3",
+      "local_sha256": "87e7eaeef22ecfa2f379a2abd078c3b1dc19d4952f620749dbcbcc028d437dd3",
+      "modified": false
+    },
+    {
+      "path": "farm_project/robot/ros_ws/src/farm_docking/farm_docking/harvest_motion.py",
+      "upstream_sha256": "15a15abf8db1d8601524fa888799cff6e4e8479d82e4f4204c0d81445802c951",
+      "local_sha256": "15a15abf8db1d8601524fa888799cff6e4e8479d82e4f4204c0d81445802c951",
+      "modified": false
+    },
+    {
+      "path": "farm_project/robot/ros_ws/src/farm_docking/farm_docking/initial_marker_recovery.py",
+      "upstream_sha256": "ea58c692b4f2af97660912c8c03073a9270eb5c4c31477ee8de4982a6c2043b5",
+      "local_sha256": "ea58c692b4f2af97660912c8c03073a9270eb5c4c31477ee8de4982a6c2043b5",
+      "modified": false
+    },
+    {
+      "path": "farm_project/robot/ros_ws/src/farm_docking/farm_docking/legacy_aruco.py",
+      "upstream_sha256": "f0607aae0dc218e5b3bb9f42e7b7b615341d5504ec6bc1fc5cefdf16be58fa3f",
+      "local_sha256": "f0607aae0dc218e5b3bb9f42e7b7b615341d5504ec6bc1fc5cefdf16be58fa3f",
+      "modified": false
+    },
+    {
+      "path": "farm_project/robot/ros_ws/src/farm_docking/farm_docking/lidar_approach.py",
+      "upstream_sha256": "e096e96edfb6c553860d84b2f61f76172e950a699090ac7e99f22410e6cc3f53",
+      "local_sha256": "e096e96edfb6c553860d84b2f61f76172e950a699090ac7e99f22410e6cc3f53",
+      "modified": false
+    },
+    {
+      "path": "farm_project/robot/ros_ws/src/farm_docking/farm_docking/marker_geometry.py",
+      "upstream_sha256": "cd35885975b03f104756dbd1f76f0a2ba40edc0942f5e81803bc173324ff1500",
+      "local_sha256": "cd35885975b03f104756dbd1f76f0a2ba40edc0942f5e81803bc173324ff1500",
+      "modified": false
+    },
+    {
+      "path": "farm_project/robot/ros_ws/src/farm_docking/farm_docking/motion_gate.py",
+      "upstream_sha256": "a887cd35619626e91644d42e35eee1ca100077680d791d83143d75a7d19760a3",
+      "local_sha256": "a887cd35619626e91644d42e35eee1ca100077680d791d83143d75a7d19760a3",
+      "modified": false
+    },
+    {
+      "path": "farm_project/robot/ros_ws/src/farm_docking/farm_docking/pose_control.py",
+      "upstream_sha256": "38f3823680cd069618e7e05ccb5b2043a3e1749d07a21ebab9cef1d016bd3b45",
+      "local_sha256": "38f3823680cd069618e7e05ccb5b2043a3e1749d07a21ebab9cef1d016bd3b45",
+      "modified": false
+    },
+    {
+      "path": "farm_project/robot/ros_ws/src/farm_docking/farm_docking/pose_path.py",
+      "upstream_sha256": "ccf590b707370303cc0795c1c4cb1d45156287ac6f284c51ce7feff2fcd06439",
+      "local_sha256": "ccf590b707370303cc0795c1c4cb1d45156287ac6f284c51ce7feff2fcd06439",
+      "modified": false
+    },
+    {
+      "path": "farm_project/robot/ros_ws/src/farm_docking/farm_docking/pose_session.py",
+      "upstream_sha256": "f6a365b2c8fd096f284655be3ba51817b97289cbe2568be77eac6e52f08d9041",
+      "local_sha256": "f6a365b2c8fd096f284655be3ba51817b97289cbe2568be77eac6e52f08d9041",
+      "modified": false
+    },
+    {
+      "path": "farm_project/robot/ros_ws/src/farm_docking/farm_docking/precision_server.py",
+      "upstream_sha256": "5a7855c86e5c33d270b90a7142cbb59c071c4d482238c610c3bf2b6a88d636f8",
+      "local_sha256": "5a7855c86e5c33d270b90a7142cbb59c071c4d482238c610c3bf2b6a88d636f8",
+      "modified": false
+    },
+    {
+      "path": "farm_project/robot/ros_ws/src/farm_docking/farm_docking/profiles.py",
+      "upstream_sha256": "45c5b871a193ba61cca6e41b9879074f6d6dcd381c14d841f0aca69da644674b",
+      "local_sha256": "45c5b871a193ba61cca6e41b9879074f6d6dcd381c14d841f0aca69da644674b",
+      "modified": false
+    },
+    {
+      "path": "farm_project/robot/ros_ws/src/farm_docking/farm_docking/recovery.py",
+      "upstream_sha256": "240fb26b69e3ce6d88fcd2574e99ff61cc02ca71afa62804e4d2332c983b7df7",
+      "local_sha256": "240fb26b69e3ce6d88fcd2574e99ff61cc02ca71afa62804e4d2332c983b7df7",
+      "modified": false
+    },
+    {
+      "path": "farm_project/robot/ros_ws/src/farm_docking/farm_docking/route_observer.py",
+      "upstream_sha256": "565f1c50e48e85dca6b67aaf0ce5eb64f6e4e3dc60dc5ec10858fdad907080f7",
+      "local_sha256": "565f1c50e48e85dca6b67aaf0ce5eb64f6e4e3dc60dc5ec10858fdad907080f7",
+      "modified": false
+    },
+    {
+      "path": "farm_project/robot/ros_ws/src/farm_docking/farm_docking/sorter_departure.py",
+      "upstream_sha256": "9db4ab803beabfcfb6b848a35244859bc4d6f68c80d36f11ee1925171a592ffc",
+      "local_sha256": "9db4ab803beabfcfb6b848a35244859bc4d6f68c80d36f11ee1925171a592ffc",
+      "modified": false
+    },
+    {
+      "path": "farm_project/robot/ros_ws/src/farm_docking/farm_docking/staged_dock.py",
+      "upstream_sha256": "b339377404f2bf76614eb88f8a1908f31c35758f4ac1dd50e0e2636db2a2a19a",
+      "local_sha256": "b339377404f2bf76614eb88f8a1908f31c35758f4ac1dd50e0e2636db2a2a19a",
+      "modified": false
+    },
+    {
+      "path": "farm_project/robot/ros_ws/src/farm_docking/farm_docking/station_entry.py",
+      "upstream_sha256": "adce7e7875896cfa3c0f22e45ce7607548958b703025f59e565e43c3a6df2f90",
+      "local_sha256": "adce7e7875896cfa3c0f22e45ce7607548958b703025f59e565e43c3a6df2f90",
+      "modified": false
+    },
+    {
+      "path": "farm_project/robot/ros_ws/src/farm_docking/farm_docking/target_surface.py",
+      "upstream_sha256": "5d6d43ab6c96ef1c08c7836a62e8399e41869783154a3d17cefefcda3845b6ce",
+      "local_sha256": "5d6d43ab6c96ef1c08c7836a62e8399e41869783154a3d17cefefcda3845b6ce",
+      "modified": false
+    },
+    {
+      "path": "farm_project/robot/ros_ws/src/farm_docking/farm_docking/target_tracker.py",
+      "upstream_sha256": "08d8649458d43d9e0d314e8c95f2e983183363b42d9aae1919df6cbdec9b9e15",
+      "local_sha256": "08d8649458d43d9e0d314e8c95f2e983183363b42d9aae1919df6cbdec9b9e15",
+      "modified": false
+    },
+    {
+      "path": "farm_project/robot/ros_ws/src/farm_docking/package.xml",
+      "upstream_sha256": "8540da8c6642f008dec3e088706b4a9b4573a82dc021ce303fab1a9e126aef4b",
+      "local_sha256": "8540da8c6642f008dec3e088706b4a9b4573a82dc021ce303fab1a9e126aef4b",
+      "modified": false
+    },
+    {
+      "path": "farm_project/robot/ros_ws/src/farm_docking/resource/farm_docking",
+      "upstream_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "local_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "modified": false
+    },
+    {
+      "path": "farm_project/robot/ros_ws/src/farm_docking/setup.cfg",
+      "upstream_sha256": "fcf9ffc5ebdd5ee0b73d5543550d809b21afcf0701fb5ba69401eebf94c7fa80",
+      "local_sha256": "fcf9ffc5ebdd5ee0b73d5543550d809b21afcf0701fb5ba69401eebf94c7fa80",
+      "modified": false
+    },
+    {
+      "path": "farm_project/robot/ros_ws/src/farm_docking/setup.py",
+      "upstream_sha256": "19e2fb3a8bc27e2b3988d6ebcc3d49be5f3d1d1935d5068ffd65893e61c59573",
+      "local_sha256": "19e2fb3a8bc27e2b3988d6ebcc3d49be5f3d1d1935d5068ffd65893e61c59573",
+      "modified": false
+    }
+  ]
+}

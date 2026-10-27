@@ -1,0 +1,162 @@
+{
+  "schema_version": 1,
+  "robot_id": "transport_01",
+  "map_id": "farm_map_v1",
+  "frame_id": "map",
+  "scene": "envs/output/farm_with_plants_v5.usd",
+  "map_yaml": "maps/count_test_farm_map.yaml",
+  "route": "maps/transport_graph.geojson",
+  "use_sim_time": true,
+  "scene_binding": {
+    "robot_prim": "/World/transport_robot",
+    "asset_file": "robots/transport_robot/urdf/transport_robot.portable/transport_robot.sim.usda",
+    "articulation_relative": "base_footprint",
+    "base_link_relative": "base_link",
+    "lidar_relative": "base_scan",
+    "camera_relative": "base_link/docking_camera"
+  },
+  "notes": [
+    "\uc6b4\uc1a1 URDF\uc758 \ubc14\ud034 \ubc18\uacbd 0.033m/\uac04\uaca9 0.288m. odom\uc740 \uad00\uc808 \ud68c\uc804 \uc801\ubd84\uc774\uba70 \uc2e4\uc81c \uc704\uce58\ub97c \uc81c\uc5b4 \uc785\ub825\uc5d0 \uc8fc\uc785\ud558\uc9c0 \uc54a\ub294\ub2e4.",
+    "\ub3c4\ud0b9 \uce74\uba54\ub77c \uc7a5\ucc29\uc740 feature_dongmin 9686aca\uc758 T_base_camera. \uc2e4\uc81c IMX219 \ub0b4\ubd80 \ubcf4\uc815 \ud30c\uc77c\uc740 \ubbf8\uc81c\uacf5\uc774\ubbc0\ub85c K\ub294 \uc784\uc2dc 90\ub3c4 \uc218\ud3c9 FOV, \uc65c\uace1 0. \uc815\ubc00 \ub3c4\ud0b9 \uac80\uc99d \uc804\uc5d0 \uad50\uccb4/\uac80\ud1a0\ud55c\ub2e4.",
+    "\ub36e\uac1c/\ud2f8\ud2b8 \uc561\ucd94\uc5d0\uc774\ud130\uc640 \uacfc\uc2e4 \ubc30\ucd9c \ubb3c\ub9ac\ub294 \uc774\ubc88 \uc5f0\uacb0 \ubc94\uc704\uac00 \uc544\ub2c8\ub2e4.",
+    "\uc6d0\ubcf8 \ucc38\uc870 sim \ub808\uc774\uc5b4: \uc678\uacbd/\ud3ed \ubcf4\uc874 \ub465\uadfc \ud0c0\uc774\uc5b4 21\ubd84\ud560, \ud0c0\uc774\uc5b4 \ub9c8\ucc30 0.8, \uace0\uc815 \uce90\uc2a4\ud130 \ub9c8\ucc30 0. \uc2e4\ubb3c \ub9c8\ucc30 \uc2e4\uce21\uac12\uc774 \uc544\ub2cc \uc811\ucd09 \uadfc\uc0ac.",
+    "\uc18d\ub3c4 \uc0c1\ud55c 0.15m/s\u00b71.0rad/s\ub294 \uc2e4\ubb3c feature_dongmin 9686aca transport_nav2.yaml\uc758 velocity_smoother \uc0c1\ud55c\uacfc \uc77c\uce58. \uc774\ubc88 \uad6c\ub3d9 \uc2dc\ud5d8\uc740 0.05m/s\u00b70.2rad/s \uc800\uc18d \ubc94\uc704."
+  ],
+  "base": {
+    "wheel_joints": [
+      "wheel_left_joint",
+      "wheel_right_joint"
+    ],
+    "wheel_signs": [
+      1,
+      1
+    ],
+    "wheel_radius_m": 0.033,
+    "wheel_separation_m": 0.288,
+    "max_linear_mps": 0.15,
+    "max_angular_rps": 1.0,
+    "command_timeout_s": 0.5
+  },
+  "runtime": {
+    "physics_hz": 60,
+    "render_hz": 30,
+    "realtime": true,
+    "command_port": 17620,
+    "telemetry_port": 17621,
+    "telemetry_hz": 30,
+    "transport_timeout_s": 2.0,
+    "drop_limit_m": 0.25,
+    "diagnostic_frames": [
+      "cargo_box",
+      "base_scan"
+    ],
+    "diagnostic_period_s": 0.05
+  },
+  "frames": {
+    "odom": "transport_01/odom",
+    "base_footprint": "transport_01/base_footprint",
+    "base_link": "transport_01/base_link",
+    "scan": "transport_01/base_scan",
+    "camera_optical": "transport_01/camera_optical_frame"
+  },
+  "camera": {
+    "enabled": true,
+    "width": 1280,
+    "height": 720,
+    "fps": 10,
+    "shm_name": "farm_transport_01_camera",
+    "depth_min_m": 0.1,
+    "depth_max_m": 5.0,
+    "odom_frame": "transport_01/odom",
+    "render_rgb_only": true,
+    "publish_ros": true,
+    "ros_image_topic": "camera/image_raw",
+    "ros_info_topic": "camera/camera_info",
+    "T_base_optical": [
+      [
+        0.1391731009600655,
+        6.063643103410976e-17,
+        0.9902680687415704,
+        0.069
+      ],
+      [
+        -0.9902680687415704,
+        8.521894630907781e-18,
+        0.1391731009600655,
+        -0.0015
+      ],
+      [
+        0.0,
+        -1.0,
+        6.123233995736766e-17,
+        0.117
+      ],
+      [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ]
+    ],
+    "camera_info": {
+      "width": 1280,
+      "height": 720,
+      "distortion_model": "plumb_bob",
+      "k": [
+        640.0,
+        0.0,
+        640.0,
+        0.0,
+        640.0,
+        360.0,
+        0.0,
+        0.0,
+        1.0
+      ],
+      "d": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "r": [
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ],
+      "p": [
+        640.0,
+        0.0,
+        640.0,
+        0.0,
+        0.0,
+        640.0,
+        360.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0,
+        0.0
+      ],
+      "frame_id": "transport_01/camera_optical_frame"
+    },
+    "on_demand": true,
+    "ros_info_reliable": true
+  },
+  "lidar": {
+    "enabled": true,
+    "fps": 10,
+    "samples": 360,
+    "range_min_m": 0.12,
+    "range_max_m": 12.0
+  },
+  "publish_clock": false,
+  "model": "waffle"
+}

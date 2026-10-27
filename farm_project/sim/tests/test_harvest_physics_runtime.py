@@ -152,9 +152,16 @@ class ProfileTests(unittest.TestCase):
         for replacement in ['sim/other.json', None]:
             with self.subTest(profile=replacement):
                 devices = deepcopy(self.devices)
+                devices[1]['runtime']['harvest_arm'] = dict(enabled=True)
                 devices[1]['runtime']['robotarm_physics_config'] = replacement
                 with self.assertRaisesRegex(ValueError, '같은 robotarm'):
                     load_physics_profile(self.root, devices)
+
+    def test_non_arm_transport_shares_world_physics_without_own_profile(self) -> None:
+        devices = deepcopy(self.devices)
+        devices.append(dict(robot_id='transport_01', runtime=dict(physics_hz=60, render_hz=30)))
+        self.assertEqual(load_physics_profile(self.root, devices), self.profile)
+        self.assertIsNone(load_physics_profile(self.root, devices[-1:]))
 
     def test_profile_outside_sim_is_rejected_before_read(self) -> None:
         for path in ['outside.json', 'sim/../outside.json']:

@@ -25,6 +25,14 @@ rosidl_generate_interfaces(${PROJECT_NAME}
   "action/DockTransfer.action"
   "action/Discharge.action"
   "srv/TransferEvent.srv"
+  "action/TransportPickup.action"
+  "action/BucketUnload.action"
+  "action/CheckRoute.action"
+  "action/PrecisionMotion.action"
+  "action/MechanicalOperation.action"
+  "msg/TransportDeviceState.msg"
+  "srv/MotionLease.srv"
+  "srv/UnloadEvent.srv"
   "srv/GetHarvestTasks.srv"
   DEPENDENCIES geometry_msgs action_msgs
 )

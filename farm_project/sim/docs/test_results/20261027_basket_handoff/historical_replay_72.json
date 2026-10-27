@@ -1,0 +1,169 @@
+{
+  "scope": "evaluation only; aperture dimensions provisional from URDF",
+  "samples": 541,
+  "source": "sim/runs/drive_diagnostics/aa4c1a37bc004c0bb6d95523ec2304b0",
+  "spec": {
+    "status": "USER_APPROVED_SIM_HANDOFF",
+    "note": "시뮬 업무 진행용 인계 조건. 실제 과실 전달/유실률과 독립. 원본 USD와 공통 도킹 Action 판정 보존.",
+    "harvest": {
+      "frame": "harvest_lid_fixed",
+      "center_local_m": [
+        0.0,
+        0.0,
+        0.006
+      ],
+      "opening_size_m": [
+        0.19,
+        0.19
+      ],
+      "basis": "harvest URDF 벽 중심 +/-0.0975m, 두께0.005m. USD lid z0.495와 벽 중심z0.6035 및 URDF 벽오프셋0.1025에서 바닥 평면0.501m 추정."
+    },
+    "transport": {
+      "frame": "cargo_box",
+      "center_local_m": [
+        -0.15,
+        0.0,
+        0.19
+      ],
+      "opening_size_m": [
+        0.294,
+        0.294
+      ],
+      "basis": "transport portable URDF box0.30m, 벽두께0.003m, 상단0.19m. cargo_box 실제 USD 변환으로 평가."
+    },
+    "alignment_rule": "사용자 승인: 겹침72% 이상, 배출부가 수용부보다 높고 기존 정지조건0.8초 유지",
+    "stop_linear_mps": 0.005,
+    "stop_angular_rps": 0.02,
+    "hold_s": 0.8,
+    "stop_basis": "공통 PrecisionServer 정지 임계값/0.8초 유지. 시뮬 가상 인계 장치에만 적용.",
+    "minimum_coverage": 0.72
+  },
+  "max_coverage": 0.7244986720628814,
+  "minimum_center_distance_m": 0.10438590120920875,
+  "longest_aligned_stationary_s": 5.183333603665233,
+  "alignment_hold_pass": true,
+  "initial": {
+    "sim_time_s": 0.05000000260770321,
+    "coverage": 0.0,
+    "minimum_coverage": 0.72,
+    "full_containment": false,
+    "center_delta_m": [
+      -1.778585400739885e-05,
+      0.8198839382542016,
+      0.0564635479620722
+    ],
+    "horizontal_distance_m": 0.819883938447117,
+    "positive_height_clearance_m": 0.05608175073611543,
+    "aligned": false,
+    "wheel_stopped": true,
+    "world_stopped": false,
+    "held_s": 0.0,
+    "hold_pass": false,
+    "harvest_corners_world": [
+      [
+        -0.09502179290248823,
+        -0.2550006575165643,
+        0.5012939862244831
+      ],
+      [
+        -0.0950213701566071,
+        -0.445000657516026,
+        0.501293825578717
+      ],
+      [
+        0.0949786294971436,
+        -0.4450002347798375,
+        0.5013052883889889
+      ],
+      [
+        0.09497820675126246,
+        -0.2550002347803758,
+        0.5013054490347549
+      ]
+    ],
+    "transport_corners_world": [
+      [
+        0.1469876168774997,
+        -1.3168924903682697,
+        0.4444601038467259
+      ],
+      [
+        0.1470047909235582,
+        -1.0228934524593198,
+        0.4452120437804883
+      ],
+      [
+        -0.14699520857482953,
+        -1.022876278436535,
+        0.4452120748426016
+      ],
+      [
+        -0.14701238262088803,
+        -1.316875316345485,
+        0.4444601349088393
+      ]
+    ]
+  },
+  "final": {
+    "sim_time_s": 32.61666836775839,
+    "coverage": 0.7211812166453401,
+    "minimum_coverage": 0.72,
+    "full_containment": false,
+    "center_delta_m": [
+      -0.0020588548703513593,
+      0.10499701750723955,
+      0.05646317773647169
+    ],
+    "horizontal_distance_m": 0.10501720129956206,
+    "positive_height_clearance_m": 0.0559849516190038,
+    "aligned": true,
+    "wheel_stopped": true,
+    "world_stopped": true,
+    "held_s": 5.183333603665233,
+    "hold_pass": true,
+    "harvest_corners_world": [
+      [
+        -0.09442835990476264,
+        -0.2550054403965802,
+        0.501401846193969
+      ],
+      [
+        -0.09441777423496464,
+        -0.44500544010163795,
+        0.5014016990413515
+      ],
+      [
+        0.09558211527126714,
+        -0.4449948542794922,
+        0.5011970638535448
+      ],
+      [
+        0.09557152960146914,
+        -0.25499485457443444,
+        0.5011972110061623
+      ]
+    ],
+    "transport_corners_world": [
+      [
+        0.14842158806381264,
+        -0.6032008870842511,
+        0.44446071415134975
+      ],
+      [
+        0.1508399305789587,
+        -0.309211793714446,
+        0.445212112234541
+      ],
+      [
+        -0.14315012295660542,
+        -0.3067934426063003,
+        0.44521184042322076
+      ],
+      [
+        -0.14556846547175148,
+        -0.6007825359761054,
+        0.4444604423400295
+      ]
+    ]
+  }
+}

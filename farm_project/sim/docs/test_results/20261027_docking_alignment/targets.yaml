@@ -1,0 +1,521 @@
+schema_version: 1
+targets:
+  marker_32_confirmed_pose:
+    status: taught
+    robot_id: transport_01
+    base_frame: transport_01/base_footprint
+    marker_id: 32
+    marker_size_m: 0.05
+    mission_profile: station_transport_01
+    coordinate_convention: OpenCV IPPE_SQUARE marker frame; T_marker_base transforms
+      base coordinates into marker coordinates
+    T_marker_base:
+    - - 0.0678528466806646
+      - -0.9962477996220882
+      - -0.05372441666019417
+      - -0.00021944910289569376
+    - - 0.05792872274346015
+      - -0.04982368156202955
+      - 0.997076658957032
+      - -0.12433786283199692
+    - - -0.9960121757682696
+      - -0.07076667650634345
+      - 0.05433068394199556
+      - 0.23064497973341133
+    - - 0.0
+      - 0.0
+      - 0.0
+      - 1.0
+    reference_T_base_marker:
+    - - 0.06785284668066471
+      - 0.05792872274346011
+      - -0.9960121757682687
+      - 0.2369428319231454
+    - - -0.996247799622088
+      - -0.04982368156202915
+      - -0.07076667650634326
+      - 0.009908382898872865
+    - - -0.05372441666019452
+      - 0.9970766589570312
+      - 0.054330683941995486
+      - 0.11143149158264153
+    - - 0.0
+      - 0.0
+      - 0.0
+      - 1.0
+    saved_at_utc: '2026-10-20T18:31:13.735724+00:00'
+    camera_range_m: 0.1683875748060516
+    camera_extrinsics_T_base_camera:
+    - - 0.1391731009600655
+      - 6.063643103410976e-17
+      - 0.9902680687415704
+      - 0.069
+    - - -0.9902680687415704
+      - 8.521894630907781e-18
+      - 0.1391731009600655
+      - -0.0015
+    - - 0.0
+      - -1.0
+      - 6.123233995736766e-17
+      - 0.11699999999999999
+    - - 0.0
+      - 0.0
+      - 0.0
+      - 1.0
+    position_tolerance_m: null
+    yaw_tolerance_rad: null
+    note: User confirmed physical station docking completion pose. Marker 32, black
+      square 50mm. Averaged stationary observations. Departure/observation pose remains
+      to be taught.
+    previous_teaching:
+      status: taught_pending_controller_integration
+      robot_id: transport_01
+      base_frame: transport_01/base_footprint
+      marker_id: 32
+      marker_size_m: 0.06
+      mission_profile: null
+      coordinate_convention: OpenCV IPPE_SQUARE marker frame; T_marker_base transforms
+        base coordinates into marker coordinates
+      T_marker_base:
+      - - 0.007877148975993627
+        - -0.9999654702075195
+        - -0.002647435866184919
+        - 0.026577806693877683
+      - - 0.10979681800969386
+        - -0.001766600559797628
+        - 0.9939524827059935
+        - -0.14866514069121722
+      - - -0.9939228386947129
+        - -0.008120191815325497
+        - 0.10977911097256238
+        - 0.2892618706856299
+      - - 0.0
+        - 0.0
+        - 0.0
+        - 1.0
+      reference_T_base_marker:
+      - - 0.007877148975993627
+        - 0.10979681800969386
+        - -0.9939228386947129
+        - 0.30361758169208053
+      - - -0.9999654702075195
+        - -0.001766600559797628
+        - -0.008120191815325497
+        - 0.028663118921787665
+      - - -0.002647435866184919
+        - 0.9939524827059935
+        - 0.10977911097256238
+        - 0.11608153771842833
+      - - 0.0
+        - 0.0
+        - 0.0
+        - 1.0
+      source_stamp_ns: 1792401789136752230
+      saved_at_utc: '2026-10-19T09:24:48.538965+00:00'
+      camera_range_m: 0.23655034761143903
+      camera_extrinsics_T_base_camera:
+      - - 0.1391731009600655
+        - 6.063643103410976e-17
+        - 0.9902680687415704
+        - 0.069
+      - - -0.9902680687415704
+        - 8.521894630907781e-18
+        - 0.1391731009600655
+        - -0.0015
+      - - 0.0
+        - -1.0
+        - 6.123233995736766e-17
+        - 0.11699999999999999
+      - - 0.0
+        - 0.0
+        - 0.0
+        - 1.0
+      position_tolerance_m: null
+      yaw_tolerance_rad: null
+      note: User confirmed this exact pose as docking completion. Single observation;
+        goal saved, controller not enabled. Mission association and tolerances remain
+        to be set. Recheck if marker mount or camera extrinsics change.
+    teaching_quality:
+      total_frames: 93
+      valid_frames: 93
+      position_spread_p95_m: 0.0028399938495421934
+      angle_spread_p95_deg: 0.6555806621178529
+      reprojection_median_px: 0.34496359625921313
+  marker_32_departure_pose:
+    robot_id: transport_01
+    base_frame: transport_01/base_footprint
+    marker_id: 32
+    coordinate_convention: OpenCV IPPE_SQUARE marker frame; T_marker_base transforms
+      base coordinates into marker coordinates
+    camera_extrinsics_T_base_camera:
+    - - 0.1391731009600655
+      - 6.063643103410976e-17
+      - 0.9902680687415704
+      - 0.069
+    - - -0.9902680687415704
+      - 8.521894630907781e-18
+      - 0.1391731009600655
+      - -0.0015
+    - - 0.0
+      - -1.0
+      - 6.123233995736766e-17
+      - 0.11699999999999999
+    - - 0.0
+      - 0.0
+      - 0.0
+      - 1.0
+    status: taught
+    marker_size_m: 0.05
+    T_marker_base:
+    - - 0.10229145940755609
+      - -0.9931477596398443
+      - -0.056515350610517816
+      - 0.026836261566911088
+    - - 0.05339905103524117
+      - -0.051249249384459794
+      - 0.99725726659978
+      - -0.1199501855018312
+    - - -0.9933201894056146
+      - -0.10502876729680749
+      - 0.04779078738946527
+      - 0.5854705781039398
+    - - 0.0
+      - 0.0
+      - 0.0
+      - 1.0
+    reference_T_base_marker:
+    - - 0.10229145940755636
+      - 0.053399051035241195
+      - -0.9933201894056166
+      - 0.5852198512501979
+    - - -0.993147759639845
+      - -0.051249249384459725
+      - -0.1050287672968075
+      - 0.08199626918859713
+    - - -0.05651535061051797
+      - 0.9972572665997804
+      - 0.04779078738946536
+      - 0.09315775493226959
+    - - 0.0
+      - 0.0
+      - 0.0
+      - 1.0
+    saved_at_utc: '2026-10-20T18:44:56.214341+00:00'
+    camera_range_m: 0.5235785969878983
+    mission_profile: station_transport_01
+    note: User confirmed B departure stop pose facing station marker 32, 50mm. Reverse
+      from dock to this pose before turning. Teaching data only; automatic undock
+      integration pending.
+    teaching_quality:
+      total_frames: 94
+      valid_frames: 94
+      position_spread_p95_m: 0.017237704914441397
+      angle_spread_p95_deg: 1.6403758293618262
+      reprojection_median_px: 0.13643536061889622
+  marker_40_lidar_entry_pose:
+    status: taught
+    robot_id: transport_01
+    base_frame: transport_01/base_footprint
+    marker_id: 40
+    marker_size_m: 0.05
+    mission_profile: sort_01
+    T_marker_base:
+    - - 0.07973044871250162
+      - -0.9968150902800118
+      - -0.001652676058646106
+      - 0.003882533787224456
+    - - 0.037870788078806186
+      - 0.0013723367504124143
+      - 0.9992817020751122
+      - -0.11889325616190528
+    - - -0.9960968120410751
+      - -0.0797357666414209
+      - 0.037859590062645394
+      - 0.3482916171723181
+    - - 0.0
+      - 0.0
+      - 0.0
+      - 1.0
+    reference_T_base_marker:
+    - - 0.07973044871250158
+      - 0.03787078807880619
+      - -0.9960968120410755
+      - 0.3511251946730866
+    - - -0.996815090280012
+      - 0.0013723367504120908
+      - -0.07973576664142101
+      - 0.03180462896244958
+    - - -0.0016526760586457812
+      - 0.9992817020751126
+      - 0.037859590062645436
+      - 0.1056280941049583
+    - - 0.0
+      - 0.0
+      - 0.0
+      - 1.0
+    camera_extrinsics_T_base_camera:
+    - - 0.1391731009600655
+      - 6.063643103410976e-17
+      - 0.9902680687415704
+      - 0.069
+    - - -0.9902680687415704
+      - 8.521894630907781e-18
+      - 0.1391731009600655
+      - -0.0015
+    - - 0.0
+      - -1.0
+      - 6.123233995736766e-17
+      - 0.11699999999999999
+    - - 0.0
+      - 0.0
+      - 0.0
+      - 1.0
+    saved_at_utc: '2026-10-22T11:00:43.268311+00:00'
+    note: User taught farther visual entry; marker40 5cm. Final raw lidar target 0.15m.
+    teaching_quality:
+      total_frames: 93
+      valid_frames: 93
+      position_spread_p95_m: 0.003137506460696682
+      angle_spread_p95_deg: 0.526122238217436
+      reprojection_median_px: 0.2914687210624236
+    camera_range_m: 0.284339158591219
+  station_parking_entry_20261023:
+    status: taught
+    robot_id: transport_01
+    base_frame: transport_01/base_footprint
+    marker_id: 32
+    marker_size_m: 0.05
+    mission_profile: station_transport_01
+    coordinate_convention: OpenCV IPPE_SQUARE marker frame; T_marker_base transforms
+      base coordinates into marker coordinates
+    T_marker_base:
+    - - 0.10733216027769607
+      - -0.9942172575384544
+      - -0.003442699934253407
+      - -0.021601268261697726
+    - - 0.061605259800970855
+      - 0.0031945556689647026
+      - 0.9980954797908523
+      - -0.15692392109557501
+    - - -0.9923127527825977
+      - -0.10733983243322233
+      - 0.061591891010342514
+      - 0.601813813202905
+    - - 0.0
+      - 0.0
+      - 0.0
+      - 1.0
+    reference_T_base_marker:
+    - - 0.10733216027769622
+      - 0.06160525980097083
+      - -0.9923127527825988
+      - 0.6091733713573133
+    - - -0.9942172575384548
+      - 0.003194555668965008
+      - -0.10733983243322232
+      - 0.04362354237643288
+    - - -0.003442699934253726
+      - 0.9980954797908536
+      - 0.06159189101034266
+      - 0.11948383884041361
+    - - 0.0
+      - 0.0
+      - 0.0
+      - 1.0
+    saved_at_utc: '2026-10-23T09:21:03.968489+00:00'
+    camera_range_m: 0.5422174603235812
+    camera_extrinsics_T_base_camera:
+    - - 0.1391731009600655
+      - 6.063643103410976e-17
+      - 0.9902680687415704
+      - 0.069
+    - - -0.9902680687415704
+      - 8.521894630907781e-18
+      - 0.1391731009600655
+      - -0.0015
+    - - 0.0
+      - -1.0
+      - 6.123233995736766e-17
+      - 0.11699999999999999
+    - - 0.0
+      - 0.0
+      - 0.0
+      - 1.0
+    position_tolerance_m: null
+    yaw_tolerance_rad: null
+    note: Retaught incoming parking pose at user request. Final graph20->3 rotation
+      separate. Control strategy unchanged by reteaching.
+    teaching_quality:
+      valid_frames: 187
+      repeat_position_difference_m: 0.0014529606282677136
+      repeat_angle_difference_deg: 0.07341893705609943
+      batch_position_spread_p95_m:
+      - 0.012514732700060037
+      - 0.014682369338546128
+  harvest_42_reference_20261024:
+    status: taught_reference_only
+    robot_id: transport_01
+    base_frame: transport_01/base_footprint
+    marker_id: 42
+    marker_size_m: 0.05
+    saved_at_utc: '2026-10-24T10:00:36.960625+00:00'
+    T_marker_base:
+    - - 0.09631266612220525
+      - -0.9948634840220507
+      - 0.03115314597178886
+      - -0.036886016501832104
+    - - 0.07209562264501104
+      - 0.03818917313971286
+      - 0.9966663475056899
+      - -0.12098230746334913
+    - - -0.9927366677724061
+      - -0.09374558770636636
+      - 0.075403403409443
+      - 0.5905150451150607
+    - - 0.0
+      - 0.0
+      - 0.0
+      - 1.0
+    reference_T_base_marker:
+    - - 0.09631266612220532
+      - 0.07209562264501108
+      - -0.9927366677724062
+      - 0.598500823534517
+    - - -0.9948634840220506
+      - 0.03818917313971268
+      - -0.09374558770636632
+      - 0.02328184335161504
+    - - 0.031153145971789052
+      - 0.9966663475056904
+      - 0.07540340340944302
+      - 0.07720126578254963
+    - - 0.0
+      - 0.0
+      - 0.0
+      - 1.0
+    camera_extrinsics_T_base_camera:
+    - - 0.1391731009600655
+      - 6.063643103410976e-17
+      - 0.9902680687415704
+      - 0.069
+    - - -0.9902680687415704
+      - 8.521894630907781e-18
+      - 0.1391731009600655
+      - -0.0015
+    - - 0.0
+      - -1.0
+      - 6.123233995736766e-17
+      - 0.11699999999999999
+    - - 0.0
+      - 0.0
+      - 0.0
+      - 1.0
+    camera_range_m: 0.531801739996524
+    teaching_quality:
+      valid_frames: 186
+      repeat_position_difference_m: 0.003876977812607231
+      repeat_angle_difference_deg: 0.5132532343489292
+      batch_position_spread_p95_m:
+      - 0.0413014416894838
+      - 0.03453097168129758
+      batch_angle_spread_p95_deg:
+      - 3.5916694013625556
+      - 3.0740357270803105
+    note: Current pose captured at user request. Marker42 observed, not marker41.
+      Reference only; not assigned as marker41 approach target or final lidar distance.
+  harvest_42_wait_pose:
+    status: taught
+    robot_id: transport_01
+    base_frame: transport_01/base_footprint
+    marker_id: 42
+    marker_size_m: 0.05
+    saved_at_utc: '2026-10-25T12:30:25.194058+00:00'
+    T_marker_base:
+    - - 0.02632182807970074
+      - -0.999209522825837
+      - 0.029790784828648973
+      - 0.03384443681569307
+    - - 0.062328063140381515
+      - 0.03138355653578529
+      - 0.9975621709569453
+      - -0.11582471887693045
+    - - -0.9977085616109107
+      - -0.024400858044940216
+      - 0.06310486680882371
+      - 0.5321756669901403
+    - - 0.0
+      - 0.0
+      - 0.0
+      - 1.0
+    reference_T_base_marker:
+    - - 0.026321828079700696
+      - 0.06232806314038145
+      - -0.9977085616109096
+      - 0.5372845021811206
+    - - -0.999209522825836
+      - 0.03138355653578575
+      - -0.024400858044940178
+      - 0.05043821807923123
+    - - 0.029790784828648487
+      - 0.9975621709569454
+      - 0.06310486680882371
+      - 0.08095123109421581
+    - - 0.0
+      - 0.0
+      - 0.0
+      - 1.0
+    camera_extrinsics_T_base_camera:
+    - - 0.1391731009600655
+      - 6.063643103410976e-17
+      - 0.9902680687415704
+      - 0.069
+    - - -0.9902680687415704
+      - 8.521894630907781e-18
+      - 0.1391731009600655
+      - -0.0015
+    - - 0.0
+      - -1.0
+      - 6.123233995736766e-17
+      - 0.11699999999999999
+    - - 0.0
+      - 0.0
+      - 0.0
+      - 1.0
+    camera_range_m: 0.47257298841922335
+    teaching_quality:
+      valid_frames: 186
+      repeat_position_difference_m: 0.0003536300800080958
+      repeat_angle_difference_deg: 0.042800476026331094
+      batch_position_spread_p95_m:
+      - 0.010479679983666022
+      - 0.01066890721218294
+      batch_angle_spread_p95_deg:
+      - 1.087711029372002
+      - 1.1464205132109009
+    note: Retaught at user-positioned stationary approach wait pose on 2026-10-25.
+      Marker42 approach reference; marker41 confirmation and lidar20cm unchanged.
+      Physical approach validation pending. User confirmed physical black square side
+      is 50mm; candidate activated.
+    mission_profile: harvest_approach_42
+shadow_controller:
+  direction: forward
+  position_tolerance_m: 0.01
+  yaw_tolerance_rad: 0.03490658503988659
+  max_linear_mps: 0.08
+  max_angular_rps: 0.3
+  rotate_first_rad: 0.17
+  max_observation_age_s: 0.3
+  max_planar_distance_m: 0.5
+  max_tilt_rad: 0.2
+  settle_samples: 5
+  linear_pid:
+    kp: 0.3
+    ki: 0.0
+    kd: 0.0
+  angular_pid:
+    kp: 0.8
+    ki: 0.0
+    kd: 0.0
+  min_linear_mps: 0.011
+  min_angular_rps: 0.011
+  approach_yaw_deadband_rad: 0.01

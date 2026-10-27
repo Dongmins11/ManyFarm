@@ -47,6 +47,8 @@ def main():
     from farm_sim_runtime.fleet_config import load_fleet
     configs, task = load_fleet(root, args.fleet_config)
     if args.harvest_test_ui:
+        if task['harvest_robot'] is None:
+            parser.error('수확 시험 UI에는 evaluation_config가 필요합니다.')
         snapshot = Path(task['harvest_robot']['scene_snapshot_file']).resolve()
         if len(configs) != 1 or not snapshot.is_relative_to(root/'sim/runs/harvest_test_ui'):
             parser.error('sim/tools/harvest_test_ui.py의 독립 설정으로 실행하세요.')
@@ -126,7 +128,7 @@ def main():
             stage.Load(robot_path)
             mount_camera(stage, robot_path, cfg)
             install_scout_mount(stage, root, robot_path, cfg)
-            if harvest_physics is not None and (cfg['robot_id'] == task['harvest_robot']['robot_id']
+            if harvest_physics is not None and (cfg['robot_id'] == (task['harvest_robot'] or {}).get('robot_id')
                     or cfg['runtime'].get('harvest_activity', {}).get('enabled', False)):
                 harvest_physics.configure_robot(robot_path, robot_id=cfg['robot_id'],
                     activity_config=cfg['runtime'].get('harvest_activity'))
@@ -180,6 +182,9 @@ def main():
                     raise RuntimeError('tag_camera에 비단위 scale이 있습니다.')
             bindings.append((cfg,robot_path,str(body.GetPath()),static,T_scan,camera_path,T_camera,
                              tag_camera_path,T_tag_camera,T_asset_control))
+        from farm_sim_runtime.docking_marker_scene import install_docking_markers
+        print('[docking_markers] '+json.dumps(install_docking_markers(
+            stage, root, task.get('docking_markers'))), flush=True)
         scenes = [str(p.GetPath()) for p in stage.Traverse() if p.IsA(UsdPhysics.Scene)]
         if len(scenes) > 1:
             raise RuntimeError('Multiple PhysicsScene prims; select one scene before running')
@@ -298,11 +303,14 @@ def main():
             for robot in robots:
                 if robot['arm'] is not None:
                     robot['arm'].observe_physics_tick(dt_s, sim_s)
-                if ((ticks.frame_count+1) % ticks.render_every == 0 and
+                if (robot['arm'] is not None and (ticks.frame_count+1) % ticks.render_every == 0 and
                         robot['cfg']['runtime'].get('harvest_arm', {}).get('backend') == 'student_d435'):
                     robot['arm'].prepare_capture(sim_s)
         hcfg = task['harvest_robot']
-        truth = SceneTruth(stage,root/hcfg['scene_snapshot_file'],hcfg['robot_id'],task['map_id'],session,hcfg['workspace'])
+        truth = (SceneTruth(stage,root/hcfg['scene_snapshot_file'],hcfg['robot_id'],task['map_id'],session,hcfg['workspace'])
+                 if hcfg is not None else None)
+        from farm_sim_runtime.basket_monitor import BasketMonitor
+        basket_monitor = BasketMonitor(stage, robots, task['basket_alignment']) if task.get('basket_alignment') else None
         previous = float(world.current_time)
         start_sim = previous
         last_truth = -math.inf
@@ -342,8 +350,14 @@ def main():
                         if harvest_physics is not None:
                             harvest_physics.accept_activity(robot['cfg']['robot_id'], message)
                         continue
+                    if message.get('kind') == 'camera_activity':
+                        if robot['camera'] is not None:
+                            robot['camera'].accept_activity(message)
+                        continue
                     accepted = robot['gate'].accept(message)
                     diagnostic.received(robot['cfg']['robot_id'], message, accepted)
+                if robot['camera'] is not None:
+                    robot['camera'].update_activity()
             if not world.is_playing():
                 for robot in robots:
                     robot['gate'].stop()
@@ -385,7 +399,8 @@ def main():
             now = float(world.current_time)
             student_camera_started = time.perf_counter()
             for robot in robots:
-                if robot['cfg']['runtime'].get('harvest_arm', {}).get('backend') == 'student_d435':
+                if (robot['arm'] is not None
+                        and robot['cfg']['runtime'].get('harvest_arm', {}).get('backend') == 'student_d435'):
                     robot['arm'].after_frame(now)
             student_camera_s = time.perf_counter()-student_camera_started
             if test_controller is not None:
@@ -423,11 +438,15 @@ def main():
                     robot['transport'].send(dict(kind='state',session=session,seq=robot['seq'],sent=time.monotonic(),
                         stamp_ns=round(now*1e9),odom=odom,joint_positions=positions,joint_velocities=velocities,
                         static_tf=robot['static'],scan=ranges,camera_frames=robot['camera_frames'],
+                        camera_active=robot['camera'].active if robot['camera'] else False,
                         tag_camera_frames=robot['tag_camera_frames'],
+                        basket_alignment=(basket_monitor.latest if basket_monitor and
+                            cfg['robot_id']==basket_monitor.ids['transport'] else None),
                         arm=robot['arm'].telemetry() if robot['arm'] is not None else None))
                     robot['last_telemetry']=now
+            if basket_monitor is not None:basket_monitor.update(now)
             truth_started = time.perf_counter()
-            if now-last_truth>=.2:
+            if truth is not None and now-last_truth>=.2:
                 harvest=next(r for r in robots if r['cfg']['robot_id']==hcfg['robot_id'])
                 truth.capture(round(now*1e9),harvest['T_world_base']);last_truth=now
             frame_finished = time.perf_counter()
@@ -474,7 +493,7 @@ def main():
         traceback.print_exc()
         raise
     finally:
-        if 'truth' in locals():
+        if 'truth' in locals() and truth is not None:
             truth.close()
         if performance_log is not None:
             performance_log.close()

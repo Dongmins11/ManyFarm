@@ -1,0 +1,333 @@
+profiles:
+  harvest_approach_42:
+    route_handoff:
+      enabled: true
+      observation_timeout_s: 180.0
+      recognition_max_age_s: 0.5
+    configured: true
+    strategy: marker_pose
+    target_marker_id: 42
+    docking_marker_id: 42
+    base_frame: transport_01/base_footprint
+    target_tracking:
+      enabled: true
+      fixed_target: true
+      max_prediction_s: 2.0
+      max_prediction_distance_m: 0.12
+      max_prediction_yaw_rad: 0.35
+      max_input_age_s: 0.5
+      filter_alpha: 0.35
+      max_innovation_m: 0.12
+      max_innovation_yaw_rad: 0.35
+    pose_target: harvest_42_wait_pose
+    clearance_corridor_verified: false
+    approach_clearance_verified: false
+    extrinsics_verified: false
+    bounded_trial: true
+    scan_stop_range_m: 0.3
+    collision_guard:
+      nav2_file: ../nav2_transport.yaml
+      odom_frame: transport_01/odom
+      margin_m: 0.02
+      reaction_s: 0.4
+      linear_decel_mps2: 0.2
+      angular_decel_rps2: 0.4
+      sample_motion_m: 0.005
+      max_linear_mps: 0.2
+      max_angular_rps: 0.5
+      min_valid_points: 15
+    timeout_s: 120.0
+    marker_wait_timeout_s: 2.0
+    recovery:
+      wait_timeout_s: 15.0
+      marker_timeout_s: 30.0
+      stable_s: 0.5
+      max_episodes: 5
+      search_enabled: false
+      search_angle_rad: 0.2617993878
+      search_speed_rps: 0.12
+      search_dwell_s: 1.0
+    approach:
+      max_distance_m: 1.2
+      align_tolerance_rad: 0.05
+      realign_threshold_rad: 0.17
+      position_tolerance_m: 0.01
+    entry:
+      enabled: false
+    note: Marker42 approach wait pose taught 2026-10-24; reference sample spread recorded.
+      Activation awaits remaining harvest measurements.
+    pose_controller:
+      direction: forward
+      linear_pid:
+        kp: 0.6
+        ki: 0.0
+        kd: 0.0
+      angular_pid:
+        kp: 0.8
+        ki: 0.0
+        kd: 0.0
+      max_linear_mps: 0.08
+      max_angular_rps: 0.3
+      min_linear_mps: 0.03
+      max_planar_distance_m: 1.2
+    marker_installation:
+      dictionary: DICT_4X4_50
+      marker_size_m: 0.05
+      teaching_status: taught_pending_validation
+    acquire_then_odom:
+      odom_only_after_acquire: true
+      visual_correction_during_transit: true
+      hybrid_relative_control: true
+      distance_corridor:
+        target_range_m: 0.54
+        distance_tolerance_m: 0.02
+        max_heading_offset_rad: 0.1745329252
+        lookahead_m: 0.25
+        max_linear_mps: 0.06
+        min_linear_mps: 0.03
+        linear_kp: 0.6
+        heading_kp: 0.8
+        max_angular_rps: 0.1
+      occluded_speed_scale: 0.75
+      source_speed_transition_s: 0.5
+      update_step_m: 0.005
+      update_step_rad: 0.015
+      acquire_samples: 8
+      acquire_spread_m: 0.03
+      acquire_yaw_spread_rad: 0.1
+      acquire_timeout_s: 15.0
+      max_odom_duration_s: 90.0
+      max_odom_travel_m: 1.5
+      max_odom_yaw_rad: 1.57
+      reobserve_distance_m: 0.04
+      terminal_position_m: 0.01
+      terminal_position_exit_m: 0.05
+      terminal_yaw_rad: 0.034906585
+    pose_path:
+      track_final_heading: true
+      aligned_min_linear_mps: 0.02
+      aligned_min_speed_bearing_rad: 0.1
+      final_heading_kp: 0.3
+      max_linear_mps: 0.08
+      min_linear_mps: 0.03
+      linear_kp: 0.6
+      heading_kp: 0.8
+      max_angular_rps: 0.15
+      rotate_first_rad: 0.5
+    allowed_operations:
+    - DOCK
+    runtime_config: profile
+    runtime_name: harvest_approach_42
+    initial_marker_recovery:
+      enabled: true
+      wait_s: 3.0
+      reverse_distance_m: 0.05
+      reverse_speed_mps: 0.02
+      search_angle_rad: 0.2617993877991494
+      search_speed_rps: 0.12
+      timeout_s: 30.0
+  harvest_dock_41:
+    configured: true
+    target_surface:
+      plane_tolerance_m: 0.008
+      half_width_m: 0.18
+      margin_m: 0.002
+      sample_motion_m: 0.001
+      max_scan_skew_s: 0.05
+    strategy: marker_pose
+    target_marker_id: 41
+    docking_marker_id: 41
+    base_frame: transport_01/base_footprint
+    target_tracking:
+      enabled: false
+      fixed_target: true
+      max_prediction_s: 0.8
+      max_prediction_distance_m: 0.06
+      max_prediction_yaw_rad: 0.2
+      max_input_age_s: 0.3
+      filter_alpha: 0.35
+      max_innovation_m: 0.08
+      max_innovation_yaw_rad: 0.25
+    clearance_corridor_verified: false
+    approach_clearance_verified: false
+    extrinsics_verified: false
+    bounded_trial: true
+    scan_stop_range_m: 0.3
+    collision_guard:
+      nav2_file: ../nav2_transport.yaml
+      odom_frame: transport_01/odom
+      margin_m: 0.02
+      reaction_s: 0.4
+      linear_decel_mps2: 0.2
+      angular_decel_rps2: 0.4
+      sample_motion_m: 0.005
+      max_linear_mps: 0.2
+      max_angular_rps: 0.5
+      min_valid_points: 15
+    timeout_s: 100.0
+    marker_wait_timeout_s: 2.0
+    approach:
+      heading_first: false
+      max_distance_m: 0.4
+      align_tolerance_rad: 0.05
+      realign_threshold_rad: 0.17
+      position_tolerance_m: 0.01
+    entry:
+      enabled: false
+    note: Marker41 identity confirmation only. Hold current odom heading at lidar
+      entry; no marker normal/bearing rotation. Raw front lidar target 0.20m.
+    pose_controller:
+      direction: forward
+      linear_pid:
+        kp: 0.6
+        ki: 0.0
+        kd: 0.0
+      angular_pid:
+        kp: 0.8
+        ki: 0.0
+        kd: 0.0
+      max_linear_mps: 0.08
+      max_angular_rps: 0.3
+      min_linear_mps: 0.02
+    marker_installation:
+      dictionary: DICT_4X4_50
+      marker_size_m: 0.05
+      teaching_status: no_terminal_pose_required
+    allowed_operations:
+    - DOCK
+    lidar_approach:
+      raw_scan_topic: scan
+      scan_frame: transport_01/base_scan
+      target_distance_m: 0.2
+      distance_tolerance_m: 0.005
+      hard_min_distance_m: 0.12
+      max_start_distance_m: 1.5
+      sector_half_angle_rad: 0.0872664626
+      min_points: 3
+      max_spread_m: 0.04
+      max_age_s: 0.3
+      max_linear_mps: 0.04
+      min_linear_mps: 0.01
+      linear_kp: 0.5
+      heading_kp: 0.8
+      max_angular_rps: 0.08
+      max_heading_error_rad: 0.3
+      max_travel_m: 1.5
+      timeout_s: 65.0
+      stable_s: 0.5
+      selection_mode: center_cluster
+      initial_acquire_wait_s: 3.0
+      initial_creep_s: 3.0
+      initial_creep_mps: 0.02
+      initial_creep_max_travel_m: 0.06
+      stale_wait_s: 2.0
+      marker_surface_selection: true
+      marker_surface_depth_gate_m: 0.08
+      marker_surface_angle_gate_rad: 0.12
+      surface_tracking: true
+      surface_match_m: 0.025
+      surface_anchor_tolerance_m: 0.03
+      surface_occlusion_s: 0.6
+      surface_occlusion_travel_m: 0.02
+      surface_prediction_speed_scale: 0.5
+      center_max_angle_rad: 0.01745329252
+    distance_heading_trial:
+      front_scan_only: true
+      marker_id: 41
+      samples: 5
+      max_age_s: 0.3
+      max_bearing_rad: 0.2
+      spread_rad: 0.03
+      heading_offset_rad: 0.0
+      acquire_timeout_s: 12.0
+      max_lateral_m: 0.05
+      align_before_lidar: false
+      alignment_tolerance_rad: 0.035
+      alignment_kp: 0.8
+      alignment_max_angular_rps: 0.12
+      heading_source: odom_current
+    observation_only: true
+    runtime_config: profile
+    runtime_name: harvest_dock_41
+  harvest_clear:
+    configured: true
+    strategy: marker_pose
+    target_marker_id: 41
+    docking_marker_id: 41
+    base_frame: transport_01/base_footprint
+    target_tracking:
+      enabled: false
+      fixed_target: true
+      max_prediction_s: 0.8
+      max_prediction_distance_m: 0.06
+      max_prediction_yaw_rad: 0.2
+      max_input_age_s: 0.3
+      filter_alpha: 0.35
+      max_innovation_m: 0.08
+      max_innovation_yaw_rad: 0.25
+    clearance_corridor_verified: false
+    approach_clearance_verified: false
+    extrinsics_verified: false
+    bounded_trial: true
+    scan_stop_range_m: 0.3
+    collision_guard:
+      nav2_file: ../nav2_transport.yaml
+      odom_frame: transport_01/odom
+      margin_m: 0.02
+      reaction_s: 0.4
+      linear_decel_mps2: 0.2
+      angular_decel_rps2: 0.4
+      sample_motion_m: 0.005
+      max_linear_mps: 0.2
+      max_angular_rps: 0.5
+      min_valid_points: 15
+    timeout_s: 100.0
+    marker_wait_timeout_s: 2.0
+    approach:
+      max_distance_m: 0.8
+      align_tolerance_rad: 0.05
+      realign_threshold_rad: 0.17
+      position_tolerance_m: 0.01
+    entry:
+      enabled: false
+    note: 'Reverse 0.252m along initial odom heading, matching nominal sorter retreat:
+      0.422m front clearance minus 0.170m docking range. Not a 0.422m displacement.'
+    pose_controller:
+      direction: forward
+      linear_pid:
+        kp: 0.6
+        ki: 0.0
+        kd: 0.0
+      angular_pid:
+        kp: 0.8
+        ki: 0.0
+        kd: 0.0
+      max_linear_mps: 0.08
+      max_angular_rps: 0.3
+      min_linear_mps: 0.03
+      max_planar_distance_m: 0.8
+    marker_installation:
+      dictionary: DICT_4X4_50
+      marker_size_m: 0.05
+      teaching_status: required
+    pose_path:
+      max_linear_mps: 0.08
+      min_linear_mps: 0.03
+      linear_kp: 0.6
+      heading_kp: 0.8
+      max_angular_rps: 0.15
+      rotate_first_rad: 0.5
+    allowed_operations:
+    - CLEAR
+    relative_backout:
+      distance_m: 0.252
+      max_linear_mps: 0.04
+      min_linear_mps: 0.01
+      heading_kp: 0.8
+      max_angular_rps: 0.08
+      max_heading_error_rad: 0.2
+      distance_tolerance_m: 0.01
+      max_lateral_m: 0.05
+      timeout_s: 35.0
+    runtime_config: profile
+    runtime_name: harvest_clear

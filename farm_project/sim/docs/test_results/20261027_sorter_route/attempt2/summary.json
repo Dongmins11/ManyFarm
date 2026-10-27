@@ -1,0 +1,158 @@
+{
+  "scope": "actual DOCK41 -> virtual handoff/common states -> CLEAR -> TransportNode CheckRoute/AMCL/RPP -> sorter approach",
+  "session": "ab9d9609d41645948ea8d411facff516",
+  "result": {
+    "scope": "actual Isaac + common PrecisionMotion; isolated final/approach stage",
+    "marker": 41,
+    "status": 4,
+    "success": true,
+    "stopped": true,
+    "error_message": "",
+    "handoff": {
+      "result_code": "SUCCESS",
+      "count_valid": false,
+      "loaded_count": null
+    },
+    "sorter": {
+      "status": 4,
+      "arrived": true,
+      "result_code": "SUCCESS",
+      "error_message": "",
+      "goal_xy": [
+        -7.0,
+        13.25
+      ],
+      "goal_yaw": 1.5707963267948966
+    },
+    "overall_success": true
+  },
+  "transfer_proof": {
+    "session": "ab9d9609d41645948ea8d411facff516",
+    "proof": {
+      "sim_time_s": 28.433334816247225,
+      "coverage": 0.7295807912203083,
+      "minimum_coverage": 0.72,
+      "full_containment": false,
+      "center_delta_m": [
+        -0.0011293141774681992,
+        0.10339681894384967,
+        0.05646375344965543
+      ],
+      "horizontal_distance_m": 0.10340298602177143,
+      "positive_height_clearance_m": 0.05597108397419781,
+      "aligned": true,
+      "wheel_stopped": true,
+      "world_stopped": true,
+      "held_s": 1.0500000547617674,
+      "hold_pass": true,
+      "harvest_corners_world": [
+        [
+          1.9056174996864161,
+          11.877002663363495,
+          0.5014153378862949
+        ],
+        [
+          1.9056227843500722,
+          11.68700266343704,
+          0.5014151970826715
+        ],
+        [
+          2.0956226422891597,
+          11.687007948268885,
+          0.5011829145024295
+        ],
+        [
+          2.0956173576255037,
+          11.877007948195338,
+          0.5011830553060529
+        ]
+      ],
+      "transport_corners_world": [
+        [
+          2.147330085321776,
+          11.53020323613341,
+          0.4444594804018696
+        ],
+        [
+          2.1501551118457267,
+          11.82418870039045,
+          0.44521183052823166
+        ],
+        [
+          1.856168685008736,
+          11.827013737611265,
+          0.4452112650875438
+        ],
+        [
+          1.8533436584847853,
+          11.533028273354228,
+          0.44445891496118173
+        ]
+      ]
+    },
+    "fresh": true,
+    "lid_open": true,
+    "task_id": "sim_handoff_1793102433964064553",
+    "count_valid": false
+  },
+  "navigation_wall_s": 147.369731426239,
+  "sequence_wall_s": 182.72202587127686,
+  "final_ground_truth_xy": [
+    -7.06174373626709,
+    13.326395988464355
+  ],
+  "final_ground_truth_yaw": 1.5491550117091442,
+  "ground_truth_position_error_m": 0.09822747080967666,
+  "ground_truth_heading_error_rad": 0.0216413150857524,
+  "final_wheel_velocity": [
+    -0.00034956691826158444,
+    -0.0021226703013577154
+  ],
+  "final_status": {
+    "kind": "robot_status",
+    "wall": 1793102593.687238,
+    "sim_ns": 188000009805,
+    "state": "IDLE",
+    "task_id": "",
+    "error_code": "NONE",
+    "xy": [
+      -6.999544568635057,
+      13.249849057273739
+    ],
+    "yaw": 1.5181036300501898,
+    "loaded_count": -1
+  },
+  "ground_truth_usage": "evaluation only, not control/AMCL input",
+  "count_valid": false,
+  "loaded_count": null,
+  "process_exit": {
+    "harvest_adapter": 0,
+    "transport_adapter": 0,
+    "gate": 1,
+    "precision": -2,
+    "navigation": 0,
+    "isaac": 0,
+    "probe": 0
+  },
+  "isaac_child_exit_messages": [
+    "[ERROR] [clock_relay-2]: process has died [pid 3048956, exit code -2, cmd '/home/ysy/main/farm_project/sim/ros_ws/install/farm_sim_devices/lib/farm_sim_devices/clock_relay --ros-args --params-file /tmp/launch_params_hh45qggw'].",
+    "[ERROR] [python-1]: process has died [pid 3048955, exit code -11, cmd '/home/ysy/isaac/env_isaaclab/bin/python /home/ysy/main/farm_project/sim/ros_ws/src/farm_sim_runtime/farm_sim_runtime/run_fleet.py --project-root /home/ysy/main/farm_project --fleet-config /home/ysy/main/farm_project/sim/runs/sorter_route_20261027/attempt2/41/fleet.json --assets-root /home/ysy/main/farm_project/sim/assets --duration-s 600 --module-path /home/ysy/main/farm_project/robot/ros_ws/src/farm_common --module-path /home/ysy/main/farm_project/robot/ros_ws/src/farm_navigation --module-path /home/ysy/main/farm_project/sim/ros_ws/src/farm_sim_devices --module-path /home/ysy/main/farm_project/sim/ros_ws/src/farm_sim_runtime --headless --physics-device cpu']."
+  ],
+  "freshness": {
+    "calls": 10689,
+    "rejected": 0,
+    "future": 0
+  },
+  "environment": {
+    "domain": 13,
+    "discovery": "SUBNET",
+    "physics": "CPU MBP 60Hz"
+  },
+  "limits": [
+    "post-harvest fixture; no SEC survey/harvest this run",
+    "TRANSFER_COMPLETE calls common session directly; DDS peer relay not tested",
+    "CheckRoute succeeds at approach; sorter docking/unloading not included",
+    "GT error is separate from AMCL-based arrival decision"
+  ],
+  "estimated_position_error_m": 0.00047979311665067724
+}

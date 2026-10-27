@@ -11,12 +11,12 @@ import math
 from pathlib import Path
 
 
-def rebuild(stage: object) -> list[dict]:
+def rebuild(stage: object, wheel_names: tuple[str, str] = ('left_wheel', 'right_wheel')) -> list[dict]:
     """좌우 바퀴 충돌체만 수정하고 적용된 기하를 반환한다."""
     from pxr import Gf, Usd, UsdGeom, UsdPhysics
     root = stage.GetDefaultPrim()
     report = []
-    for name in ('left_wheel', 'right_wheel'):
+    for name in wheel_names:
         wheel = stage.GetPrimAtPath(root.GetPath().AppendChild(name))
         if not wheel:
             raise ValueError('바퀴 몸체 없음: '+name)
@@ -40,8 +40,8 @@ def rebuild(stage: object) -> list[dict]:
         local = (UsdGeom.Xformable(original).ComputeLocalToWorldTransform(Usd.TimeCode.Default())
                  * UsdGeom.Xformable(wheel).ComputeLocalToWorldTransform(Usd.TimeCode.Default()).GetInverse())
         UsdPhysics.CollisionAPI(original).GetCollisionEnabledAttr().Set(False)
-        # 기존 외형 단면은 약25mm 원호다. 바깥 반지름은 기존 collider 값을 유지한다.
-        # 21개 분할은 약2.38mm 축방향 해상도이며 중앙 원통은 원래 반지름과 같다.
+        # 폭/2 원호로 접촉 단면을 둥글게 한다. 외경·폭은 기존 collider 값을 유지한다.
+        # 21개 분할의 중앙 원통은 원래 반지름과 같다.
         count = 21
         for i in range(count):
             z = width*((i+.5)/count-.5)

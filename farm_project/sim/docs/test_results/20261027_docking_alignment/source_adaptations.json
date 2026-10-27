@@ -1,0 +1,106 @@
+{
+  "commit": "9686aca909cb52191862ee3500c62fadf7a8ed38",
+  "changes": [
+    {
+      "path": "/harvest_approach_42/base_frame",
+      "before": "base_footprint",
+      "after": "transport_01/base_footprint"
+    },
+    {
+      "path": "/harvest_approach_42/collision_guard/odom_frame",
+      "before": "odom",
+      "after": "transport_01/odom"
+    },
+    {
+      "path": "/harvest_dock_41/base_frame",
+      "before": "base_footprint",
+      "after": "transport_01/base_footprint"
+    },
+    {
+      "path": "/harvest_dock_41/collision_guard/odom_frame",
+      "before": "odom",
+      "after": "transport_01/odom"
+    },
+    {
+      "path": "/harvest_dock_41/lidar_approach/scan_frame",
+      "before": "base_scan",
+      "after": "transport_01/base_scan"
+    },
+    {
+      "path": "/targets/marker_32_confirmed_pose/base_frame",
+      "before": "base_footprint",
+      "after": "transport_01/base_footprint"
+    },
+    {
+      "path": "/targets/marker_32_confirmed_pose/previous_teaching/base_frame",
+      "before": "base_footprint",
+      "after": "transport_01/base_footprint"
+    },
+    {
+      "path": "/targets/marker_32_departure_pose/base_frame",
+      "before": "base_footprint",
+      "after": "transport_01/base_footprint"
+    },
+    {
+      "path": "/targets/marker_40_lidar_entry_pose/base_frame",
+      "before": "base_footprint",
+      "after": "transport_01/base_footprint"
+    },
+    {
+      "path": "/targets/station_parking_entry_20261023/base_frame",
+      "before": "base_footprint",
+      "after": "transport_01/base_footprint"
+    },
+    {
+      "path": "/targets/harvest_42_reference_20261024/base_frame",
+      "before": "base_footprint",
+      "after": "transport_01/base_footprint"
+    },
+    {
+      "path": "/targets/harvest_42_wait_pose/base_frame",
+      "before": "base_footprint",
+      "after": "transport_01/base_footprint"
+    },
+    {
+      "path": "collision_guard/nav2_file",
+      "before": "../robots/waffle/transport_nav2.yaml",
+      "after": "nav2_frame.yaml"
+    },
+    {
+      "path": "collision_guard/nav2_file",
+      "before": "../robots/waffle/transport_nav2.yaml",
+      "after": "nav2_frame.yaml"
+    },
+    {
+      "path": "/amcl/ros__parameters/base_frame_id",
+      "before": "base_footprint",
+      "after": "transport_01/base_footprint"
+    },
+    {
+      "path": "/amcl/ros__parameters/odom_frame_id",
+      "before": "odom",
+      "after": "transport_01/odom"
+    },
+    {
+      "path": "/local_costmap/local_costmap/ros__parameters/global_frame",
+      "before": "odom",
+      "after": "transport_01/odom"
+    },
+    {
+      "path": "/behavior_server/ros__parameters/local_frame",
+      "before": "odom",
+      "after": "transport_01/odom"
+    },
+    {
+      "path": "/velocity_smoother/ros__parameters/odom_topic",
+      "before": "odom",
+      "after": "transport_01/odom"
+    },
+    {
+      "path": "nav2 robot_base_frame",
+      "before": "base_link",
+      "after": "transport_01/base_link"
+    }
+  ],
+  "numeric_changes": []
+}

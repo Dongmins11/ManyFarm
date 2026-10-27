@@ -1,0 +1,36 @@
+{
+  "status": "USER_APPROVED_SIM_HANDOFF",
+  "note": "시뮬 업무 진행용 인계 조건. 실제 과실 전달/유실률과 독립. 원본 USD와 공통 도킹 Action 판정 보존.",
+  "harvest": {
+    "frame": "harvest_lid_fixed",
+    "center_local_m": [
+      0.0,
+      0.0,
+      0.006
+    ],
+    "opening_size_m": [
+      0.19,
+      0.19
+    ],
+    "basis": "harvest URDF 벽 중심 +/-0.0975m, 두께0.005m. USD lid z0.495와 벽 중심z0.6035 및 URDF 벽오프셋0.1025에서 바닥 평면0.501m 추정."
+  },
+  "transport": {
+    "frame": "cargo_box",
+    "center_local_m": [
+      -0.15,
+      0.0,
+      0.19
+    ],
+    "opening_size_m": [
+      0.294,
+      0.294
+    ],
+    "basis": "transport portable URDF box0.30m, 벽두께0.003m, 상단0.19m. cargo_box 실제 USD 변환으로 평가."
+  },
+  "alignment_rule": "사용자 승인: 겹침72% 이상, 배출부가 수용부보다 높고 기존 정지조건0.8초 유지",
+  "stop_linear_mps": 0.005,
+  "stop_angular_rps": 0.02,
+  "hold_s": 0.8,
+  "stop_basis": "공통 PrecisionServer 정지 임계값/0.8초 유지. 시뮬 가상 인계 장치에만 적용.",
+  "minimum_coverage": 0.72
+}

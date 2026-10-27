@@ -1,0 +1,240 @@
+{
+  "schema_version": 1,
+  "dictionary": "DICT_4X4_50",
+  "source_commit": "9686aca909cb52191862ee3500c62fadf7a8ed38",
+  "status": "PROVISIONAL_NOT_MEASURED",
+  "notes": [
+    "위치는 실측 아님. 원본 제어 목표/판정/속도/timeout 변경 없음. 실측 답변 후 이 배치표만 교체.",
+    "좌표는 명시 reference_prim의 USD 자산축 기준 m. harvest의 논리 주행축과 pi 회전 차이 있음.",
+    "높이 추정은 저장된 운송 base→marker 높이를 참고. 실물 수확 base→marker 장착 측정값이 아님.",
+    "표면 렌더만 추가: 질량/충돌/라이다 반사판을 만들지 않음. 제어 입력에 정답 좌표를 보내지 않음.",
+    "선별장 기존 world(-7,14), 운송 그래프8004(5,13.25) 위치 불일치 유지. 전체 주행 연결 전 별도 정합 필요."
+  ],
+  "markers": [
+    {
+      "id": 42,
+      "status": "PROVISIONAL_NOT_MEASURED",
+      "parent_prim": "/World/harvest_robot/base_link",
+      "reference_prim": "/World/harvest_robot/base_footprint",
+      "center_m": [
+        -0.34,
+        -0.25,
+        0.081
+      ],
+      "right": [
+        0,
+        -1,
+        0
+      ],
+      "up": [
+        0,
+        0,
+        1
+      ],
+      "black_edge_m": 0.05,
+      "paper_edge_m": 0.07,
+      "pattern_cells": [
+        [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          1,
+          1,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          1,
+          0,
+          0
+        ],
+        [
+          0,
+          1,
+          0,
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          1,
+          1,
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ]
+      ],
+      "texture": "sim/assets/docking_markers/DICT_4X4_50_42_50mm.png",
+      "basis": "접근용 측면 가정. 자산 차체 X 최소 -0.3363m 바깥. 높이는 원격 wait pose의 0.08095m 참고."
+    },
+    {
+      "id": 41,
+      "status": "PROVISIONAL_NOT_MEASURED",
+      "parent_prim": "/World/harvest_robot/base_link",
+      "reference_prim": "/World/harvest_robot/base_footprint",
+      "center_m": [
+        0,
+        -0.251,
+        0.081
+      ],
+      "right": [
+        1,
+        0,
+        0
+      ],
+      "up": [
+        0,
+        0,
+        1
+      ],
+      "black_edge_m": 0.05,
+      "paper_edge_m": 0.07,
+      "pattern_cells": [
+        [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          1,
+          0,
+          0
+        ],
+        [
+          0,
+          1,
+          0,
+          1,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          1,
+          0,
+          0
+        ],
+        [
+          0,
+          1,
+          0,
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ]
+      ],
+      "texture": "sim/assets/docking_markers/DICT_4X4_50_41_50mm.png",
+      "basis": "DIAGNOSTIC_VARIANT: 원래 -0.455에서 라이다가 보는 차체 외측 -0.25m 면 앞으로 이동. 운영 배치표 불변."
+    },
+    {
+      "id": 40,
+      "status": "PROVISIONAL_NOT_MEASURED",
+      "parent_prim": "/World/sorting_station_portable",
+      "reference_prim": "/World/sorting_station_portable",
+      "center_m": [
+        0,
+        -0.251,
+        0.106
+      ],
+      "right": [
+        1,
+        0,
+        0
+      ],
+      "up": [
+        0,
+        0,
+        1
+      ],
+      "black_edge_m": 0.05,
+      "paper_edge_m": 0.07,
+      "pattern_cells": [
+        [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          1,
+          0
+        ],
+        [
+          0,
+          0,
+          1,
+          1,
+          1,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          1,
+          0
+        ],
+        [
+          0,
+          1,
+          0,
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ]
+      ],
+      "texture": "sim/assets/docking_markers/DICT_4X4_50_40_50mm.png",
+      "basis": "현행 선별장 입구 local Y=-0.25m 바깥. 높이는 원격 entry pose의0.10563m 참고."
+    }
+  ]
+}

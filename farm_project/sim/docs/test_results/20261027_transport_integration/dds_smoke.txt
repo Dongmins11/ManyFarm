@@ -1,0 +1,4 @@
+[WARN] [1793092431.094896970] [transport_contract_probe_2140526.transport_contract_probe]: Goal 거절: 기존 task_id 재실행 금지
+[WARN] [1793092431.161914691] [transport_contract_probe_2140526.transport_contract_probe]: Goal 거절: 기존 task_id 재실행 금지
+[WARN] [1793092431.233698700] [transport_contract_probe_2140526.transport_contract_probe]: Goal 거절: 기존 task_id 재실행 금지
+{"result": "PASS", "scope": "DDS Action / simulated navigation double / no physical motion", "domain": 13, "discovery": "SUBNET", "namespace": "/transport_contract_probe_2140526", "cases": [{"scenario": "success", "status": 4, "result_code": "SUCCESS", "docked": true, "same_uuid_query": "PASS", "duplicate_task_rejected": true}, {"scenario": "failure", "status": 6, "result_code": "FAILED", "docked": false, "same_uuid_query": "PASS", "duplicate_task_rejected": true}, {"scenario": "cancel", "status": 5, "result_code": "CANCELED", "docked": false, "same_uuid_query": "PASS", "duplicate_task_rejected": true}]}

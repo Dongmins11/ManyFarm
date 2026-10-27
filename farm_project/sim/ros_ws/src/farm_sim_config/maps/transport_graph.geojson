@@ -3138,7 +3138,7 @@
       "geometry": {
         "type": "Point",
         "coordinates": [
-          5.0,
+          -7.0,
           13.25
         ]
       },
@@ -3146,10 +3146,11 @@
         "id": 8004,
         "frame": "map",
         "name": "P4",
-        "role": "station_proposal",
+        "role": "station",
         "metadata": {
           "label": "P4",
-          "role": "station_proposal"
+          "role": "station",
+          "basis": "USER_APPROVED_USD_SORTER_APPROACH_20261027"
         }
       }
     },
@@ -15333,20 +15334,20 @@
         "type": "LineString",
         "coordinates": [
           [
-            5.0,
+            -6.655,
             11.5
           ],
           [
-            5.0,
+            -7.0,
             13.25
           ]
         ]
       },
       "properties": {
         "id": 30514,
-        "startid": 9019,
+        "startid": 9001,
         "endid": 8004,
-        "cost": 1.75,
+        "cost": 1.7836829875288938,
         "overridable": true,
         "route_role": "station",
         "allowed_roles": [
@@ -15372,11 +15373,11 @@
         "type": "LineString",
         "coordinates": [
           [
-            5.0,
+            -7.0,
             13.25
           ],
           [
-            5.0,
+            -6.655,
             11.5
           ]
         ]
@@ -15384,8 +15385,8 @@
       "properties": {
         "id": 30515,
         "startid": 8004,
-        "endid": 9019,
-        "cost": 1.75,
+        "endid": 9001,
+        "cost": 1.7836829875288938,
         "overridable": true,
         "route_role": "station",
         "allowed_roles": [

@@ -12,12 +12,18 @@ from .harvest_regions import HarvestRegions, RegionSettings
 
 def load_physics_profile(project_root: Path, configs: list[dict]) -> dict | None:
     """장치들이 동일한 물리 프로파일과 시간 간격을 사용하는지 검사한다."""
-    paths = {cfg['runtime'].get('robotarm_physics_config') for cfg in configs}
-    if len(paths) != 1:
+    for cfg in configs:
+        if (cfg['runtime'].get('harvest_arm', {}).get('enabled')
+                and not cfg['runtime'].get('robotarm_physics_config')):
+            raise ValueError('수확 팔은 같은 robotarm 물리 프로파일을 명시해야 합니다.')
+    # 팔 없는 운송 장치는 별도 과실 물리 프로파일이 필요하지 않다.
+    paths = {cfg['runtime']['robotarm_physics_config'] for cfg in configs
+             if cfg['runtime'].get('robotarm_physics_config') is not None}
+    if len(paths) > 1:
         raise ValueError('모든 장치는 같은 robotarm 물리 프로파일을 사용해야 합니다.')
-    value = paths.pop()
-    if value is None:
+    if not paths:
         return None
+    value = paths.pop()
     path = (project_root / value).resolve()
     if not path.is_relative_to(project_root / 'sim'):
         raise ValueError('시뮬 물리 프로파일은 sim 안에 있어야 합니다.')

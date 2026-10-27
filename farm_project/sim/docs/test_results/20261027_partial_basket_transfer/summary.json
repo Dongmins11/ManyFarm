@@ -1,0 +1,35 @@
+{
+  "condition_overlap": 0.7211812166453401,
+  "center_offset_m": 0.10501720129956206,
+  "physics_rates_hz": [
+    60,
+    120
+  ],
+  "same_outcome_all_150": true,
+  "original_assets_unchanged": true,
+  "per_run": [
+    {
+      "condition": "overlap72",
+      "total": 75,
+      "captured": 60,
+      "floor_loss": 10,
+      "other": 5
+    },
+    {
+      "condition": "centered_control",
+      "total": 75,
+      "captured": 75,
+      "floor_loss": 0,
+      "other": 0
+    }
+  ],
+  "measured_population": "25 release points x 3 orientations for each condition; one independent fruit per case",
+  "not_measured": [
+    "simultaneous unloading",
+    "lid mechanism motion",
+    "real fruit mass/contact variability",
+    "real robot docking"
+  ],
+  "validation": "4 sim seconds, captured means full collider inside receiver and speed<0.02m/s throughout final0.5s",
+  "simulator_shutdown": "Both physics results saved and Kit shutdown logged.120Hz own process remained >90s, SIGTERM exit143.60Hz100s watchdog exit124. Physics result validity is separate from SDK shutdown hang."
+}

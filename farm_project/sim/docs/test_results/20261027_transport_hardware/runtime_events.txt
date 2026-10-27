@@ -1,0 +1,15 @@
+[python-1] [physics_device] {"requested": "cpu", "gpu_dynamics": false, "broadphase": "MBP"}
+[python-1] [two_robot_sim] scout_01 at station {'node_id': 8001, 'xy_m': [-5.0, 13.25], 'yaw_rad': -1.5707963267948966, 'station_id': 'STATION_SCOUT_01'} using /World/scout_robot_camera_fixed
+[python-1] [two_robot_sim] harvest_01 at station {'node_id': 8002, 'xy_m': [-2.0, 13.25], 'yaw_rad': -1.5707963267948966, 'station_id': 'STATION_HARVEST_01'} using /World/harvest_robot
+[python-1] [camera_activity] farm_transport_01_camera active=False
+[python-1] [two_robot_sim] transport_01 at station {'node_id': 8003, 'xy_m': [2.0, 13.25], 'yaw_rad': -1.5707963267948966, 'status': 'CONFIGURED', 'source': 'transport_graph edge 30513 (8003 to 9014); forward station exit', 'station_id': 'STATION_TRANSPORT_01'} using /World/transport_robot
+[python-1] [camera_activity] farm_transport_01_camera active=True
+[python-1] [camera_activity] farm_transport_01_camera active=False
+[python-1] [camera_activity] farm_transport_01_camera active=True
+[python-1] [camera_activity] farm_transport_01_camera active=False
+[python-1] [farm_fleet] bounded run complete: {"simulated_s": 60.00000312924385, "render_frames": 3600, "physics_ticks": 3600, "robots": [{"robot_id": "scout_01", "camera_frames": 899, "tag_camera_frames": 599, "position_world_m": [-4.999998569488525, 13.246418952941895, 8.24879407446133e-06], "telemetry_packets": 1800}, {"robot_id": "harvest_01", "camera_frames": 599, "tag_camera_frames": 0, "position_world_m": [-2.0, 13.249998092651367, 0.000300307001452893], "telemetry_packets": 1800}, {"robot_id": "transport_01", "camera_frames": 147, "tag_camera_frames": 0, "position_world_m": [2.000980854034424, 13.059164047241211, 9.589152227817976e-08], "telemetry_packets": 1800}]}
+[python-1] AttributeError: 'NoneType' object has no attribute 'get_stage_state'
+[python-1] AttributeError: 'NoneType' object has no attribute 'get_stage_state'
+[INFO] [python-1]: process has finished cleanly [pid 2308500]
+[INFO] [clock_relay-2]: process has finished cleanly [pid 2308501]
+[INFO] [ros_adapter-3]: process has finished cleanly [pid 2308502]

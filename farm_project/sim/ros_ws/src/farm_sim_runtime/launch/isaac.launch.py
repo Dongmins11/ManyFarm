@@ -19,14 +19,15 @@ def setup(context) -> list:
         return LaunchConfiguration(name).perform(context)
 
     root = Path(value('project_root')).expanduser().resolve()
-    environment = (root / value('environment_config')).resolve()
-    if not environment.is_relative_to(root / 'sim'):
-        raise ValueError('Isaac 환경 설정은 sim 안에 있어야 합니다.')
-    profile = load_environment(environment, root, 'sim', require_survey=False)
-    config = Path(profile['device_config']).resolve()
-    if not config.is_relative_to(root / 'sim'):
-        raise ValueError('가상 장치 설정은 sim 안에 있어야 합니다.')
-    read_station(config, json.loads(config.read_text()))
+    if not value('fleet_config'):
+        environment = (root / value('environment_config')).resolve()
+        if not environment.is_relative_to(root / 'sim'):
+            raise ValueError('Isaac 환경 설정은 sim 안에 있어야 합니다.')
+        profile = load_environment(environment, root, 'sim', require_survey=False)
+        config = Path(profile['device_config']).resolve()
+        if not config.is_relative_to(root / 'sim'):
+            raise ValueError('가상 장치 설정은 sim 안에 있어야 합니다.')
+        read_station(config, json.loads(config.read_text()))
     executable = Path(value('isaac_python')).expanduser()
     if not value('isaac_python') or not executable.is_file() or not os.access(executable, os.X_OK):
         raise RuntimeError('isaac_python에 Isaac 환경의 Python 실행 파일을 지정하세요.')
@@ -34,8 +35,6 @@ def setup(context) -> list:
     executable = executable.absolute()
     assets = Path(value('assets_root')).expanduser().resolve() if value('assets_root') else root / 'sim/assets'
     runner = Path(farm_sim_runtime.__file__).resolve().parent / 'run_sim.py'
-    command = [str(executable), str(runner), '--project-root', str(root),
-               '--config', str(config), '--assets-root', str(assets)]
     if value('fleet_config'):
         from farm_sim_runtime.fleet_config import load_fleet
         fleet = (root / value('fleet_config')).resolve()
@@ -43,6 +42,13 @@ def setup(context) -> list:
         runner = runner.with_name('run_fleet.py')
         command = [str(executable), str(runner), '--project-root', str(root),
                    '--fleet-config', str(fleet), '--assets-root', str(assets)]
+    else:
+        command = [str(executable), str(runner), '--project-root', str(root),
+                   '--config', str(config), '--assets-root', str(assets)]
+    if value('duration_s'):
+        if not value('fleet_config'):
+            raise ValueError('duration_s는 fleet 실행에서 사용합니다.')
+        command += ['--duration-s', value('duration_s')]
     for module in (farm_common, farm_navigation, farm_sim_devices, farm_sim_runtime):
         command += ['--module-path', str(Path(module.__file__).resolve().parent.parent)]
     if value('headless') == 'true':
@@ -81,5 +87,6 @@ def generate_launch_description() -> LaunchDescription:
         DeclareLaunchArgument('headless', default_value='false', choices=['true', 'false']),
         DeclareLaunchArgument('physics_device', default_value='profile', choices=['profile', 'cpu', 'gpu']),
         DeclareLaunchArgument('performance_log', default_value=''),
+        DeclareLaunchArgument('duration_s', default_value=''),
         OpaqueFunction(function=setup),
     ])

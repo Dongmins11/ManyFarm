@@ -21,7 +21,8 @@ class DDSLaunchProfileTests(unittest.TestCase):
         context = LaunchContext()
         context.launch_configurations.update(project_root=str(root),
             environment_config='sim/ros_ws/src/farm_sim_config/config/scout_runtime.yaml',
-            isaac='false', scout='false', harvest='false', rviz='false')
+            isaac='false', scout='false', harvest='false', rviz='false', transport='false',
+            fleet_config='sim/ros_ws/src/farm_sim_config/config/harvest_fleet.json')
         for name in ('FASTRTPS_DEFAULT_PROFILES_FILE', 'FASTDDS_DEFAULT_PROFILES_FILE'):
             context.environment.pop(name, None)
         context.environment['ROS_DOMAIN_ID'] = '13'

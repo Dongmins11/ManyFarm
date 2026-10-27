@@ -1,0 +1,18 @@
+mode: sim
+map_id: farm_map_v1
+destinations:
+  SORT_01:
+    configured: true
+    approach_node_id: 8004
+    approach_yaw_rad: 1.5707963267948966
+    scope: approach arrival only; CheckRoute
+    model_reference:
+      prim_path: /World/sorting_station_portable
+      world_xy_m:
+      - -7.0
+      - 14.0
+      basis: original USD transform, T_map_world identity; evaluation only
+  STATION_TRANSPORT_01:
+    configured: true
+    approach_node_id: 8003
+    approach_yaw_rad: -1.5707963267948966
