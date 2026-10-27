@@ -7,6 +7,15 @@ find_package(action_msgs REQUIRED)
 find_package(rosidl_default_generators REQUIRED)
 
 rosidl_generate_interfaces(${PROJECT_NAME}
+  "action/BucketUnload.action"
+  "action/CheckRoute.action"
+  "action/MechanicalOperation.action"
+  "action/NavigateToNode.action"
+  "action/PrecisionMotion.action"
+  "action/TransportPickup.action"
+  "msg/TransportDeviceState.msg"
+  "srv/MotionLease.srv"
+  "srv/UnloadEvent.srv"
   "msg/RobotPose.msg"
   "msg/RobotStatus.msg"
   "msg/HarvestTask.msg"

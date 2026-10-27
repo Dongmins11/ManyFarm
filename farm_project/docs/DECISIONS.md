@@ -560,3 +560,23 @@ PC→Zenoh→HarvestTask window 이동 1회는 일반 controller의 collision ah
 
 ### 2026-10-27 성공 기준 고정 및 커밋 준비
 사용자 실기 확인과 관제 결과 대조: 15:20:06 인계·복귀 SUCCESS, 15:20:32 다음 #60 수확 SUCCESS. 현재 5cm·6도 완료 판정/일반 주행6도 프로필을 유지하고 추가 동작 변경 없음. PC 수확 운영 파일과 로봇 소스 일치, 설치74모듈 동일. 실제 팔/운송 도킹·이격 미검증(PC 더미·수확 단독). 시험자료와 실행본은 Git 밖 success_freeze_20261027_152308에 보존, 기존 백업 유지. 다른 담당 scout/burger 차이는 미병합. 시뮬 동작 변경 없음. commit/push/스테이징 미수행. 상세: docs/changes/HARVEST_SUCCESS_FREEZE_20261027.md.
+
+
+## 2026-10-27 별도 운송 통합 워크스페이스 리뷰 수정
+사용자 승인으로 통합본의 목표 확보/종료/취소/복구/관측 만료 및 설정 연결 결함을 수정했다. 후진 기준 map yaw=0° 유지. 수확·예찰·공통 주행·지도·모델 불변을 재확인했다. PC 17패키지 빌드, 88개 시험 통과. 로봇 배포·기동·주행 및 sim 변경 없음. 접수 응답 지연 후 늦은 Goal 취소의 terminal 추적 공백과 실물 지도/티칭 검증은 남아 있다. 상세 [리뷰 수정 및 잔여 사항](changes/TRANSPORT_REVIEW_FIXES_20261027.md). Git commit/push 없음.
+
+### 지연 접수 Goal 후속 수정
+사용자 승인으로 PrecisionClient의 늦은 접수 Future를 보관하고 accepted 즉시 취소·terminal/stopped까지 추적한다. 대기 중 새 정밀주행/복구 통과 금지, 종료 확인 후 자동 미션 재개 없음. 이전 기록의 접수 지연 추적 공백은 정밀주행에 대해 해소했다. 마커 상대 티칭은 사용자가 정밀주행 가능함을 확인하여 유지. PC17패키지/94시험, 로봇 배포·주행·시뮬 변경 없음. 상세 TRANSPORT_REVIEW_FIXES_20261027.md 후속 항목과 reports/*late_goal_fix.log 참고.
+
+
+## 2026-10-27 사용자 승인 로봇 별도 배포 완료
+
+로봇 wmany@192.168.0.15의 `/home/wmany/transport_handoff_integration_20261027`에 배포했다. 기존 운영 폴더·별칭 불변, 시뮬레이션 자산 제외. `/home/wmany/transport_handoff_integration_20261027/robot_build`에서 ARM 17패키지 빌드 성공(13분34초). PC/로봇 소스501개 및 빌드소스376개 해시 일치. 정밀주행·운송·기구 브릿지·인터페이스의 import/prefix가 새 통합 경로임을 확인했다. 기존 turtlebot3_ws/device_ws를 하드웨어 underlay로만 사용한다.
+
+로봇 회귀시험90개 통과, launch --show-args 및 real 설정 로드 통과. 전체 시험을 처음 시도했을 때 제외한 sim fixture를 찾는 시험2개가 FileNotFoundError로 실패하여 로그를 보존했다. 해당 PC 전용 묶음4개는 로봇 시험에서 제외했으며 PC94개 통과와 구별한다. scripts/test_robot.sh에 범위를 명시했다. reports/robot_build.log, robot_test.log, robot_test_full_missing_sim.log, robot_verify.log, robot_launch_args.log 참고.
+
+브링업·노드·모터 명령은 실행하지 않았다. 최종 점검에서 운송 브링업/precision_server/transport_node/motion_gate 실행 없음. 사용자 실행: `bash ~/transport_handoff_integration_20261027/scripts/bringup_robot.sh`. 기존 bringup/init/zen 별칭은 바꾸지 않았다. 티칭 및 후진0° 유지. 실물 주행 성공은 아직 확인하지 않았다. Git commit/push 없음.
+
+
+### 2026-10-27 수확 최신 업데이트와 운송 통합본 게시
+사용자 승인으로 48d2d1c의 수확 설정2개·코드2개 및 관련 문서를 별도 운송 통합본에 반영했다. 운송 티칭/속도/후진0° 및 기존 관제 계약 유지. PC98시험·17패키지, 운송로봇 변경패키지 재빌드·94시험, 소스501/빌드376 해시 일치. 로봇 백업: transport_handoff_integration_20261027/backups/before_48d2d1c.tar.gz. 실기기동/이동 없음. 후속 사용자 요청으로 기존 커밋 금지 지시를 변경하여 feature_dongmin 브랜치 게시를 승인받았다. 업로드 worktree는 원본과 분리하고 최신48d2d1c를 부모로 사용한다. main/기존 수확 브랜치는 변경하지 않는다. sim 프로그램·설정 수정 없음(상위 커밋의 sim 문서는 게시 기준에 그대로 보존). 상세 TRANSPORT_REVIEW_FIXES_20261027.md 후속 항목 참고.

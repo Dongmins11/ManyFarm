@@ -1,0 +1,37 @@
+schema_version: 1
+mode: real
+map_id: many_farm_v1
+destinations:
+  STATION_TRANSPORT_01:
+    configured: true
+    entry_node_id: 3
+    observation_node_id: 20
+    docking_profile: station_transport_01
+    note: 'Entry yaw: null derives A->B direction; set radians to override. Teach
+      incoming pose at B, then rotate B->A and park ready.'
+    entry_yaw_rad: null
+  STATION_SCOUT_01:
+    configured: false
+    approach_node_id: null
+    approach_yaw_rad: null
+    clearance_node_id: null
+    clearance_yaw_rad: null
+    docking_profile: station_scout_01
+    note: 실물 station_exit 18/19/20의 역할 매핑 및 yaw 실측 필요. 선별장은 별도 확인.
+  STATION_HARVEST_01:
+    configured: false
+    approach_node_id: null
+    approach_yaw_rad: null
+    clearance_node_id: null
+    clearance_yaw_rad: null
+    docking_profile: station_harvest_01
+    note: 실물 station_exit 18/19/20의 역할 매핑 및 yaw 실측 필요. 선별장은 별도 확인.
+  SORT_01:
+    configured: true
+    approach_node_id: 17
+    approach_yaw_rad: 0.0
+    clearance_node_id: 17
+    clearance_yaw_rad: 0.0
+    docking_profile: sort_01
+    note: '2026-10-18 사용자 확인: 15→17 map +X 방향. 준비 신호 가정/기구 없는 도킹 시험. 이탈 통로 미검증 유지.'
+    approach_heading_from_node_id: 15

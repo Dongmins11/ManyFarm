@@ -1,0 +1,23 @@
+string robot_id
+string task_id
+string transfer_id
+string harvest_robot_id
+string map_id
+farm_interfaces/RobotPose staging_pose
+int32 target_marker_id
+int32 docking_marker_id
+string timestamp
+---
+string robot_id
+string task_id
+string transfer_id
+string result_code
+string error_code
+string error_message
+string timestamp
+---
+string robot_id
+string task_id
+string transfer_id
+string event
+string timestamp

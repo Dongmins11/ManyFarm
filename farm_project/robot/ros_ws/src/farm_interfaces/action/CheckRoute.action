@@ -1,0 +1,17 @@
+# 내부 주행 점검 전용. 관제의 ReturnToStation/BucketUnload가 아니다.
+string robot_id
+string task_id
+string map_id
+farm_interfaces/RobotPose goal_pose
+string timestamp
+---
+string task_id
+bool arrived
+string result_code
+string error_code
+string error_message
+string timestamp
+---
+string task_id
+string phase
+string timestamp

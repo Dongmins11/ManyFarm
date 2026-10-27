@@ -1,0 +1,4 @@
+#!/bin/bash
+set -e
+source "$HOME/.local/share/waffle_commands/env.bash"
+exec python3 "$HOME/.local/share/waffle_commands/sorter_test.py" "$@"

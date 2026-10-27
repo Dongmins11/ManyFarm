@@ -1,0 +1,11 @@
+# 선별장 수령 준비 이벤트. 접수는 실제 도킹/하역 완료를 뜻하지 않는다.
+string robot_id
+string task_id
+string station_id
+string event
+string timestamp
+---
+bool accepted
+string error_code
+string error_message
+string timestamp

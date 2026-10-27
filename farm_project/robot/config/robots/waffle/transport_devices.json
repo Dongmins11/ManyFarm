@@ -1,0 +1,20 @@
+{
+  "schema_version": 1,
+  "robot_id": "transport_01",
+  "map_id": "many_farm_v1",
+  "model": "waffle",
+  "hardware_configured": true,
+  "usb_port": "/dev/ttyACM0",
+  "lds_model": "LDS-03",
+  "notes": [
+    "2026-10-09 사용자 SSH 출력: aarch64, Ubuntu 24.04, ROS Jazzy, DOMAIN=126, MODEL=waffle, LDS=LDS-03. OpenCR /dev/ttyACM0 확인.",
+    "LDS_MODEL 환경값을 반영했으며 실제 라이다 구동·드라이버 지원은 미검증. /dev/ttyUSB0은 CP2102 USB UART로 확인.",
+    "실제 장치 브링업·TF·차체/센서 장착 확인 전 hardware_configured=false 유지. 기존 예찰 장착 TF를 복사하지 않음."
+  ],
+  "scan_filter": {
+    "enabled": true,
+    "config_file": "scan_filter.yaml",
+    "input_topic": "scan",
+    "output_topic": "scan_filtered"
+  }
+}

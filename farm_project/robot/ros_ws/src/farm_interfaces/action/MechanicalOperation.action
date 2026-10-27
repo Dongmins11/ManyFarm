@@ -1,0 +1,11 @@
+# 내부 장치 브릿지 계약. 펌웨어 명령 바이트가 아님.
+string task_id
+string operation
+---
+bool success
+bool safe_to_clear
+bool count_valid
+int32 loaded_count
+string error_message
+---
+float32 progress_ratio
