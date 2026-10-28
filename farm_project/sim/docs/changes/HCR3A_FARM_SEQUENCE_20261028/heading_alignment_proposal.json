@@ -1,0 +1,25 @@
+{
+  "target": "sim runtime precision_profiles.json profiles.sort_01_distance_trial.distance_heading_trial",
+  "before": {
+    "align_before_lidar": "absent (false)"
+  },
+  "after": {
+    "align_before_lidar": true,
+    "alignment_tolerance_rad": 0.035,
+    "alignment_kp": 0.8,
+    "alignment_max_angular_rps": 0.12
+  },
+  "basis": "existing common PrecisionServer.run_harvest_heading API and existing sim transport profile alignment gains",
+  "unchanged": [
+    "target_distance_m=.17",
+    "distance_tolerance_m=.005",
+    "max_spread_m=.03",
+    "original acquisition/motion timeouts",
+    "source common code",
+    "real configuration"
+  ],
+  "evidence": "attempt04 actual initial yaw107.74deg vs approach101.15deg; lidar +3..5deg hits invisiblewall_01, other rays IntakeSupport686; begin_lidar_approach validates before heading correction",
+  "validation": "same farm dock->existing fruit deposit->clearance->SortBatch sequence; log ALIGN_CONFIRMED_HEADING and unchanged distance checks",
+  "status": "NOT_APPLIED",
+  "user_decision": "실물과 동일한 방식"
+}

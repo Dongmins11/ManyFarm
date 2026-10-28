@@ -72,7 +72,8 @@ def load_fleet(root: Path, path: Path) -> tuple[list, dict]:
             raise ValueError('인계 평가 로봇 구성 오류')
     return configs, dict(map_id=stations['map_id'], stations=stations['stations'],
                          evaluation=dict(T_map_world=stations['T_map_world']), harvest_robot=harvest, clock=fleet['clock'],
-                         docking_markers=fleet.get('docking_markers'),basket_alignment=basket)
+                         docking_markers=fleet.get('docking_markers'),basket_alignment=basket,
+                         sorter=read(fleet['sorter_config']) if fleet.get('sorter_config') else None)
 
 
 def validate_harvest_action(task: dict, device: dict, physics: dict) -> None:

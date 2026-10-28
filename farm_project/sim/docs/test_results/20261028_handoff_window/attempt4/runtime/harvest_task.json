@@ -1,0 +1,285 @@
+{
+  "schema_version": 1,
+  "robot_id": "harvest_01",
+  "map_id": "farm_map_v1",
+  "completion_policy": "ARRIVAL_THEN_ARM",
+  "segments": [
+    "SEC01_G01",
+    "SEC01_G02",
+    "SEC01_G03",
+    "SEC01_G04",
+    "SEC01_G05",
+    "SEC02_G01",
+    "SEC02_G02",
+    "SEC02_G03",
+    "SEC02_G04",
+    "SEC02_G05",
+    "SEC03_G01",
+    "SEC03_G02",
+    "SEC03_G03",
+    "SEC03_G04",
+    "SEC03_G05",
+    "SEC04_G01",
+    "SEC04_G02",
+    "SEC04_G03",
+    "SEC04_G04",
+    "SEC04_G05",
+    "SEC05_G01",
+    "SEC05_G02",
+    "SEC05_G03",
+    "SEC05_G04",
+    "SEC05_G05",
+    "SEC06_G01",
+    "SEC06_G02",
+    "SEC06_G03",
+    "SEC06_G04",
+    "SEC06_G05",
+    "SEC07_G01",
+    "SEC07_G02",
+    "SEC07_G03",
+    "SEC07_G04",
+    "SEC07_G05",
+    "SEC08_G01",
+    "SEC08_G02",
+    "SEC08_G03",
+    "SEC08_G04",
+    "SEC08_G05",
+    "SEC09_G01",
+    "SEC09_G02",
+    "SEC09_G03",
+    "SEC09_G04",
+    "SEC09_G05",
+    "SEC10_G01",
+    "SEC10_G02",
+    "SEC10_G03",
+    "SEC10_G04",
+    "SEC10_G05",
+    "SEC11_G01",
+    "SEC11_G02",
+    "SEC11_G03",
+    "SEC11_G04",
+    "SEC11_G05",
+    "SEC12_G01",
+    "SEC12_G02",
+    "SEC12_G03",
+    "SEC12_G04",
+    "SEC12_G05",
+    "SEC13_G01",
+    "SEC13_G02",
+    "SEC13_G03",
+    "SEC13_G04",
+    "SEC13_G05",
+    "SEC14_G01",
+    "SEC14_G02",
+    "SEC14_G03",
+    "SEC14_G04",
+    "SEC14_G05",
+    "SEC15_G01",
+    "SEC15_G02",
+    "SEC15_G03",
+    "SEC15_G04",
+    "SEC15_G05",
+    "SEC16_G01",
+    "SEC16_G02",
+    "SEC16_G03",
+    "SEC16_G04",
+    "SEC16_G05"
+  ],
+  "arm_action": {
+    "endpoint": "sim/harvest_arm",
+    "readiness_timeout_s": 5.0,
+    "response_timeout_s": 5.0,
+    "execution_timeout_s": 7260.0,
+    "cancel_timeout_s": 20.0
+  },
+  "sections": {
+    "SEC01": {
+      "entry_node": 20102,
+      "entry_heading_node": 20100,
+      "exit_node": 20100,
+      "exit_heading_node": 9023,
+      "work_corridor_nodes": [
+        9002,
+        20100
+      ]
+    },
+    "SEC02": {
+      "entry_node": 20202,
+      "entry_heading_node": 20200,
+      "exit_node": 20200,
+      "exit_heading_node": 9004,
+      "work_corridor_nodes": [
+        9025,
+        20200
+      ]
+    },
+    "SEC03": {
+      "entry_node": 20302,
+      "entry_heading_node": 20300,
+      "exit_node": 20300,
+      "exit_heading_node": 9028,
+      "work_corridor_nodes": [
+        9007,
+        20300
+      ]
+    },
+    "SEC04": {
+      "entry_node": 20402,
+      "entry_heading_node": 20400,
+      "exit_node": 20400,
+      "exit_heading_node": 9009,
+      "work_corridor_nodes": [
+        9030,
+        20400
+      ]
+    },
+    "SEC05": {
+      "entry_node": 20502,
+      "entry_heading_node": 20500,
+      "exit_node": 20500,
+      "exit_heading_node": 9034,
+      "work_corridor_nodes": [
+        9013,
+        20500
+      ]
+    },
+    "SEC06": {
+      "entry_node": 20602,
+      "entry_heading_node": 20600,
+      "exit_node": 20600,
+      "exit_heading_node": 9015,
+      "work_corridor_nodes": [
+        9036,
+        20600
+      ]
+    },
+    "SEC07": {
+      "entry_node": 20702,
+      "entry_heading_node": 20700,
+      "exit_node": 20700,
+      "exit_heading_node": 9039,
+      "work_corridor_nodes": [
+        9018,
+        20700
+      ]
+    },
+    "SEC08": {
+      "entry_node": 20802,
+      "entry_heading_node": 20800,
+      "exit_node": 20800,
+      "exit_heading_node": 9020,
+      "work_corridor_nodes": [
+        9041,
+        20800
+      ]
+    },
+    "SEC09": {
+      "entry_node": 20902,
+      "entry_heading_node": 20900,
+      "exit_node": 20900,
+      "exit_heading_node": 9044,
+      "work_corridor_nodes": [
+        9023,
+        20900
+      ]
+    },
+    "SEC10": {
+      "entry_node": 21002,
+      "entry_heading_node": 21000,
+      "exit_node": 21000,
+      "exit_heading_node": 9025,
+      "work_corridor_nodes": [
+        9046,
+        21000
+      ]
+    },
+    "SEC11": {
+      "entry_node": 21102,
+      "entry_heading_node": 21100,
+      "exit_node": 21100,
+      "exit_heading_node": 9049,
+      "work_corridor_nodes": [
+        9028,
+        21100
+      ]
+    },
+    "SEC12": {
+      "entry_node": 21202,
+      "entry_heading_node": 21200,
+      "exit_node": 21200,
+      "exit_heading_node": 9030,
+      "work_corridor_nodes": [
+        9051,
+        21200
+      ]
+    },
+    "SEC13": {
+      "entry_node": 21302,
+      "entry_heading_node": 21300,
+      "exit_node": 21300,
+      "exit_heading_node": 9055,
+      "work_corridor_nodes": [
+        9034,
+        21300
+      ]
+    },
+    "SEC14": {
+      "entry_node": 21402,
+      "entry_heading_node": 21400,
+      "exit_node": 21400,
+      "exit_heading_node": 9036,
+      "work_corridor_nodes": [
+        9057,
+        21400
+      ]
+    },
+    "SEC15": {
+      "entry_node": 21502,
+      "entry_heading_node": 21500,
+      "exit_node": 21500,
+      "exit_heading_node": 9060,
+      "work_corridor_nodes": [
+        9039,
+        21500
+      ]
+    },
+    "SEC16": {
+      "entry_node": 21602,
+      "entry_heading_node": 21600,
+      "exit_node": 21600,
+      "exit_heading_node": 9041,
+      "work_corridor_nodes": [
+        9062,
+        21600
+      ]
+    }
+  },
+  "task_navigation_policy": "robot/config/navigation/harvest_task.yaml",
+  "transfer": {
+    "enabled": true,
+    "device_services": {
+      "prepare_arm": "/harvest_01/sim/transfer/prepare_arm",
+      "stop": "/harvest_01/sim/transfer/stop"
+    },
+    "capacity_count": 0,
+    "loaded_count_topic": "",
+    "stage_timeout_s": 120.0,
+    "stop_timeout_s": 10.0,
+    "load_source": "arm_feedback",
+    "request_count": 0,
+    "rotation_mode": "components",
+    "rotation": {},
+    "discharge_mode": "action",
+    "discharge_action": {
+      "endpoint": "/harvest_01/sim/discharge",
+      "response_timeout_s": 5.0,
+      "cancel_timeout_s": 10.0
+    },
+    "journal_path": "/home/ysy/main/farm_project/sim/runs/handoff_window_20261028/attempt4/runtime/journal/transfer.json"
+  },
+  "status_reporting": {
+    "enabled": true,
+    "map_id": "farm_map_v1",
+    "battery_topic": "battery_state"
+  }
+}

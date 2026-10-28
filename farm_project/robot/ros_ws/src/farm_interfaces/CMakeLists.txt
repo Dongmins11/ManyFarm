@@ -27,6 +27,8 @@ rosidl_generate_interfaces(${PROJECT_NAME}
   "srv/TransferEvent.srv"
   "action/TransportPickup.action"
   "action/BucketUnload.action"
+  "action/SortBatch.action"
+  "msg/SorterStatus.msg"
   "action/CheckRoute.action"
   "action/PrecisionMotion.action"
   "action/MechanicalOperation.action"

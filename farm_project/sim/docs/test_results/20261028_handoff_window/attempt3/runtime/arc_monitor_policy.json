@@ -1,0 +1,18 @@
+{
+  "measured_velocity": {
+    "linear_abs_mps": 0.025,
+    "forward_mps": 0.005,
+    "angular_soft_rps": 0.18,
+    "angular_hard_rps": 0.2,
+    "angular_persistence_s": 0.1,
+    "sample_gap_s": 0.5
+  },
+  "stationary": {
+    "odom_topic": "odom",
+    "stopped_linear_mps": 0.005,
+    "stopped_angular_rps": 0.02,
+    "settle_s": 0.8,
+    "settle_timeout_s": 5.0,
+    "odom_max_age_s": 0.5
+  }
+}

@@ -1,0 +1,48 @@
+[
+  {
+    "attempt": 2,
+    "source": "sim/runs/drive_diagnostics/16f78511388b4a9bb86fb520f5c6d2b7/harvest_01.jsonl",
+    "source_sha256": "802923444be62f22af9642d512e0522f54643e2f7c1d820c1fe79bdf6c7ad585",
+    "sim_time_s": [
+      64.78333671204746,
+      67.25000350736082
+    ],
+    "sample_count": 43,
+    "all_cmd_zero": true,
+    "all_targets_zero": true,
+    "wheel_delta_rad": [
+      0.013498663902282715,
+      -0.004402637481689453
+    ],
+    "wheel_predicted_yaw_deg": -0.19661845430286765,
+    "world_yaw_deg": -0.19395491287200492,
+    "world_translation_mm": [
+      0.3933906555175781,
+      -0.02288818359375,
+      0.00011632801033556461
+    ]
+  },
+  {
+    "attempt": 3,
+    "source": "sim/runs/drive_diagnostics/c40dd6a654d140b1a23a03afadd08fea/harvest_01.jsonl",
+    "source_sha256": "375f10a115f027a0217eb1d61dc6c243cee001cabae9bf95f4501d926dd49372",
+    "sim_time_s": [
+      62.850003277882934,
+      65.3500034082681
+    ],
+    "sample_count": 44,
+    "all_cmd_zero": true,
+    "all_targets_zero": true,
+    "wheel_delta_rad": [
+      0.014768242835998535,
+      -0.0010547637939453125
+    ],
+    "wheel_predicted_yaw_deg": -0.1737915606956424,
+    "world_yaw_deg": -0.17413784990034956,
+    "world_translation_mm": [
+      0.5621910095214844,
+      -0.034332275390625,
+      4.720641300082207e-05
+    ]
+  }
+]

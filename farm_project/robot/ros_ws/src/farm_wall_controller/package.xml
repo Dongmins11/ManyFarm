@@ -1,0 +1,11 @@
+<?xml version="1.0"?>
+<package format="3">
+ <name>farm_wall_controller</name><version>0.1.0</version>
+ <description>공통 라이다 벽 거리·방향 정렬 Nav2 플러그인</description>
+ <maintainer email="maintainer@example.com">MANYFARM</maintainer><license>Apache-2.0</license>
+ <buildtool_depend>ament_cmake</buildtool_depend>
+ <depend>nav2_regulated_pure_pursuit_controller</depend><depend>nav2_core</depend>
+ <depend>pluginlib</depend><depend>tf2_geometry_msgs</depend><depend>rclcpp_lifecycle</depend><depend>geometry_msgs</depend>
+ <export><build_type>ament_cmake</build_type></export>
+<depend>nav2_controller</depend><depend>nav2_behaviors</depend><depend>std_msgs</depend>
+</package>

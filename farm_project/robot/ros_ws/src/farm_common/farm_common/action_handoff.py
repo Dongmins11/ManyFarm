@@ -61,10 +61,10 @@ class ActionHandoff:
             return True
 
     def acquire(self, kind: str, task_id: str, check: Callable[[], None]) -> Reservation:
-        """정리 완료를 기다리는 동안에도 외부 취소·종료 요청을 확인한다."""
-        with self._condition:
-            while True:
-                check()
+        """외부 검사는 소유권 잠금 밖에서 실행하고, 반환 전 예약을 재확인한다."""
+        while True:
+            check()
+            with self._condition:
                 token = self._active
                 if token is not None and (token.kind, token.task_id) == (kind, task_id):
                     if token.interrupted.is_set():

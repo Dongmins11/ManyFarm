@@ -1,0 +1,5 @@
+<library path="arc_controller">
+  <class name="farm_arc_controller::ArcController" type="farm_arc_controller::ArcController" base_class_type="nav2_core::Controller">
+    <description>원호 추종과 기존 Nav2 충돌 검사를 조합하는 선택형 플러그인</description>
+  </class>
+</library>

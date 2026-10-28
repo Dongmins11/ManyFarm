@@ -1,0 +1,33 @@
+{
+  "source": "9686aca909cb52191862ee3500c62fadf7a8ed38",
+  "trial": "pickup9",
+  "profiles": [
+    "harvest_approach_42",
+    "harvest_dock_41",
+    "harvest_clear",
+    "sort_01_distance_trial",
+    "sort_departure_distance_trial"
+  ],
+  "environment_data_differences": [
+    {
+      "profile": "sort_departure_distance_trial",
+      "path": "/distance_departure/map_yaw_rad",
+      "source": 0.0,
+      "selected": 1.5707963267948966
+    },
+    {
+      "profile": "sort_departure_distance_trial",
+      "path": "/distance_departure/exit_rotation/to_node_id",
+      "source": 15,
+      "selected": 9001
+    },
+    {
+      "profile": "sort_departure_distance_trial",
+      "path": "/distance_departure/exit_rotation/from_node_id",
+      "source": 17,
+      "selected": 8004
+    }
+  ],
+  "control_numeric_or_boolean_differences": [],
+  "passed": true
+}

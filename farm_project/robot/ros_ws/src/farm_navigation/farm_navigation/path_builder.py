@@ -19,6 +19,17 @@ def build_path(plan: RoutePlan, yaw: float, stamp: Time, spacing_m: float=.04, *
         pose.pose.orientation.z=math.sin(heading/2)
         pose.pose.orientation.w=math.cos(heading/2)
         result.poses.append(pose)
+    if plan.headings is not None:
+        # 제어기가 생성한 곡선/벽 경로는 점 수와 차체 방향을 그대로 보존한다.
+        if (len(plan.points) < 2 or len(plan.headings) != len(plan.points)
+                or not plan.frame_id or reverse
+                or any(len(point) != 2 or not all(math.isfinite(v) for v in point) for point in plan.points)
+                or not all(math.isfinite(v) for v in plan.headings)
+                or abs(math.atan2(math.sin(plan.headings[-1]-yaw), math.cos(plan.headings[-1]-yaw))) > 1e-6):
+            raise ValueError('명시적 경로의 점·방향·최종 yaw 불일치 또는 중복 후진 지정')
+        for (x, y), heading in zip(plan.points, plan.headings):
+            add(x, y, heading)
+        return result
     for a,b in zip(plan.points,plan.points[1:]):
         count=max(1,math.ceil(math.dist(a,b)/spacing_m))
         heading=math.atan2(b[1]-a[1],b[0]-a[0]) + (math.pi if reverse else 0.)

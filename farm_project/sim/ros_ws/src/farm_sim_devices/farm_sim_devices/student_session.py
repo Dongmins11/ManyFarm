@@ -8,6 +8,7 @@ import hashlib
 import json
 from pathlib import Path
 import sys
+import time
 from types import SimpleNamespace
 from typing import Callable
 import numpy as np
@@ -104,6 +105,11 @@ class StudentRuntime:
         self.detector = Detector(settings['vision_python'], release/manifest['models']['detector']['path'], device=settings['device'])
         try:
             self.rig = FarmD435Rig(world, device, self.kin, self.contract['camera_config'], device.robot_id)
+            # 첫 CUDA 추론 초기화가 수확 중 telemetry를 막지 않게 연결 준비 때 수행한다.
+            # 실제 초기 영상의 결과는 버린다. 작업 대상/수량/정책 상태에는 넣지 않는다.
+            warmup_start = time.perf_counter()
+            self.detector.predict(np.asarray(self.rig.cameras['rear']['rgb'].get_rgb()))
+            print('[student_camera] detector warmup_s:', time.perf_counter()-warmup_start, flush=True)
             self.camera = MissionCameraSession(release/manifest['models']['d435']['path'], self.contract,
                 self.detector, self.kin, self.rig.world_from_robot, camera_kind='d435',
                 center_checkpoint=release/manifest['models']['center']['path'], device=settings['device'],
@@ -396,17 +402,24 @@ class StudentArmSession(ArmSession):
         if not runtime.rig.last:
             return
         capture = runtime.rig.capture()
+        timing_start = time.perf_counter()
         if self._directory is not None and not (self._directory/'rear_initial.png').exists():
             from PIL import Image
             for name, data in capture.items():
-                Image.fromarray(data['rgb']).save(self._directory/f'{name}_initial.png')
-            np.savez_compressed(self._directory/'camera_initial.npz',
+                Image.fromarray(data['rgb']).save(self._directory/f'{name}_initial.png', compress_level=1)
+            # 무손실 자료는 그대로 보존하되 제어 루프에서 압축 CPU 비용을 없앤다.
+            np.savez(self._directory/'camera_initial.npz',
                 **{f'{name}_{key}': data[key] for name, data in capture.items()
                    for key in ('rgb', 'raw_depth_m', 'aligned_depth_m')}, right_ir=capture['right']['ir']['ir_right'])
             (self._directory/'camera_initial_metadata.json').write_text(json.dumps(
                 {name: {k: data[k] for k in ('intrinsics', 'world_from_optical', 'stamp_s', 'pose_stamp_s', 'capture_joint_rad', 'fk_max_error', 'renderer_checks')}
                  for name, data in capture.items()}, default=lambda x: np.asarray(x).tolist(), indent=2)+'\n')
+        artifacts_finished = time.perf_counter()
         _, detections = runtime.camera.observe(capture, now)
+        # wall 통신 감시와 같은 단위로 첫 영상 저장/검출 지연을 분리한다.
+        self._log('INVENTORY_TIMING', time_s=now,
+                  artifacts_s=artifacts_finished-timing_start,
+                  observe_s=time.perf_counter()-artifacts_finished)
         tracker = AssignedFruitTracker(runtime.camera.roi)
         tracker.update(detections, now)
         targets = [HarvestTarget(key, item['label'], tuple(item['position_m']))

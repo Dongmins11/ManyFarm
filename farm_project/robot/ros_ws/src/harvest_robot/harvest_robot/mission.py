@@ -35,7 +35,12 @@ class HarvestMission:
             if arm is not None:
                 self.node.mission_stage = 'ARM'
                 self.node.arm_travel_ready = False
-                self.node.arm_result = arm.execute(self.goal, self.node.check, self.node.communication.arm_feedback)
+                connection = getattr(self.node, 'jetson_connection', None)
+                options = {} if connection is None else {
+                    'before_send': lambda remaining_s: connection.wait_before_send(
+                        self.node.check, remaining_s)}
+                self.node.arm_result = arm.execute(self.goal, self.node.check,
+                    self.node.communication.arm_feedback, **options)
             return arrival
         except Exception:
             # 팔과 주행 종료를 각각 확인합니다. 한쪽 실패로 다른 쪽 정리를 생략하지 않습니다.

@@ -1,0 +1,173 @@
+{
+  "passed": false,
+  "scope": "one actual window + TransportPickup + DockTransfer + restore; not full SEC01",
+  "error": "KeyboardInterrupt: ",
+  "frontend_final": {
+    "identity": {
+      "environment": "simul",
+      "domain_id": 13,
+      "map_id": "farm_map_v1",
+      "frame_id": "map",
+      "harvest_robot_id": "harvest_01",
+      "transport_robot_id": "transport_01",
+      "harvest_action": "/harvest_01/dock_transfer",
+      "transport_action": "/transport_01/transport_pickup",
+      "transport_event": "/transport_01/transfer_event",
+      "harvest_status": "/harvest_01/status",
+      "transport_status": "/transport_01/status",
+      "watched_actions": {
+        "harvest": [
+          "/harvest_01/harvest_task",
+          "/harvest_01/return_to_station"
+        ],
+        "transport": [
+          "/transport_01/navigate_to_node",
+          "/transport_01/return_to_station",
+          "/transport_01/bucket_unload"
+        ]
+      }
+    },
+    "transfer_id": "",
+    "jobs": [],
+    "requests": {},
+    "logs": [
+      {
+        "seq": 1,
+        "timestamp": "2026-10-28T09:04:11.202658+00:00",
+        "kind": "status",
+        "message": "운송 Status 최초 수신",
+        "transfer_id": "",
+        "job_id": "",
+        "data": {
+          "robot_id": "transport_01",
+          "current_task_id": "",
+          "state": "IDLE",
+          "ready": true,
+          "map_id": "farm_map_v1",
+          "pose": {
+            "frame_id": "map",
+            "position": {
+              "x": -5.955000012672283,
+              "y": 10.700036862115063,
+              "z": 0.0
+            },
+            "yaw": -1.5708159244824416
+          },
+          "transfer_required": false,
+          "loaded_count": -1,
+          "error_code": "NONE",
+          "error_message": "",
+          "boot_id": "0cf4b90712674a779c71b283a38eee10",
+          "sequence": 1,
+          "timestamp": "2026-10-28T09:04:11.202166+00:00"
+        }
+      }
+    ],
+    "log_seq": 1,
+    "event_controls": {
+      "dock_ready": {
+        "event": "DOCK_READY",
+        "target": "transport",
+        "source": "harvest",
+        "job_id": "",
+        "allowed": false,
+        "reason": "이벤트를 받을 로봇의 인계 Action이 실행 중이어야 합니다.",
+        "observed": false,
+        "manual_without_feedback": false,
+        "delivery": "",
+        "error": "",
+        "response": null
+      },
+      "dock_stable": {
+        "event": "DOCK_STABLE",
+        "target": "harvest",
+        "source": "transport",
+        "job_id": "",
+        "allowed": false,
+        "reason": "이벤트를 받을 로봇의 인계 Action이 실행 중이어야 합니다.",
+        "observed": false,
+        "manual_without_feedback": false,
+        "delivery": "",
+        "error": "",
+        "response": null
+      },
+      "transfer_complete": {
+        "event": "TRANSFER_COMPLETE",
+        "target": "transport",
+        "source": "harvest",
+        "job_id": "",
+        "allowed": false,
+        "reason": "이벤트를 받을 로봇의 인계 Action이 실행 중이어야 합니다.",
+        "observed": false,
+        "manual_without_feedback": false,
+        "delivery": "",
+        "error": "",
+        "response": null
+      },
+      "transport_clear": {
+        "event": "TRANSPORT_CLEAR",
+        "target": "harvest",
+        "source": "transport",
+        "job_id": "",
+        "allowed": false,
+        "reason": "이벤트를 받을 로봇의 인계 Action이 실행 중이어야 합니다.",
+        "observed": false,
+        "manual_without_feedback": false,
+        "delivery": "",
+        "error": "",
+        "response": null
+      }
+    },
+    "completion": {
+      "state": "WAITING",
+      "message": "인계 시작 전"
+    },
+    "event_services": {
+      "harvest": "/harvest_01/transfer_event",
+      "transport": "/transport_01/transfer_event"
+    },
+    "status": "running",
+    "error": "",
+    "ready": {
+      "harvest": false,
+      "transport": true
+    },
+    "event_ready": true,
+    "event_ready_by_role": {
+      "harvest": false,
+      "transport": true
+    },
+    "blocked": {
+      "harvest": "",
+      "transport": ""
+    },
+    "robot_status": {
+      "transport": {
+        "data": {
+          "robot_id": "transport_01",
+          "current_task_id": "",
+          "state": "IDLE",
+          "ready": true,
+          "map_id": "farm_map_v1",
+          "pose": {
+            "frame_id": "map",
+            "position": {
+              "x": -5.9550000122968605,
+              "y": 10.700001233695348,
+              "z": 0.0
+            },
+            "yaw": -1.5707912434713625
+          },
+          "transfer_required": false,
+          "loaded_count": -1,
+          "error_code": "NONE",
+          "error_message": "",
+          "boot_id": "0cf4b90712674a779c71b283a38eee10",
+          "sequence": 54,
+          "timestamp": "2026-10-28T09:05:09.512022+00:00"
+        },
+        "age_s": 0.8
+      }
+    }
+  }
+}

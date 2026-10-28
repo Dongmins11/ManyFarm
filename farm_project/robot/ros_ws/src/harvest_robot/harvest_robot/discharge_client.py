@@ -15,7 +15,7 @@ def discharge_parameters(config: dict) -> dict:
     if mode == 'device_services':
         if values: raise ValueError('discharge_action은 action 방식에서만 사용합니다.')
     else:
-        if config.get('rotation_mode', 'device_services') != 'nav2_spin':
+        if config.get('rotation_mode', 'device_services') not in ('nav2_spin', 'components'):
             raise ValueError('배출 Action은 공통 nav2_spin 어댑터와 조합합니다.')
         if set(values) != {'endpoint', 'response_timeout_s', 'cancel_timeout_s'}:
             raise ValueError('배출 endpoint/응답·취소 제한시간을 명시해야 합니다.')

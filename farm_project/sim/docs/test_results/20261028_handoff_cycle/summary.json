@@ -1,0 +1,874 @@
+[
+  {
+    "trial": "ki1",
+    "passed": true,
+    "scope": "one actual window + body entry + explicit cancel, not full handoff",
+    "error": null,
+    "harvest": {
+      "status": 4,
+      "result": {
+        "robot_id": "harvest_01",
+        "task_id": "handoff_window_12113288da05",
+        "window_id": "7621d3500623_SEC01_W001",
+        "result_code": "SUCCESS",
+        "expected_count": 1,
+        "harvested_count": 0,
+        "failed_count": 0,
+        "error_code": "NONE",
+        "error_message": "student_no_reachable_targets_arms_stowed",
+        "timestamp": "2026-10-28T06:01:47.028298+00:00"
+      }
+    },
+    "jobs": [
+      {
+        "role": "harvest",
+        "state": "CANCELED",
+        "events": {
+          "DOCK_READY": "2026-10-28T06:02:22.640584+00:00"
+        },
+        "result": {
+          "robot_id": "harvest_01",
+          "task_id": "DOCK_TEST_96ad2a4c224848178cd52ec5815225d1",
+          "transfer_id": "TRANSFER_TEST_9cbf4597116c42b8b810e42977b080be",
+          "result_code": "CANCELED",
+          "expected_count": 0,
+          "transfer_complete": false,
+          "transport_clear": false,
+          "restore_complete": false,
+          "error_code": "CANCELED",
+          "error_message": "관제가 인계 작업 취소를 요청했습니다.",
+          "timestamp": "2026-10-28T06:02:23.375467+00:00"
+        }
+      }
+    ]
+  },
+  {
+    "trial": "pickup1",
+    "passed": false,
+    "scope": "one actual window + TransportPickup + DockTransfer + restore; not full SEC01",
+    "error": "RuntimeError: 42번 접근 실패: {\"id\": \"PICKUP_TEST_cb84f7d584cd49fd8a556c62461f1379\", \"role\": \"transport\", \"goal\": {\"robot_id\": \"transport_01\", \"task_id\": \"PICKUP_TEST_cb84f7d584cd49fd8a556c62461f1379\", \"transfer_id\": \"TRANSFER_TEST_a6633f52f77b4da09c9a6309027c4d52\", \"timestamp\": \"2026-10-28T06:07:17.015110+00:00\", \"harvest_robot_id\": \"harvest_01\", \"map_id\": \"farm_map_v1\", \"staging_pose\": {\"frame_id\": \"map\", \"position\": {\"x\": -5.955, \"y\": 9.292529729570179, \"z\": 0.0}, \"yaw\": -1.5707963267948966}, \"target_marker_id\": 42, \"docking_marker_id\": 41}, \"goal_uuid\": \"f1cdf15c90254ff08fba00ec0ff1e5be\", \"state\": \"REJECTED\", \"reason\": \"로봇이 요청을 거절했습니다.\", \"created_at\": \"2026-10-28T06:07:17.015139+00:00\", \"finished_at\": \"2026-10-28T06:07:17.046936+00:00\"}",
+    "harvest": {
+      "status": 4,
+      "result": {
+        "robot_id": "harvest_01",
+        "task_id": "handoff_window_eb9b53847dc6",
+        "window_id": "7621d3500623_SEC01_W001",
+        "result_code": "SUCCESS",
+        "expected_count": 1,
+        "harvested_count": 0,
+        "failed_count": 0,
+        "error_code": "NONE",
+        "error_message": "student_no_reachable_targets_arms_stowed",
+        "timestamp": "2026-10-28T06:07:16.497347+00:00"
+      }
+    },
+    "jobs": [
+      {
+        "role": "transport",
+        "state": "REJECTED",
+        "events": {},
+        "result": null
+      }
+    ]
+  },
+  {
+    "trial": "pickup2",
+    "passed": false,
+    "scope": "one actual window + TransportPickup + DockTransfer + restore; not full SEC01",
+    "error": "RuntimeError: 인계 액션 실패: [{\"id\": \"PICKUP_TEST_ea4f293a844746edb98aeceeec74c487\", \"role\": \"transport\", \"goal\": {\"robot_id\": \"transport_01\", \"task_id\": \"PICKUP_TEST_ea4f293a844746edb98aeceeec74c487\", \"transfer_id\": \"TRANSFER_TEST_35ac0655671a4675952a12d7f48318d5\", \"timestamp\": \"2026-10-28T06:09:22.173607+00:00\", \"harvest_robot_id\": \"harvest_01\", \"map_id\": \"farm_map_v1\", \"staging_pose\": {\"frame_id\": \"map\", \"position\": {\"x\": -5.955, \"y\": 9.292529729570179, \"z\": 0.0}, \"yaw\": -1.5707963267948966}, \"target_marker_id\": 42, \"docking_marker_id\": 41}, \"goal_uuid\": \"904d7433822c448fa6806afa77417a19\", \"state\": \"FAILED\", \"reason\": \"LID_OPEN failed: 가상 덮개: 바구니 정렬·정지·세션 조건 불충족\", \"created_at\": \"2026-10-28T06:09:22.173630+00:00\", \"feedback\": {\"robot_id\": \"transport_01\", \"task_id\": \"PICKUP_TEST_ea4f293a844746edb98aeceeec74c487\", \"transfer_id\": \"TRANSFER_TEST_35ac0655671a4675952a12d7f48318d5\", \"event\": \"DOCKING_STARTED\", \"timestamp\": \"2026-10-28T06:10:52.206414+00:00\"}, \"observed_events\": {\"MOVING_STARTED\": \"2026-10-28T06:09:22.199004+00:00\", \"WAITING_FOR_TRANSFER\": \"2026-10-28T06:09:36.835890+00:00\", \"DOCKING_STARTED\": \"2026-10-28T06:10:52.211813+00:00\"}, \"ros_status\": 6, \"result\": {\"robot_id\": \"transport_01\", \"task_id\": \"PICKUP_TEST_ea4f293a844746edb98aeceeec74c487\", \"transfer_id\": \"TRANSFER_TEST_35ac0655671a4675952a12d7f48318d5\", \"result_code\": \"FAILED\", \"error_code\": \"NAVIGATION_FAILED\", \"error_message\": \"LID_OPEN failed: 가상 덮개: 바구니 정렬·정지·세션 조건 불충족\", \"timestamp\": \"2026-10-28T06:11:11.941751+00:00\"}, \"finished_at\": \"2026-10-28T06:11:11.942945+00:00\"}]",
+    "harvest": {
+      "status": 4,
+      "result": {
+        "robot_id": "harvest_01",
+        "task_id": "handoff_window_f4298e2ed230",
+        "window_id": "7621d3500623_SEC01_W001",
+        "result_code": "SUCCESS",
+        "expected_count": 1,
+        "harvested_count": 0,
+        "failed_count": 0,
+        "error_code": "NONE",
+        "error_message": "student_no_reachable_targets_arms_stowed",
+        "timestamp": "2026-10-28T06:09:21.492310+00:00"
+      }
+    },
+    "jobs": [
+      {
+        "role": "transport",
+        "state": "FAILED",
+        "events": {
+          "MOVING_STARTED": "2026-10-28T06:09:22.199004+00:00",
+          "WAITING_FOR_TRANSFER": "2026-10-28T06:09:36.835890+00:00",
+          "DOCKING_STARTED": "2026-10-28T06:10:52.211813+00:00"
+        },
+        "result": {
+          "robot_id": "transport_01",
+          "task_id": "PICKUP_TEST_ea4f293a844746edb98aeceeec74c487",
+          "transfer_id": "TRANSFER_TEST_35ac0655671a4675952a12d7f48318d5",
+          "result_code": "FAILED",
+          "error_code": "NAVIGATION_FAILED",
+          "error_message": "LID_OPEN failed: 가상 덮개: 바구니 정렬·정지·세션 조건 불충족",
+          "timestamp": "2026-10-28T06:11:11.941751+00:00"
+        }
+      },
+      {
+        "role": "harvest",
+        "state": "CANCELED",
+        "events": {
+          "DOCK_READY": "2026-10-28T06:10:51.608504+00:00"
+        },
+        "result": {
+          "robot_id": "harvest_01",
+          "task_id": "DOCK_TEST_b073e6692a6f4399aeb1ad2b5aa68909",
+          "transfer_id": "TRANSFER_TEST_35ac0655671a4675952a12d7f48318d5",
+          "result_code": "CANCELED",
+          "expected_count": 0,
+          "transfer_complete": false,
+          "transport_clear": false,
+          "restore_complete": false,
+          "error_code": "CANCELED",
+          "error_message": "관제가 인계 작업 취소를 요청했습니다.",
+          "timestamp": "2026-10-28T06:11:12.630039+00:00"
+        }
+      }
+    ]
+  },
+  {
+    "trial": "pickup3",
+    "passed": false,
+    "scope": "one actual window + TransportPickup + DockTransfer + restore; not full SEC01",
+    "error": "RuntimeError: 인계 액션 실패: [{\"id\": \"PICKUP_TEST_b35cf4969dcf4ac7a901ce31e81f2648\", \"role\": \"transport\", \"goal\": {\"robot_id\": \"transport_01\", \"task_id\": \"PICKUP_TEST_b35cf4969dcf4ac7a901ce31e81f2648\", \"transfer_id\": \"TRANSFER_TEST_a8521ba720e9405f8d3cbe30436419a2\", \"timestamp\": \"2026-10-28T06:12:43.748037+00:00\", \"harvest_robot_id\": \"harvest_01\", \"map_id\": \"farm_map_v1\", \"staging_pose\": {\"frame_id\": \"map\", \"position\": {\"x\": -5.955, \"y\": 9.292529729570179, \"z\": 0.0}, \"yaw\": -1.5707963267948966}, \"target_marker_id\": 42, \"docking_marker_id\": 41}, \"goal_uuid\": \"9219782af36245eca2e98625cc569825\", \"state\": \"FAILED\", \"reason\": \"LID_OPEN failed: 가상 덮개: 바구니 정렬·정지·세션 조건 불충족\", \"created_at\": \"2026-10-28T06:12:43.748060+00:00\", \"feedback\": {\"robot_id\": \"transport_01\", \"task_id\": \"PICKUP_TEST_b35cf4969dcf4ac7a901ce31e81f2648\", \"transfer_id\": \"TRANSFER_TEST_a8521ba720e9405f8d3cbe30436419a2\", \"event\": \"DOCKING_STARTED\", \"timestamp\": \"2026-10-28T06:13:41.498362+00:00\"}, \"observed_events\": {\"MOVING_STARTED\": \"2026-10-28T06:12:43.798012+00:00\", \"WAITING_FOR_TRANSFER\": \"2026-10-28T06:12:58.446969+00:00\", \"DOCKING_STARTED\": \"2026-10-28T06:13:41.498912+00:00\"}, \"ros_status\": 6, \"result\": {\"robot_id\": \"transport_01\", \"task_id\": \"PICKUP_TEST_b35cf4969dcf4ac7a901ce31e81f2648\", \"transfer_id\": \"TRANSFER_TEST_a8521ba720e9405f8d3cbe30436419a2\", \"result_code\": \"FAILED\", \"error_code\": \"NAVIGATION_FAILED\", \"error_message\": \"LID_OPEN failed: 가상 덮개: 바구니 정렬·정지·세션 조건 불충족\", \"timestamp\": \"2026-10-28T06:14:00.419494+00:00\"}, \"finished_at\": \"2026-10-28T06:14:00.420303+00:00\"}]",
+    "harvest": {
+      "status": 4,
+      "result": {
+        "robot_id": "harvest_01",
+        "task_id": "handoff_window_70390d4d9310",
+        "window_id": "7621d3500623_SEC01_W001",
+        "result_code": "SUCCESS",
+        "expected_count": 1,
+        "harvested_count": 0,
+        "failed_count": 0,
+        "error_code": "NONE",
+        "error_message": "student_no_reachable_targets_arms_stowed",
+        "timestamp": "2026-10-28T06:12:43.463310+00:00"
+      }
+    },
+    "jobs": [
+      {
+        "role": "transport",
+        "state": "FAILED",
+        "events": {
+          "MOVING_STARTED": "2026-10-28T06:12:43.798012+00:00",
+          "WAITING_FOR_TRANSFER": "2026-10-28T06:12:58.446969+00:00",
+          "DOCKING_STARTED": "2026-10-28T06:13:41.498912+00:00"
+        },
+        "result": {
+          "robot_id": "transport_01",
+          "task_id": "PICKUP_TEST_b35cf4969dcf4ac7a901ce31e81f2648",
+          "transfer_id": "TRANSFER_TEST_a8521ba720e9405f8d3cbe30436419a2",
+          "result_code": "FAILED",
+          "error_code": "NAVIGATION_FAILED",
+          "error_message": "LID_OPEN failed: 가상 덮개: 바구니 정렬·정지·세션 조건 불충족",
+          "timestamp": "2026-10-28T06:14:00.419494+00:00"
+        }
+      },
+      {
+        "role": "harvest",
+        "state": "CANCELED",
+        "events": {
+          "DOCK_READY": "2026-10-28T06:13:40.995963+00:00"
+        },
+        "result": {
+          "robot_id": "harvest_01",
+          "task_id": "DOCK_TEST_2b098656b2a54ec3afaf78eb3237f24a",
+          "transfer_id": "TRANSFER_TEST_a8521ba720e9405f8d3cbe30436419a2",
+          "result_code": "CANCELED",
+          "expected_count": 0,
+          "transfer_complete": false,
+          "transport_clear": false,
+          "restore_complete": false,
+          "error_code": "CANCELED",
+          "error_message": "관제가 인계 작업 취소를 요청했습니다.",
+          "timestamp": "2026-10-28T06:14:00.588404+00:00"
+        }
+      }
+    ],
+    "basket": {
+      "max_coverage": 0.6656978373143533,
+      "last": {
+        "sim_time_s": 81.23333756998181,
+        "coverage": 0.664945626477799,
+        "minimum_coverage": 0.72,
+        "full_containment": false,
+        "center_delta_m": [
+          -0.07755841932211194,
+          -0.09652376465041002,
+          0.05646334927264873
+        ],
+        "horizontal_distance_m": 0.12382304127274653,
+        "positive_height_clearance_m": 0.05597745615620836,
+        "aligned": false,
+        "wheel_stopped": true,
+        "world_stopped": true,
+        "held_s": 0.0,
+        "hold_pass": false,
+        "harvest_corners_world": [
+          [
+            -5.829623226576715,
+            9.674837637470372,
+            0.5014105760502181
+          ],
+          [
+            -5.820093189138484,
+            9.864598482710967,
+            0.5014105905948127
+          ],
+          [
+            -6.009853906764601,
+            9.874128513757123,
+            0.5011902402358946
+          ],
+          [
+            -6.019383944202832,
+            9.684367668516526,
+            0.5011902256913001
+          ]
+        ],
+        "transport_corners_world": [
+          [
+            -6.00897561904683,
+            9.99509201045965,
+            0.4444613482057237
+          ],
+          [
+            -5.9662658621885996,
+            9.70421177287959,
+            0.44521238381005046
+          ],
+          [
+            -5.675384675650265,
+            9.74692167006867,
+            0.44521276953509176
+          ],
+          [
+            -5.718094432508495,
+            10.037801907648728,
+            0.44446173393076494
+          ]
+        ]
+      },
+      "hold_pass_samples": 0
+    }
+  },
+  {
+    "trial": "pickup4",
+    "passed": false,
+    "scope": "one actual window + TransportPickup + DockTransfer + restore; not full SEC01",
+    "error": "RuntimeError: 인계 액션 실패: [{\"id\": \"PICKUP_TEST_42f3a11460d84ea8a7e914bd88b2c12d\", \"role\": \"transport\", \"goal\": {\"robot_id\": \"transport_01\", \"task_id\": \"PICKUP_TEST_42f3a11460d84ea8a7e914bd88b2c12d\", \"transfer_id\": \"TRANSFER_TEST_ae8689db3bae47e4897299c8cc793672\", \"timestamp\": \"2026-10-28T06:15:12.272095+00:00\", \"harvest_robot_id\": \"harvest_01\", \"map_id\": \"farm_map_v1\", \"staging_pose\": {\"frame_id\": \"map\", \"position\": {\"x\": -5.955, \"y\": 9.292529729570179, \"z\": 0.0}, \"yaw\": -1.5707963267948966}, \"target_marker_id\": 42, \"docking_marker_id\": 41}, \"goal_uuid\": \"bd39364177bd46debd4ccbf6f68258e5\", \"state\": \"FAILED\", \"reason\": \"LID_CLOSE failed: 가상 덮개: 바구니 정렬·정지·세션 조건 불충족\", \"created_at\": \"2026-10-28T06:15:12.272117+00:00\", \"feedback\": {\"robot_id\": \"transport_01\", \"task_id\": \"PICKUP_TEST_42f3a11460d84ea8a7e914bd88b2c12d\", \"transfer_id\": \"TRANSFER_TEST_ae8689db3bae47e4897299c8cc793672\", \"event\": \"DOCK_STABLE\", \"timestamp\": \"2026-10-28T06:16:26.244389+00:00\"}, \"observed_events\": {\"MOVING_STARTED\": \"2026-10-28T06:15:12.311286+00:00\", \"WAITING_FOR_TRANSFER\": \"2026-10-28T06:15:27.579330+00:00\", \"DOCKING_STARTED\": \"2026-10-28T06:16:06.886096+00:00\", \"DOCK_STABLE\": \"2026-10-28T06:16:26.244716+00:00\"}, \"ros_status\": 6, \"result\": {\"robot_id\": \"transport_01\", \"task_id\": \"PICKUP_TEST_42f3a11460d84ea8a7e914bd88b2c12d\", \"transfer_id\": \"TRANSFER_TEST_ae8689db3bae47e4897299c8cc793672\", \"result_code\": \"FAILED\", \"error_code\": \"NAVIGATION_FAILED\", \"error_message\": \"LID_CLOSE failed: 가상 덮개: 바구니 정렬·정지·세션 조건 불충족\", \"timestamp\": \"2026-10-28T06:16:27.376729+00:00\"}, \"finished_at\": \"2026-10-28T06:16:27.377826+00:00\"}]",
+    "harvest": {
+      "status": 4,
+      "result": {
+        "robot_id": "harvest_01",
+        "task_id": "handoff_window_b1318d22b24f",
+        "window_id": "7621d3500623_SEC01_W001",
+        "result_code": "SUCCESS",
+        "expected_count": 1,
+        "harvested_count": 0,
+        "failed_count": 0,
+        "error_code": "NONE",
+        "error_message": "student_no_reachable_targets_arms_stowed",
+        "timestamp": "2026-10-28T06:15:11.868069+00:00"
+      }
+    },
+    "jobs": [
+      {
+        "role": "transport",
+        "state": "FAILED",
+        "events": {
+          "MOVING_STARTED": "2026-10-28T06:15:12.311286+00:00",
+          "WAITING_FOR_TRANSFER": "2026-10-28T06:15:27.579330+00:00",
+          "DOCKING_STARTED": "2026-10-28T06:16:06.886096+00:00",
+          "DOCK_STABLE": "2026-10-28T06:16:26.244716+00:00"
+        },
+        "result": {
+          "robot_id": "transport_01",
+          "task_id": "PICKUP_TEST_42f3a11460d84ea8a7e914bd88b2c12d",
+          "transfer_id": "TRANSFER_TEST_ae8689db3bae47e4897299c8cc793672",
+          "result_code": "FAILED",
+          "error_code": "NAVIGATION_FAILED",
+          "error_message": "LID_CLOSE failed: 가상 덮개: 바구니 정렬·정지·세션 조건 불충족",
+          "timestamp": "2026-10-28T06:16:27.376729+00:00"
+        }
+      },
+      {
+        "role": "harvest",
+        "state": "CANCELED",
+        "events": {
+          "DOCK_READY": "2026-10-28T06:16:06.370942+00:00",
+          "TRANSFER_COMPLETE": "2026-10-28T06:16:26.728327+00:00"
+        },
+        "result": {
+          "robot_id": "harvest_01",
+          "task_id": "DOCK_TEST_4a6253e4972b4697a560a836554bb2eb",
+          "transfer_id": "TRANSFER_TEST_ae8689db3bae47e4897299c8cc793672",
+          "result_code": "CANCELED",
+          "expected_count": 0,
+          "transfer_complete": true,
+          "transport_clear": false,
+          "restore_complete": false,
+          "error_code": "CANCELED",
+          "error_message": "관제가 인계 작업 취소를 요청했습니다.",
+          "timestamp": "2026-10-28T06:16:27.926952+00:00"
+        }
+      }
+    ],
+    "basket": {
+      "max_coverage": 0.7211875341823059,
+      "last": {
+        "sim_time_s": 78.90000411495566,
+        "coverage": 0.7173264576996671,
+        "minimum_coverage": 0.72,
+        "full_containment": false,
+        "center_delta_m": [
+          0.022739153563495762,
+          -0.10509242720647194,
+          0.05646532811606947
+        ],
+        "horizontal_distance_m": 0.10752435705890943,
+        "positive_height_clearance_m": 0.055987922508993204,
+        "aligned": false,
+        "wheel_stopped": true,
+        "world_stopped": true,
+        "held_s": 0.0,
+        "hold_pass": false,
+        "harvest_corners_world": [
+          [
+            -5.828447109390673,
+            9.673024107103403,
+            0.5014010360810116
+          ],
+          [
+            -5.818779260787738,
+            9.862777981117585,
+            0.5014010074625556
+          ],
+          [
+            -6.00853302876187,
+            9.872445824287547,
+            0.5012001391968853
+          ],
+          [
+            -6.018200877364806,
+            9.682691950273364,
+            0.5012001678153415
+          ]
+        ],
+        "transport_corners_world": [
+          [
+            -6.093615435810027,
+            10.019235666842775,
+            0.444458302357866
+          ],
+          [
+            -6.082637997612593,
+            9.725441644661199,
+            0.4452122128254132
+          ],
+          [
+            -5.78884300946951,
+            9.73641911896112,
+            0.4452122166878921
+          ],
+          [
+            -5.799820447666943,
+            10.030213141142696,
+            0.4444583062203449
+          ]
+        ]
+      },
+      "hold_pass_samples": 7
+    }
+  },
+  {
+    "trial": "pickup5",
+    "passed": false,
+    "scope": "one actual window + TransportPickup + DockTransfer + restore; not full SEC01",
+    "error": "RuntimeError: 인계 액션 실패: [{\"id\": \"PICKUP_TEST_abd1b004b9a64cc1b09fa5e53d01a591\", \"role\": \"transport\", \"goal\": {\"robot_id\": \"transport_01\", \"task_id\": \"PICKUP_TEST_abd1b004b9a64cc1b09fa5e53d01a591\", \"transfer_id\": \"TRANSFER_TEST_7270ccd0fa9f49ec9cf9f480ee706a99\", \"timestamp\": \"2026-10-28T06:19:52.916695+00:00\", \"harvest_robot_id\": \"harvest_01\", \"map_id\": \"farm_map_v1\", \"staging_pose\": {\"frame_id\": \"map\", \"position\": {\"x\": -5.955, \"y\": 9.292529729570179, \"z\": 0.0}, \"yaw\": -1.5707963267948966}, \"target_marker_id\": 42, \"docking_marker_id\": 41}, \"goal_uuid\": \"81133a8538cd48f49d5583910cab6139\", \"state\": \"FAILED\", \"reason\": \"LID_OPEN failed: 가상 덮개: 바구니 정렬·정지·세션 조건 불충족\", \"created_at\": \"2026-10-28T06:19:52.916715+00:00\", \"feedback\": {\"robot_id\": \"transport_01\", \"task_id\": \"PICKUP_TEST_abd1b004b9a64cc1b09fa5e53d01a591\", \"transfer_id\": \"TRANSFER_TEST_7270ccd0fa9f49ec9cf9f480ee706a99\", \"event\": \"DOCKING_STARTED\", \"timestamp\": \"2026-10-28T06:20:46.831503+00:00\"}, \"observed_events\": {\"MOVING_STARTED\": \"2026-10-28T06:19:52.951530+00:00\", \"WAITING_FOR_TRANSFER\": \"2026-10-28T06:20:08.890900+00:00\", \"DOCKING_STARTED\": \"2026-10-28T06:20:46.831716+00:00\"}, \"ros_status\": 6, \"result\": {\"robot_id\": \"transport_01\", \"task_id\": \"PICKUP_TEST_abd1b004b9a64cc1b09fa5e53d01a591\", \"transfer_id\": \"TRANSFER_TEST_7270ccd0fa9f49ec9cf9f480ee706a99\", \"result_code\": \"FAILED\", \"error_code\": \"NAVIGATION_FAILED\", \"error_message\": \"LID_OPEN failed: 가상 덮개: 바구니 정렬·정지·세션 조건 불충족\", \"timestamp\": \"2026-10-28T06:21:05.497040+00:00\"}, \"finished_at\": \"2026-10-28T06:21:05.497965+00:00\"}]",
+    "harvest": {
+      "status": 4,
+      "result": {
+        "robot_id": "harvest_01",
+        "task_id": "handoff_window_0ae033e96f67",
+        "window_id": "7621d3500623_SEC01_W001",
+        "result_code": "SUCCESS",
+        "expected_count": 1,
+        "harvested_count": 0,
+        "failed_count": 0,
+        "error_code": "NONE",
+        "error_message": "student_no_reachable_targets_arms_stowed",
+        "timestamp": "2026-10-28T06:19:52.371927+00:00"
+      }
+    },
+    "jobs": [
+      {
+        "role": "transport",
+        "state": "FAILED",
+        "events": {
+          "MOVING_STARTED": "2026-10-28T06:19:52.951530+00:00",
+          "WAITING_FOR_TRANSFER": "2026-10-28T06:20:08.890900+00:00",
+          "DOCKING_STARTED": "2026-10-28T06:20:46.831716+00:00"
+        },
+        "result": {
+          "robot_id": "transport_01",
+          "task_id": "PICKUP_TEST_abd1b004b9a64cc1b09fa5e53d01a591",
+          "transfer_id": "TRANSFER_TEST_7270ccd0fa9f49ec9cf9f480ee706a99",
+          "result_code": "FAILED",
+          "error_code": "NAVIGATION_FAILED",
+          "error_message": "LID_OPEN failed: 가상 덮개: 바구니 정렬·정지·세션 조건 불충족",
+          "timestamp": "2026-10-28T06:21:05.497040+00:00"
+        }
+      },
+      {
+        "role": "harvest",
+        "state": "CANCELED",
+        "events": {
+          "DOCK_READY": "2026-10-28T06:20:46.560726+00:00"
+        },
+        "result": {
+          "robot_id": "harvest_01",
+          "task_id": "DOCK_TEST_81eca1372ffc4d8391895d814c9b1da3",
+          "transfer_id": "TRANSFER_TEST_7270ccd0fa9f49ec9cf9f480ee706a99",
+          "result_code": "CANCELED",
+          "expected_count": 0,
+          "transfer_complete": false,
+          "transport_clear": false,
+          "restore_complete": false,
+          "error_code": "CANCELED",
+          "error_message": "관제가 인계 작업 취소를 요청했습니다.",
+          "timestamp": "2026-10-28T06:21:06.062877+00:00"
+        }
+      }
+    ],
+    "basket": {
+      "max_coverage": 0.7159074507429041,
+      "last": {
+        "sim_time_s": 78.40000408887863,
+        "coverage": 0.7132861727331864,
+        "minimum_coverage": 0.72,
+        "full_containment": false,
+        "center_delta_m": [
+          0.023851064310262515,
+          -0.10589673320772697,
+          0.05646502008647114
+        ],
+        "horizontal_distance_m": 0.10854948812776956,
+        "positive_height_clearance_m": 0.05598861893395246,
+        "aligned": false,
+        "wheel_stopped": true,
+        "world_stopped": true,
+        "held_s": 0.0,
+        "hold_pass": false,
+        "harvest_corners_world": [
+          [
+            -5.828500822045743,
+            9.672837177233696,
+            0.5013997532681929
+          ],
+          [
+            -5.81873244015029,
+            9.86258590243401,
+            0.5013997354825657
+          ],
+          [
+            -6.008481061993229,
+            9.872354278989972,
+            0.5012014221792157
+          ],
+          [
+            -6.018249443888681,
+            9.682605553789658,
+            0.5012014399648429
+          ]
+        ],
+        "transport_corners_world": [
+          [
+            -6.094057539784173,
+            10.020620061497546,
+            0.4444585049286488
+          ],
+          [
+            -6.084470105628742,
+            9.726777395874658,
+            0.44521280324526324
+          ],
+          [
+            -5.790626472875323,
+            9.736364861141576,
+            0.4452126303458174
+          ],
+          [
+            -5.800213907030756,
+            10.030207526764466,
+            0.44445833202920293
+          ]
+        ]
+      },
+      "hold_pass_samples": 0
+    }
+  },
+  {
+    "trial": "pickup6",
+    "passed": false,
+    "scope": "one actual window + TransportPickup + DockTransfer + restore; not full SEC01",
+    "error": "RuntimeError: DOCK_READY 이전 인계 종료: {\"id\": \"DOCK_TEST_6936fdb206f74a03b614c5f81e717bc8\", \"role\": \"harvest\", \"goal\": {\"robot_id\": \"harvest_01\", \"task_id\": \"DOCK_TEST_6936fdb206f74a03b614c5f81e717bc8\", \"transfer_id\": \"TRANSFER_TEST_4a3041d85d17415a99cf493ed8a19542\", \"timestamp\": \"2026-10-28T06:25:51.998251+00:00\", \"transport_robot_id\": \"transport_01\", \"expected_count\": 0}, \"goal_uuid\": \"20b809daa7b945e18e38d3599414e968\", \"state\": \"FAILED\", \"reason\": \"rotate_to_transfer: 정지 후 목표 오차 초과\", \"created_at\": \"2026-10-28T06:25:51.998280+00:00\", \"ros_status\": 6, \"result\": {\"robot_id\": \"harvest_01\", \"task_id\": \"DOCK_TEST_6936fdb206f74a03b614c5f81e717bc8\", \"transfer_id\": \"TRANSFER_TEST_4a3041d85d17415a99cf493ed8a19542\", \"result_code\": \"FAILED\", \"expected_count\": 0, \"transfer_complete\": false, \"transport_clear\": false, \"restore_complete\": false, \"error_code\": \"DEVICE_FAILED\", \"error_message\": \"rotate_to_transfer: 정지 후 목표 오차 초과\", \"timestamp\": \"2026-10-28T06:26:35.514314+00:00\"}, \"finished_at\": \"2026-10-28T06:26:35.515214+00:00\"}",
+    "harvest": {
+      "status": 4,
+      "result": {
+        "robot_id": "harvest_01",
+        "task_id": "handoff_window_9eeb725d914f",
+        "window_id": "7621d3500623_SEC01_W001",
+        "result_code": "SUCCESS",
+        "expected_count": 1,
+        "harvested_count": 0,
+        "failed_count": 0,
+        "error_code": "NONE",
+        "error_message": "student_no_reachable_targets_arms_stowed",
+        "timestamp": "2026-10-28T06:25:36.284954+00:00"
+      }
+    },
+    "jobs": [
+      {
+        "role": "transport",
+        "state": "CANCELED",
+        "events": {
+          "MOVING_STARTED": "2026-10-28T06:25:36.424824+00:00",
+          "WAITING_FOR_TRANSFER": "2026-10-28T06:25:51.880090+00:00"
+        },
+        "result": {
+          "robot_id": "transport_01",
+          "task_id": "PICKUP_TEST_7ade4ef1b5944e388378bd8c78801e22",
+          "transfer_id": "TRANSFER_TEST_4a3041d85d17415a99cf493ed8a19542",
+          "result_code": "CANCELED",
+          "error_code": "NONE",
+          "error_message": "",
+          "timestamp": "2026-10-28T06:26:35.874911+00:00"
+        }
+      },
+      {
+        "role": "harvest",
+        "state": "FAILED",
+        "events": {},
+        "result": {
+          "robot_id": "harvest_01",
+          "task_id": "DOCK_TEST_6936fdb206f74a03b614c5f81e717bc8",
+          "transfer_id": "TRANSFER_TEST_4a3041d85d17415a99cf493ed8a19542",
+          "result_code": "FAILED",
+          "expected_count": 0,
+          "transfer_complete": false,
+          "transport_clear": false,
+          "restore_complete": false,
+          "error_code": "DEVICE_FAILED",
+          "error_message": "rotate_to_transfer: 정지 후 목표 오차 초과",
+          "timestamp": "2026-10-28T06:26:35.514314+00:00"
+        }
+      }
+    ],
+    "process_exit": {
+      "harvest": 0,
+      "transport_adapter": 0,
+      "gate": 1,
+      "precision": -2,
+      "transport": 0,
+      "isaac": 0,
+      "probe": 1
+    }
+  },
+  {
+    "trial": "pickup7",
+    "passed": false,
+    "handoff_passed": true,
+    "scope": "one actual window + TransportPickup + DockTransfer + restore; not full SEC01",
+    "error": "RuntimeError: harvest_return 실패: {\"status\": 6, \"result\": {\"robot_id\": \"harvest_01\", \"task_id\": \"return_07dd0c8dbda3\", \"result_code\": \"FAILED\", \"station_id\": \"STATION_HARVEST_01\", \"docked\": false, \"error_code\": \"RETURN_FAILED\", \"error_message\": \"Nav2 실패: status=6, error_code=105, \", \"timestamp\": \"2026-10-28T06:34:35.858625+00:00\"}}",
+    "harvest": {
+      "status": 4,
+      "result": {
+        "robot_id": "harvest_01",
+        "task_id": "handoff_window_a089b53c4497",
+        "window_id": "7621d3500623_SEC01_W001",
+        "result_code": "SUCCESS",
+        "expected_count": 1,
+        "harvested_count": 0,
+        "failed_count": 0,
+        "error_code": "NONE",
+        "error_message": "student_no_reachable_targets_arms_stowed",
+        "timestamp": "2026-10-28T06:31:24.842192+00:00"
+      }
+    },
+    "jobs": [
+      {
+        "role": "transport",
+        "state": "SUCCEEDED",
+        "events": {
+          "MOVING_STARTED": "2026-10-28T06:31:25.206693+00:00",
+          "WAITING_FOR_TRANSFER": "2026-10-28T06:31:40.446544+00:00",
+          "DOCKING_STARTED": "2026-10-28T06:32:19.786095+00:00",
+          "DOCK_STABLE": "2026-10-28T06:32:39.106399+00:00",
+          "CLEARING_STARTED": "2026-10-28T06:32:40.016798+00:00",
+          "TRANSPORT_CLEAR": "2026-10-28T06:32:50.831821+00:00"
+        },
+        "result": {
+          "robot_id": "transport_01",
+          "task_id": "PICKUP_TEST_42e3dfd07d8a4b629c30c63698b1f8c5",
+          "transfer_id": "TRANSFER_TEST_235bc5946efb48b1a7f58ae987070748",
+          "result_code": "SUCCESS",
+          "error_code": "NONE",
+          "error_message": "",
+          "timestamp": "2026-10-28T06:32:50.832937+00:00"
+        }
+      },
+      {
+        "role": "harvest",
+        "state": "SUCCEEDED",
+        "events": {
+          "DOCK_READY": "2026-10-28T06:32:19.478465+00:00",
+          "TRANSFER_COMPLETE": "2026-10-28T06:32:39.416004+00:00"
+        },
+        "result": {
+          "robot_id": "harvest_01",
+          "task_id": "DOCK_TEST_384e7e090a504a2fb550886144a9f272",
+          "transfer_id": "TRANSFER_TEST_235bc5946efb48b1a7f58ae987070748",
+          "result_code": "SUCCESS",
+          "expected_count": 0,
+          "transfer_complete": true,
+          "transport_clear": true,
+          "restore_complete": true,
+          "error_code": "NONE",
+          "error_message": "",
+          "timestamp": "2026-10-28T06:33:44.110757+00:00"
+        }
+      }
+    ],
+    "harvest_return": {
+      "status": 6,
+      "result": {
+        "robot_id": "harvest_01",
+        "task_id": "return_07dd0c8dbda3",
+        "result_code": "FAILED",
+        "station_id": "STATION_HARVEST_01",
+        "docked": false,
+        "error_code": "RETURN_FAILED",
+        "error_message": "Nav2 실패: status=6, error_code=105, ",
+        "timestamp": "2026-10-28T06:34:35.858625+00:00"
+      }
+    },
+    "process_exit": {
+      "harvest": 0,
+      "transport_adapter": 0,
+      "gate": 1,
+      "precision": -2,
+      "transport": 0,
+      "isaac": 0,
+      "probe": 1
+    },
+    "lid_open_coverage": 0.719348708008831,
+    "lid_close_coverage": 0.7181058280375399
+  },
+  {
+    "trial": "pickup8",
+    "passed": false,
+    "scope": "one actual window + TransportPickup + DockTransfer + restore; not full SEC01",
+    "error": "RuntimeError: DOCK_READY 이전 인계 종료: {\"id\": \"DOCK_TEST_de2a0d09f8f048eba1fcedf0a9712e6f\", \"role\": \"harvest\", \"goal\": {\"robot_id\": \"harvest_01\", \"task_id\": \"DOCK_TEST_de2a0d09f8f048eba1fcedf0a9712e6f\", \"transfer_id\": \"TRANSFER_TEST_71886e703b4843d7909fd8fa0715a861\", \"timestamp\": \"2026-10-28T06:38:52.643434+00:00\", \"transport_robot_id\": \"transport_01\", \"expected_count\": 0}, \"goal_uuid\": \"cd563b4e06b94517b2ab7cdb6cd82da9\", \"state\": \"FAILED\", \"reason\": \"rotate_to_transfer: 정지 후 목표 오차 초과\", \"created_at\": \"2026-10-28T06:38:52.643444+00:00\", \"ros_status\": 6, \"result\": {\"robot_id\": \"harvest_01\", \"task_id\": \"DOCK_TEST_de2a0d09f8f048eba1fcedf0a9712e6f\", \"transfer_id\": \"TRANSFER_TEST_71886e703b4843d7909fd8fa0715a861\", \"result_code\": \"FAILED\", \"expected_count\": 0, \"transfer_complete\": false, \"transport_clear\": false, \"restore_complete\": false, \"error_code\": \"DEVICE_FAILED\", \"error_message\": \"rotate_to_transfer: 정지 후 목표 오차 초과\", \"timestamp\": \"2026-10-28T06:39:32.889935+00:00\"}, \"finished_at\": \"2026-10-28T06:39:32.890871+00:00\"}",
+    "harvest": {
+      "status": 4,
+      "result": {
+        "robot_id": "harvest_01",
+        "task_id": "handoff_window_a77b6b7d6b2f",
+        "window_id": "7621d3500623_SEC01_W001",
+        "result_code": "SUCCESS",
+        "expected_count": 1,
+        "harvested_count": 0,
+        "failed_count": 0,
+        "error_code": "NONE",
+        "error_message": "student_no_reachable_targets_arms_stowed",
+        "timestamp": "2026-10-28T06:38:35.973687+00:00"
+      }
+    },
+    "jobs": [
+      {
+        "role": "transport",
+        "state": "CANCELED",
+        "events": {
+          "MOVING_STARTED": "2026-10-28T06:38:36.477390+00:00",
+          "WAITING_FOR_TRANSFER": "2026-10-28T06:38:52.105304+00:00"
+        },
+        "result": {
+          "robot_id": "transport_01",
+          "task_id": "PICKUP_TEST_410faead36794b8ba6a0d644e0783b6e",
+          "transfer_id": "TRANSFER_TEST_71886e703b4843d7909fd8fa0715a861",
+          "result_code": "CANCELED",
+          "error_code": "NONE",
+          "error_message": "",
+          "timestamp": "2026-10-28T06:39:33.524691+00:00"
+        }
+      },
+      {
+        "role": "harvest",
+        "state": "FAILED",
+        "events": {},
+        "result": {
+          "robot_id": "harvest_01",
+          "task_id": "DOCK_TEST_de2a0d09f8f048eba1fcedf0a9712e6f",
+          "transfer_id": "TRANSFER_TEST_71886e703b4843d7909fd8fa0715a861",
+          "result_code": "FAILED",
+          "expected_count": 0,
+          "transfer_complete": false,
+          "transport_clear": false,
+          "restore_complete": false,
+          "error_code": "DEVICE_FAILED",
+          "error_message": "rotate_to_transfer: 정지 후 목표 오차 초과",
+          "timestamp": "2026-10-28T06:39:32.889935+00:00"
+        }
+      }
+    ],
+    "process_exit": {
+      "harvest": 0,
+      "transport_adapter": 0,
+      "gate": 1,
+      "precision": -2,
+      "transport": 0,
+      "isaac": 0,
+      "probe": 1
+    },
+    "wall_final_observed_distance_m": 0.43518163848351754,
+    "wall_final_observed_angle_error_deg": 0.5370917467095475,
+    "measurement_note": "벽 관측과 최신 odom 재계산, 실패 직전06:39:32.859 UTC 표본. 최종 validator 내부 반환값 원문은 아님."
+  },
+  {
+    "trial": "pickup9",
+    "passed": false,
+    "scope": "one actual window + TransportPickup + DockTransfer + restore; not full SEC01",
+    "error": "RuntimeError: 양쪽 인계 성공 및 복원 조건 미충족",
+    "harvest": {
+      "status": 4,
+      "result": {
+        "robot_id": "harvest_01",
+        "task_id": "handoff_window_ef0a2b36692e",
+        "window_id": "7621d3500623_SEC01_W001",
+        "result_code": "SUCCESS",
+        "expected_count": 1,
+        "harvested_count": 0,
+        "failed_count": 0,
+        "error_code": "NONE",
+        "error_message": "student_no_reachable_targets_arms_stowed",
+        "timestamp": "2026-10-28T06:42:15.458712+00:00"
+      }
+    },
+    "jobs": [
+      {
+        "role": "transport",
+        "state": "SUCCEEDED",
+        "events": {
+          "MOVING_STARTED": "2026-10-28T06:42:15.928383+00:00",
+          "WAITING_FOR_TRANSFER": "2026-10-28T06:42:31.812103+00:00",
+          "DOCKING_STARTED": "2026-10-28T06:43:13.518113+00:00",
+          "DOCK_STABLE": "2026-10-28T06:43:31.418190+00:00",
+          "CLEARING_STARTED": "2026-10-28T06:43:32.768276+00:00",
+          "TRANSPORT_CLEAR": "2026-10-28T06:43:42.702630+00:00"
+        },
+        "result": {
+          "robot_id": "transport_01",
+          "task_id": "PICKUP_TEST_3f767c6f84fb45179d2bc18f1486cadb",
+          "transfer_id": "TRANSFER_TEST_9979ff65b6034336baf4c65f3ed5e6f9",
+          "result_code": "SUCCESS",
+          "error_code": "NONE",
+          "error_message": "",
+          "timestamp": "2026-10-28T06:43:42.714716+00:00"
+        }
+      },
+      {
+        "role": "harvest",
+        "state": "FAILED",
+        "events": {
+          "DOCK_READY": "2026-10-28T06:43:12.802683+00:00",
+          "TRANSFER_COMPLETE": "2026-10-28T06:43:32.144957+00:00"
+        },
+        "result": {
+          "robot_id": "harvest_01",
+          "task_id": "DOCK_TEST_5a1947f14497466c86b1a17dfd379187",
+          "transfer_id": "TRANSFER_TEST_9979ff65b6034336baf4c65f3ed5e6f9",
+          "result_code": "FAILED",
+          "expected_count": 0,
+          "transfer_complete": true,
+          "transport_clear": true,
+          "restore_complete": false,
+          "error_code": "DEVICE_FAILED",
+          "error_message": "restore: WINDOW_REALIGN_REQUIRED: 짧은 전진으로 window 완료범위 확보 불가 (전방=-0.0589m, 횡오차=-0.0244m)",
+          "timestamp": "2026-10-28T06:44:32.604296+00:00"
+        }
+      }
+    ],
+    "process_exit": {
+      "harvest": 0,
+      "transport_adapter": 0,
+      "gate": 1,
+      "precision": -2,
+      "transport": 0,
+      "isaac": 0,
+      "probe": 1
+    }
+  },
+  {
+    "trial": "pickup10",
+    "passed": false,
+    "scope": "one actual window + TransportPickup + DockTransfer + restore; not full SEC01",
+    "error": "RuntimeError: 42번 접근 실패: {\"id\": \"PICKUP_TEST_779e9b3cf69a4fe7988cd8e4f05cd18c\", \"role\": \"transport\", \"goal\": {\"robot_id\": \"transport_01\", \"task_id\": \"PICKUP_TEST_779e9b3cf69a4fe7988cd8e4f05cd18c\", \"transfer_id\": \"TRANSFER_TEST_f40df01bab4e4c65bd50b71af444d60f\", \"timestamp\": \"2026-10-28T06:47:13.868627+00:00\", \"harvest_robot_id\": \"harvest_01\", \"map_id\": \"farm_map_v1\", \"staging_pose\": {\"frame_id\": \"map\", \"position\": {\"x\": -5.955, \"y\": 9.292529729570179, \"z\": 0.0}, \"yaw\": -1.5707963267948966}, \"target_marker_id\": 42, \"docking_marker_id\": 41}, \"goal_uuid\": \"6c9cb9d38ceb41bdbb38ea4832d231ea\", \"state\": \"FAILED\", \"reason\": \"모터 제어권 상실: LEASE_EXPIRED\", \"created_at\": \"2026-10-28T06:47:13.868652+00:00\", \"feedback\": {\"robot_id\": \"transport_01\", \"task_id\": \"PICKUP_TEST_779e9b3cf69a4fe7988cd8e4f05cd18c\", \"transfer_id\": \"TRANSFER_TEST_f40df01bab4e4c65bd50b71af444d60f\", \"event\": \"MOVING_STARTED\", \"timestamp\": \"2026-10-28T06:47:13.894883+00:00\"}, \"observed_events\": {\"MOVING_STARTED\": \"2026-10-28T06:47:13.896727+00:00\"}, \"ros_status\": 6, \"result\": {\"robot_id\": \"transport_01\", \"task_id\": \"PICKUP_TEST_779e9b3cf69a4fe7988cd8e4f05cd18c\", \"transfer_id\": \"TRANSFER_TEST_f40df01bab4e4c65bd50b71af444d60f\", \"result_code\": \"FAILED\", \"error_code\": \"DOCK_FAILED\", \"error_message\": \"모터 제어권 상실: LEASE_EXPIRED\", \"timestamp\": \"2026-10-28T06:47:26.048637+00:00\"}, \"finished_at\": \"2026-10-28T06:47:26.049820+00:00\"}",
+    "harvest": {
+      "status": 4,
+      "result": {
+        "robot_id": "harvest_01",
+        "task_id": "handoff_window_847a71402796",
+        "window_id": "7621d3500623_SEC01_W001",
+        "result_code": "SUCCESS",
+        "expected_count": 1,
+        "harvested_count": 0,
+        "failed_count": 0,
+        "error_code": "NONE",
+        "error_message": "student_no_reachable_targets_arms_stowed",
+        "timestamp": "2026-10-28T06:47:13.362064+00:00"
+      }
+    },
+    "jobs": [
+      {
+        "role": "transport",
+        "state": "FAILED",
+        "events": {
+          "MOVING_STARTED": "2026-10-28T06:47:13.896727+00:00"
+        },
+        "result": {
+          "robot_id": "transport_01",
+          "task_id": "PICKUP_TEST_779e9b3cf69a4fe7988cd8e4f05cd18c",
+          "transfer_id": "TRANSFER_TEST_f40df01bab4e4c65bd50b71af444d60f",
+          "result_code": "FAILED",
+          "error_code": "DOCK_FAILED",
+          "error_message": "모터 제어권 상실: LEASE_EXPIRED",
+          "timestamp": "2026-10-28T06:47:26.048637+00:00"
+        }
+      }
+    ],
+    "process_exit": {
+      "harvest": 0,
+      "transport_adapter": 0,
+      "gate": 254,
+      "precision": -2,
+      "transport": 0,
+      "isaac": 0,
+      "probe": 1
+    },
+    "lease_failure_observation": {
+      "ttl_s": 0.6,
+      "control_max_ms": 612.6,
+      "detection_section_max_ms": 600.7,
+      "renew_response_latency_s": 0.026,
+      "root_cause_confirmed": false
+    }
+  }
+]

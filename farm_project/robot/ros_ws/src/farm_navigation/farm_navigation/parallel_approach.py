@@ -21,15 +21,30 @@ def inside_corridor(corridor: dict, xy: tuple, margin: float) -> bool:
 
 
 def straight_plan(template: RoutePlan, corridor: dict, xy: tuple, yaw: float,
-                  goal: tuple, position_limit: float, heading_limit: float) -> RoutePlan:
-    """차체 방향·횡오차를 별도로 검사하고 전방 목표의 추종 경로를 만든다."""
+                  goal: tuple, position_limit: float, heading_limit: float, *,
+                  path_heading_limit: float | None = None) -> RoutePlan:
+    """정렬된 차체에서 전방 목표로만 진행한다. 좁은 구간 후진/제자리 회전은 요청하지 않는다."""
     direction = (math.cos(corridor['yaw']), math.sin(corridor['yaw']))
     delta = (goal[0]-xy[0], goal[1]-xy[1])
     lateral = abs(delta[0]*direction[1]-delta[1]*direction[0])
     forward = delta[0]*direction[0]+delta[1]*direction[1]
-    if (abs(math.remainder(yaw-corridor['yaw'], 2*math.pi)) > heading_limit
-            or lateral > position_limit or forward <= 1e-9):
-        raise RuntimeError('APPROACH_RECOVERY_REQUIRED: 평행 구간에서 방향/횡오차/전방 조건 불충족. 넓은 진입부에서 재정렬 필요')
-    # 목표선 각도는 가까운 목표에서 커지므로 차체 정렬 기준으로 사용하지 않는다.
-    # 허용 횡오차의 실제 보정·충돌 검사·최종 방향 정렬은 기존 FollowPath가 수행한다.
+    # D-059: 기본 호출은 차체 방향/횡오차를 분리한다. 실물 인계 프로필이 명시한 목표선 제한만 추가한다.
+    path_limit = path_heading_limit
+    if path_limit is not None and (isinstance(path_limit, bool) or not isinstance(path_limit, (int, float))
+            or not math.isfinite(path_limit) or not 0 < path_limit < math.pi / 2):
+        raise ValueError('path_heading_limit는 0~pi/2 사이의 유한한 각도여야 합니다.')
+    heading_error = abs(math.remainder(yaw-corridor['yaw'], 2*math.pi))
+    path_angle = abs(math.atan2(lateral, forward))
+    failed = []
+    if heading_error > heading_limit: failed.append('body_heading')
+    if lateral > position_limit: failed.append('lateral')
+    if forward <= 1e-9: failed.append('not_ahead')
+    if path_limit is not None and path_angle > path_limit: failed.append('path_heading')
+    if failed:
+        raise RuntimeError(
+            'APPROACH_RECOVERY_REQUIRED: ' + ','.join(failed)
+            + f'; current_xy={xy}, goal_xy={goal}, forward_m={forward:.6f}'
+            + f', lateral_m={lateral:.6f}/{position_limit:.6f}'
+            + f', body_heading_rad={heading_error:.6f}/{heading_limit:.6f}'
+            + f', path_heading_rad={path_angle:.6f}/{path_limit}')
     return replace(template, points=(tuple(xy), tuple(goal)), distance_m=math.dist(xy, goal), edge_ids=())

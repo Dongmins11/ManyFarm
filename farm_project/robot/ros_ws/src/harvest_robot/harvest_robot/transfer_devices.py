@@ -17,11 +17,16 @@ from typing import Any, Mapping
 OPERATIONS = ('prepare_arm', 'rotate_to_transfer', 'discharge', 'restore', 'stop')
 
 
+class DeviceNotStarted(RuntimeError):
+    """어댑터가 요청을 전송하기 전임을 보장하는 일시적인 준비 실패."""
+
+
 @dataclass(frozen=True)
 class DeviceResult:
     completed: bool
     ok: bool = False
     detail: str = ''
+    not_started: bool = False
 
 
 class TriggerTransferDevices:
@@ -50,7 +55,7 @@ class TriggerTransferDevices:
     def start(self, operation: str) -> Any:
         """동작을 한 번만 요청한다. timeout 후 자동 재전송하지 않는다."""
         if operation not in self._clients or not self._clients[operation].service_is_ready():
-            raise RuntimeError('장치 서비스 미연결: ' + operation)
+            raise DeviceNotStarted('장치 서비스 미연결: ' + operation)
         return self._clients[operation].call_async(self._type.Request())
 
     def poll(self, ticket: Any) -> DeviceResult:

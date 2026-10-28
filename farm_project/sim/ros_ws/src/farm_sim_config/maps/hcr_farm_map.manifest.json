@@ -1,0 +1,301 @@
+{
+  "inputs": {
+    "station_pose_world_m": [
+      -7.204447723212479,
+      14.2870536684691,
+      0.0
+    ],
+    "station_yaw_rad": -1.3761495230787304,
+    "occupancy_map": {
+      "base_yaml": "sim/ros_ws/src/farm_sim_config/maps/count_test_farm_map.yaml",
+      "yaml": "sim/ros_ws/src/farm_sim_config/maps/hcr_farm_map.yaml",
+      "manifest": "sim/ros_ws/src/farm_sim_config/maps/hcr_farm_map.manifest.json",
+      "scan_height_m": 0.132,
+      "replace_bounds_xy_m": [
+        -7.45,
+        13.5,
+        -6.5,
+        14.75
+      ]
+    },
+    "source_hashes": {
+      "sim/ros_ws/src/farm_sim_config/maps/count_test_farm_map.yaml": "3669207256030ede0d5c58acef44af58e8d77867350a235c3b92b0d7b3addce8",
+      "sim/ros_ws/src/farm_sim_config/maps/count_test_farm_map.png": "d6f3146c411a9fdb2ad6f4c2c1ef6383f2ad0f852c06dc8e6f09396426a5039d",
+      "sim/vendor/hcr3a_20261008/HCR3A_SIM_TEAM_20261008/workspace/src/smartfarm_description/config/hcr3a_random8_validation.json": "7676d054764c69df6959d8db53a9d44a8ae44ff5aac768d0dd475f4f5147bedf",
+      "sim/vendor/hcr3a_20261008/HCR3A_SIM_TEAM_20261008/workspace/src/smartfarm_description/scripts/hcr3a_environment.py": "69315e9d92fed2277d1215586c4c53033f066988cae7a1a6ff559e4d9f693d5d"
+    }
+  },
+  "polygons": [
+    {
+      "prim": "/World/HCRStation/Controller",
+      "polygon_xy_m": [
+        [
+          -7.540037087,
+          14.774345964
+        ],
+        [
+          -7.4969044116,
+          14.5555570829
+        ],
+        [
+          -7.0357798753,
+          14.6464645131
+        ],
+        [
+          -7.0789125507,
+          14.8652533942
+        ]
+      ]
+    },
+    {
+      "prim": "/World/HCRStation/ControllerFrontPanel",
+      "polygon_xy_m": [
+        [
+          -7.1189308784,
+          14.8614410522
+        ],
+        [
+          -7.5015661189,
+          14.7860072297
+        ],
+        [
+          -7.5007924386,
+          14.7820827654
+        ],
+        [
+          -7.1181571981,
+          14.8575165878
+        ]
+      ]
+    },
+    {
+      "prim": "/World/HCRStation/IntakeSlope",
+      "polygon_xy_m": [
+        [
+          -7.3666916345,
+          13.8045810023
+        ],
+        [
+          -7.3645425228,
+          13.7936797135
+        ],
+        [
+          -6.8690789286,
+          13.8913568453
+        ],
+        [
+          -6.8712280403,
+          13.902258134
+        ]
+      ]
+    },
+    {
+      "prim": "/World/HCRStation/IntakeWall0",
+      "polygon_xy_m": [
+        [
+          -7.4085993166,
+          14.0171561389
+        ],
+        [
+          -7.3656170806,
+          13.7991303558
+        ],
+        [
+          -7.3607115005,
+          13.8000974561
+        ],
+        [
+          -7.4036937365,
+          14.0181232392
+        ]
+      ]
+    },
+    {
+      "prim": "/World/HCRStation/IntakeWall1",
+      "polygon_xy_m": [
+        [
+          -7.2666178056,
+          13.9432220441
+        ],
+        [
+          -7.2429775763,
+          13.8233078658
+        ],
+        [
+          -7.2380719962,
+          13.8242749661
+        ],
+        [
+          -7.2617122256,
+          13.9441891444
+        ]
+      ]
+    },
+    {
+      "prim": "/World/HCRStation/IntakeWall2",
+      "polygon_xy_m": [
+        [
+          -7.1390727209,
+          13.9683666525
+        ],
+        [
+          -7.143978301,
+          13.9673995522
+        ],
+        [
+          -7.1203380716,
+          13.8474853739
+        ],
+        [
+          -7.1154324916,
+          13.8484524742
+        ]
+      ]
+    },
+    {
+      "prim": "/World/HCRStation/IntakeWall3",
+      "polygon_xy_m": [
+        [
+          -7.0213387963,
+          13.9915770603
+        ],
+        [
+          -6.997698567,
+          13.871662882
+        ],
+        [
+          -6.9927929869,
+          13.8726299823
+        ],
+        [
+          -7.0164332163,
+          13.9925441606
+        ]
+      ]
+    },
+    {
+      "prim": "/World/HCRStation/IntakeWall4",
+      "polygon_xy_m": [
+        [
+          -6.9131357179,
+          14.1148332716
+        ],
+        [
+          -6.918041298,
+          14.1138661713
+        ],
+        [
+          -6.8750590619,
+          13.8958403882
+        ],
+        [
+          -6.8701534819,
+          13.8968074885
+        ]
+      ]
+    },
+    {
+      "prim": "/World/HCRStation/IntakeLowLip",
+      "polygon_xy_m": [
+        [
+          -6.9073938096,
+          14.0857076448
+        ],
+        [
+          -7.4028574038,
+          13.988030513
+        ],
+        [
+          -7.4018903035,
+          13.983124933
+        ],
+        [
+          -6.9064267093,
+          14.0808020647
+        ]
+      ]
+    },
+    {
+      "prim": "/World/HCRStation/IntakeSupport686",
+      "polygon_xy_m": [
+        [
+          -6.8386119944,
+          13.6721882662
+        ],
+        [
+          -7.3095476817,
+          13.5793466372
+        ],
+        [
+          -7.3047121801,
+          13.5548187359
+        ],
+        [
+          -6.8337764927,
+          13.6476603649
+        ]
+      ]
+    },
+    {
+      "prim": "/World/HCRStation/RearFoamWall",
+      "polygon_xy_m": [
+        [
+          -7.0033189734,
+          15.2185462638
+        ],
+        [
+          -6.6841758712,
+          13.5997048257
+        ],
+        [
+          -6.6792702912,
+          13.600671926
+        ],
+        [
+          -6.9984133934,
+          15.2195133641
+        ]
+      ]
+    },
+    {
+      "prim": "/World/HCRStation/LeftFoamWall",
+      "polygon_xy_m": [
+        [
+          -7.0042510485,
+          15.236199354
+        ],
+        [
+          -7.6419764493,
+          15.1104763165
+        ],
+        [
+          -7.641009349,
+          15.1055707364
+        ],
+        [
+          -7.0032839482,
+          15.2312937739
+        ]
+      ]
+    }
+  ],
+  "scan_height_m": 0.132,
+  "method": "USD static collision cube / horizontal slice / cell intersection; original map outside sorter preserved",
+  "image_size": [
+    323,
+    603
+  ],
+  "changed_cells": 179,
+  "removed_cells": 31,
+  "added_cells": 128,
+  "changed_cell_centers_bounds": [
+    -7.550000381469726,
+    13.549999618530274,
+    -6.650000381469726,
+    14.949999618530276
+  ],
+  "output_hashes": {
+    "sim/ros_ws/src/farm_sim_config/maps/hcr_farm_map.yaml": "b8aefaaacb6509d1ec966734c3ff18acabb93f718b0fadc49c380685aeb37984",
+    "sim/ros_ws/src/farm_sim_config/maps/hcr_farm_map.png": "3c2fcdae2c4f58716999ca84dc2aae0484fbe280bbf63913ccbdc84111a881e5"
+  }
+}

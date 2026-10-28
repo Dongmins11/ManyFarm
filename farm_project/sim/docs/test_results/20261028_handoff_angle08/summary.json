@@ -1,0 +1,43 @@
+{
+  "passed": false,
+  "dock_ready": true,
+  "harvest_result": {
+    "robot_id": "harvest_01",
+    "task_id": "handoff_window_e5bf25d0a6ef",
+    "window_id": "7621d3500623_SEC01_W001",
+    "result_code": "SUCCESS",
+    "expected_count": 1,
+    "harvested_count": 0,
+    "failed_count": 0,
+    "error_code": "NONE",
+    "error_message": "student_no_reachable_targets_arms_stowed",
+    "timestamp": "2026-10-28T08:20:33.077171+00:00"
+  },
+  "dock_result": {
+    "robot_id": "harvest_01",
+    "task_id": "DOCK_TEST_9428f4e7d03f43188f6a403e10e9c402",
+    "transfer_id": "TRANSFER_TEST_4d9b926caf0b420b93a16e364125b8c3",
+    "result_code": "FAILED",
+    "expected_count": 0,
+    "transfer_complete": true,
+    "transport_clear": true,
+    "restore_complete": false,
+    "error_code": "DEVICE_FAILED",
+    "error_message": "restore: WINDOW_REALIGN_REQUIRED: 짧은 전진으로 window 완료범위 확보 불가 (전방=-0.1139m, 횡오차=-0.0420m)",
+    "timestamp": "2026-10-28T08:22:55.961196+00:00"
+  },
+  "pickup_result": {
+    "robot_id": "transport_01",
+    "task_id": "PICKUP_TEST_31675c16d22c43929f4a8d3eecc470e3",
+    "transfer_id": "TRANSFER_TEST_4d9b926caf0b420b93a16e364125b8c3",
+    "result_code": "SUCCESS",
+    "error_code": "NONE",
+    "error_message": "",
+    "timestamp": "2026-10-28T08:22:01.488172+00:00"
+  },
+  "ros_domain": 13,
+  "discovery": "SUBNET",
+  "angle_deg": 0.8,
+  "raw": "sim/runs/handoff_angle08_20261028/attempt1",
+  "actual_trials": 1
+}

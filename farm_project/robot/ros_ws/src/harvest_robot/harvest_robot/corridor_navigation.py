@@ -40,7 +40,13 @@ def contains(corridor: dict, xy: tuple, margin: float) -> bool:
 
 class CorridorNavigator(Navigator):
     """기존 FollowPath/정지/도착 검사를 재사용하고 작업 경로 생성만 제한한다."""
-    def __init__(self, *args: Any, corridors: dict, **kwargs: Any) -> None:
+    def __init__(self, *args: Any, corridors: dict,
+                 path_heading_limit: float | None = None, **kwargs: Any) -> None:
+        if path_heading_limit is not None and (
+                isinstance(path_heading_limit, bool) or not isinstance(path_heading_limit, (int, float))
+                or not math.isfinite(path_heading_limit) or not 0 < path_heading_limit < math.pi / 2):
+            raise ValueError('work_path_heading_limit_rad는 0~pi/2 사이의 유한한 각도여야 합니다.')
+        self._path_heading_limit = path_heading_limit
         super().__init__(*args, **kwargs)
         self._corridors = corridors
 
@@ -65,7 +71,8 @@ class CorridorNavigator(Navigator):
             raise RuntimeError('WORK_TARGET_NOT_AHEAD: 목표가 현재 위치의 전방이 아닙니다. 회전/후진은 요청하지 않았습니다.')
         template = RoutePlan(uuid.uuid4().hex, self._graph.revision, self._graph.frame, (), (), 0.)
         return straight_plan(template, corridor, xy, math.atan2(current[1, 0], current[0, 0]),
-                             goal, self._settings.arrival_tolerance_m, self._settings.heading_tolerance_rad)
+                             goal, self._settings.arrival_tolerance_m, self._settings.heading_tolerance_rad,
+                             path_heading_limit=self._path_heading_limit)
 
     def resume_current(self, section_id: str, goal: tuple, yaw: float) -> bool:
         """이동 요청 전에 구간 안이면 전방/방향 검증 후 진입 단계 생략을 허용한다."""

@@ -1,0 +1,25 @@
+{
+  "python": "3.11.15",
+  "isaacsim": "5.1.0.0",
+  "isaacsim-kernel": "5.1.0.0",
+  "isaaclab": "0.54.2",
+  "torch": "2.7.0+cu128",
+  "numpy": "1.26.0",
+  "scipy": "1.15.3",
+  "opencv-python-headless": "4.11.0.86",
+  "opencv-python": null,
+  "recorded_at": "2026-10-08T17:01:46.233852+09:00",
+  "physics_device": "cpu",
+  "render_device": "NVIDIA GPU",
+  "physics_dt_seconds": 0.004166666666666667,
+  "gui": {
+    "python": "3.12.3",
+    "opencv": "4.6.0",
+    "backend": [
+      "GUI:                           QT5"
+    ]
+  },
+  "ros_distributions_present": [
+    "jazzy"
+  ]
+}

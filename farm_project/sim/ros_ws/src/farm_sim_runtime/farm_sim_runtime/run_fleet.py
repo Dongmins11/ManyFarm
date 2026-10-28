@@ -67,6 +67,7 @@ def main():
     world, robots, clock_transport, harvest_physics = None, [], None, None
     test_controller, test_panel = None, None
     performance_log = None
+    sorter_scene, sorter_runtime = None, None
     try:
         import omni.usd
         from pxr import UsdGeom, UsdPhysics, Gf, Usd
@@ -96,6 +97,9 @@ def main():
             print('[farm_fleet] AprilTags: '+str(install_tags(stage, root, cfg)), flush=True)
         if physics_profile is not None:
             harvest_physics = HarvestPhysics(stage, root, physics_profile)
+        if task.get('sorter'):
+            from farm_sim_runtime.sorter_scene import SorterScene
+            sorter_scene = SorterScene(stage, root, task['sorter'], harvest_physics)
         cache = UsdGeom.XformCache()
         def matrix(prim):
             return np.asarray(cache.GetLocalToWorldTransform(prim), float).T
@@ -197,6 +201,8 @@ def main():
         session = uuid.uuid4().hex
         if harvest_physics is not None:
             harvest_physics.register(world, session)
+        if sorter_scene is not None:
+            sorter_scene.register(world)
         if args.physics_device is not None:
             # 학습 프로파일 적용 뒤, reset 전에만 비교용 실행 장치를 선택한다.
             context = world.get_physics_context()
@@ -255,6 +261,10 @@ def main():
             print(f"[two_robot_sim] {cfg['robot_id']} at station {task['stations'][cfg['robot_id']]} using {robot['path']}",flush=True)
         if harvest_physics is not None:
             harvest_physics.initialize()
+        if sorter_scene is not None:
+            from farm_sim_runtime.sorter_runtime import SorterRuntime
+            sorter_scene.initialize()
+            sorter_runtime = SorterRuntime(sorter_scene, robots, session)
         for robot in robots:
             device = robot['arm_device']
             if device is not None:
@@ -359,6 +369,8 @@ def main():
                 if robot['camera'] is not None:
                     robot['camera'].update_activity()
             if not world.is_playing():
+                if sorter_runtime is not None:
+                    sorter_runtime.before_frame(float(world.current_time), frame_dt, playing=False)
                 for robot in robots:
                     robot['gate'].stop()
                 if test_panel is not None:
@@ -368,6 +380,8 @@ def main():
                 frame_deadline = time.monotonic()
                 continue
             control_finished = time.perf_counter()
+            if sorter_runtime is not None:
+                sorter_runtime.before_frame(float(world.current_time), frame_dt)
             for robot in robots:
                 if robot['arm'] is not None:
                     # 실제 차체 속도를 확인합니다. wheel odom 정지 추정으로 대신하지 않습니다.
@@ -397,6 +411,8 @@ def main():
             ticks.step_frame(world, harvest_physics, physics_hz=required_hz, post_step=after_physics)
             step_finished = time.perf_counter()
             now = float(world.current_time)
+            if sorter_runtime is not None:
+                sorter_runtime.after_frame(now)
             student_camera_started = time.perf_counter()
             for robot in robots:
                 if (robot['arm'] is not None
@@ -441,7 +457,7 @@ def main():
                         camera_active=robot['camera'].active if robot['camera'] else False,
                         tag_camera_frames=robot['tag_camera_frames'],
                         basket_alignment=(basket_monitor.latest if basket_monitor and
-                            cfg['robot_id']==basket_monitor.ids['transport'] else None),
+                            cfg['robot_id'] in basket_monitor.ids.values() else None),
                         arm=robot['arm'].telemetry() if robot['arm'] is not None else None))
                     robot['last_telemetry']=now
             if basket_monitor is not None:basket_monitor.update(now)
@@ -493,6 +509,8 @@ def main():
         traceback.print_exc()
         raise
     finally:
+        if sorter_runtime is not None:
+            sorter_runtime.close()
         if 'truth' in locals() and truth is not None:
             truth.close()
         if performance_log is not None:

@@ -1,0 +1,321 @@
+{
+  "phase": "SCANNING",
+  "counts": [
+    2,
+    2
+  ],
+  "error": "",
+  "steps": 30000,
+  "assisted_grasp": true,
+  "transport": {
+    "phase": "READY",
+    "error": "",
+    "events": [
+      {
+        "phase": "APPROACH",
+        "time": 0.30416666666666664
+      },
+      {
+        "phase": "OPEN_GATE",
+        "time": 6.304166666666666
+      },
+      {
+        "phase": "DOCK",
+        "time": 8.804166666666667
+      },
+      {
+        "phase": "TIP",
+        "time": 10.804166666666667
+      },
+      {
+        "phase": "DUMP",
+        "time": 15.804166666666667
+      },
+      {
+        "phase": "SETTLE",
+        "time": 21.804166666666667
+      },
+      {
+        "phase": "READY",
+        "time": 24.804166666666667
+      }
+    ],
+    "source_urdf": "/home/bhc/manyfarm_ws/manyfarm_robotarm/src/smartfarm_description/urdf/transport_robot.portable.urdf",
+    "usd_path": "/home/bhc/manyfarm_ws/manyfarm_robotarm/outputs/sorting_station/hcr_sim/assets/transport/f7d0f7cfed0b1f58/transport_robot.usd",
+    "box_angle_deg": 38.0,
+    "free_rigid_body_dump": true,
+    "scripted_navigation": true,
+    "scripted_cargo_joints": true,
+    "kinematic_links": [
+      "base_footprint",
+      "cargo_box",
+      "lid_pinion",
+      "side_lid",
+      "top_lid_left",
+      "top_lid_right",
+      "wheel_left_link",
+      "wheel_right_link"
+    ],
+    "joint_targets": {
+      "wheel_left_joint": 25.303030303030305,
+      "wheel_right_joint": 25.303030303030305,
+      "box_tilt_joint": 0.6632251157578453,
+      "side_lid_joint": 1.5707963267948966,
+      "lid_pinion_joint": 2.5833333333333335,
+      "top_lid_left_joint": 0.155,
+      "top_lid_right_joint": 0.155
+    },
+    "payload_xyz": [
+      [
+        -0.7391282320022583,
+        0.09746439754962921,
+        0.5106648802757263
+      ],
+      [
+        -0.7401288151741028,
+        -0.14520597457885742,
+        0.5104030966758728
+      ],
+      [
+        -0.6362080574035645,
+        0.09173116832971573,
+        0.5106648802757263
+      ],
+      [
+        -0.643272340297699,
+        -0.11337928473949432,
+        0.5106648802757263
+      ]
+    ]
+  },
+  "lane_map": {
+    "A": "D",
+    "B": "C",
+    "C": "B",
+    "D": "A"
+  },
+  "events": [
+    {
+      "event": "BUSY",
+      "job": 1,
+      "lane": "B",
+      "color": "YELLOW"
+    },
+    {
+      "event": "ASSISTED_GRASP",
+      "job": 1
+    },
+    {
+      "event": "DONE",
+      "job": 1,
+      "counts": [
+        0,
+        1
+      ]
+    },
+    {
+      "event": "BUSY",
+      "job": 2,
+      "lane": "B",
+      "color": "YELLOW"
+    },
+    {
+      "event": "ASSISTED_GRASP",
+      "job": 2
+    },
+    {
+      "event": "DONE",
+      "job": 2,
+      "counts": [
+        0,
+        2
+      ]
+    },
+    {
+      "event": "BUSY",
+      "job": 3,
+      "lane": "C",
+      "color": "RED"
+    },
+    {
+      "event": "ASSISTED_GRASP",
+      "job": 3
+    },
+    {
+      "event": "DONE",
+      "job": 3,
+      "counts": [
+        1,
+        2
+      ]
+    },
+    {
+      "event": "BUSY",
+      "job": 4,
+      "lane": "C",
+      "color": "RED"
+    },
+    {
+      "event": "ASSISTED_GRASP",
+      "job": 4
+    },
+    {
+      "event": "DONE",
+      "job": 4,
+      "counts": [
+        2,
+        2
+      ]
+    }
+  ],
+  "camera_zone_states": {
+    "A": "NO_COLOR",
+    "B": "NO_COLOR",
+    "C": "NO_COLOR",
+    "D": "NO_COLOR"
+  },
+  "joint_names": [
+    "joint1",
+    "joint2",
+    "joint3",
+    "joint4",
+    "joint5",
+    "joint6",
+    "left_jaw",
+    "right_jaw"
+  ],
+  "joint_pos": [
+    -1.941575062685175e-15,
+    -1.6755170822143555,
+    2.0092201232910156,
+    1.206132035847169e-15,
+    1.2371281385421753,
+    -1.6011958455954346e-17,
+    0.009999969974160194,
+    0.009999826550483704
+  ],
+  "body_names": [
+    "base",
+    "link1",
+    "link2",
+    "link3",
+    "link4",
+    "link5",
+    "link6",
+    "tcp",
+    "tool",
+    "left_finger",
+    "right_finger",
+    "left_pad",
+    "right_pad"
+  ],
+  "body_pos": [
+    [
+      0.0,
+      0.0,
+      0.03999999165534973
+    ],
+    [
+      0.0,
+      0.0,
+      0.3400000035762787
+    ],
+    [
+      0.0,
+      0.0,
+      0.3400000333786011
+    ],
+    [
+      -0.03344940394163132,
+      4.213444881884243e-08,
+      0.6582469344139099
+    ],
+    [
+      0.25000137090682983,
+      4.410726361925299e-08,
+      0.5599837899208069
+    ],
+    [
+      0.25000137090682983,
+      4.410726361925299e-08,
+      0.5599837899208069
+    ],
+    [
+      0.24999964237213135,
+      5.0067935575270894e-08,
+      0.5099837779998779
+    ],
+    [
+      0.24999304115772247,
+      7.271848545542525e-08,
+      0.3199837803840637
+    ],
+    [
+      0.24999894201755524,
+      5.245220080496438e-08,
+      0.48998379707336426
+    ],
+    [
+      0.24999895691871643,
+      0.04900002107024193,
+      0.48998379707336426
+    ],
+    [
+      0.24999894201755524,
+      -0.04899977520108223,
+      0.48998379707336426
+    ],
+    [
+      0.24999894201755524,
+      0.04900002479553223,
+      0.48998376727104187
+    ],
+    [
+      0.24999892711639404,
+      -0.04899977520108223,
+      0.48998379707336426
+    ]
+  ],
+  "fruits": [
+    {
+      "lane": "A",
+      "color": "RED",
+      "sorted": true,
+      "xyz": [
+        -0.7391282320022583,
+        0.09746439754962921,
+        0.5106648802757263
+      ]
+    },
+    {
+      "lane": "B",
+      "color": "YELLOW",
+      "sorted": true,
+      "xyz": [
+        -0.7401288151741028,
+        -0.14520597457885742,
+        0.5104030966758728
+      ]
+    },
+    {
+      "lane": "C",
+      "color": "RED",
+      "sorted": true,
+      "xyz": [
+        -0.6362080574035645,
+        0.09173116832971573,
+        0.5106648802757263
+      ]
+    },
+    {
+      "lane": "D",
+      "color": "YELLOW",
+      "sorted": true,
+      "xyz": [
+        -0.643272340297699,
+        -0.11337928473949432,
+        0.5106648802757263
+      ]
+    }
+  ]
+}

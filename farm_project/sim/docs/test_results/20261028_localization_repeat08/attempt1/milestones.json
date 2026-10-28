@@ -1,0 +1,157 @@
+[
+  {
+    "at": "2026-10-28T08:38:56.920221+00:00",
+    "mono_ns": 108645789591252,
+    "kind": "harvest_goal",
+    "original_task_id": "7621d3500623_SEC01_TASK001",
+    "goal": {
+      "robot_id": "harvest_01",
+      "map_id": "farm_map_v1",
+      "harvest_task": {
+        "task_id": "handoff_window_1783012a16da",
+        "window_id": "7621d3500623_SEC01_W001",
+        "goal_pose": {
+          "frame_id": "map",
+          "position": {
+            "x": -6.015000000000001,
+            "y": 9.292529729570179,
+            "z": 0.0
+          },
+          "yaw": -1.5707963267948966
+        },
+        "expected_count": 1
+      },
+      "timestamp": "2026-10-28T08:38:56.920137+00:00"
+    }
+  },
+  {
+    "at": "2026-10-28T08:39:15.652858+00:00",
+    "mono_ns": 108664522233617,
+    "kind": "harvest_result",
+    "status": 4,
+    "result": {
+      "robot_id": "harvest_01",
+      "task_id": "handoff_window_1783012a16da",
+      "window_id": "7621d3500623_SEC01_W001",
+      "result_code": "SUCCESS",
+      "expected_count": 1,
+      "harvested_count": 0,
+      "failed_count": 0,
+      "error_code": "NONE",
+      "error_message": "student_no_reachable_targets_arms_stowed",
+      "timestamp": "2026-10-28T08:39:15.628106+00:00"
+    }
+  },
+  {
+    "at": "2026-10-28T08:39:16.004598+00:00",
+    "mono_ns": 108664873980692,
+    "kind": "pickup_started",
+    "message": "수동 요청을 기록했습니다. 상태·로그에서 응답을 확인하세요.",
+    "transfer_id": "TRANSFER_TEST_017577ed41484e26a0a8e5eb2b851598",
+    "job_id": "PICKUP_TEST_0723570db4d34e8f941bd8e059f7cd31"
+  },
+  {
+    "at": "2026-10-28T08:39:33.292286+00:00",
+    "mono_ns": 108682161662687,
+    "kind": "dock_started",
+    "message": "수동 요청을 기록했습니다. 상태·로그에서 응답을 확인하세요.",
+    "transfer_id": "TRANSFER_TEST_017577ed41484e26a0a8e5eb2b851598",
+    "job_id": "DOCK_TEST_6934e9fa6c1a443fa81eb21f6c13111a"
+  },
+  {
+    "at": "2026-10-28T08:40:15.086906+00:00",
+    "mono_ns": 108723956282041,
+    "kind": "event_delivery",
+    "op": "dock_ready",
+    "control": {
+      "event": "DOCK_READY",
+      "target": "transport",
+      "source": "harvest",
+      "job_id": "PICKUP_TEST_0723570db4d34e8f941bd8e059f7cd31",
+      "allowed": false,
+      "reason": "이미 접수됐거나 접수 여부가 미확정인 이벤트입니다. 자동·중복 전송하지 않습니다.",
+      "observed": true,
+      "manual_without_feedback": false,
+      "delivery": "ACCEPTED",
+      "error": "",
+      "response": {
+        "accepted": true,
+        "error_code": "NONE",
+        "error_message": "",
+        "timestamp": "2026-10-28T08:40:14.571976+00:00"
+      }
+    }
+  },
+  {
+    "at": "2026-10-28T08:40:34.878286+00:00",
+    "mono_ns": 108743747663234,
+    "kind": "event_delivery",
+    "op": "dock_stable",
+    "control": {
+      "event": "DOCK_STABLE",
+      "target": "harvest",
+      "source": "transport",
+      "job_id": "DOCK_TEST_6934e9fa6c1a443fa81eb21f6c13111a",
+      "allowed": false,
+      "reason": "이미 접수됐거나 접수 여부가 미확정인 이벤트입니다. 자동·중복 전송하지 않습니다.",
+      "observed": true,
+      "manual_without_feedback": false,
+      "delivery": "ACCEPTED",
+      "error": "",
+      "response": {
+        "accepted": true,
+        "error_code": "NONE",
+        "error_message": "",
+        "timestamp": "2026-10-28T08:40:34.372996+00:00"
+      }
+    }
+  },
+  {
+    "at": "2026-10-28T08:40:35.479726+00:00",
+    "mono_ns": 108744349108788,
+    "kind": "event_delivery",
+    "op": "transfer_complete",
+    "control": {
+      "event": "TRANSFER_COMPLETE",
+      "target": "transport",
+      "source": "harvest",
+      "job_id": "PICKUP_TEST_0723570db4d34e8f941bd8e059f7cd31",
+      "allowed": false,
+      "reason": "이미 접수됐거나 접수 여부가 미확정인 이벤트입니다. 자동·중복 전송하지 않습니다.",
+      "observed": true,
+      "manual_without_feedback": false,
+      "delivery": "ACCEPTED",
+      "error": "",
+      "response": {
+        "accepted": true,
+        "error_code": "NONE",
+        "error_message": "",
+        "timestamp": "2026-10-28T08:40:34.964258+00:00"
+      }
+    }
+  },
+  {
+    "at": "2026-10-28T08:40:46.889392+00:00",
+    "mono_ns": 108755758770587,
+    "kind": "event_delivery",
+    "op": "transport_clear",
+    "control": {
+      "event": "TRANSPORT_CLEAR",
+      "target": "harvest",
+      "source": "transport",
+      "job_id": "DOCK_TEST_6934e9fa6c1a443fa81eb21f6c13111a",
+      "allowed": false,
+      "reason": "이미 접수됐거나 접수 여부가 미확정인 이벤트입니다. 자동·중복 전송하지 않습니다.",
+      "observed": true,
+      "manual_without_feedback": false,
+      "delivery": "ACCEPTED",
+      "error": "",
+      "response": {
+        "accepted": true,
+        "error_code": "NONE",
+        "error_message": "",
+        "timestamp": "2026-10-28T08:40:46.373595+00:00"
+      }
+    }
+  }
+]

@@ -1,0 +1,84 @@
+{
+  "attempt05": {
+    "source_session": "fddf0ea1b39746dba0e31babd2613936",
+    "ground_truth_xy": [
+      -7.028387546539307,
+      13.396824836730957
+    ],
+    "estimated_xy": [
+      -6.988000073007741,
+      13.480070342444378
+    ],
+    "approx_final_position_error_m": 0.09252546806013018,
+    "actual_distance_to_approach_node_m": 0.14954392491704063,
+    "note": "last stationary status and drive sample; not exact stamp synchronization",
+    "sort_result": {
+      "status": 4,
+      "result": {
+        "robot_id": "sorter_01",
+        "task_id": "sort_sorter_5483b44aa1ef409d",
+        "batch_id": "sorter_5483b44aa1ef409d",
+        "result_code": "SUCCESS",
+        "red_count": 1,
+        "yellow_count": 0,
+        "error_code": "NONE",
+        "error_message": "",
+        "timestamp": "2026-10-28T10:36:59.674841+00:00"
+      }
+    },
+    "return_result": {
+      "status": 6,
+      "result": {
+        "robot_id": "transport_01",
+        "task_id": "return_6cf9879138fd4228",
+        "result_code": "FAILED",
+        "station_id": "STATION_TRANSPORT_01",
+        "docked": false,
+        "error_code": "NAVIGATION_FAILED",
+        "error_message": "위치 (-6.987993338847244, 13.480016253799294)가 그래프에서 0.15m 이상 떨어져 있습니다.",
+        "timestamp": "2026-10-28T10:36:59.878167+00:00"
+      }
+    }
+  },
+  "attempt06": {
+    "source_session": "a17bc52653a64d11bc90cffdf79267f2",
+    "ground_truth_xy": [
+      -7.007104873657227,
+      13.256918907165527
+    ],
+    "estimated_xy": [
+      -6.977300002622869,
+      13.502043216286392
+    ],
+    "approx_final_position_error_m": 0.24692966055003576,
+    "actual_distance_to_approach_node_m": 0.009917182364479216,
+    "note": "last stationary status and drive sample; not exact stamp synchronization",
+    "sort_result": {
+      "status": 4,
+      "result": {
+        "robot_id": "sorter_01",
+        "task_id": "sort_sorter_668cf79ddcec426c",
+        "batch_id": "sorter_668cf79ddcec426c",
+        "result_code": "SUCCESS",
+        "red_count": 1,
+        "yellow_count": 0,
+        "error_code": "NONE",
+        "error_message": "",
+        "timestamp": "2026-10-28T10:40:29.547739+00:00"
+      }
+    },
+    "return_result": {
+      "status": 6,
+      "result": {
+        "robot_id": "transport_01",
+        "task_id": "return_3842ac0f00204cf8",
+        "result_code": "FAILED",
+        "station_id": "STATION_TRANSPORT_01",
+        "docked": false,
+        "error_code": "NAVIGATION_FAILED",
+        "error_message": "위치 (-6.977300437690594, 13.502045444065338)가 그래프에서 0.15m 이상 떨어져 있습니다.",
+        "timestamp": "2026-10-28T10:40:29.715748+00:00"
+      }
+    }
+  }
+}

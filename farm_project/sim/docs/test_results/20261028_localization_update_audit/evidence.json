@@ -1,0 +1,147 @@
+{
+  "comparisons": {
+    "robot/config/navigation/harvest_nav2.yaml": {
+      "current_sha256": "f055891f93d0005d34db8a1254208821cf280c55e021d7f88f90b5d3f8e0a8be",
+      "refs": {
+        "92ad63a": {
+          "byte_equal": true,
+          "sha256": "f055891f93d0005d34db8a1254208821cf280c55e021d7f88f90b5d3f8e0a8be"
+        },
+        "ea25693": {
+          "byte_equal": true,
+          "sha256": "f055891f93d0005d34db8a1254208821cf280c55e021d7f88f90b5d3f8e0a8be"
+        }
+      }
+    },
+    "sim/ros_ws/src/farm_sim_config/config/nav2_harvest.yaml": {
+      "current_sha256": "25a610d6a3401e55680a8fedc302f543b309bded9035b6700ae91e64f7faedbd",
+      "refs": {
+        "92ad63a": {
+          "byte_equal": true,
+          "sha256": "25a610d6a3401e55680a8fedc302f543b309bded9035b6700ae91e64f7faedbd"
+        },
+        "ea25693": {
+          "byte_equal": true,
+          "sha256": "25a610d6a3401e55680a8fedc302f543b309bded9035b6700ae91e64f7faedbd"
+        }
+      }
+    },
+    "robot/ros_ws/src/farm_tag_amcl/src/amcl.cpp": {
+      "current_sha256": "3443fd10649e9e4d0e05881ac7a37345496579ebe21fdb6209c8ebbb7680e603",
+      "refs": {
+        "92ad63a": {
+          "byte_equal": true,
+          "sha256": "3443fd10649e9e4d0e05881ac7a37345496579ebe21fdb6209c8ebbb7680e603"
+        },
+        "ea25693": {
+          "byte_equal": true,
+          "sha256": "3443fd10649e9e4d0e05881ac7a37345496579ebe21fdb6209c8ebbb7680e603"
+        }
+      }
+    },
+    "sim/ros_ws/src/farm_sim_config/maps/count_test_farm_map.yaml": {
+      "current_sha256": "3669207256030ede0d5c58acef44af58e8d77867350a235c3b92b0d7b3addce8",
+      "refs": {
+        "92ad63a": {
+          "byte_equal": true,
+          "sha256": "3669207256030ede0d5c58acef44af58e8d77867350a235c3b92b0d7b3addce8"
+        },
+        "ea25693": {
+          "byte_equal": true,
+          "sha256": "3669207256030ede0d5c58acef44af58e8d77867350a235c3b92b0d7b3addce8"
+        }
+      }
+    },
+    "sim/ros_ws/src/farm_sim_config/maps/count_test_farm_map.png": {
+      "current_sha256": "d6f3146c411a9fdb2ad6f4c2c1ef6383f2ad0f852c06dc8e6f09396426a5039d",
+      "refs": {
+        "92ad63a": {
+          "byte_equal": true,
+          "sha256": "d6f3146c411a9fdb2ad6f4c2c1ef6383f2ad0f852c06dc8e6f09396426a5039d"
+        },
+        "ea25693": {
+          "byte_equal": true,
+          "sha256": "d6f3146c411a9fdb2ad6f4c2c1ef6383f2ad0f852c06dc8e6f09396426a5039d"
+        }
+      }
+    }
+  },
+  "amcl_parameters_equal": true,
+  "old_launch": {
+    "command": [
+      "ros2",
+      "launch",
+      "farm_sim_runtime",
+      "all.launch.py",
+      "project_root:=/home/ysy/main/farm_project",
+      "isaac_python:=/home/ysy/isaac/env_isaaclab/bin/python",
+      "vision_python:=/home/ysy/venv/robot_venv/bin/python",
+      "harvest:=true",
+      "headless:=true",
+      "rviz:=false",
+      "tag_correction:=true",
+      "physics_device:=cpu",
+      "performance_log:=/home/ysy/main/farm_project/sim/runs/sec01_16_round3_20261023_151213/SEC01_attempt_0002/performance.jsonl"
+    ],
+    "started_at": "2026-10-23T06:50:42.379198+00:00"
+  },
+  "old_harvest_applied_count": 46,
+  "old_harvest_applied_lines": [
+    "[INFO] [1792738539.543887268] [harvest_01.tag_amcl_adapter]: TAG_CORRECTION_APPLIED: 1",
+    "[INFO] [1792738540.644859638] [harvest_01.tag_amcl_adapter]: TAG_CORRECTION_APPLIED: 2",
+    "[INFO] [1792738548.482160368] [harvest_01.tag_amcl_adapter]: TAG_CORRECTION_APPLIED: 3",
+    "[INFO] [1792738549.512756589] [harvest_01.tag_amcl_adapter]: TAG_CORRECTION_APPLIED: 4",
+    "[INFO] [1792738550.728540804] [harvest_01.tag_amcl_adapter]: TAG_CORRECTION_APPLIED: 5",
+    "[INFO] [1792738552.937997008] [harvest_01.tag_amcl_adapter]: TAG_CORRECTION_APPLIED: 6",
+    "[INFO] [1792738554.042522317] [harvest_01.tag_amcl_adapter]: TAG_CORRECTION_APPLIED: 7",
+    "[INFO] [1792738574.512750123] [harvest_01.tag_amcl_adapter]: TAG_CORRECTION_APPLIED: 14",
+    "[INFO] [1792738575.589397684] [harvest_01.tag_amcl_adapter]: TAG_CORRECTION_APPLIED: 15",
+    "[INFO] [1792738576.612130272] [harvest_01.tag_amcl_adapter]: TAG_CORRECTION_APPLIED: 16",
+    "[INFO] [1792738577.747389894] [harvest_01.tag_amcl_adapter]: TAG_CORRECTION_APPLIED: 17",
+    "[INFO] [1792739088.465583675] [harvest_01.tag_amcl_adapter]: TAG_CORRECTION_APPLIED: 18",
+    "[INFO] [1792739708.884995426] [harvest_01.tag_amcl_adapter]: TAG_CORRECTION_APPLIED: 19",
+    "[INFO] [1792739709.916237361] [harvest_01.tag_amcl_adapter]: TAG_CORRECTION_APPLIED: 20",
+    "[INFO] [1792739718.212810468] [harvest_01.tag_amcl_adapter]: TAG_CORRECTION_APPLIED: 21",
+    "[INFO] [1792739719.279837453] [harvest_01.tag_amcl_adapter]: TAG_CORRECTION_APPLIED: 22",
+    "[INFO] [1792739720.353439888] [harvest_01.tag_amcl_adapter]: TAG_CORRECTION_APPLIED: 23",
+    "[INFO] [1792739721.370277999] [harvest_01.tag_amcl_adapter]: TAG_CORRECTION_APPLIED: 24",
+    "[INFO] [1792739722.517540236] [harvest_01.tag_amcl_adapter]: TAG_CORRECTION_APPLIED: 25",
+    "[INFO] [1792739724.451372158] [harvest_01.tag_amcl_adapter]: TAG_CORRECTION_APPLIED: 26",
+    "[INFO] [1792739934.977155110] [harvest_01.tag_amcl_adapter]: TAG_CORRECTION_APPLIED: 149",
+    "[INFO] [1792739944.000449595] [harvest_01.tag_amcl_adapter]: TAG_CORRECTION_APPLIED: 150",
+    "[INFO] [1792739945.092824895] [harvest_01.tag_amcl_adapter]: TAG_CORRECTION_APPLIED: 151",
+    "[INFO] [1792739946.158850728] [harvest_01.tag_amcl_adapter]: TAG_CORRECTION_APPLIED: 152",
+    "[INFO] [1792739947.319744405] [harvest_01.tag_amcl_adapter]: TAG_CORRECTION_APPLIED: 153",
+    "[INFO] [1792739948.445995078] [harvest_01.tag_amcl_adapter]: TAG_CORRECTION_APPLIED: 154",
+    "[INFO] [1792739949.678538614] [harvest_01.tag_amcl_adapter]: TAG_CORRECTION_APPLIED: 155",
+    "[INFO] [1792739950.988054495] [harvest_01.tag_amcl_adapter]: TAG_CORRECTION_APPLIED: 156",
+    "[INFO] [1792739952.143985912] [harvest_01.tag_amcl_adapter]: TAG_CORRECTION_APPLIED: 157",
+    "[INFO] [1792739953.353396328] [harvest_01.tag_amcl_adapter]: TAG_CORRECTION_APPLIED: 158",
+    "[INFO] [1792740135.443390456] [harvest_01.tag_amcl_adapter]: TAG_CORRECTION_APPLIED: 262",
+    "[INFO] [1792740142.322744881] [harvest_01.tag_amcl_adapter]: TAG_CORRECTION_APPLIED: 263",
+    "[INFO] [1792740143.329771387] [harvest_01.tag_amcl_adapter]: TAG_CORRECTION_APPLIED: 264",
+    "[INFO] [1792740144.463453756] [harvest_01.tag_amcl_adapter]: TAG_CORRECTION_APPLIED: 265",
+    "[INFO] [1792740358.662596116] [harvest_01.tag_amcl_adapter]: TAG_CORRECTION_APPLIED: 266",
+    "[INFO] [1792740359.703682978] [harvest_01.tag_amcl_adapter]: TAG_CORRECTION_APPLIED: 267",
+    "[INFO] [1792740360.854835561] [harvest_01.tag_amcl_adapter]: TAG_CORRECTION_APPLIED: 268",
+    "[INFO] [1792740830.175957080] [harvest_01.tag_amcl_adapter]: TAG_CORRECTION_APPLIED: 269",
+    "[INFO] [1792740831.217834000] [harvest_01.tag_amcl_adapter]: TAG_CORRECTION_APPLIED: 270",
+    "[INFO] [1792740832.352814967] [harvest_01.tag_amcl_adapter]: TAG_CORRECTION_APPLIED: 271",
+    "[INFO] [1792741212.492406524] [harvest_01.tag_amcl_adapter]: TAG_CORRECTION_APPLIED: 272",
+    "[INFO] [1792741213.654038788] [harvest_01.tag_amcl_adapter]: TAG_CORRECTION_APPLIED: 273",
+    "[INFO] [1792741219.591194801] [harvest_01.tag_amcl_adapter]: TAG_CORRECTION_APPLIED: 274",
+    "[INFO] [1792741220.768453855] [harvest_01.tag_amcl_adapter]: TAG_CORRECTION_APPLIED: 275",
+    "[INFO] [1792741226.457704770] [harvest_01.tag_amcl_adapter]: TAG_CORRECTION_APPLIED: 276",
+    "[INFO] [1792741227.608101849] [harvest_01.tag_amcl_adapter]: TAG_CORRECTION_APPLIED: 277"
+  ],
+  "current_runner": "sim/tools/run_handoff_window_trial.py",
+  "current_tag_correction": false,
+  "old_localizer": "farm_tag_amcl",
+  "current_localizer_selected_by_launch": "nav2_amcl",
+  "current_config_source": "robot/config/navigation/harvest_nav2.yaml",
+  "limitations": [
+    "4~6cm prior comparison runs were also after October 28 handoff integration; not a pre-update baseline",
+    "No matched tag-on/tag-off handoff test yet",
+    "Simulation state delivery timing, wheel control and motion trajectory also changed; contributions not isolated"
+  ]
+}

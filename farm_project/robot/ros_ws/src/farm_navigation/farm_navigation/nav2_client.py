@@ -21,7 +21,8 @@ from .arrival import validate_goal_checkers
 
 
 class Nav2Client:
-    def __init__(self, node: Node, settings: NavigationSettings, group: CallbackGroup) -> None:
+    def __init__(self, node: Node, settings: NavigationSettings, group: CallbackGroup, *, execution_clock=None) -> None:
+        self._pause_clock_factory = execution_clock
         self._node: Node = node
         self._settings: NavigationSettings = settings
         self._navigate=ActionClient(node,NavigateToPose,settings.navigate_action,callback_group=group)
@@ -34,7 +35,7 @@ class Nav2Client:
         self._recovery_stop = None
         self._stop_publishers = ([node.create_publisher(Twist, topic, 10)
                                  for topic in ('cmd_vel_nav', 'cmd_vel')]
-                                if settings.tf_recovery_enabled or settings.collision_retry_count else [])
+                                if settings.tf_recovery_enabled else [])
         self._last_control_feedback = 0.0
         self._nominal_linear_speed_mps: float | None = None
 
@@ -44,6 +45,8 @@ class Nav2Client:
 
     def _execution_clock(self) -> Callable[[], float]:
         """주행 경과시간: use_sim_time 활성 시 ROS 시계, 실물은 단조 실시간이다."""
+        if getattr(self, '_pause_clock_factory', None) is not None:
+            return self._pause_clock_factory()
         ros_clock = self._node.get_clock()
         if not ros_clock.ros_time_is_active:
             return time.monotonic
@@ -80,7 +83,7 @@ class Nav2Client:
         finally:
             if not future.done(): self._parameters.remove_pending_request(future)
 
-    def preflight(self, check: Callable[[],None]) -> dict[str,Any]:
+    def preflight(self, check: Callable[[],None], *, wall_parameters: dict[str,Any] | None = None) -> dict[str,Any]:
         s=self._settings
         client=self._follow if s.mode=='follow_path' else self._navigate
         deadline=time.monotonic()+s.readiness_timeout_s
@@ -90,7 +93,7 @@ class Nav2Client:
             time.sleep(.05)
         names = ['goal_checker_plugins', 'controller_plugins', 'progress_checker_plugins']
         speed_parameter = f'{s.controller_id}.desired_linear_vel'
-        if s.mode == 'follow_path':
+        if s.mode == 'follow_path' and wall_parameters is None:
             names.append(speed_parameter)
         values=self._read_parameters(names,check)
         speed = values.get(speed_parameter)
@@ -102,15 +105,26 @@ class Nav2Client:
             for name,value in [('goal_checker_plugins',s.goal_checker_id),('controller_plugins',s.controller_id),('progress_checker_plugins',s.progress_checker_id)]:
                 if value not in (values.get(name) or []): raise RuntimeError(f'{name}에 {value}가 없습니다.')
             ids=[s.goal_checker_id]
-        values.update(self._read_parameters([f'{name}.{key}' for name in ids for key in ('plugin','xy_goal_tolerance','yaw_goal_tolerance','stateful','symmetric_yaw_tolerance')],check))
+        # 먼저 종류만 읽는다. 미선언 파라미터가 섞이면 실제 ROS는 전체 요청을 실패시킨다.
+        values.update(self._read_parameters([f'{name}.plugin' for name in ids],check))
+        standard_ids=[name for name in ids if values.get(f'{name}.plugin') in
+                      ('nav2_controller::SimpleGoalChecker','nav2_controller::StoppedGoalChecker')]
+        if standard_ids:
+            values.update(self._read_parameters([f'{name}.{key}' for name in standard_ids
+                for key in ('xy_goal_tolerance','yaw_goal_tolerance','stateful','symmetric_yaw_tolerance')],check))
         stopped_ids = [name for name in ids if values.get(f'{name}.plugin') == 'nav2_controller::StoppedGoalChecker']
         if stopped_ids:
             values.update(self._read_parameters([f'{name}.{key}' for name in stopped_ids
                 for key in ('trans_stopped_velocity', 'rot_stopped_velocity')]
                 + ['min_x_velocity_threshold', 'min_y_velocity_threshold', 'min_theta_velocity_threshold'], check))
+        if wall_parameters is not None:
+            if s.mode != 'follow_path': raise ValueError('벽 완료 판정은 명시적 FollowPath 전용입니다.')
+            if values.get(f'{s.goal_checker_id}.plugin') != 'farm_wall_controller::WallGoalChecker':
+                raise ValueError('선택한 벽 완료 판정기 종류 불일치')
+            values.update(self._read_parameters([f'wall_alignment.{key}' for key in wall_parameters],check))
         checked=dict(values,goal_checker_plugins=ids)
         checkers=validate_goal_checkers(checked,s.arrival_tolerance_m,s.heading_tolerance_rad,
-            stopped_linear_limit=s.stopped_linear_mps, stopped_angular_limit=s.stopped_angular_rps)
+            stopped_linear_limit=s.stopped_linear_mps, stopped_angular_limit=s.stopped_angular_rps, wall_parameters=wall_parameters)
         return {'mode':s.mode,'controller_node':s.controller_node,'parameters':values,'checkers':checkers,'status':'OK'}
 
     def set_recovery_probe(self, probe: Callable[[], bool]) -> None:
@@ -134,6 +148,9 @@ class Nav2Client:
     def _execution_timeout(self, path: Path | None) -> float:
         """전송 경로 길이/설정 속도의2배+60초. 기존 제한시간을 하한으로 둔다."""
         base = self._settings.goal_timeout_s
+        # 인계 전용 시계 선택은 원본 단계별 예산을 유지한다. 일반 주행은 거리 예산을 유지한다.
+        if getattr(self, '_pause_clock_factory', None) is not None:
+            return base
         speed = getattr(self, '_nominal_linear_speed_mps', None)
         if self._settings.mode != 'follow_path' or path is None or speed is None:
             return base

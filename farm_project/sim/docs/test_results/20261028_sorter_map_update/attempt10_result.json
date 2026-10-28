@@ -1,0 +1,169 @@
+{
+  "passed": false,
+  "virtual_mechanism": true,
+  "count_valid": true,
+  "ready_response": {
+    "accepted": true,
+    "error_code": "NONE",
+    "error_message": "",
+    "timestamp": "2026-10-28T11:09:08.363456+00:00"
+  },
+  "unload": {
+    "status": 4,
+    "result": {
+      "robot_id": "transport_01",
+      "task_id": "sorter_ce4c984aeae24e79",
+      "station_id": "SORT_01",
+      "result_code": "SUCCESS",
+      "error_code": "NONE",
+      "error_message": "",
+      "timestamp": "2026-10-28T11:09:36.469745+00:00"
+    }
+  },
+  "sort": {
+    "status": 4,
+    "result": {
+      "robot_id": "sorter_01",
+      "task_id": "sort_sorter_ce4c984aeae24e79",
+      "batch_id": "sorter_ce4c984aeae24e79",
+      "result_code": "SUCCESS",
+      "red_count": 1,
+      "yellow_count": 0,
+      "error_code": "NONE",
+      "error_message": "",
+      "timestamp": "2026-10-28T11:10:01.003774+00:00"
+    }
+  },
+  "physical_sorting": {
+    "phase": "SCANNING",
+    "counts": [
+      1,
+      0
+    ],
+    "error": "",
+    "events": [
+      {
+        "event": "BUSY",
+        "job": 1,
+        "lane": "D",
+        "color": "RED"
+      },
+      {
+        "event": "ASSISTED_GRASP",
+        "job": 1
+      },
+      {
+        "event": "DONE",
+        "job": 1,
+        "counts": [
+          1,
+          0
+        ]
+      }
+    ],
+    "station_to_world": [
+      [
+        0.19342002049252094,
+        0.9811160459765567,
+        0.0,
+        -7.204447723212479
+      ],
+      [
+        -0.9811160459765567,
+        0.19342002049252094,
+        -0.0,
+        14.2870536684691
+      ],
+      [
+        -0.0,
+        0.0,
+        1.0,
+        0.0
+      ],
+      [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ]
+    ],
+    "fruits": [
+      {
+        "path": "/World/Vegetation/Bed_01/Fruits/Pepper_0004_red",
+        "color": "RED",
+        "sorted": true,
+        "local_xyz": [
+          -0.6626896024446877,
+          0.10827614173385312,
+          0.5028709173202515
+        ]
+      },
+      {
+        "path": "/World/Vegetation/Bed_01/Fruits/Pepper_0001_yellow",
+        "color": "YELLOW",
+        "sorted": false,
+        "local_xyz": [
+          0.29746798204989,
+          0.06212519484234364,
+          0.10014349222183228
+        ]
+      }
+    ]
+  },
+  "sequence_through_sort_passed": true,
+  "input_count": 2,
+  "sorted_count": 1,
+  "remaining_fruit_paths": [
+    "/World/Vegetation/Bed_01/Fruits/Pepper_0001_yellow"
+  ],
+  "all_input_fruits_sorted": false,
+  "return": {
+    "status": 6,
+    "result": {
+      "robot_id": "transport_01",
+      "task_id": "return_2297f02776554359",
+      "result_code": "FAILED",
+      "station_id": "STATION_TRANSPORT_01",
+      "docked": false,
+      "error_code": "NAVIGATION_FAILED",
+      "error_message": "위치 (-6.978942363951455, 13.462182613411354)가 그래프에서 0.15m 이상 떨어져 있습니다.",
+      "timestamp": "2026-10-28T11:10:01.196282+00:00"
+    }
+  },
+  "error": "RuntimeError: return failed: {\"status\": 6, \"result\": {\"robot_id\": \"transport_01\", \"task_id\": \"return_2297f02776554359\", \"result_code\": \"FAILED\", \"station_id\": \"STATION_TRANSPORT_01\", \"docked\": false, \"error_code\": \"NAVIGATION_FAILED\", \"error_message\": \"위치 (-6.978942363951455, 13.462182613411354)가 그래프에서 0.15m 이상 떨어져 있습니다.\", \"timestamp\": \"2026-10-28T11:10:01.196282+00:00\"}}",
+  "final_state": {
+    "phase": "CLEARING_STARTED",
+    "waiting_seen": true,
+    "ready_requested": true,
+    "ready_accepted": true,
+    "active": false,
+    "completed": true,
+    "odom_at": 117710.0512778,
+    "stamp": 110.883339116,
+    "stopped_since": 117694.902319234,
+    "status": {
+      "robot_id": "transport_01",
+      "current_task_id": "",
+      "state": "IDLE",
+      "ready": true,
+      "map_id": "farm_map_v1",
+      "pose": {
+        "frame_id": "map",
+        "position": {
+          "x": -6.978941658211074,
+          "y": 13.462180045366123,
+          "z": 0.0
+        },
+        "yaw": -1.302592061539774
+      },
+      "battery_percent": NaN,
+      "transfer_required": false,
+      "loaded_count": -1,
+      "error_code": "NAVIGATION_FAILED",
+      "error_message": "위치 (-6.978942363951455, 13.462182613411354)가 그래프에서 0.15m 이상 떨어져 있습니다.",
+      "boot_id": "f35ec1da68a34e059a1d7d4a61d917b8",
+      "sequence": 111,
+      "timestamp": "2026-10-28T11:10:01.203757+00:00"
+    }
+  }
+}

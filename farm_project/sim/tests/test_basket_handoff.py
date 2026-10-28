@@ -23,8 +23,13 @@ class BasketHandoffTests(unittest.TestCase):
         return r
     def test_72_percent_passes_after_hold(self):
         r=self.held();self.assertAlmostEqual(r['coverage'],.72);self.assertTrue(r['hold_pass']);self.assertFalse(r['full_containment'])
-    def test_719_percent_does_not_pass(self):
+    def test_719_percent_within_approved_distance_tolerance_passes(self):
         self.t['T_world_evaluation_frames']['cargo_box'][0][3]=.281
+        self.assertTrue(self.held()['hold_pass'])
+    def test_694_percent_passes_but_693_percent_does_not(self):
+        self.t['T_world_evaluation_frames']['cargo_box'][0][3]=.306
+        self.assertTrue(self.held()['hold_pass'])
+        self.t['T_world_evaluation_frames']['cargo_box'][0][3]=.307
         self.assertFalse(self.held()['hold_pass'])
     def test_gap_or_wheel_motion_resets_hold(self):
         self.assertTrue(self.held()['hold_pass'])

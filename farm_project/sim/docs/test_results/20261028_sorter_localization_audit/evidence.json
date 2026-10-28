@@ -1,0 +1,45 @@
+{
+  "results": [
+    {
+      "trial": "attempt05",
+      "station_origin": [
+        -7.231913366122417,
+        14.426372146997771,
+        0.0
+      ],
+      "final_wheel_odom_error_m": 0.0030442069791624562,
+      "final_estimate_error_m": 0.09252546806013018,
+      "mean_front_hit_map_distance_m": 0.09719709947687317,
+      "front_hit_count": 369
+    },
+    {
+      "trial": "attempt06",
+      "station_origin": [
+        -7.204447723212479,
+        14.2870536684691,
+        0.0
+      ],
+      "final_wheel_odom_error_m": 0.0036980224141077876,
+      "final_estimate_error_m": 0.24692966055003576,
+      "mean_front_hit_map_distance_m": 0.16460765843557157,
+      "front_hit_count": 360
+    },
+    {
+      "trial": "attempt09",
+      "station_origin": [
+        -7.204447723212479,
+        14.2870536684691,
+        0.0
+      ],
+      "final_wheel_odom_error_m": 0.014032603871642723,
+      "final_estimate_error_m": 0.25602765105106956,
+      "mean_front_hit_map_distance_m": 0.16168947615241966,
+      "front_hit_count": 351
+    }
+  ],
+  "map_png_sha256": "d6f3146c411a9fdb2ad6f4c2c1ef6383f2ad0f852c06dc8e6f09396426a5039d",
+  "map_yaml_sha256": "3669207256030ede0d5c58acef44af58e8d77867350a235c3b92b0d7b3addce8",
+  "map_matches_ea25693": true,
+  "method": "Truth for evaluation only. Odom aligned using configured initial pose. Moving status aligned approximately with diagnostic at wall time minus0.15s; final comparison stationary. No raw map->odom TF or full scan recorded in original trial; causal contribution needs map-only A/B.",
+  "observed_defect": "HCR model/reposition enabled but map_yaml still original count_test_farm_map.yaml; old sorter occupied pixels retained"
+}

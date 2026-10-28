@@ -139,7 +139,8 @@ class ArmActionClient:
         except (AttributeError, TypeError, ValueError) as error:
             raise ArmExecutionError('ARM_PROTOCOL_ERROR', str(error)) from error
 
-    def execute(self, goal: Any, check: Callable[[], None], progress: Callable[[int, int], None]) -> dict:
+    def execute(self, goal: Any, check: Callable[[], None], progress: Callable[[int, int], None], *,
+                before_send: Callable[[float], None] | None = None) -> dict:
         if self.has_goal:
             raise ArmExecutionError('CANCEL_UNCONFIRMED', '이전 팔 Goal 종료 확인이 필요합니다.')
         self._token += 1
@@ -154,6 +155,10 @@ class ArmActionClient:
                 raise ArmExecutionError('ARM_UNAVAILABLE', '팔 Action 서버가 준비되지 않았습니다.')
             time.sleep(.01)
         check()
+        if before_send is not None:
+            # 서버 발견과 상태 준비는 같은 준비 제한시간 예산을 사용한다.
+            before_send(max(0., deadline-time.monotonic()))
+            check()
         self._pending = self._client.send_goal_async(goal, feedback_callback=lambda value: self._feedback(value, token))
         self._handle = self._wait(self._pending, self.settings.response_timeout_s, check)
         if self._handle is None or not self._handle.accepted:

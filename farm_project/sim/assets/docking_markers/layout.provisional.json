@@ -167,13 +167,13 @@
       "parent_prim": "/World/sorting_station_portable",
       "reference_prim": "/World/sorting_station_portable",
       "center_m": [
-        0,
         -0.251,
+        0,
         0.106
       ],
       "right": [
-        1,
         0,
+        -1,
         0
       ],
       "up": [
@@ -234,7 +234,7 @@
         ]
       ],
       "texture": "sim/assets/docking_markers/DICT_4X4_50_40_50mm.png",
-      "basis": "현행 선별장 입구 local Y=-0.25m 바깥. 높이는 원격 entry pose의0.10563m 참고."
+      "basis": "2026-10-28 USD/URDF 대조: intake_wall_2의 local X=-0.25m 바깥. root yaw=+90도이므로 map 남쪽을 향한다. 이전 local -Y는 동쪽 옆면이었다. 높이는 원격 entry pose의0.10563m 참고; 실측 장착값 아님."
     }
   ]
 }

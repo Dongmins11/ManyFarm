@@ -27,10 +27,10 @@
     ],
     "basis": "transport portable URDF box0.30m, 벽두께0.003m, 상단0.19m. cargo_box 실제 USD 변환으로 평가."
   },
-  "alignment_rule": "사용자 승인: 겹침72% 이상, 배출부가 수용부보다 높고 기존 정지조건0.8초 유지",
+  "alignment_rule": "2026-10-28 사용자 승인: 명목 겹침72%에 실물 도킹 거리 허용오차5mm/구경190mm 반영, 하한 약69.4%. 양의 높이 차이와 정지0.8초 유지. 실제 겹침률 별도 기록.",
   "stop_linear_mps": 0.005,
   "stop_angular_rps": 0.02,
   "hold_s": 0.8,
   "stop_basis": "공통 PrecisionServer 정지 임계값/0.8초 유지. 시뮬 가상 인계 장치에만 적용.",
-  "minimum_coverage": 0.72
+  "minimum_coverage": 0.6936842105263158
 }

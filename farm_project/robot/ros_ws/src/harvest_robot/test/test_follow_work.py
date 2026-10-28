@@ -178,6 +178,7 @@ def construct(mode: str='route_then_follow', approach: str='graph',
                     else:data[key]=value
             return data
         env=dict(__name__='harvest_robot._follow_verify',__package__='harvest_robot',
+            os=NS(environ={}),
             Node=Node,Path=Path,load_environment=load_environment,resolve_file=resolve_file,read_mapping=read_mapping,
             load_harvest_config=harvest_mapping, approach_navigation_settings=approach_navigation_settings,
             configured_arm_settings=configured_arm_settings, HarvestLoad=HarvestLoad,

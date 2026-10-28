@@ -1,0 +1,51 @@
+--- /dev/null
++++ b/robot/ros_ws/src/farm_interfaces/action/SortBatch.action
+@@ -0,0 +1,23 @@
++# Goal: one batch; standalone test operator confirms unloading/clearance.
++string robot_id
++string task_id
++string batch_id
++string timestamp
++---
++string robot_id
++string task_id
++string batch_id
++string result_code
++int32 red_count
++int32 yellow_count
++string error_code
++string error_message
++string timestamp
++---
++string robot_id
++string task_id
++string batch_id
++string phase
++int32 red_count
++int32 yellow_count
++string timestamp
+--- /dev/null
++++ b/robot/ros_ws/src/farm_interfaces/msg/SorterStatus.msg
+@@ -0,0 +1,11 @@
++string robot_id
++string current_task_id
++string current_batch_id
++string state
++bool receive_ready
++bool ready
++string error_code
++string error_message
++string boot_id
++uint64 sequence
++string timestamp
+--- a/robot/ros_ws/src/farm_interfaces/CMakeLists.txt
++++ b/robot/ros_ws/src/farm_interfaces/CMakeLists.txt
+@@ -27,6 +27,8 @@
+   "srv/TransferEvent.srv"
+   "action/TransportPickup.action"
+   "action/BucketUnload.action"
++  "action/SortBatch.action"
++  "msg/SorterStatus.msg"
+   "action/CheckRoute.action"
+   "action/PrecisionMotion.action"
+   "action/MechanicalOperation.action"

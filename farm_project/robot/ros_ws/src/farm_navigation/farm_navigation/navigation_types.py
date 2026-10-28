@@ -58,12 +58,14 @@ class NavigationSettings:
                 if not isinstance(value, bool):
                     raise ValueError(f'{f.name}: bool 필요')
             elif isinstance(f.default, int):
-                if isinstance(value, bool) or not isinstance(value, int) or value < 0:
-                    raise ValueError(f'{f.name}: 0 이상의 정수 필요')
+                if isinstance(value, bool) or not isinstance(value, int) or not 0 <= value <= 20:
+                    raise ValueError(f'{f.name}: 0~20 정수 필요')
             elif not isinstance(value, str) or not value.strip():
                 raise ValueError(f'{f.name}: 비어 있지 않은 문자열 필요')
         if settings.settle_timeout_s <= settings.settle_s:
             raise ValueError('settle_timeout_s는 settle_s보다 커야 합니다.')
+        if settings.collision_retry_count and settings.mode != 'follow_path':
+            raise ValueError('충돌 재시도는 FollowPath 전용')
         return settings
 
 
@@ -75,6 +77,8 @@ class RoutePlan:
     points: tuple[tuple[float, float], ...]
     edge_ids: tuple[str, ...]  # 경유 순서이며 현재 점유/진입 허가를 뜻하지 않습니다.
     distance_m: float
+    # 명시한 차체 방향은 보간·후진 방향 반전 없이 각 점에 그대로 적용한다.
+    headings: tuple[float, ...] | None = None
 
 
 @dataclass(frozen=True)

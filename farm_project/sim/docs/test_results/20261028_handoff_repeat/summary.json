@@ -1,0 +1,165 @@
+{
+  "baseline": "ea25693 + prior uncommitted integration",
+  "domain": 13,
+  "discovery": "SUBNET",
+  "physics": "CPU 60Hz",
+  "behavior_changes": false,
+  "instrumentation_change": "gate request timing only, sys.monitoring; source main retained",
+  "runs": [
+    {
+      "attempt": 1,
+      "passed": true,
+      "harvest": {
+        "robot_id": "harvest_01",
+        "task_id": "DOCK_TEST_05379eca43074d9c9402dfe7d4227ef4",
+        "transfer_id": "TRANSFER_TEST_2df12991bcce413e937c7b7ab3329e19",
+        "result_code": "SUCCESS",
+        "expected_count": 0,
+        "transfer_complete": true,
+        "transport_clear": true,
+        "restore_complete": true,
+        "error_code": "NONE",
+        "error_message": "",
+        "timestamp": "2026-10-28T07:39:21.824018+00:00"
+      },
+      "transport": {
+        "robot_id": "transport_01",
+        "task_id": "PICKUP_TEST_a041b53c645d44f998d9115f7f405f03",
+        "transfer_id": "TRANSFER_TEST_2df12991bcce413e937c7b7ab3329e19",
+        "result_code": "SUCCESS",
+        "error_code": "NONE",
+        "error_message": "",
+        "timestamp": "2026-10-28T07:38:30.847422+00:00"
+      },
+      "gate_renew_count": 291,
+      "gate_renew_rejected": 0,
+      "minimum_gate_deadline_margin_ms": 446.00221900327597,
+      "max_image_processing_ms": 24.698286,
+      "process_exit": {
+        "harvest": 0,
+        "transport_adapter": 0,
+        "gate": 1,
+        "precision": -2,
+        "transport": 0,
+        "isaac": 0,
+        "probe": 0
+      },
+      "drive": {
+        "session": "60fa66470207454aa13faa78191c6f8e",
+        "path": "farm_project/sim/runs/drive_diagnostics/60fa66470207454aa13faa78191c6f8e/harvest_01.jsonl",
+        "first_scan_delay_s": 0.6236522849940229
+      }
+    },
+    {
+      "attempt": 2,
+      "passed": false,
+      "harvest": {
+        "robot_id": "harvest_01",
+        "task_id": "DOCK_TEST_a2bca4cdee044b5f91ccafc21ac6be2e",
+        "transfer_id": "TRANSFER_TEST_af4ef3cb3f2a4ff492d73c6c1e003243",
+        "result_code": "FAILED",
+        "expected_count": 0,
+        "transfer_complete": false,
+        "transport_clear": false,
+        "restore_complete": false,
+        "error_code": "DEVICE_FAILED",
+        "error_message": "rotate_to_transfer: 정지 후 목표 오차 초과",
+        "timestamp": "2026-10-28T07:41:15.541142+00:00"
+      },
+      "transport": {
+        "robot_id": "transport_01",
+        "task_id": "PICKUP_TEST_5471eda15da9490c93b9b8f798dca12d",
+        "transfer_id": "TRANSFER_TEST_af4ef3cb3f2a4ff492d73c6c1e003243",
+        "result_code": "CANCELED",
+        "error_code": "NONE",
+        "error_message": "",
+        "timestamp": "2026-10-28T07:41:16.140714+00:00"
+      },
+      "gate_renew_count": 109,
+      "gate_renew_rejected": 0,
+      "minimum_gate_deadline_margin_ms": 446.2044170068111,
+      "max_image_processing_ms": 41.763013,
+      "process_exit": {
+        "harvest": 0,
+        "transport_adapter": 0,
+        "gate": 1,
+        "precision": -2,
+        "transport": 0,
+        "isaac": 0,
+        "probe": 1
+      },
+      "drive": {
+        "session": "16f78511388b4a9bb86fb520f5c6d2b7",
+        "path": "farm_project/sim/runs/drive_diagnostics/16f78511388b4a9bb86fb520f5c6d2b7/harvest_01.jsonl",
+        "first_scan_delay_s": 0.6089713819965255
+      },
+      "external_near_failure_wall": {
+        "delta_to_result_s": -0.004878997802734375,
+        "distance_m": 0.4333397495624721,
+        "angle_error_deg": 0.5408636377074293
+      },
+      "post_stop_world_rotation_deg": -0.19395491287200528
+    },
+    {
+      "attempt": 3,
+      "passed": false,
+      "harvest": {
+        "robot_id": "harvest_01",
+        "task_id": "DOCK_TEST_fb9bdbf492474674a862395911f34204",
+        "transfer_id": "TRANSFER_TEST_e9bd78240f404ae1bafb7a52097c6c4b",
+        "result_code": "FAILED",
+        "expected_count": 0,
+        "transfer_complete": false,
+        "transport_clear": false,
+        "restore_complete": false,
+        "error_code": "DEVICE_FAILED",
+        "error_message": "rotate_to_transfer: 정지 후 목표 오차 초과",
+        "timestamp": "2026-10-28T07:43:09.681756+00:00"
+      },
+      "transport": {
+        "robot_id": "transport_01",
+        "task_id": "PICKUP_TEST_2b8db63015194b82937c7046e961c178",
+        "transfer_id": "TRANSFER_TEST_e9bd78240f404ae1bafb7a52097c6c4b",
+        "result_code": "CANCELED",
+        "error_code": "NONE",
+        "error_message": "",
+        "timestamp": "2026-10-28T07:43:10.074328+00:00"
+      },
+      "gate_renew_count": 88,
+      "gate_renew_rejected": 0,
+      "minimum_gate_deadline_margin_ms": 446.9946930039441,
+      "max_image_processing_ms": 17.041674,
+      "process_exit": {
+        "harvest": 0,
+        "transport_adapter": 0,
+        "gate": 1,
+        "precision": -2,
+        "transport": 0,
+        "isaac": 0,
+        "probe": 1
+      },
+      "drive": {
+        "session": "c40dd6a654d140b1a23a03afadd08fea",
+        "path": "farm_project/sim/runs/drive_diagnostics/c40dd6a654d140b1a23a03afadd08fea/harvest_01.jsonl",
+        "first_scan_delay_s": 0.6173482549929759
+      },
+      "external_near_failure_wall": {
+        "delta_to_result_s": 0.004200935363769531,
+        "distance_m": 0.43569123193536763,
+        "angle_error_deg": 0.60589518294248
+      },
+      "post_stop_world_rotation_deg": -0.17413784990034964
+    }
+  ],
+  "runtime_journal_differences": [
+    {
+      "attempt": 2,
+      "file": "journal/transfer.json"
+    },
+    {
+      "attempt": 3,
+      "file": "journal/transfer.json"
+    }
+  ],
+  "runtime_config_differences_after_path_normalization_excluding_journal": []
+}

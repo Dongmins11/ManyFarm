@@ -1,0 +1,112 @@
+{
+  "schema": 1,
+  "units": "SI",
+  "layout": "storage (-X), robot (0), intake (+X); A to D from +Y to -Y",
+  "panel_size": [
+    0.5,
+    0.6,
+    0.04
+  ],
+  "base_z": 0.04,
+  "controller_size": [
+    0.223,
+    0.47,
+    0.47
+  ],
+  "controller_gap": 0.07,
+  "intake": {
+    "width": 0.505,
+    "slope_length": 0.5,
+    "rise": 0.225,
+    "lane_clear_width": 0.12,
+    "board": 0.005,
+    "outer_wall_height": 0.1,
+    "divider_height": 0.055,
+    "lip_height": 0.1,
+    "low_x": 0.26
+  },
+  "storage": {
+    "width": 0.47,
+    "drop_x": -0.35,
+    "drop_z": 0.6,
+    "release_clearance": 0.2,
+    "ramp_length": 0.26,
+    "ramp_rise": 0.13,
+    "bin_length": 0.22,
+    "wall_height": 0.1
+  },
+  "robot": {
+    "model": "HCR-3A functional approximation",
+    "shoulder_z": 0.3,
+    "upper_length": 0.32,
+    "fore_length": 0.3,
+    "wrist_length": 0.05,
+    "tcp_length": 0.19
+  },
+  "gripper": {
+    "model": "JRT JEGH-3520P-A-Y003 approximation",
+    "body_size": [
+      0.1,
+      0.04,
+      0.114
+    ],
+    "open_gap": 0.08,
+    "closed_gap": 0.06,
+    "finger_length": 0.065,
+    "grasp_mode": "assisted_fixed_joint"
+  },
+  "physics": {
+    "foam_static_friction": 0.12,
+    "foam_dynamic_friction": 0.08,
+    "pad_static_friction": 1.2,
+    "pad_dynamic_friction": 1.0,
+    "restitution": 0.02,
+    "pepper_mass": 0.009,
+    "pepper_diameter": 0.09,
+    "pepper_length": 0.075,
+    "assisted_grasp_clearance": 0.025
+  },
+  "camera": {
+    "width": 640,
+    "height": 480,
+    "eye": [
+      0.48,
+      0.0,
+      1.0
+    ],
+    "target": [
+      0.4,
+      0.0,
+      0.1
+    ],
+    "horizontal_fov_deg": 58.0
+  },
+  "assumptions": [
+    "Storage slope dimensions are approximate; 22 x 47 cm note refers to controller footprint.",
+    "Controller height 47 cm is nominal; replace after measurement.",
+    "Camera extrinsic/FOV and finger shape are approximate, not calibration.",
+    "Friction and 9 gram pepper mass are nominal tuning values, not measured foamboard coefficients.",
+    "STEP files are official rigid CAD; moving robot uses approximate axes/inertia until articulated manufacturer data is available.",
+    "Assisted grasp makes functional sorting repeatable; it is not a contact-only grip strength validation.",
+    "\ud22c\uc785 \ud558\ub2e8 \ud131 100 mm\ub294 90 mm \uacfc\uc2e4\uc758 \uc774\ud0c8 \ubc29\uc9c0\ub97c \uc704\ud55c \uae30\ub2a5 \uadfc\uc0ac\uac12; \uc2e4\ubb3c \uce21\uc815\uac12 \uc544\ub2d8.",
+    "Existing transport_robot.portable.urdf and its meshes are used unchanged. Base approach is prescribed; original tilt/gate/lid joints are driven. Payload discharge is gravity/contact. 300 mm box is aligned with central intake lanes; no distribution insert."
+  ],
+  "transport": {
+    "start_front_x": 1.55,
+    "dock_front_x": 0.695,
+    "approach_seconds": 6.0,
+    "gate_seconds": 2.5,
+    "tip_seconds": 5.0,
+    "tip_deg": 45,
+    "dump_seconds": 6.0,
+    "settle_seconds": 3.0,
+    "timeout_seconds": 20.0,
+    "staging_front_x": 0.89,
+    "dock_seconds": 2.0,
+    "rock_cycles": 2,
+    "rock_min_deg": 5,
+    "rock_seconds": 3,
+    "payload_layout": "random",
+    "payload_seed": 43
+  }
+}

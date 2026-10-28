@@ -39,7 +39,7 @@
     "command_timeout_s": 0.5,
     "wheel_velocity_servo": {
       "kp": 1.0,
-      "ki": 4.0,
+      "ki": 1.0,
       "max_correction_rad_s": 2.0,
       "dt_s": 0.016666666666666666
     }

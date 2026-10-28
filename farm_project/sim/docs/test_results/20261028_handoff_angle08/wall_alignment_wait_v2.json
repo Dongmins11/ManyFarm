@@ -1,0 +1,55 @@
+{
+  "schema_version": 1,
+  "trial_only": true,
+  "controller": {
+    "target_distance": 0.4325,
+    "distance_tolerance": 0.005,
+    "angle_tolerance": 0.013962634015954637,
+    "kp_distance": 0.4,
+    "kp_angle": 0.8,
+    "max_linear": 0.02,
+    "max_angular": 0.05,
+    "align_enter": 0.06981317008,
+    "align_exit": 0.03490658504,
+    "dwell": 0.5,
+    "max_distance": 0.2,
+    "max_yaw": 0.2617993878,
+    "timeout": 40.0,
+    "observation_age": 0.45,
+    "stopped_linear": 0.005,
+    "stopped_angular": 0.02,
+    "min_linear": 0.006,
+    "min_angular": 0.03,
+    "sequential_alignment": true,
+    "target_angle": 0.04276056667386108,
+    "observation_wait": 5.0,
+    "wait_until_fresh": true
+  },
+  "observation": {
+    "sector_deg": [
+      -30.0,
+      30.0
+    ],
+    "fit_threshold_m": 0.01,
+    "min_points": 20,
+    "min_ratio": 0.8,
+    "min_span_m": 0.15,
+    "max_rms_m": 0.005,
+    "min_distance_m": 0.35,
+    "max_distance_m": 0.7,
+    "max_angle_rad": 0.2617993878,
+    "normal_jump_rad": 0.05235987756,
+    "plane_jump_m": 0.015,
+    "max_gap_s": 0.45,
+    "stable_frames": 5,
+    "reacquire_after_gap": true
+  },
+  "measured_velocity": {
+    "linear_abs_mps": 0.025,
+    "forward_mps": 0.025,
+    "angular_soft_rps": 0.1,
+    "angular_hard_rps": 0.15,
+    "angular_persistence_s": 0.1,
+    "sample_gap_s": 0.5
+  }
+}

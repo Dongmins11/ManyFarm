@@ -1,0 +1,34 @@
+[
+  {
+    "source": "pickup9 last status, near final check",
+    "input": [
+      -5.99186016357679,
+      9.233043002832224,
+      -1.592758436172169
+    ],
+    "goal": [
+      -6.015000000000001,
+      9.292529729570179
+    ],
+    "distance_m": 0.06382885466377289,
+    "error": "WINDOW_REALIGN_REQUIRED: 짧은 전진으로 window 완료범위 확보 불가 (전방=-0.0590m, 횡오차=-0.0244m)"
+  },
+  {
+    "case": "offline clock argument, no live delay injected",
+    "gap_s": 0.599,
+    "accepted": true,
+    "reason": ""
+  },
+  {
+    "case": "offline clock argument, no live delay injected",
+    "gap_s": 0.6,
+    "accepted": false,
+    "reason": "LEASE_EXPIRED"
+  },
+  {
+    "case": "offline clock argument, no live delay injected",
+    "gap_s": 0.601,
+    "accepted": false,
+    "reason": "LEASE_EXPIRED"
+  }
+]

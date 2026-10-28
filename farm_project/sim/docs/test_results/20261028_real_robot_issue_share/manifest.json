@@ -1,0 +1,114 @@
+{
+  "purpose": "실물 담당자 전달용 기존 시험 근거; 신규 시험/코드 변경 없음",
+  "baseline": "main ea25693 + uncommitted integration",
+  "files": [
+    {
+      "file": "logs/01_wall_alignment/summary.json",
+      "source": "sim/docs/test_results/20261028_handoff_repeat/summary.json",
+      "bytes": 5612,
+      "sha256": "bbc2a45fe3b2055cdb20846b82804881ebe6b9559db5e0e2d6306e488fa918dd"
+    },
+    {
+      "file": "logs/01_wall_alignment/arrival_policy_comparison.json",
+      "source": "sim/docs/test_results/20261028_handoff_repeat/arrival_policy_comparison.json",
+      "bytes": 1172,
+      "sha256": "6181562edbac4f7c8aa2af1f10876dfc93b497d30fec4634669e1a9f4120a52b"
+    },
+    {
+      "file": "logs/01_wall_alignment/attempt2_wall_failure_reconstruction.json",
+      "source": "sim/docs/test_results/20261028_handoff_repeat/attempt2_wall_failure_reconstruction.json",
+      "bytes": 6452,
+      "sha256": "5c330b8277238e0a38db7d1732a0f5742b1e521db9dc95bfa6d24506f83ff2ab"
+    },
+    {
+      "file": "logs/01_wall_alignment/attempt3_wall_failure_reconstruction.json",
+      "source": "sim/docs/test_results/20261028_handoff_repeat/attempt3_wall_failure_reconstruction.json",
+      "bytes": 6301,
+      "sha256": "e1624d71aa02568d13c5b936641811d5eb2ef6a0cfb918115b008903d99221b9"
+    },
+    {
+      "file": "logs/01_wall_alignment/attempt2_result.json",
+      "source": "sim/runs/handoff_repeat_20261028/attempt2/result.json",
+      "bytes": 34784,
+      "sha256": "5b2a47851eb6da488b7602a69e320ade40802cd4210f0a953ca3e4bf0fb72e68"
+    },
+    {
+      "file": "logs/01_wall_alignment/attempt2_drive.jsonl",
+      "source": "sim/runs/drive_diagnostics/16f78511388b4a9bb86fb520f5c6d2b7/harvest_01.jsonl",
+      "bytes": 1662428,
+      "sha256": "802923444be62f22af9642d512e0522f54643e2f7c1d820c1fe79bdf6c7ad585"
+    },
+    {
+      "file": "logs/01_wall_alignment/actual_attempt_2_stop_samples.json",
+      "source": "sim/docs/test_results/20261028_wheel_stop_diagnosis/actual_attempt_2_stop_samples.json",
+      "bytes": 75676,
+      "sha256": "b89c93fe79bb95822761a2ad57f0e141434b5fee52acaa2b509ddf9d0b45f0a6"
+    },
+    {
+      "file": "logs/01_wall_alignment/attempt3_result.json",
+      "source": "sim/runs/handoff_repeat_20261028/attempt3/result.json",
+      "bytes": 34857,
+      "sha256": "7effc2426ac78842d72c52278134a371baa04226ea988b85446d0bebabe6446e"
+    },
+    {
+      "file": "logs/01_wall_alignment/attempt3_drive.jsonl",
+      "source": "sim/runs/drive_diagnostics/c40dd6a654d140b1a23a03afadd08fea/harvest_01.jsonl",
+      "bytes": 1631216,
+      "sha256": "375f10a115f027a0217eb1d61dc6c243cee001cabae9bf95f4501d926dd49372"
+    },
+    {
+      "file": "logs/01_wall_alignment/actual_attempt_3_stop_samples.json",
+      "source": "sim/docs/test_results/20261028_wheel_stop_diagnosis/actual_attempt_3_stop_samples.json",
+      "bytes": 77437,
+      "sha256": "38c2ed4c8d759b52f7e211635f9e84d7e4f39bb9bf7b97b3e5a70bb0506dc5cf"
+    },
+    {
+      "file": "logs/01_wall_alignment/actual_wheel_world_comparison.json",
+      "source": "sim/docs/test_results/20261028_wheel_stop_diagnosis/actual_wheel_world_comparison.json",
+      "bytes": 1335,
+      "sha256": "5a58c460ba03cbf877b7065158ed75ba7d5bd5e06671c315dddfa511c9cc9575"
+    },
+    {
+      "file": "logs/02_localization/localization_summary.json",
+      "source": "sim/docs/test_results/20261028_tag_restoration/attempt2/localization_summary.json",
+      "bytes": 2500,
+      "sha256": "08e75c42cf1e32044eee9ac5a684757e934804a20bfa78ab04c3c0f2862e6feb"
+    },
+    {
+      "file": "logs/02_localization/localization_analysis.json",
+      "source": "sim/docs/test_results/20261028_tag_restoration/attempt2/localization_analysis.json",
+      "bytes": 2686544,
+      "sha256": "1b305de101e5f910cc39e3a0ca7a0cf44eb1109da0d8b37f9586a84ba9401f40"
+    },
+    {
+      "file": "logs/02_localization/result.json",
+      "source": "sim/docs/test_results/20261028_tag_restoration/attempt2/result.json",
+      "bytes": 66008,
+      "sha256": "bd7096076021a48292f5739a1174fab9227ee8ac29d3fb022211ac7e09c50e34"
+    },
+    {
+      "file": "logs/02_localization/fixture.json",
+      "source": "sim/docs/test_results/20261028_tag_restoration/attempt2/fixture.json",
+      "bytes": 1372,
+      "sha256": "904cf97fe3f5b5ae8903ade648b9dd20779d2761cc0d1f78f2d9ff0141b7d126"
+    },
+    {
+      "file": "logs/02_localization/tag_application_summary.json",
+      "source": "sim/docs/test_results/20261028_tag_restoration/tag_application_summary.json",
+      "bytes": 4921,
+      "sha256": "c3070bba86d84a275daed056acb6284b003c11a794fb82a4f9413ea8df9d402b"
+    },
+    {
+      "file": "logs/02_localization/tag_adapter_events.jsonl",
+      "source": "sim/docs/test_results/20261028_tag_restoration/tag_adapter_events.jsonl",
+      "bytes": 65280,
+      "sha256": "b93950f184ab8801e801d34cdaf4ae1c3c1e52a9a01b2522e689d669c62e3fd9"
+    },
+    {
+      "file": "logs/02_localization/harvest_drive.jsonl",
+      "source": "sim/runs/drive_diagnostics/fb43cd5c528a47fe8bb85b0c9eeb885b/harvest_01.jsonl",
+      "bytes": 3714219,
+      "sha256": "8885fe1b5ca333ba8f0d029b17163915a123f109219c89ef910a642d9aecfec2"
+    }
+  ]
+}

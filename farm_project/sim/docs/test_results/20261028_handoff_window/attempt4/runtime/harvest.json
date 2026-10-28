@@ -1,0 +1,207 @@
+{
+  "schema_version": 1,
+  "robot_id": "harvest_01",
+  "map_id": "farm_map_v1",
+  "frame_id": "map",
+  "scene": "envs/output/farm_with_plants_v5.usd",
+  "map_yaml": "maps/count_test_farm_map.yaml",
+  "route": "maps/harvest_graph.geojson",
+  "use_sim_time": true,
+  "scene_binding": {
+    "robot_prim": "/World/harvest_robot",
+    "robot_prim_candidates": [
+      "/World/harvest_robot",
+      "/World/HarvestRobot/Model"
+    ],
+    "asset_file": "robots/harvest_count_test/harvest_robot.usd",
+    "articulation_relative": "base_footprint",
+    "base_link_relative": "base_link",
+    "lidar_relative": "lidar_mount",
+    "camera_relative": "base_link/apriltag_camera",
+    "control_frame_yaw_rad": 3.141592653589793
+  },
+  "notes": [
+    "오른팔 arm_2에 D435 Student를 연결합니다. 정책 입력은 실제 카메라 영상과 관절 피드백이며, 수확 수량은 바구니 평행 세 레이저의 통과로 집계하고, 시뮬 정답은 시도 대응·안전 감시에만 사용합니다. Teacher는 명시적 비교·복원용입니다."
+  ],
+  "base": {
+    "wheel_joints": [
+      "right_wheel_joint",
+      "left_wheel_joint"
+    ],
+    "wheel_signs": [
+      -1,
+      -1
+    ],
+    "wheel_radius_m": 0.0822,
+    "wheel_separation_m": 0.4288,
+    "max_linear_mps": 0.15,
+    "max_angular_rps": 0.6,
+    "command_timeout_s": 0.5,
+    "wheel_velocity_servo": {
+      "kp": 1.0,
+      "ki": 4.0,
+      "max_correction_rad_s": 2.0,
+      "dt_s": 0.016666666666666666
+    }
+  },
+  "runtime": {
+    "harvest_activity": {
+      "enabled": true,
+      "topic": "sim/harvest_activity",
+      "lease_s": 2.0
+    },
+    "physics_hz": 60,
+    "render_hz": 30,
+    "realtime": true,
+    "command_port": 17610,
+    "telemetry_port": 17611,
+    "telemetry_hz": 30,
+    "transport_timeout_s": 2.0,
+    "drop_limit_m": 0.25,
+    "robotarm_physics_config": "sim/ros_ws/src/farm_sim_config/config/robotarm_physics.json",
+    "harvest_arm": {
+      "enabled": true,
+      "endpoint": "sim/harvest_arm",
+      "profile": "sim/ros_ws/src/farm_sim_config/config/teacher_policy.json",
+      "lease_s": 2.0,
+      "execution_timeout_s": 7200.0,
+      "cancel_timeout_s": 10.0,
+      "backend": "student_d435",
+      "student_profile": "sim/ros_ws/src/farm_sim_config/config/student_policy.json"
+    },
+    "harvest_transfer": {
+      "enabled": true
+    },
+    "state_clock_delay_s": 0.1,
+    "diagnostic_period_s": 0.05
+  },
+  "frames": {
+    "odom": "harvest_01/odom",
+    "base_footprint": "harvest_01/base_footprint",
+    "base_link": "harvest_01/base_link",
+    "scan": "harvest_01/base_scan",
+    "camera_optical": "harvest_01/apriltag_camera_optical_frame"
+  },
+  "camera": {
+    "enabled": true,
+    "width": 1280,
+    "height": 720,
+    "fps": 10,
+    "shm_name": "farm_harvest_01_apriltag",
+    "depth_min_m": 0.1,
+    "depth_max_m": 5.0,
+    "odom_frame": "harvest_01/odom",
+    "render_rgb_only": true,
+    "publish_ros": true,
+    "ros_image_topic": "apriltag_camera/image_raw",
+    "ros_info_topic": "apriltag_camera/camera_info",
+    "T_base_optical": [
+      [
+        0.9998304594412302,
+        -0.01733973954324101,
+        0.006195627983593946,
+        -0.00433822
+      ],
+      [
+        -0.005461009377162412,
+        0.04209749642548205,
+        0.9990985828091686,
+        0.25046456
+      ],
+      [
+        -0.017584929630825155,
+        -0.9989630294596888,
+        0.041995666712172086,
+        0.26142254
+      ],
+      [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ]
+    ],
+    "camera_info": {
+      "width": 1280,
+      "height": 720,
+      "distortion_model": "plumb_bob",
+      "k": [
+        1049.686473614098,
+        0.0,
+        631.4064932131716,
+        0.0,
+        1049.6045471847024,
+        371.5007152003926,
+        0.0,
+        0.0,
+        1.0
+      ],
+      "d": [
+        -0.3377842831321281,
+        -0.164282838502531,
+        -0.0022793440724075856,
+        -0.0009489786116262821,
+        0.5007299952602192
+      ],
+      "r": [
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ],
+      "p": [
+        1049.686473614098,
+        0.0,
+        631.4064932131716,
+        0.0,
+        0.0,
+        1049.6045471847024,
+        371.5007152003926,
+        0.0,
+        0.0,
+        0.0,
+        1.0,
+        0.0
+      ],
+      "binning": [
+        0,
+        0
+      ],
+      "roi": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "frame_id": "apriltag_camera_optical_frame"
+    },
+    "capture_reference": {
+      "resolution": [
+        1280,
+        720
+      ],
+      "format": "MJPG",
+      "requested_fps": 30,
+      "ros_publish_cap_hz": 10,
+      "actual_observed_ros_hz_approx": [
+        8,
+        9
+      ],
+      "exposure_ms": 2
+    }
+  },
+  "lidar": {
+    "enabled": true,
+    "fps": 10,
+    "samples": 360,
+    "range_min_m": 0.12,
+    "range_max_m": 12.0
+  },
+  "publish_clock": false,
+  "apriltag_map": "sim/ros_ws/src/farm_sim_config/config/apriltag_map.json"
+}

@@ -1,0 +1,429 @@
+[
+  {
+    "trial": "attempt02",
+    "passed_including_return": false,
+    "unload": {
+      "status": 6,
+      "result": {
+        "robot_id": "transport_01",
+        "task_id": "sorter_0980f3b2417b4986",
+        "station_id": "SORT_01",
+        "result_code": "FAILED",
+        "error_code": "DOCK_FAILED",
+        "error_message": "Raw front surface inconsistent: spread=1.347m limit=0.030m",
+        "timestamp": "2026-10-28T10:24:42.352130+00:00"
+      }
+    },
+    "sort": null,
+    "return": null,
+    "error": "RuntimeError: unload failed: {\"status\": 6, \"result\": {\"robot_id\": \"transport_01\", \"task_id\": \"sorter_0980f3b2417b4986\", \"station_id\": \"SORT_01\", \"result_code\": \"FAILED\", \"error_code\": \"DOCK_FAILED\", \"error_message\": \"Raw front surface inconsistent: spread=1.347m limit=0.030m\", \"timestamp\": \"2026-10-28T10:24:42.352130+00:00\"}}",
+    "count_valid": false,
+    "full_approach": true,
+    "freshness": {
+      "calls": 841,
+      "rejected": 0,
+      "future": 0,
+      "dropped": 0
+    },
+    "final_pose_comparison": {
+      "truth_xy": [
+        -6.852839946746826,
+        12.434715270996094
+      ],
+      "estimated_xy": [
+        -6.839777648306181,
+        12.436710995043645
+      ],
+      "position_error_m": 0.013213877365348082,
+      "truth_distance_to_approach_node_m": 0.8284595769380965,
+      "usage": "evaluation only; last stationary samples, not exact synchronized stamp",
+      "drive_log": "sim/runs/drive_diagnostics/70d2787cc72742088b5980e5c89356b2/transport_01.jsonl"
+    }
+  },
+  {
+    "trial": "attempt03",
+    "passed_including_return": false,
+    "unload": {
+      "status": 6,
+      "result": {
+        "robot_id": "transport_01",
+        "task_id": "sorter_cc428f6ccc134749",
+        "station_id": "SORT_01",
+        "result_code": "FAILED",
+        "error_code": "DOCK_FAILED",
+        "error_message": "Raw front surface inconsistent: spread=0.043m limit=0.030m",
+        "timestamp": "2026-10-28T10:26:15.236221+00:00"
+      }
+    },
+    "sort": null,
+    "return": null,
+    "error": "RuntimeError: unload failed: {\"status\": 6, \"result\": {\"robot_id\": \"transport_01\", \"task_id\": \"sorter_cc428f6ccc134749\", \"station_id\": \"SORT_01\", \"result_code\": \"FAILED\", \"error_code\": \"DOCK_FAILED\", \"error_message\": \"Raw front surface inconsistent: spread=0.043m limit=0.030m\", \"timestamp\": \"2026-10-28T10:26:15.236221+00:00\"}}",
+    "count_valid": false,
+    "full_approach": true,
+    "freshness": {
+      "calls": 671,
+      "rejected": 0,
+      "future": 0,
+      "dropped": 0
+    },
+    "final_pose_comparison": {
+      "truth_xy": [
+        -6.846243381500244,
+        12.41183853149414
+      ],
+      "estimated_xy": [
+        -6.833909707240542,
+        12.407079145044051
+      ],
+      "position_error_m": 0.013220108930176718,
+      "truth_distance_to_approach_node_m": 0.8521477248813014,
+      "usage": "evaluation only; last stationary samples, not exact synchronized stamp",
+      "drive_log": "sim/runs/drive_diagnostics/090378f7fa3e42ad83aea07bb1fc28c8/transport_01.jsonl"
+    }
+  },
+  {
+    "trial": "attempt04",
+    "passed_including_return": false,
+    "unload": {
+      "status": 6,
+      "result": {
+        "robot_id": "transport_01",
+        "task_id": "sorter_9c237945cc9843e9",
+        "station_id": "SORT_01",
+        "result_code": "FAILED",
+        "error_code": "DOCK_FAILED",
+        "error_message": "Raw front surface inconsistent: spread=1.446m limit=0.030m",
+        "timestamp": "2026-10-28T10:27:37.773746+00:00"
+      }
+    },
+    "sort": null,
+    "return": null,
+    "error": "RuntimeError: unload failed: {\"status\": 6, \"result\": {\"robot_id\": \"transport_01\", \"task_id\": \"sorter_9c237945cc9843e9\", \"station_id\": \"SORT_01\", \"result_code\": \"FAILED\", \"error_code\": \"DOCK_FAILED\", \"error_message\": \"Raw front surface inconsistent: spread=1.446m limit=0.030m\", \"timestamp\": \"2026-10-28T10:27:37.773746+00:00\"}}",
+    "count_valid": false,
+    "full_approach": true,
+    "freshness": {
+      "calls": 809,
+      "rejected": 0,
+      "future": 0,
+      "dropped": 0
+    },
+    "final_pose_comparison": {
+      "truth_xy": [
+        -6.827926158905029,
+        12.35351276397705
+      ],
+      "estimated_xy": [
+        -6.812559523395278,
+        12.337468330434193
+      ],
+      "position_error_m": 0.022216150310095016,
+      "truth_distance_to_approach_node_m": 0.912851998486745,
+      "usage": "evaluation only; last stationary samples, not exact synchronized stamp",
+      "drive_log": "sim/runs/drive_diagnostics/5895748976f14f4a97edb9a6ec51054b/transport_01.jsonl"
+    }
+  },
+  {
+    "trial": "attempt05",
+    "passed_including_return": false,
+    "unload": {
+      "status": 4,
+      "result": {
+        "robot_id": "transport_01",
+        "task_id": "sorter_5483b44aa1ef409d",
+        "station_id": "SORT_01",
+        "result_code": "SUCCESS",
+        "error_code": "NONE",
+        "error_message": "",
+        "timestamp": "2026-10-28T10:36:35.063767+00:00"
+      }
+    },
+    "sort": {
+      "status": 4,
+      "result": {
+        "robot_id": "sorter_01",
+        "task_id": "sort_sorter_5483b44aa1ef409d",
+        "batch_id": "sorter_5483b44aa1ef409d",
+        "result_code": "SUCCESS",
+        "red_count": 1,
+        "yellow_count": 0,
+        "error_code": "NONE",
+        "error_message": "",
+        "timestamp": "2026-10-28T10:36:59.674841+00:00"
+      }
+    },
+    "return": {
+      "status": 6,
+      "result": {
+        "robot_id": "transport_01",
+        "task_id": "return_6cf9879138fd4228",
+        "result_code": "FAILED",
+        "station_id": "STATION_TRANSPORT_01",
+        "docked": false,
+        "error_code": "NAVIGATION_FAILED",
+        "error_message": "위치 (-6.987993338847244, 13.480016253799294)가 그래프에서 0.15m 이상 떨어져 있습니다.",
+        "timestamp": "2026-10-28T10:36:59.878167+00:00"
+      }
+    },
+    "error": "RuntimeError: return failed: {\"status\": 6, \"result\": {\"robot_id\": \"transport_01\", \"task_id\": \"return_6cf9879138fd4228\", \"result_code\": \"FAILED\", \"station_id\": \"STATION_TRANSPORT_01\", \"docked\": false, \"error_code\": \"NAVIGATION_FAILED\", \"error_message\": \"위치 (-6.987993338847244, 13.480016253799294)가 그래프에서 0.15m 이상 떨어져 있습니다.\", \"timestamp\": \"2026-10-28T10:36:59.878167+00:00\"}}",
+    "count_valid": true,
+    "full_approach": false,
+    "freshness": {
+      "calls": 4444,
+      "rejected": 1,
+      "future": 1,
+      "dropped": 0
+    },
+    "final_pose_comparison": {
+      "truth_xy": [
+        -7.028387546539307,
+        13.396824836730957
+      ],
+      "estimated_xy": [
+        -6.988000073007741,
+        13.480070342444378
+      ],
+      "position_error_m": 0.09252546806013018,
+      "truth_distance_to_approach_node_m": 0.14954392491704063,
+      "usage": "evaluation only; last stationary samples, not exact synchronized stamp",
+      "drive_log": "sim/runs/drive_diagnostics/fddf0ea1b39746dba0e31babd2613936/transport_01.jsonl"
+    },
+    "unload_goal_to_sort_result_wall_s": 74.54092824400868,
+    "physical_counts": [
+      1,
+      0
+    ],
+    "remaining_paths": [
+      "/World/Vegetation/Bed_01/Fruits/Pepper_0001_yellow"
+    ]
+  },
+  {
+    "trial": "attempt06",
+    "passed_including_return": false,
+    "unload": {
+      "status": 4,
+      "result": {
+        "robot_id": "transport_01",
+        "task_id": "sorter_668cf79ddcec426c",
+        "station_id": "SORT_01",
+        "result_code": "SUCCESS",
+        "error_code": "NONE",
+        "error_message": "",
+        "timestamp": "2026-10-28T10:40:04.971168+00:00"
+      }
+    },
+    "sort": {
+      "status": 4,
+      "result": {
+        "robot_id": "sorter_01",
+        "task_id": "sort_sorter_668cf79ddcec426c",
+        "batch_id": "sorter_668cf79ddcec426c",
+        "result_code": "SUCCESS",
+        "red_count": 1,
+        "yellow_count": 0,
+        "error_code": "NONE",
+        "error_message": "",
+        "timestamp": "2026-10-28T10:40:29.547739+00:00"
+      }
+    },
+    "return": {
+      "status": 6,
+      "result": {
+        "robot_id": "transport_01",
+        "task_id": "return_3842ac0f00204cf8",
+        "result_code": "FAILED",
+        "station_id": "STATION_TRANSPORT_01",
+        "docked": false,
+        "error_code": "NAVIGATION_FAILED",
+        "error_message": "위치 (-6.977300437690594, 13.502045444065338)가 그래프에서 0.15m 이상 떨어져 있습니다.",
+        "timestamp": "2026-10-28T10:40:29.715748+00:00"
+      }
+    },
+    "error": "RuntimeError: return failed: {\"status\": 6, \"result\": {\"robot_id\": \"transport_01\", \"task_id\": \"return_3842ac0f00204cf8\", \"result_code\": \"FAILED\", \"station_id\": \"STATION_TRANSPORT_01\", \"docked\": false, \"error_code\": \"NAVIGATION_FAILED\", \"error_message\": \"위치 (-6.977300437690594, 13.502045444065338)가 그래프에서 0.15m 이상 떨어져 있습니다.\", \"timestamp\": \"2026-10-28T10:40:29.715748+00:00\"}}",
+    "count_valid": true,
+    "full_approach": false,
+    "freshness": {
+      "calls": 4156,
+      "rejected": 0,
+      "future": 0,
+      "dropped": 0
+    },
+    "final_pose_comparison": {
+      "truth_xy": [
+        -7.007104873657227,
+        13.256918907165527
+      ],
+      "estimated_xy": [
+        -6.977300002622869,
+        13.502043216286392
+      ],
+      "position_error_m": 0.24692966055003576,
+      "truth_distance_to_approach_node_m": 0.009917182364479216,
+      "usage": "evaluation only; last stationary samples, not exact synchronized stamp",
+      "drive_log": "sim/runs/drive_diagnostics/a17bc52653a64d11bc90cffdf79267f2/transport_01.jsonl"
+    },
+    "unload_goal_to_sort_result_wall_s": 70.92979591200128,
+    "physical_counts": [
+      1,
+      0
+    ],
+    "remaining_paths": [
+      "/World/Vegetation/Bed_01/Fruits/Pepper_0001_yellow"
+    ]
+  },
+  {
+    "trial": "attempt07",
+    "passed_including_return": false,
+    "unload": {
+      "status": 6,
+      "result": {
+        "robot_id": "transport_01",
+        "task_id": "sorter_3c2628282efe44d3",
+        "station_id": "SORT_01",
+        "result_code": "FAILED",
+        "error_code": "CLEARANCE_FAILED",
+        "error_message": "하역 완료 후 도킹해제 실패: Final approach odom TF stale",
+        "timestamp": "2026-10-28T10:43:11.710906+00:00"
+      }
+    },
+    "sort": null,
+    "return": null,
+    "error": "RuntimeError: unload failed: {\"status\": 6, \"result\": {\"robot_id\": \"transport_01\", \"task_id\": \"sorter_3c2628282efe44d3\", \"station_id\": \"SORT_01\", \"result_code\": \"FAILED\", \"error_code\": \"CLEARANCE_FAILED\", \"error_message\": \"하역 완료 후 도킹해제 실패: Final approach odom TF stale\", \"timestamp\": \"2026-10-28T10:43:11.710906+00:00\"}}",
+    "count_valid": false,
+    "full_approach": true,
+    "freshness": {
+      "calls": 3533,
+      "rejected": 1,
+      "future": 1,
+      "dropped": 0
+    },
+    "final_pose_comparison": {
+      "truth_xy": [
+        -7.018314361572266,
+        13.401172637939453
+      ],
+      "estimated_xy": [
+        -6.98552020561717,
+        13.530635654636432
+      ],
+      "position_error_m": 0.13355197249419223,
+      "truth_distance_to_approach_node_m": 0.1522779770727621,
+      "usage": "evaluation only; last stationary samples, not exact synchronized stamp",
+      "drive_log": "sim/runs/drive_diagnostics/5fffb5ee461a42098ce5e30791cbfeca/transport_01.jsonl"
+    }
+  },
+  {
+    "trial": "attempt08",
+    "passed_including_return": false,
+    "unload": {
+      "status": 6,
+      "result": {
+        "robot_id": "transport_01",
+        "task_id": "sorter_9898999c337a40ca",
+        "station_id": "SORT_01",
+        "result_code": "FAILED",
+        "error_code": "CLEARANCE_FAILED",
+        "error_message": "하역 완료 후 도킹해제 실패: Departure exit odom stale",
+        "timestamp": "2026-10-28T10:45:47.937336+00:00"
+      }
+    },
+    "sort": null,
+    "return": null,
+    "error": "RuntimeError: unload failed: {\"status\": 6, \"result\": {\"robot_id\": \"transport_01\", \"task_id\": \"sorter_9898999c337a40ca\", \"station_id\": \"SORT_01\", \"result_code\": \"FAILED\", \"error_code\": \"CLEARANCE_FAILED\", \"error_message\": \"하역 완료 후 도킹해제 실패: Departure exit odom stale\", \"timestamp\": \"2026-10-28T10:45:47.937336+00:00\"}}",
+    "count_valid": false,
+    "full_approach": true,
+    "freshness": {
+      "calls": 3848,
+      "rejected": 1,
+      "future": 1,
+      "dropped": 0
+    },
+    "final_pose_comparison": {
+      "truth_xy": [
+        -6.99420166015625,
+        13.259057998657227
+      ],
+      "estimated_xy": [
+        -6.958020656939699,
+        13.359313761002435
+      ],
+      "position_error_m": 0.1065846277714328,
+      "truth_distance_to_approach_node_m": 0.010754909791250551,
+      "usage": "evaluation only; last stationary samples, not exact synchronized stamp",
+      "drive_log": "sim/runs/drive_diagnostics/a223348c93f24c0c8869e9ae4ce28e8f/transport_01.jsonl"
+    }
+  },
+  {
+    "trial": "attempt09",
+    "passed_including_return": false,
+    "unload": {
+      "status": 4,
+      "result": {
+        "robot_id": "transport_01",
+        "task_id": "sorter_d1762e8dc9194d55",
+        "station_id": "SORT_01",
+        "result_code": "SUCCESS",
+        "error_code": "NONE",
+        "error_message": "",
+        "timestamp": "2026-10-28T10:49:01.916832+00:00"
+      }
+    },
+    "sort": {
+      "status": 4,
+      "result": {
+        "robot_id": "sorter_01",
+        "task_id": "sort_sorter_d1762e8dc9194d55",
+        "batch_id": "sorter_d1762e8dc9194d55",
+        "result_code": "SUCCESS",
+        "red_count": 1,
+        "yellow_count": 0,
+        "error_code": "NONE",
+        "error_message": "",
+        "timestamp": "2026-10-28T10:49:26.543460+00:00"
+      }
+    },
+    "return": {
+      "status": 6,
+      "result": {
+        "robot_id": "transport_01",
+        "task_id": "return_139f0a2a7e064673",
+        "result_code": "FAILED",
+        "station_id": "STATION_TRANSPORT_01",
+        "docked": false,
+        "error_code": "NAVIGATION_FAILED",
+        "error_message": "위치 (-6.941355725795423, 13.509016936706514)가 그래프에서 0.15m 이상 떨어져 있습니다.",
+        "timestamp": "2026-10-28T10:49:26.744663+00:00"
+      }
+    },
+    "error": "RuntimeError: return failed: {\"status\": 6, \"result\": {\"robot_id\": \"transport_01\", \"task_id\": \"return_139f0a2a7e064673\", \"result_code\": \"FAILED\", \"station_id\": \"STATION_TRANSPORT_01\", \"docked\": false, \"error_code\": \"NAVIGATION_FAILED\", \"error_message\": \"위치 (-6.941355725795423, 13.509016936706514)가 그래프에서 0.15m 이상 떨어져 있습니다.\", \"timestamp\": \"2026-10-28T10:49:26.744663+00:00\"}}",
+    "count_valid": true,
+    "full_approach": true,
+    "freshness": {
+      "calls": 5851,
+      "rejected": 0,
+      "future": 0,
+      "dropped": 0
+    },
+    "final_pose_comparison": {
+      "truth_xy": [
+        -6.998971462249756,
+        13.259560585021973
+      ],
+      "estimated_xy": [
+        -6.941356219709169,
+        13.50902128719712
+      ],
+      "position_error_m": 0.25602765105106956,
+      "truth_distance_to_approach_node_m": 0.009615751445729303,
+      "usage": "evaluation only; last stationary samples, not exact synchronized stamp",
+      "drive_log": "sim/runs/drive_diagnostics/d7f792f7f4c2409e89433b03aeafba29/transport_01.jsonl"
+    },
+    "unload_goal_to_sort_result_wall_s": 96.94583694200264,
+    "physical_counts": [
+      1,
+      0
+    ],
+    "remaining_paths": [
+      "/World/Vegetation/Bed_01/Fruits/Pepper_0001_yellow"
+    ]
+  }
+]

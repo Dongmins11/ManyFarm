@@ -1,0 +1,3610 @@
+[
+  {
+    "robot_id": "harvest_01",
+    "session": "c40dd6a654d140b1a23a03afadd08fea",
+    "sim_time_s": 62.850003277882934,
+    "monotonic_s": 105295.949260181,
+    "transport": {
+      "received": 874,
+      "accepted": 874,
+      "rejected": 0,
+      "last_packet": {
+        "kind": "cmd",
+        "session": "c40dd6a654d140b1a23a03afadd08fea",
+        "seq": 105295891840844,
+        "sent": 105295.891841317,
+        "linear": 0.0,
+        "angular": 0.0
+      },
+      "last_receive_monotonic_s": 105295.908347586
+    },
+    "last_accepted_age_s": 0.04092172700620722,
+    "applied_cmd_mps_rps": [
+      0.0,
+      0.0
+    ],
+    "wheel_order": [
+      "right_wheel_joint",
+      "left_wheel_joint"
+    ],
+    "dof_indices": [
+      1,
+      0
+    ],
+    "target_joint_velocity_rad_s": [
+      -0.0,
+      -0.0
+    ],
+    "applied_joint_velocity_rad_s": [
+      0.0,
+      0.0
+    ],
+    "measured_joint_velocity_rad_s": [
+      -0.10516045987606049,
+      0.029217276722192764
+    ],
+    "measured_control_wheel_position_rad": [
+      -1.7283434867858887,
+      6.142227649688721
+    ],
+    "wheel_odom": [
+      0.06817068466742203,
+      0.08271395448691961,
+      1.5087708661805321,
+      0.001026837533802817,
+      -0.004580942535971745
+    ],
+    "T_world_base": [
+      [
+        0.9987320530238657,
+        0.050333807001956256,
+        -0.0011286499156831127,
+        -5.9360032081604
+      ],
+      [
+        -0.05033377421794737,
+        0.9987326907575056,
+        5.745093993955188e-05,
+        9.377520561218262
+      ],
+      [
+        0.001130111020674086,
+        -5.688782042188958e-07,
+        0.9999993614242514,
+        0.00030068683554418385
+      ],
+      [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ]
+    ]
+  },
+  {
+    "robot_id": "harvest_01",
+    "session": "c40dd6a654d140b1a23a03afadd08fea",
+    "sim_time_s": 62.90000328049064,
+    "monotonic_s": 105296.008268551,
+    "transport": {
+      "received": 875,
+      "accepted": 875,
+      "rejected": 0,
+      "last_packet": {
+        "kind": "cmd",
+        "session": "c40dd6a654d140b1a23a03afadd08fea",
+        "seq": 105295941889451,
+        "sent": 105295.941890356,
+        "linear": 0.0,
+        "angular": 0.0
+      },
+      "last_receive_monotonic_s": 105295.971026162
+    },
+    "last_accepted_age_s": 0.03725270299764816,
+    "applied_cmd_mps_rps": [
+      0.0,
+      0.0
+    ],
+    "wheel_order": [
+      "right_wheel_joint",
+      "left_wheel_joint"
+    ],
+    "dof_indices": [
+      1,
+      0
+    ],
+    "target_joint_velocity_rad_s": [
+      -0.0,
+      -0.0
+    ],
+    "applied_joint_velocity_rad_s": [
+      0.0,
+      0.0
+    ],
+    "measured_joint_velocity_rad_s": [
+      -0.04314355179667473,
+      -0.02344430610537529
+    ],
+    "measured_control_wheel_position_rad": [
+      -1.727042555809021,
+      6.142235279083252
+    ],
+    "wheel_odom": [
+      0.06817402476564013,
+      0.0827676325001401,
+      1.5085229431626495,
+      0.0011670612680209512,
+      -0.005871175079027539
+    ],
+    "T_world_base": [
+      [
+        0.9987201359256199,
+        0.05057017221449684,
+        -0.0011867484048002563,
+        -5.93595027923584
+      ],
+      [
+        -0.050570136395161246,
+        0.9987208410137882,
+        6.018960345328375e-05,
+        9.377520561218262
+      ],
+      [
+        0.0011882737710441982,
+        -9.853028183037032e-08,
+        0.9999992940025851,
+        0.00030071786022745073
+      ],
+      [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ]
+    ]
+  },
+  {
+    "robot_id": "harvest_01",
+    "session": "c40dd6a654d140b1a23a03afadd08fea",
+    "sim_time_s": 62.96666995063424,
+    "monotonic_s": 105296.081576899,
+    "transport": {
+      "received": 876,
+      "accepted": 876,
+      "rejected": 0,
+      "last_packet": {
+        "kind": "cmd",
+        "session": "c40dd6a654d140b1a23a03afadd08fea",
+        "seq": 105295993809215,
+        "sent": 105295.993809673,
+        "linear": 0.0,
+        "angular": 0.0
+      },
+      "last_receive_monotonic_s": 105296.009014317
+    },
+    "last_accepted_age_s": 0.07258254199405201,
+    "applied_cmd_mps_rps": [
+      0.0,
+      0.0
+    ],
+    "wheel_order": [
+      "right_wheel_joint",
+      "left_wheel_joint"
+    ],
+    "dof_indices": [
+      1,
+      0
+    ],
+    "target_joint_velocity_rad_s": [
+      -0.0,
+      -0.0
+    ],
+    "applied_joint_velocity_rad_s": [
+      0.0,
+      0.0
+    ],
+    "measured_joint_velocity_rad_s": [
+      -0.012044288218021393,
+      0.015427625738084316
+    ],
+    "measured_control_wheel_position_rad": [
+      -1.7258658409118652,
+      6.1417646408081055
+    ],
+    "wheel_odom": [
+      0.06817583058802154,
+      0.08279659600941656,
+      1.5082071492476232,
+      -0.0013884207478244211,
+      -0.004515128336113424
+    ],
+    "T_world_base": [
+      [
+        0.9987041669139676,
+        0.05088614048036254,
+        -0.0010303043482216897,
+        -5.9359235763549805
+      ],
+      [
+        -0.05088611343326781,
+        0.9987046983660872,
+        5.246565280176557e-05,
+        9.377521514892578
+      ],
+      [
+        0.0010316393234831237,
+        3.0524076792327933e-08,
+        0.9999994678600741,
+        0.00030069253989495337
+      ],
+      [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ]
+    ]
+  },
+  {
+    "robot_id": "harvest_01",
+    "session": "c40dd6a654d140b1a23a03afadd08fea",
+    "sim_time_s": 63.033336620777845,
+    "monotonic_s": 105296.133761987,
+    "transport": {
+      "received": 878,
+      "accepted": 878,
+      "rejected": 0,
+      "last_packet": {
+        "kind": "cmd",
+        "session": "c40dd6a654d140b1a23a03afadd08fea",
+        "seq": 105296091742968,
+        "sent": 105296.091743423,
+        "linear": 0.0,
+        "angular": 0.0
+      },
+      "last_receive_monotonic_s": 105296.106719706
+    },
+    "last_accepted_age_s": 0.027051641009165905,
+    "applied_cmd_mps_rps": [
+      0.0,
+      0.0
+    ],
+    "wheel_order": [
+      "right_wheel_joint",
+      "left_wheel_joint"
+    ],
+    "dof_indices": [
+      1,
+      0
+    ],
+    "target_joint_velocity_rad_s": [
+      -0.0,
+      -0.0
+    ],
+    "applied_joint_velocity_rad_s": [
+      0.0,
+      0.0
+    ],
+    "measured_joint_velocity_rad_s": [
+      -0.06490511447191238,
+      -0.06428449600934982
+    ],
+    "measured_control_wheel_position_rad": [
+      -1.7245473861694336,
+      6.1413140296936035
+    ],
+    "wheel_odom": [
+      0.06817806867019821,
+      0.08283219409669541,
+      1.5078680232834443,
+      0.0008154730371511635,
+      -0.005394022130054727
+    ],
+    "T_world_base": [
+      [
+        0.9986870063570816,
+        0.05122459892513383,
+        -0.0009836557821578209,
+        -5.935886383056641
+      ],
+      [
+        -0.051224573788508934,
+        0.9986874907823977,
+        5.0747537833143765e-05,
+        9.377517700195312
+      ],
+      [
+        0.0009849639202514258,
+        -2.935499673581602e-07,
+        0.9999995149229577,
+        0.0003007589257322252
+      ],
+      [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ]
+    ]
+  },
+  {
+    "robot_id": "harvest_01",
+    "session": "c40dd6a654d140b1a23a03afadd08fea",
+    "sim_time_s": 63.06666995584965,
+    "monotonic_s": 105296.187089658,
+    "transport": {
+      "received": 879,
+      "accepted": 879,
+      "rejected": 0,
+      "last_packet": {
+        "kind": "cmd",
+        "session": "c40dd6a654d140b1a23a03afadd08fea",
+        "seq": 105296143558753,
+        "sent": 105296.143559054,
+        "linear": 0.0,
+        "angular": 0.0
+      },
+      "last_receive_monotonic_s": 105296.169789265
+    },
+    "last_accepted_age_s": 0.01731099899916444,
+    "applied_cmd_mps_rps": [
+      0.0,
+      0.0
+    ],
+    "wheel_order": [
+      "right_wheel_joint",
+      "left_wheel_joint"
+    ],
+    "dof_indices": [
+      1,
+      0
+    ],
+    "target_joint_velocity_rad_s": [
+      -0.0,
+      -0.0
+    ],
+    "applied_joint_velocity_rad_s": [
+      0.0,
+      0.0
+    ],
+    "measured_joint_velocity_rad_s": [
+      -0.008626939728856087,
+      0.008904621005058289
+    ],
+    "measured_control_wheel_position_rad": [
+      -1.7238303422927856,
+      6.14114236831665
+    ],
+    "wheel_odom": [
+      0.06817948016233814,
+      0.082854564832254,
+      1.5076976604759675,
+      0.0006767191533965314,
+      -0.0053282079301964075
+    ],
+    "T_world_base": [
+      [
+        0.9986781877916409,
+        0.05139574861794223,
+        -0.001011424060633899,
+        -5.935859203338623
+      ],
+      [
+        -0.051395722139184044,
+        0.9986786999578912,
+        5.217091792885807e-05,
+        9.37751579284668
+      ],
+      [
+        0.0010127686907319396,
+        -1.190790396992797e-07,
+        0.9999994871497367,
+        0.0003006439656019211
+      ],
+      [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ]
+    ]
+  },
+  {
+    "robot_id": "harvest_01",
+    "session": "c40dd6a654d140b1a23a03afadd08fea",
+    "sim_time_s": 63.13333662599325,
+    "monotonic_s": 105296.25472635,
+    "transport": {
+      "received": 880,
+      "accepted": 880,
+      "rejected": 0,
+      "last_packet": {
+        "kind": "cmd",
+        "session": "c40dd6a654d140b1a23a03afadd08fea",
+        "seq": 105296191752483,
+        "sent": 105296.191752791,
+        "linear": 0.0,
+        "angular": 0.0
+      },
+      "last_receive_monotonic_s": 105296.196013007
+    },
+    "last_accepted_age_s": 0.05872660099703353,
+    "applied_cmd_mps_rps": [
+      0.0,
+      0.0
+    ],
+    "wheel_order": [
+      "right_wheel_joint",
+      "left_wheel_joint"
+    ],
+    "dof_indices": [
+      1,
+      0
+    ],
+    "target_joint_velocity_rad_s": [
+      -0.0,
+      -0.0
+    ],
+    "applied_joint_velocity_rad_s": [
+      0.0,
+      0.0
+    ],
+    "measured_joint_velocity_rad_s": [
+      -0.04490033909678459,
+      -0.03171102702617645
+    ],
+    "measured_control_wheel_position_rad": [
+      -1.7222338914871216,
+      6.1409125328063965
+    ],
+    "wheel_odom": [
+      0.06818303204594699,
+      0.08291062030314188,
+      1.5073475654779067,
+      0.0005867643050301812,
+      -0.005906824437284128
+    ],
+    "T_world_base": [
+      [
+        0.9986605507369855,
+        0.051736154508640136,
+        -0.001082067934637637,
+        -5.935810565948486
+      ],
+      [
+        -0.0517361241742853,
+        0.9986611369576357,
+        5.602468977648832e-05,
+        9.377511978149414
+      ],
+      [
+        0.001083517318730132,
+        3.2363235701052075e-08,
+        0.9999994129950395,
+        0.0003008092171512544
+      ],
+      [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ]
+    ]
+  },
+  {
+    "robot_id": "harvest_01",
+    "session": "c40dd6a654d140b1a23a03afadd08fea",
+    "sim_time_s": 63.166669961065054,
+    "monotonic_s": 105296.309500883,
+    "transport": {
+      "received": 882,
+      "accepted": 882,
+      "rejected": 0,
+      "last_packet": {
+        "kind": "cmd",
+        "session": "c40dd6a654d140b1a23a03afadd08fea",
+        "seq": 105296291698741,
+        "sent": 105296.291699339,
+        "linear": 0.0,
+        "angular": 0.0
+      },
+      "last_receive_monotonic_s": 105296.293620042
+    },
+    "last_accepted_age_s": 0.015890467999270186,
+    "applied_cmd_mps_rps": [
+      0.0,
+      0.0
+    ],
+    "wheel_order": [
+      "right_wheel_joint",
+      "left_wheel_joint"
+    ],
+    "dof_indices": [
+      1,
+      0
+    ],
+    "target_joint_velocity_rad_s": [
+      -0.0,
+      -0.0
+    ],
+    "applied_joint_velocity_rad_s": [
+      0.0,
+      0.0
+    ],
+    "measured_joint_velocity_rad_s": [
+      -0.03747335076332092,
+      -0.015007284469902515
+    ],
+    "measured_control_wheel_position_rad": [
+      -1.7214453220367432,
+      6.140774726867676
+    ],
+    "wheel_odom": [
+      0.06818473006082452,
+      0.0829373127291158,
+      1.5071699813897912,
+      0.0006220407161542399,
+      -0.00521577533877178
+    ],
+    "T_world_base": [
+      [
+        0.9986514938956528,
+        0.05190626753685662,
+        -0.001119515478583464,
+        -5.935787677764893
+      ],
+      [
+        -0.05190623535918357,
+        0.9986521213990758,
+        5.779789603813643e-05,
+        9.377511024475098
+      ],
+      [
+        0.0011210064012151819,
+        3.89883295481653e-07,
+        0.9999993716721012,
+        0.0003007539489772171
+      ],
+      [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ]
+    ]
+  },
+  {
+    "robot_id": "harvest_01",
+    "session": "c40dd6a654d140b1a23a03afadd08fea",
+    "sim_time_s": 63.25000329874456,
+    "monotonic_s": 105296.367600598,
+    "transport": {
+      "received": 883,
+      "accepted": 883,
+      "rejected": 0,
+      "last_packet": {
+        "kind": "cmd",
+        "session": "c40dd6a654d140b1a23a03afadd08fea",
+        "seq": 105296341886407,
+        "sent": 105296.341887446,
+        "linear": 0.0,
+        "angular": 0.0
+      },
+      "last_receive_monotonic_s": 105296.359754223
+    },
+    "last_accepted_age_s": 0.007857346994569525,
+    "applied_cmd_mps_rps": [
+      0.0,
+      0.0
+    ],
+    "wheel_order": [
+      "right_wheel_joint",
+      "left_wheel_joint"
+    ],
+    "dof_indices": [
+      1,
+      0
+    ],
+    "target_joint_velocity_rad_s": [
+      -0.0,
+      -0.0
+    ],
+    "applied_joint_velocity_rad_s": [
+      0.0,
+      0.0
+    ],
+    "measured_joint_velocity_rad_s": [
+      -0.04361678659915924,
+      -0.017073282971978188
+    ],
+    "measured_control_wheel_position_rad": [
+      -1.719902753829956,
+      6.140384674072266
+    ],
+    "wheel_odom": [
+      0.06818775110136756,
+      0.08298458467679146,
+      1.5067995022704335,
+      0.0005265004360265802,
+      -0.003859728595857666
+    ],
+    "T_world_base": [
+      [
+        0.9986305202802643,
+        0.052306072971930816,
+        -0.0012137527316897245,
+        -5.935731887817383
+      ],
+      [
+        -0.05230603445839977,
+        0.9986312578880312,
+        6.347433722022223e-05,
+        9.377504348754883
+      ],
+      [
+        0.0012154113194025285,
+        9.918679136023852e-08,
+        0.9999992613874428,
+        0.0003007769410032779
+      ],
+      [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ]
+    ]
+  },
+  {
+    "robot_id": "harvest_01",
+    "session": "c40dd6a654d140b1a23a03afadd08fea",
+    "sim_time_s": 63.30000330135226,
+    "monotonic_s": 105296.437624116,
+    "transport": {
+      "received": 884,
+      "accepted": 884,
+      "rejected": 0,
+      "last_packet": {
+        "kind": "cmd",
+        "session": "c40dd6a654d140b1a23a03afadd08fea",
+        "seq": 105296391911065,
+        "sent": 105296.391911576,
+        "linear": 0.0,
+        "angular": 0.0
+      },
+      "last_receive_monotonic_s": 105296.405767375
+    },
+    "last_accepted_age_s": 0.03186656800971832,
+    "applied_cmd_mps_rps": [
+      0.0,
+      0.0
+    ],
+    "wheel_order": [
+      "right_wheel_joint",
+      "left_wheel_joint"
+    ],
+    "dof_indices": [
+      1,
+      0
+    ],
+    "target_joint_velocity_rad_s": [
+      -0.0,
+      -0.0
+    ],
+    "applied_joint_velocity_rad_s": [
+      0.0,
+      0.0
+    ],
+    "measured_joint_velocity_rad_s": [
+      -0.02336333692073822,
+      -0.0094376839697361
+    ],
+    "measured_control_wheel_position_rad": [
+      -1.7193000316619873,
+      6.139861106872559
+    ],
+    "wheel_odom": [
+      0.06818795905026295,
+      0.08298783129314542,
+      1.5065835951201934,
+      0.00013904785384733244,
+      -0.005189723884661194
+    ],
+    "T_world_base": [
+      [
+        0.9986200333426636,
+        0.0525097754689907,
+        -0.0010487027832912167,
+        -5.935734748840332
+      ],
+      [
+        -0.05250974666967871,
+        0.9986205839911895,
+        5.499556096280362e-05,
+        9.377506256103516
+      ],
+      [
+        0.0010501438080881469,
+        1.474533253818481e-07,
+        0.9999994485988761,
+        0.0003007971972692758
+      ],
+      [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ]
+    ]
+  },
+  {
+    "robot_id": "harvest_01",
+    "session": "c40dd6a654d140b1a23a03afadd08fea",
+    "sim_time_s": 63.36666997149587,
+    "monotonic_s": 105296.513768031,
+    "transport": {
+      "received": 886,
+      "accepted": 886,
+      "rejected": 0,
+      "last_packet": {
+        "kind": "cmd",
+        "session": "c40dd6a654d140b1a23a03afadd08fea",
+        "seq": 105296491879496,
+        "sent": 105296.49187999,
+        "linear": 0.0,
+        "angular": 0.0
+      },
+      "last_receive_monotonic_s": 105296.499287673
+    },
+    "last_accepted_age_s": 0.01449060499726329,
+    "applied_cmd_mps_rps": [
+      0.0,
+      0.0
+    ],
+    "wheel_order": [
+      "right_wheel_joint",
+      "left_wheel_joint"
+    ],
+    "dof_indices": [
+      1,
+      0
+    ],
+    "target_joint_velocity_rad_s": [
+      -0.0,
+      -0.0
+    ],
+    "applied_joint_velocity_rad_s": [
+      0.0,
+      0.0
+    ],
+    "measured_joint_velocity_rad_s": [
+      -0.02760476991534233,
+      -0.014937393367290497
+    ],
+    "measured_control_wheel_position_rad": [
+      -1.718287706375122,
+      6.139439105987549
+    ],
+    "wheel_odom": [
+      0.0681895197527005,
+      0.0830120433769512,
+      1.506308638004223,
+      0.0005626587574287407,
+      -0.003710275517012732
+    ],
+    "T_world_base": [
+      [
+        0.998605256530444,
+        0.052790746625986276,
+        -0.0010483376399037878,
+        -5.935704231262207
+      ],
+      [
+        -0.052790717386761235,
+        0.998605806803734,
+        5.5562040672128745e-05,
+        9.377503395080566
+      ],
+      [
+        0.001049808995687412,
+        -1.4204394733117307e-07,
+        0.9999994489504324,
+        0.00030070525826886296
+      ],
+      [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ]
+    ]
+  },
+  {
+    "robot_id": "harvest_01",
+    "session": "c40dd6a654d140b1a23a03afadd08fea",
+    "sim_time_s": 63.43333664163947,
+    "monotonic_s": 105296.565893397,
+    "transport": {
+      "received": 887,
+      "accepted": 887,
+      "rejected": 0,
+      "last_packet": {
+        "kind": "cmd",
+        "session": "c40dd6a654d140b1a23a03afadd08fea",
+        "seq": 105296541855174,
+        "sent": 105296.541855696,
+        "linear": 0.0,
+        "angular": 0.0
+      },
+      "last_receive_monotonic_s": 105296.548779053
+    },
+    "last_accepted_age_s": 0.017125434998888522,
+    "applied_cmd_mps_rps": [
+      0.0,
+      0.0
+    ],
+    "wheel_order": [
+      "right_wheel_joint",
+      "left_wheel_joint"
+    ],
+    "dof_indices": [
+      1,
+      0
+    ],
+    "target_joint_velocity_rad_s": [
+      -0.0,
+      -0.0
+    ],
+    "applied_joint_velocity_rad_s": [
+      0.0,
+      0.0
+    ],
+    "measured_joint_velocity_rad_s": [
+      -0.03395107388496399,
+      -0.021523993462324142
+    ],
+    "measured_control_wheel_position_rad": [
+      -1.7170321941375732,
+      6.139345645904541
+    ],
+    "wheel_odom": [
+      0.06819260487564496,
+      0.08305970397302607,
+      1.5060500430304598,
+      0.0011047396083684467,
+      -0.00321118450142048
+    ],
+    "T_world_base": [
+      [
+        0.9985914331651804,
+        0.05304720052625124,
+        -0.001117092553947375,
+        -5.935668468475342
+      ],
+      [
+        -0.05304716682914458,
+        0.9985920579928986,
+        5.9793615286072785e-05,
+        9.377504348754883
+      ],
+      [
+        0.001118691578272226,
+        -4.5079534580810304e-07,
+        0.9999993742642952,
+        0.000300794024951756
+      ],
+      [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ]
+    ]
+  },
+  {
+    "robot_id": "harvest_01",
+    "session": "c40dd6a654d140b1a23a03afadd08fea",
+    "sim_time_s": 63.46666997671127,
+    "monotonic_s": 105296.620621413,
+    "transport": {
+      "received": 888,
+      "accepted": 888,
+      "rejected": 0,
+      "last_packet": {
+        "kind": "cmd",
+        "session": "c40dd6a654d140b1a23a03afadd08fea",
+        "seq": 105296591765607,
+        "sent": 105296.591765925,
+        "linear": 0.0,
+        "angular": 0.0
+      },
+      "last_receive_monotonic_s": 105296.606005684
+    },
+    "last_accepted_age_s": 0.014629164012148976,
+    "applied_cmd_mps_rps": [
+      0.0,
+      0.0
+    ],
+    "wheel_order": [
+      "right_wheel_joint",
+      "left_wheel_joint"
+    ],
+    "dof_indices": [
+      1,
+      0
+    ],
+    "target_joint_velocity_rad_s": [
+      -0.0,
+      -0.0
+    ],
+    "applied_joint_velocity_rad_s": [
+      0.0,
+      0.0
+    ],
+    "measured_joint_velocity_rad_s": [
+      0.006758192554116249,
+      0.029386956244707108
+    ],
+    "measured_control_wheel_position_rad": [
+      -1.7165266275405884,
+      6.1392693519592285
+    ],
+    "wheel_odom": [
+      0.06819374771271754,
+      0.08307731002630098,
+      1.5059385016671742,
+      0.0007710835531533892,
+      -0.002642165898478764
+    ],
+    "T_world_base": [
+      [
+        0.9985857131518119,
+        0.05315878873634497,
+        -0.0011532012533267556,
+        -5.935652256011963
+      ],
+      [
+        -0.05315875345165044,
+        0.9985863790299905,
+        6.12486880840579e-05,
+        9.377495765686035
+      ],
+      [
+        0.001154826615849313,
+        1.4068561024583719e-07,
+        0.9999993331876137,
+        0.00030077158589847386
+      ],
+      [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ]
+    ]
+  },
+  {
+    "robot_id": "harvest_01",
+    "session": "c40dd6a654d140b1a23a03afadd08fea",
+    "sim_time_s": 63.53333664685488,
+    "monotonic_s": 105296.671910081,
+    "transport": {
+      "received": 889,
+      "accepted": 889,
+      "rejected": 0,
+      "last_packet": {
+        "kind": "cmd",
+        "session": "c40dd6a654d140b1a23a03afadd08fea",
+        "seq": 105296643770377,
+        "sent": 105296.643770801,
+        "linear": 0.0,
+        "angular": 0.0
+      },
+      "last_receive_monotonic_s": 105296.645946469
+    },
+    "last_accepted_age_s": 0.025971308001317084,
+    "applied_cmd_mps_rps": [
+      0.0,
+      0.0
+    ],
+    "wheel_order": [
+      "right_wheel_joint",
+      "left_wheel_joint"
+    ],
+    "dof_indices": [
+      1,
+      0
+    ],
+    "target_joint_velocity_rad_s": [
+      -0.0,
+      -0.0
+    ],
+    "applied_joint_velocity_rad_s": [
+      0.0,
+      0.0
+    ],
+    "measured_joint_velocity_rad_s": [
+      -0.019794005900621414,
+      -0.006900747772306204
+    ],
+    "measured_control_wheel_position_rad": [
+      -1.715715765953064,
+      6.139072418212891
+    ],
+    "wheel_odom": [
+      0.06819538602299939,
+      0.08310248921766003,
+      1.505745309557931,
+      0.00039274404384785654,
+      -0.0028190415605979964
+    ],
+    "T_world_base": [
+      [
+        0.9985761798618407,
+        0.053334562089564566,
+        -0.0012238267473550985,
+        -5.935619354248047
+      ],
+      [
+        -0.05333452196159784,
+        0.9985769298053824,
+        6.542489585802222e-05,
+        9.377500534057617
+      ],
+      [
+        0.001225574282121285,
+        -5.952049954908042e-08,
+        0.9999992489836422,
+        0.00030081943259574473
+      ],
+      [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ]
+    ]
+  },
+  {
+    "robot_id": "harvest_01",
+    "session": "c40dd6a654d140b1a23a03afadd08fea",
+    "sim_time_s": 63.58333664946258,
+    "monotonic_s": 105296.723567637,
+    "transport": {
+      "received": 890,
+      "accepted": 890,
+      "rejected": 0,
+      "last_packet": {
+        "kind": "cmd",
+        "session": "c40dd6a654d140b1a23a03afadd08fea",
+        "seq": 105296693874839,
+        "sent": 105296.69387514,
+        "linear": 0.0,
+        "angular": 0.0
+      },
+      "last_receive_monotonic_s": 105296.699910708
+    },
+    "last_accepted_age_s": 0.023666533001232892,
+    "applied_cmd_mps_rps": [
+      0.0,
+      0.0
+    ],
+    "wheel_order": [
+      "right_wheel_joint",
+      "left_wheel_joint"
+    ],
+    "dof_indices": [
+      1,
+      0
+    ],
+    "target_joint_velocity_rad_s": [
+      -0.0,
+      -0.0
+    ],
+    "applied_joint_velocity_rad_s": [
+      0.0,
+      0.0
+    ],
+    "measured_joint_velocity_rad_s": [
+      -0.03285461664199829,
+      -0.030332032591104507
+    ],
+    "measured_control_wheel_position_rad": [
+      -1.7153652906417847,
+      6.139054298400879
+    ],
+    "wheel_odom": [
+      0.06819627457762982,
+      0.08311612009832486,
+      1.505674650698009,
+      0.00032924650382455044,
+      -0.0009652749312553451
+    ],
+    "T_world_base": [
+      [
+        0.9985721281865405,
+        0.05340705797989148,
+        -0.0012142006214319022,
+        -5.935606002807617
+      ],
+      [
+        -0.0534070183344689,
+        0.9985728663818971,
+        6.507462934806372e-05,
+        9.377495765686035
+      ],
+      [
+        0.001215943188754789,
+        -1.3487490928652145e-07,
+        0.9999992607408139,
+        0.00030088311177678406
+      ],
+      [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ]
+    ]
+  },
+  {
+    "robot_id": "harvest_01",
+    "session": "c40dd6a654d140b1a23a03afadd08fea",
+    "sim_time_s": 63.650003319606185,
+    "monotonic_s": 105296.776209963,
+    "transport": {
+      "received": 891,
+      "accepted": 891,
+      "rejected": 0,
+      "last_packet": {
+        "kind": "cmd",
+        "session": "c40dd6a654d140b1a23a03afadd08fea",
+        "seq": 105296741749567,
+        "sent": 105296.741749955,
+        "linear": 0.0,
+        "angular": 0.0
+      },
+      "last_receive_monotonic_s": 105296.746727213
+    },
+    "last_accepted_age_s": 0.029491466004401445,
+    "applied_cmd_mps_rps": [
+      0.0,
+      0.0
+    ],
+    "wheel_order": [
+      "right_wheel_joint",
+      "left_wheel_joint"
+    ],
+    "dof_indices": [
+      1,
+      0
+    ],
+    "target_joint_velocity_rad_s": [
+      -0.0,
+      -0.0
+    ],
+    "applied_joint_velocity_rad_s": [
+      0.0,
+      0.0
+    ],
+    "measured_joint_velocity_rad_s": [
+      -0.046677593141794205,
+      -0.04300915449857712
+    ],
+    "measured_control_wheel_position_rad": [
+      -1.7151976823806763,
+      6.139168739318848
+    ],
+    "wheel_odom": [
+      0.06819702922988186,
+      0.08312768772961697,
+      1.5056644586373606,
+      -0.00013816594356923098,
+      0.0011928823724320315
+    ],
+    "T_world_base": [
+      [
+        0.9985687915305252,
+        0.05346956130500871,
+        -0.0012214507663245453,
+        -5.935586929321289
+      ],
+      [
+        -0.053469521013242094,
+        0.998569538570397,
+        6.564160910515972e-05,
+        9.377495765686035
+      ],
+      [
+        0.0012232132843875967,
+        -2.3727292757355746e-07,
+        0.9999992518743445,
+        0.0003007646882906556
+      ],
+      [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ]
+    ]
+  },
+  {
+    "robot_id": "harvest_01",
+    "session": "c40dd6a654d140b1a23a03afadd08fea",
+    "sim_time_s": 63.70000332221389,
+    "monotonic_s": 105296.836708351,
+    "transport": {
+      "received": 892,
+      "accepted": 892,
+      "rejected": 0,
+      "last_packet": {
+        "kind": "cmd",
+        "session": "c40dd6a654d140b1a23a03afadd08fea",
+        "seq": 105296791690310,
+        "sent": 105296.791690583,
+        "linear": 0.0,
+        "angular": 0.0
+      },
+      "last_receive_monotonic_s": 105296.798468559
+    },
+    "last_accepted_age_s": 0.038249696997809224,
+    "applied_cmd_mps_rps": [
+      0.0,
+      0.0
+    ],
+    "wheel_order": [
+      "right_wheel_joint",
+      "left_wheel_joint"
+    ],
+    "dof_indices": [
+      1,
+      0
+    ],
+    "target_joint_velocity_rad_s": [
+      -0.0,
+      -0.0
+    ],
+    "applied_joint_velocity_rad_s": [
+      0.0,
+      0.0
+    ],
+    "measured_joint_velocity_rad_s": [
+      -0.004200113471597433,
+      -0.004550330340862274
+    ],
+    "measured_control_wheel_position_rad": [
+      -1.715408444404602,
+      6.138864040374756
+    ],
+    "wheel_odom": [
+      0.06819565035680057,
+      0.0831065472040283,
+      1.5056464511400713,
+      0.00022665094147207893,
+      -0.0010352025186048089
+    ],
+    "T_world_base": [
+      [
+        0.9985680763599967,
+        0.05348700672631144,
+        -0.0009886741189062925,
+        -5.935609817504883
+      ],
+      [
+        -0.05348697972673249,
+        0.9985685657986654,
+        5.3748273245608595e-05,
+        9.377492904663086
+      ],
+      [
+        0.0009901337111661202,
+        -7.901167157876e-07,
+        0.9999995098171897,
+        0.0003007146005984396
+      ],
+      [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ]
+    ]
+  },
+  {
+    "robot_id": "harvest_01",
+    "session": "c40dd6a654d140b1a23a03afadd08fea",
+    "sim_time_s": 63.76666999235749,
+    "monotonic_s": 105296.904396259,
+    "transport": {
+      "received": 893,
+      "accepted": 893,
+      "rejected": 0,
+      "last_packet": {
+        "kind": "cmd",
+        "session": "c40dd6a654d140b1a23a03afadd08fea",
+        "seq": 105296844230994,
+        "sent": 105296.844231364,
+        "linear": 0.0,
+        "angular": 0.0
+      },
+      "last_receive_monotonic_s": 105296.845690357
+    },
+    "last_accepted_age_s": 0.05871489598939661,
+    "applied_cmd_mps_rps": [
+      0.0,
+      0.0
+    ],
+    "wheel_order": [
+      "right_wheel_joint",
+      "left_wheel_joint"
+    ],
+    "dof_indices": [
+      1,
+      0
+    ],
+    "target_joint_velocity_rad_s": [
+      -0.0,
+      -0.0
+    ],
+    "applied_joint_velocity_rad_s": [
+      0.0,
+      0.0
+    ],
+    "measured_joint_velocity_rad_s": [
+      0.03580889478325844,
+      -0.03251032158732414
+    ],
+    "measured_control_wheel_position_rad": [
+      -1.7148247957229614,
+      6.138951301574707
+    ],
+    "wheel_odom": [
+      0.06819744676469648,
+      0.08313406302202643,
+      1.5055512947711467,
+      0.0010776943598400015,
+      -0.003940625216516848
+    ],
+    "T_world_base": [
+      [
+        0.998565693015133,
+        0.05353690924119053,
+        -0.0009999042145533567,
+        -5.935589790344238
+      ],
+      [
+        -0.053536882432790506,
+        0.9985661936373529,
+        5.3576842464641184e-05,
+        9.377496719360352
+      ],
+      [
+        0.0010013385617866498,
+        3.176617660584391e-08,
+        0.9999994986604969,
+        0.0003007640189025551
+      ],
+      [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ]
+    ]
+  },
+  {
+    "robot_id": "harvest_01",
+    "session": "c40dd6a654d140b1a23a03afadd08fea",
+    "sim_time_s": 63.8333366625011,
+    "monotonic_s": 105296.9574804,
+    "transport": {
+      "received": 894,
+      "accepted": 894,
+      "rejected": 0,
+      "last_packet": {
+        "kind": "cmd",
+        "session": "c40dd6a654d140b1a23a03afadd08fea",
+        "seq": 105296891891189,
+        "sent": 105296.89189159,
+        "linear": 0.0,
+        "angular": 0.0
+      },
+      "last_receive_monotonic_s": 105296.904965163
+    },
+    "last_accepted_age_s": 0.052524048995110206,
+    "applied_cmd_mps_rps": [
+      0.0,
+      0.0
+    ],
+    "wheel_order": [
+      "right_wheel_joint",
+      "left_wheel_joint"
+    ],
+    "dof_indices": [
+      1,
+      0
+    ],
+    "target_joint_velocity_rad_s": [
+      -0.0,
+      -0.0
+    ],
+    "applied_joint_velocity_rad_s": [
+      0.0,
+      0.0
+    ],
+    "measured_joint_velocity_rad_s": [
+      -0.00711421063169837,
+      -0.015240520238876343
+    ],
+    "measured_control_wheel_position_rad": [
+      -1.714680790901184,
+      6.1393842697143555
+    ],
+    "wheel_odom": [
+      0.06819899241448718,
+      0.08315772618445859,
+      1.5056066883922499,
+      0.0006411487721797719,
+      0.0024502078155586673
+    ],
+    "T_world_base": [
+      [
+        0.9985690297398149,
+        0.053474426975801556,
+        -0.001064039277679004,
+        -5.935563564300537
+      ],
+      [
+        -0.053474396143348465,
+        0.9985695966406727,
+        5.742553566265968e-05,
+        9.37749195098877
+      ],
+      [
+        0.0010655876683858846,
+        -4.444926706492071e-07,
+        0.9999994322613076,
+        0.00030073511879891157
+      ],
+      [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ]
+    ]
+  },
+  {
+    "robot_id": "harvest_01",
+    "session": "c40dd6a654d140b1a23a03afadd08fea",
+    "sim_time_s": 63.8833366651088,
+    "monotonic_s": 105297.015763014,
+    "transport": {
+      "received": 896,
+      "accepted": 896,
+      "rejected": 0,
+      "last_packet": {
+        "kind": "cmd",
+        "session": "c40dd6a654d140b1a23a03afadd08fea",
+        "seq": 105296991716200,
+        "sent": 105296.991716539,
+        "linear": 0.0,
+        "angular": 0.0
+      },
+      "last_receive_monotonic_s": 105297.007128195
+    },
+    "last_accepted_age_s": 0.008643677007057704,
+    "applied_cmd_mps_rps": [
+      0.0,
+      0.0
+    ],
+    "wheel_order": [
+      "right_wheel_joint",
+      "left_wheel_joint"
+    ],
+    "dof_indices": [
+      1,
+      0
+    ],
+    "target_joint_velocity_rad_s": [
+      -0.0,
+      -0.0
+    ],
+    "applied_joint_velocity_rad_s": [
+      0.0,
+      0.0
+    ],
+    "measured_joint_velocity_rad_s": [
+      -0.018953096121549606,
+      -0.022756557911634445
+    ],
+    "measured_control_wheel_position_rad": [
+      -1.7147029638290405,
+      6.139800071716309
+    ],
+    "wheel_odom": [
+      0.06820004573280511,
+      0.08317387001355332,
+      1.5056906472057534,
+      0.00018696497895751254,
+      0.0019031272792363906
+    ],
+    "T_world_base": [
+      [
+        0.9985735581131183,
+        0.053387873480118586,
+        -0.0011202977487015338,
+        -5.935546398162842
+      ],
+      [
+        -0.053387839555726097,
+        0.9985741865429258,
+        6.0186255612597545e-05,
+        9.3774995803833
+      ],
+      [
+        0.0011219132528598778,
+        -2.9011680113092514e-07,
+        0.9999993706551921,
+        0.00030081221484579146
+      ],
+      [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ]
+    ]
+  },
+  {
+    "robot_id": "harvest_01",
+    "session": "c40dd6a654d140b1a23a03afadd08fea",
+    "sim_time_s": 63.9333366677165,
+    "monotonic_s": 105297.066568169,
+    "transport": {
+      "received": 897,
+      "accepted": 897,
+      "rejected": 0,
+      "last_packet": {
+        "kind": "cmd",
+        "session": "c40dd6a654d140b1a23a03afadd08fea",
+        "seq": 105297041727433,
+        "sent": 105297.041727743,
+        "linear": 0.0,
+        "angular": 0.0
+      },
+      "last_receive_monotonic_s": 105297.047666979
+    },
+    "last_accepted_age_s": 0.018910744998720475,
+    "applied_cmd_mps_rps": [
+      0.0,
+      0.0
+    ],
+    "wheel_order": [
+      "right_wheel_joint",
+      "left_wheel_joint"
+    ],
+    "dof_indices": [
+      1,
+      0
+    ],
+    "target_joint_velocity_rad_s": [
+      -0.0,
+      -0.0
+    ],
+    "applied_joint_velocity_rad_s": [
+      0.0,
+      0.0
+    ],
+    "measured_joint_velocity_rad_s": [
+      -0.031268682330846786,
+      -0.0360470712184906
+    ],
+    "measured_control_wheel_position_rad": [
+      -1.7144979238510132,
+      6.140248775482178
+    ],
+    "wheel_odom": [
+      0.06820179292432801,
+      0.08320068201427082,
+      1.5057373570083668,
+      0.0001957840817385273,
+      -2.7422583274299667e-06
+    ],
+    "T_world_base": [
+      [
+        0.9985759414858097,
+        0.053340567901213096,
+        -0.001180760266998006,
+        -5.9355316162109375
+      ],
+      [
+        -0.05334053074487137,
+        0.9985766395771778,
+        6.295944754311131e-05,
+        9.37749195098877
+      ],
+      [
+        0.0011824376040526813,
+        1.1259791458412007e-07,
+        0.9999993009204967,
+        0.0003008432686328888
+      ],
+      [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ]
+    ]
+  },
+  {
+    "robot_id": "harvest_01",
+    "session": "c40dd6a654d140b1a23a03afadd08fea",
+    "sim_time_s": 64.00000333786011,
+    "monotonic_s": 105297.133716095,
+    "transport": {
+      "received": 898,
+      "accepted": 898,
+      "rejected": 0,
+      "last_packet": {
+        "kind": "cmd",
+        "session": "c40dd6a654d140b1a23a03afadd08fea",
+        "seq": 105297091727244,
+        "sent": 105297.091727589,
+        "linear": 0.0,
+        "angular": 0.0
+      },
+      "last_receive_monotonic_s": 105297.092938461
+    },
+    "last_accepted_age_s": 0.04078741300327238,
+    "applied_cmd_mps_rps": [
+      0.0,
+      0.0
+    ],
+    "wheel_order": [
+      "right_wheel_joint",
+      "left_wheel_joint"
+    ],
+    "dof_indices": [
+      1,
+      0
+    ],
+    "target_joint_velocity_rad_s": [
+      -0.0,
+      -0.0
+    ],
+    "applied_joint_velocity_rad_s": [
+      0.0,
+      0.0
+    ],
+    "measured_joint_velocity_rad_s": [
+      -0.007437724154442549,
+      -0.007042570039629936
+    ],
+    "measured_control_wheel_position_rad": [
+      -1.7149698734283447,
+      6.13994836807251
+    ],
+    "wheel_odom": [
+      0.06819972997077892,
+      0.08316900524608445,
+      1.5057702412578582,
+      -0.002401735657363015,
+      0.0012422430223257713
+    ],
+    "T_world_base": [
+      [
+        0.9985768947117641,
+        0.05332210559315058,
+        -0.0010374769052458026,
+        -5.935546875
+      ],
+      [
+        -0.0533220767670035,
+        0.998577433657778,
+        5.544495439272889e-05,
+        9.377496719360352
+      ],
+      [
+        0.0010389573955674764,
+        -4.5625284247595874e-08,
+        0.9999994602836371,
+        0.0003009530482813716
+      ],
+      [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ]
+    ]
+  },
+  {
+    "robot_id": "harvest_01",
+    "session": "c40dd6a654d140b1a23a03afadd08fea",
+    "sim_time_s": 64.06667000800371,
+    "monotonic_s": 105297.211571439,
+    "transport": {
+      "received": 900,
+      "accepted": 900,
+      "rejected": 0,
+      "last_packet": {
+        "kind": "cmd",
+        "session": "c40dd6a654d140b1a23a03afadd08fea",
+        "seq": 105297196368894,
+        "sent": 105297.196369246,
+        "linear": 0.0,
+        "angular": 0.0
+      },
+      "last_receive_monotonic_s": 105297.197222746
+    },
+    "last_accepted_age_s": 0.014359014996443875,
+    "applied_cmd_mps_rps": [
+      0.0,
+      0.0
+    ],
+    "wheel_order": [
+      "right_wheel_joint",
+      "left_wheel_joint"
+    ],
+    "dof_indices": [
+      1,
+      0
+    ],
+    "target_joint_velocity_rad_s": [
+      -0.0,
+      -0.0
+    ],
+    "applied_joint_velocity_rad_s": [
+      0.0,
+      0.0
+    ],
+    "measured_joint_velocity_rad_s": [
+      -0.014497043564915657,
+      -0.010418031364679337
+    ],
+    "measured_control_wheel_position_rad": [
+      -1.7146447896957397,
+      6.14001989364624
+    ],
+    "wheel_odom": [
+      0.06820078955212922,
+      0.08318527141443768,
+      1.5057216347264695,
+      0.0002998494945545013,
+      -0.0007733168483352482
+    ],
+    "T_world_base": [
+      [
+        0.9985747496863446,
+        0.05336408239071621,
+        -0.0010031229426957558,
+        -5.935547828674316
+      ],
+      [
+        -0.05336405533904757,
+        0.9985752535321684,
+        5.373257775251241e-05,
+        9.377498626708984
+      ],
+      [
+        0.0010045610048068445,
+        -1.2528361967505653e-07,
+        0.9999994954284918,
+        0.00030080118449404836
+      ],
+      [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ]
+    ]
+  },
+  {
+    "robot_id": "harvest_01",
+    "session": "c40dd6a654d140b1a23a03afadd08fea",
+    "sim_time_s": 64.13333667814732,
+    "monotonic_s": 105297.265576972,
+    "transport": {
+      "received": 901,
+      "accepted": 901,
+      "rejected": 0,
+      "last_packet": {
+        "kind": "cmd",
+        "session": "c40dd6a654d140b1a23a03afadd08fea",
+        "seq": 105297243074343,
+        "sent": 105297.243074933,
+        "linear": 0.0,
+        "angular": 0.0
+      },
+      "last_receive_monotonic_s": 105297.244234045
+    },
+    "last_accepted_age_s": 0.02135761099634692,
+    "applied_cmd_mps_rps": [
+      0.0,
+      0.0
+    ],
+    "wheel_order": [
+      "right_wheel_joint",
+      "left_wheel_joint"
+    ],
+    "dof_indices": [
+      1,
+      0
+    ],
+    "target_joint_velocity_rad_s": [
+      -0.0,
+      -0.0
+    ],
+    "applied_joint_velocity_rad_s": [
+      0.0,
+      0.0
+    ],
+    "measured_joint_velocity_rad_s": [
+      -0.019938739016652107,
+      -0.005885661114007235
+    ],
+    "measured_control_wheel_position_rad": [
+      -1.7142088413238525,
+      6.139893531799316
+    ],
+    "wheel_odom": [
+      0.06820161801914267,
+      0.08319796842099418,
+      1.505613841116427,
+      0.00041890738209820035,
+      -0.0015370357925244913
+    ],
+    "T_world_base": [
+      [
+        0.9985687913971697,
+        0.05347678472438536,
+        -0.0010725569071012467,
+        -5.9355340003967285
+      ],
+      [
+        -0.05347675399549323,
+        0.9985693674106315,
+        5.732866569073229e-05,
+        9.37748908996582
+      ],
+      [
+        0.0010740879306298354,
+        1.1025330105322138e-07,
+        0.9999994231674653,
+        0.0003007424238603562
+      ],
+      [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ]
+    ]
+  },
+  {
+    "robot_id": "harvest_01",
+    "session": "c40dd6a654d140b1a23a03afadd08fea",
+    "sim_time_s": 64.18333668075502,
+    "monotonic_s": 105297.316435848,
+    "transport": {
+      "received": 902,
+      "accepted": 902,
+      "rejected": 0,
+      "last_packet": {
+        "kind": "cmd",
+        "session": "c40dd6a654d140b1a23a03afadd08fea",
+        "seq": 105297291742237,
+        "sent": 105297.291742758,
+        "linear": 0.0,
+        "angular": 0.0
+      },
+      "last_receive_monotonic_s": 105297.293160327
+    },
+    "last_accepted_age_s": 0.02328503900207579,
+    "applied_cmd_mps_rps": [
+      0.0,
+      0.0
+    ],
+    "wheel_order": [
+      "right_wheel_joint",
+      "left_wheel_joint"
+    ],
+    "dof_indices": [
+      1,
+      0
+    ],
+    "target_joint_velocity_rad_s": [
+      -0.0,
+      -0.0
+    ],
+    "applied_joint_velocity_rad_s": [
+      0.0,
+      0.0
+    ],
+    "measured_joint_velocity_rad_s": [
+      -0.06026029214262962,
+      -0.07603707909584045
+    ],
+    "measured_control_wheel_position_rad": [
+      -1.71384859085083,
+      6.139603614807129
+    ],
+    "wheel_odom": [
+      0.06820180631621521,
+      0.08320085298782112,
+      1.5054892054689453,
+      -0.00011641215670939463,
+      -0.002144446012050227
+    ],
+    "T_world_base": [
+      [
+        0.9985616414677199,
+        0.053604098626156275,
+        -0.0011325529239712712,
+        -5.935520172119141
+      ],
+      [
+        -0.05360406381306069,
+        0.9985622837293406,
+        6.109284200795685e-05,
+        9.377495765686035
+      ],
+      [
+        0.0011341994417222983,
+        -2.955288688912329e-07,
+        0.9999993567955682,
+        0.00030086038168519735
+      ],
+      [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ]
+    ]
+  },
+  {
+    "robot_id": "harvest_01",
+    "session": "c40dd6a654d140b1a23a03afadd08fea",
+    "sim_time_s": 64.25000335089862,
+    "monotonic_s": 105297.377398911,
+    "transport": {
+      "received": 903,
+      "accepted": 903,
+      "rejected": 0,
+      "last_packet": {
+        "kind": "cmd",
+        "session": "c40dd6a654d140b1a23a03afadd08fea",
+        "seq": 105297354879515,
+        "sent": 105297.354879893,
+        "linear": 0.0,
+        "angular": 0.0
+      },
+      "last_receive_monotonic_s": 105297.369846788
+    },
+    "last_accepted_age_s": 0.007562284008599818,
+    "applied_cmd_mps_rps": [
+      0.0,
+      0.0
+    ],
+    "wheel_order": [
+      "right_wheel_joint",
+      "left_wheel_joint"
+    ],
+    "dof_indices": [
+      1,
+      0
+    ],
+    "target_joint_velocity_rad_s": [
+      -0.0,
+      -0.0
+    ],
+    "applied_joint_velocity_rad_s": [
+      0.0,
+      0.0
+    ],
+    "measured_joint_velocity_rad_s": [
+      -0.03389114513993263,
+      -0.019981060177087784
+    ],
+    "measured_control_wheel_position_rad": [
+      -1.7130260467529297,
+      6.139305591583252
+    ],
+    "wheel_odom": [
+      0.06820321543201231,
+      0.08322236469332446,
+      1.5052743952220933,
+      0.00012317346884150598,
+      -0.0031631949806904566
+    ],
+    "T_world_base": [
+      [
+        0.9985502015648313,
+        0.05381427193879514,
+        -0.001213544653209094,
+        -5.935511112213135
+      ],
+      [
+        -0.053814232459600216,
+        0.9985509389789422,
+        6.51853739320786e-05,
+        9.377488136291504
+      ],
+      [
+        0.0012152940845889396,
+        2.1510503474279526e-07,
+        0.9999992615298396,
+        0.00030082225566729903
+      ],
+      [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ]
+    ]
+  },
+  {
+    "robot_id": "harvest_01",
+    "session": "c40dd6a654d140b1a23a03afadd08fea",
+    "sim_time_s": 64.30000335350633,
+    "monotonic_s": 105297.435434523,
+    "transport": {
+      "received": 904,
+      "accepted": 904,
+      "rejected": 0,
+      "last_packet": {
+        "kind": "cmd",
+        "session": "c40dd6a654d140b1a23a03afadd08fea",
+        "seq": 105297393518810,
+        "sent": 105297.393519101,
+        "linear": 0.0,
+        "angular": 0.0
+      },
+      "last_receive_monotonic_s": 105297.398891957
+    },
+    "last_accepted_age_s": 0.03655242099193856,
+    "applied_cmd_mps_rps": [
+      0.0,
+      0.0
+    ],
+    "wheel_order": [
+      "right_wheel_joint",
+      "left_wheel_joint"
+    ],
+    "dof_indices": [
+      1,
+      0
+    ],
+    "target_joint_velocity_rad_s": [
+      -0.0,
+      -0.0
+    ],
+    "applied_joint_velocity_rad_s": [
+      0.0,
+      0.0
+    ],
+    "measured_joint_velocity_rad_s": [
+      -0.010855507105588913,
+      0.0016788607463240623
+    ],
+    "measured_control_wheel_position_rad": [
+      -1.7131593227386475,
+      6.138504981994629
+    ],
+    "wheel_odom": [
+      0.0682006987681084,
+      0.08318406459097043,
+      1.5051464688644467,
+      -0.00045388982312955883,
+      -0.0017769833961746124
+    ],
+    "T_world_base": [
+      [
+        0.9985430514568319,
+        0.05395069682115558,
+        -0.0010205068112846044,
+        -5.935538291931152
+      ],
+      [
+        -0.05395066872784199,
+        0.9985435729335261,
+        5.505736353328839e-05,
+        9.377487182617188
+      ],
+      [
+        0.0010219909289114432,
+        7.98763622789289e-08,
+        0.9999994777671238,
+        0.0003007968480233103
+      ],
+      [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ]
+    ]
+  },
+  {
+    "robot_id": "harvest_01",
+    "session": "c40dd6a654d140b1a23a03afadd08fea",
+    "sim_time_s": 64.36667002364993,
+    "monotonic_s": 105297.500875074,
+    "transport": {
+      "received": 905,
+      "accepted": 905,
+      "rejected": 0,
+      "last_packet": {
+        "kind": "cmd",
+        "session": "c40dd6a654d140b1a23a03afadd08fea",
+        "seq": 105297456231210,
+        "sent": 105297.456231617,
+        "linear": 0.0,
+        "angular": 0.0
+      },
+      "last_receive_monotonic_s": 105297.463073232
+    },
+    "last_accepted_age_s": 0.037812713999301195,
+    "applied_cmd_mps_rps": [
+      0.0,
+      0.0
+    ],
+    "wheel_order": [
+      "right_wheel_joint",
+      "left_wheel_joint"
+    ],
+    "dof_indices": [
+      1,
+      0
+    ],
+    "target_joint_velocity_rad_s": [
+      -0.0,
+      -0.0
+    ],
+    "applied_joint_velocity_rad_s": [
+      0.0,
+      0.0
+    ],
+    "measured_joint_velocity_rad_s": [
+      0.009076826274394989,
+      0.02867833711206913
+    ],
+    "measured_control_wheel_position_rad": [
+      -1.712438941001892,
+      6.138120174407959
+    ],
+    "wheel_odom": [
+      0.06820160482572403,
+      0.08319782689506602,
+      1.5049346065454503,
+      0.0002445831171268089,
+      -0.003159081593199311
+    ],
+    "T_world_base": [
+      [
+        0.9985330415523852,
+        0.054135741781011285,
+        -0.0010365872351093346,
+        -5.9355363845825195
+      ],
+      [
+        -0.05413571267097901,
+        0.9985335795980759,
+        5.61407952525204e-05,
+        9.377488136291504
+      ],
+      [
+        0.0010381063921993034,
+        5.794951297025169e-08,
+        0.9999994611674108,
+        0.00030075167887844145
+      ],
+      [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ]
+    ]
+  },
+  {
+    "robot_id": "harvest_01",
+    "session": "c40dd6a654d140b1a23a03afadd08fea",
+    "sim_time_s": 64.43333669379354,
+    "monotonic_s": 105297.554315258,
+    "transport": {
+      "received": 906,
+      "accepted": 906,
+      "rejected": 0,
+      "last_packet": {
+        "kind": "cmd",
+        "session": "c40dd6a654d140b1a23a03afadd08fea",
+        "seq": 105297492521159,
+        "sent": 105297.492521628,
+        "linear": 0.0,
+        "angular": 0.0
+      },
+      "last_receive_monotonic_s": 105297.501498115
+    },
+    "last_accepted_age_s": 0.05282521100889426,
+    "applied_cmd_mps_rps": [
+      0.0,
+      0.0
+    ],
+    "wheel_order": [
+      "right_wheel_joint",
+      "left_wheel_joint"
+    ],
+    "dof_indices": [
+      1,
+      0
+    ],
+    "target_joint_velocity_rad_s": [
+      -0.0,
+      -0.0
+    ],
+    "applied_joint_velocity_rad_s": [
+      0.0,
+      0.0
+    ],
+    "measured_joint_velocity_rad_s": [
+      -0.03274862840771675,
+      0.00443227868527174
+    ],
+    "measured_control_wheel_position_rad": [
+      -1.7125025987625122,
+      6.137810707092285
+    ],
+    "wheel_odom": [
+      0.06820059436203946,
+      0.08318252478076207,
+      1.5048874854040666,
+      -0.0012423176117522768,
+      0.004916869181081915
+    ],
+    "T_world_base": [
+      [
+        0.9985256533758073,
+        0.054272650879686656,
+        -0.0011078268442759418,
+        -5.935527801513672
+      ],
+      [
+        -0.0542726166981698,
+        0.9985262679216196,
+        6.091579218413029e-05,
+        9.37749195098877
+      ],
+      [
+        0.001109500139158037,
+        -7.013159838640254e-07,
+        0.9999993845043205,
+        0.0003007714985869825
+      ],
+      [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ]
+    ]
+  },
+  {
+    "robot_id": "harvest_01",
+    "session": "c40dd6a654d140b1a23a03afadd08fea",
+    "sim_time_s": 64.48333669640124,
+    "monotonic_s": 105297.61237399,
+    "transport": {
+      "received": 908,
+      "accepted": 908,
+      "rejected": 0,
+      "last_packet": {
+        "kind": "cmd",
+        "session": "c40dd6a654d140b1a23a03afadd08fea",
+        "seq": 105297591710666,
+        "sent": 105297.591711136,
+        "linear": 0.0,
+        "angular": 0.0
+      },
+      "last_receive_monotonic_s": 105297.604525077
+    },
+    "last_accepted_age_s": 0.007860075013013557,
+    "applied_cmd_mps_rps": [
+      0.0,
+      0.0
+    ],
+    "wheel_order": [
+      "right_wheel_joint",
+      "left_wheel_joint"
+    ],
+    "dof_indices": [
+      1,
+      0
+    ],
+    "target_joint_velocity_rad_s": [
+      -0.0,
+      -0.0
+    ],
+    "applied_joint_velocity_rad_s": [
+      0.0,
+      0.0
+    ],
+    "measured_joint_velocity_rad_s": [
+      -0.02010754868388176,
+      -0.014815196394920349
+    ],
+    "measured_control_wheel_position_rad": [
+      -1.7122976779937744,
+      6.13780403137207
+    ],
+    "wheel_odom": [
+      0.06820113133904644,
+      0.08319065493854536,
+      1.5048469228308576,
+      0.0002037212742414406,
+      0.0003770605200216191
+    ],
+    "T_world_base": [
+      [
+        0.9985232701182569,
+        0.054314186628550774,
+        -0.001164663643418741,
+        -5.935516834259033
+      ],
+      [
+        -0.054314148899904664,
+        0.9985239493415508,
+        6.40222533152717e-05,
+        9.37749195098877
+      ],
+      [
+        0.001166421794347898,
+        -6.699934412698766e-07,
+        0.9999993197296614,
+        0.00030074850656092167
+      ],
+      [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ]
+    ]
+  },
+  {
+    "robot_id": "harvest_01",
+    "session": "c40dd6a654d140b1a23a03afadd08fea",
+    "sim_time_s": 64.55000336654484,
+    "monotonic_s": 105297.66717094,
+    "transport": {
+      "received": 909,
+      "accepted": 909,
+      "rejected": 0,
+      "last_packet": {
+        "kind": "cmd",
+        "session": "c40dd6a654d140b1a23a03afadd08fea",
+        "seq": 105297641844498,
+        "sent": 105297.641845044,
+        "linear": 0.0,
+        "angular": 0.0
+      },
+      "last_receive_monotonic_s": 105297.659084729
+    },
+    "last_accepted_age_s": 0.00809972599381581,
+    "applied_cmd_mps_rps": [
+      0.0,
+      0.0
+    ],
+    "wheel_order": [
+      "right_wheel_joint",
+      "left_wheel_joint"
+    ],
+    "dof_indices": [
+      1,
+      0
+    ],
+    "target_joint_velocity_rad_s": [
+      -0.0,
+      -0.0
+    ],
+    "applied_joint_velocity_rad_s": [
+      0.0,
+      0.0
+    ],
+    "measured_joint_velocity_rad_s": [
+      -0.0017527323216199875,
+      -0.022227661684155464
+    ],
+    "measured_control_wheel_position_rad": [
+      -1.7121691703796387,
+      6.138164043426514
+    ],
+    "wheel_odom": [
+      0.06820245439389552,
+      0.08321068945799863,
+      1.504891301713771,
+      2.9690979362749625e-05,
+      0.0011668309183214469
+    ],
+    "T_world_base": [
+      [
+        0.9985261301289661,
+        0.05426024539425002,
+        -0.0012268069435083895,
+        -5.9355034828186035
+      ],
+      [
+        -0.05426020404678168,
+        0.9985268837670545,
+        6.698618266426197e-05,
+        9.377488136291504
+      ],
+      [
+        0.0012286343322923843,
+        -3.206567838665597e-07,
+        0.9999992452285236,
+        0.00030078107374720275
+      ],
+      [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ]
+    ]
+  },
+  {
+    "robot_id": "harvest_01",
+    "session": "c40dd6a654d140b1a23a03afadd08fea",
+    "sim_time_s": 64.60000336915255,
+    "monotonic_s": 105297.723455935,
+    "transport": {
+      "received": 910,
+      "accepted": 910,
+      "rejected": 0,
+      "last_packet": {
+        "kind": "cmd",
+        "session": "c40dd6a654d140b1a23a03afadd08fea",
+        "seq": 105297691852124,
+        "sent": 105297.691852676,
+        "linear": 0.0,
+        "angular": 0.0
+      },
+      "last_receive_monotonic_s": 105297.700812214
+    },
+    "last_accepted_age_s": 0.02265278600680176,
+    "applied_cmd_mps_rps": [
+      0.0,
+      0.0
+    ],
+    "wheel_order": [
+      "right_wheel_joint",
+      "left_wheel_joint"
+    ],
+    "dof_indices": [
+      1,
+      0
+    ],
+    "target_joint_velocity_rad_s": [
+      -0.0,
+      -0.0
+    ],
+    "applied_joint_velocity_rad_s": [
+      0.0,
+      0.0
+    ],
+    "measured_joint_velocity_rad_s": [
+      0.016026705503463745,
+      -0.0023018941283226013
+    ],
+    "measured_control_wheel_position_rad": [
+      -1.712966799736023,
+      6.1381449699401855
+    ],
+    "wheel_odom": [
+      0.06820024435868376,
+      0.08317719580510904,
+      1.5050405491310255,
+      0.0003077866870574146,
+      0.0036979353545392984
+    ],
+    "T_world_base": [
+      [
+        0.9985342331827991,
+        0.054119148046921285,
+        -0.0009856966262052794,
+        -5.935535430908203
+      ],
+      [
+        -0.05411912127379719,
+        0.9985347196946863,
+        5.3833487144467436e-05,
+        9.377498626708984
+      ],
+      [
+        0.0009871654955118073,
+        -4.0953819306295425e-07,
+        0.9999995127519968,
+        0.00030072018853388727
+      ],
+      [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ]
+    ]
+  },
+  {
+    "robot_id": "harvest_01",
+    "session": "c40dd6a654d140b1a23a03afadd08fea",
+    "sim_time_s": 64.66667003929615,
+    "monotonic_s": 105297.802126675,
+    "transport": {
+      "received": 911,
+      "accepted": 911,
+      "rejected": 0,
+      "last_packet": {
+        "kind": "cmd",
+        "session": "c40dd6a654d140b1a23a03afadd08fea",
+        "seq": 105297741902328,
+        "sent": 105297.741902894,
+        "linear": 0.0,
+        "angular": 0.0
+      },
+      "last_receive_monotonic_s": 105297.759207025
+    },
+    "last_accepted_age_s": 0.0429303679993609,
+    "applied_cmd_mps_rps": [
+      0.0,
+      0.0
+    ],
+    "wheel_order": [
+      "right_wheel_joint",
+      "left_wheel_joint"
+    ],
+    "dof_indices": [
+      1,
+      0
+    ],
+    "target_joint_velocity_rad_s": [
+      -0.0,
+      -0.0
+    ],
+    "applied_joint_velocity_rad_s": [
+      0.0,
+      0.0
+    ],
+    "measured_joint_velocity_rad_s": [
+      -0.008316520601511002,
+      -0.020429980009794235
+    ],
+    "measured_control_wheel_position_rad": [
+      -1.7133160829544067,
+      6.138810634613037
+    ],
+    "wheel_odom": [
+      0.06820109784152338,
+      0.0831901710430377,
+      1.5052351123695038,
+      0.00020136951349983666,
+      0.0023185794158420295
+    ],
+    "T_world_base": [
+      [
+        0.998545434776591,
+        0.053912368803811124,
+        -0.0010232867764280082,
+        -5.93552303314209
+      ],
+      [
+        -0.05391234056610474,
+        0.9985459590970984,
+        5.5179047167642874e-05,
+        9.377496719360352
+      ],
+      [
+        0.0010247734136367517,
+        6.900748378726372e-08,
+        0.9999994749196608,
+        0.00030065691680647433
+      ],
+      [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ]
+    ]
+  },
+  {
+    "robot_id": "harvest_01",
+    "session": "c40dd6a654d140b1a23a03afadd08fea",
+    "sim_time_s": 64.73333670943975,
+    "monotonic_s": 105297.855195855,
+    "transport": {
+      "received": 912,
+      "accepted": 912,
+      "rejected": 0,
+      "last_packet": {
+        "kind": "cmd",
+        "session": "c40dd6a654d140b1a23a03afadd08fea",
+        "seq": 105297791857086,
+        "sent": 105297.791857606,
+        "linear": 0.0,
+        "angular": 0.0
+      },
+      "last_receive_monotonic_s": 105297.802745974
+    },
+    "last_accepted_age_s": 0.052459091995842755,
+    "applied_cmd_mps_rps": [
+      0.0,
+      0.0
+    ],
+    "wheel_order": [
+      "right_wheel_joint",
+      "left_wheel_joint"
+    ],
+    "dof_indices": [
+      1,
+      0
+    ],
+    "target_joint_velocity_rad_s": [
+      -0.0,
+      -0.0
+    ],
+    "applied_joint_velocity_rad_s": [
+      0.0,
+      0.0
+    ],
+    "measured_joint_velocity_rad_s": [
+      -0.06818079203367233,
+      -0.01275581493973732
+    ],
+    "measured_control_wheel_position_rad": [
+      -1.713914394378662,
+      6.139627456665039
+    ],
+    "wheel_odom": [
+      0.06820168498965617,
+      0.08319913261589255,
+      1.505506390288693,
+      0.00016432928181957468,
+      0.00488259095198904
+    ],
+    "T_world_base": [
+      [
+        0.9985571131253226,
+        0.0536951172401449,
+        -0.0010965647008222518,
+        -5.935505390167236
+      ],
+      [
+        -0.05369508429878055,
+        0.9985577152209386,
+        5.947977602633865e-05,
+        9.37749195098877
+      ],
+      [
+        0.0010981765444798047,
+        -5.13809238604215e-07,
+        0.9999993970039268,
+        0.0003005971957463771
+      ],
+      [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ]
+    ]
+  },
+  {
+    "robot_id": "harvest_01",
+    "session": "c40dd6a654d140b1a23a03afadd08fea",
+    "sim_time_s": 64.78333671204746,
+    "monotonic_s": 105297.90772097,
+    "transport": {
+      "received": 914,
+      "accepted": 914,
+      "rejected": 0,
+      "last_packet": {
+        "kind": "cmd",
+        "session": "c40dd6a654d140b1a23a03afadd08fea",
+        "seq": 105297900188516,
+        "sent": 105297.900188788,
+        "linear": 0.0,
+        "angular": 0.0
+      },
+      "last_receive_monotonic_s": 105297.900381142
+    },
+    "last_accepted_age_s": 0.007349207007791847,
+    "applied_cmd_mps_rps": [
+      0.0,
+      0.0
+    ],
+    "wheel_order": [
+      "right_wheel_joint",
+      "left_wheel_joint"
+    ],
+    "dof_indices": [
+      1,
+      0
+    ],
+    "target_joint_velocity_rad_s": [
+      -0.0,
+      -0.0
+    ],
+    "applied_joint_velocity_rad_s": [
+      0.0,
+      0.0
+    ],
+    "measured_joint_velocity_rad_s": [
+      0.023228973150253296,
+      0.0047921836376190186
+    ],
+    "measured_control_wheel_position_rad": [
+      -1.7141035795211792,
+      6.140262126922607
+    ],
+    "wheel_odom": [
+      0.06820287758984946,
+      0.08321740317232791,
+      1.505664321524437,
+      0.000828995661415386,
+      0.0035484822756943653
+    ],
+    "T_world_base": [
+      [
+        0.9985649781340293,
+        0.0535444190853296,
+        -0.001157330890065572,
+        -5.935490131378174
+      ],
+      [
+        -0.053544383312185376,
+        0.9985656488036716,
+        6.18945046569465e-05,
+        9.377490997314453
+      ],
+      [
+        0.0011589847679213284,
+        1.628896638496254e-07,
+        0.9999993283769755,
+        0.00030067405896261334
+      ],
+      [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ]
+    ]
+  },
+  {
+    "robot_id": "harvest_01",
+    "session": "c40dd6a654d140b1a23a03afadd08fea",
+    "sim_time_s": 64.85000338219106,
+    "monotonic_s": 105297.968357176,
+    "transport": {
+      "received": 915,
+      "accepted": 915,
+      "rejected": 0,
+      "last_packet": {
+        "kind": "cmd",
+        "session": "c40dd6a654d140b1a23a03afadd08fea",
+        "seq": 105297948794548,
+        "sent": 105297.948794933,
+        "linear": 0.0,
+        "angular": 0.0
+      },
+      "last_receive_monotonic_s": 105297.959566291
+    },
+    "last_accepted_age_s": 0.008801556003163569,
+    "applied_cmd_mps_rps": [
+      0.0,
+      0.0
+    ],
+    "wheel_order": [
+      "right_wheel_joint",
+      "left_wheel_joint"
+    ],
+    "dof_indices": [
+      1,
+      0
+    ],
+    "target_joint_velocity_rad_s": [
+      -0.0,
+      -0.0
+    ],
+    "applied_joint_velocity_rad_s": [
+      0.0,
+      0.0
+    ],
+    "measured_joint_velocity_rad_s": [
+      -0.10663250833749771,
+      -0.03650566190481186
+    ],
+    "measured_control_wheel_position_rad": [
+      -1.7143785953521729,
+      6.140871047973633
+    ],
+    "wheel_odom": [
+      0.06820377030189233,
+      0.08323109761069347,
+      1.505833770245757,
+      -0.00013287448190062214,
+      0.002177353111979386
+    ],
+    "T_world_base": [
+      [
+        0.9985742732048077,
+        0.053367676518121174,
+        -0.0012301254914069346,
+        -5.9354729652404785
+      ],
+      [
+        -0.05336763573126323,
+        0.9985750308891437,
+        6.598071341987677e-05,
+        9.377494812011719
+      ],
+      [
+        0.0012318937140140193,
+        -2.3775048627512452e-07,
+        0.9999992412186608,
+        0.0003006839251611382
+      ],
+      [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ]
+    ]
+  },
+  {
+    "robot_id": "harvest_01",
+    "session": "c40dd6a654d140b1a23a03afadd08fea",
+    "sim_time_s": 64.90000338479877,
+    "monotonic_s": 105298.029721222,
+    "transport": {
+      "received": 916,
+      "accepted": 916,
+      "rejected": 0,
+      "last_packet": {
+        "kind": "cmd",
+        "session": "c40dd6a654d140b1a23a03afadd08fea",
+        "seq": 105297991719135,
+        "sent": 105297.991719535,
+        "linear": 0.0,
+        "angular": 0.0
+      },
+      "last_receive_monotonic_s": 105298.007320161
+    },
+    "last_accepted_age_s": 0.022410313002183102,
+    "applied_cmd_mps_rps": [
+      0.0,
+      0.0
+    ],
+    "wheel_order": [
+      "right_wheel_joint",
+      "left_wheel_joint"
+    ],
+    "dof_indices": [
+      1,
+      0
+    ],
+    "target_joint_velocity_rad_s": [
+      -0.0,
+      -0.0
+    ],
+    "applied_joint_velocity_rad_s": [
+      0.0,
+      0.0
+    ],
+    "measured_joint_velocity_rad_s": [
+      -0.006354050245136023,
+      -0.005743229761719704
+    ],
+    "measured_control_wheel_position_rad": [
+      -1.7146940231323242,
+      6.140797138214111
+    ],
+    "wheel_odom": [
+      0.06820273125972134,
+      0.08321512960747307,
+      1.5058800687095997,
+      0.00040626666811207924,
+      0.0020429824539353186
+    ],
+    "T_world_base": [
+      [
+        0.998582376347048,
+        0.053225510349498184,
+        -0.0009836726189523905,
+        -5.935505390167236
+      ],
+      [
+        -0.05322548464584079,
+        0.9985828608397451,
+        5.2308649190002036e-05,
+        9.377495765686035
+      ],
+      [
+        0.0009850624351690244,
+        1.2196560712319718e-07,
+        0.9999995148259574,
+        0.0003006685874424875
+      ],
+      [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ]
+    ]
+  },
+  {
+    "robot_id": "harvest_01",
+    "session": "c40dd6a654d140b1a23a03afadd08fea",
+    "sim_time_s": 64.96667005494237,
+    "monotonic_s": 105298.100275321,
+    "transport": {
+      "received": 917,
+      "accepted": 917,
+      "rejected": 0,
+      "last_packet": {
+        "kind": "cmd",
+        "session": "c40dd6a654d140b1a23a03afadd08fea",
+        "seq": 105298042176613,
+        "sent": 105298.042176941,
+        "linear": 0.0,
+        "angular": 0.0
+      },
+      "last_receive_monotonic_s": 105298.061399433
+    },
+    "last_accepted_age_s": 0.038887720002094284,
+    "applied_cmd_mps_rps": [
+      0.0,
+      0.0
+    ],
+    "wheel_order": [
+      "right_wheel_joint",
+      "left_wheel_joint"
+    ],
+    "dof_indices": [
+      1,
+      0
+    ],
+    "target_joint_velocity_rad_s": [
+      -0.0,
+      -0.0
+    ],
+    "applied_joint_velocity_rad_s": [
+      0.0,
+      0.0
+    ],
+    "measured_joint_velocity_rad_s": [
+      -0.009963150136172771,
+      -0.01604117639362812
+    ],
+    "measured_control_wheel_position_rad": [
+      -1.714906930923462,
+      6.141292572021484
+    ],
+    "wheel_odom": [
+      0.0682034837437972,
+      0.08322671701936028,
+      1.506015856208195,
+      0.0001067111436502784,
+      0.0018715913084709458
+    ],
+    "T_world_base": [
+      [
+        0.9985883347337832,
+        0.05310955178303633,
+        -0.0010276728604728719,
+        -5.9354939460754395
+      ],
+      [
+        -0.05310952374906212,
+        0.9985888635359306,
+        5.456876833287937e-05,
+        9.377496719360352
+      ],
+      [
+        0.0010291206202268871,
+        8.748536482437323e-08,
+        0.9999994704552759,
+        0.0003007677150890231
+      ],
+      [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ]
+    ]
+  },
+  {
+    "robot_id": "harvest_01",
+    "session": "c40dd6a654d140b1a23a03afadd08fea",
+    "sim_time_s": 65.03333672508597,
+    "monotonic_s": 105298.158306778,
+    "transport": {
+      "received": 918,
+      "accepted": 918,
+      "rejected": 0,
+      "last_packet": {
+        "kind": "cmd",
+        "session": "c40dd6a654d140b1a23a03afadd08fea",
+        "seq": 105298091735027,
+        "sent": 105298.091735346,
+        "linear": 0.0,
+        "angular": 0.0
+      },
+      "last_receive_monotonic_s": 105298.100872905
+    },
+    "last_accepted_age_s": 0.0574438170006033,
+    "applied_cmd_mps_rps": [
+      0.0,
+      0.0
+    ],
+    "wheel_order": [
+      "right_wheel_joint",
+      "left_wheel_joint"
+    ],
+    "dof_indices": [
+      1,
+      0
+    ],
+    "target_joint_velocity_rad_s": [
+      -0.0,
+      -0.0
+    ],
+    "applied_joint_velocity_rad_s": [
+      0.0,
+      0.0
+    ],
+    "measured_joint_velocity_rad_s": [
+      -0.02385875955224037,
+      -0.019427575170993805
+    ],
+    "measured_control_wheel_position_rad": [
+      -1.71504545211792,
+      6.141552925109863
+    ],
+    "wheel_odom": [
+      0.06820380780921986,
+      0.08323171381264581,
+      1.5060923195152127,
+      0.00010965084457728331,
+      0.002143074882886512
+    ],
+    "T_world_base": [
+      [
+        0.9985921481506623,
+        0.05303353876192296,
+        -0.0011048041383834052,
+        -5.935477256774902
+      ],
+      [
+        -0.05303350611820215,
+        0.9985927593069794,
+        5.884259735423653e-05,
+        9.37748908996582
+      ],
+      [
+        0.0011063700136884045,
+        -1.6811784782320443e-07,
+        0.9999993879725034,
+        0.0003008311614394188
+      ],
+      [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ]
+    ]
+  },
+  {
+    "robot_id": "harvest_01",
+    "session": "c40dd6a654d140b1a23a03afadd08fea",
+    "sim_time_s": 65.06667006015778,
+    "monotonic_s": 105298.213486147,
+    "transport": {
+      "received": 920,
+      "accepted": 920,
+      "rejected": 0,
+      "last_packet": {
+        "kind": "cmd",
+        "session": "c40dd6a654d140b1a23a03afadd08fea",
+        "seq": 105298192073814,
+        "sent": 105298.192074157,
+        "linear": 0.0,
+        "angular": 0.0
+      },
+      "last_receive_monotonic_s": 105298.195148003
+    },
+    "last_accepted_age_s": 0.01834809299907647,
+    "applied_cmd_mps_rps": [
+      0.0,
+      0.0
+    ],
+    "wheel_order": [
+      "right_wheel_joint",
+      "left_wheel_joint"
+    ],
+    "dof_indices": [
+      1,
+      0
+    ],
+    "target_joint_velocity_rad_s": [
+      -0.0,
+      -0.0
+    ],
+    "applied_joint_velocity_rad_s": [
+      0.0,
+      0.0
+    ],
+    "measured_joint_velocity_rad_s": [
+      -0.010837560519576073,
+      -0.010700467973947525
+    ],
+    "measured_control_wheel_position_rad": [
+      -1.7149192094802856,
+      6.141740798950195
+    ],
+    "wheel_odom": [
+      0.06820464256071082,
+      0.08324459698479539,
+      1.5061041340787895,
+      -0.00014551519588674327,
+      0.000514173436393117
+    ],
+    "T_world_base": [
+      [
+        0.9985933398277069,
+        0.05300970686492758,
+        -0.0011447751272987152,
+        -5.935467720031738
+      ],
+      [
+        -0.0530096729007621,
+        0.9985939960052699,
+        6.001193429544668e-05,
+        9.377490997314453
+      ],
+      [
+        0.0011463467851570695,
+        7.566371139985033e-07,
+        0.9999993429440216,
+        0.00030092173255980015
+      ],
+      [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ]
+    ]
+  },
+  {
+    "robot_id": "harvest_01",
+    "session": "c40dd6a654d140b1a23a03afadd08fea",
+    "sim_time_s": 65.13333673030138,
+    "monotonic_s": 105298.268944682,
+    "transport": {
+      "received": 921,
+      "accepted": 921,
+      "rejected": 0,
+      "last_packet": {
+        "kind": "cmd",
+        "session": "c40dd6a654d140b1a23a03afadd08fea",
+        "seq": 105298243051114,
+        "sent": 105298.243051533,
+        "linear": 0.0,
+        "angular": 0.0
+      },
+      "last_receive_monotonic_s": 105298.243143382
+    },
+    "last_accepted_age_s": 0.02581151999766007,
+    "applied_cmd_mps_rps": [
+      0.0,
+      0.0
+    ],
+    "wheel_order": [
+      "right_wheel_joint",
+      "left_wheel_joint"
+    ],
+    "dof_indices": [
+      1,
+      0
+    ],
+    "target_joint_velocity_rad_s": [
+      -0.0,
+      -0.0
+    ],
+    "applied_joint_velocity_rad_s": [
+      0.0,
+      0.0
+    ],
+    "measured_joint_velocity_rad_s": [
+      -0.024076012894511223,
+      -0.019009586423635483
+    ],
+    "measured_control_wheel_position_rad": [
+      -1.7146084308624268,
+      6.141951560974121
+    ],
+    "wheel_odom": [
+      0.06820602823054571,
+      0.08326598747050262,
+      1.50608496112165,
+      -4.585933446127667e-05,
+      -0.0008062239482644075
+    ],
+    "T_world_base": [
+      [
+        0.99859214824526,
+        0.053035847552218476,
+        -0.0012251866444686343,
+        -5.935451984405518
+      ],
+      [
+        -0.05303580761378858,
+        0.9985928998443836,
+        6.508713884777152e-05,
+        9.377492904663086
+      ],
+      [
+        0.001226914279461977,
+        -1.6733179266966202e-08,
+        0.9999992473405014,
+        0.0003008311614394188
+      ],
+      [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ]
+    ]
+  },
+  {
+    "robot_id": "harvest_01",
+    "session": "c40dd6a654d140b1a23a03afadd08fea",
+    "sim_time_s": 65.16667006537318,
+    "monotonic_s": 105298.319721474,
+    "transport": {
+      "received": 922,
+      "accepted": 922,
+      "rejected": 0,
+      "last_packet": {
+        "kind": "cmd",
+        "session": "c40dd6a654d140b1a23a03afadd08fea",
+        "seq": 105298291742973,
+        "sent": 105298.291743372,
+        "linear": 0.0,
+        "angular": 0.0
+      },
+      "last_receive_monotonic_s": 105298.298226701
+    },
+    "last_accepted_age_s": 0.021505702010472305,
+    "applied_cmd_mps_rps": [
+      0.0,
+      0.0
+    ],
+    "wheel_order": [
+      "right_wheel_joint",
+      "left_wheel_joint"
+    ],
+    "dof_indices": [
+      1,
+      0
+    ],
+    "target_joint_velocity_rad_s": [
+      -0.0,
+      -0.0
+    ],
+    "applied_joint_velocity_rad_s": [
+      0.0,
+      0.0
+    ],
+    "measured_joint_velocity_rad_s": [
+      -0.025533238425850868,
+      -0.017277369275689125
+    ],
+    "measured_control_wheel_position_rad": [
+      -1.7147667407989502,
+      6.14172887802124
+    ],
+    "wheel_odom": [
+      0.06820501564248363,
+      0.08325036143691432,
+      1.506072620958533,
+      -0.000446834540904747,
+      -0.0011517484975205822
+    ],
+    "T_world_base": [
+      [
+        0.9985909564917108,
+        0.05305544294347339,
+        -0.001131231250170879,
+        -5.9354681968688965
+      ],
+      [
+        -0.05305540898165434,
+        0.9985915972364201,
+        6.003101420635473e-05,
+        9.377488136291504
+      ],
+      [
+        0.0011328229600940252,
+        7.150960663516651e-08,
+        0.9999993583558715,
+        0.0003008648636750877
+      ],
+      [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ]
+    ]
+  },
+  {
+    "robot_id": "harvest_01",
+    "session": "c40dd6a654d140b1a23a03afadd08fea",
+    "sim_time_s": 65.23333673551679,
+    "monotonic_s": 105298.370139142,
+    "transport": {
+      "received": 923,
+      "accepted": 923,
+      "rejected": 0,
+      "last_packet": {
+        "kind": "cmd",
+        "session": "c40dd6a654d140b1a23a03afadd08fea",
+        "seq": 105298348921134,
+        "sent": 105298.348921805,
+        "linear": 0.0,
+        "angular": 0.0
+      },
+      "last_receive_monotonic_s": 105298.355633298
+    },
+    "last_accepted_age_s": 0.014515255010337569,
+    "applied_cmd_mps_rps": [
+      0.0,
+      0.0
+    ],
+    "wheel_order": [
+      "right_wheel_joint",
+      "left_wheel_joint"
+    ],
+    "dof_indices": [
+      1,
+      0
+    ],
+    "target_joint_velocity_rad_s": [
+      -0.0,
+      -0.0
+    ],
+    "applied_joint_velocity_rad_s": [
+      0.0,
+      0.0
+    ],
+    "measured_joint_velocity_rad_s": [
+      -0.007984758354723454,
+      0.0013334029354155064
+    ],
+    "measured_control_wheel_position_rad": [
+      -1.71437668800354,
+      6.1415557861328125
+    ],
+    "wheel_odom": [
+      0.06820559313933601,
+      0.08325925981035491,
+      1.5059646673834128,
+      0.00043389985682592533,
+      -0.0023309195783154635
+    ],
+    "T_world_base": [
+      [
+        0.998585713151068,
+        0.05315158307592522,
+        -0.0011689924704629605,
+        -5.935458183288574
+      ],
+      [
+        -0.053151547336916925,
+        0.9985863973900535,
+        6.164013133355705e-05,
+        9.37748908996582
+      ],
+      [
+        0.0011706163182095765,
+        5.808023493917389e-07,
+        0.9999993148282945,
+        0.0003008429775945842
+      ],
+      [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ]
+    ]
+  },
+  {
+    "robot_id": "harvest_01",
+    "session": "c40dd6a654d140b1a23a03afadd08fea",
+    "sim_time_s": 65.26667007058859,
+    "monotonic_s": 105298.420685173,
+    "transport": {
+      "received": 924,
+      "accepted": 924,
+      "rejected": 0,
+      "last_packet": {
+        "kind": "cmd",
+        "session": "c40dd6a654d140b1a23a03afadd08fea",
+        "seq": 105298391708074,
+        "sent": 105298.391708437,
+        "linear": 0.0,
+        "angular": 0.0
+      },
+      "last_receive_monotonic_s": 105298.405145898
+    },
+    "last_accepted_age_s": 0.01554849099193234,
+    "applied_cmd_mps_rps": [
+      0.0,
+      0.0
+    ],
+    "wheel_order": [
+      "right_wheel_joint",
+      "left_wheel_joint"
+    ],
+    "dof_indices": [
+      1,
+      0
+    ],
+    "target_joint_velocity_rad_s": [
+      -0.0,
+      -0.0
+    ],
+    "applied_joint_velocity_rad_s": [
+      0.0,
+      0.0
+    ],
+    "measured_joint_velocity_rad_s": [
+      0.019077368080615997,
+      0.05035846680402756
+    ],
+    "measured_control_wheel_position_rad": [
+      -1.7140414714813232,
+      6.141650676727295
+    ],
+    "wheel_odom": [
+      0.06820673886444736,
+      0.0832769000448468,
+      1.5059185974411093,
+      0.00048505065295581095,
+      -0.0008144507232466974
+    ],
+    "T_world_base": [
+      [
+        0.9985828531786902,
+        0.05321074256544497,
+        -0.0012054136609751709,
+        -5.935450553894043
+      ],
+      [
+        -0.053210704248550074,
+        0.998583580720537,
+        6.385826985540145e-05,
+        9.377483367919922
+      ],
+      [
+        0.0012071039033393577,
+        3.7314524829283464e-07,
+        0.9999992714498487,
+        0.0003007425693795085
+      ],
+      [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ]
+    ]
+  },
+  {
+    "robot_id": "harvest_01",
+    "session": "c40dd6a654d140b1a23a03afadd08fea",
+    "sim_time_s": 65.3500034082681,
+    "monotonic_s": 105298.481905563,
+    "transport": {
+      "received": 925,
+      "accepted": 925,
+      "rejected": 0,
+      "last_packet": {
+        "kind": "cmd",
+        "session": "c40dd6a654d140b1a23a03afadd08fea",
+        "seq": 105298441954610,
+        "sent": 105298.441955167,
+        "linear": 0.0,
+        "angular": 0.0
+      },
+      "last_receive_monotonic_s": 105298.44497517
+    },
+    "last_accepted_age_s": 0.03694116001133807,
+    "applied_cmd_mps_rps": [
+      0.0,
+      0.0
+    ],
+    "wheel_order": [
+      "right_wheel_joint",
+      "left_wheel_joint"
+    ],
+    "dof_indices": [
+      1,
+      0
+    ],
+    "target_joint_velocity_rad_s": [
+      -0.0,
+      -0.0
+    ],
+    "applied_joint_velocity_rad_s": [
+      0.0,
+      0.0
+    ],
+    "measured_joint_velocity_rad_s": [
+      -0.007395286113023758,
+      -0.015705643221735954
+    ],
+    "measured_control_wheel_position_rad": [
+      -1.7135752439498901,
+      6.141172885894775
+    ],
+    "wheel_odom": [
+      0.06820670804411856,
+      0.08327642579358396,
+      1.5057376312342137,
+      1.1170863522618663e-05,
+      -0.0018949005042541004
+    ],
+    "T_world_base": [
+      [
+        0.9985745115260429,
+        0.0533690051735141,
+        -0.001228527504192758,
+        -5.935441017150879
+      ],
+      [
+        -0.05336896490133934,
+        0.9985752672430872,
+        6.55635511560837e-05,
+        9.377486228942871
+      ],
+      [
+        0.0012302757409386666,
+        9.516353171640036e-08,
+        0.999999243210664,
+        0.00030073404195718467
+      ],
+      [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ]
+    ]
+  }
+]

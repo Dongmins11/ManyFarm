@@ -1,0 +1,75 @@
+{
+  "attempt": "attempt4",
+  "passed": true,
+  "dock_ready": true,
+  "error": "",
+  "restore_evaluated": true,
+  "dock_result": {
+    "robot_id": "harvest_01",
+    "task_id": "DOCK_TEST_c4d7dc0394da4cbda8629423f2ede549",
+    "transfer_id": "TRANSFER_TEST_daf3848b88f04288be1156af92ca7863",
+    "result_code": "SUCCESS",
+    "expected_count": 0,
+    "transfer_complete": true,
+    "transport_clear": true,
+    "restore_complete": true,
+    "error_code": "NONE",
+    "error_message": "",
+    "timestamp": "2026-10-28T08:50:56.371274+00:00"
+  },
+  "pickup_result": {
+    "robot_id": "transport_01",
+    "task_id": "PICKUP_TEST_01d1e825960c4a018c60f805f7708d8a",
+    "transfer_id": "TRANSFER_TEST_daf3848b88f04288be1156af92ca7863",
+    "result_code": "SUCCESS",
+    "error_code": "NONE",
+    "error_message": "",
+    "timestamp": "2026-10-28T08:50:00.921104+00:00"
+  },
+  "final": {
+    "sim_time_s": 136.616673792,
+    "at": "2026-10-28T08:50:56.369726+00:00",
+    "actual": [
+      -6.013665795326241,
+      9.274953365325883,
+      -1.5507743427992036
+    ],
+    "map_pose": [
+      -5.999171158633734,
+      9.245865505635289,
+      -1.5419497736131165
+    ],
+    "map_error": {
+      "xy_cm": [
+        1.4494636692506724,
+        -2.9087859690594797
+      ],
+      "norm_cm": 3.2499201132143107
+    },
+    "odom_error": {
+      "xy_cm": [
+        -0.0031455926934320644,
+        0.08279543009930279
+      ],
+      "norm_cm": 0.08285516277650722
+    },
+    "result_timestamp": "2026-10-28T08:50:56.371274+00:00",
+    "receive_offset_s": -0.0015480518341064453,
+    "actual_goal_distance_cm": 1.7626930593827763,
+    "map_goal_distance_cm": 4.927577512778451
+  },
+  "max_amcl": {
+    "sim_time_s": 128.550006704,
+    "at": "2026-10-28T08:50:47.337524+00:00",
+    "error": {
+      "xy_cm": [
+        -0.8806056808606577,
+        -3.8796999912859675
+      ],
+      "norm_cm": 3.978383891424808
+    }
+  },
+  "max_odom_error_cm": 0.47167729315394646,
+  "raw_drive": "sim/runs/drive_diagnostics/17cfe60cb79c42d0a25209ec6f699ba4/harvest_01.jsonl",
+  "method": "USD 자세를 시뮬 시각으로 선형 보간. odom은 초기 자세만 오프라인 정합. map은 직전 수신 TF와 odom의 외부 재구성이며 내부 validator 직접 기록이 아님."
+}

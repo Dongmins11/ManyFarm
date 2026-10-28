@@ -1,0 +1,32 @@
+{
+  "basis": "ea25693 + current uncommitted HCR integration; full changed files, not standalone integration",
+  "files": {
+    "docs/PROJECT_STATE.md": "220763d7f10af64bc77fcdc60f6ff7efd6d250c1ee00b3eb209f66425d19962b",
+    "docs/DECISIONS.md": "016641ed549d47a1e32b8d54d6b7c05aca6654a67981a0f07934fd28b316c39f",
+    "sim/docs/CHANGELOG.md": "5ea82fb8f242b2b58647de22a86517057c2010a51d89d1eaba5451fac0be94af",
+    "sim/docs/changes/SORTER_MAP_UPDATE_20261028.md": "751ec372d620e078f9597909b1244c4d4dc68bd25593e98a599e903757ed77f1",
+    "sim/ros_ws/src/farm_sim_config/config/sorter_integration.json": "3c407ab6a1ccd43218f0afe56de335d042cad0cb23f48f5cd5266c7395eb0886",
+    "sim/ros_ws/src/farm_sim_config/maps/hcr_farm_map.yaml": "b8aefaaacb6509d1ec966734c3ff18acabb93f718b0fadc49c380685aeb37984",
+    "sim/ros_ws/src/farm_sim_config/maps/hcr_farm_map.png": "3c2fcdae2c4f58716999ca84dc2aae0484fbe280bbf63913ccbdc84111a881e5",
+    "sim/ros_ws/src/farm_sim_config/maps/hcr_farm_map.manifest.json": "64479188839578a86cb5c3c104d4d0997882d1d1b6de3d4114dc82e84da0b219",
+    "sim/tools/build_sorter_map.py": "6e1a0dc1c5dfb53f6c86af0f82408d625d29f0fee151e772552144c767069fef",
+    "sim/tools/run_sorter_cycle_trial.py": "944c26a60ab630e0da88224accb0c2156e216e2b032ddc6d50ddb5e72721f9d2",
+    "sim/tools/probe_sorter_cycle.py": "0fab2549d88f9457166fd7649a851c144f2d3b48893143ed6b2a5cc64759b98e",
+    "sim/tests/test_sorter_map.py": "74efb21dc4aa79e98939b089803ccab64ffbf36a261f4ac2887d4d0c6a34635e",
+    "sim/docs/test_results/20261028_sorter_map_update/attempt10_result.json": "ae5fdc75add48ea8d8cc75f39a71c599341f2bbb7ed3e57bd0a08a51ca1a96b0",
+    "sim/docs/test_results/20261028_sorter_map_update/attempt10_process_exit.json": "cb574f6dc21d9ef911903f5a5b5e52bf6b0b44fc196f62c8aa06321d0a6be4f5",
+    "sim/docs/test_results/20261028_sorter_map_update/attempt10_freshness_trace.summary.json": "24bc49e57e1e4f3c00e8f44937625aa975ee6d2de35a6a272e888b21dff5e72a",
+    "sim/docs/test_results/20261028_sorter_map_update/analysis.py": "2ec317f9993348bccd8e357e3cb124d80d1937ed6b2dbfa1e65fb481d6f9aab6",
+    "sim/docs/test_results/20261028_sorter_map_update/final_scan_points.npz": "24179861b8846b15bd1937b3cca78b3580f92b69bc3b8f4c082894c822f4b608",
+    "sim/docs/test_results/20261028_sorter_map_update/attempt10_trajectory.json": "d1e3977653ab019a151538cf0aa5c7a4a910d17009078633ed08537a6d1f55b7",
+    "sim/docs/test_results/20261028_sorter_map_update/historical_hit_match.json": "92aa53a1a17460eda275b12cce851e48c4d1874ac84c862dc525d838a425fe3e",
+    "sim/docs/test_results/20261028_sorter_map_update/T_base_scan.json": "04ea6a31ca46fda8defb0981e3cbedd39958c8607a3ae19cf3a76e72d1ccfc94",
+    "sim/docs/test_results/20261028_sorter_map_update/effective_config_diff.json": "c5489a0c78c23dd6aeefad654ed09016543d7eed1c832d662ea6ce6770cf2f8d",
+    "sim/docs/test_results/20261028_sorter_map_update/result.json": "332e076a08ef313cb23bdd8da6c348164892b63172a7441af92e36a2c211af5a",
+    "sim/docs/test_results/20261028_sorter_map_update/attempt10_fixture.json": "8723b3d4519ecb90a2381c8016851f7a40f9e3344a0e202d1d0ab1e7532419c0",
+    "sim/docs/test_results/20261028_sorter_map_update/map_comparison.png": "4e086648b4b1ee5edbbde41323bfdab661de022338650dde480a935e8a25cffe",
+    "sim/docs/test_results/20261028_sorter_map_update/amcl_timeline.json": "d5653289520896920d75f91c894a2e2fbf7945e518bb42272413deaab03ee807",
+    "sim/docs/test_results/20261028_sorter_map_update/scan_match.json": "b711c074225b41f0cbfa95f7561ac82e4321c8196663f44bb5802917236452e5",
+    "sim/docs/test_results/20261028_sorter_map_update/tf_closure.json": "489038c68479aac39c7cd531dbb0f80a1b09af45482aa3a2c982c7e96d1b472d"
+  }
+}

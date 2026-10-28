@@ -1,0 +1,28 @@
+{
+  "ros_python_tests": {
+    "files": [
+      "test_adapter_tf_contract.py",
+      "test_adapter_clock_order.py",
+      "test_arm_ros.py",
+      "test_harvest_transfer_sim.py",
+      "test_harvest_handoff_merge.py"
+    ],
+    "passed": 40
+  },
+  "isaac_python_tests": {
+    "files": [
+      "test_student_camera_preprocessing.py",
+      "test_student_retry.py",
+      "test_student_assignment.py"
+    ],
+    "passed": 32,
+    "subtests_passed": 41
+  },
+  "build": "farm_sim_devices: PASS",
+  "snapshot_roundtrip": "PNG pixels and NPZ arrays identical",
+  "initial_test_environment_errors": [
+    "system Python has no torch; rerun student tests in Isaac Python succeeded",
+    "Frontend HTTP test collection blocked: system Python has no fastapi; HTTP tests not run"
+  ],
+  "actual_frontend": "Unmodified handoff_worker.py subprocess with actual DDS; HTTP/browser not tested"
+}

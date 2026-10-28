@@ -1,0 +1,89 @@
+{
+  "trial": "attempt10",
+  "session": "7da3787381bc4e0d81e5103ef50ff811",
+  "passed": false,
+  "sequence_through_sort_passed": true,
+  "final": {
+    "sim_time_s": 110.86667244881392,
+    "truth_xy": [
+      -6.995570659637451,
+      13.259865760803223
+    ],
+    "estimated_xy": [
+      -6.978941658211074,
+      13.462180045366123
+    ],
+    "estimated_error_m": 0.20299653550402483,
+    "wheel_odom_error_m": 0.012824345770698726,
+    "state": "IDLE"
+  },
+  "maximum_estimated_error_m": 0.20655088165337587,
+  "maximum_odom_error_m": 0.0216721033935496,
+  "amcl_final": {
+    "sim_time_s": 84.350004399,
+    "estimated_xy": [
+      -6.978685143436982,
+      13.461246164139771
+    ],
+    "truth_xy": [
+      -6.995280742645264,
+      13.258797645568848
+    ],
+    "error_m": 0.2031275869611104,
+    "covariance_xy": [
+      0.0229820967856611,
+      0.041127944083626744
+    ]
+  },
+  "raw_message_counts": {
+    "odom": 3296,
+    "scan": 1102,
+    "amcl_pose": 23,
+    "map_to_odom": 1098
+  },
+  "scan_match": {
+    "sim_time_s": 110.850005781,
+    "valid_beams": 320,
+    "truth_mean_distance_m": 0.05528548217877367,
+    "estimate_mean_distance_m": 0.0792883237231238,
+    "truth_median_m": 0.018165313464400888,
+    "estimate_median_m": 0.041436256076831844,
+    "truth_fraction_within_5cm": 0.975,
+    "estimate_fraction_within_5cm": 0.584375,
+    "truth_xy": [
+      -6.995570659637451,
+      13.259865760803223
+    ],
+    "estimated_xy": [
+      -6.978941658211074,
+      13.462180045366123
+    ],
+    "truth_yaw": -1.2848828677143491,
+    "estimated_yaw": -1.302592061539774
+  },
+  "return_result": {
+    "status": 6,
+    "result": {
+      "robot_id": "transport_01",
+      "task_id": "return_2297f02776554359",
+      "result_code": "FAILED",
+      "station_id": "STATION_TRANSPORT_01",
+      "docked": false,
+      "error_code": "NAVIGATION_FAILED",
+      "error_message": "위치 (-6.978942363951455, 13.462182613411354)가 그래프에서 0.15m 이상 떨어져 있습니다.",
+      "timestamp": "2026-10-28T11:10:01.196282+00:00"
+    }
+  },
+  "counts": {
+    "robot_id": "sorter_01",
+    "task_id": "sort_sorter_ce4c984aeae24e79",
+    "batch_id": "sorter_ce4c984aeae24e79",
+    "result_code": "SUCCESS",
+    "red_count": 1,
+    "yellow_count": 0,
+    "error_code": "NONE",
+    "error_message": "",
+    "timestamp": "2026-10-28T11:10:01.003774+00:00"
+  },
+  "sampling_limit": "moving status matches wall-.15s approximately; AMCL/scan use measurement stamps; final stationary error reliable"
+}

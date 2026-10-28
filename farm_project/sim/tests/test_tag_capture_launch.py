@@ -53,7 +53,7 @@ class CaptureLaunchTests(unittest.TestCase):
                 environment_config=f'sim/ros_ws/src/farm_sim_config/config/{robot}_runtime.yaml',
                 start_isaac='false', rviz='false', survey='true', navigation='true',
                 vision_python='', device='0', isaac_python='', assets_root='',
-                headless='true', cmd_vel_type='twist',
+                headless='true', cmd_vel_type='twist', handoff_config='', initial_spawn_config='',
                 tag_correction=str(enabled).lower()))
         return actions, capture
 

@@ -1,0 +1,147 @@
+[
+  {
+    "attempt": 1,
+    "passed": false,
+    "harvest": null,
+    "dock_before_stop": null,
+    "error": null,
+    "diagnosis": "Operator stopped setup-only trial: generated profile omitted status_reporting; no action sent.",
+    "isaac_session": "657bd8e855354d55b1898810cb621aa3",
+    "handoff_wait_count": 0
+  },
+  {
+    "attempt": 2,
+    "passed": false,
+    "harvest": {
+      "status": 6,
+      "result": {
+        "robot_id": "harvest_01",
+        "task_id": "handoff_window_bcbd694bb404",
+        "window_id": "7621d3500623_SEC01_W001",
+        "result_code": "FAILED",
+        "expected_count": 1,
+        "harvested_count": 0,
+        "failed_count": 0,
+        "error_code": "ARM_LINK_LOST",
+        "error_message": "시뮬 세션 변경 또는 통신 중단",
+        "timestamp": "2026-10-28T05:45:40.123950+00:00"
+      }
+    },
+    "dock_before_stop": null,
+    "error": "RuntimeError: 실제 윈도우 수확 실패",
+    "isaac_session": "475c82a517c846b782d295c5179a25bd",
+    "handoff_wait_count": 0
+  },
+  {
+    "attempt": 3,
+    "passed": false,
+    "harvest": {
+      "status": 4,
+      "result": {
+        "robot_id": "harvest_01",
+        "task_id": "handoff_window_743d30a11492",
+        "window_id": "7621d3500623_SEC01_W001",
+        "result_code": "SUCCESS",
+        "expected_count": 1,
+        "harvested_count": 0,
+        "failed_count": 0,
+        "error_code": "NONE",
+        "error_message": "student_no_reachable_targets_arms_stowed",
+        "timestamp": "2026-10-28T05:47:58.261985+00:00"
+      }
+    },
+    "dock_before_stop": {
+      "id": "DOCK_TEST_1e3b0f375ddd478a9434e1e9c1746868",
+      "role": "harvest",
+      "goal": {
+        "robot_id": "harvest_01",
+        "task_id": "DOCK_TEST_1e3b0f375ddd478a9434e1e9c1746868",
+        "transfer_id": "TRANSFER_TEST_862c9e11d8d548569f232289d5c2141d",
+        "timestamp": "2026-10-28T05:47:58.496204+00:00",
+        "transport_robot_id": "transport_01",
+        "expected_count": 0
+      },
+      "goal_uuid": "6b945fab6722453999452b3236c8a210",
+      "state": "FAILED",
+      "reason": "rotate_to_transfer: 측정 선속도 범위 이탈: v=0.00533160696, w=-0.00337100674, stamp_ns=24383334605; previous_stamp_ns=24350001270",
+      "created_at": "2026-10-28T05:47:58.496226+00:00",
+      "ros_status": 6,
+      "result": {
+        "robot_id": "harvest_01",
+        "task_id": "DOCK_TEST_1e3b0f375ddd478a9434e1e9c1746868",
+        "transfer_id": "TRANSFER_TEST_862c9e11d8d548569f232289d5c2141d",
+        "result_code": "FAILED",
+        "expected_count": 0,
+        "transfer_complete": false,
+        "transport_clear": false,
+        "restore_complete": false,
+        "error_code": "DEVICE_FAILED",
+        "error_message": "rotate_to_transfer: 측정 선속도 범위 이탈: v=0.00533160696, w=-0.00337100674, stamp_ns=24383334605; previous_stamp_ns=24350001270",
+        "timestamp": "2026-10-28T05:48:13.456407+00:00"
+      },
+      "finished_at": "2026-10-28T05:48:13.457235+00:00"
+    },
+    "error": "RuntimeError: DOCK_READY 이전 인계 종료: {\"id\": \"DOCK_TEST_1e3b0f375ddd478a9434e1e9c1746868\", \"role\": \"harvest\", \"goal\": {\"robot_id\": \"harvest_01\", \"task_id\": \"DOCK_TEST_1e3b0f375ddd478a9434e1e9c1746868\", \"transfer_id\": \"TRANSFER_TEST_862c9e11d8d548569f232289d5c2141d\", \"timestamp\": \"2026-10-28T05:47:58.496204+00:00\", \"transport_robot_id\": \"transport_01\", \"expected_count\": 0}, \"goal_uuid\": \"6b945fab6722453999452b3236c8a210\", \"state\": \"FAILED\", \"reason\": \"rotate_to_transfer: 측정 선속도 범위 이탈: v=0.00533160696, w=-0.00337100674, stamp_ns=24383334605; previous_stamp_ns=24350001270\", \"created_at\": \"2026-10-28T05:47:58.496226+00:00\", \"ros_status\": 6, \"result\": {\"robot_id\": \"harvest_01\", \"task_id\": \"DOCK_TEST_1e3b0f375ddd478a9434e1e9c1746868\", \"transfer_id\": \"TRANSFER_TEST_862c9e11d8d548569f232289d5c2141d\", \"result_code\": \"FAILED\", \"expected_count\": 0, \"transfer_complete\": false, \"transport_clear\": false, \"restore_complete\": false, \"error_code\": \"DEVICE_FAILED\", \"error_message\": \"rotate_to_transfer: 측정 선속도 범위 이탈: v=0.00533160696, w=-0.00337100674, stamp_ns=24383334605; previous_stamp_ns=24350001270\", \"timestamp\": \"2026-10-28T05:48:13.456407+00:00\"}, \"finished_at\": \"2026-10-28T05:48:13.457235+00:00\"}",
+    "isaac_session": "590b0625e5064f08b307d7f882d24730",
+    "inventory_frames": 180,
+    "max_inventory_arm_s": 1.5061461019940907,
+    "max_inventory_frame_s": 1.5906196790019749,
+    "handoff_wait_count": 5
+  },
+  {
+    "attempt": 4,
+    "passed": false,
+    "harvest": {
+      "status": 4,
+      "result": {
+        "robot_id": "harvest_01",
+        "task_id": "handoff_window_3061e9ee19cf",
+        "window_id": "7621d3500623_SEC01_W001",
+        "result_code": "SUCCESS",
+        "expected_count": 1,
+        "harvested_count": 0,
+        "failed_count": 0,
+        "error_code": "NONE",
+        "error_message": "student_no_reachable_targets_arms_stowed",
+        "timestamp": "2026-10-28T05:50:21.692769+00:00"
+      }
+    },
+    "dock_before_stop": {
+      "id": "DOCK_TEST_403873a14a2d4f15a77b2350dfcfc8d8",
+      "role": "harvest",
+      "goal": {
+        "robot_id": "harvest_01",
+        "task_id": "DOCK_TEST_403873a14a2d4f15a77b2350dfcfc8d8",
+        "transfer_id": "TRANSFER_TEST_d19dd333a6cd4750b9db366d912c5d62",
+        "timestamp": "2026-10-28T05:50:22.303332+00:00",
+        "transport_robot_id": "transport_01",
+        "expected_count": 0
+      },
+      "goal_uuid": "4c62545c289145899e2a7ddbb547bd4b",
+      "state": "FAILED",
+      "reason": "rotate_to_transfer: 측정 선속도 범위 이탈: v=0.0250533072, w=0.00608781349, stamp_ns=35183335168; previous_stamp_ns=35150001833",
+      "created_at": "2026-10-28T05:50:22.303345+00:00",
+      "ros_status": 6,
+      "result": {
+        "robot_id": "harvest_01",
+        "task_id": "DOCK_TEST_403873a14a2d4f15a77b2350dfcfc8d8",
+        "transfer_id": "TRANSFER_TEST_d19dd333a6cd4750b9db366d912c5d62",
+        "result_code": "FAILED",
+        "expected_count": 0,
+        "transfer_complete": false,
+        "transport_clear": false,
+        "restore_complete": false,
+        "error_code": "DEVICE_FAILED",
+        "error_message": "rotate_to_transfer: 측정 선속도 범위 이탈: v=0.0250533072, w=0.00608781349, stamp_ns=35183335168; previous_stamp_ns=35150001833",
+        "timestamp": "2026-10-28T05:50:50.633238+00:00"
+      },
+      "finished_at": "2026-10-28T05:50:50.633963+00:00"
+    },
+    "error": "RuntimeError: DOCK_READY 이전 인계 종료: {\"id\": \"DOCK_TEST_403873a14a2d4f15a77b2350dfcfc8d8\", \"role\": \"harvest\", \"goal\": {\"robot_id\": \"harvest_01\", \"task_id\": \"DOCK_TEST_403873a14a2d4f15a77b2350dfcfc8d8\", \"transfer_id\": \"TRANSFER_TEST_d19dd333a6cd4750b9db366d912c5d62\", \"timestamp\": \"2026-10-28T05:50:22.303332+00:00\", \"transport_robot_id\": \"transport_01\", \"expected_count\": 0}, \"goal_uuid\": \"4c62545c289145899e2a7ddbb547bd4b\", \"state\": \"FAILED\", \"reason\": \"rotate_to_transfer: 측정 선속도 범위 이탈: v=0.0250533072, w=0.00608781349, stamp_ns=35183335168; previous_stamp_ns=35150001833\", \"created_at\": \"2026-10-28T05:50:22.303345+00:00\", \"ros_status\": 6, \"result\": {\"robot_id\": \"harvest_01\", \"task_id\": \"DOCK_TEST_403873a14a2d4f15a77b2350dfcfc8d8\", \"transfer_id\": \"TRANSFER_TEST_d19dd333a6cd4750b9db366d912c5d62\", \"result_code\": \"FAILED\", \"expected_count\": 0, \"transfer_complete\": false, \"transport_clear\": false, \"restore_complete\": false, \"error_code\": \"DEVICE_FAILED\", \"error_message\": \"rotate_to_transfer: 측정 선속도 범위 이탈: v=0.0250533072, w=0.00608781349, stamp_ns=35183335168; previous_stamp_ns=35150001833\", \"timestamp\": \"2026-10-28T05:50:50.633238+00:00\"}, \"finished_at\": \"2026-10-28T05:50:50.633963+00:00\"}",
+    "isaac_session": "badd10ea4e114e5d82799ab5451d7769",
+    "inventory_frames": 180,
+    "max_inventory_arm_s": 0.130586483006482,
+    "max_inventory_frame_s": 0.20713258199975826,
+    "handoff_wait_count": 2
+  }
+]

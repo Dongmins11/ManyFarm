@@ -1417,3 +1417,146 @@
 - 실제실행: Domain13/SUBNET,CPU MBP60Hz,도킹→가상인계→이격→선별장CheckRoute 2회성공. Nav이동141.34/147.37초,실제오차11.19/9.82cm별도기록. 업무중오류없음. 종료뒤SDKchild-11,gate1,precision-2는잔존종료문제로보존.
 - 보존/검증: 공통실행소스이번턴변경없음,활성RPP원본지정값런타임일치,원본도킹수치와27파일/4자산hash불변,75단위회귀PASS·371경로PASS·2sim패키지빌드PASS. 비활성DWB stateful런타임미선언은검증한계로명시.
 - 실제도착/정지와추정오차/실과실수량미측정/관제전체업무미검증을구분. 상세 changes/SORTER_ROUTE_CONNECTION_20261027.md,공유test_results/20261027_sorter_route/. 원복은원본접근점/연결복귀후재생성및신규운송navigation조립해제. 기존도킹/바구니수정불필요.
+
+## 2026-10-28 — D-067 실물 수확 인계 공통 코드 통합
+
+- 승인: 사용자 “1번부터 진행해”. 대상 harvest_robot/farm_navigation/farm_common/farm_bringup 및 새 farm_arc_controller/farm_wall_controller/jetson_harvest_interfaces, 실물 참고 JSON6개·wall capture도구, 관련시험. 파일별 SHA와 제외이유는 보고서/manifest 참조.
+- 변경 전 인계 차체/복구 코드 없음 → 원본 e135cde 모듈과 의존성 반영. 실물 원본 생성설정 동일, 원본 허가대기/장치실패/취소 정책 보존. 기존 거리예산·교통·D-059 조건 유지. 실물 실행기능은 명시선택, 기존 실물/시뮬설정463파일불변.
+- 검증: 7패키지빌드,438검사PASS/5SKIP. 기존 교통그래프불일치21오류는변경전에도재현, 임시자료정합시21PASS. 운영설정미수정/Isaac미실행/전체사이클미검증.
+- 다음: 시뮬시계·TF·가상기구·출력소유권 연결 및교통자료정합. 복원은manifest의이번파일만ea25693복귀/신규파일제거후재빌드,사용자Frontend보존. 상세 changes/HARVEST_HANDOFF_INTEGRATION_20261028.md, test_results/20261028_harvest_handoff_integration/. 미커밋·미푸시.
+
+## 2026-10-28 — D-068 수확 인계 환경·가상배출 연결
+
+- 승인: 사용자 “다음 작업 해”. 변경: 공통 harvest launch/Runtime/server_config/trace, arc·wall odom 인자·Spin 프레임; sim harvest_transfer_ros/arm telemetry/adapter/fleet; 준비·실행·검증도구; 교통 snapshot/구역/manifest 및 시험. 정확한22파일과 해시는 test_results/20261028_harvest_handoff_connection/changed_files.json.
+- 전후: 실물고정시계/odom 및 수확가상배출미연결 → 환경시계/프레임 선택, 실측팔준비·바구니평가 기반 Discharge. real 원본 생성설정동일/기존실물설정·USD불변. 기본프로필은미활성,생성묶음선택. 기존도킹72%판정·수치유지.
+- 교통: 기존선별장8004이전위치등록불일치수정, 해당2구역·참조·bounds동기화 및 graph_02/zone_02증가. Frontend미변경/상대등록갱신필요. 교통검사21포함 전체469PASS/5SKIP·6패키지빌드PASS.
+- 실제시험: Domain13/SUBNET CPU MBP60Hz, 정차연결/거절조건PASS 및72.6426%겹침2.90초증거로 운송덮개열기→수확Discharge성공→덮개닫기PASS. 실제재도킹·원호이동·수확윈도우·관제전체사이클은미검증. 종료후SIGINT예외/SDK-11잔존 별도보존. 최초odom이름준비실패와cache권한실패도보존.
+- 복원: 이번파일만작업전해시내용으로되돌림,교통snapshot/zone/manifest동시복원,1단계통합/Frontend보존. 상세 changes/HARVEST_HANDOFF_CONNECTION_20261028.md, 공유 test_results/20261028_harvest_handoff_connection/. 미커밋·미푸시.
+
+### 2026-10-28 — SEC01 윈도우/관제 인계 진입 시험 및 시뮬 최초 영상 지연 보완
+
+- 구분: sim환경연결/진단. 승인근거 사용자 “다음 작업해”, D-069. 대상 prepare_harvest_handoff.py, run_handoff_window_trial.py, probe_handoff_window.py, student_session.py, ros_adapter.py 및 결과/문서. 실물·공통 수치/정책/자산/Frontend 원본은 추가변경 없음.
+- 전후: 상태보고미설정→원본보고연결; 수확중 최초검출초기화/압축저장→시작준비시추론초기화/무손실무압축저장; 동일표본odom→TF 발행을 TF→odom으로 정렬(수신순서보장아님). 실제 최대inventory프레임1.591→0.207초, NPZ약5.49→16.57MB. 원본timeout유지.
+- 실제4시도 중 최종 윈도우정상완료·관제DockTransfer접수·후진원호완료. 벽정렬 2cm/s명령에 실제약2.667cm/s과속, 원본2.5cm/s감시로 DEVICE_FAILED. 105없음. DOCK_READY/운송/배출/복귀 미완료, 바퀴보정계수미변경. 72검사+41subtest 및 farm_sim_devices빌드PASS. Frontend HTTP fastapi미설치 수집실패와 ROS/SDK종료예외 별도기록.
+- 자료 sim/docs/changes/HANDOFF_WINDOW_TRIAL_20261028.md, test_results/20261028_handoff_window/, runs/handoff_window_20261028/. 복원은 이번모듈차이만되돌린뒤시뮬장치재빌드; 직전공통통합·가상장치는보존. 미커밋·미푸시.
+
+## 2026-10-28 — D-070 인계 연쇄, 거리 허용오차, 정지/시험 순서 보완
+
+- 승인: 사용자 “쭉쭉 진행해” 및 “거리 허용오차 반영: 하한 약69.4%”. 기준ea25693+D067~069 미커밋. 실물/공통 제어 정책 추가변경 없음.
+- 대상: sim_devices/{wheel_servo,ros_adapter,mechanical_ros}.py, sim_config/config/{harvest.json,docking/basket_alignment_evaluation.json}, sim/tools/{run_handoff_window_trial,probe_handoff_window,prepare_pickup_trial,probe_handoff_return}.py, 대응시험 및 문서.
+- 변경: 바퀴ki4→1/정지target0; 지연odom 발행 전에 동일측정TF; 원본TriggerDevice로 lid_open/lid_close/stop 연결; 닫기에는 정렬재판정 대신 소유권/최신정지 확인; 인계하한72→69.3684% 승인 적용. 높이/0.8초/수량미측정 유지.
+- 실행환경: 임시42마커를 기존통로에 정합한 시험 layout. 원본USD/운영layout 불변. 선별장 이격의 지도yaw0→π/2,노드17→15 대신8004→9001; 기존sim목적지/그래프에서 읽음. 제어값 변경과 환경좌표 변경 분리.
+- 실제: ki1단계검사 및pickup1~10로그보존. pickup7양쪽인계/복원SUCCESS(열기71.9349%). 이후수확먼저복귀105는 정지운송과물리간섭;운송먼저출발로시험순서수정. pickup8벽정지후0.537도, pickup9map추정오차에따른복원실패, pickup10LEASE_EXPIRED미해결. 선별장후속/전체SEC01/신규예찰은미검증.
+- 검증: 기존7개시험파일52개PASS,추가정지보정후wheel_servo5개PASS;장치/config빌드PASS;5정밀프로파일원본대비제어수치/불리언차이0. 종료SDK/ROS예외별도보존. 실행프로세스정리,미커밋/미푸시.
+- 복원: 해당sim변경만개별역적용,ki4/minimum_coverage0.72 및PI정지정책복구후재빌드. 기존누적통합/Frontend/다른미커밋파일을reset하지않음.
+- 상세: changes/HANDOFF_CYCLE_20261028.md, changes/HANDOFF_ALIGNMENT_REVIEW_20261028.md, test_results/20261028_handoff_cycle/.
+
+## 2026-10-28 — 인계 복귀/제어권 만료 원인 계측
+
+- 사용자 “확인해 왜문제발생하는지”, 기준ea25693+D067~070미커밋. sim도구 `probe_handoff_window.py`, `trace_docking_freshness.py`와 분석/문서만 변경. AMCL/scan/map→odom/staticTF/monotonic 기록 및 Python/native 경과·CPU시간·갱신간격 계측, 동기파일쓰기→비동기큐. 공통반환값/실물설정/판정/USD불변.
+- Isaac2회 양쪽인계/복원SUCCESS. odom최대4.26/3.96mm vs AMCL Y최대5.46/4.63cm로 위치보정오차분리. 약5cm위치차이에도 라이다거리장점수가 비슷한 지도방향 관측제약 확인, 세부설정별인과는미확정. LEASE_EXPIRED추가미재현, 실제계산/대기 원인미확정.
+- Python3.12 PY_UNWIND local등록오류는계측수정, Domain환경누락은시작전거절후올바른환경으로재실행. py_compile/모니터등록/실제2회/오프라인분석2회검증. 제어기회귀/실물/전체사이클미실행. 종료정리ROS예외별도보존.
+- 상세 changes/HANDOFF_DIAGNOSIS_20261028.md; 공유 test_results/20261028_handoff_diagnosis/; raw runs/handoff_diagnosis_20261028/. 되돌리기는 두도구의이번계측부분만역적용,기존누적통합보존. 미커밋/미푸시.
+
+## 2026-10-28 — 동일 조건3회 재시험 및 gate 수신 계측
+
+- 승인근거 사용자 “다시 테스트해봐 재현조건이뭐야”. sim/tools/trace_motion_gate.py추가, run_handoff_window_trial.py의 gate실행만계측진입점연결. sys.monitoring으로실제공통함수호출전후/기한/결과기록, 비동기파일쓰기. 공통함수교체/반환값/실물설정/제어판정변경없음.
+- 실제3회: 성공1, 벽정렬정지후각도초과2. 목표도착후0명령/target0인데USD방향0.194/0.174°추가변화, 외부벽각오차0.541/0.606°로0.5°초과. 내부판정표본미기록한계명시. AMCL복원도달1회/성공, 운송LEASE만료0회; 이전오류해결로간주하지않음.
+- 실행설정동일(경로/journal제외), 시험중소스불변. py_compile/실제3회계측/프로세스종료확인. raw runs/handoff_repeat_20261028/, 공유 docs/test_results/20261028_handoff_repeat/, 보고 changes/HANDOFF_REPEAT_20261028.md. 종료ROS예외별도보존, 미커밋/미푸시.
+- 복원: runner의gate시작을기존ros2 run farm_docking motion_gate로되돌리고새계측파일만제거. 기존누적변경보존.
+
+## 2026-10-28 — 과거 도착 판정 정합과 새 인계 경로 비교
+
+- 사용자 기존수정확인요청. 문서/비교JSON만갱신,실행코드변경없음. D-049원본ControllerServer유지/회귀6PASS. D-029일반잔차비차단유지이나실물인계원본에서별도최종validator가추가된경로확인.
+- 벽Nav2 .5초완료와후단 .8초정지후재검사로시점다름,수치동일. 시뮬정지움직임과공통인계중복완료판정의결합으로분류보완. 물성단독원인설명정정. 상세 HANDOFF_REPEAT_20261028.md후속비교. 새Isaac/실물미실행,미커밋·미푸시. 문서역적용으로복원가능.
+
+## 2026-10-28 — 정지 후 미세 바퀴 구름과 물리 계산 비교
+
+- 승인 근거: 사용자 “확인해봐 원인”. sim/tools/check_wheel_stop_diagnostic.py 및 진단 보고/자료 추가, PROJECT_STATE 갱신. 운영 코드·공통/실물 설정·USD 파일 변경 없음. 비교용 gain/solver는 Isaac 세션에서만 변경.
+- 실제 로그 wheel yaw와 world yaw 일치 확인. 축소 물리4조건에서 damping10배 개선 없음, velocity solver4→16은 정지0.5~3초 잔류yaw 약59~62% 감소. 접촉/구동 수치 계산 영향 증거이며 정확한 접촉 원인/실제 인계 해결 확정 아님.
+- py_compile 및 실제 Isaac4조건 완료. 종료 단계 프로세스 잔류는 SIGTERM 정리. 상세 changes/WHEEL_STOP_DIAGNOSIS_20261028.md와 test_results/20261028_wheel_stop_diagnosis/. 커밋/푸시 미수행. 복원은 이번 진단 도구/자료/문서 추가분만 제거.
+
+## 2026-10-28 — 시뮬 인계 각도 0.8° 임시 완화 (사용자 명시 승인)
+
+- 대상 prepare_harvest_handoff.py/run_handoff_window_trial.py: 실행복사본 angle_tolerance 0.5→0.8°, source_adaptations와fixture에원본/적용값/승인/임시예외기록. 실물파일/공통코드/물리수치불변. 이유시뮬정지후미세회전에대한임시허용.
+- py_compile/생성JSON한필드차이/실행ROS0.8°/실물해시유지확인. 실제1회정렬·도킹·가상인계·운송이격성공, 이후수확복원WINDOW_REALIGN_REQUIRED로전체실패. 상세 changes/HANDOFF_ANGLE08_20261028.md와 test_results/20261028_handoff_angle08/.
+- 복원: 준비도구의각도override제거후실행묶음재생성,과거시험자료보존. 커밋/푸시없음.
+
+- 0.8°시험 후속 읽기분석: WINDOW_REALIGN_REQUIRED도입cf870da/현재원본유지확인. 외부동시로그로실제목표1.36cm 대 map추정12.14cm확인,약10.82cm위치추정불일치. 도구/운영수정없음,재구성JSON·보고·상태문서보완. 상세 HANDOFF_ANGLE08_20261028.md. 다음오차발생시점확인.
+
+- 추가읽기분석: 사용자위치불일치원인/과거크기질문. 현재AMCL직접오차후반10.9cm증가와odom최대4.62mm대조,이전평면최대6.16/4.80cm비교. 시계열JSON/AMCL진단자료/보고갱신만수행. 상세 HANDOFF_ANGLE08_20261028.md,운영변경없음.
+
+## 2026-10-28 — 위치 불일치 재현 반복 시험
+
+- 사용자재현시험요청승인.기존운영코드/설정은유지하고동일0.8°조건3회+카메라중단보충1회실행.분석스크립트/공유자료/보고/PROJECT_STATE추가만수행.
+- 성공2/복원추정오류1/카메라중단1.10cm급미재현이나6.38cm추정오차로실제목표0.95cm인데복원거절하는현상재현. AMCL최대2.61/6.42/2.64/3.98cm.공통·실물·물리설정불변,동일조건파일정규화/소스해시불변확인.
+- 상세changes/LOCALIZATION_REPEAT08_20261028.md,공유test_results/20261028_localization_repeat08/.종료정리확인,미커밋·미푸시.복원은이번진단문서/자료추가분만제거하고원시로그보존.
+
+## 2026-10-28 — 업데이트 전후 위치 추정 실행 조건 검토
+
+- 사용자질문에따른읽기감사/문서·증거JSON추가. 기존SEC캠페인은태그보정true/farm_tag_amcl/수확실제46회적용,최근인계시험도구는false/nav2_amcl. 이전4~6cm기록도통합후임을명시해“원래심했다”해석제한.
+- 기본AMCL설정·지도·태그AMCL소스92ad63a/ea25693대비동일,운영코드/설정변경없음. 관련TF발행/지연·구동·경로차이도기록. 상세changes/LOCALIZATION_UPDATE_AUDIT_20261028.md.복원은이번문서/자료추가분만제거.미커밋/미푸시.
+
+## 2026-10-28 — 인계 시험 태그 보정 연결 복원
+
+- 사용자임의비활성지적/기존조건보존지시. run_handoff_window_trial.py를기존simharvest런치/tagtrue로복원,sim harvest.launch에handoff/초기spawn선택연결,기존태그검사fixture기본인자추가. 공통·실물·AMCL수치·권한정책불변.
+- 첫준비실행은station/spawn혼동으로실패해원래업무스테이션보존하도록수정. 재실행태그APPLIED3회확인. 인계·운송이격통과하지만수확복원위치오류남음(실제목표2.02cm/map9.33cm).동작연결복원만완료,위치문제해결선언안함.
+- py_compile/빌드/기존런치6검사/실제시험/종료정리확인. 최초검사로그권한오류별도보존. 상세changes/TAG_RESTORATION_20261028.md.복원범위는이번sim3파일·문서/자료만,이전태그OFF조건을정상기준으로사용하지않음.미커밋·미푸시.
+
+## REAL-ROBOT-ISSUE-SHARE-20261028 — 실물 담당자 전달 문서·로그 패키지
+
+- 사용자 요청: 벽 정렬 완료 후 각도 초과와 인계 복귀 AMCL 오차를 Markdown 및 근거 로그 ZIP으로 작성.
+- 대상: `sim/docs/test_results/20261028_real_robot_issue_share/인계_주행_검토요청.md`, 동일 폴더의 로그 복사본·manifest, `sim/runs/real_robot_issue_share_20261028.zip`.
+- 기존 시험 결과를 전달용으로 정리했다. 0.5초/0.8초 별도 검사, 0.5° 실패와 시뮬 임시 0.8°의 구분, 태그 ON이지만 인계 중 보정 0회, 실제/추정 목표 거리 및 외부 재구성 한계를 명시했다.
+- 검증: 복사 SHA-256, JSON/JSONL 파싱, 문서 상대 링크, ZIP CRC 정상. 신규 주행 시험 없음. 코드·설정·실물 영향 없음, 미커밋·미푸시.
+- 복원: 이번 전달 문서 폴더·ZIP 및 이 이력만 제거하면 된다. 원본 시험 로그는 보존했다. ZIP은 검토 자료이며 저장소 적용 패치가 아니다. 수신자는 `unzip real_robot_issue_share_20261028.zip -d ./handoff_review`로 별도 폴더에 풀어 열 수 있다.
+
+
+### HCR3A-INTEGRATION-20261028 — 원본 선별 인수·물리 검증·공통 계약 연결
+
+- 요청/범위: 전달본의 레인 투입 이후 선별만 검증. 운송/배출 경로 제외. vendor 원본 보존, 시험복사본만 실행.
+- 승인: AGENTS 공통 변경 절차에 따라 3개 인터페이스 파일 및 hcr_sorting15파일 제안; 사용자 “공통 연결 변경 적용” 후 반영. 미승인 상태로 공통 파일을 변경하지 않음.
+- 파일: robot/ros_ws/src/farm_interfaces/{action/SortBatch.action,msg/SorterStatus.msg,CMakeLists.txt}, robot/ros_ws/src/hcr_sorting/15파일, sim/vendor/hcr3a_20261008/, sim/tools/probe_hcr_sorting.py, 상세보고/소스대응/패치 및 상태·결정 문서.
+- 전후: 로컬 선별 ROS 타입/서버 없음→원본 namespace를 farm_interfaces로 맞춘 서버 추가. 기존 공통업무/실물 설정/주행 판정 불변. core/Modbus는 원본과 동일. 실물 공통패키지에 additive 타입/서버가 생기며 자동 launch되지 않음.
+- 검증: ZIP275파일 무결성, 15파일 namespace 외일치, 타입필드/순서Frontend일치, 별도2패키지빌드, 오프라인32PASS, 실제ROS+모의장치 완료/중복/취소PASS, 실제RGB·팔물리 취소완료수량red1PASS. 정상ROS물리배치 SUCCESS red2/yellow2, 물리4/4·잔량0도 확인.
+- 실패: 원본8개중7개 보관후SUCCESS(잔여red1의ROI빨강7.07%<8%). 높이32px변경은3개후MIXED정체; 원본/농장에채택안함. 단독CPU240Hz/농장CPU60Hz구분.
+- 미완료: 농장투입실제prim바인딩, station좌표변환/자산배치, 기존실행루프/reset/pause, Frontend 전체연쇄. 정답과실위치 기반 보조집기는 기능근사 검증으로 명시.
+- 복원: 실행종료후 common_integration.proposed.patch 역적용(후속변경없을때), 새sim도구/vendor제거. 기존사용자미커밋변경에는 git reset/clean을 사용하지 않음. ROI시험변경은 runs복사본에만 있어운용복원불필요.
+- 근거: sim/docs/changes/HCR3A_INTEGRATION_20261028/REVIEW.md, sim/runs/hcr3a_intake_20261028/. 미커밋·미푸시.
+# 2026-10-28 — 농장 HCR 선별장·팔 배치 및 도킹→선별 연결
+
+- 구분/승인: sim 전용. 사용자 “기존 농장맵에 선별소 위치에 배치 후 도킹→선별 시퀀스”, “실물과 동일한 방식”. 사전 방향 정렬 활성화 제안은 미적용, 공통/실물 소스 수정 없음.
+- 대상: `sorter_scene.py`/`sorter_runtime.py`, fleet 설정·실행 훅, HCR USD/config, 기존 과실 이동 API, runner/probe, 라이다 진단. 전체 목록 `docs/changes/HCR3A_FARM_SEQUENCE_20261028/changed_files.json`.
+- 전후: 별도 HCR 단독 World에서 농장 공통 CPU60Hz World로 연결. 기존 선별장만 세션에서 대체하고 원래 과실 ID를 가상 레인 투입한다. 원본 HCR RGB/선별/Modbus/ROS 판정 유지. 배출 기구 물리 제외.
+- 실패 수정: 선별장 투입면을 기존 접근 edge와 원본 이격거리/센서 offset에 맞춰0.358m 배치. `ros_adapter.py`의 즉시 TF 선발행으로 1프레임 미래 TF 오류2회 발생하여 기존0.1초 대기 안에서 TF0.05초→odom0.1초로 나눔. stamp/값/odom 지연/공통 freshness 불변.
+- 검증: 단위14PASS, sim2패키지 빌드/문법/관련 diff 검사 PASS. 최종 실제 attempt09 접근→도킹→기존 과실2개 투입→이격→SortBatch SUCCESS(red1/yellow0), 약96.95초. TF5851검사 거절0. 노랑 잔류1개 및 이전 실패 원시 로그 보존. 이후 스테이션 복귀는 추정오차25.6cm로 실패, 전체 runner 성공 아님.
+- 한계/다음: 검출 성능·다중 배치·pause/reset 실제 시험·Frontend 선별 자동 워커 미완료. 복귀 위치 추정 원인 분리 필요. 실물 영향 없음. 미커밋·미푸시.
+- 복원: fleet에서 `sorter_config` 미지정 시 기존 농장 실행. 원본 USD 저장 안 함. TF 수정은 이번 시계 대기 변경만 되돌리고 이전 장치 통합은 보존. 보고 `docs/changes/HCR3A_FARM_SEQUENCE_20261028/REVIEW.md`; 실행/압축 해제는 DELIVERY.md.
+# 2026-10-28 — 선별장 위치 추정25cm 오차 로그/지도 감사
+
+- 구분: 조사·문서. 사용자 AMCL/odom/TF 정합 확인 요청. 실행 코드/지도/파라미터 변경 및 실제 재시험 없음.
+- HCR로 교체·재배치된 환경에 예전 선별장 점유지도를 그대로 사용한 누락 확인. 실제 전면 ray와 기존 점유셀 평균16.17cm 차이. 접근2cm→정지8cm→이격 회전25.6cm인 반면 마지막 wheel odom 위치오차1.4cm. TF 마지막 수정 전 attempt06에서도24.69cm 발생.
+- 지도 불일치는 확인,25cm의 전체 인과는 새 지도 단일변수 시험 필요. 원시 TF/전체scan 부재와 이동 중 시간 대응 근사 한계를 기록. 근거 `docs/changes/SORTER_LOCALIZATION_AUDIT_20261028.md`, `docs/test_results/20261028_sorter_localization_audit/`.
+- 실물 영향/복원: 실행 변경 없음, 조사 문서/자료만 추가. 다음 모델에 맞는 지도와 동일조건 비교. 미커밋·미푸시.
+
+### 2026-10-28 — HCR 선별장 지도 갱신 (시뮬 전용, 사용자 승인)
+
+- 승인: “업데이트해야지 지도도 업데이트해야되고”. 대상: sorter_integration.json, 신규 hcr_farm_map.yaml/png/manifest, build_sorter_map.py, run_sorter_cycle_trial.py, probe_sorter_cycle.py, test_sorter_map.py 및 보고/자료.
+- 전: 새 HCR 모델에 이전 선별장 점유지도. 후: 원본 USD 고정 단면 지도 선택/입력해시 검사, raw AMCL/TF/scan/odom 기록. 기존 지도와 외벽/베드/경로 보존. 실물/공통 코드·AMCL/도킹 수치 변화 없음.
+- 검증: 지도 회귀4PASS, 도구 py_compile/diff체크PASS, 실제 attempt10 도킹/투입/이격/선별성공·복귀실패. 최종추정20.30cm, odom1.28cm. 이전25.60cm보다 감소했지만 해결 아님. rawAMCL도20.31cm; TF합성/status1.26µm 일치. 상세 SORTER_MAP_UPDATE_20261028.md.
+- 원시 sim/runs/hcr3a_farm_cycle_20261028/attempt10, 공유 test_results/20261028_sorter_map_update. 되돌림: 시험 지도 선택과 검사 원복(오래된 지도 불일치 재발), 기존 count_test 지도 자체 수정 없음. 미커밋·미푸시. 다음 회전중 AMCL 관측/입자 수렴 원인 분리.
+
+### 2026-10-28 — 운송 AMCL 갱신 간격/미실행 모델 잔존 수정 (시뮬 전용)
+
+- 승인근거: 사용자 AMCL오차개선요청. 파일: nav2_transport.yaml 두AMCL값, run_sorter_cycle_trial.py 단독씬레이어/원본값차이기록, replay_sorter_localization.py 및analyze_amcl_diagnosis.py, 활성예찰보존검사/보고자료.
+- 전: 25cm/0.2rad마다AMCL관측갱신, 단독운송씬에미실행예찰모델잔존. 후: 5cm/0.05rad갱신·잔존모델제외. 실물원본및공통코드/실패판정/속도·시간제한불변. 의도적인시뮬AMCL수치차이명시.
+- 검증: 원래센서재생20.31cm→2.00cm; 실제attempt15 선별장회전후3.46cm/전체평균3.19cm·최대7.66cm. 스테이션도달후최종제자리회전중10초병진진행검사105. 전체성공아님. 준비오류11/12·scan stale13·모델제외만14 실패기록보존. TFfuture5,장거리wheel odom99cm도별도기록.
+- 5검사PASS/py_compile/diffPASS. 보고changes/AMCL_DIAGNOSIS_FIX_20261028.md,자료test_results/20261028_amcl_diagnosis/. 되돌림: AMCL두값0.25/0.2복원 및비교옵션--keep-unused-scout. 원본USD/기존미커밋보존. 미커밋·미푸시.
+
+### 2026-10-28 — 통합 상태 커밋 스냅샷
+
+- 사용자 “지금상태로 커밋푸쉬” 요청에 따라 수확 인계·HCR 선별 연결, 지도 갱신, 시뮬 운송 AMCL 개선 및 시험 자료를 저장한다. 기준 HEAD `ea25693`, 원격 fetch 후 `origin/main`과 동일함을 확인했다.
+- 최신 실제 시험은 도킹→투입→이격→선별→스테이션 위치까지 진행했으나 마지막 회전에서 105로 실패했다. 예찰부터 시작하는 전체 연속 사이클은 미검증이며, 정상 완료로 보고하지 않는다. 선별 잔류 노랑 1개와 장거리 odom 오차도 남아 있다.
+- 관련 오프라인 검사 57개 통과 확인. 최초 ROS 환경 미설정으로 수집 실패했고, 환경 로드 후 54개 통과/3개 로그 디렉터리 쓰기 오류가 발생했다. 로그 경로를 `/tmp`로 지정하여 해당 launch 파일 6개 모두 재검사 통과했다. 실제 시뮬 시험은 추가 실행하지 않았다.
+- 프로젝트 반영 코드·설정·자산·선택 시험 자료를 포함한다. 루트 `Frontend/`와 원본 ZIP, gitignore 대상 `sim/runs/` 원시 실행 자료는 로컬에 보존한다. 이전 항목의 미커밋·미푸시 표시는 각 기록 시점의 상태다. 최종 원격 반영 여부는 push 후 원격 HEAD로 확인한다.
+- 다음 작업: 최종 회전의 진행 검사 105 해결 후 예찰→수확→운송→선별→양 로봇 복귀 전체 연속 검증. 이번 저장 작업에서 제어 코드·판정·설정을 추가 변경하지 않았다.

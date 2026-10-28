@@ -1,0 +1,224 @@
+{
+  "note": "external received wall + latest received odom; internal validator sample not captured",
+  "threshold": {
+    "target_distance": 0.4325,
+    "distance_tolerance": 0.005,
+    "angle_tolerance": 0.008726646259971648,
+    "kp_distance": 0.4,
+    "kp_angle": 0.8,
+    "max_linear": 0.02,
+    "max_angular": 0.05,
+    "align_enter": 0.06981317008,
+    "align_exit": 0.03490658504,
+    "dwell": 0.5,
+    "max_distance": 0.2,
+    "max_yaw": 0.2617993878,
+    "timeout": 40.0,
+    "observation_age": 0.45,
+    "stopped_linear": 0.005,
+    "stopped_angular": 0.02,
+    "min_linear": 0.006,
+    "min_angular": 0.03,
+    "sequential_alignment": true,
+    "target_angle": 0.04276056667386108,
+    "observation_wait": 5.0,
+    "wait_until_fresh": true
+  },
+  "samples": [
+    {
+      "delta_to_result_s": -0.9846510887145996,
+      "distance_m": 0.43343770637291495,
+      "angle_error_deg": 0.49361103693670877
+    },
+    {
+      "delta_to_result_s": -0.9755949974060059,
+      "distance_m": 0.43342219541777427,
+      "angle_error_deg": 0.48943426794466743
+    },
+    {
+      "delta_to_result_s": -0.9488480091094971,
+      "distance_m": 0.4334194601952263,
+      "angle_error_deg": 0.4868876172583141
+    },
+    {
+      "delta_to_result_s": -0.8998138904571533,
+      "distance_m": 0.4333729349941756,
+      "angle_error_deg": 0.4867179538698274
+    },
+    {
+      "delta_to_result_s": -0.8642849922180176,
+      "distance_m": 0.43336455316926714,
+      "angle_error_deg": 0.48669831389024376
+    },
+    {
+      "delta_to_result_s": -0.8286120891571045,
+      "distance_m": 0.433357751806353,
+      "angle_error_deg": 0.48724037732681974
+    },
+    {
+      "delta_to_result_s": -0.79634690284729,
+      "distance_m": 0.43336177884993377,
+      "angle_error_deg": 0.4895801823541393
+    },
+    {
+      "delta_to_result_s": -0.7707688808441162,
+      "distance_m": 0.4333484746484205,
+      "angle_error_deg": 0.49365351412032815
+    },
+    {
+      "delta_to_result_s": -0.7324600219726562,
+      "distance_m": 0.4333814732015839,
+      "angle_error_deg": 0.49726727036419766
+    },
+    {
+      "delta_to_result_s": -0.6889770030975342,
+      "distance_m": 0.43335929917990823,
+      "angle_error_deg": 0.5007748006166938
+    },
+    {
+      "delta_to_result_s": -0.6660609245300293,
+      "distance_m": 0.433359431291766,
+      "angle_error_deg": 0.5072442098924362
+    },
+    {
+      "delta_to_result_s": -0.6234638690948486,
+      "distance_m": 0.4333535450531684,
+      "angle_error_deg": 0.5131034704690467
+    },
+    {
+      "delta_to_result_s": -0.5756850242614746,
+      "distance_m": 0.4333514373387596,
+      "angle_error_deg": 0.5185687562685315
+    },
+    {
+      "delta_to_result_s": -0.5459280014038086,
+      "distance_m": 0.4333504293985341,
+      "angle_error_deg": 0.5261288390772956
+    },
+    {
+      "delta_to_result_s": -0.5247409343719482,
+      "distance_m": 0.43334210661061456,
+      "angle_error_deg": 0.5314460362173046
+    },
+    {
+      "delta_to_result_s": -0.47898006439208984,
+      "distance_m": 0.4333417941762875,
+      "angle_error_deg": 0.5396483394768342
+    },
+    {
+      "delta_to_result_s": -0.44960999488830566,
+      "distance_m": 0.43333531608421455,
+      "angle_error_deg": 0.5453203655813745
+    },
+    {
+      "delta_to_result_s": -0.4214320182800293,
+      "distance_m": 0.4333738713879856,
+      "angle_error_deg": 0.5481066240186921
+    },
+    {
+      "delta_to_result_s": -0.3849070072174072,
+      "distance_m": 0.4333343362009066,
+      "angle_error_deg": 0.5509196057749703
+    },
+    {
+      "delta_to_result_s": -0.35533905029296875,
+      "distance_m": 0.43333329893503114,
+      "angle_error_deg": 0.5559422032211858
+    },
+    {
+      "delta_to_result_s": -0.30744504928588867,
+      "distance_m": 0.4333254313755836,
+      "angle_error_deg": 0.558487544575578
+    },
+    {
+      "delta_to_result_s": -0.2693479061126709,
+      "distance_m": 0.43332819585461,
+      "angle_error_deg": 0.5587373182518067
+    },
+    {
+      "delta_to_result_s": -0.2447340488433838,
+      "distance_m": 0.4333156214985206,
+      "angle_error_deg": 0.5597559785263506
+    },
+    {
+      "delta_to_result_s": -0.20994091033935547,
+      "distance_m": 0.43329917208975793,
+      "angle_error_deg": 0.5596538506324976
+    },
+    {
+      "delta_to_result_s": -0.17487096786499023,
+      "distance_m": 0.4333237486107288,
+      "angle_error_deg": 0.5587795117737256
+    },
+    {
+      "delta_to_result_s": -0.14536094665527344,
+      "distance_m": 0.43331789688185274,
+      "angle_error_deg": 0.5575801636869812
+    },
+    {
+      "delta_to_result_s": -0.12037110328674316,
+      "distance_m": 0.43331082684140554,
+      "angle_error_deg": 0.5542767191205544
+    },
+    {
+      "delta_to_result_s": -0.06989502906799316,
+      "distance_m": 0.43335011741059004,
+      "angle_error_deg": 0.549883625665447
+    },
+    {
+      "delta_to_result_s": -0.05007195472717285,
+      "distance_m": 0.4333446081249886,
+      "angle_error_deg": 0.5455549741646193
+    },
+    {
+      "delta_to_result_s": -0.004878997802734375,
+      "distance_m": 0.4333397495624721,
+      "angle_error_deg": 0.5408636377074293
+    },
+    {
+      "delta_to_result_s": 0.04451894760131836,
+      "distance_m": 0.43329078149603173,
+      "angle_error_deg": 0.5352918899500236
+    },
+    {
+      "delta_to_result_s": 0.06501507759094238,
+      "distance_m": 0.4332827963423643,
+      "angle_error_deg": 0.5303269031105978
+    },
+    {
+      "delta_to_result_s": 0.0973520278930664,
+      "distance_m": 0.433275809300888,
+      "angle_error_deg": 0.5252938310086034
+    },
+    {
+      "delta_to_result_s": 0.13958311080932617,
+      "distance_m": 0.4332732196384553,
+      "angle_error_deg": 0.5204598826475756
+    },
+    {
+      "delta_to_result_s": 0.16518092155456543,
+      "distance_m": 0.43327147775475594,
+      "angle_error_deg": 0.5165685480255355
+    },
+    {
+      "delta_to_result_s": 0.19001412391662598,
+      "distance_m": 0.4332999840966246,
+      "angle_error_deg": 0.510846767306049
+    },
+    {
+      "delta_to_result_s": 0.23585891723632812,
+      "distance_m": 0.4332859981668563,
+      "angle_error_deg": 0.5088854231512357
+    },
+    {
+      "delta_to_result_s": 0.27231311798095703,
+      "distance_m": 0.4332735406559127,
+      "angle_error_deg": 0.5067093134130756
+    },
+    {
+      "delta_to_result_s": 0.2980360984802246,
+      "distance_m": 0.43327351619064225,
+      "angle_error_deg": 0.5052075096407195
+    }
+  ]
+}

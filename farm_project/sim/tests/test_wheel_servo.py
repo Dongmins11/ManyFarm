@@ -11,20 +11,19 @@ class WheelServoTests(unittest.TestCase):
     def setUp(self) -> None:
         self.servo=WheelVelocityServo(dict(kp=1.,ki=4.,max_correction_rad_s=2.))
 
-    def test_stop_resets_integral_and_brakes_measured_motion(self) -> None:
+    def test_stop_uses_zero_drive_target_without_reverse_correction(self) -> None:
         for _ in range(60):self.servo.command(np.array([.5,-.5]),np.zeros(2))
         result=self.servo.command(np.zeros(2),np.array([.5,-.5]))
-        self.assertLess(result[0],0);self.assertGreater(result[1],0)
+        np.testing.assert_array_equal(result,np.zeros(2))
         np.testing.assert_array_equal(self.servo.integral,np.zeros(2))
 
-    def test_stationary_command_integrates_persistent_disturbance(self) -> None:
+    def test_stationary_noise_does_not_restart_wheels(self) -> None:
         measured=np.array([.05,-.05])
         first=self.servo.command(np.zeros(2),measured)
         for _ in range(60):result=self.servo.command(np.zeros(2),measured)
-        self.assertLess(result[0],first[0])
-        self.assertGreater(result[1],first[1])
-        self.assertLess(self.servo.integral[0],0.)
-        self.assertGreater(self.servo.integral[1],0.)
+        np.testing.assert_array_equal(first,np.zeros(2))
+        np.testing.assert_array_equal(result,np.zeros(2))
+        np.testing.assert_array_equal(self.servo.integral,np.zeros(2))
 
     def test_stalled_wheel_correction_is_bounded(self) -> None:
         for _ in range(1000):result=self.servo.command(np.array([.1,-.1]),np.zeros(2))

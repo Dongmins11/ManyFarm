@@ -1,0 +1,15 @@
+{
+  "source_commit": "9686aca909cb52191862ee3500c62fadf7a8ed38",
+  "user_decision": "실물과 동일한 방식",
+  "align_before_lidar_real": false,
+  "align_before_lidar_sim": false,
+  "heading_policy_equal": true,
+  "lidar_control_differences": {
+    "scan_frame": [
+      "base_scan",
+      "transport_01/base_scan"
+    ]
+  },
+  "full_approach_failure_preserved": "attempt04",
+  "near_dock_test": "attempt05; explicit initial pose fixture, not full route validation"
+}

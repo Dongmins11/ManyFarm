@@ -1,0 +1,30 @@
+{
+  "transport_runtime.json": {
+    "map_yaml": {
+      "before": "sim/ros_ws/src/farm_sim_config/maps/count_test_farm_map.yaml",
+      "after": "sim/ros_ws/src/farm_sim_config/maps/hcr_farm_map.yaml"
+    }
+  },
+  "nav2_transport.json": {},
+  "precision_profiles.json": {},
+  "destinations.json": {},
+  "sorter.json": {
+    "occupancy_map": {
+      "before": null,
+      "after": {
+        "base_yaml": "sim/ros_ws/src/farm_sim_config/maps/count_test_farm_map.yaml",
+        "yaml": "sim/ros_ws/src/farm_sim_config/maps/hcr_farm_map.yaml",
+        "manifest": "sim/ros_ws/src/farm_sim_config/maps/hcr_farm_map.manifest.json",
+        "scan_height_m": 0.132,
+        "replace_bounds_xy_m": [
+          -7.45,
+          13.5,
+          -6.5,
+          14.75
+        ]
+      }
+    }
+  },
+  "fleet.json": {},
+  "transport.json": {}
+}

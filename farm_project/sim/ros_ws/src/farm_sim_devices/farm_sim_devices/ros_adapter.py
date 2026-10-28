@@ -87,6 +87,12 @@ class SimRosAdapter(Node):
         if rt.get('mechanical_device',{}).get('enabled') is True:
             from farm_sim_devices.mechanical_ros import MechanicalRosServer
             self.mechanical_server=MechanicalRosServer(self)
+        self.harvest_transfer_server=None
+        if rt.get('harvest_transfer',{}).get('enabled') is True:
+            if self.arm_server is None:
+                raise ValueError('수확 인계에는 실제 시뮬 팔 상태 연결이 필요합니다.')
+            from farm_sim_devices.harvest_transfer_ros import HarvestTransferServer
+            self.harvest_transfer_server=HarvestTransferServer(self)
         self.timer=self.create_timer(.005,self.poll,clock=Clock(clock_type=ClockType.STEADY_TIME))
         self.get_logger().info('Isaac Sim 연결 대기. 속도 명령은 연결 이후에만 전달합니다.')
 
@@ -154,7 +160,8 @@ class SimRosAdapter(Node):
             self.last_packet,self.last_stamp=m['seq'],m['stamp_ns'];self.last_seen=time.monotonic()
             self.link_lost=False
             if self.arm_server is not None:self.arm_server.observe(m['session'],m.get('arm'))
-            if self.state_clock_delay_ns:self.pending_states.append(m)
+            if self.state_clock_delay_ns:
+                self.pending_states.append(m)
             else:self.publish_state(m)
         if self.state_clock_delay_ns:self.publish_ready_states()
         if self.session is not None and time.monotonic()-self.last_seen>self.config['runtime']['transport_timeout_s'] and not self.link_lost:
@@ -180,6 +187,14 @@ class SimRosAdapter(Node):
         """시계 정지 때 큐는 유한 크기이며 만료 패킷은 뒤늦게 재생하지 않는다."""
         now=time.monotonic();clock_ns=self.get_clock().now().nanoseconds
         timeout=self.config['runtime']['transport_timeout_s']
+        # UDP 표본이 /clock보다 먼저 도착할 수 있다. 기존 대기의 절반을
+        # 시계 전달에, 나머지를 TF 선전달에 사용한다. odom/scan 시각은 불변이다.
+        for m in self.pending_states:
+            if now-m['sent']>timeout or clock_ns-m['stamp_ns']>500_000_000:continue
+            if clock_ns<m['stamp_ns']+self.state_clock_delay_ns//2:break
+            if not m.get('_sim_tf_published',False):
+                self.publish_transforms(m)
+                m['_sim_tf_published']=True
         while self.pending_states:
             m=self.pending_states[0]
             if now-m['sent']>timeout or clock_ns-m['stamp_ns']>500_000_000:
@@ -188,6 +203,9 @@ class SimRosAdapter(Node):
             self.publish_state(self.pending_states.popleft())
 
     def publish_state(self,m):
+        if self.harvest_transfer_server is not None:
+            self.harvest_transfer_server.observe(m['session'],m.get('arm'),
+                m.get('basket_alignment'),m['stamp_ns']/1e9)
         if self.mechanical_server is not None:
             self.mechanical_server.observe(m['session'],m.get('basket_alignment'))
         ns=m['stamp_ns'];frames=self.config['frames']
@@ -202,19 +220,8 @@ class SimRosAdapter(Node):
         # 초기 보수적 가정. 실제 센서/주행 시험으로 조정할 값입니다.
         for i,value in enumerate([.0025,.0025,1e6,1e6,1e6,.01]):odom.pose.covariance[i*7]=value
         for i,value in enumerate([.01,1e6,1e6,1e6,1e6,.04]):odom.twist.covariance[i*7]=value
+        if not self.state_clock_delay_ns:self.publish_transforms(m)
         self.odom_pub.publish(odom)
-        tf=TransformStamped();tf.header=odom.header;tf.child_frame_id=odom.child_frame_id
-        tf.transform.translation.x=x;tf.transform.translation.y=y
-        tf.transform.rotation=odom.pose.pose.orientation;self.tf.sendTransform(tf)
-        if not self.static_sent:
-            transforms=[]
-            for entry in m['static_tf']:
-                t=TransformStamped();stamp_message(t.header.stamp,ns)
-                t.header.frame_id=entry['parent'];t.child_frame_id=entry['child']
-                t.transform.translation.x,t.transform.translation.y,t.transform.translation.z=entry['translation']
-                t.transform.rotation.x,t.transform.rotation.y,t.transform.rotation.z,t.transform.rotation.w=entry['rotation_xyzw']
-                transforms.append(t)
-            self.static_tf.sendTransform(transforms);self.static_sent=True
         joints=JointState();stamp_message(joints.header.stamp,ns)
         joints.header.frame_id=frames['base_link'];joints.name=self.config['base']['wheel_joints']
         joints.position=m['joint_positions'];joints.velocity=m['joint_velocities'];self.joint_pub.publish(joints)
@@ -227,10 +234,29 @@ class SimRosAdapter(Node):
             scan.ranges=[math.inf if v is None else float(v) for v in m['scan']]
             self.scan_pub.publish(scan)
 
+    def publish_transforms(self,m: dict) -> None:
+        """상태 표본의 TF를 발행한다. 정답 위치나 미래 예측값을 사용하지 않는다."""
+        ns=m['stamp_ns'];frames=self.config['frames'];x,y,yaw,_,_=m['odom']
+        tf=TransformStamped();stamp_message(tf.header.stamp,ns)
+        tf.header.frame_id=frames['odom'];tf.child_frame_id=frames['base_footprint']
+        tf.transform.translation.x=x;tf.transform.translation.y=y
+        tf.transform.rotation.z=math.sin(yaw/2);tf.transform.rotation.w=math.cos(yaw/2)
+        self.tf.sendTransform(tf)
+        if not self.static_sent:
+            transforms=[]
+            for entry in m['static_tf']:
+                t=TransformStamped();stamp_message(t.header.stamp,ns)
+                t.header.frame_id=entry['parent'];t.child_frame_id=entry['child']
+                t.transform.translation.x,t.transform.translation.y,t.transform.translation.z=entry['translation']
+                t.transform.rotation.x,t.transform.rotation.y,t.transform.rotation.z,t.transform.rotation.w=entry['rotation_xyzw']
+                transforms.append(t)
+            self.static_tf.sendTransform(transforms);self.static_sent=True
+
     def close(self):
         if self.session is not None:self.command(Twist())
         if self.arm_server is not None:self.arm_server.close()
         if self.mechanical_server is not None:self.mechanical_server.close()
+        if self.harvest_transfer_server is not None:self.harvest_transfer_server.close()
         self.transport.close()
         self.destroy_node()
 

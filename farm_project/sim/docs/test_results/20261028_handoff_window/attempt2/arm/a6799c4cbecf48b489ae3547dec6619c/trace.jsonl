@@ -1,0 +1,5 @@
+{"event": "START", "time_s": 7.900000412017107}
+{"event": "BASKET_LASER", "stamp_s": 7.916667079553008, "blocked": [false, false, false], "state": "DISARMED", "total": 0}
+{"event": "CAMERA_INVENTORY", "time_s": 7.95000041462481, "expected_count": 1, "visible_ripe_count": 1, "task_workspace_min_m": [0.265, -0.175, 0.087], "task_workspace_max_m": [0.365, 0.175, 0.35], "targets": [], "detections": [{"label": "Yellow", "confidence": 0.9176283478736877, "candidate_valid": true, "candidate_reason": "ok", "grasp_estimate_arm_m": [0.3034269616245213, 0.19955077668062937, 0.11708709647546817], "bbox": [645.345458984375, 316.8586120605469, 713.43017578125, 411.3377990722656]}]}
+{"event": "STOP_REQUEST", "time_s": 8.000000417232513, "status": "CANCELED", "reason": "operator_cancel"}
+{"event": "RESULT", "time_s": 8.350000435486436, "job_id": "a6799c4cbecf48b489ae3547dec6619c", "status": "CANCELED", "stage": "DONE", "success_count": 0, "failed_count": 0, "event_seq": 1, "error_code": "", "error_message": "operator_cancel", "safe_stopped": true}

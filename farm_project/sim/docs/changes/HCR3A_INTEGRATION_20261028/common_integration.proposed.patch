@@ -1,0 +1,1488 @@
+--- /dev/null
++++ b/farm_project/robot/ros_ws/src/farm_interfaces/action/SortBatch.action
+@@ -0,0 +1,23 @@
++# Goal: one batch; standalone test operator confirms unloading/clearance.
++string robot_id
++string task_id
++string batch_id
++string timestamp
++---
++string robot_id
++string task_id
++string batch_id
++string result_code
++int32 red_count
++int32 yellow_count
++string error_code
++string error_message
++string timestamp
++---
++string robot_id
++string task_id
++string batch_id
++string phase
++int32 red_count
++int32 yellow_count
++string timestamp
+--- /dev/null
++++ b/farm_project/robot/ros_ws/src/farm_interfaces/msg/SorterStatus.msg
+@@ -0,0 +1,11 @@
++string robot_id
++string current_task_id
++string current_batch_id
++string state
++bool receive_ready
++bool ready
++string error_code
++string error_message
++string boot_id
++uint64 sequence
++string timestamp
+--- a/farm_project/robot/ros_ws/src/farm_interfaces/CMakeLists.txt
++++ b/farm_project/robot/ros_ws/src/farm_interfaces/CMakeLists.txt
+@@ -27,6 +27,8 @@
+   "srv/TransferEvent.srv"
+   "action/TransportPickup.action"
+   "action/BucketUnload.action"
++  "action/SortBatch.action"
++  "msg/SorterStatus.msg"
+   "action/CheckRoute.action"
+   "action/PrecisionMotion.action"
+   "action/MechanicalOperation.action"
+diff --git a/farm_project/robot/ros_ws/src/hcr_sorting/README.md b/farm_project/robot/ros_ws/src/hcr_sorting/README.md
+new file mode 100644
+--- /dev/null
++++ b/farm_project/robot/ros_ws/src/hcr_sorting/README.md
+@@ -0,0 +1,132 @@
++# HCR-3A 웹캠 선별 배치 실행기
++
++2026-10-01. 선별 로봇팔=HCR-3A. 관제 Goal → 웹캠 A/B/C/D 후보 → Modbus 요청 → BUSY → 정상 놓기·초기위치복귀 DONE → READY → 새 영상 재선택. SO101 및 수확 RL 모듈을 사용하지 않는다.
++
++## 현재 구현 및 실제 사용 전 조건
++
++PC 실행기와 ROS/Modbus 통합 테스트가 구현됐다. **실제 Rodi에 아래 handshake를 작성해야 동작한다.** 예전 PC_TEST 읽기 신호만 있는 상태로는 READY 응답이 없어 Goal이 거절된다. PC 코드는 모션 좌표나 그리퍼 동작을 생성하지 않는다. Rodi의 DONE은 '정상 놓기와 초기위치복귀 성공'을 의미해야 한다. 그리퍼 없는 경로시험은 실제 운반 개수 검증이 아니다.
++
++Confluence [선별장 프로토콜](https://robot3final.atlassian.net/wiki/spaces/3/pages/12746755) v6의 필드를 따른다. 이 구현은 실제 ROS 타입을 farm_interfaces로 정했다. 관제 측도 동일 action/msg 정의를 빌드해야 한다. 기존 문서에서 보류였던 종료 기준은 이번 사용자 요청에 따라 '4구역 빨강/노랑 연속 미검출'로 구현했다.
++
++## 설치와 실행 (Ubuntu / ROS 2 Jazzy 검증)
++
++저장소 루트에서 실행한다. 필요한 시스템 패키지는 ROS2 rclpy/rosidl/colcon 및 python3-opencv/python3-numpy/python3-venv다. 웹캠에는 pyrealsense2가 필요 없다. 다른 노트북에서는 기존 venv를 복사하지 않는다.
++
++```bash
++bash src/sorting_station/hcr/build_sorter.sh
++```
++
++터미널1 — 웹캠 영상, ROI 설정:
++
++```bash
++bash src/sorting_station/hcr/run_webcam_preview.sh --camera 0
++```
++
++`--camera /dev/v4l/by-id/...`도 가능하다. `a/b/c/d` 누른 뒤 드래그, `s` 저장, Space 미리보기 일시정지, `q` 종료. 4구역 지정 후 Goal을 보낸다. 구역 파일은 outputs/sorting_station/hcr_preview/zones.json이다. 런타임이 활성화된 동안 편집/일시정지/카메라 종료는 카메라 준비 실패로 Action을 FAILED 처리한다. 이는 물리 로봇 정지 명령이 아니므로 실제 운반 중 GUI를 편집하지 않는다.
++
++터미널2 — 실제 로봇팔용 PC 서버. 이전 modbus_test_server/zone_modbus_bridge는 종료한다:
++
++```bash
++sudo -E bash src/sorting_station/hcr/run_sorter.sh
++```
++
++기본 PC192.168.3.2:502, 허용 로봇팔192.168.3.100. PC IP가 존재해야 한다. 502포트 권한 때문에 sudo를 사용하는 예시다. 서버 GUI는 없으며 웹캠은 일반 사용자로 실행한다. 관제와 ROS_DOMAIN_ID/RMW설정이 같아야 한다. sudo -E는 설정 환경을 전달한다.
++
++```bash
++sudo -E bash src/sorting_station/hcr/run_sorter.sh --ros-args \
++  -p modbus_host:=192.168.3.2 -p modbus_peer:=192.168.3.100 \
++  -p empty_seconds:=3.0 -p settle_seconds:=0.5
++```
++
++반입 준비는 센서 자동 인증이 아니다. 운영자가 반입가능 조건을 확인한 뒤 `-p receive_enabled:=true`를 지정해야 /status의 receive_ready가 장치준비 상태와 함께 true가 된다. 기본false. ready는카메라4ROI/최신영상/HCR READY/무오류/무작업일때true다.
++
++터미널3 — 관제 개발자용 Goal 예시(동일 Task ID 재사용 금지):
++
++```bash
++source /opt/ros/jazzy/setup.bash
++source outputs/sorting_station/ros2/install/setup.bash
++ros2 action send_goal /sorter_01/sort_batch farm_interfaces/action/SortBatch \
++  '{robot_id: sorter_01, task_id: SORT_TEST_001, batch_id: BATCH_TEST_001, timestamp: "2026-10-01T12:00:00+09:00"}' --feedback
++```
++
++관제는 bucket_unload SUCCESS(하역+운송로봇 안전이격)와최신ready=true를확인한뒤Goal을보낸다. 이 노드는하역Action을구독하지않으며그순서보장은관제책임이다. 실행만으로동작요청을내지않는다.
++
++## ROS 계약
++
++- Action `/sorter_01/sort_batch`: Goal은robot_id/task_id/batch_id/timestamp. Feedback은phase/red_count/yellow_count와식별자/시간. Result는SUCCESS/FAILED/CANCELED,누적red_count/yellow_count,error_code/error_message와식별자/시간. **총 운반 횟수=red_count+yellow_count**.
++- Topic `/sorter_01/status`: 1Hz, state/current_task_id/current_batch_id/receive_ready/ready/error/boot_id/sequence/timestamp. Feedback은1Hz및phase·개수변경시추가발행.
++- 취소: 새 요청 중단, 이미 발행한 한 작업은 일치 BUSY/DONE/READY까지 마친 후 CANCELED. 이 과정 timeout은FAILED. 이미 완료된 수량은보존한다.
++- 오류: 새작업중단,명령0,에러latch. 실제로움직이는로봇을정지시키는명령은포함하지않는다. Rodi는PC heartbeat정지/통신오류시신규수락차단과별도오류처리를구현해야한다.
++- 복구: 실물 상태 확인과 HCR READY 복구, 카메라 정상화 후 `ros2 service call /sorter_01/reset_fault std_srvs/srv/Trigger '{}'`. 재시작만으로고장latch를해제하지않는다.
++- SQLite journal은 outputs/sorting_station/hcr_runtime/journal.sqlite3. task ID와누적개수/결과,job sequence와오류를보존. 동일task재전달은거절하며재실행·카운트초기화하지않는다. 미완료재시작은FAILED/PROCESS_RESTART와latch. 불확실한이전동작은자동재시도하지않는다. SQLite를지우는방식으로복구하지않는다.
++
++## 레지스터 / Rodi 작성 규칙
++
++기존 구역·색상값은 유지: **A빨강11/A노랑12, B21/22, C31/32, D41/42**. 0=요청없음. 실행용맵의주소1..4는옛preview와다르므로혼용하지않는다. HCR이PC서버에연결하는Modbus클라이언트다. Slave ID1, 읽기FC03/04, 쓰기FC06/16.
++
++|주소|펜던트 신호 타입|추천 이름|의미|
++|---|---|---|---|
++|0|Register Input|PC_COMMAND|명령11..42|
++|1|Register Input|PC_JOB_ID|운반1회의고유번호|
++|2|Register Input|PC_REQUEST|1=수락요청,수락후0|
++|3|Register Input|PC_BATCH_ACTIVE|배치작업활성|
++|4|Register Input|PC_HEARTBEAT|PC tick카운터|
++|100|Register Output|HCR_STATE|1READY/2BUSY/3DONE/4ERROR/0미준비|
++|101|Register Output|HCR_ACK_JOB|수락한작업번호|
++|102|Register Output|HCR_DONE_JOB|완료한작업번호|
++|103|Register Output|HCR_ERROR|정상0/오류비영|
++
++펜던트 Input/Output은이장비화면의명칭이다. 실제Rodi버전에서Output쓰기가지원되고정확한function을내보내는지먼저이동없이확인한다. 입력/출력모두주기갱신하며 **STATE100은최소1Hz로반복쓰기** 한다. 변경될때만쓰는구성으로는3초heartbeat timeout이발생한다.
++
++Rodi 블록 논리(붙여넣기용 스크립트 문법 아님):
++
++1. 초기화/실물대기위치확인후 ERROR=0, STATE=READY. PC통신정상및heartbeat변화확인.
++2. READY에서 BATCH_ACTIVE=1 AND REQUEST=1,유효COMMAND,새JOB_ID를기다린다.
++3. active_job/active_command에복사하고JOB_ID/REQUEST를다시읽어변화없는지확인한다. **ACK_JOB을먼저쓰고 STATE=BUSY를마지막에쓴다.** (FC16으로상태블록원자쓰기또는순차쓰기에따른commit규칙.)
++4. PC REQUEST=0 응답을확인한다. 그전BUSY를유지한다. 기다림에는timeout/오류분기를둔다.
++5. active_command만사용해티칭된선별운반시퀀스를한번실행한다. 카메라실시간명령을재참조하지않는다. BUSY/heartbeat는이동중에도주기갱신한다.
++6. 정상놓기및초기위치복귀후 DONE_JOB=active_job을먼저쓰고 STATE=DONE을마지막에쓴다.
++7. PC가 COMMAND=0,REQUEST=0으로완료를확인할때까지DONE을유지한다. 이후STATE=READY로돌아가다음요청을기다린다.
++8. 고장시ERROR비영,STATE=ERROR. READY로건너뛰어복귀하면PC는READY_WITHOUT_DONE으로실패한다.
++
++PC는BUSY와DONE의동일작업번호를확인해한번만집계한다. A를처리한뒤에도A에다음물체가보이면새job ID로다시A를선택한다. 반드시EMPTY를한프레임봐야재선택하는규칙은없다. job ID는16bit범위에서재사용하지않으며65535소진시JOB_ID_EXHAUSTED. 장기운용시세션확장프로토콜을합의해야한다.
++
++## 종료 및 영상 규칙
++
++복귀READY후0.5초(settle_seconds) 이후취득된새프레임부터재판정한다. 모두NO_COLOR가연속3초(empty_seconds)일때SUCCESS. 시작시빈영상도같은시간후0회SUCCESS. MIXED/WAIT/미설정/정지/프레임1초이상멈춤을빈영상으로처리하지않는다. unresolved상태60초는VISION_UNRESOLVED. HCR상태3초갱신중단,수락10초,운반120초,복귀READY10초,배치1800초가각각기본timeout이며ROS파라미터로설정한다.
++
++이완료조건은사용자가요청한색상미검출기준이다. 위쪽레인에물체가걸렸거나조명때문에색을못보는경우도종료될수있으므로레인상류잔량까지확인한성공을뜻하지않는다. DONE의물리적정상놓기보장도Rodi측센서/프로그램책임이다.
++
++## 로봇 없이 테스트
++
++웹캠 GUI는같이실행하되서버는loopback/1502, 별도journal을사용한다:
++
++```bash
++bash src/sorting_station/hcr/run_sorter.sh --ros-args \
++  -p modbus_host:=127.0.0.1 -p modbus_port:=1502 -p modbus_peer:=127.0.0.1 \
++  -p journal:=outputs/sorting_station/hcr_runtime/mock_journal.sqlite3
++```
++
++다른터미널에서ROS환경과install을source한후:
++
++```bash
++ros2 run hcr_sorting mock_hcr --host 127.0.0.1 --port 1502 --cycle-seconds 2
++```
++
++이mock은모션없이2초뒤DONE을주므로,물체를계속두면A를반복처리하고카운트가계속증가한다. 다음물체/종료시험은카메라앞물체를직접옮겨진행한다. 실제운반개수로해석하지않는다.
++
++```bash
++PYTHONPATH=src/sorting_station/hcr_sorting /usr/bin/python3 -m unittest discover -s src/sorting_station/hcr_sorting/tests -v
++/usr/bin/python3 -m unittest discover -s src/sorting_station/hcr -p 'test_zone_preview.py' -v
++source /opt/ros/jazzy/setup.bash
++source outputs/sorting_station/ros2/install/setup.bash
++ROS_DOMAIN_ID=87 ROS_AUTOMATIC_DISCOVERY_RANGE=LOCALHOST /usr/bin/python3 src/sorting_station/hcr_sorting/tests/ros_integration.py
++```
++
++ROS통합시험은합성관측+실제ROS메시지+localhostTCP. 실제카메라/Rodi/그리퍼를조작하지않는다. 실제장비의BUSY/DONE쓰기,ROS관제상호운용,물체선별은현장검증이남아있다.
++
++## Rodi 순서별 가이드와 더미 관제
++
++[Rodi 2.009.000 사진 기준 작성 가이드](RODI_PROGRAMMING_GUIDE_KR.md)에 신호 등록, 변수, 티칭점, PICK 4개, 운반/복귀, 메인 분기, 통신 시험 순서를 정리했다. 사진의 빌드는 008_G2이며 상세 UI와 주기 쓰기는 실물 확인 대상이다.
++
++관제 대신 `bash src/sorting_station/hcr/run_dummy_control.sh`를 실행하고 `p` 상태, `s` 시작, `c` 취소, `q` 종료를 사용한다(각각 Enter). 먼저 build_sorter.sh로 다시 빌드한다. 실제 실행기에 연결하면 실제 작업을 요청한다. 로봇을 흉내내는 mock_hcr와는 역할이 다르다. ROS 인터페이스는 바꾸지 않았다.
+diff --git a/farm_project/robot/ros_ws/src/hcr_sorting/RODI_PROGRAMMING_GUIDE_KR.md b/farm_project/robot/ros_ws/src/hcr_sorting/RODI_PROGRAMMING_GUIDE_KR.md
+new file mode 100644
+--- /dev/null
++++ b/farm_project/robot/ros_ws/src/hcr_sorting/RODI_PROGRAMMING_GUIDE_KR.md
+@@ -0,0 +1,266 @@
++# HCR-3A Rodi 선별 프로그램 작성 순서
++
++작성: 2026-10-01. 대상은 HCR-3A 선별 로봇팔이며 SO-ARM101이 아니다.
++
++## 1. 버전과 이 문서의 사용법
++
++첨부 사진에서 확인한 버전:
++
++|항목|버전|
++|---|---|
++|Rodi|2.009.000 / Build 008_G2|
++|제어기|CLINK v2.009.000.008|
++|안전 모듈|1.002.007|
++|툴 I/O|2.07|
++|I/O 모듈|1.000.001|
++|관절 1~6 드라이버|0.28|
++
++이 문서는 **펜던트에서 수동으로 만드는 프로그램의 설계도**다. 가져오기 가능한 Rodi 프로젝트 파일이나 그대로 붙여넣는 스크립트가 아니다. 제조사 [자료실](https://hanwharobotics.com/en/newsroom/download?menuSeq=85)에 HCR 2nd Generation 사용자 매뉴얼 및 Rodi Script Programming Guide가 있다. 다만 해당 빌드의 상세 매뉴얼 본문과 실제 편집 화면을 대조하지 못했으므로 버튼 위치·조건식 문법·병렬 실행 설정은 확정하지 않는다.
++
++아래 `SET`, `IF`, `LOOP`, `WAIT`, `CALL`, `MOVE L/J`는 기능을 설명하는 표기다. 화면의 변수 설정, 조건, 반복, 대기, 서브프로그램 실행, L/J 이동 기능으로 옮긴다. 이름은 직접 만들어도 되는 프로그램/변수 이름이다. `AND`, `!=` 등은 설명용 논리식이며 화면의 조건 편집기로 작성한다.
++
++**작성 순서: 통신 신호 등록 → 이동 없는 통신 시험 → 위치 티칭 → PICK 4개 → 운반 공통 루틴 → 메인 연결.** 아직 그리퍼 정보가 없으므로 실제 집기/놓기 부분은 미완성으로 남긴다.
++
++## 2. Modbus 신호부터 등록
++
++HCR은 클라이언트, 노트북은 서버다. 기존 PC 디바이스 IP `192.168.3.2`, Slave ID `1`을 사용한다. 로봇 IP는 `192.168.3.100`. 기존 LS 디바이스는 변경하지 않는다. 신호 수량은 각각 `1`, 업데이트 주기는 우선 `10 Hz`로 설정한다. 주소는 아래 정수 그대로이며 40001을 더하지 않는다.
++
++|Signal Address|타입|이름|의미|
++|---|---|---|---|
++|0|Register Input|PC_COMMAND|구역/색상 명령|
++|1|Register Input|PC_JOB_ID|이번 운반 번호|
++|2|Register Input|PC_REQUEST|1이면 새 작업 요청|
++|3|Register Input|PC_BATCH_ACTIVE|관제 배치 활성|
++|4|Register Input|PC_HEARTBEAT|계속 바뀌는 PC 생존 값|
++|100|Register Output|HCR_STATE|0미준비, 1READY, 2BUSY, 3DONE, 4ERROR|
++|101|Register Output|HCR_ACK_JOB|수락한 운반 번호|
++|102|Register Output|HCR_DONE_JOB|완료한 운반 번호|
++|103|Register Output|HCR_ERROR|0정상, 비영 오류|
++
++기존 PC_TEST가 주소0이면 같은 입력이다. 중복 신호 대신 이름을 정리한다. 아래 '출력 설정'은 해당 Modbus Register Output 값을 쓰는 기능을 뜻하며 물리 Digital Output을 뜻하지 않는다.
++
++|구역|빨강 → 왼쪽 박스|노랑 → 오른쪽 박스|
++|---|---:|---:|
++|A|11|12|
++|B|21|22|
++|C|31|32|
++|D|41|42|
++
++### 먼저 해결해야 할 주기 쓰기
++
++PC는 **주소100에 실제로 들어오는 쓰기 요청**을 heartbeat로 사용한다. 읽기만 반복하거나 값이 바뀔 때만 쓰면 3초 후 통신 오류다. 이동 중에도 STATE를 최소 1Hz, 권장 10Hz로 반복 전송해야 한다.
++
++다음 중 실제 장비에서 확인되는 방법을 선택한다.
++
++1. Register Output의 주기 갱신이 값이 같아도 실제 쓰기 패킷을 전송한다면 이를 사용한다.
++2. 그렇지 않으면 병렬 스레드/서브프로그램에서 주기 쓰기를 구현한다. **이 빌드에서 이동과 병렬 쓰기가 가능한지 먼저 확인해야 한다.** 불가능하면 현재 프로토콜을 그대로 실물에 적용하지 말고 출력 갱신 방식에 맞게 PC와 함께 수정한다.
++
++통신 상태 송신은 한 루틴이 담당하는 편이 좋다. 로컬 상태 묶음을 복사하여 `ACK → DONE → ERROR → STATE` 순으로 쓰고 0.1초 대기한다. STATE는 마지막 commit이다. 상태 전환과 주기 송신이 서로 끼어들어 새 STATE와 이전 ACK가 섞이지 않도록 동기화한다. 100~103을 하나의 FC16으로 원자 쓰기할 수 있으면 그 방법이 가장 단순하다. **GUI에서 값을 설정한 순서가 네트워크 쓰기 순서를 보장하는지는 별도로 검증한다.**
++
++READY를 10초 이상 유지해 PC의 ready가 계속 true인지 확인하고, 이동 없는 5초 대기 BUSY 시험에서도 통신 오류가 없는지 확인한다. 이 단계가 통과하기 전 모션을 연결하지 않는다.
++
++## 3. 로컬 변수 만들기
++
++|변수|초기값|용도|
++|---|---:|---|
++|active_job|0|현재 작업 번호 고정 보관|
++|active_command|0|현재 명령 고정 보관|
++|last_job|0|같은 작업 중복 실행 방지|
++|is_red|0|1빨강 / 0노랑|
++|state_out|0|송신할 상태|
++|ack_out|0|송신할 ACK|
++|done_out|0|송신할 DONE|
++|error_out|0|송신할 오류|
++|wait_count|0|통신 대기 제한용|
++
++병렬 송신을 사용한다면 공유 가능한 변수 범위로 만든다. `active_command`는 BUSY가 된 후 절대 PC_COMMAND로 덮어쓰지 않는다.
++
++## 4. 위치를 먼저 티칭하여 저장
++
++엑셀 수치는 참고값이다. **좌표만 입력해서 완성할 수 없다.** TCP, 기준 좌표계, 자세 Rx/Ry/Rz, 실제 접근/집기 높이가 빠져 있다. 실제 장비에서 전체 자세를 저장하고 같은 TCP/좌표계를 사용한다. 표의 mm/deg는 자료 해석이며 펜던트 단위도 확인한다.
++
++|저장 이름|내용|엑셀 참고 XYZ (mm)|
++|---|---|---|
++|P_HOME|선별장 초기 위치|176.26, 227.42, 168.73|
++|P_A_UP|A 접근/상승 완료|−172.08, 227.42, 168.73|
++|P_B_UP|B 접근/상승 완료|−46.67, 227.42, 168.73|
++|P_C_UP|C 접근/상승 완료|81.93, 227.42, 168.73|
++|P_D_UP|D 접근/상승 완료|210.87, 227.42, 168.73|
++|P_A_PICK ~ P_D_PICK|각 레인 파지 위치|아래 이동 높이 미정, 각각 티칭|
++|P_RIGHT|오른쪽 박스 놓기 위치|−60.83, −400.2, 672.04 참고|
++|P_LEFT|왼쪽 박스 놓기 위치|전체 TCP 자세 직접 티칭|
++
++J 이동용으로는 각 위치의 **6개 관절 전체**를 저장한다. 각 행은 이전 행에서 지정 관절만 바꾼 사용자 의도를 풀어 쓴 참고값이다.
++
++|이름|J1|J2|J3|J4|J5|J6|
++|---|---:|---:|---:|---:|---:|---:|
++|Q_HOME|−275.17|−42.26|−99.02|−121.65|−270.97|−1.83|
++|Q_3|−275.17|−42.26|−47.81|−121.65|−270.97|−1.83|
++|Q_34|−275.17|−42.26|−47.81|−85.46|−270.97|−1.83|
++|Q_345|−275.17|−42.26|−47.81|−85.46|−124.92|−1.83|
++
++P_RIGHT와 Q_345는 동일한 실제 자세에서 저장한다. −275도 등을 임의로 +85도로 바꾸지 않는다. 같은 TCP 위치로 L 복귀해도 관절 구성이 같다는 보장은 없으므로 관절값도 확인한다. J 이동 중 TCP 경로는 직선이 아니다. 처음에는 블렌딩 없이 낮은 시험 속도로 각 구간을 확인한다. 임의의 현재 위치에서 P_HOME으로 바로 이동시키는 시작 루틴은 만들지 않는다.
++
++## 5. PICK 서브프로그램 4개
++
++`PICK_A`를 다음 순서로 만들고 B/C/D용으로 복사하여 대상 위치만 바꾼다.
++
++|순번|추가할 기능|설정/목적|
++|---:|---|---|
++|1|L 이동|P_A_UP|
++|2|L 이동|P_A_PICK|
++|3|그리퍼 닫기 자리|현재 미구현. 실제 운반 프로그램에서는 여기서 진행을 막는다.|
++|4|파지 성공 확인 자리|센서/완료 조건 추후 정의. 단순 시간 경과를 성공으로 간주하지 않는다.|
++|5|L 이동|P_A_UP|
++|6|L 이동|P_HOME|
++
++PICK_B는 P_B_UP/P_B_PICK, C와 D도 동일하다. 호출 전 P_HOME에 있어야 한다. 그리퍼 없는 경로 시험은 별도 프로그램 복사본에서 해당 자리를 주석/대기로 바꾸고 빈 작업 공간에서 수행한다. 그 복사본이 보내는 DONE은 시험 횟수일 뿐 실제 운반 성공이 아니다.
++
++## 6. PLACE_AND_RETURN 공통 서브프로그램
++
++PICK 종료 후 호출한다.
++
++|순번|기능|대상/조건|
++|---:|---|---|
++|1|J 이동|Q_3|
++|2|J 이동|Q_34|
++|3|J 이동|Q_345: 오른쪽 박스 도착|
++|4|IF|is_red = 1이면 L 이동 P_LEFT|
++|5|그리퍼 열기 자리|미구현, 실제 운반 진행 차단|
++|6|놓기 성공 확인 자리|추후 보충|
++|7|IF|is_red = 1이면 L 이동 P_RIGHT|
++|8|J 이동|Q_34: J5 복귀|
++|9|J 이동|Q_3: J4 복귀|
++|10|J 이동|Q_HOME: J3 복귀|
++
++노랑은 4/7의 좌우 이동이 없다. 빨강은 오른쪽 위치를 거쳐 왼쪽에서 놓고 다시 오른쪽으로 온다. 박스 테두리와 적재물 위를 지나는 L 경로를 확인하고 필요하면 안전한 높이의 중간 티칭점을 추가한다. 마지막 복귀까지 완료되어야 DONE이다.
++
++## 7. 메인 프로그램 트리
++
++아래를 위에서부터 작성한다. 조건 대기는 지원되는 WAIT 조건 기능 또는 `LOOP + IF + 시간 대기 0.1초`로 만든다. 무한 조건 대기 대신 10초 제한(0.1초 100회)을 둔다. 오류 발생 시 정상 경로를 빠져나와 오류 유지 루틴에 머무른다.
++
++```text
++MAIN
++  초기화: state_out=0, error_out=0, ack_out=0, done_out=0
++  상태 주기 송신 시작 (2절 검증 필수)
++  PC 통신 정상 / HEARTBEAT 값 변화 확인
++  PC_REQUEST=0 AND PC_COMMAND=0 확인 (재시작 시 이전 요청 자동 재실행 금지)
++  운영자가 초기 위치와 작업 공간을 확인한 시작 조건 확인
++  state_out=1  [READY]
++
++  반복
++    대기: PC_BATCH_ACTIVE=1 AND PC_REQUEST=1
++    active_job = PC_JOB_ID
++    active_command = PC_COMMAND
++    다시 확인: REQUEST=1 / BATCH_ACTIVE=1 / JOB_ID가 active_job과 동일
++    유효성 확인: active_job>0, active_job!=last_job
++    유효성 확인: active_command가 11,12,21,22,31,32,41,42 중 하나
++    불일치/불법 요청 → 오류 루틴, 모션 금지
++
++    ack_out=active_job
++    state_out=2  [BUSY: ACK와 일관된 묶음으로 송신]
++    대기: PC_REQUEST=0  [10초 제한, 통신 정상 유지]
++    모션 직전 PC_COMMAND=active_command 및 PC_BATCH_ACTIVE=1 재확인
++
++    명령 분기 (아래 표의 8개 가지)
++    PLACE_AND_RETURN 실행
++    정상 놓기 + HOME 복귀 성공 확인
++
++    last_job=active_job
++    done_out=active_job
++    state_out=3  [DONE: DONE_JOB과 일관된 묶음으로 송신]
++    대기: PC_COMMAND=0 AND PC_REQUEST=0  [10초 제한]
++    state_out=1  [READY]
++    반복 처음으로
++```
++
++|조건|분기 안에서 순서대로 수행|
++|---|---|
++|active_command = 11|is_red=1 → PICK_A|
++|active_command = 12|is_red=0 → PICK_A|
++|active_command = 21|is_red=1 → PICK_B|
++|active_command = 22|is_red=0 → PICK_B|
++|active_command = 31|is_red=1 → PICK_C|
++|active_command = 32|is_red=0 → PICK_C|
++|active_command = 41|is_red=1 → PICK_D|
++|active_command = 42|is_red=0 → PICK_D|
++|그 밖의 값|오류 유지, PICK/PLACE 실행 금지|
++
++SWITCH를 사용하거나 상호 배타적인 IF 분기 8개로 만든다. PLACE_AND_RETURN은 선택된 PICK 뒤에 한 번만 호출한다. READY로 돌아온 후 카메라에 A가 또 있으면 새 job으로 A를 다시 실행하는 것이 정상이다.
++
++### 오류 경로
++
++로컬 오류 코드 제안: 1잘못된명령, 2수락응답시간초과, 3PC통신이상, 4모션/파지/놓기실패, 5완료응답시간초과. 이는 새로 제안한 값이며 장비 고유 오류번호가 아니다. PC는 비영 값을 실패로 처리한다.
++
++오류 시 `error_out=비영 → state_out=4`로 일관되게 송신하고 신규 작업을 받지 않는다. 실패 후 DONE이나 READY를 자동으로 보내지 않는다. 실제 모션 중 통신 단절의 정지/물체 유지 방식은 로봇의 검증된 정지 기능과 그리퍼 특성에 맞춰 따로 설정해야 한다. PC 오류나 ROS 취소는 비상정지가 아니다.
++
++병렬 감시에서는 PC_HEARTBEAT가 3초 이상 바뀌지 않거나 Modbus 연결이 끊기면 새 동작을 차단한다. 이동 중 감시/정지와 상태 송신의 실제 구현은 펜던트에서 검증할 부분이다. ACK/완료 대기에서 시간 초과했다고 다음 이동으로 넘어가면 안 된다.
++
++## 8. 관제 없이 시험: 더미 관제 사용
++
++저장소 루트에서 한 번 빌드:
++
++```bash
++bash src/sorting_station/hcr/build_sorter.sh
++```
++
++### 먼저 로봇 없이 전체 통신 시험
++
++각각 다른 터미널에서 실행한다.
++
++```bash
++# 1: 웹캠, a/b/c/d를 누르고 사각형 드래그, s로 저장
++bash src/sorting_station/hcr/run_webcam_preview.sh --camera 0
++```
++
++```bash
++# 2: 로컬 PC 실행기, 실제 로봇 IP에 연결하지 않음
++bash src/sorting_station/hcr/run_sorter.sh --ros-args \
++  -p modbus_host:=127.0.0.1 -p modbus_port:=1502 -p modbus_peer:=127.0.0.1 \
++  -p journal:=outputs/sorting_station/hcr_runtime/mock_journal.sqlite3
++```
++
++```bash
++# 3: 로봇 응답 흉내 (관제 흉내와 다른 프로그램)
++source /opt/ros/jazzy/setup.bash
++source outputs/sorting_station/ros2/install/setup.bash
++ros2 run hcr_sorting mock_hcr --host 127.0.0.1 --port 1502 --cycle-seconds 2
++```
++
++```bash
++# 4: 더미 관제
++bash src/sorting_station/hcr/run_dummy_control.sh
++```
++
++더미 관제 터미널에서 명령을 입력하고 Enter를 누른다.
++
++|입력|기능|
++|---|---|
++|p|현재 상태, ready, 상태 메시지 나이 확인|
++|s|새 task/batch ID로 Goal 1개 전송. ready=false면 전송하지 않음|
++|c|취소 요청. 진행 중 1회는 복귀까지 기다린 후 CANCELED|
++|q|활성 작업 없을 때 종료|
++
++실행만으로 Goal을 보내지 않는다. 시작 시 실제 하역 완료와 운송로봇 이격은 사용자가 확인한다. 더미 관제는 이 센서를 흉내 내거나 자동 보증하지 않는다. 결과에는 빨강/노랑/합계와 SUCCESS/FAILED/CANCELED가 표시된다. 취소 접수 메시지는 최종 완료가 아니다.
++
++mock_hcr는 실제 과일을 옮기지 않으므로 계속 같은 물체가 보이면 계속 횟수가 증가한다. 물체를 화면에서 치우면 연속 3초 미검출 후 SUCCESS. Ctrl+C/터미널 종료는 실행기를 멈추거나 실제 로봇을 정지시키지 않는다. 가능하면 c → 최종 Result → q 순으로 종료한다.
++
++### 실제 HCR 연결 시험
++
++로컬 시험의 2/3을 종료한다. 실제 통신용 실행기는 아래로 바꾼다. 웹캠과 더미 관제는 그대로 사용한다. **mock_hcr는 실행하지 않는다.**
++
++```bash
++sudo -E bash src/sorting_station/hcr/run_sorter.sh
++```
++
++PC에 192.168.3.2가 설정되어 있어야 한다. 예전 Modbus 테스트 서버와 동시에 502를 점유할 수 없다. 모든 ROS 터미널의 ROS_DOMAIN_ID를 같게 한다. Rodi 통신 루틴이 READY를 보내고 카메라 4구역이 준비되면 p에서 ready=True가 된다. 이 상태의 s는 실제 프로그램을 시작시키는 요청이다.
++
++권장 검증 순서:
++
++1. 이동 없이 READY 10초 유지.
++2. 이동 대신 5초 대기로 BUSY → DONE → READY 한 회 검증. 시험 수량으로만 해석.
++3. 빈 공간에서 위치별 단일 이동과 귀환 검증. 아직 실제 운반 성공으로 집계하지 않음.
++4. 그리퍼 닫기/열기 및 성공 판정을 채운 뒤 실제 1개 작업 검증.
++5. A 연속 2개, A/B 동시 입력 우선순위, 빨강/노랑 분리, 빈 영상 종료, 운반 중 취소 검증.
++
++실물에서 아직 미검증인 항목: 이 빌드의 Modbus 반복 쓰기/순서, 이동 중 병렬 감시, 각 이동 경로, 그리퍼 및 정상 놓기 판정. 이 문서만으로 이 항목들이 검증된 것으로 간주하지 않는다.
+diff --git a/farm_project/robot/ros_ws/src/hcr_sorting/hcr_sorting/__init__.py b/farm_project/robot/ros_ws/src/hcr_sorting/hcr_sorting/__init__.py
+new file mode 100644
+index 0000000..e69de29
+diff --git a/farm_project/robot/ros_ws/src/hcr_sorting/hcr_sorting/core.py b/farm_project/robot/ros_ws/src/hcr_sorting/hcr_sorting/core.py
+new file mode 100644
+--- /dev/null
++++ b/farm_project/robot/ros_ws/src/hcr_sorting/hcr_sorting/core.py
+@@ -0,0 +1,225 @@
++"""ROS-independent sorting state machine. All methods run on supervisor thread."""
++from dataclasses import dataclass
++import json
++import math
++from pathlib import Path
++import sqlite3
++
++COLORS = {'RED': 1, 'YELLOW': 2}
++STATES = {'RED', 'YELLOW', 'NO_COLOR', 'WAIT', 'MIXED'}
++
++
++@dataclass
++class Settings:
++    empty_seconds: float = 3.0
++    settle_seconds: float = 0.5
++    camera_timeout: float = 1.0
++    robot_timeout: float = 3.0
++    ack_timeout: float = 10.0
++    motion_timeout: float = 120.0
++    ready_timeout: float = 10.0
++    scene_timeout: float = 60.0
++    batch_timeout: float = 1800.0
++    priority: str = 'ABCD'
++
++    def __post_init__(self):
++        for name, value in vars(self).items():
++            if name != 'priority' and (not math.isfinite(value) or value <= 0):
++                raise ValueError(f'{name} must be finite and positive')
++        if sorted(self.priority) != list('ABCD'):
++            raise ValueError('priority must be a permutation of ABCD')
++
++
++class Journal:
++    def __init__(self, path):
++        Path(path).parent.mkdir(parents=True, exist_ok=True)
++        self.db = sqlite3.connect(str(path))
++        self.db.execute('PRAGMA journal_mode=WAL')
++        self.db.execute('CREATE TABLE IF NOT EXISTS tasks (id TEXT PRIMARY KEY,batch TEXT,result TEXT,red INTEGER,yellow INTEGER,error TEXT)')
++        self.db.execute('CREATE TABLE IF NOT EXISTS fault (id INTEGER PRIMARY KEY CHECK(id=1), code TEXT)')
++        self.db.execute("INSERT OR IGNORE INTO fault VALUES (1,'')")
++        self.db.execute('CREATE TABLE IF NOT EXISTS sequence (id INTEGER PRIMARY KEY CHECK(id=1), value INTEGER)')
++        self.db.execute('INSERT OR IGNORE INTO sequence VALUES (1,0)')
++        self.interrupted = bool(self.db.execute("SELECT 1 FROM tasks WHERE result='RUNNING'").fetchone())
++        self.db.execute("UPDATE tasks SET result='FAILED',error='PROCESS_RESTART' WHERE result='RUNNING'")
++        if self.interrupted: self.db.execute("UPDATE fault SET code='PROCESS_RESTART' WHERE id=1")
++        self.fault = self.db.execute('SELECT code FROM fault WHERE id=1').fetchone()[0]
++        self.db.commit()
++
++    def set_fault(self, code):
++        self.db.execute('UPDATE fault SET code=? WHERE id=1',(code,))
++        self.db.commit()
++        self.fault=code
++
++    def has(self, task):
++        return self.db.execute('SELECT 1 FROM tasks WHERE id=?', (task,)).fetchone() is not None
++
++    def start(self, task, batch):
++        self.db.execute('INSERT INTO tasks VALUES (?,?,?,0,0,?)', (task, batch, 'RUNNING', 'NONE'))
++        self.db.commit()
++
++    def job(self):
++        with self.db:
++            value = self.db.execute('SELECT value FROM sequence WHERE id=1').fetchone()[0] + 1
++            if value > 65535:
++                raise RuntimeError('JOB_ID_EXHAUSTED')
++            self.db.execute('UPDATE sequence SET value=? WHERE id=1', (value,))
++        return value
++
++    def save(self, task, result, red, yellow, error):
++        self.db.execute('UPDATE tasks SET result=?,red=?,yellow=?,error=? WHERE id=?', (result,red,yellow,error,task))
++        self.db.commit()
++
++
++class Supervisor:
++    def __init__(self, journal, settings=None):
++        self.journal = journal
++        self.s = settings or Settings()
++        self.phase = 'IDLE'
++        self.active = False
++        self.task = self.batch = ''
++        self.red = self.yellow = 0
++        self.command = self.job_id = self.request = 0
++        self.result = None
++        self.fault = journal.fault
++        self.canceling = False
++        self.robot = (0,0,0,0)
++        self.robot_at = float('-inf')
++        self.observation = None
++        self.camera_session = None
++        self.empty_since = None
++        self.started = self.phase_at = self.scan_after = 0.0
++        self.last_frame = None
++        self.heartbeat = 0
++
++    def camera_good(self, now):
++        d = self.observation
++        if not isinstance(d, dict): return False
++        try:
++            stamp = d['monotonic']
++            return (type(stamp) in (float,int) and math.isfinite(stamp)
++                    and 0 <= now-stamp < self.s.camera_timeout
++                    and d['ready'] is True and isinstance(d['camera_session'],str)
++                    and bool(d['camera_session']) and type(d['counter']) is int
++                    and isinstance(d['zone_states'],dict)
++                    and set(d['zone_states']) == set('ABCD')
++                    and all(v in STATES for v in d['zone_states'].values()))
++        except (KeyError, TypeError): return False
++
++    def robot_good(self, now):
++        return 0 <= now-self.robot_at < self.s.robot_timeout
++
++    def ready(self, now):
++        return (not self.active and not self.fault and self.camera_good(now)
++                and self.robot_good(now) and self.robot[0] == 1 and self.robot[3] == 0)
++
++    def start(self, task, batch, now):
++        if not task or not batch or self.journal.has(task) or not self.ready(now):
++            return False
++        self.journal.start(task,batch)
++        self.task,self.batch = task,batch
++        self.red=self.yellow=0
++        self.active=True; self.canceling=False; self.result=None
++        self.started=now; self.camera_session=self.observation['camera_session']
++        self._scan(now)
++        return True
++
++    def _scan(self, now):
++        self.phase='SCANNING'; self.phase_at=now
++        self.scan_after=now+self.s.settle_seconds
++        self.empty_since=None; self.last_frame=None
++
++    def cancel(self):
++        if self.active: self.canceling=True
++
++    def reset_fault(self, now):
++        if self.active or not self.camera_good(now) or not self.robot_good(now) or self.robot[0]!=1 or self.robot[3]:
++            return False
++        self.journal.set_fault('')
++        self.fault=''; self.phase='IDLE'
++        return True
++
++    def finish(self, code, error='NONE'):
++        self.journal.save(self.task,code,self.red,self.yellow,error)
++        self.active=False; self.command=self.request=0
++        self.phase = {'SUCCESS':'SUCCEEDED','CANCELED':'CANCELED','FAILED':'ERROR'}[code]
++        if code=='FAILED':
++            self.fault=error
++            self.journal.set_fault(error)
++        self.result=dict(result_code=code,red_count=self.red,yellow_count=self.yellow,
++                         error_code=error,error_message='' if error=='NONE' else error)
++
++    def tick(self, now, observation, events=()):
++        self.heartbeat=(self.heartbeat+1)%65536
++        self.observation=observation
++        for event_at, state, ack, done, error in events:
++            self.robot=(state,ack,done,error); self.robot_at=event_at
++            if not self.active: continue
++            if state==4 or error:
++                self.finish('FAILED',f'HCR_ERROR_{error}'); continue
++            if self.phase=='WAIT_ACK' and event_at>=self.phase_at and state==2 and ack==self.job_id:
++                self.request=0; self.phase='BUSY'; self.phase_at=now
++            elif self.phase=='BUSY' and state==3 and ack==self.job_id and done==self.job_id:
++                if self.command%10==1: self.red+=1
++                else: self.yellow+=1
++                self.journal.save(self.task,'RUNNING',self.red,self.yellow,'NONE')
++                self.command=self.request=0
++                self.phase='WAIT_READY'; self.phase_at=now
++            elif self.phase=='WAIT_READY' and state==1:
++                if self.canceling: self.finish('CANCELED')
++                else: self._scan(now)
++            elif self.phase=='BUSY' and state==1:
++                self.finish('FAILED','READY_WITHOUT_DONE')
++        if not self.active: return
++        if now-self.started>self.s.batch_timeout:
++            self.finish('FAILED','BATCH_TIMEOUT'); return
++        if not self.robot_good(now):
++            self.finish('FAILED','HCR_COMM_TIMEOUT'); return
++        if not self.camera_good(now):
++            self.finish('FAILED','CAMERA_UNAVAILABLE'); return
++        if observation['camera_session']!=self.camera_session:
++            self.finish('FAILED','CAMERA_SESSION_CHANGED'); return
++        if self.canceling and self.phase=='SCANNING':
++            self.finish('CANCELED'); return
++        limits={'WAIT_ACK':self.s.ack_timeout,'BUSY':self.s.motion_timeout,'WAIT_READY':self.s.ready_timeout}
++        if self.phase in limits and now-self.phase_at>limits[self.phase]:
++            self.finish('FAILED',self.phase+'_TIMEOUT'); return
++        if self.phase!='SCANNING': return
++        if self.robot[0]!=1:
++            self.finish('FAILED','HCR_NOT_READY'); return
++        if now-self.phase_at>self.s.scene_timeout:
++            self.finish('FAILED','VISION_UNRESOLVED'); return
++        # Only evaluate NEW frames captured after return-to-home settling.
++        frame=(observation['camera_session'],observation['counter'],observation['monotonic'])
++        if observation['monotonic']<self.scan_after or frame==self.last_frame: return
++        self.last_frame=frame
++        zones=observation['zone_states']
++        for name in self.s.priority:
++            if zones[name] in COLORS:
++                try: self.job_id=self.journal.job()
++                except RuntimeError:
++                    self.finish('FAILED','JOB_ID_EXHAUSTED'); return
++                self.command=(ord(name)-ord('A')+1)*10+COLORS[zones[name]]
++                self.request=1; self.phase='WAIT_ACK'; self.phase_at=now
++                self.empty_since=None
++                return
++        if all(v=='NO_COLOR' for v in zones.values()):
++            if self.empty_since is None: self.empty_since=now
++            if now-self.empty_since>=self.s.empty_seconds: self.finish('SUCCESS')
++        else: self.empty_since=None
++
++    def registers(self):
++        return [self.command,self.job_id,self.request,int(self.active),self.heartbeat]
++
++    def view(self, now):
++        return dict(phase=self.phase,active=self.active,task_id=self.task if self.active else '',
++                    batch_id=self.batch if self.active else '',ready=self.ready(now),
++                    command=self.command,job_id=self.job_id,red_count=self.red,yellow_count=self.yellow,
++                    total_count=self.red+self.yellow,error=self.fault or 'NONE',
++                    robot_state=self.robot[0],robot_connected=self.robot_good(now),
++                    canceling=self.canceling)
++
++
++def read_observation(path):
++    try: return json.loads(Path(path).read_text())
++    except (OSError, ValueError): return None
+diff --git a/farm_project/robot/ros_ws/src/hcr_sorting/hcr_sorting/dummy_control.py b/farm_project/robot/ros_ws/src/hcr_sorting/hcr_sorting/dummy_control.py
+new file mode 100644
+--- /dev/null
++++ b/farm_project/robot/ros_ws/src/hcr_sorting/hcr_sorting/dummy_control.py
+@@ -0,0 +1,160 @@
++"""Interactive central-control substitute. Sending a goal can move real hardware."""
++import argparse
++from datetime import datetime, timezone
++import select
++import sys
++import time
++import uuid
++
++import rclpy
++from rclpy.action import ActionClient
++from rclpy.node import Node
++from farm_interfaces.action import SortBatch
++from farm_interfaces.msg import SorterStatus
++
++
++class DummyControl(Node):
++    def __init__(self, robot_id='sorter_01'):
++        super().__init__('dummy_sorter_control')
++        self.robot_id = robot_id
++        self.status = None
++        self.status_at = 0.0
++        self.busy = False
++        self.goal = None
++        self.cancel_requested = False
++        self.cancel_sent = False
++        self.last_result = None
++        self.last_feedback = None
++        self.last_error = ''
++        self.client = ActionClient(self, SortBatch, f'/{robot_id}/sort_batch')
++        self.subscription = self.create_subscription(
++            SorterStatus, f'/{robot_id}/status', self.on_status, 10)
++
++    def on_status(self, message):
++        if message.robot_id == self.robot_id:
++            self.status, self.status_at = message, time.monotonic()
++
++    def ready(self):
++        return bool(not self.busy and self.status and self.status.ready
++                    and time.monotonic() - self.status_at < 3.0
++                    and self.client.server_is_ready())
++
++    def report(self):
++        if not self.status:
++            return '아직 status를 받지 못했습니다. 실행기/ROS_DOMAIN_ID를 확인하세요.'
++        s = self.status
++        return (f'state={s.state} ready={s.ready} status_age={time.monotonic()-self.status_at:.1f}s '
++                f'task={s.current_task_id} error={s.error_code} local_active={self.busy}')
++
++    def start(self, task_id=None, batch_id=None):
++        if not self.ready():
++            self.get_logger().warning('시작 불가: ' + self.report())
++            return False
++        suffix = uuid.uuid4().hex
++        goal = SortBatch.Goal(robot_id=self.robot_id,
++                              task_id=task_id or f'DUMMY_{suffix}',
++                              batch_id=batch_id or f'BATCH_{suffix}',
++                              timestamp=datetime.now(timezone.utc).isoformat())
++        self.busy = True
++        self.goal = None
++        self.cancel_requested = self.cancel_sent = False
++        self.last_result = self.last_feedback = None
++        self.last_error = ''
++        self.get_logger().info(f'Goal 전송 task={goal.task_id} batch={goal.batch_id}')
++        self.client.send_goal_async(goal, feedback_callback=self.on_feedback).add_done_callback(self.on_goal)
++        return True
++
++    def on_goal(self, future):
++        try:
++            self.goal = future.result()
++            if not self.goal.accepted:
++                self.busy = False
++                self.last_error = 'GOAL_REJECTED'
++                self.get_logger().warning('Goal 거절됨. 자동 재전송하지 않습니다.')
++                return
++            self.get_logger().info('Goal 수락됨')
++            self.goal.get_result_async().add_done_callback(self.on_result)
++            if self.cancel_requested:
++                self.cancel()
++        except Exception as exc:
++            self.unknown(exc)
++
++    def on_feedback(self, message):
++        f = message.feedback
++        key = (f.phase, f.red_count, f.yellow_count)
++        if key != self.last_feedback:
++            self.get_logger().info(f'{f.phase}: 빨강={f.red_count} 노랑={f.yellow_count} 합계={f.red_count+f.yellow_count}')
++        self.last_feedback = key
++
++    def on_result(self, future):
++        try:
++            result = future.result().result
++            self.last_result = result
++            self.busy = False
++            self.get_logger().info(
++                f'{result.result_code}: 빨강={result.red_count} 노랑={result.yellow_count} '
++                f'총={result.red_count+result.yellow_count} error={result.error_code} {result.error_message}')
++        except Exception as exc:
++            self.unknown(exc)
++
++    def unknown(self, exc):
++        # An uncertain request must never be silently retried as a fresh task.
++        self.last_error = str(exc)
++        self.get_logger().error(f'요청 결과 불확실: {exc}. 새 작업을 차단합니다. 실제 상태를 확인하세요.')
++
++    def cancel(self):
++        if not self.busy:
++            return False
++        self.cancel_requested = True
++        if self.goal is not None and self.goal.accepted and not self.cancel_sent:
++            self.cancel_sent = True
++            self.goal.cancel_goal_async().add_done_callback(self.on_cancel)
++        return True
++
++    def on_cancel(self, future):
++        try:
++            response = future.result()
++            if response.goals_canceling:
++                self.get_logger().info('취소 수락: 진행 중 1회 완료 및 복귀 후 최종 Result를 기다립니다.')
++            else:
++                self.cancel_sent = False
++                self.get_logger().warning('취소 거절 또는 이미 종료됨. Result를 기다립니다.')
++        except Exception as exc:
++            self.unknown(exc)
++
++
++def main(args=None):
++    parser = argparse.ArgumentParser(description=__doc__)
++    parser.add_argument('--robot-id', default='sorter_01')
++    opts, ros_args = parser.parse_known_args(args)
++    rclpy.init(args=ros_args)
++    node = DummyControl(opts.robot_id)
++    print('더미 관제: s=시작(하역 완료·운송로봇 이격 확인 후), p=상태, c=취소, q=종료', flush=True)
++    print('실제 실행기에 연결하면 s는 실제 로봇 작업을 요청합니다. 취소는 비상정지가 아닙니다.', flush=True)
++    try:
++        while rclpy.ok():
++            rclpy.spin_once(node, timeout_sec=0.1)
++            if not select.select([sys.stdin], [], [], 0)[0]:
++                continue
++            line = sys.stdin.readline()
++            if not line:
++                node.get_logger().warning('입력 종료. 활성 작업은 자동 정지되지 않습니다.')
++                break
++            command = line.strip().lower()
++            if command == 's': node.start()
++            elif command == 'p': print(node.report(), flush=True)
++            elif command == 'c': node.cancel()
++            elif command == 'q':
++                if node.busy:
++                    print('진행 중입니다. c로 취소하고 최종 Result 후 q를 입력하세요.', flush=True)
++                else: break
++    except KeyboardInterrupt:
++        print('관제 종료. 실행 중인 로봇 작업은 자동 정지되지 않습니다.', flush=True)
++    finally:
++        node.client.destroy()
++        node.destroy_node()
++        if rclpy.ok(): rclpy.shutdown()
++
++
++if __name__ == '__main__':
++    main()
+diff --git a/farm_project/robot/ros_ws/src/hcr_sorting/hcr_sorting/mock_hcr.py b/farm_project/robot/ros_ws/src/hcr_sorting/hcr_sorting/mock_hcr.py
+new file mode 100644
+--- /dev/null
++++ b/farm_project/robot/ros_ws/src/hcr_sorting/hcr_sorting/mock_hcr.py
+@@ -0,0 +1,52 @@
++"""Explicit test client, models handshake only. Never connects to a robot."""
++import argparse
++import socket
++import struct
++import time
++from .modbus import receive
++
++
++class Client:
++    def __init__(self,host,port):
++        self.sock=socket.create_connection((host,port),timeout=2)
++        self.tx=0
++
++    def exchange(self,pdu):
++        self.tx=(self.tx+1)%65536
++        self.sock.sendall(struct.pack('>HHHB',self.tx,0,len(pdu)+1,1)+pdu)
++        tx,proto,length,unit=struct.unpack('>HHHB',receive(self.sock,7))
++        reply=receive(self.sock,length-1)
++        if (tx,proto,unit)!=(self.tx,0,1) or reply[0]&128: raise RuntimeError(reply.hex())
++        return reply
++
++    def read(self):
++        return struct.unpack('>5H',self.exchange(struct.pack('>BHH',3,0,5))[2:])
++
++    def status(self,state,ack,done,error=0):
++        self.exchange(struct.pack('>BHHB4H',16,100,4,8,state,ack,done,error))
++
++
++def main():
++    p=argparse.ArgumentParser(description=__doc__)
++    p.add_argument('--host',default='127.0.0.1'); p.add_argument('--port',type=int,default=1502)
++    p.add_argument('--cycle-seconds',type=float,default=2.0)
++    args=p.parse_args()
++    client=Client(args.host,args.port)
++    state=1; ack=done=0; started=0; heartbeat=None; seen=time.monotonic()
++    print('MOCK HCR: simulated cycles, no physical motions',flush=True)
++    try:
++        while True:
++            cmd,job,request,active,hb=client.read(); now=time.monotonic()
++            if hb!=heartbeat: heartbeat=hb;seen=now
++            if now-seen>3: raise RuntimeError('PC heartbeat stopped')
++            if state==1 and active and request and job!=done and cmd in (11,12,21,22,31,32,41,42):
++                state=2;ack=job;started=now;print(f'BUSY job={job} command={cmd}',flush=True)
++            elif state==2 and not request and now-started>=args.cycle_seconds:
++                state=3;done=ack;print(f'DONE job={done}',flush=True)
++            elif state==3 and cmd==0 and request==0: state=1
++            client.status(state,ack,done); time.sleep(.1)
++    except KeyboardInterrupt: pass
++    finally: client.sock.close()
++
++
++if __name__=='__main__': main()
+diff --git a/farm_project/robot/ros_ws/src/hcr_sorting/hcr_sorting/modbus.py b/farm_project/robot/ros_ws/src/hcr_sorting/hcr_sorting/modbus.py
+new file mode 100644
+--- /dev/null
++++ b/farm_project/robot/ros_ws/src/hcr_sorting/hcr_sorting/modbus.py
+@@ -0,0 +1,106 @@
++"""Bounded Modbus TCP subset: FC03/04 read; FC06/16 HCR status write."""
++from collections import deque
++import logging
++import socketserver
++import struct
++import threading
++import time
++
++
++class RegisterBank:
++    def __init__(self):
++        self.lock=threading.Lock()
++        self.pc=[0]*5; self.robot=[0]*4
++        self.events=deque(); self.overflow=False
++
++    def update(self, values):
++        with self.lock: self.pc=list(values)
++
++    def drain(self):
++        with self.lock:
++            events=list(self.events); self.events.clear()
++            overflow=self.overflow; self.overflow=False
++            return events,overflow
++
++    def transact(self, unit, pdu):
++        with self.lock: return self._transact(unit,pdu)
++
++    def _transact(self,unit,pdu):
++        fc=pdu[0]
++        def fail(code): return bytes((fc|128,code))
++        if unit!=1: return fail(11)
++        if fc in (3,4):
++            if len(pdu)!=5: return fail(3)
++            start,count=struct.unpack('>HH',pdu[1:])
++            if not 1<=count<=125: return fail(3)
++            if start+count<=5: values=self.pc[start:start+count]
++            elif 100<=start and start+count<=104: values=self.robot[start-100:start-100+count]
++            else: return fail(2)
++            return bytes((fc,count*2))+struct.pack('>'+count*'H',*values)
++        if fc==6:
++            if len(pdu)!=5: return fail(3)
++            start,value=struct.unpack('>HH',pdu[1:]); values=[value]
++            answer=pdu
++        elif fc==16:
++            if len(pdu)<6: return fail(3)
++            start,count,size=struct.unpack('>HHB',pdu[1:6])
++            if not 1<=count<=123 or size!=2*count or len(pdu)!=6+size: return fail(3)
++            values=list(struct.unpack('>'+count*'H',pdu[6:])); answer=struct.pack('>BHH',fc,start,count)
++        else: return fail(1)
++        if start<100 or start+len(values)>104: return fail(2)
++        candidate=list(self.robot)
++        candidate[start-100:start-100+len(values)]=values
++        if candidate[0]>4: return fail(3)
++        self.robot=candidate
++        # State register is the commit marker. Repeated writes are the heartbeat.
++        if start==100:
++            if len(self.events)>=256:
++                self.overflow=True
++            else: self.events.append((time.monotonic(),*candidate))
++        return answer
++
++
++def receive(sock,size):
++    data=bytearray()
++    while len(data)<size:
++        chunk=sock.recv(size-len(data))
++        if not chunk: raise EOFError
++        data.extend(chunk)
++    return bytes(data)
++
++
++class Handler(socketserver.BaseRequestHandler):
++    def handle(self):
++        self.request.settimeout(3)
++        try:
++            while True:
++                tx,protocol,length,unit=struct.unpack('>HHHB',receive(self.request,7))
++                if protocol!=0 or not 2<=length<=254: return
++                pdu=receive(self.request,length-1)
++                reply=self.server.bank.transact(unit,pdu)
++                self.request.sendall(struct.pack('>HHHB',tx,0,len(reply)+1,unit)+reply)
++        except (OSError,EOFError): pass
++
++
++class ModbusServer(socketserver.ThreadingTCPServer):
++    allow_reuse_address=True
++    daemon_threads=True
++
++    def __init__(self,address,bank,peer):
++        self.bank=bank; self.peer=peer
++        self.slots=threading.BoundedSemaphore(8)
++        super().__init__(address,Handler)
++
++    def verify_request(self,request,client_address):
++        return client_address[0]==self.peer
++
++    def process_request(self,request,client_address):
++        if not self.slots.acquire(blocking=False):
++            self.shutdown_request(request); return
++        try: super().process_request(request,client_address)
++        except Exception:
++            self.slots.release(); raise
++
++    def process_request_thread(self,request,client_address):
++        try: super().process_request_thread(request,client_address)
++        finally: self.slots.release()
+diff --git a/farm_project/robot/ros_ws/src/hcr_sorting/hcr_sorting/node.py b/farm_project/robot/ros_ws/src/hcr_sorting/hcr_sorting/node.py
+new file mode 100644
+--- /dev/null
++++ b/farm_project/robot/ros_ws/src/hcr_sorting/hcr_sorting/node.py
+@@ -0,0 +1,141 @@
++"""ROS 2 batch action and status node. Robot motions belong to Rodi."""
++from datetime import datetime, timezone
++import json
++import os
++from pathlib import Path
++import threading
++import time
++import uuid
++
++import rclpy
++from rclpy.action import ActionServer, CancelResponse, GoalResponse
++from rclpy.callback_groups import ReentrantCallbackGroup
++from rclpy.node import Node
++from rclpy.task import Future
++from farm_interfaces.action import SortBatch
++from farm_interfaces.msg import SorterStatus
++from std_srvs.srv import Trigger
++
++from .core import Journal, Settings, Supervisor, read_observation
++from .modbus import ModbusServer, RegisterBank
++
++
++def timestamp():
++    return datetime.now(timezone.utc).isoformat()
++
++
++class SorterNode(Node):
++    def __init__(self):
++        super().__init__('hcr_sorter')
++        out=Path.cwd()/'outputs/sorting_station/hcr_runtime'
++        defaults=dict(robot_id='sorter_01',modbus_host='192.168.3.2',modbus_port=502,
++                      modbus_peer='192.168.3.100',receive_enabled=False,
++                      camera_state=str(Path.cwd()/'outputs/sorting_station/hcr_preview/state.json'),
++                      journal=str(out/'journal.sqlite3'),runtime_state=str(out/'runtime.json'))
++        defaults.update(vars(Settings()))
++        for key,value in defaults.items(): self.declare_parameter(key,value)
++        def param(key): return self.get_parameter(key).value
++        self.robot_id=param('robot_id')
++        self.camera_state=Path(param('camera_state')); self.runtime_state=Path(param('runtime_state'))
++        self.runtime_state.parent.mkdir(parents=True,exist_ok=True)
++        settings=Settings(**{k:param(k) for k in vars(Settings())})
++        self.engine=Supervisor(Journal(param('journal')),settings)
++        self.bank=RegisterBank()
++        self.server=ModbusServer((param('modbus_host'),param('modbus_port')),self.bank,param('modbus_peer'))
++        self.thread=threading.Thread(target=self.server.serve_forever,daemon=True); self.thread.start()
++        self.boot_id=str(uuid.uuid4()); self.sequence=0
++        self.pending=False; self.goal_handle=None; self.waiter=None
++        self.last_feedback=0.0; self.last_status=0.0; self.last_signature=None
++        self.publisher=self.create_publisher(SorterStatus,f'/{self.robot_id}/status',10)
++        self.action=ActionServer(self,SortBatch,f'/{self.robot_id}/sort_batch',
++                                 execute_callback=self.execute,goal_callback=self.goal,
++                                 cancel_callback=self.cancel,callback_group=ReentrantCallbackGroup())
++        self.reset_service=self.create_service(Trigger,f'/{self.robot_id}/reset_fault',self.reset)
++        self.timer=self.create_timer(.05,self.tick)
++        self.get_logger().info(f'Modbus listening on {param("modbus_host")}:{param("modbus_port")}; waiting for webcam + HCR READY + ROS Goal')
++
++    def goal(self,request):
++        valid=(request.robot_id==self.robot_id and 0<len(request.task_id)<=128 and 0<len(request.batch_id)<=128)
++        if self.pending or not valid or not self.engine.start(request.task_id,request.batch_id,time.monotonic()):
++            self.get_logger().warning('Goal rejected: invalid/duplicate task, busy, fault, camera or HCR not ready')
++            return GoalResponse.REJECT
++        self.pending=True
++        return GoalResponse.ACCEPT
++
++    def cancel(self,handle):
++        if not self.engine.active: return CancelResponse.REJECT
++        self.engine.cancel()
++        return CancelResponse.ACCEPT
++
++    async def execute(self,handle):
++        self.goal_handle=handle
++        self.waiter=Future()
++        if self.engine.result is None: await self.waiter
++        data=self.engine.result
++        result=SortBatch.Result()
++        for key in ('robot_id','task_id','batch_id'): setattr(result,key,getattr(handle.request,key))
++        for key,value in data.items(): setattr(result,key,value)
++        result.timestamp=timestamp()
++        if data['result_code']=='SUCCESS': handle.succeed()
++        elif data['result_code']=='CANCELED': handle.canceled()
++        else: handle.abort()
++        self.goal_handle=None; self.waiter=None; self.pending=False
++        return result
++
++    def reset(self,request,response):
++        response.success=not self.pending and self.engine.reset_fault(time.monotonic())
++        response.message='Fault cleared' if response.success else 'Need fresh camera, HCR READY, no error and no active action'
++        return response
++
++    def tick(self):
++        observation=read_observation(self.camera_state)
++        now=time.monotonic()
++        events,overflow=self.bank.drain()
++        if overflow and self.engine.active: self.engine.finish('FAILED','MODBUS_EVENT_OVERFLOW')
++        self.engine.tick(now,observation,events)
++        self.bank.update(self.engine.registers())
++        view=self.engine.view(now)
++        view['monotonic']=now; view['timestamp']=timestamp()
++        temp=self.runtime_state.with_suffix('.tmp')
++        temp.write_text(json.dumps(view)); os.replace(temp,self.runtime_state)
++        signature=(self.engine.phase,self.engine.red,self.engine.yellow,self.engine.canceling)
++        if self.goal_handle is not None and (now-self.last_feedback>=1 or signature!=self.last_signature):
++            feedback=SortBatch.Feedback()
++            for key in ('robot_id','task_id','batch_id'): setattr(feedback,key,getattr(self.goal_handle.request,key))
++            feedback.phase='CANCEL_PENDING_'+self.engine.phase if self.engine.canceling and self.engine.active else self.engine.phase
++            feedback.red_count=self.engine.red; feedback.yellow_count=self.engine.yellow
++            feedback.timestamp=timestamp(); self.goal_handle.publish_feedback(feedback)
++            self.last_feedback=now
++        self.last_signature=signature
++        if now-self.last_status>=1:
++            status=SorterStatus()
++            status.robot_id=self.robot_id; status.current_task_id=view['task_id']; status.current_batch_id=view['batch_id']
++            status.state='ERROR' if self.engine.fault else 'SORTING' if self.engine.active else 'IDLE'
++            status.ready=view['ready'] and not self.pending
++            status.receive_ready=status.ready and self.get_parameter('receive_enabled').value
++            status.error_code=self.engine.fault or 'NONE'; status.error_message=self.engine.fault
++            status.boot_id=self.boot_id; self.sequence+=1; status.sequence=self.sequence; status.timestamp=timestamp()
++            self.publisher.publish(status); self.last_status=now
++        if self.engine.result is not None and self.waiter is not None and not self.waiter.done():
++            self.waiter.set_result(True)
++
++    def close(self):
++        self.timer.cancel()
++        if self.engine.active: self.engine.finish('FAILED','PROCESS_SHUTDOWN')
++        self.bank.update([0]*5)
++        self.server.shutdown(); self.server.server_close(); self.thread.join(timeout=3)
++        self.engine.journal.db.close()
++        self.action.destroy()
++        self.destroy_node()
++
++
++def main(args=None):
++    rclpy.init(args=args)
++    node=None
++    try:
++        node=SorterNode()
++        rclpy.spin(node)
++    except KeyboardInterrupt: pass
++    finally:
++        if node is not None: node.close()
++        if rclpy.ok(): rclpy.shutdown()
+diff --git a/farm_project/robot/ros_ws/src/hcr_sorting/package.xml b/farm_project/robot/ros_ws/src/hcr_sorting/package.xml
+new file mode 100644
+--- /dev/null
++++ b/farm_project/robot/ros_ws/src/hcr_sorting/package.xml
+@@ -0,0 +1,9 @@
++<?xml version="1.0"?>
++<package format="3">
++ <name>hcr_sorting</name><version>0.1.0</version>
++ <description>HCR batch sorting supervisor with Modbus handshake.</description>
++ <maintainer email="maintainer@example.com">ManyFarm</maintainer><license>Apache-2.0</license>
++ <buildtool_depend>ament_python</buildtool_depend>
++ <exec_depend>rclpy</exec_depend><exec_depend>farm_interfaces</exec_depend><exec_depend>std_srvs</exec_depend>
++ <export><build_type>ament_python</build_type></export>
++</package>
+diff --git a/farm_project/robot/ros_ws/src/hcr_sorting/resource/hcr_sorting b/farm_project/robot/ros_ws/src/hcr_sorting/resource/hcr_sorting
+new file mode 100644
+index 0000000..e69de29
+diff --git a/farm_project/robot/ros_ws/src/hcr_sorting/setup.cfg b/farm_project/robot/ros_ws/src/hcr_sorting/setup.cfg
+new file mode 100644
+--- /dev/null
++++ b/farm_project/robot/ros_ws/src/hcr_sorting/setup.cfg
+@@ -0,0 +1,4 @@
++[develop]
++script_dir=$base/lib/hcr_sorting
++[install]
++install_scripts=$base/lib/hcr_sorting
+diff --git a/farm_project/robot/ros_ws/src/hcr_sorting/setup.py b/farm_project/robot/ros_ws/src/hcr_sorting/setup.py
+new file mode 100644
+--- /dev/null
++++ b/farm_project/robot/ros_ws/src/hcr_sorting/setup.py
+@@ -0,0 +1,8 @@
++from setuptools import setup
++setup(name='hcr_sorting', version='0.1.0', packages=['hcr_sorting'],
++      data_files=[('share/ament_index/resource_index/packages',['resource/hcr_sorting']),
++                  ('share/hcr_sorting',['package.xml'])],
++      install_requires=['setuptools'], zip_safe=True,
++      entry_points={'console_scripts':['sorter_node = hcr_sorting.node:main',
++                                       'mock_hcr = hcr_sorting.mock_hcr:main',
++                                       'dummy_control = hcr_sorting.dummy_control:main']})
+diff --git a/farm_project/robot/ros_ws/src/hcr_sorting/tests/ros_integration.py b/farm_project/robot/ros_ws/src/hcr_sorting/tests/ros_integration.py
+new file mode 100644
+--- /dev/null
++++ b/farm_project/robot/ros_ws/src/hcr_sorting/tests/ros_integration.py
+@@ -0,0 +1,91 @@
++"""Actual ROS Action + Modbus loopback integration. No hardware access."""
++import json
++from pathlib import Path
++import tempfile
++import time
++
++import rclpy
++from rclpy.action import ActionClient
++from rclpy.executors import SingleThreadedExecutor
++from rclpy.node import Node
++from farm_interfaces.action import SortBatch
++from farm_interfaces.msg import SorterStatus
++from hcr_sorting.node import SorterNode
++from hcr_sorting.dummy_control import DummyControl
++from hcr_sorting.mock_hcr import Client
++
++
++def main():
++    with tempfile.TemporaryDirectory() as folder:
++        root=Path(folder)
++        args=['--ros-args','-p','modbus_host:=127.0.0.1','-p','modbus_port:=0','-p','modbus_peer:=127.0.0.1',
++              '-p',f'camera_state:={root / "camera.json"}','-p',f'runtime_state:={root / "runtime.json"}',
++              '-p',f'journal:={root / "journal.db"}','-p','empty_seconds:=0.25','-p','settle_seconds:=0.1']
++        rclpy.init(args=args)
++        server=SorterNode(); client_node=DummyControl()
++        executor=SingleThreadedExecutor();executor.add_node(server);executor.add_node(client_node)
++        action=ActionClient(client_node,SortBatch,'/sorter_01/sort_batch')
++        statuses=[];feedback=[]
++        subscription=client_node.create_subscription(SorterStatus,'/sorter_01/status',lambda msg:statuses.append(msg),10)
++        robot=Client('127.0.0.1',server.server.server_address[1])
++        frame=0;state=1;ack=done=0;cycles=0;started=0;commands=[];stop_after=3
++        def step():
++            nonlocal frame,state,ack,done,cycles,started
++            now=time.monotonic();frame+=1
++            zones={n:'NO_COLOR' for n in 'ABCD'}
++            if cycles<stop_after:
++                zones['A' if cycles<2 else 'B']='RED' if cycles<2 else 'YELLOW'
++            file=root/'camera.json';tmp=root/'camera.tmp'
++            tmp.write_text(json.dumps(dict(monotonic=now,timestamp=time.time(),ready=True,camera_session='integration',counter=frame,zone_states=zones)))
++            tmp.replace(file)
++            command,job,request,active,hb=robot.read()
++            if state==1 and request and active and job!=done:
++                state=2;ack=job;started=now;commands.append(command)
++            elif state==2:
++                assert command==commands[-1], 'command mutated while BUSY'
++                if not request and now-started>.15:state=3;done=ack;cycles+=1
++            elif state==3 and not request and command==0:state=1
++            robot.status(state,ack,done)
++            executor.spin_once(timeout_sec=.02)
++            time.sleep(.01)
++        def until(predicate,seconds=12):
++            deadline=time.monotonic()+seconds
++            while not predicate():
++                if time.monotonic()>deadline:raise AssertionError(f'timeout {server.engine.view(time.monotonic())}')
++                step()
++        def send(task):
++            goal=SortBatch.Goal(robot_id='sorter_01',task_id=task,batch_id='batch',timestamp='2026-10-01T00:00:00+00:00')
++            future=action.send_goal_async(goal,feedback_callback=lambda f:feedback.append(f.feedback))
++            until(future.done)
++            return future.result()
++        try:
++            until(lambda:server.engine.ready(time.monotonic()) and action.server_is_ready())
++            assert robot.read()[0]==0
++            goal=send('integration_1');assert goal.accepted
++            future=goal.get_result_async();until(future.done)
++            result=future.result().result
++            assert (result.result_code,result.red_count,result.yellow_count)==('SUCCESS',2,1),result
++            assert commands==[11,11,22],commands
++            assert feedback and any(f.red_count>0 for f in feedback)
++            assert any(s.state=='SORTING' and not s.ready for s in statuses)
++            duplicate=send('integration_1');assert not duplicate.accepted
++            # A new batch can be canceled mid-motion; finish its in-flight cycle first.
++            stop_after=4
++            until(lambda:server.engine.ready(time.monotonic()) and client_node.ready())
++            assert client_node.start('integration_cancel', 'batch')
++            assert not client_node.start('must_not_start', 'batch')
++            until(lambda:server.engine.phase=='BUSY')
++            assert client_node.cancel()
++            until(lambda:client_node.last_result is not None)
++            result=client_node.last_result
++            assert not client_node.busy
++            assert client_node.last_feedback is not None
++            assert (result.result_code,result.red_count+result.yellow_count)==('CANCELED',1),result
++            print('PASS: real ROS Goal/Feedback/Result/Status + TCP BUSY/DONE/READY; A red twice, B yellow, empty SUCCESS 2+1; duplicate rejection; cancel drains 1 cycle')
++        finally:
++            robot.sock.close();action.destroy();client_node.client.destroy()
++            executor.remove_node(server);executor.remove_node(client_node)
++            server.close();client_node.destroy_node();executor.shutdown();rclpy.shutdown()
++
++
++if __name__=='__main__':main()
+diff --git a/farm_project/robot/ros_ws/src/hcr_sorting/tests/test_core.py b/farm_project/robot/ros_ws/src/hcr_sorting/tests/test_core.py
+new file mode 100644
+--- /dev/null
++++ b/farm_project/robot/ros_ws/src/hcr_sorting/tests/test_core.py
+@@ -0,0 +1,131 @@
++import tempfile
++from pathlib import Path
++import unittest
++from hcr_sorting.core import Journal, Settings, Supervisor
++
++
++class CoreTests(unittest.TestCase):
++    def setUp(self):
++        self.tmp=tempfile.TemporaryDirectory()
++        self.j=Journal(Path(self.tmp.name)/'journal.db')
++        self.e=Supervisor(self.j,Settings(empty_seconds=.3,settle_seconds=.1))
++        self.now=10.; self.frame=0
++        self.states=dict(A='RED',B='YELLOW',C='NO_COLOR',D='NO_COLOR')
++        self.robot=(1,0,0,0)
++        self.tick()
++
++    def tearDown(self):
++        self.j.db.close(); self.tmp.cleanup()
++
++    def tick(self,dt=.1,events=None,obs=True):
++        self.now+=dt;self.frame+=1
++        d=dict(monotonic=self.now,ready=True,camera_session='cam1',counter=self.frame,zone_states=self.states.copy()) if obs else None
++        self.e.tick(self.now,d,[(self.now,*self.robot)] if events is None else events)
++
++    def start(self):
++        self.assertTrue(self.e.start('task','batch',self.now))
++        self.tick(.2); self.assertEqual(self.e.phase,'WAIT_ACK')
++
++    def busy(self):
++        self.robot=(2,self.e.job_id,0,0);self.tick()
++        self.assertEqual(self.e.phase,'BUSY')
++
++    def done(self):
++        self.robot=(3,self.e.job_id,self.e.job_id,0);self.tick()
++        self.assertEqual(self.e.phase,'WAIT_READY')
++
++    def ready(self):
++        self.robot=(1,self.e.job_id,self.e.job_id,0);self.tick()
++
++    def test_no_goal_no_motion(self):
++        for _ in range(10):self.tick()
++        self.assertEqual(self.e.registers()[:4],[0,0,0,0])
++
++    def test_latch_repeat_a_count_once(self):
++        self.start();job1=self.e.job_id;self.busy()
++        self.states['A']='NO_COLOR';self.states['D']='RED';self.tick()
++        self.assertEqual(self.e.command,11)
++        self.done();self.tick();self.tick()
++        self.assertEqual(self.e.red,1)
++        self.states['A']='RED';self.ready();self.tick(.2)
++        self.assertEqual(self.e.command,11);self.assertGreater(self.e.job_id,job1)
++
++    def test_empty_timer_mixed_and_wait(self):
++        self.states={n:'NO_COLOR' for n in 'ABCD'}
++        self.tick();self.assertTrue(self.e.start('task','batch',self.now))
++        self.tick(.2);self.tick(.2)
++        self.states['A']='WAIT';self.tick(.1)
++        self.states['A']='MIXED';self.tick(.5)
++        self.assertIsNone(self.e.result)
++        self.states['A']='NO_COLOR';self.tick();self.tick(.4)
++        self.assertEqual(self.e.result['result_code'],'SUCCESS')
++        self.assertFalse(self.e.start('task','batch',self.now))
++
++    def test_no_busy_no_completion(self):
++        self.start();self.robot=(3,self.e.job_id,self.e.job_id,0);self.tick()
++        self.assertEqual(self.e.red,0);self.assertEqual(self.e.phase,'WAIT_ACK')
++        self.tick(11)
++        self.assertEqual(self.e.result['error_code'],'WAIT_ACK_TIMEOUT')
++
++    def test_wrong_done_ignored(self):
++        self.start();self.busy()
++        self.robot=(3,self.e.job_id,self.e.job_id+1,0);self.tick()
++        self.assertEqual(self.e.red,0);self.assertEqual(self.e.phase,'BUSY')
++
++    def test_ready_without_done_fails(self):
++        self.start();self.busy();self.robot=(1,self.e.job_id,0,0);self.tick()
++        self.assertEqual(self.e.result['error_code'],'READY_WITHOUT_DONE')
++
++    def test_cancel_drain(self):
++        self.start();self.e.cancel();self.busy();self.done()
++        self.assertIsNone(self.e.result)
++        self.ready()
++        self.assertEqual(self.e.result['result_code'],'CANCELED');self.assertEqual(self.e.red,1)
++
++    def test_camera_failure_not_empty(self):
++        self.start();self.tick(obs=False)
++        self.assertEqual(self.e.result['error_code'],'CAMERA_UNAVAILABLE')
++        self.assertEqual(self.e.command,0)
++
++    def test_heartbeat_timeout(self):
++        self.start();self.tick(4,events=[])
++        self.assertEqual(self.e.result['error_code'],'HCR_COMM_TIMEOUT')
++
++    def test_fresh_frame_after_return(self):
++        self.start();self.busy();self.done();self.ready()
++        self.e.tick(self.now+.5,self.e.observation,[(self.now+.5,*self.robot)])
++        self.assertEqual(self.e.phase,'SCANNING')
++        self.tick(.6);self.assertEqual(self.e.phase,'WAIT_ACK')
++
++    def test_restart_latched_and_sequence_not_reused(self):
++        self.start();job=self.e.job_id
++        other=Journal(Path(self.tmp.name)/'journal.db')
++        try:
++            restarted=Supervisor(other)
++            self.assertEqual(restarted.fault,'PROCESS_RESTART')
++            self.assertTrue(other.has('task'));self.assertGreater(other.job(),job)
++        finally:other.db.close()
++
++    def test_feedback_fast_events_kept(self):
++        self.start();j=self.e.job_id
++        self.tick(events=[(self.now+.01,2,j,0,0),(self.now+.02,3,j,j,0)])
++        self.assertEqual(self.e.red,1);self.assertEqual(self.e.phase,'WAIT_READY')
++
++    def test_fault_survives_restart_and_requires_ready_reset(self):
++        self.start();self.tick(obs=False)
++        other=Journal(Path(self.tmp.name)/'journal.db')
++        try:
++            restored=Supervisor(other)
++            self.assertEqual(restored.fault,'CAMERA_UNAVAILABLE')
++            self.assertFalse(restored.reset_fault(self.now))
++        finally:other.db.close()
++        self.robot=(1,0,0,0);self.tick()
++        self.assertTrue(self.e.reset_fault(self.now))
++        self.assertEqual(self.j.fault,'')
++
++    def test_invalid_observation_not_ready(self):
++        self.e.observation={'monotonic':float('nan')}
++        self.assertFalse(self.e.ready(self.now))
++
++
++if __name__=='__main__':unittest.main()
+diff --git a/farm_project/robot/ros_ws/src/hcr_sorting/tests/test_modbus.py b/farm_project/robot/ros_ws/src/hcr_sorting/tests/test_modbus.py
+new file mode 100644
+--- /dev/null
++++ b/farm_project/robot/ros_ws/src/hcr_sorting/tests/test_modbus.py
+@@ -0,0 +1,41 @@
++import socket
++import struct
++import threading
++import unittest
++from hcr_sorting.modbus import RegisterBank, ModbusServer, receive
++
++
++class ModbusTests(unittest.TestCase):
++    def test_commit_order_and_protection(self):
++        b=RegisterBank();b.update([11,5,1,1,3])
++        self.assertEqual(b.transact(1,bytes.fromhex('0600000001')),bytes.fromhex('8602'))
++        b.transact(1,struct.pack('>BHH',6,101,5))
++        self.assertEqual(b.drain()[0],[])
++        b.transact(1,struct.pack('>BHH',6,100,2))
++        self.assertEqual(b.drain()[0][0][1:],(2,5,0,0))
++        self.assertEqual(b.transact(1,bytes.fromhex('0300000001')),bytes.fromhex('0302000b'))
++        self.assertEqual(b.transact(1,bytes.fromhex('10006400020400010002')),bytes.fromhex('1000640002'))
++
++    def test_errors(self):
++        b=RegisterBank()
++        for request,expected in [('100064000208','9003'),('0600640009','8603'),('0300040002','8302'),('0300000000','8303'),('050064ff00','8501')]:
++            self.assertEqual(b.transact(1,bytes.fromhex(request)).hex(),expected)
++        self.assertEqual(b.transact(2,bytes.fromhex('0300000001')).hex(),'830b')
++
++    def test_tcp_fragmented_and_pipelined(self):
++        bank=RegisterBank()
++        with ModbusServer(('127.0.0.1',0),bank,'127.0.0.1') as server:
++            t=threading.Thread(target=server.serve_forever,daemon=True);t.start()
++            try:
++                with socket.create_connection(server.server_address,timeout=2) as s:
++                    pdu=struct.pack('>BHHB4H',16,100,4,8,2,7,0,0)
++                    packet=struct.pack('>HHHB',1,0,len(pdu)+1,1)+pdu
++                    s.sendall(packet[:3]);s.sendall(packet[3:]+bytes.fromhex('000200000006010300640004'))
++                    for tx in [1,2]:
++                        header=struct.unpack('>HHHB',receive(s,7));self.assertEqual(header[0],tx)
++                        reply=receive(s,header[2]-1);self.assertFalse(reply[0]&128)
++                    self.assertEqual(bank.drain()[0][0][1:],(2,7,0,0))
++            finally:server.shutdown();t.join()
++
++
++if __name__=='__main__':unittest.main()

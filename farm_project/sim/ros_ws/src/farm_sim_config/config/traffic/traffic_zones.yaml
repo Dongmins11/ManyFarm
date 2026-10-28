@@ -19,12 +19,12 @@ graphs:
   sim_scout_v1:
     robot_id: scout_01
     source_file: sources/graph.geojson
-    graph_revision: graph_01
+    graph_revision: graph_02
     metadata_version: 2026-10-02.left-arm.same-direction.v4
   sim_harvest_v1:
     robot_id: harvest_01
     source_file: sources/harvest_graph.geojson
-    graph_revision: graph_01
+    graph_revision: graph_02
     metadata_version: 2026-10-02.left-arm.same-direction.v4
 participants:
   scout_01:
@@ -1744,14 +1744,22 @@ zones:
   sim:N:8004:
     kind: node
     capacity: 1
-    bounds_m: [4.539022, 12.789022, 5.460978, 13.710978]
+    bounds_m:
+    - -7.460978
+    - 12.789022
+    - -6.539022
+    - 13.710978
     graph_refs:
     - graph_id: sim_scout_v1
       node_id: '8004'
-      xy_m: [5.0, 13.25]
+      xy_m:
+      - -7.0
+      - 13.25
     - graph_id: sim_harvest_v1
       node_id: '8004'
-      xy_m: [5.0, 13.25]
+      xy_m:
+      - -7.0
+      - 13.25
   sim:N:9001:
     kind: node
     capacity: 1
@@ -7556,42 +7564,54 @@ zones:
       - [2.0, 13.25]
       - [2.0, 11.5]
       source_resource: STATION-3
-  sim:E:8004:9019:
+  sim:E:8004:9001:
     kind: edge
     capacity: 1
-    bounds_m: [4.539022, 11.039022, 5.460978, 13.710978]
+    bounds_m:
+    - -7.460978
+    - 11.039022
+    - -6.194022
+    - 13.710978
     graph_refs:
     - graph_id: sim_scout_v1
       edge_id: '30514'
-      from_node: '9019'
+      from_node: '9001'
       to_node: '8004'
       coordinates_m:
-      - [5.0, 11.5]
-      - [5.0, 13.25]
+      - - -6.655
+        - 11.5
+      - - -7.0
+        - 13.25
       source_resource: STATION-4
     - graph_id: sim_scout_v1
       edge_id: '30515'
       from_node: '8004'
-      to_node: '9019'
+      to_node: '9001'
       coordinates_m:
-      - [5.0, 13.25]
-      - [5.0, 11.5]
+      - - -7.0
+        - 13.25
+      - - -6.655
+        - 11.5
       source_resource: STATION-4
     - graph_id: sim_harvest_v1
       edge_id: '30514'
-      from_node: '9019'
+      from_node: '9001'
       to_node: '8004'
       coordinates_m:
-      - [5.0, 11.5]
-      - [5.0, 13.25]
+      - - -6.655
+        - 11.5
+      - - -7.0
+        - 13.25
       source_resource: STATION-4
     - graph_id: sim_harvest_v1
       edge_id: '30515'
       from_node: '8004'
-      to_node: '9019'
+      to_node: '9001'
       coordinates_m:
-      - [5.0, 13.25]
-      - [5.0, 11.5]
+      - - -7.0
+        - 13.25
+      - - -6.655
+        - 11.5
       source_resource: STATION-4
   sim:E:9001:9002:
     kind: edge
@@ -10552,8 +10572,8 @@ graph_mappings:
       '30511': sim:E:8002:9008
       '30512': sim:E:8003:9014
       '30513': sim:E:8003:9014
-      '30514': sim:E:8004:9019
-      '30515': sim:E:8004:9019
+      '30514': sim:E:8004:9001
+      '30515': sim:E:8004:9001
   sim_harvest_v1:
     node_to_zone:
       '10100': sim:N:10100
@@ -10958,6 +10978,6 @@ graph_mappings:
       '30511': sim:E:8002:9008
       '30512': sim:E:8003:9014
       '30513': sim:E:8003:9014
-      '30514': sim:E:8004:9019
-      '30515': sim:E:8004:9019
-zone_revision: zone_01
+      '30514': sim:E:8004:9001
+      '30515': sim:E:8004:9001
+zone_revision: zone_02

@@ -172,7 +172,8 @@ class ArmSession:
 
     def telemetry(self) -> dict:
         """최종 결과는 새 작업 전까지 반복 전송합니다."""
-        return dict(self.state)
+        return dict(self.state, travel_ready=self.travel_ready, busy=self.busy,
+                    travel_ready_measured=getattr(self.device, 'travel', None) is not None)
 
     def accept(self, message: Any, now: float | None = None) -> bool:
         """순서·세션·대상을 검사하고 요청만 저장합니다. 여기서는 물리 명령을 쓰지 않습니다."""

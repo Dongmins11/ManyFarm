@@ -1,0 +1,71 @@
+{
+  "source_commit": "e135cdef9462276cc25d9fa336f084e2dcac72e4",
+  "transfer_source": "farm_project/robot/config/harvest/harvest_handoff_real.json",
+  "source_transfer": {
+    "enabled": true,
+    "device_services": {
+      "prepare_arm": "/harvest_01/arm/prepare",
+      "stop": "/harvest_01/arm/stop"
+    },
+    "capacity_count": 0,
+    "loaded_count_topic": "",
+    "stage_timeout_s": 120.0,
+    "stop_timeout_s": 10.0,
+    "load_source": "arm_feedback",
+    "request_count": 0,
+    "rotation_mode": "components",
+    "rotation": {},
+    "discharge_mode": "action",
+    "discharge_action": {
+      "endpoint": "/harvest_01/arm/discharge",
+      "response_timeout_s": 5.0,
+      "cancel_timeout_s": 10.0
+    }
+  },
+  "selected_transfer": {
+    "enabled": true,
+    "device_services": {
+      "prepare_arm": "/harvest_01/sim/transfer/prepare_arm",
+      "stop": "/harvest_01/sim/transfer/stop"
+    },
+    "capacity_count": 0,
+    "loaded_count_topic": "",
+    "stage_timeout_s": 120.0,
+    "stop_timeout_s": 10.0,
+    "load_source": "arm_feedback",
+    "request_count": 0,
+    "rotation_mode": "components",
+    "rotation": {},
+    "discharge_mode": "action",
+    "discharge_action": {
+      "endpoint": "/harvest_01/sim/discharge",
+      "response_timeout_s": 5.0,
+      "cancel_timeout_s": 10.0
+    },
+    "journal_path": "/home/ysy/main/farm_project/sim/runs/localization_repeat08_20261028/attempt4/runtime/journal/transfer.json"
+  },
+  "handoff_input_hashes": {
+    "robot/config/robots/vicpinky/transfer/wall_alignment_wait_v2.json": "afde31e019233ec827976c057aa395dbcd03aa14a7d12d4dcd700564d5171f53",
+    "robot/config/robots/vicpinky/transfer/arc_monitor_policy.json": "ff4e992d5e49948fbfcbd61521e1d60b4a454c3f450dccdd684adcc29fa67bd5"
+  },
+  "numeric_handoff_changes": [
+    {
+      "field": "wall.controller.angle_tolerance",
+      "before": 0.008726646259971648,
+      "after": 0.013962634015954637,
+      "unit": "rad",
+      "scope": "sim only, temporary",
+      "reason": "2026-10-28 user approved 0.8 degree tolerance"
+    }
+  ],
+  "environment_changes": [
+    "mode=sim/use_sim_time=true",
+    "global TF; harvest_01/scan",
+    "sim device endpoints",
+    "independent journal",
+    "device state_clock_delay_s=0.1 (existing transport sensor timing policy)",
+    "source status_reporting enabled with sim map_id"
+  ],
+  "traffic_enabled": false,
+  "actual_discharge_count_valid": false
+}

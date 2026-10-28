@@ -1,0 +1,41 @@
+{
+  "scope": "one actual window + Frontend worker + TransportPickup/DockTransfer through restore",
+  "cached_scout_source": "sim/runs/sec01_16_round3_20261023_151213/SEC01_attempt_0002/result.json",
+  "cached_scout_sha256": "3057bb105e3a2d1bbcdd4964bab7f4c1cd2cc67095b4ab5e4f1238e874af118a",
+  "harvest_initial_xy": [
+    -6.015000000000001,
+    9.442529729570179
+  ],
+  "harvest_initial_yaw": -1.5707963267948966,
+  "initial_pose_only": true,
+  "truth_injected_into_control": false,
+  "fresh_scout": false,
+  "full_section": false,
+  "traffic_enabled": false,
+  "domain": 13,
+  "discovery": "SUBNET",
+  "physics": "cpu",
+  "numeric_handoff_changes": [
+    {
+      "field": "wall.controller.angle_tolerance",
+      "before": 0.008726646259971648,
+      "after": 0.013962634015954637,
+      "unit": "rad",
+      "scope": "sim only, temporary",
+      "reason": "2026-10-28 user approved 0.8 degree tolerance"
+    }
+  ],
+  "sim_wheel_servo_before": {
+    "kp": 1.0,
+    "ki": 1.0,
+    "max_correction_rad_s": 2.0,
+    "dt_s": 0.016666666666666666
+  },
+  "sim_wheel_servo_selected": {
+    "kp": 1.0,
+    "ki": 1.0,
+    "max_correction_rad_s": 2.0,
+    "dt_s": 0.016666666666666666
+  },
+  "temporary_marker_layout": "sim/runs/localization_repeat08_20261028/attempt2/runtime/layout.json"
+}

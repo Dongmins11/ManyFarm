@@ -1,0 +1,160 @@
+{
+  "baseline": "ea25693 + step1 uncommitted integration",
+  "source": "e135cdef9462276cc25d9fa336f084e2dcac72e4",
+  "tests": {
+    "navigation": 215,
+    "harvest": 196,
+    "harvest_skipped": 5,
+    "sim_regression": 58,
+    "passed": 469
+  },
+  "builds": [
+    "farm_navigation",
+    "harvest_robot",
+    "farm_bringup",
+    "farm_sim_devices",
+    "farm_sim_runtime",
+    "farm_sim_config"
+  ],
+  "real_generated_parameters_identical": true,
+  "traffic_local_graph_revisions": "graph_02",
+  "traffic_local_zone_revision": "zone_02",
+  "frontend_unchanged": true,
+  "physics": "CPU MBP 60Hz",
+  "domain": 13,
+  "discovery": "SUBNET",
+  "unaligned_connection": {
+    "scope": "stationary Isaac + actual ROS runtime/device connection; no handoff body motion",
+    "domain": 13,
+    "range": "SUBNET",
+    "passed": true,
+    "prepare": {
+      "success": true,
+      "message": "실측 팔 접힘·정지 확인"
+    },
+    "prepare_attempts": 1,
+    "use_sim_time": {
+      "/harvest_01/handoff/controller_server": true,
+      "/harvest_01/handoff/behavior_server": true,
+      "/harvest_01/handoff/local_costmap/local_costmap": true,
+      "/harvest_01/handoff/lifecycle_manager": true
+    },
+    "output_publishers": [
+      "/harvest_01/harvest_motion_server"
+    ],
+    "missing_window_goal_accepted": false,
+    "unaligned_discharge_accepted": false
+  },
+  "aligned_device_connection": {
+    "scope": "stationary Isaac + actual ROS runtime/device connection; no handoff body motion",
+    "domain": 13,
+    "range": "SUBNET",
+    "passed": true,
+    "prepare": {
+      "success": true,
+      "message": "실측 팔 접힘·정지 확인"
+    },
+    "prepare_attempts": 1,
+    "use_sim_time": {
+      "/harvest_01/handoff/controller_server": true,
+      "/harvest_01/handoff/behavior_server": true,
+      "/harvest_01/handoff/local_costmap/local_costmap": true,
+      "/harvest_01/handoff/lifecycle_manager": true
+    },
+    "active_servers": {
+      "/harvest_01/handoff/controller_server": "active",
+      "/harvest_01/handoff/behavior_server": "active",
+      "/harvest_01/controller_server": "active",
+      "/harvest_01/planner_server": "active",
+      "/harvest_01/velocity_smoother": "active"
+    },
+    "output_publishers": [
+      "/harvest_01/harvest_motion_server"
+    ],
+    "missing_window_goal_accepted": false,
+    "alignment_proof": {
+      "session": "4c2ab841873549dba32c59d8c7d6e177",
+      "proof": {
+        "sim_time_s": 2.9666668213903904,
+        "coverage": 0.7264259851910346,
+        "minimum_coverage": 0.72,
+        "full_containment": false,
+        "center_delta_m": [
+          -0.0023752897388346905,
+          0.10400035904665111,
+          0.056464914960908
+        ],
+        "horizontal_distance_m": 0.10402748042308704,
+        "positive_height_clearance_m": 0.055993733313485006,
+        "aligned": true,
+        "wheel_stopped": true,
+        "world_stopped": true,
+        "held_s": 2.900000151246786,
+        "hold_pass": true,
+        "harvest_corners_world": [
+          [
+            -0.0944424455925866,
+            -0.25500772263871774,
+            0.5013941322412067
+          ],
+          [
+            -0.09442663047985272,
+            -0.44500772198051297,
+            0.5013941314071999
+          ],
+          [
+            0.09557327545630753,
+            -0.444991906874727,
+            0.5012057325412528
+          ],
+          [
+            0.09555746034357365,
+            -0.25499190753293166,
+            0.5012057333752594
+          ]
+        ],
+        "transport_corners_world": [
+          [
+            0.14884247022942002,
+            -0.6020897841464737,
+            0.44445803563287545
+          ],
+          [
+            0.151030794789374,
+            -0.30809889509750255,
+            0.44521195327810137
+          ],
+          [
+            -0.1429610608880297,
+            -0.3059105634602732,
+            0.4452119992277678
+          ],
+          [
+            -0.1451493854479837,
+            -0.5999014525092444,
+            0.44445808158254185
+          ]
+        ]
+      },
+      "fresh": true,
+      "lid_open": false,
+      "task_id": null,
+      "count_valid": false
+    },
+    "discharge": {
+      "status": 4,
+      "error_codes": [],
+      "detail": "SIM_ALIGNMENT_ONLY: 실제 전달 수량 미측정",
+      "phases": [
+        "OPENING",
+        "DISCHARGING",
+        "CLOSING"
+      ],
+      "count_valid": false
+    }
+  },
+  "actual_handoff_body_movement_tested": false,
+  "full_cycle_tested": false,
+  "shutdown": "launch supervisors exit0; child SIGINT exceptions and Isaac SIGTERM/exit-11 after successful result; not fixed",
+  "commit_push": false
+}

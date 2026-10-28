@@ -1,0 +1,23 @@
+import json,math,bisect
+from pathlib import Path
+from collections import Counter
+import numpy as np,yaml
+from PIL import Image
+from scipy.spatial import cKDTree
+ROOT=Path(__file__).resolve().parents[4]; out=ROOT/'sim/docs/test_results/20261028_sorter_map_update';base=ROOT/'sim/runs/hcr3a_farm_cycle_20261028/attempt10'
+e=[json.loads(x) for x in (base/'events.jsonl').read_text().splitlines()];raw=[json.loads(x) for x in (base/'localization.jsonl').read_text().splitlines()];session=json.loads((base/'sorting/runtime.json').read_text())['session'];d=[json.loads(x) for x in (ROOT/'sim/runs/drive_diagnostics'/session/'transport_01.jsonl').read_text().splitlines()];times=np.array([x['sim_time_s'] for x in d]);monos=np.array([x['monotonic_s'] for x in d]);fixture=json.loads((base/'fixture.json').read_text());yaw=fixture['initial_yaw'];rot=np.array([[math.cos(yaw),-math.sin(yaw)],[math.sin(yaw),math.cos(yaw)]]);initial=fixture['initial_xy'];traj=[]
+for s in (x for x in e if x['kind']=='robot_status'):
+ row=d[int(np.argmin(abs(monos-(s['mono']-.15))))];truth=np.array(row['T_world_base'])[:2,3];od=np.array(initial)+rot@np.array(row['wheel_odom'][:2]);p=s['data']['pose']['position'];est=np.array([p['x'],p['y']]);traj.append(dict(sim_time_s=row['sim_time_s'],truth_xy=truth.tolist(),estimated_xy=est.tolist(),estimated_error_m=float(np.linalg.norm(est-truth)),wheel_odom_error_m=float(np.linalg.norm(od-truth)),state=s['data']['state']))
+(out/'attempt10_trajectory.json').write_text(json.dumps(traj,indent=2)+'\n')
+m=yaml.safe_load((ROOT/'sim/ros_ws/src/farm_sim_config/maps/hcr_farm_map.yaml').read_text());a=np.array(Image.open(ROOT/'sim/ros_ws/src/farm_sim_config/maps'/m['image']).convert('L'));h,w=a.shape;yy,xx=np.where(a==0);xy=np.c_[m['origin'][0]+(xx+.5)*m['resolution'],m['origin'][1]+(h-yy-.5)*m['resolution']];tree=cKDTree(xy);Tscan=np.array(json.loads((out/'T_base_scan.json').read_text()));amcl=[]
+def stamp(m):return m['header']['stamp']['sec']+m['header']['stamp']['nanosec']/1e9
+for row in (x for x in raw if x['kind']=='amcl_pose'):
+ msg=row['data'];tm=stamp(msg);dr=d[int(np.argmin(abs(times-tm)))];p=msg['pose']['pose']['position'];est=np.array([p['x'],p['y']]);true=np.array(dr['T_world_base'])[:2,3];amcl.append(dict(sim_time_s=tm,estimated_xy=est.tolist(),truth_xy=true.tolist(),error_m=float(np.linalg.norm(est-true)),covariance_xy=[msg['pose']['covariance'][0],msg['pose']['covariance'][7]]))
+(out/'amcl_timeline.json').write_text(json.dumps(amcl,indent=2)+'\n')
+scanrow=[x for x in raw if x['kind']=='scan'][-1];scan=scanrow['data'];tm=stamp(scan);dr=d[int(np.argmin(abs(times-tm)))];T=np.array(dr['T_world_base']);rng=np.array(scan['ranges']);angles=scan['angle_min']+np.arange(len(rng))*scan['angle_increment'];valid=np.isfinite(rng)&(rng>=scan['range_min'])&(rng<scan['range_max']);rng=rng[valid];angles=angles[valid];pts=np.c_[rng*np.cos(angles),rng*np.sin(angles),np.zeros(len(rng)),np.ones(len(rng))];truth_points=(T@Tscan@pts.T).T[:,:2]
+s=[x for x in e if x['kind']=='robot_status'][-1]['data']['pose'];q=s['yaw'];E=np.eye(4);E[:2,:2]=[[math.cos(q),-math.sin(q)],[math.sin(q),math.cos(q)]];E[:2,3]=[s['position']['x'],s['position']['y']];est_points=(E@Tscan@pts.T).T[:,:2];td,_=tree.query(truth_points);ed,_=tree.query(est_points)
+scan_summary=dict(sim_time_s=tm,valid_beams=len(rng),truth_mean_distance_m=float(td.mean()),estimate_mean_distance_m=float(ed.mean()),truth_median_m=float(np.median(td)),estimate_median_m=float(np.median(ed)),truth_fraction_within_5cm=float((td<.05).mean()),estimate_fraction_within_5cm=float((ed<.05).mean()),truth_xy=T[:2,3].tolist(),estimated_xy=E[:2,3].tolist(),truth_yaw=math.atan2(T[1,0],T[0,0]),estimated_yaw=q)
+(out/'scan_match.json').write_text(json.dumps(scan_summary,indent=2)+'\n')
+np.savez(out/'final_scan_points.npz',truth_points=truth_points,estimated_points=est_points,truth_distance=td,estimated_distance=ed)
+res=json.loads((base/'result.json').read_text());report=dict(trial='attempt10',session=session,passed=res['passed'],sequence_through_sort_passed=res['sequence_through_sort_passed'],final=traj[-1],maximum_estimated_error_m=max(v['estimated_error_m'] for v in traj),maximum_odom_error_m=max(v['wheel_odom_error_m'] for v in traj),amcl_final=amcl[-1],raw_message_counts=dict(Counter(r['kind'] for r in raw)),scan_match=scan_summary,return_result=res['return'],counts=res['sort']['result'],sampling_limit='moving status matches wall-.15s approximately; AMCL/scan use measurement stamps; final stationary error reliable')
+(out/'result.json').write_text(json.dumps(report,ensure_ascii=False,indent=2)+'\n');print(json.dumps(report,ensure_ascii=False,indent=2))

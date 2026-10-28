@@ -1,0 +1,6 @@
+<library path="wall_controller">
+ <class name="farm_wall_controller::WallController" type="farm_wall_controller::WallController" base_class_type="nav2_core::Controller"><description>벽 거리·각도 공통 P 제어 및 Nav2 충돌 검사</description></class>
+ <class name="farm_wall_controller::WallGoalChecker" type="farm_wall_controller::WallGoalChecker" base_class_type="nav2_core::GoalChecker"><description>벽 기준 오차·정지·유지 시간 판정</description></class>
+ <class name="farm_wall_controller::WaitingProgressChecker" type="farm_wall_controller::WaitingProgressChecker" base_class_type="nav2_core::ProgressChecker"><description>0출력 대기 시간만 제외하는 인계 전용 진행 검사</description></class>
+ <class name="farm_wall_controller::WaitingSpin" type="farm_wall_controller::WaitingSpin" base_class_type="nav2_core::Behavior"><description>0출력 대기 시간만 제외하는 인계 전용 Spin</description></class>
+</library>

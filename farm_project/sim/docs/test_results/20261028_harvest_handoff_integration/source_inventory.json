@@ -1,0 +1,1067 @@
+{
+  "refs": {
+    "upstream": "e135cdef9462276cc25d9fa336f084e2dcac72e4",
+    "base": "2a397da842300823cec077210ac7857024a6f66a",
+    "head": "ea25693650a9a61d8bbcfcf6e02f6ac6889a97a1"
+  },
+  "summary": {
+    "upstream_exact": 98,
+    "merged_preserving_local_contract": 11,
+    "local_preserved": 7,
+    "excluded_unselected_real_map_test_or_fixture": 2
+  },
+  "files": [
+    {
+      "path": "farm_project/robot/ros_ws/src/farm_arc_controller/CMakeLists.txt",
+      "kind": "add",
+      "decision": "integrated",
+      "upstream_sha256": "5f1d68a86251665ed9c51115751314715a44a5e464eec15ab9983ef04544a738",
+      "head_sha256": null,
+      "current_sha256": "5f1d68a86251665ed9c51115751314715a44a5e464eec15ab9983ef04544a738",
+      "disposition": "upstream_exact"
+    },
+    {
+      "path": "farm_project/robot/ros_ws/src/farm_arc_controller/controller_plugins.xml",
+      "kind": "add",
+      "decision": "integrated",
+      "upstream_sha256": "6bebe1922299ed15544676796c0163f3d0a1787d366fa2fef402b240bc84e8f7",
+      "head_sha256": null,
+      "current_sha256": "6bebe1922299ed15544676796c0163f3d0a1787d366fa2fef402b240bc84e8f7",
+      "disposition": "upstream_exact"
+    },
+    {
+      "path": "farm_project/robot/ros_ws/src/farm_arc_controller/include/farm_arc_controller/arc_math.hpp",
+      "kind": "add",
+      "decision": "integrated",
+      "upstream_sha256": "dce2908256e6f31e7cf19aa5bdccc3ec739ef0ad55c7e68eafa9d902e33e33e2",
+      "head_sha256": null,
+      "current_sha256": "dce2908256e6f31e7cf19aa5bdccc3ec739ef0ad55c7e68eafa9d902e33e33e2",
+      "disposition": "upstream_exact"
+    },
+    {
+      "path": "farm_project/robot/ros_ws/src/farm_arc_controller/package.xml",
+      "kind": "add",
+      "decision": "integrated",
+      "upstream_sha256": "025c78d27eefa5cdbd4559d78d2e460a832e5540fee85d8de3a363a3106080fc",
+      "head_sha256": null,
+      "current_sha256": "025c78d27eefa5cdbd4559d78d2e460a832e5540fee85d8de3a363a3106080fc",
+      "disposition": "upstream_exact"
+    },
+    {
+      "path": "farm_project/robot/ros_ws/src/farm_arc_controller/src/arc_controller.cpp",
+      "kind": "add",
+      "decision": "integrated",
+      "upstream_sha256": "13b709320c408c95aa1818ac31d31ed1ce8eb322fd983065ff9ec0d38f62b0f9",
+      "head_sha256": null,
+      "current_sha256": "13b709320c408c95aa1818ac31d31ed1ce8eb322fd983065ff9ec0d38f62b0f9",
+      "disposition": "upstream_exact"
+    },
+    {
+      "path": "farm_project/robot/ros_ws/src/farm_arc_controller/test/test_arc_math.cpp",
+      "kind": "add",
+      "decision": "integrated",
+      "upstream_sha256": "cfb818d7da5017a2691ffb01d28da084f83604e1e11137a31110c88411548855",
+      "head_sha256": null,
+      "current_sha256": "cfb818d7da5017a2691ffb01d28da084f83604e1e11137a31110c88411548855",
+      "disposition": "upstream_exact"
+    },
+    {
+      "path": "farm_project/robot/ros_ws/src/farm_arc_controller/test/test_arc_return.cpp",
+      "kind": "add",
+      "decision": "integrated",
+      "upstream_sha256": "165b03e3511a9332c3c21276b29bb271d8fa6729ce210d77826cc3b097672838",
+      "head_sha256": null,
+      "current_sha256": "165b03e3511a9332c3c21276b29bb271d8fa6729ce210d77826cc3b097672838",
+      "disposition": "upstream_exact"
+    },
+    {
+      "path": "farm_project/robot/ros_ws/src/farm_bringup/launch/harvest.launch.py",
+      "kind": "conflict",
+      "decision": "integrated",
+      "upstream_sha256": "3623108f6a00b2f977bfd17f380b360f5c23c437012615687dd500b7639c48d2",
+      "head_sha256": "cef9bc513ad9e19e525b81e2560b628b5c75f7832e8ceb6430bfabfac213ff44",
+      "current_sha256": "3623108f6a00b2f977bfd17f380b360f5c23c437012615687dd500b7639c48d2",
+      "disposition": "upstream_exact"
+    },
+    {
+      "path": "farm_project/robot/ros_ws/src/farm_bringup/launch/scout_navigation.launch.py",
+      "kind": "merge",
+      "decision": "integrated",
+      "upstream_sha256": "a67771c6647ba992fa952102d305e9637c40042765885f4527f56b8968b0059d",
+      "head_sha256": "8850d623a6e45c382a7ae2e95d19c78a46ab1070b4a5ffd1ba21f2b25db7a531",
+      "current_sha256": "a67771c6647ba992fa952102d305e9637c40042765885f4527f56b8968b0059d",
+      "disposition": "upstream_exact"
+    },
+    {
+      "path": "farm_project/robot/ros_ws/src/farm_common/farm_common/action_handoff.py",
+      "kind": "merge",
+      "decision": "integrated",
+      "upstream_sha256": "c0cea7c0fcf6fc97684ed35883f7f6b0ddc7cf5ab5b1cd1f64814a58ae2d2612",
+      "head_sha256": "0cd816a1be151c601f161d67ef1e4d039ad1b109a79497e6eea709c8b7682da5",
+      "current_sha256": "c0cea7c0fcf6fc97684ed35883f7f6b0ddc7cf5ab5b1cd1f64814a58ae2d2612",
+      "disposition": "upstream_exact"
+    },
+    {
+      "path": "farm_project/robot/ros_ws/src/farm_navigation/farm_navigation/arc_clearance.py",
+      "kind": "add",
+      "decision": "integrated",
+      "upstream_sha256": "b1ee4c9334869dd05f102c4f5fceeff79c5c75a3ad27ee7d48af2c3932d04393",
+      "head_sha256": null,
+      "current_sha256": "b1ee4c9334869dd05f102c4f5fceeff79c5c75a3ad27ee7d48af2c3932d04393",
+      "disposition": "upstream_exact"
+    },
+    {
+      "path": "farm_project/robot/ros_ws/src/farm_navigation/farm_navigation/arc_isolation.py",
+      "kind": "add",
+      "decision": "integrated",
+      "upstream_sha256": "1453db39ef8c55aae20a183323f66672b7f5c8e4a718ebe4b3833683bd14d817",
+      "head_sha256": null,
+      "current_sha256": "1453db39ef8c55aae20a183323f66672b7f5c8e4a718ebe4b3833683bd14d817",
+      "disposition": "upstream_exact"
+    },
+    {
+      "path": "farm_project/robot/ros_ws/src/farm_navigation/farm_navigation/arc_profile.py",
+      "kind": "add",
+      "decision": "integrated",
+      "upstream_sha256": "ef998fbc8f2e5bdf5a6a9a45c90216697d1114d526682382897f1cd94365a33f",
+      "head_sha256": null,
+      "current_sha256": "ef998fbc8f2e5bdf5a6a9a45c90216697d1114d526682382897f1cd94365a33f",
+      "disposition": "upstream_exact"
+    },
+    {
+      "path": "farm_project/robot/ros_ws/src/farm_navigation/farm_navigation/arrival.py",
+      "kind": "merge",
+      "decision": "integrated",
+      "upstream_sha256": "9decae18a6136a18cf7d3a87da3adc1f5964c99431e2c8e7c4c6f6ff2747caca",
+      "head_sha256": "43c5d9484923a55e4710f4161693f01e57ed9b7187995be87bd9371501fed561",
+      "current_sha256": "9decae18a6136a18cf7d3a87da3adc1f5964c99431e2c8e7c4c6f6ff2747caca",
+      "disposition": "upstream_exact"
+    },
+    {
+      "path": "farm_project/robot/ros_ws/src/farm_navigation/farm_navigation/measured_velocity_guard.py",
+      "kind": "add",
+      "decision": "integrated",
+      "upstream_sha256": "91f3af09e10a7a3c544343c27dff56bae235756182510d1fd11dbb0e5ce8b9b0",
+      "head_sha256": null,
+      "current_sha256": "91f3af09e10a7a3c544343c27dff56bae235756182510d1fd11dbb0e5ce8b9b0",
+      "disposition": "upstream_exact"
+    },
+    {
+      "path": "farm_project/robot/ros_ws/src/farm_navigation/farm_navigation/motion_reference.py",
+      "kind": "add",
+      "decision": "integrated",
+      "upstream_sha256": "7173978d9980d3db8cbfff5446f5cf144cb1780eadaf9dede3e43b1464b35da6",
+      "head_sha256": null,
+      "current_sha256": "7173978d9980d3db8cbfff5446f5cf144cb1780eadaf9dede3e43b1464b35da6",
+      "disposition": "upstream_exact"
+    },
+    {
+      "path": "farm_project/robot/ros_ws/src/farm_navigation/farm_navigation/nav2_client.py",
+      "kind": "conflict",
+      "decision": "integrated",
+      "upstream_sha256": "e541ea8600f7210481ab054525ed6d37e36802ff9a3f10b427cb19163a3e515e",
+      "head_sha256": "328647d6091b45492482ebf900aa3db57cd439b1e9ecc1656aca7c83a9a42746",
+      "current_sha256": "5df2d851d7394f65338ef0bdd6dfbb5b7fdff193f3127c55b9bd29749e08a21f",
+      "disposition": "merged_preserving_local_contract"
+    },
+    {
+      "path": "farm_project/robot/ros_ws/src/farm_navigation/farm_navigation/navigation_types.py",
+      "kind": "conflict",
+      "decision": "integrated",
+      "upstream_sha256": "510d1c3ec2d95ee362f8e780b3fd4aa5150ee35cf8d3456ea36511028007a793",
+      "head_sha256": "23bd803128a4563695762a9fcee206943be9f74fc346db8cb6199abc88970872",
+      "current_sha256": "a16066153f6814e5be9ebf7ddf69827cc557ffe90ed4165d3d89bf8033abadff",
+      "disposition": "merged_preserving_local_contract"
+    },
+    {
+      "path": "farm_project/robot/ros_ws/src/farm_navigation/farm_navigation/navigator.py",
+      "kind": "conflict",
+      "decision": "integrated",
+      "upstream_sha256": "5144be54ae27344ee069ff3a95c95bd8b3cbe4479a220e1353bf659465cb4216",
+      "head_sha256": "b5e77d23c76b746464820531a652f43ad1617f4b8024760d5a895f6ff499060b",
+      "current_sha256": "5144be54ae27344ee069ff3a95c95bd8b3cbe4479a220e1353bf659465cb4216",
+      "disposition": "upstream_exact"
+    },
+    {
+      "path": "farm_project/robot/ros_ws/src/farm_navigation/farm_navigation/parallel_approach.py",
+      "kind": "conflict",
+      "decision": "integrated",
+      "upstream_sha256": "cbe2cd019a995c7d094cf31bf41fd2159c538ce2af989976330b3fa777ab4331",
+      "head_sha256": "6d83df42525d1dfacf2a09d88e58db635cf0d5ccb4602de299f1e9c25fdc4a8b",
+      "current_sha256": "b461eced5e07cc7bbc9a74d376a6e693e001fff34fd7d6f323067631ef264a0b",
+      "disposition": "merged_preserving_local_contract"
+    },
+    {
+      "path": "farm_project/robot/ros_ws/src/farm_navigation/farm_navigation/path_builder.py",
+      "kind": "merge",
+      "decision": "integrated",
+      "upstream_sha256": "2f6172b98f97c4b1baea15752527d08c4a34d4070c3a3031b2d2f098dfe7323d",
+      "head_sha256": "fe5b8f9a77728549531ace981b1782ca44a9cea61d2be80fba58b14f68063ff5",
+      "current_sha256": "2f6172b98f97c4b1baea15752527d08c4a34d4070c3a3031b2d2f098dfe7323d",
+      "disposition": "upstream_exact"
+    },
+    {
+      "path": "farm_project/robot/ros_ws/src/farm_navigation/farm_navigation/pose_provider.py",
+      "kind": "merge",
+      "decision": "integrated",
+      "upstream_sha256": "88daaea7e4121ebdc417da569415deafc190c50409869079413b6128d2be0194",
+      "head_sha256": "801bb5cca963a376229f0511add88b2e32a0bff8966e11fcf65cc99f73d537b9",
+      "current_sha256": "1673866034a2339a63eef3558f181b641f24739a82dd3531da5d8cd2429d037d",
+      "disposition": "merged_preserving_local_contract"
+    },
+    {
+      "path": "farm_project/robot/ros_ws/src/farm_navigation/farm_navigation/route.py",
+      "kind": "merge",
+      "decision": "unchanged",
+      "upstream_sha256": "8b425a35da660fe8291673c0c64fef601c0dd218c81d2be90656efe0e640bce8",
+      "head_sha256": "35a2ec6545b177b806af1c3d268ad65155051c463efa5f54ae7444d8ef363a88",
+      "current_sha256": "35a2ec6545b177b806af1c3d268ad65155051c463efa5f54ae7444d8ef363a88",
+      "disposition": "local_preserved"
+    },
+    {
+      "path": "farm_project/robot/ros_ws/src/farm_navigation/farm_navigation/spin_client.py",
+      "kind": "both-added",
+      "decision": "integrated",
+      "upstream_sha256": "0d08bc4a1820012ef79bd158500e9ea3313b4ca3acbae7f1dadff22f396f9dbe",
+      "head_sha256": "42ff18d79a34361e7bccc345c94e0b203806282ad1b942dfccc204498382f624",
+      "current_sha256": "c9fd47b58605105bf6e83b30458fbc1d921d67c0a07e5cceece8e1e8365e247f",
+      "disposition": "merged_preserving_local_contract"
+    },
+    {
+      "path": "farm_project/robot/ros_ws/src/farm_navigation/farm_navigation/tag_control.py",
+      "kind": "merge",
+      "decision": "unchanged",
+      "upstream_sha256": "4d8b2e45f3c43bcdaead3549bb5d86674459cd37d582cdcd08ddd6e1412520d6",
+      "head_sha256": "5a42805fd7118e7edd184df1f2088aa679fc4536d17bb5cb9fd37b7dc0446747",
+      "current_sha256": "5a42805fd7118e7edd184df1f2088aa679fc4536d17bb5cb9fd37b7dc0446747",
+      "disposition": "local_preserved"
+    },
+    {
+      "path": "farm_project/robot/ros_ws/src/farm_navigation/farm_navigation/transfer_arc.py",
+      "kind": "add",
+      "decision": "integrated",
+      "upstream_sha256": "42c4fd3e4feee5f6584684f9fe18c23e557557ff978130f8b7e96c063f37e227",
+      "head_sha256": null,
+      "current_sha256": "42c4fd3e4feee5f6584684f9fe18c23e557557ff978130f8b7e96c063f37e227",
+      "disposition": "upstream_exact"
+    },
+    {
+      "path": "farm_project/robot/ros_ws/src/farm_navigation/farm_navigation/wall_observation.py",
+      "kind": "add",
+      "decision": "integrated",
+      "upstream_sha256": "e0cc8008e9d2482b28cc097c02137e8caeb6a0a5dfb42f8cfad1afb3876fcc1b",
+      "head_sha256": null,
+      "current_sha256": "e0cc8008e9d2482b28cc097c02137e8caeb6a0a5dfb42f8cfad1afb3876fcc1b",
+      "disposition": "upstream_exact"
+    },
+    {
+      "path": "farm_project/robot/ros_ws/src/farm_navigation/farm_navigation/wall_observer_node.py",
+      "kind": "add",
+      "decision": "integrated",
+      "upstream_sha256": "f2c4e5c02201357a7b2aace2888212b3362905bb388fd4f4cd5ae2339b90d13c",
+      "head_sha256": null,
+      "current_sha256": "f2c4e5c02201357a7b2aace2888212b3362905bb388fd4f4cd5ae2339b90d13c",
+      "disposition": "upstream_exact"
+    },
+    {
+      "path": "farm_project/robot/ros_ws/src/farm_navigation/farm_navigation/wall_reference.py",
+      "kind": "add",
+      "decision": "integrated",
+      "upstream_sha256": "d89cef0468e749ad4b6c425aff946e72118883fc5a6fac3cb0df0489d53cdc6b",
+      "head_sha256": null,
+      "current_sha256": "d89cef0468e749ad4b6c425aff946e72118883fc5a6fac3cb0df0489d53cdc6b",
+      "disposition": "upstream_exact"
+    },
+    {
+      "path": "farm_project/robot/ros_ws/src/farm_navigation/farm_navigation/wall_shutdown.py",
+      "kind": "add",
+      "decision": "integrated",
+      "upstream_sha256": "60839c557164bccc3b5b285a08ee4d081b88eeb4594b7ad73b74229b9f51bd9e",
+      "head_sha256": null,
+      "current_sha256": "60839c557164bccc3b5b285a08ee4d081b88eeb4594b7ad73b74229b9f51bd9e",
+      "disposition": "upstream_exact"
+    },
+    {
+      "path": "farm_project/robot/ros_ws/src/farm_navigation/farm_navigation/wall_trial_runtime.py",
+      "kind": "add",
+      "decision": "integrated",
+      "upstream_sha256": "6aeb08a300ea8c9bf912be12fc262fe776a0c06bea3d825a8245b5391f319494",
+      "head_sha256": null,
+      "current_sha256": "6aeb08a300ea8c9bf912be12fc262fe776a0c06bea3d825a8245b5391f319494",
+      "disposition": "upstream_exact"
+    },
+    {
+      "path": "farm_project/robot/ros_ws/src/farm_navigation/farm_navigation/wall_trial_support.py",
+      "kind": "add",
+      "decision": "integrated",
+      "upstream_sha256": "7de650c0e986a7bb2df512be63c7022c876475eb9e32e204d8c94baa2813ec36",
+      "head_sha256": null,
+      "current_sha256": "7de650c0e986a7bb2df512be63c7022c876475eb9e32e204d8c94baa2813ec36",
+      "disposition": "upstream_exact"
+    },
+    {
+      "path": "farm_project/robot/ros_ws/src/farm_navigation/package.xml",
+      "kind": "merge",
+      "decision": "unchanged",
+      "upstream_sha256": "4d8567072777ab7d017dba5f6530fea155c33ef665611fbc8971a36a19effa08",
+      "head_sha256": "2e4e91fd15aa25c49f4ab65735ebc1448886d21fa0877c7b35681fb3724fad2d",
+      "current_sha256": "2e4e91fd15aa25c49f4ab65735ebc1448886d21fa0877c7b35681fb3724fad2d",
+      "disposition": "local_preserved"
+    },
+    {
+      "path": "farm_project/robot/ros_ws/src/farm_navigation/test/data/arc_odom_failure_20261020.json",
+      "kind": "add",
+      "decision": "integrated",
+      "upstream_sha256": "44aba6cd1408b3c84888e49919d476312e17df781885373f085aab5cdb6716ef",
+      "head_sha256": null,
+      "current_sha256": "44aba6cd1408b3c84888e49919d476312e17df781885373f085aab5cdb6716ef",
+      "disposition": "upstream_exact"
+    },
+    {
+      "path": "farm_project/robot/ros_ws/src/farm_navigation/test/test_arc_clearance.py",
+      "kind": "add",
+      "decision": "integrated",
+      "upstream_sha256": "fc9f9d04c49233ea415c08732c81d6d46baba6f860e065834e2dc45bc772aa2c",
+      "head_sha256": null,
+      "current_sha256": "fc9f9d04c49233ea415c08732c81d6d46baba6f860e065834e2dc45bc772aa2c",
+      "disposition": "upstream_exact"
+    },
+    {
+      "path": "farm_project/robot/ros_ws/src/farm_navigation/test/test_arc_common_stop_replay.py",
+      "kind": "add",
+      "decision": "integrated",
+      "upstream_sha256": "c54e1f75dd6ffee041bb16216b9cb237a9f4bc5ce109e19c51029f289cbb71d7",
+      "head_sha256": null,
+      "current_sha256": "c54e1f75dd6ffee041bb16216b9cb237a9f4bc5ce109e19c51029f289cbb71d7",
+      "disposition": "upstream_exact"
+    },
+    {
+      "path": "farm_project/robot/ros_ws/src/farm_navigation/test/test_arc_isolation.py",
+      "kind": "add",
+      "decision": "integrated",
+      "upstream_sha256": "46e2a4a9b0fb7f016282c6927230a33dd39cafcfbe689a45e87b8aec29267364",
+      "head_sha256": null,
+      "current_sha256": "46e2a4a9b0fb7f016282c6927230a33dd39cafcfbe689a45e87b8aec29267364",
+      "disposition": "upstream_exact"
+    },
+    {
+      "path": "farm_project/robot/ros_ws/src/farm_navigation/test/test_arc_profile.py",
+      "kind": "add",
+      "decision": "integrated",
+      "upstream_sha256": "17ca059759d3d19c09b1ce55d585e549d0d44a148495a9413f1c52ec97eb2e9f",
+      "head_sha256": null,
+      "current_sha256": "17ca059759d3d19c09b1ce55d585e549d0d44a148495a9413f1c52ec97eb2e9f",
+      "disposition": "upstream_exact"
+    },
+    {
+      "path": "farm_project/robot/ros_ws/src/farm_navigation/test/test_arc_return_gate.py",
+      "kind": "add",
+      "decision": "integrated",
+      "upstream_sha256": "2da2cde0f722f9fee14f75384253563526f8873cd4ec158bf50370350e8532de",
+      "head_sha256": null,
+      "current_sha256": "2da2cde0f722f9fee14f75384253563526f8873cd4ec158bf50370350e8532de",
+      "disposition": "upstream_exact"
+    },
+    {
+      "path": "farm_project/robot/ros_ws/src/farm_navigation/test/test_explicit_navigation.py",
+      "kind": "add",
+      "decision": "integrated",
+      "upstream_sha256": "b43265f8e98125338537d281120490dc54f705f3b9933a52ae079f4bbbf7ed63",
+      "head_sha256": null,
+      "current_sha256": "598862a56986209a3b26c0cdc9f7b68c699df321c8a68ceb993ce84dc2c57e2e",
+      "disposition": "merged_preserving_local_contract"
+    },
+    {
+      "path": "farm_project/robot/ros_ws/src/farm_navigation/test/test_measured_velocity_guard.py",
+      "kind": "add",
+      "decision": "integrated",
+      "upstream_sha256": "c1ea847de9db559b74646c9af0c75d7bcdfde0665162367d0e5446a194625943",
+      "head_sha256": null,
+      "current_sha256": "c1ea847de9db559b74646c9af0c75d7bcdfde0665162367d0e5446a194625943",
+      "disposition": "upstream_exact"
+    },
+    {
+      "path": "farm_project/robot/ros_ws/src/farm_navigation/test/test_nav2_execution_clock.py",
+      "kind": "merge",
+      "decision": "unchanged",
+      "upstream_sha256": "408d401fc45c721e58525d0758f96a1a9ae0f8fab61361da7656a5ee2b4a35c1",
+      "head_sha256": "7f0c35202f1b9fc64da23b80a368f1f4f53510e2cdc473b9ffea1140052fd205",
+      "current_sha256": "7f0c35202f1b9fc64da23b80a368f1f4f53510e2cdc473b9ffea1140052fd205",
+      "disposition": "local_preserved"
+    },
+    {
+      "path": "farm_project/robot/ros_ws/src/farm_navigation/test/test_transfer_arc.py",
+      "kind": "add",
+      "decision": "integrated",
+      "upstream_sha256": "ad8e442c48cc9756bb07e2da8f9e5ebd9f144d20027ef4da32d21731016996cd",
+      "head_sha256": null,
+      "current_sha256": "ad8e442c48cc9756bb07e2da8f9e5ebd9f144d20027ef4da32d21731016996cd",
+      "disposition": "upstream_exact"
+    },
+    {
+      "path": "farm_project/robot/ros_ws/src/farm_navigation/test/test_wall_alignment.py",
+      "kind": "add",
+      "decision": "integrated",
+      "upstream_sha256": "9713511d8ec66e492bbcee5e1726a4b3911df332cec7f2bac1598ffd4af104b4",
+      "head_sha256": null,
+      "current_sha256": "9713511d8ec66e492bbcee5e1726a4b3911df332cec7f2bac1598ffd4af104b4",
+      "disposition": "upstream_exact"
+    },
+    {
+      "path": "farm_project/robot/ros_ws/src/farm_navigation/test/test_wall_reference.py",
+      "kind": "add",
+      "decision": "integrated",
+      "upstream_sha256": "6755e0e5e7d1e353f103b54af3f627dc469e7d8ec1271b3d6b2a851de82ee52f",
+      "head_sha256": null,
+      "current_sha256": "6755e0e5e7d1e353f103b54af3f627dc469e7d8ec1271b3d6b2a851de82ee52f",
+      "disposition": "upstream_exact"
+    },
+    {
+      "path": "farm_project/robot/ros_ws/src/farm_navigation/test/test_wall_reference_capture.py",
+      "kind": "add",
+      "decision": "integrated",
+      "upstream_sha256": "b919eeb6e7a38ad7cea7de659be728e8dcad6be4988e83f761e4aab1fd16f768",
+      "head_sha256": null,
+      "current_sha256": "b919eeb6e7a38ad7cea7de659be728e8dcad6be4988e83f761e4aab1fd16f768",
+      "disposition": "upstream_exact"
+    },
+    {
+      "path": "farm_project/robot/ros_ws/src/farm_wall_controller/CMakeLists.txt",
+      "kind": "add",
+      "decision": "integrated",
+      "upstream_sha256": "1d8af951d560013c8c25eaaad66affc1d16bfaaaeca1e9a678a18d6b521e2a0e",
+      "head_sha256": null,
+      "current_sha256": "1d8af951d560013c8c25eaaad66affc1d16bfaaaeca1e9a678a18d6b521e2a0e",
+      "disposition": "upstream_exact"
+    },
+    {
+      "path": "farm_project/robot/ros_ws/src/farm_wall_controller/controller_plugins.xml",
+      "kind": "add",
+      "decision": "integrated",
+      "upstream_sha256": "54c3a4c0ddb8b7cf0a19a7c93971c4e6835c6d111abee62e1d1e2acb6ca6a4e6",
+      "head_sha256": null,
+      "current_sha256": "54c3a4c0ddb8b7cf0a19a7c93971c4e6835c6d111abee62e1d1e2acb6ca6a4e6",
+      "disposition": "upstream_exact"
+    },
+    {
+      "path": "farm_project/robot/ros_ws/src/farm_wall_controller/include/farm_wall_controller/wait_clock.hpp",
+      "kind": "add",
+      "decision": "integrated",
+      "upstream_sha256": "4dff4b55a6a26ca41295d3f8dda8dec6ac7e4f9a7a615ab20a8d1f18886daa1f",
+      "head_sha256": null,
+      "current_sha256": "4dff4b55a6a26ca41295d3f8dda8dec6ac7e4f9a7a615ab20a8d1f18886daa1f",
+      "disposition": "upstream_exact"
+    },
+    {
+      "path": "farm_project/robot/ros_ws/src/farm_wall_controller/include/farm_wall_controller/wall_control.hpp",
+      "kind": "add",
+      "decision": "integrated",
+      "upstream_sha256": "1c0f025fb5eea5e96bbd579923fae0fcd849c1e41e6aa68fdc1c14848f811ab9",
+      "head_sha256": null,
+      "current_sha256": "1c0f025fb5eea5e96bbd579923fae0fcd849c1e41e6aa68fdc1c14848f811ab9",
+      "disposition": "upstream_exact"
+    },
+    {
+      "path": "farm_project/robot/ros_ws/src/farm_wall_controller/include/farm_wall_controller/wall_input.hpp",
+      "kind": "add",
+      "decision": "integrated",
+      "upstream_sha256": "035e9d14934971cf667708999872a23fabe923c1617ba36cbe888aa33764ba3f",
+      "head_sha256": null,
+      "current_sha256": "035e9d14934971cf667708999872a23fabe923c1617ba36cbe888aa33764ba3f",
+      "disposition": "upstream_exact"
+    },
+    {
+      "path": "farm_project/robot/ros_ws/src/farm_wall_controller/package.xml",
+      "kind": "add",
+      "decision": "integrated",
+      "upstream_sha256": "5f8b52270012ef10cd2d890b51c31cb29334d0598833e42b1b0f6420b57502af",
+      "head_sha256": null,
+      "current_sha256": "5f8b52270012ef10cd2d890b51c31cb29334d0598833e42b1b0f6420b57502af",
+      "disposition": "upstream_exact"
+    },
+    {
+      "path": "farm_project/robot/ros_ws/src/farm_wall_controller/src/wait_plugins.cpp",
+      "kind": "add",
+      "decision": "integrated",
+      "upstream_sha256": "e0db6209c0b145471b02723bb1fec6e4a68d7378ebc1f8b6e8fa6feaca5fd9c9",
+      "head_sha256": null,
+      "current_sha256": "e0db6209c0b145471b02723bb1fec6e4a68d7378ebc1f8b6e8fa6feaca5fd9c9",
+      "disposition": "upstream_exact"
+    },
+    {
+      "path": "farm_project/robot/ros_ws/src/farm_wall_controller/src/wall_plugins.cpp",
+      "kind": "add",
+      "decision": "integrated",
+      "upstream_sha256": "c6a042f5dbbf282ef59b50350e242c21d660b6c0bd83dfb898af1b8b1425c673",
+      "head_sha256": null,
+      "current_sha256": "c6a042f5dbbf282ef59b50350e242c21d660b6c0bd83dfb898af1b8b1425c673",
+      "disposition": "upstream_exact"
+    },
+    {
+      "path": "farm_project/robot/ros_ws/src/farm_wall_controller/test/test_wall_control.cpp",
+      "kind": "add",
+      "decision": "integrated",
+      "upstream_sha256": "d31d454403cf8027ea88d78cdc3915718c157cbdd96718c01cec7224c6ea67bb",
+      "head_sha256": null,
+      "current_sha256": "d31d454403cf8027ea88d78cdc3915718c157cbdd96718c01cec7224c6ea67bb",
+      "disposition": "upstream_exact"
+    },
+    {
+      "path": "farm_project/robot/ros_ws/src/harvest_robot/harvest_robot/arm_client.py",
+      "kind": "merge",
+      "decision": "integrated",
+      "upstream_sha256": "7dc740fc23f4e40e07043fb479f748b6a35bb76d05e7aa191ca5a25394564409",
+      "head_sha256": "2b691a8518ef2c3ad6a4e1434012db5585ebbbdc65fe97eb369419fcaa54dd89",
+      "current_sha256": "7dc740fc23f4e40e07043fb479f748b6a35bb76d05e7aa191ca5a25394564409",
+      "disposition": "upstream_exact"
+    },
+    {
+      "path": "farm_project/robot/ros_ws/src/harvest_robot/harvest_robot/communication.py",
+      "kind": "merge",
+      "decision": "integrated",
+      "upstream_sha256": "b66a137cd3a4f7a33fe3ce78b9bb40234b80f0963ac5c17f48447f3ae2e6b596",
+      "head_sha256": "3320ec39a2fa76447333c16d9b7902503b0a41a6af4899bcc7877eea3856071b",
+      "current_sha256": "cee37165fd9b80fbda1f2e45a1ae62da479adda1c415396ab92f56f48b2a2657",
+      "disposition": "merged_preserving_local_contract"
+    },
+    {
+      "path": "farm_project/robot/ros_ws/src/harvest_robot/harvest_robot/corridor_navigation.py",
+      "kind": "merge",
+      "decision": "integrated",
+      "upstream_sha256": "6e33820a833668b8dd90e50b9d2a64ae5b92f0dab35a9c3a5e8318514a105953",
+      "head_sha256": "f44fb132fa87ace2f6f1771d56b46df681a3e1b0dc0d4a1048f1b1cc6c477adc",
+      "current_sha256": "6e33820a833668b8dd90e50b9d2a64ae5b92f0dab35a9c3a5e8318514a105953",
+      "disposition": "upstream_exact"
+    },
+    {
+      "path": "farm_project/robot/ros_ws/src/harvest_robot/harvest_robot/discharge_client.py",
+      "kind": "both-added",
+      "decision": "integrated",
+      "upstream_sha256": "0f0d20e35c6dfab5ca48a7bed35b49cf0a7576d4539fa8420ec491b7ceb20e25",
+      "head_sha256": "9caea129252a95a2398a543c2cd732da75063ed61fd3003c0ac0c8fb796ee27d",
+      "current_sha256": "0f0d20e35c6dfab5ca48a7bed35b49cf0a7576d4539fa8420ec491b7ceb20e25",
+      "disposition": "upstream_exact"
+    },
+    {
+      "path": "farm_project/robot/ros_ws/src/harvest_robot/harvest_robot/handoff_body_trial.py",
+      "kind": "add",
+      "decision": "integrated",
+      "upstream_sha256": "5dd3f88bd7345e40e77c061a782ef1fd32b18d79faedfc5af0bd0b200251d6a0",
+      "head_sha256": null,
+      "current_sha256": "5dd3f88bd7345e40e77c061a782ef1fd32b18d79faedfc5af0bd0b200251d6a0",
+      "disposition": "upstream_exact"
+    },
+    {
+      "path": "farm_project/robot/ros_ws/src/harvest_robot/harvest_robot/handoff_clearance.py",
+      "kind": "add",
+      "decision": "integrated",
+      "upstream_sha256": "f5c2d927768e5a537e138a31a4967304c23ad4b6ad07c8e8bf88bf62d44c3910",
+      "head_sha256": null,
+      "current_sha256": "f5c2d927768e5a537e138a31a4967304c23ad4b6ad07c8e8bf88bf62d44c3910",
+      "disposition": "upstream_exact"
+    },
+    {
+      "path": "farm_project/robot/ros_ws/src/harvest_robot/harvest_robot/handoff_components.py",
+      "kind": "add",
+      "decision": "integrated",
+      "upstream_sha256": "929c52eb7833595f0d8603e7284247c61786454287bee0c31aae6c2c59dd6966",
+      "head_sha256": null,
+      "current_sha256": "929c52eb7833595f0d8603e7284247c61786454287bee0c31aae6c2c59dd6966",
+      "disposition": "upstream_exact"
+    },
+    {
+      "path": "farm_project/robot/ros_ws/src/harvest_robot/harvest_robot/handoff_cycle.py",
+      "kind": "add",
+      "decision": "integrated",
+      "upstream_sha256": "c18e1123ff004e8501d146efba11a48151be7cd31a25d3da472be4887746a703",
+      "head_sha256": null,
+      "current_sha256": "c18e1123ff004e8501d146efba11a48151be7cd31a25d3da472be4887746a703",
+      "disposition": "upstream_exact"
+    },
+    {
+      "path": "farm_project/robot/ros_ws/src/harvest_robot/harvest_robot/handoff_devices.py",
+      "kind": "add",
+      "decision": "integrated",
+      "upstream_sha256": "4d2f4f4720c0c5fbb30ad648f4c380043df3d1b9e4a9fcb7889b4c52be2b626e",
+      "head_sha256": null,
+      "current_sha256": "4d2f4f4720c0c5fbb30ad648f4c380043df3d1b9e4a9fcb7889b4c52be2b626e",
+      "disposition": "upstream_exact"
+    },
+    {
+      "path": "farm_project/robot/ros_ws/src/harvest_robot/harvest_robot/handoff_entry.py",
+      "kind": "add",
+      "decision": "integrated",
+      "upstream_sha256": "1eb19c2d218fa0fb58f8fc5badbd479f43cd2dcfa08a9d7fadd698e44ad193f5",
+      "head_sha256": null,
+      "current_sha256": "1eb19c2d218fa0fb58f8fc5badbd479f43cd2dcfa08a9d7fadd698e44ad193f5",
+      "disposition": "upstream_exact"
+    },
+    {
+      "path": "farm_project/robot/ros_ws/src/harvest_robot/harvest_robot/handoff_factory.py",
+      "kind": "add",
+      "decision": "integrated",
+      "upstream_sha256": "2a44222276a9ea0012d451f32f2cfd12f5916a22a59928a2fed7d48b345a46a6",
+      "head_sha256": null,
+      "current_sha256": "2a44222276a9ea0012d451f32f2cfd12f5916a22a59928a2fed7d48b345a46a6",
+      "disposition": "upstream_exact"
+    },
+    {
+      "path": "farm_project/robot/ros_ws/src/harvest_robot/harvest_robot/handoff_input_trace.py",
+      "kind": "add",
+      "decision": "integrated",
+      "upstream_sha256": "1aaa6d50200d4357839bdb701e37fd12af67099242548c0479446714976bb3fd",
+      "head_sha256": null,
+      "current_sha256": "1aaa6d50200d4357839bdb701e37fd12af67099242548c0479446714976bb3fd",
+      "disposition": "upstream_exact"
+    },
+    {
+      "path": "farm_project/robot/ros_ws/src/harvest_robot/harvest_robot/handoff_locking.py",
+      "kind": "add",
+      "decision": "integrated",
+      "upstream_sha256": "a5bb0a01443470e0a5f165b4ef4ba718f4186396576fbb0fec585094c51d807e",
+      "head_sha256": null,
+      "current_sha256": "a5bb0a01443470e0a5f165b4ef4ba718f4186396576fbb0fec585094c51d807e",
+      "disposition": "upstream_exact"
+    },
+    {
+      "path": "farm_project/robot/ros_ws/src/harvest_robot/harvest_robot/handoff_motion.py",
+      "kind": "add",
+      "decision": "integrated",
+      "upstream_sha256": "eb17b277d8d1b88399f65b0ed52e5aac5333cc95e10ca8e7c7924e6ea62c61a1",
+      "head_sha256": null,
+      "current_sha256": "eb17b277d8d1b88399f65b0ed52e5aac5333cc95e10ca8e7c7924e6ea62c61a1",
+      "disposition": "upstream_exact"
+    },
+    {
+      "path": "farm_project/robot/ros_ws/src/harvest_robot/harvest_robot/handoff_navigation.py",
+      "kind": "add",
+      "decision": "integrated",
+      "upstream_sha256": "f05e25e92dc2ad4c67ab8576a4f3d56c377a651c2a545899346370956fc9901d",
+      "head_sha256": null,
+      "current_sha256": "f05e25e92dc2ad4c67ab8576a4f3d56c377a651c2a545899346370956fc9901d",
+      "disposition": "upstream_exact"
+    },
+    {
+      "path": "farm_project/robot/ros_ws/src/harvest_robot/harvest_robot/handoff_paths.py",
+      "kind": "add",
+      "decision": "integrated",
+      "upstream_sha256": "79ce54a6e918d8da7e1b7b1c96dabed7664036b2df070b8e555d355c2a2fcb2c",
+      "head_sha256": null,
+      "current_sha256": "79ce54a6e918d8da7e1b7b1c96dabed7664036b2df070b8e555d355c2a2fcb2c",
+      "disposition": "upstream_exact"
+    },
+    {
+      "path": "farm_project/robot/ros_ws/src/harvest_robot/harvest_robot/handoff_planning.py",
+      "kind": "add",
+      "decision": "integrated",
+      "upstream_sha256": "8c18cfa4d3cbbb5dbbe408849b1ba0ca38d1cd35b51918a805be4b32c626d4da",
+      "head_sha256": null,
+      "current_sha256": "8c18cfa4d3cbbb5dbbe408849b1ba0ca38d1cd35b51918a805be4b32c626d4da",
+      "disposition": "upstream_exact"
+    },
+    {
+      "path": "farm_project/robot/ros_ws/src/harvest_robot/harvest_robot/handoff_pose_context.py",
+      "kind": "add",
+      "decision": "integrated",
+      "upstream_sha256": "2fd0b42ab7a60c4e53fcff78cecbdb3fa62e43fcae9b7b24950a23c1f96ce958",
+      "head_sha256": null,
+      "current_sha256": "2fd0b42ab7a60c4e53fcff78cecbdb3fa62e43fcae9b7b24950a23c1f96ce958",
+      "disposition": "upstream_exact"
+    },
+    {
+      "path": "farm_project/robot/ros_ws/src/harvest_robot/harvest_robot/handoff_profile.py",
+      "kind": "add",
+      "decision": "integrated",
+      "upstream_sha256": "1ae6e73c925d4a0d39ede2810c7c20ffa7fecd7b1d52d700b9e3c02c03800e15",
+      "head_sha256": null,
+      "current_sha256": "1ae6e73c925d4a0d39ede2810c7c20ffa7fecd7b1d52d700b9e3c02c03800e15",
+      "disposition": "upstream_exact"
+    },
+    {
+      "path": "farm_project/robot/ros_ws/src/harvest_robot/harvest_robot/handoff_runtime.py",
+      "kind": "add",
+      "decision": "integrated",
+      "upstream_sha256": "2ed99bd679f7fefb2dd0ed4a61015a115c3020f7791b5ee825000a6cdcbed5ea",
+      "head_sha256": null,
+      "current_sha256": "2ed99bd679f7fefb2dd0ed4a61015a115c3020f7791b5ee825000a6cdcbed5ea",
+      "disposition": "upstream_exact"
+    },
+    {
+      "path": "farm_project/robot/ros_ws/src/harvest_robot/harvest_robot/handoff_server_config.py",
+      "kind": "add",
+      "decision": "integrated",
+      "upstream_sha256": "c3ed06ae5599aa65d4c6b3ea36656860073eb7856bc5c7b52f7315c10a4a0e3c",
+      "head_sha256": null,
+      "current_sha256": "c3ed06ae5599aa65d4c6b3ea36656860073eb7856bc5c7b52f7315c10a4a0e3c",
+      "disposition": "upstream_exact"
+    },
+    {
+      "path": "farm_project/robot/ros_ws/src/harvest_robot/harvest_robot/handoff_vicpinky.py",
+      "kind": "add",
+      "decision": "integrated",
+      "upstream_sha256": "31a5f3a01769af9f67522e28e3148009db727239bde7377647574824b2b0e85e",
+      "head_sha256": null,
+      "current_sha256": "31a5f3a01769af9f67522e28e3148009db727239bde7377647574824b2b0e85e",
+      "disposition": "upstream_exact"
+    },
+    {
+      "path": "farm_project/robot/ros_ws/src/harvest_robot/harvest_robot/handoff_wait.py",
+      "kind": "add",
+      "decision": "integrated",
+      "upstream_sha256": "8684f45bbc1aa6c526e9bdaa6c2f3afea86d8b80ab151e8517be28d4707a1e90",
+      "head_sha256": null,
+      "current_sha256": "8684f45bbc1aa6c526e9bdaa6c2f3afea86d8b80ab151e8517be28d4707a1e90",
+      "disposition": "upstream_exact"
+    },
+    {
+      "path": "farm_project/robot/ros_ws/src/harvest_robot/harvest_robot/handoff_window.py",
+      "kind": "add",
+      "decision": "integrated",
+      "upstream_sha256": "0ecd508c14d1368c8a5d52e17714620d3f076a6c2c1e356c97324dfa65982b80",
+      "head_sha256": null,
+      "current_sha256": "0ecd508c14d1368c8a5d52e17714620d3f076a6c2c1e356c97324dfa65982b80",
+      "disposition": "upstream_exact"
+    },
+    {
+      "path": "farm_project/robot/ros_ws/src/harvest_robot/harvest_robot/jetson_connection.py",
+      "kind": "add",
+      "decision": "integrated",
+      "upstream_sha256": "08d3c3c9d2fc2ae4ff3829ce29ddc9761a67e03f8aee5e591685e38baa7db455",
+      "head_sha256": null,
+      "current_sha256": "08d3c3c9d2fc2ae4ff3829ce29ddc9761a67e03f8aee5e591685e38baa7db455",
+      "disposition": "upstream_exact"
+    },
+    {
+      "path": "farm_project/robot/ros_ws/src/harvest_robot/harvest_robot/jetson_state.py",
+      "kind": "add",
+      "decision": "integrated",
+      "upstream_sha256": "dbe70f95617208bbad513fb21503c65baecef147a146809fbf92f4ee49533ddc",
+      "head_sha256": null,
+      "current_sha256": "dbe70f95617208bbad513fb21503c65baecef147a146809fbf92f4ee49533ddc",
+      "disposition": "upstream_exact"
+    },
+    {
+      "path": "farm_project/robot/ros_ws/src/harvest_robot/harvest_robot/mission.py",
+      "kind": "conflict",
+      "decision": "integrated",
+      "upstream_sha256": "e89647c5cf53e1b5f1c7ca0935ad6b76447f8a4a5c3942d62851ddc5b982a47f",
+      "head_sha256": "5b11372cc070d8cd642f4f6e3dbce277c89c9d9458b074f4eb3a2cc903885fe1",
+      "current_sha256": "e89647c5cf53e1b5f1c7ca0935ad6b76447f8a4a5c3942d62851ddc5b982a47f",
+      "disposition": "upstream_exact"
+    },
+    {
+      "path": "farm_project/robot/ros_ws/src/harvest_robot/harvest_robot/node.py",
+      "kind": "conflict",
+      "decision": "integrated",
+      "upstream_sha256": "485a612d0398ef7ec60c2820f8b572fd34367d0e1887df74b2b84e9a5e551b65",
+      "head_sha256": "12b331d06d5df6474b7603cc738250ce0f5533f41c42d7c6eb346434a0a72055",
+      "current_sha256": "468c9e1011a9e9885af28cd7c55f4bec97dbbb25489de0308d1e4c63bcf4a534",
+      "disposition": "merged_preserving_local_contract"
+    },
+    {
+      "path": "farm_project/robot/ros_ws/src/harvest_robot/harvest_robot/pause_clock.py",
+      "kind": "add",
+      "decision": "integrated",
+      "upstream_sha256": "4b6877d6488addb9f7ee6370c38ef492df9f340b83eeb4ccb2891df763ebc678",
+      "head_sha256": null,
+      "current_sha256": "4b6877d6488addb9f7ee6370c38ef492df9f340b83eeb4ccb2891df763ebc678",
+      "disposition": "upstream_exact"
+    },
+    {
+      "path": "farm_project/robot/ros_ws/src/harvest_robot/harvest_robot/status.py",
+      "kind": "merge",
+      "decision": "integrated",
+      "upstream_sha256": "5471f3ac0ef01f0cbc9963cfe1c785422ffa2cf2b3e61fbfcfc9fd193d7debaa",
+      "head_sha256": "3a714d45edd5b9284d48ffd223eb725a8d4e0481ba308eb5fc8d51c5c4a67fb7",
+      "current_sha256": "ad54075135bdded98816e0eb80051005164569f47a018529da079fad1c9771e4",
+      "disposition": "merged_preserving_local_contract"
+    },
+    {
+      "path": "farm_project/robot/ros_ws/src/harvest_robot/harvest_robot/transfer_communication.py",
+      "kind": "both-added",
+      "decision": "integrated",
+      "upstream_sha256": "e634a04f3b69432f29c299787bda5e798f9b8542db3a2f276a35f9d112a376e2",
+      "head_sha256": "f8f6751ac45abb3665b9f20c0e01046c7555e0a9a73f0c87ed90415ea2d7f685",
+      "current_sha256": "e634a04f3b69432f29c299787bda5e798f9b8542db3a2f276a35f9d112a376e2",
+      "disposition": "upstream_exact"
+    },
+    {
+      "path": "farm_project/robot/ros_ws/src/harvest_robot/harvest_robot/transfer_devices.py",
+      "kind": "both-added",
+      "decision": "integrated",
+      "upstream_sha256": "6b48bd7ef5be1e0caa0b65f67cf9e209924e5b4c00f18bbcfac40d1a743a4276",
+      "head_sha256": "d48c13d1d20a934cf6e4ea74fa504434d08f81cb4b319d71e37cc68ddaa0b911",
+      "current_sha256": "6b48bd7ef5be1e0caa0b65f67cf9e209924e5b4c00f18bbcfac40d1a743a4276",
+      "disposition": "upstream_exact"
+    },
+    {
+      "path": "farm_project/robot/ros_ws/src/harvest_robot/harvest_robot/transfer_mission.py",
+      "kind": "both-added",
+      "decision": "integrated",
+      "upstream_sha256": "b1d5c088ec3b12bb42dd5121a8f4144eed24c9ff4e8ef4dd0614730825122ed0",
+      "head_sha256": "f445bbfec4708ccc39ed082f2d50cb38d5715af5c140424bcb83eb7c2ec3205d",
+      "current_sha256": "b1d5c088ec3b12bb42dd5121a8f4144eed24c9ff4e8ef4dd0614730825122ed0",
+      "disposition": "upstream_exact"
+    },
+    {
+      "path": "farm_project/robot/ros_ws/src/harvest_robot/harvest_robot/transfer_restore.py",
+      "kind": "add",
+      "decision": "integrated",
+      "upstream_sha256": "bc415d469964101a15b6b35e50cd8e7f57c627deb2140c223380a6f32b0e5a76",
+      "head_sha256": null,
+      "current_sha256": "bc415d469964101a15b6b35e50cd8e7f57c627deb2140c223380a6f32b0e5a76",
+      "disposition": "upstream_exact"
+    },
+    {
+      "path": "farm_project/robot/ros_ws/src/harvest_robot/harvest_robot/transfer_retreat.py",
+      "kind": "add",
+      "decision": "integrated",
+      "upstream_sha256": "d6705b08d5d4e56c37356ca0596daa8770d9216baa0a559d151eff63ba368467",
+      "head_sha256": null,
+      "current_sha256": "d6705b08d5d4e56c37356ca0596daa8770d9216baa0a559d151eff63ba368467",
+      "disposition": "upstream_exact"
+    },
+    {
+      "path": "farm_project/robot/ros_ws/src/harvest_robot/harvest_robot/transfer_rotation.py",
+      "kind": "both-added",
+      "decision": "integrated",
+      "upstream_sha256": "7d86edaf47f99a7f5f31b54be563f0d6d70423efce84ea6b0b025664debd3c1e",
+      "head_sha256": "cfd61ec2968c81a8661be0e0ca68c60eb5c1093a7d2229de0cf4909dcd526da6",
+      "current_sha256": "7d86edaf47f99a7f5f31b54be563f0d6d70423efce84ea6b0b025664debd3c1e",
+      "disposition": "upstream_exact"
+    },
+    {
+      "path": "farm_project/robot/ros_ws/src/harvest_robot/harvest_robot/transfer_sequence.py",
+      "kind": "add",
+      "decision": "integrated",
+      "upstream_sha256": "bc7473bd1779c39e32bbd75af17fe56f1657af5b3f745cd65e51e9cd806f4bd4",
+      "head_sha256": null,
+      "current_sha256": "bc7473bd1779c39e32bbd75af17fe56f1657af5b3f745cd65e51e9cd806f4bd4",
+      "disposition": "upstream_exact"
+    },
+    {
+      "path": "farm_project/robot/ros_ws/src/harvest_robot/harvest_robot/transient_gate.py",
+      "kind": "add",
+      "decision": "integrated",
+      "upstream_sha256": "2ca8b89fe1ed8ba6e0443a1d3b1554a880e55e2da1fa484c78a3b32d75db6dca",
+      "head_sha256": null,
+      "current_sha256": "2ca8b89fe1ed8ba6e0443a1d3b1554a880e55e2da1fa484c78a3b32d75db6dca",
+      "disposition": "upstream_exact"
+    },
+    {
+      "path": "farm_project/robot/ros_ws/src/harvest_robot/package.xml",
+      "kind": "conflict",
+      "decision": "integrated",
+      "upstream_sha256": "f9e18b83c833b8af5df12599dac1cdc6445bf54659eb4181c8549ce465346a72",
+      "head_sha256": "b624fa77cca6bd368a180bf8daff9f2c3f1c05961f2fdb3e680d7262ec5a15c1",
+      "current_sha256": "99344dbace8cd83188a4f14410fe43c7ffe5ffe0b88f8050b90c38f5a0f53aa5",
+      "disposition": "merged_preserving_local_contract"
+    },
+    {
+      "path": "farm_project/robot/ros_ws/src/harvest_robot/test/fixtures/navigation_graph_20261007.geojson",
+      "kind": "add",
+      "decision": "integrated",
+      "upstream_sha256": "fc72ffb617c0f756a6eb58477c0e1211dbc3f4cea2ca9855874008b150cfc504",
+      "head_sha256": null,
+      "current_sha256": null,
+      "disposition": "excluded_unselected_real_map_test_or_fixture"
+    },
+    {
+      "path": "farm_project/robot/ros_ws/src/harvest_robot/test/test_entry_controller.py",
+      "kind": "conflict",
+      "decision": "preserve_local_environment_test",
+      "upstream_sha256": "66f3670d1c294c22983a55845fa2a822490bc03a873e5d77a89d2725f2958e0f",
+      "head_sha256": "8b2f62017751f0e63ff2603cf846c7fb4dbf6ee91078907ca0536755f7cd520c",
+      "current_sha256": "8b2f62017751f0e63ff2603cf846c7fb4dbf6ee91078907ca0536755f7cd520c",
+      "disposition": "local_preserved"
+    },
+    {
+      "path": "farm_project/robot/ros_ws/src/harvest_robot/test/test_follow_work.py",
+      "kind": "conflict",
+      "decision": "preserve_local_environment_test",
+      "upstream_sha256": "3224810e0d4094c12e82e6ca5b33f101f22f1bf8c3c501be7c928965b0b4e646",
+      "head_sha256": "5fbdf28a5c8c48e7ba52d132d17dc97de8cf7087013789e7b8433b0ca22927bd",
+      "current_sha256": "6fa74a4e34439231244516426e6942f9d6ed45f6534b6fb7bc9d05278be1b88a",
+      "disposition": "merged_preserving_local_contract"
+    },
+    {
+      "path": "farm_project/robot/ros_ws/src/harvest_robot/test/test_jetson_connection_ros.py",
+      "kind": "add",
+      "decision": "integrated",
+      "upstream_sha256": "2d043c829816bea3d675ad7c95ef6595e6158484ea61d2821d7ef8682fe59dee",
+      "head_sha256": null,
+      "current_sha256": "2d043c829816bea3d675ad7c95ef6595e6158484ea61d2821d7ef8682fe59dee",
+      "disposition": "upstream_exact"
+    },
+    {
+      "path": "farm_project/robot/ros_ws/src/harvest_robot/test/test_jetson_gates.py",
+      "kind": "add",
+      "decision": "integrated",
+      "upstream_sha256": "87e9f8951587fd95f752940049715942268fd5d931b33cba6ce7a7342b8890a3",
+      "head_sha256": null,
+      "current_sha256": "87e9f8951587fd95f752940049715942268fd5d931b33cba6ce7a7342b8890a3",
+      "disposition": "upstream_exact"
+    },
+    {
+      "path": "farm_project/robot/ros_ws/src/harvest_robot/test/test_jetson_state.py",
+      "kind": "add",
+      "decision": "integrated",
+      "upstream_sha256": "4dc89b25204220de0dbcff47c51e62b64828b4e87b5e741fdd3877c84f1caaf7",
+      "head_sha256": null,
+      "current_sha256": "4dc89b25204220de0dbcff47c51e62b64828b4e87b5e741fdd3877c84f1caaf7",
+      "disposition": "upstream_exact"
+    },
+    {
+      "path": "farm_project/robot/ros_ws/src/harvest_robot/test/test_navigator_dispatch.py",
+      "kind": "merge",
+      "decision": "unchanged",
+      "upstream_sha256": "29afc6dbc777c320269b9a0a7b1d2523aa10cf2ab6d2d529f6d29ce5456ae4b5",
+      "head_sha256": "2665cd32a73088650283ac313fade354091ad0f118f7b5d5513286d62beb9d35",
+      "current_sha256": "2665cd32a73088650283ac313fade354091ad0f118f7b5d5513286d62beb9d35",
+      "disposition": "local_preserved"
+    },
+    {
+      "path": "farm_project/robot/ros_ws/src/harvest_robot/test/test_real_common_integration.py",
+      "kind": "add",
+      "decision": "preserve_local_environment_test",
+      "upstream_sha256": "6b6345f857c664f4227e7cd0f6d81318014ca9035a15c4069aebc4939575af12",
+      "head_sha256": null,
+      "current_sha256": null,
+      "disposition": "excluded_unselected_real_map_test_or_fixture"
+    },
+    {
+      "path": "farm_project/robot/ros_ws/src/harvest_robot/test/test_restore_navigation.py",
+      "kind": "add",
+      "decision": "integrated",
+      "upstream_sha256": "0401a6582b97de4a592eefb50898064648d10db181ae8b583b1714fe06f44443",
+      "head_sha256": null,
+      "current_sha256": "0401a6582b97de4a592eefb50898064648d10db181ae8b583b1714fe06f44443",
+      "disposition": "upstream_exact"
+    },
+    {
+      "path": "farm_project/robot/ros_ws/src/harvest_robot/test/test_shared_map.py",
+      "kind": "merge",
+      "decision": "preserve_local_environment_test",
+      "upstream_sha256": "bc39b8a755fb486c0e554f744c4311f1d7d7eff38720c95b6aca057ee935092d",
+      "head_sha256": "4a087197ea391a4d08fa586e971400f7553653aaa577fe1acae6a8fca4fb8f9c",
+      "current_sha256": "4a087197ea391a4d08fa586e971400f7553653aaa577fe1acae6a8fca4fb8f9c",
+      "disposition": "local_preserved"
+    },
+    {
+      "path": "farm_project/robot/ros_ws/src/harvest_robot/test/test_transfer_restore.py",
+      "kind": "add",
+      "decision": "integrated",
+      "upstream_sha256": "aaf309381863b70b0c5871a7cfbadb13974241aa454cf3102db68cb8b552427f",
+      "head_sha256": null,
+      "current_sha256": "aaf309381863b70b0c5871a7cfbadb13974241aa454cf3102db68cb8b552427f",
+      "disposition": "upstream_exact"
+    },
+    {
+      "path": "farm_project/robot/ros_ws/src/jetson_harvest_interfaces/CMakeLists.txt",
+      "kind": "add",
+      "decision": "integrated",
+      "upstream_sha256": "26c197607ad001b913f0c49a63855a631527d2ba8ba9ec8dcdb65e14862c91c2",
+      "head_sha256": null,
+      "current_sha256": "26c197607ad001b913f0c49a63855a631527d2ba8ba9ec8dcdb65e14862c91c2",
+      "disposition": "upstream_exact"
+    },
+    {
+      "path": "farm_project/robot/ros_ws/src/jetson_harvest_interfaces/msg/ControlState.msg",
+      "kind": "add",
+      "decision": "integrated",
+      "upstream_sha256": "d31b5ac97775566517f86b2385bef201da6f168716b88e90501e198a2ae4ee43",
+      "head_sha256": null,
+      "current_sha256": "d31b5ac97775566517f86b2385bef201da6f168716b88e90501e198a2ae4ee43",
+      "disposition": "upstream_exact"
+    },
+    {
+      "path": "farm_project/robot/ros_ws/src/jetson_harvest_interfaces/msg/RuntimeStatus.msg",
+      "kind": "add",
+      "decision": "integrated",
+      "upstream_sha256": "f524169e27d796e16a21cd02e0cb9b2821a5ae0a8887e6a3458037ab80a920fd",
+      "head_sha256": null,
+      "current_sha256": "f524169e27d796e16a21cd02e0cb9b2821a5ae0a8887e6a3458037ab80a920fd",
+      "disposition": "upstream_exact"
+    },
+    {
+      "path": "farm_project/robot/ros_ws/src/jetson_harvest_interfaces/package.xml",
+      "kind": "add",
+      "decision": "integrated",
+      "upstream_sha256": "43077fe5a9c1bc0bdad166f18b2976109caf5967da44f62ff1e934345368db51",
+      "head_sha256": null,
+      "current_sha256": "43077fe5a9c1bc0bdad166f18b2976109caf5967da44f62ff1e934345368db51",
+      "disposition": "upstream_exact"
+    },
+    {
+      "path": "farm_project/robot/ros_ws/src/jetson_harvest_interfaces/srv/GetOperation.srv",
+      "kind": "add",
+      "decision": "integrated",
+      "upstream_sha256": "257d6741730b92c00303ab241419f6b62d4319fa6b678bbb0b857cf756ad14a8",
+      "head_sha256": null,
+      "current_sha256": "257d6741730b92c00303ab241419f6b62d4319fa6b678bbb0b857cf756ad14a8",
+      "disposition": "upstream_exact"
+    },
+    {
+      "path": "farm_project/robot/ros_ws/src/jetson_harvest_interfaces/srv/Recover.srv",
+      "kind": "add",
+      "decision": "integrated",
+      "upstream_sha256": "fdba8b88e0687db6637837a9b5c37a20c7c40707bef3fc89dfd4f1f46223b540",
+      "head_sha256": null,
+      "current_sha256": "fdba8b88e0687db6637837a9b5c37a20c7c40707bef3fc89dfd4f1f46223b540",
+      "disposition": "upstream_exact"
+    },
+    {
+      "path": "farm_project/robot/config/robots/vicpinky/transfer/wall_alignment_wait_v2.json",
+      "upstream_sha256": "afde31e019233ec827976c057aa395dbcd03aa14a7d12d4dcd700564d5171f53",
+      "head_sha256": null,
+      "current_sha256": "afde31e019233ec827976c057aa395dbcd03aa14a7d12d4dcd700564d5171f53",
+      "disposition": "upstream_exact"
+    },
+    {
+      "path": "farm_project/robot/config/robots/vicpinky/transfer/arc_monitor_policy.json",
+      "upstream_sha256": "ff4e992d5e49948fbfcbd61521e1d60b4a454c3f450dccdd684adcc29fa67bd5",
+      "head_sha256": null,
+      "current_sha256": "ff4e992d5e49948fbfcbd61521e1d60b4a454c3f450dccdd684adcc29fa67bd5",
+      "disposition": "upstream_exact"
+    },
+    {
+      "path": "farm_project/robot/config/robots/vicpinky/transfer/wall_alignment_trial.json",
+      "upstream_sha256": "4705444028ac1694ce0a0f1f655c0e1c7cb0a4bc28256651fb016654ded1a632",
+      "head_sha256": null,
+      "current_sha256": "4705444028ac1694ce0a0f1f655c0e1c7cb0a4bc28256651fb016654ded1a632",
+      "disposition": "upstream_exact"
+    },
+    {
+      "path": "farm_project/robot/config/robots/vicpinky/transfer/handoff_body_trial.json",
+      "upstream_sha256": "d81ea525b409a04e237be9c2bdc00ff30098239452568605216a63d1a999d8d4",
+      "head_sha256": null,
+      "current_sha256": "d81ea525b409a04e237be9c2bdc00ff30098239452568605216a63d1a999d8d4",
+      "disposition": "upstream_exact"
+    },
+    {
+      "path": "farm_project/robot/config/robots/vicpinky/transfer/handoff_components.json",
+      "upstream_sha256": "0079221541f5770d353d9465c201a0e238303aa0e8f024ae9d3059293162dd53",
+      "head_sha256": null,
+      "current_sha256": "0079221541f5770d353d9465c201a0e238303aa0e8f024ae9d3059293162dd53",
+      "disposition": "upstream_exact"
+    },
+    {
+      "path": "farm_project/robot/config/robots/vicpinky/transfer/handoff_fsm.json",
+      "upstream_sha256": "6e3937ee1b9d521814f2da0979b8d01b372e7d1c465ae513127ed8778d905524",
+      "head_sha256": null,
+      "current_sha256": "6e3937ee1b9d521814f2da0979b8d01b372e7d1c465ae513127ed8778d905524",
+      "disposition": "upstream_exact"
+    },
+    {
+      "path": "farm_project/robot/tools/transfer/wall_reference_capture.py",
+      "upstream_sha256": "b0f4ccf000288c93cc33ec85540f1fed0ed93919f9ce2a21c2da61db979ccfac",
+      "head_sha256": null,
+      "current_sha256": "b0f4ccf000288c93cc33ec85540f1fed0ed93919f9ce2a21c2da61db979ccfac",
+      "disposition": "upstream_exact"
+    }
+  ],
+  "additional_local_edits": [
+    "farm_project/robot/ros_ws/src/harvest_robot/test/test_harvest_load.py",
+    "farm_project/sim/tests/test_harvest_handoff_merge.py"
+  ]
+}

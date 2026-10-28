@@ -1,0 +1,33 @@
+{
+  "build": {
+    "packages": [
+      "farm_common",
+      "farm_navigation",
+      "jetson_harvest_interfaces",
+      "farm_arc_controller",
+      "farm_wall_controller",
+      "harvest_robot",
+      "farm_bringup"
+    ],
+    "result": "pass",
+    "harvest_after_dependency_edit": "pass"
+  },
+  "tests": {
+    "navigation": 194,
+    "harvest": 196,
+    "sim_regression": 45,
+    "cpp_ctest": 3,
+    "passed_total": 438,
+    "skipped_jetson_ros": 5
+  },
+  "traffic": {
+    "unchanged_baseline_errors": 21,
+    "current_operational_fixture_errors": 21,
+    "temporary_graph_matched_fixture_pass": 21,
+    "operational_config_fixed": false
+  },
+  "effective_real_handoff_parameters_equal": true,
+  "protected_existing_files_equal": 463,
+  "isaac_or_real_robot_run": false,
+  "git_commit_push": false
+}

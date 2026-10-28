@@ -1,0 +1,1932 @@
+{
+  "schema": 1,
+  "created_at": "2026-10-08T17:01:46.233852+09:00",
+  "scope": "HCR-3A simulation handoff",
+  "files": [
+    {
+      "path": "DELIVERY_UNIT_TESTS.log",
+      "bytes": 3894,
+      "sha256": "a1770f1e93c7d150e8e69a3a822feef9bb1747a1714bfb70c396325fb0c88aa1",
+      "origin": "generated",
+      "category": "verification"
+    },
+    {
+      "path": "ENVIRONMENT.json",
+      "bytes": 579,
+      "sha256": "2dda74bd53bd92eef146f24fee02cfa1581fd784469380b3afc99b66e140e4ed",
+      "origin": "generated",
+      "category": "delivery"
+    },
+    {
+      "path": "INVENTORY.md",
+      "bytes": 25936,
+      "sha256": "66d9268292ac73bf26818fe01473fc4dd06dcf1f1c3a7dd9c5ba90c8495f7ab1",
+      "origin": "generated",
+      "category": "delivery"
+    },
+    {
+      "path": "README.md",
+      "bytes": 2888,
+      "sha256": "d7b197afb9f0999fc267fa0a7198b898802277ce155f2a829e77447ad5950b09",
+      "origin": "generated",
+      "category": "delivery"
+    },
+    {
+      "path": "SOURCE_SNAPSHOT.json",
+      "bytes": 381,
+      "sha256": "ac66744ad009f44772f798ad53ac9809d7e9bbe309b05262b5a31c86a09161b5",
+      "origin": "generated",
+      "category": "delivery"
+    },
+    {
+      "path": "reference/HCR_DECISIONS.md",
+      "bytes": 21253,
+      "sha256": "3b78764104afe028faf07208fa4889b5c5dc422ab1755e3565039f0b4623cd6b",
+      "origin": "generated",
+      "category": "reference"
+    },
+    {
+      "path": "reference/photos/20261007_125545 (1).jpg",
+      "bytes": 270592,
+      "sha256": "9719f26990dfbd33eb78540df534b71fd9e51572b7f362cd726734e8fa7daf1f",
+      "origin": "/home/bhc/Downloads/20261007_125545 (1).jpg",
+      "category": "user_reference_photo"
+    },
+    {
+      "path": "reference/photos/20261007_125548 (1).jpg",
+      "bytes": 303373,
+      "sha256": "f3596770651c891fd38bfdb82aca5bf9ce946a932213961a93aa5614b942becf",
+      "origin": "/home/bhc/Downloads/20261007_125548 (1).jpg",
+      "category": "user_reference_photo"
+    },
+    {
+      "path": "reference/photos/20261007_125550 (1).jpg",
+      "bytes": 336893,
+      "sha256": "58869a5bac7f756088b6a0c98f13a8ef146781708465072e8912020dc3345d60",
+      "origin": "/home/bhc/Downloads/20261007_125550 (1).jpg",
+      "category": "user_reference_photo"
+    },
+    {
+      "path": "reference/photos/20261007_125554 (1).jpg",
+      "bytes": 305384,
+      "sha256": "fc8da6c646bd4319a4384afeb2315a74af6a6f2bd76b8bf6e1cca367a3de0dd5",
+      "origin": "/home/bhc/Downloads/20261007_125554 (1).jpg",
+      "category": "user_reference_photo"
+    },
+    {
+      "path": "reference/photos/20261007_125556 (1).jpg",
+      "bytes": 283311,
+      "sha256": "383cae0055496140c09d01a984d368582e23897e6d6abace12e7dde436d853d9",
+      "origin": "/home/bhc/Downloads/20261007_125556 (1).jpg",
+      "category": "user_reference_photo"
+    },
+    {
+      "path": "reference/photos/20261007_125600 (1).jpg",
+      "bytes": 283305,
+      "sha256": "d3a91ab8446eaffb9198257bc90a02be6f3f860d9672fc045a7aef719e421226",
+      "origin": "/home/bhc/Downloads/20261007_125600 (1).jpg",
+      "category": "user_reference_photo"
+    },
+    {
+      "path": "reference/photos/20261007_140422.jpg",
+      "bytes": 186732,
+      "sha256": "7cc92463228080b172538b3e3bbb67c2d9da364224321008391e77aeed306f45",
+      "origin": "/home/bhc/Downloads/20261007_140422.jpg",
+      "category": "user_reference_photo"
+    },
+    {
+      "path": "reference/photos/20261007_140441.jpg",
+      "bytes": 106699,
+      "sha256": "88ca003e5f9eb7a176145ed3783221a80efddd0c03f6bde4549235196afbb87a",
+      "origin": "/home/bhc/Downloads/20261007_140441.jpg",
+      "category": "user_reference_photo"
+    },
+    {
+      "path": "reference/photos/README.md",
+      "bytes": 829,
+      "sha256": "f6582c17c44214b789b98a93b6cf23bd7df73f7506c849371d82c94e6e9bc1ea",
+      "origin": "generated",
+      "category": "delivery"
+    },
+    {
+      "path": "reference/photos/Screenshot_20261007_135726_Samsung Notes.jpg",
+      "bytes": 191878,
+      "sha256": "28011dead1adc8349a248595f16de9015e39171665bb042ffafa9d77ec21d63a",
+      "origin": "/home/bhc/Downloads/Screenshot_20261007_135726_Samsung Notes.jpg",
+      "category": "user_reference_photo"
+    },
+    {
+      "path": "reference/photos/Screenshot_20261007_135734_Samsung Notes.jpg",
+      "bytes": 138129,
+      "sha256": "b7ee78bbc8ced8ce5e37319fca636c5a3951783f19ba6cd8d45d854292cd3d38",
+      "origin": "/home/bhc/Downloads/Screenshot_20261007_135734_Samsung Notes.jpg",
+      "category": "user_reference_photo"
+    },
+    {
+      "path": "reference/photos/Screenshot_20261007_135740_Samsung Notes.jpg",
+      "bytes": 197224,
+      "sha256": "203404afdcd63a8e8b2509f5c20d5398779657adfb4fe861f355fc8740b82db3",
+      "origin": "/home/bhc/Downloads/Screenshot_20261007_135740_Samsung Notes.jpg",
+      "category": "user_reference_photo"
+    },
+    {
+      "path": "reference/source_cad/controller.zip",
+      "bytes": 5391682,
+      "sha256": "658f8ed1088c19d878151f45045d6753dee2323987466255fa1d8a7dcfa3154d",
+      "origin": "/home/bhc/manyfarm_ws/manyfarm_robotarm/outputs/sorting_station/hcr_sim/source_cad/controller.zip",
+      "category": "reference_cad"
+    },
+    {
+      "path": "reference/source_cad/hcr3a.zip",
+      "bytes": 1814988,
+      "sha256": "152de5116851fa4e363eeff7996e3db33525b5cff86a43c0b24911b9af3adc8c",
+      "origin": "/home/bhc/manyfarm_ws/manyfarm_robotarm/outputs/sorting_station/hcr_sim/source_cad/hcr3a.zip",
+      "category": "reference_cad"
+    },
+    {
+      "path": "reference/source_cad/manifest.json",
+      "bytes": 499,
+      "sha256": "ae067bb0b4095e335a6621f97ca2d15c11109efb36b626b77ac54ba150999e06",
+      "origin": "/home/bhc/manyfarm_ws/manyfarm_robotarm/outputs/sorting_station/hcr_sim/source_cad/manifest.json",
+      "category": "reference_cad"
+    },
+    {
+      "path": "reference/validation/audit_random_payload.py",
+      "bytes": 3275,
+      "sha256": "a4ba3a5ae9497a4ddb9dcffdbc4ff44b75aa23ff31f91362b07d4cfd772a2d0f",
+      "origin": "/home/bhc/manyfarm_ws/manyfarm_robotarm/outputs/sorting_station/hcr_sim/validation/audit_random_payload.py",
+      "category": "evidence"
+    },
+    {
+      "path": "reference/validation/derived_peppers/pepper_red_0685f02d2d8fdd3b.usda",
+      "bytes": 291234,
+      "sha256": "9abf793447b22ab50bd70aed41772abdc109d098fef6327939fbc0d3b2b5c0da",
+      "origin": "/home/bhc/manyfarm_ws/manyfarm_robotarm/outputs/sorting_station/hcr_sim/assets/peppers/pepper_red_0685f02d2d8fdd3b.usda",
+      "category": "evidence"
+    },
+    {
+      "path": "reference/validation/derived_peppers/pepper_red_333b36e262fb6d77.usda",
+      "bytes": 290729,
+      "sha256": "879f4760289fcec2e0966c19ba1a96373061c6c1e0f43e609f733d17cefa88fd",
+      "origin": "/home/bhc/manyfarm_ws/manyfarm_robotarm/outputs/sorting_station/hcr_sim/assets/peppers/pepper_red_333b36e262fb6d77.usda",
+      "category": "evidence"
+    },
+    {
+      "path": "reference/validation/derived_peppers/pepper_yellow_3552fa237a2f9038.usda",
+      "bytes": 291315,
+      "sha256": "736c98ecbc6bec94778a69ae0a58ddda9aba7d8465ed5b74fbd0c250e89c468c",
+      "origin": "/home/bhc/manyfarm_ws/manyfarm_robotarm/outputs/sorting_station/hcr_sim/assets/peppers/pepper_yellow_3552fa237a2f9038.usda",
+      "category": "evidence"
+    },
+    {
+      "path": "reference/validation/derived_peppers/pepper_yellow_6adc2c418143f3d1.usda",
+      "bytes": 290820,
+      "sha256": "c6b8e8d471c9cff324132bbc6ce66d314f80c9c2f511f53e7ebf01fc68edcd05",
+      "origin": "/home/bhc/manyfarm_ws/manyfarm_robotarm/outputs/sorting_station/hcr_sim/assets/peppers/pepper_yellow_6adc2c418143f3d1.usda",
+      "category": "evidence"
+    },
+    {
+      "path": "reference/validation/existing_transport_ros/audit.json",
+      "bytes": 1251,
+      "sha256": "67cbc797492b9b6dc64a953708b5fe6a221258b45011ed4bed622e00193bbdd8",
+      "origin": "/home/bhc/manyfarm_ws/manyfarm_robotarm/outputs/sorting_station/hcr_sim/validation/existing_transport_ros/audit.json",
+      "category": "evidence"
+    },
+    {
+      "path": "reference/validation/existing_transport_ros/camera_preview.png",
+      "bytes": 240600,
+      "sha256": "1d88783aa61c500c301d777dab4d1675caaa6e906a596aca1538d820d4927ba2",
+      "origin": "/home/bhc/manyfarm_ws/manyfarm_robotarm/outputs/sorting_station/hcr_sim/validation/existing_transport_ros/camera_preview.png",
+      "category": "evidence"
+    },
+    {
+      "path": "reference/validation/existing_transport_ros/camera_rgb.png",
+      "bytes": 226486,
+      "sha256": "992c2f351011762142887c2dba542885817d896d3104ce9ed4928d804310883e",
+      "origin": "/home/bhc/manyfarm_ws/manyfarm_robotarm/outputs/sorting_station/hcr_sim/validation/existing_transport_ros/camera_rgb.png",
+      "category": "evidence"
+    },
+    {
+      "path": "reference/validation/existing_transport_ros/configuration.json",
+      "bytes": 3019,
+      "sha256": "b746af96a0628271a416274a61795731783dc6916ddca0805a02399587b4cc01",
+      "origin": "/home/bhc/manyfarm_ws/manyfarm_robotarm/outputs/sorting_station/hcr_sim/validation/existing_transport_ros/configuration.json",
+      "category": "evidence"
+    },
+    {
+      "path": "reference/validation/existing_transport_ros/goal_result.json",
+      "bytes": 7560,
+      "sha256": "cbc6f42700a9c93ac27f3dd809ca16327b2a9c986d5c870895f4fc0a2566370a",
+      "origin": "/home/bhc/manyfarm_ws/manyfarm_robotarm/outputs/sorting_station/hcr_sim/validation/existing_transport_ros/goal_result.json",
+      "category": "evidence"
+    },
+    {
+      "path": "reference/validation/existing_transport_ros/metadata.json",
+      "bytes": 19006,
+      "sha256": "d002c2ed7f24fd342010945995a5109ddf6903acd467d9de7c9ae03cf92bce8b",
+      "origin": "/home/bhc/manyfarm_ws/manyfarm_robotarm/outputs/sorting_station/hcr_sim/validation/existing_transport_ros/metadata.json",
+      "category": "evidence"
+    },
+    {
+      "path": "reference/validation/existing_transport_ros/overview.png",
+      "bytes": 546581,
+      "sha256": "567cb1ac0507418ebef371c1f88d698b501960ee6765bf1dcfd4b9e21d2f426e",
+      "origin": "/home/bhc/manyfarm_ws/manyfarm_robotarm/outputs/sorting_station/hcr_sim/validation/existing_transport_ros/overview.png",
+      "category": "evidence"
+    },
+    {
+      "path": "reference/validation/existing_transport_ros/report.json",
+      "bytes": 5817,
+      "sha256": "a24bab30a996f89b8784731a2132c7e6610c3f1915f1374a05c6660c0df7e139",
+      "origin": "/home/bhc/manyfarm_ws/manyfarm_robotarm/outputs/sorting_station/hcr_sim/validation/existing_transport_ros/report.json",
+      "category": "evidence"
+    },
+    {
+      "path": "reference/validation/existing_transport_ros/runtime.json",
+      "bytes": 1584,
+      "sha256": "8f72b37260536b862a6fc682a866b63568e250d2e4bc09fa29ce24eeab9e9b10",
+      "origin": "/home/bhc/manyfarm_ws/manyfarm_robotarm/outputs/sorting_station/hcr_sim/validation/existing_transport_ros/runtime.json",
+      "category": "evidence"
+    },
+    {
+      "path": "reference/validation/existing_transport_ros/sim_1791359978216848132.sqlite3",
+      "bytes": 20480,
+      "sha256": "2324dc2ed10ae1927deb3d6ce18286dc9cbae711aaf928446fb3616e6bc84713",
+      "origin": "/home/bhc/manyfarm_ws/manyfarm_robotarm/outputs/sorting_station/hcr_sim/validation/existing_transport_ros/sim_1791359978216848132.sqlite3",
+      "category": "evidence"
+    },
+    {
+      "path": "reference/validation/existing_transport_ros/teaching.json",
+      "bytes": 4156,
+      "sha256": "c02e94e3f9be6a0614188c313999cf96a123f0bef2d0c788b0c75795138c8c74",
+      "origin": "/home/bhc/manyfarm_ws/manyfarm_robotarm/outputs/sorting_station/hcr_sim/validation/existing_transport_ros/teaching.json",
+      "category": "evidence"
+    },
+    {
+      "path": "reference/validation/existing_transport_ros/transport_approach.png",
+      "bytes": 582102,
+      "sha256": "9f2525b4cecdea558f0adef271527637db059943531bf8c0cdf35b512511e6f4",
+      "origin": "/home/bhc/manyfarm_ws/manyfarm_robotarm/outputs/sorting_station/hcr_sim/validation/existing_transport_ros/transport_approach.png",
+      "category": "evidence"
+    },
+    {
+      "path": "reference/validation/existing_transport_ros/transport_dock.png",
+      "bytes": 477727,
+      "sha256": "cde053ed748347edf96082605fdcff83e80cd740c09cea1e5ff5f51789b3f09d",
+      "origin": "/home/bhc/manyfarm_ws/manyfarm_robotarm/outputs/sorting_station/hcr_sim/validation/existing_transport_ros/transport_dock.png",
+      "category": "evidence"
+    },
+    {
+      "path": "reference/validation/existing_transport_ros/transport_dump.png",
+      "bytes": 511898,
+      "sha256": "6523aab31bd51dcd49a8c1d523f0f191b104611bcdd743cb725cd619cef84156",
+      "origin": "/home/bhc/manyfarm_ws/manyfarm_robotarm/outputs/sorting_station/hcr_sim/validation/existing_transport_ros/transport_dump.png",
+      "category": "evidence"
+    },
+    {
+      "path": "reference/validation/existing_transport_ros/transport_open_gate.png",
+      "bytes": 444550,
+      "sha256": "bc2e06bff99a9d26d3fb54c135fd376273ee267814fc36f0ef49d7c99b7b6f1b",
+      "origin": "/home/bhc/manyfarm_ws/manyfarm_robotarm/outputs/sorting_station/hcr_sim/validation/existing_transport_ros/transport_open_gate.png",
+      "category": "evidence"
+    },
+    {
+      "path": "reference/validation/existing_transport_ros/transport_ready.png",
+      "bytes": 532373,
+      "sha256": "d66ad2ca190a39baed46ae5d5eb2084a05f38324d04e2d0471268ffee2a02de2",
+      "origin": "/home/bhc/manyfarm_ws/manyfarm_robotarm/outputs/sorting_station/hcr_sim/validation/existing_transport_ros/transport_ready.png",
+      "category": "evidence"
+    },
+    {
+      "path": "reference/validation/existing_transport_ros/transport_settle.png",
+      "bytes": 525696,
+      "sha256": "acd54f11e7e40ea2650eb7968640aafe3318b88a645fe5d116bfa3b974e36bc1",
+      "origin": "/home/bhc/manyfarm_ws/manyfarm_robotarm/outputs/sorting_station/hcr_sim/validation/existing_transport_ros/transport_settle.png",
+      "category": "evidence"
+    },
+    {
+      "path": "reference/validation/existing_transport_ros/transport_tip.png",
+      "bytes": 490777,
+      "sha256": "990e4630c903fc9e1f9f3e026d557074427f113ce854d2864e475c87f25c9bd9",
+      "origin": "/home/bhc/manyfarm_ws/manyfarm_robotarm/outputs/sorting_station/hcr_sim/validation/existing_transport_ros/transport_tip.png",
+      "category": "evidence"
+    },
+    {
+      "path": "reference/validation/existing_transport_ros/zones.json",
+      "bytes": 421,
+      "sha256": "10b5d2be625b2d74674178eda2295df90fd6c4a5f646908824eec946a6831561",
+      "origin": "/home/bhc/manyfarm_ws/manyfarm_robotarm/outputs/sorting_station/hcr_sim/validation/existing_transport_ros/zones.json",
+      "category": "evidence"
+    },
+    {
+      "path": "reference/validation/existing_transport_sources.json",
+      "bytes": 15816,
+      "sha256": "64d95e0d0c3e6998a00244355250e48cfdbf7d62b0344cbd3e331cd289413153",
+      "origin": "/home/bhc/manyfarm_ws/manyfarm_robotarm/outputs/sorting_station/hcr_sim/validation/existing_transport_sources.json",
+      "category": "evidence"
+    },
+    {
+      "path": "reference/validation/height75_manual/audit.json",
+      "bytes": 523,
+      "sha256": "366b996e0c90ad30b3028bbe004ff7618b06cedc3beca7299f8af1da8d0d49a1",
+      "origin": "/home/bhc/manyfarm_ws/manyfarm_robotarm/outputs/sorting_station/hcr_sim/validation/height75_manual/audit.json",
+      "category": "evidence"
+    },
+    {
+      "path": "reference/validation/height75_manual/camera_preview.png",
+      "bytes": 241057,
+      "sha256": "136bebbbbc94db9544ce5dc14afef174f51833acbd90e8ed847cf7fb7e534594",
+      "origin": "/home/bhc/manyfarm_ws/manyfarm_robotarm/outputs/sorting_station/hcr_sim/validation/height75_manual/camera_preview.png",
+      "category": "evidence"
+    },
+    {
+      "path": "reference/validation/height75_manual/camera_rgb.png",
+      "bytes": 226930,
+      "sha256": "121cf68317010ec9afac45bb011521405199ee5a2246ca38f6bd60ae364ca028",
+      "origin": "/home/bhc/manyfarm_ws/manyfarm_robotarm/outputs/sorting_station/hcr_sim/validation/height75_manual/camera_rgb.png",
+      "category": "evidence"
+    },
+    {
+      "path": "reference/validation/height75_manual/configuration.json",
+      "bytes": 3019,
+      "sha256": "f6fe8069dadbe4333d12c933ff5f9b2aa8984a885be4bfd801cbe27e8b62b394",
+      "origin": "/home/bhc/manyfarm_ws/manyfarm_robotarm/outputs/sorting_station/hcr_sim/validation/height75_manual/configuration.json",
+      "category": "evidence"
+    },
+    {
+      "path": "reference/validation/height75_manual/mesh_dimensions.json",
+      "bytes": 382,
+      "sha256": "e29ebcd86deb445547aba22ec599521ecd52d5be3b2529209cfac8f1507089fe",
+      "origin": "/home/bhc/manyfarm_ws/manyfarm_robotarm/outputs/sorting_station/hcr_sim/validation/height75_manual/mesh_dimensions.json",
+      "category": "evidence"
+    },
+    {
+      "path": "reference/validation/height75_manual/metadata.json",
+      "bytes": 19006,
+      "sha256": "6d1ed6c3c2aa9c78172fb52cd13a6063f8c7ddaa43756521c1680ad88c960a5c",
+      "origin": "/home/bhc/manyfarm_ws/manyfarm_robotarm/outputs/sorting_station/hcr_sim/validation/height75_manual/metadata.json",
+      "category": "evidence"
+    },
+    {
+      "path": "reference/validation/height75_manual/overview.png",
+      "bytes": 541778,
+      "sha256": "08e7a863ae24a2a5c8d9c1495e5437357b6060e07c29f9b3db3dfc0da3bdd071",
+      "origin": "/home/bhc/manyfarm_ws/manyfarm_robotarm/outputs/sorting_station/hcr_sim/validation/height75_manual/overview.png",
+      "category": "evidence"
+    },
+    {
+      "path": "reference/validation/height75_manual/report.json",
+      "bytes": 5720,
+      "sha256": "d66447fad46f03ce3f87dcc9a769839cffb1eae87ced2198c6ed6e2e3d3cc4a3",
+      "origin": "/home/bhc/manyfarm_ws/manyfarm_robotarm/outputs/sorting_station/hcr_sim/validation/height75_manual/report.json",
+      "category": "evidence"
+    },
+    {
+      "path": "reference/validation/height75_manual/runtime.json",
+      "bytes": 1496,
+      "sha256": "bf6207b7eb741f85a14186449bfcb40e9e1913482537b1998034d32a77357167",
+      "origin": "/home/bhc/manyfarm_ws/manyfarm_robotarm/outputs/sorting_station/hcr_sim/validation/height75_manual/runtime.json",
+      "category": "evidence"
+    },
+    {
+      "path": "reference/validation/height75_manual/teaching.json",
+      "bytes": 4163,
+      "sha256": "cdeaa14f7ab9ff8db6cad7d3dde51e900e51bba83e2994ae8e52e09900279d90",
+      "origin": "/home/bhc/manyfarm_ws/manyfarm_robotarm/outputs/sorting_station/hcr_sim/validation/height75_manual/teaching.json",
+      "category": "evidence"
+    },
+    {
+      "path": "reference/validation/height75_manual/zones.json",
+      "bytes": 421,
+      "sha256": "10b5d2be625b2d74674178eda2295df90fd6c4a5f646908824eec946a6831561",
+      "origin": "/home/bhc/manyfarm_ws/manyfarm_robotarm/outputs/sorting_station/hcr_sim/validation/height75_manual/zones.json",
+      "category": "evidence"
+    },
+    {
+      "path": "reference/validation/random8_seed42.log",
+      "bytes": 10618,
+      "sha256": "a1f92d4a13267a1b64fad7e2ce84d81de45cdb5beaa260143570f15a234d93d1",
+      "origin": "/home/bhc/manyfarm_ws/manyfarm_robotarm/outputs/sorting_station/hcr_sim/validation/random8_seed42.log",
+      "category": "evidence"
+    },
+    {
+      "path": "reference/validation/random8_seed42_spatial_only/audit.json",
+      "bytes": 530,
+      "sha256": "d7f0b8e4b2c2377c01866beba6b9d857b92a42d7a668bd43beadb1c96ceee38a",
+      "origin": "/home/bhc/manyfarm_ws/manyfarm_robotarm/outputs/sorting_station/hcr_sim/validation/random8_seed42_spatial_only/audit.json",
+      "category": "evidence"
+    },
+    {
+      "path": "reference/validation/random8_seed42_spatial_only/camera_preview.png",
+      "bytes": 297704,
+      "sha256": "24382641886636ddce052a63eb6a0a8b8fd1e1890cdfd091bc4576a9ae307bfe",
+      "origin": "/home/bhc/manyfarm_ws/manyfarm_robotarm/outputs/sorting_station/hcr_sim/validation/random8_seed42_spatial_only/camera_preview.png",
+      "category": "evidence"
+    },
+    {
+      "path": "reference/validation/random8_seed42_spatial_only/camera_rgb.png",
+      "bytes": 282701,
+      "sha256": "1c64c462cf40bc3df3d551a35026eb36926a88d820c4b9a27c733944bc751663",
+      "origin": "/home/bhc/manyfarm_ws/manyfarm_robotarm/outputs/sorting_station/hcr_sim/validation/random8_seed42_spatial_only/camera_rgb.png",
+      "category": "evidence"
+    },
+    {
+      "path": "reference/validation/random8_seed42_spatial_only/configuration.json",
+      "bytes": 3141,
+      "sha256": "1874ba96e46df5ddd8d442057dacf4aa5ebc2d91b2c3fa644a76d6361243b003",
+      "origin": "/home/bhc/manyfarm_ws/manyfarm_robotarm/outputs/sorting_station/hcr_sim/validation/random8_seed42_spatial_only/configuration.json",
+      "category": "evidence"
+    },
+    {
+      "path": "reference/validation/random8_seed42_spatial_only/metadata.json",
+      "bytes": 19120,
+      "sha256": "8633972bec414162790098cc5082c7966b483ffb81994c130e6229699f27ef57",
+      "origin": "/home/bhc/manyfarm_ws/manyfarm_robotarm/outputs/sorting_station/hcr_sim/validation/random8_seed42_spatial_only/metadata.json",
+      "category": "evidence"
+    },
+    {
+      "path": "reference/validation/random8_seed42_spatial_only/overview.png",
+      "bytes": 540121,
+      "sha256": "cf348f2c45d3361c9d5d534e5ffe741068aa8e877b41f4018fc391b7fd1cefa5",
+      "origin": "/home/bhc/manyfarm_ws/manyfarm_robotarm/outputs/sorting_station/hcr_sim/validation/random8_seed42_spatial_only/overview.png",
+      "category": "evidence"
+    },
+    {
+      "path": "reference/validation/random8_seed42_spatial_only/report.json",
+      "bytes": 17652,
+      "sha256": "47f9dcbbf37d4ec994c54869b046bcd56d2883b7f9ac3c5fb27458c1ddff72d4",
+      "origin": "/home/bhc/manyfarm_ws/manyfarm_robotarm/outputs/sorting_station/hcr_sim/validation/random8_seed42_spatial_only/report.json",
+      "category": "evidence"
+    },
+    {
+      "path": "reference/validation/random8_seed42_spatial_only/runtime.json",
+      "bytes": 5867,
+      "sha256": "28e5a650c02cdb5a96a0f624dcb3b757dbe18bc824c8cf1a76714bb224e291f4",
+      "origin": "/home/bhc/manyfarm_ws/manyfarm_robotarm/outputs/sorting_station/hcr_sim/validation/random8_seed42_spatial_only/runtime.json",
+      "category": "evidence"
+    },
+    {
+      "path": "reference/validation/random8_seed42_spatial_only/transport_approach.png",
+      "bytes": 468146,
+      "sha256": "4a22b1632727d071d8e545010077e9e653c70298d990e2b4480f52fbff3af019",
+      "origin": "/home/bhc/manyfarm_ws/manyfarm_robotarm/outputs/sorting_station/hcr_sim/validation/random8_seed42_spatial_only/transport_approach.png",
+      "category": "evidence"
+    },
+    {
+      "path": "reference/validation/random8_seed42_spatial_only/transport_ready.png",
+      "bytes": 544234,
+      "sha256": "6646608b20921e05efe572db85e04b83c564313e385861e0e56d748c280244f7",
+      "origin": "/home/bhc/manyfarm_ws/manyfarm_robotarm/outputs/sorting_station/hcr_sim/validation/random8_seed42_spatial_only/transport_ready.png",
+      "category": "evidence"
+    },
+    {
+      "path": "reference/validation/random8_seed42_spatial_only/transport_recipe.py",
+      "bytes": 7677,
+      "sha256": "c70c24efe23cb51fd911e60bed3391cb57881639bc39273ece8fe14f2ac75f26",
+      "origin": "/home/bhc/manyfarm_ws/manyfarm_robotarm/outputs/sorting_station/hcr_sim/validation/random8_seed42_spatial_only/transport_recipe.py",
+      "category": "evidence"
+    },
+    {
+      "path": "reference/validation/random8_seed42_spatial_only/zones.json",
+      "bytes": 421,
+      "sha256": "10b5d2be625b2d74674178eda2295df90fd6c4a5f646908824eec946a6831561",
+      "origin": "/home/bhc/manyfarm_ws/manyfarm_robotarm/outputs/sorting_station/hcr_sim/validation/random8_seed42_spatial_only/zones.json",
+      "category": "evidence"
+    },
+    {
+      "path": "reference/validation/random8_seed43.log",
+      "bytes": 9196,
+      "sha256": "ea1287338420579cd0c5e4c711f8d5d3aee30135011a51d95de87c27f23ddaf0",
+      "origin": "/home/bhc/manyfarm_ws/manyfarm_robotarm/outputs/sorting_station/hcr_sim/validation/random8_seed43.log",
+      "category": "evidence"
+    },
+    {
+      "path": "reference/validation/random8_seed43_sort1.log",
+      "bytes": 10008,
+      "sha256": "eba70fc6331c8b825400de0c5440803bf5276c065a0f584bb01ab9c18ce4441d",
+      "origin": "/home/bhc/manyfarm_ws/manyfarm_robotarm/outputs/sorting_station/hcr_sim/validation/random8_seed43_sort1.log",
+      "category": "evidence"
+    },
+    {
+      "path": "reference/validation/random8_seed43_sort1/audit.json",
+      "bytes": 1378,
+      "sha256": "1d18658c6e49c27a96d51804ad252650692f87f743ad262367ae3934c06ec93d",
+      "origin": "/home/bhc/manyfarm_ws/manyfarm_robotarm/outputs/sorting_station/hcr_sim/validation/random8_seed43_sort1/audit.json",
+      "category": "evidence"
+    },
+    {
+      "path": "reference/validation/random8_seed43_sort1/camera_preview.png",
+      "bytes": 292344,
+      "sha256": "876139cf44fca72150543d1b0922cb51af0b4a604d8976e0bc6f7fb30f1abd06",
+      "origin": "/home/bhc/manyfarm_ws/manyfarm_robotarm/outputs/sorting_station/hcr_sim/validation/random8_seed43_sort1/camera_preview.png",
+      "category": "evidence"
+    },
+    {
+      "path": "reference/validation/random8_seed43_sort1/camera_rgb.png",
+      "bytes": 278060,
+      "sha256": "acd806a995bd07c4eeaa70836d6d705c3df794d864f01dbf99f37fc4ffae318d",
+      "origin": "/home/bhc/manyfarm_ws/manyfarm_robotarm/outputs/sorting_station/hcr_sim/validation/random8_seed43_sort1/camera_rgb.png",
+      "category": "evidence"
+    },
+    {
+      "path": "reference/validation/random8_seed43_sort1/configuration.json",
+      "bytes": 3141,
+      "sha256": "7676d054764c69df6959d8db53a9d44a8ae44ff5aac768d0dd475f4f5147bedf",
+      "origin": "/home/bhc/manyfarm_ws/manyfarm_robotarm/outputs/sorting_station/hcr_sim/validation/random8_seed43_sort1/configuration.json",
+      "category": "evidence"
+    },
+    {
+      "path": "reference/validation/random8_seed43_sort1/metadata.json",
+      "bytes": 19120,
+      "sha256": "0459fe57ce57a1990a23ef28ab0cc4dd80b46b32a65b7d0c912a2a3d3d7433fb",
+      "origin": "/home/bhc/manyfarm_ws/manyfarm_robotarm/outputs/sorting_station/hcr_sim/validation/random8_seed43_sort1/metadata.json",
+      "category": "evidence"
+    },
+    {
+      "path": "reference/validation/random8_seed43_sort1/overview.png",
+      "bytes": 540991,
+      "sha256": "fb58d04ecae3746ce95f1b1ad7b7b3920c7bd63e89a878e618662ba05fe9cd45",
+      "origin": "/home/bhc/manyfarm_ws/manyfarm_robotarm/outputs/sorting_station/hcr_sim/validation/random8_seed43_sort1/overview.png",
+      "category": "evidence"
+    },
+    {
+      "path": "reference/validation/random8_seed43_sort1/report.json",
+      "bytes": 17438,
+      "sha256": "92355f881adc1ec175ca222ff795da04b69f8227c23dc9cd7f81ce93e960cc67",
+      "origin": "/home/bhc/manyfarm_ws/manyfarm_robotarm/outputs/sorting_station/hcr_sim/validation/random8_seed43_sort1/report.json",
+      "category": "evidence"
+    },
+    {
+      "path": "reference/validation/random8_seed43_sort1/runtime.json",
+      "bytes": 5884,
+      "sha256": "a1106ab6723b3f7844b21b8c0cfa5e4d7acd245efd74956851e593fa225dbaf6",
+      "origin": "/home/bhc/manyfarm_ws/manyfarm_robotarm/outputs/sorting_station/hcr_sim/validation/random8_seed43_sort1/runtime.json",
+      "category": "evidence"
+    },
+    {
+      "path": "reference/validation/random8_seed43_sort1/transport_approach.png",
+      "bytes": 411787,
+      "sha256": "fb4aad9467a5afc6a9af12f0c7f2ac6d14bb79b084922730a259a3433636c4c1",
+      "origin": "/home/bhc/manyfarm_ws/manyfarm_robotarm/outputs/sorting_station/hcr_sim/validation/random8_seed43_sort1/transport_approach.png",
+      "category": "evidence"
+    },
+    {
+      "path": "reference/validation/random8_seed43_sort1/transport_ready.png",
+      "bytes": 544062,
+      "sha256": "192ffe6462b5d15c0b1cb7139a892b9473621db8a73a0ea2848e64c90cfba183",
+      "origin": "/home/bhc/manyfarm_ws/manyfarm_robotarm/outputs/sorting_station/hcr_sim/validation/random8_seed43_sort1/transport_ready.png",
+      "category": "evidence"
+    },
+    {
+      "path": "reference/validation/random8_seed43_sort1/zones.json",
+      "bytes": 421,
+      "sha256": "10b5d2be625b2d74674178eda2295df90fd6c4a5f646908824eec946a6831561",
+      "origin": "/home/bhc/manyfarm_ws/manyfarm_robotarm/outputs/sorting_station/hcr_sim/validation/random8_seed43_sort1/zones.json",
+      "category": "evidence"
+    },
+    {
+      "path": "reference/validation/random8_seed43_sort2.log",
+      "bytes": 10391,
+      "sha256": "e4b9ae6eda98df11c55bab8120fb5a32526dd81a17b8a9ca01d4f6250c3b620f",
+      "origin": "/home/bhc/manyfarm_ws/manyfarm_robotarm/outputs/sorting_station/hcr_sim/validation/random8_seed43_sort2.log",
+      "category": "evidence"
+    },
+    {
+      "path": "reference/validation/random8_seed43_sort2_error/audit.json",
+      "bytes": 1406,
+      "sha256": "0c0be86681ce48737dc86379b796e1570ec4bd1a752eae759b05bda860d95535",
+      "origin": "/home/bhc/manyfarm_ws/manyfarm_robotarm/outputs/sorting_station/hcr_sim/validation/random8_seed43_sort2_error/audit.json",
+      "category": "evidence"
+    },
+    {
+      "path": "reference/validation/random8_seed43_sort2_error/camera_preview.png",
+      "bytes": 292157,
+      "sha256": "e285120aa28fde449ed79a43fde7d912f0435b8592e5e1940682e0552ddfc6bb",
+      "origin": "/home/bhc/manyfarm_ws/manyfarm_robotarm/outputs/sorting_station/hcr_sim/validation/random8_seed43_sort2_error/camera_preview.png",
+      "category": "evidence"
+    },
+    {
+      "path": "reference/validation/random8_seed43_sort2_error/camera_rgb.png",
+      "bytes": 277729,
+      "sha256": "be4ea4649c9b248df0aa4abc5e8f2937268af870ac8038c299728728f40e90a0",
+      "origin": "/home/bhc/manyfarm_ws/manyfarm_robotarm/outputs/sorting_station/hcr_sim/validation/random8_seed43_sort2_error/camera_rgb.png",
+      "category": "evidence"
+    },
+    {
+      "path": "reference/validation/random8_seed43_sort2_error/configuration.json",
+      "bytes": 3141,
+      "sha256": "7676d054764c69df6959d8db53a9d44a8ae44ff5aac768d0dd475f4f5147bedf",
+      "origin": "/home/bhc/manyfarm_ws/manyfarm_robotarm/outputs/sorting_station/hcr_sim/validation/random8_seed43_sort2_error/configuration.json",
+      "category": "evidence"
+    },
+    {
+      "path": "reference/validation/random8_seed43_sort2_error/metadata.json",
+      "bytes": 19120,
+      "sha256": "0459fe57ce57a1990a23ef28ab0cc4dd80b46b32a65b7d0c912a2a3d3d7433fb",
+      "origin": "/home/bhc/manyfarm_ws/manyfarm_robotarm/outputs/sorting_station/hcr_sim/validation/random8_seed43_sort2_error/metadata.json",
+      "category": "evidence"
+    },
+    {
+      "path": "reference/validation/random8_seed43_sort2_error/overview.png",
+      "bytes": 541046,
+      "sha256": "850fa215e70c45d6d486a8d6e309b0bd75666a5b34ce24a03b3cc87600710130",
+      "origin": "/home/bhc/manyfarm_ws/manyfarm_robotarm/outputs/sorting_station/hcr_sim/validation/random8_seed43_sort2_error/overview.png",
+      "category": "evidence"
+    },
+    {
+      "path": "reference/validation/random8_seed43_sort2_error/report.json",
+      "bytes": 17566,
+      "sha256": "81e3dd15de959bc16b02cd4edd40d1f635cdf25d3cecefa2bdbcd719dab20c9c",
+      "origin": "/home/bhc/manyfarm_ws/manyfarm_robotarm/outputs/sorting_station/hcr_sim/validation/random8_seed43_sort2_error/report.json",
+      "category": "evidence"
+    },
+    {
+      "path": "reference/validation/random8_seed43_sort2_error/runtime.json",
+      "bytes": 5911,
+      "sha256": "7b37568b1e5e0a46d34405d4f19ba7d1b4295914eab373a6290f05aa584ecc6a",
+      "origin": "/home/bhc/manyfarm_ws/manyfarm_robotarm/outputs/sorting_station/hcr_sim/validation/random8_seed43_sort2_error/runtime.json",
+      "category": "evidence"
+    },
+    {
+      "path": "reference/validation/random8_seed43_sort2_error/transport_approach.png",
+      "bytes": 411392,
+      "sha256": "749025dcec4ed5218e37564da27dd5c4dd383ccef72b5b1a84f52eb55477ed7e",
+      "origin": "/home/bhc/manyfarm_ws/manyfarm_robotarm/outputs/sorting_station/hcr_sim/validation/random8_seed43_sort2_error/transport_approach.png",
+      "category": "evidence"
+    },
+    {
+      "path": "reference/validation/random8_seed43_sort2_error/transport_ready.png",
+      "bytes": 543958,
+      "sha256": "5c4c34f57e3783e7b975cb22c19daae49bc87dbfede85ee5f5ec188ffea293d7",
+      "origin": "/home/bhc/manyfarm_ws/manyfarm_robotarm/outputs/sorting_station/hcr_sim/validation/random8_seed43_sort2_error/transport_ready.png",
+      "category": "evidence"
+    },
+    {
+      "path": "reference/validation/random8_seed43_sort2_error/zones.json",
+      "bytes": 421,
+      "sha256": "10b5d2be625b2d74674178eda2295df90fd6c4a5f646908824eec946a6831561",
+      "origin": "/home/bhc/manyfarm_ws/manyfarm_robotarm/outputs/sorting_station/hcr_sim/validation/random8_seed43_sort2_error/zones.json",
+      "category": "evidence"
+    },
+    {
+      "path": "reference/validation/random8_seed43_unload/audit.json",
+      "bytes": 1577,
+      "sha256": "e11b83097ee80ffe01f1cd37922351d26d17bba27c7531e9efa9b1970fe3e353",
+      "origin": "/home/bhc/manyfarm_ws/manyfarm_robotarm/outputs/sorting_station/hcr_sim/validation/random8_seed43_unload/audit.json",
+      "category": "evidence"
+    },
+    {
+      "path": "reference/validation/random8_seed43_unload/camera_rgb.png",
+      "bytes": 250577,
+      "sha256": "b64fc16fee058f295746d5b3db88d7a6ec7969cae71aa6f581669358f43665fc",
+      "origin": "/home/bhc/manyfarm_ws/manyfarm_robotarm/outputs/sorting_station/hcr_sim/validation/random8_seed43_unload/camera_rgb.png",
+      "category": "evidence"
+    },
+    {
+      "path": "reference/validation/random8_seed43_unload/configuration.json",
+      "bytes": 3141,
+      "sha256": "7676d054764c69df6959d8db53a9d44a8ae44ff5aac768d0dd475f4f5147bedf",
+      "origin": "/home/bhc/manyfarm_ws/manyfarm_robotarm/outputs/sorting_station/hcr_sim/validation/random8_seed43_unload/configuration.json",
+      "category": "evidence"
+    },
+    {
+      "path": "reference/validation/random8_seed43_unload/metadata.json",
+      "bytes": 19120,
+      "sha256": "33836438fce96d9b05e6728872b5345d630a6af7243941c528c9c5a82b8dff26",
+      "origin": "/home/bhc/manyfarm_ws/manyfarm_robotarm/outputs/sorting_station/hcr_sim/validation/random8_seed43_unload/metadata.json",
+      "category": "evidence"
+    },
+    {
+      "path": "reference/validation/random8_seed43_unload/overview.png",
+      "bytes": 544358,
+      "sha256": "d1f4778e6258c458fb244abbd1649aa796581493a29b149f4bf9d038a8cadf97",
+      "origin": "/home/bhc/manyfarm_ws/manyfarm_robotarm/outputs/sorting_station/hcr_sim/validation/random8_seed43_unload/overview.png",
+      "category": "evidence"
+    },
+    {
+      "path": "reference/validation/random8_seed43_unload/report.json",
+      "bytes": 17164,
+      "sha256": "78e4cd968b11a74785c25ddfe7e09ba4d709171b07b7b6bbd03a72d0dce2e283",
+      "origin": "/home/bhc/manyfarm_ws/manyfarm_robotarm/outputs/sorting_station/hcr_sim/validation/random8_seed43_unload/report.json",
+      "category": "evidence"
+    },
+    {
+      "path": "reference/validation/random8_seed43_unload/runtime.json",
+      "bytes": 5882,
+      "sha256": "3abe4334b6f6809a9b09575c8a732d618e60d5afe956eb1f4598165d64018d69",
+      "origin": "/home/bhc/manyfarm_ws/manyfarm_robotarm/outputs/sorting_station/hcr_sim/validation/random8_seed43_unload/runtime.json",
+      "category": "evidence"
+    },
+    {
+      "path": "reference/validation/random8_seed43_unload/transport_approach.png",
+      "bytes": 467973,
+      "sha256": "84735d5e9f97994832264e86d1b3a566dca8c20a2b9fe645fdd1457dc4ac214a",
+      "origin": "/home/bhc/manyfarm_ws/manyfarm_robotarm/outputs/sorting_station/hcr_sim/validation/random8_seed43_unload/transport_approach.png",
+      "category": "evidence"
+    },
+    {
+      "path": "reference/validation/random8_seed43_unload/transport_ready.png",
+      "bytes": 544358,
+      "sha256": "d1f4778e6258c458fb244abbd1649aa796581493a29b149f4bf9d038a8cadf97",
+      "origin": "/home/bhc/manyfarm_ws/manyfarm_robotarm/outputs/sorting_station/hcr_sim/validation/random8_seed43_unload/transport_ready.png",
+      "category": "evidence"
+    },
+    {
+      "path": "reference/validation/random8_seed43_unload/zones.json",
+      "bytes": 421,
+      "sha256": "10b5d2be625b2d74674178eda2295df90fd6c4a5f646908824eec946a6831561",
+      "origin": "/home/bhc/manyfarm_ws/manyfarm_robotarm/outputs/sorting_station/hcr_sim/validation/random8_seed43_unload/zones.json",
+      "category": "evidence"
+    },
+    {
+      "path": "reference/validation/random_payload_unit.log",
+      "bytes": 3894,
+      "sha256": "4d65dc3d5c084018046acadc4f2c79fee054c3ca0c19935d195aa8ad8d2a0cf6",
+      "origin": "/home/bhc/manyfarm_ws/manyfarm_robotarm/outputs/sorting_station/hcr_sim/validation/random_payload_unit.log",
+      "category": "evidence"
+    },
+    {
+      "path": "verify_delivery.py",
+      "bytes": 2208,
+      "sha256": "fe62296499e4e8c35fb43a47042cfaa8933b0cefda937bf136a9352874285fb8",
+      "origin": "/home/bhc/manyfarm_ws/manyfarm_robotarm/scripts/verify_hcr_sim_delivery.py",
+      "category": "delivery"
+    },
+    {
+      "path": "workspace/docs/INTERFACES.md",
+      "bytes": 28608,
+      "sha256": "58ad124dbc4a9a66f90d838613ac166640ff3976b775165141dff77ce588276b",
+      "origin": "/home/bhc/manyfarm_ws/manyfarm_robotarm/docs/INTERFACES.md",
+      "category": "source"
+    },
+    {
+      "path": "workspace/docs/sorting/HCR3A_SIM_TEAM_HANDOFF_KR.md",
+      "bytes": 18693,
+      "sha256": "c138ee4c569fc7cdeb788006dcc6c60ff015ab792cf1aacf45f0a2082c004345",
+      "origin": "/home/bhc/manyfarm_ws/manyfarm_robotarm/docs/sorting/HCR3A_SIM_TEAM_HANDOFF_KR.md",
+      "category": "source"
+    },
+    {
+      "path": "workspace/docs/sorting/HCR3A_SIM_TEAM_REQUEST_KR.md",
+      "bytes": 3479,
+      "sha256": "c8862d8ae545b1151a74f3200c5bc344a5de630cd7f155efa2c2d3938844db4c",
+      "origin": "/home/bhc/manyfarm_ws/manyfarm_robotarm/docs/sorting/HCR3A_SIM_TEAM_REQUEST_KR.md",
+      "category": "source"
+    },
+    {
+      "path": "workspace/outputs/sorting_station/hcr_sim/zones.json",
+      "bytes": 421,
+      "sha256": "10b5d2be625b2d74674178eda2295df90fd6c4a5f646908824eec946a6831561",
+      "origin": "/home/bhc/manyfarm_ws/manyfarm_robotarm/outputs/sorting_station/hcr_sim/validation/random8_seed43_sort1/zones.json",
+      "category": "sample_roi"
+    },
+    {
+      "path": "workspace/scripts/package_hcr_sim_handoff.py",
+      "bytes": 14720,
+      "sha256": "3d6216e283a92ae55176fb9b05cd201aa5cb86ac13150b4cdd1d96936b439ab5",
+      "origin": "/home/bhc/manyfarm_ws/manyfarm_robotarm/scripts/package_hcr_sim_handoff.py",
+      "category": "source"
+    },
+    {
+      "path": "workspace/scripts/verify_hcr_sim_delivery.py",
+      "bytes": 2208,
+      "sha256": "fe62296499e4e8c35fb43a47042cfaa8933b0cefda937bf136a9352874285fb8",
+      "origin": "/home/bhc/manyfarm_ws/manyfarm_robotarm/scripts/verify_hcr_sim_delivery.py",
+      "category": "source"
+    },
+    {
+      "path": "workspace/src/smartfarm_description/config/hcr3a_random8_validation.json",
+      "bytes": 3141,
+      "sha256": "7676d054764c69df6959d8db53a9d44a8ae44ff5aac768d0dd475f4f5147bedf",
+      "origin": "/home/bhc/manyfarm_ws/manyfarm_robotarm/src/smartfarm_description/config/hcr3a_random8_validation.json",
+      "category": "source"
+    },
+    {
+      "path": "workspace/src/smartfarm_description/config/hcr3a_station.json",
+      "bytes": 3141,
+      "sha256": "2f078f5ff5383fc3bf0b2690ae313829fd430b6345223d1dcc448f2e1e728a17",
+      "origin": "/home/bhc/manyfarm_ws/manyfarm_robotarm/src/smartfarm_description/config/hcr3a_station.json",
+      "category": "source"
+    },
+    {
+      "path": "workspace/src/smartfarm_description/config/transport.json",
+      "bytes": 857,
+      "sha256": "ba9de22623a364a37d2aafcab1faf4e744c697150e5c117f8d018df84b89e2ba",
+      "origin": "/home/bhc/manyfarm_ws/manyfarm_robotarm/src/smartfarm_description/config/transport.json",
+      "category": "source"
+    },
+    {
+      "path": "workspace/src/smartfarm_description/meshes/pepper/Pepper_Red.usdc",
+      "bytes": 143269,
+      "sha256": "09f43d3924b3e5841cffe18ec8ef519790f33fbc236942faaaca1a04c84e251f",
+      "origin": "/home/bhc/manyfarm_ws/manyfarm_robotarm/src/smartfarm_description/meshes/pepper/Pepper_Red.usdc",
+      "category": "source"
+    },
+    {
+      "path": "workspace/src/smartfarm_description/meshes/pepper/Pepper_Yellow.usdc",
+      "bytes": 143269,
+      "sha256": "1978f235cc9294620a535fa99a6773177e2627b6e1e91f02cd26886067d319d4",
+      "origin": "/home/bhc/manyfarm_ws/manyfarm_robotarm/src/smartfarm_description/meshes/pepper/Pepper_Yellow.usdc",
+      "category": "source"
+    },
+    {
+      "path": "workspace/src/smartfarm_description/meshes/pepper/manifest.json",
+      "bytes": 870,
+      "sha256": "8dabdf4df8b34cacdcdf17800e5eb034199d8c31b0b9ff0ff659ec48f724037b",
+      "origin": "/home/bhc/manyfarm_ws/manyfarm_robotarm/src/smartfarm_description/meshes/pepper/manifest.json",
+      "category": "source"
+    },
+    {
+      "path": "workspace/src/smartfarm_description/meshes/pepper/textures/fruit_0.jpg",
+      "bytes": 457252,
+      "sha256": "b9f8761cb9343a1750ce9f3c6767ad1cb861d40bd47071550571b4af7a991df8",
+      "origin": "/home/bhc/manyfarm_ws/manyfarm_robotarm/src/smartfarm_description/meshes/pepper/textures/fruit_0.jpg",
+      "category": "source"
+    },
+    {
+      "path": "workspace/src/smartfarm_description/meshes/pepper/textures/fruit_1.jpg",
+      "bytes": 479746,
+      "sha256": "475fb5aa64713b19aa382630b4c8dece16065831097ba4ac5eb2ec62fed4e0b8",
+      "origin": "/home/bhc/manyfarm_ws/manyfarm_robotarm/src/smartfarm_description/meshes/pepper/textures/fruit_1.jpg",
+      "category": "source"
+    },
+    {
+      "path": "workspace/src/smartfarm_description/meshes/pepper/textures/fruit_2.png",
+      "bytes": 2362394,
+      "sha256": "391c02e3e71c3fa6185da4bd3186850d9c398fd93e44d41edd8abedb229efa64",
+      "origin": "/home/bhc/manyfarm_ws/manyfarm_robotarm/src/smartfarm_description/meshes/pepper/textures/fruit_2.png",
+      "category": "source"
+    },
+    {
+      "path": "workspace/src/smartfarm_description/meshes/pepper/textures/fruit_3.jpg",
+      "bytes": 466139,
+      "sha256": "62b7de1113dfbc5c8bc205a67b43791c80b3f2b5639f4fefbc3f9e403a3dd5b3",
+      "origin": "/home/bhc/manyfarm_ws/manyfarm_robotarm/src/smartfarm_description/meshes/pepper/textures/fruit_3.jpg",
+      "category": "source"
+    },
+    {
+      "path": "workspace/src/smartfarm_description/meshes/pepper/textures/fruit_4.jpg",
+      "bytes": 479746,
+      "sha256": "475fb5aa64713b19aa382630b4c8dece16065831097ba4ac5eb2ec62fed4e0b8",
+      "origin": "/home/bhc/manyfarm_ws/manyfarm_robotarm/src/smartfarm_description/meshes/pepper/textures/fruit_4.jpg",
+      "category": "source"
+    },
+    {
+      "path": "workspace/src/smartfarm_description/meshes/pepper/textures/fruit_5.png",
+      "bytes": 2362394,
+      "sha256": "391c02e3e71c3fa6185da4bd3186850d9c398fd93e44d41edd8abedb229efa64",
+      "origin": "/home/bhc/manyfarm_ws/manyfarm_robotarm/src/smartfarm_description/meshes/pepper/textures/fruit_5.png",
+      "category": "source"
+    },
+    {
+      "path": "workspace/src/smartfarm_description/meshes/pepper/textures/fruit_6.jpg",
+      "bytes": 483582,
+      "sha256": "4649d82ddc6d873fdf258aae06966fa4204fe40402cb2ff7eb4f06c32c230855",
+      "origin": "/home/bhc/manyfarm_ws/manyfarm_robotarm/src/smartfarm_description/meshes/pepper/textures/fruit_6.jpg",
+      "category": "source"
+    },
+    {
+      "path": "workspace/src/smartfarm_description/meshes/pepper/textures/fruit_7.jpg",
+      "bytes": 481567,
+      "sha256": "fc466b9ec4f13b62fcefe7f01beaa5fab7e6d012649adf40382723d8c5d43b46",
+      "origin": "/home/bhc/manyfarm_ws/manyfarm_robotarm/src/smartfarm_description/meshes/pepper/textures/fruit_7.jpg",
+      "category": "source"
+    },
+    {
+      "path": "workspace/src/smartfarm_description/meshes/pepper/textures/fruit_8.png",
+      "bytes": 2390247,
+      "sha256": "02ac686906ebb2496564a0c82ab2bf09bb406a4abdd4d1530aeed1546ee914bd",
+      "origin": "/home/bhc/manyfarm_ws/manyfarm_robotarm/src/smartfarm_description/meshes/pepper/textures/fruit_8.png",
+      "category": "source"
+    },
+    {
+      "path": "workspace/src/smartfarm_description/meshes/sliding_lids_v3/transport/drive_wall_saddle.stl",
+      "bytes": 262284,
+      "sha256": "c912498391831a06278dacdced022d9c551af6fc08e56b0e6df5978443f2b060",
+      "origin": "/home/bhc/manyfarm_ws/manyfarm_robotarm/src/smartfarm_description/meshes/sliding_lids_v3/transport/drive_wall_saddle.stl",
+      "category": "source"
+    },
+    {
+      "path": "workspace/src/smartfarm_description/meshes/sliding_lids_v3/transport/front_rail_frame_shoe_n1.stl",
+      "bytes": 160884,
+      "sha256": "b79723ce2ea2d8bba0415bb0143e25b6d2cf97db0ef2eefe784691c9c8ef0630",
+      "origin": "/home/bhc/manyfarm_ws/manyfarm_robotarm/src/smartfarm_description/meshes/sliding_lids_v3/transport/front_rail_frame_shoe_n1.stl",
+      "category": "source"
+    },
+    {
+      "path": "workspace/src/smartfarm_description/meshes/sliding_lids_v3/transport/front_rail_frame_shoe_p1.stl",
+      "bytes": 160884,
+      "sha256": "3f2b196a53d67d608bdaab0099e828500c3eeef822600f5e45c31c018480415a",
+      "origin": "/home/bhc/manyfarm_ws/manyfarm_robotarm/src/smartfarm_description/meshes/sliding_lids_v3/transport/front_rail_frame_shoe_p1.stl",
+      "category": "source"
+    },
+    {
+      "path": "workspace/src/smartfarm_description/meshes/sliding_lids_v3/transport/horn_retaining_ring.stl",
+      "bytes": 190284,
+      "sha256": "efa288db7d82a2bad47f7490e9f67cb122193fc2bddbad5ab27bacc517ee755b",
+      "origin": "/home/bhc/manyfarm_ws/manyfarm_robotarm/src/smartfarm_description/meshes/sliding_lids_v3/transport/horn_retaining_ring.stl",
+      "category": "source"
+    },
+    {
+      "path": "workspace/src/smartfarm_description/meshes/sliding_lids_v3/transport/lid_minus_seam_strap_1.stl",
+      "bytes": 64284,
+      "sha256": "90d4bec568bd78995455251fd1f1a3a823aa11dca754a2cb72755d2085f9039b",
+      "origin": "/home/bhc/manyfarm_ws/manyfarm_robotarm/src/smartfarm_description/meshes/sliding_lids_v3/transport/lid_minus_seam_strap_1.stl",
+      "category": "source"
+    },
+    {
+      "path": "workspace/src/smartfarm_description/meshes/sliding_lids_v3/transport/lid_minus_seam_strap_2.stl",
+      "bytes": 64284,
+      "sha256": "59bf832012e4a65072529c9a6f1e6602ba5928b140ea5c49d9a9d10a6c213882",
+      "origin": "/home/bhc/manyfarm_ws/manyfarm_robotarm/src/smartfarm_description/meshes/sliding_lids_v3/transport/lid_minus_seam_strap_2.stl",
+      "category": "source"
+    },
+    {
+      "path": "workspace/src/smartfarm_description/meshes/sliding_lids_v3/transport/lid_minus_tile_1.stl",
+      "bytes": 96084,
+      "sha256": "2c21647421010b2b7629ef90aead2d40b7d7ec9f32d24a5fec64fe48f608846b",
+      "origin": "/home/bhc/manyfarm_ws/manyfarm_robotarm/src/smartfarm_description/meshes/sliding_lids_v3/transport/lid_minus_tile_1.stl",
+      "category": "source"
+    },
+    {
+      "path": "workspace/src/smartfarm_description/meshes/sliding_lids_v3/transport/lid_minus_tile_2.stl",
+      "bytes": 64284,
+      "sha256": "b773b1e1bfb77532872db5afab05f42c37c8a08acc6a0501fb606fb5fb676933",
+      "origin": "/home/bhc/manyfarm_ws/manyfarm_robotarm/src/smartfarm_description/meshes/sliding_lids_v3/transport/lid_minus_tile_2.stl",
+      "category": "source"
+    },
+    {
+      "path": "workspace/src/smartfarm_description/meshes/sliding_lids_v3/transport/lid_plus_seam_strap_1.stl",
+      "bytes": 64284,
+      "sha256": "f8fcd8c00792660b68313121e352db2fc6ac3794c4c71787ff8cce14d25cf1f1",
+      "origin": "/home/bhc/manyfarm_ws/manyfarm_robotarm/src/smartfarm_description/meshes/sliding_lids_v3/transport/lid_plus_seam_strap_1.stl",
+      "category": "source"
+    },
+    {
+      "path": "workspace/src/smartfarm_description/meshes/sliding_lids_v3/transport/lid_plus_seam_strap_2.stl",
+      "bytes": 64284,
+      "sha256": "41c9ddb83958ccb73f1ed9bdc4c7c441468aaaa20b84fecd5d743fffe744f6c1",
+      "origin": "/home/bhc/manyfarm_ws/manyfarm_robotarm/src/smartfarm_description/meshes/sliding_lids_v3/transport/lid_plus_seam_strap_2.stl",
+      "category": "source"
+    },
+    {
+      "path": "workspace/src/smartfarm_description/meshes/sliding_lids_v3/transport/lid_plus_tile_1.stl",
+      "bytes": 96084,
+      "sha256": "50131262f9c6548bbe2b1c9cb90fa914ad49b39d52f0ac5a5f3f7e2297781334",
+      "origin": "/home/bhc/manyfarm_ws/manyfarm_robotarm/src/smartfarm_description/meshes/sliding_lids_v3/transport/lid_plus_tile_1.stl",
+      "category": "source"
+    },
+    {
+      "path": "workspace/src/smartfarm_description/meshes/sliding_lids_v3/transport/lid_plus_tile_2.stl",
+      "bytes": 64284,
+      "sha256": "6a72baea44a2cbb862ae95583d55e4c7cf6bbfedbfb42d4c3e6aeca5238c61f0",
+      "origin": "/home/bhc/manyfarm_ws/manyfarm_robotarm/src/smartfarm_description/meshes/sliding_lids_v3/transport/lid_plus_tile_2.stl",
+      "category": "source"
+    },
+    {
+      "path": "workspace/src/smartfarm_description/meshes/sliding_lids_v3/transport/metal_bottom_angle_n1.stl",
+      "bytes": 193284,
+      "sha256": "fdf6156fa7fb6fa8484ddc25c119540055b0e00be706c06295a7791793ca1745",
+      "origin": "/home/bhc/manyfarm_ws/manyfarm_robotarm/src/smartfarm_description/meshes/sliding_lids_v3/transport/metal_bottom_angle_n1.stl",
+      "category": "source"
+    },
+    {
+      "path": "workspace/src/smartfarm_description/meshes/sliding_lids_v3/transport/metal_bottom_angle_p1.stl",
+      "bytes": 193284,
+      "sha256": "88728a585f74d71a8e4209093dbf54cad86dae1d81e90f1c2bb3adc6cbf0a333",
+      "origin": "/home/bhc/manyfarm_ws/manyfarm_robotarm/src/smartfarm_description/meshes/sliding_lids_v3/transport/metal_bottom_angle_p1.stl",
+      "category": "source"
+    },
+    {
+      "path": "workspace/src/smartfarm_description/meshes/sliding_lids_v3/transport/metal_front_upright_n1.stl",
+      "bytes": 349984,
+      "sha256": "22a4424e509142c0a08d00ecbea75afa8de79ce3f2e4bd8accf3392585aac6d5",
+      "origin": "/home/bhc/manyfarm_ws/manyfarm_robotarm/src/smartfarm_description/meshes/sliding_lids_v3/transport/metal_front_upright_n1.stl",
+      "category": "source"
+    },
+    {
+      "path": "workspace/src/smartfarm_description/meshes/sliding_lids_v3/transport/metal_front_upright_p1.stl",
+      "bytes": 349984,
+      "sha256": "89a8d8869d696db55540db8012bb62de14651962c97e8457a8d9cdb7f9e16a99",
+      "origin": "/home/bhc/manyfarm_ws/manyfarm_robotarm/src/smartfarm_description/meshes/sliding_lids_v3/transport/metal_front_upright_p1.stl",
+      "category": "source"
+    },
+    {
+      "path": "workspace/src/smartfarm_description/meshes/sliding_lids_v3/transport/metal_rear_drive_crossbar.stl",
+      "bytes": 127884,
+      "sha256": "263b26f23e3dda22e4d7f014cdd19c8256caf8ecaa68567bb8ab224aa751630c",
+      "origin": "/home/bhc/manyfarm_ws/manyfarm_robotarm/src/smartfarm_description/meshes/sliding_lids_v3/transport/metal_rear_drive_crossbar.stl",
+      "category": "source"
+    },
+    {
+      "path": "workspace/src/smartfarm_description/meshes/sliding_lids_v3/transport/metal_rear_upright_n1.stl",
+      "bytes": 319284,
+      "sha256": "ba43f2fede2b7f00aeedca21c2ab47d5094a9463d78e5ff7ac63e03c4eb37c1f",
+      "origin": "/home/bhc/manyfarm_ws/manyfarm_robotarm/src/smartfarm_description/meshes/sliding_lids_v3/transport/metal_rear_upright_n1.stl",
+      "category": "source"
+    },
+    {
+      "path": "workspace/src/smartfarm_description/meshes/sliding_lids_v3/transport/metal_rear_upright_p1.stl",
+      "bytes": 319284,
+      "sha256": "d014a97855e1d18f3879128cb6486d4c1beebdb5b85482dbd58b0a774520669f",
+      "origin": "/home/bhc/manyfarm_ws/manyfarm_robotarm/src/smartfarm_description/meshes/sliding_lids_v3/transport/metal_rear_upright_p1.stl",
+      "category": "source"
+    },
+    {
+      "path": "workspace/src/smartfarm_description/meshes/sliding_lids_v3/transport/mg996r_body_cradle.stl",
+      "bytes": 130084,
+      "sha256": "6fb6eb772967a000c71877efe6c156ad5cb84643d24d5ec35d6f443b9c8bff95",
+      "origin": "/home/bhc/manyfarm_ws/manyfarm_robotarm/src/smartfarm_description/meshes/sliding_lids_v3/transport/mg996r_body_cradle.stl",
+      "category": "source"
+    },
+    {
+      "path": "workspace/src/smartfarm_description/meshes/sliding_lids_v3/transport/mg996r_retaining_strap_1.stl",
+      "bytes": 64284,
+      "sha256": "4418750291bf67d4bbe73ac4df335c29c2c7732e8948836714519960eaad382c",
+      "origin": "/home/bhc/manyfarm_ws/manyfarm_robotarm/src/smartfarm_description/meshes/sliding_lids_v3/transport/mg996r_retaining_strap_1.stl",
+      "category": "source"
+    },
+    {
+      "path": "workspace/src/smartfarm_description/meshes/sliding_lids_v3/transport/mg996r_retaining_strap_2.stl",
+      "bytes": 64284,
+      "sha256": "cf9df08f95fcc7824706d0cf440bf96aa1a851d1a951361de72f5211e2a559b1",
+      "origin": "/home/bhc/manyfarm_ws/manyfarm_robotarm/src/smartfarm_description/meshes/sliding_lids_v3/transport/mg996r_retaining_strap_2.stl",
+      "category": "source"
+    },
+    {
+      "path": "workspace/src/smartfarm_description/meshes/sliding_lids_v3/transport/pinion_m2.stl",
+      "bytes": 534684,
+      "sha256": "be7686ae6d2e200f25a31a8b63d0afb1f3383b5966dec33a249392e30de032e2",
+      "origin": "/home/bhc/manyfarm_ws/manyfarm_robotarm/src/smartfarm_description/meshes/sliding_lids_v3/transport/pinion_m2.stl",
+      "category": "source"
+    },
+    {
+      "path": "workspace/src/smartfarm_description/meshes/sliding_lids_v3/transport/rack_backing_guide_n1.stl",
+      "bytes": 1884,
+      "sha256": "70c4baa0c997d31646e209c7aec4eec97f5ced9b246ac6a554d67a7a2db7467f",
+      "origin": "/home/bhc/manyfarm_ws/manyfarm_robotarm/src/smartfarm_description/meshes/sliding_lids_v3/transport/rack_backing_guide_n1.stl",
+      "category": "source"
+    },
+    {
+      "path": "workspace/src/smartfarm_description/meshes/sliding_lids_v3/transport/rack_backing_guide_p1.stl",
+      "bytes": 2284,
+      "sha256": "475369e9ca85ec2e30e622c14bbe7ff10724f8845cc38896be395e66d870fc14",
+      "origin": "/home/bhc/manyfarm_ws/manyfarm_robotarm/src/smartfarm_description/meshes/sliding_lids_v3/transport/rack_backing_guide_p1.stl",
+      "category": "source"
+    },
+    {
+      "path": "workspace/src/smartfarm_description/meshes/sliding_lids_v3/transport/rack_minus_segment_1.stl",
+      "bytes": 21084,
+      "sha256": "1ef7ff3bee5aabfada1e54cd0876b6ebe8b0789ccaa76e1750c941bf7de9b811",
+      "origin": "/home/bhc/manyfarm_ws/manyfarm_robotarm/src/smartfarm_description/meshes/sliding_lids_v3/transport/rack_minus_segment_1.stl",
+      "category": "source"
+    },
+    {
+      "path": "workspace/src/smartfarm_description/meshes/sliding_lids_v3/transport/rack_minus_segment_2.stl",
+      "bytes": 21084,
+      "sha256": "e710bc704745aefa14587b9ad564213ee0e19e711ebd60cf8c8b7447247ba9f7",
+      "origin": "/home/bhc/manyfarm_ws/manyfarm_robotarm/src/smartfarm_description/meshes/sliding_lids_v3/transport/rack_minus_segment_2.stl",
+      "category": "source"
+    },
+    {
+      "path": "workspace/src/smartfarm_description/meshes/sliding_lids_v3/transport/rack_minus_splice_1.stl",
+      "bytes": 684,
+      "sha256": "f4b0ccceffb857a046ebad1a6bfd634fef4874a46e34d2801c631c010a6c36d6",
+      "origin": "/home/bhc/manyfarm_ws/manyfarm_robotarm/src/smartfarm_description/meshes/sliding_lids_v3/transport/rack_minus_splice_1.stl",
+      "category": "source"
+    },
+    {
+      "path": "workspace/src/smartfarm_description/meshes/sliding_lids_v3/transport/rack_plus_segment_1.stl",
+      "bytes": 21084,
+      "sha256": "100f071b6ca8f9f20d865994967aa81d49723363322a375d5b9f379b58864594",
+      "origin": "/home/bhc/manyfarm_ws/manyfarm_robotarm/src/smartfarm_description/meshes/sliding_lids_v3/transport/rack_plus_segment_1.stl",
+      "category": "source"
+    },
+    {
+      "path": "workspace/src/smartfarm_description/meshes/sliding_lids_v3/transport/rack_plus_segment_2.stl",
+      "bytes": 21084,
+      "sha256": "6b2ec01235e52dd19fcb708ee4aa8a96be97eb49b7770c47d1c78424c392d22b",
+      "origin": "/home/bhc/manyfarm_ws/manyfarm_robotarm/src/smartfarm_description/meshes/sliding_lids_v3/transport/rack_plus_segment_2.stl",
+      "category": "source"
+    },
+    {
+      "path": "workspace/src/smartfarm_description/meshes/sliding_lids_v3/transport/rack_plus_splice_1.stl",
+      "bytes": 684,
+      "sha256": "19ce0d6bbde98dc148bf157ffa14e6049ae875c2c8b982d8d5a482bca542ffa6",
+      "origin": "/home/bhc/manyfarm_ws/manyfarm_robotarm/src/smartfarm_description/meshes/sliding_lids_v3/transport/rack_plus_splice_1.stl",
+      "category": "source"
+    },
+    {
+      "path": "workspace/src/smartfarm_description/meshes/sliding_lids_v3/transport/rack_to_lid_minus.stl",
+      "bytes": 33684,
+      "sha256": "a8eb670ac74c3b6802132e3b67e711a59107779d854db297e03f4d66e1c6f054",
+      "origin": "/home/bhc/manyfarm_ws/manyfarm_robotarm/src/smartfarm_description/meshes/sliding_lids_v3/transport/rack_to_lid_minus.stl",
+      "category": "source"
+    },
+    {
+      "path": "workspace/src/smartfarm_description/meshes/sliding_lids_v3/transport/rack_to_lid_plus.stl",
+      "bytes": 33684,
+      "sha256": "a3f1f4fa026347a09f684fbda489de8061b5ef597ca572e4abfe5743a31a2a4d",
+      "origin": "/home/bhc/manyfarm_ws/manyfarm_robotarm/src/smartfarm_description/meshes/sliding_lids_v3/transport/rack_to_lid_plus.stl",
+      "category": "source"
+    },
+    {
+      "path": "workspace/src/smartfarm_description/meshes/sliding_lids_v3/transport/rail_n1_segment_1.stl",
+      "bytes": 157284,
+      "sha256": "8ba379a4b53b9fa068fc4333fb952d81ab5909865248060d2e0b060898a9a4aa",
+      "origin": "/home/bhc/manyfarm_ws/manyfarm_robotarm/src/smartfarm_description/meshes/sliding_lids_v3/transport/rail_n1_segment_1.stl",
+      "category": "source"
+    },
+    {
+      "path": "workspace/src/smartfarm_description/meshes/sliding_lids_v3/transport/rail_n1_segment_2.stl",
+      "bytes": 292084,
+      "sha256": "6be11161402e111393bfdaa1deedf98c6963d04fd18f09e12c226e6daf645bf3",
+      "origin": "/home/bhc/manyfarm_ws/manyfarm_robotarm/src/smartfarm_description/meshes/sliding_lids_v3/transport/rail_n1_segment_2.stl",
+      "category": "source"
+    },
+    {
+      "path": "workspace/src/smartfarm_description/meshes/sliding_lids_v3/transport/rail_n1_segment_3.stl",
+      "bytes": 157284,
+      "sha256": "dc627dccf6fa88d9a2572dcf9f01f714dd0da1a354e4d2ba6763420e8abe3406",
+      "origin": "/home/bhc/manyfarm_ws/manyfarm_robotarm/src/smartfarm_description/meshes/sliding_lids_v3/transport/rail_n1_segment_3.stl",
+      "category": "source"
+    },
+    {
+      "path": "workspace/src/smartfarm_description/meshes/sliding_lids_v3/transport/rail_n1_splice_1.stl",
+      "bytes": 64284,
+      "sha256": "361f32fc8cf27520d60c8edcee7e5f693c8a78d887ed936c59e17cdfb5ed52a6",
+      "origin": "/home/bhc/manyfarm_ws/manyfarm_robotarm/src/smartfarm_description/meshes/sliding_lids_v3/transport/rail_n1_splice_1.stl",
+      "category": "source"
+    },
+    {
+      "path": "workspace/src/smartfarm_description/meshes/sliding_lids_v3/transport/rail_n1_splice_2.stl",
+      "bytes": 64284,
+      "sha256": "ddbe6365dd5176ac03783b2c6214b84d176663fd8986044f7b0d71cb5dd353f1",
+      "origin": "/home/bhc/manyfarm_ws/manyfarm_robotarm/src/smartfarm_description/meshes/sliding_lids_v3/transport/rail_n1_splice_2.stl",
+      "category": "source"
+    },
+    {
+      "path": "workspace/src/smartfarm_description/meshes/sliding_lids_v3/transport/rail_n1_stop_n1.stl",
+      "bytes": 684,
+      "sha256": "93ed1231162f4d0b17c06716f3fb6bccf5d078d045e095e551b0fc5ea2ce114e",
+      "origin": "/home/bhc/manyfarm_ws/manyfarm_robotarm/src/smartfarm_description/meshes/sliding_lids_v3/transport/rail_n1_stop_n1.stl",
+      "category": "source"
+    },
+    {
+      "path": "workspace/src/smartfarm_description/meshes/sliding_lids_v3/transport/rail_n1_stop_p1.stl",
+      "bytes": 684,
+      "sha256": "f037130fb9f0fd6bfa18829b408b2f0fee4cacccf29f44ff792cb0451fde0c87",
+      "origin": "/home/bhc/manyfarm_ws/manyfarm_robotarm/src/smartfarm_description/meshes/sliding_lids_v3/transport/rail_n1_stop_p1.stl",
+      "category": "source"
+    },
+    {
+      "path": "workspace/src/smartfarm_description/meshes/sliding_lids_v3/transport/rail_p1_segment_1.stl",
+      "bytes": 69084,
+      "sha256": "57e612ba4281228b68dd80998d6a2cfcbc45b0a52ac5930efe488b454326cdce",
+      "origin": "/home/bhc/manyfarm_ws/manyfarm_robotarm/src/smartfarm_description/meshes/sliding_lids_v3/transport/rail_p1_segment_1.stl",
+      "category": "source"
+    },
+    {
+      "path": "workspace/src/smartfarm_description/meshes/sliding_lids_v3/transport/rail_p1_segment_2.stl",
+      "bytes": 69084,
+      "sha256": "8e66e4d96ed22666318a1de4a90a4fa593250a0f8083d5e7235242b5bb77ea27",
+      "origin": "/home/bhc/manyfarm_ws/manyfarm_robotarm/src/smartfarm_description/meshes/sliding_lids_v3/transport/rail_p1_segment_2.stl",
+      "category": "source"
+    },
+    {
+      "path": "workspace/src/smartfarm_description/meshes/sliding_lids_v3/transport/rail_p1_segment_3.stl",
+      "bytes": 69084,
+      "sha256": "43df61a57311f4351e07ec664a7102a3b363086a7fea5f2dc260526666d41463",
+      "origin": "/home/bhc/manyfarm_ws/manyfarm_robotarm/src/smartfarm_description/meshes/sliding_lids_v3/transport/rail_p1_segment_3.stl",
+      "category": "source"
+    },
+    {
+      "path": "workspace/src/smartfarm_description/meshes/sliding_lids_v3/transport/rail_p1_splice_1.stl",
+      "bytes": 64284,
+      "sha256": "163722460d407fc1025491d8477b77db80239b3f2e2265eceaf4e9c8520662b6",
+      "origin": "/home/bhc/manyfarm_ws/manyfarm_robotarm/src/smartfarm_description/meshes/sliding_lids_v3/transport/rail_p1_splice_1.stl",
+      "category": "source"
+    },
+    {
+      "path": "workspace/src/smartfarm_description/meshes/sliding_lids_v3/transport/rail_p1_splice_2.stl",
+      "bytes": 64284,
+      "sha256": "8306e23a1646de1f19a3bd5de1fb91cc9dcb3c56d1a6d0514112879ceeba388c",
+      "origin": "/home/bhc/manyfarm_ws/manyfarm_robotarm/src/smartfarm_description/meshes/sliding_lids_v3/transport/rail_p1_splice_2.stl",
+      "category": "source"
+    },
+    {
+      "path": "workspace/src/smartfarm_description/meshes/sliding_lids_v3/transport/rail_p1_stop_n1.stl",
+      "bytes": 684,
+      "sha256": "f447362ebf307499eaeb990bbda0fa562f3979383253fdc24c4b6aaccda6f89b",
+      "origin": "/home/bhc/manyfarm_ws/manyfarm_robotarm/src/smartfarm_description/meshes/sliding_lids_v3/transport/rail_p1_stop_n1.stl",
+      "category": "source"
+    },
+    {
+      "path": "workspace/src/smartfarm_description/meshes/sliding_lids_v3/transport/rail_p1_stop_p1.stl",
+      "bytes": 684,
+      "sha256": "cb70c6e37a1447bd79f2cabb2053517bec97f41ed9a671245e2b187fe923d4e5",
+      "origin": "/home/bhc/manyfarm_ws/manyfarm_robotarm/src/smartfarm_description/meshes/sliding_lids_v3/transport/rail_p1_stop_p1.stl",
+      "category": "source"
+    },
+    {
+      "path": "workspace/src/smartfarm_description/meshes/sliding_lids_v3/transport/rear_crossbar_end_shoe_n1.stl",
+      "bytes": 64984,
+      "sha256": "21e9f338a74443c6be83679bf3b791cf7fcd84952d0cd0432e3ebbc1866e254b",
+      "origin": "/home/bhc/manyfarm_ws/manyfarm_robotarm/src/smartfarm_description/meshes/sliding_lids_v3/transport/rear_crossbar_end_shoe_n1.stl",
+      "category": "source"
+    },
+    {
+      "path": "workspace/src/smartfarm_description/meshes/sliding_lids_v3/transport/rear_crossbar_end_shoe_p1.stl",
+      "bytes": 64984,
+      "sha256": "edf1b1202837180c6c3e199a52b0a6b549b0f1f83ba860083e4d483f7135481a",
+      "origin": "/home/bhc/manyfarm_ws/manyfarm_robotarm/src/smartfarm_description/meshes/sliding_lids_v3/transport/rear_crossbar_end_shoe_p1.stl",
+      "category": "source"
+    },
+    {
+      "path": "workspace/src/smartfarm_description/meshes/sliding_lids_v3/transport/rear_rail_frame_shoe_n1.stl",
+      "bytes": 97484,
+      "sha256": "dc03d6036c5fc28e70dae73c122ac56240e4f8fbf26d1a3c09c0fa2385ef23de",
+      "origin": "/home/bhc/manyfarm_ws/manyfarm_robotarm/src/smartfarm_description/meshes/sliding_lids_v3/transport/rear_rail_frame_shoe_n1.stl",
+      "category": "source"
+    },
+    {
+      "path": "workspace/src/smartfarm_description/meshes/sliding_lids_v3/transport/rear_rail_frame_shoe_p1.stl",
+      "bytes": 97484,
+      "sha256": "7f81610a048f463ccfff507314ad1aa6cc0c6a409868dd46cf830a8465b1fa42",
+      "origin": "/home/bhc/manyfarm_ws/manyfarm_robotarm/src/smartfarm_description/meshes/sliding_lids_v3/transport/rear_rail_frame_shoe_p1.stl",
+      "category": "source"
+    },
+    {
+      "path": "workspace/src/smartfarm_description/meshes/sliding_lids_v3/transport/reference_horn.stl",
+      "bytes": 63084,
+      "sha256": "cd88c478e25c7af2b258c89151632221f1a55117bb2153fe99417313468ac99d",
+      "origin": "/home/bhc/manyfarm_ws/manyfarm_robotarm/src/smartfarm_description/meshes/sliding_lids_v3/transport/reference_horn.stl",
+      "category": "source"
+    },
+    {
+      "path": "workspace/src/smartfarm_description/meshes/sliding_lids_v3/transport/reference_servo.stl",
+      "bytes": 684,
+      "sha256": "3eb51d291eb42d6d21f0fb766c4ffc8929b97cb7251e6e4fe1cf01ddfb434202",
+      "origin": "/home/bhc/manyfarm_ws/manyfarm_robotarm/src/smartfarm_description/meshes/sliding_lids_v3/transport/reference_servo.stl",
+      "category": "source"
+    },
+    {
+      "path": "workspace/src/smartfarm_description/meshes/sliding_lids_v3/transport_motors/cut_closed_rest_pad_n240_100.stl",
+      "bytes": 32484,
+      "sha256": "365614a5d452c810aa0d601e2074de07788977a59bbe0825bb21ad198d3fb112",
+      "origin": "/home/bhc/manyfarm_ws/manyfarm_robotarm/src/smartfarm_description/meshes/sliding_lids_v3/transport_motors/cut_closed_rest_pad_n240_100.stl",
+      "category": "source"
+    },
+    {
+      "path": "workspace/src/smartfarm_description/meshes/sliding_lids_v3/transport_motors/cut_closed_rest_pad_n240_n100.stl",
+      "bytes": 32484,
+      "sha256": "efa9a506398ba659e7a3d6426d1b9a10e1924d4a487bfb33ddd16c22add89e5f",
+      "origin": "/home/bhc/manyfarm_ws/manyfarm_robotarm/src/smartfarm_description/meshes/sliding_lids_v3/transport_motors/cut_closed_rest_pad_n240_n100.stl",
+      "category": "source"
+    },
+    {
+      "path": "workspace/src/smartfarm_description/meshes/sliding_lids_v3/transport_motors/cut_closed_rest_pad_n60_100.stl",
+      "bytes": 32484,
+      "sha256": "7b4b5dd7ab687ec5f6a4852a6abddb6fd99b8a56b78f4e15de4df3d1562ca5db",
+      "origin": "/home/bhc/manyfarm_ws/manyfarm_robotarm/src/smartfarm_description/meshes/sliding_lids_v3/transport_motors/cut_closed_rest_pad_n60_100.stl",
+      "category": "source"
+    },
+    {
+      "path": "workspace/src/smartfarm_description/meshes/sliding_lids_v3/transport_motors/cut_closed_rest_pad_n60_n100.stl",
+      "bytes": 32484,
+      "sha256": "f467d4a5f6b24b18909819c128262ae39d1a59c6028058c57153e7db357b957b",
+      "origin": "/home/bhc/manyfarm_ws/manyfarm_robotarm/src/smartfarm_description/meshes/sliding_lids_v3/transport_motors/cut_closed_rest_pad_n60_n100.stl",
+      "category": "source"
+    },
+    {
+      "path": "workspace/src/smartfarm_description/meshes/sliding_lids_v3/transport_motors/gate_bushing_carrier_p1.stl",
+      "bytes": 128884,
+      "sha256": "176bee5530333147d1a43d45dcc31689767f525d5d5097dc30a086eea6c0bdaf",
+      "origin": "/home/bhc/manyfarm_ws/manyfarm_robotarm/src/smartfarm_description/meshes/sliding_lids_v3/transport_motors/gate_bushing_carrier_p1.stl",
+      "category": "source"
+    },
+    {
+      "path": "workspace/src/smartfarm_description/meshes/sliding_lids_v3/transport_motors/gate_horn_to_8mm_split_adapter.stl",
+      "bytes": 317484,
+      "sha256": "f102378ded64b7ef1381c2eca9b4f39c8554d8cd63e1cf2c933b016e4ad6af55",
+      "origin": "/home/bhc/manyfarm_ws/manyfarm_robotarm/src/smartfarm_description/meshes/sliding_lids_v3/transport_motors/gate_horn_to_8mm_split_adapter.stl",
+      "category": "source"
+    },
+    {
+      "path": "workspace/src/smartfarm_description/meshes/sliding_lids_v3/transport_motors/gate_torque_adapter_n1.stl",
+      "bytes": 220684,
+      "sha256": "673444a1715022f02ac5825d974c3aa03c4f000d94376ab5d26c1d41c71a92be",
+      "origin": "/home/bhc/manyfarm_ws/manyfarm_robotarm/src/smartfarm_description/meshes/sliding_lids_v3/transport_motors/gate_torque_adapter_n1.stl",
+      "category": "source"
+    },
+    {
+      "path": "workspace/src/smartfarm_description/meshes/sliding_lids_v3/transport_motors/gate_torque_adapter_p1.stl",
+      "bytes": 220684,
+      "sha256": "55c4ee26fe2a3b5d70f4eea52367b791ee9f38caf841fc3d0195634468919430",
+      "origin": "/home/bhc/manyfarm_ws/manyfarm_robotarm/src/smartfarm_description/meshes/sliding_lids_v3/transport_motors/gate_torque_adapter_p1.stl",
+      "category": "source"
+    },
+    {
+      "path": "workspace/src/smartfarm_description/meshes/sliding_lids_v3/transport_motors/metal_gate_top_angle.stl",
+      "bytes": 64684,
+      "sha256": "74c52de0406d44dc04bab5a1dc9723af988f9b346c120085e5ca5131dba15030",
+      "origin": "/home/bhc/manyfarm_ws/manyfarm_robotarm/src/smartfarm_description/meshes/sliding_lids_v3/transport_motors/metal_gate_top_angle.stl",
+      "category": "source"
+    },
+    {
+      "path": "workspace/src/smartfarm_description/meshes/sliding_lids_v3/transport_motors/purchased_8mm_shaft_coupling.stl",
+      "bytes": 63284,
+      "sha256": "9d8c52967e106a8b4fa9d129d23d3f33846330d8461a6211448ec3713e5267ad",
+      "origin": "/home/bhc/manyfarm_ws/manyfarm_robotarm/src/smartfarm_description/meshes/sliding_lids_v3/transport_motors/purchased_8mm_shaft_coupling.stl",
+      "category": "source"
+    },
+    {
+      "path": "workspace/src/smartfarm_description/meshes/sliding_lids_v3/transport_motors/purchased_gate_bushing_n1.stl",
+      "bytes": 63284,
+      "sha256": "e0d45677795070c67f7d3f429592bf77941fa3e32f37b3819f8ace8319404dae",
+      "origin": "/home/bhc/manyfarm_ws/manyfarm_robotarm/src/smartfarm_description/meshes/sliding_lids_v3/transport_motors/purchased_gate_bushing_n1.stl",
+      "category": "source"
+    },
+    {
+      "path": "workspace/src/smartfarm_description/meshes/sliding_lids_v3/transport_motors/purchased_gate_bushing_p1.stl",
+      "bytes": 63284,
+      "sha256": "bcce38711f67e6627d6011fff5b21e93a5634f6947ebd36330614b10dead6512",
+      "origin": "/home/bhc/manyfarm_ws/manyfarm_robotarm/src/smartfarm_description/meshes/sliding_lids_v3/transport_motors/purchased_gate_bushing_p1.stl",
+      "category": "source"
+    },
+    {
+      "path": "workspace/src/smartfarm_description/meshes/sliding_lids_v3/transport_motors/purchased_gate_flange_hub_n1.stl",
+      "bytes": 222084,
+      "sha256": "298c72ac0fd9203f7c0be28b37e8b295465eabc58e1e3c87c2cd57a0f545a056",
+      "origin": "/home/bhc/manyfarm_ws/manyfarm_robotarm/src/smartfarm_description/meshes/sliding_lids_v3/transport_motors/purchased_gate_flange_hub_n1.stl",
+      "category": "source"
+    },
+    {
+      "path": "workspace/src/smartfarm_description/meshes/sliding_lids_v3/transport_motors/purchased_gate_flange_hub_p1.stl",
+      "bytes": 222084,
+      "sha256": "f7dbf6a8b0539e06a4df38f208f8835a3d6e791b5c6323e644da97dd540d9795",
+      "origin": "/home/bhc/manyfarm_ws/manyfarm_robotarm/src/smartfarm_description/meshes/sliding_lids_v3/transport_motors/purchased_gate_flange_hub_p1.stl",
+      "category": "source"
+    },
+    {
+      "path": "workspace/src/smartfarm_description/meshes/sliding_lids_v3/transport_motors/purchased_gate_servo_horn.stl",
+      "bytes": 63284,
+      "sha256": "b85c2a12a33db12bd93eff85003ac81e444211c1de1a0cfa7dd2e0c952e26159",
+      "origin": "/home/bhc/manyfarm_ws/manyfarm_robotarm/src/smartfarm_description/meshes/sliding_lids_v3/transport_motors/purchased_gate_servo_horn.stl",
+      "category": "source"
+    },
+    {
+      "path": "workspace/src/smartfarm_description/meshes/sliding_lids_v3/transport_motors/purchased_gate_stub_shaft_n1.stl",
+      "bytes": 31484,
+      "sha256": "c2969d30114ef3977c381a18c316ae796a5e0d96d35257460f3bbf37fae34c5f",
+      "origin": "/home/bhc/manyfarm_ws/manyfarm_robotarm/src/smartfarm_description/meshes/sliding_lids_v3/transport_motors/purchased_gate_stub_shaft_n1.stl",
+      "category": "source"
+    },
+    {
+      "path": "workspace/src/smartfarm_description/meshes/sliding_lids_v3/transport_motors/purchased_gate_stub_shaft_p1.stl",
+      "bytes": 31484,
+      "sha256": "94ade7196b4a268a1ad97d555e9b563f06497e7225f3b4b9938299bc1aa16a5a",
+      "origin": "/home/bhc/manyfarm_ws/manyfarm_robotarm/src/smartfarm_description/meshes/sliding_lids_v3/transport_motors/purchased_gate_stub_shaft_p1.stl",
+      "category": "source"
+    },
+    {
+      "path": "workspace/src/smartfarm_description/meshes/sliding_lids_v3/transport_motors/purchased_tilt_608_n1.stl",
+      "bytes": 63284,
+      "sha256": "11eda0449d114aba7166f9903aff575fe79a7c01e5cf9d508e2eab9e60e4213f",
+      "origin": "/home/bhc/manyfarm_ws/manyfarm_robotarm/src/smartfarm_description/meshes/sliding_lids_v3/transport_motors/purchased_tilt_608_n1.stl",
+      "category": "source"
+    },
+    {
+      "path": "workspace/src/smartfarm_description/meshes/sliding_lids_v3/transport_motors/purchased_tilt_608_p1.stl",
+      "bytes": 63284,
+      "sha256": "d439b36ae7403dfd2fcccbc47370d8fa554b4bebaf81c4fbf087905175ac2e2d",
+      "origin": "/home/bhc/manyfarm_ws/manyfarm_robotarm/src/smartfarm_description/meshes/sliding_lids_v3/transport_motors/purchased_tilt_608_p1.stl",
+      "category": "source"
+    },
+    {
+      "path": "workspace/src/smartfarm_description/meshes/sliding_lids_v3/transport_motors/purchased_tilt_flange_hub_n1.stl",
+      "bytes": 222084,
+      "sha256": "083f3eeb86121af23e111338eb6a9b0bf6c1d2083b52c7d19c2a8a42bd92d8e9",
+      "origin": "/home/bhc/manyfarm_ws/manyfarm_robotarm/src/smartfarm_description/meshes/sliding_lids_v3/transport_motors/purchased_tilt_flange_hub_n1.stl",
+      "category": "source"
+    },
+    {
+      "path": "workspace/src/smartfarm_description/meshes/sliding_lids_v3/transport_motors/purchased_tilt_flange_hub_p1.stl",
+      "bytes": 222084,
+      "sha256": "dc1968264d044ce6dafc67f6d13b9ae10007f2cbf24c001635ac70181e557b95",
+      "origin": "/home/bhc/manyfarm_ws/manyfarm_robotarm/src/smartfarm_description/meshes/sliding_lids_v3/transport_motors/purchased_tilt_flange_hub_p1.stl",
+      "category": "source"
+    },
+    {
+      "path": "workspace/src/smartfarm_description/meshes/sliding_lids_v3/transport_motors/purchased_tilt_inner_spacer_n1.stl",
+      "bytes": 63284,
+      "sha256": "bd6ce287ed49cefed576b8a45dab6020575b085f821cf8d842d7d2838d272f07",
+      "origin": "/home/bhc/manyfarm_ws/manyfarm_robotarm/src/smartfarm_description/meshes/sliding_lids_v3/transport_motors/purchased_tilt_inner_spacer_n1.stl",
+      "category": "source"
+    },
+    {
+      "path": "workspace/src/smartfarm_description/meshes/sliding_lids_v3/transport_motors/purchased_tilt_inner_spacer_p1.stl",
+      "bytes": 63284,
+      "sha256": "aa0a17237d2c3f82bf0bd16734276dd92cfbfca3be31b1f19f3fcf91a64691d1",
+      "origin": "/home/bhc/manyfarm_ws/manyfarm_robotarm/src/smartfarm_description/meshes/sliding_lids_v3/transport_motors/purchased_tilt_inner_spacer_p1.stl",
+      "category": "source"
+    },
+    {
+      "path": "workspace/src/smartfarm_description/meshes/sliding_lids_v3/transport_motors/purchased_tilt_outer_spacer_n1.stl",
+      "bytes": 63284,
+      "sha256": "fd3e27641650e7f8db608288d64fa3a749fcf322fc8f0589fc4968adcdb7cd57",
+      "origin": "/home/bhc/manyfarm_ws/manyfarm_robotarm/src/smartfarm_description/meshes/sliding_lids_v3/transport_motors/purchased_tilt_outer_spacer_n1.stl",
+      "category": "source"
+    },
+    {
+      "path": "workspace/src/smartfarm_description/meshes/sliding_lids_v3/transport_motors/purchased_tilt_outer_spacer_p1.stl",
+      "bytes": 63284,
+      "sha256": "f9c090fa44a8e3943c40fa54362072cf360736ecd68d3c206fbf6cc7414d51c9",
+      "origin": "/home/bhc/manyfarm_ws/manyfarm_robotarm/src/smartfarm_description/meshes/sliding_lids_v3/transport_motors/purchased_tilt_outer_spacer_p1.stl",
+      "category": "source"
+    },
+    {
+      "path": "workspace/src/smartfarm_description/meshes/sliding_lids_v3/transport_motors/purchased_tilt_shaft_collar_n1.stl",
+      "bytes": 63284,
+      "sha256": "f7bacb02ea079f784da214806227ea7c5de87d49e3dedadf00a1da40b3c7637a",
+      "origin": "/home/bhc/manyfarm_ws/manyfarm_robotarm/src/smartfarm_description/meshes/sliding_lids_v3/transport_motors/purchased_tilt_shaft_collar_n1.stl",
+      "category": "source"
+    },
+    {
+      "path": "workspace/src/smartfarm_description/meshes/sliding_lids_v3/transport_motors/purchased_tilt_shaft_collar_p1.stl",
+      "bytes": 63284,
+      "sha256": "fa138c04b66ad18db9257f5ed33920b46c7d7952c227a4e35ce98c55bdfa5e7f",
+      "origin": "/home/bhc/manyfarm_ws/manyfarm_robotarm/src/smartfarm_description/meshes/sliding_lids_v3/transport_motors/purchased_tilt_shaft_collar_p1.stl",
+      "category": "source"
+    },
+    {
+      "path": "workspace/src/smartfarm_description/meshes/sliding_lids_v3/transport_motors/purchased_tilt_shaft_n1.stl",
+      "bytes": 31484,
+      "sha256": "3b1d5a8439159edbf318a171e50198fc7a46f3adb12622c87452aeb59150fef6",
+      "origin": "/home/bhc/manyfarm_ws/manyfarm_robotarm/src/smartfarm_description/meshes/sliding_lids_v3/transport_motors/purchased_tilt_shaft_n1.stl",
+      "category": "source"
+    },
+    {
+      "path": "workspace/src/smartfarm_description/meshes/sliding_lids_v3/transport_motors/purchased_tilt_shaft_p1.stl",
+      "bytes": 31484,
+      "sha256": "562f084a31c66ed91a9794438ae9b48366a462fed987fa6ecdfdc22e8179a99d",
+      "origin": "/home/bhc/manyfarm_ws/manyfarm_robotarm/src/smartfarm_description/meshes/sliding_lids_v3/transport_motors/purchased_tilt_shaft_p1.stl",
+      "category": "source"
+    },
+    {
+      "path": "workspace/src/smartfarm_description/meshes/sliding_lids_v3/transport_motors/reference_5840_body.stl",
+      "bytes": 32284,
+      "sha256": "ee5f713aa11130c0ec427a0a6913ee349af3280d2ed778e3cf24779e957028a2",
+      "origin": "/home/bhc/manyfarm_ws/manyfarm_robotarm/src/smartfarm_description/meshes/sliding_lids_v3/transport_motors/reference_5840_body.stl",
+      "category": "source"
+    },
+    {
+      "path": "workspace/src/smartfarm_description/meshes/sliding_lids_v3/transport_motors/reference_5840_output_shaft.stl",
+      "bytes": 31484,
+      "sha256": "dfd7c3cc70a96583e3a3e6abd4c795ac46411be93b29fbf9ad33720dc1345805",
+      "origin": "/home/bhc/manyfarm_ws/manyfarm_robotarm/src/smartfarm_description/meshes/sliding_lids_v3/transport_motors/reference_5840_output_shaft.stl",
+      "category": "source"
+    },
+    {
+      "path": "workspace/src/smartfarm_description/meshes/sliding_lids_v3/transport_motors/reference_side_mg996r.stl",
+      "bytes": 684,
+      "sha256": "0b4104f07a9d996ba3f9ded680aa35a187a0b7b23fed706cf7dc793461c08bfb",
+      "origin": "/home/bhc/manyfarm_ws/manyfarm_robotarm/src/smartfarm_description/meshes/sliding_lids_v3/transport_motors/reference_side_mg996r.stl",
+      "category": "source"
+    },
+    {
+      "path": "workspace/src/smartfarm_description/meshes/sliding_lids_v3/transport_motors/side_mg996r_frame_cradle.stl",
+      "bytes": 323684,
+      "sha256": "cef2cdb3c2b7b36eb13e5c66c89331c894cc597afac9f2fd17bf5c6f9c3cc1bb",
+      "origin": "/home/bhc/manyfarm_ws/manyfarm_robotarm/src/smartfarm_description/meshes/sliding_lids_v3/transport_motors/side_mg996r_frame_cradle.stl",
+      "category": "source"
+    },
+    {
+      "path": "workspace/src/smartfarm_description/meshes/sliding_lids_v3/transport_motors/tilt_5840_mount_with_bearing.stl",
+      "bytes": 378284,
+      "sha256": "3e986500b798f32eb3e22b7fd3a81de43af7861cc92487f59dc50d78ee63b57d",
+      "origin": "/home/bhc/manyfarm_ws/manyfarm_robotarm/src/smartfarm_description/meshes/sliding_lids_v3/transport_motors/tilt_5840_mount_with_bearing.stl",
+      "category": "source"
+    },
+    {
+      "path": "workspace/src/smartfarm_description/meshes/sliding_lids_v3/transport_motors/tilt_bearing_carrier_n1.stl",
+      "bytes": 221484,
+      "sha256": "f83ad47b6f33840f675f86d0d86c8a5c929fb8b9146fe717f2542cd8b0ee7965",
+      "origin": "/home/bhc/manyfarm_ws/manyfarm_robotarm/src/smartfarm_description/meshes/sliding_lids_v3/transport_motors/tilt_bearing_carrier_n1.stl",
+      "category": "source"
+    },
+    {
+      "path": "workspace/src/smartfarm_description/meshes/sliding_lids_v3/transport_motors/tilt_torque_cheek_n1.stl",
+      "bytes": 248484,
+      "sha256": "b7b1bb803c1e417772f764fef547b2f563bba44f0016a9bb992e25055f7adc96",
+      "origin": "/home/bhc/manyfarm_ws/manyfarm_robotarm/src/smartfarm_description/meshes/sliding_lids_v3/transport_motors/tilt_torque_cheek_n1.stl",
+      "category": "source"
+    },
+    {
+      "path": "workspace/src/smartfarm_description/meshes/sliding_lids_v3/transport_motors/tilt_torque_cheek_p1.stl",
+      "bytes": 248484,
+      "sha256": "ace3c4aba668f1f6b593e537da2ba4277fe8d0b38c9527d9c0cd510d664fef6d",
+      "origin": "/home/bhc/manyfarm_ws/manyfarm_robotarm/src/smartfarm_description/meshes/sliding_lids_v3/transport_motors/tilt_torque_cheek_p1.stl",
+      "category": "source"
+    },
+    {
+      "path": "workspace/src/smartfarm_description/meshes/transport/lds.stl",
+      "bytes": 728384,
+      "sha256": "98f0bd7046159f83caab9509293112ef13534368535669124b91b5114c3132f6",
+      "origin": "/home/bhc/manyfarm_ws/manyfarm_robotarm/src/smartfarm_description/meshes/transport/lds.stl",
+      "category": "source"
+    },
+    {
+      "path": "workspace/src/smartfarm_description/meshes/transport/left_tire.stl",
+      "bytes": 1083684,
+      "sha256": "578c9452ee51c2f71e5e6723b503d784e58a6ac317fa53ee308e645f204c8d6a",
+      "origin": "/home/bhc/manyfarm_ws/manyfarm_robotarm/src/smartfarm_description/meshes/transport/left_tire.stl",
+      "category": "source"
+    },
+    {
+      "path": "workspace/src/smartfarm_description/meshes/transport/right_tire.stl",
+      "bytes": 1083684,
+      "sha256": "407aaf271ba7051c6186b220e1dc36b2a6eca688fced66a3347f49747b684596",
+      "origin": "/home/bhc/manyfarm_ws/manyfarm_robotarm/src/smartfarm_description/meshes/transport/right_tire.stl",
+      "category": "source"
+    },
+    {
+      "path": "workspace/src/smartfarm_description/meshes/transport/waffle_base.stl",
+      "bytes": 16291984,
+      "sha256": "fcc85458c31f6c4bf2afdc93469128c49723189c5a4c07b8c91baebc132e9a0d",
+      "origin": "/home/bhc/manyfarm_ws/manyfarm_robotarm/src/smartfarm_description/meshes/transport/waffle_base.stl",
+      "category": "source"
+    },
+    {
+      "path": "workspace/src/smartfarm_description/scripts/fetch_hcr3a_cad.py",
+      "bytes": 1504,
+      "sha256": "55733f894bc8ddd229d8e92392bfa6d4609120411e820d70b718fdab24dcfc74",
+      "origin": "/home/bhc/manyfarm_ws/manyfarm_robotarm/src/smartfarm_description/scripts/fetch_hcr3a_cad.py",
+      "category": "source"
+    },
+    {
+      "path": "workspace/src/smartfarm_description/scripts/generate_hcr3a.py",
+      "bytes": 4765,
+      "sha256": "2da61cd6bb8d0a4a3378cba144b692f31fb6fc91ad9687c7b32dd594905f9e24",
+      "origin": "/home/bhc/manyfarm_ws/manyfarm_robotarm/src/smartfarm_description/scripts/generate_hcr3a.py",
+      "category": "source"
+    },
+    {
+      "path": "workspace/src/smartfarm_description/scripts/hcr3a_environment.py",
+      "bytes": 6109,
+      "sha256": "69315e9d92fed2277d1215586c4c53033f066988cae7a1a6ff559e4d9f693d5d",
+      "origin": "/home/bhc/manyfarm_ws/manyfarm_robotarm/src/smartfarm_description/scripts/hcr3a_environment.py",
+      "category": "source"
+    },
+    {
+      "path": "workspace/src/smartfarm_description/scripts/model_geometry.py",
+      "bytes": 4555,
+      "sha256": "c5ddb7b743e86827753bcbf7a9277049da16769eac28d0d95c5391a4377bbfb0",
+      "origin": "/home/bhc/manyfarm_ws/manyfarm_robotarm/src/smartfarm_description/scripts/model_geometry.py",
+      "category": "source"
+    },
+    {
+      "path": "workspace/src/smartfarm_description/urdf/hcr3a_functional.urdf",
+      "bytes": 10741,
+      "sha256": "bf698ccf5a9b118415cfed911fe72330c21c23ade95e4b844f0aa19b655e81eb",
+      "origin": "/home/bhc/manyfarm_ws/manyfarm_robotarm/src/smartfarm_description/urdf/hcr3a_functional.urdf",
+      "category": "source"
+    },
+    {
+      "path": "workspace/src/smartfarm_description/urdf/transport_robot.portable.urdf",
+      "bytes": 77231,
+      "sha256": "ddbdcfae4b5d2f30ab80e5a4706d963c6438ee98d0a6fb594a5984a3680ab938",
+      "origin": "/home/bhc/manyfarm_ws/manyfarm_robotarm/src/smartfarm_description/urdf/transport_robot.portable.urdf",
+      "category": "source"
+    },
+    {
+      "path": "workspace/src/smartfarm_description/urdf/transport_robot.urdf",
+      "bytes": 82567,
+      "sha256": "6b0338d0cdec0a696f7195d2e5f124fa363c5bfa9f5316b2247889395a7c691d",
+      "origin": "/home/bhc/manyfarm_ws/manyfarm_robotarm/src/smartfarm_description/urdf/transport_robot.urdf",
+      "category": "source"
+    },
+    {
+      "path": "workspace/src/smartfarm_interfaces/CMakeLists.txt",
+      "bytes": 309,
+      "sha256": "ce0fae6d742a1775d248a45cb44a5fe1eeb3af82d09704c9f0a157cdfce76d2e",
+      "origin": "/home/bhc/manyfarm_ws/manyfarm_robotarm/src/smartfarm_interfaces/CMakeLists.txt",
+      "category": "source"
+    },
+    {
+      "path": "workspace/src/smartfarm_interfaces/README.md",
+      "bytes": 348,
+      "sha256": "1d693da130708ca3d98708f0ec4fd5f789a666e7cdf57cb344b3f2a1819ee851",
+      "origin": "/home/bhc/manyfarm_ws/manyfarm_robotarm/src/smartfarm_interfaces/README.md",
+      "category": "source"
+    },
+    {
+      "path": "workspace/src/smartfarm_interfaces/action/SortBatch.action",
+      "bytes": 341,
+      "sha256": "a183b377ec96ce67b5b80b89cdba3f39ba175992e4d744ca611013ffa2bce342",
+      "origin": "/home/bhc/manyfarm_ws/manyfarm_robotarm/src/smartfarm_interfaces/action/SortBatch.action",
+      "category": "source"
+    },
+    {
+      "path": "workspace/src/smartfarm_interfaces/msg/SorterStatus.msg",
+      "bytes": 193,
+      "sha256": "f201df19c9a5567f91aff56388ea79b4435c8a097427bf190438f02c2ebe2b83",
+      "origin": "/home/bhc/manyfarm_ws/manyfarm_robotarm/src/smartfarm_interfaces/msg/SorterStatus.msg",
+      "category": "source"
+    },
+    {
+      "path": "workspace/src/smartfarm_interfaces/package.xml",
+      "bytes": 553,
+      "sha256": "b0bc06d5f23c5568b7e58b021ace559945a21732c050bf1fe42c839d189353a4",
+      "origin": "/home/bhc/manyfarm_ws/manyfarm_robotarm/src/smartfarm_interfaces/package.xml",
+      "category": "source"
+    },
+    {
+      "path": "workspace/src/sorting_station/hcr/zone_preview.py",
+      "bytes": 11463,
+      "sha256": "c3df6a18e2540a4b57e1d419d5cd268b37277c6ec226d55393fef9ac35498601",
+      "origin": "/home/bhc/manyfarm_ws/manyfarm_robotarm/src/sorting_station/hcr/zone_preview.py",
+      "category": "source"
+    },
+    {
+      "path": "workspace/src/sorting_station/hcr_sim/README.md",
+      "bytes": 20742,
+      "sha256": "6b2c5cbbec2b16fc62e78e40d03f316474c12a88fab43eeeb58bf53242911af1",
+      "origin": "/home/bhc/manyfarm_ws/manyfarm_robotarm/src/sorting_station/hcr_sim/README.md",
+      "category": "source"
+    },
+    {
+      "path": "workspace/src/sorting_station/hcr_sim/VALIDATION.md",
+      "bytes": 21488,
+      "sha256": "1560da6d48af0daa266b05fe0d49f312306ed31f1d997aae0a7188bdf7af9b4e",
+      "origin": "/home/bhc/manyfarm_ws/manyfarm_robotarm/src/sorting_station/hcr_sim/VALIDATION.md",
+      "category": "source"
+    },
+    {
+      "path": "workspace/src/sorting_station/hcr_sim/__init__.py",
+      "bytes": 74,
+      "sha256": "34cd054b1e7a87fb818d0c8fa8ade8b835a7d60e13019bfe0f4ca8c60dbf9b9f",
+      "origin": "/home/bhc/manyfarm_ws/manyfarm_robotarm/src/sorting_station/hcr_sim/__init__.py",
+      "category": "source"
+    },
+    {
+      "path": "workspace/src/sorting_station/hcr_sim/control.py",
+      "bytes": 13426,
+      "sha256": "e41c0ab7c0e62096307dea4c53bc8dd7ab3b823690bc88eddee670f39464b367",
+      "origin": "/home/bhc/manyfarm_ws/manyfarm_robotarm/src/sorting_station/hcr_sim/control.py",
+      "category": "source"
+    },
+    {
+      "path": "workspace/src/sorting_station/hcr_sim/cv_window.py",
+      "bytes": 5976,
+      "sha256": "f1178d97bb06484e847454f9aa928f694b896e48dfb33a146379a85a485472a5",
+      "origin": "/home/bhc/manyfarm_ws/manyfarm_robotarm/src/sorting_station/hcr_sim/cv_window.py",
+      "category": "source"
+    },
+    {
+      "path": "workspace/src/sorting_station/hcr_sim/link.py",
+      "bytes": 1529,
+      "sha256": "19dc3438ee7abf93be226db176d3394096cb3286afb8f1fb08e951760e39470e",
+      "origin": "/home/bhc/manyfarm_ws/manyfarm_robotarm/src/sorting_station/hcr_sim/link.py",
+      "category": "source"
+    },
+    {
+      "path": "workspace/src/sorting_station/hcr_sim/model.py",
+      "bytes": 6047,
+      "sha256": "d1f26fca18ef307fb177e62a4767793821a7dfb3250db744f7141dca36ad6a3d",
+      "origin": "/home/bhc/manyfarm_ws/manyfarm_robotarm/src/sorting_station/hcr_sim/model.py",
+      "category": "source"
+    },
+    {
+      "path": "workspace/src/sorting_station/hcr_sim/payload.py",
+      "bytes": 3129,
+      "sha256": "2dab566c76e19a52cc11410030d2eb947dd17c49c2435a49bf581751e32d32ba",
+      "origin": "/home/bhc/manyfarm_ws/manyfarm_robotarm/src/sorting_station/hcr_sim/payload.py",
+      "category": "source"
+    },
+    {
+      "path": "workspace/src/sorting_station/hcr_sim/scene.py",
+      "bytes": 8483,
+      "sha256": "5cfd6d6d2f1be0c00c7743e287691669316b67fa5c74b0bef32753419741e76a",
+      "origin": "/home/bhc/manyfarm_ws/manyfarm_robotarm/src/sorting_station/hcr_sim/scene.py",
+      "category": "source"
+    },
+    {
+      "path": "workspace/src/sorting_station/hcr_sim/tests/ros_goal_probe.py",
+      "bytes": 4024,
+      "sha256": "eecfba21bc59b18f612722074f6dbe00f467e745b8867715167745587485dd0b",
+      "origin": "/home/bhc/manyfarm_ws/manyfarm_robotarm/src/sorting_station/hcr_sim/tests/ros_goal_probe.py",
+      "category": "source"
+    },
+    {
+      "path": "workspace/src/sorting_station/hcr_sim/tests/test_control.py",
+      "bytes": 4659,
+      "sha256": "543058c3659f6f1e14227f5babd43de1343b71baf7b3b060fdd3664d6953b20b",
+      "origin": "/home/bhc/manyfarm_ws/manyfarm_robotarm/src/sorting_station/hcr_sim/tests/test_control.py",
+      "category": "source"
+    },
+    {
+      "path": "workspace/src/sorting_station/hcr_sim/tests/test_link.py",
+      "bytes": 1400,
+      "sha256": "ba2058d3b815c588c83086eedc3e2821aeb6e7d3ceb2093745d3bf5009ba4790",
+      "origin": "/home/bhc/manyfarm_ws/manyfarm_robotarm/src/sorting_station/hcr_sim/tests/test_link.py",
+      "category": "source"
+    },
+    {
+      "path": "workspace/src/sorting_station/hcr_sim/tests/test_model.py",
+      "bytes": 2369,
+      "sha256": "066be7983e801e28c220d5732c3bb3ab625f81405e80f924592d74140cfb0db7",
+      "origin": "/home/bhc/manyfarm_ws/manyfarm_robotarm/src/sorting_station/hcr_sim/tests/test_model.py",
+      "category": "source"
+    },
+    {
+      "path": "workspace/src/sorting_station/hcr_sim/tests/test_payload.py",
+      "bytes": 2545,
+      "sha256": "5237fa3bb13f96a93c43ac8b9567ff0d03bea1ecaedb7bda01801a3ef28a0b04",
+      "origin": "/home/bhc/manyfarm_ws/manyfarm_robotarm/src/sorting_station/hcr_sim/tests/test_payload.py",
+      "category": "source"
+    },
+    {
+      "path": "workspace/src/sorting_station/hcr_sim/tests/test_transport.py",
+      "bytes": 4313,
+      "sha256": "5a1ae76ff78e8ff83f140cd92f4fbe4f78fb700f6e65105650642f9e5f1a3974",
+      "origin": "/home/bhc/manyfarm_ws/manyfarm_robotarm/src/sorting_station/hcr_sim/tests/test_transport.py",
+      "category": "source"
+    },
+    {
+      "path": "workspace/src/sorting_station/hcr_sim/tests/test_transport_asset.py",
+      "bytes": 3267,
+      "sha256": "c6c6a893343846cfcd0c51276a552290d81281657a9290d0bc925db898504ac5",
+      "origin": "/home/bhc/manyfarm_ws/manyfarm_robotarm/src/sorting_station/hcr_sim/tests/test_transport_asset.py",
+      "category": "source"
+    },
+    {
+      "path": "workspace/src/sorting_station/hcr_sim/tests/test_vision_gui.py",
+      "bytes": 4861,
+      "sha256": "e933f2a694f55f7f378c1b5cab4780fd1321db88815083635f8417301eda8c72",
+      "origin": "/home/bhc/manyfarm_ws/manyfarm_robotarm/src/sorting_station/hcr_sim/tests/test_vision_gui.py",
+      "category": "source"
+    },
+    {
+      "path": "workspace/src/sorting_station/hcr_sim/transport.py",
+      "bytes": 8356,
+      "sha256": "b60f3c6eb32cbad32411600ce0ccaf3023db2407b9b9ea6cb7490c199fcec4e1",
+      "origin": "/home/bhc/manyfarm_ws/manyfarm_robotarm/src/sorting_station/hcr_sim/transport.py",
+      "category": "source"
+    },
+    {
+      "path": "workspace/src/sorting_station/hcr_sim/transport_asset.py",
+      "bytes": 9117,
+      "sha256": "b45aec29e728214ccb700cee633df214a308713eaf0b363b63bc05a58f3d64f7",
+      "origin": "/home/bhc/manyfarm_ws/manyfarm_robotarm/src/sorting_station/hcr_sim/transport_asset.py",
+      "category": "source"
+    },
+    {
+      "path": "workspace/src/sorting_station/hcr_sim/vision.py",
+      "bytes": 8000,
+      "sha256": "475234d2307145beeecb9893e52d916c8cd1d1aed0b2a49a8ebb4762c1ac84f0",
+      "origin": "/home/bhc/manyfarm_ws/manyfarm_robotarm/src/sorting_station/hcr_sim/vision.py",
+      "category": "source"
+    },
+    {
+      "path": "workspace/src/sorting_station/hcr_sorting/README.md",
+      "bytes": 10882,
+      "sha256": "ce19d2ef2f88ade6c055a4fd261cb052592ec06dca16ed22785e0c0c329bab3b",
+      "origin": "/home/bhc/manyfarm_ws/manyfarm_robotarm/src/sorting_station/hcr_sorting/README.md",
+      "category": "source"
+    },
+    {
+      "path": "workspace/src/sorting_station/hcr_sorting/RODI_PROGRAMMING_GUIDE_KR.md",
+      "bytes": 15341,
+      "sha256": "04bbd9d405bd702dcd72949bf79002b2fc54bd798f0bae6ce902cae476b65367",
+      "origin": "/home/bhc/manyfarm_ws/manyfarm_robotarm/src/sorting_station/hcr_sorting/RODI_PROGRAMMING_GUIDE_KR.md",
+      "category": "source"
+    },
+    {
+      "path": "workspace/src/sorting_station/hcr_sorting/hcr_sorting/__init__.py",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "origin": "/home/bhc/manyfarm_ws/manyfarm_robotarm/src/sorting_station/hcr_sorting/hcr_sorting/__init__.py",
+      "category": "source"
+    },
+    {
+      "path": "workspace/src/sorting_station/hcr_sorting/hcr_sorting/core.py",
+      "bytes": 10276,
+      "sha256": "d3444de583224f95db1cdb41c77e8bdcb1e1ed5fec0b8e2602832afcc09c91d7",
+      "origin": "/home/bhc/manyfarm_ws/manyfarm_robotarm/src/sorting_station/hcr_sorting/hcr_sorting/core.py",
+      "category": "source"
+    },
+    {
+      "path": "workspace/src/sorting_station/hcr_sorting/hcr_sorting/dummy_control.py",
+      "bytes": 6696,
+      "sha256": "56e2a2b1a4b50b10f0e70dcdced3003a5d3f778196eeac5eb85a3bad0c6ae9b7",
+      "origin": "/home/bhc/manyfarm_ws/manyfarm_robotarm/src/sorting_station/hcr_sorting/hcr_sorting/dummy_control.py",
+      "category": "source"
+    },
+    {
+      "path": "workspace/src/sorting_station/hcr_sorting/hcr_sorting/mock_hcr.py",
+      "bytes": 2107,
+      "sha256": "d136cd1d968e2b2e221d08a2be18623c73532f528fed382bb59df1abbedf31a1",
+      "origin": "/home/bhc/manyfarm_ws/manyfarm_robotarm/src/sorting_station/hcr_sorting/hcr_sorting/mock_hcr.py",
+      "category": "source"
+    },
+    {
+      "path": "workspace/src/sorting_station/hcr_sorting/hcr_sorting/modbus.py",
+      "bytes": 3841,
+      "sha256": "ea49ad7a84f3133e94125716a3fe5d768588e6c8eb2fbab1eeab8a00543fccd2",
+      "origin": "/home/bhc/manyfarm_ws/manyfarm_robotarm/src/sorting_station/hcr_sorting/hcr_sorting/modbus.py",
+      "category": "source"
+    },
+    {
+      "path": "workspace/src/sorting_station/hcr_sorting/hcr_sorting/node.py",
+      "bytes": 7216,
+      "sha256": "74cbe87ba324e4f4436ffc4478063df6675fef9b82b343eb599b54b72076b312",
+      "origin": "/home/bhc/manyfarm_ws/manyfarm_robotarm/src/sorting_station/hcr_sorting/hcr_sorting/node.py",
+      "category": "source"
+    },
+    {
+      "path": "workspace/src/sorting_station/hcr_sorting/package.xml",
+      "bytes": 502,
+      "sha256": "1d1ff9ee6a337fcd0b9dfc39f768fa4e60e1fc9efb93d68c57e6ad4f336e76ac",
+      "origin": "/home/bhc/manyfarm_ws/manyfarm_robotarm/src/sorting_station/hcr_sorting/package.xml",
+      "category": "source"
+    },
+    {
+      "path": "workspace/src/sorting_station/hcr_sorting/resource/hcr_sorting",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "origin": "/home/bhc/manyfarm_ws/manyfarm_robotarm/src/sorting_station/hcr_sorting/resource/hcr_sorting",
+      "category": "source"
+    },
+    {
+      "path": "workspace/src/sorting_station/hcr_sorting/setup.cfg",
+      "bytes": 91,
+      "sha256": "2c1307b550125b03a8d025635956a4a0718fbc46e190c7af99709b01bef9a201",
+      "origin": "/home/bhc/manyfarm_ws/manyfarm_robotarm/src/sorting_station/hcr_sorting/setup.cfg",
+      "category": "source"
+    },
+    {
+      "path": "workspace/src/sorting_station/hcr_sorting/setup.py",
+      "bytes": 548,
+      "sha256": "b22f3e5ed604cde63496e35fcc0c7572426ba53372965eff7d76878eff2052e3",
+      "origin": "/home/bhc/manyfarm_ws/manyfarm_robotarm/src/sorting_station/hcr_sorting/setup.py",
+      "category": "source"
+    },
+    {
+      "path": "workspace/src/sorting_station/hcr_sorting/tests/ros_integration.py",
+      "bytes": 5001,
+      "sha256": "cfb5b4ccd56b4c0e9f6fd0fa6675d0545137cbe0040428826fc7311ec7b6b18f",
+      "origin": "/home/bhc/manyfarm_ws/manyfarm_robotarm/src/sorting_station/hcr_sorting/tests/ros_integration.py",
+      "category": "source"
+    },
+    {
+      "path": "workspace/src/sorting_station/hcr_sorting/tests/test_core.py",
+      "bytes": 5463,
+      "sha256": "1ce65b4934da14f6544d1ae58164f47f31ab6a6986c585569cd847269262a996",
+      "origin": "/home/bhc/manyfarm_ws/manyfarm_robotarm/src/sorting_station/hcr_sorting/tests/test_core.py",
+      "category": "source"
+    },
+    {
+      "path": "workspace/src/sorting_station/hcr_sorting/tests/test_modbus.py",
+      "bytes": 2068,
+      "sha256": "98a4417567db10449afb274c03aa0ece27c113c0d1c4e902773ec893f2ec5a55",
+      "origin": "/home/bhc/manyfarm_ws/manyfarm_robotarm/src/sorting_station/hcr_sorting/tests/test_modbus.py",
+      "category": "source"
+    },
+    {
+      "path": "workspace/src/sorting_station/run_hcr_sim.py",
+      "bytes": 21901,
+      "sha256": "59040474d0c7187c0391716547d1abd393e52d76865dfb4de859ab59ea42e0e8",
+      "origin": "/home/bhc/manyfarm_ws/manyfarm_robotarm/src/sorting_station/run_hcr_sim.py",
+      "category": "source"
+    },
+    {
+      "path": "workspace/src/sorting_station/run_hcr_sim.sh",
+      "bytes": 384,
+      "sha256": "e97f3a008e07c20f027c150f6433d9d22dfeef2c97ad98d1cd60d4edf5626515",
+      "origin": "/home/bhc/manyfarm_ws/manyfarm_robotarm/src/sorting_station/run_hcr_sim.sh",
+      "category": "source"
+    },
+    {
+      "path": "workspace/src/sorting_station/sorting_sim/__init__.py",
+      "bytes": 462,
+      "sha256": "5decc18eb7f57ad2b17117f195f9be28a06bee197c60437d18c09d622323e6ec",
+      "origin": "/home/bhc/manyfarm_ws/manyfarm_robotarm/src/sorting_station/sorting_sim/__init__.py",
+      "category": "source"
+    },
+    {
+      "path": "workspace/src/sorting_station/sorting_sim/assets.py",
+      "bytes": 10445,
+      "sha256": "9af0cd21cb943d6bf11793ae11d674c2ea6716f7d69db1cc624edb75210713c6",
+      "origin": "/home/bhc/manyfarm_ws/manyfarm_robotarm/src/sorting_station/sorting_sim/assets.py",
+      "category": "source"
+    },
+    {
+      "path": "workspace/src/sorting_station/sorting_sim/settings.py",
+      "bytes": 2180,
+      "sha256": "21da94496af38cc2e5241c14b5cc8cb4ae64ce4b534ef7f4c788422c6de107a7",
+      "origin": "/home/bhc/manyfarm_ws/manyfarm_robotarm/src/sorting_station/sorting_sim/settings.py",
+      "category": "source"
+    }
+  ]
+}

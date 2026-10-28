@@ -1,0 +1,81 @@
+{
+  "source_commit": "9686aca909cb52191862ee3500c62fadf7a8ed38",
+  "scope": "farm model + BucketUnload + virtual existing-fruit deposit + clearance + SortBatch + ReturnToStation",
+  "domain": 13,
+  "discovery": "SUBNET",
+  "initial_xy": [
+    -6.655,
+    11.5
+  ],
+  "initial_yaw": 1.7654431305110627,
+  "initial_pose_only": true,
+  "truth_injected_into_control": false,
+  "traffic_enabled": false,
+  "fresh_scout": false,
+  "handoff_tested": false,
+  "frontend_http_tested": false,
+  "virtual_mechanism": true,
+  "fruit_physics_tested": true,
+  "count_valid": false,
+  "unload_guard": "own task WAITING_FOR_UNLOAD then UNLOADING_STARTED; fresh odom stopped 0.8s; one completion",
+  "original_sorter_distance_handoff": {
+    "enabled": true,
+    "station_id": "SORT_01",
+    "observation_start_node": 15,
+    "approach_end_node": 17,
+    "docking_profile": "sort_01_distance_trial",
+    "marker_id": 40,
+    "samples": 5,
+    "max_age_s": 0.3,
+    "min_marker_forward_m": 0.25,
+    "max_marker_forward_m": 1.5,
+    "max_bearing_rad": 0.15,
+    "max_heading_error_rad": 0.2,
+    "corridor_half_width_m": 0.12
+  },
+  "selected_sorter_distance_handoff": {
+    "enabled": true,
+    "station_id": "SORT_01",
+    "observation_start_node": 9001,
+    "approach_end_node": 8004,
+    "docking_profile": "sort_01_distance_trial",
+    "marker_id": 40,
+    "samples": 5,
+    "max_age_s": 0.3,
+    "min_marker_forward_m": 0.25,
+    "max_marker_forward_m": 1.5,
+    "max_bearing_rad": 0.15,
+    "max_heading_error_rad": 0.2,
+    "corridor_half_width_m": 0.12
+  },
+  "original_unload_workflows": {
+    "SORT_01": {
+      "assume_unload_ready": false,
+      "ready_timeout_s": 60.0,
+      "auto_clear": true,
+      "clearance_profile": "sort_departure_distance_trial",
+      "marker_id": 40,
+      "allow_bounded_clearance_trial": true
+    }
+  },
+  "selected_unload_workflows": {
+    "SORT_01": {
+      "assume_unload_ready": false,
+      "ready_timeout_s": 60.0,
+      "auto_clear": true,
+      "clearance_profile": "sort_departure_distance_trial",
+      "marker_id": 40,
+      "allow_bounded_clearance_trial": true
+    }
+  },
+  "numeric_control_changes": [],
+  "integrated_sorting": true,
+  "sorting_output": "/home/ysy/main/farm_project/sim/runs/hcr3a_farm_cycle_20261028/attempt10/sorting",
+  "fruit_paths": [
+    "/World/Vegetation/Bed_01/Fruits/Pepper_0004_red",
+    "/World/Vegetation/Bed_01/Fruits/Pepper_0001_yellow"
+  ],
+  "actual_harvest_tested": false,
+  "original_fruit_identity_preserved": true,
+  "source_hcr_geometry_unchanged": true
+}

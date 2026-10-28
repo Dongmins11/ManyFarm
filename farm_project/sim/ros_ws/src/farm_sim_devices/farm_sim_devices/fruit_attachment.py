@@ -212,6 +212,25 @@ class FruitAttachments:
             angular_restoring_k_Nm_rad=float(self.settings.angular_k),
             attachment_model='world_anchor_spring_and_initial_orientation_torque')
 
+    def relocate_detached(self, paths: Sequence[str], positions: np.ndarray,
+                          orientations: np.ndarray, *, fixture: bool = False) -> None:
+        """가상 인계 장치가 기존 과실을 이동한다. fixture 이외에는 수확 분리 증거가 필수다."""
+        indices = np.array([self.paths.index(path) for path in paths], dtype=np.int32)
+        positions, orientations = np.asarray(positions), np.asarray(orientations)
+        if (not len(indices) or len(set(paths)) != len(indices)
+                or positions.shape != (len(indices), 3) or orientations.shape != (len(indices), 4)
+                or not np.isfinite(positions).all() or not np.isfinite(orientations).all()
+                or not np.allclose(np.linalg.norm(orientations, axis=1), 1.)):
+            raise ValueError('가상 인계 pose/과실 목록 오류')
+        if not fixture and self.attached[indices].any():
+            raise ValueError('수확되지 않은 부착 과실을 투입할 수 없습니다.')
+        self.attached[indices] = False
+        self.timer[indices] = 0.
+        self.set_active(np.union1d(np.flatnonzero(self.active), indices).astype(np.int32))
+        self.view.set_world_poses(positions=positions, orientations=orientations, indices=indices)
+        self.view.set_velocities(np.zeros((len(indices), 6)), indices=indices)
+        self._cached_positions[indices], self._cached_orientations[indices] = positions, orientations
+
     def set_active(self, indices: Sequence[int]) -> None:
         """요청 과실과 분리 과실은 dynamic으로 유지하고, 정지한 부착 과실만 freeze한다.
 

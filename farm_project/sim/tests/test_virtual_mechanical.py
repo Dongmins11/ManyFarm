@@ -6,6 +6,7 @@ from types import SimpleNamespace
 from farm_sim_devices.mechanical_ros import MechanicalRosServer
 from farm_interfaces.action import MechanicalOperation
 from rclpy.action import GoalResponse
+from std_srvs.srv import Trigger
 
 class VirtualMechanicalTests(unittest.TestCase):
     def setUp(self):
@@ -14,8 +15,8 @@ class VirtualMechanicalTests(unittest.TestCase):
         self.s.busy=False;self.s.task=None;self.s.lid_open=False;self.s.received=0.
         self.now=10.
         self.s.node=SimpleNamespace(get_clock=lambda:SimpleNamespace(now=lambda:SimpleNamespace(nanoseconds=round(self.now*1e9))),
-            get_logger=lambda:SimpleNamespace(info=lambda message:None))
-        self.proof=dict(sim_time_s=10.,hold_pass=True,coverage=.721)
+            get_logger=lambda:SimpleNamespace(info=lambda message:None,warning=lambda message:None))
+        self.proof=dict(sim_time_s=10.,hold_pass=True,coverage=.721,wheel_stopped=True,world_stopped=True)
         self.s.observe('session1',self.proof)
     def request(self,operation='LID_OPEN',task='task1'):
         return MechanicalOperation.Goal(task_id=task,operation=operation)
@@ -47,5 +48,33 @@ class VirtualMechanicalTests(unittest.TestCase):
         r,terminal=self.execute(q);self.assertEqual(terminal,['ABORTED']);self.assertFalse(r.success)
     def test_concurrent_goal_rejected(self):
         q=self.request();self.s.goal(q);self.assertEqual(self.s.goal(q),GoalResponse.REJECT)
+
+    def test_trigger_uses_alignment_and_preserves_action_ownership(self):
+        self.proof['hold_pass']=False
+        self.assertFalse(self.s.open_lid(None,Trigger.Response()).success)
+        self.proof['hold_pass']=True
+        self.assertTrue(self.s.open_lid(None,Trigger.Response()).success)
+        self.assertEqual(self.s.goal(self.request('LID_CLOSE')),GoalResponse.REJECT)
+        self.assertTrue(self.s.stop_device(None,Trigger.Response()).success)
+        self.assertTrue(self.s.lid_open)  # STOP은 자동 닫힘이 아니다.
+        self.assertTrue(self.s.close_lid(None,Trigger.Response()).success)
+        self.assertFalse(self.s.unsupported_unload(None,Trigger.Response()).success)
+
+    def test_trigger_rejects_stale_or_busy_device(self):
+        self.s.busy=True
+        self.assertFalse(self.s.open_lid(None,Trigger.Response()).success)
+        self.s.busy=False;self.now=11.
+        self.assertFalse(self.s.open_lid(None,Trigger.Response()).success)
+        self.assertFalse(self.s.stop_device(None,Trigger.Response()).success)
+
+    def test_close_does_not_repeat_completed_transfer_alignment(self):
+        self.assertTrue(self.s.open_lid(None,Trigger.Response()).success)
+        self.proof.update(hold_pass=False,coverage=.719)
+        self.assertFalse(self.s.open_lid(None,Trigger.Response()).success)
+        self.proof['world_stopped']=False
+        self.assertFalse(self.s.close_lid(None,Trigger.Response()).success)
+        self.proof['world_stopped']=True
+        self.assertTrue(self.s.close_lid(None,Trigger.Response()).success)
+        self.assertFalse(self.s.lid_open)
 
 if __name__=='__main__':unittest.main()

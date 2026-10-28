@@ -1,0 +1,153 @@
+{
+  "baseline": "ea25693 + existing uncommitted D067-D070 integration",
+  "behavior_changes_this_diagnosis": false,
+  "scope": "cached SEC01 first window → pickup → docking → virtual transfer → restore; no fresh survey, full section, sorter, or station return",
+  "runs": {
+    "attempt2": {
+      "passed": true,
+      "harvest_result": {
+        "robot_id": "harvest_01",
+        "task_id": "handoff_window_813a56fde191",
+        "window_id": "7621d3500623_SEC01_W001",
+        "result_code": "SUCCESS",
+        "expected_count": 1,
+        "harvested_count": 0,
+        "failed_count": 0,
+        "error_code": "NONE",
+        "error_message": "student_no_reachable_targets_arms_stowed",
+        "timestamp": "2026-10-28T07:08:09.438141+00:00"
+      },
+      "dock_result": {
+        "robot_id": "harvest_01",
+        "task_id": "DOCK_TEST_97c60d9050854806aa8fa68a8eea9358",
+        "transfer_id": "TRANSFER_TEST_771f8cddc8914c2eb8756cf0eb25a553",
+        "result_code": "SUCCESS",
+        "expected_count": 0,
+        "transfer_complete": true,
+        "transport_clear": true,
+        "restore_complete": true,
+        "error_code": "NONE",
+        "error_message": "",
+        "timestamp": "2026-10-28T07:10:37.983257+00:00"
+      },
+      "pickup_result": {
+        "robot_id": "transport_01",
+        "task_id": "PICKUP_TEST_a749372e4bcb43f7834bc655d36aba75",
+        "transfer_id": "TRANSFER_TEST_771f8cddc8914c2eb8756cf0eb25a553",
+        "result_code": "SUCCESS",
+        "error_code": "NONE",
+        "error_message": "",
+        "timestamp": "2026-10-28T07:09:45.623924+00:00"
+      },
+      "drive_session": "42e4b7bea95347f99ca9543dbd1502c8",
+      "max_abs_amcl_y_error_cm": 5.457213065334976,
+      "last_amcl_y_error_cm": -1.8904386998910283,
+      "last_amcl_sigma_y_cm": 11.886921072207231,
+      "timing": {
+        "PrecisionServer.consume_image": {
+          "recorded_count": 114,
+          "max_elapsed_ms": 26.800692
+        },
+        "PrecisionServer.control_tick": {
+          "recorded_count": 164,
+          "max_elapsed_ms": 72.618873
+        },
+        "LeaseClient.renew": {
+          "recorded_count": 1227,
+          "max_elapsed_ms": 8.591603,
+          "max_start_gap_ms": 164.937678
+        }
+      },
+      "freshness": {
+        "calls": 8921,
+        "rejected": 3,
+        "future": 3,
+        "dropped": 0
+      },
+      "process_exit": {
+        "harvest": 0,
+        "transport_adapter": 0,
+        "gate": 1,
+        "precision": -2,
+        "transport": 0,
+        "isaac": 0,
+        "probe": 0
+      }
+    },
+    "attempt3": {
+      "passed": true,
+      "harvest_result": {
+        "robot_id": "harvest_01",
+        "task_id": "handoff_window_c1603b9be2e6",
+        "window_id": "7621d3500623_SEC01_W001",
+        "result_code": "SUCCESS",
+        "expected_count": 1,
+        "harvested_count": 0,
+        "failed_count": 0,
+        "error_code": "NONE",
+        "error_message": "student_no_reachable_targets_arms_stowed",
+        "timestamp": "2026-10-28T07:12:19.539878+00:00"
+      },
+      "dock_result": {
+        "robot_id": "harvest_01",
+        "task_id": "DOCK_TEST_6a3ddaa441414f80ad3a7609c38db4bb",
+        "transfer_id": "TRANSFER_TEST_3783a7a3170b45119667693e49afa64b",
+        "result_code": "SUCCESS",
+        "expected_count": 0,
+        "transfer_complete": true,
+        "transport_clear": true,
+        "restore_complete": true,
+        "error_code": "NONE",
+        "error_message": "",
+        "timestamp": "2026-10-28T07:14:34.973770+00:00"
+      },
+      "pickup_result": {
+        "robot_id": "transport_01",
+        "task_id": "PICKUP_TEST_b824212ae0f14f53b784c9d6b18a6791",
+        "transfer_id": "TRANSFER_TEST_3783a7a3170b45119667693e49afa64b",
+        "result_code": "SUCCESS",
+        "error_code": "NONE",
+        "error_message": "",
+        "timestamp": "2026-10-28T07:13:45.111891+00:00"
+      },
+      "drive_session": "7352786eacbf4b15a7d745ec427ece80",
+      "max_abs_amcl_y_error_cm": 4.632959100662148,
+      "last_amcl_y_error_cm": -1.257005027677316,
+      "last_amcl_sigma_y_cm": 12.186122537267957,
+      "timing": {
+        "PrecisionServer.consume_image": {
+          "recorded_count": 100,
+          "max_elapsed_ms": 21.203728
+        },
+        "PrecisionServer.control_tick": {
+          "recorded_count": 125,
+          "max_elapsed_ms": 26.596684
+        },
+        "LeaseClient.renew": {
+          "recorded_count": 1154,
+          "max_elapsed_ms": 4.086558,
+          "max_start_gap_ms": 160.565153
+        }
+      },
+      "freshness": {
+        "calls": 8219,
+        "rejected": 0,
+        "future": 0,
+        "dropped": 0
+      },
+      "process_exit": {
+        "harvest": 0,
+        "transport_adapter": 0,
+        "gate": 1,
+        "precision": -2,
+        "transport": 0,
+        "isaac": 0,
+        "probe": 0
+      }
+    }
+  },
+  "preparation_failures": [
+    "attempt1: sys.monitoring PY_UNWIND local event rejected on Python3.12; instrumentation corrected, robot result not obtained",
+    "attempt3 first invocation: ROS_DOMAIN_ID/SUBNET missing in invocation, failed before starting; relaunched with correct environment"
+  ]
+}

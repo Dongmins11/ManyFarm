@@ -1,0 +1,71 @@
+{
+  "counts": [
+    2,
+    2
+  ],
+  "events": {
+    "BUSY": 4,
+    "DONE": 4,
+    "ASSISTED_GRASP": 4
+  },
+  "fruits": [
+    {
+      "color": "RED",
+      "sorted": true,
+      "inside_correct_storage": true,
+      "xyz": [
+        -0.7391282320022583,
+        0.09746439754962921,
+        0.5106648802757263
+      ]
+    },
+    {
+      "color": "YELLOW",
+      "sorted": true,
+      "inside_correct_storage": true,
+      "xyz": [
+        -0.7401288151741028,
+        -0.14520597457885742,
+        0.5104030966758728
+      ]
+    },
+    {
+      "color": "RED",
+      "sorted": true,
+      "inside_correct_storage": true,
+      "xyz": [
+        -0.6362080574035645,
+        0.09173116832971573,
+        0.5106648802757263
+      ]
+    },
+    {
+      "color": "YELLOW",
+      "sorted": true,
+      "inside_correct_storage": true,
+      "xyz": [
+        -0.643272340297699,
+        -0.11337928473949432,
+        0.5106648802757263
+      ]
+    }
+  ],
+  "steps": 30000,
+  "sim_seconds": 125.0,
+  "goal_result": "SUCCESS",
+  "manual_lane_map": {
+    "A": "D",
+    "B": "C",
+    "C": "B",
+    "D": "A"
+  },
+  "busy_lanes": [
+    "B",
+    "B",
+    "C",
+    "C"
+  ],
+  "zones_unchanged": true,
+  "original_source_files": 98,
+  "original_sources_unchanged": true
+}

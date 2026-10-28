@@ -29,10 +29,10 @@
     "snapshot_sha256": "e43705666092a775aa5da7f4959694fc97aa58a8ce283a9bc97a16b24312d1da"
   },
   "map_revision": "map_01",
-  "zone_revision": "zone_01",
+  "zone_revision": "zone_02",
   "graph_revisions": {
-    "sim_scout_v1": "graph_01",
-    "sim_harvest_v1": "graph_01"
+    "sim_scout_v1": "graph_02",
+    "sim_harvest_v1": "graph_02"
   },
   "new_graph_ids": "design registry IDs, not current graph metadata values",
   "revision_catalog": {
@@ -43,18 +43,32 @@
     },
     "graphs": {
       "sim_scout_v1": {
-        "revision": "graph_01",
-        "source_sha256": "9f217dc579ffe21de4758a04f0c3a93ff9f22b669215cfebf6f22ecdc7d8820b"
+        "revision": "graph_02",
+        "source_sha256": "d580c18443f54de0d445921779886de45a21529a9c5facee0dfe2bda05805a78"
       },
       "sim_harvest_v1": {
-        "revision": "graph_01",
-        "source_sha256": "2ff1cd7b1dd355f46ee4b05fb71b961e57c4f5fc22134bedfbb6908072ed4cdc"
+        "revision": "graph_02",
+        "source_sha256": "bb7a47c73e046419cbc70c13b68dfd87433a72e2d7b5edc36386a682fc6f5c93"
       }
     },
     "zones": {
-      "revision": "zone_01",
+      "revision": "zone_02",
       "file": "traffic_zones.yaml",
-      "file_sha256": "cd72e33cf03f153b64b0b69258e6e9f013c84ffc031b728be6e647c705b68829"
+      "file_sha256": "b294adf810e0c78718dd715b1b7c8fa66e3bf087c3e0d953de4d095b6f483a71"
     }
-  }
+  },
+  "current_sources": [
+    {
+      "graph_id": "sim_scout_v1",
+      "snapshot": "sources/graph.geojson",
+      "sha256": "d580c18443f54de0d445921779886de45a21529a9c5facee0dfe2bda05805a78",
+      "path": "sim/ros_ws/src/farm_sim_config/maps/graph.geojson"
+    },
+    {
+      "graph_id": "sim_harvest_v1",
+      "snapshot": "sources/harvest_graph.geojson",
+      "sha256": "bb7a47c73e046419cbc70c13b68dfd87433a72e2d7b5edc36386a682fc6f5c93",
+      "path": "sim/ros_ws/src/farm_sim_config/maps/harvest_graph.geojson"
+    }
+  ]
 }

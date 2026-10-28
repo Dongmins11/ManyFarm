@@ -35,6 +35,11 @@ def setup(context) -> list:
     tf_remaps = [] if mode == 'sim' else [
         ('/tf', '/' + profile['robot_id'] + '/tf'),
         ('/tf_static', '/' + profile['robot_id'] + '/tf_static')]
+    handoff_file = value('handoff_config')
+    if handoff_file and value('navigation') != 'true':
+        raise ValueError('인계 구성은 Nav2와 함께 시작해야 합니다.')
+    if handoff_file and resolve_file(root, handoff_file).is_relative_to(root/'sim') != (mode == 'sim'):
+        raise ValueError('인계 설정도 선택한 환경 경로에 있어야 합니다.')
     actions = []
     if value('devices') == 'true':
         if mode == 'real':
@@ -47,8 +52,47 @@ def setup(context) -> list:
         actions.append(include('farm_bringup','scout_navigation.launch.py',
             dict(mode=mode,project_root=str(root),robot_id=profile['robot_id'],map=profile['map_yaml'],nav_params=profile['nav_params'],
                  route_file=profile['route_graph'],rviz='false',
+                 controller_output='cmd_vel_normal' if handoff_file else 'cmd_vel_nav',
                  tag_scan_sync='true' if tag_sync else 'false', tag_map_id=profile['map_id'] if tag_sync else '')))
     harvest_config = load_harvest_config(resolve_file(root, profile['harvest_config']), root)
+    if handoff_file:
+        if not harvest_config.get('transfer', {}).get('enabled', False):
+            raise ValueError('인계 컴포넌트에는 transfer.enabled=true가 필요합니다.')
+        from farm_navigation.configuration import read_mapping, load_nav2_parameters
+        from farm_navigation.navigation_types import NavigationSettings
+        from harvest_robot.handoff_server_config import build_server_config
+        cfg = read_mapping(resolve_file(root, handoff_file))
+        wall = read_mapping(resolve_file(root, cfg['wall_config']))
+        bundle = build_server_config(load_nav2_parameters(profile['nav_params'], root),
+            profile['robot_id'], wall, NavigationSettings.from_mapping(profile['navigation']), mode == 'sim',
+            footprint_padding=cfg.get('footprint_padding'))
+        prefix = bundle['prefix']
+        cp = bundle['values'][prefix+'/controller_server']['ros__parameters']
+        cm = bundle['values'][prefix+'/local_costmap/local_costmap']['ros__parameters']
+        # 내부 local_costmap에도 노드별 설정을 같은 파일로 전달한다.
+        import atexit, tempfile, yaml
+        with tempfile.NamedTemporaryFile(mode='w', suffix='.yaml', delete=False) as stream:
+            yaml.safe_dump(bundle['values'], stream, sort_keys=False)
+            server_file = stream.name
+        atexit.register(Path(server_file).unlink, missing_ok=True)
+        sensor_remaps = tf_remaps + [(topic, '/'+profile['robot_id']+'/'+topic)
+                                    for topic in ('odom', 'scan_filtered')]
+        if mode == 'sim':
+            # 가상 LiDAR는 기존 scan을 발행한다. 입력 이름만 연결하며 측정값은 보존한다.
+            sensor_remaps.append(('/'+profile['robot_id']+'/scan_filtered',
+                                  '/'+profile['robot_id']+'/scan'))
+        actions.append(Node(package='nav2_controller', executable='controller_server',
+            name='controller_server', namespace=prefix, output='screen',
+            parameters=[server_file], remappings=sensor_remaps+[('cmd_vel', 'raw_nav')]))
+        actions.append(Node(package='nav2_behaviors', executable='behavior_server',
+            name='behavior_server', namespace=prefix, output='screen',
+            parameters=[bundle['spin']], remappings=sensor_remaps+[('cmd_vel', 'raw_spin')]))
+        actions.append(Node(package='nav2_lifecycle_manager', executable='lifecycle_manager',
+            name='lifecycle_manager', namespace=prefix, output='screen', parameters=[{
+                'use_sim_time': mode == 'sim', 'autostart': True,
+                'node_names': ['controller_server', 'behavior_server'], 'bond_timeout': 0.0}]))
+        harvest_config.setdefault('transfer', {})['rotation_mode'] = 'components'
+        harvest_config['transfer']['rotation'] = {}
     approach_planner = harvest_config.get('approach_planner', 'route_server')
     if approach_planner not in ('graph', 'route_server'):
         raise ValueError('알 수 없는 approach_planner')
@@ -69,10 +113,13 @@ def setup(context) -> list:
             name='route_lifecycle_manager', namespace=profile['robot_id'], output='screen',
             parameters=[{'use_sim_time': mode == 'sim', 'autostart': True,
                 'node_names': ['route_server'], 'bond_timeout': 10.0}]))
+    harvest_remaps = list(tf_remaps)
+    if handoff_file and mode == 'sim':
+        harvest_remaps.append(('/'+profile['robot_id']+'/scan_filtered', '/'+profile['robot_id']+'/scan'))
     actions.append(Node(package='harvest_robot',executable='harvest_node',namespace=profile['robot_id'],
-        output='screen',sigterm_timeout='60',sigkill_timeout='5',remappings=tf_remaps,parameters=[dict(
+        output='screen',sigterm_timeout='60',sigkill_timeout='5',remappings=harvest_remaps,parameters=[dict(
             project_root=str(root),environment_config=str(environment),mode=mode,use_sim_time=mode=='sim',
-            tag_correction=tag_on, **transfer_parameters(harvest_config))]))
+            tag_correction=tag_on, handoff_config=handoff_file, **transfer_parameters(harvest_config))]))
     actions.extend(tag_actions)
     return actions
 
@@ -80,6 +127,7 @@ def setup(context) -> list:
 def generate_launch_description() -> LaunchDescription:
     return LaunchDescription([
         DeclareLaunchArgument('project_root'),
+        DeclareLaunchArgument('handoff_config',default_value=''),
         DeclareLaunchArgument('mode',default_value='real',choices=['sim','real']),
         DeclareLaunchArgument('environment_config',default_value=''),
         DeclareLaunchArgument('devices',default_value='true',choices=['true','false']),

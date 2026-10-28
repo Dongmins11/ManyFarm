@@ -1,0 +1,22 @@
+{
+  "scope": "stationary Isaac + actual ROS runtime/device connection; no handoff body motion",
+  "domain": 13,
+  "range": "SUBNET",
+  "passed": true,
+  "prepare": {
+    "success": true,
+    "message": "실측 팔 접힘·정지 확인"
+  },
+  "prepare_attempts": 1,
+  "use_sim_time": {
+    "/harvest_01/handoff/controller_server": true,
+    "/harvest_01/handoff/behavior_server": true,
+    "/harvest_01/handoff/local_costmap/local_costmap": true,
+    "/harvest_01/handoff/lifecycle_manager": true
+  },
+  "output_publishers": [
+    "/harvest_01/harvest_motion_server"
+  ],
+  "missing_window_goal_accepted": false,
+  "unaligned_discharge_accepted": false
+}

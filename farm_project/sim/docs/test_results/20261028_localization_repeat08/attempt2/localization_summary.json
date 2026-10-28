@@ -1,0 +1,75 @@
+{
+  "attempt": "attempt2",
+  "passed": false,
+  "dock_ready": true,
+  "error": "restore: WINDOW_REALIGN_REQUIRED: 짧은 전진으로 window 완료범위 확보 불가 (전방=-0.0732m, 횡오차=0.0008m)",
+  "restore_evaluated": true,
+  "dock_result": {
+    "robot_id": "harvest_01",
+    "task_id": "DOCK_TEST_72a32fe9f01c48e9b655638e4b587208",
+    "transfer_id": "TRANSFER_TEST_4318c1bda3ca4282a497204aa0da3787",
+    "result_code": "FAILED",
+    "expected_count": 0,
+    "transfer_complete": true,
+    "transport_clear": true,
+    "restore_complete": false,
+    "error_code": "DEVICE_FAILED",
+    "error_message": "restore: WINDOW_REALIGN_REQUIRED: 짧은 전진으로 window 완료범위 확보 불가 (전방=-0.0732m, 횡오차=0.0008m)",
+    "timestamp": "2026-10-28T08:45:04.416790+00:00"
+  },
+  "pickup_result": {
+    "robot_id": "transport_01",
+    "task_id": "PICKUP_TEST_46b5b0aa4f714376bd6c39fa73026279",
+    "transfer_id": "TRANSFER_TEST_4318c1bda3ca4282a497204aa0da3787",
+    "result_code": "SUCCESS",
+    "error_code": "NONE",
+    "error_message": "",
+    "timestamp": "2026-10-28T08:44:11.768031+00:00"
+  },
+  "final": {
+    "sim_time_s": 142.150007414,
+    "at": "2026-10-28T08:45:04.398242+00:00",
+    "actual": [
+      -6.014173984527639,
+      9.283035596211585,
+      -1.5763775446712802
+    ],
+    "map_pose": [
+      -6.016320027405979,
+      9.219311910284752,
+      -1.5774812893226067
+    ],
+    "map_error": {
+      "xy_cm": [
+        -0.2146042878339749,
+        -6.3723685926833085
+      ],
+      "norm_cm": 6.375981217144024
+    },
+    "odom_error": {
+      "xy_cm": [
+        0.04017629121806365,
+        0.13993605127726738
+      ],
+      "norm_cm": 0.14558926067231973
+    },
+    "result_timestamp": "2026-10-28T08:45:04.416790+00:00",
+    "receive_offset_s": -0.018548011779785156,
+    "actual_goal_distance_cm": 0.9529998415075425,
+    "map_goal_distance_cm": 7.32297175555521
+  },
+  "max_amcl": {
+    "sim_time_s": 139.350007268,
+    "at": "2026-10-28T08:45:01.401354+00:00",
+    "error": {
+      "xy_cm": [
+        -0.2151463134132392,
+        -6.411864848368509
+      ],
+      "norm_cm": 6.415473386268471
+    }
+  },
+  "max_odom_error_cm": 0.45511783758884455,
+  "raw_drive": "sim/runs/drive_diagnostics/3e0fd77710ed47a79d3c9f26a787b54e/harvest_01.jsonl",
+  "method": "USD 자세를 시뮬 시각으로 선형 보간. odom은 초기 자세만 오프라인 정합. map은 직전 수신 TF와 odom의 외부 재구성이며 내부 validator 직접 기록이 아님."
+}

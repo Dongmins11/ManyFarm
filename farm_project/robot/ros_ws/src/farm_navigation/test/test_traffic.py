@@ -69,7 +69,7 @@ class TrafficTests(unittest.TestCase):
 
     def control(self, phase='WAIT_POSITION', state='WAIT_POSITION', sync='sync_01', epoch='epoch_01', sequence=1):
         return TrafficControlState(server_epoch=epoch,state_sequence=sequence,phase=phase,
-            zone_revision='zone_01',robots=[TrafficRegistration(robot_id='scout_01',boot_id=self.client.boot_id,
+            zone_revision=self.client.registry.data['zone_revision'],robots=[TrafficRegistration(robot_id='scout_01',boot_id=self.client.boot_id,
             sync_id=sync,registration_state=state,accepted_status_sequence=2 if state=='REGISTERED' else 0)])
 
     def discover(self, control=None):
@@ -294,7 +294,7 @@ class TrafficTests(unittest.TestCase):
         other=TrafficRegistry(REGISTRY,graph,'harvest_01')
         offsets=[n for n in graph.nodes if n in self.client.registry.graph.nodes and graph.nodes[n]!=self.client.registry.graph.nodes[n]]
         self.assertEqual(len(offsets),24)
-        self.assertEqual(other.data['zone_revision'],'zone_01')
+        self.assertEqual(other.data['zone_revision'],self.client.registry.data['zone_revision'])
 
     def test_short_pose_connector_keeps_graph_route(self):
         registry=self.client.registry;g=registry.graph;e=g.edges[0]

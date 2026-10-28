@@ -1,0 +1,379 @@
+<?xml version='1.0' encoding='utf-8'?>
+<robot name="hcr3a_functional">
+  <link name="base">
+    <inertial>
+      <origin xyz="0 0 0.15" />
+      <mass value="3" />
+      <inertia ixx=".01" iyy=".01" izz=".01" ixy="0" ixz="0" iyz="0" />
+    </inertial>
+    <visual>
+      <origin xyz="0 0 0.15" />
+      <geometry>
+        <box size="0.128 0.128 0.3" />
+      </geometry>
+      <material name="base_color">
+        <color rgba=".07 .075 .085 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin xyz="0 0 0.15" />
+      <geometry>
+        <box size="0.128 0.128 0.3" />
+      </geometry>
+    </collision>
+  </link>
+  <link name="link1">
+    <inertial>
+      <origin xyz="0 0 0" />
+      <mass value="1" />
+      <inertia ixx=".01" iyy=".01" izz=".01" ixy="0" ixz="0" iyz="0" />
+    </inertial>
+    <visual>
+      <origin xyz="0 0 0" />
+      <geometry>
+        <box size="0.1 0.1 0.08" />
+      </geometry>
+      <material name="link1_color">
+        <color rgba=".07 .075 .085 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin xyz="0 0 0" />
+      <geometry>
+        <box size="0.1 0.1 0.08" />
+      </geometry>
+    </collision>
+  </link>
+  <joint name="joint1" type="revolute">
+    <parent link="base" />
+    <child link="link1" />
+    <origin xyz="0 0 0.3" />
+    <axis xyz="0 0 1" />
+    <limit lower="-6.283185307179586" upper="6.283185307179586" effort="150" velocity="2" />
+    <dynamics damping=".5" friction=".01" />
+  </joint>
+  <link name="link2">
+    <inertial>
+      <origin xyz="0.16 0 0" />
+      <mass value="1" />
+      <inertia ixx=".01" iyy=".01" izz=".01" ixy="0" ixz="0" iyz="0" />
+    </inertial>
+    <visual>
+      <origin xyz="0.16 0 0" />
+      <geometry>
+        <box size="0.32 0.065 0.065" />
+      </geometry>
+      <material name="link2_color">
+        <color rgba="0.94 0.32 0.025 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin xyz="0.16 0 0" />
+      <geometry>
+        <box size="0.32 0.065 0.065" />
+      </geometry>
+    </collision>
+  </link>
+  <joint name="joint2" type="revolute">
+    <parent link="link1" />
+    <child link="link2" />
+    <origin xyz="0 0 0" />
+    <axis xyz="0 1 0" />
+    <limit lower="-3.141592653589793" upper="3.141592653589793" effort="150" velocity="2" />
+    <dynamics damping=".5" friction=".01" />
+  </joint>
+  <link name="link3">
+    <inertial>
+      <origin xyz="0.15 0 0" />
+      <mass value="1" />
+      <inertia ixx=".01" iyy=".01" izz=".01" ixy="0" ixz="0" iyz="0" />
+    </inertial>
+    <visual>
+      <origin xyz="0.15 0 0" />
+      <geometry>
+        <box size="0.3 0.055 0.055" />
+      </geometry>
+      <material name="link3_color">
+        <color rgba="0.94 0.32 0.025 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin xyz="0.15 0 0" />
+      <geometry>
+        <box size="0.3 0.055 0.055" />
+      </geometry>
+    </collision>
+  </link>
+  <joint name="joint3" type="revolute">
+    <parent link="link2" />
+    <child link="link3" />
+    <origin xyz="0.32 0 0" />
+    <axis xyz="0 1 0" />
+    <limit lower="-2.79" upper="2.79" effort="150" velocity="2" />
+    <dynamics damping=".5" friction=".01" />
+  </joint>
+  <link name="link4">
+    <inertial>
+      <origin xyz="0 0 0" />
+      <mass value="1" />
+      <inertia ixx=".01" iyy=".01" izz=".01" ixy="0" ixz="0" iyz="0" />
+    </inertial>
+    <visual>
+      <origin xyz="0 0 0" />
+      <geometry>
+        <box size="0.065 0.065 0.065" />
+      </geometry>
+      <material name="link4_color">
+        <color rgba="0.94 0.32 0.025 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin xyz="0 0 0" />
+      <geometry>
+        <box size="0.065 0.065 0.065" />
+      </geometry>
+    </collision>
+  </link>
+  <joint name="joint4" type="revolute">
+    <parent link="link3" />
+    <child link="link4" />
+    <origin xyz="0.3 0 0" />
+    <axis xyz="1 0 0" />
+    <limit lower="-6.283185307179586" upper="6.283185307179586" effort="150" velocity="2" />
+    <dynamics damping=".5" friction=".01" />
+  </joint>
+  <link name="link5">
+    <inertial>
+      <origin xyz="0.02 0 0" />
+      <mass value="1" />
+      <inertia ixx=".01" iyy=".01" izz=".01" ixy="0" ixz="0" iyz="0" />
+    </inertial>
+    <visual>
+      <origin xyz="0.02 0 0" />
+      <geometry>
+        <box size="0.07 0.05 0.05" />
+      </geometry>
+      <material name="link5_color">
+        <color rgba="0.94 0.32 0.025 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin xyz="0.02 0 0" />
+      <geometry>
+        <box size="0.07 0.05 0.05" />
+      </geometry>
+    </collision>
+  </link>
+  <joint name="joint5" type="revolute">
+    <parent link="link4" />
+    <child link="link5" />
+    <origin xyz="0 0 0" />
+    <axis xyz="0 1 0" />
+    <limit lower="-6.283185307179586" upper="6.283185307179586" effort="150" velocity="2" />
+    <dynamics damping=".5" friction=".01" />
+  </joint>
+  <link name="link6">
+    <inertial>
+      <origin xyz="0 0 0" />
+      <mass value="1" />
+      <inertia ixx=".01" iyy=".01" izz=".01" ixy="0" ixz="0" iyz="0" />
+    </inertial>
+    <visual>
+      <origin xyz="0 0 0" />
+      <geometry>
+        <box size="0.035 0.055 0.055" />
+      </geometry>
+      <material name="link6_color">
+        <color rgba="0.94 0.32 0.025 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin xyz="0 0 0" />
+      <geometry>
+        <box size="0.035 0.055 0.055" />
+      </geometry>
+    </collision>
+  </link>
+  <joint name="joint6" type="revolute">
+    <parent link="link5" />
+    <child link="link6" />
+    <origin xyz="0.05 0 0" />
+    <axis xyz="1 0 0" />
+    <limit lower="-6.283185307179586" upper="6.283185307179586" effort="150" velocity="2" />
+    <dynamics damping=".5" friction=".01" />
+  </joint>
+  <link name="tool">
+    <inertial>
+      <origin xyz="0.064 0 0" />
+      <mass value="0.98" />
+      <inertia ixx=".01" iyy=".01" izz=".01" ixy="0" ixz="0" iyz="0" />
+    </inertial>
+    <visual>
+      <origin xyz="0.064 0 0" />
+      <geometry>
+        <box size="0.114 0.1 0.04" />
+      </geometry>
+      <material name="tool_color">
+        <color rgba=".035 .035 .04 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin xyz="0.064 0 0" />
+      <geometry>
+        <box size="0.114 0.1 0.04" />
+      </geometry>
+    </collision>
+  </link>
+  <joint name="tool_mount" type="fixed">
+    <parent link="link6" />
+    <child link="tool" />
+    <origin xyz="0.02 0 0" />
+    <axis xyz="0 0 1" />
+    <limit lower="-6.28" upper="6.28" effort="150" velocity="2" />
+    <dynamics damping=".5" friction=".01" />
+  </joint>
+  <link name="left_finger">
+    <inertial>
+      <origin xyz="0.15 0 0" />
+      <mass value="0.05" />
+      <inertia ixx=".01" iyy=".01" izz=".01" ixy="0" ixz="0" iyz="0" />
+    </inertial>
+    <visual>
+      <origin xyz="0.15 0 0" />
+      <geometry>
+        <box size="0.065 0.01 0.03" />
+      </geometry>
+      <material name="left_finger_color">
+        <color rgba=".08 .08 .085 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin xyz="0.15 0 0" />
+      <geometry>
+        <box size="0.065 0.01 0.03" />
+      </geometry>
+    </collision>
+  </link>
+  <joint name="left_jaw" type="prismatic">
+    <parent link="tool" />
+    <child link="left_finger" />
+    <origin xyz="0 0.039 0" />
+    <axis xyz="0 1 0" />
+    <limit lower="0" upper="0.010000000000000002" effort="150" velocity="2" />
+    <dynamics damping=".5" friction=".01" />
+  </joint>
+  <link name="left_pad">
+    <inertial>
+      <origin xyz="0.17 -0.007 0" />
+      <mass value="0.01" />
+      <inertia ixx=".01" iyy=".01" izz=".01" ixy="0" ixz="0" iyz="0" />
+    </inertial>
+    <visual>
+      <origin xyz="0.17 -0.007 0" />
+      <geometry>
+        <box size="0.045 0.004 0.027" />
+      </geometry>
+      <material name="left_pad_color">
+        <color rgba=".95 .15 .45 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin xyz="0.17 -0.007 0" />
+      <geometry>
+        <box size="0.045 0.004 0.027" />
+      </geometry>
+    </collision>
+  </link>
+  <joint name="left_pad_mount" type="fixed">
+    <parent link="left_finger" />
+    <child link="left_pad" />
+    <origin xyz="0 0 0" />
+    <axis xyz="0 0 1" />
+    <limit lower="-6.28" upper="6.28" effort="150" velocity="2" />
+    <dynamics damping=".5" friction=".01" />
+  </joint>
+  <link name="right_finger">
+    <inertial>
+      <origin xyz="0.15 0 0" />
+      <mass value="0.05" />
+      <inertia ixx=".01" iyy=".01" izz=".01" ixy="0" ixz="0" iyz="0" />
+    </inertial>
+    <visual>
+      <origin xyz="0.15 0 0" />
+      <geometry>
+        <box size="0.065 0.01 0.03" />
+      </geometry>
+      <material name="right_finger_color">
+        <color rgba=".08 .08 .085 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin xyz="0.15 0 0" />
+      <geometry>
+        <box size="0.065 0.01 0.03" />
+      </geometry>
+    </collision>
+  </link>
+  <joint name="right_jaw" type="prismatic">
+    <parent link="tool" />
+    <child link="right_finger" />
+    <origin xyz="0 -0.039 0" />
+    <axis xyz="0 -1 0" />
+    <limit lower="0" upper="0.010000000000000002" effort="150" velocity="2" />
+    <dynamics damping=".5" friction=".01" />
+  </joint>
+  <link name="right_pad">
+    <inertial>
+      <origin xyz="0.17 0.007 0" />
+      <mass value="0.01" />
+      <inertia ixx=".01" iyy=".01" izz=".01" ixy="0" ixz="0" iyz="0" />
+    </inertial>
+    <visual>
+      <origin xyz="0.17 0.007 0" />
+      <geometry>
+        <box size="0.045 0.004 0.027" />
+      </geometry>
+      <material name="right_pad_color">
+        <color rgba=".95 .15 .45 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin xyz="0.17 0.007 0" />
+      <geometry>
+        <box size="0.045 0.004 0.027" />
+      </geometry>
+    </collision>
+  </link>
+  <joint name="right_pad_mount" type="fixed">
+    <parent link="right_finger" />
+    <child link="right_pad" />
+    <origin xyz="0 0 0" />
+    <axis xyz="0 0 1" />
+    <limit lower="-6.28" upper="6.28" effort="150" velocity="2" />
+    <dynamics damping=".5" friction=".01" />
+  </joint>
+  <link name="tcp">
+    <inertial>
+      <origin xyz="0 0 0" />
+      <mass value="0.001" />
+      <inertia ixx=".01" iyy=".01" izz=".01" ixy="0" ixz="0" iyz="0" />
+    </inertial>
+    <visual>
+      <origin xyz="0 0 0" />
+      <geometry>
+        <box size="0.002 0.002 0.002" />
+      </geometry>
+      <material name="tcp_color">
+        <color rgba="0.94 0.32 0.025 1" />
+      </material>
+    </visual>
+  </link>
+  <joint name="tcp_mount" type="fixed">
+    <parent link="link6" />
+    <child link="tcp" />
+    <origin xyz="0.19 0.0 0.0" />
+    <axis xyz="0 0 1" />
+    <limit lower="-6.28" upper="6.28" effort="150" velocity="2" />
+    <dynamics damping=".5" friction=".01" />
+  </joint>
+</robot>

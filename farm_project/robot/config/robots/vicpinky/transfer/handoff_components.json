@@ -1,0 +1,13 @@
+{
+  "wall_config": "robot/config/robots/vicpinky/transfer/wall_alignment_trial.json",
+  "monitor_policy": "robot/config/robots/vicpinky/transfer/arc_monitor_policy.json",
+  "arc": {
+    "radius": 0.10,
+    "angle": 1.5707963267948966,
+    "spacing": 0.002,
+    "deviation": 0.01,
+    "yaw_tolerance": 0.05,
+    "endpoint_tolerance": 0.008,
+    "timeout": 60.0
+  }
+}

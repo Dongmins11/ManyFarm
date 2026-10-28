@@ -1,0 +1,319 @@
+{
+  "baseline": "main ea25693 + existing uncommitted integration + approved sim wall angle 0.8deg",
+  "attempts": [
+    {
+      "attempt": "attempt1",
+      "passed": true,
+      "dock_ready": true,
+      "error": "",
+      "restore_evaluated": true,
+      "dock_result": {
+        "robot_id": "harvest_01",
+        "task_id": "DOCK_TEST_6934e9fa6c1a443fa81eb21f6c13111a",
+        "transfer_id": "TRANSFER_TEST_017577ed41484e26a0a8e5eb2b851598",
+        "result_code": "SUCCESS",
+        "expected_count": 0,
+        "transfer_complete": true,
+        "transport_clear": true,
+        "restore_complete": true,
+        "error_code": "NONE",
+        "error_message": "",
+        "timestamp": "2026-10-28T08:41:40.617313+00:00"
+      },
+      "pickup_result": {
+        "robot_id": "transport_01",
+        "task_id": "PICKUP_TEST_0723570db4d34e8f941bd8e059f7cd31",
+        "transfer_id": "TRANSFER_TEST_017577ed41484e26a0a8e5eb2b851598",
+        "result_code": "SUCCESS",
+        "error_code": "NONE",
+        "error_message": "",
+        "timestamp": "2026-10-28T08:40:46.074845+00:00"
+      },
+      "final": {
+        "sim_time_s": 136.350007111,
+        "at": "2026-10-28T08:41:40.597238+00:00",
+        "actual": [
+          -6.013273239135718,
+          9.281052589416552,
+          -1.5611697189060527
+        ],
+        "map_pose": [
+          -5.993144664523575,
+          9.265148898132269,
+          -1.5731835517980002
+        ],
+        "map_error": {
+          "xy_cm": [
+            2.0128574612143346,
+            -1.5903691284282928
+          ],
+          "norm_cm": 2.56532047195355
+        },
+        "odom_error": {
+          "xy_cm": [
+            -0.07033863305041521,
+            0.12145986784570795
+          ],
+          "norm_cm": 0.1403567696853194
+        },
+        "result_timestamp": "2026-10-28T08:41:40.617313+00:00",
+        "receive_offset_s": -0.020074844360351562,
+        "actual_goal_distance_cm": 1.1606310748399193,
+        "map_goal_distance_cm": 3.5033778257823265
+      },
+      "max_amcl": {
+        "sim_time_s": 108.850005677,
+        "at": "2026-10-28T08:41:09.482996+00:00",
+        "error": {
+          "xy_cm": [
+            1.2550480849197854,
+            -2.2918798057169454
+          ],
+          "norm_cm": 2.6130171716454456
+        }
+      },
+      "max_odom_error_cm": 0.36507969590601524,
+      "raw_drive": "sim/runs/drive_diagnostics/2b3af981dac14257a4b6562f67d82536/harvest_01.jsonl",
+      "method": "USD 자세를 시뮬 시각으로 선형 보간. odom은 초기 자세만 오프라인 정합. map은 직전 수신 TF와 odom의 외부 재구성이며 내부 validator 직접 기록이 아님."
+    },
+    {
+      "attempt": "attempt2",
+      "passed": false,
+      "dock_ready": true,
+      "error": "restore: WINDOW_REALIGN_REQUIRED: 짧은 전진으로 window 완료범위 확보 불가 (전방=-0.0732m, 횡오차=0.0008m)",
+      "restore_evaluated": true,
+      "dock_result": {
+        "robot_id": "harvest_01",
+        "task_id": "DOCK_TEST_72a32fe9f01c48e9b655638e4b587208",
+        "transfer_id": "TRANSFER_TEST_4318c1bda3ca4282a497204aa0da3787",
+        "result_code": "FAILED",
+        "expected_count": 0,
+        "transfer_complete": true,
+        "transport_clear": true,
+        "restore_complete": false,
+        "error_code": "DEVICE_FAILED",
+        "error_message": "restore: WINDOW_REALIGN_REQUIRED: 짧은 전진으로 window 완료범위 확보 불가 (전방=-0.0732m, 횡오차=0.0008m)",
+        "timestamp": "2026-10-28T08:45:04.416790+00:00"
+      },
+      "pickup_result": {
+        "robot_id": "transport_01",
+        "task_id": "PICKUP_TEST_46b5b0aa4f714376bd6c39fa73026279",
+        "transfer_id": "TRANSFER_TEST_4318c1bda3ca4282a497204aa0da3787",
+        "result_code": "SUCCESS",
+        "error_code": "NONE",
+        "error_message": "",
+        "timestamp": "2026-10-28T08:44:11.768031+00:00"
+      },
+      "final": {
+        "sim_time_s": 142.150007414,
+        "at": "2026-10-28T08:45:04.398242+00:00",
+        "actual": [
+          -6.014173984527639,
+          9.283035596211585,
+          -1.5763775446712802
+        ],
+        "map_pose": [
+          -6.016320027405979,
+          9.219311910284752,
+          -1.5774812893226067
+        ],
+        "map_error": {
+          "xy_cm": [
+            -0.2146042878339749,
+            -6.3723685926833085
+          ],
+          "norm_cm": 6.375981217144024
+        },
+        "odom_error": {
+          "xy_cm": [
+            0.04017629121806365,
+            0.13993605127726738
+          ],
+          "norm_cm": 0.14558926067231973
+        },
+        "result_timestamp": "2026-10-28T08:45:04.416790+00:00",
+        "receive_offset_s": -0.018548011779785156,
+        "actual_goal_distance_cm": 0.9529998415075425,
+        "map_goal_distance_cm": 7.32297175555521
+      },
+      "max_amcl": {
+        "sim_time_s": 139.350007268,
+        "at": "2026-10-28T08:45:01.401354+00:00",
+        "error": {
+          "xy_cm": [
+            -0.2151463134132392,
+            -6.411864848368509
+          ],
+          "norm_cm": 6.415473386268471
+        }
+      },
+      "max_odom_error_cm": 0.45511783758884455,
+      "raw_drive": "sim/runs/drive_diagnostics/3e0fd77710ed47a79d3c9f26a787b54e/harvest_01.jsonl",
+      "method": "USD 자세를 시뮬 시각으로 선형 보간. odom은 초기 자세만 오프라인 정합. map은 직전 수신 TF와 odom의 외부 재구성이며 내부 validator 직접 기록이 아님."
+    },
+    {
+      "attempt": "attempt3",
+      "passed": false,
+      "dock_ready": true,
+      "error": "카메라 영상 단절: input_error=; odom: accepted_age=0.022s current_header_age=0.117s, scan: accepted_age=0.066s current_header_age=0.150s, image: accepted_age=0.558s",
+      "restore_evaluated": false,
+      "dock_result": {
+        "robot_id": "harvest_01",
+        "task_id": "DOCK_TEST_e36216c57d51454ca5d74eb194a050b9",
+        "transfer_id": "TRANSFER_TEST_f2c175ff4cff459e91cb7e1af143da99",
+        "result_code": "CANCELED",
+        "expected_count": 0,
+        "transfer_complete": false,
+        "transport_clear": false,
+        "restore_complete": false,
+        "error_code": "CANCELED",
+        "error_message": "관제가 인계 작업 취소를 요청했습니다.",
+        "timestamp": "2026-10-28T08:47:07.758151+00:00"
+      },
+      "pickup_result": {
+        "robot_id": "transport_01",
+        "task_id": "PICKUP_TEST_3ab8c17bed2841e7bcbb28d0779d851f",
+        "transfer_id": "TRANSFER_TEST_f2c175ff4cff459e91cb7e1af143da99",
+        "result_code": "FAILED",
+        "error_code": "DOCK_FAILED",
+        "error_message": "카메라 영상 단절: input_error=; odom: accepted_age=0.022s current_header_age=0.117s, scan: accepted_age=0.066s current_header_age=0.150s, image: accepted_age=0.558s",
+        "timestamp": "2026-10-28T08:47:07.292447+00:00"
+      },
+      "final": {
+        "sim_time_s": 68.45000357,
+        "at": "2026-10-28T08:47:07.739739+00:00",
+        "actual": [
+          -5.9364597797393746,
+          9.375932693481454,
+          -0.05616587933201147
+        ],
+        "map_pose": [
+          -5.918850526876417,
+          9.356675447026179,
+          -0.06284827599728839
+        ],
+        "map_error": {
+          "xy_cm": [
+            1.7609252862957447,
+            -1.9257246455275379
+          ],
+          "norm_cm": 2.609458425479876
+        },
+        "odom_error": {
+          "xy_cm": [
+            0.2376543986766677,
+            -0.2792382852012665
+          ],
+          "norm_cm": 0.3666791964817644
+        },
+        "result_timestamp": "2026-10-28T08:47:07.758151+00:00",
+        "receive_offset_s": -0.018412113189697266,
+        "actual_goal_distance_cm": 11.456273647121563,
+        "map_goal_distance_cm": 11.558284582881544
+      },
+      "max_amcl": {
+        "sim_time_s": 53.450002788,
+        "at": "2026-10-28T08:46:50.916026+00:00",
+        "error": {
+          "xy_cm": [
+            1.3767996271072391,
+            -2.2562346961755964
+          ],
+          "norm_cm": 2.6431368139824354
+        }
+      },
+      "max_odom_error_cm": 0.3682952692222361,
+      "raw_drive": "sim/runs/drive_diagnostics/5f4f8bdaa7704a11977f2c4ff03cf4ef/harvest_01.jsonl",
+      "method": "USD 자세를 시뮬 시각으로 선형 보간. odom은 초기 자세만 오프라인 정합. map은 직전 수신 TF와 odom의 외부 재구성이며 내부 validator 직접 기록이 아님."
+    },
+    {
+      "attempt": "attempt4",
+      "passed": true,
+      "dock_ready": true,
+      "error": "",
+      "restore_evaluated": true,
+      "dock_result": {
+        "robot_id": "harvest_01",
+        "task_id": "DOCK_TEST_c4d7dc0394da4cbda8629423f2ede549",
+        "transfer_id": "TRANSFER_TEST_daf3848b88f04288be1156af92ca7863",
+        "result_code": "SUCCESS",
+        "expected_count": 0,
+        "transfer_complete": true,
+        "transport_clear": true,
+        "restore_complete": true,
+        "error_code": "NONE",
+        "error_message": "",
+        "timestamp": "2026-10-28T08:50:56.371274+00:00"
+      },
+      "pickup_result": {
+        "robot_id": "transport_01",
+        "task_id": "PICKUP_TEST_01d1e825960c4a018c60f805f7708d8a",
+        "transfer_id": "TRANSFER_TEST_daf3848b88f04288be1156af92ca7863",
+        "result_code": "SUCCESS",
+        "error_code": "NONE",
+        "error_message": "",
+        "timestamp": "2026-10-28T08:50:00.921104+00:00"
+      },
+      "final": {
+        "sim_time_s": 136.616673792,
+        "at": "2026-10-28T08:50:56.369726+00:00",
+        "actual": [
+          -6.013665795326241,
+          9.274953365325883,
+          -1.5507743427992036
+        ],
+        "map_pose": [
+          -5.999171158633734,
+          9.245865505635289,
+          -1.5419497736131165
+        ],
+        "map_error": {
+          "xy_cm": [
+            1.4494636692506724,
+            -2.9087859690594797
+          ],
+          "norm_cm": 3.2499201132143107
+        },
+        "odom_error": {
+          "xy_cm": [
+            -0.0031455926934320644,
+            0.08279543009930279
+          ],
+          "norm_cm": 0.08285516277650722
+        },
+        "result_timestamp": "2026-10-28T08:50:56.371274+00:00",
+        "receive_offset_s": -0.0015480518341064453,
+        "actual_goal_distance_cm": 1.7626930593827763,
+        "map_goal_distance_cm": 4.927577512778451
+      },
+      "max_amcl": {
+        "sim_time_s": 128.550006704,
+        "at": "2026-10-28T08:50:47.337524+00:00",
+        "error": {
+          "xy_cm": [
+            -0.8806056808606577,
+            -3.8796999912859675
+          ],
+          "norm_cm": 3.978383891424808
+        }
+      },
+      "max_odom_error_cm": 0.47167729315394646,
+      "raw_drive": "sim/runs/drive_diagnostics/17cfe60cb79c42d0a25209ec6f699ba4/harvest_01.jsonl",
+      "method": "USD 자세를 시뮬 시각으로 선형 보간. odom은 초기 자세만 오프라인 정합. map은 직전 수신 TF와 odom의 외부 재구성이며 내부 validator 직접 기록이 아님."
+    }
+  ],
+  "source_changes": [],
+  "normalized_runtime_differences": {
+    "2": [],
+    "3": [],
+    "4": []
+  },
+  "trial_count": 4,
+  "restoration_evaluable": 3,
+  "passed": 2,
+  "window_realign_failures": 1,
+  "camera_interruptions": 1,
+  "amcl_10cm_reproduced": false,
+  "scope": "cached SEC01 first window, real HarvestTask then docking/virtual transfer/restore. No full SEC/sorter/station return; no new survey.",
+  "source_hash_count": 401
+}

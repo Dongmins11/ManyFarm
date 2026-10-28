@@ -1,0 +1,206 @@
+{
+  "rotation_updates": 13,
+  "mean_measured_increment_error_m": 0.0004628395195636632,
+  "mean_assumed_translation_sigma_m": 0.09589628291718313,
+  "scope": "diagnostic comparison only; no calibration applied; actual error vs assumed sigma are different statistics",
+  "increments": [
+    {
+      "start_s": 0.050000003,
+      "end_s": 3.850000201,
+      "odom_travel_m": 0.2555830493736293,
+      "odom_turn_rad": 9.89671655891756e-05,
+      "measured_increment_position_error_m": 0.001063605774764686,
+      "measured_increment_heading_error_rad": 0.0025272594679657256,
+      "amcl_translation_sigma_m": 0.11430029954447544
+    },
+    {
+      "start_s": 3.850000201,
+      "end_s": 6.4500003360000004,
+      "odom_travel_m": 0.2530484856308894,
+      "odom_turn_rad": -0.0010415837168693339,
+      "measured_increment_position_error_m": 0.001002272775898204,
+      "measured_increment_heading_error_rad": 0.0025517241942245583,
+      "amcl_translation_sigma_m": 0.1132869097569813
+    },
+    {
+      "start_s": 6.4500003360000004,
+      "end_s": 9.050000472,
+      "odom_travel_m": 0.2563354587952159,
+      "odom_turn_rad": -0.002427493532498688,
+      "measured_increment_position_error_m": 0.0008581688253624974,
+      "measured_increment_heading_error_rad": 0.0024903154121367344,
+      "amcl_translation_sigma_m": 0.11480371568371427
+    },
+    {
+      "start_s": 9.050000472,
+      "end_s": 28.450001484,
+      "odom_travel_m": 0.2528900443935605,
+      "odom_turn_rad": 0.015115790069103217,
+      "measured_increment_position_error_m": 0.0011512276914933575,
+      "measured_increment_heading_error_rad": 0.002389298065992973,
+      "amcl_translation_sigma_m": 0.11322851974571357
+    },
+    {
+      "start_s": 28.450001484,
+      "end_s": 34.950001823,
+      "odom_travel_m": 0.2541248969212972,
+      "odom_turn_rad": -8.944173653922403e-05,
+      "measured_increment_position_error_m": 0.0010509845816325386,
+      "measured_increment_heading_error_rad": 0.002285614333270125,
+      "amcl_translation_sigma_m": 0.11364813190935792
+    },
+    {
+      "start_s": 34.950001823,
+      "end_s": 41.450002162,
+      "odom_travel_m": 0.2535828416797291,
+      "odom_turn_rad": 0.003168488542238856,
+      "measured_increment_position_error_m": 0.0011444567671726282,
+      "measured_increment_heading_error_rad": 0.0028479453302945323,
+      "amcl_translation_sigma_m": 0.11341045593025113
+    },
+    {
+      "start_s": 41.450002162,
+      "end_s": 47.950002501,
+      "odom_travel_m": 0.2524602697692221,
+      "odom_turn_rad": -0.004960191746552803,
+      "measured_increment_position_error_m": 0.001125565808155427,
+      "measured_increment_heading_error_rad": 0.002740670343938545,
+      "amcl_translation_sigma_m": 0.11291463750340476
+    },
+    {
+      "start_s": 47.950002501,
+      "end_s": 55.550002897,
+      "odom_travel_m": 0.24956245388348558,
+      "odom_turn_rad": 0.0015754749377568113,
+      "measured_increment_position_error_m": 0.0010117728909717707,
+      "measured_increment_heading_error_rad": 0.002280703604714329,
+      "amcl_translation_sigma_m": 0.1116095318681152
+    },
+    {
+      "start_s": 55.550002897,
+      "end_s": 73.850003852,
+      "odom_travel_m": 0.23013548954826446,
+      "odom_turn_rad": -0.2115105564395585,
+      "measured_increment_position_error_m": 0.00140966022726205,
+      "measured_increment_heading_error_rad": 0.005309120609813034,
+      "amcl_translation_sigma_m": 0.15034273697993963
+    },
+    {
+      "start_s": 73.850003852,
+      "end_s": 74.650003893,
+      "odom_travel_m": 0.00031920276109164553,
+      "odom_turn_rad": -0.22176149735848108,
+      "measured_increment_position_error_m": 0.00045890139908971766,
+      "measured_increment_heading_error_rad": 0.002404543340370102,
+      "amcl_translation_sigma_m": 0.09917485931533082
+    },
+    {
+      "start_s": 74.650003893,
+      "end_s": 75.450003935,
+      "odom_travel_m": 0.00028058703118636377,
+      "odom_turn_rad": -0.2116701674118155,
+      "measured_increment_position_error_m": 0.0004596794362497577,
+      "measured_increment_heading_error_rad": 0.0022358977702716665,
+      "amcl_translation_sigma_m": 0.09466185979709893
+    },
+    {
+      "start_s": 75.450003935,
+      "end_s": 76.250003977,
+      "odom_travel_m": 0.0003531753797679547,
+      "odom_turn_rad": -0.21708954963833096,
+      "measured_increment_position_error_m": 0.00048768351182736205,
+      "measured_increment_heading_error_rad": 0.0019349541196039821,
+      "amcl_translation_sigma_m": 0.09708552651659488
+    },
+    {
+      "start_s": 76.250003977,
+      "end_s": 77.050004018,
+      "odom_travel_m": 0.00025824900908344727,
+      "odom_turn_rad": -0.21624397827933226,
+      "measured_increment_position_error_m": 0.00040444293517841445,
+      "measured_increment_heading_error_rad": 0.002555311954452133,
+      "amcl_translation_sigma_m": 0.09670731599483362
+    },
+    {
+      "start_s": 77.050004018,
+      "end_s": 77.85000406,
+      "odom_travel_m": 0.0002645992952350689,
+      "odom_turn_rad": -0.22599134159584808,
+      "measured_increment_position_error_m": 0.0004481260393911873,
+      "measured_increment_heading_error_rad": 0.0020071308735380433,
+      "amcl_translation_sigma_m": 0.10106646970096297
+    },
+    {
+      "start_s": 77.85000406,
+      "end_s": 78.650004102,
+      "odom_travel_m": 0.00021204570216546207,
+      "odom_turn_rad": -0.20656174297134058,
+      "measured_increment_position_error_m": 0.0004899879930908362,
+      "measured_increment_heading_error_rad": 0.0021529449021548963,
+      "amcl_translation_sigma_m": 0.092377268440605
+    },
+    {
+      "start_s": 78.650004102,
+      "end_s": 79.450004144,
+      "odom_travel_m": 0.0002518637401844411,
+      "odom_turn_rad": -0.21512177338202762,
+      "measured_increment_position_error_m": 0.0005290840720789203,
+      "measured_increment_heading_error_rad": 0.0020745533248794357,
+      "amcl_translation_sigma_m": 0.096205447681898
+    },
+    {
+      "start_s": 79.450004144,
+      "end_s": 80.250004185,
+      "odom_travel_m": 0.00029837376412240586,
+      "odom_turn_rad": -0.22021155791784108,
+      "measured_increment_position_error_m": 0.00044233959213531374,
+      "measured_increment_heading_error_rad": 0.001755201024112113,
+      "amcl_translation_sigma_m": 0.09848169298657065
+    },
+    {
+      "start_s": 80.250004185,
+      "end_s": 81.050004227,
+      "odom_travel_m": 0.00018429704126395497,
+      "odom_turn_rad": -0.2093863296031492,
+      "measured_increment_position_error_m": 0.0004134654538855545,
+      "measured_increment_heading_error_rad": 0.00195971936121786,
+      "amcl_translation_sigma_m": 0.09364044958251543
+    },
+    {
+      "start_s": 81.050004227,
+      "end_s": 81.850004269,
+      "odom_travel_m": 0.00022364777642883447,
+      "odom_turn_rad": -0.21390856616198844,
+      "measured_increment_position_error_m": 0.0004990043225027419,
+      "measured_increment_heading_error_rad": 0.001866422900437037,
+      "amcl_translation_sigma_m": 0.09566287126759858
+    },
+    {
+      "start_s": 81.850004269,
+      "end_s": 82.650004311,
+      "odom_travel_m": 0.0001982680275615423,
+      "odom_turn_rad": -0.21124735441352002,
+      "measured_increment_position_error_m": 0.0004939915165212888,
+      "measured_increment_heading_error_rad": 0.0016201366080371704,
+      "amcl_translation_sigma_m": 0.09447273051724724
+    },
+    {
+      "start_s": 82.650004311,
+      "end_s": 83.450004352,
+      "odom_travel_m": 0.00020142008198046675,
+      "odom_turn_rad": -0.2091488465666767,
+      "measured_increment_position_error_m": 0.00045841210944241824,
+      "measured_increment_heading_error_rad": 0.0014941466458178176,
+      "amcl_translation_sigma_m": 0.09353425104230076
+    },
+    {
+      "start_s": 83.450004352,
+      "end_s": 84.350004399,
+      "odom_travel_m": 0.0001750674896031001,
+      "odom_turn_rad": -0.20925325900316413,
+      "measured_increment_position_error_m": 0.0004317953729341106,
+      "measured_increment_heading_error_rad": 0.0013171744561164545,
+      "amcl_translation_sigma_m": 0.09358093507982404
+    }
+  ]
+}

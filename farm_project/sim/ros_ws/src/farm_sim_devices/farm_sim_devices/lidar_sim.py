@@ -24,9 +24,11 @@ class LidarSim:
         transform=T_world_base@self.transform
         origin=carb.Float3(*map(float,transform[:3,3]))
         ranges=[]
+        diagnostic=[]
         for angle in self.angles:
             direction=transform[:3,:3]@np.array([math.cos(angle),math.sin(angle),0.0])
             nearest=[None]
+            nearest_path=['']
             def report(hit):
                 collision=str(hit_value(hit,'collision','collision'))
                 body=str(hit_value(hit,'rigid_body','rigidBody'))
@@ -34,10 +36,15 @@ class LidarSim:
                     return True
                 d=float(hit_value(hit,'distance','distance'))
                 if self.config['range_min_m']<=d<=self.config['range_max_m']:
-                    if nearest[0] is None or d<nearest[0]:nearest[0]=d
+                    if nearest[0] is None or d<nearest[0]:
+                        nearest[0]=d
+                        nearest_path[0]=collision
                 elif 0<=d<self.config['range_min_m']:
                     nearest[0]=0.0  # minより近い遮蔽物は有効距離として使わない
                 return True
             self.query.raycast_all(origin,carb.Float3(*map(float,direction)),self.config['range_max_m'],report)
             ranges.append(nearest[0])
+            if self.config.get('diagnostic_front_hits') and abs(angle)<=math.radians(5.1):
+                diagnostic.append(dict(angle_rad=float(angle),distance=nearest[0],collision=nearest_path[0]))
+        self.front_diagnostic=dict(origin=list(map(float,origin)),hits=diagnostic)
         return ranges

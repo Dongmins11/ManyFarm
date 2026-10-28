@@ -100,13 +100,26 @@ class TransferTests(unittest.TestCase):
         self.assertEqual(self.calls,[])
         self.assertIsNone(self.node.handoff.current)
 
-    def test_event_timeout_stops_and_keeps_recovery_block_after_restart(self) -> None:
+    def test_event_wait_has_no_device_timeout_and_cancel_keeps_recovery_block(self) -> None:
         self.server.stage_timeout_s=.01
         self.assertEqual(self.server.accept(self.goal),1)
-        handle=self.handle();handle.publish_feedback=lambda event:None
-        result=self.server.execute(handle)
-        self.assertEqual(result.result_code,'FAILED')
-        self.assertEqual(result.error_code,'EVENT_TIMEOUT')
+        waiting=threading.Event();finished=threading.Event();results=[]
+        handle=self.handle();handle.publish_feedback=lambda event:waiting.set()
+        def execute():
+            try: results.append(self.server.execute(handle))
+            finally: finished.set()
+        worker=threading.Thread(target=execute,daemon=True);worker.start()
+        try:
+            self.assertTrue(waiting.wait(1.))
+            self.assertFalse(finished.wait(.04))
+        finally:
+            self.server.cancel(handle)
+            handle.is_cancel_requested = True  # ROS가 cancel callback 수락 후 갱신하는 상태
+            worker.join(1.)
+        self.assertFalse(worker.is_alive())
+        result=results[0]
+        self.assertEqual(result.result_code,'CANCELED')
+        self.assertEqual(result.error_code,'CANCELED')
         self.assertTrue(self.node.blocked)
         self.assertEqual(self.calls[-1],'/test/stop')
         self.assertNotIn('/test/discharge',self.calls)
@@ -192,10 +205,18 @@ class HarvestLoadTransferTests(TransferTests):
 
     def test_failed_transfer_preserves_load_and_request(self):
         self.add_window(4)
-        self.server.stage_timeout_s = .01
         self.assertEqual(self.server.accept(self.goal), 1)
-        handle = self.handle(); handle.publish_feedback = lambda value: None
-        self.server.execute(handle)
+        # 원격 인계 계약은 허가를 무기한 기다린다. 실제 장치 실패로 수량 보존을 검사한다.
+        original_poll = self.server.devices.poll
+        def poll(ticket):
+            result = original_poll(ticket)
+            if self.calls[-1] == '/test/discharge':
+                return S(completed=True, ok=False, detail='test discharge failure')
+            return result
+        with patch.object(self.server.devices, 'poll', side_effect=poll):
+            result = self.server.execute(self.handle())
+        self.assertEqual(result.result_code, 'FAILED')
+        self.assertEqual(result.error_code, 'DEVICE_FAILED')
         self.assertEqual(self.node.harvest_load.loaded_count, 4)
         self.assertEqual(self.server.snapshot()['loaded_count'], 4)
         self.assertTrue(self.server.snapshot()['transfer_required'])

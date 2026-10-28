@@ -1,0 +1,77 @@
+{
+  "scope": "farm scene, harvest body+travel arms; no ROS/sensors/transport/fruit runtime; prescribed turn-stop, not failed trajectory replay",
+  "cases": [
+    {
+      "case": "baseline",
+      "wheel_kp": [
+        0.0,
+        0.0
+      ],
+      "wheel_kd": [
+        35809.86328125,
+        35809.86328125
+      ],
+      "solver_velocity_iterations": 4,
+      "post_stop_interval_s": [
+        0.5,
+        3.0
+      ],
+      "wheel_yaw_deg": -0.0831905575479613,
+      "world_yaw_deg": -0.08303222198655918
+    },
+    {
+      "case": "damping10",
+      "wheel_kp": [
+        0.0,
+        0.0
+      ],
+      "wheel_kd": [
+        358098.625,
+        358098.625
+      ],
+      "solver_velocity_iterations": 4,
+      "post_stop_interval_s": [
+        0.5,
+        3.0
+      ],
+      "wheel_yaw_deg": -0.08817376251428745,
+      "world_yaw_deg": -0.08974868154424219
+    },
+    {
+      "case": "velocity16",
+      "wheel_kp": [
+        0.0,
+        0.0
+      ],
+      "wheel_kd": [
+        35809.86328125,
+        35809.86328125
+      ],
+      "solver_velocity_iterations": 16,
+      "post_stop_interval_s": [
+        0.5,
+        3.0
+      ],
+      "wheel_yaw_deg": -0.03376265416775817,
+      "world_yaw_deg": -0.034416786222297165
+    },
+    {
+      "case": "baseline_repeat",
+      "wheel_kp": [
+        0.0,
+        0.0
+      ],
+      "wheel_kd": [
+        35809.86328125,
+        35809.86328125
+      ],
+      "solver_velocity_iterations": 4,
+      "post_stop_interval_s": [
+        0.5,
+        3.0
+      ],
+      "wheel_yaw_deg": -0.08753324345087166,
+      "world_yaw_deg": -0.08978798049710883
+    }
+  ]
+}

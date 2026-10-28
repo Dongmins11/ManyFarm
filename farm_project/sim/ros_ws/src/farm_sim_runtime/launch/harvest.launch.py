@@ -26,7 +26,9 @@ def setup(context) -> list:
                  (root / profile['harvest_config']).resolve()]:
         if not path.resolve().is_relative_to(root / 'sim'):
             raise ValueError('수확 시뮬 설정은 sim 안에 있어야 합니다.')
-    station = json.loads((env.parent / 'station_spawn.json').read_text())['stations'][profile['robot_id']]
+    # 시험 초기 배치와 작업 종료 후 돌아갈 스테이션은 별도다.
+    spawn_file = value('initial_spawn_config') or profile['station_config']
+    station = json.loads((root / spawn_file).read_text())['stations'][profile['robot_id']]
     initial = load_nav2_parameters(profile['nav_params'], root)['amcl']['ros__parameters']
     pose = initial['initial_pose']
     device = json.loads(Path(profile['device_config']).read_text())
@@ -48,10 +50,13 @@ def setup(context) -> list:
         actions, capture = tag_capture_actions(root, profile)
     actions += [include('farm_bringup', 'harvest.launch.py',
                     dict(project_root=str(root), mode=mode, environment_config=str(env),
-                         tag_correction=value('tag_correction'), tag_camera='false', capture_directory=capture)),
-            Node(package='farm_sim_harvest', executable='harvest_audit', namespace=profile['robot_id'],
+                         handoff_config=value('handoff_config'),
+                         tag_correction=value('tag_correction'), tag_camera='false', capture_directory=capture))]
+    # 인계 시험은 기존 runner의 별도 계측을 유지한다. 일반 수확 audit은 그대로다.
+    if not value('handoff_config'):
+        actions.append(Node(package='farm_sim_harvest', executable='harvest_audit', namespace=profile['robot_id'],
                  output='screen', parameters=[dict(project_root=str(root),
-                     audit_config=str(env.parent / 'harvest_audit.json'), use_sim_time=True)])]
+                     audit_config=str(env.parent / 'harvest_audit.json'), use_sim_time=True)]))
     return actions
 
 
@@ -59,6 +64,8 @@ def setup(context) -> list:
 def generate_launch_description() -> LaunchDescription:
     return LaunchDescription([
         DeclareLaunchArgument('project_root'),
+        DeclareLaunchArgument('handoff_config', default_value=''),
+        DeclareLaunchArgument('initial_spawn_config', default_value=''),
         DeclareLaunchArgument('mode', default_value='sim', choices=['sim','real']),
         DeclareLaunchArgument('environment_config', default_value=
                               'sim/ros_ws/src/farm_sim_config/config/harvest_runtime.yaml'),
