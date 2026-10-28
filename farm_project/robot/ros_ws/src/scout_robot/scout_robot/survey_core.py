@@ -25,7 +25,7 @@ def transform_points(T, points):
 
 
 class StraightBed:
-    def __init__(self, route, cfg):
+    def __init__(self, route, cfg, *, harvest_route=None):
         self.origin=np.array(route[0][1:3],dtype=float)
         end=np.array(route[-1][1:3],dtype=float)
         self.length=float(np.linalg.norm(end-self.origin))
@@ -51,8 +51,15 @@ class StraightBed:
             work_distance=float(work@self.n),depth=h['depth_m'],z_min=h['height_offsets_m'][0],
             z_max=h['height_offsets_m'][1],bed_y=self.bed_n,route_start=0.,route_end=self.length,
             range_tolerance=h.get('range_tolerance_m',0.0),
+            depth_tolerance=h.get('depth_tolerance_m',0.0),
             membership_margin=h.get('membership_margin_m',h['side_margin_m']))
         self.plan_cfg.validate()
+        mode = cfg.get('harvest_goal', {}).get('mode', 'window_offset')
+        if mode == 'graph_line':
+            from .graph_harvest_goal import constrain_to_graph
+            self.plan_cfg = constrain_to_graph(self, harvest_route)
+        elif mode != 'window_offset':
+            raise ValueError('Unknown harvest_goal mode: ' + str(mode))
 
     def local(self, xyz):
         p=np.array(xyz);d=p[:2]-self.origin
@@ -142,7 +149,11 @@ class Survey:
         # Recheck corrected coordinates against fixed windows before dispatch.
         observed=[Fruit(f['id'],*self.bed.local(f['position_map_m'])) for f in self.fruits]
         # Exclude out-of-section/context detections before calling ingest in server.
-        self.plan=extend_plan(self.plan,observed,self.bed.plan_cfg,revalidate=self._policy is SurveyPolicy.MEDIAN_REVALIDATE);self.observations+=1
+        overlap = getattr(self.bed, 'cfg', {}).get('window_overlap', {})
+        self.plan=extend_plan(self.plan,observed,self.bed.plan_cfg,
+            revalidate=self._policy is SurveyPolicy.MEDIAN_REVALIDATE,
+            overlap_trigger_ratio=overlap.get('trigger_ratio', 0.5) if overlap.get('enabled', False) else None)
+        self.observations+=1
         for task in self.plan.tasks:self.window_segments.setdefault(task.task_id,segment_id)
         return [self.fruits[assigned[i]]['id'] for i in range(len(detections))]
 
@@ -157,12 +168,23 @@ class Survey:
                 for n in [task.window_y_min,task.window_y_max] for s in [task.window_x_min,task.window_x_max]]
             tol=self.bed.plan_cfg.range_tolerance
             d['range_tolerance_m']=tol
+            depth_tol=self.bed.plan_cfg.depth_tolerance
+            d['depth_tolerance_m']=depth_tol
             d['acceptance_corners_map_m']=[self.bed.world(s,n,z)
                 for z in [task.window_z_min-tol,task.window_z_max+tol]
-                for n in [task.window_y_min-tol,task.window_y_max+tol]
+                for n in [task.window_y_min-tol-depth_tol,task.window_y_max+tol+depth_tol]
                 for s in [task.safe_x_min-tol,task.safe_x_max+tol]]
+            if getattr(self.bed, 'cfg', {}).get('harvest_goal', {}).get('mode') == 'graph_line':
+                d['goal_mode'] = 'graph_line'
+                d['harvest_node_ids'] = self.bed.cfg['harvest_goal']['node_ids']
+                d['actual_work_distance_m'] = (task.window_y_min + task.window_y_max)/2 - task.arm_y
+                d['nominal_work_distance_m'] = self.bed.plan_cfg.work_distance
+                d['reachability_status'] = 'NOT_VALIDATED'
             d['expected_count']=len(task.member_ids);out.append(d)
-        return out
+        # 추가 관측으로 뒤늦게 생성된 창도 ID는 유지하고 실제 수확 진행 방향으로 반환한다.
+        forward = (math.cos(self.bed.harvest_yaw), math.sin(self.bed.harvest_yaw))
+        return sorted(out, key=lambda window: sum(
+            window['goal_pose']['position'][i]*forward[i] for i in (0, 1)))
 
     def record(self):
         return {'fruits':self.fruits,'windows':self.windows(),'holds':[vars(h) for h in self.plan.holds],
@@ -173,6 +195,7 @@ class Survey:
                 'position_fusion':('componentwise_median_all_observations; two observations use their midpoint'
                     if self._policy is SurveyPolicy.MEDIAN_REVALIDATE else 'first_observation_position'),
                 'range_tolerance_m':self.bed.plan_cfg.range_tolerance,
+                'depth_tolerance_m':self.bed.plan_cfg.depth_tolerance,
                 'membership_margin_m':self.bed.plan_cfg.membership_margin,
                 'reserved_empty_window_count':sum(not t.member_ids for t in self.plan.tasks),
                 'identity_method':'B baseline greedy 3D one-to-one; identity errors remain possible'}

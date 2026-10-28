@@ -93,7 +93,7 @@ profiles:
     parking:
       enabled: true
       next_mission: direct
-      graph_file: ../maps/many_farm/graph.geojson
+      graph_file: ../maps/transport_real/graph.geojson
       from_node_id: 20
       to_node_id: 3
       yaw_tolerance_rad: 0.05236
@@ -381,7 +381,7 @@ profiles:
       alignment_mode: face_graph_node
       exit_heading_from_node_id: 20
       exit_heading_node_id: 3
-      graph_file: ../maps/many_farm/graph.geojson
+      graph_file: ../maps/transport_real/graph.geojson
       yaw_tolerance_rad: 0.05236
       alignment_max_angular_rps: 0.3
       alignment_kp: 1.2
@@ -476,7 +476,7 @@ profiles:
       alignment_mode: face_graph_node
       exit_heading_from_node_id: 17
       exit_heading_node_id: 15
-      graph_file: ../maps/many_farm/graph.geojson
+      graph_file: ../maps/transport_real/graph.geojson
       yaw_tolerance_rad: 0.05236
       alignment_max_angular_rps: 0.3
       alignment_kp: 1.2
@@ -769,7 +769,7 @@ profiles:
       exit_rotation:
         skip_footprint_check: true
         enabled: true
-        graph_file: ../maps/many_farm/graph.geojson
+        graph_file: ../maps/transport_real/graph.geojson
         from_node_id: 17
         to_node_id: 15
         yaw_tolerance_rad: 0.05236

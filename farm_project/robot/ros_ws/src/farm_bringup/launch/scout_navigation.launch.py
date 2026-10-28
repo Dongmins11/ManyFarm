@@ -70,10 +70,29 @@ def setup(context):
         actions.append(Node(package=package, executable=name, name=name,
                             namespace=namespace, output='screen',
                             parameters=[params, *extra], remappings=remaps))
-    actions.append(Node(package='nav2_lifecycle_manager', executable='lifecycle_manager',
-        name='lifecycle_manager_navigation', namespace=namespace, output='screen',
-        parameters=[{'use_sim_time': sim, 'autostart': True,
-                     'node_names': [name for _, name in servers], 'bond_timeout': 10.0}]))
+    if sim:
+        actions.append(Node(package='nav2_lifecycle_manager', executable='lifecycle_manager',
+            name='lifecycle_manager_navigation', namespace=namespace, output='screen',
+            parameters=[{'use_sim_time': True, 'autostart': True,
+                         'node_names': [name for _, name in servers], 'bond_timeout': 10.0}]))
+    else:
+        # AMCL must activate before the operator can publish an initial pose.
+        for manager, names, autostart in (
+            ('localization', ['map_server', 'amcl'], True),
+            ('navigation', [name for _, name in servers[2:]], False),
+        ):
+            actions.append(Node(package='nav2_lifecycle_manager', executable='lifecycle_manager',
+                name='lifecycle_manager_' + manager, namespace=namespace, output='screen',
+                parameters=[{'use_sim_time': False, 'autostart': autostart,
+                             'node_names': names, 'bond_timeout': 10.0}]))
+        bindings = load_nav2_parameters(selected['nav_params'], root)
+        costmap = bindings['global_costmap']['global_costmap']['ros__parameters']
+        actions.append(Node(package='farm_bringup', executable='scout_navigation_start',
+            namespace=namespace, output='screen',
+            parameters=[{'map_frame': costmap.get('global_frame', 'map'),
+                         'base_frame': costmap.get('robot_base_frame', 'base_link')}],
+            remappings=[('/tf', '/' + namespace + '/tf'),
+                        ('/tf_static', '/' + namespace + '/tf_static')]))
     actions.append(Node(package='scout_robot', executable='route_preview',
         namespace=namespace, output='screen',
         parameters=[{'use_sim_time': sim, 'route_file': selected['route_file']}]))

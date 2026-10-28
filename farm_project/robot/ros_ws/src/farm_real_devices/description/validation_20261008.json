@@ -1,0 +1,98 @@
+{
+  "passed": true,
+  "checks": [
+    "Three connected trees",
+    "plate center and optical origins",
+    "nominal optical view directions",
+    "unchanged base, wheels, lidar and IMU",
+    "original top plate XY center and 9mm thickness",
+    "Holder fixed at plate centre/top",
+    "51mm central clear square contains 50mm mast, 0.5mm nominal side gap",
+    "Six original upper-tier support axes",
+    "Support ends meet old plate top and new plate underside",
+    "IMU unchanged as requested"
+  ],
+  "poses": {
+    "burger_with_camera.urdf": {
+      "scout_plate_center_ground": [
+        -0.032,
+        0,
+        0
+      ],
+      "scout_top_plate": [
+        -0.032,
+        0,
+        0.2
+      ],
+      "scout_camera_mast": [
+        -0.032,
+        0,
+        0.41
+      ],
+      "camera_color_optical_frame": [
+        -0.049,
+        0.055,
+        0.595
+      ],
+      "picam_optical_frame": [
+        -0.032,
+        0.063,
+        0.117
+      ]
+    },
+    "burger_camera_preview.urdf": {
+      "scout_plate_center_ground": [
+        -0.032,
+        0,
+        0
+      ],
+      "scout_top_plate": [
+        -0.032,
+        0,
+        0.2
+      ],
+      "scout_camera_mast": [
+        -0.032,
+        0,
+        0.41
+      ],
+      "camera_color_optical_frame": [
+        -0.049,
+        0.055,
+        0.595
+      ],
+      "picam_optical_frame": [
+        -0.032,
+        0.063,
+        0.117
+      ]
+    },
+    "burger_camera_adjustable.urdf": {
+      "scout_plate_center_ground": [
+        -0.032,
+        0,
+        0
+      ],
+      "scout_top_plate": [
+        -0.032,
+        0,
+        0.2
+      ],
+      "scout_camera_mast": [
+        -0.032,
+        0,
+        0.41
+      ],
+      "camera_color_optical_frame": [
+        -0.049,
+        0.055,
+        0.595
+      ],
+      "picam_optical_frame": [
+        -0.032,
+        0.063,
+        0.117
+      ]
+    }
+  }
+}

@@ -46,6 +46,8 @@ def compensate(candidate: dict, profile: dict | None) -> tuple[np.ndarray, dict]
     raw = np.asarray(candidate['q'], float)
     if raw.shape != (3,) or not np.isfinite(raw).all():
         raise ValueError('pixel_bias_nonfinite_pose')
+    if candidate.get('observation_kind') == 'multi_tag':
+        return raw.copy(), dict(enabled=False, reason='multi_tag_has_no_single_tag_bias_profile')
     if profile is None:
         return raw.copy(), dict(enabled=False)
     tag = candidate['_bias_tag']

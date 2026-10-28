@@ -10,6 +10,7 @@ from rclpy.action import ActionClient
 from rclpy.action.client import ClientGoalHandle
 from rclpy.parameter import parameter_value_to_python
 from rcl_interfaces.srv import GetParameters
+from lifecycle_msgs.srv import GetState
 from nav2_msgs.action import NavigateToPose, FollowPath
 from action_msgs.msg import GoalStatus
 from nav_msgs.msg import Path
@@ -28,6 +29,10 @@ class Nav2Client:
         self._navigate=ActionClient(node,NavigateToPose,settings.navigate_action,callback_group=group)
         self._follow=ActionClient(node,FollowPath,settings.follow_action,callback_group=group)
         self._parameters=node.create_client(GetParameters,settings.controller_node.rstrip('/')+'/get_parameters',callback_group=group)
+        self._lifecycle_clients = ([node.create_client(GetState, name + '/get_state', callback_group=group)
+            for name in ('map_server', 'amcl', 'controller_server', 'planner_server',
+                         'behavior_server', 'bt_navigator', 'velocity_smoother')]
+            if settings.require_active_nav2 else [])
         self._pending: Future | None = None
         self._handle: ClientGoalHandle | None = None
         self._result: Future | None = None
@@ -37,6 +42,7 @@ class Nav2Client:
                                  for topic in ('cmd_vel_nav', 'cmd_vel')]
                                 if settings.tf_recovery_enabled else [])
         self._last_control_feedback = 0.0
+        self._nominal_linear_speed_mps: float | None = None
 
     @property
     def has_goal(self) -> bool:
@@ -82,7 +88,38 @@ class Nav2Client:
         finally:
             if not future.done(): self._parameters.remove_pending_request(future)
 
+    def _wait_active_nav2(self, check: Callable[[], None]) -> None:
+        """An action server may exist even while its downstream smoother is inactive."""
+        clients = getattr(self, '_lifecycle_clients', [])
+        next_log = 0.0
+        while clients:
+            check()
+            pending = []
+            try:
+                for client in clients:
+                    if client.service_is_ready():
+                        pending.append((client, client.call_async(GetState.Request())))
+                deadline = time.monotonic() + 2.0
+                while any(not f.done() for _, f in pending) and time.monotonic() < deadline:
+                    check()
+                    time.sleep(.05)
+                check()
+                if len(pending) == len(clients) and all(
+                    f.done() and f.exception() is None and f.result() is not None
+                    and f.result().current_state.id == 3 for _, f in pending
+                ):
+                    return
+            finally:
+                for client, future in pending:
+                    if not future.done():
+                        client.remove_pending_request(future)
+            if time.monotonic() >= next_log:
+                self._node.get_logger().warning('NAV2_READY_WAIT: 필수 주행 노드 활성화 대기; Goal 미전송')
+                next_log = time.monotonic() + 5.0
+            time.sleep(.2)
+
     def preflight(self, check: Callable[[],None], *, wall_parameters: dict[str,Any] | None = None) -> dict[str,Any]:
+        self._wait_active_nav2(check)
         s=self._settings
         client=self._follow if s.mode=='follow_path' else self._navigate
         deadline=time.monotonic()+s.readiness_timeout_s
@@ -90,7 +127,16 @@ class Nav2Client:
             check()
             if time.monotonic()>deadline: raise RuntimeError('Nav2 액션/파라미터 서버가 준비되지 않았습니다.')
             time.sleep(.05)
-        values=self._read_parameters(['goal_checker_plugins','controller_plugins','progress_checker_plugins'],check)
+        names = ['goal_checker_plugins', 'controller_plugins', 'progress_checker_plugins']
+        speed_parameter = f'{s.controller_id}.desired_linear_vel'
+        # 벽/곡선 제어기는 이 파라미터가 없으므로 기존 고정 제한시간을 사용한다.
+        adaptive_speed = s.mode == 'follow_path' and s.controller_id in ('RPP', 'StationReverse')
+        if adaptive_speed:
+            names.append(speed_parameter)
+        values = self._read_parameters(names, check)
+        speed = values.get(speed_parameter)
+        self._nominal_linear_speed_mps = (float(speed) if isinstance(speed, (int, float))
+            and not isinstance(speed, bool) and math.isfinite(speed) and speed > 0 else None)
         ids=values.get('goal_checker_plugins')
         if not isinstance(ids,list) or not ids: raise RuntimeError('goal_checker_plugins 누락')
         if s.mode=='follow_path':
@@ -139,7 +185,52 @@ class Nav2Client:
     def _control_feedback(self, message: Any) -> None:
         self._last_control_feedback = time.monotonic()
 
+    def _execution_timeout(self, path: Path | None) -> float:
+        """전송 경로 길이/설정 속도의2배+60초. 기존 제한시간을 하한으로 둔다."""
+        base = self._settings.goal_timeout_s
+        speed = getattr(self, '_nominal_linear_speed_mps', None)
+        if self._settings.mode != 'follow_path' or path is None or speed is None:
+            return base
+        points = [(pose.pose.position.x, pose.pose.position.y) for pose in path.poses]
+        distance = sum(math.dist(a, b) for a, b in zip(points, points[1:]))
+        if not math.isfinite(distance):
+            raise ValueError('주행 경로 길이는 유한해야 합니다.')
+        return max(base, float(math.ceil(2.0*distance/speed + 60.0)))
+
+    def request_stop(self) -> None:
+        """교통 콜백에서 기다리지 않고 자신의 진행/지연 승인 Goal에 취소를 보낸다."""
+        # TrafficClient가 자신의 정지 publisher로 이미 0을 보낸다.
+        # 기존 출력 소유자가 연결된 경우에만 그 정지 경로도 사용한다.
+        if self._recovery_stop is not None or self._stop_publishers:
+            self._stop_for_recovery()
+        if self._handle is not None and self._handle.accepted:
+            self._handle.cancel_goal_async()
+        elif self._pending is not None:
+            def cancel_late(future: Any) -> None:
+                handle = future.result()
+                if handle is not None and handle.accepted:
+                    handle.cancel_goal_async()
+            self._pending.add_done_callback(cancel_late)
+
     def execute(self, xy: tuple[float,float], yaw: float, path: Path | None, check: Callable[[],None]) -> int:
+        """접근·작업·이탈·복귀가 공유하는 최종 출발 경계. 허가 대기는 주행 제한시간 밖이다."""
+        traffic = getattr(self._node, '_traffic', None)
+        if traffic is None:
+            return self._execute_authorized(xy, yaw, path, check)
+        if self not in traffic.motion_clients:
+            traffic.motion_clients.append(self)
+        path, generation = traffic.acquire(path, check)
+        def guarded() -> None:
+            check()
+            traffic.check(generation)
+        try:
+            guarded()
+            return self._execute_authorized(xy, yaw, path, guarded)
+        finally:
+            # 정상/실패 모두 먼저 정지 명령을 보내며 점유는 실제 위치로 별도 반납한다.
+            traffic.movement_finished()
+
+    def _execute_authorized(self, xy: tuple[float,float], yaw: float, path: Path | None, check: Callable[[],None]) -> int:
         if (not self._settings.tf_recovery_enabled and not self._settings.collision_retry_count) or self._settings.mode != 'follow_path':
             return self._execute_once(xy, yaw, path, check)
         if self._recovery_probe is None:
@@ -160,7 +251,7 @@ class Nav2Client:
         def active_clock() -> float:
             now = execution_clock()
             return now - excluded - (now-wait_start if wait_start is not None else 0.)
-        deadline = active_clock() + self._settings.goal_timeout_s
+        deadline = active_clock() + self._execution_timeout(path)
         def bounded_check() -> None:
             check()
             if active_clock() >= deadline:
@@ -173,7 +264,9 @@ class Nav2Client:
                 self._recovery_probe, self._stop_for_recovery, bounded_check,
                 lambda: self._last_control_feedback,
                 self._settings.tf_recovery_timeout_s,
-                lambda text: self._node.get_logger().warning(text))
+                lambda text: self._node.get_logger().warning(text),
+                wait_forever=self._settings.tf_recovery_wait_forever,
+                waiting=retry_waiting if self._settings.tf_recovery_wait_forever else lambda active: None)
         if self._settings.collision_retry_count:
             return run_with_collision_recovery(execute_with_tf_recovery,
                 self._recovery_probe, self._stop_for_recovery, bounded_check,
@@ -183,6 +276,7 @@ class Nav2Client:
 
     def _execute_once(self, xy: tuple[float,float], yaw: float, path: Path | None, check: Callable[[],None]) -> int:
         check()
+        self._wait_active_nav2(check)
         if self.has_goal: raise RuntimeError('이전 주행 종료 확인 전에는 새 Goal을 보낼 수 없습니다.')
         if self._settings.mode=='follow_path':
             if path is None or len(path.poses)<2: raise ValueError('FollowPath에 유효한 경로 필요')
@@ -213,7 +307,7 @@ class Nav2Client:
             self._clear()
             raise RuntimeError('Nav2 Goal 거절')
         self._result=self._handle.get_result_async()
-        response=self._wait(self._result,self._settings.goal_timeout_s,check,
+        response=self._wait(self._result,self._execution_timeout(path),check,
             clock=self._execution_clock(),
             timeout_message='Nav2 주행 완료 시간 초과; 요청 종료 여부 확인 필요')
         self._clear()

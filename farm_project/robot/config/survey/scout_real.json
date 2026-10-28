@@ -21,8 +21,6 @@
         3,
         4,
         5,
-        6,
-        7,
         8,
         9
       ],
@@ -33,36 +31,59 @@
         "segments": [
           {
             "segment_id": "SEG01",
-            "offset_m": 0
+            "offset_m": 0.7107571817313698
+          },
+          {
+            "segment_id": "SEG02",
+            "offset_m": 1.8192428182686302
+          },
+          {
+            "segment_id": "SEG03",
+            "offset_m": 2.53
           }
         ]
       },
       "harvest": {
-        "heading_offset_rad": 0,
+        "heading_offset_rad": 0.0,
         "mount_xy_base_m": [
-          0,
-          0.255
+          0.19,
+          0.185
         ],
         "work_offset_xy_base_m": [
-          0,
-          0.2
+          0.0,
+          0.315
         ],
-        "height_reference_m": 0.4,
+        "height_reference_m": 0.713,
         "height_offsets_m": [
           -0.1,
           0.35
         ],
         "width_m": 0.35,
         "side_margin_m": 0.03,
-        "membership_margin_m": 0.0,
         "depth_m": 0.1,
-        "range_tolerance_m": 0.0
+        "range_tolerance_m": 0.02,
+        "membership_margin_m": 0.0
+      },
+      "harvest_goal": {
+        "mode": "graph_line",
+        "route_file": "robot/config/maps/many_farm/graph.geojson",
+        "node_ids": [
+          11,
+          12,
+          14
+        ]
+      },
+      "window_overlap": {
+        "enabled": true,
+        "trigger_ratio": 0.5
       }
     }
   },
   "notes": [
-    "기존 bmany.yaml의 MapToWorld 변환을 매니팜 map 및 직선 베드 기준으로 환산. bed_y=-2.133 → map x=1.659, 경로 x=.519 → 1.14m.",
-    "베드 구간은 기존 world route -1.5~-5.0에 대응하는 map 노드2~9. 촬영은 별도 patrol의4·6·8에서만 수행.",
-    "수확 장착값은 기존 planner 설정 재사용. 현장 장착 변경 시 재확인."
+    "2026-10-14 many_farm_253cm_20261014: 새 지도 원점[-0.509,-1.768,0], 화단길이2.53m.",
+    "베드 경로2→3→4→5→8→9, map +X 방향/yaw0. 촬영목표는 별도 patrol의4→8→9.",
+    "bed_plane_from_route_m=1.14: 차체 기준 경로에서 map +Y 화단면까지 거리. 카메라 장착 오프셋을 중복 차감하지 않는다.",
+    "새 지도/TF 세션으로 측정한다. 이전 지도에서 등록한 과실/윈도우 좌표를 재사용하지 않는다.",
+    "2026-10-28 수확 작업창/팔 오프셋을 PC main 시뮬 SEC01과 일치. 실제 도달 가능 범위는 별도 확인."
   ]
 }

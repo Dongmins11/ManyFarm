@@ -113,9 +113,15 @@ class RouteGraph:
                 sections.add(section)
         return next(iter(sections)) if len(sections) == 1 else None
 
-    def plan(self, start: Point, goal: Point, max_start: float=.10, max_goal: float=.02) -> RoutePlan:
+    def plan(self, start: Point, goal: Point, max_start: float=.10, max_goal: float=.02, *,
+             blocked_nodes: frozenset[str] = frozenset(), blocked_edges: frozenset[str] = frozenset()) -> RoutePlan:
         """거리 기반 다익스트라 탐색. 교통·장애물 비용이나 진입 허가는 포함하지 않습니다."""
         starts, goals = self._candidates(start,max_start), self._candidates(goal,max_goal)
+        def allowed(edge: Edge) -> bool:
+            return (edge.edge_id not in blocked_edges and str(edge.start) not in blocked_nodes
+                    and str(edge.end) not in blocked_nodes)
+        starts = [item for item in starts if allowed(item[0])]
+        goals = [item for item in goals if allowed(item[0])]
         best: tuple[float,list[Point],list[str]] | None = None
         order = itertools.count()  # 같은 비용에서 문자열/숫자 노드 ID를 비교하지 않도록 합니다.
         for edge, distance, ratio, snapped in starts:
@@ -134,7 +140,7 @@ class RouteGraph:
                         candidate=(cost+math.dist(self.nodes[node],endpoint)+tail,points+[endpoint,goal],used+[target.edge_id])
                         if best is None or candidate[0]<best[0]: best=candidate
                 for following in self._adj[node]:
-                    if following.end not in seen:
+                    if following.end not in seen and allowed(following):
                         heapq.heappush(queue,(cost+math.dist(self.nodes[node],self.nodes[following.end]),next(order),following.end,points+[self.nodes[following.end]],used+[following.edge_id]))
         if best is None:
             raise ValueError('목표까지 연결되는 방향 경로가 없습니다. 그래프 연결을 확인하세요.')

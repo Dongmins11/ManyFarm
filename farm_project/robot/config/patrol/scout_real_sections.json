@@ -12,18 +12,18 @@
         },
         {
           "segment_id": "SEG02",
-          "observation_node_id": 6
+          "observation_node_id": 8
         },
         {
           "segment_id": "SEG03",
-          "observation_node_id": 8
+          "observation_node_id": 9
         }
       ],
       "on_complete": "WAIT_FOR_COMMAND"
     }
   },
   "notes": [
-    "실행에는 SEC01의 실제 베드·카메라 설정이 필요합니다.",
-    "1번으로 자동 복귀하지 않습니다. 별도 복귀 명령을 기다립니다."
+    "SEC01은 SEG01(4번) → SEG02(8번) → SEG03(9번)에서 정지 관측.",
+    "9번 관측 완료 후 WAIT_FOR_COMMAND. 1번·스테이션 자동 이동 없음."
   ]
 }

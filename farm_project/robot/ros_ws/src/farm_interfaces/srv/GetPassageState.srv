@@ -1,0 +1,25 @@
+string robot_id
+string caller_boot_id
+string target_boot_id
+# Empty only for controller/registration discovery (permit_id also empty).
+string request_id
+string permit_id
+string target_server_epoch
+string query_id
+string timestamp
+---
+farm_interfaces/TrafficControlState control_state
+string query_id
+string current_server_epoch
+bool found
+# All five identifiers empty if found=false. control_state is still usable.
+farm_interfaces/TrafficContext context
+string request_state
+string permission_state
+string[] allocated_zone_ids
+string[] occupied_zone_ids
+string[] unknown_blocked_zone_ids
+uint64 last_release_sequence
+string error_code
+string error_message
+string timestamp

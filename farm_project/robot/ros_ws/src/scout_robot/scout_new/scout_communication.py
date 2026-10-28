@@ -109,6 +109,8 @@ class ScoutCommunication:
             self._node._handoff.release('work', goal.request.task_id)
             return result
         try:
+            if getattr(self._node, '_traffic', None) is not None:
+                self._node._traffic.begin_task()
             result = self._controller.start(goal).result()
             if result.result_code == 'SUCCESS':
                 goal.succeed()

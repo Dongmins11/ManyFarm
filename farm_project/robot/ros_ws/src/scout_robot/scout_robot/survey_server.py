@@ -1,3 +1,4 @@
+from scout_robot.graph_harvest_goal import load_harvest_route
 """ScoutArea → B stop/capture/accumulate → one task batch at bed completion."""
 import json
 import math
@@ -102,7 +103,7 @@ class SurveyServer(Node):
         if not self.python.is_file():raise ValueError('vision_python must be the YOLO environment Python path')
         self.beds={}
         for key,c in self.cfg['sections'].items():
-            self.beds[key]=StraightBed(load_route(self.root/c['route_file'],c['node_ids']),c)
+            self.beds[key]=StraightBed(load_route(self.root/c['route_file'],c['node_ids']),c, harvest_route=load_harvest_route(self.root, c))
         self.cb=ReentrantCallbackGroup();self.lock=threading.Lock();self.busy=False
         self.shutdown_requested=False;self.active_goal=None;self.nav_handle=None;self.pending_nav=None
         self.odom=None;self.odom_wall=0.;self.odom_lock=threading.Lock()
@@ -268,7 +269,7 @@ class SurveyServer(Node):
             for a,b in edges:
                 for j in [a,b]:m.points.append(Point(x=w['corners_map_m'][j][0],y=w['corners_map_m'][j][1],z=w['corners_map_m'][j][2]))
             array.markers.append(m)
-            if w.get('range_tolerance_m',0)>0:
+            if w.get('range_tolerance_m',0)>0 or w.get('depth_tolerance_m',0)>0:
                 outer=Marker();outer.header.frame_id='map';outer.ns='window_tolerance';outer.id=i
                 outer.type=Marker.LINE_LIST;outer.action=Marker.ADD;outer.pose.orientation.w=1.
                 outer.scale.x=.004;outer.color.g=outer.color.b=outer.color.a=1.

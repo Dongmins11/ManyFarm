@@ -83,7 +83,11 @@ class VisionRuntime:
 
     def release(self, reusable: bool) -> None:
         # Controller의 단일 I/O 작업이 끝난 뒤 호출합니다.
-        # 실패·취소는 읽지 않은 RPC 응답이 남을 수 있어 워커를 교체합니다.
+        # 실물은 미션 결과 대신 RPC 동기화 상태로 판단합니다. 시뮬 정책은 유지합니다.
+        if self._node._vcfg.get('backend') == 'realsense_legacy':
+            reusable = self._worker is not None and self._worker.reusable
+            self._node.get_logger().info('영상 워커 반환: ' +
+                ('정상 RPC 상태, 재사용' if reusable else 'RPC/프로세스 상태 불확실, 재준비'))
         with self._lock:
             self._leased = False
             if reusable:

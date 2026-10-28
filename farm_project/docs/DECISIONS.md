@@ -584,3 +584,11 @@ PC→Zenoh→HarvestTask window 이동 1회는 일반 controller의 collision ah
 
 ### 2026-10-27 OpenCR 덮개 시간 갱신
 공유본 stime=1350ms 소스 보관 및 브리지 설명 갱신. 로봇 dump에서 이미1350ms 확인. ROS 동작·시뮬 변경 없음. 재플래시/기구동작 미실행. [상세](changes/OPENCR_UPDATE_20261027.md).
+
+
+### 운송 지도 계약 복원 2026-10-27
+사용자 승인으로 farm_map_v1 및 기존 운송 그래프를 transport_real 전용 경로에 복원. 수확/예찰 공통 지도 불변. [상세](changes/TRANSPORT_MAP_RESTORE_20261027.md). 실행 중 노드는 재브링업 필요.
+
+
+## 2026-10-28 예찰 작업본 게시
+사용자 승인으로 feature_dongmin에 예찰 작업본 및 기존 운송 map_id 복원을 반영. PC18패키지 빌드, 운송·수확99시험 통과. 예찰·공통310통과/49실패(시험 데이터·더블·설정 가정 차이 포함), 실물 재배포 미실행. [범위·검증 한계](changes/SCOUT_WORKSPACE_PUBLISH_20261028.md).

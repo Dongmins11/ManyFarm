@@ -12,5 +12,5 @@ setup(
     install_requires=['setuptools'], zip_safe=True,
     maintainer='Farm Team', maintainer_email='maintainer@example.com',
     description='Farm integration scaffold', license='Proprietary',
-    entry_points={'console_scripts': []},
+    entry_points={'console_scripts': ['scout_navigation_start = farm_bringup.scout_navigation_start:main']},
 )

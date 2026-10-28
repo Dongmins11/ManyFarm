@@ -15,7 +15,7 @@ class Integration(unittest.TestCase):
         self.p=load_profile(ROOT,'robot/config/environments/transport_docking_trial.yaml','real')
         self.c=self.p['precision_registry']['profiles']['sort_01_distance_trial']['initial_marker_recovery']
     def test_config_and_map_identity(self):
-        self.assertEqual(self.p['map_id'],'many_farm_v1')
+        self.assertEqual(self.p['map_id'],'farm_map_v1')
         self.assertFalse(self.p['navigation']['tf_recovery_enabled'])
         self.assertEqual(self.p['navigation']['collision_retry_count'],0)
     def test_branch_routes_and_restriction(self):
@@ -27,6 +27,22 @@ class Integration(unittest.TestCase):
         self.assertEqual(xy,g.nodes[17]);self.assertAlmostEqual(yaw,0.)
         xy,yaw=destination(self.p,g,'STATION_TRANSPORT_01')
         self.assertEqual(xy,g.nodes[3]);self.assertAlmostEqual(yaw,-math.pi/2)
+    def test_restored_transport_graph(self):
+        g=RouteGraph(self.p['route_graph'])
+        for node,xy in {5:(2.181,-.72),12:(2.181,-.035),15:(2.181,-1.333),17:(2.981,-1.333),20:(1.446,-1.12)}.items():
+            for actual,expected in zip(g.nodes[node],xy):self.assertAlmostEqual(actual,expected)
+        def check(value):
+            if isinstance(value,dict):
+                for k,v in value.items():
+                    if k=='graph_file':self.assertEqual((ROOT/'robot/config/docking'/v).resolve(),Path(self.p['route_graph']))
+                    else:check(v)
+            elif isinstance(value,list):
+                for v in value:check(v)
+        check(self.p['precision_registry'])
+        for env in ('harvest_handoff_real','scout_real'):
+            data=yaml.safe_load((ROOT/f'robot/config/environments/{env}.yaml').read_text())
+            self.assertEqual(data['route_graph'],'robot/config/maps/many_farm/graph.geojson')
+
     def test_only_initial_approaches_opt_in(self):
         profiles=self.p['precision_registry']['profiles']
         self.assertEqual({k for k,v in profiles.items() if v.get('initial_marker_recovery',{}).get('enabled')},

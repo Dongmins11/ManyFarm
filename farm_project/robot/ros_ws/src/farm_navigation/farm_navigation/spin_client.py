@@ -16,6 +16,7 @@ class SpinClient:
                 client = ActionClient(node, Spin, endpoint, callback_group=group)
             if goal_factory is None:
                 goal_factory = Spin.Goal
+        self._node = node
         self._pause_clock_factory = execution_clock
         self._client, self._goal_factory, self.settings = client, goal_factory, settings
         self._pending = self._handle = self._result = None
@@ -38,6 +39,8 @@ class SpinClient:
         return future.result()
 
     def execute(self, angle: float, allowance: float, check: Callable[[], None]) -> None:
+        if getattr(self._node, "_traffic", None) is not None:
+            raise RuntimeError("교통 첫 범위에서 도킹/인계 Spin은 지원하지 않습니다.")
         if (type(angle) not in (int, float) or not math.isfinite(angle) or not 0 < abs(angle) <= math.pi
                 or type(allowance) not in (int, float) or not math.isfinite(allowance)
                 or not 0 < allowance < 2147483647):

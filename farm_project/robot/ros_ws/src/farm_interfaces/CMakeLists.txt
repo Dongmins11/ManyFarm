@@ -26,6 +26,14 @@ rosidl_generate_interfaces(${PROJECT_NAME}
   "action/Discharge.action"
   "srv/TransferEvent.srv"
   "srv/GetHarvestTasks.srv"
+  "action/AcquirePassage.action"
+  "msg/TrafficCodes.msg"
+  "msg/TrafficContext.msg"
+  "msg/TrafficRegistration.msg"
+  "msg/TrafficControlState.msg"
+  "msg/TrafficProgress.msg"
+  "srv/ReleasePassage.srv"
+  "srv/GetPassageState.srv"
   DEPENDENCIES geometry_msgs action_msgs
 )
 
