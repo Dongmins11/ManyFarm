@@ -11,6 +11,15 @@ class NavigationConfigurationError(RuntimeError):
     """주행 Goal checker가 요청한 도착 조건을 만족할 수 없습니다."""
 
 
+class ArrivalValidationError(RuntimeError):
+    """주행 종료·정지는 확인됐으나 정지 후 자세가 허용 범위를 벗어났다."""
+
+    def __init__(self, measurement: dict[str, Any], stamp_ns: int) -> None:
+        super().__init__('정지 후 목표 오차 초과')
+        self.measurement = dict(measurement)
+        self.stamp_ns = stamp_ns
+
+
 def positive_number(value: Any, name: str) -> float:
     if isinstance(value, bool) or not isinstance(value, (int, float)):
         raise NavigationConfigurationError(f'{name}: expected a positive finite number, got {value!r}')

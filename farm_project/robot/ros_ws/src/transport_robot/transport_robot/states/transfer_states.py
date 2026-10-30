@@ -2,18 +2,44 @@
 from dataclasses import replace
 from .mission_state import MissionState
 from ..mission_types import Outcome
+from farm_docking.initial_marker_recovery import ApproachReentryRequired
 
 class TaggingState(MissionState):
     name = 'DOCKING'
     def enter(self) -> None:
         c = self.controller
         if c.pickup_workflow.get('enabled'):
-            from ..pickup_workflow import stage_request
             c.mission.set_contact(True)
-            c.run_async(self, lambda:c.docking.dock(stage_request(c.request, c.pickup_workflow, 'approach')), self._done)
+            c.run_async(self, self._approach, self._done)
         else:
             c.run_async(self, lambda:c.docking.tag(c.request), self._done)
-    def _done(self, ok: bool) -> None:
+    def _approach(self) -> bool | ApproachReentryRequired:
+        from ..pickup_workflow import stage_request
+        c = self.controller
+        try:
+            return c.docking.dock(stage_request(c.request, c.pickup_workflow, 'approach'))
+        except ApproachReentryRequired as error:
+            c.check()
+            approach=getattr(c,'harvest_approach',None)
+            if approach is None or not approach.applies(c.request):
+                raise
+            # PrecisionClient는 종료·정지 확인을 마친 뒤에만 이 예외를 보존한다.
+            return error
+
+    def _done(self, ok: bool | ApproachReentryRequired) -> None:
+        if isinstance(ok, ApproachReentryRequired):
+            c=self.controller
+            c.check()
+            c.mission.set_contact(False)  # 접근 동작 전 정지·lease 해제 증거가 있는 경우만 해제.
+            c.mission.record_stage(c.request,'APPROACH_REENTRY_REQUIRED',
+                f'attempt={c.approach_reentry_count+1}/3; {ok}')
+            if c.approach_reentry_count >= 2:
+                raise RuntimeError('정지 후 도킹 진입 재접근 2회 소진: '+str(ok))
+            c.approach_reentry_count += 1
+            c.feedback('MOVING_STARTED')
+            from .navigation_move_state import NavigationMoveState
+            c.transition(NavigationMoveState(c))
+            return
         if not ok: raise RuntimeError('대상 마커 확인 실패')
         self.controller.transition(WaitReadyState(self.controller))
 

@@ -24,6 +24,7 @@ class TransportStateController:
         self.pickup_workflow = {}
         self.station_return_mode = 'marker_docking'
         self.loaded_count = None
+        self.approach_reentry_count = 0
         self._pool = ThreadPoolExecutor(max_workers=1,thread_name_prefix='transport_io')
         self._events = Queue()
         self._cancel = Event()
@@ -65,6 +66,7 @@ class TransportStateController:
         if request.kind == 'pickup': self.transfer.begin(request)
         if request.kind == 'unload': self.unload.begin(request)
         self.request, self.feedback = request, feedback
+        self.approach_reentry_count = 0
         self._cancel.clear()
         self._stopping = False
         self.result = Future()

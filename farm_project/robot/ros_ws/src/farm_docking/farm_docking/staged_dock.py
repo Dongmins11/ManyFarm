@@ -11,6 +11,7 @@ class StagedDockTracker(DepartureTracker):
         self.final_samples=[]
         self._hybrid_scale=1.;self._hybrid_stamp=None
         self._approach_heading=None
+        self.envelope_rejection = None
         if self.d.get('hybrid_relative_control'):
             if not self.d.get('visual_correction_during_transit') or not self.d.get('odom_only_after_acquire'):
                 raise ValueError('hybrid relative control requires visual transit and terminal lock')
@@ -24,6 +25,8 @@ class StagedDockTracker(DepartureTracker):
         return (np.max(np.linalg.norm(xy-np.median(xy,axis=0),axis=1))<=self.d['acquire_spread_m'] and
                 max(abs(wrap(yaw(g)-yaw(samples[-1]))) for g in samples)<=self.d.get('acquire_yaw_spread_rad',.1))
     def update(self,report,odom_base,now_ns,max_distance,max_tilt):
+        # 이전 프레임의 거리 거절을 새 관측 실패/미검출에 재사용하지 않는다.
+        self.envelope_rejection = None
         distance_cfg=self.d.get('distance_corridor')
         if distance_cfg:
             # Marker translation is enough: do not rotate the stand-off vector
@@ -38,6 +41,8 @@ class StagedDockTracker(DepartureTracker):
                             global_marker[1]-distance_cfg['target_range_m']*math.sin(anchor),anchor)
                 relative=np.linalg.inv(odom_base)@goal
                 if np.linalg.norm(relative[:2,3])>max_distance:
+                    self.envelope_rejection = dict(stamp_ns=report['stamp_ns'],
+                        distance_m=float(np.linalg.norm(relative[:2,3])), limit_m=max_distance)
                     self.reason='distance target outside approach envelope';return False
                 if self._approach_heading is None:self._approach_heading=anchor
                 virtual_marker=relative@np.linalg.inv(self.target)

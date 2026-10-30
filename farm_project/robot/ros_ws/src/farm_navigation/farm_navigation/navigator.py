@@ -15,7 +15,7 @@ from .motion_monitor import MotionMonitor
 from .route import RouteGraph
 from .path_builder import build_path
 from .parallel_approach import select_corridor, inside_corridor, straight_plan
-from .arrival import measure_arrival, arrival_description
+from .arrival import measure_arrival, arrival_description, ArrivalValidationError
 
 
 class Navigator:
@@ -183,7 +183,7 @@ class Navigator:
                 measured=self._arrival_validator(stamp,self._settling_check)
             entry.update(measured,stamp_ns=stamp,finished_at=datetime.now(timezone.utc).isoformat())
             if self._arrival_validator is not None and measured.get('accepted') is not True:
-                raise RuntimeError('정지 후 목표 오차 초과')
+                raise ArrivalValidationError(measured, stamp)
             # 잔여 자세 오차는 진단값이다. 완료·정지가 확인된 이동의 다음 출발을 막지 않는다.
             if not measured['accepted']:
                 self._node.get_logger().warning('정지 후 도착 오차 기록: '+arrival_description(measured))

@@ -592,8 +592,14 @@ class PrecisionServer(Dock):
         result.stopped=self.stopped()
         result.success=session['candidate'] and not session['error'] and result.stopped and not handle.is_cancel_requested
         result.error_message=session['error']
+        # 접근 전 거리 거절만 복구 계약으로 전달한다. 취소/정지/lease 해제 실패는 제외한다.
+        if (not result.success and not handle.is_cancel_requested and result.stopped
+                and session.get('approach_reentry_error') == session['error']
+                and session.get('approach_reentry_error') and session.get('lease_released')):
+            from .initial_marker_recovery import ApproachReentryRequired
+            result.error_message=ApproachReentryRequired.prefix+result.error_message
         # 명시적인 진입 전 실패 + 정지 확인만 자동 복구 증거로 전달한다.
-        if (not result.success and result.stopped and session.get('entry_controller') is not None
+        elif (not result.success and result.stopped and session.get('entry_controller') is not None
                 and not session.get('entry_complete') and not session.get('entry_motion_started')
                 and session.get('lease_released')):
             result.error_message='PRE_ENTRY_STOPPED: '+result.error_message
@@ -1529,6 +1535,18 @@ class PrecisionServer(Dock):
             and any(m.get('marker_id') == marker_id for m in report.get('markers', []))
             for report in self._raw_reports)
         stopped=self.stopped()
+        rejection=getattr(self._target_tracker,'envelope_rejection',None)
+        if (p.get('route_handoff',{}).get('enabled') and stopped
+                and getattr(self._target_tracker,'phase','') == 'ACQUIRE'
+                and policy.origin is None and not s.get('entry_motion_started') and rejection
+                and rejection['stamp_ns'] >= s['observation_start_ns']
+                and 0 <= (stamp_now-rejection['stamp_ns'])/1e9 <= p['target_tracking']['max_input_age_s']):
+            # 마커가 보이지만 너무 먼 경우 후진 탐색을 시작하지 않는다.
+            # 현재 정밀 액션을 정지·해제한 뒤 상위에서 기존 Nav2 경로로 재접근한다.
+            why=f'Stopped approach target outside envelope: {rejection}'
+            s['approach_reentry_error']=why
+            self.finish(FAILED,why)
+            return True
         acquired=False
         if stopped:
             if p.get('distance_heading_trial'):

@@ -197,6 +197,12 @@ class PrecisionClient:
                 if time.monotonic()>deadline:raise TimeoutError('정밀주행 제한시간 초과')
                 time.sleep(.02)
             result=future.result()
+            self.check()
+            from .initial_marker_recovery import ApproachReentryRequired
+            if (operation=='DOCK' and result.status==6 and result.result.stopped
+                    and not result.result.success
+                    and result.result.error_message.startswith(ApproachReentryRequired.prefix)):
+                raise ApproachReentryRequired(result.result.error_message)
             self.pre_entry_stopped=bool(operation=='DOCK' and result.result.stopped
                 and not result.result.success and result.result.error_message.startswith('PRE_ENTRY_STOPPED: '))
             if result.status!=4 or not result.result.success or not result.result.stopped:

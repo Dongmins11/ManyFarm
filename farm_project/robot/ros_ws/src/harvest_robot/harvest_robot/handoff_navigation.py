@@ -6,6 +6,7 @@
 from dataclasses import dataclass
 from copy import deepcopy
 from typing import Any, Callable, Mapping
+from farm_navigation.arrival import ArrivalValidationError
 
 Check = Callable[[], None]
 
@@ -89,7 +90,25 @@ class HandoffNavigationSteps:
     def execute(self, stage: str, reference: Any, check: Check) -> Any:
         if self._active is not None or self._owns_output:
             raise RuntimeError('이전 차체 동작 정리 필요')
-        return self.components.execute(stage, reference, self._checked(check))
+        # 벽 정렬의 정지 후 오차만 최대 2회 재보정한다. 원호/복귀를 통째로 재실행하지 않는다.
+        for attempt in range(3):
+            self._checked(check)()
+            try:
+                return self.components.execute(stage, reference, self._checked(check))
+            except ArrivalValidationError as error:
+                if stage != 'wall':
+                    raise
+                self._record(dict(stage=stage, event='STOPPED_ARRIVAL_REJECTED',
+                    attempt=attempt+1, measurement=error.measurement, stamp_ns=error.stamp_ns,
+                    retry=attempt < 2))
+                # 종료/출력 차단 확인이 실패하면 재시도하지 않는다.
+                self.stop()
+                self._checked(check)()
+                if attempt == 2:
+                    raise
+                self._node.get_logger().warning(
+                    f'WALL_REALIGN_RETRY: {attempt+1}/2; stopped={error.measurement}')
+                # components가 현재 관측으로 새 계획·충돌 검사를 수행한다.
 
     def _navigate_step(self, stage: str, binding: NavigationBinding,
                        step: NavigationStep, check: Check) -> Any:

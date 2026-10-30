@@ -2,6 +2,11 @@
 import math
 from .recovery import MarkerSearch
 
+class ApproachReentryRequired(RuntimeError):
+    """접근 전 거리 초과이며 정지·제어권 해제가 확인된 경우에만 전달한다."""
+    prefix = 'APPROACH_REENTRY_REQUIRED: '
+
+
 class InitialMarkerRecovery:
     def __init__(self, config, now):
         self.c = config
