@@ -1,0 +1,22 @@
+{
+  "attempt": 9,
+  "failed_at_kst": "2026-10-30 11:17:39",
+  "error": "DEVICE_FAILED: rotate_to_transfer: 벽 접근 거리 범위 초과",
+  "harvest_windows_completed": 9,
+  "harvested_count": 2,
+  "transport_arrived_at_kst": "2026-10-30 11:17:02",
+  "wall_target_m": 0.4325,
+  "maximum_forward_approach_m": 0.2,
+  "allowed_distance_m": [
+    0.4275,
+    0.6325
+  ],
+  "reconstructed_distance_m": 0.6383879487816859,
+  "excess_over_upper_m": 0.005887948781685859,
+  "observation_at": "2026-10-30T02:17:39.141227+00:00",
+  "paired_odom_age_s": 0.012461715,
+  "method": "wall_observation + nearest harvest_odom, same wall normal projection as _wall_error_once; not exact private input capture",
+  "source": "sim/runs/fresh_full_cycle_20261030/attempt_009/events.jsonl",
+  "code": "robot/ros_ws/src/harvest_robot/harvest_robot/handoff_planning.py:133",
+  "upstream_cause": "Why pre-wall pose/range is farther than allowed remains unverified; no tolerance change applied."
+}

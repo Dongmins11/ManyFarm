@@ -1,0 +1,410 @@
+{
+  "passed": true,
+  "virtual_mechanism": true,
+  "count_valid": true,
+  "ready_response": {
+    "accepted": true,
+    "error_code": "NONE",
+    "error_message": "",
+    "timestamp": "2026-10-29T15:42:29.226167+00:00"
+  },
+  "unload": {
+    "status": 4,
+    "result": {
+      "robot_id": "transport_01",
+      "task_id": "sorter_5018ebc908ec4da3",
+      "station_id": "SORT_01",
+      "result_code": "SUCCESS",
+      "error_code": "NONE",
+      "error_message": "",
+      "timestamp": "2026-10-29T15:43:13.695276+00:00"
+    }
+  },
+  "sort": {
+    "status": 4,
+    "result": {
+      "robot_id": "sorter_01",
+      "task_id": "sort_sorter_5018ebc908ec4da3",
+      "batch_id": "sorter_5018ebc908ec4da3",
+      "result_code": "SUCCESS",
+      "red_count": 6,
+      "yellow_count": 4,
+      "error_code": "NONE",
+      "error_message": "",
+      "timestamp": "2026-10-29T15:48:57.853267+00:00"
+    }
+  },
+  "physical_sorting": {
+    "phase": "SCANNING",
+    "counts": [
+      6,
+      4
+    ],
+    "error": "",
+    "events": [
+      {
+        "event": "BUSY",
+        "job": 1,
+        "lane": "A",
+        "color": "RED"
+      },
+      {
+        "event": "ASSISTED_GRASP",
+        "job": 1
+      },
+      {
+        "event": "DONE",
+        "job": 1,
+        "counts": [
+          1,
+          0
+        ]
+      },
+      {
+        "event": "BUSY",
+        "job": 2,
+        "lane": "A",
+        "color": "RED"
+      },
+      {
+        "event": "ASSISTED_GRASP",
+        "job": 2
+      },
+      {
+        "event": "DONE",
+        "job": 2,
+        "counts": [
+          2,
+          0
+        ]
+      },
+      {
+        "event": "BUSY",
+        "job": 3,
+        "lane": "B",
+        "color": "YELLOW"
+      },
+      {
+        "event": "ASSISTED_GRASP",
+        "job": 3
+      },
+      {
+        "event": "DONE",
+        "job": 3,
+        "counts": [
+          2,
+          1
+        ]
+      },
+      {
+        "event": "BUSY",
+        "job": 4,
+        "lane": "B",
+        "color": "RED"
+      },
+      {
+        "event": "ASSISTED_GRASP",
+        "job": 4
+      },
+      {
+        "event": "DONE",
+        "job": 4,
+        "counts": [
+          3,
+          1
+        ]
+      },
+      {
+        "event": "BUSY",
+        "job": 5,
+        "lane": "C",
+        "color": "RED"
+      },
+      {
+        "event": "ASSISTED_GRASP",
+        "job": 5
+      },
+      {
+        "event": "DONE",
+        "job": 5,
+        "counts": [
+          4,
+          1
+        ]
+      },
+      {
+        "event": "BUSY",
+        "job": 6,
+        "lane": "C",
+        "color": "YELLOW"
+      },
+      {
+        "event": "ASSISTED_GRASP",
+        "job": 6
+      },
+      {
+        "event": "DONE",
+        "job": 6,
+        "counts": [
+          4,
+          2
+        ]
+      },
+      {
+        "event": "BUSY",
+        "job": 7,
+        "lane": "D",
+        "color": "RED"
+      },
+      {
+        "event": "ASSISTED_GRASP",
+        "job": 7
+      },
+      {
+        "event": "DONE",
+        "job": 7,
+        "counts": [
+          5,
+          2
+        ]
+      },
+      {
+        "event": "BUSY",
+        "job": 8,
+        "lane": "D",
+        "color": "YELLOW"
+      },
+      {
+        "event": "ASSISTED_GRASP",
+        "job": 8
+      },
+      {
+        "event": "DONE",
+        "job": 8,
+        "counts": [
+          5,
+          3
+        ]
+      },
+      {
+        "event": "BUSY",
+        "job": 9,
+        "lane": "C",
+        "color": "YELLOW"
+      },
+      {
+        "event": "ASSISTED_GRASP",
+        "job": 9
+      },
+      {
+        "event": "DONE",
+        "job": 9,
+        "counts": [
+          5,
+          4
+        ]
+      },
+      {
+        "event": "BUSY",
+        "job": 10,
+        "lane": "D",
+        "color": "RED"
+      },
+      {
+        "event": "ASSISTED_GRASP",
+        "job": 10
+      },
+      {
+        "event": "DONE",
+        "job": 10,
+        "counts": [
+          6,
+          4
+        ]
+      }
+    ],
+    "station_to_world": [
+      [
+        0.19342002049252094,
+        0.9811160459765567,
+        0.0,
+        -7.204447723212479
+      ],
+      [
+        -0.9811160459765567,
+        0.19342002049252094,
+        -0.0,
+        14.2870536684691
+      ],
+      [
+        -0.0,
+        0.0,
+        1.0,
+        0.0
+      ],
+      [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ]
+    ],
+    "fruits": [
+      {
+        "path": "/World/Vegetation/Bed_02/Fruits/Pepper_0003_red",
+        "color": "RED",
+        "sorted": true,
+        "local_xyz": [
+          -0.5689844354596173,
+          0.17826340756438316,
+          0.51445472240448
+        ]
+      },
+      {
+        "path": "/World/Vegetation/Bed_02/Fruits/Pepper_0004_red",
+        "color": "RED",
+        "sorted": true,
+        "local_xyz": [
+          -0.5978194453433602,
+          0.12058672853418437,
+          0.5054152607917786
+        ]
+      },
+      {
+        "path": "/World/Vegetation/Bed_02/Fruits/Pepper_0011_yellow",
+        "color": "YELLOW",
+        "sorted": true,
+        "local_xyz": [
+          -0.7105833219634791,
+          -0.13239987562783703,
+          0.5026171207427979
+        ]
+      },
+      {
+        "path": "/World/Vegetation/Bed_02/Fruits/Pepper_0015_red",
+        "color": "RED",
+        "sorted": true,
+        "local_xyz": [
+          -0.6638336268868568,
+          0.10499264936372098,
+          0.5029697418212891
+        ]
+      },
+      {
+        "path": "/World/Vegetation/Bed_02/Fruits/Pepper_0026_yellow",
+        "color": "YELLOW",
+        "sorted": true,
+        "local_xyz": [
+          -0.6008661328878168,
+          -0.07298002297099591,
+          0.5026165843009949
+        ]
+      },
+      {
+        "path": "/World/Vegetation/Bed_02/Fruits/Pepper_0028_yellow",
+        "color": "YELLOW",
+        "sorted": true,
+        "local_xyz": [
+          -0.6400656850221217,
+          -0.1580105124771638,
+          0.501997709274292
+        ]
+      },
+      {
+        "path": "/World/Vegetation/Bed_02/Fruits/Pepper_0029_red",
+        "color": "RED",
+        "sorted": true,
+        "local_xyz": [
+          -0.6431663898537645,
+          0.1900252213932343,
+          0.4984222650527954
+        ]
+      },
+      {
+        "path": "/World/Vegetation/Bed_02/Fruits/Pepper_0032_red",
+        "color": "RED",
+        "sorted": true,
+        "local_xyz": [
+          -0.6200217627316298,
+          0.040527877219216274,
+          0.49842849373817444
+        ]
+      },
+      {
+        "path": "/World/Vegetation/Bed_02/Fruits/Pepper_0033_red",
+        "color": "RED",
+        "sorted": true,
+        "local_xyz": [
+          -0.5510570158637134,
+          0.07243464245410416,
+          0.5192064642906189
+        ]
+      },
+      {
+        "path": "/World/Vegetation/Bed_02/Fruits/Pepper_0036_yellow",
+        "color": "YELLOW",
+        "sorted": true,
+        "local_xyz": [
+          -0.5741213615772147,
+          -0.17541620517178774,
+          0.5043302178382874
+        ]
+      }
+    ]
+  },
+  "empty_input_batch": false,
+  "sequence_through_sort_passed": true,
+  "input_count": 10,
+  "sorted_count": 10,
+  "remaining_fruit_paths": [],
+  "all_input_fruits_sorted": true,
+  "return": {
+    "status": 4,
+    "result": {
+      "robot_id": "transport_01",
+      "task_id": "return_7af5ec1e40b34a0b",
+      "result_code": "SUCCESS",
+      "station_id": "STATION_TRANSPORT_01",
+      "docked": true,
+      "error_code": "NONE",
+      "error_message": "",
+      "timestamp": "2026-10-29T15:53:07.235604+00:00"
+    }
+  },
+  "final_state": {
+    "phase": "CLEARING_STARTED",
+    "waiting_seen": true,
+    "ready_requested": true,
+    "ready_accepted": true,
+    "active": false,
+    "completed": true,
+    "odom_at": 221096.112576526,
+    "stamp": 873.016712198,
+    "stopped_since": 221094.823761322,
+    "status": {
+      "robot_id": "transport_01",
+      "current_task_id": "return_7af5ec1e40b34a0b",
+      "state": "NAVIGATION_MOVE",
+      "ready": false,
+      "map_id": "farm_map_v1",
+      "pose": {
+        "frame_id": "map",
+        "position": {
+          "x": 1.9941001088094672,
+          "y": 13.26848993135452,
+          "z": 0.0
+        },
+        "yaw": -1.5708471901002814
+      },
+      "battery_percent": NaN,
+      "transfer_required": false,
+      "loaded_count": -1,
+      "error_code": "NONE",
+      "error_message": "",
+      "boot_id": "96031d46e20e444c9af253cc0b8498ab",
+      "sequence": 873,
+      "timestamp": "2026-10-29T15:53:07.069692+00:00"
+    },
+    "sequence_started": true
+  }
+}

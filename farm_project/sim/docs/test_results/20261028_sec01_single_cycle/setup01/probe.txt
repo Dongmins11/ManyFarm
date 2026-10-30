@@ -1,0 +1,9 @@
+Traceback (most recent call last):
+  File "/home/ysy/main/farm_project/sim/tools/probe_handoff_window.py", line 252, in <module>
+    if __name__ == '__main__': main()
+                               ^^^^^^
+  File "/home/ysy/main/farm_project/sim/tools/probe_handoff_window.py", line 126, in main
+    wait(lambda:client.server_is_ready() and prepare.service_is_ready() and statuses.get('harvest',{}).get('ready'),
+  File "/home/ysy/main/farm_project/sim/tools/probe_handoff_window.py", line 109, in wait
+    time.sleep(.05)
+KeyboardInterrupt

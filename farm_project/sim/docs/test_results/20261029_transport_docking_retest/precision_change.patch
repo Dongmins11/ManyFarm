@@ -1,0 +1,42 @@
+diff --git a/farm_project/robot/ros_ws/src/farm_docking/farm_docking/precision_server.py b/farm_project/robot/ros_ws/src/farm_docking/farm_docking/precision_server.py
+index bc5133d..61e05b5 100644
+--- a/farm_project/robot/ros_ws/src/farm_docking/farm_docking/precision_server.py
++++ b/farm_project/robot/ros_ws/src/farm_docking/farm_docking/precision_server.py
+@@ -206,16 +206,34 @@ class PrecisionServer(Dock):
+         report=self._raw_reports[-1] if self._raw_reports else {}
+         stamp=report.get('stamp_ns',0)
+         age=(now-stamp)/1e9
+-        # Recognition only: do not calculate or filter a taught goal while Nav2 moves.
+         ready=(stamp>=route['observation_start_ns'] and
+                0<=age<=p['route_handoff']['recognition_max_age_s'] and
+                any(m.get('marker_id')==p['target_marker_id'] for m in report.get('markers',[])))
++        reason='waiting for fresh target marker'
++        if ready:
++            # 도킹과 같은 입력 시각·최종 설정·거리 판정으로 전환 가능 여부만 확인한다.
++            # 일회용 검사기의 목표/샘플은 버리고, 실제 목표는 정차 후 새로 취득한다.
++            ready=False
++            try:
++                frame=p.get('entry',{}).get('odom_frame',self.get_parameter('odom_frame').value)
++                captured=self.tf.lookup_transform(frame,p.get('base_frame',self.marker_base_frame),
++                    Time(nanoseconds=stamp),timeout=Duration(seconds=0.))
++                v,q=captured.transform.translation,captured.transform.rotation
++                odom_base=transform_matrix((v.x,v.y,v.z),(q.x,q.y,q.z,q.w))
++                controller=self._pose_controller
++                checker=(StagedDockTracker(controller.target,controller.marker_id,p['target_tracking'],p['acquire_then_odom'])
++                         if p.get('acquire_then_odom') else
++                         FixedTargetTracker(controller.target,controller.marker_id,p['target_tracking']))
++                ready=checker.update(report,odom_base,now,controller.c['max_planar_distance_m'],controller.c['max_tilt_rad'])
++                reason='marker within approach envelope; stop before acquisition' if ready else checker.reason
++            except (TransformException,ValueError,KeyError,TypeError) as exc:
++                reason='waiting for valid route marker/TF: '+str(exc)
+         if ready and not route.get('ready_logged'):
+             route['ready_logged']=True
+-            self.get_logger().info(f"Harvest route marker recognized: id={p['target_marker_id']}; stop Nav2 before taught target acquisition")
++            self.get_logger().info(f"Harvest route marker recognized: id={p['target_marker_id']}; within approach envelope; stop Nav2 before taught target acquisition")
+         self._harvest_ready_pub.publish(String(data=json.dumps(dict(
+             observer_id=route['observer_id'],profile=route['profile'],stamp_ns=stamp,
+-            ready=ready,reason='marker recognized; stop before acquisition' if ready else 'waiting for fresh target marker'))))
++            ready=bool(ready),reason=reason))))
+ 
+     def odom_transit(self,p):
+         return bool(p.get('acquire_then_odom') and getattr(self._target_tracker,'phase','') in ('TRANSIT','ALIGN'))

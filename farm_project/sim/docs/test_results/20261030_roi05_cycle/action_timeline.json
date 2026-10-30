@@ -1,0 +1,724 @@
+[
+  {
+    "source": "events.jsonl",
+    "at": "2026-10-29T15:28:29.251588+00:00",
+    "mono_ns": 219618120967360,
+    "kind": "resume_window_arrival_goal",
+    "goal": {
+      "robot_id": "harvest_01",
+      "map_id": "farm_map_v1",
+      "harvest_task": {
+        "task_id": "resume_arrival_9bb494fe83e3",
+        "window_id": "16cb6a8ad078_SEC01_W009",
+        "goal_pose": {
+          "frame_id": "map",
+          "position": {
+            "x": -6.015000000000001,
+            "y": 3.2660497894451224,
+            "z": 0.0
+          },
+          "yaw": -1.5707963267948966
+        },
+        "expected_count": 2
+      },
+      "timestamp": "2026-10-29T15:28:29.242886+00:00"
+    }
+  },
+  {
+    "source": "events.jsonl",
+    "at": "2026-10-29T15:28:36.808949+00:00",
+    "mono_ns": 219625678324444,
+    "kind": "resume_window_arrival_result",
+    "status": 4,
+    "result": {
+      "robot_id": "harvest_01",
+      "task_id": "resume_arrival_9bb494fe83e3",
+      "window_id": "16cb6a8ad078_SEC01_W009",
+      "result_code": "SUCCESS",
+      "expected_count": 2,
+      "harvested_count": 0,
+      "failed_count": 0,
+      "error_code": "NONE",
+      "error_message": "",
+      "timestamp": "2026-10-29T15:28:36.784016+00:00"
+    }
+  },
+  {
+    "source": "events.jsonl",
+    "at": "2026-10-29T15:28:37.110745+00:00",
+    "mono_ns": 219625980126227,
+    "kind": "pickup_started",
+    "message": "수동 요청을 기록했습니다. 상태·로그에서 응답을 확인하세요.",
+    "transfer_id": "TRANSFER_TEST_0c3f338f804642ae825d5197b86f518e",
+    "job_id": "PICKUP_TEST_4a2cca1efd8b4b34b98a89da6592b72c"
+  },
+  {
+    "source": "events.jsonl",
+    "at": "2026-10-29T15:34:34.589288+00:00",
+    "mono_ns": 219983458666318,
+    "kind": "dock_started",
+    "message": "수동 요청을 기록했습니다. 상태·로그에서 응답을 확인하세요.",
+    "transfer_id": "TRANSFER_TEST_0c3f338f804642ae825d5197b86f518e",
+    "job_id": "DOCK_TEST_096c20155565455c8047bca9138f287c"
+  },
+  {
+    "source": "events.jsonl",
+    "at": "2026-10-29T15:35:42.873725+00:00",
+    "mono_ns": 220051743101624,
+    "kind": "event_delivery",
+    "op": "dock_ready",
+    "control": {
+      "event": "DOCK_READY",
+      "target": "transport",
+      "source": "harvest",
+      "job_id": "PICKUP_TEST_4a2cca1efd8b4b34b98a89da6592b72c",
+      "allowed": false,
+      "reason": "이미 접수됐거나 접수 여부가 미확정인 이벤트입니다. 자동·중복 전송하지 않습니다.",
+      "observed": true,
+      "manual_without_feedback": false,
+      "delivery": "ACCEPTED",
+      "error": "",
+      "response": {
+        "accepted": true,
+        "error_code": "NONE",
+        "error_message": "",
+        "timestamp": "2026-10-29T15:35:42.368477+00:00"
+      }
+    }
+  },
+  {
+    "source": "events.jsonl",
+    "at": "2026-10-29T15:36:10.506452+00:00",
+    "mono_ns": 220079375829083,
+    "kind": "event_delivery",
+    "op": "dock_stable",
+    "control": {
+      "event": "DOCK_STABLE",
+      "target": "harvest",
+      "source": "transport",
+      "job_id": "DOCK_TEST_096c20155565455c8047bca9138f287c",
+      "allowed": false,
+      "reason": "이미 접수됐거나 접수 여부가 미확정인 이벤트입니다. 자동·중복 전송하지 않습니다.",
+      "observed": true,
+      "manual_without_feedback": false,
+      "delivery": "ACCEPTED",
+      "error": "",
+      "response": {
+        "accepted": true,
+        "error_code": "NONE",
+        "error_message": "",
+        "timestamp": "2026-10-29T15:36:09.967676+00:00"
+      }
+    }
+  },
+  {
+    "source": "events.jsonl",
+    "at": "2026-10-29T15:36:10.557051+00:00",
+    "mono_ns": 220079426425518,
+    "kind": "actual_cargo_transfer",
+    "request_id": "9f5ea6e4dc394bd2ba9f10bd728179ce",
+    "session": "63f2f248b9e041a3ba939404e70a351a",
+    "success": true,
+    "fruit_paths": [
+      "/World/Vegetation/Bed_02/Fruits/Pepper_0003_red",
+      "/World/Vegetation/Bed_02/Fruits/Pepper_0004_red",
+      "/World/Vegetation/Bed_02/Fruits/Pepper_0011_yellow",
+      "/World/Vegetation/Bed_02/Fruits/Pepper_0015_red",
+      "/World/Vegetation/Bed_02/Fruits/Pepper_0026_yellow",
+      "/World/Vegetation/Bed_02/Fruits/Pepper_0028_yellow",
+      "/World/Vegetation/Bed_02/Fruits/Pepper_0029_red",
+      "/World/Vegetation/Bed_02/Fruits/Pepper_0032_red",
+      "/World/Vegetation/Bed_02/Fruits/Pepper_0033_red",
+      "/World/Vegetation/Bed_02/Fruits/Pepper_0036_yellow"
+    ],
+    "count": 10,
+    "mechanism_physics": false,
+    "selection": "detached red/yellow physically inside harvest basket",
+    "coverage": 0.7264858870610442
+  },
+  {
+    "source": "events.jsonl",
+    "at": "2026-10-29T15:36:11.110767+00:00",
+    "mono_ns": 220079980140578,
+    "kind": "event_delivery",
+    "op": "transfer_complete",
+    "control": {
+      "event": "TRANSFER_COMPLETE",
+      "target": "transport",
+      "source": "harvest",
+      "job_id": "PICKUP_TEST_4a2cca1efd8b4b34b98a89da6592b72c",
+      "allowed": false,
+      "reason": "이미 접수됐거나 접수 여부가 미확정인 이벤트입니다. 자동·중복 전송하지 않습니다.",
+      "observed": true,
+      "manual_without_feedback": false,
+      "delivery": "ACCEPTED",
+      "error": "",
+      "response": {
+        "accepted": true,
+        "error_code": "NONE",
+        "error_message": "",
+        "timestamp": "2026-10-29T15:36:10.567872+00:00"
+      }
+    }
+  },
+  {
+    "source": "events.jsonl",
+    "at": "2026-10-29T15:36:27.910897+00:00",
+    "mono_ns": 220096780275432,
+    "kind": "event_delivery",
+    "op": "transport_clear",
+    "control": {
+      "event": "TRANSPORT_CLEAR",
+      "target": "harvest",
+      "source": "transport",
+      "job_id": "DOCK_TEST_096c20155565455c8047bca9138f287c",
+      "allowed": false,
+      "reason": "이미 접수됐거나 접수 여부가 미확정인 이벤트입니다. 자동·중복 전송하지 않습니다.",
+      "observed": true,
+      "manual_without_feedback": false,
+      "delivery": "ACCEPTED",
+      "error": "",
+      "response": {
+        "accepted": true,
+        "error_code": "NONE",
+        "error_message": "",
+        "timestamp": "2026-10-29T15:36:27.368371+00:00"
+      }
+    }
+  },
+  {
+    "source": "post_sorter/events.jsonl",
+    "at": "2026-10-29T15:37:48.336281+00:00",
+    "mono": 220177.205651806,
+    "kind": "unload_goal",
+    "data": {
+      "robot_id": "transport_01",
+      "task_id": "sorter_5018ebc908ec4da3",
+      "station_id": "SORT_01",
+      "map_id": "farm_map_v1",
+      "timestamp": "2026-10-29T15:37:48.336251+00:00"
+    }
+  },
+  {
+    "source": "post_sorter/events.jsonl",
+    "at": "2026-10-29T15:43:13.715616+00:00",
+    "mono": 220502.584993493,
+    "kind": "unload_result",
+    "status": 4,
+    "result": {
+      "robot_id": "transport_01",
+      "task_id": "sorter_5018ebc908ec4da3",
+      "station_id": "SORT_01",
+      "result_code": "SUCCESS",
+      "error_code": "NONE",
+      "error_message": "",
+      "timestamp": "2026-10-29T15:43:13.695276+00:00"
+    }
+  },
+  {
+    "source": "post_sorter/events.jsonl",
+    "at": "2026-10-29T15:43:13.716361+00:00",
+    "mono": 220502.585731426,
+    "kind": "sort_goal",
+    "data": {
+      "robot_id": "sorter_01",
+      "task_id": "sort_sorter_5018ebc908ec4da3",
+      "batch_id": "sorter_5018ebc908ec4da3",
+      "timestamp": "2026-10-29T15:43:13.716326+00:00"
+    }
+  },
+  {
+    "source": "post_sorter/events.jsonl",
+    "at": "2026-10-29T15:48:57.883006+00:00",
+    "mono": 220846.752399469,
+    "kind": "sort_result",
+    "status": 4,
+    "result": {
+      "robot_id": "sorter_01",
+      "task_id": "sort_sorter_5018ebc908ec4da3",
+      "batch_id": "sorter_5018ebc908ec4da3",
+      "result_code": "SUCCESS",
+      "red_count": 6,
+      "yellow_count": 4,
+      "error_code": "NONE",
+      "error_message": "",
+      "timestamp": "2026-10-29T15:48:57.853267+00:00"
+    }
+  },
+  {
+    "source": "post_sorter/events.jsonl",
+    "at": "2026-10-29T15:48:57.883814+00:00",
+    "mono": 220846.753190442,
+    "kind": "return_goal",
+    "data": {
+      "robot_id": "transport_01",
+      "task_id": "return_7af5ec1e40b34a0b",
+      "station_id": "STATION_TRANSPORT_01",
+      "map_id": "farm_map_v1",
+      "timestamp": "2026-10-29T15:48:57.883716+00:00"
+    }
+  },
+  {
+    "source": "post_sorter/events.jsonl",
+    "at": "2026-10-29T15:53:07.245976+00:00",
+    "mono": 221096.115352214,
+    "kind": "return_result",
+    "status": 4,
+    "result": {
+      "robot_id": "transport_01",
+      "task_id": "return_7af5ec1e40b34a0b",
+      "result_code": "SUCCESS",
+      "station_id": "STATION_TRANSPORT_01",
+      "docked": true,
+      "error_code": "NONE",
+      "error_message": "",
+      "timestamp": "2026-10-29T15:53:07.235604+00:00"
+    }
+  },
+  {
+    "source": "events.jsonl",
+    "at": "2026-10-29T15:53:07.256807+00:00",
+    "mono_ns": 221096126187120,
+    "kind": "sorter_sequence_result",
+    "data": {
+      "passed": true,
+      "virtual_mechanism": true,
+      "count_valid": true,
+      "ready_response": {
+        "accepted": true,
+        "error_code": "NONE",
+        "error_message": "",
+        "timestamp": "2026-10-29T15:42:29.226167+00:00"
+      },
+      "unload": {
+        "status": 4,
+        "result": {
+          "robot_id": "transport_01",
+          "task_id": "sorter_5018ebc908ec4da3",
+          "station_id": "SORT_01",
+          "result_code": "SUCCESS",
+          "error_code": "NONE",
+          "error_message": "",
+          "timestamp": "2026-10-29T15:43:13.695276+00:00"
+        }
+      },
+      "sort": {
+        "status": 4,
+        "result": {
+          "robot_id": "sorter_01",
+          "task_id": "sort_sorter_5018ebc908ec4da3",
+          "batch_id": "sorter_5018ebc908ec4da3",
+          "result_code": "SUCCESS",
+          "red_count": 6,
+          "yellow_count": 4,
+          "error_code": "NONE",
+          "error_message": "",
+          "timestamp": "2026-10-29T15:48:57.853267+00:00"
+        }
+      },
+      "physical_sorting": {
+        "phase": "SCANNING",
+        "counts": [
+          6,
+          4
+        ],
+        "error": "",
+        "events": [
+          {
+            "event": "BUSY",
+            "job": 1,
+            "lane": "A",
+            "color": "RED"
+          },
+          {
+            "event": "ASSISTED_GRASP",
+            "job": 1
+          },
+          {
+            "event": "DONE",
+            "job": 1,
+            "counts": [
+              1,
+              0
+            ]
+          },
+          {
+            "event": "BUSY",
+            "job": 2,
+            "lane": "A",
+            "color": "RED"
+          },
+          {
+            "event": "ASSISTED_GRASP",
+            "job": 2
+          },
+          {
+            "event": "DONE",
+            "job": 2,
+            "counts": [
+              2,
+              0
+            ]
+          },
+          {
+            "event": "BUSY",
+            "job": 3,
+            "lane": "B",
+            "color": "YELLOW"
+          },
+          {
+            "event": "ASSISTED_GRASP",
+            "job": 3
+          },
+          {
+            "event": "DONE",
+            "job": 3,
+            "counts": [
+              2,
+              1
+            ]
+          },
+          {
+            "event": "BUSY",
+            "job": 4,
+            "lane": "B",
+            "color": "RED"
+          },
+          {
+            "event": "ASSISTED_GRASP",
+            "job": 4
+          },
+          {
+            "event": "DONE",
+            "job": 4,
+            "counts": [
+              3,
+              1
+            ]
+          },
+          {
+            "event": "BUSY",
+            "job": 5,
+            "lane": "C",
+            "color": "RED"
+          },
+          {
+            "event": "ASSISTED_GRASP",
+            "job": 5
+          },
+          {
+            "event": "DONE",
+            "job": 5,
+            "counts": [
+              4,
+              1
+            ]
+          },
+          {
+            "event": "BUSY",
+            "job": 6,
+            "lane": "C",
+            "color": "YELLOW"
+          },
+          {
+            "event": "ASSISTED_GRASP",
+            "job": 6
+          },
+          {
+            "event": "DONE",
+            "job": 6,
+            "counts": [
+              4,
+              2
+            ]
+          },
+          {
+            "event": "BUSY",
+            "job": 7,
+            "lane": "D",
+            "color": "RED"
+          },
+          {
+            "event": "ASSISTED_GRASP",
+            "job": 7
+          },
+          {
+            "event": "DONE",
+            "job": 7,
+            "counts": [
+              5,
+              2
+            ]
+          },
+          {
+            "event": "BUSY",
+            "job": 8,
+            "lane": "D",
+            "color": "YELLOW"
+          },
+          {
+            "event": "ASSISTED_GRASP",
+            "job": 8
+          },
+          {
+            "event": "DONE",
+            "job": 8,
+            "counts": [
+              5,
+              3
+            ]
+          },
+          {
+            "event": "BUSY",
+            "job": 9,
+            "lane": "C",
+            "color": "YELLOW"
+          },
+          {
+            "event": "ASSISTED_GRASP",
+            "job": 9
+          },
+          {
+            "event": "DONE",
+            "job": 9,
+            "counts": [
+              5,
+              4
+            ]
+          },
+          {
+            "event": "BUSY",
+            "job": 10,
+            "lane": "D",
+            "color": "RED"
+          },
+          {
+            "event": "ASSISTED_GRASP",
+            "job": 10
+          },
+          {
+            "event": "DONE",
+            "job": 10,
+            "counts": [
+              6,
+              4
+            ]
+          }
+        ],
+        "station_to_world": [
+          [
+            0.19342002049252094,
+            0.9811160459765567,
+            0.0,
+            -7.204447723212479
+          ],
+          [
+            -0.9811160459765567,
+            0.19342002049252094,
+            -0.0,
+            14.2870536684691
+          ],
+          [
+            -0.0,
+            0.0,
+            1.0,
+            0.0
+          ],
+          [
+            0.0,
+            0.0,
+            0.0,
+            1.0
+          ]
+        ],
+        "fruits": [
+          {
+            "path": "/World/Vegetation/Bed_02/Fruits/Pepper_0003_red",
+            "color": "RED",
+            "sorted": true,
+            "local_xyz": [
+              -0.5689844354596173,
+              0.17826340756438316,
+              0.51445472240448
+            ]
+          },
+          {
+            "path": "/World/Vegetation/Bed_02/Fruits/Pepper_0004_red",
+            "color": "RED",
+            "sorted": true,
+            "local_xyz": [
+              -0.5978194453433602,
+              0.12058672853418437,
+              0.5054152607917786
+            ]
+          },
+          {
+            "path": "/World/Vegetation/Bed_02/Fruits/Pepper_0011_yellow",
+            "color": "YELLOW",
+            "sorted": true,
+            "local_xyz": [
+              -0.7105833219634791,
+              -0.13239987562783703,
+              0.5026171207427979
+            ]
+          },
+          {
+            "path": "/World/Vegetation/Bed_02/Fruits/Pepper_0015_red",
+            "color": "RED",
+            "sorted": true,
+            "local_xyz": [
+              -0.6638336268868568,
+              0.10499264936372098,
+              0.5029697418212891
+            ]
+          },
+          {
+            "path": "/World/Vegetation/Bed_02/Fruits/Pepper_0026_yellow",
+            "color": "YELLOW",
+            "sorted": true,
+            "local_xyz": [
+              -0.6008661328878168,
+              -0.07298002297099591,
+              0.5026165843009949
+            ]
+          },
+          {
+            "path": "/World/Vegetation/Bed_02/Fruits/Pepper_0028_yellow",
+            "color": "YELLOW",
+            "sorted": true,
+            "local_xyz": [
+              -0.6400656850221217,
+              -0.1580105124771638,
+              0.501997709274292
+            ]
+          },
+          {
+            "path": "/World/Vegetation/Bed_02/Fruits/Pepper_0029_red",
+            "color": "RED",
+            "sorted": true,
+            "local_xyz": [
+              -0.6431663898537645,
+              0.1900252213932343,
+              0.4984222650527954
+            ]
+          },
+          {
+            "path": "/World/Vegetation/Bed_02/Fruits/Pepper_0032_red",
+            "color": "RED",
+            "sorted": true,
+            "local_xyz": [
+              -0.6200217627316298,
+              0.040527877219216274,
+              0.49842849373817444
+            ]
+          },
+          {
+            "path": "/World/Vegetation/Bed_02/Fruits/Pepper_0033_red",
+            "color": "RED",
+            "sorted": true,
+            "local_xyz": [
+              -0.5510570158637134,
+              0.07243464245410416,
+              0.5192064642906189
+            ]
+          },
+          {
+            "path": "/World/Vegetation/Bed_02/Fruits/Pepper_0036_yellow",
+            "color": "YELLOW",
+            "sorted": true,
+            "local_xyz": [
+              -0.5741213615772147,
+              -0.17541620517178774,
+              0.5043302178382874
+            ]
+          }
+        ]
+      },
+      "empty_input_batch": false,
+      "sequence_through_sort_passed": true,
+      "input_count": 10,
+      "sorted_count": 10,
+      "remaining_fruit_paths": [],
+      "all_input_fruits_sorted": true,
+      "return": {
+        "status": 4,
+        "result": {
+          "robot_id": "transport_01",
+          "task_id": "return_7af5ec1e40b34a0b",
+          "result_code": "SUCCESS",
+          "station_id": "STATION_TRANSPORT_01",
+          "docked": true,
+          "error_code": "NONE",
+          "error_message": "",
+          "timestamp": "2026-10-29T15:53:07.235604+00:00"
+        }
+      },
+      "final_state": {
+        "phase": "CLEARING_STARTED",
+        "waiting_seen": true,
+        "ready_requested": true,
+        "ready_accepted": true,
+        "active": false,
+        "completed": true,
+        "odom_at": 221096.112576526,
+        "stamp": 873.016712198,
+        "stopped_since": 221094.823761322,
+        "status": {
+          "robot_id": "transport_01",
+          "current_task_id": "return_7af5ec1e40b34a0b",
+          "state": "NAVIGATION_MOVE",
+          "ready": false,
+          "map_id": "farm_map_v1",
+          "pose": {
+            "frame_id": "map",
+            "position": {
+              "x": 1.9941001088094672,
+              "y": 13.26848993135452,
+              "z": 0.0
+            },
+            "yaw": -1.5708471901002814
+          },
+          "battery_percent": NaN,
+          "transfer_required": false,
+          "loaded_count": -1,
+          "error_code": "NONE",
+          "error_message": "",
+          "boot_id": "96031d46e20e444c9af253cc0b8498ab",
+          "sequence": 873,
+          "timestamp": "2026-10-29T15:53:07.069692+00:00"
+        },
+        "sequence_started": true
+      }
+    }
+  },
+  {
+    "source": "events.jsonl",
+    "at": "2026-10-29T15:53:07.266406+00:00",
+    "mono_ns": 221096135782448,
+    "kind": "harvest_return_goal",
+    "goal": {
+      "robot_id": "harvest_01",
+      "task_id": "cycle_harvest_return_c7394726cb88",
+      "station_id": "STATION_HARVEST_01",
+      "map_id": "farm_map_v1",
+      "timestamp": "2026-10-29T15:53:07.257185+00:00"
+    }
+  },
+  {
+    "source": "events.jsonl",
+    "at": "2026-10-29T15:57:34.681445+00:00",
+    "mono_ns": 221363550826522,
+    "kind": "harvest_return_result",
+    "status": 4,
+    "result": {
+      "robot_id": "harvest_01",
+      "task_id": "cycle_harvest_return_c7394726cb88",
+      "result_code": "SUCCESS",
+      "station_id": "STATION_HARVEST_01",
+      "docked": true,
+      "error_code": "NONE",
+      "error_message": "",
+      "timestamp": "2026-10-29T15:57:34.669913+00:00"
+    }
+  }
+]

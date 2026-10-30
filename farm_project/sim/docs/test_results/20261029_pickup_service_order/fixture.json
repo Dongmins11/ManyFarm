@@ -1,0 +1,163 @@
+{
+  "source_commit": "9686aca909cb52191862ee3500c62fadf7a8ed38",
+  "scope": "pickup acceptance/cancel only; no survey/harvest/handoff/sorting",
+  "domain": 13,
+  "discovery": "SUBNET",
+  "initial_pose_only": true,
+  "truth_injected_into_control": false,
+  "traffic_enabled": false,
+  "fresh_scout": false,
+  "handoff_tested": false,
+  "frontend_http_tested": false,
+  "virtual_mechanism": true,
+  "fruit_physics_tested": true,
+  "count_valid": false,
+  "unload_guard": "own task WAITING_FOR_UNLOAD then UNLOADING_STARTED; fresh odom stopped 0.8s; one completion",
+  "original_sorter_distance_handoff": {
+    "enabled": true,
+    "station_id": "SORT_01",
+    "observation_start_node": 15,
+    "approach_end_node": 17,
+    "docking_profile": "sort_01_distance_trial",
+    "marker_id": 40,
+    "samples": 5,
+    "max_age_s": 0.3,
+    "min_marker_forward_m": 0.25,
+    "max_marker_forward_m": 1.5,
+    "max_bearing_rad": 0.15,
+    "max_heading_error_rad": 0.2,
+    "corridor_half_width_m": 0.12
+  },
+  "selected_sorter_distance_handoff": {
+    "enabled": true,
+    "station_id": "SORT_01",
+    "observation_start_node": 9001,
+    "approach_end_node": 8004,
+    "docking_profile": "sort_01_distance_trial",
+    "marker_id": 40,
+    "samples": 5,
+    "max_age_s": 0.3,
+    "min_marker_forward_m": 0.25,
+    "max_marker_forward_m": 1.5,
+    "max_bearing_rad": 0.15,
+    "max_heading_error_rad": 0.2,
+    "corridor_half_width_m": 0.12
+  },
+  "original_unload_workflows": {
+    "SORT_01": {
+      "assume_unload_ready": false,
+      "ready_timeout_s": 60.0,
+      "auto_clear": true,
+      "clearance_profile": "sort_departure_distance_trial",
+      "marker_id": 40,
+      "allow_bounded_clearance_trial": true
+    }
+  },
+  "selected_unload_workflows": {
+    "SORT_01": {
+      "assume_unload_ready": false,
+      "ready_timeout_s": 60.0,
+      "auto_clear": true,
+      "clearance_profile": "sort_departure_distance_trial",
+      "marker_id": 40,
+      "allow_bounded_clearance_trial": true
+    }
+  },
+  "numeric_control_changes": [
+    {
+      "parameter": "amcl.update_min_d",
+      "original": 0.25,
+      "selected": 0.05,
+      "reason": "sim recorded sensor replay: more frequent observation updates; real file unchanged"
+    },
+    {
+      "parameter": "amcl.update_min_a",
+      "original": 0.2,
+      "selected": 0.05,
+      "reason": "sim recorded sensor replay: more frequent observation updates; real file unchanged"
+    },
+    {
+      "parameter": "controller_server.progress_checker.required_movement_angle",
+      "original": null,
+      "selected": 0.5,
+      "reason": "sim in-place rotation must count as progress; real file unchanged"
+    }
+  ],
+  "progress_checker_changes": [
+    {
+      "parameter": "controller_server.progress_checker.plugin",
+      "original": "nav2_controller::SimpleProgressChecker",
+      "selected": "nav2_controller::PoseProgressChecker",
+      "reason": "sim in-place rotation must count as progress; real file unchanged"
+    },
+    {
+      "parameter": "controller_server.progress_checker.required_movement_angle",
+      "original": null,
+      "selected": 0.5,
+      "reason": "sim in-place rotation must count as progress; real file unchanged"
+    }
+  ],
+  "integrated_sorting": true,
+  "sorting_output": "/home/ysy/main/farm_project/sim/runs/pickup_service_order_20261029_attempt01/sorting",
+  "fruit_paths": [],
+  "actual_harvest_tested": false,
+  "original_fruit_identity_preserved": true,
+  "source_hcr_geometry_unchanged": true,
+  "scout_after_sec01": "survey_SEC02_then_hold",
+  "full_section": false,
+  "robot_initial_stations": {
+    "scout_01": {
+      "station_id": "STATION_SCOUT_01",
+      "node_id": 8001,
+      "xy_m": [
+        -5.0,
+        13.25
+      ],
+      "yaw_rad": -1.5707963267948966
+    },
+    "harvest_01": {
+      "station_id": "STATION_HARVEST_01",
+      "node_id": 8002,
+      "xy_m": [
+        -2.0,
+        13.25
+      ],
+      "yaw_rad": -1.5707963267948966
+    },
+    "transport_01": {
+      "station_id": "STATION_TRANSPORT_01",
+      "node_id": 8003,
+      "xy_m": [
+        2.0,
+        13.25
+      ],
+      "yaw_rad": -1.5707963267948966,
+      "status": "CONFIGURED",
+      "source": "transport_graph edge 30513 (8003 to 9014); forward station exit"
+    },
+    "sorting_station": {
+      "node_id": 8004,
+      "xy_m": [
+        -7.0,
+        13.25
+      ],
+      "yaw_rad": 1.5707963267948966,
+      "status": "CONFIGURED",
+      "source": "USD sorter (-7,14) intake faces south; user-approved approach via north corridor 9001"
+    }
+  },
+  "source_progress_changes": [
+    {
+      "parameter": "controller_server.progress_checker.plugin",
+      "original": "nav2_controller::SimpleProgressChecker",
+      "selected": "nav2_controller::PoseProgressChecker",
+      "reason": "sim in-place rotation must count as progress; real file unchanged"
+    },
+    {
+      "parameter": "controller_server.progress_checker.required_movement_angle",
+      "original": null,
+      "selected": 0.5,
+      "reason": "sim in-place rotation must count as progress; real file unchanged"
+    }
+  ]
+}

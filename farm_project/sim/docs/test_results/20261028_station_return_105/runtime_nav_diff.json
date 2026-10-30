@@ -1,0 +1,12 @@
+[
+  {
+    "parameter": "controller_server.ros__parameters.progress_checker.plugin",
+    "before": "nav2_controller::SimpleProgressChecker",
+    "after": "nav2_controller::PoseProgressChecker"
+  },
+  {
+    "parameter": "controller_server.ros__parameters.progress_checker.required_movement_angle",
+    "before": null,
+    "after": 0.5
+  }
+]

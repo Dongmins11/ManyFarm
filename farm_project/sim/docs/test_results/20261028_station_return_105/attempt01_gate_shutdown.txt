@@ -1,0 +1,20 @@
+    return next(self._cb_iter)
+           ^^^^^^^^^^^^^^^^^^^
+  File "/opt/ros/jazzy/lib/python3.12/site-packages/rclpy/executors.py", line 781, in _wait_for_ready_callbacks
+    wait_set.wait(timeout_nsec)
+KeyboardInterrupt
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/ysy/main/farm_project/sim/tools/trace_motion_gate.py", line 73, in <module>
+    main()
+  File "/home/ysy/main/farm_project/robot/ros_ws/build/farm_docking/farm_docking/motion_gate.py", line 78, in main
+    finally:node.zero();node.destroy_node();rclpy.try_shutdown()
+            ^^^^^^^^^^^
+  File "/home/ysy/main/farm_project/robot/ros_ws/build/farm_docking/farm_docking/motion_gate.py", line 53, in zero
+    def zero(self): self.pub.publish(Twist())
+                    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/ros/jazzy/lib/python3.12/site-packages/rclpy/publisher.py", line 70, in publish
+    self.__publisher.publish(msg)
+rclpy._rclpy_pybind11.RCLError: Failed to publish: publisher's context is invalid, at ./src/rcl/publisher.c:423

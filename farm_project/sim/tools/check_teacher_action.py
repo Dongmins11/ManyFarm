@@ -26,7 +26,7 @@ from check_teacher_harvest import evaluate_result
 
 def main() -> int:
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument('--policy', choices=('teacher', 'student_d435'), default='teacher', help='검증할 실제 팔 실행기')
+    parser.add_argument('--policy', choices=('teacher', 'student_d435', 'student_u20'), default='teacher', help='검증할 실제 팔 실행기')
     parser.add_argument('--performance-log', type=Path, help='프레임 구간별 성능 기록 경로')
     parser.add_argument('--fixture', type=Path, default=ROOT/'sim/tests/fixtures/teacher60_two.json')
     parser.add_argument('--isaac-python', type=Path, default=Path.home()/'isaac/env_isaaclab/bin/python')
@@ -51,9 +51,13 @@ def main() -> int:
         if camera in device:
             device[camera]['enabled'] = False
     device['runtime']['harvest_arm']['backend'] = args.policy
-    if args.policy == 'student_d435':
+    if args.policy in ('student_d435', 'student_u20'):
         device['runtime']['harvest_arm']['execution_timeout_s'] = 1800.0
-        device['runtime']['harvest_arm']['student_profile'] = 'sim/ros_ws/src/farm_sim_config/config/student_policy.json'
+        student = json.loads((ROOT/'sim/ros_ws/src/farm_sim_config/config/student_policy.json').read_text())
+        student['camera'] = args.policy.removeprefix('student_')
+        student_path = directory/'student_policy.json'
+        student_path.write_text(json.dumps(student, indent=2)+'\n')
+        device['runtime']['harvest_arm']['student_profile'] = str(student_path)
     device_path.write_text(json.dumps(device, indent=2)+'\n')
     stations_path = Path(fleet['station_config'])
     stations = json.loads(stations_path.read_text())
@@ -91,7 +95,7 @@ def main() -> int:
     rclpy.init(args=['--ros-args','-p','config_file:='+str(device_path), '-r','__ns:='+namespace])
     adapter, node = RecordingAdapter(), Node('teacher_action_client')
     settings = ArmActionSettings.from_mapping(json.loads((ROOT/'sim/ros_ws/src/farm_sim_config/config/harvest_task.json').read_text())['arm_action'])
-    if args.policy == 'student_d435':
+    if args.policy in ('student_d435', 'student_u20'):
         from dataclasses import replace
         settings = replace(settings, execution_timeout_s=1860.0)
     client = ArmActionClient(node, settings)

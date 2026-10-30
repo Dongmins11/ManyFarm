@@ -1,0 +1,536 @@
+[INFO] [launch]: All log files can be found below /home/ysy/main/farm_project/sim/runs/sec01_single_cycle_20261028_attempt04/ros_logs/2026-10-28-21-25-05-969640-ysy-System-Product-Name-2349651
+[INFO] [launch]: Default logging verbosity is set to INFO
+[INFO] [launch.user]: Scout Nav2 설정 파일: /home/ysy/main/farm_project/sim/ros_ws/src/farm_sim_config/config/nav2_harvest.yaml
+[INFO] [rectify_node-1]: process started with pid [2350104]
+[INFO] [apriltag_node-2]: process started with pid [2350105]
+[INFO] [tag_capture-3]: process started with pid [2350106]
+[INFO] [ros_adapter-4]: process started with pid [2350107]
+[INFO] [map_server-5]: process started with pid [2350108]
+[INFO] [amcl-6]: process started with pid [2350110]
+[INFO] [controller_server-7]: process started with pid [2350125]
+[INFO] [planner_server-8]: process started with pid [2350126]
+[INFO] [behavior_server-9]: process started with pid [2350127]
+[INFO] [bt_navigator-10]: process started with pid [2350132]
+[INFO] [velocity_smoother-11]: process started with pid [2350133]
+[INFO] [lifecycle_manager-12]: process started with pid [2350134]
+[INFO] [route_preview-13]: process started with pid [2350135]
+[INFO] [controller_server-14]: process started with pid [2350138]
+[INFO] [behavior_server-15]: process started with pid [2350141]
+[INFO] [lifecycle_manager-16]: process started with pid [2350142]
+[INFO] [harvest_node-17]: process started with pid [2350143]
+[INFO] [tag_amcl_adapter-18]: process started with pid [2350144]
+[map_server-5] [INFO] [1793190306.539042082] [harvest_01.map_server]: 
+[map_server-5] 	map_server lifecycle node launched. 
+[map_server-5] 	Waiting on external lifecycle transitions to activate
+[map_server-5] 	See https://design.ros2.org/articles/node_lifecycle.html for more information.
+[map_server-5] [INFO] [1793190306.539129768] [harvest_01.map_server]: Creating
+[lifecycle_manager-12] [INFO] [1793190306.560912694] [harvest_01.lifecycle_manager_navigation]: Creating
+[lifecycle_manager-12] [INFO] [1793190306.612171974] [harvest_01.lifecycle_manager_navigation]: [34m[1mCreating and initializing lifecycle service clients[0m[0m
+[amcl-6] [INFO] [1793190306.649563847] [harvest_01.amcl]: 
+[amcl-6] 	amcl lifecycle node launched. 
+[amcl-6] 	Waiting on external lifecycle transitions to activate
+[amcl-6] 	See https://design.ros2.org/articles/node_lifecycle.html for more information.
+[amcl-6] [INFO] [1793190306.650148225] [harvest_01.amcl]: Creating
+[behavior_server-15] [INFO] [1793190306.673153417] [harvest_01.handoff.behavior_server]: 
+[behavior_server-15] 	behavior_server lifecycle node launched. 
+[behavior_server-15] 	Waiting on external lifecycle transitions to activate
+[behavior_server-15] 	See https://design.ros2.org/articles/node_lifecycle.html for more information.
+[planner_server-8] [INFO] [1793190306.684108268] [harvest_01.planner_server]: 
+[planner_server-8] 	planner_server lifecycle node launched. 
+[planner_server-8] 	Waiting on external lifecycle transitions to activate
+[planner_server-8] 	See https://design.ros2.org/articles/node_lifecycle.html for more information.
+[planner_server-8] [INFO] [1793190306.687598368] [harvest_01.planner_server]: Creating
+[bt_navigator-10] [INFO] [1793190306.696678812] [harvest_01.bt_navigator]: 
+[bt_navigator-10] 	bt_navigator lifecycle node launched. 
+[bt_navigator-10] 	Waiting on external lifecycle transitions to activate
+[bt_navigator-10] 	See https://design.ros2.org/articles/node_lifecycle.html for more information.
+[bt_navigator-10] [INFO] [1793190306.699595040] [harvest_01.bt_navigator]: Creating
+[lifecycle_manager-16] [INFO] [1793190306.707403658] [harvest_01.handoff.lifecycle_manager]: Creating
+[behavior_server-9] [INFO] [1793190306.714649807] [harvest_01.behavior_server]: 
+[behavior_server-9] 	behavior_server lifecycle node launched. 
+[behavior_server-9] 	Waiting on external lifecycle transitions to activate
+[behavior_server-9] 	See https://design.ros2.org/articles/node_lifecycle.html for more information.
+[controller_server-7] [INFO] [1793190306.728734887] [harvest_01.controller_server]: 
+[controller_server-7] 	controller_server lifecycle node launched. 
+[controller_server-7] 	Waiting on external lifecycle transitions to activate
+[controller_server-7] 	See https://design.ros2.org/articles/node_lifecycle.html for more information.
+[planner_server-8] [INFO] [1793190306.728847938] [harvest_01.global_costmap.global_costmap]: 
+[planner_server-8] 	global_costmap lifecycle node launched. 
+[planner_server-8] 	Waiting on external lifecycle transitions to activate
+[planner_server-8] 	See https://design.ros2.org/articles/node_lifecycle.html for more information.
+[planner_server-8] [INFO] [1793190306.729520106] [harvest_01.global_costmap.global_costmap]: Creating Costmap
+[lifecycle_manager-16] [INFO] [1793190306.733797281] [harvest_01.handoff.lifecycle_manager]: [34m[1mCreating and initializing lifecycle service clients[0m[0m
+[velocity_smoother-11] [INFO] [1793190306.737428350] [harvest_01.velocity_smoother]: 
+[velocity_smoother-11] 	velocity_smoother lifecycle node launched. 
+[velocity_smoother-11] 	Waiting on external lifecycle transitions to activate
+[velocity_smoother-11] 	See https://design.ros2.org/articles/node_lifecycle.html for more information.
+[controller_server-14] [INFO] [1793190306.744120985] [harvest_01.handoff.controller_server]: 
+[controller_server-14] 	controller_server lifecycle node launched. 
+[controller_server-14] 	Waiting on external lifecycle transitions to activate
+[controller_server-14] 	See https://design.ros2.org/articles/node_lifecycle.html for more information.
+[controller_server-7] [INFO] [1793190306.747668955] [harvest_01.controller_server]: Creating controller server
+[lifecycle_manager-16] [INFO] [1793190306.747939655] [harvest_01.handoff.lifecycle_manager]: [34m[1mStarting managed nodes bringup...[0m[0m
+[lifecycle_manager-16] [INFO] [1793190306.747968040] [harvest_01.handoff.lifecycle_manager]: [34m[1mConfiguring controller_server[0m[0m
+[controller_server-14] [INFO] [1793190306.750001695] [harvest_01.handoff.controller_server]: Creating controller server
+[lifecycle_manager-12] [INFO] [1793190306.908707354] [harvest_01.lifecycle_manager_navigation]: [34m[1mStarting managed nodes bringup...[0m[0m
+[lifecycle_manager-12] [INFO] [1793190306.908758010] [harvest_01.lifecycle_manager_navigation]: [34m[1mConfiguring map_server[0m[0m
+[map_server-5] [INFO] [1793190306.912809785] [harvest_01.map_server]: Configuring
+[map_server-5] [INFO] [1793190306.912913268] [map_io]: Loading yaml file: /home/ysy/main/farm_project/sim/ros_ws/src/farm_sim_config/maps/hcr_farm_map.yaml
+[map_server-5] [INFO] [1793190306.913222249] [map_io]: resolution: 0.05
+[map_server-5] [INFO] [1793190306.913233034] [map_io]: origin[0]: -8.075
+[map_server-5] [INFO] [1793190306.913240111] [map_io]: origin[1]: -15.075
+[map_server-5] [INFO] [1793190306.913244616] [map_io]: origin[2]: 0
+[map_server-5] [INFO] [1793190306.913249168] [map_io]: free_thresh: 0.196
+[map_server-5] [INFO] [1793190306.913253336] [map_io]: occupied_thresh: 0.65
+[map_server-5] [INFO] [1793190306.913258933] [map_io]: mode: trinary
+[map_server-5] [INFO] [1793190306.913264332] [map_io]: negate: 0
+[map_server-5] [INFO] [1793190306.913462143] [map_io]: Loading image_file: /home/ysy/main/farm_project/sim/ros_ws/src/farm_sim_config/maps/hcr_farm_map.png
+[map_server-5] [INFO] [1793190306.926864128] [map_io]: Read map /home/ysy/main/farm_project/sim/ros_ws/src/farm_sim_config/maps/hcr_farm_map.png: 323 X 603 map @ 0.05 m/cell
+[controller_server-14] [INFO] [1793190306.957405369] [harvest_01.handoff.local_costmap.local_costmap]: 
+[controller_server-14] 	local_costmap lifecycle node launched. 
+[controller_server-14] 	Waiting on external lifecycle transitions to activate
+[controller_server-14] 	See https://design.ros2.org/articles/node_lifecycle.html for more information.
+[controller_server-14] [INFO] [1793190306.960448532] [harvest_01.handoff.local_costmap.local_costmap]: Creating Costmap
+[lifecycle_manager-12] [INFO] [1793190306.961053952] [harvest_01.lifecycle_manager_navigation]: [34m[1mConfiguring amcl[0m[0m
+[controller_server-14] [INFO] [1793190306.962449578] [harvest_01.handoff.controller_server]: Configuring controller interface
+[controller_server-14] [INFO] [1793190306.962477183] [harvest_01.handoff.controller_server]: getting progress checker plugins..
+[controller_server-14] [INFO] [1793190306.962492726] [harvest_01.handoff.controller_server]: getting goal checker plugins..
+[controller_server-14] [INFO] [1793190306.962504901] [harvest_01.handoff.controller_server]: Controller frequency set to 20.0000Hz
+[controller_server-14] [INFO] [1793190306.962529069] [harvest_01.handoff.local_costmap.local_costmap]: Configuring
+[amcl-6] [INFO] [1793190306.963237579] [harvest_01.amcl]: Configuring
+[amcl-6] [INFO] [1793190306.963360884] [harvest_01.amcl]: initTransforms
+[controller_server-7] [INFO] [1793190306.964761877] [harvest_01.local_costmap.local_costmap]: 
+[controller_server-7] 	local_costmap lifecycle node launched. 
+[controller_server-7] 	Waiting on external lifecycle transitions to activate
+[controller_server-7] 	See https://design.ros2.org/articles/node_lifecycle.html for more information.
+[controller_server-7] [INFO] [1793190306.965424752] [harvest_01.local_costmap.local_costmap]: Creating Costmap
+[controller_server-14] [INFO] [1793190306.985877847] [harvest_01.handoff.local_costmap.local_costmap]: Using plugin "voxel_layer"
+[controller_server-14] [INFO] [1793190306.991963635] [harvest_01.handoff.local_costmap.local_costmap]: Subscribed to Topics: scan
+[amcl-6] [INFO] [1793190306.995587099] [harvest_01.amcl]: initPubSub
+[controller_server-14] [INFO] [1793190307.009695052] [harvest_01.handoff.local_costmap.local_costmap]: Initialized plugin "voxel_layer"
+[controller_server-14] [INFO] [1793190307.009742377] [harvest_01.handoff.local_costmap.local_costmap]: Using plugin "inflation_layer"
+[amcl-6] [INFO] [1793190307.010092004] [harvest_01.amcl]: Subscribed to map topic.
+[controller_server-14] [INFO] [1793190307.010643599] [harvest_01.handoff.local_costmap.local_costmap]: Initialized plugin "inflation_layer"
+[amcl-6] [INFO] [1793190307.065368944] [harvest_01.amcl]: TAG_SCAN_SYNC_READY: scan_sync_v1 (작업 신호·초기 위치 대기)
+[lifecycle_manager-12] [INFO] [1793190307.078783981] [harvest_01.lifecycle_manager_navigation]: [34m[1mConfiguring controller_server[0m[0m
+[controller_server-7] [INFO] [1793190307.080710508] [harvest_01.controller_server]: Configuring controller interface
+[controller_server-7] [INFO] [1793190307.080744630] [harvest_01.controller_server]: getting progress checker plugins..
+[controller_server-7] [INFO] [1793190307.081810622] [harvest_01.controller_server]: getting goal checker plugins..
+[controller_server-7] [INFO] [1793190307.081855391] [harvest_01.controller_server]: Controller frequency set to 20.0000Hz
+[controller_server-7] [INFO] [1793190307.081899195] [harvest_01.local_costmap.local_costmap]: Configuring
+[controller_server-14] [INFO] [1793190307.084682185] [harvest_01.handoff.controller_server]: Created progress_checker : transfer_arc_progress of type farm_wall_controller::WaitingProgressChecker
+[controller_server-14] [INFO] [1793190307.089434561] [harvest_01.handoff.controller_server]: Created progress_checker : window_progress of type farm_wall_controller::WaitingProgressChecker
+[controller_server-14] [INFO] [1793190307.095090224] [harvest_01.handoff.controller_server]: Created progress_checker : wall_progress of type farm_wall_controller::WaitingProgressChecker
+[controller_server-14] [INFO] [1793190307.101005747] [harvest_01.handoff.controller_server]: Created progress_checker : retreat_progress of type farm_wall_controller::WaitingProgressChecker
+[controller_server-14] [INFO] [1793190307.107562893] [harvest_01.handoff.controller_server]: Controller Server has transfer_arc_progress window_progress wall_progress retreat_progress  progress checkers available.
+[controller_server-14] [INFO] [1793190307.108662758] [harvest_01.handoff.controller_server]: Created goal checker : transfer_arc_goal of type nav2_controller::SimpleGoalChecker
+[controller_server-14] [INFO] [1793190307.109412975] [harvest_01.handoff.controller_server]: Created goal checker : window_goal of type nav2_controller::SimpleGoalChecker
+[controller_server-14] [INFO] [1793190307.110944177] [harvest_01.handoff.controller_server]: Created goal checker : wall_goal of type farm_wall_controller::WallGoalChecker
+[controller_server-7] [INFO] [1793190307.113105070] [harvest_01.local_costmap.local_costmap]: Using plugin "voxel_layer"
+[controller_server-7] [INFO] [1793190307.116569261] [harvest_01.local_costmap.local_costmap]: Subscribed to Topics: scan
+[controller_server-14] [INFO] [1793190307.119099530] [harvest_01.handoff.controller_server]: Created goal checker : retreat_goal of type nav2_controller::SimpleGoalChecker
+[controller_server-14] [INFO] [1793190307.120785730] [harvest_01.handoff.controller_server]: Controller Server has transfer_arc_goal window_goal wall_goal retreat_goal  goal checkers available.
+[controller_server-14] [INFO] [1793190307.121962727] [harvest_01.handoff.controller_server]: Created controller : TransferArc of type farm_arc_controller::ArcController
+[ros_adapter-4] [INFO] [1793190307.123537936] [harvest_01.sim_devices]: Isaac Sim 연결 대기. 속도 명령은 연결 이후에만 전달합니다.
+[controller_server-14] [INFO] [1793190307.143901879] [harvest_01.handoff.controller_server]: Created controller : WallAlign of type farm_wall_controller::WallController
+[controller_server-7] [INFO] [1793190307.149909513] [harvest_01.local_costmap.local_costmap]: Initialized plugin "voxel_layer"
+[controller_server-7] [INFO] [1793190307.149956441] [harvest_01.local_costmap.local_costmap]: Using plugin "inflation_layer"
+[controller_server-7] [INFO] [1793190307.152130337] [harvest_01.local_costmap.local_costmap]: Initialized plugin "inflation_layer"
+[controller_server-14] [INFO] [1793190307.177102876] [harvest_01.handoff.controller_server]: Created controller : Retreat of type farm_nav2_controller::ReverseRegulatedPurePursuitController
+[controller_server-14] [INFO] [1793190307.205938868] [harvest_01.handoff.controller_server]: Created controller : WindowCorrection of type farm_nav2_controller::SettlingRegulatedPurePursuitController
+[controller_server-7] [INFO] [1793190307.227159099] [harvest_01.controller_server]: Created progress_checker : progress_checker of type nav2_controller::PoseProgressChecker
+[tag_amcl_adapter-18] [INFO] [1793190307.232605920] [harvest_01.tag_amcl_adapter]: TAG_ADAPTER_RUNNING: 작업 신호 대기. AMCL TF 유지; 태그 누락은 주행을 취소하지 않습니다.
+[controller_server-7] [INFO] [1793190307.232716381] [harvest_01.controller_server]: Controller Server has progress_checker  progress checkers available.
+[controller_server-7] [INFO] [1793190307.234217514] [harvest_01.controller_server]: Created goal checker : general_goal_checker of type nav2_controller::SimpleGoalChecker
+[controller_server-7] [INFO] [1793190307.236035916] [harvest_01.controller_server]: Controller Server has general_goal_checker  goal checkers available.
+[controller_server-7] [INFO] [1793190307.238040708] [harvest_01.controller_server]: Created controller : FollowPath of type nav2_regulated_pure_pursuit_controller::RegulatedPurePursuitController
+[controller_server-14] [INFO] [1793190307.239378484] [harvest_01.handoff.controller_server]: Controller Server has TransferArc WallAlign Retreat WindowCorrection  controllers available.
+[harvest_node-17] [INFO] [1793190307.253096901] [harvest_01.harvest_motion_server]: 수확 제어기: 진입=HarvestApproach, 기본=RPP
+[controller_server-7] [INFO] [1793190307.264399644] [harvest_01.controller_server]: Created controller : RPP of type nav2_regulated_pure_pursuit_controller::RegulatedPurePursuitController
+[harvest_node-17] [INFO] [1793190307.266245715] [harvest_01.harvest_motion_server]: 수확 작업 제어기=HarvestWork, 이탈 제어기=RPP
+[lifecycle_manager-16] [INFO] [1793190307.281011547] [harvest_01.handoff.lifecycle_manager]: [34m[1mConfiguring behavior_server[0m[0m
+[behavior_server-15] [INFO] [1793190307.282974748] [harvest_01.handoff.behavior_server]: Configuring
+[controller_server-7] [INFO] [1793190307.285890888] [harvest_01.controller_server]: Created controller : StationReverse of type farm_nav2_controller::ReverseRegulatedPurePursuitController
+[behavior_server-15] [INFO] [1793190307.298740323] [harvest_01.handoff.behavior_server]: Creating behavior plugin spin of type farm_wall_controller::WaitingSpin
+[controller_server-7] [INFO] [1793190307.312238792] [harvest_01.controller_server]: Created controller : HarvestApproach of type nav2_regulated_pure_pursuit_controller::RegulatedPurePursuitController
+[behavior_server-15] [INFO] [1793190307.323382438] [harvest_01.handoff.behavior_server]: Configuring spin
+[controller_server-7] [INFO] [1793190307.325691066] [harvest_01.controller_server]: Created controller : HarvestWork of type nav2_regulated_pure_pursuit_controller::RegulatedPurePursuitController
+[controller_server-7] [INFO] [1793190307.348982921] [harvest_01.controller_server]: Controller Server has FollowPath RPP StationReverse HarvestApproach HarvestWork  controllers available.
+[lifecycle_manager-16] [INFO] [1793190307.359797133] [harvest_01.handoff.lifecycle_manager]: [34m[1mActivating controller_server[0m[0m
+[controller_server-14] [INFO] [1793190307.360488241] [harvest_01.handoff.controller_server]: Activating
+[controller_server-14] [INFO] [1793190307.360528938] [harvest_01.handoff.local_costmap.local_costmap]: Activating
+[controller_server-14] [INFO] [1793190307.360541318] [harvest_01.handoff.local_costmap.local_costmap]: Checking transform
+[controller_server-14] [INFO] [1793190307.360585261] [harvest_01.handoff.local_costmap.local_costmap]: Timed out waiting for transform from harvest_01/base_link to harvest_01/odom to become available, tf error: Invalid frame ID "harvest_01/odom" passed to canTransform argument target_frame - frame does not exist
+[lifecycle_manager-12] [INFO] [1793190307.395459070] [harvest_01.lifecycle_manager_navigation]: [34m[1mConfiguring planner_server[0m[0m
+[planner_server-8] [INFO] [1793190307.396201542] [harvest_01.planner_server]: Configuring
+[planner_server-8] [INFO] [1793190307.396225513] [harvest_01.global_costmap.global_costmap]: Configuring
+[planner_server-8] [INFO] [1793190307.424931124] [harvest_01.global_costmap.global_costmap]: Using plugin "static_layer"
+[planner_server-8] [INFO] [1793190307.429134310] [harvest_01.global_costmap.global_costmap]: Subscribing to the map topic (/harvest_01/map) with transient local durability
+[planner_server-8] [INFO] [1793190307.432568934] [harvest_01.global_costmap.global_costmap]: Initialized plugin "static_layer"
+[planner_server-8] [INFO] [1793190307.432605869] [harvest_01.global_costmap.global_costmap]: Using plugin "obstacle_layer"
+[planner_server-8] [INFO] [1793190307.433221246] [harvest_01.global_costmap.global_costmap]: Subscribed to Topics: scan
+[planner_server-8] [INFO] [1793190307.445733318] [harvest_01.global_costmap.global_costmap]: Initialized plugin "obstacle_layer"
+[planner_server-8] [INFO] [1793190307.445774815] [harvest_01.global_costmap.global_costmap]: Using plugin "inflation_layer"
+[planner_server-8] [INFO] [1793190307.448590228] [harvest_01.global_costmap.global_costmap]: Initialized plugin "inflation_layer"
+[planner_server-8] [INFO] [1793190307.561072896] [harvest_01.planner_server]: Created global planner plugin GridBased of type nav2_navfn_planner::NavfnPlanner
+[planner_server-8] [INFO] [1793190307.561111917] [harvest_01.planner_server]: Configuring plugin GridBased of type NavfnPlanner
+[planner_server-8] [INFO] [1793190307.561906915] [harvest_01.planner_server]: Planner Server has GridBased  planners available.
+[harvest_node-17] [INFO] [1793190307.572844849] [harvest_01.harvest_motion_server]: HANDOFF_INPUT_TRACE /home/ysy/main/farm_project/sim/runs/sec01_single_cycle_20261028_attempt04/input_trace/internal-2350143-1793190307567034209.jsonl
+[lifecycle_manager-12] [INFO] [1793190307.592965008] [harvest_01.lifecycle_manager_navigation]: [34m[1mConfiguring behavior_server[0m[0m
+[behavior_server-9] [INFO] [1793190307.593298752] [harvest_01.behavior_server]: Configuring
+[behavior_server-9] [INFO] [1793190307.600343512] [harvest_01.behavior_server]: Creating behavior plugin spin of type nav2_behaviors::Spin
+[behavior_server-9] [INFO] [1793190307.601544151] [harvest_01.behavior_server]: Creating behavior plugin backup of type nav2_behaviors::BackUp
+[behavior_server-9] [INFO] [1793190307.603478143] [harvest_01.behavior_server]: Creating behavior plugin drive_on_heading of type nav2_behaviors::DriveOnHeading
+[behavior_server-9] [INFO] [1793190307.605440214] [harvest_01.behavior_server]: Creating behavior plugin assisted_teleop of type nav2_behaviors::AssistedTeleop
+[behavior_server-9] [INFO] [1793190307.608268984] [harvest_01.behavior_server]: Creating behavior plugin wait of type nav2_behaviors::Wait
+[behavior_server-9] [INFO] [1793190307.623428127] [harvest_01.behavior_server]: Configuring spin
+[behavior_server-9] [INFO] [1793190307.642084035] [harvest_01.behavior_server]: Configuring backup
+[behavior_server-9] [INFO] [1793190307.715398818] [harvest_01.behavior_server]: Configuring drive_on_heading
+[behavior_server-9] [INFO] [1793190307.744845329] [harvest_01.behavior_server]: Configuring assisted_teleop
+[harvest_node-17] [INFO] [1793190307.757542011] [harvest_01.harvest_motion_server]: HarvestTask 완료 정책: ARRIVAL_THEN_ARM
+[behavior_server-9] [INFO] [1793190307.766675634] [harvest_01.behavior_server]: Configuring wait
+[lifecycle_manager-12] [INFO] [1793190307.780267202] [harvest_01.lifecycle_manager_navigation]: [34m[1mConfiguring bt_navigator[0m[0m
+[bt_navigator-10] [INFO] [1793190307.780799065] [harvest_01.bt_navigator]: Configuring
+[bt_navigator-10] [INFO] [1793190307.795250678] [harvest_01.bt_navigator]: Creating navigator id navigate_to_pose of type nav2_bt_navigator::NavigateToPoseNavigator
+[controller_server-14] [INFO] [1793190307.860655768] [harvest_01.handoff.local_costmap.local_costmap]: Timed out waiting for transform from harvest_01/base_link to harvest_01/odom to become available, tf error: Invalid frame ID "harvest_01/odom" passed to canTransform argument target_frame - frame does not exist
+[bt_navigator-10] [INFO] [1793190307.892552515] [harvest_01.bt_navigator]: Creating navigator id navigate_through_poses of type nav2_bt_navigator::NavigateThroughPosesNavigator
+[lifecycle_manager-12] [INFO] [1793190307.933161327] [harvest_01.lifecycle_manager_navigation]: [34m[1mConfiguring velocity_smoother[0m[0m
+[velocity_smoother-11] [INFO] [1793190307.933368155] [harvest_01.velocity_smoother]: Configuring velocity smoother
+[lifecycle_manager-12] [INFO] [1793190307.941227019] [harvest_01.lifecycle_manager_navigation]: [34m[1mActivating map_server[0m[0m
+[map_server-5] [INFO] [1793190307.941487082] [harvest_01.map_server]: Activating
+[map_server-5] [INFO] [1793190307.941823852] [harvest_01.map_server]: Creating bond (map_server) to lifecycle manager.
+[planner_server-8] [INFO] [1793190307.942167914] [harvest_01.global_costmap.global_costmap]: StaticLayer: Resizing costmap to 323 X 603 at 0.050000 m/pix
+[amcl-6] [INFO] [1793190307.942206963] [harvest_01.amcl]: Received a 323 X 603 map @ 0.050 m/pix
+[lifecycle_manager-12] [INFO] [1793190308.048592249] [harvest_01.lifecycle_manager_navigation]: Server map_server connected with bond.
+[lifecycle_manager-12] [INFO] [1793190308.048622420] [harvest_01.lifecycle_manager_navigation]: [34m[1mActivating amcl[0m[0m
+[amcl-6] [INFO] [1793190308.049037189] [harvest_01.amcl]: Activating
+[amcl-6] [INFO] [1793190308.049058971] [harvest_01.amcl]: initialPoseReceived
+[amcl-6] [INFO] [1793190308.049105268] [harvest_01.amcl]: Setting pose (0.000000): -2.000 13.250 -1.571
+[amcl-6] [INFO] [1793190308.049314960] [harvest_01.amcl]: Creating bond (amcl) to lifecycle manager.
+[lifecycle_manager-12] [INFO] [1793190308.155631870] [harvest_01.lifecycle_manager_navigation]: Server amcl connected with bond.
+[lifecycle_manager-12] [INFO] [1793190308.155671021] [harvest_01.lifecycle_manager_navigation]: [34m[1mActivating controller_server[0m[0m
+[controller_server-7] [INFO] [1793190308.156131303] [harvest_01.controller_server]: Activating
+[controller_server-7] [INFO] [1793190308.156154243] [harvest_01.local_costmap.local_costmap]: Activating
+[controller_server-7] [INFO] [1793190308.156159454] [harvest_01.local_costmap.local_costmap]: Checking transform
+[controller_server-7] [INFO] [1793190308.156186001] [harvest_01.local_costmap.local_costmap]: Timed out waiting for transform from harvest_01/base_link to harvest_01/odom to become available, tf error: Invalid frame ID "harvest_01/odom" passed to canTransform argument target_frame - frame does not exist
+[route_preview-13] [INFO] [1793190308.359801702] [harvest_01.route_preview]: 260개 예찰 경로 표시: 청록=진행, 노랑=왼쪽 카메라. 이동 명령은 보내지 않습니다.
+[controller_server-14] [INFO] [1793190308.360628041] [harvest_01.handoff.local_costmap.local_costmap]: Timed out waiting for transform from harvest_01/base_link to harvest_01/odom to become available, tf error: Invalid frame ID "harvest_01/odom" passed to canTransform argument target_frame - frame does not exist
+[controller_server-7] [INFO] [1793190308.656654409] [harvest_01.local_costmap.local_costmap]: Timed out waiting for transform from harvest_01/base_link to harvest_01/odom to become available, tf error: Invalid frame ID "harvest_01/odom" passed to canTransform argument target_frame - frame does not exist
+[controller_server-14] [INFO] [1793190308.860630044] [harvest_01.handoff.local_costmap.local_costmap]: Timed out waiting for transform from harvest_01/base_link to harvest_01/odom to become available, tf error: Invalid frame ID "harvest_01/odom" passed to canTransform argument target_frame - frame does not exist
+[controller_server-7] [INFO] [1793190309.156203127] [harvest_01.local_costmap.local_costmap]: Timed out waiting for transform from harvest_01/base_link to harvest_01/odom to become available, tf error: Invalid frame ID "harvest_01/odom" passed to canTransform argument target_frame - frame does not exist
+[controller_server-14] [INFO] [1793190309.360624612] [harvest_01.handoff.local_costmap.local_costmap]: Timed out waiting for transform from harvest_01/base_link to harvest_01/odom to become available, tf error: Invalid frame ID "harvest_01/odom" passed to canTransform argument target_frame - frame does not exist
+[controller_server-7] [INFO] [1793190309.656232984] [harvest_01.local_costmap.local_costmap]: Timed out waiting for transform from harvest_01/base_link to harvest_01/odom to become available, tf error: Invalid frame ID "harvest_01/odom" passed to canTransform argument target_frame - frame does not exist
+[controller_server-14] [INFO] [1793190309.860627531] [harvest_01.handoff.local_costmap.local_costmap]: Timed out waiting for transform from harvest_01/base_link to harvest_01/odom to become available, tf error: Invalid frame ID "harvest_01/odom" passed to canTransform argument target_frame - frame does not exist
+[controller_server-7] [INFO] [1793190310.156234259] [harvest_01.local_costmap.local_costmap]: Timed out waiting for transform from harvest_01/base_link to harvest_01/odom to become available, tf error: Invalid frame ID "harvest_01/odom" passed to canTransform argument target_frame - frame does not exist
+[controller_server-14] [INFO] [1793190310.360621206] [harvest_01.handoff.local_costmap.local_costmap]: Timed out waiting for transform from harvest_01/base_link to harvest_01/odom to become available, tf error: Invalid frame ID "harvest_01/odom" passed to canTransform argument target_frame - frame does not exist
+[controller_server-7] [INFO] [1793190310.656234976] [harvest_01.local_costmap.local_costmap]: Timed out waiting for transform from harvest_01/base_link to harvest_01/odom to become available, tf error: Invalid frame ID "harvest_01/odom" passed to canTransform argument target_frame - frame does not exist
+[controller_server-14] [INFO] [1793190310.860622398] [harvest_01.handoff.local_costmap.local_costmap]: Timed out waiting for transform from harvest_01/base_link to harvest_01/odom to become available, tf error: Invalid frame ID "harvest_01/odom" passed to canTransform argument target_frame - frame does not exist
+[controller_server-7] [INFO] [1793190311.156235087] [harvest_01.local_costmap.local_costmap]: Timed out waiting for transform from harvest_01/base_link to harvest_01/odom to become available, tf error: Invalid frame ID "harvest_01/odom" passed to canTransform argument target_frame - frame does not exist
+[controller_server-14] [INFO] [1793190311.360631512] [harvest_01.handoff.local_costmap.local_costmap]: Timed out waiting for transform from harvest_01/base_link to harvest_01/odom to become available, tf error: Invalid frame ID "harvest_01/odom" passed to canTransform argument target_frame - frame does not exist
+[controller_server-7] [INFO] [1793190311.656239351] [harvest_01.local_costmap.local_costmap]: Timed out waiting for transform from harvest_01/base_link to harvest_01/odom to become available, tf error: Invalid frame ID "harvest_01/odom" passed to canTransform argument target_frame - frame does not exist
+[controller_server-14] [INFO] [1793190311.860630340] [harvest_01.handoff.local_costmap.local_costmap]: Timed out waiting for transform from harvest_01/base_link to harvest_01/odom to become available, tf error: Invalid frame ID "harvest_01/odom" passed to canTransform argument target_frame - frame does not exist
+[controller_server-7] [INFO] [1793190312.156232330] [harvest_01.local_costmap.local_costmap]: Timed out waiting for transform from harvest_01/base_link to harvest_01/odom to become available, tf error: Invalid frame ID "harvest_01/odom" passed to canTransform argument target_frame - frame does not exist
+[controller_server-14] [INFO] [1793190312.360621086] [harvest_01.handoff.local_costmap.local_costmap]: Timed out waiting for transform from harvest_01/base_link to harvest_01/odom to become available, tf error: Invalid frame ID "harvest_01/odom" passed to canTransform argument target_frame - frame does not exist
+[controller_server-7] [INFO] [1793190312.656246217] [harvest_01.local_costmap.local_costmap]: Timed out waiting for transform from harvest_01/base_link to harvest_01/odom to become available, tf error: Invalid frame ID "harvest_01/odom" passed to canTransform argument target_frame - frame does not exist
+[controller_server-14] [INFO] [1793190312.860621333] [harvest_01.handoff.local_costmap.local_costmap]: Timed out waiting for transform from harvest_01/base_link to harvest_01/odom to become available, tf error: Invalid frame ID "harvest_01/odom" passed to canTransform argument target_frame - frame does not exist
+[controller_server-7] [INFO] [1793190313.156187949] [harvest_01.local_costmap.local_costmap]: Timed out waiting for transform from harvest_01/base_link to harvest_01/odom to become available, tf error: Invalid frame ID "harvest_01/odom" passed to canTransform argument target_frame - frame does not exist
+[controller_server-14] [INFO] [1793190313.360621203] [harvest_01.handoff.local_costmap.local_costmap]: Timed out waiting for transform from harvest_01/base_link to harvest_01/odom to become available, tf error: Invalid frame ID "harvest_01/odom" passed to canTransform argument target_frame - frame does not exist
+[controller_server-7] [INFO] [1793190313.656234777] [harvest_01.local_costmap.local_costmap]: Timed out waiting for transform from harvest_01/base_link to harvest_01/odom to become available, tf error: Invalid frame ID "harvest_01/odom" passed to canTransform argument target_frame - frame does not exist
+[controller_server-14] [INFO] [1793190313.860622586] [harvest_01.handoff.local_costmap.local_costmap]: Timed out waiting for transform from harvest_01/base_link to harvest_01/odom to become available, tf error: Invalid frame ID "harvest_01/odom" passed to canTransform argument target_frame - frame does not exist
+[controller_server-7] [INFO] [1793190314.156232721] [harvest_01.local_costmap.local_costmap]: Timed out waiting for transform from harvest_01/base_link to harvest_01/odom to become available, tf error: Invalid frame ID "harvest_01/odom" passed to canTransform argument target_frame - frame does not exist
+[controller_server-14] [INFO] [1793190314.360649511] [harvest_01.handoff.local_costmap.local_costmap]: Timed out waiting for transform from harvest_01/base_link to harvest_01/odom to become available, tf error: Invalid frame ID "harvest_01/odom" passed to canTransform argument target_frame - frame does not exist
+[controller_server-7] [INFO] [1793190314.656234855] [harvest_01.local_costmap.local_costmap]: Timed out waiting for transform from harvest_01/base_link to harvest_01/odom to become available, tf error: Invalid frame ID "harvest_01/odom" passed to canTransform argument target_frame - frame does not exist
+[controller_server-14] [INFO] [1793190314.860620430] [harvest_01.handoff.local_costmap.local_costmap]: Timed out waiting for transform from harvest_01/base_link to harvest_01/odom to become available, tf error: Invalid frame ID "harvest_01/odom" passed to canTransform argument target_frame - frame does not exist
+[controller_server-7] [INFO] [1793190315.156247133] [harvest_01.local_costmap.local_costmap]: Timed out waiting for transform from harvest_01/base_link to harvest_01/odom to become available, tf error: Invalid frame ID "harvest_01/odom" passed to canTransform argument target_frame - frame does not exist
+[controller_server-14] [INFO] [1793190315.360666466] [harvest_01.handoff.local_costmap.local_costmap]: Timed out waiting for transform from harvest_01/base_link to harvest_01/odom to become available, tf error: Invalid frame ID "harvest_01/odom" passed to canTransform argument target_frame - frame does not exist
+[controller_server-7] [INFO] [1793190315.656235942] [harvest_01.local_costmap.local_costmap]: Timed out waiting for transform from harvest_01/base_link to harvest_01/odom to become available, tf error: Invalid frame ID "harvest_01/odom" passed to canTransform argument target_frame - frame does not exist
+[controller_server-14] [INFO] [1793190315.860624999] [harvest_01.handoff.local_costmap.local_costmap]: Timed out waiting for transform from harvest_01/base_link to harvest_01/odom to become available, tf error: Invalid frame ID "harvest_01/odom" passed to canTransform argument target_frame - frame does not exist
+[controller_server-7] [INFO] [1793190316.156233425] [harvest_01.local_costmap.local_costmap]: Timed out waiting for transform from harvest_01/base_link to harvest_01/odom to become available, tf error: Invalid frame ID "harvest_01/odom" passed to canTransform argument target_frame - frame does not exist
+[controller_server-14] [INFO] [1793190316.360620984] [harvest_01.handoff.local_costmap.local_costmap]: Timed out waiting for transform from harvest_01/base_link to harvest_01/odom to become available, tf error: Invalid frame ID "harvest_01/odom" passed to canTransform argument target_frame - frame does not exist
+[controller_server-7] [INFO] [1793190316.656233633] [harvest_01.local_costmap.local_costmap]: Timed out waiting for transform from harvest_01/base_link to harvest_01/odom to become available, tf error: Invalid frame ID "harvest_01/odom" passed to canTransform argument target_frame - frame does not exist
+[controller_server-14] [INFO] [1793190316.860623567] [harvest_01.handoff.local_costmap.local_costmap]: Timed out waiting for transform from harvest_01/base_link to harvest_01/odom to become available, tf error: Invalid frame ID "harvest_01/odom" passed to canTransform argument target_frame - frame does not exist
+[controller_server-7] [INFO] [1793190317.156201875] [harvest_01.local_costmap.local_costmap]: Timed out waiting for transform from harvest_01/base_link to harvest_01/odom to become available, tf error: Invalid frame ID "harvest_01/odom" passed to canTransform argument target_frame - frame does not exist
+[controller_server-14] [INFO] [1793190317.360620222] [harvest_01.handoff.local_costmap.local_costmap]: Timed out waiting for transform from harvest_01/base_link to harvest_01/odom to become available, tf error: Invalid frame ID "harvest_01/odom" passed to canTransform argument target_frame - frame does not exist
+[controller_server-7] [INFO] [1793190317.656233731] [harvest_01.local_costmap.local_costmap]: Timed out waiting for transform from harvest_01/base_link to harvest_01/odom to become available, tf error: Invalid frame ID "harvest_01/odom" passed to canTransform argument target_frame - frame does not exist
+[controller_server-14] [INFO] [1793190317.860624555] [harvest_01.handoff.local_costmap.local_costmap]: Timed out waiting for transform from harvest_01/base_link to harvest_01/odom to become available, tf error: Invalid frame ID "harvest_01/odom" passed to canTransform argument target_frame - frame does not exist
+[controller_server-7] [INFO] [1793190318.156234217] [harvest_01.local_costmap.local_costmap]: Timed out waiting for transform from harvest_01/base_link to harvest_01/odom to become available, tf error: Invalid frame ID "harvest_01/odom" passed to canTransform argument target_frame - frame does not exist
+[controller_server-14] [INFO] [1793190318.360620090] [harvest_01.handoff.local_costmap.local_costmap]: Timed out waiting for transform from harvest_01/base_link to harvest_01/odom to become available, tf error: Invalid frame ID "harvest_01/odom" passed to canTransform argument target_frame - frame does not exist
+[controller_server-7] [INFO] [1793190318.656236248] [harvest_01.local_costmap.local_costmap]: Timed out waiting for transform from harvest_01/base_link to harvest_01/odom to become available, tf error: Invalid frame ID "harvest_01/odom" passed to canTransform argument target_frame - frame does not exist
+[controller_server-14] [INFO] [1793190318.860626619] [harvest_01.handoff.local_costmap.local_costmap]: Timed out waiting for transform from harvest_01/base_link to harvest_01/odom to become available, tf error: Invalid frame ID "harvest_01/odom" passed to canTransform argument target_frame - frame does not exist
+[controller_server-7] [INFO] [1793190319.156297790] [harvest_01.local_costmap.local_costmap]: Timed out waiting for transform from harvest_01/base_link to harvest_01/odom to become available, tf error: Invalid frame ID "harvest_01/odom" passed to canTransform argument target_frame - frame does not exist
+[controller_server-14] [INFO] [1793190319.360622172] [harvest_01.handoff.local_costmap.local_costmap]: Timed out waiting for transform from harvest_01/base_link to harvest_01/odom to become available, tf error: Invalid frame ID "harvest_01/odom" passed to canTransform argument target_frame - frame does not exist
+[controller_server-7] [INFO] [1793190319.656282117] [harvest_01.local_costmap.local_costmap]: Timed out waiting for transform from harvest_01/base_link to harvest_01/odom to become available, tf error: Invalid frame ID "harvest_01/odom" passed to canTransform argument target_frame - frame does not exist
+[controller_server-14] [INFO] [1793190319.860826036] [harvest_01.handoff.local_costmap.local_costmap]: Timed out waiting for transform from harvest_01/base_link to harvest_01/odom to become available, tf error: Invalid frame ID "harvest_01/odom" passed to canTransform argument target_frame - frame does not exist
+[controller_server-7] [INFO] [1793190320.156244242] [harvest_01.local_costmap.local_costmap]: Timed out waiting for transform from harvest_01/base_link to harvest_01/odom to become available, tf error: Invalid frame ID "harvest_01/odom" passed to canTransform argument target_frame - frame does not exist
+[controller_server-14] [INFO] [1793190320.360637340] [harvest_01.handoff.local_costmap.local_costmap]: Timed out waiting for transform from harvest_01/base_link to harvest_01/odom to become available, tf error: Invalid frame ID "harvest_01/odom" passed to canTransform argument target_frame - frame does not exist
+[controller_server-7] [INFO] [1793190320.656242351] [harvest_01.local_costmap.local_costmap]: Timed out waiting for transform from harvest_01/base_link to harvest_01/odom to become available, tf error: Invalid frame ID "harvest_01/odom" passed to canTransform argument target_frame - frame does not exist
+[controller_server-14] [INFO] [1793190320.860574413] [harvest_01.handoff.local_costmap.local_costmap]: Timed out waiting for transform from harvest_01/base_link to harvest_01/odom to become available, tf error: Invalid frame ID "harvest_01/odom" passed to canTransform argument target_frame - frame does not exist
+[controller_server-7] [INFO] [1793190321.156237699] [harvest_01.local_costmap.local_costmap]: Timed out waiting for transform from harvest_01/base_link to harvest_01/odom to become available, tf error: Invalid frame ID "harvest_01/odom" passed to canTransform argument target_frame - frame does not exist
+[controller_server-14] [INFO] [1793190321.360624814] [harvest_01.handoff.local_costmap.local_costmap]: Timed out waiting for transform from harvest_01/base_link to harvest_01/odom to become available, tf error: Invalid frame ID "harvest_01/odom" passed to canTransform argument target_frame - frame does not exist
+[controller_server-7] [INFO] [1793190321.656238549] [harvest_01.local_costmap.local_costmap]: Timed out waiting for transform from harvest_01/base_link to harvest_01/odom to become available, tf error: Invalid frame ID "harvest_01/odom" passed to canTransform argument target_frame - frame does not exist
+[controller_server-14] [INFO] [1793190321.860622517] [harvest_01.handoff.local_costmap.local_costmap]: Timed out waiting for transform from harvest_01/base_link to harvest_01/odom to become available, tf error: Invalid frame ID "harvest_01/odom" passed to canTransform argument target_frame - frame does not exist
+[controller_server-7] [INFO] [1793190322.156237935] [harvest_01.local_costmap.local_costmap]: Timed out waiting for transform from harvest_01/base_link to harvest_01/odom to become available, tf error: Invalid frame ID "harvest_01/odom" passed to canTransform argument target_frame - frame does not exist
+[controller_server-14] [INFO] [1793190322.360622705] [harvest_01.handoff.local_costmap.local_costmap]: Timed out waiting for transform from harvest_01/base_link to harvest_01/odom to become available, tf error: Invalid frame ID "harvest_01/odom" passed to canTransform argument target_frame - frame does not exist
+[controller_server-7] [INFO] [1793190322.656241207] [harvest_01.local_costmap.local_costmap]: Timed out waiting for transform from harvest_01/base_link to harvest_01/odom to become available, tf error: Invalid frame ID "harvest_01/odom" passed to canTransform argument target_frame - frame does not exist
+[controller_server-14] [INFO] [1793190322.860629654] [harvest_01.handoff.local_costmap.local_costmap]: Timed out waiting for transform from harvest_01/base_link to harvest_01/odom to become available, tf error: Invalid frame ID "harvest_01/odom" passed to canTransform argument target_frame - frame does not exist
+[ros_adapter-4] [INFO] [1793190323.007975924] [harvest_01.sim_devices]: Isaac Sim 연결됨. odom 원점은 시작 위치입니다; map 위치추정은 별도입니다.
+[controller_server-7] [INFO] [1793190323.156229754] [harvest_01.local_costmap.local_costmap]: Timed out waiting for transform from harvest_01/base_link to harvest_01/odom to become available, tf error: Invalid frame ID "harvest_01/odom" passed to canTransform argument target_frame - frame does not exist
+[controller_server-14] [INFO] [1793190323.360620921] [harvest_01.handoff.local_costmap.local_costmap]: Timed out waiting for transform from harvest_01/base_link to harvest_01/odom to become available, tf error: Invalid frame ID "harvest_01/odom" passed to canTransform argument target_frame - frame does not exist
+[amcl-6] [INFO] [1793190323.623063318] [harvest_01.amcl]: createLaserObject
+[controller_server-7] [INFO] [1793190323.656339399] [harvest_01.local_costmap.local_costmap]: start
+[controller_server-7] [INFO] [1793190323.758286203] [harvest_01.controller_server]: Activating controller: HarvestWork of type regulated_pure_pursuit_controller::RegulatedPurePursuitController
+[controller_server-7] [INFO] [1793190323.758310179] [harvest_01.controller_server]: Activating controller: HarvestApproach of type regulated_pure_pursuit_controller::RegulatedPurePursuitController
+[controller_server-7] [INFO] [1793190323.758313415] [harvest_01.controller_server]: Activating controller: StationReverse of type regulated_pure_pursuit_controller::RegulatedPurePursuitController
+[controller_server-7] [INFO] [1793190323.758315447] [harvest_01.controller_server]: Activating controller: RPP of type regulated_pure_pursuit_controller::RegulatedPurePursuitController
+[controller_server-7] [INFO] [1793190323.758317567] [harvest_01.controller_server]: Activating controller: FollowPath of type regulated_pure_pursuit_controller::RegulatedPurePursuitController
+[controller_server-7] [INFO] [1793190323.758327915] [harvest_01.controller_server]: Creating bond (controller_server) to lifecycle manager.
+[controller_server-14] [INFO] [1793190323.860680125] [harvest_01.handoff.local_costmap.local_costmap]: start
+[lifecycle_manager-12] [INFO] [1793190323.864838764] [harvest_01.lifecycle_manager_navigation]: Server controller_server connected with bond.
+[lifecycle_manager-12] [INFO] [1793190323.864869580] [harvest_01.lifecycle_manager_navigation]: [34m[1mActivating planner_server[0m[0m
+[planner_server-8] [INFO] [1793190323.865321067] [harvest_01.planner_server]: Activating
+[planner_server-8] [INFO] [1793190323.865342578] [harvest_01.global_costmap.global_costmap]: Activating
+[planner_server-8] [INFO] [1793190323.865347045] [harvest_01.global_costmap.global_costmap]: Checking transform
+[planner_server-8] [INFO] [1793190323.865386572] [harvest_01.global_costmap.global_costmap]: Timed out waiting for transform from harvest_01/base_footprint to map to become available, tf error: Lookup would require extrapolation into the past.  Requested time 0.216667 but the earliest data is at time 1.050000, when looking up transform from frame [harvest_01/base_footprint] to frame [map]
+[controller_server-14] [INFO] [1793190324.012073648] [harvest_01.handoff.controller_server]: Activating controller: WindowCorrection of type regulated_pure_pursuit_controller::RegulatedPurePursuitController
+[controller_server-14] [INFO] [1793190324.012102910] [harvest_01.handoff.controller_server]: Activating controller: Retreat of type regulated_pure_pursuit_controller::RegulatedPurePursuitController
+[controller_server-14] [INFO] [1793190324.012107369] [harvest_01.handoff.controller_server]: Activating controller: WallAlign of type regulated_pure_pursuit_controller::RegulatedPurePursuitController
+[controller_server-14] [INFO] [1793190324.012110978] [harvest_01.handoff.controller_server]: Activating controller: TransferArc of type regulated_pure_pursuit_controller::RegulatedPurePursuitController
+[lifecycle_manager-16] [INFO] [1793190324.012672624] [harvest_01.handoff.lifecycle_manager]: [34m[1mActivating behavior_server[0m[0m
+[behavior_server-15] [INFO] [1793190324.012977978] [harvest_01.handoff.behavior_server]: Activating
+[behavior_server-15] [INFO] [1793190324.012994481] [harvest_01.handoff.behavior_server]: Activating spin
+[lifecycle_manager-16] [INFO] [1793190324.013144005] [harvest_01.handoff.lifecycle_manager]: [34m[1mManaged nodes are active[0m[0m
+[planner_server-8] [INFO] [1793190324.365430209] [harvest_01.global_costmap.global_costmap]: Timed out waiting for transform from harvest_01/base_footprint to map to become available, tf error: Lookup would require extrapolation into the past.  Requested time 0.483333 but the earliest data is at time 1.050000, when looking up transform from frame [harvest_01/base_footprint] to frame [map]
+[planner_server-8] [INFO] [1793190324.865440586] [harvest_01.global_costmap.global_costmap]: Timed out waiting for transform from harvest_01/base_footprint to map to become available, tf error: Lookup would require extrapolation into the past.  Requested time 0.816667 but the earliest data is at time 1.050000, when looking up transform from frame [harvest_01/base_footprint] to frame [map]
+[planner_server-8] [INFO] [1793190325.365476362] [harvest_01.global_costmap.global_costmap]: start
+[planner_server-8] [INFO] [1793190326.416961978] [harvest_01.planner_server]: Activating plugin GridBased of type NavfnPlanner
+[planner_server-8] [INFO] [1793190326.419277919] [harvest_01.planner_server]: Creating bond (planner_server) to lifecycle manager.
+[lifecycle_manager-12] [INFO] [1793190326.525187710] [harvest_01.lifecycle_manager_navigation]: Server planner_server connected with bond.
+[lifecycle_manager-12] [INFO] [1793190326.525211593] [harvest_01.lifecycle_manager_navigation]: [34m[1mActivating behavior_server[0m[0m
+[behavior_server-9] [INFO] [1793190326.525735818] [harvest_01.behavior_server]: Activating
+[behavior_server-9] [INFO] [1793190326.525759866] [harvest_01.behavior_server]: Activating spin
+[behavior_server-9] [INFO] [1793190326.525769556] [harvest_01.behavior_server]: Activating backup
+[behavior_server-9] [INFO] [1793190326.525777352] [harvest_01.behavior_server]: Activating drive_on_heading
+[behavior_server-9] [INFO] [1793190326.525785751] [harvest_01.behavior_server]: Activating assisted_teleop
+[behavior_server-9] [INFO] [1793190326.525793649] [harvest_01.behavior_server]: Activating wait
+[behavior_server-9] [INFO] [1793190326.525804899] [harvest_01.behavior_server]: Creating bond (behavior_server) to lifecycle manager.
+[lifecycle_manager-12] [INFO] [1793190326.639394965] [harvest_01.lifecycle_manager_navigation]: Server behavior_server connected with bond.
+[lifecycle_manager-12] [INFO] [1793190326.639425914] [harvest_01.lifecycle_manager_navigation]: [34m[1mActivating bt_navigator[0m[0m
+[bt_navigator-10] [INFO] [1793190326.639946380] [harvest_01.bt_navigator]: Activating
+[bt_navigator-10] [INFO] [1793190326.724654034] [harvest_01.bt_navigator]: Creating bond (bt_navigator) to lifecycle manager.
+[lifecycle_manager-12] [INFO] [1793190326.829664934] [harvest_01.lifecycle_manager_navigation]: Server bt_navigator connected with bond.
+[lifecycle_manager-12] [INFO] [1793190326.829727916] [harvest_01.lifecycle_manager_navigation]: [34m[1mActivating velocity_smoother[0m[0m
+[velocity_smoother-11] [INFO] [1793190326.830492496] [harvest_01.velocity_smoother]: Activating
+[velocity_smoother-11] [INFO] [1793190326.830561224] [harvest_01.velocity_smoother]: Creating bond (velocity_smoother) to lifecycle manager.
+[lifecycle_manager-12] [INFO] [1793190326.941623382] [harvest_01.lifecycle_manager_navigation]: Server velocity_smoother connected with bond.
+[lifecycle_manager-12] [INFO] [1793190326.941672611] [harvest_01.lifecycle_manager_navigation]: [34m[1mManaged nodes are active[0m[0m
+[lifecycle_manager-12] [INFO] [1793190326.941686810] [harvest_01.lifecycle_manager_navigation]: [34m[1mCreating bond timer...[0m[0m
+[controller_server-7] [INFO] [1793190529.206050475] [harvest_01.controller_server]: Received a goal, begin computing control effort.
+[controller_server-7] [ERROR] [1793190709.456242936] [harvest_01.controller_server]: Failed to make progress
+[controller_server-7] [WARN] [1793190709.456310829] [harvest_01.controller_server]: [follow_path] [ActionServer] Aborting handle.
+[WARNING] [launch]: user interrupted with ctrl-c (SIGINT)
+[INFO] [tag_amcl_adapter-18]: sending signal 'SIGINT' to process[tag_amcl_adapter-18]
+[INFO] [harvest_node-17]: sending signal 'SIGINT' to process[harvest_node-17]
+[INFO] [lifecycle_manager-16]: sending signal 'SIGINT' to process[lifecycle_manager-16]
+[INFO] [behavior_server-15]: sending signal 'SIGINT' to process[behavior_server-15]
+[INFO] [controller_server-14]: sending signal 'SIGINT' to process[controller_server-14]
+[INFO] [route_preview-13]: sending signal 'SIGINT' to process[route_preview-13]
+[INFO] [lifecycle_manager-12]: sending signal 'SIGINT' to process[lifecycle_manager-12]
+[INFO] [velocity_smoother-11]: sending signal 'SIGINT' to process[velocity_smoother-11]
+[INFO] [bt_navigator-10]: sending signal 'SIGINT' to process[bt_navigator-10]
+[INFO] [behavior_server-9]: sending signal 'SIGINT' to process[behavior_server-9]
+[INFO] [planner_server-8]: sending signal 'SIGINT' to process[planner_server-8]
+[INFO] [controller_server-7]: sending signal 'SIGINT' to process[controller_server-7]
+[INFO] [amcl-6]: sending signal 'SIGINT' to process[amcl-6]
+[INFO] [map_server-5]: sending signal 'SIGINT' to process[map_server-5]
+[INFO] [ros_adapter-4]: sending signal 'SIGINT' to process[ros_adapter-4]
+[INFO] [tag_capture-3]: sending signal 'SIGINT' to process[tag_capture-3]
+[INFO] [apriltag_node-2]: sending signal 'SIGINT' to process[apriltag_node-2]
+[INFO] [rectify_node-1]: sending signal 'SIGINT' to process[rectify_node-1]
+[controller_server-14] [INFO] [1793190732.705930703] [rclcpp]: signal_handler(SIGINT/SIGTERM)
+[controller_server-14] [INFO] [1793190732.705985044] [harvest_01.handoff.controller_server]: Running Nav2 LifecycleNode rcl preshutdown (controller_server)
+[controller_server-14] [INFO] [1793190732.706037955] [harvest_01.handoff.controller_server]: Deactivating
+[controller_server-14] [INFO] [1793190732.706052860] [harvest_01.handoff.controller_server]: Deactivating controller: WindowCorrection of type regulated_pure_pursuit_controller::RegulatedPurePursuitController
+[controller_server-14] [INFO] [1793190732.706058892] [harvest_01.handoff.controller_server]: Deactivating controller: Retreat of type regulated_pure_pursuit_controller::RegulatedPurePursuitController
+[controller_server-14] [INFO] [1793190732.706063080] [harvest_01.handoff.controller_server]: Deactivating controller: WallAlign of type regulated_pure_pursuit_controller::RegulatedPurePursuitController
+[controller_server-14] [INFO] [1793190732.706066770] [harvest_01.handoff.controller_server]: Deactivating controller: TransferArc of type regulated_pure_pursuit_controller::RegulatedPurePursuitController
+[controller_server-14] [INFO] [1793190732.706080046] [harvest_01.handoff.local_costmap.local_costmap]: Deactivating
+[amcl-6] [INFO] [1793190732.705937072] [rclcpp]: signal_handler(SIGINT/SIGTERM)
+[amcl-6] [INFO] [1793190732.706008577] [harvest_01.amcl]: Running Nav2 LifecycleNode rcl preshutdown (amcl)
+[amcl-6] [INFO] [1793190732.706077665] [harvest_01.amcl]: Deactivating
+[amcl-6] [INFO] [1793190732.706099833] [harvest_01.amcl]: Destroying bond (amcl) to lifecycle manager.
+[map_server-5] [INFO] [1793190732.705948885] [rclcpp]: signal_handler(SIGINT/SIGTERM)
+[map_server-5] [INFO] [1793190732.706024913] [harvest_01.map_server]: Running Nav2 LifecycleNode rcl preshutdown (map_server)
+[map_server-5] [INFO] [1793190732.706082977] [harvest_01.map_server]: Deactivating
+[map_server-5] [INFO] [1793190732.706093467] [harvest_01.map_server]: Destroying bond (map_server) to lifecycle manager.
+[behavior_server-9] [INFO] [1793190732.706021177] [rclcpp]: signal_handler(SIGINT/SIGTERM)
+[behavior_server-9] [INFO] [1793190732.706078157] [harvest_01.behavior_server]: Running Nav2 LifecycleNode rcl preshutdown (behavior_server)
+[behavior_server-9] [INFO] [1793190732.706141231] [harvest_01.behavior_server]: Deactivating
+[behavior_server-9] [INFO] [1793190732.706177569] [harvest_01.behavior_server]: Destroying bond (behavior_server) to lifecycle manager.
+[controller_server-7] [INFO] [1793190732.706040546] [rclcpp]: signal_handler(SIGINT/SIGTERM)
+[controller_server-7] [INFO] [1793190732.706079713] [harvest_01.controller_server]: Running Nav2 LifecycleNode rcl preshutdown (controller_server)
+[controller_server-7] [INFO] [1793190732.706139603] [harvest_01.controller_server]: Deactivating
+[controller_server-7] [INFO] [1793190732.706155848] [harvest_01.controller_server]: Deactivating controller: HarvestWork of type regulated_pure_pursuit_controller::RegulatedPurePursuitController
+[controller_server-7] [INFO] [1793190732.706162522] [harvest_01.controller_server]: Deactivating controller: HarvestApproach of type regulated_pure_pursuit_controller::RegulatedPurePursuitController
+[controller_server-7] [INFO] [1793190732.706168152] [harvest_01.controller_server]: Deactivating controller: StationReverse of type regulated_pure_pursuit_controller::RegulatedPurePursuitController
+[controller_server-7] [INFO] [1793190732.706172409] [harvest_01.controller_server]: Deactivating controller: RPP of type regulated_pure_pursuit_controller::RegulatedPurePursuitController
+[controller_server-7] [INFO] [1793190732.706177143] [harvest_01.controller_server]: Deactivating controller: FollowPath of type regulated_pure_pursuit_controller::RegulatedPurePursuitController
+[controller_server-7] [INFO] [1793190732.706191214] [harvest_01.local_costmap.local_costmap]: Deactivating
+[rectify_node-1] [INFO] [1793190732.706088647] [rclcpp]: signal_handler(SIGINT/SIGTERM)
+[apriltag_node-2] [INFO] [1793190732.706124966] [rclcpp]: signal_handler(SIGINT/SIGTERM)
+[planner_server-8] [INFO] [1793190732.706302926] [rclcpp]: signal_handler(SIGINT/SIGTERM)
+[planner_server-8] [INFO] [1793190732.706369277] [harvest_01.planner_server]: Running Nav2 LifecycleNode rcl preshutdown (planner_server)
+[planner_server-8] [INFO] [1793190732.706436945] [harvest_01.planner_server]: Deactivating
+[planner_server-8] [INFO] [1793190732.706464643] [harvest_01.global_costmap.global_costmap]: Deactivating
+[lifecycle_manager-16] [INFO] [1793190732.706370211] [rclcpp]: signal_handler(SIGINT/SIGTERM)
+[lifecycle_manager-16] [INFO] [1793190732.706424459] [harvest_01.handoff.lifecycle_manager]: Running Nav2 LifecycleManager rcl preshutdown (lifecycle_manager)
+[behavior_server-15] [INFO] [1793190732.706590862] [rclcpp]: signal_handler(SIGINT/SIGTERM)
+[behavior_server-15] [INFO] [1793190732.706668319] [harvest_01.handoff.behavior_server]: Running Nav2 LifecycleNode rcl preshutdown (behavior_server)
+[behavior_server-15] [INFO] [1793190732.706736434] [harvest_01.handoff.behavior_server]: Deactivating
+[behavior_server-15] [INFO] [1793190732.706838556] [harvest_01.handoff.behavior_server]: Cleaning up
+[lifecycle_manager-12] [INFO] [1793190732.706743415] [rclcpp]: signal_handler(SIGINT/SIGTERM)
+[lifecycle_manager-12] [INFO] [1793190732.706817296] [harvest_01.lifecycle_manager_navigation]: Running Nav2 LifecycleManager rcl preshutdown (lifecycle_manager_navigation)
+[lifecycle_manager-12] [INFO] [1793190732.706851322] [harvest_01.lifecycle_manager_navigation]: [34m[1mTerminating bond timer...[0m[0m
+[bt_navigator-10] [INFO] [1793190732.709663795] [rclcpp]: signal_handler(SIGINT/SIGTERM)
+[bt_navigator-10] [INFO] [1793190732.709759937] [harvest_01.bt_navigator]: Running Nav2 LifecycleNode rcl preshutdown (bt_navigator)
+[bt_navigator-10] [INFO] [1793190732.709839244] [harvest_01.bt_navigator]: Deactivating
+[bt_navigator-10] [INFO] [1793190732.709883544] [harvest_01.bt_navigator]: Destroying bond (bt_navigator) to lifecycle manager.
+[velocity_smoother-11] [INFO] [1793190732.705936595] [rclcpp]: signal_handler(SIGINT/SIGTERM)
+[velocity_smoother-11] [INFO] [1793190732.712587140] [harvest_01.velocity_smoother]: Running Nav2 LifecycleNode rcl preshutdown (velocity_smoother)
+[velocity_smoother-11] [INFO] [1793190732.712668278] [harvest_01.velocity_smoother]: Deactivating
+[velocity_smoother-11] [INFO] [1793190732.712692976] [harvest_01.velocity_smoother]: Destroying bond (velocity_smoother) to lifecycle manager.
+[behavior_server-9] [INFO] [1793190732.716527998] [harvest_01.behavior_server]: Cleaning up
+[map_server-5] [INFO] [1793190732.716333512] [harvest_01.map_server]: Cleaning up
+[map_server-5] [INFO] [1793190732.718826790] [harvest_01.map_server]: Destroying bond (map_server) to lifecycle manager.
+[amcl-6] [INFO] [1793190732.720933872] [harvest_01.amcl]: Cleaning up
+[tag_amcl_adapter-18] Traceback (most recent call last):
+[tag_amcl_adapter-18]   File "/home/ysy/main/farm_project/robot/ros_ws/install/farm_tag_localization/lib/farm_tag_localization/tag_amcl_adapter", line 33, in <module>
+[tag_amcl_adapter-18]     sys.exit(load_entry_point('farm-tag-localization', 'console_scripts', 'tag_amcl_adapter')())
+[tag_amcl_adapter-18]              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+[tag_amcl_adapter-18]   File "/home/ysy/main/farm_project/robot/ros_ws/build/farm_tag_localization/farm_tag_localization/node.py", line 297, in main
+[tag_amcl_adapter-18]     node.close()
+[tag_amcl_adapter-18]   File "/home/ysy/main/farm_project/robot/ros_ws/build/farm_tag_localization/farm_tag_localization/node.py", line 281, in close
+[tag_amcl_adapter-18]     self._listener.unregister()
+[tag_amcl_adapter-18]   File "/opt/ros/jazzy/lib/python3.12/site-packages/tf2_ros/transform_listener.py", line 127, in unregister
+[tag_amcl_adapter-18]     self.node.destroy_subscription(self.tf_sub)
+[tag_amcl_adapter-18]   File "/opt/ros/jazzy/lib/python3.12/site-packages/rclpy/node.py", line 1854, in destroy_subscription
+[tag_amcl_adapter-18]     subscription.destroy()
+[tag_amcl_adapter-18]   File "/opt/ros/jazzy/lib/python3.12/site-packages/rclpy/subscription.py", line 101, in destroy
+[tag_amcl_adapter-18]     self.handle.destroy_when_not_in_use()
+[tag_amcl_adapter-18] KeyboardInterrupt
+[route_preview-13] Traceback (most recent call last):
+[route_preview-13]   File "/home/ysy/main/farm_project/robot/ros_ws/install/scout_robot/lib/scout_robot/route_preview", line 33, in <module>
+[route_preview-13]     sys.exit(load_entry_point('scout-robot', 'console_scripts', 'route_preview')())
+[route_preview-13]              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+[route_preview-13]   File "/home/ysy/main/farm_project/robot/ros_ws/build/scout_robot/scout_robot/route_preview.py", line 85, in main
+[route_preview-13]     if node is not None: node.destroy_node()
+[route_preview-13]                          ^^^^^^^^^^^^^^^^^^^
+[route_preview-13]   File "/opt/ros/jazzy/lib/python3.12/site-packages/rclpy/node.py", line 1956, in destroy_node
+[route_preview-13]     self.destroy_publisher(self._publishers[0])
+[route_preview-13]   File "/opt/ros/jazzy/lib/python3.12/site-packages/rclpy/node.py", line 1836, in destroy_publisher
+[route_preview-13]     publisher.destroy()
+[route_preview-13]   File "/opt/ros/jazzy/lib/python3.12/site-packages/rclpy/publisher.py", line 105, in destroy
+[route_preview-13]     self.__publisher.destroy_when_not_in_use()
+[route_preview-13] KeyboardInterrupt
+[bt_navigator-10] [INFO] [1793190732.730135623] [harvest_01.bt_navigator]: Cleaning up
+[velocity_smoother-11] [INFO] [1793190732.733420543] [harvest_01.velocity_smoother]: Cleaning up
+[velocity_smoother-11] [INFO] [1793190732.733469105] [harvest_01.velocity_smoother]: Destroying bond (velocity_smoother) to lifecycle manager.
+[velocity_smoother-11] [INFO] [1793190732.739335976] [rclcpp]: signal_handler(SIGINT/SIGTERM)
+[tag_capture-3] Traceback (most recent call last):
+[tag_capture-3]   File "/home/ysy/main/farm_project/robot/ros_ws/install/farm_tag_localization/lib/farm_tag_localization/tag_capture", line 33, in <module>
+[tag_capture-3]     sys.exit(load_entry_point('farm-tag-localization', 'console_scripts', 'tag_capture')())
+[tag_capture-3]              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+[tag_capture-3]   File "/home/ysy/main/farm_project/robot/ros_ws/build/farm_tag_localization/farm_tag_localization/ros_capture.py", line 104, in main
+[tag_capture-3]     node.destroy_node()
+[tag_capture-3]   File "/opt/ros/jazzy/lib/python3.12/site-packages/rclpy/node.py", line 1958, in destroy_node
+[tag_capture-3]     self.destroy_subscription(self._subscriptions[0])
+[tag_capture-3]   File "/opt/ros/jazzy/lib/python3.12/site-packages/rclpy/node.py", line 1854, in destroy_subscription
+[tag_capture-3]     subscription.destroy()
+[tag_capture-3]   File "/opt/ros/jazzy/lib/python3.12/site-packages/rclpy/subscription.py", line 101, in destroy
+[tag_capture-3]     self.handle.destroy_when_not_in_use()
+[tag_capture-3] KeyboardInterrupt
+[rectify_node-1] [INFO] [1793190732.744613365] [rclcpp]: signal_handler(SIGINT/SIGTERM)
+[map_server-5] [INFO] [1793190732.745077803] [rclcpp]: signal_handler(SIGINT/SIGTERM)
+[apriltag_node-2] [INFO] [1793190732.746139587] [rclcpp]: signal_handler(SIGINT/SIGTERM)
+[controller_server-7] [INFO] [1793190732.758825088] [harvest_01.controller_server]: Destroying bond (controller_server) to lifecycle manager.
+[controller_server-14] [INFO] [1793190732.760982698] [harvest_01.handoff.controller_server]: Cleaning up
+[controller_server-14] [INFO] [1793190732.761023576] [harvest_01.handoff.controller_server]: Cleaning up controller: WindowCorrection of type regulated_pure_pursuit_controller::RegulatedPurePursuitController
+[controller_server-14] [INFO] [1793190732.761115147] [harvest_01.handoff.controller_server]: Cleaning up controller: Retreat of type regulated_pure_pursuit_controller::RegulatedPurePursuitController
+[controller_server-14] [INFO] [1793190732.761190909] [harvest_01.handoff.controller_server]: Cleaning up controller: WallAlign of type regulated_pure_pursuit_controller::RegulatedPurePursuitController
+[controller_server-14] [INFO] [1793190732.761200431] [harvest_01.handoff.controller_server]: Cleaning up controller: TransferArc of type regulated_pure_pursuit_controller::RegulatedPurePursuitController
+[controller_server-14] [INFO] [1793190732.761774350] [harvest_01.handoff.local_costmap.local_costmap]: Cleaning up
+[lifecycle_manager-16] [INFO] [1793190732.763430983] [rclcpp]: signal_handler(SIGINT/SIGTERM)
+[lifecycle_manager-16] [INFO] [1793190732.764357033] [harvest_01.handoff.lifecycle_manager]: Destroying lifecycle_manager
+[behavior_server-15] [INFO] [1793190732.767037145] [rclcpp]: signal_handler(SIGINT/SIGTERM)
+[controller_server-7] [INFO] [1793190732.769120626] [harvest_01.controller_server]: Cleaning up
+[controller_server-7] [INFO] [1793190732.769149331] [harvest_01.controller_server]: Cleaning up controller: HarvestWork of type regulated_pure_pursuit_controller::RegulatedPurePursuitController
+[controller_server-7] [INFO] [1793190732.769166960] [harvest_01.controller_server]: Cleaning up controller: HarvestApproach of type regulated_pure_pursuit_controller::RegulatedPurePursuitController
+[controller_server-7] [INFO] [1793190732.769174330] [harvest_01.controller_server]: Cleaning up controller: StationReverse of type regulated_pure_pursuit_controller::RegulatedPurePursuitController
+[controller_server-7] [INFO] [1793190732.769183020] [harvest_01.controller_server]: Cleaning up controller: RPP of type regulated_pure_pursuit_controller::RegulatedPurePursuitController
+[controller_server-7] [INFO] [1793190732.769191203] [harvest_01.controller_server]: Cleaning up controller: FollowPath of type regulated_pure_pursuit_controller::RegulatedPurePursuitController
+[controller_server-7] [INFO] [1793190732.769392150] [harvest_01.local_costmap.local_costmap]: Cleaning up
+[ros_adapter-4] Traceback (most recent call last):
+[ros_adapter-4]   File "/home/ysy/main/farm_project/sim/ros_ws/install/farm_sim_devices/lib/farm_sim_devices/ros_adapter", line 33, in <module>
+[ros_adapter-4]     sys.exit(load_entry_point('farm-sim-devices==0.2.0', 'console_scripts', 'ros_adapter')())
+[ros_adapter-4]              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+[ros_adapter-4]   File "/home/ysy/main/farm_project/sim/ros_ws/install/farm_sim_devices/lib/python3.12/site-packages/farm_sim_devices/ros_adapter.py", line 276, in main
+[ros_adapter-4]     if node is not None:node.close()
+[ros_adapter-4]                         ^^^^^^^^^^^^
+[ros_adapter-4]   File "/home/ysy/main/farm_project/sim/ros_ws/install/farm_sim_devices/lib/python3.12/site-packages/farm_sim_devices/ros_adapter.py", line 257, in close
+[ros_adapter-4]     if self.arm_server is not None:self.arm_server.close()
+[ros_adapter-4]                                    ^^^^^^^^^^^^^^^^^^^^^^^
+[ros_adapter-4]   File "/home/ysy/main/farm_project/sim/ros_ws/install/farm_sim_devices/lib/python3.12/site-packages/farm_sim_devices/arm_ros.py", line 247, in close
+[ros_adapter-4]     self.server.destroy()
+[ros_adapter-4]   File "/opt/ros/jazzy/lib/python3.12/site-packages/rclpy/action/server.py", line 661, in destroy
+[ros_adapter-4]     self._handle.destroy_when_not_in_use()
+[ros_adapter-4] KeyboardInterrupt
+[velocity_smoother-11] [INFO] [1793190732.781431659] [harvest_01.velocity_smoother]: Destroying
+[behavior_server-9] [INFO] [1793190732.790124704] [harvest_01.behavior_server]: Destroying bond (behavior_server) to lifecycle manager.
+[map_server-5] [INFO] [1793190732.809528152] [harvest_01.map_server]: Destroying
+[behavior_server-9] [INFO] [1793190732.826705196] [rclcpp]: signal_handler(SIGINT/SIGTERM)
+[amcl-6] [INFO] [1793190732.870204009] [harvest_01.amcl]: Destroying bond (amcl) to lifecycle manager.
+[amcl-6] [INFO] [1793190732.883848490] [rclcpp]: signal_handler(SIGINT/SIGTERM)
+[behavior_server-15] [INFO] [1793190732.899885560] [harvest_01.handoff.behavior_server]: Destroying
+[amcl-6] [INFO] [1793190732.916153804] [harvest_01.amcl]: Destroying
+[lifecycle_manager-12] [INFO] [1793190732.968262070] [rclcpp]: signal_handler(SIGINT/SIGTERM)
+[lifecycle_manager-12] [INFO] [1793190732.971112319] [harvest_01.lifecycle_manager_navigation]: Destroying lifecycle_manager_navigation
+[behavior_server-9] [INFO] [1793190732.971194415] [harvest_01.behavior_server]: Destroying
+[ERROR] [ros_adapter-4]: process has died [pid 2350107, exit code -2, cmd '/home/ysy/main/farm_project/sim/ros_ws/install/farm_sim_devices/lib/farm_sim_devices/ros_adapter --ros-args -r __ns:=/harvest_01 --params-file /tmp/launch_params_ky7f__vi'].
+[ERROR] [route_preview-13]: process has died [pid 2350135, exit code -2, cmd '/home/ysy/main/farm_project/robot/ros_ws/install/scout_robot/lib/scout_robot/route_preview --ros-args -r __ns:=/harvest_01 --params-file /tmp/launch_params_2lkck_jg'].
+[controller_server-7] [INFO] [1793190733.049113653] [harvest_01.controller_server]: Destroying bond (controller_server) to lifecycle manager.
+[INFO] [velocity_smoother-11]: process has finished cleanly [pid 2350133]
+[controller_server-14] [INFO] [1793190733.056303935] [rclcpp]: signal_handler(SIGINT/SIGTERM)
+[controller_server-7] [INFO] [1793190733.057175549] [rclcpp]: signal_handler(SIGINT/SIGTERM)
+[controller_server-7] [INFO] [1793190733.060530738] [harvest_01.local_costmap.local_costmap]: Destroying
+[controller_server-14] [INFO] [1793190733.063810303] [harvest_01.handoff.local_costmap.local_costmap]: Destroying
+[ERROR] [tag_amcl_adapter-18]: process has died [pid 2350144, exit code -2, cmd '/home/ysy/main/farm_project/robot/ros_ws/install/farm_tag_localization/lib/farm_tag_localization/tag_amcl_adapter --ros-args -r __ns:=/harvest_01 --params-file /tmp/launch_params_e4pxtagn'].
+[ERROR] [tag_capture-3]: process has died [pid 2350106, exit code -2, cmd '/home/ysy/main/farm_project/robot/ros_ws/install/farm_tag_localization/lib/farm_tag_localization/tag_capture --ros-args -r __ns:=/harvest_01/apriltag_camera --params-file /tmp/launch_params_qy_2_w0x'].
+[controller_server-7] [INFO] [1793190733.082019433] [harvest_01.controller_server]: Destroying
+[controller_server-14] [INFO] [1793190733.086685344] [harvest_01.handoff.controller_server]: Destroying
+[INFO] [lifecycle_manager-16]: process has finished cleanly [pid 2350142]
+[bt_navigator-10] [INFO] [1793190733.117177922] [harvest_01.bt_navigator]: Completed Cleaning up
+[bt_navigator-10] [INFO] [1793190733.117231692] [harvest_01.bt_navigator]: Destroying bond (bt_navigator) to lifecycle manager.
+[bt_navigator-10] [INFO] [1793190733.117866872] [rclcpp]: signal_handler(SIGINT/SIGTERM)
+[INFO] [map_server-5]: process has finished cleanly [pid 2350108]
+[INFO] [amcl-6]: process has finished cleanly [pid 2350110]
+[bt_navigator-10] [INFO] [1793190733.128286067] [harvest_01.bt_navigator]: Destroying
+[INFO] [behavior_server-15]: process has finished cleanly [pid 2350141]
+[INFO] [behavior_server-9]: process has finished cleanly [pid 2350127]
+[INFO] [lifecycle_manager-12]: process has finished cleanly [pid 2350134]
+[harvest_node-17] The following exception was never retrieved: cannot use Destroyable because destruction was requested
+[INFO] [controller_server-7]: process has finished cleanly [pid 2350125]
+[INFO] [controller_server-14]: process has finished cleanly [pid 2350138]
+[INFO] [bt_navigator-10]: process has finished cleanly [pid 2350132]
+[INFO] [harvest_node-17]: process has finished cleanly [pid 2350143]
+[planner_server-8] [INFO] [1793190733.365651225] [harvest_01.planner_server]: Deactivating plugin GridBased of type NavfnPlanner
+[planner_server-8] [INFO] [1793190733.365688751] [harvest_01.planner_server]: Destroying bond (planner_server) to lifecycle manager.
+[planner_server-8] [INFO] [1793190733.375852029] [harvest_01.planner_server]: Cleaning up
+[planner_server-8] [INFO] [1793190733.379334330] [harvest_01.global_costmap.global_costmap]: Cleaning up
+[planner_server-8] [INFO] [1793190733.380858165] [harvest_01.planner_server]: Cleaning up plugin GridBased of type NavfnPlanner
+[planner_server-8] [INFO] [1793190733.380996709] [harvest_01.planner_server]: Destroying plugin GridBased of type NavfnPlanner
+[planner_server-8] [INFO] [1793190733.387056278] [harvest_01.planner_server]: Destroying bond (planner_server) to lifecycle manager.
+[planner_server-8] [INFO] [1793190733.395542368] [rclcpp]: signal_handler(SIGINT/SIGTERM)
+[planner_server-8] [INFO] [1793190733.396342656] [harvest_01.global_costmap.global_costmap]: Destroying
+[planner_server-8] [INFO] [1793190733.399493031] [harvest_01.planner_server]: Destroying
+[INFO] [planner_server-8]: process has finished cleanly [pid 2350126]
+[ERROR] [apriltag_node-2]: process has died [pid 2350105, exit code -11, cmd '/opt/ros/jazzy/lib/apriltag_ros/apriltag_node --ros-args -r __node:=tag_detector -r __ns:=/harvest_01/apriltag_camera --params-file /tmp/launch_params_ya0f6i61 -r /tf:=diagnostic_tf -r /tf_static:=diagnostic_tf_static'].
+[ERROR] [rectify_node-1]: process has died [pid 2350104, exit code -11, cmd '/opt/ros/jazzy/lib/image_proc/rectify_node --ros-args -r __node:=tag_rectify -r __ns:=/harvest_01/apriltag_camera --params-file /tmp/launch_params_1s3dd2eg -r image:=image_raw'].

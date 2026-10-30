@@ -1,0 +1,430 @@
+{
+  "passed": false,
+  "scope": "SEC01 fresh survey/all windows/handoff/sort/harvest and transport returns; scout continues SEC02; single attempt",
+  "scout": {
+    "status": 4,
+    "result": {
+      "robot_id": "scout_01",
+      "task_id": "cycle_scout_7423f72ec2f1",
+      "result_code": "SUCCESS",
+      "section_id": "SEC01",
+      "completed_segment_count": 5,
+      "harvest_task_count": 9,
+      "total_expected_count": 13,
+      "harvest_tasks": [
+        {
+          "task_id": "16cb6a8ad078_SEC01_TASK001",
+          "window_id": "16cb6a8ad078_SEC01_W001",
+          "goal_pose": {
+            "frame_id": "map",
+            "position": {
+              "x": -6.015000000000001,
+              "y": 9.329589444039618,
+              "z": 0.0
+            },
+            "yaw": -1.5707963267948966
+          },
+          "expected_count": 1
+        },
+        {
+          "task_id": "16cb6a8ad078_SEC01_TASK002",
+          "window_id": "16cb6a8ad078_SEC01_W002",
+          "goal_pose": {
+            "frame_id": "map",
+            "position": {
+              "x": -6.015000000000001,
+              "y": 8.69984533583327,
+              "z": 0.0
+            },
+            "yaw": -1.5707963267948966
+          },
+          "expected_count": 1
+        },
+        {
+          "task_id": "16cb6a8ad078_SEC01_TASK003",
+          "window_id": "16cb6a8ad078_SEC01_W003",
+          "goal_pose": {
+            "frame_id": "map",
+            "position": {
+              "x": -6.015000000000001,
+              "y": 8.342041431220085,
+              "z": 0.0
+            },
+            "yaw": -1.5707963267948966
+          },
+          "expected_count": 1
+        },
+        {
+          "task_id": "16cb6a8ad078_SEC01_TASK004",
+          "window_id": "16cb6a8ad078_SEC01_W004",
+          "goal_pose": {
+            "frame_id": "map",
+            "position": {
+              "x": -6.015000000000001,
+              "y": 7.677786414957483,
+              "z": 0.0
+            },
+            "yaw": -1.5707963267948966
+          },
+          "expected_count": 2
+        },
+        {
+          "task_id": "16cb6a8ad078_SEC01_TASK005",
+          "window_id": "16cb6a8ad078_SEC01_W005",
+          "goal_pose": {
+            "frame_id": "map",
+            "position": {
+              "x": -6.015000000000001,
+              "y": 7.058944284641575,
+              "z": 0.0
+            },
+            "yaw": -1.5707963267948966
+          },
+          "expected_count": 1
+        },
+        {
+          "task_id": "16cb6a8ad078_SEC01_TASK006",
+          "window_id": "16cb6a8ad078_SEC01_W006",
+          "goal_pose": {
+            "frame_id": "map",
+            "position": {
+              "x": -6.015000000000001,
+              "y": 6.386072021938402,
+              "z": 0.0
+            },
+            "yaw": -1.5707963267948966
+          },
+          "expected_count": 1
+        },
+        {
+          "task_id": "16cb6a8ad078_SEC01_TASK007",
+          "window_id": "16cb6a8ad078_SEC01_W007",
+          "goal_pose": {
+            "frame_id": "map",
+            "position": {
+              "x": -6.015000000000001,
+              "y": 5.85558692049333,
+              "z": 0.0
+            },
+            "yaw": -1.5707963267948966
+          },
+          "expected_count": 2
+        },
+        {
+          "task_id": "16cb6a8ad078_SEC01_TASK008",
+          "window_id": "16cb6a8ad078_SEC01_W008",
+          "goal_pose": {
+            "frame_id": "map",
+            "position": {
+              "x": -6.015000000000001,
+              "y": 5.086907104753421,
+              "z": 0.0
+            },
+            "yaw": -1.5707963267948966
+          },
+          "expected_count": 2
+        },
+        {
+          "task_id": "16cb6a8ad078_SEC01_TASK009",
+          "window_id": "16cb6a8ad078_SEC01_W009",
+          "goal_pose": {
+            "frame_id": "map",
+            "position": {
+              "x": -6.015000000000001,
+              "y": 3.2660497894451224,
+              "z": 0.0
+            },
+            "yaw": -1.5707963267948966
+          },
+          "expected_count": 2
+        }
+      ],
+      "error_code": "NONE",
+      "error_message": "",
+      "timestamp": "2026-10-28T12:49:16.531903+00:00"
+    }
+  },
+  "window_count": 9,
+  "harvest_results": [
+    {
+      "status": 4,
+      "result": {
+        "robot_id": "harvest_01",
+        "task_id": "handoff_window_207ab42dc5fb",
+        "window_id": "16cb6a8ad078_SEC01_W001",
+        "result_code": "SUCCESS",
+        "expected_count": 1,
+        "harvested_count": 0,
+        "failed_count": 0,
+        "error_code": "NONE",
+        "error_message": "student_no_reachable_targets_arms_stowed",
+        "timestamp": "2026-10-28T12:53:10.336543+00:00"
+      }
+    },
+    {
+      "status": 4,
+      "result": {
+        "robot_id": "harvest_01",
+        "task_id": "handoff_window_98cec06afaa7",
+        "window_id": "16cb6a8ad078_SEC01_W002",
+        "result_code": "SUCCESS",
+        "expected_count": 1,
+        "harvested_count": 0,
+        "failed_count": 0,
+        "error_code": "NONE",
+        "error_message": "student_no_reachable_targets_arms_stowed",
+        "timestamp": "2026-10-28T12:53:47.524900+00:00"
+      }
+    },
+    {
+      "status": 4,
+      "result": {
+        "robot_id": "harvest_01",
+        "task_id": "handoff_window_d321bbeef207",
+        "window_id": "16cb6a8ad078_SEC01_W003",
+        "result_code": "SUCCESS",
+        "expected_count": 1,
+        "harvested_count": 1,
+        "failed_count": 0,
+        "error_code": "NONE",
+        "error_message": "student_attempts_completed_arms_stowed",
+        "timestamp": "2026-10-28T13:06:42.153987+00:00"
+      }
+    },
+    {
+      "status": 4,
+      "result": {
+        "robot_id": "harvest_01",
+        "task_id": "handoff_window_2c931328f823",
+        "window_id": "16cb6a8ad078_SEC01_W004",
+        "result_code": "SUCCESS",
+        "expected_count": 2,
+        "harvested_count": 1,
+        "failed_count": 0,
+        "error_code": "NONE",
+        "error_message": "student_attempts_completed_arms_stowed",
+        "timestamp": "2026-10-28T13:13:06.598655+00:00"
+      }
+    },
+    {
+      "status": 4,
+      "result": {
+        "robot_id": "harvest_01",
+        "task_id": "handoff_window_1c9848b050c9",
+        "window_id": "16cb6a8ad078_SEC01_W005",
+        "result_code": "SUCCESS",
+        "expected_count": 1,
+        "harvested_count": 1,
+        "failed_count": 0,
+        "error_code": "NONE",
+        "error_message": "student_attempts_completed_arms_stowed",
+        "timestamp": "2026-10-28T13:17:05.452440+00:00"
+      }
+    },
+    {
+      "status": 4,
+      "result": {
+        "robot_id": "harvest_01",
+        "task_id": "handoff_window_1edf8a210908",
+        "window_id": "16cb6a8ad078_SEC01_W006",
+        "result_code": "SUCCESS",
+        "expected_count": 1,
+        "harvested_count": 1,
+        "failed_count": 0,
+        "error_code": "NONE",
+        "error_message": "student_attempts_completed_arms_stowed",
+        "timestamp": "2026-10-28T13:21:28.218394+00:00"
+      }
+    },
+    {
+      "status": 4,
+      "result": {
+        "robot_id": "harvest_01",
+        "task_id": "handoff_window_296c9a6fe662",
+        "window_id": "16cb6a8ad078_SEC01_W007",
+        "result_code": "SUCCESS",
+        "expected_count": 2,
+        "harvested_count": 2,
+        "failed_count": 0,
+        "error_code": "NONE",
+        "error_message": "student_attempts_completed_arms_stowed",
+        "timestamp": "2026-10-28T13:30:21.549335+00:00"
+      }
+    },
+    {
+      "status": 4,
+      "result": {
+        "robot_id": "harvest_01",
+        "task_id": "handoff_window_04b645e25ff4",
+        "window_id": "16cb6a8ad078_SEC01_W008",
+        "result_code": "SUCCESS",
+        "expected_count": 2,
+        "harvested_count": 0,
+        "failed_count": 0,
+        "error_code": "NONE",
+        "error_message": "student_no_reachable_targets_arms_stowed",
+        "timestamp": "2026-10-28T13:31:01.019782+00:00"
+      }
+    },
+    {
+      "status": 4,
+      "result": {
+        "robot_id": "harvest_01",
+        "task_id": "handoff_window_ce67de86fb84",
+        "window_id": "16cb6a8ad078_SEC01_W009",
+        "result_code": "SUCCESS",
+        "expected_count": 2,
+        "harvested_count": 2,
+        "failed_count": 0,
+        "error_code": "NONE",
+        "error_message": "student_attempts_completed_arms_stowed",
+        "timestamp": "2026-10-28T13:41:16.207296+00:00"
+      }
+    }
+  ],
+  "harvest": {
+    "status": 4,
+    "result": {
+      "robot_id": "harvest_01",
+      "task_id": "handoff_window_ce67de86fb84",
+      "window_id": "16cb6a8ad078_SEC01_W009",
+      "result_code": "SUCCESS",
+      "expected_count": 2,
+      "harvested_count": 2,
+      "failed_count": 0,
+      "error_code": "NONE",
+      "error_message": "student_attempts_completed_arms_stowed",
+      "timestamp": "2026-10-28T13:41:16.207296+00:00"
+    }
+  },
+  "scout_sec02": {
+    "status": 4,
+    "result": {
+      "robot_id": "scout_01",
+      "task_id": "cycle_scout_sec02_ef67011be2f6",
+      "result_code": "SUCCESS",
+      "section_id": "SEC02",
+      "completed_segment_count": 5,
+      "harvest_task_count": 8,
+      "total_expected_count": 11,
+      "harvest_tasks": [
+        {
+          "task_id": "3eb7cc0fcbf3_SEC02_TASK001",
+          "window_id": "3eb7cc0fcbf3_SEC02_W001",
+          "goal_pose": {
+            "frame_id": "map",
+            "position": {
+              "x": -3.9850000000000003,
+              "y": 3.248456927042385,
+              "z": 0.0
+            },
+            "yaw": 1.5707963267948966
+          },
+          "expected_count": 1
+        },
+        {
+          "task_id": "3eb7cc0fcbf3_SEC02_TASK002",
+          "window_id": "3eb7cc0fcbf3_SEC02_W002",
+          "goal_pose": {
+            "frame_id": "map",
+            "position": {
+              "x": -3.9850000000000003,
+              "y": 3.911325843269106,
+              "z": 0.0
+            },
+            "yaw": 1.5707963267948966
+          },
+          "expected_count": 1
+        },
+        {
+          "task_id": "3eb7cc0fcbf3_SEC02_TASK003",
+          "window_id": "3eb7cc0fcbf3_SEC02_W003",
+          "goal_pose": {
+            "frame_id": "map",
+            "position": {
+              "x": -3.9850000000000003,
+              "y": 4.30061408322986,
+              "z": 0.0
+            },
+            "yaw": 1.5707963267948966
+          },
+          "expected_count": 2
+        },
+        {
+          "task_id": "3eb7cc0fcbf3_SEC02_TASK004",
+          "window_id": "3eb7cc0fcbf3_SEC02_W004",
+          "goal_pose": {
+            "frame_id": "map",
+            "position": {
+              "x": -3.9850000000000003,
+              "y": 6.236111164944572,
+              "z": 0.0
+            },
+            "yaw": 1.5707963267948966
+          },
+          "expected_count": 1
+        },
+        {
+          "task_id": "3eb7cc0fcbf3_SEC02_TASK005",
+          "window_id": "3eb7cc0fcbf3_SEC02_W005",
+          "goal_pose": {
+            "frame_id": "map",
+            "position": {
+              "x": -3.9850000000000003,
+              "y": 6.78607604981013,
+              "z": 0.0
+            },
+            "yaw": 1.5707963267948966
+          },
+          "expected_count": 2
+        },
+        {
+          "task_id": "3eb7cc0fcbf3_SEC02_TASK006",
+          "window_id": "3eb7cc0fcbf3_SEC02_W006",
+          "goal_pose": {
+            "frame_id": "map",
+            "position": {
+              "x": -3.9850000000000003,
+              "y": 7.435970449350786,
+              "z": 0.0
+            },
+            "yaw": 1.5707963267948966
+          },
+          "expected_count": 1
+        },
+        {
+          "task_id": "3eb7cc0fcbf3_SEC02_TASK007",
+          "window_id": "3eb7cc0fcbf3_SEC02_W007",
+          "goal_pose": {
+            "frame_id": "map",
+            "position": {
+              "x": -3.9850000000000003,
+              "y": 8.167326194497441,
+              "z": 0.0
+            },
+            "yaw": 1.5707963267948966
+          },
+          "expected_count": 2
+        },
+        {
+          "task_id": "3eb7cc0fcbf3_SEC02_TASK008",
+          "window_id": "3eb7cc0fcbf3_SEC02_W008",
+          "goal_pose": {
+            "frame_id": "map",
+            "position": {
+              "x": -3.9850000000000003,
+              "y": 9.377718104042646,
+              "z": 0.0
+            },
+            "yaw": 1.5707963267948966
+          },
+          "expected_count": 1
+        }
+      ],
+      "error_code": "NONE",
+      "error_message": "",
+      "timestamp": "2026-10-28T12:53:47.771419+00:00"
+    }
+  },
+  "error": "RuntimeError: 42번 접근 실패: {\"id\": \"PICKUP_TEST_d8092203e0674eeca594baa638878d2f\", \"role\": \"transport\", \"goal\": {\"robot_id\": \"transport_01\", \"task_id\": \"PICKUP_TEST_d8092203e0674eeca594baa638878d2f\", \"transfer_id\": \"TRANSFER_TEST_b812eab50f134d629e09b4f29fbe5ebc\", \"timestamp\": \"2026-10-28T13:41:16.884962+00:00\", \"harvest_robot_id\": \"harvest_01\", \"map_id\": \"farm_map_v1\", \"staging_pose\": {\"frame_id\": \"map\", \"position\": {\"x\": -5.955, \"y\": 3.2660497894451224, \"z\": 0.0}, \"yaw\": -1.5707963267948966}, \"target_marker_id\": 42, \"docking_marker_id\": 41}, \"goal_uuid\": \"04d05ccad37145e88f22e05cd744bc62\", \"state\": \"REJECTED\", \"reason\": \"로봇이 요청을 거절했습니다.\", \"created_at\": \"2026-10-28T13:41:16.885049+00:00\", \"finished_at\": \"2026-10-28T13:41:16.929909+00:00\"}"
+}

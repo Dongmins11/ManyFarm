@@ -1,0 +1,13 @@
+Traceback (most recent call last):
+  File "/home/ysy/main/farm_project/sim/tools/probe_handoff_window.py", line 252, in <module>
+    if __name__ == '__main__': main()
+                               ^^^^^^
+  File "/home/ysy/main/farm_project/sim/tools/probe_handoff_window.py", line 136, in main
+    tasks, scout_return = survey(base,node,wait,future,record,result,owned_actions)
+                          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ysy/main/farm_project/sim/tools/single_cycle_steps.py", line 39, in survey
+    clients=[node.create_client(GetState,'/scout_01/'+name+'/get_state')
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ysy/main/farm_project/sim/tools/probe_handoff_window.py", line 109, in wait
+    time.sleep(.05)
+KeyboardInterrupt

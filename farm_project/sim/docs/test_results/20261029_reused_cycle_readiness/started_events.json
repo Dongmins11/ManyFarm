@@ -1,0 +1,185 @@
+[
+  {
+    "at": "2026-10-29T09:25:14.467850+00:00",
+    "mono_ns": 197823337228743,
+    "kind": "transport_devices_ready",
+    "endpoints": [
+      "/transport_01/device/lid_open",
+      "/transport_01/device/lid_close",
+      "/transport_01/sim/sorter/unload",
+      "/transport_01/sim/sorter/stop"
+    ]
+  },
+  {
+    "at": "2026-10-29T09:25:33.352959+00:00",
+    "mono_ns": 197842222334955,
+    "kind": "scout_reused",
+    "source": "/home/ysy/main/farm_project/sim/runs/sec01_cycle_scout_sec02_20261028_attempt02/scout_result.json",
+    "status": 4,
+    "result": {
+      "robot_id": "scout_01",
+      "task_id": "cycle_scout_7423f72ec2f1",
+      "result_code": "SUCCESS",
+      "section_id": "SEC01",
+      "completed_segment_count": 5,
+      "harvest_task_count": 9,
+      "total_expected_count": 13,
+      "harvest_tasks": [
+        {
+          "task_id": "16cb6a8ad078_SEC01_TASK001",
+          "window_id": "16cb6a8ad078_SEC01_W001",
+          "goal_pose": {
+            "frame_id": "map",
+            "position": {
+              "x": -6.015000000000001,
+              "y": 9.329589444039618,
+              "z": 0.0
+            },
+            "yaw": -1.5707963267948966
+          },
+          "expected_count": 1
+        },
+        {
+          "task_id": "16cb6a8ad078_SEC01_TASK002",
+          "window_id": "16cb6a8ad078_SEC01_W002",
+          "goal_pose": {
+            "frame_id": "map",
+            "position": {
+              "x": -6.015000000000001,
+              "y": 8.69984533583327,
+              "z": 0.0
+            },
+            "yaw": -1.5707963267948966
+          },
+          "expected_count": 1
+        },
+        {
+          "task_id": "16cb6a8ad078_SEC01_TASK003",
+          "window_id": "16cb6a8ad078_SEC01_W003",
+          "goal_pose": {
+            "frame_id": "map",
+            "position": {
+              "x": -6.015000000000001,
+              "y": 8.342041431220085,
+              "z": 0.0
+            },
+            "yaw": -1.5707963267948966
+          },
+          "expected_count": 1
+        },
+        {
+          "task_id": "16cb6a8ad078_SEC01_TASK004",
+          "window_id": "16cb6a8ad078_SEC01_W004",
+          "goal_pose": {
+            "frame_id": "map",
+            "position": {
+              "x": -6.015000000000001,
+              "y": 7.677786414957483,
+              "z": 0.0
+            },
+            "yaw": -1.5707963267948966
+          },
+          "expected_count": 2
+        },
+        {
+          "task_id": "16cb6a8ad078_SEC01_TASK005",
+          "window_id": "16cb6a8ad078_SEC01_W005",
+          "goal_pose": {
+            "frame_id": "map",
+            "position": {
+              "x": -6.015000000000001,
+              "y": 7.058944284641575,
+              "z": 0.0
+            },
+            "yaw": -1.5707963267948966
+          },
+          "expected_count": 1
+        },
+        {
+          "task_id": "16cb6a8ad078_SEC01_TASK006",
+          "window_id": "16cb6a8ad078_SEC01_W006",
+          "goal_pose": {
+            "frame_id": "map",
+            "position": {
+              "x": -6.015000000000001,
+              "y": 6.386072021938402,
+              "z": 0.0
+            },
+            "yaw": -1.5707963267948966
+          },
+          "expected_count": 1
+        },
+        {
+          "task_id": "16cb6a8ad078_SEC01_TASK007",
+          "window_id": "16cb6a8ad078_SEC01_W007",
+          "goal_pose": {
+            "frame_id": "map",
+            "position": {
+              "x": -6.015000000000001,
+              "y": 5.85558692049333,
+              "z": 0.0
+            },
+            "yaw": -1.5707963267948966
+          },
+          "expected_count": 2
+        },
+        {
+          "task_id": "16cb6a8ad078_SEC01_TASK008",
+          "window_id": "16cb6a8ad078_SEC01_W008",
+          "goal_pose": {
+            "frame_id": "map",
+            "position": {
+              "x": -6.015000000000001,
+              "y": 5.086907104753421,
+              "z": 0.0
+            },
+            "yaw": -1.5707963267948966
+          },
+          "expected_count": 2
+        },
+        {
+          "task_id": "16cb6a8ad078_SEC01_TASK009",
+          "window_id": "16cb6a8ad078_SEC01_W009",
+          "goal_pose": {
+            "frame_id": "map",
+            "position": {
+              "x": -6.015000000000001,
+              "y": 3.2660497894451224,
+              "z": 0.0
+            },
+            "yaw": -1.5707963267948966
+          },
+          "expected_count": 2
+        }
+      ],
+      "error_code": "NONE",
+      "error_message": "",
+      "timestamp": "2026-10-28T12:49:16.531903+00:00"
+    }
+  },
+  {
+    "at": "2026-10-29T09:25:33.353498+00:00",
+    "mono_ns": 197842222870087,
+    "kind": "harvest_goal",
+    "original_task_id": "16cb6a8ad078_SEC01_TASK001",
+    "goal": {
+      "robot_id": "harvest_01",
+      "map_id": "farm_map_v1",
+      "harvest_task": {
+        "task_id": "handoff_window_2efcc1389532",
+        "window_id": "16cb6a8ad078_SEC01_W001",
+        "goal_pose": {
+          "frame_id": "map",
+          "position": {
+            "x": -6.015000000000001,
+            "y": 9.329589444039618,
+            "z": 0.0
+          },
+          "yaw": -1.5707963267948966
+        },
+        "expected_count": 1
+      },
+      "timestamp": "2026-10-29T09:25:33.353360+00:00"
+    }
+  }
+]

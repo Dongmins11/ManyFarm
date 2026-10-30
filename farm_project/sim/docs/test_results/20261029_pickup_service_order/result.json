@@ -1,0 +1,18 @@
+{
+  "passed": true,
+  "scope": "real transport pickup acceptance/cancel only; no survey/harvest/handoff/sorting",
+  "premature_unload_rejected": true,
+  "pickup_accepted": true,
+  "pickup_cancellation": {
+    "status": 5,
+    "result": {
+      "robot_id": "transport_01",
+      "task_id": "preflight_f3bc3df00347",
+      "transfer_id": "preflight_transfer_80fe2d3c995c",
+      "result_code": "CANCELED",
+      "error_code": "NONE",
+      "error_message": "",
+      "timestamp": "2026-10-29T09:13:18.693800+00:00"
+    }
+  }
+}

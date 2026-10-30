@@ -1,0 +1,16 @@
+shared_nav2: robot/config/navigation/harvest_nav2.yaml
+bindings:
+  base_footprint_frame: harvest_01/base_footprint
+  base_link_frame: harvest_01/base_link
+  odom_frame: harvest_01/odom
+  scan_topic: scan
+  set_initial_pose: true
+  initial_pose:
+    x: -6.015000000000001
+    y: 3.3660497894451225
+    z: 0.0
+    yaw: -1.5412709221469734
+overrides:
+  amcl:
+    ros__parameters:
+      alpha4: 0.002

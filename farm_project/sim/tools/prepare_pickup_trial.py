@@ -45,6 +45,15 @@ def prepare_pickup(runtime: Path, window: dict, *, sorter: bool = False) -> None
         return 'transport_01/'+value if isinstance(value,str) and value in (
             'base_footprint','base_link','base_scan','odom') else value
     selected = frames(selected)
+    # 승인된 시뮬 관측 수명·전환 여유만 적용하며 실제 도킹 허용범위는 보존한다.
+    route_handoff = selected['harvest_approach_42']['route_handoff']
+    observation_before = route_handoff['observation_timeout_s']
+    margin_before = route_handoff.get('approach_margin_m', 0.)
+    sim_handoff = yaml.safe_load(
+        (CONFIG/'docking/transport_profiles.yaml').read_text()
+    )['profiles']['harvest_approach_42']['route_handoff']
+    for key in ('observation_timeout_s', 'approach_margin_m'):
+        route_handoff[key] = sim_handoff[key]
     for item in selected.values():
         item['collision_guard']['nav2_file'] = str(CONFIG/'nav2_transport.yaml')
     # 시험 초기 배치와 AMCL 초기값은 동일한 기존 그래프 게이트에서 가져온다.
@@ -110,6 +119,12 @@ def prepare_pickup(runtime: Path, window: dict, *, sorter: bool = False) -> None
         selected_mechanical_device=profile['mechanical_device'],
         selected_precision_profiles=list(selected),
         sorter_environment_before=departure_before, sorter_environment_selected=departure,
-        numeric_control_changes=[], marker42_before=before, marker42_after=marker,
+        numeric_control_changes=[dict(parameter='harvest_approach_42.route_handoff.observation_timeout_s',
+            original=observation_before, selected=route_handoff['observation_timeout_s'],
+            reason='2026-10-29 user approved sim wall-time observation budget; real source unchanged'),
+            dict(parameter='harvest_approach_42.route_handoff.approach_margin_m',
+                original=margin_before, selected=route_handoff['approach_margin_m'],
+                reason='2026-10-29 user approved 10cm sim handoff headroom; docking envelope unchanged')],
+        marker42_before=before, marker42_after=marker,
         original_window_pose=window['goal_pose'], graph_staging_pose=goal,
         frontend_window_pose_contract_unresolved=True, initial_pose_only=True))

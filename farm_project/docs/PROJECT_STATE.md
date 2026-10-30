@@ -1755,3 +1755,268 @@ afdcc05 원본은 SimpleProgressChecker(0.1m/20초)이며 회전만으로 진행
 - 관련 오프라인 검사 57개 통과 확인. 최초 ROS 환경 미설정으로 수집 실패했고, 환경 로드 후 54개 통과/3개 로그 디렉터리 쓰기 오류가 발생했다. 로그 경로를 `/tmp`로 지정하여 해당 launch 파일 6개 모두 재검사 통과했다. 실제 시뮬 시험은 추가 실행하지 않았다.
 - 프로젝트 반영 코드·설정·자산·선택 시험 자료를 포함한다. 루트 `Frontend/`와 원본 ZIP, gitignore 대상 `sim/runs/` 원시 실행 자료는 로컬에 보존한다. 이전 항목의 미커밋·미푸시 표시는 각 기록 시점의 상태다. 최종 원격 반영 여부는 push 후 원격 HEAD로 확인한다.
 - 다음 작업: 최종 회전의 진행 검사 105 해결 후 예찰→수확→운송→선별→양 로봇 복귀 전체 연속 검증. 이번 저장 작업에서 제어 코드·판정·설정을 추가 변경하지 않았다.
+
+### 2026-10-28 — 스테이션 마지막 회전 105 수정·복귀 성공 확인
+
+- 사용자 마지막 회전105해결 요청. 기준18d0e00. 시뮬 운송 `SimpleProgressChecker → PoseProgressChecker`, 각진행0.5rad 명시. 병진0.1m/10초/회전0.3rad/s/도착·정지 기준/실물·공통 소스 보존. fixture에 원본 대비 의도적 검사 차이 기록.
+- 원인: 마커 단계는 기존부터 생략하지만 RPP 목표방향 맞추기는 실행. 기존 병진전용 검사에서10초 넘는 정상제자리회전도105. 이 설정은 ea25693부터 같았고 AMCL 수정이 바꾼 값 아님.
+- 설치된Nav2 플러그인7검사PASS(정상회전/정지실패/미세흔들림/직진), 지도·씬5PASS/문법·diffPASS. 실제 Domain13/SUBNET CPU60/render30 attempt01: 도킹→투입→선별→스테이션복귀SUCCESS, 마지막회전12.40초/105없음, marker_stage=SKIPPED_SIM_POLICY. 전체260.56초/복귀159.84초.
+- 잔여: 마지막map추정오차1.91cm/3.85°, 실제차체3.89cm/8.74°로방향잔차존재. 선별빨강1·노랑잔류1. 전체예찰부터연속사이클미검증. 성공후SIGINT정리에서gate context오류exit1/precision KeyboardInterrupt−2기록; 전체runner/probe/운송/Isaac exit0,모든시험프로세스종료.
+- 상세 `sim/docs/changes/STATION_RETURN_105_FIX_20261028.md`, 공유 `sim/docs/test_results/20261028_station_return_105/`, raw `sim/runs/station_return_105_20261028/`. 복원은운송checker를Simple로/각도항목제거(긴회전105재발가능). 미커밋·미푸시.
+
+### 2026-10-28 — SEC01 한 사이클 시험: 예찰 성공, 수확 첫 접근 실패
+
+- 사용자 한사이클1회 요청. 새 시뮬 시험기에서 기존 예찰/수확/Frontend인계worker/선별 액션을 한세션으로 연결. CPU60/render30, Domain13/SUBNET, 예찰·수확태그ON. 기존 실제과실만 가상이동하도록 인계 어댑터 연결; 선별용 초기적재fixture 제거. 실물·공통 코드 변경 없음.
+- 준비오류3건(새지도 태그해시, vision Python torch환경 누락, 교통OFF에서없는예찰status대기)을 기록/수정. 업무수락은 attempt04의1회뿐. 21:25:26~21:32:09: 예찰SUCCESS 5구간/9윈도우/expected13, 예찰복귀와수확W001접근동시실행, 북쪽공유통로정체로수확실패. 최종 CANCEL_UNCONFIRMED, Nav2 Failed to make progress 관측. 팔·인계·선별미도달, 자동재시험없음.
+- 중심약40cm/footprint겹침/15sim초간2.1mm·0.76°운동으로 로봇간간섭유력. 접촉력·최초예외task_events 미보존으로 정확한접촉/105최초원인단정불가. 수확은이미PoseProgressChecker이므로직전운송회전105와다름. 다음공유통로진입순서대기권고;판정완화안함.
+- 관련24검사+가상인계거절4검사/빌드/문법통과. 종료후 task_events와취소결과계측누락보완,미재시험. 새기능의정상가상인계·완주미검증. 모든소유프로세스종료. 상세 sim/docs/changes/SEC01_SINGLE_CYCLE_20261028.md 및 test_results/20261028_sec01_single_cycle/. 미커밋·미푸시.
+
+### 2026-10-28 — SEC02 연속 예찰로 시험 순서 변경
+
+- 사용자 지시에 따라 SEC01 예찰 완료 후 복귀 대신 SEC02 ScoutArea를 실행하면서 SEC01 수확 진행. SEC02 결과 별도 저장/완료 후 대기. 시뮬 시험기만 변경, 공통 판정 불변. 정적 경로는 남쪽 Y=0 통로 사용, 교통관제 자체 연결/검증은 아님.
+- sim/runs/sec01_cycle_scout_sec02_20261028_attempt01 선별 overlay 누락 준비실패, 사전 검사 추가 후 attempt02 진행 중. 결과 확정 전 성공으로 집계하지 않음. 상세 sim/docs/changes/SEC01_SINGLE_CYCLE_20261028.md. 미커밋·미푸시.
+
+- attempt02 실제 확인: 21:49:16 KST SEC01 예찰 SUCCESS(5구간,9윈도우,expected13) 후 SEC02 ScoutArea 수락 및 SEC01 W001 HarvestTask 수락. SEC02 survey session=3eb7cc0fcbf3 RUNNING, 예찰 실제 위치가 남쪽(-6.55,-0.10)까지 진행한 것을 확인했다. 같은 시점 수확은 북쪽(-2.00,11.62)에서 접근 중이다. 예찰 ReturnToStation 명령 없음. 전체 수확·인계·선별·복귀 결과는 아직 미확정이며 시험 runner가 계속 실행한다. 자동 업무 재시도는 없다.
+
+### 2026-10-28 — 관제 Route 표시 복구
+
+- Frontend 저장 지도/그래프가 HCR 추가 전 자료여서 전체Route 표시검사 mismatch 발생. simul 표시 자산/manifest를 현재시뮬 원본으로 동기화, 자동갱신후 API 예찰211/452·수확143/260 saved 및 선별8004(-7,13.25) 확인. 기존5검사PASS. 주행코드/표시검사보존, 서버·시험 재시작 없음. 운송graph waiting은 별도 미구현 상태. 보고 sim/docs/changes/FRONTEND_ROUTE_MAP_SYNC_20261028.md. 미커밋·미푸시.
+
+### 2026-10-28 — 현재 시험 작업 모니터
+
+- sim/tools/cycle_monitor.py: 표준 Python만으로 최신 한사이클의 로봇별 현재/남은작업·완료수 프로그레스바·수확수량·오류 표시. 자동선택은 시작 시 최신 로그에 고정, 1초마다 동일화면 갱신. --once/시험폴더 지정 지원. 현재로그/TTY/Ctrl+C/중복집계·부분줄 확인 완료. 제어입력/시뮬 프로세스 변경 없음. 미커밋·미푸시.
+
+### 2026-10-29 — SEC01/SEC02 연속 시험 최종 결과 확인
+
+- 10/28 21:45:40~22:41:17 KST 약55분37초. SEC01예찰9윈도우/13개,SEC02예찰8윈도우/11개 성공. SEC01수확9/9액션SUCCESS,harvested8/expected13(61.5%). 주행105미발견,모든수확이동ARRIVED.
+- 이후 운송Goal REJECTED: 수령 장치 미연결 LID_OPEN. 시험기가 선별UNLOAD/STOP서비스를 인계후에만 시작하지만 공통덮개준비검사는 그서비스도 필요로함. 시뮬시험 연결순서결함,출발/도킹전거절. 인계·선별·복귀미실행. 프로세스종료,재시험없음. 이번에는보고만수행/제어수정없음.
+- 상세 sim/docs/changes/SEC01_CYCLE_RESULT_20261029.md,근거test_results/20261029_sec01_cycle_report/. 이전 진행중기록은 본결과로갱신. 미커밋·미푸시.
+
+### 2026-10-29 — 운송 접수 장치 서비스 실행 순서 수정
+
+- 사용자 수정 지시. 시뮬 시험기4파일만 변경: post_sorter 서비스 시작 시점→전체시험 시작, 작업 명령은 실제 양쪽인계완료 뒤 fixture 허가까지 대기. 예찰 전 덮개/UNLOAD/STOP4서비스 연결검사. 인계후동일프로세스재사용/중복서비스없음. 고용량센서로그는 허가후만저장하되 최신odom/정지검사유지. 공통/실물소스·기준불변.
+- 실제 ROS+Isaac 짧은검증: 네서비스연결/도킹전하역거절/이전staging_pose운송Goal접수/취소CANCELED NONE PASS. 인계전선별명령0. 기존거절관련8검사/문법diff PASS. 전체인계·선별·복귀재시험아님. runner/probe0,소유프로세스종료(정리SIGINT코드별도보존).
+- 보고 sim/docs/changes/PICKUP_SERVICE_ORDER_FIX_20261029.md,근거test_results/20261029_pickup_service_order/,raw runs/pickup_service_order_20261029_attempt01/. 다음단계인계이후연속확인. 복원시기존접수거절재발가능. 미커밋·미푸시.
+
+### 2026-10-29 — SEC01 저장 예찰 재사용·한 사이클 정적 준비 검토
+
+- 사용자 정적 검토 후 예찰 생략 실행 요청. 지도 해시/SEC01 설정/9윈도우 expected13/정렬 검증, 공통 그래프13계획 성공. 새 예찰/SEC02 액션 없이 기존 수확 시퀀스에 저장 태스크 전달. 초기 실제 과실은 새 씬, 과거 수확 수량 재사용 안 함.
+- 시뮬 레인 상한0.65m 고정값이13번째를 거절하는 결함 발견. 원본 경사판 길이/과실반경 기반 중심 상한0.661514m로 수정. 형상·간격·공통/실물 판정 불변.13/16개 허용17개 거절 포함 관련16검사, 준비 전용 실행/재사용 분기/문법/diff/빌드 PASS.
+- 18:25 KST `sim/runs/sec01_reuse_cycle_20261029_attempt01/` 실행 시작. Domain13/SUBNET CPU60/render30, 한 시도/자동 재실행 없음. 전체 실제 완료 미확정. 보고 `sim/docs/changes/SEC01_REUSED_CYCLE_READINESS_20261029.md`. 되돌림은 재사용 옵션 생략/레인 고정 상한 복원(13번째 거절 재발). 미커밋·미푸시.
+
+### 2026-10-29 — 시뮬 운송 관측 제한 180→900초
+
+- 사용자 시뮬 관측시간 여유 적용 승인. SEC01 재사용시험은 수확9/9·7개 후 운송 출발180실제초에 마커관측 만료로 실패(주행예산419초, 목표8.27m 남음). 전체완주실패/인계이후미실행.
+- sim docking/transport_profiles.yaml의 관측시간만900초로 변경. prepare_pickup_trial.py에서 실물 원본 조립 후 이 항목만 시뮬설정 선택·전후값 기록. 공통/실물·다른 제한/판정 유지.
+- 준비 전용 실행·최종 프로파일 단일항목 차이·문법/diff·config빌드 PASS. 실제재시험없음. 새 실행부터 적용, 기존 실패로그 보존. 보고 sim/docs/changes/TRANSPORT_OBSERVATION_BUDGET_20261029.md. 복원은180으로 설정. 미커밋·미푸시.
+
+### 2026-10-29 — 수확 완료 상태 복원 후 운송 재개
+
+- 사용자 지시. 지난 성공9윈도우/수확집계7개 재사용. 같은 세션 최종 장면/바구니 모서리로 실제 적재10개 확인, 같은prim을 저장 bbox중심으로 초기배치. 집계7과물리10분리. 자세/속도 전체체크포인트아님(원본자세/속도0), 수확로봇 초기위치/AMCL일치·정상복귀목적지유지.
+- sim 시험기/명시적 복원만 변경, 공통/실물불변.5sim초 안정화후10개적재 확인하고 새 예찰/수확 없이 운송. prepare-only/문법diff/기존11검사/빌드PASS. 19:34 KST transport_resume_20261029_attempt01 시작, 전체완료미확정. 상세 sim/docs/changes/TRANSPORT_RESUME_20261029.md. 옵션생략으로기존흐름복원. 미커밋·미푸시.
+
+- 재개 실행 갱신: attempt01은 비활성 과실 pose 읽기 오류를 적재 검사가 차단(업무 Goal0). 보존 위치 사용 수정/회귀1검사PASS 후 attempt02에서 실제10/10 적재 유지 확인·운송 출발. 새 예찰/수확 Goal0. 전체완주 아직 미확정.
+
+### 2026-10-29 — 터미널 진행 표시 누락 수정
+
+- 사용자 모니터 수정 요청. cycle_monitor.py에서 워커 ledger feedback/result와 precision.log 단계 증분 읽기. 정차마커재확인/후진/도킹/인계/선별장/복귀 상태, 수령접근 포함4단계 실제완료수 표시. 실패 우선/후속미실행/간결한오류/과거수확재사용 명시. 시험 제어/공통/실물변경없음.
+- 회귀6검사/문법diff/실제실패로그 표시 PASS. transport_resume attempt02는19:41:46 마커재확인 소진 DOCK_FAILED로 종료됐음. 자동재실행없음. 상세 sim/docs/changes/CYCLE_MONITOR_FEEDBACK_FIX_20261029.md. 기존 모니터만Ctrl+C후재실행 필요. 미커밋·미푸시.
+
+### 2026-10-29 — 운송 마커 조기 도킹 전환 수정
+
+- 사용자 “붙어서 도킹으로 넘기도록 수정해그럼” 승인. 공통 precision_server.update_harvest_route가 기존 도킹 추적기의 동일 관측시각 TF·최종 설정·접근 목표 거리 판정을 통과해야 ready 발행. 먼 마커는 일반 주행 유지, 정차 후 목표 재취득 유지. 주행 중 검사 샘플은 버림.
+- 현재 1.2m 접근 목표 허용거리/0.54m stand-off·속도·성공·회복/timeout 수치 불변. 실물/시뮬 공통 전환에 적용. 11개 오프라인 회귀검사 및 farm_docking 빌드/diff PASS. 실제 재주행 미실행, 도킹 완주 아직 미검증.
+- 원인·파일·복원·검증 상세: sim/docs/changes/HARVEST_ROUTE_ENVELOPE_FIX_20261029.md. 관련 함수 전환 검사만 제거하면 종전 동작 복원(조기 정차 재발 가능). 기존 미커밋 작업 보존, 미커밋·미푸시.
+
+### 2026-10-29 — 운송 출발→도킹 재시험: 42 접근 성공, 41 도킹 미도달
+
+- 사용자 요청으로 수확 완료 상태 재사용, Domain13/SUBNET CPU60/render30, 단일 시도. 시험기에 --stop-after-docking 추가(실제 DOCK_STABLE 관측 후 배출 허가 전 종료). 공통 판정 추가 변경 없음.
+- 20:02:57 출발→20:08:05 접근목표1.193m에서 전환→20:08:52 마커42 정밀접근 DONE/WAITING_FOR_TRANSFER. 원거리76관측에서 ready=false로 계속주행. 기존 조기 전환/105 미관측.
+- 20:08:53 수확 DockTransfer REJECTED: 새 노드의 마지막 성공 window 기록은 None인데 재개 도구가 물리배치/과거 결과만 복원함. 공통 readiness는 WINDOW_MISSING이면 거절. 구체 코드 경로 확인이며 로그는 포괄적 장치/형식 거절 문구. 다른 동시 조건 실패 여부 미확정.
+- 따라서 마커41 최종도킹 미실행/시험실패. 운송은 시험 정리로 CANCELED. 인계/선별 미실행, 프로세스 정리 완료. 다음은 유효한 현재 세션 도착 기준 확보 및 출발 전 준비검사. 자동 재시험/공통 복원 수정 없음.
+- 원본 sim/runs/transport_docking_retest_20261029_attempt01/, 상세 sim/docs/changes/TRANSPORT_DOCKING_RETEST_20261029.md. 문법/diff PASS, 성공 종료 분기 실동작 미검증. 옵션 생략으로 기존 시험 흐름 복원. 미커밋·미푸시.
+
+### 2026-10-29 — 운송 재개 도착 문맥 보완 및 최종 라이다 시간 초과 확인
+
+- 사용자 재시험 후 준비누락 지적에 따라 sim 재개 도구만 보완. 과거 기록 주입 대신 마지막 window10cm전 로봇/적재 동시 초기이동, 기존 ARRIVAL_ONLY_NO_HARVEST 실제 도착 성공 후에만 운송 출발. 현재 세션 window 도착기록 생성. 수확9건/집계7개 재사용과 새 도착검증0개 집계를 분리. 공통·실물 추가 변경 없음.
+- prepare-only/동일과실10개 위치변환/문법diff PASS. attempt02 실제 도착 위치오차1.06cm/방향1.46° SUCCESS,팔SKIPPED. 운송42 접근성공/수확DockTransfer접수 및 DOCK_READY 성공. 기존 준비 누락 해결.
+- 최종41도킹은20.3cm까지 도착 후 정지확인 중 Final lidar approach timed out. 설정65초를 공통 distance_heading_trial 계산이 약25.5실제초로 축소. 실제25.72초 동안 sim14.03초 진행(1.83배지연). DOCK_STABLE 미관측,전체실패 보존. 성공기준/시간수식 추가수정·자동재시험 없음.
+- 상세 sim/docs/changes/TRANSPORT_RESUME_WINDOW_FIX_20261029.md, raw sim/runs/transport_docking_retest_20261029_attempt02/. 다음은 실물기본값 보존한 sim시간예산 조정 계약 검토. 복원은재개보완3블록제거(누락재발),일반전체시험옵션생략시기존흐름. 미커밋·미푸시.
+
+### 2026-10-29 — 도킹 접근/상위 동작 제한을 시뮬 시계로 계산
+
+- 사용자 시뮬시간 사용 지시로 공통 precision_server 수정 승인·적용. use_sim_time=true ROS /clock, 실물false 기존monotonic. 라이다 접근/초기 표면 대기/전체정밀주행/execute120초 예산 적용. 센서복구 실제/동작 경과 분리, 시계역행 실패. 센서단절·lease·통신 감시 실제시간 유지.
+- 수치·거리계산·속도·성공판정 불변. 시계9+전환11=20검사/빌드/diff PASS. 수정 후 실제 재시험 없음. 다른 모든 주행 단계 시간 전환 완료를 의미하지 않음.
+- 상세 sim/docs/changes/DOCKING_MOTION_CLOCK_20261029.md. 이번 시계 관련 코드만 되돌리면 복원; 앞선 거리전환 수정 보존. 미커밋·미푸시.
+
+### 2026-10-29 — 시뮬 시계 수정 후 attempt03: 초기 마커 목표 취득 실패
+
+- 사용자 재시험 요청. 도착전용 실제 검증 성공/팔SKIPPED 후20:42:25 운송출발.20:47:31 접근목표 약1.186m에서전환했으나 정차후1.208~1.225m 재측정되어1.2m범위거절,8개중3개관측만수락.20:48:06 DOCK_FAILED/Initial marker reacquisition exhausted. 초기복구30초는아직실제시간(직전라이다시계수정범위밖).
+- 마지막라이다접근미도달로시계수정E2E미검증. DOCK_STABLE/인계/선별미실행. 다음은전환경계여유와초기복구시계검토. 이번새소스변경/추가재시험없음,정리완료. 상세 sim/docs/changes/DOCKING_MOTION_CLOCK_RETEST_20261029.md,raw sim/runs/transport_docking_retest_20261029_attempt03/. 미커밋·미푸시.
+
+### 2026-10-29 — 도킹 전환 여유 및 초기 마커복구 시계 보완
+
+- 사용자 “조치하고 재시험해” 승인. 공통 precision_server에 선택적 approach_margin_m(기본0) 지원, sim만0.1m 적용해1.1m에서전환/실제도킹1.2m유지. 초기마커복구 및 거리취득 시계 sim=/clock,real=monotonic으로일치. 30초·속도·성공판정 보존. 프로파일 조립/전후값기록 함께수정.
+- 29개 회귀검사와 두 패키지 빌드PASS. attempt04 운송출발→최종도킹 성공(20:53:59~21:01:32,7분33초). 1.09769m에서전환/42접근DONE/수확DOCK_READY/41최종20.3cm정지/DOCK_STABLE확인. 최종라이다 실제25.83초·sim약14.37초,105/도킹시간초과없음. 도킹후범위종료취소로전체인계·선별·복귀미실행. 종료gate context오류/SIGINT는정리기록이며정밀주행실패아님. 시험종료,원본·요약로그보존. 원본로그 sim/runs/transport_docking_retest_20261029_attempt04/. 변경/실물영향/복원은 sim/docs/changes/DOCKING_HANDOFF_MARGIN_20261029.md. 미커밋·미푸시.
+
+### 2026-10-29 — 수확 완료 재사용 후 인계·선별·복귀 연속시험
+
+- 사용자 후속시험 요청, 소스/설정 추가변경 없이 직전 도킹 성공 설정 사용. Domain13/SUBNET CPU물리60/render30. 예찰/수확 재사용, transport_full_resume_20261029_attempt01 실행.
+- 운송인계SUCCESS/수확인계 및 window복원SUCCESS. 기존과실10개 가상인계→선별장 도킹→같은10개 레인투입 성공.
+- 선별장 이격 후 회전에서 CLEARANCE_FAILED: Distance exit rotation position drift. 5cm제한에 odom5.122cm/world5.237cm 실제밀림. AMCL만의오류아님, 물리접촉/구동제약 원인미확정. 105/시간초과아님. 선별·운송복귀·수확복귀미실행,전체실패/정리완료.
+- 보고서 sim/docs/changes/TRANSPORT_FULL_RESUME_20261029.md, 증거 sim/docs/test_results/20261029_transport_full_resume/. 다음은해당자세회전접촉재현, 판정완화/추가소스수정없음. 문서추가만으로복원필요없음. 미커밋·미푸시.
+
+### 2026-10-29 — 선별장 이탈 회전 정체: 시뮬 뚜껑 관절 결함 조사
+
+- 사용자 문제 확인 요청. 시뮬 진단에 접촉쌍/충격량·전체 관절 기록과 독립 명령 재생/자산 비교 도구 추가. 공통 제어·원본 형상·USD 관절·성공 기준은 이번에 수정하지 않음. 기존 미커밋 변경 보존, 실물 영향 없음.
+- URDF 뚜껑 범위0~0.155m 대비 실행 stage 합성 USD -1.776~10.657m. 자산 단독 단위0.01과 실행 stage1m를 구분. 실제 긴 주행에서 뚜껑 프레임 최대3.296m 이탈 확인.
+- 도킹 단독 시험은 이탈/복귀 성공(2개 중1개만 선별). 원래 운송 명령 전체 재생에서는 이탈한 뚜껑과 선별장 구조물/팔 base 접촉 직후 회전 정체·후진 밀림 재현. 3.23cm 이동 후 원본 정지 명령으로 종료, 정확한5cm 액션 실패/원래10개 전체 사이클 성공은 아님. 뚜껑 물리 결함이 가장 유력하며 수정 전후 대조시험은 남음.
+- runtime 빌드/실제 접촉·관절 기록/문법/diff 검사 확인, 진단 프로세스 종료. 복원은 --contact-trace 생략 또는 이번 기록 블록/도구만 제거, 이전 도킹 수정 유지.
+- 상세 sim/docs/changes/SORTER_EXIT_DRIFT_DIAGNOSIS_20261029.md, 증거 sim/docs/test_results/20261029_sorter_exit_diagnosis/. 다음은 형상을 보존한 뚜껑 관절 범위·연동 복원 및 같은 주행 대조. 미커밋·미푸시.
+
+### 2026-10-29 — 운송 뚜껑 닫힌 위치 임시 고정
+
+- 사용자 “일단 뚜껑이 안막히게 조치해” 승인. 시뮬 transport_robot.sim.usda의 두 상부 prismatic 관절만 lower/upper=0, 잘못된 rotY mimic API 해제. 바구니 형상/충돌/원본 URDF/공통 코드/주행 판정 유지. 실물 영향 없음. 실제 개폐는 구현하지 않고 기존 가상 기구 계약 유지.
+- 정적 합성 및 LFS 원본 대비21줄 추가 확인. 동일 운송 명령542sim초 재생 후 뚜껑 변위0, 유효 충격 접촉0건, 이탈 회전 최대차체이동7.25mm. 이전 회전 정체·32.30mm 밀림 해소. 초기 Modbus 주소 인자 누락 준비실패1건은 별도 보존. 전체 액션 사이클은 미시험.
+- 상세 sim/docs/changes/TRANSPORT_LID_HOLD_20261029.md, 증거 sim/docs/test_results/20261029_transport_lid_hold/. 복원은 sim.usda에 추가한두관절 override21줄만 제거. 다음 전체시퀀스 재시험 시 이 모델 적용. 미커밋·미푸시.
+
+### 2026-10-29 — 뚜껑 고정 후 사이클 attempt02 시작
+
+- 사용자 사이클 재적용 요청. 수확 완료 데이터(9윈도우/집계7개/바구니 실제10개) 재사용, 뚜껑 고정 USD로 운송→인계→선별→양 로봇 복귀 재실행. Domain13/SUBNET CPU60/render30.
+- 실제 도착 전용 재확인 및 운송 MOVING_STARTED 확인. 현재 진행 중, 완료/성공 미확정. 기존 직접 액션 시험·자동 재시도 없음. 관제 프로세스 유지.
+- 로그 sim/runs/transport_full_resume_20261029_attempt02/, 상세 sim/docs/changes/TRANSPORT_FULL_RESUME_LID_HOLD_20261029.md. 이전 추적 소스해시 동일/새 모델해시 보존. 새 소스 변경·커밋·푸시 없음.
+
+### 2026-10-29 — attempt02 종료: 위치추정 차이로 수확 인계 복원 거절
+
+- 앞선 진행 중 기록 갱신. 22:46:52 KST DEVICE_FAILED / WINDOW_REALIGN_REQUIRED(전방-7.96cm,횡-3.19cm). 운송Pickup 성공·과실인계/운송이격 완료, 수확 window복원 실패. 양쪽 성공 gate에서 시험 종료, 선별장 이동/선별/양복귀 미실행.
+- 실패 직전 지도 추정 목표오차8.57cm 대비 실제2.74cm(허용5cm), 지도/실제 차이5.89cm. odom/USD 시각차0.283sim초 근접정지표본 비교. 이전 위치추정 기반 복원거절과 같은 양상이며 이번 뚜껑 회전 단계 미도달. AMCL/태그/TF 세부 원인기여는 미확정.
+- 상세 sim/docs/changes/TRANSPORT_FULL_RESUME_LID_HOLD_20261029.md, 증거 sim/docs/test_results/20261029_transport_full_resume_lid_hold/. 시험 프로세스 정리 완료. 소스/판정 변경·자동재시도·커밋·푸시 없음.
+
+### 2026-10-29 — attempt02 위치추정 오차 증가 구간 확인
+
+- 사용자 원인 질의에 저장 로그 추가분석. window도착 AMCL오차0.09cm→복원302초2.04cm→324초5.33cm→328초5.94cm. 실제시각정합 odom오차 최대4.93mm/마지막3.42mm로 AMCL 지도추정 영향 지배 확인.
+- 태그 노드는 켜졌으나 관측31건 selected없음/보정요청0회. 수확 작업 lease 종료 뒤 인계복원에서는 태그 lease 재개 없음. 전역설정false로 되돌린 것이 아니라 현재 작업별 보정 계약의 범위. 실제센서정합/AMCL noise 기여도 추가분리 필요.
+- 상세 TRANSPORT_FULL_RESUME_LID_HOLD_20261029.md 후속절 및 test_results/20261029_transport_full_resume_lid_hold/localization_timeline.json. 코드/설정 수정·시험 재실행·커밋·푸시 없음.
+
+### 2026-10-29 — 어제 전후 위치추정 변경 감사: 인계 복귀 태그 연결 공백
+
+- 사용자 최근 악화 원인 확인 요청. 10/23~현재 수확AMCL설정/태그AMCL/태그어댑터 핵심 파일 해시 동일. 이전 연속수확 태그APPLIED46회 대비 신규 인계·복귀 작업 lease 미연결, 현재 노드true이지만 적용0회. 초기시험 false 복원과 단계별보정 연결을 구분.
+- 저장라이다3313개 지도비교: 선별장179셀 변경, 복귀말 실제위치 새지도점수0.98533/구지도0.98240, Y±5cm도0.98338/0.98427로 구분력약함. 진단점수이며 필터재생아님.
+- 복귀후반 ROI통과75건, 기존 관측코드에 SEC01 문맥을 주는 오프라인 계산33후보 통과. 실제시각대조가능28개 태그오차중앙2.63mm/최대5.09mm. 사용가능관측을 실제 보정에 연결하지 않은 공백 확인. 새 실제주행/보정적용 성공은 미검증.
+- 권장: 복귀정지 후 제한적태그보정/APPLIED확인 뒤 기존window판정. 공통동작변경은 아직 미적용. 상세 sim/docs/changes/HARVEST_LOCALIZATION_REGRESSION_AUDIT_20261029.md. 분석자료만 추가·미커밋/미푸시.
+
+### 2026-10-29 — 정정: 인계 태그 미사용은 사용자 요구, 연결 누락 아님
+
+- 사용자 “태그보정은 인계에서는 안 쓴다고 했어” 재확인. 앞선 태그 미적용을 연결 누락/결함으로 본 결론과 복귀 후 태그 재활성화 제안 철회. 해당 제안은 구현하지 않았으며 태그·공통 코드·운영 설정 변경 없음.
+- 태그 관측/오프라인 정확도는 진단 사실만 보존. 이전 태그 사용 연속수확과의 조건 차이를 인계 결함의 증거로 삼지 않는다. 인계 태그 미사용과5cm기준 유지.
+- 현재 확정: 복귀 중 AMCL오차 약2→6cm, odom오차 최대약5mm. AMCL 악화의 직접 원인은 미확정. 다음 조사 대상은 동일 scan/odom의 지도정합·갱신/운동모델·동적장애물 영향이다.
+- HARVEST_LOCALIZATION_REGRESSION_AUDIT_20261029.md 및 TRANSPORT_FULL_RESUME_LID_HOLD_20261029.md 정정. 문서만 변경, 추가 시험·커밋·푸시 없음.
+
+### 2026-10-29 — 사용자 명시: 태그 위치 보정 사용 범위
+
+- 태그 위치 보정은 예찰·수확 주행 중에만 사용한다. 인계 과정 및 운송로봇과 도킹하는 과정에서는 사용하지 않는다.
+- 도킹 상대의 상대 위치를 얻는 마커 검출과 map 위치 보정은 구분한다. 이번 발언을 근거로 기존 도킹 마커 검출을 제거하거나 비활성화하지 않는다.
+- 인계·복원 AMCL 문제의 해결책으로 태그 위치 보정을 새로 활성화하지 않는다. 기존 태그 미사용 조건 아래 라이다/odom/AMCL을 조사한다.
+- 이번 작업은 요구사항 기록만이며 운영 코드·설정·실행 상태 변경 없음.
+
+### 2026-10-29 — 수확 AMCL 회전 노이즈 영향 동일센서 A/B 확인
+
+- 사용자 원인 재확인 요청. 같은 farm_tag_amcl/scan3313/odom/정적TF/지도/초기위치 격리 재생, 태그 미사용. baseline23출력이 원래 로그와 최대1.99e-15m 차이로 일치, 마지막오차5.94cm 재현.
+- 각도갱신0.2→0.05rad 단독은 마지막4.68cm/최대12.23cm로 악화, 미채택. alpha4만0.2→0.002는 동일23표본 마지막0.85cm/최대0.88cm/평균0.42cm. 실제 odom최대4.93mm와 반복베드의약한라이다구분력을 고려해 과도한 회전병진노이즈가 이번 오차의 주요원인임을 확인.
+- 운영 설정은 변경하지 않음. 시뮬실제회전/다른SEC/실물 적합성은 미검증. 다음은 sim전용후보 실제인계대조이며 태그미사용/성공기준 유지.
+- 상세 sim/docs/changes/HARVEST_AMCL_REPLAY_CAUSE_20261029.md, 증거 sim/docs/test_results/20261029_harvest_amcl_replay/. 준비namespace거절1건 별도기록/유효재생모두정리. 미커밋·미푸시.
+
+### 2026-10-29 — 시뮬 수확 alpha4 적용 및 실제 재시험 시작
+
+- 사용자 “그건 시뮬레이션 설정이지? 변경해서 적용하고 재시험해봐” 승인. sim/ros_ws/src/farm_sim_config/config/nav2_harvest.yaml에 AMCL alpha4=0.002 override 추가(기존0.2). 동일센서 A/B 근거는 HARVEST_AMCL_REPLAY_CAUSE_20261029.md. 공통/실물 기본값0.2 파일해시 유지, 최종 병합값 차이도 alpha4 한 항목만 확인.
+- Domain13/SUBNET, CPU물리60/render30. 수확완료9윈도우/집계7/실제바구니10 재사용, 운송→인계→window복원→선별→양복귀 단일시도. 인계 태그보정 미사용·5cm판정·기존뚜껑고정 유지.
+- 실행 sim/runs/transport_full_resume_20261029_attempt03/, 소스/설정해시와 변경검증 저장. 실제결과는 진행 중으로 미확정. 기준18d0e000 및 기존미커밋변경 보존. 커밋/푸시없음. 복원은 이번sim YAML overrides 블록만 제거.
+
+### 2026-10-29 — alpha4 실제 시험: 인계·window복원 성공
+
+- attempt03 23:54:14 KST 수확 DockTransfer SUCCESS(transfer/clear/restore 모두true), 운송Pickup SUCCESS. 기존태그보정미사용/5cm판정 유지. 복원 마지막AMCL오차 이전5.94cm→1.29cm, 최대2.39cm. 한 번의 실제 시험이며 전체구간/반복 안정성 증명은 아님.
+- 같은 프로세스에서 선별장 이동 이후 계속 진행 중. 전체 사이클 완료 결과는 아직 없음. 보고서 sim/docs/changes/HARVEST_ALPHA4_LIVE_RETEST_20261029.md, 증거 sim/docs/test_results/20261029_harvest_alpha4_live/, 원시로그 sim/runs/transport_full_resume_20261029_attempt03/. 미커밋·미푸시.
+
+### 2026-10-30 — 선별장 검출만 독립 시험
+
+- 사용자 요청으로 저장된 실제 RGB2장에 원본 검출기를 적용. 새 물리/팔/주행 실행 없이 ROI Y0~40px 대조. attempt03 기존0/4레인, attempt01 기존1/4레인 검출. 아래5~10px 이동만으로 각각4/4 앞열 색상정답 일치. 원인: 얇은 ROI가 실제 과실 몸체보다 위쪽에 있음. HSV 기준/운영 ROI/공통 코드 미변경. 연속선별·시간안정화는 미검증.
+- 시뮬 도구 sim/tools/test_sorter_detection_snapshot.py 추가. 상세 sim/docs/changes/SORTER_DETECTION_ONLY_20261030.md, 자료 sim/docs/test_results/20261030_sorter_detection/. 승인범위는 검출 시험. 도구 제거로 복원 가능, 운영 영향 없음. 미커밋·미푸시.
+- 기존 attempt03은00:08:14 KST 수확복귀까지SUCCESS, 프로세스정리완료. 연쇄액션완료와 전량선별은 구분:10개중1개/잔류9개.
+
+### 2026-10-30 — 선별 시뮬 ROI 수정 및 전·후 이미지 보존
+
+- 사용자 “수정 전 / 후 스크린샷 로그로 남겨놓고 수정해” 승인. sorter_camera_zones.json에 원본 ROI의 Y만+5px 추가, sorter_integration.json의 source_roi를 연결. 원본전달/실물/공통/판정 유지. 상대경로는 기존 source_workspace 기준 계약 사용.
+- 실제 저장영상2장에 원본검출기 적용, 앞열색상정답 각각0/4→4/4 및1/4→4/4. 새 운영설정 경로/좌표·기존지도·diff검사 통과. 전후이미지·설정·색비율·해시는 sim/docs/test_results/20261030_sorter_roi_applied/ 보존. 새 물리/연속선별 미실행.
+- 상세 sim/docs/changes/SORTER_ROI_APPLIED_20261030.md. 복원은 source_roi를 원본 outputs/sorting_station/hcr_sim/zones.json으로 변경. 새시험부터적용/과거runtime보존. 미커밋·미푸시.
+
+### 2026-10-30 — ROI +5px 적용 후 사이클 1회 시작
+
+- 사용자 사이클시험 요청. transport_full_resume_20261030_roi05_attempt01 시작. 예찰·수확 완료 데이터 재사용, 운송출발/인계/복원/선별/양복귀 단일시도. Domain13/SUBNET, CPU물리60/render30, alpha4=.002 및 인계태그미사용 유지.
+- 실제 준비된 runtime 설정에서 새 시뮬 ROI 경로·Y+5px와alpha4 확인. 소스해시/ROI스냅샷 보존. 카메라 상태·팔단계·수량 변화 시 원본영상과물리상태를 camera_history/에 관측 전용으로 보존(영상과상태 최대약1sim초시차).
+- 아직진행중/성공미확정, 자동재시도없음. 실제투입10/선별수/잔류수와액션결과 분리평가. 운영코드추가변경·커밋·푸시없음. 로그 sim/runs/transport_full_resume_20261030_roi05_attempt01/.
+
+### 2026-10-30 — ROI +5px 사이클 완료: 전량선별·양복귀 성공
+
+- transport_full_resume_20261030_roi05_attempt01 단일시도 완료(00:28:02~00:57:34 KST, 약29분33초). 기존예찰·수확재사용, 인계·window복원·선별장도킹/투입·선별·양복귀 모든액션SUCCESS. 액션실패/105/재시작없음.
+- 실제10개→빨강6/노랑4 선별10개, 잔류0, all_input_fruits_sorted=true, 물리/ROS수량일치. 이전1/10 대비이번10/10. 새예찰/수확성능·반복신뢰성 검증과는구분.
+- 원본영상164장/각수량단계대표영상/설정해시/결과 보존. 관측PNG저장중읽기3건은디코딩실패로제외,저장영상전부검증. 시험·관측기정리완료,기존관제유지.
+- 상세 sim/docs/changes/ROI05_CYCLE_RESULT_20261030.md, 자료 sim/docs/test_results/20261030_roi05_cycle/. 실행/판정추가변경·커밋·푸시없음.
+
+### 2026-10-30 — 새 예찰부터 병행 전체 사이클 성공까지 재시도 시작
+
+- 사용자 명시: SEC01 새예찰→SEC02예찰/SEC01수확 병행→수확후운송호출→인계후운송선별장이동/수확복귀 병행→투입후선별/운송복귀 병행→모든로봇복귀·전량선별. 실패시시뮬재시작/새예찰부터재시도,최초완전성공에서종료.
+- 시뮬 시험기에 --overlap-cycle 선택 모드 추가. 예찰은SEC02완료후대기,다른로봇복귀후기존ReturnToStation으로복귀. 기존기본순서 유지,실물/공통 제어와성공판정 변경없음. 전체시험 성공은모든액션/모든수확윈도우/양구역예찰/세로봇복귀/실제투입전량선별을모두요구.
+- 단위검사23개·문법/diff검사·prepare-only로새예찰/초기빈적재/ROI/병행설정 확인. Domain13/SUBNET CPU60/render30,AMCLalpha4=.002,인계태그미사용 유지. 독립 관측기로선별상태변화시영상기록.
+- 실행 sim/runs/fresh_full_cycle_20261030/ (status.json이현재시도·실패이력,attempt_NNN별원본로그). 소스스냅샷·SHA256보존. 최초attempt_001실행중,성공미확정. 운영코드수정/커밋/푸시없음.
+- 복원은--overlap-cycle및run_fresh_cycle_until_success 사용중단으로기존순차시험경로사용. 새도구·선택분기만추가/기존미커밋변경보존.
+
+### 2026-10-30 — 전체 반복시험 실패 원인 분석 병행
+
+- 사용자 “시험하는동안 실패하면 계속 원인분석” 요청. 기존 반복시험은 유지하고 sim/tools/analyze_cycle_failures.py 관측 전용 분석기를 별도 실행. 완료 실패마다 원문/행번호/단계/구동 표본/실제·odom 원호 정합 오차를 sim/runs/fresh_full_cycle_20261030/failure_analysis/에 저장. 10초 감시, 처리 완료 시도 재파싱 없음, 전체성공/중단 시 종료.
+- 실제 실패1~5차 분석: 1~3차 Nav2 106 arc deviation exceeded, 4차 Spin완료후재진입1.0543°>1°, 5차 원호끝점정지중위치오차. costmap실제수신0.5초초과/ROS나이정상→정지→차체병진·회전감속불일치 확인. 2·3차는 실제/odom정합오차가 거의같아 AMCL map점프가 원인이라는 증거없음. 6차 계속진행/전체성공미확정.
+- 근사재구성의1초진단표본/원점불확실성을명시. 공통/실물/시뮬주행설정·판정미변경. 문법검사·완료5건실행·분석기heartbeat확인. 상세 sim/docs/changes/FRESH_CYCLE_FAILURE_ANALYSIS_20261030.md. 미커밋·미푸시. 복원은관측분석기만종료/새도구제거이며시험프로세스는유지.
+
+### 2026-10-30 — 인계 실패를 만드는 발행 간격·물리 제동 설정 수정
+
+- 사용자 원인 규명·해결 요청. 시뮬 수확 costmap 발행 5→20Hz(계산10Hz 유지), teacher_alignment 위치 반복12→64회(속도4 유지). 공통/실물/판정/전달USD는 보존. 기존 미커밋 변경 유지, 새 커밋·푸시 없음.
+- 팔 카메라 부하 중 실제 costmap 수신 최대간격 1.101→0.401초, 20초 관측에서 0.5초 초과18→0건. 독립 동일모델 원호→정지 시험은 이동22.224→3.915mm/최대원호오차28.914→6.159mm. 속도 반복 증가 후보는 개선 없어 제외.
+- 6차 시험은 중단하지 않고 인계 costmap 발행만 라이브 적용. 위치 반복은 현재12, 다음 시뮬 실행부터64. 실제 전체 인계·복원 성공은 아직 미검증. 작은 Spin 근사에서64회 최종0.879°로 여유가 작아 회전 문제 완전해결로 판단하지 않음. 팔 성능/계산비용도 통합확인 필요.
+- 대상은 sim/config의 nav2_harvest.yaml·robotarm_physics.json, runtime의 teacher_arm_alignment.py·drive_diagnostics.py, 진단도구/실행별 설정기록/관련검사. USD검사7개·인계/전체완료검사22개·runtime빌드 통과. 별도 기존launch fixture controller_output 누락1건은 미해결로 명시.
+- 상세 sim/docs/changes/FRESH_CYCLE_ROOT_FIX_20261030.md. 증거 sim/runs/fresh_full_cycle_20261030/fixes_20261030/ 및 wheel_arc_position_20261030 등. 복원은 이번발행override/위치반복키만 제거 후 재시작,기존alpha4유지.
+
+### 2026-10-30 — 7차 수확 중 차체 밀림 회귀 수정, 9차 준비
+
+- 사용자 8차 유지/9차 조치 요청. 7차W002는 정지 명령0 상태에서약104.5초동안차체23.64mm밀림,팔장착점2cm한계초과. 주행을 위해 articulation 전체를12→64회로올린설정이팔작업에도영향. 같은팔명령재생64/12/64에서마지막이동6.960/1.876/6.290mm로차이확인(과실·베드없는축소시험).
+- 시뮬 물리 프로파일에 harvest_solver_position_iterations=12,run_fleet에서busy또는접힘미확인동안12/작업종료와접힘확인후64. 실제PhysX getter확인및전환로그. student_session 실패로그에이동/회전/변환/한계추가. 공통·실물·2cm/.05rad기준변경없음.
+- 실제64→12전환후동일104.45초명령재생최대5.378mm/마지막5.331mm,exit0. 관련회귀28개·두패키지빌드·문법/diff통과,설치본해시확인. 새전체사이클검증은아직남음. 8차프로세스미변경,다음9차부터적용.
+- 상세 sim/docs/changes/ATTEMPT007_ARM_DRIFT_FIX_20261030.md. 원문/명령/해시/진단로그 sim/runs/fresh_full_cycle_20261030/fixes_attempt007/. 기존미커밋보존·커밋푸시없음. 새프로파일키제거후재시작시이전64고정으로복원(회귀위험있음).
+
+### 2026-10-30 — 수확 일반 경로 속도 0.15 시험 설정
+
+- 사용자 “그렇게 적용해보고 그걸로 문제되면 롤백” 승인. 시뮬 nav2_harvest.yaml의 controller_server FollowPath/RPP만 desired_linear_vel 0.1→0.15m/s, rotate_to_heading_angular_vel 0.1→0.15rad/s. 실물/공통파일 변경없음. 수확 일반 이탈·복귀 등에 선택되는 RPP 적용이며 HarvestApproach 베드진입/HarvestWork 윈도우작업/StationReverse/도킹/인계/예찰·운송 설정은 보존.
+- 실제 설정 로더의 전후전체병합비교에서 위4개값만차이. 인계 build_server_config 결과 전체동일 확인,가감속·감속거리·성공판정변경없음. 현재9차실행은기존값을유지하고다음시작부터적용. 새속도의실주행검증은아직미실행이며동작개선/성공확정아님.
+- 전후원본·4개차이·공통파일해시는 sim/runs/fresh_full_cycle_20261030/speed_trial_20261030/ 보존. 문제발생시속도변경과관련있는지확인후새controller_server override블록만제거해0.1/0.1복원한다. 전체YAML백업덮어쓰기로alpha4/발행주기등다른수정까지되돌리지않는다.
+- 물리모드 주행64/팔12와기존실패로그는그대로유지. 미커밋·미푸시.9차가전체성공으로감시기를종료하면새속도전체시험은별도실행이필요함.
+
+### 2026-10-30 — Robotarm_update 참고 전달물 읽기 전용 검토
+
+- 사용자 시험 유지/새 팔 전달물 내용 파악 요청. 실제 경로 Robotarm_update의10/28 ZIP·문서 검토. 새Student학습본이아니라윈도우미션/A5박스검사/입력최적화참고묶음. SHA251건일치,로컬기존4모델해시일치. A5소스182개중로컬154동일/2수정/26없음.
+- 현재D435·레이저계수·timeout1회재시도·compiled_cpu보존필요. U20/A5실행기그대로교체시성공증거계약불일치및timeout RETURN_STOW 가로채기위험. v20보조명령7076/신경망단독0,Jetson20Hz는무구동시험임을원본결과로확인.
+- 권장후속은D435/레이저/재시도정책을유지한윈도우최종접힘1회이식검토이며이번에는미적용. 9차전체시험중단·모델교체·새의존성설치없음. 상세 sim/docs/changes/ROBOTARM_UPDATE_REVIEW_20261030.md,해시/차이 sim/docs/test_results/20261030_robotarm_update_review/. 문서·검토자료만작성,미커밋·미푸시.
+
+### 2026-10-30 — U20 농장 실행 연결
+
+- 실물에서 U20 수확 중이라는 사용자 확인에 따라 시뮬 기본 손목·모델을 U20으로 전환. 앞선 D435 유지 권고는 대체됨. 후방 D435/레이저 집계/60초 및 1회 재시도/판정 유지, A5 제외. 정상 과실 사이에는 HOME까지만 복귀하고 마지막에 접는다. 시간초과는 기존 안전 접힘 후 재관측.
+- 50개 오프라인 검사, 실가중치 CPU 추론, 실제 USD 물리 보존, 3패키지 빌드/설치본 동일 확인 완료. 9차 진행 시험은 D435 그대로, 다음 실행 U20. 실제 농장 U20 렌더/수확 완료는 미검증. 전달 장착값 실측 보정은 미확정.
+- 상세 sim/docs/changes/U20_FARM_INTEGRATION_20261030.md; 증거 sim/docs/test_results/20261030_u20_integration/. 로컬 미커밋·미푸시.
+
+## 2026-10-30 커밋 전 시험 체크포인트
+
+- 사용자 요청으로 `fresh_full_cycle_20261030` 10차 진행 중 전체 시험·자동 재시작·실패 감시기를 정상 중지했다. supervisor 상태 STOPPED, process_exit.json 기록 확인. 10차 중지는 사용자 요청이며 새 자율주행 실패로 분류하지 않는다.
+- 9차: SEC01 수확9윈도우 액션 완료, 레이저 집계2개, 운송 수령 접근 완료. 수확 인계 준비의 벽 접근 계획에서 DEVICE_FAILED(거리 범위 초과). 실패 인접 로그 재구성63.84cm > 상한63.25cm. 준비 위치가 범위를 벗어나는 상위 원인은 미확인이고 허용값 변경 없음.
+- SEC01 평행 경로64cm 교행은 분리 물리 검사에서 무접촉. SEC02 수확↔SEC03 예찰33cm 교행은 정상 작업 방향에서 실제 접촉력·예찰 방향 이탈 재현. 관제 점유 차단 검증은 별도 필요.
+- 모니터는 `python3 sim/tools/cycle_monitor.py`로 현재 반복 시험의 attempt를 자동 추적한다.
+- 현재 수정분 검증: 제어·모니터70개, Student41개(44subtests), 관제 지도5개 통과. USD 환경 검사8개 건너뜀; 기존 U20/물리 검증 자료는 유지. 최초 검증 환경의 ROS 경로·NumPy/SciPy 혼용 오류는 해당 기존 실행환경을 선택해 해결했다. 새 의존성 설치 없음.
+- 사용자 승인: 현재까지 수정분 커밋·푸시 후 전체 사이클 재시작. main과 별도 Frontend 저장소 각각 커밋 대상. ROS Domain13/SUBNET, CPU 물리, U20·일반 주행 속도 등 현재 승인 설정 유지. 기존10차를 이어붙이지 않고 새 시험 폴더에서 처음부터 재시작한다.
+
+관제 표시 자산 커밋: Frontend `cd6be98a12b771c31fb8868ba10aaf2d8fadd0db` (지도·경로5개 파일). 농장 실행의 Frontend 워커 원본은 변경하지 않았다.

@@ -18,7 +18,7 @@ class HarvestTarget:
 
 class StudentHarvestMission:
     def __init__(self, session, targets, config, return_path, *, task_list_complete,
-                 recover_harvest_timeout=False):
+                 recover_harvest_timeout=False, stow_between_targets=True):
         if not task_list_complete or not targets:
             raise ValueError('A nonempty, explicitly complete assigned target list is required')
         self.targets = list(targets)
@@ -55,6 +55,7 @@ class StudentHarvestMission:
         # 농장 sim만 선택한다. 수확 시간초과는 측정 복귀 후 호출자가 재관측한다.
         self.recover_harvest_timeout = recover_harvest_timeout
         self.harvest_timed_out = False
+        self.stow_between_targets = stow_between_targets
 
     def _pose(self, values):
         q = np.asarray(values, dtype=float)
@@ -89,7 +90,7 @@ class StudentHarvestMission:
         lead = self.config['max_command_lead_rad']
         # Bounded compensation of gravity tracking error. Measured pose, not
         # command arrival, still gates completion. Original drive gains stay.
-        if self.state in ('TO_HOME','RETURN_STOW'):
+        if self.state in ('TO_HOME','RETURN_HOME','RETURN_STOW'):
             self.motion_bias = np.clip(self.motion_bias+.5*(goal-q)*dt,-.06,.06)
         else:
             self.motion_bias[:] = 0.
@@ -133,13 +134,15 @@ class StudentHarvestMission:
             # unknown arbitrary posture along an unplanned shortcut.
             if self.state == 'STOW_WAIT' and np.max(abs(q-self.stow)) > .10:
                 return self._fail(now, q, 'start_requires_stowed_pose')
-        if self.state in ('TO_HOME', 'RETURN_STOW'):
+        if self.state in ('TO_HOME', 'RETURN_HOME', 'RETURN_STOW'):
             goal = self.path[self.path_index]
             if self._settled(q, qd, goal, dt):
                 self.path_index += 1; self.stable = 0.; self.phase_start = now
                 self.motion_bias[:] = 0.
                 if self.path_index == len(self.path):
-                    if self.state == 'TO_HOME':
+                    if self.state in ('TO_HOME', 'RETURN_HOME'):
+                        if self.state == 'RETURN_HOME':
+                            self.index += 1
                         self.session.start(self.target, self.previous.copy())
                         self.harvest_start = now; self._enter('HARVEST', now)
                     elif self.harvest_timed_out or len(self.harvested) == len(self.targets): self._enter('FINAL_STOP', now)
@@ -148,7 +151,7 @@ class StudentHarvestMission:
                 else: goal = self.path[self.path_index]
             elif now-self.phase_start > self.config['waypoint_timeout_s']:
                 return self._fail(now, q, 'motion_tracking_timeout')
-            if self.state in ('TO_HOME', 'RETURN_STOW'):
+            if self.state in ('TO_HOME', 'RETURN_HOME', 'RETURN_STOW'):
                 return self._issued(self._move(q, goal, dt), False)
         if self.state in ('HARVEST', 'WAIT_BOX'):
             if box_evidence is not None:
@@ -162,8 +165,15 @@ class StudentHarvestMission:
                 self.events.append(dict(state='BOX_CONFIRMED', target_id=self.target.target_id, stamp_s=now,
                                         evidence_source=e.get('source', 'unspecified')))
                 try:
-                    route = self.return_path(q.copy(), self.home.copy())
-                    self._route(list(route)+self.via+[self.stow], 'RETURN_STOW', now)
+                    route = list(self.return_path(q.copy(), self.home.copy()))
+                    if not self.stow_between_targets and self.index+1 < len(self.targets):
+                        # 정상 적재 후 다음 과실은 측정 HOME에서 시작한다.
+                        # 시간초과의 안전 접힘/재관측 경로는 _fail에 그대로 둔다.
+                        if not route or not np.allclose(route[-1], self.home, atol=1e-9, rtol=0):
+                            raise ValueError('Intermediate return must end at HOME')
+                        self._route(route, 'RETURN_HOME', now)
+                    else:
+                        self._route(route+self.via+[self.stow], 'RETURN_STOW', now)
                 except (ValueError, RuntimeError) as error:
                     return self._fail(now, q, 'return_path_rejected: '+str(error))
                 return self._issued(self._move(q, self.path[0], dt), False)

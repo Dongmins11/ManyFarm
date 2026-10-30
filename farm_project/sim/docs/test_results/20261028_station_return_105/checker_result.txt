@@ -1,0 +1,7 @@
+PASS original checker rejects ongoing rotation after 10s
+PASS pose checker accepts 15s rotation including yaw wrap
+PASS reset starts new baseline
+PASS stationary robot fails after 10s
+PASS small pose jitter does not mask stall
+PASS translation still counts as progress
+PASS stall after translation still fails

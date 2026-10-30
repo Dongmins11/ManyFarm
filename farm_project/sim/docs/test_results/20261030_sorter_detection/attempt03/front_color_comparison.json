@@ -1,0 +1,433 @@
+{
+  "expected_front_fruits_evaluation_only": {
+    "A": {
+      "path": "/World/Vegetation/Bed_02/Fruits/Pepper_0015_red",
+      "color": "RED"
+    },
+    "B": {
+      "path": "/World/Vegetation/Bed_02/Fruits/Pepper_0011_yellow",
+      "color": "YELLOW"
+    },
+    "C": {
+      "path": "/World/Vegetation/Bed_02/Fruits/Pepper_0004_red",
+      "color": "RED"
+    },
+    "D": {
+      "path": "/World/Vegetation/Bed_02/Fruits/Pepper_0026_yellow",
+      "color": "YELLOW"
+    }
+  },
+  "remaining": 9,
+  "cases": [
+    {
+      "offset_y_px": 0,
+      "states": {
+        "A": "NO_COLOR",
+        "B": "NO_COLOR",
+        "C": "NO_COLOR",
+        "D": "NO_COLOR"
+      },
+      "correct_front_colors": 0
+    },
+    {
+      "offset_y_px": 1,
+      "states": {
+        "A": "NO_COLOR",
+        "B": "NO_COLOR",
+        "C": "NO_COLOR",
+        "D": "NO_COLOR"
+      },
+      "correct_front_colors": 0
+    },
+    {
+      "offset_y_px": 2,
+      "states": {
+        "A": "RED",
+        "B": "YELLOW",
+        "C": "RED",
+        "D": "NO_COLOR"
+      },
+      "correct_front_colors": 3
+    },
+    {
+      "offset_y_px": 3,
+      "states": {
+        "A": "RED",
+        "B": "YELLOW",
+        "C": "RED",
+        "D": "YELLOW"
+      },
+      "correct_front_colors": 4
+    },
+    {
+      "offset_y_px": 4,
+      "states": {
+        "A": "RED",
+        "B": "YELLOW",
+        "C": "RED",
+        "D": "YELLOW"
+      },
+      "correct_front_colors": 4
+    },
+    {
+      "offset_y_px": 5,
+      "states": {
+        "A": "RED",
+        "B": "YELLOW",
+        "C": "RED",
+        "D": "YELLOW"
+      },
+      "correct_front_colors": 4
+    },
+    {
+      "offset_y_px": 6,
+      "states": {
+        "A": "RED",
+        "B": "YELLOW",
+        "C": "RED",
+        "D": "YELLOW"
+      },
+      "correct_front_colors": 4
+    },
+    {
+      "offset_y_px": 7,
+      "states": {
+        "A": "RED",
+        "B": "YELLOW",
+        "C": "RED",
+        "D": "YELLOW"
+      },
+      "correct_front_colors": 4
+    },
+    {
+      "offset_y_px": 8,
+      "states": {
+        "A": "RED",
+        "B": "YELLOW",
+        "C": "RED",
+        "D": "YELLOW"
+      },
+      "correct_front_colors": 4
+    },
+    {
+      "offset_y_px": 9,
+      "states": {
+        "A": "RED",
+        "B": "YELLOW",
+        "C": "RED",
+        "D": "YELLOW"
+      },
+      "correct_front_colors": 4
+    },
+    {
+      "offset_y_px": 10,
+      "states": {
+        "A": "RED",
+        "B": "YELLOW",
+        "C": "RED",
+        "D": "YELLOW"
+      },
+      "correct_front_colors": 4
+    },
+    {
+      "offset_y_px": 11,
+      "states": {
+        "A": "RED",
+        "B": "YELLOW",
+        "C": "RED",
+        "D": "YELLOW"
+      },
+      "correct_front_colors": 4
+    },
+    {
+      "offset_y_px": 12,
+      "states": {
+        "A": "RED",
+        "B": "YELLOW",
+        "C": "MIXED",
+        "D": "YELLOW"
+      },
+      "correct_front_colors": 3
+    },
+    {
+      "offset_y_px": 13,
+      "states": {
+        "A": "MIXED",
+        "B": "YELLOW",
+        "C": "MIXED",
+        "D": "YELLOW"
+      },
+      "correct_front_colors": 2
+    },
+    {
+      "offset_y_px": 14,
+      "states": {
+        "A": "MIXED",
+        "B": "YELLOW",
+        "C": "MIXED",
+        "D": "YELLOW"
+      },
+      "correct_front_colors": 2
+    },
+    {
+      "offset_y_px": 15,
+      "states": {
+        "A": "MIXED",
+        "B": "YELLOW",
+        "C": "MIXED",
+        "D": "YELLOW"
+      },
+      "correct_front_colors": 2
+    },
+    {
+      "offset_y_px": 16,
+      "states": {
+        "A": "MIXED",
+        "B": "YELLOW",
+        "C": "MIXED",
+        "D": "YELLOW"
+      },
+      "correct_front_colors": 2
+    },
+    {
+      "offset_y_px": 17,
+      "states": {
+        "A": "MIXED",
+        "B": "YELLOW",
+        "C": "MIXED",
+        "D": "YELLOW"
+      },
+      "correct_front_colors": 2
+    },
+    {
+      "offset_y_px": 18,
+      "states": {
+        "A": "MIXED",
+        "B": "YELLOW",
+        "C": "MIXED",
+        "D": "YELLOW"
+      },
+      "correct_front_colors": 2
+    },
+    {
+      "offset_y_px": 19,
+      "states": {
+        "A": "MIXED",
+        "B": "YELLOW",
+        "C": "MIXED",
+        "D": "YELLOW"
+      },
+      "correct_front_colors": 2
+    },
+    {
+      "offset_y_px": 20,
+      "states": {
+        "A": "MIXED",
+        "B": "YELLOW",
+        "C": "MIXED",
+        "D": "YELLOW"
+      },
+      "correct_front_colors": 2
+    },
+    {
+      "offset_y_px": 21,
+      "states": {
+        "A": "MIXED",
+        "B": "YELLOW",
+        "C": "MIXED",
+        "D": "YELLOW"
+      },
+      "correct_front_colors": 2
+    },
+    {
+      "offset_y_px": 22,
+      "states": {
+        "A": "MIXED",
+        "B": "YELLOW",
+        "C": "MIXED",
+        "D": "YELLOW"
+      },
+      "correct_front_colors": 2
+    },
+    {
+      "offset_y_px": 23,
+      "states": {
+        "A": "MIXED",
+        "B": "YELLOW",
+        "C": "MIXED",
+        "D": "YELLOW"
+      },
+      "correct_front_colors": 2
+    },
+    {
+      "offset_y_px": 24,
+      "states": {
+        "A": "MIXED",
+        "B": "YELLOW",
+        "C": "MIXED",
+        "D": "YELLOW"
+      },
+      "correct_front_colors": 2
+    },
+    {
+      "offset_y_px": 25,
+      "states": {
+        "A": "MIXED",
+        "B": "YELLOW",
+        "C": "MIXED",
+        "D": "YELLOW"
+      },
+      "correct_front_colors": 2
+    },
+    {
+      "offset_y_px": 26,
+      "states": {
+        "A": "MIXED",
+        "B": "YELLOW",
+        "C": "MIXED",
+        "D": "YELLOW"
+      },
+      "correct_front_colors": 2
+    },
+    {
+      "offset_y_px": 27,
+      "states": {
+        "A": "MIXED",
+        "B": "YELLOW",
+        "C": "MIXED",
+        "D": "YELLOW"
+      },
+      "correct_front_colors": 2
+    },
+    {
+      "offset_y_px": 28,
+      "states": {
+        "A": "MIXED",
+        "B": "YELLOW",
+        "C": "MIXED",
+        "D": "YELLOW"
+      },
+      "correct_front_colors": 2
+    },
+    {
+      "offset_y_px": 29,
+      "states": {
+        "A": "RED",
+        "B": "YELLOW",
+        "C": "MIXED",
+        "D": "YELLOW"
+      },
+      "correct_front_colors": 3
+    },
+    {
+      "offset_y_px": 30,
+      "states": {
+        "A": "RED",
+        "B": "YELLOW",
+        "C": "MIXED",
+        "D": "YELLOW"
+      },
+      "correct_front_colors": 3
+    },
+    {
+      "offset_y_px": 31,
+      "states": {
+        "A": "RED",
+        "B": "YELLOW",
+        "C": "RED",
+        "D": "YELLOW"
+      },
+      "correct_front_colors": 4
+    },
+    {
+      "offset_y_px": 32,
+      "states": {
+        "A": "RED",
+        "B": "YELLOW",
+        "C": "RED",
+        "D": "YELLOW"
+      },
+      "correct_front_colors": 4
+    },
+    {
+      "offset_y_px": 33,
+      "states": {
+        "A": "RED",
+        "B": "YELLOW",
+        "C": "RED",
+        "D": "YELLOW"
+      },
+      "correct_front_colors": 4
+    },
+    {
+      "offset_y_px": 34,
+      "states": {
+        "A": "RED",
+        "B": "MIXED",
+        "C": "RED",
+        "D": "MIXED"
+      },
+      "correct_front_colors": 2
+    },
+    {
+      "offset_y_px": 35,
+      "states": {
+        "A": "RED",
+        "B": "MIXED",
+        "C": "MIXED",
+        "D": "MIXED"
+      },
+      "correct_front_colors": 1
+    },
+    {
+      "offset_y_px": 36,
+      "states": {
+        "A": "RED",
+        "B": "MIXED",
+        "C": "MIXED",
+        "D": "MIXED"
+      },
+      "correct_front_colors": 1
+    },
+    {
+      "offset_y_px": 37,
+      "states": {
+        "A": "RED",
+        "B": "MIXED",
+        "C": "MIXED",
+        "D": "MIXED"
+      },
+      "correct_front_colors": 1
+    },
+    {
+      "offset_y_px": 38,
+      "states": {
+        "A": "RED",
+        "B": "MIXED",
+        "C": "MIXED",
+        "D": "MIXED"
+      },
+      "correct_front_colors": 1
+    },
+    {
+      "offset_y_px": 39,
+      "states": {
+        "A": "RED",
+        "B": "MIXED",
+        "C": "MIXED",
+        "D": "MIXED"
+      },
+      "correct_front_colors": 1
+    },
+    {
+      "offset_y_px": 40,
+      "states": {
+        "A": "RED",
+        "B": "RED",
+        "C": "MIXED",
+        "D": "MIXED"
+      },
+      "correct_front_colors": 1
+    }
+  ]
+}

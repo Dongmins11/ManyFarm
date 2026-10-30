@@ -1,0 +1,113 @@
+{
+  "before": {
+    "map": {
+      "frame_id": "map",
+      "width": 323,
+      "height": 603,
+      "resolution": 0.05000000074505806,
+      "origin": [
+        -8.075000381469726,
+        -15.075000381469726,
+        0.0
+      ],
+      "version": "f814c9ef132e8063d6f0",
+      "occupancy_digest": "ac1ca24475af14941c7fa62e25f6aa9ec1e101dafbe1aacbca8a9637b156ca82",
+      "id": "simul",
+      "label": "시뮬레이션",
+      "source": "ros",
+      "source_robot": "scout_01",
+      "topic": "/scout_01/map"
+    },
+    "graphs": {
+      "scout_01": {
+        "status": "mismatch",
+        "reason": "저장 Route와 배경 지도가 다릅니다 · 표시 보류",
+        "source": "saved",
+        "topic": "maps/saved_routes/simul/graph.geojson",
+        "nodes": 0,
+        "lines": 0,
+        "sorter": []
+      },
+      "harvest_01": {
+        "status": "mismatch",
+        "reason": "저장 Route와 배경 지도가 다릅니다 · 표시 보류",
+        "source": "saved",
+        "topic": "maps/saved_routes/simul/harvest_graph.geojson",
+        "nodes": 0,
+        "lines": 0,
+        "sorter": []
+      },
+      "transport_01": {
+        "status": "waiting",
+        "reason": "토픽 수신 대기",
+        "source": null,
+        "topic": "/transport_01/route_markers",
+        "nodes": 0,
+        "lines": 0,
+        "sorter": []
+      }
+    }
+  },
+  "after": {
+    "map": {
+      "frame_id": "map",
+      "width": 323,
+      "height": 603,
+      "resolution": 0.05000000074505806,
+      "origin": [
+        -8.075000381469726,
+        -15.075000381469726,
+        0.0
+      ],
+      "version": "f814c9ef132e8063d6f0",
+      "occupancy_digest": "ac1ca24475af14941c7fa62e25f6aa9ec1e101dafbe1aacbca8a9637b156ca82",
+      "id": "simul",
+      "label": "시뮬레이션",
+      "source": "ros",
+      "source_robot": "scout_01",
+      "topic": "/scout_01/map"
+    },
+    "graphs": {
+      "scout_01": {
+        "status": "saved",
+        "reason": "ZIP 저장 Route · 실시간 경로 아님",
+        "source": "saved",
+        "topic": "maps/saved_routes/simul/graph.geojson",
+        "nodes": 211,
+        "lines": 452,
+        "sorter": [
+          {
+            "id": "8004",
+            "x": -7.0,
+            "y": 13.25
+          }
+        ]
+      },
+      "harvest_01": {
+        "status": "saved",
+        "reason": "ZIP 저장 Route · 실시간 경로 아님",
+        "source": "saved",
+        "topic": "maps/saved_routes/simul/harvest_graph.geojson",
+        "nodes": 143,
+        "lines": 260,
+        "sorter": [
+          {
+            "id": "8004",
+            "x": -7.0,
+            "y": 13.25
+          }
+        ]
+      },
+      "transport_01": {
+        "status": "waiting",
+        "reason": "토픽 수신 대기",
+        "source": null,
+        "topic": "/transport_01/route_markers",
+        "nodes": 0,
+        "lines": 0,
+        "sorter": []
+      }
+    }
+  },
+  "verification": "Live read-only API before/after; 5 existing saved-route tests passed; no dashboard/robot/simulation restart; map mismatch guard unchanged."
+}

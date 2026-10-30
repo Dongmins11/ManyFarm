@@ -1,0 +1,75 @@
+{
+  "passed": false,
+  "scope": "reuse completed survey/harvest; pickup, handoff, sorting and both returns",
+  "handoff_transport": {
+    "robot_id": "transport_01",
+    "task_id": "PICKUP_TEST_92a66ac28ec64dd48e9abcf121b1c252",
+    "transfer_id": "TRANSFER_TEST_b81cb3d322b641d3986fbf500bc8a117",
+    "result_code": "SUCCESS",
+    "error_code": "NONE",
+    "error_message": "",
+    "timestamp": "2026-10-29T12:16:28.125613+00:00"
+  },
+  "handoff_harvest": {
+    "robot_id": "harvest_01",
+    "task_id": "DOCK_TEST_a444fd6e72ef43f98cbdc7f415e5e679",
+    "transfer_id": "TRANSFER_TEST_b81cb3d322b641d3986fbf500bc8a117",
+    "result_code": "SUCCESS",
+    "expected_count": 7,
+    "transfer_complete": true,
+    "transport_clear": true,
+    "restore_complete": true,
+    "error_code": "NONE",
+    "error_message": "",
+    "timestamp": "2026-10-29T12:17:50.466463+00:00"
+  },
+  "actual_transferred_count": 10,
+  "historical_harvested_count": 7,
+  "sorter_deposit": {
+    "request_id": "d657c7669a664bdc891b2c0ad5ca5894",
+    "success": true,
+    "fruit_paths": [
+      "/World/Vegetation/Bed_02/Fruits/Pepper_0003_red",
+      "/World/Vegetation/Bed_02/Fruits/Pepper_0004_red",
+      "/World/Vegetation/Bed_02/Fruits/Pepper_0011_yellow",
+      "/World/Vegetation/Bed_02/Fruits/Pepper_0015_red",
+      "/World/Vegetation/Bed_02/Fruits/Pepper_0026_yellow",
+      "/World/Vegetation/Bed_02/Fruits/Pepper_0028_yellow",
+      "/World/Vegetation/Bed_02/Fruits/Pepper_0029_red",
+      "/World/Vegetation/Bed_02/Fruits/Pepper_0032_red",
+      "/World/Vegetation/Bed_02/Fruits/Pepper_0033_red",
+      "/World/Vegetation/Bed_02/Fruits/Pepper_0036_yellow"
+    ],
+    "count": 10,
+    "error": ""
+  },
+  "unload": {
+    "status": 6,
+    "result": {
+      "robot_id": "transport_01",
+      "task_id": "sorter_86531c97cbf348c6",
+      "station_id": "SORT_01",
+      "result_code": "FAILED",
+      "error_code": "CLEARANCE_FAILED",
+      "error_message": "하역 완료 후 도킹해제 실패: Distance exit rotation position drift",
+      "timestamp": "2026-10-29T12:23:43.834071+00:00"
+    }
+  },
+  "sorting_started": false,
+  "transport_return_started": false,
+  "harvest_return_started": false,
+  "failure": {
+    "code": "CLEARANCE_FAILED",
+    "reason": "Distance exit rotation position drift",
+    "limit_m": 0.05,
+    "odom_displacement_m": 0.05122236062009697,
+    "world_displacement_m": 0.05237315984662999,
+    "rotation_start_wall": 1793276600.1858542,
+    "failure_wall": 1793276622.0760467,
+    "evidence": "Command linear0 angular-0.3 persists; measured rotation slows from -0.26 to -0.009rad/s; wheels both rotate backward against opposite wheel targets; true body translation agrees with odom.",
+    "uncertainty": "Contact location/physical cause not recorded; collision or drivetrain constraint requires focused diagnostic. Not established as AMCL error."
+  },
+  "run_path": "sim/runs/transport_full_resume_20261029_attempt01",
+  "drive_path": "sim/runs/drive_diagnostics/e9e295d160894efaa372b3a4489a3f95/transport_01.jsonl",
+  "changes": "No additional code/config changes in this run; no commit/push"
+}

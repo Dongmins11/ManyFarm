@@ -1,0 +1,952 @@
+/opt/ros/jazzy/lib/python3.12/site-packages/launch/logging/__init__.py:149: UserWarning: Cannot create a symlink to latest log directory: [Errno 17] File exists: '/home/ysy/main/farm_project/sim/runs/sec01_single_cycle_20261028_attempt04/ros_logs/2026-10-28-21-25-05-841647-ysy-System-Product-Name-2349650' -> '/home/ysy/main/farm_project/sim/runs/sec01_single_cycle_20261028_attempt04/ros_logs/latest'
+
+  warnings.warn(
+[INFO] [launch]: All log files can be found below /home/ysy/main/farm_project/sim/runs/sec01_single_cycle_20261028_attempt04/ros_logs/2026-10-28-21-25-05-841647-ysy-System-Product-Name-2349650
+[INFO] [launch]: Default logging verbosity is set to INFO
+[INFO] [launch.user]: Scout Nav2 설정 파일: /home/ysy/main/farm_project/sim/ros_ws/src/farm_sim_config/config/nav2_scout.yaml
+[INFO] [rectify_node-1]: process started with pid [2349837]
+[INFO] [apriltag_node-2]: process started with pid [2349838]
+[INFO] [tag_capture-3]: process started with pid [2349839]
+[INFO] [ros_adapter-4]: process started with pid [2349840]
+[INFO] [map_server-5]: process started with pid [2349841]
+[INFO] [amcl-6]: process started with pid [2349842]
+[INFO] [controller_server-7]: process started with pid [2349885]
+[INFO] [planner_server-8]: process started with pid [2349886]
+[INFO] [behavior_server-9]: process started with pid [2349887]
+[INFO] [bt_navigator-10]: process started with pid [2349888]
+[INFO] [velocity_smoother-11]: process started with pid [2349889]
+[INFO] [lifecycle_manager-12]: process started with pid [2349891]
+[INFO] [route_preview-13]: process started with pid [2349892]
+[INFO] [scout_node-14]: process started with pid [2349901]
+[INFO] [tag_amcl_adapter-15]: process started with pid [2349902]
+[lifecycle_manager-12] [INFO] [1793190306.428732670] [scout_01.lifecycle_manager_navigation]: Creating
+[lifecycle_manager-12] [INFO] [1793190306.434502973] [scout_01.lifecycle_manager_navigation]: [34m[1mCreating and initializing lifecycle service clients[0m[0m
+[planner_server-8] [INFO] [1793190306.484271417] [scout_01.planner_server]: 
+[planner_server-8] 	planner_server lifecycle node launched. 
+[planner_server-8] 	Waiting on external lifecycle transitions to activate
+[planner_server-8] 	See https://design.ros2.org/articles/node_lifecycle.html for more information.
+[planner_server-8] [INFO] [1793190306.486306845] [scout_01.planner_server]: Creating
+[velocity_smoother-11] [INFO] [1793190306.552168746] [scout_01.velocity_smoother]: 
+[velocity_smoother-11] 	velocity_smoother lifecycle node launched. 
+[velocity_smoother-11] 	Waiting on external lifecycle transitions to activate
+[velocity_smoother-11] 	See https://design.ros2.org/articles/node_lifecycle.html for more information.
+[behavior_server-9] [INFO] [1793190306.555790405] [scout_01.behavior_server]: 
+[behavior_server-9] 	behavior_server lifecycle node launched. 
+[behavior_server-9] 	Waiting on external lifecycle transitions to activate
+[behavior_server-9] 	See https://design.ros2.org/articles/node_lifecycle.html for more information.
+[map_server-5] [INFO] [1793190306.564174694] [scout_01.map_server]: 
+[map_server-5] 	map_server lifecycle node launched. 
+[map_server-5] 	Waiting on external lifecycle transitions to activate
+[map_server-5] 	See https://design.ros2.org/articles/node_lifecycle.html for more information.
+[map_server-5] [INFO] [1793190306.564329323] [scout_01.map_server]: Creating
+[amcl-6] [INFO] [1793190306.578645583] [scout_01.amcl]: 
+[amcl-6] 	amcl lifecycle node launched. 
+[amcl-6] 	Waiting on external lifecycle transitions to activate
+[amcl-6] 	See https://design.ros2.org/articles/node_lifecycle.html for more information.
+[amcl-6] [INFO] [1793190306.579257136] [scout_01.amcl]: Creating
+[bt_navigator-10] [INFO] [1793190306.600093688] [scout_01.bt_navigator]: 
+[bt_navigator-10] 	bt_navigator lifecycle node launched. 
+[bt_navigator-10] 	Waiting on external lifecycle transitions to activate
+[bt_navigator-10] 	See https://design.ros2.org/articles/node_lifecycle.html for more information.
+[bt_navigator-10] [INFO] [1793190306.602596881] [scout_01.bt_navigator]: Creating
+[planner_server-8] [INFO] [1793190306.669352013] [scout_01.global_costmap.global_costmap]: 
+[planner_server-8] 	global_costmap lifecycle node launched. 
+[planner_server-8] 	Waiting on external lifecycle transitions to activate
+[planner_server-8] 	See https://design.ros2.org/articles/node_lifecycle.html for more information.
+[planner_server-8] [INFO] [1793190306.672268713] [scout_01.global_costmap.global_costmap]: Creating Costmap
+[controller_server-7] [INFO] [1793190306.687190158] [scout_01.controller_server]: 
+[controller_server-7] 	controller_server lifecycle node launched. 
+[controller_server-7] 	Waiting on external lifecycle transitions to activate
+[controller_server-7] 	See https://design.ros2.org/articles/node_lifecycle.html for more information.
+[controller_server-7] [INFO] [1793190306.696857110] [scout_01.controller_server]: Creating controller server
+[tag_amcl_adapter-15] [INFO] [1793190306.728844516] [scout_01.tag_amcl_adapter]: TAG_ADAPTER_RUNNING: 작업 신호 대기. AMCL TF 유지; 태그 누락은 주행을 취소하지 않습니다.
+[lifecycle_manager-12] [INFO] [1793190306.845626705] [scout_01.lifecycle_manager_navigation]: [34m[1mStarting managed nodes bringup...[0m[0m
+[lifecycle_manager-12] [INFO] [1793190306.845684661] [scout_01.lifecycle_manager_navigation]: [34m[1mConfiguring map_server[0m[0m
+[map_server-5] [INFO] [1793190306.851122262] [scout_01.map_server]: Configuring
+[map_server-5] [INFO] [1793190306.851199880] [map_io]: Loading yaml file: /home/ysy/main/farm_project/sim/ros_ws/src/farm_sim_config/maps/hcr_farm_map.yaml
+[map_server-5] [INFO] [1793190306.851480407] [map_io]: resolution: 0.05
+[map_server-5] [INFO] [1793190306.851490777] [map_io]: origin[0]: -8.075
+[map_server-5] [INFO] [1793190306.851497792] [map_io]: origin[1]: -15.075
+[map_server-5] [INFO] [1793190306.851502572] [map_io]: origin[2]: 0
+[map_server-5] [INFO] [1793190306.851507235] [map_io]: free_thresh: 0.196
+[map_server-5] [INFO] [1793190306.851511850] [map_io]: occupied_thresh: 0.65
+[map_server-5] [INFO] [1793190306.851518006] [map_io]: mode: trinary
+[map_server-5] [INFO] [1793190306.851522916] [map_io]: negate: 0
+[map_server-5] [INFO] [1793190306.851713612] [map_io]: Loading image_file: /home/ysy/main/farm_project/sim/ros_ws/src/farm_sim_config/maps/hcr_farm_map.png
+[map_server-5] [INFO] [1793190306.870938585] [map_io]: Read map /home/ysy/main/farm_project/sim/ros_ws/src/farm_sim_config/maps/hcr_farm_map.png: 323 X 603 map @ 0.05 m/cell
+[controller_server-7] [INFO] [1793190306.889927601] [scout_01.local_costmap.local_costmap]: 
+[controller_server-7] 	local_costmap lifecycle node launched. 
+[controller_server-7] 	Waiting on external lifecycle transitions to activate
+[controller_server-7] 	See https://design.ros2.org/articles/node_lifecycle.html for more information.
+[controller_server-7] [INFO] [1793190306.890655905] [scout_01.local_costmap.local_costmap]: Creating Costmap
+[ros_adapter-4] [INFO] [1793190306.913359699] [scout_01.sim_devices]: Isaac Sim 연결 대기. 속도 명령은 연결 이후에만 전달합니다.
+[lifecycle_manager-12] [INFO] [1793190306.926388456] [scout_01.lifecycle_manager_navigation]: [34m[1mConfiguring amcl[0m[0m
+[amcl-6] [INFO] [1793190306.932400559] [scout_01.amcl]: Configuring
+[amcl-6] [INFO] [1793190306.932468305] [scout_01.amcl]: initTransforms
+[amcl-6] [INFO] [1793190306.969501807] [scout_01.amcl]: initPubSub
+[amcl-6] [INFO] [1793190306.995079078] [scout_01.amcl]: Subscribed to map topic.
+[amcl-6] [INFO] [1793190307.039840140] [scout_01.amcl]: TAG_SCAN_SYNC_READY: scan_sync_v1 (작업 신호·초기 위치 대기)
+[lifecycle_manager-12] [INFO] [1793190307.042582565] [scout_01.lifecycle_manager_navigation]: [34m[1mConfiguring controller_server[0m[0m
+[controller_server-7] [INFO] [1793190307.047640223] [scout_01.controller_server]: Configuring controller interface
+[controller_server-7] [INFO] [1793190307.047689240] [scout_01.controller_server]: getting progress checker plugins..
+[controller_server-7] [INFO] [1793190307.052675197] [scout_01.controller_server]: getting goal checker plugins..
+[controller_server-7] [INFO] [1793190307.060713420] [scout_01.controller_server]: Controller frequency set to 10.0000Hz
+[controller_server-7] [INFO] [1793190307.060882031] [scout_01.local_costmap.local_costmap]: Configuring
+[controller_server-7] [INFO] [1793190307.097655497] [scout_01.local_costmap.local_costmap]: Using plugin "obstacle_layer"
+[controller_server-7] [INFO] [1793190307.103357422] [scout_01.local_costmap.local_costmap]: Subscribed to Topics: scan
+[controller_server-7] [INFO] [1793190307.117022311] [scout_01.local_costmap.local_costmap]: Initialized plugin "obstacle_layer"
+[controller_server-7] [INFO] [1793190307.117062966] [scout_01.local_costmap.local_costmap]: Using plugin "voxel_layer"
+[controller_server-7] [INFO] [1793190307.121072174] [scout_01.local_costmap.local_costmap]: Subscribed to Topics: scan
+[controller_server-7] [INFO] [1793190307.147454483] [scout_01.local_costmap.local_costmap]: Initialized plugin "voxel_layer"
+[controller_server-7] [INFO] [1793190307.147500415] [scout_01.local_costmap.local_costmap]: Using plugin "inflation_layer"
+[controller_server-7] [INFO] [1793190307.150334866] [scout_01.local_costmap.local_costmap]: Initialized plugin "inflation_layer"
+[controller_server-7] [INFO] [1793190307.244463921] [scout_01.controller_server]: Created progress_checker : progress_checker of type nav2_controller::PoseProgressChecker
+[controller_server-7] [INFO] [1793190307.246169850] [scout_01.controller_server]: Controller Server has progress_checker  progress checkers available.
+[controller_server-7] [INFO] [1793190307.246707214] [scout_01.controller_server]: Created goal checker : goal_checker of type nav2_controller::SimpleGoalChecker
+[controller_server-7] [INFO] [1793190307.249362259] [scout_01.controller_server]: Controller Server has goal_checker  goal checkers available.
+[controller_server-7] [INFO] [1793190307.252382123] [scout_01.controller_server]: Created controller : FollowPath of type dwb_core::DWBLocalPlanner
+[scout_node-14] [INFO] [1793190307.255574724] [scout_01.scout_survey]: ScoutArea 연결 완료: 영상 사전 준비 완료 후 Goal을 수락합니다.
+[scout_node-14] [INFO] [1793190307.256927683] [scout_01.scout_survey]: 영상 사전 준비 시작: 모델 로딩·카메라 워밍업
+[controller_server-7] [INFO] [1793190307.257775477] [scout_01.controller_server]: Setting transform_tolerance to 0.200000
+[controller_server-7] [INFO] [1793190307.293153170] [scout_01.controller_server]: Using critic "RotateToGoal" (dwb_critics::RotateToGoalCritic)
+[controller_server-7] [INFO] [1793190307.293601525] [scout_01.controller_server]: Critic plugin initialized
+[controller_server-7] [INFO] [1793190307.294642371] [scout_01.controller_server]: Using critic "Oscillation" (dwb_critics::OscillationCritic)
+[controller_server-7] [INFO] [1793190307.298026480] [scout_01.controller_server]: Critic plugin initialized
+[controller_server-7] [INFO] [1793190307.298815984] [scout_01.controller_server]: Using critic "BaseObstacle" (dwb_critics::BaseObstacleCritic)
+[controller_server-7] [INFO] [1793190307.299387854] [scout_01.controller_server]: Critic plugin initialized
+[controller_server-7] [INFO] [1793190307.299586620] [scout_01.controller_server]: Using critic "GoalAlign" (dwb_critics::GoalAlignCritic)
+[controller_server-7] [INFO] [1793190307.299928781] [scout_01.controller_server]: Critic plugin initialized
+[controller_server-7] [INFO] [1793190307.300045512] [scout_01.controller_server]: Using critic "PathAlign" (dwb_critics::PathAlignCritic)
+[controller_server-7] [INFO] [1793190307.300336228] [scout_01.controller_server]: Critic plugin initialized
+[controller_server-7] [INFO] [1793190307.300425585] [scout_01.controller_server]: Using critic "PathDist" (dwb_critics::PathDistCritic)
+[controller_server-7] [INFO] [1793190307.300588861] [scout_01.controller_server]: Critic plugin initialized
+[controller_server-7] [INFO] [1793190307.300683463] [scout_01.controller_server]: Using critic "GoalDist" (dwb_critics::GoalDistCritic)
+[controller_server-7] [INFO] [1793190307.300838623] [scout_01.controller_server]: Critic plugin initialized
+[controller_server-7] [INFO] [1793190307.301979715] [scout_01.controller_server]: Created controller : RPP of type nav2_regulated_pure_pursuit_controller::RegulatedPurePursuitController
+[controller_server-7] [INFO] [1793190307.331687693] [scout_01.controller_server]: Created controller : StationReverse of type farm_nav2_controller::ReverseRegulatedPurePursuitController
+[controller_server-7] [INFO] [1793190307.356337777] [scout_01.controller_server]: Controller Server has FollowPath RPP StationReverse  controllers available.
+[lifecycle_manager-12] [INFO] [1793190307.386197491] [scout_01.lifecycle_manager_navigation]: [34m[1mConfiguring planner_server[0m[0m
+[planner_server-8] [INFO] [1793190307.387056992] [scout_01.planner_server]: Configuring
+[planner_server-8] [INFO] [1793190307.387099214] [scout_01.global_costmap.global_costmap]: Configuring
+[planner_server-8] [INFO] [1793190307.423423621] [scout_01.global_costmap.global_costmap]: Using plugin "static_layer"
+[planner_server-8] [INFO] [1793190307.428028698] [scout_01.global_costmap.global_costmap]: Subscribing to the map topic (/scout_01/map) with transient local durability
+[planner_server-8] [INFO] [1793190307.430132066] [scout_01.global_costmap.global_costmap]: Initialized plugin "static_layer"
+[planner_server-8] [INFO] [1793190307.430161872] [scout_01.global_costmap.global_costmap]: Using plugin "obstacle_layer"
+[planner_server-8] [INFO] [1793190307.432048835] [scout_01.global_costmap.global_costmap]: Subscribed to Topics: scan
+[planner_server-8] [INFO] [1793190307.439919316] [scout_01.global_costmap.global_costmap]: Initialized plugin "obstacle_layer"
+[planner_server-8] [INFO] [1793190307.439957501] [scout_01.global_costmap.global_costmap]: Using plugin "voxel_layer"
+[planner_server-8] [INFO] [1793190307.442209496] [scout_01.global_costmap.global_costmap]: Subscribed to Topics: scan
+[planner_server-8] [INFO] [1793190307.453999143] [scout_01.global_costmap.global_costmap]: Initialized plugin "voxel_layer"
+[planner_server-8] [INFO] [1793190307.454042838] [scout_01.global_costmap.global_costmap]: Using plugin "inflation_layer"
+[planner_server-8] [INFO] [1793190307.455511318] [scout_01.global_costmap.global_costmap]: Initialized plugin "inflation_layer"
+[planner_server-8] [INFO] [1793190307.538056653] [scout_01.planner_server]: Created global planner plugin GridBased of type nav2_navfn_planner::NavfnPlanner
+[planner_server-8] [INFO] [1793190307.538101702] [scout_01.planner_server]: Configuring plugin GridBased of type NavfnPlanner
+[planner_server-8] [INFO] [1793190307.543715872] [scout_01.planner_server]: Planner Server has GridBased  planners available.
+[lifecycle_manager-12] [INFO] [1793190307.577335808] [scout_01.lifecycle_manager_navigation]: [34m[1mConfiguring behavior_server[0m[0m
+[behavior_server-9] [INFO] [1793190307.577729520] [scout_01.behavior_server]: Configuring
+[behavior_server-9] [INFO] [1793190307.585589968] [scout_01.behavior_server]: Creating behavior plugin spin of type nav2_behaviors::Spin
+[behavior_server-9] [INFO] [1793190307.586961387] [scout_01.behavior_server]: Creating behavior plugin backup of type nav2_behaviors::BackUp
+[behavior_server-9] [INFO] [1793190307.588580656] [scout_01.behavior_server]: Creating behavior plugin drive_on_heading of type nav2_behaviors::DriveOnHeading
+[behavior_server-9] [INFO] [1793190307.589922012] [scout_01.behavior_server]: Creating behavior plugin wait of type nav2_behaviors::Wait
+[behavior_server-9] [INFO] [1793190307.590877902] [scout_01.behavior_server]: Creating behavior plugin assisted_teleop of type nav2_behaviors::AssistedTeleop
+[behavior_server-9] [INFO] [1793190307.603923002] [scout_01.behavior_server]: Configuring spin
+[behavior_server-9] [INFO] [1793190307.617318574] [scout_01.behavior_server]: Configuring backup
+[behavior_server-9] [INFO] [1793190307.631361834] [scout_01.behavior_server]: Configuring drive_on_heading
+[behavior_server-9] [INFO] [1793190307.642652825] [scout_01.behavior_server]: Configuring wait
+[behavior_server-9] [INFO] [1793190307.688302461] [scout_01.behavior_server]: Configuring assisted_teleop
+[lifecycle_manager-12] [INFO] [1793190307.745113726] [scout_01.lifecycle_manager_navigation]: [34m[1mConfiguring bt_navigator[0m[0m
+[bt_navigator-10] [INFO] [1793190307.745894839] [scout_01.bt_navigator]: Configuring
+[bt_navigator-10] [INFO] [1793190307.765148337] [scout_01.bt_navigator]: Creating navigator id navigate_to_pose of type nav2_bt_navigator::NavigateToPoseNavigator
+[bt_navigator-10] [WARN] [1793190307.771876930] [scout_01.bt_navigator]: Error_code parameters were not set. Using default values of: follow_path_error_code compute_path_error_code
+[bt_navigator-10] Make sure these match your BT and there are not other sources of error codes youreported to your application
+[bt_navigator-10] [INFO] [1793190307.870854740] [scout_01.bt_navigator]: Creating navigator id navigate_through_poses of type nav2_bt_navigator::NavigateThroughPosesNavigator
+[lifecycle_manager-12] [INFO] [1793190307.913090019] [scout_01.lifecycle_manager_navigation]: [34m[1mConfiguring velocity_smoother[0m[0m
+[velocity_smoother-11] [INFO] [1793190307.913274698] [scout_01.velocity_smoother]: Configuring velocity smoother
+[lifecycle_manager-12] [INFO] [1793190307.920581281] [scout_01.lifecycle_manager_navigation]: [34m[1mActivating map_server[0m[0m
+[map_server-5] [INFO] [1793190307.920998220] [scout_01.map_server]: Activating
+[map_server-5] [INFO] [1793190307.921350998] [scout_01.map_server]: Creating bond (map_server) to lifecycle manager.
+[amcl-6] [INFO] [1793190307.921751983] [scout_01.amcl]: Received a 323 X 603 map @ 0.050 m/pix
+[planner_server-8] [INFO] [1793190307.922541328] [scout_01.global_costmap.global_costmap]: StaticLayer: Resizing costmap to 323 X 603 at 0.050000 m/pix
+[lifecycle_manager-12] [INFO] [1793190308.029887829] [scout_01.lifecycle_manager_navigation]: Server map_server connected with bond.
+[lifecycle_manager-12] [INFO] [1793190308.029917161] [scout_01.lifecycle_manager_navigation]: [34m[1mActivating amcl[0m[0m
+[amcl-6] [INFO] [1793190308.030380438] [scout_01.amcl]: Activating
+[amcl-6] [INFO] [1793190308.030404937] [scout_01.amcl]: initialPoseReceived
+[amcl-6] [INFO] [1793190308.030460726] [scout_01.amcl]: Setting pose (0.000000): -5.000 13.250 -1.571
+[amcl-6] [INFO] [1793190308.030678419] [scout_01.amcl]: Creating bond (amcl) to lifecycle manager.
+[lifecycle_manager-12] [INFO] [1793190308.136121905] [scout_01.lifecycle_manager_navigation]: Server amcl connected with bond.
+[lifecycle_manager-12] [INFO] [1793190308.136172193] [scout_01.lifecycle_manager_navigation]: [34m[1mActivating controller_server[0m[0m
+[controller_server-7] [INFO] [1793190308.136741841] [scout_01.controller_server]: Activating
+[controller_server-7] [INFO] [1793190308.136768503] [scout_01.local_costmap.local_costmap]: Activating
+[controller_server-7] [INFO] [1793190308.136773824] [scout_01.local_costmap.local_costmap]: Checking transform
+[controller_server-7] [INFO] [1793190308.136804999] [scout_01.local_costmap.local_costmap]: Timed out waiting for transform from scout_01/base_link to scout_01/odom to become available, tf error: Invalid frame ID "scout_01/odom" passed to canTransform argument target_frame - frame does not exist
+[controller_server-7] [INFO] [1793190308.636868142] [scout_01.local_costmap.local_costmap]: Timed out waiting for transform from scout_01/base_link to scout_01/odom to become available, tf error: Invalid frame ID "scout_01/odom" passed to canTransform argument target_frame - frame does not exist
+[route_preview-13] [INFO] [1793190309.043300044] [scout_01.route_preview]: 452개 예찰 경로 표시: 청록=진행, 노랑=왼쪽 카메라. 이동 명령은 보내지 않습니다.
+[controller_server-7] [INFO] [1793190309.136855644] [scout_01.local_costmap.local_costmap]: Timed out waiting for transform from scout_01/base_link to scout_01/odom to become available, tf error: Invalid frame ID "scout_01/odom" passed to canTransform argument target_frame - frame does not exist
+[scout_node-14] [INFO] [1793190309.626720107] [scout_01.scout_survey]: 영상 사전 준비 완료: Goal 수락 가능 (2.5초)
+[controller_server-7] [INFO] [1793190309.636855655] [scout_01.local_costmap.local_costmap]: Timed out waiting for transform from scout_01/base_link to scout_01/odom to become available, tf error: Invalid frame ID "scout_01/odom" passed to canTransform argument target_frame - frame does not exist
+[controller_server-7] [INFO] [1793190310.136839929] [scout_01.local_costmap.local_costmap]: Timed out waiting for transform from scout_01/base_link to scout_01/odom to become available, tf error: Invalid frame ID "scout_01/odom" passed to canTransform argument target_frame - frame does not exist
+[controller_server-7] [INFO] [1793190310.636857045] [scout_01.local_costmap.local_costmap]: Timed out waiting for transform from scout_01/base_link to scout_01/odom to become available, tf error: Invalid frame ID "scout_01/odom" passed to canTransform argument target_frame - frame does not exist
+[controller_server-7] [INFO] [1793190311.136855084] [scout_01.local_costmap.local_costmap]: Timed out waiting for transform from scout_01/base_link to scout_01/odom to become available, tf error: Invalid frame ID "scout_01/odom" passed to canTransform argument target_frame - frame does not exist
+[controller_server-7] [INFO] [1793190311.636857464] [scout_01.local_costmap.local_costmap]: Timed out waiting for transform from scout_01/base_link to scout_01/odom to become available, tf error: Invalid frame ID "scout_01/odom" passed to canTransform argument target_frame - frame does not exist
+[controller_server-7] [INFO] [1793190312.136854637] [scout_01.local_costmap.local_costmap]: Timed out waiting for transform from scout_01/base_link to scout_01/odom to become available, tf error: Invalid frame ID "scout_01/odom" passed to canTransform argument target_frame - frame does not exist
+[controller_server-7] [INFO] [1793190312.636900860] [scout_01.local_costmap.local_costmap]: Timed out waiting for transform from scout_01/base_link to scout_01/odom to become available, tf error: Invalid frame ID "scout_01/odom" passed to canTransform argument target_frame - frame does not exist
+[controller_server-7] [INFO] [1793190313.136855141] [scout_01.local_costmap.local_costmap]: Timed out waiting for transform from scout_01/base_link to scout_01/odom to become available, tf error: Invalid frame ID "scout_01/odom" passed to canTransform argument target_frame - frame does not exist
+[controller_server-7] [INFO] [1793190313.636864775] [scout_01.local_costmap.local_costmap]: Timed out waiting for transform from scout_01/base_link to scout_01/odom to become available, tf error: Invalid frame ID "scout_01/odom" passed to canTransform argument target_frame - frame does not exist
+[controller_server-7] [INFO] [1793190314.136852729] [scout_01.local_costmap.local_costmap]: Timed out waiting for transform from scout_01/base_link to scout_01/odom to become available, tf error: Invalid frame ID "scout_01/odom" passed to canTransform argument target_frame - frame does not exist
+[controller_server-7] [INFO] [1793190314.636855024] [scout_01.local_costmap.local_costmap]: Timed out waiting for transform from scout_01/base_link to scout_01/odom to become available, tf error: Invalid frame ID "scout_01/odom" passed to canTransform argument target_frame - frame does not exist
+[controller_server-7] [INFO] [1793190315.136852109] [scout_01.local_costmap.local_costmap]: Timed out waiting for transform from scout_01/base_link to scout_01/odom to become available, tf error: Invalid frame ID "scout_01/odom" passed to canTransform argument target_frame - frame does not exist
+[controller_server-7] [INFO] [1793190315.636860130] [scout_01.local_costmap.local_costmap]: Timed out waiting for transform from scout_01/base_link to scout_01/odom to become available, tf error: Invalid frame ID "scout_01/odom" passed to canTransform argument target_frame - frame does not exist
+[controller_server-7] [INFO] [1793190316.136857933] [scout_01.local_costmap.local_costmap]: Timed out waiting for transform from scout_01/base_link to scout_01/odom to become available, tf error: Invalid frame ID "scout_01/odom" passed to canTransform argument target_frame - frame does not exist
+[controller_server-7] [INFO] [1793190316.636855864] [scout_01.local_costmap.local_costmap]: Timed out waiting for transform from scout_01/base_link to scout_01/odom to become available, tf error: Invalid frame ID "scout_01/odom" passed to canTransform argument target_frame - frame does not exist
+[controller_server-7] [INFO] [1793190317.136854278] [scout_01.local_costmap.local_costmap]: Timed out waiting for transform from scout_01/base_link to scout_01/odom to become available, tf error: Invalid frame ID "scout_01/odom" passed to canTransform argument target_frame - frame does not exist
+[controller_server-7] [INFO] [1793190317.636856205] [scout_01.local_costmap.local_costmap]: Timed out waiting for transform from scout_01/base_link to scout_01/odom to become available, tf error: Invalid frame ID "scout_01/odom" passed to canTransform argument target_frame - frame does not exist
+[controller_server-7] [INFO] [1793190318.136855642] [scout_01.local_costmap.local_costmap]: Timed out waiting for transform from scout_01/base_link to scout_01/odom to become available, tf error: Invalid frame ID "scout_01/odom" passed to canTransform argument target_frame - frame does not exist
+[controller_server-7] [INFO] [1793190318.636854662] [scout_01.local_costmap.local_costmap]: Timed out waiting for transform from scout_01/base_link to scout_01/odom to become available, tf error: Invalid frame ID "scout_01/odom" passed to canTransform argument target_frame - frame does not exist
+[controller_server-7] [INFO] [1793190319.136854527] [scout_01.local_costmap.local_costmap]: Timed out waiting for transform from scout_01/base_link to scout_01/odom to become available, tf error: Invalid frame ID "scout_01/odom" passed to canTransform argument target_frame - frame does not exist
+[controller_server-7] [INFO] [1793190319.636854398] [scout_01.local_costmap.local_costmap]: Timed out waiting for transform from scout_01/base_link to scout_01/odom to become available, tf error: Invalid frame ID "scout_01/odom" passed to canTransform argument target_frame - frame does not exist
+[controller_server-7] [INFO] [1793190320.136878413] [scout_01.local_costmap.local_costmap]: Timed out waiting for transform from scout_01/base_link to scout_01/odom to become available, tf error: Invalid frame ID "scout_01/odom" passed to canTransform argument target_frame - frame does not exist
+[controller_server-7] [INFO] [1793190320.636861619] [scout_01.local_costmap.local_costmap]: Timed out waiting for transform from scout_01/base_link to scout_01/odom to become available, tf error: Invalid frame ID "scout_01/odom" passed to canTransform argument target_frame - frame does not exist
+[controller_server-7] [INFO] [1793190321.136854821] [scout_01.local_costmap.local_costmap]: Timed out waiting for transform from scout_01/base_link to scout_01/odom to become available, tf error: Invalid frame ID "scout_01/odom" passed to canTransform argument target_frame - frame does not exist
+[controller_server-7] [INFO] [1793190321.636855918] [scout_01.local_costmap.local_costmap]: Timed out waiting for transform from scout_01/base_link to scout_01/odom to become available, tf error: Invalid frame ID "scout_01/odom" passed to canTransform argument target_frame - frame does not exist
+[controller_server-7] [INFO] [1793190322.136853206] [scout_01.local_costmap.local_costmap]: Timed out waiting for transform from scout_01/base_link to scout_01/odom to become available, tf error: Invalid frame ID "scout_01/odom" passed to canTransform argument target_frame - frame does not exist
+[controller_server-7] [INFO] [1793190322.636839530] [scout_01.local_costmap.local_costmap]: Timed out waiting for transform from scout_01/base_link to scout_01/odom to become available, tf error: Invalid frame ID "scout_01/odom" passed to canTransform argument target_frame - frame does not exist
+[ros_adapter-4] [INFO] [1793190323.000866934] [scout_01.sim_devices]: Isaac Sim 연결됨. odom 원점은 시작 위치입니다; map 위치추정은 별도입니다.
+[amcl-6] [INFO] [1793190323.001950368] [scout_01.amcl]: createLaserObject
+[controller_server-7] [INFO] [1793190323.136908990] [scout_01.local_costmap.local_costmap]: start
+[controller_server-7] [INFO] [1793190323.340354422] [scout_01.controller_server]: Activating controller: StationReverse of type regulated_pure_pursuit_controller::RegulatedPurePursuitController
+[controller_server-7] [INFO] [1793190323.340377060] [scout_01.controller_server]: Activating controller: RPP of type regulated_pure_pursuit_controller::RegulatedPurePursuitController
+[controller_server-7] [INFO] [1793190323.340392562] [scout_01.controller_server]: Creating bond (controller_server) to lifecycle manager.
+[lifecycle_manager-12] [INFO] [1793190323.445744177] [scout_01.lifecycle_manager_navigation]: Server controller_server connected with bond.
+[lifecycle_manager-12] [INFO] [1793190323.445774116] [scout_01.lifecycle_manager_navigation]: [34m[1mActivating planner_server[0m[0m
+[planner_server-8] [INFO] [1793190323.446202538] [scout_01.planner_server]: Activating
+[planner_server-8] [INFO] [1793190323.446224950] [scout_01.global_costmap.global_costmap]: Activating
+[planner_server-8] [INFO] [1793190323.446230572] [scout_01.global_costmap.global_costmap]: Checking transform
+[planner_server-8] [INFO] [1793190323.446278848] [scout_01.global_costmap.global_costmap]: Timed out waiting for transform from scout_01/base_link to map to become available, tf error: Lookup would require extrapolation at time 0.050000, but only time 0.550000 is in the buffer, when looking up transform from frame [scout_01/base_link] to frame [map]
+[planner_server-8] [INFO] [1793190323.946366807] [scout_01.global_costmap.global_costmap]: Timed out waiting for transform from scout_01/base_link to map to become available, tf error: Lookup would require extrapolation into the past.  Requested time 0.316667 but the earliest data is at time 0.550000, when looking up transform from frame [scout_01/base_link] to frame [map]
+[planner_server-8] [INFO] [1793190324.446391422] [scout_01.global_costmap.global_costmap]: start
+[planner_server-8] [INFO] [1793190325.450234669] [scout_01.planner_server]: Activating plugin GridBased of type NavfnPlanner
+[planner_server-8] [INFO] [1793190325.452114945] [scout_01.planner_server]: Creating bond (planner_server) to lifecycle manager.
+[lifecycle_manager-12] [INFO] [1793190325.558859240] [scout_01.lifecycle_manager_navigation]: Server planner_server connected with bond.
+[lifecycle_manager-12] [INFO] [1793190325.558905157] [scout_01.lifecycle_manager_navigation]: [34m[1mActivating behavior_server[0m[0m
+[behavior_server-9] [INFO] [1793190325.559347052] [scout_01.behavior_server]: Activating
+[behavior_server-9] [INFO] [1793190325.559366510] [scout_01.behavior_server]: Activating spin
+[behavior_server-9] [INFO] [1793190325.559372671] [scout_01.behavior_server]: Activating backup
+[behavior_server-9] [INFO] [1793190325.559376881] [scout_01.behavior_server]: Activating drive_on_heading
+[behavior_server-9] [INFO] [1793190325.559381280] [scout_01.behavior_server]: Activating wait
+[behavior_server-9] [INFO] [1793190325.559385569] [scout_01.behavior_server]: Activating assisted_teleop
+[behavior_server-9] [INFO] [1793190325.559391581] [scout_01.behavior_server]: Creating bond (behavior_server) to lifecycle manager.
+[lifecycle_manager-12] [INFO] [1793190325.677401760] [scout_01.lifecycle_manager_navigation]: Server behavior_server connected with bond.
+[lifecycle_manager-12] [INFO] [1793190325.677442227] [scout_01.lifecycle_manager_navigation]: [34m[1mActivating bt_navigator[0m[0m
+[bt_navigator-10] [INFO] [1793190325.678187722] [scout_01.bt_navigator]: Activating
+[bt_navigator-10] [INFO] [1793190325.769941832] [scout_01.bt_navigator]: Creating bond (bt_navigator) to lifecycle manager.
+[lifecycle_manager-12] [INFO] [1793190325.875248201] [scout_01.lifecycle_manager_navigation]: Server bt_navigator connected with bond.
+[lifecycle_manager-12] [INFO] [1793190325.875282695] [scout_01.lifecycle_manager_navigation]: [34m[1mActivating velocity_smoother[0m[0m
+[velocity_smoother-11] [INFO] [1793190325.875779633] [scout_01.velocity_smoother]: Activating
+[velocity_smoother-11] [INFO] [1793190325.875813738] [scout_01.velocity_smoother]: Creating bond (velocity_smoother) to lifecycle manager.
+[lifecycle_manager-12] [INFO] [1793190325.984148627] [scout_01.lifecycle_manager_navigation]: Server velocity_smoother connected with bond.
+[lifecycle_manager-12] [INFO] [1793190325.984171959] [scout_01.lifecycle_manager_navigation]: [34m[1mManaged nodes are active[0m[0m
+[lifecycle_manager-12] [INFO] [1793190325.984176606] [scout_01.lifecycle_manager_navigation]: [34m[1mCreating bond timer...[0m[0m
+[scout_node-14] [INFO] [1793190326.061080040] [scout_01.scout_survey]: ScoutArea Goal 수신: task_id='cycle_scout_e96bd7105df6', robot_id='scout_01', map_id='farm_map_v1', frame_id='map', section_id='SEC01', crop_type='PAPRIKA', target_ripeness='RIPE', timestamp='2026-10-28T12:25:26.040896+00:00'
+[scout_node-14] [INFO] [1793190326.061451670] [scout_01.scout_survey]: ScoutArea Goal ACCEPT: task_id='cycle_scout_e96bd7105df6'
+[scout_node-14] [INFO] [1793190326.080122612] [scout_01.scout_survey]: 예찰 상태: NAVIGATION_MOVE
+[scout_node-14] [INFO] [1793190326.143706570] [scout_01.scout_survey]: 준비된 영상 워커 연결 완료
+[controller_server-7] [INFO] [1793190326.162906717] [scout_01.controller_server]: Received a goal, begin computing control effort.
+[tag_amcl_adapter-15] [INFO] [1793190393.499346833] [scout_01.tag_amcl_adapter]: TAG_CORRECTION_SENT: 1
+[amcl-6] [INFO] [1793190393.530498787] [scout_01.amcl]: TAG_CORRECTION_APPLIED: 1 scan=42550002219
+[tag_amcl_adapter-15] [INFO] [1793190393.531435811] [scout_01.tag_amcl_adapter]: TAG_CORRECTION_APPLIED: 1
+[tag_amcl_adapter-15] [INFO] [1793190403.240609749] [scout_01.tag_amcl_adapter]: TAG_CORRECTION_SENT: 2
+[amcl-6] [INFO] [1793190403.369905637] [scout_01.amcl]: TAG_CORRECTION_APPLIED: 2 scan=48650002537
+[tag_amcl_adapter-15] [INFO] [1793190403.370772239] [scout_01.tag_amcl_adapter]: TAG_CORRECTION_APPLIED: 2
+[tag_amcl_adapter-15] [INFO] [1793190404.521289211] [scout_01.tag_amcl_adapter]: TAG_CORRECTION_SENT: 3
+[amcl-6] [INFO] [1793190404.623367550] [scout_01.amcl]: TAG_CORRECTION_APPLIED: 3 scan=49450002579
+[tag_amcl_adapter-15] [INFO] [1793190404.624053914] [scout_01.tag_amcl_adapter]: TAG_CORRECTION_APPLIED: 3
+[tag_amcl_adapter-15] [INFO] [1793190405.610262026] [scout_01.tag_amcl_adapter]: TAG_CORRECTION_SENT: 4
+[amcl-6] [INFO] [1793190405.698610601] [scout_01.amcl]: TAG_CORRECTION_APPLIED: 4 scan=50150002616
+[tag_amcl_adapter-15] [INFO] [1793190405.699226761] [scout_01.tag_amcl_adapter]: TAG_CORRECTION_APPLIED: 4
+[controller_server-7] [INFO] [1793190410.363155754] [scout_01.controller_server]: Reached the goal!
+[scout_node-14] [INFO] [1793190411.899497619] [scout_01.scout_survey]: 예찰 상태: SEGMENT_PROGRESS
+[scout_node-14] [INFO] [1793190412.039060220] [scout_01.scout_survey]: 예찰 상태: SEGMENT_COMPLETE
+[scout_node-14] [INFO] [1793190412.120088026] [scout_01.scout_survey]: 예찰 상태: NAVIGATION_MOVE
+[controller_server-7] [INFO] [1793190412.121907368] [scout_01.controller_server]: Received a goal, begin computing control effort.
+[tag_amcl_adapter-15] [INFO] [1793190412.279402777] [scout_01.tag_amcl_adapter]: TAG_CORRECTION_SENT: 5
+[amcl-6] [INFO] [1793190412.405352625] [scout_01.amcl]: TAG_CORRECTION_APPLIED: 5 scan=54450002840
+[tag_amcl_adapter-15] [INFO] [1793190412.405911475] [scout_01.tag_amcl_adapter]: TAG_CORRECTION_APPLIED: 5
+[tag_amcl_adapter-15] [INFO] [1793190413.445390929] [scout_01.tag_amcl_adapter]: TAG_CORRECTION_SENT: 6
+[amcl-6] [INFO] [1793190413.576858501] [scout_01.amcl]: TAG_CORRECTION_APPLIED: 6 scan=55150002876
+[tag_amcl_adapter-15] [INFO] [1793190413.577384279] [scout_01.tag_amcl_adapter]: TAG_CORRECTION_APPLIED: 6
+[tag_amcl_adapter-15] [INFO] [1793190414.559489786] [scout_01.tag_amcl_adapter]: TAG_CORRECTION_SENT: 7
+[amcl-6] [INFO] [1793190414.670658462] [scout_01.amcl]: TAG_CORRECTION_APPLIED: 7 scan=55850002913
+[tag_amcl_adapter-15] [INFO] [1793190414.671243632] [scout_01.tag_amcl_adapter]: TAG_CORRECTION_APPLIED: 7
+[tag_amcl_adapter-15] [INFO] [1793190415.874517969] [scout_01.tag_amcl_adapter]: TAG_CORRECTION_SENT: 8
+[amcl-6] [INFO] [1793190415.999624515] [scout_01.amcl]: TAG_CORRECTION_APPLIED: 8 scan=56650002955
+[tag_amcl_adapter-15] [INFO] [1793190416.000312959] [scout_01.tag_amcl_adapter]: TAG_CORRECTION_APPLIED: 8
+[tag_amcl_adapter-15] [INFO] [1793190417.059408032] [scout_01.tag_amcl_adapter]: TAG_CORRECTION_SENT: 9
+[amcl-6] [INFO] [1793190417.090535439] [scout_01.amcl]: TAG_CORRECTION_APPLIED: 9 scan=57350002991
+[tag_amcl_adapter-15] [INFO] [1793190417.091118056] [scout_01.tag_amcl_adapter]: TAG_CORRECTION_APPLIED: 9
+[tag_amcl_adapter-15] [INFO] [1793190418.130081566] [scout_01.tag_amcl_adapter]: TAG_CORRECTION_SENT: 10
+[amcl-6] [INFO] [1793190418.210036945] [scout_01.amcl]: TAG_CORRECTION_APPLIED: 10 scan=58050003028
+[tag_amcl_adapter-15] [INFO] [1793190418.210772303] [scout_01.tag_amcl_adapter]: TAG_CORRECTION_APPLIED: 10
+[tag_amcl_adapter-15] [INFO] [1793190419.224532500] [scout_01.tag_amcl_adapter]: TAG_CORRECTION_SENT: 11
+[amcl-6] [INFO] [1793190419.343675128] [scout_01.amcl]: TAG_CORRECTION_APPLIED: 11 scan=58750003064
+[tag_amcl_adapter-15] [INFO] [1793190419.344621160] [scout_01.tag_amcl_adapter]: TAG_CORRECTION_APPLIED: 11
+[tag_amcl_adapter-15] [INFO] [1793190420.410791869] [scout_01.tag_amcl_adapter]: TAG_CORRECTION_SENT: 12
+[amcl-6] [INFO] [1793190420.545362131] [scout_01.amcl]: TAG_CORRECTION_APPLIED: 12 scan=59450003101
+[tag_amcl_adapter-15] [INFO] [1793190420.546175210] [scout_01.tag_amcl_adapter]: TAG_CORRECTION_APPLIED: 12
+[tag_amcl_adapter-15] [INFO] [1793190421.492139715] [scout_01.tag_amcl_adapter]: TAG_CORRECTION_SENT: 13
+[amcl-6] [INFO] [1793190421.605484132] [scout_01.amcl]: TAG_CORRECTION_APPLIED: 13 scan=60050003132
+[tag_amcl_adapter-15] [INFO] [1793190421.606063047] [scout_01.tag_amcl_adapter]: TAG_CORRECTION_APPLIED: 13
+[tag_amcl_adapter-15] [INFO] [1793190422.605749172] [scout_01.tag_amcl_adapter]: TAG_CORRECTION_SENT: 14
+[amcl-6] [INFO] [1793190422.697050970] [scout_01.amcl]: TAG_CORRECTION_APPLIED: 14 scan=60750003168
+[tag_amcl_adapter-15] [INFO] [1793190422.697949268] [scout_01.tag_amcl_adapter]: TAG_CORRECTION_APPLIED: 14
+[tag_amcl_adapter-15] [INFO] [1793190423.670001682] [scout_01.tag_amcl_adapter]: TAG_CORRECTION_SENT: 15
+[amcl-6] [INFO] [1793190423.782203285] [scout_01.amcl]: TAG_CORRECTION_APPLIED: 15 scan=61450003205
+[tag_amcl_adapter-15] [INFO] [1793190423.782837297] [scout_01.tag_amcl_adapter]: TAG_CORRECTION_APPLIED: 15
+[tag_amcl_adapter-15] [INFO] [1793190424.835026015] [scout_01.tag_amcl_adapter]: TAG_CORRECTION_SENT: 16
+[amcl-6] [INFO] [1793190424.986196925] [scout_01.amcl]: TAG_CORRECTION_APPLIED: 16 scan=62150003241
+[tag_amcl_adapter-15] [INFO] [1793190424.986912605] [scout_01.tag_amcl_adapter]: TAG_CORRECTION_APPLIED: 16
+[tag_amcl_adapter-15] [INFO] [1793190425.985058848] [scout_01.tag_amcl_adapter]: TAG_CORRECTION_SENT: 17
+[amcl-6] [INFO] [1793190426.124654077] [scout_01.amcl]: TAG_CORRECTION_APPLIED: 17 scan=62850003278
+[tag_amcl_adapter-15] [INFO] [1793190426.125610989] [scout_01.tag_amcl_adapter]: TAG_CORRECTION_APPLIED: 17
+[tag_amcl_adapter-15] [INFO] [1793190427.050384002] [scout_01.tag_amcl_adapter]: TAG_CORRECTION_SENT: 18
+[amcl-6] [INFO] [1793190427.177504055] [scout_01.amcl]: TAG_CORRECTION_APPLIED: 18 scan=63450003309
+[tag_amcl_adapter-15] [INFO] [1793190427.178063325] [scout_01.tag_amcl_adapter]: TAG_CORRECTION_APPLIED: 18
+[tag_amcl_adapter-15] [INFO] [1793190428.080301395] [scout_01.tag_amcl_adapter]: TAG_CORRECTION_SENT: 19
+[amcl-6] [INFO] [1793190428.150382414] [scout_01.amcl]: TAG_CORRECTION_APPLIED: 19 scan=63950003335
+[tag_amcl_adapter-15] [INFO] [1793190428.151298366] [scout_01.tag_amcl_adapter]: TAG_CORRECTION_APPLIED: 19
+[tag_amcl_adapter-15] [INFO] [1793190429.135430236] [scout_01.tag_amcl_adapter]: TAG_CORRECTION_SENT: 20
+[amcl-6] [INFO] [1793190429.260635263] [scout_01.amcl]: TAG_CORRECTION_APPLIED: 20 scan=64650003372
+[tag_amcl_adapter-15] [INFO] [1793190429.261471258] [scout_01.tag_amcl_adapter]: TAG_CORRECTION_APPLIED: 20
+[tag_amcl_adapter-15] [INFO] [1793190430.319882145] [scout_01.tag_amcl_adapter]: TAG_CORRECTION_SENT: 21
+[amcl-6] [INFO] [1793190430.466700785] [scout_01.amcl]: TAG_CORRECTION_APPLIED: 21 scan=65350003408
+[tag_amcl_adapter-15] [INFO] [1793190430.467462156] [scout_01.tag_amcl_adapter]: TAG_CORRECTION_APPLIED: 21
+[tag_amcl_adapter-15] [INFO] [1793190431.364833719] [scout_01.tag_amcl_adapter]: TAG_CORRECTION_SENT: 22
+[amcl-6] [INFO] [1793190431.453403661] [scout_01.amcl]: TAG_CORRECTION_APPLIED: 22 scan=65950003440
+[tag_amcl_adapter-15] [INFO] [1793190431.454150667] [scout_01.tag_amcl_adapter]: TAG_CORRECTION_APPLIED: 22
+[tag_amcl_adapter-15] [INFO] [1793190432.480172360] [scout_01.tag_amcl_adapter]: TAG_CORRECTION_SENT: 23
+[amcl-6] [INFO] [1793190432.610188537] [scout_01.amcl]: TAG_CORRECTION_APPLIED: 23 scan=66650003476
+[tag_amcl_adapter-15] [INFO] [1793190432.611155179] [scout_01.tag_amcl_adapter]: TAG_CORRECTION_APPLIED: 23
+[tag_amcl_adapter-15] [INFO] [1793190433.545484714] [scout_01.tag_amcl_adapter]: TAG_CORRECTION_SENT: 24
+[amcl-6] [INFO] [1793190433.665811450] [scout_01.amcl]: TAG_CORRECTION_APPLIED: 24 scan=67250003507
+[tag_amcl_adapter-15] [INFO] [1793190433.666728938] [scout_01.tag_amcl_adapter]: TAG_CORRECTION_APPLIED: 24
+[tag_amcl_adapter-15] [INFO] [1793190434.740431828] [scout_01.tag_amcl_adapter]: TAG_CORRECTION_SENT: 25
+[amcl-6] [INFO] [1793190434.852585878] [scout_01.amcl]: TAG_CORRECTION_APPLIED: 25 scan=67950003544
+[tag_amcl_adapter-15] [INFO] [1793190434.853490997] [scout_01.tag_amcl_adapter]: TAG_CORRECTION_APPLIED: 25
+[tag_amcl_adapter-15] [INFO] [1793190435.860140057] [scout_01.tag_amcl_adapter]: TAG_CORRECTION_SENT: 26
+[amcl-6] [INFO] [1793190435.983036979] [scout_01.amcl]: TAG_CORRECTION_APPLIED: 26 scan=68650003580
+[tag_amcl_adapter-15] [INFO] [1793190435.983958172] [scout_01.tag_amcl_adapter]: TAG_CORRECTION_APPLIED: 26
+[tag_amcl_adapter-15] [INFO] [1793190437.009915691] [scout_01.tag_amcl_adapter]: TAG_CORRECTION_SENT: 27
+[amcl-6] [INFO] [1793190437.139878705] [scout_01.amcl]: TAG_CORRECTION_APPLIED: 27 scan=69350003617
+[tag_amcl_adapter-15] [INFO] [1793190437.140413229] [scout_01.tag_amcl_adapter]: TAG_CORRECTION_APPLIED: 27
+[tag_amcl_adapter-15] [INFO] [1793190438.374702707] [scout_01.tag_amcl_adapter]: TAG_CORRECTION_SENT: 28
+[amcl-6] [INFO] [1793190438.494681850] [scout_01.amcl]: TAG_CORRECTION_APPLIED: 28 scan=70150003659
+[tag_amcl_adapter-15] [INFO] [1793190438.495194436] [scout_01.tag_amcl_adapter]: TAG_CORRECTION_APPLIED: 28
+[tag_amcl_adapter-15] [INFO] [1793190439.780034994] [scout_01.tag_amcl_adapter]: TAG_CORRECTION_SENT: 29
+[amcl-6] [INFO] [1793190439.874845260] [scout_01.amcl]: TAG_CORRECTION_APPLIED: 29 scan=70950003700
+[tag_amcl_adapter-15] [INFO] [1793190439.875404395] [scout_01.tag_amcl_adapter]: TAG_CORRECTION_APPLIED: 29
+[controller_server-7] [INFO] [1793190440.322159741] [scout_01.controller_server]: Reached the goal!
+[tag_amcl_adapter-15] [INFO] [1793190440.924405917] [scout_01.tag_amcl_adapter]: TAG_CORRECTION_SENT: 30
+[amcl-6] [INFO] [1793190441.071829625] [scout_01.amcl]: TAG_CORRECTION_APPLIED: 30 scan=71650003737
+[tag_amcl_adapter-15] [INFO] [1793190441.072394935] [scout_01.tag_amcl_adapter]: TAG_CORRECTION_APPLIED: 30
+[scout_node-14] [INFO] [1793190441.798939285] [scout_01.scout_survey]: 예찰 상태: SEGMENT_PROGRESS
+[scout_node-14] [INFO] [1793190441.961018517] [scout_01.scout_survey]: 예찰 상태: SEGMENT_COMPLETE
+[scout_node-14] [INFO] [1793190442.020954467] [scout_01.scout_survey]: 예찰 상태: NAVIGATION_MOVE
+[controller_server-7] [INFO] [1793190442.023384237] [scout_01.controller_server]: Received a goal, begin computing control effort.
+[tag_amcl_adapter-15] [INFO] [1793190442.229307733] [scout_01.tag_amcl_adapter]: TAG_CORRECTION_SENT: 31
+[amcl-6] [INFO] [1793190442.321210416] [scout_01.amcl]: TAG_CORRECTION_APPLIED: 31 scan=72450003779
+[tag_amcl_adapter-15] [INFO] [1793190442.322172559] [scout_01.tag_amcl_adapter]: TAG_CORRECTION_APPLIED: 31
+[tag_amcl_adapter-15] [INFO] [1793190443.370734306] [scout_01.tag_amcl_adapter]: TAG_CORRECTION_SENT: 32
+[amcl-6] [INFO] [1793190443.489955966] [scout_01.amcl]: TAG_CORRECTION_APPLIED: 32 scan=73150003815
+[tag_amcl_adapter-15] [INFO] [1793190443.490443712] [scout_01.tag_amcl_adapter]: TAG_CORRECTION_APPLIED: 32
+[tag_amcl_adapter-15] [INFO] [1793190444.517564944] [scout_01.tag_amcl_adapter]: TAG_CORRECTION_SENT: 33
+[amcl-6] [INFO] [1793190444.671295971] [scout_01.amcl]: TAG_CORRECTION_APPLIED: 33 scan=73850003852
+[tag_amcl_adapter-15] [INFO] [1793190444.672236351] [scout_01.tag_amcl_adapter]: TAG_CORRECTION_APPLIED: 33
+[tag_amcl_adapter-15] [INFO] [1793190445.695144996] [scout_01.tag_amcl_adapter]: TAG_CORRECTION_SENT: 34
+[amcl-6] [INFO] [1793190445.749837754] [scout_01.amcl]: TAG_CORRECTION_APPLIED: 34 scan=74550003888
+[tag_amcl_adapter-15] [INFO] [1793190445.750415486] [scout_01.tag_amcl_adapter]: TAG_CORRECTION_APPLIED: 34
+[tag_amcl_adapter-15] [INFO] [1793190446.835869393] [scout_01.tag_amcl_adapter]: TAG_CORRECTION_SENT: 35
+[amcl-6] [INFO] [1793190446.997753940] [scout_01.amcl]: TAG_CORRECTION_APPLIED: 35 scan=75250003925
+[tag_amcl_adapter-15] [INFO] [1793190446.998404762] [scout_01.tag_amcl_adapter]: TAG_CORRECTION_APPLIED: 35
+[tag_amcl_adapter-15] [INFO] [1793190448.015213211] [scout_01.tag_amcl_adapter]: TAG_CORRECTION_SENT: 36
+[amcl-6] [INFO] [1793190448.154938296] [scout_01.amcl]: TAG_CORRECTION_APPLIED: 36 scan=75950003961
+[tag_amcl_adapter-15] [INFO] [1793190448.155522953] [scout_01.tag_amcl_adapter]: TAG_CORRECTION_APPLIED: 36
+[tag_amcl_adapter-15] [INFO] [1793190449.069602856] [scout_01.tag_amcl_adapter]: TAG_CORRECTION_SENT: 37
+[amcl-6] [INFO] [1793190449.157987761] [scout_01.amcl]: TAG_CORRECTION_APPLIED: 37 scan=76550003992
+[tag_amcl_adapter-15] [INFO] [1793190449.159063932] [scout_01.tag_amcl_adapter]: TAG_CORRECTION_APPLIED: 37
+[tag_amcl_adapter-15] [INFO] [1793190450.381036258] [scout_01.tag_amcl_adapter]: TAG_CORRECTION_SENT: 38
+[amcl-6] [INFO] [1793190450.415306564] [scout_01.amcl]: TAG_CORRECTION_APPLIED: 38 scan=77250004029
+[tag_amcl_adapter-15] [INFO] [1793190450.415955412] [scout_01.tag_amcl_adapter]: TAG_CORRECTION_APPLIED: 38
+[tag_amcl_adapter-15] [INFO] [1793190451.449706616] [scout_01.tag_amcl_adapter]: TAG_CORRECTION_SENT: 39
+[amcl-6] [INFO] [1793190451.570837179] [scout_01.amcl]: TAG_CORRECTION_APPLIED: 39 scan=77950004065
+[tag_amcl_adapter-15] [INFO] [1793190451.571507833] [scout_01.tag_amcl_adapter]: TAG_CORRECTION_APPLIED: 39
+[tag_amcl_adapter-15] [INFO] [1793190452.642540035] [scout_01.tag_amcl_adapter]: TAG_CORRECTION_SENT: 40
+[amcl-6] [INFO] [1793190452.732189764] [scout_01.amcl]: TAG_CORRECTION_APPLIED: 40 scan=78650004102
+[tag_amcl_adapter-15] [INFO] [1793190452.732831634] [scout_01.tag_amcl_adapter]: TAG_CORRECTION_APPLIED: 40
+[tag_amcl_adapter-15] [INFO] [1793190453.806184441] [scout_01.tag_amcl_adapter]: TAG_CORRECTION_SENT: 41
+[amcl-6] [INFO] [1793190453.861858652] [scout_01.amcl]: TAG_CORRECTION_APPLIED: 41 scan=79350004138
+[tag_amcl_adapter-15] [INFO] [1793190453.862521044] [scout_01.tag_amcl_adapter]: TAG_CORRECTION_APPLIED: 41
+[tag_amcl_adapter-15] [INFO] [1793190454.914918880] [scout_01.tag_amcl_adapter]: TAG_CORRECTION_SENT: 42
+[amcl-6] [INFO] [1793190455.044694885] [scout_01.amcl]: TAG_CORRECTION_APPLIED: 42 scan=80050004175
+[tag_amcl_adapter-15] [INFO] [1793190455.045288893] [scout_01.tag_amcl_adapter]: TAG_CORRECTION_APPLIED: 42
+[tag_amcl_adapter-15] [INFO] [1793190456.111974160] [scout_01.tag_amcl_adapter]: TAG_CORRECTION_SENT: 43
+[amcl-6] [INFO] [1793190456.237099469] [scout_01.amcl]: TAG_CORRECTION_APPLIED: 43 scan=80750004211
+[tag_amcl_adapter-15] [INFO] [1793190456.238032002] [scout_01.tag_amcl_adapter]: TAG_CORRECTION_APPLIED: 43
+[tag_amcl_adapter-15] [INFO] [1793190457.235897395] [scout_01.tag_amcl_adapter]: TAG_CORRECTION_SENT: 44
+[amcl-6] [INFO] [1793190457.334850578] [scout_01.amcl]: TAG_CORRECTION_APPLIED: 44 scan=81450004248
+[tag_amcl_adapter-15] [INFO] [1793190457.335538153] [scout_01.tag_amcl_adapter]: TAG_CORRECTION_APPLIED: 44
+[tag_amcl_adapter-15] [INFO] [1793190458.336013922] [scout_01.tag_amcl_adapter]: TAG_CORRECTION_SENT: 45
+[amcl-6] [INFO] [1793190458.499615426] [scout_01.amcl]: TAG_CORRECTION_APPLIED: 45 scan=82150004284
+[tag_amcl_adapter-15] [INFO] [1793190458.500171925] [scout_01.tag_amcl_adapter]: TAG_CORRECTION_APPLIED: 45
+[tag_amcl_adapter-15] [INFO] [1793190459.416596937] [scout_01.tag_amcl_adapter]: TAG_CORRECTION_SENT: 46
+[amcl-6] [INFO] [1793190459.549753462] [scout_01.amcl]: TAG_CORRECTION_APPLIED: 46 scan=82750004316
+[tag_amcl_adapter-15] [INFO] [1793190459.550307921] [scout_01.tag_amcl_adapter]: TAG_CORRECTION_APPLIED: 46
+[tag_amcl_adapter-15] [INFO] [1793190460.575535481] [scout_01.tag_amcl_adapter]: TAG_CORRECTION_SENT: 47
+[amcl-6] [INFO] [1793190460.660477258] [scout_01.amcl]: TAG_CORRECTION_APPLIED: 47 scan=83450004352
+[tag_amcl_adapter-15] [INFO] [1793190460.661059652] [scout_01.tag_amcl_adapter]: TAG_CORRECTION_APPLIED: 47
+[tag_amcl_adapter-15] [INFO] [1793190461.654409322] [scout_01.tag_amcl_adapter]: TAG_CORRECTION_SENT: 48
+[amcl-6] [INFO] [1793190461.749953526] [scout_01.amcl]: TAG_CORRECTION_APPLIED: 48 scan=84150004389
+[tag_amcl_adapter-15] [INFO] [1793190461.750713955] [scout_01.tag_amcl_adapter]: TAG_CORRECTION_APPLIED: 48
+[tag_amcl_adapter-15] [INFO] [1793190462.811037288] [scout_01.tag_amcl_adapter]: TAG_CORRECTION_SENT: 49
+[amcl-6] [INFO] [1793190462.905338779] [scout_01.amcl]: TAG_CORRECTION_APPLIED: 49 scan=84850004425
+[tag_amcl_adapter-15] [INFO] [1793190462.906220728] [scout_01.tag_amcl_adapter]: TAG_CORRECTION_APPLIED: 49
+[tag_amcl_adapter-15] [INFO] [1793190463.989956307] [scout_01.tag_amcl_adapter]: TAG_CORRECTION_SENT: 50
+[amcl-6] [INFO] [1793190464.114902146] [scout_01.amcl]: TAG_CORRECTION_APPLIED: 50 scan=85550004462
+[tag_amcl_adapter-15] [INFO] [1793190464.115484660] [scout_01.tag_amcl_adapter]: TAG_CORRECTION_APPLIED: 50
+[tag_amcl_adapter-15] [INFO] [1793190465.089901439] [scout_01.tag_amcl_adapter]: TAG_CORRECTION_SENT: 51
+[amcl-6] [INFO] [1793190465.230246060] [scout_01.amcl]: TAG_CORRECTION_APPLIED: 51 scan=86250004498
+[tag_amcl_adapter-15] [INFO] [1793190465.230859655] [scout_01.tag_amcl_adapter]: TAG_CORRECTION_APPLIED: 51
+[tag_amcl_adapter-15] [INFO] [1793190466.185251403] [scout_01.tag_amcl_adapter]: TAG_CORRECTION_SENT: 52
+[amcl-6] [INFO] [1793190466.272544215] [scout_01.amcl]: TAG_CORRECTION_APPLIED: 52 scan=86850004530
+[tag_amcl_adapter-15] [INFO] [1793190466.273376617] [scout_01.tag_amcl_adapter]: TAG_CORRECTION_APPLIED: 52
+[tag_amcl_adapter-15] [INFO] [1793190467.296089639] [scout_01.tag_amcl_adapter]: TAG_CORRECTION_SENT: 53
+[amcl-6] [INFO] [1793190467.395573356] [scout_01.amcl]: TAG_CORRECTION_APPLIED: 53 scan=87550004566
+[tag_amcl_adapter-15] [INFO] [1793190467.396153105] [scout_01.tag_amcl_adapter]: TAG_CORRECTION_APPLIED: 53
+[tag_amcl_adapter-15] [INFO] [1793190468.419825432] [scout_01.tag_amcl_adapter]: TAG_CORRECTION_SENT: 54
+[amcl-6] [INFO] [1793190468.527689923] [scout_01.amcl]: TAG_CORRECTION_APPLIED: 54 scan=88250004603
+[tag_amcl_adapter-15] [INFO] [1793190468.528503184] [scout_01.tag_amcl_adapter]: TAG_CORRECTION_APPLIED: 54
+[tag_amcl_adapter-15] [INFO] [1793190469.554484389] [scout_01.tag_amcl_adapter]: TAG_CORRECTION_SENT: 55
+[amcl-6] [INFO] [1793190469.661467321] [scout_01.amcl]: TAG_CORRECTION_APPLIED: 55 scan=88950004639
+[tag_amcl_adapter-15] [INFO] [1793190469.662360381] [scout_01.tag_amcl_adapter]: TAG_CORRECTION_APPLIED: 55
+[controller_server-7] [INFO] [1793190469.923589756] [scout_01.controller_server]: Reached the goal!
+[tag_amcl_adapter-15] [INFO] [1793190470.680915277] [scout_01.tag_amcl_adapter]: TAG_CORRECTION_SENT: 56
+[amcl-6] [INFO] [1793190470.791762234] [scout_01.amcl]: TAG_CORRECTION_APPLIED: 56 scan=89650004676
+[tag_amcl_adapter-15] [INFO] [1793190470.792263198] [scout_01.tag_amcl_adapter]: TAG_CORRECTION_APPLIED: 56
+[scout_node-14] [INFO] [1793190471.458549237] [scout_01.scout_survey]: 예찰 상태: SEGMENT_PROGRESS
+[scout_node-14] [INFO] [1793190471.638667864] [scout_01.scout_survey]: 예찰 상태: SEGMENT_COMPLETE
+[scout_node-14] [INFO] [1793190471.680108644] [scout_01.scout_survey]: 예찰 상태: NAVIGATION_MOVE
+[controller_server-7] [INFO] [1793190471.682192470] [scout_01.controller_server]: Received a goal, begin computing control effort.
+[tag_amcl_adapter-15] [INFO] [1793190472.016033038] [scout_01.tag_amcl_adapter]: TAG_CORRECTION_SENT: 57
+[amcl-6] [INFO] [1793190472.154124081] [scout_01.amcl]: TAG_CORRECTION_APPLIED: 57 scan=90450004717
+[tag_amcl_adapter-15] [INFO] [1793190472.154720988] [scout_01.tag_amcl_adapter]: TAG_CORRECTION_APPLIED: 57
+[tag_amcl_adapter-15] [INFO] [1793190473.209676588] [scout_01.tag_amcl_adapter]: TAG_CORRECTION_SENT: 58
+[amcl-6] [INFO] [1793190473.331893340] [scout_01.amcl]: TAG_CORRECTION_APPLIED: 58 scan=91150004754
+[tag_amcl_adapter-15] [INFO] [1793190473.332862307] [scout_01.tag_amcl_adapter]: TAG_CORRECTION_APPLIED: 58
+[tag_amcl_adapter-15] [INFO] [1793190474.365264402] [scout_01.tag_amcl_adapter]: TAG_CORRECTION_SENT: 59
+[amcl-6] [INFO] [1793190474.493576424] [scout_01.amcl]: TAG_CORRECTION_APPLIED: 59 scan=91850004790
+[tag_amcl_adapter-15] [INFO] [1793190474.494320916] [scout_01.tag_amcl_adapter]: TAG_CORRECTION_APPLIED: 59
+[tag_amcl_adapter-15] [INFO] [1793190475.514354075] [scout_01.tag_amcl_adapter]: TAG_CORRECTION_SENT: 60
+[amcl-6] [INFO] [1793190475.645202859] [scout_01.amcl]: TAG_CORRECTION_APPLIED: 60 scan=92450004822
+[tag_amcl_adapter-15] [INFO] [1793190475.646088568] [scout_01.tag_amcl_adapter]: TAG_CORRECTION_APPLIED: 60
+[tag_amcl_adapter-15] [INFO] [1793190476.669825286] [scout_01.tag_amcl_adapter]: TAG_CORRECTION_SENT: 61
+[amcl-6] [INFO] [1793190476.777734455] [scout_01.amcl]: TAG_CORRECTION_APPLIED: 61 scan=93150004858
+[tag_amcl_adapter-15] [INFO] [1793190476.778452992] [scout_01.tag_amcl_adapter]: TAG_CORRECTION_APPLIED: 61
+[tag_amcl_adapter-15] [INFO] [1793190477.717022392] [scout_01.tag_amcl_adapter]: TAG_CORRECTION_SENT: 62
+[amcl-6] [INFO] [1793190477.837270719] [scout_01.amcl]: TAG_CORRECTION_APPLIED: 62 scan=93750004889
+[tag_amcl_adapter-15] [INFO] [1793190477.837913160] [scout_01.tag_amcl_adapter]: TAG_CORRECTION_APPLIED: 62
+[tag_amcl_adapter-15] [INFO] [1793190478.819911641] [scout_01.tag_amcl_adapter]: TAG_CORRECTION_SENT: 63
+[amcl-6] [INFO] [1793190478.947946935] [scout_01.amcl]: TAG_CORRECTION_APPLIED: 63 scan=94450004926
+[tag_amcl_adapter-15] [INFO] [1793190478.948911219] [scout_01.tag_amcl_adapter]: TAG_CORRECTION_APPLIED: 63
+[tag_amcl_adapter-15] [INFO] [1793190479.909838421] [scout_01.tag_amcl_adapter]: TAG_CORRECTION_SENT: 64
+[amcl-6] [INFO] [1793190480.006169977] [scout_01.amcl]: TAG_CORRECTION_APPLIED: 64 scan=95050004957
+[tag_amcl_adapter-15] [INFO] [1793190480.006799450] [scout_01.tag_amcl_adapter]: TAG_CORRECTION_APPLIED: 64
+[tag_amcl_adapter-15] [INFO] [1793190481.116693835] [scout_01.tag_amcl_adapter]: TAG_CORRECTION_SENT: 65
+[amcl-6] [INFO] [1793190481.244760764] [scout_01.amcl]: TAG_CORRECTION_APPLIED: 65 scan=95750004994
+[tag_amcl_adapter-15] [INFO] [1793190481.245416299] [scout_01.tag_amcl_adapter]: TAG_CORRECTION_APPLIED: 65
+[tag_amcl_adapter-15] [INFO] [1793190482.350039263] [scout_01.tag_amcl_adapter]: TAG_CORRECTION_SENT: 66
+[amcl-6] [INFO] [1793190482.426818393] [scout_01.amcl]: TAG_CORRECTION_APPLIED: 66 scan=96450005030
+[tag_amcl_adapter-15] [INFO] [1793190482.427860827] [scout_01.tag_amcl_adapter]: TAG_CORRECTION_APPLIED: 66
+[tag_amcl_adapter-15] [INFO] [1793190483.446775693] [scout_01.tag_amcl_adapter]: TAG_CORRECTION_SENT: 67
+[amcl-6] [INFO] [1793190483.597137833] [scout_01.amcl]: TAG_CORRECTION_APPLIED: 67 scan=97150005067
+[tag_amcl_adapter-15] [INFO] [1793190483.597802424] [scout_01.tag_amcl_adapter]: TAG_CORRECTION_APPLIED: 67
+[tag_amcl_adapter-15] [INFO] [1793190484.601602719] [scout_01.tag_amcl_adapter]: TAG_CORRECTION_SENT: 68
+[amcl-6] [INFO] [1793190484.730895123] [scout_01.amcl]: TAG_CORRECTION_APPLIED: 68 scan=97750005098
+[tag_amcl_adapter-15] [INFO] [1793190484.731876567] [scout_01.tag_amcl_adapter]: TAG_CORRECTION_APPLIED: 68
+[tag_amcl_adapter-15] [INFO] [1793190485.760837465] [scout_01.tag_amcl_adapter]: TAG_CORRECTION_SENT: 69
+[amcl-6] [INFO] [1793190485.850309925] [scout_01.amcl]: TAG_CORRECTION_APPLIED: 69 scan=98450005135
+[tag_amcl_adapter-15] [INFO] [1793190485.851196082] [scout_01.tag_amcl_adapter]: TAG_CORRECTION_APPLIED: 69
+[tag_amcl_adapter-15] [INFO] [1793190486.794924777] [scout_01.tag_amcl_adapter]: TAG_CORRECTION_SENT: 70
+[amcl-6] [INFO] [1793190486.920659224] [scout_01.amcl]: TAG_CORRECTION_APPLIED: 70 scan=99050005166
+[tag_amcl_adapter-15] [INFO] [1793190486.921575800] [scout_01.tag_amcl_adapter]: TAG_CORRECTION_APPLIED: 70
+[tag_amcl_adapter-15] [INFO] [1793190487.909768929] [scout_01.tag_amcl_adapter]: TAG_CORRECTION_SENT: 71
+[amcl-6] [INFO] [1793190488.036456808] [scout_01.amcl]: TAG_CORRECTION_APPLIED: 71 scan=99750005202
+[tag_amcl_adapter-15] [INFO] [1793190488.037068444] [scout_01.tag_amcl_adapter]: TAG_CORRECTION_APPLIED: 71
+[tag_amcl_adapter-15] [INFO] [1793190488.982341600] [scout_01.tag_amcl_adapter]: TAG_CORRECTION_SENT: 72
+[amcl-6] [INFO] [1793190489.015031619] [scout_01.amcl]: TAG_CORRECTION_APPLIED: 72 scan=100350005234
+[tag_amcl_adapter-15] [INFO] [1793190489.015626884] [scout_01.tag_amcl_adapter]: TAG_CORRECTION_APPLIED: 72
+[tag_amcl_adapter-15] [INFO] [1793190490.136337142] [scout_01.tag_amcl_adapter]: TAG_CORRECTION_SENT: 73
+[amcl-6] [INFO] [1793190490.267032941] [scout_01.amcl]: TAG_CORRECTION_APPLIED: 73 scan=101050005270
+[tag_amcl_adapter-15] [INFO] [1793190490.267729165] [scout_01.tag_amcl_adapter]: TAG_CORRECTION_APPLIED: 73
+[tag_amcl_adapter-15] [INFO] [1793190491.305897195] [scout_01.tag_amcl_adapter]: TAG_CORRECTION_SENT: 74
+[amcl-6] [INFO] [1793190491.431493714] [scout_01.amcl]: TAG_CORRECTION_APPLIED: 74 scan=101750005307
+[tag_amcl_adapter-15] [INFO] [1793190491.432365651] [scout_01.tag_amcl_adapter]: TAG_CORRECTION_APPLIED: 74
+[tag_amcl_adapter-15] [INFO] [1793190492.335825412] [scout_01.tag_amcl_adapter]: TAG_CORRECTION_SENT: 75
+[amcl-6] [INFO] [1793190492.420512175] [scout_01.amcl]: TAG_CORRECTION_APPLIED: 75 scan=102350005338
+[tag_amcl_adapter-15] [INFO] [1793190492.421164150] [scout_01.tag_amcl_adapter]: TAG_CORRECTION_APPLIED: 75
+[tag_amcl_adapter-15] [INFO] [1793190493.554610755] [scout_01.tag_amcl_adapter]: TAG_CORRECTION_SENT: 76
+[amcl-6] [INFO] [1793190493.684764277] [scout_01.amcl]: TAG_CORRECTION_APPLIED: 76 scan=103050005374
+[tag_amcl_adapter-15] [INFO] [1793190493.685723480] [scout_01.tag_amcl_adapter]: TAG_CORRECTION_APPLIED: 76
+[tag_amcl_adapter-15] [INFO] [1793190494.684761542] [scout_01.tag_amcl_adapter]: TAG_CORRECTION_SENT: 77
+[amcl-6] [INFO] [1793190494.774739200] [scout_01.amcl]: TAG_CORRECTION_APPLIED: 77 scan=103750005411
+[tag_amcl_adapter-15] [INFO] [1793190494.775653711] [scout_01.tag_amcl_adapter]: TAG_CORRECTION_APPLIED: 77
+[tag_amcl_adapter-15] [INFO] [1793190495.906568193] [scout_01.tag_amcl_adapter]: TAG_CORRECTION_SENT: 78
+[amcl-6] [INFO] [1793190496.034950371] [scout_01.amcl]: TAG_CORRECTION_APPLIED: 78 scan=104450005447
+[tag_amcl_adapter-15] [INFO] [1793190496.035530921] [scout_01.tag_amcl_adapter]: TAG_CORRECTION_APPLIED: 78
+[tag_amcl_adapter-15] [INFO] [1793190496.961148158] [scout_01.tag_amcl_adapter]: TAG_CORRECTION_SENT: 79
+[amcl-6] [INFO] [1793190497.040618367] [scout_01.amcl]: TAG_CORRECTION_APPLIED: 79 scan=105050005479
+[tag_amcl_adapter-15] [INFO] [1793190497.041540104] [scout_01.tag_amcl_adapter]: TAG_CORRECTION_APPLIED: 79
+[tag_amcl_adapter-15] [INFO] [1793190498.121014483] [scout_01.tag_amcl_adapter]: TAG_CORRECTION_SENT: 80
+[amcl-6] [INFO] [1793190498.254842807] [scout_01.amcl]: TAG_CORRECTION_APPLIED: 80 scan=105750005515
+[tag_amcl_adapter-15] [INFO] [1793190498.255369809] [scout_01.tag_amcl_adapter]: TAG_CORRECTION_APPLIED: 80
+[tag_amcl_adapter-15] [INFO] [1793190499.195077662] [scout_01.tag_amcl_adapter]: TAG_CORRECTION_SENT: 81
+[amcl-6] [INFO] [1793190499.319780865] [scout_01.amcl]: TAG_CORRECTION_APPLIED: 81 scan=106350005547
+[tag_amcl_adapter-15] [INFO] [1793190499.320568247] [scout_01.tag_amcl_adapter]: TAG_CORRECTION_APPLIED: 81
+[controller_server-7] [INFO] [1793190499.482451169] [scout_01.controller_server]: Reached the goal!
+[tag_amcl_adapter-15] [INFO] [1793190500.250048300] [scout_01.tag_amcl_adapter]: TAG_CORRECTION_SENT: 82
+[amcl-6] [INFO] [1793190500.344123327] [scout_01.amcl]: TAG_CORRECTION_APPLIED: 82 scan=106950005578
+[tag_amcl_adapter-15] [INFO] [1793190500.345164472] [scout_01.tag_amcl_adapter]: TAG_CORRECTION_APPLIED: 82
+[scout_node-14] [INFO] [1793190501.238486028] [scout_01.scout_survey]: 예찰 상태: SEGMENT_PROGRESS
+[scout_node-14] [INFO] [1793190501.280753336] [scout_01.scout_survey]: 예찰 상태: SEGMENT_COMPLETE
+[scout_node-14] [INFO] [1793190501.340429019] [scout_01.scout_survey]: 예찰 상태: NAVIGATION_MOVE
+[controller_server-7] [INFO] [1793190501.342664947] [scout_01.controller_server]: Received a goal, begin computing control effort.
+[tag_amcl_adapter-15] [INFO] [1793190501.477485010] [scout_01.tag_amcl_adapter]: TAG_CORRECTION_SENT: 83
+[amcl-6] [INFO] [1793190501.570010251] [scout_01.amcl]: TAG_CORRECTION_APPLIED: 83 scan=107650005614
+[tag_amcl_adapter-15] [INFO] [1793190501.570698315] [scout_01.tag_amcl_adapter]: TAG_CORRECTION_APPLIED: 83
+[tag_amcl_adapter-15] [INFO] [1793190502.620269823] [scout_01.tag_amcl_adapter]: TAG_CORRECTION_SENT: 84
+[amcl-6] [INFO] [1793190502.714865740] [scout_01.amcl]: TAG_CORRECTION_APPLIED: 84 scan=108350005651
+[tag_amcl_adapter-15] [INFO] [1793190502.715754296] [scout_01.tag_amcl_adapter]: TAG_CORRECTION_APPLIED: 84
+[tag_amcl_adapter-15] [INFO] [1793190503.785322900] [scout_01.tag_amcl_adapter]: TAG_CORRECTION_SENT: 85
+[amcl-6] [INFO] [1793190503.869784940] [scout_01.amcl]: TAG_CORRECTION_APPLIED: 85 scan=109050005687
+[tag_amcl_adapter-15] [INFO] [1793190503.870677328] [scout_01.tag_amcl_adapter]: TAG_CORRECTION_APPLIED: 85
+[tag_amcl_adapter-15] [INFO] [1793190504.982832978] [scout_01.tag_amcl_adapter]: TAG_CORRECTION_SENT: 86
+[amcl-6] [INFO] [1793190505.070220508] [scout_01.amcl]: TAG_CORRECTION_APPLIED: 86 scan=109750005724
+[tag_amcl_adapter-15] [INFO] [1793190505.070742079] [scout_01.tag_amcl_adapter]: TAG_CORRECTION_APPLIED: 86
+[tag_amcl_adapter-15] [INFO] [1793190506.055413846] [scout_01.tag_amcl_adapter]: TAG_CORRECTION_SENT: 87
+[amcl-6] [INFO] [1793190506.190335061] [scout_01.amcl]: TAG_CORRECTION_APPLIED: 87 scan=110450005760
+[tag_amcl_adapter-15] [INFO] [1793190506.190901208] [scout_01.tag_amcl_adapter]: TAG_CORRECTION_APPLIED: 87
+[tag_amcl_adapter-15] [INFO] [1793190507.241252284] [scout_01.tag_amcl_adapter]: TAG_CORRECTION_SENT: 88
+[amcl-6] [INFO] [1793190507.382097409] [scout_01.amcl]: TAG_CORRECTION_APPLIED: 88 scan=111150005797
+[tag_amcl_adapter-15] [INFO] [1793190507.382930374] [scout_01.tag_amcl_adapter]: TAG_CORRECTION_APPLIED: 88
+[tag_amcl_adapter-15] [INFO] [1793190508.425605770] [scout_01.tag_amcl_adapter]: TAG_CORRECTION_SENT: 89
+[amcl-6] [INFO] [1793190508.562961331] [scout_01.amcl]: TAG_CORRECTION_APPLIED: 89 scan=111850005833
+[tag_amcl_adapter-15] [INFO] [1793190508.563848242] [scout_01.tag_amcl_adapter]: TAG_CORRECTION_APPLIED: 89
+[tag_amcl_adapter-15] [INFO] [1793190509.665116371] [scout_01.tag_amcl_adapter]: TAG_CORRECTION_SENT: 90
+[amcl-6] [INFO] [1793190509.744861854] [scout_01.amcl]: TAG_CORRECTION_APPLIED: 90 scan=112550005870
+[tag_amcl_adapter-15] [INFO] [1793190509.745731109] [scout_01.tag_amcl_adapter]: TAG_CORRECTION_APPLIED: 90
+[tag_amcl_adapter-15] [INFO] [1793190510.815066832] [scout_01.tag_amcl_adapter]: TAG_CORRECTION_SENT: 91
+[amcl-6] [INFO] [1793190510.919582531] [scout_01.amcl]: TAG_CORRECTION_APPLIED: 91 scan=113250005906
+[tag_amcl_adapter-15] [INFO] [1793190510.920531644] [scout_01.tag_amcl_adapter]: TAG_CORRECTION_APPLIED: 91
+[tag_amcl_adapter-15] [INFO] [1793190512.020302485] [scout_01.tag_amcl_adapter]: TAG_CORRECTION_SENT: 92
+[amcl-6] [INFO] [1793190512.094795307] [scout_01.amcl]: TAG_CORRECTION_APPLIED: 92 scan=113950005943
+[tag_amcl_adapter-15] [INFO] [1793190512.095449973] [scout_01.tag_amcl_adapter]: TAG_CORRECTION_APPLIED: 92
+[tag_amcl_adapter-15] [INFO] [1793190513.276042176] [scout_01.tag_amcl_adapter]: TAG_CORRECTION_SENT: 93
+[amcl-6] [INFO] [1793190513.405960602] [scout_01.amcl]: TAG_CORRECTION_APPLIED: 93 scan=114650005979
+[tag_amcl_adapter-15] [INFO] [1793190513.406592385] [scout_01.tag_amcl_adapter]: TAG_CORRECTION_APPLIED: 93
+[tag_amcl_adapter-15] [INFO] [1793190514.315569142] [scout_01.tag_amcl_adapter]: TAG_CORRECTION_SENT: 94
+[amcl-6] [INFO] [1793190514.413047521] [scout_01.amcl]: TAG_CORRECTION_APPLIED: 94 scan=115250006011
+[tag_amcl_adapter-15] [INFO] [1793190514.413700215] [scout_01.tag_amcl_adapter]: TAG_CORRECTION_APPLIED: 94
+[tag_amcl_adapter-15] [INFO] [1793190515.475559803] [scout_01.tag_amcl_adapter]: TAG_CORRECTION_SENT: 95
+[amcl-6] [INFO] [1793190515.620061907] [scout_01.amcl]: TAG_CORRECTION_APPLIED: 95 scan=115950006047
+[tag_amcl_adapter-15] [INFO] [1793190515.621007610] [scout_01.tag_amcl_adapter]: TAG_CORRECTION_APPLIED: 95
+[tag_amcl_adapter-15] [INFO] [1793190516.529640339] [scout_01.tag_amcl_adapter]: TAG_CORRECTION_SENT: 96
+[amcl-6] [INFO] [1793190516.613493471] [scout_01.amcl]: TAG_CORRECTION_APPLIED: 96 scan=116550006079
+[tag_amcl_adapter-15] [INFO] [1793190516.614034222] [scout_01.tag_amcl_adapter]: TAG_CORRECTION_APPLIED: 96
+[tag_amcl_adapter-15] [INFO] [1793190518.304740016] [scout_01.tag_amcl_adapter]: TAG_CORRECTION_SENT: 97
+[amcl-6] [INFO] [1793190518.430189233] [scout_01.amcl]: TAG_CORRECTION_APPLIED: 97 scan=117650006136
+[tag_amcl_adapter-15] [INFO] [1793190518.430854062] [scout_01.tag_amcl_adapter]: TAG_CORRECTION_APPLIED: 97
+[tag_amcl_adapter-15] [INFO] [1793190519.385018859] [scout_01.tag_amcl_adapter]: TAG_CORRECTION_SENT: 98
+[amcl-6] [INFO] [1793190519.455174104] [scout_01.amcl]: TAG_CORRECTION_APPLIED: 98 scan=118250006167
+[tag_amcl_adapter-15] [INFO] [1793190519.455898377] [scout_01.tag_amcl_adapter]: TAG_CORRECTION_APPLIED: 98
+[tag_amcl_adapter-15] [INFO] [1793190520.585901423] [scout_01.tag_amcl_adapter]: TAG_CORRECTION_SENT: 99
+[amcl-6] [INFO] [1793190520.670156154] [scout_01.amcl]: TAG_CORRECTION_APPLIED: 99 scan=118950006204
+[tag_amcl_adapter-15] [INFO] [1793190520.670913898] [scout_01.tag_amcl_adapter]: TAG_CORRECTION_APPLIED: 99
+[tag_amcl_adapter-15] [INFO] [1793190521.714969762] [scout_01.tag_amcl_adapter]: TAG_CORRECTION_SENT: 100
+[amcl-6] [INFO] [1793190521.838179790] [scout_01.amcl]: TAG_CORRECTION_APPLIED: 100 scan=119650006240
+[tag_amcl_adapter-15] [INFO] [1793190521.839048723] [scout_01.tag_amcl_adapter]: TAG_CORRECTION_APPLIED: 100
+[tag_amcl_adapter-15] [INFO] [1793190522.850048781] [scout_01.tag_amcl_adapter]: TAG_CORRECTION_SENT: 101
+[amcl-6] [INFO] [1793190522.972673231] [scout_01.amcl]: TAG_CORRECTION_APPLIED: 101 scan=120350006277
+[tag_amcl_adapter-15] [INFO] [1793190522.973561793] [scout_01.tag_amcl_adapter]: TAG_CORRECTION_APPLIED: 101
+[tag_amcl_adapter-15] [INFO] [1793190523.890864209] [scout_01.tag_amcl_adapter]: TAG_CORRECTION_SENT: 102
+[amcl-6] [INFO] [1793190523.994653718] [scout_01.amcl]: TAG_CORRECTION_APPLIED: 102 scan=120950006308
+[tag_amcl_adapter-15] [INFO] [1793190523.995164431] [scout_01.tag_amcl_adapter]: TAG_CORRECTION_APPLIED: 102
+[tag_amcl_adapter-15] [INFO] [1793190525.065590009] [scout_01.tag_amcl_adapter]: TAG_CORRECTION_SENT: 103
+[amcl-6] [INFO] [1793190525.147810521] [scout_01.amcl]: TAG_CORRECTION_APPLIED: 103 scan=121650006345
+[tag_amcl_adapter-15] [INFO] [1793190525.148342061] [scout_01.tag_amcl_adapter]: TAG_CORRECTION_APPLIED: 103
+[tag_amcl_adapter-15] [INFO] [1793190526.205026439] [scout_01.tag_amcl_adapter]: TAG_CORRECTION_SENT: 104
+[amcl-6] [INFO] [1793190526.280740152] [scout_01.amcl]: TAG_CORRECTION_APPLIED: 104 scan=122350006381
+[tag_amcl_adapter-15] [INFO] [1793190526.281488565] [scout_01.tag_amcl_adapter]: TAG_CORRECTION_APPLIED: 104
+[controller_server-7] [INFO] [1793190527.243204112] [scout_01.controller_server]: Reached the goal!
+[tag_amcl_adapter-15] [INFO] [1793190527.370037758] [scout_01.tag_amcl_adapter]: TAG_CORRECTION_SENT: 105
+[amcl-6] [INFO] [1793190527.501366259] [scout_01.amcl]: TAG_CORRECTION_APPLIED: 105 scan=122950006412
+[tag_amcl_adapter-15] [INFO] [1793190527.502234448] [scout_01.tag_amcl_adapter]: TAG_CORRECTION_APPLIED: 105
+[tag_amcl_adapter-15] [INFO] [1793190528.550742106] [scout_01.tag_amcl_adapter]: TAG_CORRECTION_SENT: 106
+[amcl-6] [INFO] [1793190528.670549802] [scout_01.amcl]: TAG_CORRECTION_APPLIED: 106 scan=123650006449
+[tag_amcl_adapter-15] [INFO] [1793190528.671409736] [scout_01.tag_amcl_adapter]: TAG_CORRECTION_APPLIED: 106
+[scout_node-14] [INFO] [1793190528.778749686] [scout_01.scout_survey]: 예찰 상태: SEGMENT_PROGRESS
+[scout_node-14] [INFO] [1793190528.940316026] [scout_01.scout_survey]: 예찰 상태: SEGMENT_COMPLETE
+[scout_node-14] [INFO] [1793190529.003026565] [scout_01.scout_survey]: 예찰 상태: SECTION_COMPLETE
+[scout_node-14] [INFO] [1793190529.087842842] [scout_01.scout_survey]: 스테이션 복귀 시작: task_id=cycle_scout_return_24267d4ee8df, station_id=STATION_SCOUT_01
+[controller_server-7] [INFO] [1793190529.161586900] [scout_01.controller_server]: Received a goal, begin computing control effort.
+[tag_amcl_adapter-15] [INFO] [1793190529.714297933] [scout_01.tag_amcl_adapter]: TAG_CORRECTION_SENT: 107
+[amcl-6] [INFO] [1793190529.799751191] [scout_01.amcl]: TAG_CORRECTION_APPLIED: 107 scan=124350006485
+[tag_amcl_adapter-15] [INFO] [1793190529.800234527] [scout_01.tag_amcl_adapter]: TAG_CORRECTION_APPLIED: 107
+[tag_amcl_adapter-15] [INFO] [1793190530.860459584] [scout_01.tag_amcl_adapter]: TAG_CORRECTION_SENT: 108
+[amcl-6] [INFO] [1793190531.023310999] [scout_01.amcl]: TAG_CORRECTION_APPLIED: 108 scan=125050006522
+[tag_amcl_adapter-15] [INFO] [1793190531.024042778] [scout_01.tag_amcl_adapter]: TAG_CORRECTION_APPLIED: 108
+[tag_amcl_adapter-15] [INFO] [1793190532.440252824] [scout_01.tag_amcl_adapter]: TAG_CORRECTION_SENT: 109
+[amcl-6] [INFO] [1793190532.528150558] [scout_01.amcl]: TAG_CORRECTION_APPLIED: 109 scan=125950006569
+[tag_amcl_adapter-15] [INFO] [1793190532.528718003] [scout_01.tag_amcl_adapter]: TAG_CORRECTION_APPLIED: 109
+[tag_amcl_adapter-15] [INFO] [1793190533.525010017] [scout_01.tag_amcl_adapter]: TAG_CORRECTION_SENT: 110
+[amcl-6] [INFO] [1793190533.657086873] [scout_01.amcl]: TAG_CORRECTION_APPLIED: 110 scan=126650006605
+[tag_amcl_adapter-15] [INFO] [1793190533.658147977] [scout_01.tag_amcl_adapter]: TAG_CORRECTION_APPLIED: 110
+[tag_amcl_adapter-15] [INFO] [1793190534.651131847] [scout_01.tag_amcl_adapter]: TAG_CORRECTION_SENT: 111
+[amcl-6] [INFO] [1793190534.719860887] [scout_01.amcl]: TAG_CORRECTION_APPLIED: 111 scan=127350006642
+[tag_amcl_adapter-15] [INFO] [1793190534.720823939] [scout_01.tag_amcl_adapter]: TAG_CORRECTION_APPLIED: 111
+[tag_amcl_adapter-15] [INFO] [1793190535.760763058] [scout_01.tag_amcl_adapter]: TAG_CORRECTION_SENT: 112
+[amcl-6] [INFO] [1793190535.835432079] [scout_01.amcl]: TAG_CORRECTION_APPLIED: 112 scan=128050006678
+[tag_amcl_adapter-15] [INFO] [1793190535.836366024] [scout_01.tag_amcl_adapter]: TAG_CORRECTION_APPLIED: 112
+[tag_amcl_adapter-15] [INFO] [1793190536.820105837] [scout_01.tag_amcl_adapter]: TAG_CORRECTION_SENT: 113
+[amcl-6] [INFO] [1793190536.977220773] [scout_01.amcl]: TAG_CORRECTION_APPLIED: 113 scan=128650006710
+[tag_amcl_adapter-15] [INFO] [1793190536.978188230] [scout_01.tag_amcl_adapter]: TAG_CORRECTION_APPLIED: 113
+[tag_amcl_adapter-15] [INFO] [1793190537.919709561] [scout_01.tag_amcl_adapter]: TAG_CORRECTION_SENT: 114
+[amcl-6] [INFO] [1793190538.046030612] [scout_01.amcl]: TAG_CORRECTION_APPLIED: 114 scan=129250006741
+[tag_amcl_adapter-15] [INFO] [1793190538.046783871] [scout_01.tag_amcl_adapter]: TAG_CORRECTION_APPLIED: 114
+[tag_amcl_adapter-15] [INFO] [1793190539.054751910] [scout_01.tag_amcl_adapter]: TAG_CORRECTION_SENT: 115
+[amcl-6] [INFO] [1793190539.135083869] [scout_01.amcl]: TAG_CORRECTION_APPLIED: 115 scan=129950006777
+[tag_amcl_adapter-15] [INFO] [1793190539.135946040] [scout_01.tag_amcl_adapter]: TAG_CORRECTION_APPLIED: 115
+[tag_amcl_adapter-15] [INFO] [1793190540.121452427] [scout_01.tag_amcl_adapter]: TAG_CORRECTION_SENT: 116
+[amcl-6] [INFO] [1793190540.226979950] [scout_01.amcl]: TAG_CORRECTION_APPLIED: 116 scan=130550006809
+[tag_amcl_adapter-15] [INFO] [1793190540.228019531] [scout_01.tag_amcl_adapter]: TAG_CORRECTION_APPLIED: 116
+[tag_amcl_adapter-15] [INFO] [1793190541.301525522] [scout_01.tag_amcl_adapter]: TAG_CORRECTION_SENT: 117
+[amcl-6] [INFO] [1793190541.456096957] [scout_01.amcl]: TAG_CORRECTION_APPLIED: 117 scan=131250006845
+[tag_amcl_adapter-15] [INFO] [1793190541.457070202] [scout_01.tag_amcl_adapter]: TAG_CORRECTION_APPLIED: 117
+[tag_amcl_adapter-15] [INFO] [1793190542.385491677] [scout_01.tag_amcl_adapter]: TAG_CORRECTION_SENT: 118
+[amcl-6] [INFO] [1793190542.508598550] [scout_01.amcl]: TAG_CORRECTION_APPLIED: 118 scan=131850006877
+[tag_amcl_adapter-15] [INFO] [1793190542.509618317] [scout_01.tag_amcl_adapter]: TAG_CORRECTION_APPLIED: 118
+[tag_amcl_adapter-15] [INFO] [1793190543.620199985] [scout_01.tag_amcl_adapter]: TAG_CORRECTION_SENT: 119
+[amcl-6] [INFO] [1793190543.784872814] [scout_01.amcl]: TAG_CORRECTION_APPLIED: 119 scan=132550006913
+[tag_amcl_adapter-15] [INFO] [1793190543.785423589] [scout_01.tag_amcl_adapter]: TAG_CORRECTION_APPLIED: 119
+[tag_amcl_adapter-15] [INFO] [1793190544.700688660] [scout_01.tag_amcl_adapter]: TAG_CORRECTION_SENT: 120
+[amcl-6] [INFO] [1793190544.769966199] [scout_01.amcl]: TAG_CORRECTION_APPLIED: 120 scan=133150006944
+[tag_amcl_adapter-15] [INFO] [1793190544.770921132] [scout_01.tag_amcl_adapter]: TAG_CORRECTION_APPLIED: 120
+[tag_amcl_adapter-15] [INFO] [1793190545.761037691] [scout_01.tag_amcl_adapter]: TAG_CORRECTION_SENT: 121
+[amcl-6] [INFO] [1793190545.961069451] [scout_01.amcl]: TAG_CORRECTION_APPLIED: 121 scan=133850006981
+[tag_amcl_adapter-15] [INFO] [1793190545.964329451] [scout_01.tag_amcl_adapter]: TAG_CORRECTION_APPLIED: 121
+[tag_amcl_adapter-15] [INFO] [1793190546.960789098] [scout_01.tag_amcl_adapter]: TAG_CORRECTION_SENT: 122
+[amcl-6] [INFO] [1793190547.120394156] [scout_01.amcl]: TAG_CORRECTION_APPLIED: 122 scan=134450007012
+[tag_amcl_adapter-15] [INFO] [1793190547.121047003] [scout_01.tag_amcl_adapter]: TAG_CORRECTION_APPLIED: 122
+[tag_amcl_adapter-15] [INFO] [1793190548.099858502] [scout_01.tag_amcl_adapter]: TAG_CORRECTION_SENT: 123
+[amcl-6] [INFO] [1793190548.161405210] [scout_01.amcl]: TAG_CORRECTION_APPLIED: 123 scan=135050007043
+[tag_amcl_adapter-15] [INFO] [1793190548.162436169] [scout_01.tag_amcl_adapter]: TAG_CORRECTION_APPLIED: 123
+[tag_amcl_adapter-15] [INFO] [1793190549.254900548] [scout_01.tag_amcl_adapter]: TAG_CORRECTION_SENT: 124
+[amcl-6] [INFO] [1793190549.367049814] [scout_01.amcl]: TAG_CORRECTION_APPLIED: 124 scan=135750007080
+[tag_amcl_adapter-15] [INFO] [1793190549.367959069] [scout_01.tag_amcl_adapter]: TAG_CORRECTION_APPLIED: 124
+[tag_amcl_adapter-15] [INFO] [1793190550.649784189] [scout_01.tag_amcl_adapter]: TAG_CORRECTION_SENT: 125
+[amcl-6] [INFO] [1793190550.713392621] [scout_01.amcl]: TAG_CORRECTION_APPLIED: 125 scan=136550007122
+[tag_amcl_adapter-15] [INFO] [1793190550.713908245] [scout_01.tag_amcl_adapter]: TAG_CORRECTION_APPLIED: 125
+[tag_amcl_adapter-15] [INFO] [1793190551.800053626] [scout_01.tag_amcl_adapter]: TAG_CORRECTION_SENT: 126
+[amcl-6] [INFO] [1793190551.939870546] [scout_01.amcl]: TAG_CORRECTION_APPLIED: 126 scan=137250007158
+[tag_amcl_adapter-15] [INFO] [1793190551.940412226] [scout_01.tag_amcl_adapter]: TAG_CORRECTION_APPLIED: 126
+[tag_amcl_adapter-15] [INFO] [1793190552.979926422] [scout_01.tag_amcl_adapter]: TAG_CORRECTION_SENT: 127
+[amcl-6] [INFO] [1793190553.051150257] [scout_01.amcl]: TAG_CORRECTION_APPLIED: 127 scan=137950007195
+[tag_amcl_adapter-15] [INFO] [1793190553.051801898] [scout_01.tag_amcl_adapter]: TAG_CORRECTION_APPLIED: 127
+[tag_amcl_adapter-15] [INFO] [1793190554.155468964] [scout_01.tag_amcl_adapter]: TAG_CORRECTION_SENT: 128
+[amcl-6] [INFO] [1793190554.244671331] [scout_01.amcl]: TAG_CORRECTION_APPLIED: 128 scan=138650007231
+[tag_amcl_adapter-15] [INFO] [1793190554.246477503] [scout_01.tag_amcl_adapter]: TAG_CORRECTION_APPLIED: 128
+[tag_amcl_adapter-15] [INFO] [1793190555.246234305] [scout_01.tag_amcl_adapter]: TAG_CORRECTION_SENT: 129
+[amcl-6] [INFO] [1793190555.325942262] [scout_01.amcl]: TAG_CORRECTION_APPLIED: 129 scan=139350007268
+[tag_amcl_adapter-15] [INFO] [1793190555.327145901] [scout_01.tag_amcl_adapter]: TAG_CORRECTION_APPLIED: 129
+[tag_amcl_adapter-15] [INFO] [1793190556.415122172] [scout_01.tag_amcl_adapter]: TAG_CORRECTION_SENT: 130
+[amcl-6] [INFO] [1793190556.547169381] [scout_01.amcl]: TAG_CORRECTION_APPLIED: 130 scan=140050007304
+[tag_amcl_adapter-15] [INFO] [1793190556.548004895] [scout_01.tag_amcl_adapter]: TAG_CORRECTION_APPLIED: 130
+[tag_amcl_adapter-15] [INFO] [1793190557.575968247] [scout_01.tag_amcl_adapter]: TAG_CORRECTION_SENT: 131
+[amcl-6] [INFO] [1793190557.673937612] [scout_01.amcl]: TAG_CORRECTION_APPLIED: 131 scan=140750007341
+[tag_amcl_adapter-15] [INFO] [1793190557.674678402] [scout_01.tag_amcl_adapter]: TAG_CORRECTION_APPLIED: 131
+[tag_amcl_adapter-15] [INFO] [1793190558.708457089] [scout_01.tag_amcl_adapter]: TAG_CORRECTION_SENT: 132
+[amcl-6] [INFO] [1793190558.835493942] [scout_01.amcl]: TAG_CORRECTION_APPLIED: 132 scan=141450007377
+[tag_amcl_adapter-15] [INFO] [1793190558.836111351] [scout_01.tag_amcl_adapter]: TAG_CORRECTION_APPLIED: 132
+[tag_amcl_adapter-15] [INFO] [1793190559.774840619] [scout_01.tag_amcl_adapter]: TAG_CORRECTION_SENT: 133
+[amcl-6] [INFO] [1793190559.895000548] [scout_01.amcl]: TAG_CORRECTION_APPLIED: 133 scan=142050007408
+[tag_amcl_adapter-15] [INFO] [1793190559.895945625] [scout_01.tag_amcl_adapter]: TAG_CORRECTION_APPLIED: 133
+[tag_amcl_adapter-15] [INFO] [1793190560.980912592] [scout_01.tag_amcl_adapter]: TAG_CORRECTION_SENT: 134
+[amcl-6] [INFO] [1793190561.140782178] [scout_01.amcl]: TAG_CORRECTION_APPLIED: 134 scan=142750007445
+[tag_amcl_adapter-15] [INFO] [1793190561.141492197] [scout_01.tag_amcl_adapter]: TAG_CORRECTION_APPLIED: 134
+[tag_amcl_adapter-15] [INFO] [1793190562.161615829] [scout_01.tag_amcl_adapter]: TAG_CORRECTION_SENT: 135
+[amcl-6] [INFO] [1793190562.311551038] [scout_01.amcl]: TAG_CORRECTION_APPLIED: 135 scan=143450007482
+[tag_amcl_adapter-15] [INFO] [1793190562.312148278] [scout_01.tag_amcl_adapter]: TAG_CORRECTION_APPLIED: 135
+[tag_amcl_adapter-15] [INFO] [1793190563.230565548] [scout_01.tag_amcl_adapter]: TAG_CORRECTION_SENT: 136
+[amcl-6] [INFO] [1793190563.375123821] [scout_01.amcl]: TAG_CORRECTION_APPLIED: 136 scan=144050007513
+[tag_amcl_adapter-15] [INFO] [1793190563.375913577] [scout_01.tag_amcl_adapter]: TAG_CORRECTION_APPLIED: 136
+[tag_amcl_adapter-15] [INFO] [1793190564.285676353] [scout_01.tag_amcl_adapter]: TAG_CORRECTION_SENT: 137
+[amcl-6] [INFO] [1793190564.411049622] [scout_01.amcl]: TAG_CORRECTION_APPLIED: 137 scan=144650007544
+[tag_amcl_adapter-15] [INFO] [1793190564.411767505] [scout_01.tag_amcl_adapter]: TAG_CORRECTION_APPLIED: 137
+[tag_amcl_adapter-15] [INFO] [1793190565.351658260] [scout_01.tag_amcl_adapter]: TAG_CORRECTION_SENT: 138
+[amcl-6] [INFO] [1793190565.463927514] [scout_01.amcl]: TAG_CORRECTION_APPLIED: 138 scan=145250007575
+[tag_amcl_adapter-15] [INFO] [1793190565.464719216] [scout_01.tag_amcl_adapter]: TAG_CORRECTION_APPLIED: 138
+[tag_amcl_adapter-15] [INFO] [1793190566.405876021] [scout_01.tag_amcl_adapter]: TAG_CORRECTION_SENT: 139
+[amcl-6] [INFO] [1793190566.484781961] [scout_01.amcl]: TAG_CORRECTION_APPLIED: 139 scan=145850007607
+[tag_amcl_adapter-15] [INFO] [1793190566.485341100] [scout_01.tag_amcl_adapter]: TAG_CORRECTION_APPLIED: 139
+[tag_amcl_adapter-15] [INFO] [1793190567.655902609] [scout_01.tag_amcl_adapter]: TAG_CORRECTION_SENT: 140
+[amcl-6] [INFO] [1793190567.711459616] [scout_01.amcl]: TAG_CORRECTION_APPLIED: 140 scan=146550007643
+[tag_amcl_adapter-15] [INFO] [1793190567.712055235] [scout_01.tag_amcl_adapter]: TAG_CORRECTION_APPLIED: 140
+[tag_amcl_adapter-15] [INFO] [1793190568.760249158] [scout_01.tag_amcl_adapter]: TAG_CORRECTION_SENT: 141
+[amcl-6] [INFO] [1793190568.842218669] [scout_01.amcl]: TAG_CORRECTION_APPLIED: 141 scan=147250007680
+[tag_amcl_adapter-15] [INFO] [1793190568.842938811] [scout_01.tag_amcl_adapter]: TAG_CORRECTION_APPLIED: 141
+[tag_amcl_adapter-15] [INFO] [1793190569.899476889] [scout_01.tag_amcl_adapter]: TAG_CORRECTION_SENT: 142
+[amcl-6] [INFO] [1793190569.997843474] [scout_01.amcl]: TAG_CORRECTION_APPLIED: 142 scan=147950007716
+[tag_amcl_adapter-15] [INFO] [1793190569.999104978] [scout_01.tag_amcl_adapter]: TAG_CORRECTION_APPLIED: 142
+[tag_amcl_adapter-15] [INFO] [1793190571.128191497] [scout_01.tag_amcl_adapter]: TAG_CORRECTION_SENT: 143
+[amcl-6] [INFO] [1793190571.207091408] [scout_01.amcl]: TAG_CORRECTION_APPLIED: 143 scan=148650007753
+[tag_amcl_adapter-15] [INFO] [1793190571.207704272] [scout_01.tag_amcl_adapter]: TAG_CORRECTION_APPLIED: 143
+[tag_amcl_adapter-15] [INFO] [1793190572.255021884] [scout_01.tag_amcl_adapter]: TAG_CORRECTION_SENT: 144
+[amcl-6] [INFO] [1793190572.412581550] [scout_01.amcl]: TAG_CORRECTION_APPLIED: 144 scan=149350007789
+[tag_amcl_adapter-15] [INFO] [1793190572.413361692] [scout_01.tag_amcl_adapter]: TAG_CORRECTION_APPLIED: 144
+[tag_amcl_adapter-15] [INFO] [1793190573.294702241] [scout_01.tag_amcl_adapter]: TAG_CORRECTION_SENT: 145
+[amcl-6] [INFO] [1793190573.370389624] [scout_01.amcl]: TAG_CORRECTION_APPLIED: 145 scan=149950007821
+[tag_amcl_adapter-15] [INFO] [1793190573.370938296] [scout_01.tag_amcl_adapter]: TAG_CORRECTION_APPLIED: 145
+[tag_amcl_adapter-15] [INFO] [1793190574.381082496] [scout_01.tag_amcl_adapter]: TAG_CORRECTION_SENT: 146
+[amcl-6] [INFO] [1793190574.492680725] [scout_01.amcl]: TAG_CORRECTION_APPLIED: 146 scan=150550007852
+[tag_amcl_adapter-15] [INFO] [1793190574.493570694] [scout_01.tag_amcl_adapter]: TAG_CORRECTION_APPLIED: 146
+[tag_amcl_adapter-15] [INFO] [1793190575.504867471] [scout_01.tag_amcl_adapter]: TAG_CORRECTION_SENT: 147
+[amcl-6] [INFO] [1793190575.614960081] [scout_01.amcl]: TAG_CORRECTION_APPLIED: 147 scan=151250007888
+[tag_amcl_adapter-15] [INFO] [1793190575.615571616] [scout_01.tag_amcl_adapter]: TAG_CORRECTION_APPLIED: 147
+[tag_amcl_adapter-15] [INFO] [1793190576.549721834] [scout_01.tag_amcl_adapter]: TAG_CORRECTION_SENT: 148
+[amcl-6] [INFO] [1793190576.666595051] [scout_01.amcl]: TAG_CORRECTION_APPLIED: 148 scan=151850007920
+[tag_amcl_adapter-15] [INFO] [1793190576.667476215] [scout_01.tag_amcl_adapter]: TAG_CORRECTION_APPLIED: 148
+[tag_amcl_adapter-15] [INFO] [1793190577.610446806] [scout_01.tag_amcl_adapter]: TAG_CORRECTION_SENT: 149
+[amcl-6] [INFO] [1793190577.725258184] [scout_01.amcl]: TAG_CORRECTION_APPLIED: 149 scan=152450007951
+[tag_amcl_adapter-15] [INFO] [1793190577.726367400] [scout_01.tag_amcl_adapter]: TAG_CORRECTION_APPLIED: 149
+[tag_amcl_adapter-15] [INFO] [1793190578.670155673] [scout_01.tag_amcl_adapter]: TAG_CORRECTION_SENT: 150
+[amcl-6] [INFO] [1793190578.818070692] [scout_01.amcl]: TAG_CORRECTION_APPLIED: 150 scan=153050007982
+[tag_amcl_adapter-15] [INFO] [1793190578.819025206] [scout_01.tag_amcl_adapter]: TAG_CORRECTION_APPLIED: 150
+[tag_amcl_adapter-15] [INFO] [1793190579.711373769] [scout_01.tag_amcl_adapter]: TAG_CORRECTION_SENT: 151
+[amcl-6] [INFO] [1793190579.801256799] [scout_01.amcl]: TAG_CORRECTION_APPLIED: 151 scan=153550008008
+[tag_amcl_adapter-15] [INFO] [1793190579.802342379] [scout_01.tag_amcl_adapter]: TAG_CORRECTION_APPLIED: 151
+[tag_amcl_adapter-15] [INFO] [1793190580.900345720] [scout_01.tag_amcl_adapter]: TAG_CORRECTION_SENT: 152
+[amcl-6] [INFO] [1793190580.992261709] [scout_01.amcl]: TAG_CORRECTION_APPLIED: 152 scan=154250008045
+[tag_amcl_adapter-15] [INFO] [1793190580.993066582] [scout_01.tag_amcl_adapter]: TAG_CORRECTION_APPLIED: 152
+[tag_amcl_adapter-15] [INFO] [1793190581.941258737] [scout_01.tag_amcl_adapter]: TAG_CORRECTION_SENT: 153
+[amcl-6] [INFO] [1793190582.009978298] [scout_01.amcl]: TAG_CORRECTION_APPLIED: 153 scan=154850008076
+[tag_amcl_adapter-15] [INFO] [1793190582.010754935] [scout_01.tag_amcl_adapter]: TAG_CORRECTION_APPLIED: 153
+[tag_amcl_adapter-15] [INFO] [1793190582.969843867] [scout_01.tag_amcl_adapter]: TAG_CORRECTION_SENT: 154
+[amcl-6] [INFO] [1793190583.030733907] [scout_01.amcl]: TAG_CORRECTION_APPLIED: 154 scan=155450008107
+[tag_amcl_adapter-15] [INFO] [1793190583.031360101] [scout_01.tag_amcl_adapter]: TAG_CORRECTION_APPLIED: 154
+[tag_amcl_adapter-15] [INFO] [1793190584.114810348] [scout_01.tag_amcl_adapter]: TAG_CORRECTION_SENT: 155
+[amcl-6] [INFO] [1793190584.235676356] [scout_01.amcl]: TAG_CORRECTION_APPLIED: 155 scan=156150008144
+[tag_amcl_adapter-15] [INFO] [1793190584.236598087] [scout_01.tag_amcl_adapter]: TAG_CORRECTION_APPLIED: 155
+[tag_amcl_adapter-15] [INFO] [1793190585.255013775] [scout_01.tag_amcl_adapter]: TAG_CORRECTION_SENT: 156
+[amcl-6] [INFO] [1793190585.360239053] [scout_01.amcl]: TAG_CORRECTION_APPLIED: 156 scan=156850008180
+[tag_amcl_adapter-15] [INFO] [1793190585.360764058] [scout_01.tag_amcl_adapter]: TAG_CORRECTION_APPLIED: 156
+[tag_amcl_adapter-15] [INFO] [1793190586.340217374] [scout_01.tag_amcl_adapter]: TAG_CORRECTION_SENT: 157
+[amcl-6] [INFO] [1793190586.407856050] [scout_01.amcl]: TAG_CORRECTION_APPLIED: 157 scan=157450008212
+[tag_amcl_adapter-15] [INFO] [1793190586.408565046] [scout_01.tag_amcl_adapter]: TAG_CORRECTION_APPLIED: 157
+[tag_amcl_adapter-15] [INFO] [1793190587.536165291] [scout_01.tag_amcl_adapter]: TAG_CORRECTION_SENT: 158
+[amcl-6] [INFO] [1793190587.691507105] [scout_01.amcl]: TAG_CORRECTION_APPLIED: 158 scan=158150008248
+[tag_amcl_adapter-15] [INFO] [1793190587.692064726] [scout_01.tag_amcl_adapter]: TAG_CORRECTION_APPLIED: 158
+[tag_amcl_adapter-15] [INFO] [1793190588.671318323] [scout_01.tag_amcl_adapter]: TAG_CORRECTION_SENT: 159
+[amcl-6] [INFO] [1793190588.758472660] [scout_01.amcl]: TAG_CORRECTION_APPLIED: 159 scan=158750008279
+[tag_amcl_adapter-15] [INFO] [1793190588.759136307] [scout_01.tag_amcl_adapter]: TAG_CORRECTION_APPLIED: 159
+[tag_amcl_adapter-15] [INFO] [1793190589.970264040] [scout_01.tag_amcl_adapter]: TAG_CORRECTION_SENT: 160
+[amcl-6] [INFO] [1793190590.070884952] [scout_01.amcl]: TAG_CORRECTION_APPLIED: 160 scan=159550008321
+[tag_amcl_adapter-15] [INFO] [1793190590.071450276] [scout_01.tag_amcl_adapter]: TAG_CORRECTION_APPLIED: 160
+[tag_amcl_adapter-15] [INFO] [1793190591.159540472] [scout_01.tag_amcl_adapter]: TAG_CORRECTION_SENT: 161
+[amcl-6] [INFO] [1793190591.241421215] [scout_01.amcl]: TAG_CORRECTION_APPLIED: 161 scan=160250008358
+[tag_amcl_adapter-15] [INFO] [1793190591.242319947] [scout_01.tag_amcl_adapter]: TAG_CORRECTION_APPLIED: 161
+[tag_amcl_adapter-15] [INFO] [1793190592.325373186] [scout_01.tag_amcl_adapter]: TAG_CORRECTION_SENT: 162
+[amcl-6] [INFO] [1793190592.419937767] [scout_01.amcl]: TAG_CORRECTION_APPLIED: 162 scan=160950008394
+[tag_amcl_adapter-15] [INFO] [1793190592.420549269] [scout_01.tag_amcl_adapter]: TAG_CORRECTION_APPLIED: 162
+[tag_amcl_adapter-15] [INFO] [1793190593.501343410] [scout_01.tag_amcl_adapter]: TAG_CORRECTION_SENT: 163
+[amcl-6] [INFO] [1793190593.631831851] [scout_01.amcl]: TAG_CORRECTION_APPLIED: 163 scan=161650008431
+[tag_amcl_adapter-15] [INFO] [1793190593.632376515] [scout_01.tag_amcl_adapter]: TAG_CORRECTION_APPLIED: 163
+[tag_amcl_adapter-15] [INFO] [1793190594.598555647] [scout_01.tag_amcl_adapter]: TAG_CORRECTION_SENT: 164
+[amcl-6] [INFO] [1793190594.699397958] [scout_01.amcl]: TAG_CORRECTION_APPLIED: 164 scan=162250008462
+[tag_amcl_adapter-15] [INFO] [1793190594.699974514] [scout_01.tag_amcl_adapter]: TAG_CORRECTION_APPLIED: 164
+[tag_amcl_adapter-15] [INFO] [1793190595.679889983] [scout_01.tag_amcl_adapter]: TAG_CORRECTION_SENT: 165
+[amcl-6] [INFO] [1793190595.810521671] [scout_01.amcl]: TAG_CORRECTION_APPLIED: 165 scan=162850008493
+[tag_amcl_adapter-15] [INFO] [1793190595.811349616] [scout_01.tag_amcl_adapter]: TAG_CORRECTION_APPLIED: 165
+[tag_amcl_adapter-15] [INFO] [1793190596.855262755] [scout_01.tag_amcl_adapter]: TAG_CORRECTION_SENT: 166
+[amcl-6] [INFO] [1793190596.917639162] [scout_01.amcl]: TAG_CORRECTION_APPLIED: 166 scan=163550008530
+[tag_amcl_adapter-15] [INFO] [1793190596.918298213] [scout_01.tag_amcl_adapter]: TAG_CORRECTION_APPLIED: 166
+[tag_amcl_adapter-15] [INFO] [1793190597.986702680] [scout_01.tag_amcl_adapter]: TAG_CORRECTION_SENT: 167
+[amcl-6] [INFO] [1793190598.075710058] [scout_01.amcl]: TAG_CORRECTION_APPLIED: 167 scan=164250008566
+[tag_amcl_adapter-15] [INFO] [1793190598.076647192] [scout_01.tag_amcl_adapter]: TAG_CORRECTION_APPLIED: 167
+[controller_server-7] [INFO] [1793190729.561755124] [scout_01.controller_server]: Cancellation was successful. Stopping the robot.
+[controller_server-7] [INFO] [1793190729.561808773] [scout_01.controller_server]: [follow_path] [ActionServer] Client requested to cancel the goal. Cancelling.
+[scout_node-14] [INFO] [1793190731.291797642] [scout_01.scout_survey]: 스테이션 복귀 종료: task_id=cycle_scout_return_24267d4ee8df, result=CANCELED, error=NONE, detail=복귀 취소/종료 요청
+[WARNING] [launch]: user interrupted with ctrl-c (SIGINT)
+[INFO] [tag_amcl_adapter-15]: sending signal 'SIGINT' to process[tag_amcl_adapter-15]
+[INFO] [scout_node-14]: sending signal 'SIGINT' to process[scout_node-14]
+[INFO] [route_preview-13]: sending signal 'SIGINT' to process[route_preview-13]
+[INFO] [lifecycle_manager-12]: sending signal 'SIGINT' to process[lifecycle_manager-12]
+[INFO] [velocity_smoother-11]: sending signal 'SIGINT' to process[velocity_smoother-11]
+[INFO] [bt_navigator-10]: sending signal 'SIGINT' to process[bt_navigator-10]
+[INFO] [behavior_server-9]: sending signal 'SIGINT' to process[behavior_server-9]
+[INFO] [planner_server-8]: sending signal 'SIGINT' to process[planner_server-8]
+[INFO] [controller_server-7]: sending signal 'SIGINT' to process[controller_server-7]
+[INFO] [amcl-6]: sending signal 'SIGINT' to process[amcl-6]
+[INFO] [map_server-5]: sending signal 'SIGINT' to process[map_server-5]
+[INFO] [ros_adapter-4]: sending signal 'SIGINT' to process[ros_adapter-4]
+[INFO] [tag_capture-3]: sending signal 'SIGINT' to process[tag_capture-3]
+[INFO] [apriltag_node-2]: sending signal 'SIGINT' to process[apriltag_node-2]
+[INFO] [rectify_node-1]: sending signal 'SIGINT' to process[rectify_node-1]
+[amcl-6] [INFO] [1793190732.706148405] [rclcpp]: signal_handler(SIGINT/SIGTERM)
+[amcl-6] [INFO] [1793190732.706226678] [scout_01.amcl]: Running Nav2 LifecycleNode rcl preshutdown (amcl)
+[amcl-6] [INFO] [1793190732.706293629] [scout_01.amcl]: Deactivating
+[amcl-6] [INFO] [1793190732.706322836] [scout_01.amcl]: Destroying bond (amcl) to lifecycle manager.
+[velocity_smoother-11] [INFO] [1793190732.706159460] [rclcpp]: signal_handler(SIGINT/SIGTERM)
+[velocity_smoother-11] [INFO] [1793190732.706224624] [scout_01.velocity_smoother]: Running Nav2 LifecycleNode rcl preshutdown (velocity_smoother)
+[velocity_smoother-11] [INFO] [1793190732.706284267] [scout_01.velocity_smoother]: Deactivating
+[velocity_smoother-11] [INFO] [1793190732.706301129] [scout_01.velocity_smoother]: Destroying bond (velocity_smoother) to lifecycle manager.
+[velocity_smoother-11] [INFO] [1793190732.717011028] [scout_01.velocity_smoother]: Cleaning up
+[velocity_smoother-11] [INFO] [1793190732.717050449] [scout_01.velocity_smoother]: Destroying bond (velocity_smoother) to lifecycle manager.
+[map_server-5] [INFO] [1793190732.706239862] [rclcpp]: signal_handler(SIGINT/SIGTERM)
+[map_server-5] [INFO] [1793190732.706296065] [scout_01.map_server]: Running Nav2 LifecycleNode rcl preshutdown (map_server)
+[map_server-5] [INFO] [1793190732.706353789] [scout_01.map_server]: Deactivating
+[map_server-5] [INFO] [1793190732.706364103] [scout_01.map_server]: Destroying bond (map_server) to lifecycle manager.
+[behavior_server-9] [INFO] [1793190732.706260543] [rclcpp]: signal_handler(SIGINT/SIGTERM)
+[behavior_server-9] [INFO] [1793190732.706327907] [scout_01.behavior_server]: Running Nav2 LifecycleNode rcl preshutdown (behavior_server)
+[behavior_server-9] [INFO] [1793190732.706385155] [scout_01.behavior_server]: Deactivating
+[behavior_server-9] [INFO] [1793190732.706419654] [scout_01.behavior_server]: Destroying bond (behavior_server) to lifecycle manager.
+[controller_server-7] [INFO] [1793190732.706642847] [rclcpp]: signal_handler(SIGINT/SIGTERM)
+[controller_server-7] [INFO] [1793190732.706692859] [scout_01.controller_server]: Running Nav2 LifecycleNode rcl preshutdown (controller_server)
+[controller_server-7] [INFO] [1793190732.706750623] [scout_01.controller_server]: Deactivating
+[controller_server-7] [INFO] [1793190732.706769683] [scout_01.controller_server]: Deactivating controller: StationReverse of type regulated_pure_pursuit_controller::RegulatedPurePursuitController
+[controller_server-7] [INFO] [1793190732.706778142] [scout_01.controller_server]: Deactivating controller: RPP of type regulated_pure_pursuit_controller::RegulatedPurePursuitController
+[controller_server-7] [INFO] [1793190732.706812735] [scout_01.local_costmap.local_costmap]: Deactivating
+[bt_navigator-10] [INFO] [1793190732.707314364] [rclcpp]: signal_handler(SIGINT/SIGTERM)
+[bt_navigator-10] [INFO] [1793190732.707416303] [scout_01.bt_navigator]: Running Nav2 LifecycleNode rcl preshutdown (bt_navigator)
+[bt_navigator-10] [INFO] [1793190732.707496090] [scout_01.bt_navigator]: Deactivating
+[bt_navigator-10] [INFO] [1793190732.707532291] [scout_01.bt_navigator]: Destroying bond (bt_navigator) to lifecycle manager.
+[rectify_node-1] [INFO] [1793190732.707325088] [rclcpp]: signal_handler(SIGINT/SIGTERM)
+[planner_server-8] [INFO] [1793190732.707541826] [rclcpp]: signal_handler(SIGINT/SIGTERM)
+[planner_server-8] [INFO] [1793190732.707653646] [scout_01.planner_server]: Running Nav2 LifecycleNode rcl preshutdown (planner_server)
+[planner_server-8] [INFO] [1793190732.707725637] [scout_01.planner_server]: Deactivating
+[planner_server-8] [INFO] [1793190732.707766979] [scout_01.global_costmap.global_costmap]: Deactivating
+[lifecycle_manager-12] [INFO] [1793190732.710028958] [rclcpp]: signal_handler(SIGINT/SIGTERM)
+[lifecycle_manager-12] [INFO] [1793190732.710120894] [scout_01.lifecycle_manager_navigation]: Running Nav2 LifecycleManager rcl preshutdown (lifecycle_manager_navigation)
+[lifecycle_manager-12] [INFO] [1793190732.710160793] [scout_01.lifecycle_manager_navigation]: [34m[1mTerminating bond timer...[0m[0m
+[apriltag_node-2] [INFO] [1793190732.710956338] [rclcpp]: signal_handler(SIGINT/SIGTERM)
+[behavior_server-9] [INFO] [1793190732.717527271] [scout_01.behavior_server]: Cleaning up
+[amcl-6] [INFO] [1793190732.717818665] [scout_01.amcl]: Cleaning up
+[map_server-5] [INFO] [1793190732.719924423] [scout_01.map_server]: Cleaning up
+[map_server-5] [INFO] [1793190732.719969730] [scout_01.map_server]: Destroying bond (map_server) to lifecycle manager.
+[tag_amcl_adapter-15] Traceback (most recent call last):
+[tag_amcl_adapter-15]   File "/home/ysy/main/farm_project/robot/ros_ws/install/farm_tag_localization/lib/farm_tag_localization/tag_amcl_adapter", line 33, in <module>
+[tag_amcl_adapter-15]     sys.exit(load_entry_point('farm-tag-localization', 'console_scripts', 'tag_amcl_adapter')())
+[tag_amcl_adapter-15]              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+[tag_amcl_adapter-15]   File "/home/ysy/main/farm_project/robot/ros_ws/build/farm_tag_localization/farm_tag_localization/node.py", line 297, in main
+[tag_amcl_adapter-15]     node.close()
+[tag_amcl_adapter-15]   File "/home/ysy/main/farm_project/robot/ros_ws/build/farm_tag_localization/farm_tag_localization/node.py", line 281, in close
+[tag_amcl_adapter-15]     self._listener.unregister()
+[tag_amcl_adapter-15]   File "/opt/ros/jazzy/lib/python3.12/site-packages/tf2_ros/transform_listener.py", line 128, in unregister
+[tag_amcl_adapter-15]     self.node.destroy_subscription(self.tf_static_sub)
+[tag_amcl_adapter-15]   File "/opt/ros/jazzy/lib/python3.12/site-packages/rclpy/node.py", line 1854, in destroy_subscription
+[tag_amcl_adapter-15]     subscription.destroy()
+[tag_amcl_adapter-15]   File "/opt/ros/jazzy/lib/python3.12/site-packages/rclpy/subscription.py", line 101, in destroy
+[tag_amcl_adapter-15]     self.handle.destroy_when_not_in_use()
+[tag_amcl_adapter-15] KeyboardInterrupt
+[bt_navigator-10] [INFO] [1793190732.729740600] [scout_01.bt_navigator]: Cleaning up
+[route_preview-13] Traceback (most recent call last):
+[route_preview-13]   File "/home/ysy/main/farm_project/robot/ros_ws/install/scout_robot/lib/scout_robot/route_preview", line 33, in <module>
+[route_preview-13]     sys.exit(load_entry_point('scout-robot', 'console_scripts', 'route_preview')())
+[route_preview-13]              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+[route_preview-13]   File "/home/ysy/main/farm_project/robot/ros_ws/build/scout_robot/scout_robot/route_preview.py", line 85, in main
+[route_preview-13]     if node is not None: node.destroy_node()
+[route_preview-13]                          ^^^^^^^^^^^^^^^^^^^
+[route_preview-13]   File "/opt/ros/jazzy/lib/python3.12/site-packages/rclpy/node.py", line 1956, in destroy_node
+[route_preview-13]     self.destroy_publisher(self._publishers[0])
+[route_preview-13]   File "/opt/ros/jazzy/lib/python3.12/site-packages/rclpy/node.py", line 1836, in destroy_publisher
+[route_preview-13]     publisher.destroy()
+[route_preview-13]   File "/opt/ros/jazzy/lib/python3.12/site-packages/rclpy/publisher.py", line 105, in destroy
+[route_preview-13]     self.__publisher.destroy_when_not_in_use()
+[route_preview-13] KeyboardInterrupt
+[map_server-5] [INFO] [1793190732.734813124] [rclcpp]: signal_handler(SIGINT/SIGTERM)
+[controller_server-7] [INFO] [1793190732.737187618] [scout_01.controller_server]: Destroying bond (controller_server) to lifecycle manager.
+[ros_adapter-4] Traceback (most recent call last):
+[ros_adapter-4]   File "/home/ysy/main/farm_project/sim/ros_ws/install/farm_sim_devices/lib/farm_sim_devices/ros_adapter", line 33, in <module>
+[ros_adapter-4]     sys.exit(load_entry_point('farm-sim-devices==0.2.0', 'console_scripts', 'ros_adapter')())
+[ros_adapter-4]              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+[ros_adapter-4]   File "/home/ysy/main/farm_project/sim/ros_ws/install/farm_sim_devices/lib/python3.12/site-packages/farm_sim_devices/ros_adapter.py", line 276, in main
+[ros_adapter-4]     if node is not None:node.close()
+[ros_adapter-4]                         ^^^^^^^^^^^^
+[ros_adapter-4]   File "/home/ysy/main/farm_project/sim/ros_ws/install/farm_sim_devices/lib/python3.12/site-packages/farm_sim_devices/ros_adapter.py", line 261, in close
+[ros_adapter-4]     self.destroy_node()
+[ros_adapter-4]   File "/opt/ros/jazzy/lib/python3.12/site-packages/rclpy/node.py", line 1956, in destroy_node
+[ros_adapter-4]     self.destroy_publisher(self._publishers[0])
+[ros_adapter-4]   File "/opt/ros/jazzy/lib/python3.12/site-packages/rclpy/node.py", line 1836, in destroy_publisher
+[ros_adapter-4]     publisher.destroy()
+[ros_adapter-4]   File "/opt/ros/jazzy/lib/python3.12/site-packages/rclpy/publisher.py", line 105, in destroy
+[ros_adapter-4]     self.__publisher.destroy_when_not_in_use()
+[ros_adapter-4] KeyboardInterrupt
+[tag_capture-3] Traceback (most recent call last):
+[tag_capture-3]   File "/home/ysy/main/farm_project/robot/ros_ws/install/farm_tag_localization/lib/farm_tag_localization/tag_capture", line 33, in <module>
+[tag_capture-3]     sys.exit(load_entry_point('farm-tag-localization', 'console_scripts', 'tag_capture')())
+[tag_capture-3]              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+[tag_capture-3]   File "/home/ysy/main/farm_project/robot/ros_ws/build/farm_tag_localization/farm_tag_localization/ros_capture.py", line 104, in main
+[tag_capture-3]     node.destroy_node()
+[tag_capture-3]   File "/opt/ros/jazzy/lib/python3.12/site-packages/rclpy/node.py", line 1958, in destroy_node
+[rectify_node-1] [INFO] [1793190732.739231326] [rclcpp]: signal_handler(SIGINT/SIGTERM)
+[tag_capture-3]     self.destroy_subscription(self._subscriptions[0])
+[tag_capture-3]   File "/opt/ros/jazzy/lib/python3.12/site-packages/rclpy/node.py", line 1854, in destroy_subscription
+[apriltag_node-2] [INFO] [1793190732.739451619] [rclcpp]: signal_handler(SIGINT/SIGTERM)
+[tag_capture-3]     subscription.destroy()
+[tag_capture-3]   File "/opt/ros/jazzy/lib/python3.12/site-packages/rclpy/subscription.py", line 101, in destroy
+[tag_capture-3]     self.handle.destroy_when_not_in_use()
+[tag_capture-3] KeyboardInterrupt
+[velocity_smoother-11] [INFO] [1793190732.745688457] [rclcpp]: signal_handler(SIGINT/SIGTERM)
+[controller_server-7] [INFO] [1793190732.747888574] [scout_01.controller_server]: Cleaning up
+[controller_server-7] [INFO] [1793190732.747922645] [scout_01.controller_server]: Cleaning up controller: StationReverse of type regulated_pure_pursuit_controller::RegulatedPurePursuitController
+[controller_server-7] [INFO] [1793190732.747941689] [scout_01.controller_server]: Cleaning up controller: RPP of type regulated_pure_pursuit_controller::RegulatedPurePursuitController
+[controller_server-7] [INFO] [1793190732.748297690] [scout_01.local_costmap.local_costmap]: Cleaning up
+[behavior_server-9] [INFO] [1793190732.779532884] [scout_01.behavior_server]: Destroying bond (behavior_server) to lifecycle manager.
+[velocity_smoother-11] [INFO] [1793190732.786468810] [scout_01.velocity_smoother]: Destroying
+[map_server-5] [INFO] [1793190732.797148531] [scout_01.map_server]: Destroying
+[behavior_server-9] [INFO] [1793190732.812680838] [rclcpp]: signal_handler(SIGINT/SIGTERM)
+[amcl-6] [INFO] [1793190732.887849979] [scout_01.amcl]: Destroying bond (amcl) to lifecycle manager.
+[amcl-6] [INFO] [1793190732.900495833] [rclcpp]: signal_handler(SIGINT/SIGTERM)
+[amcl-6] [INFO] [1793190732.911891866] [scout_01.amcl]: Destroying
+[lifecycle_manager-12] [INFO] [1793190733.018640019] [rclcpp]: signal_handler(SIGINT/SIGTERM)
+[behavior_server-9] [INFO] [1793190733.020863360] [scout_01.behavior_server]: Destroying
+[lifecycle_manager-12] [INFO] [1793190733.022033060] [scout_01.lifecycle_manager_navigation]: Destroying lifecycle_manager_navigation
+[ERROR] [tag_capture-3]: process has died [pid 2349839, exit code -2, cmd '/home/ysy/main/farm_project/robot/ros_ws/install/farm_tag_localization/lib/farm_tag_localization/tag_capture --ros-args -r __ns:=/scout_01/apriltag_camera --params-file /tmp/launch_params_kpds4mkv'].
+[controller_server-7] [INFO] [1793190733.035364230] [scout_01.controller_server]: Destroying bond (controller_server) to lifecycle manager.
+[controller_server-7] [INFO] [1793190733.039490099] [rclcpp]: signal_handler(SIGINT/SIGTERM)
+[controller_server-7] [INFO] [1793190733.046518046] [scout_01.local_costmap.local_costmap]: Destroying
+[INFO] [rectify_node-1]: process has finished cleanly [pid 2349837]
+[INFO] [velocity_smoother-11]: process has finished cleanly [pid 2349889]
+[ERROR] [ros_adapter-4]: process has died [pid 2349840, exit code -2, cmd '/home/ysy/main/farm_project/sim/ros_ws/install/farm_sim_devices/lib/farm_sim_devices/ros_adapter --ros-args -r __ns:=/scout_01 --params-file /tmp/launch_params_z60xr62s'].
+[ERROR] [tag_amcl_adapter-15]: process has died [pid 2349902, exit code -2, cmd '/home/ysy/main/farm_project/robot/ros_ws/install/farm_tag_localization/lib/farm_tag_localization/tag_amcl_adapter --ros-args -r __ns:=/scout_01 --params-file /tmp/launch_params_rq62ac99'].
+[controller_server-7] [INFO] [1793190733.104024736] [scout_01.controller_server]: Destroying
+[INFO] [amcl-6]: process has finished cleanly [pid 2349842]
+[INFO] [map_server-5]: process has finished cleanly [pid 2349841]
+[bt_navigator-10] [INFO] [1793190733.128162820] [scout_01.bt_navigator]: Completed Cleaning up
+[bt_navigator-10] [INFO] [1793190733.128213491] [scout_01.bt_navigator]: Destroying bond (bt_navigator) to lifecycle manager.
+[bt_navigator-10] [INFO] [1793190733.128899168] [rclcpp]: signal_handler(SIGINT/SIGTERM)
+[ERROR] [route_preview-13]: process has died [pid 2349892, exit code -2, cmd '/home/ysy/main/farm_project/robot/ros_ws/install/scout_robot/lib/scout_robot/route_preview --ros-args -r __ns:=/scout_01 --params-file /tmp/launch_params__kxrzmpi'].
+[bt_navigator-10] [INFO] [1793190733.134914436] [scout_01.bt_navigator]: Destroying
+[INFO] [lifecycle_manager-12]: process has finished cleanly [pid 2349891]
+[INFO] [behavior_server-9]: process has finished cleanly [pid 2349887]
+[INFO] [controller_server-7]: process has finished cleanly [pid 2349885]
+[INFO] [bt_navigator-10]: process has finished cleanly [pid 2349888]
+[planner_server-8] [INFO] [1793190733.446578700] [scout_01.planner_server]: Deactivating plugin GridBased of type NavfnPlanner
+[planner_server-8] [INFO] [1793190733.446612012] [scout_01.planner_server]: Destroying bond (planner_server) to lifecycle manager.
+[planner_server-8] [INFO] [1793190733.456729562] [scout_01.planner_server]: Cleaning up
+[planner_server-8] [INFO] [1793190733.459737518] [scout_01.global_costmap.global_costmap]: Cleaning up
+[planner_server-8] [INFO] [1793190733.461569127] [scout_01.planner_server]: Cleaning up plugin GridBased of type NavfnPlanner
+[planner_server-8] [INFO] [1793190733.461703299] [scout_01.planner_server]: Destroying plugin GridBased of type NavfnPlanner
+[planner_server-8] [INFO] [1793190733.466274421] [scout_01.planner_server]: Destroying bond (planner_server) to lifecycle manager.
+[planner_server-8] [INFO] [1793190733.466831449] [rclcpp]: signal_handler(SIGINT/SIGTERM)
+[planner_server-8] [INFO] [1793190733.467661173] [scout_01.global_costmap.global_costmap]: Destroying
+[planner_server-8] [INFO] [1793190733.470520866] [scout_01.planner_server]: Destroying
+[scout_node-14] The following exception was never retrieved: cannot use Destroyable because destruction was requested
+[INFO] [planner_server-8]: process has finished cleanly [pid 2349886]
+[INFO] [scout_node-14]: process has finished cleanly [pid 2349901]
+[ERROR] [apriltag_node-2]: process has died [pid 2349838, exit code -11, cmd '/opt/ros/jazzy/lib/apriltag_ros/apriltag_node --ros-args -r __node:=tag_detector -r __ns:=/scout_01/apriltag_camera --params-file /tmp/launch_params_8s79lksi -r /tf:=diagnostic_tf -r /tf_static:=diagnostic_tf_static'].

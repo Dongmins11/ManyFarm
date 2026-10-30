@@ -1,0 +1,32 @@
+{
+  "passed": false,
+  "resume_window_arrival": {
+    "status": 4,
+    "result": {
+      "robot_id": "harvest_01",
+      "task_id": "resume_arrival_6d4bcbc241a7",
+      "window_id": "16cb6a8ad078_SEC01_W009",
+      "result_code": "SUCCESS",
+      "expected_count": 2,
+      "harvested_count": 0,
+      "failed_count": 0,
+      "error_code": "NONE",
+      "error_message": "",
+      "timestamp": "2026-10-29T11:25:29.181089+00:00"
+    }
+  },
+  "marker42_approach": "DONE",
+  "harvest_dock_transfer": "accepted; DOCK_READY observed",
+  "marker41_dock": "FAILED: Final lidar approach timed out",
+  "final_lidar_distance_m": 0.203,
+  "target_m": 0.2,
+  "tolerance_m": 0.005,
+  "configured_timeout_s": 65,
+  "computed_timeout_s_approx": 25.5,
+  "approach_elapsed_wall_s": 25.723145,
+  "approach_elapsed_sim_s_approx": 14.033334,
+  "wall_seconds_per_sim_second": 1.832676,
+  "discharge_authorized": false,
+  "sorting_started": false,
+  "note": "거리 범위 도달과 정지 확인 완료는 다름; DOCK_STABLE 미관측"
+}

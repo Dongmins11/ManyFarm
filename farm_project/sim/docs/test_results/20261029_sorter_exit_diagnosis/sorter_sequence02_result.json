@@ -1,0 +1,170 @@
+{
+  "passed": true,
+  "virtual_mechanism": true,
+  "count_valid": true,
+  "ready_response": {
+    "accepted": true,
+    "error_code": "NONE",
+    "error_message": "",
+    "timestamp": "2026-10-29T12:51:02.181888+00:00"
+  },
+  "unload": {
+    "status": 4,
+    "result": {
+      "robot_id": "transport_01",
+      "task_id": "sorter_171442060cb44f25",
+      "station_id": "SORT_01",
+      "result_code": "SUCCESS",
+      "error_code": "NONE",
+      "error_message": "",
+      "timestamp": "2026-10-29T12:51:32.239491+00:00"
+    }
+  },
+  "sort": {
+    "status": 4,
+    "result": {
+      "robot_id": "sorter_01",
+      "task_id": "sort_sorter_171442060cb44f25",
+      "batch_id": "sorter_171442060cb44f25",
+      "result_code": "SUCCESS",
+      "red_count": 1,
+      "yellow_count": 0,
+      "error_code": "NONE",
+      "error_message": "",
+      "timestamp": "2026-10-29T12:51:59.243997+00:00"
+    }
+  },
+  "physical_sorting": {
+    "phase": "SCANNING",
+    "counts": [
+      1,
+      0
+    ],
+    "error": "",
+    "events": [
+      {
+        "event": "BUSY",
+        "job": 1,
+        "lane": "D",
+        "color": "RED"
+      },
+      {
+        "event": "ASSISTED_GRASP",
+        "job": 1
+      },
+      {
+        "event": "DONE",
+        "job": 1,
+        "counts": [
+          1,
+          0
+        ]
+      }
+    ],
+    "station_to_world": [
+      [
+        0.19342002049252094,
+        0.9811160459765567,
+        0.0,
+        -7.204447723212479
+      ],
+      [
+        -0.9811160459765567,
+        0.19342002049252094,
+        -0.0,
+        14.2870536684691
+      ],
+      [
+        -0.0,
+        0.0,
+        1.0,
+        0.0
+      ],
+      [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ]
+    ],
+    "fruits": [
+      {
+        "path": "/World/Vegetation/Bed_01/Fruits/Pepper_0004_red",
+        "color": "RED",
+        "sorted": true,
+        "local_xyz": [
+          -0.6626687999345303,
+          0.10843096758693588,
+          0.502831757068634
+        ]
+      },
+      {
+        "path": "/World/Vegetation/Bed_01/Fruits/Pepper_0001_yellow",
+        "color": "YELLOW",
+        "sorted": false,
+        "local_xyz": [
+          0.29746798204989,
+          0.06212519484234364,
+          0.10014349222183228
+        ]
+      }
+    ]
+  },
+  "empty_input_batch": false,
+  "sequence_through_sort_passed": true,
+  "input_count": 2,
+  "sorted_count": 1,
+  "remaining_fruit_paths": [
+    "/World/Vegetation/Bed_01/Fruits/Pepper_0001_yellow"
+  ],
+  "all_input_fruits_sorted": false,
+  "return": {
+    "status": 4,
+    "result": {
+      "robot_id": "transport_01",
+      "task_id": "return_4d7ba78160854a4c",
+      "result_code": "SUCCESS",
+      "station_id": "STATION_TRANSPORT_01",
+      "docked": true,
+      "error_code": "NONE",
+      "error_message": "",
+      "timestamp": "2026-10-29T12:55:00.253853+00:00"
+    }
+  },
+  "final_state": {
+    "phase": "CLEARING_STARTED",
+    "waiting_seen": true,
+    "ready_requested": true,
+    "ready_accepted": true,
+    "active": false,
+    "completed": true,
+    "odom_at": 210409.153167616,
+    "stamp": 238.783345787,
+    "stopped_since": 210408.278246797,
+    "status": {
+      "robot_id": "transport_01",
+      "current_task_id": "return_4d7ba78160854a4c",
+      "state": "NAVIGATION_MOVE",
+      "ready": false,
+      "map_id": "farm_map_v1",
+      "pose": {
+        "frame_id": "map",
+        "position": {
+          "x": 1.983599738753039,
+          "y": 13.247340185110303,
+          "z": 0.0
+        },
+        "yaw": -1.5611390589959508
+      },
+      "battery_percent": NaN,
+      "transfer_required": false,
+      "loaded_count": -1,
+      "error_code": "NONE",
+      "error_message": "",
+      "boot_id": "f2f4735218cb4d4fb7f8bcda061906c2",
+      "sequence": 238,
+      "timestamp": "2026-10-29T12:54:59.390075+00:00"
+    },
+    "sequence_started": true
+  }
+}

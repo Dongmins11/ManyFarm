@@ -1,0 +1,49 @@
+{
+  "scout_reverse_harvest_forward": {
+    "contact_reports": 374,
+    "nonzero_impulse_events": 0,
+    "nonzero_impulse_points": 0,
+    "maximum_point_impulse_Ns": 0.0,
+    "minimum_reported_separation_m": 0.0009255770710296929,
+    "first_nonzero_event": null,
+    "scout_final_lateral_error_m": 0.004593162536620898,
+    "scout_final_heading_change_deg": 0.12253919533697841,
+    "collision_free_pass": true
+  },
+  "both_forward_opposite_heading": {
+    "contact_reports": 1477,
+    "nonzero_impulse_events": 309,
+    "nonzero_impulse_points": 419,
+    "maximum_point_impulse_Ns": 0.18958924953523926,
+    "minimum_reported_separation_m": -1.7017475329339504e-05,
+    "first_nonzero_event": {
+      "tick": 753,
+      "actors": [
+        "/World/scout/wheel_right_link",
+        "/World/harvest/left_wheel"
+      ],
+      "colliders": [
+        "/World/scout/wheel_right_link/collisions/mesh_0/cylinder",
+        "/World/harvest/left_wheel/TireCollision20"
+      ],
+      "points": [
+        {
+          "position": [
+            -3.747528553009033,
+            6.019077301025391,
+            0.04971499368548393
+          ],
+          "separation": 0.001349480589851737,
+          "impulse": [
+            0.14009292423725128,
+            0.11164224147796631,
+            -0.062081124633550644
+          ]
+        }
+      ]
+    },
+    "scout_final_lateral_error_m": -0.3887283515930178,
+    "scout_final_heading_change_deg": -124.33087928000823,
+    "collision_free_pass": false
+  }
+}

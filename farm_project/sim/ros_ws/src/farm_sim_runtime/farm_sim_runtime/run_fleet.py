@@ -272,9 +272,11 @@ def main():
                 profile = robot['arm_profile']
                 arm_cfg = robot['cfg']['runtime']['harvest_arm']
                 backend = arm_cfg.get('backend', 'teacher')
-                if backend == 'student_d435':
+                if backend in ('student_d435', 'student_u20'):
                     from farm_sim_devices.student_session import StudentRuntime, StudentArmSession
                     settings = json.loads((root/arm_cfg['student_profile']).read_text())
+                    if backend != 'student_'+settings['camera']:
+                        raise ValueError('Student backend와 카메라 프로파일 불일치')
                     controller = StudentRuntime(root, settings, world, device, profile['runtime'])
                     robot['arm'] = StudentArmSession(session, robot['cfg']['robot_id'], task['map_id'],
                         device, controller, harvest_physics, profile['session'], root/'sim/runs/robotarm/student')
@@ -314,13 +316,14 @@ def main():
                 if robot['arm'] is not None:
                     robot['arm'].observe_physics_tick(dt_s, sim_s)
                 if (robot['arm'] is not None and (ticks.frame_count+1) % ticks.render_every == 0 and
-                        robot['cfg']['runtime'].get('harvest_arm', {}).get('backend') == 'student_d435'):
+                        robot['cfg']['runtime'].get('harvest_arm', {}).get('backend') in ('student_d435', 'student_u20')):
                     robot['arm'].prepare_capture(sim_s)
         hcfg = task['harvest_robot']
         truth = (SceneTruth(stage,root/hcfg['scene_snapshot_file'],hcfg['robot_id'],task['map_id'],session,hcfg['workspace'])
                  if hcfg is not None else None)
         from farm_sim_runtime.basket_monitor import BasketMonitor
         basket_monitor = BasketMonitor(stage, robots, task['basket_alignment']) if task.get('basket_alignment') else None
+        if sorter_runtime is not None:sorter_runtime.basket_monitor = basket_monitor
         previous = float(world.current_time)
         start_sim = previous
         last_truth = -math.inf
@@ -384,6 +387,16 @@ def main():
                 sorter_runtime.before_frame(float(world.current_time), frame_dt)
             for robot in robots:
                 if robot['arm'] is not None:
+                    # 팔 작업/복귀에는 학습 물리를 유지한다. 양팔 접힘과 작업
+                    # 종료를 모두 확인한 뒤에만 주행용 정밀 제동 설정으로 돌아간다.
+                    from farm_sim_runtime.teacher_arm_alignment import update_arm_solver_mode
+                    arm_active = robot['arm'].busy or not robot['arm'].travel_ready
+                    changed = update_arm_solver_mode(robot['base'].robot,
+                        harvest_physics.profile.get('teacher_alignment', {}), arm_active=arm_active)
+                    if changed is not None:
+                        print('[arm_solver] '+json.dumps(dict(robot_id=robot['cfg']['robot_id'],
+                            sim_time_s=float(world.current_time), arm_active=arm_active,
+                            position_iterations=changed)), flush=True)
                     # 실제 차체 속도를 확인합니다. wheel odom 정지 추정으로 대신하지 않습니다.
                     linear = np.asarray(robot['base'].robot.get_linear_velocity(), dtype=float)
                     angular = np.asarray(robot['base'].robot.get_angular_velocity(), dtype=float)
@@ -416,7 +429,7 @@ def main():
             student_camera_started = time.perf_counter()
             for robot in robots:
                 if (robot['arm'] is not None
-                        and robot['cfg']['runtime'].get('harvest_arm', {}).get('backend') == 'student_d435'):
+                        and robot['cfg']['runtime'].get('harvest_arm', {}).get('backend') in ('student_d435', 'student_u20')):
                     robot['arm'].after_frame(now)
             student_camera_s = time.perf_counter()-student_camera_started
             if test_controller is not None:
@@ -474,7 +487,7 @@ def main():
                     post_s=truth_started-step_finished, truth_s=frame_finished-truth_started,
                     sensor_s=sensor_s, student_camera_s=student_camera_s,
                     camera_timings={r['cfg']['robot_id']: r['arm'].controller.rig.frame_timings
-                        for r in robots if r['cfg']['runtime'].get('harvest_arm', {}).get('backend') == 'student_d435'},
+                        for r in robots if r['cfg']['runtime'].get('harvest_arm', {}).get('backend') in ('student_d435', 'student_u20')},
                     **ticks.frame_timings))+'\n')
                 if ticks.frame_count % 60 == 0:
                     performance_log.flush()

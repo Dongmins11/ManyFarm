@@ -7,8 +7,28 @@ BODY_NAMES = ('arm_2_shoulder_link', 'arm_2_upper_arm_link', 'arm_2_lower_arm_li
               'arm_2_wrist_link', 'arm_2_gripper_link', 'arm_2_moving_jaw_so101_v1_link')
 
 
+def update_arm_solver_mode(articulation: object, config: dict, *, arm_active: bool) -> int | None:
+    """팔 작업은 학습 solver, 접힌 뒤의 주행은 제동 검증 solver를 사용한다."""
+    if 'harvest_solver_position_iterations' not in config:
+        return None
+    iterations = (config['harvest_solver_position_iterations'] if arm_active
+                  else config.get('solver_position_iterations', 12))
+    if articulation.get_solver_position_iteration_count() == iterations:
+        return None
+    articulation.set_solver_position_iteration_count(iterations)
+    if articulation.get_solver_position_iteration_count() != iterations:
+        raise RuntimeError('수확 articulation solver 전환 실패')
+    return iterations
+
+
 def align_teacher_arm(stage: object, robot: object, config: dict) -> dict:
     """차체의 이동 관절은 유지하고 여섯 팔 몸체를 전달 물리와 일치시킨다."""
+    position_iterations = config.get('solver_position_iterations', 12)
+    if type(position_iterations) is not int or not 1 <= position_iterations <= 255:
+        raise ValueError('solver_position_iterations는 1~255 정수여야 합니다.')
+    harvest_iterations = config.get('harvest_solver_position_iterations', position_iterations)
+    if type(harvest_iterations) is not int or not 1 <= harvest_iterations <= 255:
+        raise ValueError('harvest_solver_position_iterations는 1~255 정수여야 합니다.')
     from pxr import PhysxSchema, Sdf, Usd, UsdGeom, UsdPhysics, UsdShade
     from .robotarm_asset_setup import _named_prim, _make_editable
     path = Path(config['asset_path'])
@@ -89,10 +109,12 @@ def align_teacher_arm(stage: object, robot: object, config: dict) -> dict:
             raise ValueError('수확 articulation root는 하나여야 합니다.')
         api = PhysxSchema.PhysxArticulationAPI.Apply(roots[0])
         api.CreateEnabledSelfCollisionsAttr(True)
-        api.CreateSolverPositionIterationCountAttr(12)
+        # 차체와 팔은 하나의 articulation이다. 이동 차체의 제동 수렴에
+        # 필요한 반복 수만 시뮬 프로파일에서 선택하고 전달 자산은 보존한다.
+        api.CreateSolverPositionIterationCountAttr(position_iterations)
         api.CreateSolverVelocityIterationCountAttr(4)
         report['articulation_root'] = str(roots[0].GetPath())
-        report['solver_position_iterations'], report['solver_velocity_iterations'] = 12, 4
+        report['solver_position_iterations'], report['solver_velocity_iterations'] = position_iterations, 4
         report['self_collision'] = True
     return report
 

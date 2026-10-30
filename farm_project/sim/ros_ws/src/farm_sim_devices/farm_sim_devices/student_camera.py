@@ -1,4 +1,4 @@
-"""농장 World 위의 D435 rig. 전달 보정/리맵과 실제 렌더 배열만 사용한다."""
+"""농장 World의 손목 D435/U20·후방 D435. 전달 보정과 실제 렌더만 사용한다."""
 import json
 import time
 import numpy as np
@@ -39,8 +39,9 @@ class FarmD435Rig:
         import cv2
         cv2.setNumThreads(1)
         from harvest_sensors.deployment import validate_deployment
+        from harvest_sensors.u20_deployment import is_u20, validate_u20
         from harvest_sensors.student60_eval_camera_cache import centred_render_spec
-        validate_deployment(config)
+        (validate_u20 if is_u20(config) else validate_deployment)(config)
         self.world, self.device, self.kin, self.config = world, device, kin, config
         self.active = False
         self.cameras = {}
@@ -103,6 +104,9 @@ class FarmD435Rig:
         import xml.etree.ElementTree as ET
         from pxr import Usd, UsdGeom, UsdShade, Sdf, Gf, Vt
         from harvest_rl.settings import ROOT, URDF
+        from harvest_sensors.u20_deployment import is_u20, reference_urdf
+        if is_u20(self.config):
+            URDF = reference_urdf(self.config)
         sys.path.insert(0, str(ROOT/'src/smartfarm_description/scripts'))
         from model_geometry import visuals, fk
         stage = self.world.stage
@@ -150,6 +154,35 @@ class FarmD435Rig:
             mesh.CreateDoubleSidedAttr(True)
             mesh.CreateDisplayColorAttr([Gf.Vec3f(*(tuple(colour[:3]) if 'camera' in name else (.06, .06, .065)))])
             count += 1
+        if is_u20(self.config):
+            # 농장 왼팔은 병합 자산이 아니다. 기존 카메라 외형만 숨기고,
+            # U20 외형을 실제 왼손 링크의 자식으로 달아 주행/복귀를 따라간다.
+            wrists = [p for p in Usd.PrimRange(robot) if p.GetName() == 'arm_1_gripper_link']
+            if len(wrists) != 1:
+                raise ValueError('농장 왼손 링크를 고유하게 찾을 수 없습니다.')
+            hidden = []
+            for prim in Usd.PrimRange(robot):
+                if prim.GetName().startswith('arm_1_wrist_camera') and prim.GetChild('visuals'):
+                    UsdGeom.Imageable(prim.GetChild('visuals')).CreateVisibilityAttr().Set('invisible')
+                    hidden.append(str(prim.GetPath()))
+            if not hidden:
+                raise ValueError('교체할 농장 왼손 카메라 외형이 없습니다.')
+            left = ET.parse(URDF).getroot()
+            for link in list(left.findall('link')):
+                if not link.get('name').startswith('arm_1/wrist_camera'):
+                    left.remove(link)
+            reference = np.linalg.inv(poses['arm_1/gripper_link'])
+            group = UsdGeom.Xform.Define(stage, wrists[0].GetPath().AppendChild('StudentU20Visuals'))
+            for name, triangles, colour in visuals(left, URDF, poses):
+                points = triangles.reshape(-1, 3) @ reference[:3, :3].T + reference[:3, 3]
+                mesh = UsdGeom.Mesh.Define(stage, str(group.GetPath())+f'/Mesh_{count}')
+                mesh.CreatePointsAttr(Vt.Vec3fArray.FromNumpy(points.astype(np.float32)))
+                mesh.CreateFaceVertexCountsAttr(Vt.IntArray.FromNumpy(np.full(len(triangles), 3, np.int32)))
+                mesh.CreateFaceVertexIndicesAttr(Vt.IntArray.FromNumpy(np.arange(len(points), dtype=np.int32)))
+                mesh.CreateSubdivisionSchemeAttr('none')
+                mesh.CreateDoubleSidedAttr(True)
+                mesh.CreateDisplayColorAttr([Gf.Vec3f(*map(float, colour[:3]))])
+                count += 1
         if not count or physics_properties() != before:
             raise ValueError('Student 외형 연결 실패 또는 농장 물성 변경')
         print('[student_camera] wrist CAD meshes:', count, 'physics attributes preserved:', len(before), flush=True)
@@ -291,13 +324,26 @@ class FarmD435Rig:
             self.max_fk_error = max(self.max_fk_error, error)
             if error > 2e-4:
                 raise RuntimeError(f'Student 센서 optical FK 불일치: {name}: {error}')
+            view = self.config['views'][name]
+            if 'depth' not in images:
+                # U20의 없는 모달리티는 렌더하지 않는다. 0 배열은 전달 정책의
+                # 공통 Frame 형식용이며 depth_available=False로 명시한다.
+                result[name] = dict(rgb=images['rgb'], ir={}, depth_available=False,
+                    aligned_depth_m=np.zeros(images['rgb'].shape[:2], np.float32),
+                    world_from_optical=poses, intrinsics=ks, color_from_depth=None,
+                    renderer_checks=checks, stamp_s=now, pose_stamp_s=now,
+                    frame_number=self.sequence, capture_joint_rad=q.tolist(), fk_max_error=error,
+                    acquisition_sequence=self.sequence, acquisition_time_s=now, acquisition_hz=30,
+                    clock_id='simulation', ir_model='not_available',
+                    internal_calibration_verified=view['internal_calibration_verified'],
+                    mount_calibration_verified=view['mount_calibration_verified'])
+                continue
             raw = images['depth']
             mark = time.perf_counter()
             depth, mask = valid_depth(raw, self.config['depth_min_m'], self.config['depth_max_m'])
             relative = np.linalg.inv(poses['rgb']) @ poses['depth']
             aligned = self.align_depth(depth, ks['depth'], ks['rgb'], relative, images['rgb'].shape[:2])
             timings[f'camera_align_{name}_s'] = time.perf_counter()-mark
-            view = self.config['views'][name]
             result[name] = dict(rgb=images['rgb'], ir={k: v for k, v in images.items() if k.startswith('ir_')},
                 raw_depth_m=raw, depth_m=depth, depth_valid=mask, aligned_depth_m=aligned,
                 world_from_optical=poses, intrinsics=ks, color_from_depth=relative, renderer_checks=checks,

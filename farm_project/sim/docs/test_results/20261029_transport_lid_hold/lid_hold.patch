@@ -1,0 +1,30 @@
+--- a/sim/assets/robots/transport_robot/urdf/transport_robot.portable/transport_robot.sim.usda
++++ b/sim/assets/robots/transport_robot/urdf/transport_robot.portable/transport_robot.sim.usda
+@@ -8,6 +8,27 @@
+ 
+ over "manyfarm_transport_robot"
+ {
++    # 가상 인계/배출 단계에서는 상부 뚜껑을 구동하지 않는다.
++    # 원본 prismatic/mimic의 비정상 이탈을 막도록 닫힌 위치에 고정한다.
++    # 형상/충돌은 유지. 실제 개폐 구현 시 이 두 override를 제거하고 연동을 검증한다.
++    over "joints"
++    {
++        over "top_lid_left_joint" (
++            delete apiSchemas = ["PhysxMimicJointAPI:rotY"]
++        )
++        {
++            float physics:lowerLimit = 0
++            float physics:upperLimit = 0
++        }
++        over "top_lid_right_joint" (
++            delete apiSchemas = ["PhysxMimicJointAPI:rotY"]
++        )
++        {
++            float physics:lowerLimit = 0
++            float physics:upperLimit = 0
++        }
++    }
++
+     over "wheel_left_link"
+     {
+         over "collisions" (

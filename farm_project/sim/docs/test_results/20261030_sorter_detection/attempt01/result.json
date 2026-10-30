@@ -1,0 +1,2212 @@
+{
+  "scope": "offline original RGB detection only; no new physics or arm commands",
+  "image": "/home/ysy/main/farm_project/sim/runs/transport_full_resume_20261029_attempt01/sorting/camera_rgb.png",
+  "thresholds": {
+    "minimum": 0.08,
+    "saturation": 90,
+    "brightness": 60
+  },
+  "physical_remaining": 10,
+  "physical_fruits": [
+    {
+      "path": "/World/Vegetation/Bed_02/Fruits/Pepper_0003_red",
+      "color": "RED",
+      "sorted": false,
+      "local_xyz": [
+        0.29746865305548653,
+        0.18598988462881524,
+        0.10014282166957855
+      ]
+    },
+    {
+      "path": "/World/Vegetation/Bed_02/Fruits/Pepper_0004_red",
+      "color": "RED",
+      "sorted": false,
+      "local_xyz": [
+        0.29746731238095797,
+        0.06002136773754049,
+        0.1001429408788681
+      ]
+    },
+    {
+      "path": "/World/Vegetation/Bed_02/Fruits/Pepper_0011_yellow",
+      "color": "YELLOW",
+      "sorted": false,
+      "local_xyz": [
+        0.2974691516313581,
+        -0.06468851107435163,
+        0.10014306753873825
+      ]
+    },
+    {
+      "path": "/World/Vegetation/Bed_02/Fruits/Pepper_0015_red",
+      "color": "RED",
+      "sorted": false,
+      "local_xyz": [
+        0.29750822768237273,
+        -0.18654699036700714,
+        0.10026569664478302
+      ]
+    },
+    {
+      "path": "/World/Vegetation/Bed_02/Fruits/Pepper_0026_yellow",
+      "color": "YELLOW",
+      "sorted": false,
+      "local_xyz": [
+        0.35741839027726435,
+        0.18890768429548982,
+        0.13044525682926178
+      ]
+    },
+    {
+      "path": "/World/Vegetation/Bed_02/Fruits/Pepper_0028_yellow",
+      "color": "YELLOW",
+      "sorted": false,
+      "local_xyz": [
+        0.35695667560360983,
+        0.06644175245827012,
+        0.13032349944114685
+      ]
+    },
+    {
+      "path": "/World/Vegetation/Bed_02/Fruits/Pepper_0029_red",
+      "color": "RED",
+      "sorted": false,
+      "local_xyz": [
+        0.35557231085807023,
+        -0.05196728756223977,
+        0.1294223666191101
+      ]
+    },
+    {
+      "path": "/World/Vegetation/Bed_02/Fruits/Pepper_0032_red",
+      "color": "RED",
+      "sorted": false,
+      "local_xyz": [
+        0.35745625531021036,
+        -0.1837216825394927,
+        0.13037283718585968
+      ]
+    },
+    {
+      "path": "/World/Vegetation/Bed_02/Fruits/Pepper_0033_red",
+      "color": "RED",
+      "sorted": false,
+      "local_xyz": [
+        0.4171249401002123,
+        0.18898455319956547,
+        0.1604374647140503
+      ]
+    },
+    {
+      "path": "/World/Vegetation/Bed_02/Fruits/Pepper_0036_yellow",
+      "color": "YELLOW",
+      "sorted": false,
+      "local_xyz": [
+        0.4168508450073409,
+        0.0658284292830685,
+        0.16029994189739227
+      ]
+    }
+  ],
+  "cases": [
+    {
+      "offset_y_px": 0,
+      "rois": {
+        "A": [
+          185,
+          143,
+          24,
+          10
+        ],
+        "B": [
+          271,
+          143,
+          15,
+          11
+        ],
+        "C": [
+          349,
+          142,
+          18,
+          11
+        ],
+        "D": [
+          435,
+          143,
+          18,
+          12
+        ]
+      },
+      "observations": {
+        "A": {
+          "state": "NO_COLOR",
+          "red_ratio": 0.0,
+          "yellow_ratio": 0.0
+        },
+        "B": {
+          "state": "NO_COLOR",
+          "red_ratio": 0.0,
+          "yellow_ratio": 0.0
+        },
+        "C": {
+          "state": "NO_COLOR",
+          "red_ratio": 0.0,
+          "yellow_ratio": 0.0
+        },
+        "D": {
+          "state": "RED",
+          "red_ratio": 0.14351851851851852,
+          "yellow_ratio": 0.0
+        }
+      }
+    },
+    {
+      "offset_y_px": 1,
+      "rois": {
+        "A": [
+          185,
+          144,
+          24,
+          10
+        ],
+        "B": [
+          271,
+          144,
+          15,
+          11
+        ],
+        "C": [
+          349,
+          143,
+          18,
+          11
+        ],
+        "D": [
+          435,
+          144,
+          18,
+          12
+        ]
+      },
+      "observations": {
+        "A": {
+          "state": "NO_COLOR",
+          "red_ratio": 0.058333333333333334,
+          "yellow_ratio": 0.0
+        },
+        "B": {
+          "state": "NO_COLOR",
+          "red_ratio": 0.0,
+          "yellow_ratio": 0.0
+        },
+        "C": {
+          "state": "NO_COLOR",
+          "red_ratio": 0.0707070707070707,
+          "yellow_ratio": 0.0
+        },
+        "D": {
+          "state": "RED",
+          "red_ratio": 0.2175925925925926,
+          "yellow_ratio": 0.0
+        }
+      }
+    },
+    {
+      "offset_y_px": 2,
+      "rois": {
+        "A": [
+          185,
+          145,
+          24,
+          10
+        ],
+        "B": [
+          271,
+          145,
+          15,
+          11
+        ],
+        "C": [
+          349,
+          144,
+          18,
+          11
+        ],
+        "D": [
+          435,
+          145,
+          18,
+          12
+        ]
+      },
+      "observations": {
+        "A": {
+          "state": "RED",
+          "red_ratio": 0.1875,
+          "yellow_ratio": 0.0
+        },
+        "B": {
+          "state": "NO_COLOR",
+          "red_ratio": 0.0,
+          "yellow_ratio": 0.0
+        },
+        "C": {
+          "state": "RED",
+          "red_ratio": 0.21717171717171718,
+          "yellow_ratio": 0.0
+        },
+        "D": {
+          "state": "RED",
+          "red_ratio": 0.2916666666666667,
+          "yellow_ratio": 0.0
+        }
+      }
+    },
+    {
+      "offset_y_px": 3,
+      "rois": {
+        "A": [
+          185,
+          146,
+          24,
+          10
+        ],
+        "B": [
+          271,
+          146,
+          15,
+          11
+        ],
+        "C": [
+          349,
+          145,
+          18,
+          11
+        ],
+        "D": [
+          435,
+          146,
+          18,
+          12
+        ]
+      },
+      "observations": {
+        "A": {
+          "state": "RED",
+          "red_ratio": 0.2833333333333333,
+          "yellow_ratio": 0.0
+        },
+        "B": {
+          "state": "NO_COLOR",
+          "red_ratio": 0.0,
+          "yellow_ratio": 0.03636363636363636
+        },
+        "C": {
+          "state": "RED",
+          "red_ratio": 0.30808080808080807,
+          "yellow_ratio": 0.0
+        },
+        "D": {
+          "state": "RED",
+          "red_ratio": 0.35648148148148145,
+          "yellow_ratio": 0.0
+        }
+      }
+    },
+    {
+      "offset_y_px": 4,
+      "rois": {
+        "A": [
+          185,
+          147,
+          24,
+          10
+        ],
+        "B": [
+          271,
+          147,
+          15,
+          11
+        ],
+        "C": [
+          349,
+          146,
+          18,
+          11
+        ],
+        "D": [
+          435,
+          147,
+          18,
+          12
+        ]
+      },
+      "observations": {
+        "A": {
+          "state": "RED",
+          "red_ratio": 0.37916666666666665,
+          "yellow_ratio": 0.0
+        },
+        "B": {
+          "state": "YELLOW",
+          "red_ratio": 0.0,
+          "yellow_ratio": 0.09090909090909091
+        },
+        "C": {
+          "state": "RED",
+          "red_ratio": 0.398989898989899,
+          "yellow_ratio": 0.0
+        },
+        "D": {
+          "state": "RED",
+          "red_ratio": 0.41203703703703703,
+          "yellow_ratio": 0.0
+        }
+      }
+    },
+    {
+      "offset_y_px": 5,
+      "rois": {
+        "A": [
+          185,
+          148,
+          24,
+          10
+        ],
+        "B": [
+          271,
+          148,
+          15,
+          11
+        ],
+        "C": [
+          349,
+          147,
+          18,
+          11
+        ],
+        "D": [
+          435,
+          148,
+          18,
+          12
+        ]
+      },
+      "observations": {
+        "A": {
+          "state": "RED",
+          "red_ratio": 0.4708333333333333,
+          "yellow_ratio": 0.0
+        },
+        "B": {
+          "state": "YELLOW",
+          "red_ratio": 0.0,
+          "yellow_ratio": 0.15151515151515152
+        },
+        "C": {
+          "state": "RED",
+          "red_ratio": 0.4797979797979798,
+          "yellow_ratio": 0.0
+        },
+        "D": {
+          "state": "RED",
+          "red_ratio": 0.4722222222222222,
+          "yellow_ratio": 0.0
+        }
+      }
+    },
+    {
+      "offset_y_px": 6,
+      "rois": {
+        "A": [
+          185,
+          149,
+          24,
+          10
+        ],
+        "B": [
+          271,
+          149,
+          15,
+          11
+        ],
+        "C": [
+          349,
+          148,
+          18,
+          11
+        ],
+        "D": [
+          435,
+          149,
+          18,
+          12
+        ]
+      },
+      "observations": {
+        "A": {
+          "state": "RED",
+          "red_ratio": 0.5583333333333333,
+          "yellow_ratio": 0.0
+        },
+        "B": {
+          "state": "YELLOW",
+          "red_ratio": 0.0,
+          "yellow_ratio": 0.2
+        },
+        "C": {
+          "state": "RED",
+          "red_ratio": 0.5454545454545454,
+          "yellow_ratio": 0.0
+        },
+        "D": {
+          "state": "RED",
+          "red_ratio": 0.5277777777777778,
+          "yellow_ratio": 0.0
+        }
+      }
+    },
+    {
+      "offset_y_px": 7,
+      "rois": {
+        "A": [
+          185,
+          150,
+          24,
+          10
+        ],
+        "B": [
+          271,
+          150,
+          15,
+          11
+        ],
+        "C": [
+          349,
+          149,
+          18,
+          11
+        ],
+        "D": [
+          435,
+          150,
+          18,
+          12
+        ]
+      },
+      "observations": {
+        "A": {
+          "state": "RED",
+          "red_ratio": 0.6208333333333333,
+          "yellow_ratio": 0.0
+        },
+        "B": {
+          "state": "YELLOW",
+          "red_ratio": 0.0,
+          "yellow_ratio": 0.28484848484848485
+        },
+        "C": {
+          "state": "RED",
+          "red_ratio": 0.5959595959595959,
+          "yellow_ratio": 0.0
+        },
+        "D": {
+          "state": "RED",
+          "red_ratio": 0.5925925925925926,
+          "yellow_ratio": 0.0
+        }
+      }
+    },
+    {
+      "offset_y_px": 8,
+      "rois": {
+        "A": [
+          185,
+          151,
+          24,
+          10
+        ],
+        "B": [
+          271,
+          151,
+          15,
+          11
+        ],
+        "C": [
+          349,
+          150,
+          18,
+          11
+        ],
+        "D": [
+          435,
+          151,
+          18,
+          12
+        ]
+      },
+      "observations": {
+        "A": {
+          "state": "RED",
+          "red_ratio": 0.7083333333333334,
+          "yellow_ratio": 0.0
+        },
+        "B": {
+          "state": "YELLOW",
+          "red_ratio": 0.0,
+          "yellow_ratio": 0.4
+        },
+        "C": {
+          "state": "RED",
+          "red_ratio": 0.6464646464646465,
+          "yellow_ratio": 0.0
+        },
+        "D": {
+          "state": "RED",
+          "red_ratio": 0.6481481481481481,
+          "yellow_ratio": 0.0
+        }
+      }
+    },
+    {
+      "offset_y_px": 9,
+      "rois": {
+        "A": [
+          185,
+          152,
+          24,
+          10
+        ],
+        "B": [
+          271,
+          152,
+          15,
+          11
+        ],
+        "C": [
+          349,
+          151,
+          18,
+          11
+        ],
+        "D": [
+          435,
+          152,
+          18,
+          12
+        ]
+      },
+      "observations": {
+        "A": {
+          "state": "RED",
+          "red_ratio": 0.7916666666666666,
+          "yellow_ratio": 0.0
+        },
+        "B": {
+          "state": "YELLOW",
+          "red_ratio": 0.0,
+          "yellow_ratio": 0.4909090909090909
+        },
+        "C": {
+          "state": "RED",
+          "red_ratio": 0.7323232323232324,
+          "yellow_ratio": 0.0
+        },
+        "D": {
+          "state": "RED",
+          "red_ratio": 0.6712962962962963,
+          "yellow_ratio": 0.046296296296296294
+        }
+      }
+    },
+    {
+      "offset_y_px": 10,
+      "rois": {
+        "A": [
+          185,
+          153,
+          24,
+          10
+        ],
+        "B": [
+          271,
+          153,
+          15,
+          11
+        ],
+        "C": [
+          349,
+          152,
+          18,
+          11
+        ],
+        "D": [
+          435,
+          153,
+          18,
+          12
+        ]
+      },
+      "observations": {
+        "A": {
+          "state": "RED",
+          "red_ratio": 0.8416666666666667,
+          "yellow_ratio": 0.0
+        },
+        "B": {
+          "state": "YELLOW",
+          "red_ratio": 0.0,
+          "yellow_ratio": 0.5575757575757576
+        },
+        "C": {
+          "state": "RED",
+          "red_ratio": 0.7828282828282829,
+          "yellow_ratio": 0.0
+        },
+        "D": {
+          "state": "RED",
+          "red_ratio": 0.6620370370370371,
+          "yellow_ratio": 0.0787037037037037
+        }
+      }
+    },
+    {
+      "offset_y_px": 11,
+      "rois": {
+        "A": [
+          185,
+          154,
+          24,
+          10
+        ],
+        "B": [
+          271,
+          154,
+          15,
+          11
+        ],
+        "C": [
+          349,
+          153,
+          18,
+          11
+        ],
+        "D": [
+          435,
+          154,
+          18,
+          12
+        ]
+      },
+      "observations": {
+        "A": {
+          "state": "RED",
+          "red_ratio": 0.8166666666666667,
+          "yellow_ratio": 0.0
+        },
+        "B": {
+          "state": "YELLOW",
+          "red_ratio": 0.0,
+          "yellow_ratio": 0.6242424242424243
+        },
+        "C": {
+          "state": "RED",
+          "red_ratio": 0.7878787878787878,
+          "yellow_ratio": 0.0
+        },
+        "D": {
+          "state": "MIXED",
+          "red_ratio": 0.6157407407407407,
+          "yellow_ratio": 0.1527777777777778
+        }
+      }
+    },
+    {
+      "offset_y_px": 12,
+      "rois": {
+        "A": [
+          185,
+          155,
+          24,
+          10
+        ],
+        "B": [
+          271,
+          155,
+          15,
+          11
+        ],
+        "C": [
+          349,
+          154,
+          18,
+          11
+        ],
+        "D": [
+          435,
+          155,
+          18,
+          12
+        ]
+      },
+      "observations": {
+        "A": {
+          "state": "RED",
+          "red_ratio": 0.7708333333333334,
+          "yellow_ratio": 0.025
+        },
+        "B": {
+          "state": "YELLOW",
+          "red_ratio": 0.0,
+          "yellow_ratio": 0.7393939393939394
+        },
+        "C": {
+          "state": "RED",
+          "red_ratio": 0.7222222222222222,
+          "yellow_ratio": 0.04040404040404041
+        },
+        "D": {
+          "state": "MIXED",
+          "red_ratio": 0.5509259259259259,
+          "yellow_ratio": 0.2222222222222222
+        }
+      }
+    },
+    {
+      "offset_y_px": 13,
+      "rois": {
+        "A": [
+          185,
+          156,
+          24,
+          10
+        ],
+        "B": [
+          271,
+          156,
+          15,
+          11
+        ],
+        "C": [
+          349,
+          155,
+          18,
+          11
+        ],
+        "D": [
+          435,
+          156,
+          18,
+          12
+        ]
+      },
+      "observations": {
+        "A": {
+          "state": "MIXED",
+          "red_ratio": 0.7,
+          "yellow_ratio": 0.10416666666666667
+        },
+        "B": {
+          "state": "YELLOW",
+          "red_ratio": 0.0,
+          "yellow_ratio": 0.8121212121212121
+        },
+        "C": {
+          "state": "MIXED",
+          "red_ratio": 0.6464646464646465,
+          "yellow_ratio": 0.1414141414141414
+        },
+        "D": {
+          "state": "MIXED",
+          "red_ratio": 0.4675925925925926,
+          "yellow_ratio": 0.2824074074074074
+        }
+      }
+    },
+    {
+      "offset_y_px": 14,
+      "rois": {
+        "A": [
+          185,
+          157,
+          24,
+          10
+        ],
+        "B": [
+          271,
+          157,
+          15,
+          11
+        ],
+        "C": [
+          349,
+          156,
+          18,
+          11
+        ],
+        "D": [
+          435,
+          157,
+          18,
+          12
+        ]
+      },
+      "observations": {
+        "A": {
+          "state": "MIXED",
+          "red_ratio": 0.6416666666666667,
+          "yellow_ratio": 0.15833333333333333
+        },
+        "B": {
+          "state": "YELLOW",
+          "red_ratio": 0.0,
+          "yellow_ratio": 0.8545454545454545
+        },
+        "C": {
+          "state": "MIXED",
+          "red_ratio": 0.5606060606060606,
+          "yellow_ratio": 0.2222222222222222
+        },
+        "D": {
+          "state": "MIXED",
+          "red_ratio": 0.4212962962962963,
+          "yellow_ratio": 0.3472222222222222
+        }
+      }
+    },
+    {
+      "offset_y_px": 15,
+      "rois": {
+        "A": [
+          185,
+          158,
+          24,
+          10
+        ],
+        "B": [
+          271,
+          158,
+          15,
+          11
+        ],
+        "C": [
+          349,
+          157,
+          18,
+          11
+        ],
+        "D": [
+          435,
+          158,
+          18,
+          12
+        ]
+      },
+      "observations": {
+        "A": {
+          "state": "MIXED",
+          "red_ratio": 0.575,
+          "yellow_ratio": 0.15833333333333333
+        },
+        "B": {
+          "state": "YELLOW",
+          "red_ratio": 0.0,
+          "yellow_ratio": 0.8787878787878788
+        },
+        "C": {
+          "state": "MIXED",
+          "red_ratio": 0.4797979797979798,
+          "yellow_ratio": 0.29292929292929293
+        },
+        "D": {
+          "state": "MIXED",
+          "red_ratio": 0.3425925925925926,
+          "yellow_ratio": 0.3888888888888889
+        }
+      }
+    },
+    {
+      "offset_y_px": 16,
+      "rois": {
+        "A": [
+          185,
+          159,
+          24,
+          10
+        ],
+        "B": [
+          271,
+          159,
+          15,
+          11
+        ],
+        "C": [
+          349,
+          158,
+          18,
+          11
+        ],
+        "D": [
+          435,
+          159,
+          18,
+          12
+        ]
+      },
+      "observations": {
+        "A": {
+          "state": "MIXED",
+          "red_ratio": 0.5333333333333333,
+          "yellow_ratio": 0.21666666666666667
+        },
+        "B": {
+          "state": "YELLOW",
+          "red_ratio": 0.0,
+          "yellow_ratio": 0.9090909090909091
+        },
+        "C": {
+          "state": "MIXED",
+          "red_ratio": 0.42424242424242425,
+          "yellow_ratio": 0.3484848484848485
+        },
+        "D": {
+          "state": "MIXED",
+          "red_ratio": 0.28703703703703703,
+          "yellow_ratio": 0.4722222222222222
+        }
+      }
+    },
+    {
+      "offset_y_px": 17,
+      "rois": {
+        "A": [
+          185,
+          160,
+          24,
+          10
+        ],
+        "B": [
+          271,
+          160,
+          15,
+          11
+        ],
+        "C": [
+          349,
+          159,
+          18,
+          11
+        ],
+        "D": [
+          435,
+          160,
+          18,
+          12
+        ]
+      },
+      "observations": {
+        "A": {
+          "state": "MIXED",
+          "red_ratio": 0.4708333333333333,
+          "yellow_ratio": 0.275
+        },
+        "B": {
+          "state": "YELLOW",
+          "red_ratio": 0.0,
+          "yellow_ratio": 0.9393939393939394
+        },
+        "C": {
+          "state": "MIXED",
+          "red_ratio": 0.3939393939393939,
+          "yellow_ratio": 0.40404040404040403
+        },
+        "D": {
+          "state": "MIXED",
+          "red_ratio": 0.2222222222222222,
+          "yellow_ratio": 0.5601851851851852
+        }
+      }
+    },
+    {
+      "offset_y_px": 18,
+      "rois": {
+        "A": [
+          185,
+          161,
+          24,
+          10
+        ],
+        "B": [
+          271,
+          161,
+          15,
+          11
+        ],
+        "C": [
+          349,
+          160,
+          18,
+          11
+        ],
+        "D": [
+          435,
+          161,
+          18,
+          12
+        ]
+      },
+      "observations": {
+        "A": {
+          "state": "MIXED",
+          "red_ratio": 0.4041666666666667,
+          "yellow_ratio": 0.35
+        },
+        "B": {
+          "state": "YELLOW",
+          "red_ratio": 0.0,
+          "yellow_ratio": 0.9454545454545454
+        },
+        "C": {
+          "state": "MIXED",
+          "red_ratio": 0.35858585858585856,
+          "yellow_ratio": 0.4595959595959596
+        },
+        "D": {
+          "state": "MIXED",
+          "red_ratio": 0.16666666666666666,
+          "yellow_ratio": 0.6203703703703703
+        }
+      }
+    },
+    {
+      "offset_y_px": 19,
+      "rois": {
+        "A": [
+          185,
+          162,
+          24,
+          10
+        ],
+        "B": [
+          271,
+          162,
+          15,
+          11
+        ],
+        "C": [
+          349,
+          161,
+          18,
+          11
+        ],
+        "D": [
+          435,
+          162,
+          18,
+          12
+        ]
+      },
+      "observations": {
+        "A": {
+          "state": "MIXED",
+          "red_ratio": 0.3541666666666667,
+          "yellow_ratio": 0.42083333333333334
+        },
+        "B": {
+          "state": "YELLOW",
+          "red_ratio": 0.0,
+          "yellow_ratio": 0.9212121212121213
+        },
+        "C": {
+          "state": "MIXED",
+          "red_ratio": 0.29797979797979796,
+          "yellow_ratio": 0.5353535353535354
+        },
+        "D": {
+          "state": "MIXED",
+          "red_ratio": 0.11574074074074074,
+          "yellow_ratio": 0.6574074074074074
+        }
+      }
+    },
+    {
+      "offset_y_px": 20,
+      "rois": {
+        "A": [
+          185,
+          163,
+          24,
+          10
+        ],
+        "B": [
+          271,
+          163,
+          15,
+          11
+        ],
+        "C": [
+          349,
+          162,
+          18,
+          11
+        ],
+        "D": [
+          435,
+          163,
+          18,
+          12
+        ]
+      },
+      "observations": {
+        "A": {
+          "state": "MIXED",
+          "red_ratio": 0.325,
+          "yellow_ratio": 0.48333333333333334
+        },
+        "B": {
+          "state": "YELLOW",
+          "red_ratio": 0.0,
+          "yellow_ratio": 0.9272727272727272
+        },
+        "C": {
+          "state": "MIXED",
+          "red_ratio": 0.2676767676767677,
+          "yellow_ratio": 0.5858585858585859
+        },
+        "D": {
+          "state": "MIXED",
+          "red_ratio": 0.1388888888888889,
+          "yellow_ratio": 0.6574074074074074
+        }
+      }
+    },
+    {
+      "offset_y_px": 21,
+      "rois": {
+        "A": [
+          185,
+          164,
+          24,
+          10
+        ],
+        "B": [
+          271,
+          164,
+          15,
+          11
+        ],
+        "C": [
+          349,
+          163,
+          18,
+          11
+        ],
+        "D": [
+          435,
+          164,
+          18,
+          12
+        ]
+      },
+      "observations": {
+        "A": {
+          "state": "MIXED",
+          "red_ratio": 0.3125,
+          "yellow_ratio": 0.5166666666666667
+        },
+        "B": {
+          "state": "YELLOW",
+          "red_ratio": 0.0,
+          "yellow_ratio": 0.9272727272727272
+        },
+        "C": {
+          "state": "MIXED",
+          "red_ratio": 0.23737373737373738,
+          "yellow_ratio": 0.6262626262626263
+        },
+        "D": {
+          "state": "MIXED",
+          "red_ratio": 0.1574074074074074,
+          "yellow_ratio": 0.6296296296296297
+        }
+      }
+    },
+    {
+      "offset_y_px": 22,
+      "rois": {
+        "A": [
+          185,
+          165,
+          24,
+          10
+        ],
+        "B": [
+          271,
+          165,
+          15,
+          11
+        ],
+        "C": [
+          349,
+          164,
+          18,
+          11
+        ],
+        "D": [
+          435,
+          165,
+          18,
+          12
+        ]
+      },
+      "observations": {
+        "A": {
+          "state": "MIXED",
+          "red_ratio": 0.3541666666666667,
+          "yellow_ratio": 0.5125
+        },
+        "B": {
+          "state": "YELLOW",
+          "red_ratio": 0.0,
+          "yellow_ratio": 0.9151515151515152
+        },
+        "C": {
+          "state": "MIXED",
+          "red_ratio": 0.25757575757575757,
+          "yellow_ratio": 0.6313131313131313
+        },
+        "D": {
+          "state": "MIXED",
+          "red_ratio": 0.23148148148148148,
+          "yellow_ratio": 0.5787037037037037
+        }
+      }
+    },
+    {
+      "offset_y_px": 23,
+      "rois": {
+        "A": [
+          185,
+          166,
+          24,
+          10
+        ],
+        "B": [
+          271,
+          166,
+          15,
+          11
+        ],
+        "C": [
+          349,
+          165,
+          18,
+          11
+        ],
+        "D": [
+          435,
+          166,
+          18,
+          12
+        ]
+      },
+      "observations": {
+        "A": {
+          "state": "MIXED",
+          "red_ratio": 0.4041666666666667,
+          "yellow_ratio": 0.4375
+        },
+        "B": {
+          "state": "YELLOW",
+          "red_ratio": 0.0,
+          "yellow_ratio": 0.896969696969697
+        },
+        "C": {
+          "state": "MIXED",
+          "red_ratio": 0.29292929292929293,
+          "yellow_ratio": 0.5707070707070707
+        },
+        "D": {
+          "state": "MIXED",
+          "red_ratio": 0.3194444444444444,
+          "yellow_ratio": 0.5185185185185185
+        }
+      }
+    },
+    {
+      "offset_y_px": 24,
+      "rois": {
+        "A": [
+          185,
+          167,
+          24,
+          10
+        ],
+        "B": [
+          271,
+          167,
+          15,
+          11
+        ],
+        "C": [
+          349,
+          166,
+          18,
+          11
+        ],
+        "D": [
+          435,
+          167,
+          18,
+          12
+        ]
+      },
+      "observations": {
+        "A": {
+          "state": "MIXED",
+          "red_ratio": 0.49166666666666664,
+          "yellow_ratio": 0.4041666666666667
+        },
+        "B": {
+          "state": "YELLOW",
+          "red_ratio": 0.0,
+          "yellow_ratio": 0.9151515151515152
+        },
+        "C": {
+          "state": "MIXED",
+          "red_ratio": 0.3838383838383838,
+          "yellow_ratio": 0.5
+        },
+        "D": {
+          "state": "MIXED",
+          "red_ratio": 0.42592592592592593,
+          "yellow_ratio": 0.46296296296296297
+        }
+      }
+    },
+    {
+      "offset_y_px": 25,
+      "rois": {
+        "A": [
+          185,
+          168,
+          24,
+          10
+        ],
+        "B": [
+          271,
+          168,
+          15,
+          11
+        ],
+        "C": [
+          349,
+          167,
+          18,
+          11
+        ],
+        "D": [
+          435,
+          168,
+          18,
+          12
+        ]
+      },
+      "observations": {
+        "A": {
+          "state": "MIXED",
+          "red_ratio": 0.5708333333333333,
+          "yellow_ratio": 0.3541666666666667
+        },
+        "B": {
+          "state": "YELLOW",
+          "red_ratio": 0.0,
+          "yellow_ratio": 0.9212121212121213
+        },
+        "C": {
+          "state": "MIXED",
+          "red_ratio": 0.46464646464646464,
+          "yellow_ratio": 0.41414141414141414
+        },
+        "D": {
+          "state": "MIXED",
+          "red_ratio": 0.4722222222222222,
+          "yellow_ratio": 0.39351851851851855
+        }
+      }
+    },
+    {
+      "offset_y_px": 26,
+      "rois": {
+        "A": [
+          185,
+          169,
+          24,
+          10
+        ],
+        "B": [
+          271,
+          169,
+          15,
+          11
+        ],
+        "C": [
+          349,
+          168,
+          18,
+          11
+        ],
+        "D": [
+          435,
+          169,
+          18,
+          12
+        ]
+      },
+      "observations": {
+        "A": {
+          "state": "MIXED",
+          "red_ratio": 0.6291666666666667,
+          "yellow_ratio": 0.30416666666666664
+        },
+        "B": {
+          "state": "YELLOW",
+          "red_ratio": 0.0,
+          "yellow_ratio": 0.9151515151515152
+        },
+        "C": {
+          "state": "MIXED",
+          "red_ratio": 0.5252525252525253,
+          "yellow_ratio": 0.35858585858585856
+        },
+        "D": {
+          "state": "MIXED",
+          "red_ratio": 0.5462962962962963,
+          "yellow_ratio": 0.33796296296296297
+        }
+      }
+    },
+    {
+      "offset_y_px": 27,
+      "rois": {
+        "A": [
+          185,
+          170,
+          24,
+          10
+        ],
+        "B": [
+          271,
+          170,
+          15,
+          11
+        ],
+        "C": [
+          349,
+          169,
+          18,
+          11
+        ],
+        "D": [
+          435,
+          170,
+          18,
+          12
+        ]
+      },
+      "observations": {
+        "A": {
+          "state": "MIXED",
+          "red_ratio": 0.6875,
+          "yellow_ratio": 0.24166666666666667
+        },
+        "B": {
+          "state": "YELLOW",
+          "red_ratio": 0.0,
+          "yellow_ratio": 0.8909090909090909
+        },
+        "C": {
+          "state": "MIXED",
+          "red_ratio": 0.5808080808080808,
+          "yellow_ratio": 0.30303030303030304
+        },
+        "D": {
+          "state": "MIXED",
+          "red_ratio": 0.6388888888888888,
+          "yellow_ratio": 0.2824074074074074
+        }
+      }
+    },
+    {
+      "offset_y_px": 28,
+      "rois": {
+        "A": [
+          185,
+          171,
+          24,
+          10
+        ],
+        "B": [
+          271,
+          171,
+          15,
+          11
+        ],
+        "C": [
+          349,
+          170,
+          18,
+          11
+        ],
+        "D": [
+          435,
+          171,
+          18,
+          12
+        ]
+      },
+      "observations": {
+        "A": {
+          "state": "MIXED",
+          "red_ratio": 0.7208333333333333,
+          "yellow_ratio": 0.17083333333333334
+        },
+        "B": {
+          "state": "YELLOW",
+          "red_ratio": 0.0,
+          "yellow_ratio": 0.9030303030303031
+        },
+        "C": {
+          "state": "MIXED",
+          "red_ratio": 0.6212121212121212,
+          "yellow_ratio": 0.25757575757575757
+        },
+        "D": {
+          "state": "MIXED",
+          "red_ratio": 0.7222222222222222,
+          "yellow_ratio": 0.19907407407407407
+        }
+      }
+    },
+    {
+      "offset_y_px": 29,
+      "rois": {
+        "A": [
+          185,
+          172,
+          24,
+          10
+        ],
+        "B": [
+          271,
+          172,
+          15,
+          11
+        ],
+        "C": [
+          349,
+          171,
+          18,
+          11
+        ],
+        "D": [
+          435,
+          172,
+          18,
+          12
+        ]
+      },
+      "observations": {
+        "A": {
+          "state": "RED",
+          "red_ratio": 0.7583333333333333,
+          "yellow_ratio": 0.075
+        },
+        "B": {
+          "state": "YELLOW",
+          "red_ratio": 0.0,
+          "yellow_ratio": 0.8666666666666667
+        },
+        "C": {
+          "state": "MIXED",
+          "red_ratio": 0.6919191919191919,
+          "yellow_ratio": 0.18686868686868688
+        },
+        "D": {
+          "state": "MIXED",
+          "red_ratio": 0.8055555555555556,
+          "yellow_ratio": 0.09722222222222222
+        }
+      }
+    },
+    {
+      "offset_y_px": 30,
+      "rois": {
+        "A": [
+          185,
+          173,
+          24,
+          10
+        ],
+        "B": [
+          271,
+          173,
+          15,
+          11
+        ],
+        "C": [
+          349,
+          172,
+          18,
+          11
+        ],
+        "D": [
+          435,
+          173,
+          18,
+          12
+        ]
+      },
+      "observations": {
+        "A": {
+          "state": "RED",
+          "red_ratio": 0.8208333333333333,
+          "yellow_ratio": 0.03333333333333333
+        },
+        "B": {
+          "state": "YELLOW",
+          "red_ratio": 0.0,
+          "yellow_ratio": 0.8606060606060606
+        },
+        "C": {
+          "state": "MIXED",
+          "red_ratio": 0.7424242424242424,
+          "yellow_ratio": 0.10606060606060606
+        },
+        "D": {
+          "state": "RED",
+          "red_ratio": 0.8796296296296297,
+          "yellow_ratio": 0.046296296296296294
+        }
+      }
+    },
+    {
+      "offset_y_px": 31,
+      "rois": {
+        "A": [
+          185,
+          174,
+          24,
+          10
+        ],
+        "B": [
+          271,
+          174,
+          15,
+          11
+        ],
+        "C": [
+          349,
+          173,
+          18,
+          11
+        ],
+        "D": [
+          435,
+          174,
+          18,
+          12
+        ]
+      },
+      "observations": {
+        "A": {
+          "state": "RED",
+          "red_ratio": 0.8833333333333333,
+          "yellow_ratio": 0.0
+        },
+        "B": {
+          "state": "YELLOW",
+          "red_ratio": 0.0,
+          "yellow_ratio": 0.8242424242424242
+        },
+        "C": {
+          "state": "RED",
+          "red_ratio": 0.8232323232323232,
+          "yellow_ratio": 0.050505050505050504
+        },
+        "D": {
+          "state": "RED",
+          "red_ratio": 0.8935185185185185,
+          "yellow_ratio": 0.0
+        }
+      }
+    },
+    {
+      "offset_y_px": 32,
+      "rois": {
+        "A": [
+          185,
+          175,
+          24,
+          10
+        ],
+        "B": [
+          271,
+          175,
+          15,
+          11
+        ],
+        "C": [
+          349,
+          174,
+          18,
+          11
+        ],
+        "D": [
+          435,
+          175,
+          18,
+          12
+        ]
+      },
+      "observations": {
+        "A": {
+          "state": "RED",
+          "red_ratio": 0.9166666666666666,
+          "yellow_ratio": 0.0
+        },
+        "B": {
+          "state": "YELLOW",
+          "red_ratio": 0.0,
+          "yellow_ratio": 0.7515151515151515
+        },
+        "C": {
+          "state": "RED",
+          "red_ratio": 0.8737373737373737,
+          "yellow_ratio": 0.0
+        },
+        "D": {
+          "state": "RED",
+          "red_ratio": 0.8472222222222222,
+          "yellow_ratio": 0.0
+        }
+      }
+    },
+    {
+      "offset_y_px": 33,
+      "rois": {
+        "A": [
+          185,
+          176,
+          24,
+          10
+        ],
+        "B": [
+          271,
+          176,
+          15,
+          11
+        ],
+        "C": [
+          349,
+          175,
+          18,
+          11
+        ],
+        "D": [
+          435,
+          176,
+          18,
+          12
+        ]
+      },
+      "observations": {
+        "A": {
+          "state": "RED",
+          "red_ratio": 0.925,
+          "yellow_ratio": 0.0
+        },
+        "B": {
+          "state": "MIXED",
+          "red_ratio": 0.10909090909090909,
+          "yellow_ratio": 0.6727272727272727
+        },
+        "C": {
+          "state": "RED",
+          "red_ratio": 0.8838383838383839,
+          "yellow_ratio": 0.0
+        },
+        "D": {
+          "state": "MIXED",
+          "red_ratio": 0.7777777777777778,
+          "yellow_ratio": 0.14814814814814814
+        }
+      }
+    },
+    {
+      "offset_y_px": 34,
+      "rois": {
+        "A": [
+          185,
+          177,
+          24,
+          10
+        ],
+        "B": [
+          271,
+          177,
+          15,
+          11
+        ],
+        "C": [
+          349,
+          176,
+          18,
+          11
+        ],
+        "D": [
+          435,
+          177,
+          18,
+          12
+        ]
+      },
+      "observations": {
+        "A": {
+          "state": "RED",
+          "red_ratio": 0.9,
+          "yellow_ratio": 0.0
+        },
+        "B": {
+          "state": "MIXED",
+          "red_ratio": 0.18787878787878787,
+          "yellow_ratio": 0.5757575757575758
+        },
+        "C": {
+          "state": "RED",
+          "red_ratio": 0.8333333333333334,
+          "yellow_ratio": 0.0
+        },
+        "D": {
+          "state": "MIXED",
+          "red_ratio": 0.6898148148148148,
+          "yellow_ratio": 0.24074074074074073
+        }
+      }
+    },
+    {
+      "offset_y_px": 35,
+      "rois": {
+        "A": [
+          185,
+          178,
+          24,
+          10
+        ],
+        "B": [
+          271,
+          178,
+          15,
+          11
+        ],
+        "C": [
+          349,
+          177,
+          18,
+          11
+        ],
+        "D": [
+          435,
+          178,
+          18,
+          12
+        ]
+      },
+      "observations": {
+        "A": {
+          "state": "RED",
+          "red_ratio": 0.9,
+          "yellow_ratio": 0.0
+        },
+        "B": {
+          "state": "MIXED",
+          "red_ratio": 0.2787878787878788,
+          "yellow_ratio": 0.4727272727272727
+        },
+        "C": {
+          "state": "MIXED",
+          "red_ratio": 0.7474747474747475,
+          "yellow_ratio": 0.10101010101010101
+        },
+        "D": {
+          "state": "MIXED",
+          "red_ratio": 0.6157407407407407,
+          "yellow_ratio": 0.32407407407407407
+        }
+      }
+    },
+    {
+      "offset_y_px": 36,
+      "rois": {
+        "A": [
+          185,
+          179,
+          24,
+          10
+        ],
+        "B": [
+          271,
+          179,
+          15,
+          11
+        ],
+        "C": [
+          349,
+          178,
+          18,
+          11
+        ],
+        "D": [
+          435,
+          179,
+          18,
+          12
+        ]
+      },
+      "observations": {
+        "A": {
+          "state": "RED",
+          "red_ratio": 0.8916666666666667,
+          "yellow_ratio": 0.0
+        },
+        "B": {
+          "state": "MIXED",
+          "red_ratio": 0.3696969696969697,
+          "yellow_ratio": 0.4
+        },
+        "C": {
+          "state": "MIXED",
+          "red_ratio": 0.6717171717171717,
+          "yellow_ratio": 0.1919191919191919
+        },
+        "D": {
+          "state": "MIXED",
+          "red_ratio": 0.5416666666666666,
+          "yellow_ratio": 0.4074074074074074
+        }
+      }
+    },
+    {
+      "offset_y_px": 37,
+      "rois": {
+        "A": [
+          185,
+          180,
+          24,
+          10
+        ],
+        "B": [
+          271,
+          180,
+          15,
+          11
+        ],
+        "C": [
+          349,
+          179,
+          18,
+          11
+        ],
+        "D": [
+          435,
+          180,
+          18,
+          12
+        ]
+      },
+      "observations": {
+        "A": {
+          "state": "RED",
+          "red_ratio": 0.9333333333333333,
+          "yellow_ratio": 0.0
+        },
+        "B": {
+          "state": "MIXED",
+          "red_ratio": 0.4666666666666667,
+          "yellow_ratio": 0.3333333333333333
+        },
+        "C": {
+          "state": "MIXED",
+          "red_ratio": 0.5808080808080808,
+          "yellow_ratio": 0.2727272727272727
+        },
+        "D": {
+          "state": "MIXED",
+          "red_ratio": 0.4675925925925926,
+          "yellow_ratio": 0.49074074074074076
+        }
+      }
+    },
+    {
+      "offset_y_px": 38,
+      "rois": {
+        "A": [
+          185,
+          181,
+          24,
+          10
+        ],
+        "B": [
+          271,
+          181,
+          15,
+          11
+        ],
+        "C": [
+          349,
+          180,
+          18,
+          11
+        ],
+        "D": [
+          435,
+          181,
+          18,
+          12
+        ]
+      },
+      "observations": {
+        "A": {
+          "state": "RED",
+          "red_ratio": 0.9666666666666667,
+          "yellow_ratio": 0.0
+        },
+        "B": {
+          "state": "MIXED",
+          "red_ratio": 0.5575757575757576,
+          "yellow_ratio": 0.24848484848484848
+        },
+        "C": {
+          "state": "MIXED",
+          "red_ratio": 0.5202020202020202,
+          "yellow_ratio": 0.3686868686868687
+        },
+        "D": {
+          "state": "MIXED",
+          "red_ratio": 0.38425925925925924,
+          "yellow_ratio": 0.5509259259259259
+        }
+      }
+    },
+    {
+      "offset_y_px": 39,
+      "rois": {
+        "A": [
+          185,
+          182,
+          24,
+          10
+        ],
+        "B": [
+          271,
+          182,
+          15,
+          11
+        ],
+        "C": [
+          349,
+          181,
+          18,
+          11
+        ],
+        "D": [
+          435,
+          182,
+          18,
+          12
+        ]
+      },
+      "observations": {
+        "A": {
+          "state": "RED",
+          "red_ratio": 0.9833333333333333,
+          "yellow_ratio": 0.0
+        },
+        "B": {
+          "state": "MIXED",
+          "red_ratio": 0.6484848484848484,
+          "yellow_ratio": 0.16363636363636364
+        },
+        "C": {
+          "state": "MIXED",
+          "red_ratio": 0.4444444444444444,
+          "yellow_ratio": 0.46464646464646464
+        },
+        "D": {
+          "state": "MIXED",
+          "red_ratio": 0.30092592592592593,
+          "yellow_ratio": 0.6111111111111112
+        }
+      }
+    },
+    {
+      "offset_y_px": 40,
+      "rois": {
+        "A": [
+          185,
+          183,
+          24,
+          10
+        ],
+        "B": [
+          271,
+          183,
+          15,
+          11
+        ],
+        "C": [
+          349,
+          182,
+          18,
+          11
+        ],
+        "D": [
+          435,
+          183,
+          18,
+          12
+        ]
+      },
+      "observations": {
+        "A": {
+          "state": "RED",
+          "red_ratio": 0.9791666666666666,
+          "yellow_ratio": 0.0
+        },
+        "B": {
+          "state": "RED",
+          "red_ratio": 0.7393939393939394,
+          "yellow_ratio": 0.06060606060606061
+        },
+        "C": {
+          "state": "MIXED",
+          "red_ratio": 0.3686868686868687,
+          "yellow_ratio": 0.5555555555555556
+        },
+        "D": {
+          "state": "MIXED",
+          "red_ratio": 0.2175925925925926,
+          "yellow_ratio": 0.6666666666666666
+        }
+      }
+    }
+  ],
+  "source_sha256": {
+    "sim/runs/transport_full_resume_20261029_attempt01/runtime/sorter.json": "5b5876ed1f0fc543e7a2aaae507425e9096ffdeff776f17683bc9e4ed683184b",
+    "sim/vendor/hcr3a_20261008/HCR3A_SIM_TEAM_20261008/workspace/src/sorting_station/hcr/zone_preview.py": "c3df6a18e2540a4b57e1d419d5cd268b37277c6ec226d55393fef9ac35498601",
+    "sim/vendor/hcr3a_20261008/HCR3A_SIM_TEAM_20261008/workspace/outputs/sorting_station/hcr_sim/zones.json": "10b5d2be625b2d74674178eda2295df90fd6c4a5f646908824eec946a6831561",
+    "sim/runs/transport_full_resume_20261029_attempt01/sorting/camera_rgb.png": "bda09c15cf3767ddca828fce017f80a229b17372210397a255361de8cbe9dc11",
+    "sim/runs/transport_full_resume_20261029_attempt01/sorting/physical_report.json": "1b3b1336c68df1bc0846b1205e8a595766210e2e2a6411db62491f5655c19c56"
+  }
+}

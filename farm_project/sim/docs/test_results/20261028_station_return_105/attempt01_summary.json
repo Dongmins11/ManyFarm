@@ -1,0 +1,60 @@
+{
+  "session": "499d4c07386042488c1f4fe9a3ca532d",
+  "return_result": {
+    "at": "2026-10-28T12:00:48.002112+00:00",
+    "mono": 120756.871487719,
+    "kind": "return_result",
+    "status": 4,
+    "result": {
+      "robot_id": "transport_01",
+      "task_id": "return_115f7c847cb34e66",
+      "result_code": "SUCCESS",
+      "station_id": "STATION_TRANSPORT_01",
+      "docked": true,
+      "error_code": "NONE",
+      "error_message": "",
+      "timestamp": "2026-10-28T12:00:47.986200+00:00"
+    }
+  },
+  "sequence_elapsed_wall_s": 260.56492027500644,
+  "return_elapsed_wall_s": 159.83728225700906,
+  "final_rotation_command_start_sim_s": 246.76667953655124,
+  "final_rotation_command_end_sim_s": 259.16668018326163,
+  "final_rotation_command_span_s": 12.400000646710396,
+  "final_truth": {
+    "sim_time_s": 261.8166803214699,
+    "xy": [
+      2.0255329608917236,
+      13.279297828674316
+    ],
+    "yaw": -1.7234071675755351,
+    "position_error_m": 0.038862512231299266,
+    "heading_error_rad": 0.15261084078063858,
+    "wheel_odom_velocity": [
+      -0.00025907723744555814,
+      -0.000587422370076503
+    ]
+  },
+  "last_published_status": {
+    "at": "2026-10-28T12:00:47.641182+00:00",
+    "xy": [
+      2.0087751816049826,
+      13.266997624587713
+    ],
+    "yaw": -1.6379359399728761,
+    "position_error_m": 0.019129115343508477,
+    "heading_error_rad": 0.06713961317797956
+  },
+  "note": "Last published status and final truth are distinct times; truth is evaluation only. Rotation span covers nonzero rotation commands near station.",
+  "truth_at_return_result": {
+    "sim_time_s": 261.3666802980006,
+    "wall_time_delta_s": -0.007365939003648236,
+    "xy": [
+      2.025529146194458,
+      13.279271125793457
+    ],
+    "yaw": -1.7234179248648005,
+    "position_error_m": 0.03883987784010649,
+    "heading_error_rad": 0.15262159806990394
+  }
+}

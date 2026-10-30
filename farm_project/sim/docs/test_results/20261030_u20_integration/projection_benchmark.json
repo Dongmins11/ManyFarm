@@ -1,0 +1,16 @@
+{
+  "scope": "offline CPU native mask projection; one saved frame and central synthetic mask; concurrent farm run",
+  "frame": "sim/runs/robotarm/student/a138377847da4d928771547d9155d7d2/2d3f5a1e7b7a437580e01ee71e65d13b/camera_initial.npz",
+  "depth_shape": [
+    480,
+    848
+  ],
+  "mask_identical": true,
+  "repetitions": 20,
+  "median_ms": {
+    "before": 5.254247502307408,
+    "after": 4.41899751604069
+  },
+  "full_xy_grid_allocation_removed_bytes": 6512640,
+  "no_detection_projection_skipped": true
+}

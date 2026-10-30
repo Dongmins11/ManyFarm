@@ -11,6 +11,23 @@ from farm_sim_devices.student_session import map_outcomes, StudentArmSession, mi
 
 
 class StudentAssignmentTests(unittest.TestCase):
+    def test_mount_drift_still_fails_and_records_measured_transform(self):
+        import numpy as np
+        arm = object.__new__(StudentArmSession)
+        arm.state = dict(stage='TO_HOME')
+        arm._fault = ''
+        arm._pending_cancel = False
+        arm._lease = 0.
+        arm.config = dict(lease_s=2., base_drift_limit_m=.02, base_yaw_drift_limit_rad=.05)
+        arm._dock_arm = np.eye(4)
+        moved = np.eye(4);moved[0, 3] = .021
+        arm.device = SimpleNamespace(arm_world_transform=lambda: moved)
+        arm._stop, arm._log = Mock(), Mock()
+        arm._tick(1., True, 1.)
+        arm._stop.assert_called_once_with(1., 'FAILED', 'STUDENT_SUPERVISOR_FAULT', 'right_arm_mount_moved_from_dock')
+        self.assertAlmostEqual(arm._log.call_args.kwargs['dock_displacement_m'], .021)
+        self.assertEqual(arm._log.call_args.kwargs['translation_limit_m'], .02)
+
     def test_keeps_camera_coordinates_and_ids(self):
         target = SimpleNamespace(target_id='camera-id', label='Red', anchor_arm_m=(.3, 0., .2))
         original = target.anchor_arm_m

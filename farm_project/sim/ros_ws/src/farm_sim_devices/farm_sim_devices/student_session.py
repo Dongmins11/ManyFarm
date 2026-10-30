@@ -1,4 +1,4 @@
-"""기존 팔 UDP/정차 계약에 전달 D435 Student mission을 연결한다.
+"""기존 팔 UDP/정차 계약에 전달 D435/U20 Student mission을 연결한다.
 
 영상 관측만 정책에 전달한다. 성공량은 평행 세 빔의 익명 통과로 센다.
 시뮬 과실 ID는 선택적인 평가 대응이다. ID 미확정도 영상 제어·레이저 계수를 막지 않는다.
@@ -78,24 +78,31 @@ class StudentRuntime:
         from harvest_runtime.student60_mission_session import MissionCameraSession
         from harvest_vision.client import Detector
         from .student_camera import FarmD435Rig
-        self.contract = torch.load(release/manifest['models']['d435']['path'], map_location='cpu', weights_only=True)['contract']
+        camera_kind = settings['camera']
+        if camera_kind not in ('d435', 'u20'):
+            raise ValueError('지원하지 않는 Student 카메라: '+str(camera_kind))
+        checkpoint = release/manifest['models'][camera_kind]['path']
+        self.contract = torch.load(checkpoint, map_location='cpu', weights_only=True)['contract']
         # 농장 scene 배치 seed는 고정 물성/제어 계약의 일부가 아니다.
         if {k: v for k, v in physical_task.items() if k != 'seed'} != self.contract['task']:
             raise ValueError('농장 물리 task와 Student 고정 계약 불일치')
-        if settings['camera'] != 'd435':
-            raise ValueError('현재 농장 어댑터는 검증 대상 D435만 지원합니다.')
         if not np.allclose(device.config['policy_arm_position_m'], np.asarray(self.contract['box_from_arm'])[:3, 3], atol=1e-9):
             raise ValueError('농장 박스 판정 좌표와 Student 학습 좌표 불일치')
         if not np.allclose(device.lower, self.contract['lower_rad'], atol=1e-6) or not np.allclose(device.upper, self.contract['upper_rad'], atol=1e-6):
             raise ValueError('실제 농장 관절 한계와 Student 계약 불일치')
         from harvest_rl.settings import URDF
-        for source, field in ((URDF, 'sensor_mount_reference_urdf_sha256'),
+        sensor_urdf = URDF
+        if camera_kind == 'u20':
+            from harvest_sensors.u20_deployment import reference_urdf, validate_u20
+            validate_u20(self.contract['camera_config'])
+            sensor_urdf = reference_urdf(self.contract['camera_config'])
+        for source, field in ((sensor_urdf, 'sensor_mount_reference_urdf_sha256'),
                 (release/'src/harvest_robot/config/arm_appearance.json', 'deployment_arm_appearance_sha256')):
             digest = hashlib.sha256(source.read_bytes()).hexdigest()
             if digest != self.contract[field]:
                 raise ValueError('Student 센서/외형 기준 SHA 불일치: '+str(source))
             self.artifact_manifest[str(source.relative_to(root))] = digest
-        self.kin = ArmKinematics()
+        self.kin = ArmKinematics(sensor_urdf)
         self.config = json.loads((release/manifest['config']).read_text())
         # 농장에서 검증된 양팔 주행 접힘을 유지한다. 학습 HOME은 변경하지 않는다.
         if device.travel is not None:
@@ -110,10 +117,13 @@ class StudentRuntime:
             warmup_start = time.perf_counter()
             self.detector.predict(np.asarray(self.rig.cameras['rear']['rgb'].get_rgb()))
             print('[student_camera] detector warmup_s:', time.perf_counter()-warmup_start, flush=True)
-            self.camera = MissionCameraSession(release/manifest['models']['d435']['path'], self.contract,
-                self.detector, self.kin, self.rig.world_from_robot, camera_kind='d435',
-                center_checkpoint=release/manifest['models']['center']['path'], device=settings['device'],
+            self.camera = MissionCameraSession(checkpoint, self.contract,
+                self.detector, self.kin, self.rig.world_from_robot, camera_kind=camera_kind,
+                center_checkpoint=release/manifest['models']['center']['path'] if camera_kind == 'd435' else None,
+                device=settings['device'],
                 native_processor=self.rig.native_processor)
+            print('[student_camera] policy:', camera_kind, 'sensor_urdf:', sensor_urdf,
+                  'checkpoint_sha256:', manifest['models'][camera_kind]['sha256'], flush=True)
             from .basket_laser import BasketLaserSensor
             self.basket_sensor = BasketLaserSensor(world, device, settings['basket_lasers'])
         except Exception:
@@ -256,12 +266,19 @@ class StudentArmSession(ArmSession):
         if not stationary:
             fault = 'base_moved_during_harvest'
         current_arm = self.device.arm_world_transform()
-        if np.linalg.norm(current_arm[:3, 3]-self._dock_arm[:3, 3]) > self.config['base_drift_limit_m']:
+        displacement = float(np.linalg.norm(current_arm[:3, 3]-self._dock_arm[:3, 3]))
+        if displacement > self.config['base_drift_limit_m']:
             fault = 'right_arm_mount_moved_from_dock'
         rotation_delta = np.arccos(np.clip((np.trace(current_arm[:3, :3] @ self._dock_arm[:3, :3].T)-1.)/2., -1., 1.))
         if rotation_delta > self.config['base_yaw_drift_limit_rad']:
             fault = 'right_arm_mount_rotated_from_dock'
         if fault:
+            self._log('SUPERVISOR_FAULT', time_s=now, stage=self.state['stage'], reason=fault,
+                stationary=bool(stationary), dock_displacement_m=displacement,
+                dock_rotation_rad=float(rotation_delta),
+                translation_limit_m=self.config['base_drift_limit_m'],
+                rotation_limit_rad=self.config['base_yaw_drift_limit_rad'],
+                dock_world_arm=self._dock_arm, current_world_arm=current_arm)
             self._stop(now, 'FAILED', 'STUDENT_SUPERVISOR_FAULT', fault)
             return
         if self.state['stage'] == 'CAMERA_INVENTORY':
@@ -384,7 +401,7 @@ class StudentArmSession(ArmSession):
                              classification='evaluation_diagnostic', anchor_arm_m=list(target.anchor_arm_m))
         self.mission = StudentHarvestMission(mission_session(runtime.camera, self._dock_arm, self._policy_capture), targets, runtime.config,
             lambda q, home: lifted_return_path(runtime.kin, runtime.contract, runtime.config, q, home),
-            task_list_complete=True, recover_harvest_timeout=True)
+            task_list_complete=True, recover_harvest_timeout=True, stow_between_targets=False)
         self._confirmed_targets = 0
         self._active_camera_id = None
         self._passage_recorded = False
@@ -408,9 +425,11 @@ class StudentArmSession(ArmSession):
             for name, data in capture.items():
                 Image.fromarray(data['rgb']).save(self._directory/f'{name}_initial.png', compress_level=1)
             # 무손실 자료는 그대로 보존하되 제어 루프에서 압축 CPU 비용을 없앤다.
-            np.savez(self._directory/'camera_initial.npz',
-                **{f'{name}_{key}': data[key] for name, data in capture.items()
-                   for key in ('rgb', 'raw_depth_m', 'aligned_depth_m')}, right_ir=capture['right']['ir']['ir_right'])
+            arrays = {f'{name}_{key}': data[key] for name, data in capture.items()
+                      for key in ('rgb', 'raw_depth_m', 'aligned_depth_m') if key in data}
+            if 'ir_right' in capture['right']['ir']:
+                arrays['right_ir'] = capture['right']['ir']['ir_right']
+            np.savez(self._directory/'camera_initial.npz', **arrays)
             (self._directory/'camera_initial_metadata.json').write_text(json.dumps(
                 {name: {k: data[k] for k in ('intrinsics', 'world_from_optical', 'stamp_s', 'pose_stamp_s', 'capture_joint_rad', 'fk_max_error', 'renderer_checks')}
                  for name, data in capture.items()}, default=lambda x: np.asarray(x).tolist(), indent=2)+'\n')

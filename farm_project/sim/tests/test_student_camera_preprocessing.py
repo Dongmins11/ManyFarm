@@ -146,6 +146,48 @@ class CameraPreprocessingTest(unittest.TestCase):
             align_depth_to_color(np.zeros((2, 3), np.float32), k, k, np.eye(4), (4, 5)),
             np.zeros((4, 5), np.float32))
 
+    def test_u20_capture_is_rgb_only_and_rear_keeps_measured_depth(self):
+        rig = self.rig()
+        rig.cameras['right'] = {'rgb': rig.cameras['right']['rgb']}
+        rig.config['views']['right'] = dict(rig.config['views']['right'],
+            streams={'rgb': rig.config['views']['right']['streams']['rgb']})
+        rig.align_depth = Mock(wraps=align_depth_to_color)
+        rig.acquire(rig.world.current_time)
+        wrist, rear = rig.capture()['right'], rig.capture()['rear']
+        self.assertIs(wrist['depth_available'], False)
+        self.assertEqual(wrist['ir'], {})
+        self.assertNotIn('raw_depth_m', wrist)
+        self.assertEqual(set(wrist['intrinsics']), {'rgb'})
+        self.assertFalse(wrist['aligned_depth_m'].any())
+        self.assertTrue(rear['raw_depth_m'].any())
+        self.assertEqual(wrist['stamp_s'], rear['stamp_s'])
+        rig.align_depth.assert_called_once()
+
+    def test_compiled_projection_preserves_missing_pixel_coverage(self):
+        from harvest_sensors.student60_low_latency import CompiledFrameDepthProjector
+        from harvest_sensors.student60_native_fast import FrameDepthProjector
+        rng = np.random.default_rng(71)
+        kd = np.array([[52.3, 0, 41.1], [0, 51.7, 23.8], [0, 0, 1]])
+        kc = np.array([[77.4, 0, 62.3], [0, 76.8, 35.5], [0, 0, 1]])
+        for index in range(10):
+            depth = rng.uniform(.28, 3., (48, 84)).astype(np.float32)
+            depth.ravel()[::7] = 0
+            depth.ravel()[1::17] = np.nan
+            depth.ravel()[2::31] = np.inf
+            transform = np.eye(4)
+            transform[:3, 3] = [.015, -.0001, .0005]
+            mask = rng.random((72, 128)) > .5
+            original = FrameDepthProjector(depth, kd, kc, transform, mask.shape).mask(mask)
+            actual = CompiledFrameDepthProjector(depth, kd, kc, transform, mask.shape).mask(mask)
+            np.testing.assert_array_equal(actual, original)
+
+    def test_empty_detection_skips_depth_projection(self):
+        from harvest_sensors.student60_low_latency import process_native
+        frame = SimpleNamespace(validate=Mock(), rgb=np.zeros((2, 4, 3), np.uint8))
+        with patch('harvest_sensors.student60_low_latency.CompiledFrameDepthProjector') as projector:
+            self.assertEqual(process_native(frame, {}, Mock(predict=lambda rgb: []), 0., .025), ([], None))
+            projector.assert_not_called()
+
 
 if __name__ == '__main__':
     unittest.main()

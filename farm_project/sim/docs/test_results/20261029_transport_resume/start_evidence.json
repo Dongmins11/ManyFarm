@@ -1,0 +1,186 @@
+[
+  {
+    "at": "2026-10-29T10:36:31.483751+00:00",
+    "mono_ns": 202100353126335,
+    "kind": "restored_basket_check",
+    "source_session": "4efc9bf857ac41a3957285d7a45b8702",
+    "session": "1f6a539a32a847ec85ec2597133afae1",
+    "expected_paths": [
+      "/World/Vegetation/Bed_02/Fruits/Pepper_0003_red",
+      "/World/Vegetation/Bed_02/Fruits/Pepper_0004_red",
+      "/World/Vegetation/Bed_02/Fruits/Pepper_0011_yellow",
+      "/World/Vegetation/Bed_02/Fruits/Pepper_0015_red",
+      "/World/Vegetation/Bed_02/Fruits/Pepper_0026_yellow",
+      "/World/Vegetation/Bed_02/Fruits/Pepper_0028_yellow",
+      "/World/Vegetation/Bed_02/Fruits/Pepper_0029_red",
+      "/World/Vegetation/Bed_02/Fruits/Pepper_0032_red",
+      "/World/Vegetation/Bed_02/Fruits/Pepper_0033_red",
+      "/World/Vegetation/Bed_02/Fruits/Pepper_0036_yellow"
+    ],
+    "inside_paths": [
+      "/World/Vegetation/Bed_02/Fruits/Pepper_0003_red",
+      "/World/Vegetation/Bed_02/Fruits/Pepper_0004_red",
+      "/World/Vegetation/Bed_02/Fruits/Pepper_0011_yellow",
+      "/World/Vegetation/Bed_02/Fruits/Pepper_0015_red",
+      "/World/Vegetation/Bed_02/Fruits/Pepper_0026_yellow",
+      "/World/Vegetation/Bed_02/Fruits/Pepper_0028_yellow",
+      "/World/Vegetation/Bed_02/Fruits/Pepper_0029_red",
+      "/World/Vegetation/Bed_02/Fruits/Pepper_0032_red",
+      "/World/Vegetation/Bed_02/Fruits/Pepper_0033_red",
+      "/World/Vegetation/Bed_02/Fruits/Pepper_0036_yellow"
+    ]
+  },
+  {
+    "at": "2026-10-29T10:36:31.484113+00:00",
+    "mono_ns": 202100353482826,
+    "kind": "harvest_reused",
+    "source": "/home/ysy/main/farm_project/sim/runs/sec01_reuse_cycle_20261029_attempt01",
+    "results": [
+      {
+        "status": 4,
+        "result": {
+          "robot_id": "harvest_01",
+          "task_id": "handoff_window_2efcc1389532",
+          "window_id": "16cb6a8ad078_SEC01_W001",
+          "result_code": "SUCCESS",
+          "expected_count": 1,
+          "harvested_count": 0,
+          "failed_count": 0,
+          "error_code": "NONE",
+          "error_message": "student_no_reachable_targets_arms_stowed",
+          "timestamp": "2026-10-29T09:29:07.166404+00:00"
+        }
+      },
+      {
+        "status": 4,
+        "result": {
+          "robot_id": "harvest_01",
+          "task_id": "handoff_window_bc750180559b",
+          "window_id": "16cb6a8ad078_SEC01_W002",
+          "result_code": "SUCCESS",
+          "expected_count": 1,
+          "harvested_count": 0,
+          "failed_count": 0,
+          "error_code": "NONE",
+          "error_message": "student_no_reachable_targets_arms_stowed",
+          "timestamp": "2026-10-29T09:29:40.385309+00:00"
+        }
+      },
+      {
+        "status": 4,
+        "result": {
+          "robot_id": "harvest_01",
+          "task_id": "handoff_window_136ee29fc367",
+          "window_id": "16cb6a8ad078_SEC01_W003",
+          "result_code": "SUCCESS",
+          "expected_count": 1,
+          "harvested_count": 1,
+          "failed_count": 0,
+          "error_code": "NONE",
+          "error_message": "student_attempts_completed_arms_stowed",
+          "timestamp": "2026-10-29T09:33:25.547860+00:00"
+        }
+      },
+      {
+        "status": 4,
+        "result": {
+          "robot_id": "harvest_01",
+          "task_id": "handoff_window_aeb32d0756c4",
+          "window_id": "16cb6a8ad078_SEC01_W004",
+          "result_code": "SUCCESS",
+          "expected_count": 2,
+          "harvested_count": 1,
+          "failed_count": 0,
+          "error_code": "NONE",
+          "error_message": "student_attempts_completed_arms_stowed",
+          "timestamp": "2026-10-29T09:37:38.313890+00:00"
+        }
+      },
+      {
+        "status": 4,
+        "result": {
+          "robot_id": "harvest_01",
+          "task_id": "handoff_window_a5497752b72a",
+          "window_id": "16cb6a8ad078_SEC01_W005",
+          "result_code": "SUCCESS",
+          "expected_count": 1,
+          "harvested_count": 1,
+          "failed_count": 0,
+          "error_code": "NONE",
+          "error_message": "student_attempts_completed_arms_stowed",
+          "timestamp": "2026-10-29T09:42:04.991124+00:00"
+        }
+      },
+      {
+        "status": 4,
+        "result": {
+          "robot_id": "harvest_01",
+          "task_id": "handoff_window_ad94b71a4c64",
+          "window_id": "16cb6a8ad078_SEC01_W006",
+          "result_code": "SUCCESS",
+          "expected_count": 1,
+          "harvested_count": 1,
+          "failed_count": 0,
+          "error_code": "NONE",
+          "error_message": "student_attempts_completed_arms_stowed",
+          "timestamp": "2026-10-29T09:46:09.786599+00:00"
+        }
+      },
+      {
+        "status": 4,
+        "result": {
+          "robot_id": "harvest_01",
+          "task_id": "handoff_window_b4de601b9b95",
+          "window_id": "16cb6a8ad078_SEC01_W007",
+          "result_code": "SUCCESS",
+          "expected_count": 2,
+          "harvested_count": 2,
+          "failed_count": 0,
+          "error_code": "NONE",
+          "error_message": "student_attempts_completed_arms_stowed",
+          "timestamp": "2026-10-29T09:53:23.155360+00:00"
+        }
+      },
+      {
+        "status": 4,
+        "result": {
+          "robot_id": "harvest_01",
+          "task_id": "handoff_window_0cebaf7d6df1",
+          "window_id": "16cb6a8ad078_SEC01_W008",
+          "result_code": "SUCCESS",
+          "expected_count": 2,
+          "harvested_count": 1,
+          "failed_count": 1,
+          "error_code": "NONE",
+          "error_message": "student_attempts_completed_arms_stowed",
+          "timestamp": "2026-10-29T10:05:06.315990+00:00"
+        }
+      },
+      {
+        "status": 4,
+        "result": {
+          "robot_id": "harvest_01",
+          "task_id": "handoff_window_abe0d24843ff",
+          "window_id": "16cb6a8ad078_SEC01_W009",
+          "result_code": "SUCCESS",
+          "expected_count": 2,
+          "harvested_count": 0,
+          "failed_count": 2,
+          "error_code": "NONE",
+          "error_message": "student_attempts_completed_arms_stowed",
+          "timestamp": "2026-10-29T10:18:07.242155+00:00"
+        }
+      }
+    ],
+    "historical_harvested_count": 7,
+    "restored_physical_count": 10
+  },
+  {
+    "at": "2026-10-29T10:36:31.634595+00:00",
+    "mono_ns": 202100503973966,
+    "kind": "pickup_started",
+    "message": "수동 요청을 기록했습니다. 상태·로그에서 응답을 확인하세요.",
+    "transfer_id": "TRANSFER_TEST_2c2e8800a966455f98fec850e73fae05",
+    "job_id": "PICKUP_TEST_9cbb1ca70bf347eebbfe3ac4625835b1"
+  }
+]

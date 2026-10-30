@@ -1,0 +1,97 @@
+{
+  "passed": true,
+  "scope": "transport departure through docking; no cargo transfer",
+  "head": "18d0e00 plus uncommitted changes",
+  "route_transition": {
+    "wall": 1793275153.8627596,
+    "sim_ns": 187916676467,
+    "marker_stamp_ns": 187733343124,
+    "target_planar_distance_m": 1.09768884309828,
+    "threshold_m": 1.1,
+    "actual_docking_max_m": 1.2
+  },
+  "stages": {
+    "MOVING_STARTED": "2026-10-29T11:53:59.726787+00:00",
+    "WAITING_FOR_TRANSFER": "2026-10-29T11:59:58.646195+00:00",
+    "DOCKING_STARTED": "2026-10-29T12:01:05.129683+00:00",
+    "DOCK_STABLE": "2026-10-29T12:01:32.681939+00:00"
+  },
+  "departure_to_dock_stable_wall_s": 452.95515179634094,
+  "final_lidar": {
+    "start_wall": 1793275266.601817,
+    "done_wall": 1793275292.4305553,
+    "wall_s": 25.82873845100403,
+    "sim_s_approx": 14.366667415946722,
+    "clock_sample_wall_offsets_s": [
+      0.03573203086853027,
+      0.008682727813720703
+    ],
+    "last_logged_distance_m": 0.203,
+    "target_distance_m": 0.2,
+    "tolerance_m": 0.005
+  },
+  "basket_at_docking": {
+    "sim_time_s": 266.96668059006333,
+    "coverage": 0.7219803260931655,
+    "minimum_coverage": 0.6936842105263158,
+    "full_containment": false,
+    "center_delta_m": [
+      0.036531220819943755,
+      -0.10447286420846291,
+      0.05646420655640072
+    ],
+    "horizontal_distance_m": 0.11067569494028678,
+    "positive_height_clearance_m": 0.05599011462325709,
+    "aligned": true,
+    "wheel_stopped": true,
+    "world_stopped": true,
+    "held_s": 0.7833333741873503,
+    "hold_pass": false,
+    "harvest_corners_world": [
+      [
+        -5.831169679637685,
+        3.598350074298131,
+        0.5013986280004104
+      ],
+      [
+        -5.825386392797794,
+        3.7882620370422604,
+        0.5013986408236034
+      ],
+      [
+        -6.015298254704671,
+        3.7940453208246288,
+        0.5012028456351658
+      ],
+      [
+        -6.021081541544563,
+        3.6041333580805,
+        0.5012028328119726
+      ]
+    ],
+    "transport_corners_world": [
+      [
+        -6.108334771419824,
+        3.94608355153947,
+        0.44446064985456024
+      ],
+      [
+        -6.105178663465943,
+        3.652101454506667,
+        0.44521271818871555
+      ],
+      [
+        -5.81119560456242,
+        3.655257572000216,
+        0.4452124106682144
+      ],
+      [
+        -5.814351712516301,
+        3.9492396690330183,
+        0.44446034233405907
+      ]
+    ]
+  },
+  "cleanup": "DOCK_STABLE observed before transfer; pending actions deliberately canceled. gate context-invalid shutdown error and SIGINT traces are cleanup artifacts.",
+  "remaining": "Cargo transfer, sorter and return not exercised. One successful trial does not establish repeatability. Physical basket count10 vs reused historical harvest count7 remains separate audit issue."
+}

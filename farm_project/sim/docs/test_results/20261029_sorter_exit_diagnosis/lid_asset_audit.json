@@ -1,0 +1,181 @@
+{
+  "asset": "/home/ysy/main/farm_project/sim/assets/robots/transport_robot/urdf/transport_robot.portable/transport_robot.sim.usda",
+  "urdf": "/home/ysy/main/farm_project/sim/assets/robots/transport_robot/urdf/transport_robot.urdf",
+  "asset_stage_meters_per_unit": 0.01,
+  "composed_stage_meters_per_unit": 1.0,
+  "composition": "run_fleet와 같은 1m stage에 AddReference; 원본 자산은 읽기 전용",
+  "joints": [
+    {
+      "name": "top_lid_left_joint",
+      "usd_type": "PhysicsPrismaticJoint",
+      "urdf_type": "prismatic",
+      "urdf_limit": {
+        "lower": "0",
+        "upper": "0.155",
+        "effort": "20",
+        "velocity": "0.05"
+      },
+      "urdf_mimic": {
+        "joint": "lid_pinion_joint",
+        "multiplier": "0.05",
+        "offset": "0"
+      },
+      "usd_attributes": {
+        "physics:axis": "Y",
+        "physics:breakForce": "3.4028234663852886e+38",
+        "physics:breakTorque": "3.4028234663852886e+38",
+        "physics:JointEquivalentInertia": "0.01903337612748146",
+        "physics:localPos0": "(0, 0, 0)",
+        "physics:localPos1": "(0, 0, 0)",
+        "physics:localRot0": "(1, 0, 0, 0)",
+        "physics:localRot1": "(1, 0, 0, 0)",
+        "physics:lowerLimit": "-1.7761690616607666",
+        "physics:upperLimit": "10.657013893127441",
+        "physxJoint:jointFriction": "0.009999999776482582",
+        "physxMimicJoint:rotY:dampingRatio": "0.004999999888241291",
+        "physxMimicJoint:rotY:gearing": "-0.05000000074505806",
+        "physxMimicJoint:rotY:naturalFrequency": "25.0",
+        "physxMimicJoint:rotY:offset": "0.0"
+      },
+      "usd_api_metadata": "SdfTokenListOp(Explicit Items: [PhysicsJointStateAPI:linear, PhysxJointAPI, PhysxMimicJointAPI:rotY, IsaacJointAPI])",
+      "authoring_layers": [
+        "/home/ysy/main/farm_project/sim/assets/robots/transport_robot/urdf/transport_robot.portable/configuration/transport_robot.portable_physics.usd",
+        "/home/ysy/main/farm_project/sim/assets/robots/transport_robot/urdf/transport_robot.portable/configuration/transport_robot.portable_robot.usd"
+      ]
+    },
+    {
+      "name": "top_lid_right_joint",
+      "usd_type": "PhysicsPrismaticJoint",
+      "urdf_type": "prismatic",
+      "urdf_limit": {
+        "lower": "0",
+        "upper": "0.155",
+        "effort": "20",
+        "velocity": "0.05"
+      },
+      "urdf_mimic": {
+        "joint": "lid_pinion_joint",
+        "multiplier": "0.05",
+        "offset": "0"
+      },
+      "usd_attributes": {
+        "physics:axis": "Y",
+        "physics:breakForce": "3.4028234663852886e+38",
+        "physics:breakTorque": "3.4028234663852886e+38",
+        "physics:JointEquivalentInertia": "0.0190329160541296",
+        "physics:localPos0": "(0, 0, 0)",
+        "physics:localPos1": "(0, 0, 0)",
+        "physics:localRot0": "(0, 1, 0, 0)",
+        "physics:localRot1": "(0, 1, 0, 0)",
+        "physics:lowerLimit": "-1.7761690616607666",
+        "physics:upperLimit": "10.657013893127441",
+        "physxJoint:jointFriction": "0.009999999776482582",
+        "physxMimicJoint:rotY:dampingRatio": "0.004999999888241291",
+        "physxMimicJoint:rotY:gearing": "-0.05000000074505806",
+        "physxMimicJoint:rotY:naturalFrequency": "25.0",
+        "physxMimicJoint:rotY:offset": "0.0"
+      },
+      "usd_api_metadata": "SdfTokenListOp(Explicit Items: [PhysicsJointStateAPI:linear, PhysxJointAPI, PhysxMimicJointAPI:rotY, IsaacJointAPI])",
+      "authoring_layers": [
+        "/home/ysy/main/farm_project/sim/assets/robots/transport_robot/urdf/transport_robot.portable/configuration/transport_robot.portable_physics.usd",
+        "/home/ysy/main/farm_project/sim/assets/robots/transport_robot/urdf/transport_robot.portable/configuration/transport_robot.portable_robot.usd"
+      ]
+    },
+    {
+      "name": "lid_pinion_joint",
+      "usd_type": "PhysicsRevoluteJoint",
+      "urdf_type": "revolute",
+      "urdf_limit": {
+        "lower": "0",
+        "upper": "3.0999999999999996",
+        "effort": "1",
+        "velocity": "1"
+      },
+      "urdf_mimic": null,
+      "usd_attributes": {
+        "drive:angular:physics:damping": "0.002560021821409464",
+        "drive:angular:physics:maxForce": "1.0",
+        "drive:angular:physics:stiffness": "6.400054931640625",
+        "drive:angular:physics:targetPosition": "0.0",
+        "drive:angular:physics:type": "force",
+        "physics:axis": "X",
+        "physics:breakForce": "3.4028234663852886e+38",
+        "physics:breakTorque": "3.4028234663852886e+38",
+        "physics:JointEquivalentInertia": "0.010240087285637856",
+        "physics:localPos0": "(-0.325, 0, 0.126)",
+        "physics:localPos1": "(0, 0, 0)",
+        "physics:localRot0": "(0, 0, 0, 1)",
+        "physics:localRot1": "(0, 0, 0, 1)",
+        "physics:lowerLimit": "0.0",
+        "physics:upperLimit": "177.6168975830078",
+        "physxJoint:jointFriction": "0.009999999776482582",
+        "physxJoint:maxJointVelocity": "57.2957763671875"
+      },
+      "usd_api_metadata": "SdfTokenListOp(Explicit Items: [PhysicsJointStateAPI:angular, PhysxJointAPI, PhysicsDriveAPI:angular, IsaacJointAPI])",
+      "authoring_layers": [
+        "/home/ysy/main/farm_project/sim/assets/robots/transport_robot/urdf/transport_robot.portable/configuration/transport_robot.portable_physics.usd",
+        "/home/ysy/main/farm_project/sim/assets/robots/transport_robot/urdf/transport_robot.portable/configuration/transport_robot.portable_robot.usd"
+      ]
+    },
+    {
+      "name": "wheel_left_joint",
+      "usd_type": "PhysicsRevoluteJoint",
+      "urdf_type": "continuous",
+      "urdf_limit": null,
+      "urdf_mimic": null,
+      "usd_attributes": {
+        "drive:angular:physics:damping": "0.5488635301589966",
+        "drive:angular:physics:maxForce": "3.4028234663852886e+38",
+        "drive:angular:physics:stiffness": "0.0",
+        "drive:angular:physics:targetVelocity": "0.0",
+        "drive:angular:physics:type": "force",
+        "physics:axis": "Z",
+        "physics:breakForce": "3.4028234663852886e+38",
+        "physics:breakTorque": "3.4028234663852886e+38",
+        "physics:JointEquivalentInertia": "0.0008781816577538848",
+        "physics:localPos0": "(0, 0.144, 0.023)",
+        "physics:localPos1": "(0, 0, 0)",
+        "physics:localRot0": "(0.7073882, -0.7068252, 0, 0)",
+        "physics:localRot1": "(1, 0, 0, 0)",
+        "physics:lowerLimit": "-inf",
+        "physics:upperLimit": "inf",
+        "physxJoint:maxJointVelocity": "inf"
+      },
+      "usd_api_metadata": "SdfTokenListOp(Explicit Items: [PhysxJointAPI, PhysicsDriveAPI:angular, IsaacJointAPI])",
+      "authoring_layers": [
+        "/home/ysy/main/farm_project/sim/assets/robots/transport_robot/urdf/transport_robot.portable/configuration/transport_robot.portable_physics.usd",
+        "/home/ysy/main/farm_project/sim/assets/robots/transport_robot/urdf/transport_robot.portable/configuration/transport_robot.portable_robot.usd"
+      ]
+    },
+    {
+      "name": "wheel_right_joint",
+      "usd_type": "PhysicsRevoluteJoint",
+      "urdf_type": "continuous",
+      "urdf_limit": null,
+      "urdf_mimic": null,
+      "usd_attributes": {
+        "drive:angular:physics:damping": "0.5489003658294678",
+        "drive:angular:physics:maxForce": "3.4028234663852886e+38",
+        "drive:angular:physics:stiffness": "0.0",
+        "drive:angular:physics:targetVelocity": "0.0",
+        "drive:angular:physics:type": "force",
+        "physics:axis": "Z",
+        "physics:breakForce": "3.4028234663852886e+38",
+        "physics:breakTorque": "3.4028234663852886e+38",
+        "physics:JointEquivalentInertia": "0.0008782405056990683",
+        "physics:localPos0": "(0, -0.144, 0.023)",
+        "physics:localPos1": "(0, 0, 0)",
+        "physics:localRot0": "(0.7073882, -0.7068252, 0, 0)",
+        "physics:localRot1": "(1, 0, 0, 0)",
+        "physics:lowerLimit": "-inf",
+        "physics:upperLimit": "inf",
+        "physxJoint:maxJointVelocity": "inf"
+      },
+      "usd_api_metadata": "SdfTokenListOp(Explicit Items: [PhysxJointAPI, PhysicsDriveAPI:angular, IsaacJointAPI])",
+      "authoring_layers": [
+        "/home/ysy/main/farm_project/sim/assets/robots/transport_robot/urdf/transport_robot.portable/configuration/transport_robot.portable_physics.usd",
+        "/home/ysy/main/farm_project/sim/assets/robots/transport_robot/urdf/transport_robot.portable/configuration/transport_robot.portable_robot.usd"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,414 @@
+[INFO] [launch]: All log files can be found below /home/ysy/main/farm_project/sim/runs/sec01_single_cycle_20261028_attempt03/ros_logs/2026-10-28-21-22-16-700732-ysy-System-Product-Name-2332983
+[INFO] [launch]: Default logging verbosity is set to INFO
+[INFO] [launch.user]: Scout Nav2 설정 파일: /home/ysy/main/farm_project/sim/ros_ws/src/farm_sim_config/config/nav2_scout.yaml
+[INFO] [rectify_node-1]: process started with pid [2333189]
+[INFO] [apriltag_node-2]: process started with pid [2333192]
+[INFO] [tag_capture-3]: process started with pid [2333193]
+[INFO] [ros_adapter-4]: process started with pid [2333194]
+[INFO] [map_server-5]: process started with pid [2333195]
+[INFO] [amcl-6]: process started with pid [2333196]
+[INFO] [controller_server-7]: process started with pid [2333219]
+[INFO] [planner_server-8]: process started with pid [2333220]
+[INFO] [behavior_server-9]: process started with pid [2333221]
+[INFO] [bt_navigator-10]: process started with pid [2333223]
+[INFO] [velocity_smoother-11]: process started with pid [2333225]
+[INFO] [lifecycle_manager-12]: process started with pid [2333226]
+[INFO] [route_preview-13]: process started with pid [2333230]
+[INFO] [scout_node-14]: process started with pid [2333233]
+[INFO] [tag_amcl_adapter-15]: process started with pid [2333240]
+[velocity_smoother-11] [INFO] [1793190137.621800562] [scout_01.velocity_smoother]: 
+[velocity_smoother-11] 	velocity_smoother lifecycle node launched. 
+[velocity_smoother-11] 	Waiting on external lifecycle transitions to activate
+[velocity_smoother-11] 	See https://design.ros2.org/articles/node_lifecycle.html for more information.
+[controller_server-7] [INFO] [1793190137.701425634] [scout_01.controller_server]: 
+[controller_server-7] 	controller_server lifecycle node launched. 
+[controller_server-7] 	Waiting on external lifecycle transitions to activate
+[controller_server-7] 	See https://design.ros2.org/articles/node_lifecycle.html for more information.
+[behavior_server-9] [INFO] [1793190137.706103182] [scout_01.behavior_server]: 
+[behavior_server-9] 	behavior_server lifecycle node launched. 
+[behavior_server-9] 	Waiting on external lifecycle transitions to activate
+[behavior_server-9] 	See https://design.ros2.org/articles/node_lifecycle.html for more information.
+[controller_server-7] [INFO] [1793190137.709624173] [scout_01.controller_server]: Creating controller server
+[map_server-5] [INFO] [1793190137.721401776] [scout_01.map_server]: 
+[map_server-5] 	map_server lifecycle node launched. 
+[map_server-5] 	Waiting on external lifecycle transitions to activate
+[map_server-5] 	See https://design.ros2.org/articles/node_lifecycle.html for more information.
+[map_server-5] [INFO] [1793190137.722762711] [scout_01.map_server]: Creating
+[planner_server-8] [INFO] [1793190137.749253655] [scout_01.planner_server]: 
+[planner_server-8] 	planner_server lifecycle node launched. 
+[planner_server-8] 	Waiting on external lifecycle transitions to activate
+[planner_server-8] 	See https://design.ros2.org/articles/node_lifecycle.html for more information.
+[planner_server-8] [INFO] [1793190137.751607803] [scout_01.planner_server]: Creating
+[bt_navigator-10] [INFO] [1793190137.781012264] [scout_01.bt_navigator]: 
+[bt_navigator-10] 	bt_navigator lifecycle node launched. 
+[bt_navigator-10] 	Waiting on external lifecycle transitions to activate
+[bt_navigator-10] 	See https://design.ros2.org/articles/node_lifecycle.html for more information.
+[bt_navigator-10] [INFO] [1793190137.783438732] [scout_01.bt_navigator]: Creating
+[planner_server-8] [INFO] [1793190137.800468881] [scout_01.global_costmap.global_costmap]: 
+[planner_server-8] 	global_costmap lifecycle node launched. 
+[planner_server-8] 	Waiting on external lifecycle transitions to activate
+[planner_server-8] 	See https://design.ros2.org/articles/node_lifecycle.html for more information.
+[planner_server-8] [INFO] [1793190137.801924031] [scout_01.global_costmap.global_costmap]: Creating Costmap
+[lifecycle_manager-12] [INFO] [1793190137.825928450] [scout_01.lifecycle_manager_navigation]: Creating
+[controller_server-7] [INFO] [1793190137.851104565] [scout_01.local_costmap.local_costmap]: 
+[controller_server-7] 	local_costmap lifecycle node launched. 
+[controller_server-7] 	Waiting on external lifecycle transitions to activate
+[controller_server-7] 	See https://design.ros2.org/articles/node_lifecycle.html for more information.
+[controller_server-7] [INFO] [1793190137.854588112] [scout_01.local_costmap.local_costmap]: Creating Costmap
+[lifecycle_manager-12] [INFO] [1793190137.869126434] [scout_01.lifecycle_manager_navigation]: [34m[1mCreating and initializing lifecycle service clients[0m[0m
+[amcl-6] [INFO] [1793190137.929142813] [scout_01.amcl]: 
+[amcl-6] 	amcl lifecycle node launched. 
+[amcl-6] 	Waiting on external lifecycle transitions to activate
+[amcl-6] 	See https://design.ros2.org/articles/node_lifecycle.html for more information.
+[amcl-6] [INFO] [1793190137.929758852] [scout_01.amcl]: Creating
+[tag_amcl_adapter-15] [INFO] [1793190137.963781056] [scout_01.tag_amcl_adapter]: TAG_ADAPTER_RUNNING: 작업 신호 대기. AMCL TF 유지; 태그 누락은 주행을 취소하지 않습니다.
+[ros_adapter-4] [INFO] [1793190137.971644266] [scout_01.sim_devices]: Isaac Sim 연결 대기. 속도 명령은 연결 이후에만 전달합니다.
+[lifecycle_manager-12] [INFO] [1793190137.988277507] [scout_01.lifecycle_manager_navigation]: [34m[1mStarting managed nodes bringup...[0m[0m
+[lifecycle_manager-12] [INFO] [1793190137.988320219] [scout_01.lifecycle_manager_navigation]: [34m[1mConfiguring map_server[0m[0m
+[map_server-5] [INFO] [1793190137.989090475] [scout_01.map_server]: Configuring
+[map_server-5] [INFO] [1793190137.989167177] [map_io]: Loading yaml file: /home/ysy/main/farm_project/sim/ros_ws/src/farm_sim_config/maps/hcr_farm_map.yaml
+[map_server-5] [INFO] [1793190137.989430487] [map_io]: resolution: 0.05
+[map_server-5] [INFO] [1793190137.989440026] [map_io]: origin[0]: -8.075
+[map_server-5] [INFO] [1793190137.989445458] [map_io]: origin[1]: -15.075
+[map_server-5] [INFO] [1793190137.989449431] [map_io]: origin[2]: 0
+[map_server-5] [INFO] [1793190137.989453130] [map_io]: free_thresh: 0.196
+[map_server-5] [INFO] [1793190137.989456727] [map_io]: occupied_thresh: 0.65
+[map_server-5] [INFO] [1793190137.989461496] [map_io]: mode: trinary
+[map_server-5] [INFO] [1793190137.989466114] [map_io]: negate: 0
+[map_server-5] [INFO] [1793190137.989638713] [map_io]: Loading image_file: /home/ysy/main/farm_project/sim/ros_ws/src/farm_sim_config/maps/hcr_farm_map.png
+[map_server-5] [INFO] [1793190137.994869147] [map_io]: Read map /home/ysy/main/farm_project/sim/ros_ws/src/farm_sim_config/maps/hcr_farm_map.png: 323 X 603 map @ 0.05 m/cell
+[lifecycle_manager-12] [INFO] [1793190138.007204065] [scout_01.lifecycle_manager_navigation]: [34m[1mConfiguring amcl[0m[0m
+[amcl-6] [INFO] [1793190138.008321946] [scout_01.amcl]: Configuring
+[amcl-6] [INFO] [1793190138.008420342] [scout_01.amcl]: initTransforms
+[amcl-6] [INFO] [1793190138.035819638] [scout_01.amcl]: initPubSub
+[amcl-6] [INFO] [1793190138.064720392] [scout_01.amcl]: Subscribed to map topic.
+[amcl-6] [INFO] [1793190138.102160163] [scout_01.amcl]: TAG_SCAN_SYNC_READY: scan_sync_v1 (작업 신호·초기 위치 대기)
+[lifecycle_manager-12] [INFO] [1793190138.103561497] [scout_01.lifecycle_manager_navigation]: [34m[1mConfiguring controller_server[0m[0m
+[controller_server-7] [INFO] [1793190138.105237819] [scout_01.controller_server]: Configuring controller interface
+[controller_server-7] [INFO] [1793190138.105271607] [scout_01.controller_server]: getting progress checker plugins..
+[controller_server-7] [INFO] [1793190138.105596897] [scout_01.controller_server]: getting goal checker plugins..
+[controller_server-7] [INFO] [1793190138.105692435] [scout_01.controller_server]: Controller frequency set to 10.0000Hz
+[controller_server-7] [INFO] [1793190138.105722817] [scout_01.local_costmap.local_costmap]: Configuring
+[scout_node-14] [INFO] [1793190138.105803832] [scout_01.scout_survey]: 영상 사전 준비 시작: 모델 로딩·카메라 워밍업
+[scout_node-14] [INFO] [1793190138.107060513] [scout_01.scout_survey]: ScoutArea 연결 완료: 영상 사전 준비 완료 후 Goal을 수락합니다.
+[controller_server-7] [INFO] [1793190138.130776500] [scout_01.local_costmap.local_costmap]: Using plugin "obstacle_layer"
+[controller_server-7] [INFO] [1793190138.136008164] [scout_01.local_costmap.local_costmap]: Subscribed to Topics: scan
+[controller_server-7] [INFO] [1793190138.155840350] [scout_01.local_costmap.local_costmap]: Initialized plugin "obstacle_layer"
+[controller_server-7] [INFO] [1793190138.155869830] [scout_01.local_costmap.local_costmap]: Using plugin "voxel_layer"
+[controller_server-7] [INFO] [1793190138.156367959] [scout_01.local_costmap.local_costmap]: Subscribed to Topics: scan
+[controller_server-7] [INFO] [1793190138.211198910] [scout_01.local_costmap.local_costmap]: Initialized plugin "voxel_layer"
+[controller_server-7] [INFO] [1793190138.211233782] [scout_01.local_costmap.local_costmap]: Using plugin "inflation_layer"
+[controller_server-7] [INFO] [1793190138.230701581] [scout_01.local_costmap.local_costmap]: Initialized plugin "inflation_layer"
+[controller_server-7] [INFO] [1793190138.316043972] [scout_01.controller_server]: Created progress_checker : progress_checker of type nav2_controller::PoseProgressChecker
+[controller_server-7] [INFO] [1793190138.330464391] [scout_01.controller_server]: Controller Server has progress_checker  progress checkers available.
+[controller_server-7] [INFO] [1793190138.338129918] [scout_01.controller_server]: Created goal checker : goal_checker of type nav2_controller::SimpleGoalChecker
+[controller_server-7] [INFO] [1793190138.358110103] [scout_01.controller_server]: Controller Server has goal_checker  goal checkers available.
+[controller_server-7] [INFO] [1793190138.362503023] [scout_01.controller_server]: Created controller : FollowPath of type dwb_core::DWBLocalPlanner
+[controller_server-7] [INFO] [1793190138.370522678] [scout_01.controller_server]: Setting transform_tolerance to 0.200000
+[controller_server-7] [INFO] [1793190138.387321063] [scout_01.controller_server]: Using critic "RotateToGoal" (dwb_critics::RotateToGoalCritic)
+[controller_server-7] [INFO] [1793190138.387617546] [scout_01.controller_server]: Critic plugin initialized
+[controller_server-7] [INFO] [1793190138.387699677] [scout_01.controller_server]: Using critic "Oscillation" (dwb_critics::OscillationCritic)
+[controller_server-7] [INFO] [1793190138.387899568] [scout_01.controller_server]: Critic plugin initialized
+[controller_server-7] [INFO] [1793190138.387950067] [scout_01.controller_server]: Using critic "BaseObstacle" (dwb_critics::BaseObstacleCritic)
+[controller_server-7] [INFO] [1793190138.388013704] [scout_01.controller_server]: Critic plugin initialized
+[controller_server-7] [INFO] [1793190138.388055032] [scout_01.controller_server]: Using critic "GoalAlign" (dwb_critics::GoalAlignCritic)
+[controller_server-7] [INFO] [1793190138.388197288] [scout_01.controller_server]: Critic plugin initialized
+[controller_server-7] [INFO] [1793190138.388234690] [scout_01.controller_server]: Using critic "PathAlign" (dwb_critics::PathAlignCritic)
+[controller_server-7] [INFO] [1793190138.388355000] [scout_01.controller_server]: Critic plugin initialized
+[controller_server-7] [INFO] [1793190138.388423426] [scout_01.controller_server]: Using critic "PathDist" (dwb_critics::PathDistCritic)
+[controller_server-7] [INFO] [1793190138.388622099] [scout_01.controller_server]: Critic plugin initialized
+[controller_server-7] [INFO] [1793190138.388714758] [scout_01.controller_server]: Using critic "GoalDist" (dwb_critics::GoalDistCritic)
+[controller_server-7] [INFO] [1793190138.389029698] [scout_01.controller_server]: Critic plugin initialized
+[controller_server-7] [INFO] [1793190138.389985146] [scout_01.controller_server]: Created controller : RPP of type nav2_regulated_pure_pursuit_controller::RegulatedPurePursuitController
+[controller_server-7] [INFO] [1793190138.404170390] [scout_01.controller_server]: Created controller : StationReverse of type farm_nav2_controller::ReverseRegulatedPurePursuitController
+[controller_server-7] [INFO] [1793190138.416743019] [scout_01.controller_server]: Controller Server has FollowPath RPP StationReverse  controllers available.
+[lifecycle_manager-12] [INFO] [1793190138.433425135] [scout_01.lifecycle_manager_navigation]: [34m[1mConfiguring planner_server[0m[0m
+[planner_server-8] [INFO] [1793190138.434344014] [scout_01.planner_server]: Configuring
+[planner_server-8] [INFO] [1793190138.434376671] [scout_01.global_costmap.global_costmap]: Configuring
+[planner_server-8] [INFO] [1793190138.449500334] [scout_01.global_costmap.global_costmap]: Using plugin "static_layer"
+[planner_server-8] [INFO] [1793190138.452400206] [scout_01.global_costmap.global_costmap]: Subscribing to the map topic (/scout_01/map) with transient local durability
+[planner_server-8] [INFO] [1793190138.455052006] [scout_01.global_costmap.global_costmap]: Initialized plugin "static_layer"
+[planner_server-8] [INFO] [1793190138.455085605] [scout_01.global_costmap.global_costmap]: Using plugin "obstacle_layer"
+[planner_server-8] [INFO] [1793190138.455773778] [scout_01.global_costmap.global_costmap]: Subscribed to Topics: scan
+[planner_server-8] [INFO] [1793190138.460419984] [scout_01.global_costmap.global_costmap]: Initialized plugin "obstacle_layer"
+[planner_server-8] [INFO] [1793190138.460520236] [scout_01.global_costmap.global_costmap]: Using plugin "voxel_layer"
+[planner_server-8] [INFO] [1793190138.461420182] [scout_01.global_costmap.global_costmap]: Subscribed to Topics: scan
+[planner_server-8] [INFO] [1793190138.473595406] [scout_01.global_costmap.global_costmap]: Initialized plugin "voxel_layer"
+[planner_server-8] [INFO] [1793190138.473623324] [scout_01.global_costmap.global_costmap]: Using plugin "inflation_layer"
+[planner_server-8] [INFO] [1793190138.474149917] [scout_01.global_costmap.global_costmap]: Initialized plugin "inflation_layer"
+[planner_server-8] [INFO] [1793190138.519701868] [scout_01.planner_server]: Created global planner plugin GridBased of type nav2_navfn_planner::NavfnPlanner
+[planner_server-8] [INFO] [1793190138.519743551] [scout_01.planner_server]: Configuring plugin GridBased of type NavfnPlanner
+[planner_server-8] [INFO] [1793190138.521351471] [scout_01.planner_server]: Planner Server has GridBased  planners available.
+[lifecycle_manager-12] [INFO] [1793190138.543075405] [scout_01.lifecycle_manager_navigation]: [34m[1mConfiguring behavior_server[0m[0m
+[behavior_server-9] [INFO] [1793190138.543593660] [scout_01.behavior_server]: Configuring
+[behavior_server-9] [INFO] [1793190138.549838224] [scout_01.behavior_server]: Creating behavior plugin spin of type nav2_behaviors::Spin
+[behavior_server-9] [INFO] [1793190138.550580460] [scout_01.behavior_server]: Creating behavior plugin backup of type nav2_behaviors::BackUp
+[behavior_server-9] [INFO] [1793190138.551264342] [scout_01.behavior_server]: Creating behavior plugin drive_on_heading of type nav2_behaviors::DriveOnHeading
+[behavior_server-9] [INFO] [1793190138.551800118] [scout_01.behavior_server]: Creating behavior plugin wait of type nav2_behaviors::Wait
+[behavior_server-9] [INFO] [1793190138.552258810] [scout_01.behavior_server]: Creating behavior plugin assisted_teleop of type nav2_behaviors::AssistedTeleop
+[behavior_server-9] [INFO] [1793190138.562805248] [scout_01.behavior_server]: Configuring spin
+[behavior_server-9] [INFO] [1793190138.573924907] [scout_01.behavior_server]: Configuring backup
+[behavior_server-9] [INFO] [1793190138.583920394] [scout_01.behavior_server]: Configuring drive_on_heading
+[behavior_server-9] [INFO] [1793190138.593845863] [scout_01.behavior_server]: Configuring wait
+[behavior_server-9] [INFO] [1793190138.602392936] [scout_01.behavior_server]: Configuring assisted_teleop
+[lifecycle_manager-12] [INFO] [1793190138.614044372] [scout_01.lifecycle_manager_navigation]: [34m[1mConfiguring bt_navigator[0m[0m
+[bt_navigator-10] [INFO] [1793190138.614282593] [scout_01.bt_navigator]: Configuring
+[bt_navigator-10] [INFO] [1793190138.623887416] [scout_01.bt_navigator]: Creating navigator id navigate_to_pose of type nav2_bt_navigator::NavigateToPoseNavigator
+[bt_navigator-10] [WARN] [1793190138.627171594] [scout_01.bt_navigator]: Error_code parameters were not set. Using default values of: follow_path_error_code compute_path_error_code
+[bt_navigator-10] Make sure these match your BT and there are not other sources of error codes youreported to your application
+[bt_navigator-10] [INFO] [1793190138.692502497] [scout_01.bt_navigator]: Creating navigator id navigate_through_poses of type nav2_bt_navigator::NavigateThroughPosesNavigator
+[lifecycle_manager-12] [INFO] [1793190138.734059498] [scout_01.lifecycle_manager_navigation]: [34m[1mConfiguring velocity_smoother[0m[0m
+[velocity_smoother-11] [INFO] [1793190138.734444019] [scout_01.velocity_smoother]: Configuring velocity smoother
+[lifecycle_manager-12] [INFO] [1793190138.741186805] [scout_01.lifecycle_manager_navigation]: [34m[1mActivating map_server[0m[0m
+[map_server-5] [INFO] [1793190138.741381953] [scout_01.map_server]: Activating
+[map_server-5] [INFO] [1793190138.741759039] [scout_01.map_server]: Creating bond (map_server) to lifecycle manager.
+[planner_server-8] [INFO] [1793190138.742097704] [scout_01.global_costmap.global_costmap]: StaticLayer: Resizing costmap to 323 X 603 at 0.050000 m/pix
+[amcl-6] [INFO] [1793190138.742116732] [scout_01.amcl]: Received a 323 X 603 map @ 0.050 m/pix
+[lifecycle_manager-12] [INFO] [1793190138.849590421] [scout_01.lifecycle_manager_navigation]: Server map_server connected with bond.
+[lifecycle_manager-12] [INFO] [1793190138.849618724] [scout_01.lifecycle_manager_navigation]: [34m[1mActivating amcl[0m[0m
+[amcl-6] [INFO] [1793190138.850093085] [scout_01.amcl]: Activating
+[amcl-6] [INFO] [1793190138.850124415] [scout_01.amcl]: initialPoseReceived
+[amcl-6] [INFO] [1793190138.850188933] [scout_01.amcl]: Setting pose (0.000000): -5.000 13.250 -1.571
+[amcl-6] [INFO] [1793190138.850717902] [scout_01.amcl]: Creating bond (amcl) to lifecycle manager.
+[lifecycle_manager-12] [INFO] [1793190138.956453898] [scout_01.lifecycle_manager_navigation]: Server amcl connected with bond.
+[lifecycle_manager-12] [INFO] [1793190138.956483288] [scout_01.lifecycle_manager_navigation]: [34m[1mActivating controller_server[0m[0m
+[controller_server-7] [INFO] [1793190138.956948823] [scout_01.controller_server]: Activating
+[controller_server-7] [INFO] [1793190138.956978950] [scout_01.local_costmap.local_costmap]: Activating
+[controller_server-7] [INFO] [1793190138.956988343] [scout_01.local_costmap.local_costmap]: Checking transform
+[controller_server-7] [INFO] [1793190138.957024720] [scout_01.local_costmap.local_costmap]: Timed out waiting for transform from scout_01/base_link to scout_01/odom to become available, tf error: Invalid frame ID "scout_01/odom" passed to canTransform argument target_frame - frame does not exist
+[controller_server-7] [INFO] [1793190139.457079999] [scout_01.local_costmap.local_costmap]: Timed out waiting for transform from scout_01/base_link to scout_01/odom to become available, tf error: Invalid frame ID "scout_01/odom" passed to canTransform argument target_frame - frame does not exist
+[route_preview-13] [INFO] [1793190139.919436405] [scout_01.route_preview]: 452개 예찰 경로 표시: 청록=진행, 노랑=왼쪽 카메라. 이동 명령은 보내지 않습니다.
+[controller_server-7] [INFO] [1793190139.957064987] [scout_01.local_costmap.local_costmap]: Timed out waiting for transform from scout_01/base_link to scout_01/odom to become available, tf error: Invalid frame ID "scout_01/odom" passed to canTransform argument target_frame - frame does not exist
+[scout_node-14] [INFO] [1793190140.285505469] [scout_01.scout_survey]: 영상 사전 준비 완료: Goal 수락 가능 (2.3초)
+[controller_server-7] [INFO] [1793190140.457071433] [scout_01.local_costmap.local_costmap]: Timed out waiting for transform from scout_01/base_link to scout_01/odom to become available, tf error: Invalid frame ID "scout_01/odom" passed to canTransform argument target_frame - frame does not exist
+[controller_server-7] [INFO] [1793190140.957064077] [scout_01.local_costmap.local_costmap]: Timed out waiting for transform from scout_01/base_link to scout_01/odom to become available, tf error: Invalid frame ID "scout_01/odom" passed to canTransform argument target_frame - frame does not exist
+[controller_server-7] [INFO] [1793190141.457071701] [scout_01.local_costmap.local_costmap]: Timed out waiting for transform from scout_01/base_link to scout_01/odom to become available, tf error: Invalid frame ID "scout_01/odom" passed to canTransform argument target_frame - frame does not exist
+[controller_server-7] [INFO] [1793190141.957970595] [scout_01.local_costmap.local_costmap]: Timed out waiting for transform from scout_01/base_link to scout_01/odom to become available, tf error: Invalid frame ID "scout_01/odom" passed to canTransform argument target_frame - frame does not exist
+[controller_server-7] [INFO] [1793190142.457112741] [scout_01.local_costmap.local_costmap]: Timed out waiting for transform from scout_01/base_link to scout_01/odom to become available, tf error: Invalid frame ID "scout_01/odom" passed to canTransform argument target_frame - frame does not exist
+[controller_server-7] [INFO] [1793190142.957067600] [scout_01.local_costmap.local_costmap]: Timed out waiting for transform from scout_01/base_link to scout_01/odom to become available, tf error: Invalid frame ID "scout_01/odom" passed to canTransform argument target_frame - frame does not exist
+[controller_server-7] [INFO] [1793190143.457066583] [scout_01.local_costmap.local_costmap]: Timed out waiting for transform from scout_01/base_link to scout_01/odom to become available, tf error: Invalid frame ID "scout_01/odom" passed to canTransform argument target_frame - frame does not exist
+[controller_server-7] [INFO] [1793190143.957066258] [scout_01.local_costmap.local_costmap]: Timed out waiting for transform from scout_01/base_link to scout_01/odom to become available, tf error: Invalid frame ID "scout_01/odom" passed to canTransform argument target_frame - frame does not exist
+[controller_server-7] [INFO] [1793190144.457070128] [scout_01.local_costmap.local_costmap]: Timed out waiting for transform from scout_01/base_link to scout_01/odom to become available, tf error: Invalid frame ID "scout_01/odom" passed to canTransform argument target_frame - frame does not exist
+[controller_server-7] [INFO] [1793190144.957065317] [scout_01.local_costmap.local_costmap]: Timed out waiting for transform from scout_01/base_link to scout_01/odom to become available, tf error: Invalid frame ID "scout_01/odom" passed to canTransform argument target_frame - frame does not exist
+[controller_server-7] [INFO] [1793190145.457050313] [scout_01.local_costmap.local_costmap]: Timed out waiting for transform from scout_01/base_link to scout_01/odom to become available, tf error: Invalid frame ID "scout_01/odom" passed to canTransform argument target_frame - frame does not exist
+[controller_server-7] [INFO] [1793190145.957067726] [scout_01.local_costmap.local_costmap]: Timed out waiting for transform from scout_01/base_link to scout_01/odom to become available, tf error: Invalid frame ID "scout_01/odom" passed to canTransform argument target_frame - frame does not exist
+[controller_server-7] [INFO] [1793190146.457088169] [scout_01.local_costmap.local_costmap]: Timed out waiting for transform from scout_01/base_link to scout_01/odom to become available, tf error: Invalid frame ID "scout_01/odom" passed to canTransform argument target_frame - frame does not exist
+[controller_server-7] [INFO] [1793190146.957063688] [scout_01.local_costmap.local_costmap]: Timed out waiting for transform from scout_01/base_link to scout_01/odom to become available, tf error: Invalid frame ID "scout_01/odom" passed to canTransform argument target_frame - frame does not exist
+[controller_server-7] [INFO] [1793190147.457067736] [scout_01.local_costmap.local_costmap]: Timed out waiting for transform from scout_01/base_link to scout_01/odom to become available, tf error: Invalid frame ID "scout_01/odom" passed to canTransform argument target_frame - frame does not exist
+[controller_server-7] [INFO] [1793190147.957065771] [scout_01.local_costmap.local_costmap]: Timed out waiting for transform from scout_01/base_link to scout_01/odom to become available, tf error: Invalid frame ID "scout_01/odom" passed to canTransform argument target_frame - frame does not exist
+[controller_server-7] [INFO] [1793190148.457064966] [scout_01.local_costmap.local_costmap]: Timed out waiting for transform from scout_01/base_link to scout_01/odom to become available, tf error: Invalid frame ID "scout_01/odom" passed to canTransform argument target_frame - frame does not exist
+[controller_server-7] [INFO] [1793190148.957064030] [scout_01.local_costmap.local_costmap]: Timed out waiting for transform from scout_01/base_link to scout_01/odom to become available, tf error: Invalid frame ID "scout_01/odom" passed to canTransform argument target_frame - frame does not exist
+[controller_server-7] [INFO] [1793190149.457064419] [scout_01.local_costmap.local_costmap]: Timed out waiting for transform from scout_01/base_link to scout_01/odom to become available, tf error: Invalid frame ID "scout_01/odom" passed to canTransform argument target_frame - frame does not exist
+[controller_server-7] [INFO] [1793190149.957066701] [scout_01.local_costmap.local_costmap]: Timed out waiting for transform from scout_01/base_link to scout_01/odom to become available, tf error: Invalid frame ID "scout_01/odom" passed to canTransform argument target_frame - frame does not exist
+[controller_server-7] [INFO] [1793190150.457068336] [scout_01.local_costmap.local_costmap]: Timed out waiting for transform from scout_01/base_link to scout_01/odom to become available, tf error: Invalid frame ID "scout_01/odom" passed to canTransform argument target_frame - frame does not exist
+[controller_server-7] [INFO] [1793190150.957068660] [scout_01.local_costmap.local_costmap]: Timed out waiting for transform from scout_01/base_link to scout_01/odom to become available, tf error: Invalid frame ID "scout_01/odom" passed to canTransform argument target_frame - frame does not exist
+[controller_server-7] [INFO] [1793190151.457072028] [scout_01.local_costmap.local_costmap]: Timed out waiting for transform from scout_01/base_link to scout_01/odom to become available, tf error: Invalid frame ID "scout_01/odom" passed to canTransform argument target_frame - frame does not exist
+[controller_server-7] [INFO] [1793190151.957069478] [scout_01.local_costmap.local_costmap]: Timed out waiting for transform from scout_01/base_link to scout_01/odom to become available, tf error: Invalid frame ID "scout_01/odom" passed to canTransform argument target_frame - frame does not exist
+[controller_server-7] [INFO] [1793190152.457069228] [scout_01.local_costmap.local_costmap]: Timed out waiting for transform from scout_01/base_link to scout_01/odom to become available, tf error: Invalid frame ID "scout_01/odom" passed to canTransform argument target_frame - frame does not exist
+[controller_server-7] [INFO] [1793190152.957069427] [scout_01.local_costmap.local_costmap]: Timed out waiting for transform from scout_01/base_link to scout_01/odom to become available, tf error: Invalid frame ID "scout_01/odom" passed to canTransform argument target_frame - frame does not exist
+[controller_server-7] [INFO] [1793190153.457072883] [scout_01.local_costmap.local_costmap]: Timed out waiting for transform from scout_01/base_link to scout_01/odom to become available, tf error: Invalid frame ID "scout_01/odom" passed to canTransform argument target_frame - frame does not exist
+[ros_adapter-4] [INFO] [1793190153.859568339] [scout_01.sim_devices]: Isaac Sim 연결됨. odom 원점은 시작 위치입니다; map 위치추정은 별도입니다.
+[amcl-6] [INFO] [1793190153.860706765] [scout_01.amcl]: createLaserObject
+[controller_server-7] [INFO] [1793190153.957172816] [scout_01.local_costmap.local_costmap]: start
+[controller_server-7] [INFO] [1793190154.160099166] [scout_01.controller_server]: Activating controller: StationReverse of type regulated_pure_pursuit_controller::RegulatedPurePursuitController
+[controller_server-7] [INFO] [1793190154.160142722] [scout_01.controller_server]: Activating controller: RPP of type regulated_pure_pursuit_controller::RegulatedPurePursuitController
+[controller_server-7] [INFO] [1793190154.160170144] [scout_01.controller_server]: Creating bond (controller_server) to lifecycle manager.
+[lifecycle_manager-12] [INFO] [1793190154.272563709] [scout_01.lifecycle_manager_navigation]: Server controller_server connected with bond.
+[lifecycle_manager-12] [INFO] [1793190154.272596932] [scout_01.lifecycle_manager_navigation]: [34m[1mActivating planner_server[0m[0m
+[planner_server-8] [INFO] [1793190154.273113446] [scout_01.planner_server]: Activating
+[planner_server-8] [INFO] [1793190154.273137761] [scout_01.global_costmap.global_costmap]: Activating
+[planner_server-8] [INFO] [1793190154.273141693] [scout_01.global_costmap.global_costmap]: Checking transform
+[planner_server-8] [INFO] [1793190154.273185156] [scout_01.global_costmap.global_costmap]: Timed out waiting for transform from scout_01/base_link to map to become available, tf error: Lookup would require extrapolation at time 0.050000, but only time 0.550000 is in the buffer, when looking up transform from frame [scout_01/base_link] to frame [map]
+[planner_server-8] [INFO] [1793190154.773284390] [scout_01.global_costmap.global_costmap]: Timed out waiting for transform from scout_01/base_link to map to become available, tf error: Lookup would require extrapolation into the past.  Requested time 0.250000 but the earliest data is at time 0.550000, when looking up transform from frame [scout_01/base_link] to frame [map]
+[planner_server-8] [INFO] [1793190155.273253339] [scout_01.global_costmap.global_costmap]: start
+[planner_server-8] [INFO] [1793190156.276568111] [scout_01.planner_server]: Activating plugin GridBased of type NavfnPlanner
+[planner_server-8] [INFO] [1793190156.278608627] [scout_01.planner_server]: Creating bond (planner_server) to lifecycle manager.
+[lifecycle_manager-12] [INFO] [1793190156.384793194] [scout_01.lifecycle_manager_navigation]: Server planner_server connected with bond.
+[lifecycle_manager-12] [INFO] [1793190156.384846394] [scout_01.lifecycle_manager_navigation]: [34m[1mActivating behavior_server[0m[0m
+[behavior_server-9] [INFO] [1793190156.385562121] [scout_01.behavior_server]: Activating
+[behavior_server-9] [INFO] [1793190156.385594497] [scout_01.behavior_server]: Activating spin
+[behavior_server-9] [INFO] [1793190156.385606931] [scout_01.behavior_server]: Activating backup
+[behavior_server-9] [INFO] [1793190156.385615589] [scout_01.behavior_server]: Activating drive_on_heading
+[behavior_server-9] [INFO] [1793190156.385625751] [scout_01.behavior_server]: Activating wait
+[behavior_server-9] [INFO] [1793190156.385641940] [scout_01.behavior_server]: Activating assisted_teleop
+[behavior_server-9] [INFO] [1793190156.385656278] [scout_01.behavior_server]: Creating bond (behavior_server) to lifecycle manager.
+[lifecycle_manager-12] [INFO] [1793190156.501826511] [scout_01.lifecycle_manager_navigation]: Server behavior_server connected with bond.
+[lifecycle_manager-12] [INFO] [1793190156.501855376] [scout_01.lifecycle_manager_navigation]: [34m[1mActivating bt_navigator[0m[0m
+[bt_navigator-10] [INFO] [1793190156.502469816] [scout_01.bt_navigator]: Activating
+[bt_navigator-10] [INFO] [1793190156.603858669] [scout_01.bt_navigator]: Creating bond (bt_navigator) to lifecycle manager.
+[lifecycle_manager-12] [INFO] [1793190156.708315742] [scout_01.lifecycle_manager_navigation]: Server bt_navigator connected with bond.
+[lifecycle_manager-12] [INFO] [1793190156.708346909] [scout_01.lifecycle_manager_navigation]: [34m[1mActivating velocity_smoother[0m[0m
+[velocity_smoother-11] [INFO] [1793190156.708873184] [scout_01.velocity_smoother]: Activating
+[velocity_smoother-11] [INFO] [1793190156.708927039] [scout_01.velocity_smoother]: Creating bond (velocity_smoother) to lifecycle manager.
+[lifecycle_manager-12] [INFO] [1793190156.821753330] [scout_01.lifecycle_manager_navigation]: Server velocity_smoother connected with bond.
+[lifecycle_manager-12] [INFO] [1793190156.821779870] [scout_01.lifecycle_manager_navigation]: [34m[1mManaged nodes are active[0m[0m
+[lifecycle_manager-12] [INFO] [1793190156.821784107] [scout_01.lifecycle_manager_navigation]: [34m[1mCreating bond timer...[0m[0m
+[WARNING] [launch]: user interrupted with ctrl-c (SIGINT)
+[INFO] [tag_amcl_adapter-15]: sending signal 'SIGINT' to process[tag_amcl_adapter-15]
+[INFO] [scout_node-14]: sending signal 'SIGINT' to process[scout_node-14]
+[INFO] [route_preview-13]: sending signal 'SIGINT' to process[route_preview-13]
+[INFO] [lifecycle_manager-12]: sending signal 'SIGINT' to process[lifecycle_manager-12]
+[INFO] [velocity_smoother-11]: sending signal 'SIGINT' to process[velocity_smoother-11]
+[INFO] [bt_navigator-10]: sending signal 'SIGINT' to process[bt_navigator-10]
+[INFO] [behavior_server-9]: sending signal 'SIGINT' to process[behavior_server-9]
+[INFO] [planner_server-8]: sending signal 'SIGINT' to process[planner_server-8]
+[INFO] [controller_server-7]: sending signal 'SIGINT' to process[controller_server-7]
+[INFO] [amcl-6]: sending signal 'SIGINT' to process[amcl-6]
+[INFO] [map_server-5]: sending signal 'SIGINT' to process[map_server-5]
+[INFO] [ros_adapter-4]: sending signal 'SIGINT' to process[ros_adapter-4]
+[INFO] [tag_capture-3]: sending signal 'SIGINT' to process[tag_capture-3]
+[INFO] [apriltag_node-2]: sending signal 'SIGINT' to process[apriltag_node-2]
+[INFO] [rectify_node-1]: sending signal 'SIGINT' to process[rectify_node-1]
+[apriltag_node-2] [INFO] [1793190276.720543781] [rclcpp]: signal_handler(SIGINT/SIGTERM)
+[bt_navigator-10] [INFO] [1793190276.720586860] [rclcpp]: signal_handler(SIGINT/SIGTERM)
+[bt_navigator-10] [INFO] [1793190276.720638187] [scout_01.bt_navigator]: Running Nav2 LifecycleNode rcl preshutdown (bt_navigator)
+[bt_navigator-10] [INFO] [1793190276.720679050] [scout_01.bt_navigator]: Deactivating
+[bt_navigator-10] [INFO] [1793190276.720700609] [scout_01.bt_navigator]: Destroying bond (bt_navigator) to lifecycle manager.
+[velocity_smoother-11] [INFO] [1793190276.720597664] [rclcpp]: signal_handler(SIGINT/SIGTERM)
+[velocity_smoother-11] [INFO] [1793190276.720649836] [scout_01.velocity_smoother]: Running Nav2 LifecycleNode rcl preshutdown (velocity_smoother)
+[velocity_smoother-11] [INFO] [1793190276.721318742] [scout_01.velocity_smoother]: Deactivating
+[velocity_smoother-11] [INFO] [1793190276.721357169] [scout_01.velocity_smoother]: Destroying bond (velocity_smoother) to lifecycle manager.
+[lifecycle_manager-12] [INFO] [1793190276.720928428] [rclcpp]: signal_handler(SIGINT/SIGTERM)
+[lifecycle_manager-12] [INFO] [1793190276.720982070] [scout_01.lifecycle_manager_navigation]: Running Nav2 LifecycleManager rcl preshutdown (lifecycle_manager_navigation)
+[lifecycle_manager-12] [INFO] [1793190276.721003945] [scout_01.lifecycle_manager_navigation]: [34m[1mTerminating bond timer...[0m[0m
+[map_server-5] [INFO] [1793190276.721147376] [rclcpp]: signal_handler(SIGINT/SIGTERM)
+[map_server-5] [INFO] [1793190276.721224243] [scout_01.map_server]: Running Nav2 LifecycleNode rcl preshutdown (map_server)
+[map_server-5] [INFO] [1793190276.721277285] [scout_01.map_server]: Deactivating
+[map_server-5] [INFO] [1793190276.721292367] [scout_01.map_server]: Destroying bond (map_server) to lifecycle manager.
+[map_server-5] [INFO] [1793190276.731571590] [scout_01.map_server]: Cleaning up
+[map_server-5] [INFO] [1793190276.731626548] [scout_01.map_server]: Destroying bond (map_server) to lifecycle manager.
+[planner_server-8] [INFO] [1793190276.722573088] [rclcpp]: signal_handler(SIGINT/SIGTERM)
+[planner_server-8] [INFO] [1793190276.722683894] [scout_01.planner_server]: Running Nav2 LifecycleNode rcl preshutdown (planner_server)
+[planner_server-8] [INFO] [1793190276.722745352] [scout_01.planner_server]: Deactivating
+[planner_server-8] [INFO] [1793190276.722783325] [scout_01.global_costmap.global_costmap]: Deactivating
+[behavior_server-9] [INFO] [1793190276.722772694] [rclcpp]: signal_handler(SIGINT/SIGTERM)
+[behavior_server-9] [INFO] [1793190276.722854221] [scout_01.behavior_server]: Running Nav2 LifecycleNode rcl preshutdown (behavior_server)
+[behavior_server-9] [INFO] [1793190276.722900717] [scout_01.behavior_server]: Deactivating
+[behavior_server-9] [INFO] [1793190276.722926689] [scout_01.behavior_server]: Destroying bond (behavior_server) to lifecycle manager.
+[controller_server-7] [INFO] [1793190276.723650334] [rclcpp]: signal_handler(SIGINT/SIGTERM)
+[controller_server-7] [INFO] [1793190276.723732723] [scout_01.controller_server]: Running Nav2 LifecycleNode rcl preshutdown (controller_server)
+[controller_server-7] [INFO] [1793190276.723784327] [scout_01.controller_server]: Deactivating
+[controller_server-7] [INFO] [1793190276.723800662] [scout_01.controller_server]: Deactivating controller: StationReverse of type regulated_pure_pursuit_controller::RegulatedPurePursuitController
+[controller_server-7] [INFO] [1793190276.723808315] [scout_01.controller_server]: Deactivating controller: RPP of type regulated_pure_pursuit_controller::RegulatedPurePursuitController
+[controller_server-7] [INFO] [1793190276.723833273] [scout_01.local_costmap.local_costmap]: Deactivating
+[rectify_node-1] [INFO] [1793190276.723673080] [rclcpp]: signal_handler(SIGINT/SIGTERM)
+[amcl-6] [INFO] [1793190276.724041381] [rclcpp]: signal_handler(SIGINT/SIGTERM)
+[amcl-6] [INFO] [1793190276.724106095] [scout_01.amcl]: Running Nav2 LifecycleNode rcl preshutdown (amcl)
+[amcl-6] [INFO] [1793190276.724160714] [scout_01.amcl]: Deactivating
+[amcl-6] [INFO] [1793190276.724187809] [scout_01.amcl]: Destroying bond (amcl) to lifecycle manager.
+[velocity_smoother-11] [INFO] [1793190276.731619583] [scout_01.velocity_smoother]: Cleaning up
+[velocity_smoother-11] [INFO] [1793190276.731671690] [scout_01.velocity_smoother]: Destroying bond (velocity_smoother) to lifecycle manager.
+[bt_navigator-10] [INFO] [1793190276.732684958] [scout_01.bt_navigator]: Cleaning up
+[behavior_server-9] [INFO] [1793190276.734119195] [scout_01.behavior_server]: Cleaning up
+[amcl-6] [INFO] [1793190276.734667824] [scout_01.amcl]: Cleaning up
+[tag_amcl_adapter-15] Traceback (most recent call last):
+[tag_amcl_adapter-15]   File "/home/ysy/main/farm_project/robot/ros_ws/install/farm_tag_localization/lib/farm_tag_localization/tag_amcl_adapter", line 33, in <module>
+[tag_amcl_adapter-15]     sys.exit(load_entry_point('farm-tag-localization', 'console_scripts', 'tag_amcl_adapter')())
+[tag_amcl_adapter-15]              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+[tag_amcl_adapter-15]   File "/home/ysy/main/farm_project/robot/ros_ws/build/farm_tag_localization/farm_tag_localization/node.py", line 297, in main
+[tag_amcl_adapter-15]     node.close()
+[tag_amcl_adapter-15]   File "/home/ysy/main/farm_project/robot/ros_ws/build/farm_tag_localization/farm_tag_localization/node.py", line 281, in close
+[tag_amcl_adapter-15]     self._listener.unregister()
+[tag_amcl_adapter-15]   File "/opt/ros/jazzy/lib/python3.12/site-packages/tf2_ros/transform_listener.py", line 128, in unregister
+[tag_amcl_adapter-15]     self.node.destroy_subscription(self.tf_static_sub)
+[tag_amcl_adapter-15]   File "/opt/ros/jazzy/lib/python3.12/site-packages/rclpy/node.py", line 1854, in destroy_subscription
+[tag_amcl_adapter-15]     subscription.destroy()
+[tag_amcl_adapter-15]   File "/opt/ros/jazzy/lib/python3.12/site-packages/rclpy/subscription.py", line 101, in destroy
+[tag_amcl_adapter-15]     self.handle.destroy_when_not_in_use()
+[tag_amcl_adapter-15] KeyboardInterrupt
+[velocity_smoother-11] [INFO] [1793190276.744185296] [rclcpp]: signal_handler(SIGINT/SIGTERM)
+[route_preview-13] Traceback (most recent call last):
+[route_preview-13]   File "/home/ysy/main/farm_project/robot/ros_ws/install/scout_robot/lib/scout_robot/route_preview", line 33, in <module>
+[route_preview-13]     sys.exit(load_entry_point('scout-robot', 'console_scripts', 'route_preview')())
+[route_preview-13]              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+[route_preview-13]   File "/home/ysy/main/farm_project/robot/ros_ws/build/scout_robot/scout_robot/route_preview.py", line 85, in main
+[route_preview-13]     if node is not None: node.destroy_node()
+[route_preview-13]                          ^^^^^^^^^^^^^^^^^^^
+[route_preview-13]   File "/opt/ros/jazzy/lib/python3.12/site-packages/rclpy/node.py", line 1956, in destroy_node
+[route_preview-13]     self.destroy_publisher(self._publishers[0])
+[route_preview-13]   File "/opt/ros/jazzy/lib/python3.12/site-packages/rclpy/node.py", line 1836, in destroy_publisher
+[route_preview-13]     publisher.destroy()
+[route_preview-13]   File "/opt/ros/jazzy/lib/python3.12/site-packages/rclpy/publisher.py", line 105, in destroy
+[route_preview-13]     self.__publisher.destroy_when_not_in_use()
+[route_preview-13] KeyboardInterrupt
+[behavior_server-9] [INFO] [1793190276.755443958] [scout_01.behavior_server]: Destroying bond (behavior_server) to lifecycle manager.
+[map_server-5] [INFO] [1793190276.755763283] [rclcpp]: signal_handler(SIGINT/SIGTERM)
+[ros_adapter-4] Traceback (most recent call last):
+[ros_adapter-4]   File "/home/ysy/main/farm_project/sim/ros_ws/install/farm_sim_devices/lib/farm_sim_devices/ros_adapter", line 33, in <module>
+[ros_adapter-4]     sys.exit(load_entry_point('farm-sim-devices==0.2.0', 'console_scripts', 'ros_adapter')())
+[ros_adapter-4]              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+[ros_adapter-4]   File "/home/ysy/main/farm_project/sim/ros_ws/install/farm_sim_devices/lib/python3.12/site-packages/farm_sim_devices/ros_adapter.py", line 276, in main
+[ros_adapter-4]     if node is not None:node.close()
+[ros_adapter-4]                         ^^^^^^^^^^^^
+[ros_adapter-4]   File "/home/ysy/main/farm_project/sim/ros_ws/install/farm_sim_devices/lib/python3.12/site-packages/farm_sim_devices/ros_adapter.py", line 261, in close
+[velocity_smoother-11] [INFO] [1793190276.759302123] [scout_01.velocity_smoother]: Destroying
+[behavior_server-9] [INFO] [1793190276.759647787] [rclcpp]: signal_handler(SIGINT/SIGTERM)
+[ros_adapter-4]     self.destroy_node()
+[ros_adapter-4]   File "/opt/ros/jazzy/lib/python3.12/site-packages/rclpy/node.py", line 1956, in destroy_node
+[controller_server-7] [INFO] [1793190276.760096607] [scout_01.controller_server]: Destroying bond (controller_server) to lifecycle manager.
+[ros_adapter-4]     self.destroy_publisher(self._publishers[0])
+[ros_adapter-4]   File "/opt/ros/jazzy/lib/python3.12/site-packages/rclpy/node.py", line 1836, in destroy_publisher
+[ros_adapter-4]     publisher.destroy()
+[ros_adapter-4]   File "/opt/ros/jazzy/lib/python3.12/site-packages/rclpy/publisher.py", line 105, in destroy
+[ros_adapter-4]     self.__publisher.destroy_when_not_in_use()
+[ros_adapter-4] KeyboardInterrupt
+[controller_server-7] [INFO] [1793190276.771815476] [scout_01.controller_server]: Cleaning up
+[controller_server-7] [INFO] [1793190276.771860844] [scout_01.controller_server]: Cleaning up controller: StationReverse of type regulated_pure_pursuit_controller::RegulatedPurePursuitController
+[controller_server-7] [INFO] [1793190276.771882702] [scout_01.controller_server]: Cleaning up controller: RPP of type regulated_pure_pursuit_controller::RegulatedPurePursuitController
+[controller_server-7] [INFO] [1793190276.772287605] [scout_01.local_costmap.local_costmap]: Cleaning up
+[apriltag_node-2] [INFO] [1793190276.775239504] [rclcpp]: signal_handler(SIGINT/SIGTERM)
+[tag_capture-3] Traceback (most recent call last):
+[tag_capture-3]   File "/home/ysy/main/farm_project/robot/ros_ws/install/farm_tag_localization/lib/farm_tag_localization/tag_capture", line 33, in <module>
+[tag_capture-3]     sys.exit(load_entry_point('farm-tag-localization', 'console_scripts', 'tag_capture')())
+[tag_capture-3]              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+[tag_capture-3]   File "/home/ysy/main/farm_project/robot/ros_ws/build/farm_tag_localization/farm_tag_localization/ros_capture.py", line 104, in main
+[tag_capture-3]     node.destroy_node()
+[tag_capture-3]   File "/opt/ros/jazzy/lib/python3.12/site-packages/rclpy/node.py", line 1962, in destroy_node
+[tag_capture-3]     self.destroy_service(self._services[0])
+[tag_capture-3]   File "/opt/ros/jazzy/lib/python3.12/site-packages/rclpy/node.py", line 1886, in destroy_service
+[tag_capture-3]     service.destroy()
+[tag_capture-3]   File "/opt/ros/jazzy/lib/python3.12/site-packages/rclpy/service.py", line 123, in destroy
+[tag_capture-3]     self.__service.destroy_when_not_in_use()
+[tag_capture-3] KeyboardInterrupt
+[rectify_node-1] [INFO] [1793190276.782650391] [rclcpp]: signal_handler(SIGINT/SIGTERM)
+[planner_server-8] [INFO] [1793190277.273401825] [scout_01.planner_server]: Deactivating plugin GridBased of type NavfnPlanner
+[planner_server-8] [INFO] [1793190277.273435032] [scout_01.planner_server]: Destroying bond (planner_server) to lifecycle manager.
+[planner_server-8] [INFO] [1793190277.373657083] [scout_01.planner_server]: Cleaning up
+[map_server-5] [INFO] [1793190279.259704478] [scout_01.map_server]: Destroying
+[amcl-6] [INFO] [1793190279.283315394] [scout_01.amcl]: Destroying bond (amcl) to lifecycle manager.
+[amcl-6] [INFO] [1793190279.299777538] [rclcpp]: signal_handler(SIGINT/SIGTERM)
+[ERROR] [tag_capture-3]: process has died [pid 2333193, exit code -2, cmd '/home/ysy/main/farm_project/robot/ros_ws/install/farm_tag_localization/lib/farm_tag_localization/tag_capture --ros-args -r __ns:=/scout_01/apriltag_camera --params-file /tmp/launch_params_v0gjwdn7'].
+[amcl-6] [INFO] [1793190279.341510847] [scout_01.amcl]: Destroying
+[ERROR] [route_preview-13]: process has died [pid 2333230, exit code -2, cmd '/home/ysy/main/farm_project/robot/ros_ws/install/scout_robot/lib/scout_robot/route_preview --ros-args -r __ns:=/scout_01 --params-file /tmp/launch_params__re14e9f'].
+[lifecycle_manager-12] [INFO] [1793190279.411085410] [rclcpp]: signal_handler(SIGINT/SIGTERM)
+[behavior_server-9] [INFO] [1793190279.430903590] [scout_01.behavior_server]: Destroying
+[lifecycle_manager-12] [INFO] [1793190279.444941241] [scout_01.lifecycle_manager_navigation]: Destroying lifecycle_manager_navigation
+[planner_server-8] [INFO] [1793190279.469898670] [scout_01.global_costmap.global_costmap]: Cleaning up
+[controller_server-7] [INFO] [1793190279.483484004] [scout_01.controller_server]: Destroying bond (controller_server) to lifecycle manager.
+[INFO] [rectify_node-1]: process has finished cleanly [pid 2333189]
+[planner_server-8] [INFO] [1793190279.485785864] [scout_01.planner_server]: Cleaning up plugin GridBased of type NavfnPlanner
+[planner_server-8] [INFO] [1793190279.486206075] [scout_01.planner_server]: Destroying plugin GridBased of type NavfnPlanner
+[INFO] [velocity_smoother-11]: process has finished cleanly [pid 2333225]
+[controller_server-7] [INFO] [1793190279.488389892] [rclcpp]: signal_handler(SIGINT/SIGTERM)
+[controller_server-7] [INFO] [1793190279.490166205] [scout_01.local_costmap.local_costmap]: Destroying
+[INFO] [map_server-5]: process has finished cleanly [pid 2333195]
+[controller_server-7] [INFO] [1793190279.506182207] [scout_01.controller_server]: Destroying
+[planner_server-8] [INFO] [1793190279.515181569] [scout_01.planner_server]: Destroying bond (planner_server) to lifecycle manager.
+[planner_server-8] [INFO] [1793190279.518569833] [rclcpp]: signal_handler(SIGINT/SIGTERM)
+[planner_server-8] [INFO] [1793190279.520887147] [scout_01.global_costmap.global_costmap]: Destroying
+[bt_navigator-10] [INFO] [1793190279.534089352] [scout_01.bt_navigator]: Completed Cleaning up
+[bt_navigator-10] [INFO] [1793190279.534121587] [scout_01.bt_navigator]: Destroying bond (bt_navigator) to lifecycle manager.
+[bt_navigator-10] [INFO] [1793190279.534608283] [rclcpp]: signal_handler(SIGINT/SIGTERM)
+[planner_server-8] [INFO] [1793190279.534631701] [scout_01.planner_server]: Destroying
+[bt_navigator-10] [INFO] [1793190279.542225303] [scout_01.bt_navigator]: Destroying
+[INFO] [amcl-6]: process has finished cleanly [pid 2333196]
+[INFO] [behavior_server-9]: process has finished cleanly [pid 2333221]
+[INFO] [lifecycle_manager-12]: process has finished cleanly [pid 2333226]
+[INFO] [controller_server-7]: process has finished cleanly [pid 2333219]
+[INFO] [planner_server-8]: process has finished cleanly [pid 2333220]
+[INFO] [bt_navigator-10]: process has finished cleanly [pid 2333223]
+[ERROR] [tag_amcl_adapter-15]: process has died [pid 2333240, exit code -2, cmd '/home/ysy/main/farm_project/robot/ros_ws/install/farm_tag_localization/lib/farm_tag_localization/tag_amcl_adapter --ros-args -r __ns:=/scout_01 --params-file /tmp/launch_params_8nm7fi_1'].
+[ERROR] [ros_adapter-4]: process has died [pid 2333194, exit code -2, cmd '/home/ysy/main/farm_project/sim/ros_ws/install/farm_sim_devices/lib/farm_sim_devices/ros_adapter --ros-args -r __ns:=/scout_01 --params-file /tmp/launch_params_g8c1ttx_'].
+[scout_node-14] The following exception was never retrieved: cannot use Destroyable because destruction was requested
+[INFO] [scout_node-14]: process has finished cleanly [pid 2333233]
+[ERROR] [apriltag_node-2]: process has died [pid 2333192, exit code -11, cmd '/opt/ros/jazzy/lib/apriltag_ros/apriltag_node --ros-args -r __node:=tag_detector -r __ns:=/scout_01/apriltag_camera --params-file /tmp/launch_params_99ld6tyw -r /tf:=diagnostic_tf -r /tf_static:=diagnostic_tf_static'].

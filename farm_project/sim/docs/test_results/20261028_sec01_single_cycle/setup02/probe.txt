@@ -1,0 +1,14 @@
+Traceback (most recent call last):
+  File "/home/ysy/main/farm_project/sim/tools/probe_handoff_window.py", line 252, in <module>
+    if __name__ == '__main__': main()
+                               ^^^^^^
+  File "/home/ysy/main/farm_project/sim/tools/probe_handoff_window.py", line 136, in main
+    tasks, scout_return = survey(base,node,wait,future,record,result,owned_actions)
+                          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ysy/main/farm_project/sim/tools/single_cycle_steps.py", line 37, in survey
+    bundle=start_action(node,wait,future,record,ScoutArea,'/scout_01/scout_area',goal,'scout');owned.append(bundle)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ysy/main/farm_project/sim/tools/single_cycle_steps.py", line 24, in start_action
+    if not handle.accepted:raise RuntimeError(label+' Goal 거절')
+                           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+RuntimeError: scout Goal 거절

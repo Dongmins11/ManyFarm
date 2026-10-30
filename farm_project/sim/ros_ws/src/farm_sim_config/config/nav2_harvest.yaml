@@ -11,3 +11,25 @@ bindings:
     y: 13.25
     z: 0.0
     yaw: -1.5707963267948966
+# 시뮬 회전 시 병진 불확실성: 동일 센서 재생으로 검증, 실물 기본값 0.2 유지.
+overrides:
+  # 2026-10-30 사용자 승인: 일반 경로 이동/방향 회전만 0.1→0.15.
+  # 정밀 접근·작업·후진·인계 제어기 및 가감속/도착 판정은 유지한다.
+  controller_server:
+    ros__parameters:
+      FollowPath:
+        desired_linear_vel: 0.15
+        rotate_to_heading_angular_vel: 0.15
+      RPP:
+        desired_linear_vel: 0.15
+        rotate_to_heading_angular_vel: 0.15
+  amcl:
+    ros__parameters:
+      alpha4: 0.002
+  # 5Hz(/clock) 발행은 느린 프레임에서 실제 수신 간격 0.5초를 넘는다.
+  # 팔 카메라 동작 중 측정: 10Hz 발행도 최대0.70초, 20Hz는 최대0.40초.
+  # 계산 주기10Hz는 유지하며 발행의 ROS 시간 대기만 줄인다. 만료 판정 유지.
+  local_costmap:
+    local_costmap:
+      ros__parameters:
+        publish_frequency: 20.0

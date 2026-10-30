@@ -1,0 +1,12 @@
+{
+  "schema_version": 1,
+  "station_config": "sim/runs/sorter_exit_diagnosis_20261029/full_command_replay/stations.json",
+  "device_configs": [
+    "sim/runs/sorter_exit_diagnosis_20261029/full_command_replay/transport.json"
+  ],
+  "clock": {
+    "command_port": 17690,
+    "telemetry_port": 17691
+  },
+  "sorter_config": "sim/runs/sorter_exit_diagnosis_20261029/full_command_replay/sorter.json"
+}

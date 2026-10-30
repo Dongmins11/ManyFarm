@@ -1,0 +1,241 @@
+[
+  {
+    "at": "2026-10-29T12:08:04.106606+00:00",
+    "mono": 207592.975985353,
+    "kind": "device_services_ready",
+    "sequence_started": false
+  },
+  {
+    "at": "2026-10-29T12:17:50.541038+00:00",
+    "mono": 208179.410415111,
+    "kind": "handoff_authorized",
+    "fruit_paths": [
+      "/World/Vegetation/Bed_02/Fruits/Pepper_0003_red",
+      "/World/Vegetation/Bed_02/Fruits/Pepper_0004_red",
+      "/World/Vegetation/Bed_02/Fruits/Pepper_0011_yellow",
+      "/World/Vegetation/Bed_02/Fruits/Pepper_0015_red",
+      "/World/Vegetation/Bed_02/Fruits/Pepper_0026_yellow",
+      "/World/Vegetation/Bed_02/Fruits/Pepper_0028_yellow",
+      "/World/Vegetation/Bed_02/Fruits/Pepper_0029_red",
+      "/World/Vegetation/Bed_02/Fruits/Pepper_0032_red",
+      "/World/Vegetation/Bed_02/Fruits/Pepper_0033_red",
+      "/World/Vegetation/Bed_02/Fruits/Pepper_0036_yellow"
+    ]
+  },
+  {
+    "at": "2026-10-29T12:17:50.541589+00:00",
+    "mono": 208179.410962139,
+    "kind": "virtual_unload_guard",
+    "accepted": false,
+    "task_id": "sorter_86531c97cbf348c6",
+    "state": {
+      "phase": "",
+      "waiting_seen": false,
+      "ready_requested": false,
+      "ready_accepted": false,
+      "active": false,
+      "completed": false,
+      "odom_at": 208179.378908743,
+      "stamp": 325.050016953,
+      "stopped_since": 208095.343015925,
+      "status": {
+        "robot_id": "transport_01",
+        "current_task_id": "",
+        "state": "IDLE",
+        "ready": true,
+        "map_id": "farm_map_v1",
+        "pose": {
+          "frame_id": "map",
+          "position": {
+            "x": -5.947776974897553,
+            "y": 4.016527496773774,
+            "z": 0.0
+          },
+          "yaw": -1.579365744916212
+        },
+        "battery_percent": NaN,
+        "transfer_required": false,
+        "loaded_count": -1,
+        "error_code": "NONE",
+        "error_message": "",
+        "boot_id": "2af18c8bdcf34dac924ab6476eb94778",
+        "sequence": 325,
+        "timestamp": "2026-10-29T12:17:50.293666+00:00"
+      },
+      "sequence_started": true
+    },
+    "count_valid": false
+  },
+  {
+    "at": "2026-10-29T12:17:50.541671+00:00",
+    "mono": 208179.411042396,
+    "kind": "unload_goal",
+    "data": {
+      "robot_id": "transport_01",
+      "task_id": "sorter_86531c97cbf348c6",
+      "station_id": "SORT_01",
+      "map_id": "farm_map_v1",
+      "timestamp": "2026-10-29T12:17:50.541642+00:00"
+    }
+  },
+  {
+    "at": "2026-10-29T12:17:50.578945+00:00",
+    "mono": 208179.448319604,
+    "kind": "unload_feedback",
+    "data": {
+      "robot_id": "transport_01",
+      "task_id": "sorter_86531c97cbf348c6",
+      "station_id": "SORT_01",
+      "event": "MOVING_STARTED",
+      "progress_ratio": 0.0,
+      "timestamp": "2026-10-29T12:17:50.577051+00:00"
+    }
+  },
+  {
+    "at": "2026-10-29T12:21:49.493649+00:00",
+    "mono": 208418.363026334,
+    "kind": "unload_feedback",
+    "data": {
+      "robot_id": "transport_01",
+      "task_id": "sorter_86531c97cbf348c6",
+      "station_id": "SORT_01",
+      "event": "DOCKING_STARTED",
+      "progress_ratio": 0.30000001192092896,
+      "timestamp": "2026-10-29T12:21:49.493080+00:00"
+    }
+  },
+  {
+    "at": "2026-10-29T12:22:57.694291+00:00",
+    "mono": 208486.563667314,
+    "kind": "unload_feedback",
+    "data": {
+      "robot_id": "transport_01",
+      "task_id": "sorter_86531c97cbf348c6",
+      "station_id": "SORT_01",
+      "event": "WAITING_FOR_UNLOAD",
+      "progress_ratio": 0.20000000298023224,
+      "timestamp": "2026-10-29T12:22:57.693288+00:00"
+    }
+  },
+  {
+    "at": "2026-10-29T12:22:57.761786+00:00",
+    "mono": 208486.63116111,
+    "kind": "unload_feedback",
+    "data": {
+      "robot_id": "transport_01",
+      "task_id": "sorter_86531c97cbf348c6",
+      "station_id": "SORT_01",
+      "event": "UNLOADING_STARTED",
+      "progress_ratio": 0.6000000238418579,
+      "timestamp": "2026-10-29T12:22:57.761373+00:00"
+    }
+  },
+  {
+    "at": "2026-10-29T12:22:57.762139+00:00",
+    "mono": 208486.631509786,
+    "kind": "virtual_unload_guard",
+    "accepted": true,
+    "task_id": "sorter_86531c97cbf348c6",
+    "state": {
+      "phase": "UNLOADING_STARTED",
+      "waiting_seen": true,
+      "ready_requested": true,
+      "ready_accepted": false,
+      "active": true,
+      "completed": false,
+      "odom_at": 208486.58767245,
+      "stamp": 505.250026351,
+      "stopped_since": 208484.663517738,
+      "status": {
+        "robot_id": "transport_01",
+        "current_task_id": "sorter_86531c97cbf348c6",
+        "state": "DOCKING",
+        "ready": false,
+        "map_id": "farm_map_v1",
+        "pose": {
+          "frame_id": "map",
+          "position": {
+            "x": -7.048172062845368,
+            "y": 13.482217408402658,
+            "z": 0.0
+          },
+          "yaw": 1.7997499717629113
+        },
+        "battery_percent": NaN,
+        "transfer_required": false,
+        "loaded_count": -1,
+        "error_code": "NONE",
+        "error_message": "",
+        "boot_id": "2af18c8bdcf34dac924ab6476eb94778",
+        "sequence": 505,
+        "timestamp": "2026-10-29T12:22:56.912745+00:00"
+      },
+      "sequence_started": true
+    },
+    "count_valid": false
+  },
+  {
+    "at": "2026-10-29T12:22:59.546667+00:00",
+    "mono": 208488.416045903,
+    "kind": "actual_deposit",
+    "request_id": "d657c7669a664bdc891b2c0ad5ca5894",
+    "success": true,
+    "fruit_paths": [
+      "/World/Vegetation/Bed_02/Fruits/Pepper_0003_red",
+      "/World/Vegetation/Bed_02/Fruits/Pepper_0004_red",
+      "/World/Vegetation/Bed_02/Fruits/Pepper_0011_yellow",
+      "/World/Vegetation/Bed_02/Fruits/Pepper_0015_red",
+      "/World/Vegetation/Bed_02/Fruits/Pepper_0026_yellow",
+      "/World/Vegetation/Bed_02/Fruits/Pepper_0028_yellow",
+      "/World/Vegetation/Bed_02/Fruits/Pepper_0029_red",
+      "/World/Vegetation/Bed_02/Fruits/Pepper_0032_red",
+      "/World/Vegetation/Bed_02/Fruits/Pepper_0033_red",
+      "/World/Vegetation/Bed_02/Fruits/Pepper_0036_yellow"
+    ],
+    "count": 10,
+    "error": ""
+  },
+  {
+    "at": "2026-10-29T12:22:59.549296+00:00",
+    "mono": 208488.418669318,
+    "kind": "ready_response",
+    "accepted": true,
+    "error_code": "NONE",
+    "error_message": "",
+    "timestamp": "2026-10-29T12:22:57.720522+00:00"
+  },
+  {
+    "at": "2026-10-29T12:22:59.564818+00:00",
+    "mono": 208488.434193003,
+    "kind": "unload_feedback",
+    "data": {
+      "robot_id": "transport_01",
+      "task_id": "sorter_86531c97cbf348c6",
+      "station_id": "SORT_01",
+      "event": "CLEARING_STARTED",
+      "progress_ratio": 0.8999999761581421,
+      "timestamp": "2026-10-29T12:22:59.563903+00:00"
+    }
+  },
+  {
+    "at": "2026-10-29T12:23:43.847916+00:00",
+    "mono": 208532.717288628,
+    "kind": "unload_result",
+    "status": 6,
+    "result": {
+      "robot_id": "transport_01",
+      "task_id": "sorter_86531c97cbf348c6",
+      "station_id": "SORT_01",
+      "result_code": "FAILED",
+      "error_code": "CLEARANCE_FAILED",
+      "error_message": "하역 완료 후 도킹해제 실패: Distance exit rotation position drift",
+      "timestamp": "2026-10-29T12:23:43.834071+00:00"
+    }
+  },
+  {
+    "at": "2026-10-29T12:23:43.847954+00:00",
+    "mono": 208532.717323692,
+    "kind": "error",
+    "detail": "RuntimeError: unload failed: {\"status\": 6, \"result\": {\"robot_id\": \"transport_01\", \"task_id\": \"sorter_86531c97cbf348c6\", \"station_id\": \"SORT_01\", \"result_code\": \"FAILED\", \"error_code\": \"CLEARANCE_FAILED\", \"error_message\": \"하역 완료 후 도킹해제 실패: Distance exit rotation position drift\", \"timestamp\": \"2026-10-29T12:23:43.834071+00:00\"}}"
+  }
+]

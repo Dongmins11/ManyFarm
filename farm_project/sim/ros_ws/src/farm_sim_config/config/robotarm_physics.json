@@ -147,6 +147,8 @@
   },
   "teacher_alignment": {
     "enabled": true,
+    "solver_position_iterations": 64,
+    "harvest_solver_position_iterations": 12,
     "asset_path": "sim/assets/robots/harvest_physics/teacher_arm_reference.usdc",
     "merged_fixed_bodies": [
       "arm_2_gripper_frame_link",

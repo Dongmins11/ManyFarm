@@ -77,7 +77,8 @@ class TeacherAlignmentTests(unittest.TestCase):
                     self.assertAlmostEqual(mat.GetPrim().GetAttribute('physics:dynamicFriction').Get(), expected)
         root = self.stage.GetPrimAtPath(self.report['teacher_alignment']['articulation_root'])
         self.assertTrue(root.GetAttribute('physxArticulation:enabledSelfCollisions').Get())
-        self.assertEqual(root.GetAttribute('physxArticulation:solverPositionIterationCount').Get(), 12)
+        # 이동 차체의 원호 정지 시험에 따른 시뮬 프로파일만 정밀도를 높인다.
+        self.assertEqual(root.GetAttribute('physxArticulation:solverPositionIterationCount').Get(), 64)
         self.assertEqual(root.GetAttribute('physxArticulation:solverVelocityIterationCount').Get(), 4)
 
     def test_joint_frames_limits_and_drive_units(self) -> None:

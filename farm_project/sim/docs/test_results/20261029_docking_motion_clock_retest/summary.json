@@ -1,0 +1,15 @@
+{
+  "passed": false,
+  "failure": "DOCK_FAILED / Initial marker reacquisition exhausted",
+  "transition_wall": 1793274451.8070877,
+  "transition_goal_distance_planar_approx_m": 1.185538164616073,
+  "stopped_reobservation_planar_approx_range_m": [
+    1.2083180498170338,
+    1.224649132617816
+  ],
+  "accepted_observations": 3,
+  "required_acquire_samples": 8,
+  "final_lidar_stage_reached": false,
+  "motion_clock_fix_end_to_end_validated": false,
+  "initial_marker_recovery_clock": "wall monotonic; unchanged 30s"
+}

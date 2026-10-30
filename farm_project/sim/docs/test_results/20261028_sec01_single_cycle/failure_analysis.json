@@ -1,0 +1,93 @@
+{
+  "session": "b72a852b5ebe466197bf8789368233bc",
+  "closest": {
+    "sim_time_s": 197.16667694970965,
+    "mono": 122562.39666445,
+    "harvest_xy": [
+      -5.527648448944092,
+      11.55537223815918
+    ],
+    "scout_xy": [
+      -5.91135835647583,
+      11.599885940551758
+    ],
+    "harvest_yaw": 3.082455772834183,
+    "scout_yaw": 3.0878993294142703,
+    "separation_m": 0.3862832676142084,
+    "navigation_footprints_overlap": true,
+    "harvest_cmd": [
+      0.0,
+      0.07686316257550387
+    ],
+    "scout_cmd": [
+      -0.12354870541091163,
+      0.16666666666666666
+    ],
+    "harvest_odom_velocity": [
+      -0.013440312638266469,
+      0.02513005531256813
+    ]
+  },
+  "stall_interval": {
+    "start": {
+      "sim_time_s": 215.0666778832674,
+      "mono": 122591.910171029,
+      "harvest_xy": [
+        -5.9562883377075195,
+        11.553814888000488
+      ],
+      "scout_xy": [
+        -6.379542827606201,
+        11.590126037597656
+      ],
+      "harvest_yaw": -2.8083622348063826,
+      "scout_yaw": -2.8079293874185156,
+      "separation_m": 0.42480920753258294,
+      "navigation_footprints_overlap": true,
+      "harvest_cmd": [
+        0.0,
+        0.05341136935932286
+      ],
+      "scout_cmd": [
+        -0.11,
+        0.2062837627955324
+      ],
+      "harvest_odom_velocity": [
+        -0.0032219122159973866,
+        0.00401466619135746
+      ]
+    },
+    "end": {
+      "sim_time_s": 230.06667866557837,
+      "mono": 122616.17803081,
+      "harvest_xy": [
+        -5.954301834106445,
+        11.554509162902832
+      ],
+      "scout_xy": [
+        -6.388046741485596,
+        11.606598854064941
+      ],
+      "harvest_yaw": -2.7951172450104864,
+      "scout_yaw": -2.796228465587222,
+      "separation_m": 0.4368615119265048,
+      "navigation_footprints_overlap": true,
+      "harvest_cmd": [
+        0.05592112966167065,
+        0.10151738294117774
+      ],
+      "scout_cmd": [
+        -0.11,
+        0.23712280965778562
+      ],
+      "harvest_odom_velocity": [
+        0.005012190080543379,
+        -0.001105130105954271
+      ]
+    },
+    "translation_m": 0.002104332244942624,
+    "rotation_rad": 0.013244989795896167
+  },
+  "contact_force_recorded": false,
+  "interpretation": "Opposing corridor motion, navigation-footprint overlap and coupled displacement indicate robot interference; exact contact force and first exception before stop failure not recorded."
+}

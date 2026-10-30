@@ -1,0 +1,20 @@
+[INFO] [1793188663.464957153] [transport_01.dock]: Dock speed: requested_v=0.0000 requested_w=0.0000 command_v=0.0000 command_w=0.0000 measured_v=-0.0005 measured_w=-0.0013 dry_run=False
+[INFO] [1793188663.465608058] [transport_01.dock]: 정밀주행 종료: DONE / Distance departure and graph exit heading completed / input_error=; odom: accepted_age=0.017s current_header_age=0.117s, scan: accepted_age=0.053s current_header_age=0.150s, image: accepted_age=120572.335s
+Traceback (most recent call last):
+  File "/home/ysy/main/farm_project/sim/tools/trace_docking_freshness.py", line 84, in <module>
+    try:main()
+        ^^^^^^
+  File "/home/ysy/main/farm_project/robot/ros_ws/build/farm_docking/farm_docking/precision_server.py", line 1814, in main
+    try:executor.spin()
+        ^^^^^^^^^^^^^^^
+  File "/opt/ros/jazzy/lib/python3.12/site-packages/rclpy/executors.py", line 359, in spin
+    self._spin_once_impl()
+  File "/opt/ros/jazzy/lib/python3.12/site-packages/rclpy/executors.py", line 991, in _spin_once_impl
+    handler, entity, node = self.wait_for_ready_callbacks(
+                            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/ros/jazzy/lib/python3.12/site-packages/rclpy/executors.py", line 877, in wait_for_ready_callbacks
+    return next(self._cb_iter)
+           ^^^^^^^^^^^^^^^^^^^
+  File "/opt/ros/jazzy/lib/python3.12/site-packages/rclpy/executors.py", line 781, in _wait_for_ready_callbacks
+    wait_set.wait(timeout_nsec)
+KeyboardInterrupt

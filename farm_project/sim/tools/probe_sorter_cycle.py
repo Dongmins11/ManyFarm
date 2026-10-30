@@ -33,11 +33,12 @@ from transport_robot.mission_types import utc
 def main() -> None:
     base=Path(sys.argv[1]).resolve()
     fixture=json.loads((base/'fixture.json').read_text())
+    wait_for_handoff='--wait-for-handoff' in sys.argv[2:]
     sorting=bool(fixture.get('integrated_sorting'))
     events=(base/'events.jsonl').open('w');lock=threading.RLock()
     result={'passed':False,'virtual_mechanism':True,'count_valid':False}
     state=dict(phase='',waiting_seen=False,ready_requested=False,ready_accepted=False,active=False,completed=False,
-               odom_at=0.,stamp=0.,stopped_since=None,status=None)
+               odom_at=0.,stamp=0.,stopped_since=None,status=None,sequence_started=not wait_for_handoff)
     task_id='sorter_'+uuid4().hex[:16]
     rclpy.init()
     node=Node('sorter_cycle_trial',parameter_overrides=[Parameter('use_sim_time',value=True)])
@@ -49,6 +50,7 @@ def main() -> None:
     localization=(base/'localization.jsonl').open('w')
     def localization_record(kind: str, msg: object) -> None:
         with lock:
+            if not state['sequence_started']:return
             localization.write(json.dumps(dict(mono=time.monotonic(),kind=kind,
                 data=message_to_ordereddict(msg)))+'\n')
     def tf_record(msg: TFMessage) -> None:
@@ -66,8 +68,9 @@ def main() -> None:
             continuous=now-state['odom_at']<=.5
             state['stopped_since']=(state['stopped_since'] if continuous and state['stopped_since'] is not None else now) if stopped else None
             state.update(odom_at=now,stamp=msg.header.stamp.sec+msg.header.stamp.nanosec/1e9)
-            record('odom',stamp=state['stamp'],linear=[v.linear.x,v.linear.y],angular=v.angular.z,
-                   stopped_since=state['stopped_since'])
+            if state['sequence_started']:
+                record('odom',stamp=state['stamp'],linear=[v.linear.x,v.linear.y],angular=v.angular.z,
+                       stopped_since=state['stopped_since'])
     def stopped() -> bool:
         now=time.monotonic();age=node.get_clock().now().nanoseconds/1e9-state['stamp']
         return (now-state['odom_at']<=.5 and 0<=age<=.5 and state['stopped_since'] is not None
@@ -80,7 +83,7 @@ def main() -> None:
             response.message=('SIM_VIRTUAL_UNLOAD: real dock feedback + measured stop; mechanism/fruit count not evaluated'
                               if accepted else 'SIM_VIRTUAL_UNLOAD_REJECT: 도킹/준비허가/정지/세션 조건 불충족')
             record('virtual_unload_guard',accepted=accepted,task_id=task_id,state=dict(state),count_valid=False)
-            if accepted and sorting:
+            if accepted and sorting and fixture['fruit_paths']:
                 output=Path(fixture['sorting_output'])
                 try:
                     runtime=json.loads((output/'runtime.json').read_text())
@@ -113,7 +116,7 @@ def main() -> None:
         data=dict(message_to_ordereddict(msg))
         with lock:
             state['status']=data
-            record('robot_status',data=data)
+            if state['sequence_started']:record('robot_status',data=data)
     node.create_subscription(RobotStatus,'/transport_01/status',status,qos_profile_sensor_data,callback_group=group)
     node.create_service(Trigger,'/transport_01/sim/sorter/unload',unload,callback_group=group)
     node.create_service(Trigger,'/transport_01/sim/sorter/stop',stop,callback_group=group)
@@ -124,9 +127,16 @@ def main() -> None:
     executor=MultiThreadedExecutor(num_threads=4);executor.add_node(node)
     spinner=threading.Thread(target=executor.spin,daemon=True);spinner.start()
     handles=[]
+    cleaning=False
     def wait(predicate,timeout: float,label: str) -> None:
         deadline=time.monotonic()+timeout
         while not predicate():
+            if fixture.get('overlap_cycle') and not cleaning:
+                for _,ticket in handles:
+                    if ticket.done():
+                        reply=ticket.result()
+                        if reply.status!=4 or reply.result.result_code!='SUCCESS':
+                            raise RuntimeError('병행 액션 실패: '+json.dumps(dict(message_to_ordereddict(reply.result)),ensure_ascii=False))
             if time.monotonic()>deadline:raise TimeoutError(label)
             time.sleep(.05)
     def future(ticket,timeout: float,label: str):
@@ -144,7 +154,34 @@ def main() -> None:
         result[name]=data;record(name+'_result',**data)
         if reply.status!=4 or data['result']['result_code']!='SUCCESS':raise RuntimeError(name+' failed: '+json.dumps(data,ensure_ascii=False))
         return data
+    def finish_sort(ticket) -> None:
+        data=outcome(ticket,'sort',1200 if fixture.get('overlap_cycle') else 600)
+        physical=json.loads((Path(fixture['sorting_output'])/'physical_report.json').read_text())
+        result['physical_sorting']=physical
+        if physical['counts']!=[data['result']['red_count'],data['result']['yellow_count']]:
+            raise RuntimeError('선별 물리/관제 수량 불일치')
+        result['count_valid']=True
+        result['empty_input_batch']=not fixture['fruit_paths']
+        result['sequence_through_sort_passed']=True
+        result['input_count']=len(fixture['fruit_paths'])
+        result['sorted_count']=sum(physical['counts'])
+        result['remaining_fruit_paths']=[f['path'] for f in physical['fruits'] if not f['sorted']]
+        result['all_input_fruits_sorted']=(set(f['path'] for f in physical['fruits'])==set(fixture['fruit_paths'])
+            and result['sorted_count']==result['input_count'] and not result['remaining_fruit_paths'])
+        if fixture.get('require_all_sorted') and (result['empty_input_batch'] or not result['all_input_fruits_sorted']):
+            raise RuntimeError('선별 미완료: '+json.dumps(dict(input_count=result['input_count'],sorted_count=result['sorted_count'],remaining=result['remaining_fruit_paths'])))
     try:
+        if wait_for_handoff:
+            record('device_services_ready',sequence_started=False)
+            def handoff_ready() -> bool:
+                nonlocal fixture
+                candidate=json.loads((base/'fixture.json').read_text())
+                if candidate.get('handoff_complete') is not True:return False
+                fixture=candidate
+                return True
+            wait(handoff_ready,28800,'실제 인계 완료 허가 대기')
+            state['sequence_started']=True
+            record('handoff_authorized',fruit_paths=fixture['fruit_paths'])
         wait(lambda:unload_client.server_is_ready() and return_client.server_is_ready() and
              ready_client.service_is_ready() and state['status'] is not None and state['status'].get('ready') and stopped(),
              180,'운송·Nav2·가상 센서 준비')
@@ -174,6 +211,7 @@ def main() -> None:
         outcome(ticket,'unload',300);state['active']=False
         if not state['completed']:raise RuntimeError('가상 기구 완료 누락')
         wait(stopped,10,'이격 후 정지')
+        sort_ticket=None
         if sorting:
             wait(sort_client.server_is_ready,30,'선별 서버 준비')
             goal=SortBatch.Goal(robot_id='sorter_01',task_id='sort_'+task_id,batch_id=task_id,timestamp=utc())
@@ -182,17 +220,8 @@ def main() -> None:
                 record('sort_feedback',data=dict(message_to_ordereddict(msg.feedback)))),15,'선별 접수')
             if not handle.accepted:raise RuntimeError('SortBatch Goal 거절')
             ticket=handle.get_result_async();handles.append((handle,ticket))
-            data=outcome(ticket,'sort',600)
-            physical=json.loads((Path(fixture['sorting_output'])/'physical_report.json').read_text())
-            result['physical_sorting']=physical
-            if physical['counts']!=[data['result']['red_count'],data['result']['yellow_count']]:
-                raise RuntimeError('선별 물리/관제 수량 불일치')
-            result['count_valid']=True
-            result['sequence_through_sort_passed']=True
-            result['input_count']=len(fixture['fruit_paths'])
-            result['sorted_count']=sum(physical['counts'])
-            result['remaining_fruit_paths']=[f['path'] for f in physical['fruits'] if not f['sorted']]
-            result['all_input_fruits_sorted']=not result['remaining_fruit_paths']
+            sort_ticket=ticket
+            if not fixture.get('overlap_cycle'):finish_sort(sort_ticket)
         goal=ReturnToStation.Goal(robot_id='transport_01',task_id='return_'+uuid4().hex[:16],
             station_id='STATION_TRANSPORT_01',map_id='farm_map_v1',timestamp=utc())
         record('return_goal',data=dict(message_to_ordereddict(goal)))
@@ -200,11 +229,13 @@ def main() -> None:
             record('return_feedback',data=dict(message_to_ordereddict(msg.feedback)))),15,'복귀 접수')
         if not handle.accepted:raise RuntimeError('ReturnToStation Goal 거절')
         ticket=handle.get_result_async();handles.append((handle,ticket))
+        if sort_ticket is not None and fixture.get('overlap_cycle'):finish_sort(sort_ticket)
         outcome(ticket,'return',900);result['passed']=True
     except BaseException as exc:
         result['error']=type(exc).__name__+': '+str(exc);record('error',detail=result['error'])
         raise
     finally:
+        cleaning=True
         state['active']=False
         try:
             for handle,ticket in handles:
@@ -212,7 +243,7 @@ def main() -> None:
                     future(handle.cancel_goal_async(),10,'취소 접수');future(ticket,30,'취소 정지 결과')
         except Exception as exc:result['cleanup_error']=str(exc)
         result['final_state']=dict(state)
-        (base/'result.json').write_text(json.dumps(result,ensure_ascii=False,indent=2)+'\n')
+        temp=base/'result.tmp';temp.write_text(json.dumps(result,ensure_ascii=False,indent=2)+'\n');temp.replace(base/'result.json')
         executor.shutdown(timeout_sec=3);spinner.join(3);node.destroy_node()
         if rclpy.ok():rclpy.shutdown()
         events.close();localization.close()

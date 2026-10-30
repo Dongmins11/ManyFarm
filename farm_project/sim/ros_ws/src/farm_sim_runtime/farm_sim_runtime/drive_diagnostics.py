@@ -12,6 +12,7 @@ class DriveDiagnostics:
         self.states = {}
         self.last = {}
         self.frame_prims = {}
+        self.contact_subscriptions = []
 
     def received(self, robot_id: str, message: dict, accepted: bool) -> None:
         state = self.states.setdefault(robot_id, dict(received=0, accepted=0, rejected=0))
@@ -21,7 +22,9 @@ class DriveDiagnostics:
         state['last_receive_monotonic_s'] = time.monotonic()
 
     def describe(self, stage, config: dict, robot_path: str) -> None:
-        from pxr import Usd
+        from pxr import Usd, UsdPhysics
+        if config['runtime'].get('diagnostic_contacts', False):
+            self.observe_contacts(stage, robot_path, config['robot_id'])
         frames = {}
         for relative in config['runtime'].get('diagnostic_frames', []):
             prim = stage.GetPrimAtPath(robot_path+'/'+relative)
@@ -37,7 +40,8 @@ class DriveDiagnostics:
             fields = {}
             for name in ('drive:angular:physics:stiffness','drive:angular:physics:damping',
                          'drive:angular:physics:maxForce','drive:angular:physics:type',
-                         'physics:jointEnabled','physxJoint:maxJointVelocity'):
+                         'physics:jointEnabled','physxJoint:maxJointVelocity',
+                         'physics:lowerLimit','physics:upperLimit'):
                 attr = prim.GetAttribute(name)
                 value = attr.Get() if attr else None
                 if isinstance(value, float) and not math.isfinite(value): value = str(value)
@@ -45,8 +49,40 @@ class DriveDiagnostics:
             joints.append(dict(path=str(prim.GetPath()), attributes=fields))
         record = dict(robot_id=config['robot_id'], robot_path=robot_path, base_config=config['base'],
                       ports=config['runtime'], wheel_joints=joints)
+        record['articulation_solver'] = [dict(path=str(prim.GetPath()),
+            position_iterations=prim.GetAttribute('physxArticulation:solverPositionIterationCount').Get(),
+            velocity_iterations=prim.GetAttribute('physxArticulation:solverVelocityIterationCount').Get())
+            for prim in Usd.PrimRange(stage.GetPrimAtPath(robot_path))
+            if prim.HasAPI(UsdPhysics.ArticulationRootAPI)]
         (self.directory/(config['robot_id']+'_setup.json')).write_text(json.dumps(record,ensure_ascii=False,indent=2))
         print('[drive_diag_setup] '+json.dumps(record,ensure_ascii=False),flush=True)
+
+    def observe_contacts(self, stage: object, robot_path: str, robot_id: str) -> None:
+        """명시적 진단 시험에서만 접촉쌍/충격량을 기록한다. 제어·충돌값은 유지한다."""
+        from pxr import Usd, UsdPhysics, PhysxSchema, PhysicsSchemaTools
+        from omni.physx import get_physx_simulation_interface
+        for prim in Usd.PrimRange(stage.GetPrimAtPath(robot_path)):
+            if prim.HasAPI(UsdPhysics.RigidBodyAPI):
+                PhysxSchema.PhysxContactReportAPI.Apply(prim).CreateThresholdAttr(0.)
+        destination = self.directory/(robot_id+'_contacts.jsonl')
+        def report(headers: object, points: object) -> None:
+            rows = []
+            for header in headers:
+                actors = [str(PhysicsSchemaTools.intToSdfPath(getattr(header, key)))
+                          for key in ('actor0', 'actor1')]
+                if not any(a.startswith(robot_path+'/') for a in actors):
+                    continue
+                data = points[header.contact_data_offset:header.contact_data_offset+header.num_contact_data]
+                rows.append(dict(monotonic_s=time.monotonic(), actors=actors,
+                    colliders=[str(PhysicsSchemaTools.intToSdfPath(getattr(header, key)))
+                               for key in ('collider0', 'collider1')],
+                    contacts=[dict(position=list(p.position), normal=list(p.normal),
+                                   impulse=list(p.impulse), separation=float(p.separation)) for p in data]))
+            if rows:
+                with destination.open('a') as stream:
+                    stream.write(''.join(json.dumps(r)+'\n' for r in rows))
+        self.contact_subscriptions.append(
+            get_physx_simulation_interface().subscribe_contact_report_events(report))
 
     def sample(self, robot: dict, sim_time: float, odom, positions, velocities) -> None:
         from farm_common.kinematics import wheel_targets
@@ -73,6 +109,9 @@ class DriveDiagnostics:
             measured_control_wheel_position_rad=[float(v) for v in positions],
             wheel_odom=[float(v) for v in odom],
             T_world_base=robot['T_world_base'].tolist())
+        if robot['cfg']['runtime'].get('diagnostic_contacts', False):
+            record['all_joint_names'] = list(base.robot.dof_names)
+            record['all_joint_positions'] = base.robot.get_joint_positions().tolist()
         if self.frame_prims.get(rid):
             from pxr import UsdGeom
             import numpy as np

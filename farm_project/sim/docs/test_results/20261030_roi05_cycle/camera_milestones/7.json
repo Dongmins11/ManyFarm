@@ -1,0 +1,320 @@
+{
+  "image": "0116.png",
+  "captured_wall": 1793288833.8608527,
+  "image_mtime_ns": 1793288833203476454,
+  "state": {
+    "monotonic": 220742.693017306,
+    "timestamp": 1793288833.8236501,
+    "ready": true,
+    "camera_session": "13965ca8d6684caa9a593a8bbcaa9b41",
+    "counter": 9879,
+    "zone_states": {
+      "A": "NO_COLOR",
+      "B": "NO_COLOR",
+      "C": "NO_COLOR",
+      "D": "YELLOW"
+    },
+    "simulation": true
+  },
+  "runtime": {
+    "session": "63f2f248b9e041a3ba939404e70a351a",
+    "sim_time": 658.4500343408436,
+    "ready": true,
+    "phase": "DONE",
+    "counts": [
+      5,
+      2
+    ],
+    "error": "",
+    "deposited": true,
+    "deposit_result": {
+      "request_id": "8774a7b4608b4df590fcace60d38e825",
+      "success": true,
+      "fruit_paths": [
+        "/World/Vegetation/Bed_02/Fruits/Pepper_0003_red",
+        "/World/Vegetation/Bed_02/Fruits/Pepper_0004_red",
+        "/World/Vegetation/Bed_02/Fruits/Pepper_0011_yellow",
+        "/World/Vegetation/Bed_02/Fruits/Pepper_0015_red",
+        "/World/Vegetation/Bed_02/Fruits/Pepper_0026_yellow",
+        "/World/Vegetation/Bed_02/Fruits/Pepper_0028_yellow",
+        "/World/Vegetation/Bed_02/Fruits/Pepper_0029_red",
+        "/World/Vegetation/Bed_02/Fruits/Pepper_0032_red",
+        "/World/Vegetation/Bed_02/Fruits/Pepper_0033_red",
+        "/World/Vegetation/Bed_02/Fruits/Pepper_0036_yellow"
+      ],
+      "count": 10,
+      "error": ""
+    },
+    "roi_states": {
+      "A": "NO_COLOR",
+      "B": "NO_COLOR",
+      "C": "NO_COLOR",
+      "D": "YELLOW"
+    }
+  },
+  "physical": {
+    "phase": "DONE",
+    "counts": [
+      5,
+      2
+    ],
+    "error": "",
+    "events": [
+      {
+        "event": "BUSY",
+        "job": 1,
+        "lane": "A",
+        "color": "RED"
+      },
+      {
+        "event": "ASSISTED_GRASP",
+        "job": 1
+      },
+      {
+        "event": "DONE",
+        "job": 1,
+        "counts": [
+          1,
+          0
+        ]
+      },
+      {
+        "event": "BUSY",
+        "job": 2,
+        "lane": "A",
+        "color": "RED"
+      },
+      {
+        "event": "ASSISTED_GRASP",
+        "job": 2
+      },
+      {
+        "event": "DONE",
+        "job": 2,
+        "counts": [
+          2,
+          0
+        ]
+      },
+      {
+        "event": "BUSY",
+        "job": 3,
+        "lane": "B",
+        "color": "YELLOW"
+      },
+      {
+        "event": "ASSISTED_GRASP",
+        "job": 3
+      },
+      {
+        "event": "DONE",
+        "job": 3,
+        "counts": [
+          2,
+          1
+        ]
+      },
+      {
+        "event": "BUSY",
+        "job": 4,
+        "lane": "B",
+        "color": "RED"
+      },
+      {
+        "event": "ASSISTED_GRASP",
+        "job": 4
+      },
+      {
+        "event": "DONE",
+        "job": 4,
+        "counts": [
+          3,
+          1
+        ]
+      },
+      {
+        "event": "BUSY",
+        "job": 5,
+        "lane": "C",
+        "color": "RED"
+      },
+      {
+        "event": "ASSISTED_GRASP",
+        "job": 5
+      },
+      {
+        "event": "DONE",
+        "job": 5,
+        "counts": [
+          4,
+          1
+        ]
+      },
+      {
+        "event": "BUSY",
+        "job": 6,
+        "lane": "C",
+        "color": "YELLOW"
+      },
+      {
+        "event": "ASSISTED_GRASP",
+        "job": 6
+      },
+      {
+        "event": "DONE",
+        "job": 6,
+        "counts": [
+          4,
+          2
+        ]
+      },
+      {
+        "event": "BUSY",
+        "job": 7,
+        "lane": "D",
+        "color": "RED"
+      },
+      {
+        "event": "ASSISTED_GRASP",
+        "job": 7
+      },
+      {
+        "event": "DONE",
+        "job": 7,
+        "counts": [
+          5,
+          2
+        ]
+      }
+    ],
+    "station_to_world": [
+      [
+        0.19342002049252094,
+        0.9811160459765567,
+        0.0,
+        -7.204447723212479
+      ],
+      [
+        -0.9811160459765567,
+        0.19342002049252094,
+        -0.0,
+        14.2870536684691
+      ],
+      [
+        -0.0,
+        0.0,
+        1.0,
+        0.0
+      ],
+      [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ]
+    ],
+    "fruits": [
+      {
+        "path": "/World/Vegetation/Bed_02/Fruits/Pepper_0003_red",
+        "color": "RED",
+        "sorted": true,
+        "local_xyz": [
+          -0.5694436064606617,
+          0.1731632891780844,
+          0.5142906308174133
+        ]
+      },
+      {
+        "path": "/World/Vegetation/Bed_02/Fruits/Pepper_0004_red",
+        "color": "RED",
+        "sorted": true,
+        "local_xyz": [
+          -0.5943991761013606,
+          0.11571376291895426,
+          0.5049970746040344
+        ]
+      },
+      {
+        "path": "/World/Vegetation/Bed_02/Fruits/Pepper_0011_yellow",
+        "color": "YELLOW",
+        "sorted": true,
+        "local_xyz": [
+          -0.7107995702252717,
+          -0.12918745371102794,
+          0.5026758909225464
+        ]
+      },
+      {
+        "path": "/World/Vegetation/Bed_02/Fruits/Pepper_0015_red",
+        "color": "RED",
+        "sorted": true,
+        "local_xyz": [
+          -0.6642842980381236,
+          0.10363851729663276,
+          0.5027637481689453
+        ]
+      },
+      {
+        "path": "/World/Vegetation/Bed_02/Fruits/Pepper_0026_yellow",
+        "color": "YELLOW",
+        "sorted": false,
+        "local_xyz": [
+          0.29456865909708196,
+          0.1899272519028102,
+          0.10233557224273682
+        ]
+      },
+      {
+        "path": "/World/Vegetation/Bed_02/Fruits/Pepper_0028_yellow",
+        "color": "YELLOW",
+        "sorted": true,
+        "local_xyz": [
+          -0.6392034815938358,
+          -0.14443161014621694,
+          0.5028477907180786
+        ]
+      },
+      {
+        "path": "/World/Vegetation/Bed_02/Fruits/Pepper_0029_red",
+        "color": "RED",
+        "sorted": true,
+        "local_xyz": [
+          -0.6447077231256364,
+          0.18529834251835747,
+          0.4984169006347656
+        ]
+      },
+      {
+        "path": "/World/Vegetation/Bed_02/Fruits/Pepper_0032_red",
+        "color": "RED",
+        "sorted": true,
+        "local_xyz": [
+          -0.6179270155890124,
+          0.04036035037972248,
+          0.4984191954135895
+        ]
+      },
+      {
+        "path": "/World/Vegetation/Bed_02/Fruits/Pepper_0033_red",
+        "color": "RED",
+        "sorted": false,
+        "local_xyz": [
+          0.35735144744402514,
+          0.2082263711725918,
+          0.130319282412529
+        ]
+      },
+      {
+        "path": "/World/Vegetation/Bed_02/Fruits/Pepper_0036_yellow",
+        "color": "YELLOW",
+        "sorted": false,
+        "local_xyz": [
+          0.2935490406965093,
+          0.07803764077174036,
+          0.09417857229709625
+        ]
+      }
+    ]
+  },
+  "note": "RGB saved by runtime every 1 simulation second; state/image not hardware-synchronized"
+}

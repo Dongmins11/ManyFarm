@@ -60,7 +60,7 @@ class StudentRetryTests(unittest.TestCase):
         session.controller = SimpleNamespace(rig=rig)
         for status in ('RUNNING', 'IDLE', 'STOPPING'):
             for stage in ('CAMERA_INVENTORY','HARVEST','WAIT_BOX','PREPARE',
-                          'STOW_WAIT','TO_HOME','RETURN_STOW','FINAL_STOP','STOPPING','DONE'):
+                          'STOW_WAIT','TO_HOME','RETURN_HOME','RETURN_STOW','FINAL_STOP','STOPPING','DONE'):
                 with self.subTest(status=status, stage=stage):
                     session.state = dict(status=status,stage=stage)
                     session._sync_camera_activity()
@@ -88,12 +88,13 @@ class StudentRetryTests(unittest.TestCase):
         self.assertEqual(rig.set_active.call_count,1)
 
     def run_session(self, *, retry_visible=True, laser_for=(), two_targets=False, stuck=False, mapped=False,
-                    evaluation_fault=''):
+                    evaluation_fault='', u20_artifacts=False):
         """동역학 대역은 명령을 따라 움직인다. 제어/재시도/Action 완료 FSM은 실제 코드다."""
         folder = tempfile.TemporaryDirectory()
         self.addCleanup(folder.cleanup)
         (Path(folder.name)/'session/ab').mkdir(parents=True)
-        (Path(folder.name)/'session/ab/rear_initial.png').touch()
+        if not u20_artifacts:
+            (Path(folder.name)/'session/ab/rear_initial.png').touch()
         config = dict(home_rad=[.1, 0, 0, 0, 0, 1.1], stow_rad=[.3, 0, 0, 0, 0, 1.1],
                       home_to_stow_via_rad=[], speed_rad_s=.3, max_command_lead_rad=.08,
                       position_tolerance_rad=.035, stop_speed_rad_s=.08,
@@ -150,7 +151,15 @@ class StudentRetryTests(unittest.TestCase):
                 emitted.add(key)
                 return dict(stamp_s=now, sequence=len(emitted))
             return None
-        rig = SimpleNamespace(last=True, active=True, set_active=Mock(), capture=lambda: {},
+        capture = {}
+        if u20_artifacts:
+            capture = {name: dict(rgb=np.zeros((2, 4, 3), np.uint8), ir={},
+                aligned_depth_m=np.zeros((2, 4), np.float32), stamp_s=0., pose_stamp_s=0.,
+                intrinsics={'rgb': np.eye(3)}, world_from_optical={'rgb': np.eye(4)},
+                capture_joint_rad=q.tolist(), fk_max_error=0., renderer_checks={}) for name in ('right','rear')}
+            capture['right']['depth_available'] = False
+            capture['rear']['raw_depth_m'] = np.full((2, 4), .5, np.float32)
+        rig = SimpleNamespace(last=True, active=True, set_active=Mock(), capture=lambda: capture,
                               robot_transform=lambda: np.eye(4), sequence=0, max_fk_error=0.)
         controller = SimpleNamespace(profile=dict(inventory_timeout_s=3., assignment_gate_m=.06,
                                                    assignment_ambiguity_m=.02),
@@ -190,7 +199,8 @@ class StudentRetryTests(unittest.TestCase):
                 if arm.state['status'] != 'RUNNING':
                     break
                 previous = q.copy()
-                if not (stuck and arm.state['stage']=='RETURN_STOW'):
+                blocked_stage = 'RETURN_STOW' if stuck is True else stuck
+                if arm.state['stage'] != blocked_stage:
                     q[:] = applied['joint_targets']
                 qd[:] = (q-previous)/.05
                 # 작업과 무관한 과실 이탈도 제어 중단 없이 성능 사건으로 남아야 한다.
@@ -200,7 +210,18 @@ class StudentRetryTests(unittest.TestCase):
             else:
                 self.fail('재시도가 유한하게 종료되지 않음')
         report = json.loads((Path(folder.name)/'session/ab/performance.json').read_text())
+        if u20_artifacts:
+            with np.load(Path(folder.name)/'session/ab/camera_initial.npz') as saved:
+                self.assertIn('right_rgb', saved.files)
+                self.assertIn('rear_raw_depth_m', saved.files)
+                self.assertNotIn('right_ir', saved.files)
+                self.assertNotIn('right_raw_depth_m', saved.files)
         return arm, starts, stages, report
+
+    def test_rgb_only_u20_inventory_artifacts_do_not_block_laser_harvest(self):
+        arm, starts, _, _ = self.run_session(u20_artifacts=True, laser_for={'first'})
+        self.assertEqual(starts, ['first'])
+        self.assertEqual((arm.state['status'], arm.state['success_count']), ('SUCCESS', 1))
 
     def test_unresolved_id_still_harvests_by_laser_and_collateral_does_not_stop(self):
         arm, starts, _, report = self.run_session(laser_for={'first'})
@@ -249,6 +270,18 @@ class StudentRetryTests(unittest.TestCase):
         self.assertEqual(starts, ['first', 'retry', 'second'])
         self.assertEqual((arm.state['status'], arm.state['success_count'], arm.state['failed_count']), ('SUCCESS',2,0))
 
+    def test_two_laser_successes_only_stow_after_last_target(self):
+        arm, starts, _, report = self.run_session(two_targets=True, laser_for={'first','second'})
+        self.assertEqual(starts, ['first', 'second'])
+        self.assertEqual((arm.state['status'], arm.state['success_count']), ('SUCCESS', 2))
+        self.assertTrue(arm.state['safe_stopped'])
+        events = report['missions'][0]['events']
+        states = [event['state'] for event in events]
+        self.assertEqual(states.count('TO_HOME'), 1)
+        self.assertEqual(states.count('RETURN_HOME'), 1)
+        self.assertEqual(states.count('RETURN_STOW'), 1)
+        self.assertEqual(states.count('BOX_CONFIRMED'), 2)
+
     def test_exhausted_retry_does_not_skip_remaining_targets(self):
         arm, starts, _, _ = self.run_session(two_targets=True, laser_for={'second'})
         self.assertEqual(starts, ['first', 'retry', 'second'])
@@ -264,6 +297,21 @@ class StudentRetryTests(unittest.TestCase):
         self.assertEqual(starts, ['first'])
         self.assertEqual(arm.state['status'], 'FAILED')
         self.assertEqual(arm.state['error_code'], 'STUDENT_MISSION_FAILED')
+        self.assertEqual(arm.state['error_message'], 'motion_tracking_timeout')
+
+    def test_failed_intermediate_home_does_not_start_next_target(self):
+        # 가짜 정책은 HOME에 머무르므로 실제 이격을 만들기 위해 테스트의
+        # 복귀 경로를 현재 위치와 다른 측정 waypoint로 설정한다.
+        from harvest_runtime.student60_mission import StudentHarvestMission
+        original = StudentHarvestMission._route
+        def route(mission, poses, state, now):
+            if state == 'RETURN_HOME':
+                poses = [np.asarray(poses[-1]) + [.15, 0, 0, 0, 0, 0], poses[-1]]
+            return original(mission, poses, state, now)
+        with patch.object(StudentHarvestMission, '_route', route):
+            arm, starts, _, _ = self.run_session(two_targets=True, laser_for={'first'}, stuck='RETURN_HOME')
+        self.assertEqual(starts, ['first'])
+        self.assertEqual(arm.state['status'], 'FAILED')
         self.assertEqual(arm.state['error_message'], 'motion_tracking_timeout')
 
 

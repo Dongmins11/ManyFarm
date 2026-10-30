@@ -1,0 +1,2472 @@
+{
+  "passed": true,
+  "scope": "transport resume from reconstructed post-harvest state",
+  "scout": {
+    "status": 4,
+    "result": {
+      "robot_id": "scout_01",
+      "task_id": "cycle_scout_7423f72ec2f1",
+      "result_code": "SUCCESS",
+      "section_id": "SEC01",
+      "completed_segment_count": 5,
+      "harvest_task_count": 9,
+      "total_expected_count": 13,
+      "harvest_tasks": [
+        {
+          "task_id": "16cb6a8ad078_SEC01_TASK001",
+          "window_id": "16cb6a8ad078_SEC01_W001",
+          "goal_pose": {
+            "frame_id": "map",
+            "position": {
+              "x": -6.015000000000001,
+              "y": 9.329589444039618,
+              "z": 0.0
+            },
+            "yaw": -1.5707963267948966
+          },
+          "expected_count": 1
+        },
+        {
+          "task_id": "16cb6a8ad078_SEC01_TASK002",
+          "window_id": "16cb6a8ad078_SEC01_W002",
+          "goal_pose": {
+            "frame_id": "map",
+            "position": {
+              "x": -6.015000000000001,
+              "y": 8.69984533583327,
+              "z": 0.0
+            },
+            "yaw": -1.5707963267948966
+          },
+          "expected_count": 1
+        },
+        {
+          "task_id": "16cb6a8ad078_SEC01_TASK003",
+          "window_id": "16cb6a8ad078_SEC01_W003",
+          "goal_pose": {
+            "frame_id": "map",
+            "position": {
+              "x": -6.015000000000001,
+              "y": 8.342041431220085,
+              "z": 0.0
+            },
+            "yaw": -1.5707963267948966
+          },
+          "expected_count": 1
+        },
+        {
+          "task_id": "16cb6a8ad078_SEC01_TASK004",
+          "window_id": "16cb6a8ad078_SEC01_W004",
+          "goal_pose": {
+            "frame_id": "map",
+            "position": {
+              "x": -6.015000000000001,
+              "y": 7.677786414957483,
+              "z": 0.0
+            },
+            "yaw": -1.5707963267948966
+          },
+          "expected_count": 2
+        },
+        {
+          "task_id": "16cb6a8ad078_SEC01_TASK005",
+          "window_id": "16cb6a8ad078_SEC01_W005",
+          "goal_pose": {
+            "frame_id": "map",
+            "position": {
+              "x": -6.015000000000001,
+              "y": 7.058944284641575,
+              "z": 0.0
+            },
+            "yaw": -1.5707963267948966
+          },
+          "expected_count": 1
+        },
+        {
+          "task_id": "16cb6a8ad078_SEC01_TASK006",
+          "window_id": "16cb6a8ad078_SEC01_W006",
+          "goal_pose": {
+            "frame_id": "map",
+            "position": {
+              "x": -6.015000000000001,
+              "y": 6.386072021938402,
+              "z": 0.0
+            },
+            "yaw": -1.5707963267948966
+          },
+          "expected_count": 1
+        },
+        {
+          "task_id": "16cb6a8ad078_SEC01_TASK007",
+          "window_id": "16cb6a8ad078_SEC01_W007",
+          "goal_pose": {
+            "frame_id": "map",
+            "position": {
+              "x": -6.015000000000001,
+              "y": 5.85558692049333,
+              "z": 0.0
+            },
+            "yaw": -1.5707963267948966
+          },
+          "expected_count": 2
+        },
+        {
+          "task_id": "16cb6a8ad078_SEC01_TASK008",
+          "window_id": "16cb6a8ad078_SEC01_W008",
+          "goal_pose": {
+            "frame_id": "map",
+            "position": {
+              "x": -6.015000000000001,
+              "y": 5.086907104753421,
+              "z": 0.0
+            },
+            "yaw": -1.5707963267948966
+          },
+          "expected_count": 2
+        },
+        {
+          "task_id": "16cb6a8ad078_SEC01_TASK009",
+          "window_id": "16cb6a8ad078_SEC01_W009",
+          "goal_pose": {
+            "frame_id": "map",
+            "position": {
+              "x": -6.015000000000001,
+              "y": 3.2660497894451224,
+              "z": 0.0
+            },
+            "yaw": -1.5707963267948966
+          },
+          "expected_count": 2
+        }
+      ],
+      "error_code": "NONE",
+      "error_message": "",
+      "timestamp": "2026-10-28T12:49:16.531903+00:00"
+    }
+  },
+  "window_count": 9,
+  "harvest_results": [
+    {
+      "status": 4,
+      "result": {
+        "robot_id": "harvest_01",
+        "task_id": "handoff_window_2efcc1389532",
+        "window_id": "16cb6a8ad078_SEC01_W001",
+        "result_code": "SUCCESS",
+        "expected_count": 1,
+        "harvested_count": 0,
+        "failed_count": 0,
+        "error_code": "NONE",
+        "error_message": "student_no_reachable_targets_arms_stowed",
+        "timestamp": "2026-10-29T09:29:07.166404+00:00"
+      }
+    },
+    {
+      "status": 4,
+      "result": {
+        "robot_id": "harvest_01",
+        "task_id": "handoff_window_bc750180559b",
+        "window_id": "16cb6a8ad078_SEC01_W002",
+        "result_code": "SUCCESS",
+        "expected_count": 1,
+        "harvested_count": 0,
+        "failed_count": 0,
+        "error_code": "NONE",
+        "error_message": "student_no_reachable_targets_arms_stowed",
+        "timestamp": "2026-10-29T09:29:40.385309+00:00"
+      }
+    },
+    {
+      "status": 4,
+      "result": {
+        "robot_id": "harvest_01",
+        "task_id": "handoff_window_136ee29fc367",
+        "window_id": "16cb6a8ad078_SEC01_W003",
+        "result_code": "SUCCESS",
+        "expected_count": 1,
+        "harvested_count": 1,
+        "failed_count": 0,
+        "error_code": "NONE",
+        "error_message": "student_attempts_completed_arms_stowed",
+        "timestamp": "2026-10-29T09:33:25.547860+00:00"
+      }
+    },
+    {
+      "status": 4,
+      "result": {
+        "robot_id": "harvest_01",
+        "task_id": "handoff_window_aeb32d0756c4",
+        "window_id": "16cb6a8ad078_SEC01_W004",
+        "result_code": "SUCCESS",
+        "expected_count": 2,
+        "harvested_count": 1,
+        "failed_count": 0,
+        "error_code": "NONE",
+        "error_message": "student_attempts_completed_arms_stowed",
+        "timestamp": "2026-10-29T09:37:38.313890+00:00"
+      }
+    },
+    {
+      "status": 4,
+      "result": {
+        "robot_id": "harvest_01",
+        "task_id": "handoff_window_a5497752b72a",
+        "window_id": "16cb6a8ad078_SEC01_W005",
+        "result_code": "SUCCESS",
+        "expected_count": 1,
+        "harvested_count": 1,
+        "failed_count": 0,
+        "error_code": "NONE",
+        "error_message": "student_attempts_completed_arms_stowed",
+        "timestamp": "2026-10-29T09:42:04.991124+00:00"
+      }
+    },
+    {
+      "status": 4,
+      "result": {
+        "robot_id": "harvest_01",
+        "task_id": "handoff_window_ad94b71a4c64",
+        "window_id": "16cb6a8ad078_SEC01_W006",
+        "result_code": "SUCCESS",
+        "expected_count": 1,
+        "harvested_count": 1,
+        "failed_count": 0,
+        "error_code": "NONE",
+        "error_message": "student_attempts_completed_arms_stowed",
+        "timestamp": "2026-10-29T09:46:09.786599+00:00"
+      }
+    },
+    {
+      "status": 4,
+      "result": {
+        "robot_id": "harvest_01",
+        "task_id": "handoff_window_b4de601b9b95",
+        "window_id": "16cb6a8ad078_SEC01_W007",
+        "result_code": "SUCCESS",
+        "expected_count": 2,
+        "harvested_count": 2,
+        "failed_count": 0,
+        "error_code": "NONE",
+        "error_message": "student_attempts_completed_arms_stowed",
+        "timestamp": "2026-10-29T09:53:23.155360+00:00"
+      }
+    },
+    {
+      "status": 4,
+      "result": {
+        "robot_id": "harvest_01",
+        "task_id": "handoff_window_0cebaf7d6df1",
+        "window_id": "16cb6a8ad078_SEC01_W008",
+        "result_code": "SUCCESS",
+        "expected_count": 2,
+        "harvested_count": 1,
+        "failed_count": 1,
+        "error_code": "NONE",
+        "error_message": "student_attempts_completed_arms_stowed",
+        "timestamp": "2026-10-29T10:05:06.315990+00:00"
+      }
+    },
+    {
+      "status": 4,
+      "result": {
+        "robot_id": "harvest_01",
+        "task_id": "handoff_window_abe0d24843ff",
+        "window_id": "16cb6a8ad078_SEC01_W009",
+        "result_code": "SUCCESS",
+        "expected_count": 2,
+        "harvested_count": 0,
+        "failed_count": 2,
+        "error_code": "NONE",
+        "error_message": "student_attempts_completed_arms_stowed",
+        "timestamp": "2026-10-29T10:18:07.242155+00:00"
+      }
+    }
+  ],
+  "scout_reused": true,
+  "harvest_reused": true,
+  "resume_window_arrival": {
+    "status": 4,
+    "result": {
+      "robot_id": "harvest_01",
+      "task_id": "resume_arrival_9bb494fe83e3",
+      "window_id": "16cb6a8ad078_SEC01_W009",
+      "result_code": "SUCCESS",
+      "expected_count": 2,
+      "harvested_count": 0,
+      "failed_count": 0,
+      "error_code": "NONE",
+      "error_message": "",
+      "timestamp": "2026-10-29T15:28:36.784016+00:00"
+    }
+  },
+  "dock_before_stop": {
+    "id": "DOCK_TEST_096c20155565455c8047bca9138f287c",
+    "role": "harvest",
+    "goal": {
+      "robot_id": "harvest_01",
+      "task_id": "DOCK_TEST_096c20155565455c8047bca9138f287c",
+      "transfer_id": "TRANSFER_TEST_0c3f338f804642ae825d5197b86f518e",
+      "timestamp": "2026-10-29T15:34:34.561084+00:00",
+      "transport_robot_id": "transport_01",
+      "expected_count": 7
+    },
+    "goal_uuid": "fbc2bfaf7bff47f0a42858c2d9eca63d",
+    "state": "RUNNING",
+    "reason": "Goal 접수 확인",
+    "created_at": "2026-10-29T15:34:34.561096+00:00",
+    "feedback": {
+      "robot_id": "harvest_01",
+      "task_id": "DOCK_TEST_096c20155565455c8047bca9138f287c",
+      "transfer_id": "TRANSFER_TEST_0c3f338f804642ae825d5197b86f518e",
+      "event": "DOCK_READY",
+      "timestamp": "2026-10-29T15:35:42.017526+00:00"
+    },
+    "observed_events": {
+      "DOCK_READY": "2026-10-29T15:35:42.017969+00:00"
+    }
+  },
+  "dock_ready": true,
+  "dock_final": {
+    "id": "DOCK_TEST_096c20155565455c8047bca9138f287c",
+    "role": "harvest",
+    "goal": {
+      "robot_id": "harvest_01",
+      "task_id": "DOCK_TEST_096c20155565455c8047bca9138f287c",
+      "transfer_id": "TRANSFER_TEST_0c3f338f804642ae825d5197b86f518e",
+      "timestamp": "2026-10-29T15:34:34.561084+00:00",
+      "transport_robot_id": "transport_01",
+      "expected_count": 7
+    },
+    "goal_uuid": "fbc2bfaf7bff47f0a42858c2d9eca63d",
+    "state": "SUCCEEDED",
+    "reason": "",
+    "created_at": "2026-10-29T15:34:34.561096+00:00",
+    "feedback": {
+      "robot_id": "harvest_01",
+      "task_id": "DOCK_TEST_096c20155565455c8047bca9138f287c",
+      "transfer_id": "TRANSFER_TEST_0c3f338f804642ae825d5197b86f518e",
+      "event": "TRANSFER_COMPLETE",
+      "timestamp": "2026-10-29T15:36:10.008259+00:00"
+    },
+    "observed_events": {
+      "DOCK_READY": "2026-10-29T15:35:42.017969+00:00",
+      "TRANSFER_COMPLETE": "2026-10-29T15:36:10.008718+00:00"
+    },
+    "ros_status": 4,
+    "result": {
+      "robot_id": "harvest_01",
+      "task_id": "DOCK_TEST_096c20155565455c8047bca9138f287c",
+      "transfer_id": "TRANSFER_TEST_0c3f338f804642ae825d5197b86f518e",
+      "result_code": "SUCCESS",
+      "expected_count": 7,
+      "transfer_complete": true,
+      "transport_clear": true,
+      "restore_complete": true,
+      "error_code": "NONE",
+      "error_message": "",
+      "timestamp": "2026-10-29T15:37:47.766376+00:00"
+    },
+    "finished_at": "2026-10-29T15:37:47.767477+00:00"
+  },
+  "pickup_final": {
+    "id": "PICKUP_TEST_4a2cca1efd8b4b34b98a89da6592b72c",
+    "role": "transport",
+    "goal": {
+      "robot_id": "transport_01",
+      "task_id": "PICKUP_TEST_4a2cca1efd8b4b34b98a89da6592b72c",
+      "transfer_id": "TRANSFER_TEST_0c3f338f804642ae825d5197b86f518e",
+      "timestamp": "2026-10-29T15:28:37.061452+00:00",
+      "harvest_robot_id": "harvest_01",
+      "map_id": "farm_map_v1",
+      "staging_pose": {
+        "frame_id": "map",
+        "position": {
+          "x": -5.955,
+          "y": 3.2660497894451224,
+          "z": 0.0
+        },
+        "yaw": -1.5707963267948966
+      },
+      "target_marker_id": 42,
+      "docking_marker_id": 41
+    },
+    "goal_uuid": "1a018c31369141718b29d87777324db5",
+    "state": "SUCCEEDED",
+    "reason": "",
+    "created_at": "2026-10-29T15:28:37.061483+00:00",
+    "feedback": {
+      "robot_id": "transport_01",
+      "task_id": "PICKUP_TEST_4a2cca1efd8b4b34b98a89da6592b72c",
+      "transfer_id": "TRANSFER_TEST_0c3f338f804642ae825d5197b86f518e",
+      "event": "TRANSPORT_CLEAR",
+      "timestamp": "2026-10-29T15:36:26.881252+00:00"
+    },
+    "observed_events": {
+      "MOVING_STARTED": "2026-10-29T15:28:37.111740+00:00",
+      "WAITING_FOR_TRANSFER": "2026-10-29T15:34:34.106019+00:00",
+      "DOCKING_STARTED": "2026-10-29T15:35:42.431615+00:00",
+      "DOCK_STABLE": "2026-10-29T15:36:09.603146+00:00",
+      "CLEARING_STARTED": "2026-10-29T15:36:10.606505+00:00",
+      "TRANSPORT_CLEAR": "2026-10-29T15:36:26.881773+00:00"
+    },
+    "ros_status": 4,
+    "result": {
+      "robot_id": "transport_01",
+      "task_id": "PICKUP_TEST_4a2cca1efd8b4b34b98a89da6592b72c",
+      "transfer_id": "TRANSFER_TEST_0c3f338f804642ae825d5197b86f518e",
+      "result_code": "SUCCESS",
+      "error_code": "NONE",
+      "error_message": "",
+      "timestamp": "2026-10-29T15:36:26.900174+00:00"
+    },
+    "finished_at": "2026-10-29T15:36:26.901795+00:00"
+  },
+  "sorter_and_transport_return": {
+    "passed": true,
+    "virtual_mechanism": true,
+    "count_valid": true,
+    "ready_response": {
+      "accepted": true,
+      "error_code": "NONE",
+      "error_message": "",
+      "timestamp": "2026-10-29T15:42:29.226167+00:00"
+    },
+    "unload": {
+      "status": 4,
+      "result": {
+        "robot_id": "transport_01",
+        "task_id": "sorter_5018ebc908ec4da3",
+        "station_id": "SORT_01",
+        "result_code": "SUCCESS",
+        "error_code": "NONE",
+        "error_message": "",
+        "timestamp": "2026-10-29T15:43:13.695276+00:00"
+      }
+    },
+    "sort": {
+      "status": 4,
+      "result": {
+        "robot_id": "sorter_01",
+        "task_id": "sort_sorter_5018ebc908ec4da3",
+        "batch_id": "sorter_5018ebc908ec4da3",
+        "result_code": "SUCCESS",
+        "red_count": 6,
+        "yellow_count": 4,
+        "error_code": "NONE",
+        "error_message": "",
+        "timestamp": "2026-10-29T15:48:57.853267+00:00"
+      }
+    },
+    "physical_sorting": {
+      "phase": "SCANNING",
+      "counts": [
+        6,
+        4
+      ],
+      "error": "",
+      "events": [
+        {
+          "event": "BUSY",
+          "job": 1,
+          "lane": "A",
+          "color": "RED"
+        },
+        {
+          "event": "ASSISTED_GRASP",
+          "job": 1
+        },
+        {
+          "event": "DONE",
+          "job": 1,
+          "counts": [
+            1,
+            0
+          ]
+        },
+        {
+          "event": "BUSY",
+          "job": 2,
+          "lane": "A",
+          "color": "RED"
+        },
+        {
+          "event": "ASSISTED_GRASP",
+          "job": 2
+        },
+        {
+          "event": "DONE",
+          "job": 2,
+          "counts": [
+            2,
+            0
+          ]
+        },
+        {
+          "event": "BUSY",
+          "job": 3,
+          "lane": "B",
+          "color": "YELLOW"
+        },
+        {
+          "event": "ASSISTED_GRASP",
+          "job": 3
+        },
+        {
+          "event": "DONE",
+          "job": 3,
+          "counts": [
+            2,
+            1
+          ]
+        },
+        {
+          "event": "BUSY",
+          "job": 4,
+          "lane": "B",
+          "color": "RED"
+        },
+        {
+          "event": "ASSISTED_GRASP",
+          "job": 4
+        },
+        {
+          "event": "DONE",
+          "job": 4,
+          "counts": [
+            3,
+            1
+          ]
+        },
+        {
+          "event": "BUSY",
+          "job": 5,
+          "lane": "C",
+          "color": "RED"
+        },
+        {
+          "event": "ASSISTED_GRASP",
+          "job": 5
+        },
+        {
+          "event": "DONE",
+          "job": 5,
+          "counts": [
+            4,
+            1
+          ]
+        },
+        {
+          "event": "BUSY",
+          "job": 6,
+          "lane": "C",
+          "color": "YELLOW"
+        },
+        {
+          "event": "ASSISTED_GRASP",
+          "job": 6
+        },
+        {
+          "event": "DONE",
+          "job": 6,
+          "counts": [
+            4,
+            2
+          ]
+        },
+        {
+          "event": "BUSY",
+          "job": 7,
+          "lane": "D",
+          "color": "RED"
+        },
+        {
+          "event": "ASSISTED_GRASP",
+          "job": 7
+        },
+        {
+          "event": "DONE",
+          "job": 7,
+          "counts": [
+            5,
+            2
+          ]
+        },
+        {
+          "event": "BUSY",
+          "job": 8,
+          "lane": "D",
+          "color": "YELLOW"
+        },
+        {
+          "event": "ASSISTED_GRASP",
+          "job": 8
+        },
+        {
+          "event": "DONE",
+          "job": 8,
+          "counts": [
+            5,
+            3
+          ]
+        },
+        {
+          "event": "BUSY",
+          "job": 9,
+          "lane": "C",
+          "color": "YELLOW"
+        },
+        {
+          "event": "ASSISTED_GRASP",
+          "job": 9
+        },
+        {
+          "event": "DONE",
+          "job": 9,
+          "counts": [
+            5,
+            4
+          ]
+        },
+        {
+          "event": "BUSY",
+          "job": 10,
+          "lane": "D",
+          "color": "RED"
+        },
+        {
+          "event": "ASSISTED_GRASP",
+          "job": 10
+        },
+        {
+          "event": "DONE",
+          "job": 10,
+          "counts": [
+            6,
+            4
+          ]
+        }
+      ],
+      "station_to_world": [
+        [
+          0.19342002049252094,
+          0.9811160459765567,
+          0.0,
+          -7.204447723212479
+        ],
+        [
+          -0.9811160459765567,
+          0.19342002049252094,
+          -0.0,
+          14.2870536684691
+        ],
+        [
+          -0.0,
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "fruits": [
+        {
+          "path": "/World/Vegetation/Bed_02/Fruits/Pepper_0003_red",
+          "color": "RED",
+          "sorted": true,
+          "local_xyz": [
+            -0.5689844354596173,
+            0.17826340756438316,
+            0.51445472240448
+          ]
+        },
+        {
+          "path": "/World/Vegetation/Bed_02/Fruits/Pepper_0004_red",
+          "color": "RED",
+          "sorted": true,
+          "local_xyz": [
+            -0.5978194453433602,
+            0.12058672853418437,
+            0.5054152607917786
+          ]
+        },
+        {
+          "path": "/World/Vegetation/Bed_02/Fruits/Pepper_0011_yellow",
+          "color": "YELLOW",
+          "sorted": true,
+          "local_xyz": [
+            -0.7105833219634791,
+            -0.13239987562783703,
+            0.5026171207427979
+          ]
+        },
+        {
+          "path": "/World/Vegetation/Bed_02/Fruits/Pepper_0015_red",
+          "color": "RED",
+          "sorted": true,
+          "local_xyz": [
+            -0.6638336268868568,
+            0.10499264936372098,
+            0.5029697418212891
+          ]
+        },
+        {
+          "path": "/World/Vegetation/Bed_02/Fruits/Pepper_0026_yellow",
+          "color": "YELLOW",
+          "sorted": true,
+          "local_xyz": [
+            -0.6008661328878168,
+            -0.07298002297099591,
+            0.5026165843009949
+          ]
+        },
+        {
+          "path": "/World/Vegetation/Bed_02/Fruits/Pepper_0028_yellow",
+          "color": "YELLOW",
+          "sorted": true,
+          "local_xyz": [
+            -0.6400656850221217,
+            -0.1580105124771638,
+            0.501997709274292
+          ]
+        },
+        {
+          "path": "/World/Vegetation/Bed_02/Fruits/Pepper_0029_red",
+          "color": "RED",
+          "sorted": true,
+          "local_xyz": [
+            -0.6431663898537645,
+            0.1900252213932343,
+            0.4984222650527954
+          ]
+        },
+        {
+          "path": "/World/Vegetation/Bed_02/Fruits/Pepper_0032_red",
+          "color": "RED",
+          "sorted": true,
+          "local_xyz": [
+            -0.6200217627316298,
+            0.040527877219216274,
+            0.49842849373817444
+          ]
+        },
+        {
+          "path": "/World/Vegetation/Bed_02/Fruits/Pepper_0033_red",
+          "color": "RED",
+          "sorted": true,
+          "local_xyz": [
+            -0.5510570158637134,
+            0.07243464245410416,
+            0.5192064642906189
+          ]
+        },
+        {
+          "path": "/World/Vegetation/Bed_02/Fruits/Pepper_0036_yellow",
+          "color": "YELLOW",
+          "sorted": true,
+          "local_xyz": [
+            -0.5741213615772147,
+            -0.17541620517178774,
+            0.5043302178382874
+          ]
+        }
+      ]
+    },
+    "empty_input_batch": false,
+    "sequence_through_sort_passed": true,
+    "input_count": 10,
+    "sorted_count": 10,
+    "remaining_fruit_paths": [],
+    "all_input_fruits_sorted": true,
+    "return": {
+      "status": 4,
+      "result": {
+        "robot_id": "transport_01",
+        "task_id": "return_7af5ec1e40b34a0b",
+        "result_code": "SUCCESS",
+        "station_id": "STATION_TRANSPORT_01",
+        "docked": true,
+        "error_code": "NONE",
+        "error_message": "",
+        "timestamp": "2026-10-29T15:53:07.235604+00:00"
+      }
+    },
+    "final_state": {
+      "phase": "CLEARING_STARTED",
+      "waiting_seen": true,
+      "ready_requested": true,
+      "ready_accepted": true,
+      "active": false,
+      "completed": true,
+      "odom_at": 221096.112576526,
+      "stamp": 873.016712198,
+      "stopped_since": 221094.823761322,
+      "status": {
+        "robot_id": "transport_01",
+        "current_task_id": "return_7af5ec1e40b34a0b",
+        "state": "NAVIGATION_MOVE",
+        "ready": false,
+        "map_id": "farm_map_v1",
+        "pose": {
+          "frame_id": "map",
+          "position": {
+            "x": 1.9941001088094672,
+            "y": 13.26848993135452,
+            "z": 0.0
+          },
+          "yaw": -1.5708471901002814
+        },
+        "battery_percent": NaN,
+        "transfer_required": false,
+        "loaded_count": -1,
+        "error_code": "NONE",
+        "error_message": "",
+        "boot_id": "96031d46e20e444c9af253cc0b8498ab",
+        "sequence": 873,
+        "timestamp": "2026-10-29T15:53:07.069692+00:00"
+      },
+      "sequence_started": true
+    }
+  },
+  "harvest_return": {
+    "status": 4,
+    "result": {
+      "robot_id": "harvest_01",
+      "task_id": "cycle_harvest_return_c7394726cb88",
+      "result_code": "SUCCESS",
+      "station_id": "STATION_HARVEST_01",
+      "docked": true,
+      "error_code": "NONE",
+      "error_message": "",
+      "timestamp": "2026-10-29T15:57:34.669913+00:00"
+    }
+  },
+  "frontend_final": {
+    "identity": {
+      "environment": "simul",
+      "domain_id": 13,
+      "map_id": "farm_map_v1",
+      "frame_id": "map",
+      "harvest_robot_id": "harvest_01",
+      "transport_robot_id": "transport_01",
+      "harvest_action": "/harvest_01/dock_transfer",
+      "transport_action": "/transport_01/transport_pickup",
+      "transport_event": "/transport_01/transfer_event",
+      "harvest_status": "/harvest_01/status",
+      "transport_status": "/transport_01/status",
+      "watched_actions": {
+        "harvest": [
+          "/harvest_01/harvest_task",
+          "/harvest_01/return_to_station"
+        ],
+        "transport": [
+          "/transport_01/navigate_to_node",
+          "/transport_01/return_to_station",
+          "/transport_01/bucket_unload"
+        ]
+      }
+    },
+    "transfer_id": "TRANSFER_TEST_0c3f338f804642ae825d5197b86f518e",
+    "jobs": [
+      {
+        "id": "PICKUP_TEST_4a2cca1efd8b4b34b98a89da6592b72c",
+        "role": "transport",
+        "goal": {
+          "robot_id": "transport_01",
+          "task_id": "PICKUP_TEST_4a2cca1efd8b4b34b98a89da6592b72c",
+          "transfer_id": "TRANSFER_TEST_0c3f338f804642ae825d5197b86f518e",
+          "timestamp": "2026-10-29T15:28:37.061452+00:00",
+          "harvest_robot_id": "harvest_01",
+          "map_id": "farm_map_v1",
+          "staging_pose": {
+            "frame_id": "map",
+            "position": {
+              "x": -5.955,
+              "y": 3.2660497894451224,
+              "z": 0.0
+            },
+            "yaw": -1.5707963267948966
+          },
+          "target_marker_id": 42,
+          "docking_marker_id": 41
+        },
+        "goal_uuid": "1a018c31369141718b29d87777324db5",
+        "state": "SUCCEEDED",
+        "reason": "",
+        "created_at": "2026-10-29T15:28:37.061483+00:00",
+        "feedback": {
+          "robot_id": "transport_01",
+          "task_id": "PICKUP_TEST_4a2cca1efd8b4b34b98a89da6592b72c",
+          "transfer_id": "TRANSFER_TEST_0c3f338f804642ae825d5197b86f518e",
+          "event": "TRANSPORT_CLEAR",
+          "timestamp": "2026-10-29T15:36:26.881252+00:00"
+        },
+        "observed_events": {
+          "MOVING_STARTED": "2026-10-29T15:28:37.111740+00:00",
+          "WAITING_FOR_TRANSFER": "2026-10-29T15:34:34.106019+00:00",
+          "DOCKING_STARTED": "2026-10-29T15:35:42.431615+00:00",
+          "DOCK_STABLE": "2026-10-29T15:36:09.603146+00:00",
+          "CLEARING_STARTED": "2026-10-29T15:36:10.606505+00:00",
+          "TRANSPORT_CLEAR": "2026-10-29T15:36:26.881773+00:00"
+        },
+        "ros_status": 4,
+        "result": {
+          "robot_id": "transport_01",
+          "task_id": "PICKUP_TEST_4a2cca1efd8b4b34b98a89da6592b72c",
+          "transfer_id": "TRANSFER_TEST_0c3f338f804642ae825d5197b86f518e",
+          "result_code": "SUCCESS",
+          "error_code": "NONE",
+          "error_message": "",
+          "timestamp": "2026-10-29T15:36:26.900174+00:00"
+        },
+        "finished_at": "2026-10-29T15:36:26.901795+00:00"
+      },
+      {
+        "id": "DOCK_TEST_096c20155565455c8047bca9138f287c",
+        "role": "harvest",
+        "goal": {
+          "robot_id": "harvest_01",
+          "task_id": "DOCK_TEST_096c20155565455c8047bca9138f287c",
+          "transfer_id": "TRANSFER_TEST_0c3f338f804642ae825d5197b86f518e",
+          "timestamp": "2026-10-29T15:34:34.561084+00:00",
+          "transport_robot_id": "transport_01",
+          "expected_count": 7
+        },
+        "goal_uuid": "fbc2bfaf7bff47f0a42858c2d9eca63d",
+        "state": "SUCCEEDED",
+        "reason": "",
+        "created_at": "2026-10-29T15:34:34.561096+00:00",
+        "feedback": {
+          "robot_id": "harvest_01",
+          "task_id": "DOCK_TEST_096c20155565455c8047bca9138f287c",
+          "transfer_id": "TRANSFER_TEST_0c3f338f804642ae825d5197b86f518e",
+          "event": "TRANSFER_COMPLETE",
+          "timestamp": "2026-10-29T15:36:10.008259+00:00"
+        },
+        "observed_events": {
+          "DOCK_READY": "2026-10-29T15:35:42.017969+00:00",
+          "TRANSFER_COMPLETE": "2026-10-29T15:36:10.008718+00:00"
+        },
+        "ros_status": 4,
+        "result": {
+          "robot_id": "harvest_01",
+          "task_id": "DOCK_TEST_096c20155565455c8047bca9138f287c",
+          "transfer_id": "TRANSFER_TEST_0c3f338f804642ae825d5197b86f518e",
+          "result_code": "SUCCESS",
+          "expected_count": 7,
+          "transfer_complete": true,
+          "transport_clear": true,
+          "restore_complete": true,
+          "error_code": "NONE",
+          "error_message": "",
+          "timestamp": "2026-10-29T15:37:47.766376+00:00"
+        },
+        "finished_at": "2026-10-29T15:37:47.767477+00:00"
+      }
+    ],
+    "requests": {
+      "2263e507b31b47d59415796a0d511cd1": {
+        "digest": "a16884678cde178485e6e2c246135e609450863545f1c0aed16c63a08e22fe55",
+        "response": {
+          "message": "수동 요청을 기록했습니다. 상태·로그에서 응답을 확인하세요.",
+          "transfer_id": "TRANSFER_TEST_0c3f338f804642ae825d5197b86f518e",
+          "job_id": "PICKUP_TEST_4a2cca1efd8b4b34b98a89da6592b72c"
+        },
+        "delivery": "ACCEPTED",
+        "job_id": "PICKUP_TEST_4a2cca1efd8b4b34b98a89da6592b72c",
+        "payload": {
+          "robot_id": "transport_01",
+          "task_id": "PICKUP_TEST_4a2cca1efd8b4b34b98a89da6592b72c",
+          "transfer_id": "TRANSFER_TEST_0c3f338f804642ae825d5197b86f518e",
+          "source_robot_id": "harvest_01",
+          "event": "DOCK_READY",
+          "timestamp": "2026-10-29T15:35:42.361442+00:00"
+        },
+        "service_result": {
+          "accepted": true,
+          "error_code": "NONE",
+          "error_message": "",
+          "timestamp": "2026-10-29T15:35:42.368477+00:00"
+        },
+        "error": ""
+      },
+      "624605d23a794962b3186f05b5dc602c": {
+        "digest": "188418e5bd8f6cc51b0124c02dafe007a7be85524d06b52b30e628499d323ee7",
+        "response": {
+          "message": "수동 요청을 기록했습니다. 상태·로그에서 응답을 확인하세요.",
+          "transfer_id": "TRANSFER_TEST_0c3f338f804642ae825d5197b86f518e",
+          "job_id": "DOCK_TEST_096c20155565455c8047bca9138f287c"
+        },
+        "delivery": "ACCEPTED",
+        "job_id": "DOCK_TEST_096c20155565455c8047bca9138f287c",
+        "payload": {
+          "robot_id": "harvest_01",
+          "task_id": "DOCK_TEST_096c20155565455c8047bca9138f287c",
+          "transfer_id": "TRANSFER_TEST_0c3f338f804642ae825d5197b86f518e",
+          "source_robot_id": "transport_01",
+          "event": "DOCK_STABLE",
+          "timestamp": "2026-10-29T15:36:09.961007+00:00"
+        },
+        "service_result": {
+          "accepted": true,
+          "error_code": "NONE",
+          "error_message": "",
+          "timestamp": "2026-10-29T15:36:09.967676+00:00"
+        },
+        "error": ""
+      },
+      "7cb6fe5669a3452da0ddb2fd9ae49c49": {
+        "digest": "09b21d22681963415d50c9b1476d2511ddb8d27f21434315b8dffc9e9b232958",
+        "response": {
+          "message": "수동 요청을 기록했습니다. 상태·로그에서 응답을 확인하세요.",
+          "transfer_id": "TRANSFER_TEST_0c3f338f804642ae825d5197b86f518e",
+          "job_id": "PICKUP_TEST_4a2cca1efd8b4b34b98a89da6592b72c"
+        },
+        "delivery": "ACCEPTED",
+        "job_id": "PICKUP_TEST_4a2cca1efd8b4b34b98a89da6592b72c",
+        "payload": {
+          "robot_id": "transport_01",
+          "task_id": "PICKUP_TEST_4a2cca1efd8b4b34b98a89da6592b72c",
+          "transfer_id": "TRANSFER_TEST_0c3f338f804642ae825d5197b86f518e",
+          "source_robot_id": "harvest_01",
+          "event": "TRANSFER_COMPLETE",
+          "timestamp": "2026-10-29T15:36:10.561060+00:00"
+        },
+        "service_result": {
+          "accepted": true,
+          "error_code": "NONE",
+          "error_message": "",
+          "timestamp": "2026-10-29T15:36:10.567872+00:00"
+        },
+        "error": ""
+      },
+      "ac26ce89a73648baa3336a2a7b335a8a": {
+        "digest": "9db207a171f3255549cba1806808f92f4f4f3a9a46216707526f7fa610926ddd",
+        "response": {
+          "message": "수동 요청을 기록했습니다. 상태·로그에서 응답을 확인하세요.",
+          "transfer_id": "TRANSFER_TEST_0c3f338f804642ae825d5197b86f518e",
+          "job_id": "DOCK_TEST_096c20155565455c8047bca9138f287c"
+        },
+        "delivery": "ACCEPTED",
+        "job_id": "DOCK_TEST_096c20155565455c8047bca9138f287c",
+        "payload": {
+          "robot_id": "harvest_01",
+          "task_id": "DOCK_TEST_096c20155565455c8047bca9138f287c",
+          "transfer_id": "TRANSFER_TEST_0c3f338f804642ae825d5197b86f518e",
+          "source_robot_id": "transport_01",
+          "event": "TRANSPORT_CLEAR",
+          "timestamp": "2026-10-29T15:36:27.361159+00:00"
+        },
+        "service_result": {
+          "accepted": true,
+          "error_code": "NONE",
+          "error_message": "",
+          "timestamp": "2026-10-29T15:36:27.368371+00:00"
+        },
+        "error": ""
+      }
+    },
+    "logs": [
+      {
+        "seq": 1,
+        "timestamp": "2026-10-29T15:28:04.929095+00:00",
+        "kind": "status",
+        "message": "수확 Status 최초 수신",
+        "transfer_id": "",
+        "job_id": "",
+        "data": {
+          "robot_id": "harvest_01",
+          "current_task_id": "",
+          "state": "IDLE",
+          "ready": false,
+          "map_id": "farm_map_v1",
+          "pose": {
+            "frame_id": "map",
+            "position": {
+              "x": 0.0,
+              "y": 0.0,
+              "z": 0.0
+            },
+            "yaw": 0.0
+          },
+          "transfer_required": false,
+          "loaded_count": 0,
+          "error_code": "POSE_UNAVAILABLE",
+          "error_message": "POSE_UNAVAILABLE: \"map\" passed to lookupTransform argument target_frame does not exist. ; BATTERY_UNAVAILABLE: battery_percent=0은 미측정 자리값; 잔량0% 측정 아님",
+          "boot_id": "b0f682730aad4829bb1b18b966a90788",
+          "sequence": 1,
+          "timestamp": "2026-10-29T15:28:04.928309+00:00"
+        }
+      },
+      {
+        "seq": 2,
+        "timestamp": "2026-10-29T15:28:18.928887+00:00",
+        "kind": "status",
+        "message": "수확 Status 변경: error_message",
+        "transfer_id": "",
+        "job_id": "",
+        "data": {
+          "robot_id": "harvest_01",
+          "current_task_id": "",
+          "state": "IDLE",
+          "ready": false,
+          "map_id": "farm_map_v1",
+          "pose": {
+            "frame_id": "map",
+            "position": {
+              "x": 0.0,
+              "y": 0.0,
+              "z": 0.0
+            },
+            "yaw": 0.0
+          },
+          "transfer_required": false,
+          "loaded_count": 0,
+          "error_code": "POSE_UNAVAILABLE",
+          "error_message": "POSE_UNAVAILABLE: Lookup would require extrapolation at time 0.150000, but only time 1.050000 is in the buffer, when looking up transform from frame [harvest_01/base_footprint] to frame [map]; BATTERY_UNAVAILABLE: battery_percent=0은 미측정 자리값; 잔량0% 측정 아님",
+          "boot_id": "b0f682730aad4829bb1b18b966a90788",
+          "sequence": 15,
+          "timestamp": "2026-10-29T15:28:18.928295+00:00"
+        }
+      },
+      {
+        "seq": 3,
+        "timestamp": "2026-10-29T15:28:19.931849+00:00",
+        "kind": "status",
+        "message": "수확 Status 변경: error_message",
+        "transfer_id": "",
+        "job_id": "",
+        "data": {
+          "robot_id": "harvest_01",
+          "current_task_id": "",
+          "state": "IDLE",
+          "ready": false,
+          "map_id": "farm_map_v1",
+          "pose": {
+            "frame_id": "map",
+            "position": {
+              "x": 0.0,
+              "y": 0.0,
+              "z": 0.0
+            },
+            "yaw": 0.0
+          },
+          "transfer_required": false,
+          "loaded_count": 0,
+          "error_code": "POSE_UNAVAILABLE",
+          "error_message": "POSE_UNAVAILABLE: Lookup would require extrapolation into the past.  Requested time 0.716667 but the earliest data is at time 1.050000, when looking up transform from frame [harvest_01/base_footprint] to frame [map]; BATTERY_UNAVAILABLE: battery_percent=0은 미측정 자리값; 잔량0% 측정 아님",
+          "boot_id": "b0f682730aad4829bb1b18b966a90788",
+          "sequence": 16,
+          "timestamp": "2026-10-29T15:28:19.929845+00:00"
+        }
+      },
+      {
+        "seq": 4,
+        "timestamp": "2026-10-29T15:28:20.297525+00:00",
+        "kind": "status",
+        "message": "운송 Status 최초 수신",
+        "transfer_id": "",
+        "job_id": "",
+        "data": {
+          "robot_id": "transport_01",
+          "current_task_id": "",
+          "state": "IDLE",
+          "ready": true,
+          "map_id": "farm_map_v1",
+          "pose": {
+            "frame_id": "map",
+            "position": {
+              "x": 1.9999999872845806,
+              "y": 13.25004893377195,
+              "z": 0.0
+            },
+            "yaw": -1.5708248331043113
+          },
+          "transfer_required": false,
+          "loaded_count": -1,
+          "error_code": "NONE",
+          "error_message": "",
+          "boot_id": "96031d46e20e444c9af253cc0b8498ab",
+          "sequence": 1,
+          "timestamp": "2026-10-29T15:28:20.297012+00:00"
+        }
+      },
+      {
+        "seq": 5,
+        "timestamp": "2026-10-29T15:28:20.929051+00:00",
+        "kind": "status",
+        "message": "수확 Status 변경: ready, error_code, error_message",
+        "transfer_id": "",
+        "job_id": "",
+        "data": {
+          "robot_id": "harvest_01",
+          "current_task_id": "",
+          "state": "IDLE",
+          "ready": true,
+          "map_id": "farm_map_v1",
+          "pose": {
+            "frame_id": "map",
+            "position": {
+              "x": -6.014998475326435,
+              "y": 3.3659985912253645,
+              "z": 0.0
+            },
+            "yaw": -1.5414027163969537
+          },
+          "transfer_required": false,
+          "loaded_count": 0,
+          "error_code": "BATTERY_UNAVAILABLE",
+          "error_message": "BATTERY_UNAVAILABLE: battery_percent=0은 미측정 자리값; 잔량0% 측정 아님",
+          "boot_id": "b0f682730aad4829bb1b18b966a90788",
+          "sequence": 17,
+          "timestamp": "2026-10-29T15:28:20.928148+00:00"
+        }
+      },
+      {
+        "seq": 6,
+        "timestamp": "2026-10-29T15:28:29.929847+00:00",
+        "kind": "status",
+        "message": "수확 Status 변경: state, ready, current_task_id",
+        "transfer_id": "",
+        "job_id": "",
+        "data": {
+          "robot_id": "harvest_01",
+          "current_task_id": "resume_arrival_9bb494fe83e3",
+          "state": "NAVIGATION_MOVE",
+          "ready": false,
+          "map_id": "farm_map_v1",
+          "pose": {
+            "frame_id": "map",
+            "position": {
+              "x": -6.0148936084795865,
+              "y": 3.3624529942122208,
+              "z": 0.0
+            },
+            "yaw": -1.5413844725450134
+          },
+          "transfer_required": false,
+          "loaded_count": 0,
+          "error_code": "BATTERY_UNAVAILABLE",
+          "error_message": "BATTERY_UNAVAILABLE: battery_percent=0은 미측정 자리값; 잔량0% 측정 아님",
+          "boot_id": "b0f682730aad4829bb1b18b966a90788",
+          "sequence": 26,
+          "timestamp": "2026-10-29T15:28:29.929175+00:00"
+        }
+      },
+      {
+        "seq": 7,
+        "timestamp": "2026-10-29T15:28:36.929050+00:00",
+        "kind": "status",
+        "message": "수확 Status 변경: state, ready, current_task_id",
+        "transfer_id": "",
+        "job_id": "",
+        "data": {
+          "robot_id": "harvest_01",
+          "current_task_id": "",
+          "state": "IDLE",
+          "ready": true,
+          "map_id": "farm_map_v1",
+          "pose": {
+            "frame_id": "map",
+            "position": {
+              "x": -6.004329720206723,
+              "y": 3.2588088988356883,
+              "z": 0.0
+            },
+            "yaw": -1.5554977176075104
+          },
+          "transfer_required": false,
+          "loaded_count": 0,
+          "error_code": "BATTERY_UNAVAILABLE",
+          "error_message": "BATTERY_UNAVAILABLE: battery_percent=0은 미측정 자리값; 잔량0% 측정 아님",
+          "boot_id": "b0f682730aad4829bb1b18b966a90788",
+          "sequence": 33,
+          "timestamp": "2026-10-29T15:28:36.928203+00:00"
+        }
+      },
+      {
+        "seq": 8,
+        "timestamp": "2026-10-29T15:28:37.061565+00:00",
+        "kind": "command",
+        "message": "start_pickup",
+        "transfer_id": "TRANSFER_TEST_0c3f338f804642ae825d5197b86f518e",
+        "job_id": "PICKUP_TEST_4a2cca1efd8b4b34b98a89da6592b72c",
+        "data": {
+          "robot_id": "transport_01",
+          "task_id": "PICKUP_TEST_4a2cca1efd8b4b34b98a89da6592b72c",
+          "transfer_id": "TRANSFER_TEST_0c3f338f804642ae825d5197b86f518e",
+          "timestamp": "2026-10-29T15:28:37.061452+00:00",
+          "harvest_robot_id": "harvest_01",
+          "map_id": "farm_map_v1",
+          "staging_pose": {
+            "frame_id": "map",
+            "position": {
+              "x": -5.955,
+              "y": 3.2660497894451224,
+              "z": 0.0
+            },
+            "yaw": -1.5707963267948966
+          },
+          "target_marker_id": 42,
+          "docking_marker_id": 41
+        }
+      },
+      {
+        "seq": 9,
+        "timestamp": "2026-10-29T15:28:37.067542+00:00",
+        "kind": "status",
+        "message": "수확 Status 테스트 시작 기준 (마지막 수신값)",
+        "transfer_id": "TRANSFER_TEST_0c3f338f804642ae825d5197b86f518e",
+        "job_id": "",
+        "data": {
+          "robot_id": "harvest_01",
+          "current_task_id": "",
+          "state": "IDLE",
+          "ready": true,
+          "map_id": "farm_map_v1",
+          "pose": {
+            "frame_id": "map",
+            "position": {
+              "x": -6.004329720206723,
+              "y": 3.2588088988356883,
+              "z": 0.0
+            },
+            "yaw": -1.5554977176075104
+          },
+          "transfer_required": false,
+          "loaded_count": 0,
+          "error_code": "BATTERY_UNAVAILABLE",
+          "error_message": "BATTERY_UNAVAILABLE: battery_percent=0은 미측정 자리값; 잔량0% 측정 아님",
+          "boot_id": "b0f682730aad4829bb1b18b966a90788",
+          "sequence": 33,
+          "timestamp": "2026-10-29T15:28:36.928203+00:00"
+        }
+      },
+      {
+        "seq": 10,
+        "timestamp": "2026-10-29T15:28:37.073669+00:00",
+        "kind": "status",
+        "message": "운송 Status 테스트 시작 기준 (마지막 수신값)",
+        "transfer_id": "TRANSFER_TEST_0c3f338f804642ae825d5197b86f518e",
+        "job_id": "",
+        "data": {
+          "robot_id": "transport_01",
+          "current_task_id": "",
+          "state": "IDLE",
+          "ready": true,
+          "map_id": "farm_map_v1",
+          "pose": {
+            "frame_id": "map",
+            "position": {
+              "x": 1.9999999869969056,
+              "y": 13.249998653976357,
+              "z": 0.0
+            },
+            "yaw": -1.5707933794196696
+          },
+          "transfer_required": false,
+          "loaded_count": -1,
+          "error_code": "NONE",
+          "error_message": "",
+          "boot_id": "96031d46e20e444c9af253cc0b8498ab",
+          "sequence": 11,
+          "timestamp": "2026-10-29T15:28:36.741861+00:00"
+        }
+      },
+      {
+        "seq": 11,
+        "timestamp": "2026-10-29T15:28:37.081995+00:00",
+        "kind": "action",
+        "message": "RUNNING",
+        "transfer_id": "TRANSFER_TEST_0c3f338f804642ae825d5197b86f518e",
+        "job_id": "PICKUP_TEST_4a2cca1efd8b4b34b98a89da6592b72c",
+        "data": {
+          "reason": "Goal 접수 확인"
+        }
+      },
+      {
+        "seq": 12,
+        "timestamp": "2026-10-29T15:28:37.111748+00:00",
+        "kind": "feedback",
+        "message": "MOVING_STARTED",
+        "transfer_id": "TRANSFER_TEST_0c3f338f804642ae825d5197b86f518e",
+        "job_id": "PICKUP_TEST_4a2cca1efd8b4b34b98a89da6592b72c",
+        "data": {
+          "robot_id": "transport_01",
+          "task_id": "PICKUP_TEST_4a2cca1efd8b4b34b98a89da6592b72c",
+          "transfer_id": "TRANSFER_TEST_0c3f338f804642ae825d5197b86f518e",
+          "event": "MOVING_STARTED",
+          "timestamp": "2026-10-29T15:28:37.111304+00:00"
+        }
+      },
+      {
+        "seq": 13,
+        "timestamp": "2026-10-29T15:28:38.511589+00:00",
+        "kind": "status",
+        "message": "운송 Status 변경: state, ready, current_task_id",
+        "transfer_id": "TRANSFER_TEST_0c3f338f804642ae825d5197b86f518e",
+        "job_id": "",
+        "data": {
+          "robot_id": "transport_01",
+          "current_task_id": "PICKUP_TEST_4a2cca1efd8b4b34b98a89da6592b72c",
+          "state": "NAVIGATION_MOVE",
+          "ready": false,
+          "map_id": "farm_map_v1",
+          "pose": {
+            "frame_id": "map",
+            "position": {
+              "x": 2.0000792749919127,
+              "y": 13.217839926042435,
+              "z": 0.0
+            },
+            "yaw": -1.568093914191939
+          },
+          "transfer_required": false,
+          "loaded_count": -1,
+          "error_code": "NONE",
+          "error_message": "",
+          "boot_id": "96031d46e20e444c9af253cc0b8498ab",
+          "sequence": 12,
+          "timestamp": "2026-10-29T15:28:38.511060+00:00"
+        }
+      },
+      {
+        "seq": 14,
+        "timestamp": "2026-10-29T15:33:52.671704+00:00",
+        "kind": "status",
+        "message": "운송 Status 변경: state",
+        "transfer_id": "TRANSFER_TEST_0c3f338f804642ae825d5197b86f518e",
+        "job_id": "",
+        "data": {
+          "robot_id": "transport_01",
+          "current_task_id": "PICKUP_TEST_4a2cca1efd8b4b34b98a89da6592b72c",
+          "state": "DOCKING",
+          "ready": false,
+          "map_id": "farm_map_v1",
+          "pose": {
+            "frame_id": "map",
+            "position": {
+              "x": -5.956404391034119,
+              "y": 5.249034550475644,
+              "z": 0.0
+            },
+            "yaw": -1.585137512039235
+          },
+          "transfer_required": false,
+          "loaded_count": -1,
+          "error_code": "NONE",
+          "error_message": "",
+          "boot_id": "96031d46e20e444c9af253cc0b8498ab",
+          "sequence": 188,
+          "timestamp": "2026-10-29T15:33:52.670866+00:00"
+        }
+      },
+      {
+        "seq": 15,
+        "timestamp": "2026-10-29T15:34:34.106038+00:00",
+        "kind": "feedback",
+        "message": "WAITING_FOR_TRANSFER",
+        "transfer_id": "TRANSFER_TEST_0c3f338f804642ae825d5197b86f518e",
+        "job_id": "PICKUP_TEST_4a2cca1efd8b4b34b98a89da6592b72c",
+        "data": {
+          "robot_id": "transport_01",
+          "task_id": "PICKUP_TEST_4a2cca1efd8b4b34b98a89da6592b72c",
+          "transfer_id": "TRANSFER_TEST_0c3f338f804642ae825d5197b86f518e",
+          "event": "WAITING_FOR_TRANSFER",
+          "timestamp": "2026-10-29T15:34:34.105594+00:00"
+        }
+      },
+      {
+        "seq": 16,
+        "timestamp": "2026-10-29T15:34:34.561121+00:00",
+        "kind": "command",
+        "message": "start_dock",
+        "transfer_id": "TRANSFER_TEST_0c3f338f804642ae825d5197b86f518e",
+        "job_id": "DOCK_TEST_096c20155565455c8047bca9138f287c",
+        "data": {
+          "robot_id": "harvest_01",
+          "task_id": "DOCK_TEST_096c20155565455c8047bca9138f287c",
+          "transfer_id": "TRANSFER_TEST_0c3f338f804642ae825d5197b86f518e",
+          "timestamp": "2026-10-29T15:34:34.561084+00:00",
+          "transport_robot_id": "transport_01",
+          "expected_count": 7
+        }
+      },
+      {
+        "seq": 17,
+        "timestamp": "2026-10-29T15:34:34.580288+00:00",
+        "kind": "action",
+        "message": "RUNNING",
+        "transfer_id": "TRANSFER_TEST_0c3f338f804642ae825d5197b86f518e",
+        "job_id": "DOCK_TEST_096c20155565455c8047bca9138f287c",
+        "data": {
+          "reason": "Goal 접수 확인"
+        }
+      },
+      {
+        "seq": 18,
+        "timestamp": "2026-10-29T15:34:34.929577+00:00",
+        "kind": "status",
+        "message": "수확 Status 변경: state, ready, current_task_id",
+        "transfer_id": "TRANSFER_TEST_0c3f338f804642ae825d5197b86f518e",
+        "job_id": "",
+        "data": {
+          "robot_id": "harvest_01",
+          "current_task_id": "DOCK_TEST_096c20155565455c8047bca9138f287c",
+          "state": "TRANSFER_PREPARING",
+          "ready": false,
+          "map_id": "farm_map_v1",
+          "pose": {
+            "frame_id": "map",
+            "position": {
+              "x": -6.0118237376475205,
+              "y": 3.2533085858092337,
+              "z": 0.0
+            },
+            "yaw": -1.5536699590616032
+          },
+          "transfer_required": false,
+          "loaded_count": 0,
+          "error_code": "BATTERY_UNAVAILABLE",
+          "error_message": "BATTERY_UNAVAILABLE: battery_percent=0은 미측정 자리값; 잔량0% 측정 아님",
+          "boot_id": "b0f682730aad4829bb1b18b966a90788",
+          "sequence": 391,
+          "timestamp": "2026-10-29T15:34:34.928510+00:00"
+        }
+      },
+      {
+        "seq": 19,
+        "timestamp": "2026-10-29T15:34:35.468584+00:00",
+        "kind": "status",
+        "message": "운송 Status 변경: state",
+        "transfer_id": "TRANSFER_TEST_0c3f338f804642ae825d5197b86f518e",
+        "job_id": "",
+        "data": {
+          "robot_id": "transport_01",
+          "current_task_id": "PICKUP_TEST_4a2cca1efd8b4b34b98a89da6592b72c",
+          "state": "WAIT_DOCK_READY",
+          "ready": false,
+          "map_id": "farm_map_v1",
+          "pose": {
+            "frame_id": "map",
+            "position": {
+              "x": -5.953733633270023,
+              "y": 4.127909988082525,
+              "z": 0.0
+            },
+            "yaw": -1.5710694387367985
+          },
+          "transfer_required": false,
+          "loaded_count": -1,
+          "error_code": "NONE",
+          "error_message": "",
+          "boot_id": "96031d46e20e444c9af253cc0b8498ab",
+          "sequence": 212,
+          "timestamp": "2026-10-29T15:34:35.467802+00:00"
+        }
+      },
+      {
+        "seq": 20,
+        "timestamp": "2026-10-29T15:35:42.017977+00:00",
+        "kind": "feedback",
+        "message": "DOCK_READY",
+        "transfer_id": "TRANSFER_TEST_0c3f338f804642ae825d5197b86f518e",
+        "job_id": "DOCK_TEST_096c20155565455c8047bca9138f287c",
+        "data": {
+          "robot_id": "harvest_01",
+          "task_id": "DOCK_TEST_096c20155565455c8047bca9138f287c",
+          "transfer_id": "TRANSFER_TEST_0c3f338f804642ae825d5197b86f518e",
+          "event": "DOCK_READY",
+          "timestamp": "2026-10-29T15:35:42.017526+00:00"
+        }
+      },
+      {
+        "seq": 21,
+        "timestamp": "2026-10-29T15:35:42.361490+00:00",
+        "kind": "command",
+        "message": "dock_ready",
+        "transfer_id": "TRANSFER_TEST_0c3f338f804642ae825d5197b86f518e",
+        "job_id": "PICKUP_TEST_4a2cca1efd8b4b34b98a89da6592b72c",
+        "data": {
+          "robot_id": "transport_01",
+          "task_id": "PICKUP_TEST_4a2cca1efd8b4b34b98a89da6592b72c",
+          "transfer_id": "TRANSFER_TEST_0c3f338f804642ae825d5197b86f518e",
+          "source_robot_id": "harvest_01",
+          "event": "DOCK_READY",
+          "timestamp": "2026-10-29T15:35:42.361442+00:00"
+        }
+      },
+      {
+        "seq": 22,
+        "timestamp": "2026-10-29T15:35:42.369902+00:00",
+        "kind": "service",
+        "message": "DOCK_READY ACCEPTED",
+        "transfer_id": "TRANSFER_TEST_0c3f338f804642ae825d5197b86f518e",
+        "job_id": "PICKUP_TEST_4a2cca1efd8b4b34b98a89da6592b72c",
+        "data": {
+          "response": {
+            "accepted": true,
+            "error_code": "NONE",
+            "error_message": "",
+            "timestamp": "2026-10-29T15:35:42.368477+00:00"
+          },
+          "error": ""
+        }
+      },
+      {
+        "seq": 23,
+        "timestamp": "2026-10-29T15:35:42.431623+00:00",
+        "kind": "feedback",
+        "message": "DOCKING_STARTED",
+        "transfer_id": "TRANSFER_TEST_0c3f338f804642ae825d5197b86f518e",
+        "job_id": "PICKUP_TEST_4a2cca1efd8b4b34b98a89da6592b72c",
+        "data": {
+          "robot_id": "transport_01",
+          "task_id": "PICKUP_TEST_4a2cca1efd8b4b34b98a89da6592b72c",
+          "transfer_id": "TRANSFER_TEST_0c3f338f804642ae825d5197b86f518e",
+          "event": "DOCKING_STARTED",
+          "timestamp": "2026-10-29T15:35:42.431270+00:00"
+        }
+      },
+      {
+        "seq": 24,
+        "timestamp": "2026-10-29T15:35:42.928572+00:00",
+        "kind": "status",
+        "message": "수확 Status 변경: state",
+        "transfer_id": "TRANSFER_TEST_0c3f338f804642ae825d5197b86f518e",
+        "job_id": "",
+        "data": {
+          "robot_id": "harvest_01",
+          "current_task_id": "DOCK_TEST_096c20155565455c8047bca9138f287c",
+          "state": "WAIT_DOCK_STABLE",
+          "ready": false,
+          "map_id": "farm_map_v1",
+          "pose": {
+            "frame_id": "map",
+            "position": {
+              "x": -5.928045224580371,
+              "y": 3.3443065504840814,
+              "z": 0.0
+            },
+            "yaw": -0.042145352082523395
+          },
+          "transfer_required": false,
+          "loaded_count": 0,
+          "error_code": "BATTERY_UNAVAILABLE",
+          "error_message": "BATTERY_UNAVAILABLE: battery_percent=0은 미측정 자리값; 잔량0% 측정 아님",
+          "boot_id": "b0f682730aad4829bb1b18b966a90788",
+          "sequence": 459,
+          "timestamp": "2026-10-29T15:35:42.927958+00:00"
+        }
+      },
+      {
+        "seq": 25,
+        "timestamp": "2026-10-29T15:35:44.147471+00:00",
+        "kind": "status",
+        "message": "운송 Status 변경: state",
+        "transfer_id": "TRANSFER_TEST_0c3f338f804642ae825d5197b86f518e",
+        "job_id": "",
+        "data": {
+          "robot_id": "transport_01",
+          "current_task_id": "PICKUP_TEST_4a2cca1efd8b4b34b98a89da6592b72c",
+          "state": "DOCKING",
+          "ready": false,
+          "map_id": "farm_map_v1",
+          "pose": {
+            "frame_id": "map",
+            "position": {
+              "x": -5.9537355382403945,
+              "y": 4.129493265738535,
+              "z": 0.0
+            },
+            "yaw": -1.5683575019053229
+          },
+          "transfer_required": false,
+          "loaded_count": -1,
+          "error_code": "NONE",
+          "error_message": "",
+          "boot_id": "96031d46e20e444c9af253cc0b8498ab",
+          "sequence": 252,
+          "timestamp": "2026-10-29T15:35:44.146591+00:00"
+        }
+      },
+      {
+        "seq": 26,
+        "timestamp": "2026-10-29T15:36:09.603171+00:00",
+        "kind": "feedback",
+        "message": "DOCK_STABLE",
+        "transfer_id": "TRANSFER_TEST_0c3f338f804642ae825d5197b86f518e",
+        "job_id": "PICKUP_TEST_4a2cca1efd8b4b34b98a89da6592b72c",
+        "data": {
+          "robot_id": "transport_01",
+          "task_id": "PICKUP_TEST_4a2cca1efd8b4b34b98a89da6592b72c",
+          "transfer_id": "TRANSFER_TEST_0c3f338f804642ae825d5197b86f518e",
+          "event": "DOCK_STABLE",
+          "timestamp": "2026-10-29T15:36:09.602407+00:00"
+        }
+      },
+      {
+        "seq": 27,
+        "timestamp": "2026-10-29T15:36:09.961034+00:00",
+        "kind": "command",
+        "message": "dock_stable",
+        "transfer_id": "TRANSFER_TEST_0c3f338f804642ae825d5197b86f518e",
+        "job_id": "DOCK_TEST_096c20155565455c8047bca9138f287c",
+        "data": {
+          "robot_id": "harvest_01",
+          "task_id": "DOCK_TEST_096c20155565455c8047bca9138f287c",
+          "transfer_id": "TRANSFER_TEST_0c3f338f804642ae825d5197b86f518e",
+          "source_robot_id": "transport_01",
+          "event": "DOCK_STABLE",
+          "timestamp": "2026-10-29T15:36:09.961007+00:00"
+        }
+      },
+      {
+        "seq": 28,
+        "timestamp": "2026-10-29T15:36:09.968692+00:00",
+        "kind": "service",
+        "message": "DOCK_STABLE ACCEPTED",
+        "transfer_id": "TRANSFER_TEST_0c3f338f804642ae825d5197b86f518e",
+        "job_id": "DOCK_TEST_096c20155565455c8047bca9138f287c",
+        "data": {
+          "response": {
+            "accepted": true,
+            "error_code": "NONE",
+            "error_message": "",
+            "timestamp": "2026-10-29T15:36:09.967676+00:00"
+          },
+          "error": ""
+        }
+      },
+      {
+        "seq": 29,
+        "timestamp": "2026-10-29T15:36:10.008726+00:00",
+        "kind": "feedback",
+        "message": "TRANSFER_COMPLETE",
+        "transfer_id": "TRANSFER_TEST_0c3f338f804642ae825d5197b86f518e",
+        "job_id": "DOCK_TEST_096c20155565455c8047bca9138f287c",
+        "data": {
+          "robot_id": "harvest_01",
+          "task_id": "DOCK_TEST_096c20155565455c8047bca9138f287c",
+          "transfer_id": "TRANSFER_TEST_0c3f338f804642ae825d5197b86f518e",
+          "event": "TRANSFER_COMPLETE",
+          "timestamp": "2026-10-29T15:36:10.008259+00:00"
+        }
+      },
+      {
+        "seq": 30,
+        "timestamp": "2026-10-29T15:36:10.561096+00:00",
+        "kind": "command",
+        "message": "transfer_complete",
+        "transfer_id": "TRANSFER_TEST_0c3f338f804642ae825d5197b86f518e",
+        "job_id": "PICKUP_TEST_4a2cca1efd8b4b34b98a89da6592b72c",
+        "data": {
+          "robot_id": "transport_01",
+          "task_id": "PICKUP_TEST_4a2cca1efd8b4b34b98a89da6592b72c",
+          "transfer_id": "TRANSFER_TEST_0c3f338f804642ae825d5197b86f518e",
+          "source_robot_id": "harvest_01",
+          "event": "TRANSFER_COMPLETE",
+          "timestamp": "2026-10-29T15:36:10.561060+00:00"
+        }
+      },
+      {
+        "seq": 31,
+        "timestamp": "2026-10-29T15:36:10.568614+00:00",
+        "kind": "service",
+        "message": "TRANSFER_COMPLETE ACCEPTED",
+        "transfer_id": "TRANSFER_TEST_0c3f338f804642ae825d5197b86f518e",
+        "job_id": "PICKUP_TEST_4a2cca1efd8b4b34b98a89da6592b72c",
+        "data": {
+          "response": {
+            "accepted": true,
+            "error_code": "NONE",
+            "error_message": "",
+            "timestamp": "2026-10-29T15:36:10.567872+00:00"
+          },
+          "error": ""
+        }
+      },
+      {
+        "seq": 32,
+        "timestamp": "2026-10-29T15:36:10.606512+00:00",
+        "kind": "feedback",
+        "message": "CLEARING_STARTED",
+        "transfer_id": "TRANSFER_TEST_0c3f338f804642ae825d5197b86f518e",
+        "job_id": "PICKUP_TEST_4a2cca1efd8b4b34b98a89da6592b72c",
+        "data": {
+          "robot_id": "transport_01",
+          "task_id": "PICKUP_TEST_4a2cca1efd8b4b34b98a89da6592b72c",
+          "transfer_id": "TRANSFER_TEST_0c3f338f804642ae825d5197b86f518e",
+          "event": "CLEARING_STARTED",
+          "timestamp": "2026-10-29T15:36:10.606177+00:00"
+        }
+      },
+      {
+        "seq": 33,
+        "timestamp": "2026-10-29T15:36:10.896161+00:00",
+        "kind": "status",
+        "message": "운송 Status 변경: state",
+        "transfer_id": "TRANSFER_TEST_0c3f338f804642ae825d5197b86f518e",
+        "job_id": "",
+        "data": {
+          "robot_id": "transport_01",
+          "current_task_id": "PICKUP_TEST_4a2cca1efd8b4b34b98a89da6592b72c",
+          "state": "CLEARING",
+          "ready": false,
+          "map_id": "farm_map_v1",
+          "pose": {
+            "frame_id": "map",
+            "position": {
+              "x": -5.956023062347377,
+              "y": 3.7321229314403954,
+              "z": 0.0
+            },
+            "yaw": -1.5723181480167914
+          },
+          "transfer_required": false,
+          "loaded_count": -1,
+          "error_code": "NONE",
+          "error_message": "",
+          "boot_id": "96031d46e20e444c9af253cc0b8498ab",
+          "sequence": 267,
+          "timestamp": "2026-10-29T15:36:10.895787+00:00"
+        }
+      },
+      {
+        "seq": 34,
+        "timestamp": "2026-10-29T15:36:10.928787+00:00",
+        "kind": "status",
+        "message": "수확 Status 변경: state",
+        "transfer_id": "TRANSFER_TEST_0c3f338f804642ae825d5197b86f518e",
+        "job_id": "",
+        "data": {
+          "robot_id": "harvest_01",
+          "current_task_id": "DOCK_TEST_096c20155565455c8047bca9138f287c",
+          "state": "WAIT_TRANSPORT_CLEAR",
+          "ready": false,
+          "map_id": "farm_map_v1",
+          "pose": {
+            "frame_id": "map",
+            "position": {
+              "x": -5.927855958109211,
+              "y": 3.3442985773270313,
+              "z": 0.0
+            },
+            "yaw": -0.04215431012685898
+          },
+          "transfer_required": false,
+          "loaded_count": 0,
+          "error_code": "BATTERY_UNAVAILABLE",
+          "error_message": "BATTERY_UNAVAILABLE: battery_percent=0은 미측정 자리값; 잔량0% 측정 아님",
+          "boot_id": "b0f682730aad4829bb1b18b966a90788",
+          "sequence": 487,
+          "timestamp": "2026-10-29T15:36:10.927993+00:00"
+        }
+      },
+      {
+        "seq": 35,
+        "timestamp": "2026-10-29T15:36:26.881789+00:00",
+        "kind": "feedback",
+        "message": "TRANSPORT_CLEAR",
+        "transfer_id": "TRANSFER_TEST_0c3f338f804642ae825d5197b86f518e",
+        "job_id": "PICKUP_TEST_4a2cca1efd8b4b34b98a89da6592b72c",
+        "data": {
+          "robot_id": "transport_01",
+          "task_id": "PICKUP_TEST_4a2cca1efd8b4b34b98a89da6592b72c",
+          "transfer_id": "TRANSFER_TEST_0c3f338f804642ae825d5197b86f518e",
+          "event": "TRANSPORT_CLEAR",
+          "timestamp": "2026-10-29T15:36:26.881252+00:00"
+        }
+      },
+      {
+        "seq": 36,
+        "timestamp": "2026-10-29T15:36:26.901762+00:00",
+        "kind": "result",
+        "message": "Result 수신",
+        "transfer_id": "TRANSFER_TEST_0c3f338f804642ae825d5197b86f518e",
+        "job_id": "PICKUP_TEST_4a2cca1efd8b4b34b98a89da6592b72c",
+        "data": {
+          "robot_id": "transport_01",
+          "task_id": "PICKUP_TEST_4a2cca1efd8b4b34b98a89da6592b72c",
+          "transfer_id": "TRANSFER_TEST_0c3f338f804642ae825d5197b86f518e",
+          "result_code": "SUCCESS",
+          "error_code": "NONE",
+          "error_message": "",
+          "timestamp": "2026-10-29T15:36:26.900174+00:00"
+        }
+      },
+      {
+        "seq": 37,
+        "timestamp": "2026-10-29T15:36:26.901800+00:00",
+        "kind": "action",
+        "message": "SUCCEEDED",
+        "transfer_id": "TRANSFER_TEST_0c3f338f804642ae825d5197b86f518e",
+        "job_id": "PICKUP_TEST_4a2cca1efd8b4b34b98a89da6592b72c",
+        "data": {
+          "reason": ""
+        }
+      },
+      {
+        "seq": 38,
+        "timestamp": "2026-10-29T15:36:27.361189+00:00",
+        "kind": "command",
+        "message": "transport_clear",
+        "transfer_id": "TRANSFER_TEST_0c3f338f804642ae825d5197b86f518e",
+        "job_id": "DOCK_TEST_096c20155565455c8047bca9138f287c",
+        "data": {
+          "robot_id": "harvest_01",
+          "task_id": "DOCK_TEST_096c20155565455c8047bca9138f287c",
+          "transfer_id": "TRANSFER_TEST_0c3f338f804642ae825d5197b86f518e",
+          "source_robot_id": "transport_01",
+          "event": "TRANSPORT_CLEAR",
+          "timestamp": "2026-10-29T15:36:27.361159+00:00"
+        }
+      },
+      {
+        "seq": 39,
+        "timestamp": "2026-10-29T15:36:27.369205+00:00",
+        "kind": "service",
+        "message": "TRANSPORT_CLEAR ACCEPTED",
+        "transfer_id": "TRANSFER_TEST_0c3f338f804642ae825d5197b86f518e",
+        "job_id": "DOCK_TEST_096c20155565455c8047bca9138f287c",
+        "data": {
+          "response": {
+            "accepted": true,
+            "error_code": "NONE",
+            "error_message": "",
+            "timestamp": "2026-10-29T15:36:27.368371+00:00"
+          },
+          "error": ""
+        }
+      },
+      {
+        "seq": 40,
+        "timestamp": "2026-10-29T15:36:27.865182+00:00",
+        "kind": "status",
+        "message": "운송 Status 변경: state, ready, current_task_id",
+        "transfer_id": "TRANSFER_TEST_0c3f338f804642ae825d5197b86f518e",
+        "job_id": "",
+        "data": {
+          "robot_id": "transport_01",
+          "current_task_id": "",
+          "state": "IDLE",
+          "ready": true,
+          "map_id": "farm_map_v1",
+          "pose": {
+            "frame_id": "map",
+            "position": {
+              "x": -5.948179008949564,
+              "y": 3.9483460480177346,
+              "z": 0.0
+            },
+            "yaw": -1.580031640631876
+          },
+          "transfer_required": false,
+          "loaded_count": -1,
+          "error_code": "NONE",
+          "error_message": "",
+          "boot_id": "96031d46e20e444c9af253cc0b8498ab",
+          "sequence": 277,
+          "timestamp": "2026-10-29T15:36:27.861382+00:00"
+        }
+      },
+      {
+        "seq": 41,
+        "timestamp": "2026-10-29T15:36:27.929044+00:00",
+        "kind": "status",
+        "message": "수확 Status 변경: state",
+        "transfer_id": "TRANSFER_TEST_0c3f338f804642ae825d5197b86f518e",
+        "job_id": "",
+        "data": {
+          "robot_id": "harvest_01",
+          "current_task_id": "DOCK_TEST_096c20155565455c8047bca9138f287c",
+          "state": "RESTORING",
+          "ready": false,
+          "map_id": "farm_map_v1",
+          "pose": {
+            "frame_id": "map",
+            "position": {
+              "x": -5.927883752633724,
+              "y": 3.344299752843777,
+              "z": 0.0
+            },
+            "yaw": -0.0421366225597245
+          },
+          "transfer_required": false,
+          "loaded_count": 0,
+          "error_code": "BATTERY_UNAVAILABLE",
+          "error_message": "BATTERY_UNAVAILABLE: battery_percent=0은 미측정 자리값; 잔량0% 측정 아님",
+          "boot_id": "b0f682730aad4829bb1b18b966a90788",
+          "sequence": 504,
+          "timestamp": "2026-10-29T15:36:27.928476+00:00"
+        }
+      },
+      {
+        "seq": 42,
+        "timestamp": "2026-10-29T15:37:47.767462+00:00",
+        "kind": "result",
+        "message": "Result 수신",
+        "transfer_id": "TRANSFER_TEST_0c3f338f804642ae825d5197b86f518e",
+        "job_id": "DOCK_TEST_096c20155565455c8047bca9138f287c",
+        "data": {
+          "robot_id": "harvest_01",
+          "task_id": "DOCK_TEST_096c20155565455c8047bca9138f287c",
+          "transfer_id": "TRANSFER_TEST_0c3f338f804642ae825d5197b86f518e",
+          "result_code": "SUCCESS",
+          "expected_count": 7,
+          "transfer_complete": true,
+          "transport_clear": true,
+          "restore_complete": true,
+          "error_code": "NONE",
+          "error_message": "",
+          "timestamp": "2026-10-29T15:37:47.766376+00:00"
+        }
+      },
+      {
+        "seq": 43,
+        "timestamp": "2026-10-29T15:37:47.767479+00:00",
+        "kind": "action",
+        "message": "SUCCEEDED",
+        "transfer_id": "TRANSFER_TEST_0c3f338f804642ae825d5197b86f518e",
+        "job_id": "DOCK_TEST_096c20155565455c8047bca9138f287c",
+        "data": {
+          "reason": ""
+        }
+      },
+      {
+        "seq": 44,
+        "timestamp": "2026-10-29T15:37:47.929243+00:00",
+        "kind": "status",
+        "message": "수확 Status 변경: state, ready, current_task_id",
+        "transfer_id": "TRANSFER_TEST_0c3f338f804642ae825d5197b86f518e",
+        "job_id": "",
+        "data": {
+          "robot_id": "harvest_01",
+          "current_task_id": "",
+          "state": "IDLE",
+          "ready": true,
+          "map_id": "farm_map_v1",
+          "pose": {
+            "frame_id": "map",
+            "position": {
+              "x": -6.016075708038252,
+              "y": 3.2234571808068,
+              "z": 0.0
+            },
+            "yaw": -1.5758826862022646
+          },
+          "transfer_required": false,
+          "loaded_count": 0,
+          "error_code": "BATTERY_UNAVAILABLE",
+          "error_message": "BATTERY_UNAVAILABLE: battery_percent=0은 미측정 자리값; 잔량0% 측정 아님",
+          "boot_id": "b0f682730aad4829bb1b18b966a90788",
+          "sequence": 584,
+          "timestamp": "2026-10-29T15:37:47.928306+00:00"
+        }
+      },
+      {
+        "seq": 45,
+        "timestamp": "2026-10-29T15:37:48.888474+00:00",
+        "kind": "status",
+        "message": "운송 Status 변경: state, ready, current_task_id",
+        "transfer_id": "TRANSFER_TEST_0c3f338f804642ae825d5197b86f518e",
+        "job_id": "",
+        "data": {
+          "robot_id": "transport_01",
+          "current_task_id": "sorter_5018ebc908ec4da3",
+          "state": "NAVIGATION_MOVE",
+          "ready": false,
+          "map_id": "farm_map_v1",
+          "pose": {
+            "frame_id": "map",
+            "position": {
+              "x": -5.948130604004103,
+              "y": 3.954540585185015,
+              "z": 0.0
+            },
+            "yaw": -1.577078970574262
+          },
+          "transfer_required": false,
+          "loaded_count": -1,
+          "error_code": "NONE",
+          "error_message": "",
+          "boot_id": "96031d46e20e444c9af253cc0b8498ab",
+          "sequence": 325,
+          "timestamp": "2026-10-29T15:37:48.887460+00:00"
+        }
+      },
+      {
+        "seq": 46,
+        "timestamp": "2026-10-29T15:41:21.022267+00:00",
+        "kind": "status",
+        "message": "운송 Status 변경: state",
+        "transfer_id": "TRANSFER_TEST_0c3f338f804642ae825d5197b86f518e",
+        "job_id": "",
+        "data": {
+          "robot_id": "transport_01",
+          "current_task_id": "sorter_5018ebc908ec4da3",
+          "state": "DOCKING",
+          "ready": false,
+          "map_id": "farm_map_v1",
+          "pose": {
+            "frame_id": "map",
+            "position": {
+              "x": -6.794753554244392,
+              "y": 12.207441501682943,
+              "z": 0.0
+            },
+            "yaw": 1.749880794377758
+          },
+          "transfer_required": false,
+          "loaded_count": -1,
+          "error_code": "NONE",
+          "error_message": "",
+          "boot_id": "96031d46e20e444c9af253cc0b8498ab",
+          "sequence": 451,
+          "timestamp": "2026-10-29T15:41:21.021469+00:00"
+        }
+      },
+      {
+        "seq": 47,
+        "timestamp": "2026-10-29T15:42:29.736807+00:00",
+        "kind": "status",
+        "message": "운송 Status 변경: state",
+        "transfer_id": "TRANSFER_TEST_0c3f338f804642ae825d5197b86f518e",
+        "job_id": "",
+        "data": {
+          "robot_id": "transport_01",
+          "current_task_id": "sorter_5018ebc908ec4da3",
+          "state": "UNLOADING",
+          "ready": false,
+          "map_id": "farm_map_v1",
+          "pose": {
+            "frame_id": "map",
+            "position": {
+              "x": -7.05192828724566,
+              "y": 13.47664664541587,
+              "z": 0.0
+            },
+            "yaw": 1.791821172193191
+          },
+          "transfer_required": false,
+          "loaded_count": -1,
+          "error_code": "NONE",
+          "error_message": "",
+          "boot_id": "96031d46e20e444c9af253cc0b8498ab",
+          "sequence": 490,
+          "timestamp": "2026-10-29T15:42:29.736409+00:00"
+        }
+      },
+      {
+        "seq": 48,
+        "timestamp": "2026-10-29T15:42:31.436303+00:00",
+        "kind": "status",
+        "message": "운송 Status 변경: state",
+        "transfer_id": "TRANSFER_TEST_0c3f338f804642ae825d5197b86f518e",
+        "job_id": "",
+        "data": {
+          "robot_id": "transport_01",
+          "current_task_id": "sorter_5018ebc908ec4da3",
+          "state": "CLEARING",
+          "ready": false,
+          "map_id": "farm_map_v1",
+          "pose": {
+            "frame_id": "map",
+            "position": {
+              "x": -7.051921952139937,
+              "y": 13.476618361180025,
+              "z": 0.0
+            },
+            "yaw": 1.7912814620688573
+          },
+          "transfer_required": false,
+          "loaded_count": -1,
+          "error_code": "NONE",
+          "error_message": "",
+          "boot_id": "96031d46e20e444c9af253cc0b8498ab",
+          "sequence": 491,
+          "timestamp": "2026-10-29T15:42:31.435829+00:00"
+        }
+      },
+      {
+        "seq": 49,
+        "timestamp": "2026-10-29T15:43:15.386505+00:00",
+        "kind": "status",
+        "message": "운송 Status 변경: state, ready, current_task_id",
+        "transfer_id": "TRANSFER_TEST_0c3f338f804642ae825d5197b86f518e",
+        "job_id": "",
+        "data": {
+          "robot_id": "transport_01",
+          "current_task_id": "",
+          "state": "IDLE",
+          "ready": true,
+          "map_id": "farm_map_v1",
+          "pose": {
+            "frame_id": "map",
+            "position": {
+              "x": -6.987924953445019,
+              "y": 13.250670265270408,
+              "z": 0.0
+            },
+            "yaw": -1.3109415766960626
+          },
+          "transfer_required": false,
+          "loaded_count": -1,
+          "error_code": "NONE",
+          "error_message": "",
+          "boot_id": "96031d46e20e444c9af253cc0b8498ab",
+          "sequence": 518,
+          "timestamp": "2026-10-29T15:43:15.386175+00:00"
+        }
+      },
+      {
+        "seq": 50,
+        "timestamp": "2026-10-29T15:48:58.681364+00:00",
+        "kind": "status",
+        "message": "운송 Status 변경: state, ready, current_task_id",
+        "transfer_id": "TRANSFER_TEST_0c3f338f804642ae825d5197b86f518e",
+        "job_id": "",
+        "data": {
+          "robot_id": "transport_01",
+          "current_task_id": "return_7af5ec1e40b34a0b",
+          "state": "NAVIGATION_MOVE",
+          "ready": false,
+          "map_id": "farm_map_v1",
+          "pose": {
+            "frame_id": "map",
+            "position": {
+              "x": -6.987636475462318,
+              "y": 13.249572144538298,
+              "z": 0.0
+            },
+            "yaw": -1.317285424457614
+          },
+          "transfer_required": false,
+          "loaded_count": -1,
+          "error_code": "NONE",
+          "error_message": "",
+          "boot_id": "96031d46e20e444c9af253cc0b8498ab",
+          "sequence": 721,
+          "timestamp": "2026-10-29T15:48:58.680804+00:00"
+        }
+      },
+      {
+        "seq": 51,
+        "timestamp": "2026-10-29T15:53:07.928941+00:00",
+        "kind": "status",
+        "message": "수확 Status 변경: state, ready, current_task_id",
+        "transfer_id": "TRANSFER_TEST_0c3f338f804642ae825d5197b86f518e",
+        "job_id": "",
+        "data": {
+          "robot_id": "harvest_01",
+          "current_task_id": "cycle_harvest_return_c7394726cb88",
+          "state": "RETURNING",
+          "ready": false,
+          "map_id": "farm_map_v1",
+          "pose": {
+            "frame_id": "map",
+            "position": {
+              "x": -6.016055299576972,
+              "y": 3.233670820665697,
+              "z": 0.0
+            },
+            "yaw": -1.5729120433055335
+          },
+          "transfer_required": false,
+          "loaded_count": 0,
+          "error_code": "BATTERY_UNAVAILABLE",
+          "error_message": "BATTERY_UNAVAILABLE: battery_percent=0은 미측정 자리값; 잔량0% 측정 아님",
+          "boot_id": "b0f682730aad4829bb1b18b966a90788",
+          "sequence": 1504,
+          "timestamp": "2026-10-29T15:53:07.928048+00:00"
+        }
+      },
+      {
+        "seq": 52,
+        "timestamp": "2026-10-29T15:53:08.632184+00:00",
+        "kind": "status",
+        "message": "운송 Status 변경: state, current_task_id",
+        "transfer_id": "TRANSFER_TEST_0c3f338f804642ae825d5197b86f518e",
+        "job_id": "",
+        "data": {
+          "robot_id": "transport_01",
+          "current_task_id": "",
+          "state": "IDLE",
+          "ready": false,
+          "map_id": "farm_map_v1",
+          "pose": {
+            "frame_id": "map",
+            "position": {
+              "x": 1.9941001163599597,
+              "y": 13.268571911999814,
+              "z": 0.0
+            },
+            "yaw": -1.5709174677017617
+          },
+          "transfer_required": false,
+          "loaded_count": -1,
+          "error_code": "NONE",
+          "error_message": "",
+          "boot_id": "96031d46e20e444c9af253cc0b8498ab",
+          "sequence": 874,
+          "timestamp": "2026-10-29T15:53:08.631680+00:00"
+        }
+      }
+    ],
+    "log_seq": 52,
+    "event_controls": {
+      "dock_ready": {
+        "event": "DOCK_READY",
+        "target": "transport",
+        "source": "harvest",
+        "job_id": "PICKUP_TEST_4a2cca1efd8b4b34b98a89da6592b72c",
+        "allowed": false,
+        "reason": "이벤트를 받을 로봇의 인계 Action이 실행 중이어야 합니다.",
+        "observed": true,
+        "manual_without_feedback": false,
+        "delivery": "ACCEPTED",
+        "error": "",
+        "response": {
+          "accepted": true,
+          "error_code": "NONE",
+          "error_message": "",
+          "timestamp": "2026-10-29T15:35:42.368477+00:00"
+        }
+      },
+      "dock_stable": {
+        "event": "DOCK_STABLE",
+        "target": "harvest",
+        "source": "transport",
+        "job_id": "DOCK_TEST_096c20155565455c8047bca9138f287c",
+        "allowed": false,
+        "reason": "이벤트를 받을 로봇의 인계 Action이 실행 중이어야 합니다.",
+        "observed": true,
+        "manual_without_feedback": false,
+        "delivery": "ACCEPTED",
+        "error": "",
+        "response": {
+          "accepted": true,
+          "error_code": "NONE",
+          "error_message": "",
+          "timestamp": "2026-10-29T15:36:09.967676+00:00"
+        }
+      },
+      "transfer_complete": {
+        "event": "TRANSFER_COMPLETE",
+        "target": "transport",
+        "source": "harvest",
+        "job_id": "PICKUP_TEST_4a2cca1efd8b4b34b98a89da6592b72c",
+        "allowed": false,
+        "reason": "이벤트를 받을 로봇의 인계 Action이 실행 중이어야 합니다.",
+        "observed": true,
+        "manual_without_feedback": false,
+        "delivery": "ACCEPTED",
+        "error": "",
+        "response": {
+          "accepted": true,
+          "error_code": "NONE",
+          "error_message": "",
+          "timestamp": "2026-10-29T15:36:10.567872+00:00"
+        }
+      },
+      "transport_clear": {
+        "event": "TRANSPORT_CLEAR",
+        "target": "harvest",
+        "source": "transport",
+        "job_id": "DOCK_TEST_096c20155565455c8047bca9138f287c",
+        "allowed": false,
+        "reason": "이벤트를 받을 로봇의 인계 Action이 실행 중이어야 합니다.",
+        "observed": true,
+        "manual_without_feedback": false,
+        "delivery": "ACCEPTED",
+        "error": "",
+        "response": {
+          "accepted": true,
+          "error_code": "NONE",
+          "error_message": "",
+          "timestamp": "2026-10-29T15:36:27.368371+00:00"
+        }
+      }
+    },
+    "completion": {
+      "state": "SUCCEEDED",
+      "message": "인계 완료 · 양쪽 성공 Result와 수확 배출·이격 확인·복구 완료 검증"
+    },
+    "event_services": {
+      "harvest": "/harvest_01/transfer_event",
+      "transport": "/transport_01/transfer_event"
+    },
+    "status": "running",
+    "error": "",
+    "ready": {
+      "harvest": true,
+      "transport": true
+    },
+    "event_ready": true,
+    "event_ready_by_role": {
+      "harvest": true,
+      "transport": true
+    },
+    "blocked": {
+      "harvest": "해당 로봇의 다른 Action이 실행 중입니다.",
+      "transport": ""
+    },
+    "robot_status": {
+      "harvest": {
+        "data": {
+          "robot_id": "harvest_01",
+          "current_task_id": "cycle_harvest_return_c7394726cb88",
+          "state": "RETURNING",
+          "ready": false,
+          "map_id": "farm_map_v1",
+          "pose": {
+            "frame_id": "map",
+            "position": {
+              "x": -1.9949071381836205,
+              "y": 13.212925485808539,
+              "z": 0.0
+            },
+            "yaw": -1.5318333445746761
+          },
+          "transfer_required": false,
+          "loaded_count": 0,
+          "error_code": "BATTERY_UNAVAILABLE",
+          "error_message": "BATTERY_UNAVAILABLE: battery_percent=0은 미측정 자리값; 잔량0% 측정 아님",
+          "boot_id": "b0f682730aad4829bb1b18b966a90788",
+          "sequence": 1770,
+          "timestamp": "2026-10-29T15:57:33.928199+00:00"
+        },
+        "age_s": 0.4
+      },
+      "transport": {
+        "data": {
+          "robot_id": "transport_01",
+          "current_task_id": "",
+          "state": "IDLE",
+          "ready": false,
+          "map_id": "farm_map_v1",
+          "pose": {
+            "frame_id": "map",
+            "position": {
+              "x": 1.9941001239120755,
+              "y": 13.268682419368488,
+              "z": 0.0
+            },
+            "yaw": -1.5708398003660902
+          },
+          "transfer_required": false,
+          "loaded_count": -1,
+          "error_code": "NONE",
+          "error_message": "",
+          "boot_id": "96031d46e20e444c9af253cc0b8498ab",
+          "sequence": 1040,
+          "timestamp": "2026-10-29T15:57:33.815025+00:00"
+        },
+        "age_s": 0.5
+      }
+    }
+  }
+}

@@ -2,8 +2,11 @@ profiles:
   harvest_approach_42:
     route_handoff:
       enabled: true
-      observation_timeout_s: 180.0
+      # 실제시간 기준: 느린 시뮬 장거리 접근 중 관측이 먼저 만료되지 않도록 15분 허용.
+      observation_timeout_s: 900.0
       recognition_max_age_s: 0.5
+      # 도킹 허용 1.2m 안에서 10cm 더 접근한 뒤 정차·새 목표 취득.
+      approach_margin_m: 0.1
     configured: true
     strategy: marker_pose
     target_marker_id: 42

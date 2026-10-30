@@ -78,6 +78,12 @@ def prepare_sorter(base: Path) -> Path:
     localization_changes = [dict(parameter='amcl.'+key, original=original_amcl[key], selected=selected_amcl[key],
         reason='sim recorded sensor replay: more frequent observation updates; real file unchanged')
         for key in ('update_min_d','update_min_a') if original_amcl[key]!=selected_amcl[key]]
+    original_progress = real_nav['controller_server']['ros__parameters']['progress_checker']
+    selected_progress = nav['controller_server']['ros__parameters']['progress_checker']
+    progress_changes = [dict(parameter='controller_server.progress_checker.'+key,
+        original=original_progress.get(key), selected=value,
+        reason='sim in-place rotation must count as progress; real file unchanged')
+        for key,value in selected_progress.items() if original_progress.get(key)!=value]
     fixture = dict(source_commit=SOURCE,scope='isolated public BucketUnload + ReturnToStation',
         domain=13,discovery='SUBNET',initial_xy=nodes[start],initial_yaw=yaw,
         initial_pose_only=True,truth_injected_into_control=False,traffic_enabled=False,
@@ -87,7 +93,9 @@ def prepare_sorter(base: Path) -> Path:
         original_sorter_distance_handoff=source['sorter_distance_handoff'],
         selected_sorter_distance_handoff=profile['sorter_distance_handoff'],
         original_unload_workflows=source['unload_workflows'],selected_unload_workflows=profile['unload_workflows'],
-        numeric_control_changes=localization_changes)
+        numeric_control_changes=localization_changes + [change for change in progress_changes
+            if isinstance(change['selected'], (int,float))],
+        progress_checker_changes=progress_changes)
     (base/'fixture.json').write_text(json.dumps(fixture,ensure_ascii=False,indent=2)+'\n')
     return runtime
 
@@ -96,6 +104,7 @@ def main() -> None:
     parser=argparse.ArgumentParser(description=__doc__)
     parser.add_argument('output',type=Path)
     parser.add_argument('--prepare-only',action='store_true')
+    parser.add_argument('--contact-trace',action='store_true',help='진단 전용: 운송 로봇 접촉쌍/충격량 기록')
     parser.add_argument('--keep-unused-scout',action='store_true',help='진단 전용: 이전 씬의 미실행 예찰 모델을 남겨 비교')
     parser.add_argument('--sorting',action='store_true',help='농장 HCR 모델·기존 과실 가상 투입·SortBatch까지 연결')
     parser.add_argument('--dock-entry-fixture',action='store_true',help='기존 접근 edge의 도킹 직전에서 시작하는 분리 시험')
@@ -111,6 +120,10 @@ def main() -> None:
         configure_dock_entry(base, runtime)
     if not args.keep_unused_scout:
         configure_unused_scout_exclusion(base,runtime)
+    if args.contact_trace:
+        device=json.loads((runtime/'transport.json').read_text())
+        device['runtime']['diagnostic_contacts']=True
+        (runtime/'transport.json').write_text(json.dumps(device,indent=2)+'\n')
     if args.prepare_only:return
     os.environ['ROS_LOG_DIR']=str(base/'ros_logs')
     os.environ['MOTION_GATE_TRACE']=str(base/'gate_timing.jsonl')

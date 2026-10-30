@@ -1,6 +1,7 @@
 """농장 프레임에서 원본 HCR 제어/Modbus를 구동하는 시뮬 장치 어댑터."""
 import importlib.util
 import json
+import math
 from pathlib import Path
 import time
 import uuid
@@ -41,6 +42,35 @@ class SorterRuntime:
         if self.fixture:
             # 명시한 통합 시험 초기 적재이며 수확 성공 기록으로 사용하지 않는다.
             self.load_fixture()
+        if scene.settings.get('harvest_resume_manifest'):
+            self.restore_harvest()
+
+    def restore_harvest(self) -> None:
+        """실제 종료 스냅샷의 과실 중심을 초기화한다. 새 수확 성공은 생성하지 않는다."""
+        from pxr import Usd, UsdGeom
+        manifest=json.loads((self.scene.root/self.scene.settings['harvest_resume_manifest']).read_text())
+        fruits=manifest['fruits'];paths=[f['gt_id'] for f in fruits]
+        attachments=self.scene.physics.attachments
+        if self.fixture or not paths or len(set(paths))!=len(paths):
+            raise ValueError('수확 재개는 중복 없는 기존 과실 목록만 사용')
+        indices=np.array([attachments.paths.index(p) for p in paths],dtype=np.int32)
+        # selective 모드의 비활성 rigid view 대신 초기화 시 보존한 전역 pose를 사용한다.
+        positions=attachments.current_positions()
+        orientations=attachments.rest_orientation.copy()
+        cache=UsdGeom.BBoxCache(Usd.TimeCode.Default(),['default','render'],useExtentsHint=False)
+        restored=[]
+        for fruit,index in zip(fruits,indices):
+            prim=self.scene.stage.GetPrimAtPath(fruit['gt_id'])
+            if prim.GetAttribute('crop:color').Get()!=fruit['class_name']:
+                raise ValueError('재개 과실 ID/색 불일치')
+            bounds=cache.ComputeWorldBound(prim).ComputeAlignedRange()
+            center=(np.asarray(bounds.GetMin())+np.asarray(bounds.GetMax()))/2
+            restored.append(np.asarray(positions[index])+np.asarray(fruit['center_world_m'])-center)
+        attachments.relocate_detached(paths,np.asarray(restored),np.asarray(orientations)[indices],fixture=True)
+        self.record('harvest_restored',source_session=manifest['source_session'],fruit_paths=paths,
+                    historical_harvested_count=manifest['harvested_count'],restore_mode=manifest['restore_mode'])
+        self.write('harvest_restored.json',dict(session=self.session,source_session=manifest['source_session'],
+                   fruit_paths=paths,count=len(paths),restore_mode=manifest['restore_mode']))
 
     def record(self, event: str, **values: object) -> None:
         self.events.write(json.dumps(dict(event=event, wall=time.time(), session=self.session, **values), ensure_ascii=False)+'\n')
@@ -75,6 +105,52 @@ class SorterRuntime:
         self.scene.physics.attachments.relocate_detached(self.fixture, positions,
             np.tile(quat, (len(positions), 1)), fixture=True)
         self.record('fixture_loaded', paths=self.fixture, actual_harvest_tested=False)
+
+    def handoff(self, now: float) -> None:
+        """승인된 정렬 인계 후 실제 바구니 안의 분리 과실만 가상 이동한다."""
+        request_file=self.scene.output/'handoff_request.json'
+        try:request=json.loads(request_file.read_text())
+        except (OSError,ValueError):return
+        rid=request.get('request_id')
+        if rid==getattr(self,'handoff_request_id',None):return
+        self.handoff_request_id=rid
+        result=dict(request_id=rid,session=self.session,success=False,fruit_paths=[])
+        try:
+            if not rid or request.get('session')!=self.session or request.get('authorized_event')!='TRANSFER_COMPLETE':
+                raise ValueError('현재 세션의 인계 완료 요청 필요')
+            monitor=getattr(self,'basket_monitor',None)
+            proof=monitor.latest if monitor else None
+            if not proof or proof.get('hold_pass') is not True or not 0<=now-proof['sim_time_s']<=.5:
+                raise ValueError('현재 바구니 정렬 유지 증거 필요')
+            harvest=next(r for r in self.robots if r['cfg']['robot_id']==monitor.ids['harvest'])
+            if not harvest['arm'].travel_ready or harvest['arm'].busy:
+                raise ValueError('수확 팔 복귀·정지 필요')
+            for robot in (harvest,self.transport()):
+                if np.linalg.norm(robot['base'].robot.get_linear_velocity()[:2])>=.005 or abs(robot['base'].robot.get_angular_velocity()[2])>=.02:
+                    raise ValueError('양쪽 차체 실제 정지 필요')
+            from pxr import UsdGeom
+            from scipy.spatial.transform import Rotation
+            spec=monitor.evaluator.spec['harvest']
+            prim=self.scene.stage.GetPrimAtPath(harvest['path']+'/'+spec['frame'])
+            pose=np.asarray(UsdGeom.XformCache().GetLocalToWorldTransform(prim)).T
+            attachments=self.scene.physics.attachments
+            actual=attachments.current_positions()
+            local=(actual-pose[:3,3])@pose[:3,:3]-np.asarray(spec['center_local_m'])
+            half=np.asarray(spec['opening_size_m'])/2
+            inside=(np.abs(local[:,0])<half[0]) & (np.abs(local[:,1])<half[1]) & (local[:,2]>0) & (local[:,2]<.25) & ~attachments.attached
+            paths=[p for p,ok in zip(attachments.paths,inside) if ok and self.scene.stage.GetPrimAtPath(p).GetAttribute('crop:color').Get() in ('red','yellow')]
+            if len(paths)>27:raise ValueError('가상 운송 바구니 배치 용량 초과')
+            if paths:
+                cargo=self.cargo_pose()
+                slots=np.array([[-.25+.07*(i%3),-.07+.07*((i//3)%3),.045+.08*(i//9)] for i in range(len(paths))])
+                positions=slots@cargo[:3,:3].T+cargo[:3,3]
+                quat=Rotation.from_matrix(cargo[:3,:3]).as_quat()[[3,0,1,2]]
+                attachments.relocate_detached(paths,positions,np.tile(quat,(len(paths),1)))
+            result.update(success=True,fruit_paths=paths,count=len(paths),mechanism_physics=False,
+                          selection='detached red/yellow physically inside harvest basket',coverage=proof.get('coverage'))
+        except Exception as exc:result['error']=str(exc)
+        self.write('handoff_result.json',result)
+        self.record('virtual_cargo_handoff',result=result)
 
     def deposit(self, now: float) -> None:
         from hcr_sim.model import lane_centers, ramp_surface_z
@@ -113,12 +189,15 @@ class SorterRuntime:
             # 기존 과실만 이동하며 줄기 부착 여부를 다시 검사한다.
             lanes = list(lane_centers(self.scene.cfg).values())
             positions = []
+            intake=self.scene.cfg['intake']
+            # 경사판의 실제 수평 길이에서 과실 반지름을 뺀 중심 좌표 상한이다.
+            max_x=intake['low_x']+math.sqrt(intake['slope_length']**2-intake['rise']**2)-self.scene.cfg['physics']['pepper_diameter']/2
             for i, path in enumerate(paths):
                 prim = self.scene.stage.GetPrimAtPath(path)
                 if prim.GetAttribute('crop:color').Get() not in ('red', 'yellow'):
                     raise ValueError('선별 대상 과실이 아님')
                 x = self.scene.cfg['intake']['low_x'] + .07 + (i//4)*.11
-                if x > .65:
+                if x > max_x:
                     raise ValueError('배치가 레인 투입 용량을 초과함')
                 z = ramp_surface_z(self.scene.cfg, x) + self.scene.cfg['physics']['pepper_length']/2 + .005
                 positions.append(self.scene.origin+self.scene.rotation.apply([x, lanes[i%4], z]))
@@ -137,6 +216,7 @@ class SorterRuntime:
                 self.ctl.fail('SIM_PAUSED_DURING_SORT')
             self.link.status(4 if self.ctl.error else 0, self.ack, self.done, 1 if self.ctl.error else 0)
             return
+        self.handoff(now)
         self.deposit(now)
         if self.pending and now-self.pending['at'] >= self.scene.settings['deposit_settle_s']:
             coords = [f['object'].data.root_pos_w[0].numpy() for f in self.scene.fruits]

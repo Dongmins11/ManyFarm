@@ -1,0 +1,99 @@
+{
+  "resolved_roi_path": "/home/ysy/main/farm_project/sim/ros_ws/src/farm_sim_config/config/sorter_camera_zones.json",
+  "vendor_roi_unchanged": true,
+  "only_roi_geometry_change": "y +5px; x,width,height unchanged",
+  "images": {
+    "attempt01": {
+      "before": {
+        "A": {
+          "state": "NO_COLOR",
+          "red_ratio": 0.0,
+          "yellow_ratio": 0.0
+        },
+        "B": {
+          "state": "NO_COLOR",
+          "red_ratio": 0.0,
+          "yellow_ratio": 0.0
+        },
+        "C": {
+          "state": "NO_COLOR",
+          "red_ratio": 0.0,
+          "yellow_ratio": 0.0
+        },
+        "D": {
+          "state": "RED",
+          "red_ratio": 0.14351851851851852,
+          "yellow_ratio": 0.0
+        }
+      },
+      "after": {
+        "A": {
+          "state": "RED",
+          "red_ratio": 0.4708333333333333,
+          "yellow_ratio": 0.0
+        },
+        "B": {
+          "state": "YELLOW",
+          "red_ratio": 0.0,
+          "yellow_ratio": 0.15151515151515152
+        },
+        "C": {
+          "state": "RED",
+          "red_ratio": 0.4797979797979798,
+          "yellow_ratio": 0.0
+        },
+        "D": {
+          "state": "RED",
+          "red_ratio": 0.4722222222222222,
+          "yellow_ratio": 0.0
+        }
+      }
+    },
+    "attempt03": {
+      "before": {
+        "A": {
+          "state": "NO_COLOR",
+          "red_ratio": 0.0,
+          "yellow_ratio": 0.0
+        },
+        "B": {
+          "state": "NO_COLOR",
+          "red_ratio": 0.0,
+          "yellow_ratio": 0.0
+        },
+        "C": {
+          "state": "NO_COLOR",
+          "red_ratio": 0.0,
+          "yellow_ratio": 0.0
+        },
+        "D": {
+          "state": "NO_COLOR",
+          "red_ratio": 0.0,
+          "yellow_ratio": 0.0
+        }
+      },
+      "after": {
+        "A": {
+          "state": "RED",
+          "red_ratio": 0.5,
+          "yellow_ratio": 0.0
+        },
+        "B": {
+          "state": "YELLOW",
+          "red_ratio": 0.0,
+          "yellow_ratio": 0.38181818181818183
+        },
+        "C": {
+          "state": "RED",
+          "red_ratio": 0.4494949494949495,
+          "yellow_ratio": 0.0
+        },
+        "D": {
+          "state": "YELLOW",
+          "red_ratio": 0.0,
+          "yellow_ratio": 0.28703703703703703
+        }
+      }
+    }
+  }
+}

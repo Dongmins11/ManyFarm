@@ -1,0 +1,113 @@
+{
+  "event_id": "720d1842e7d4458b88c7432541670f0a",
+  "robot_id": "harvest_01",
+  "map_id": "farm_map_v1",
+  "task_id": "resume_arrival_939fec4ff1d4",
+  "window_id": "16cb6a8ad078_SEC01_W009",
+  "started_at": "2026-10-29T11:42:17.326403+00:00",
+  "mode": "sim",
+  "arm_operation": "SKIPPED",
+  "completion_policy": "ARRIVAL_ONLY_NO_HARVEST",
+  "goal_pose": {
+    "x": -6.015000000000001,
+    "y": 3.2660497894451224,
+    "yaw": -1.5707963267948966
+  },
+  "arrival": {
+    "request_id": "8bfb49b4a46d460d9bae91fd0ce394a0",
+    "plan_id": "060bf009141d44039ebea0d4ca6377c3",
+    "stamp_ns": 10683333891,
+    "measurement": {
+      "goal_map": {
+        "x": -6.015000000000001,
+        "y": 3.2660497894451224,
+        "yaw": -1.5707963267948966
+      },
+      "actual_map": {
+        "x": -6.011984010400802,
+        "y": 3.2549006769767312,
+        "yaw": -1.5437968785132998
+      },
+      "position_error_m": 0.01154984424549995,
+      "heading_error_rad": 0.02699944828159673,
+      "position_tolerance_m": 0.05,
+      "heading_tolerance_rad": 0.05236,
+      "accepted": true
+    }
+  },
+  "result": {
+    "robot_id": "harvest_01",
+    "task_id": "resume_arrival_939fec4ff1d4",
+    "window_id": "16cb6a8ad078_SEC01_W009",
+    "result_code": "SUCCESS",
+    "expected_count": 2,
+    "harvested_count": 0,
+    "failed_count": 0,
+    "error_code": "NONE",
+    "error_message": "",
+    "timestamp": "2026-10-29T11:42:24.774154+00:00"
+  },
+  "navigation": [
+    {
+      "phase": "SECTION_RESUME",
+      "section_id": "SEC01",
+      "target_xy": [
+        -6.015000000000001,
+        3.2660497894451224
+      ]
+    },
+    {
+      "phase": "WINDOW_MOVE",
+      "section_id": "SEC01",
+      "target_xy": [
+        -6.015000000000001,
+        3.2660497894451224
+      ],
+      "target_yaw": -1.5707963267948966
+    },
+    {
+      "request_id": "8bfb49b4a46d460d9bae91fd0ce394a0",
+      "goal_map": {
+        "x": -6.015000000000001,
+        "y": 3.2660497894451224,
+        "yaw": -1.5707963267948966
+      },
+      "mode": "follow_path",
+      "status": "ARRIVED",
+      "started_at": "2026-10-29T11:42:17.395492+00:00",
+      "route": {
+        "plan_id": "060bf009141d44039ebea0d4ca6377c3",
+        "graph_revision": "bb7a47c73e046419cbc70c13b68dfd87433a72e2d7b5edc36386a682fc6f5c93",
+        "frame_id": "map",
+        "points": [
+          [
+            -6.014997356881373,
+            3.3659611518182166
+          ],
+          [
+            -6.015000000000001,
+            3.2660497894451224
+          ]
+        ],
+        "edge_ids": [],
+        "distance_m": 0.09991136240805565,
+        "headings": null
+      },
+      "reverse": false,
+      "nav2_status": 4,
+      "actual_map": {
+        "x": -6.011984010400802,
+        "y": 3.2549006769767312,
+        "yaw": -1.5437968785132998
+      },
+      "position_error_m": 0.01154984424549995,
+      "heading_error_rad": 0.02699944828159673,
+      "position_tolerance_m": 0.05,
+      "heading_tolerance_rad": 0.05236,
+      "accepted": true,
+      "stamp_ns": 10683333891,
+      "finished_at": "2026-10-29T11:42:24.773712+00:00"
+    }
+  ],
+  "final_stage": "NAVIGATION"
+}

@@ -1,0 +1,60 @@
+{
+  "passed": false,
+  "virtual_mechanism": true,
+  "count_valid": false,
+  "ready_response": {
+    "accepted": true,
+    "error_code": "NONE",
+    "error_message": "",
+    "timestamp": "2026-10-29T12:22:57.720522+00:00"
+  },
+  "unload": {
+    "status": 6,
+    "result": {
+      "robot_id": "transport_01",
+      "task_id": "sorter_86531c97cbf348c6",
+      "station_id": "SORT_01",
+      "result_code": "FAILED",
+      "error_code": "CLEARANCE_FAILED",
+      "error_message": "하역 완료 후 도킹해제 실패: Distance exit rotation position drift",
+      "timestamp": "2026-10-29T12:23:43.834071+00:00"
+    }
+  },
+  "error": "RuntimeError: unload failed: {\"status\": 6, \"result\": {\"robot_id\": \"transport_01\", \"task_id\": \"sorter_86531c97cbf348c6\", \"station_id\": \"SORT_01\", \"result_code\": \"FAILED\", \"error_code\": \"CLEARANCE_FAILED\", \"error_message\": \"하역 완료 후 도킹해제 실패: Distance exit rotation position drift\", \"timestamp\": \"2026-10-29T12:23:43.834071+00:00\"}}",
+  "final_state": {
+    "phase": "CLEARING_STARTED",
+    "waiting_seen": true,
+    "ready_requested": true,
+    "ready_accepted": true,
+    "active": false,
+    "completed": true,
+    "odom_at": 208532.715236729,
+    "stamp": 533.050027801,
+    "stopped_since": 208531.158568047,
+    "status": {
+      "robot_id": "transport_01",
+      "current_task_id": "sorter_86531c97cbf348c6",
+      "state": "CLEARING",
+      "ready": false,
+      "map_id": "farm_map_v1",
+      "pose": {
+        "frame_id": "map",
+        "position": {
+          "x": -7.040259088497803,
+          "y": 13.236912097015502,
+          "z": 0.0
+        },
+        "yaw": 0.3014804842688475
+      },
+      "battery_percent": NaN,
+      "transfer_required": false,
+      "loaded_count": -1,
+      "error_code": "NONE",
+      "error_message": "",
+      "boot_id": "2af18c8bdcf34dac924ab6476eb94778",
+      "sequence": 533,
+      "timestamp": "2026-10-29T12:23:43.588112+00:00"
+    },
+    "sequence_started": true
+  }
+}

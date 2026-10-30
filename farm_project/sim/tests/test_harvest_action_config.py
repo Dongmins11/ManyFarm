@@ -17,7 +17,11 @@ class HarvestActionConfigTests(unittest.TestCase):
 
     def test_deployed_action_uses_arm_and_local_physics(self) -> None:
         self.assertEqual(self.task['completion_policy'], 'ARRIVAL_THEN_ARM')
-        self.assertEqual(self.device['runtime']['harvest_arm']['backend'], 'student_d435')
+        self.assertEqual(self.device['runtime']['harvest_arm']['backend'], 'student_u20')
+        validate_harvest_action(self.task, self.device, self.physics)
+
+    def test_previous_d435_backend_remains_available(self) -> None:
+        self.device['runtime']['harvest_arm']['backend'] = 'student_d435'
         validate_harvest_action(self.task, self.device, self.physics)
 
     def test_disabled_arm_cannot_silently_complete_on_arrival(self) -> None:

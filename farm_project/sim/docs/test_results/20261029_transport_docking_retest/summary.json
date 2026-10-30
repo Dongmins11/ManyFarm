@@ -1,0 +1,23 @@
+{
+  "outcome": "PARTIAL: marker42 approach success; marker41 final docking not reached",
+  "source_failure": "harvest DockTransfer rejected; resumed node has no successful window entry reference",
+  "route_ready_stamp_ns": 179433342692,
+  "route_ready_wall": 1793272085.508246,
+  "marker_at_transition_base_m": [
+    1.7326373963458765,
+    -0.007939907065968699,
+    0.07927769278958133
+  ],
+  "approximate_planar_goal_distance_m": 1.1926638257643634,
+  "first_marker_wall": 1793272063.9621046,
+  "first_marker_base_m": [
+    2.7730962271526813,
+    -0.025802839949566947,
+    0.07888638964432818
+  ],
+  "out_of_envelope_ready_false_count": 76,
+  "raw_log": "route_observations.jsonl",
+  "nav_error_105_observed": false,
+  "cargo_transferred": false,
+  "sorting_started": false
+}

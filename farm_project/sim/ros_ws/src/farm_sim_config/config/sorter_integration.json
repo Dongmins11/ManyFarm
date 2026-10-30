@@ -3,7 +3,7 @@
   "source_workspace": "sim/vendor/hcr3a_20261008/HCR3A_SIM_TEAM_20261008/workspace",
   "robot_asset": "sim/assets/props/HCR3A/hcr3a.usd",
   "source_config": "src/smartfarm_description/config/hcr3a_random8_validation.json",
-  "source_roi": "outputs/sorting_station/hcr_sim/zones.json",
+  "source_roi": "../../../../ros_ws/src/farm_sim_config/config/sorter_camera_zones.json",
   "replace_prim": "/World/sorting_station_portable",
   "station_pose_world_m": [
     -7.204447723212479,

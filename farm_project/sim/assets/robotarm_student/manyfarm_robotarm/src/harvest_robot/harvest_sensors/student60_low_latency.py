@@ -65,7 +65,6 @@ class CompiledFrameDepthProjector(FrameDepthProjector):
     def __init__(self,raw_depth,kd,kc,color_from_depth,rgb_shape):
         self.raw=np.asarray(raw_depth);self.kd=np.asarray(kd);self.kc=np.asarray(kc)
         self.transform=np.asarray(color_from_depth);self.rgb_shape=rgb_shape
-        self.y,self.x=np.mgrid[:self.raw.shape[0],:self.raw.shape[1]]
         self.finite=np.isfinite(self.raw)&(self.raw>0)
         self.u,self.v,self.inside=_projection(self.raw,np.asarray(kd,np.float64),np.asarray(kc,np.float64),
             np.asarray(color_from_depth,np.float64),*rgb_shape)
@@ -77,7 +76,8 @@ class CompiledFrameDepthProjector(FrameDepthProjector):
         # these mask bits never invent a missing depth value.
         reference=float(np.median(self.raw[result]));missing=~self.finite
         z=np.full(int(missing.sum()),reference,dtype=self.raw.dtype)
-        u,v,inside=self.project(z,self.x[missing],self.y[missing])
+        y,x=np.nonzero(missing)
+        u,v,inside=self.project(z,x,y)
         fallback=np.zeros(len(z),bool);fallback[inside]=rgb_mask[v[inside],u[inside]]
         result[missing]=fallback
         return result
@@ -115,12 +115,15 @@ def install_alignment(verify=False):
 def process_native(frame,data,detector,now,centre_offset_m,arm_roi=None):
     """Same detection records, omitting the unused painted overlay."""
     frame.validate();records=[]
+    detections=detector.predict(frame.rgb)
+    if not detections:
+        return records,None
     native=Frame(np.zeros(data['depth_m'].shape+(3,),np.uint8),data['depth_m'],data['intrinsics']['depth'],
         frame.arm_from_optical@data['color_from_depth'],frame.stamp_s,frame.pose_stamp_s,frame.camera_id,
         frame_id=frame.frame_id,clock_id=frame.clock_id,calibration_verified=frame.calibration_verified)
     projector=CompiledFrameDepthProjector(data['raw_depth_m'],data['intrinsics']['depth'],frame.k,
         data['color_from_depth'],frame.rgb.shape[:2])
-    for detection in detector.predict(frame.rgb):
+    for detection in detections:
         mask=projector.mask(detection['mask'])
         point=locate(native,mask,now,centre_offset_m=centre_offset_m)
         record={k:v for k,v in detection.items() if k!='mask'};record.update(point)
