@@ -11,8 +11,8 @@ import time
 import uuid
 
 ROOT = Path(__file__).resolve().parent
-COMMANDS = {'harvest', 'discharge', 'prepare', 'stop', 'cancel', 'get_operation', 'recover', 'disconnect', 'transfer_test'}
-MUTATING = {'harvest', 'discharge', 'prepare', 'stop', 'cancel', 'recover', 'transfer_test'}
+COMMANDS = {'harvest', 'discharge', 'prepare', 'stop', 'cancel', 'get_operation', 'recover', 'disconnect', 'transfer_test', 'station_return', 'station_cancel', 'move_trial', 'move_trial_cancel'}
+MUTATING = {'harvest', 'discharge', 'prepare', 'stop', 'cancel', 'recover', 'transfer_test', 'station_return', 'station_cancel', 'move_trial', 'move_trial_cancel'}
 
 
 class ArmSession:
@@ -94,15 +94,53 @@ class ArmSession:
             self._record({'kind':'disconnected','at':time.time(),'exit_code':code,
                           'note':'연결 종료는 팔 작업 종료 확인이 아닙니다. 미확정 작업은 GetOperation으로 대조하세요.'})
 
+    def station_target(self) -> dict:
+        """서버 설정의 복귀 목적지를 읽는다. 좌표나 노드 번호를 브라우저에서 받지 않는다."""
+        if not self._config.get('station_return_config'):
+            return {}
+        import yaml
+        data = yaml.safe_load(Path(self._config['station_return_config']).read_text())
+        target = data['stations'][self._config['robot_id']]
+        return dict(station_id=target['station_id'], node_id=target['node_id'],
+                    map_id=self._config.get('station_return_map_id', data['map_id']))
+
+    def navigation_target(self) -> dict:
+        """기존 dinit 설정과 실물 그래프에서 시험 주행 자세를 읽는다. 초기위치는 발행하지 않는다."""
+        import math
+        filename = self._config.get('navigation_trial_config')
+        if not filename:
+            return {}
+        data = json.loads(Path(filename).read_text())
+        root = Path(self._config['project_root'])
+        graph = json.loads((root/data['route_graph']).read_text())
+        nodes = {f['properties']['id']: f['geometry']['coordinates'] for f in graph['features']
+                 if f['geometry']['type'] == 'Point'}
+        xy, other = nodes[data['node_id']], nodes[data['face_away_from_node_id']]
+        yaw = math.atan2(xy[1]-other[1], xy[0]-other[0])
+        return dict(node_id=data['node_id'], pose=dict(header=dict(frame_id=data['frame_id']),
+            pose=dict(position=dict(x=xy[0], y=xy[1], z=0.), orientation=dict(
+                x=0., y=0., z=math.sin(yaw/2), w=math.cos(yaw/2)))))
+
     def send(self, action: str, body: dict) -> dict:
         if action not in COMMANDS:
             raise ValueError('지원하지 않는 팔 시험 명령')
         if action in MUTATING and body.get('confirmed') is not True:
-            raise ValueError('실제 팔 명령 전송 확인이 필요합니다.')
+            raise ValueError('실제 장치 명령 전송 확인이 필요합니다.')
         if action == 'transfer_test' and type(body.get('enabled')) is not bool:
             raise ValueError('배출 시험 enabled는 bool이어야 합니다.')
         if action == 'recover' and body.get('reconciled') is not True:
             raise ValueError('실제 장치·적재량 대조 확인이 필요합니다.')
+        if action == 'station_return':
+            from datetime import datetime, timezone
+            target = self.station_target()
+            robot_id = self._config['robot_id']
+            # 브라우저가 좌표·목표·업무 ID를 덮어쓰지 못하게 서버 설정에서 구성한다.
+            body = dict(confirmed=True, goal=dict(robot_id=robot_id,
+                task_id='station-return-'+uuid.uuid4().hex, station_id=target['station_id'],
+                map_id=target['map_id'],
+                timestamp=datetime.now(timezone.utc).isoformat()))
+        if action == 'move_trial':
+            body = dict(confirmed=True, goal=dict(pose=self.navigation_target()['pose']))
         with self._lock:
             if self._process is None or self._process.poll() is not None or not self._connected:
                 raise ValueError('팔 시험 연결부터 시작하세요.')
@@ -110,12 +148,12 @@ class ArmSession:
             self._record({'kind':'requested','at':time.time(),**request})
             self._process.stdin.write(json.dumps(request, ensure_ascii=False)+'\n')
             self._process.stdin.flush()
-            return {'id':request['id'], 'queued':True, 'note':'웹 요청 접수. Jetson 수락/최종 결과는 이벤트에서 확인'}
+            return {'id':request['id'], 'queued':True, 'note':'웹 요청 접수. 로봇 수락/최종 결과는 이벤트에서 확인'}
 
     def view(self) -> dict:
         with self._lock:
             age = None if not self._snapshot_at else max(0.,time.time()-self._snapshot_at)
-            return {'connected':self._connected, 'snapshot':self._snapshot, 'age_s':age,
+            return {'navigation':self.navigation_target(), 'station':self.station_target(), 'connected':self._connected, 'snapshot':self._snapshot, 'age_s':age,
                     'stale':age is None or age>2.5, 'events':list(self._events)}
 
     def close(self) -> None:

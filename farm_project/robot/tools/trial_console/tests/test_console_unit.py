@@ -65,6 +65,39 @@ class ConsoleUnitTests(unittest.TestCase):
             self.assertEqual(json.loads(session._process.stdin.getvalue())['action'],'stop')
             self.assertNotIn('success',result)
 
+    def test_station_return_uses_config_and_unique_ids_not_browser_goal(self) -> None:
+        with tempfile.TemporaryDirectory() as folder:
+            path=Path(folder)/'station.json'
+            path.write_text(json.dumps(dict(map_id='map',stations={'robot':dict(station_id='configured',node_id=18)})))
+            cfg=dict(self.config(folder),robot_id='robot',station_return_config=str(path))
+            session=ArmSession(cfg)
+            class Process:
+                stdin=io.StringIO()
+                def poll(self) -> None:return None
+            session._process=Process();session._connected=True
+            with self.assertRaisesRegex(ValueError,'확인'):session.send('station_return',{})
+            for _ in range(2):session.send('station_return',{'confirmed':True,'goal':{'station_id':'injected'}})
+            goals=[json.loads(x)['body']['goal'] for x in session._process.stdin.getvalue().splitlines()]
+            self.assertNotEqual(goals[0]['task_id'],goals[1]['task_id'])
+            self.assertEqual(goals[0]['station_id'],'configured')
+            self.assertEqual(session.view()['station']['node_id'],18)
+
+    def test_move_target_uses_graph_and_ignores_browser_pose(self) -> None:
+        root=Path(__file__).resolve().parents[4]
+        with tempfile.TemporaryDirectory() as folder:
+            cfg=dict(self.config(folder),project_root=str(root),
+                navigation_trial_config=str(root/'robot/tools/terminal/dinit.json'))
+            session=ArmSession(cfg)
+            class Process:
+                stdin=io.StringIO()
+                def poll(self) -> None:return None
+            session._process=Process();session._connected=True
+            session.send('move_trial',{'confirmed':True,'goal':{'pose':'injected'}})
+            goal=json.loads(session._process.stdin.getvalue())['body']['goal']
+            self.assertEqual(session.view()['navigation']['node_id'],14)
+            self.assertAlmostEqual(goal['pose']['pose']['position']['x'],3.576)
+            self.assertEqual(goal['pose']['pose']['orientation']['w'],1.)
+
 
 class ResultContractTests(unittest.TestCase):
     def test_wrong_task_cannot_be_reported_as_success(self) -> None:
@@ -79,5 +112,14 @@ class ResultContractTests(unittest.TestCase):
         from types import SimpleNamespace as S
         with self.assertRaises(ValueError):
             result_success('discharge',S(transfer_id='expected'),{'transfer_id':'other','error_codes':[]},4)
+
+    def test_station_success_does_not_require_docked_and_checks_identity(self) -> None:
+        from arm_agent import result_success
+        from types import SimpleNamespace as S
+        goal=S(robot_id='robot',task_id='task',station_id='station')
+        payload=dict(robot_id='robot',task_id='task',station_id='station',result_code='SUCCESS',error_code='NONE',docked=False)
+        self.assertTrue(result_success('station_return',goal,payload,4))
+        payload['task_id']='wrong'
+        with self.assertRaises(ValueError):result_success('station_return',goal,payload,4)
 
 if __name__=='__main__':unittest.main()

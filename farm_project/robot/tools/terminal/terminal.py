@@ -35,15 +35,15 @@ def main() -> None:
             if any(x in ' '.join(args) for x in ('harvest_node','harvest.launch.py','zenoh-bridge','backup/binary')) and args[0] not in ('bash','ssh'):print(pid,shlex.join(args))
         return
     commands={
-        'launch':['ros2','launch','farm_bringup','harvest.launch.py',f'project_root:={ROOT}','mode:=real',f'environment_config:={ROOT}/robot/config/environments/harvest_handoff_real.yaml','devices:=true','navigation:=true','tag_correction:=true','tag_camera:=true',f'handoff_config:={ROOT}/robot/config/robots/vicpinky/transfer/handoff_fsm.json'],
+        'launch':['ros2','launch','harvest_robot','station_return.launch.py',f'project_root:={ROOT}',f'environment_config:={ROOT}/robot/config/environments/harvest_station_return_jetson_real.yaml','devices:=true','corner_radius_m:=0.20',f'docking_config:={ROOT}/robot/config/robots/vicpinky/station_docking.yaml','tag_correction:=true','tag_camera:=true',f'handoff_config:={ROOT}/robot/config/robots/vicpinky/transfer/handoff_fsm.json'],
         'init':['python3','/home/vic/Downloads/init_station_newmap.py'],
         'zenoh':['/usr/bin/zenoh-bridge-ros2dds','--config','/home/vic/Downloads/handoff_completion_fix/zenoh_harvest_handoff_v2.json5','--domain','77','--ros-automatic-discovery-range','LOCALHOST','--no-multicast-scouting','-e','tcp/192.168.0.20:7447'],
         'dummy-zenoh':['/home/vic/Downloads/zenoh_callback_candidate_20261023/candidate/zenoh-bridge-ros2dds','--config',str(CAND/'robot-bridge.json')]}
     if mode not in commands:raise SystemExit('알 수 없는 명령')
-    paths={'launch':[ROOT/'robot/config/environments/harvest_handoff_real.yaml',ROOT/'robot/config/harvest/harvest_handoff_real.json',ROOT/'robot/config/robots/vicpinky/transfer/handoff_fsm.json'], 'init':[Path(commands['init'][1])], 'zenoh':[Path(commands['zenoh'][0]),Path(commands['zenoh'][2])], 'dummy-zenoh':[Path(commands['dummy-zenoh'][0]),CAND/'robot-bridge.json']}
+    paths={'launch':[ROOT/'robot/config/environments/harvest_station_return_jetson_real.yaml',ROOT/'robot/config/harvest/harvest_handoff_jetson_real.json',ROOT/'robot/config/robots/vicpinky/station_docking.yaml',ROOT/'robot/config/robots/vicpinky/transfer/handoff_fsm.json'], 'init':[Path(commands['init'][1])], 'zenoh':[Path(commands['zenoh'][0]),Path(commands['zenoh'][2])], 'dummy-zenoh':[Path(commands['dummy-zenoh'][0]),CAND/'robot-bridge.json']}
     assert all(p.is_file() for p in paths[mode]),'필수 파일 없음'
     if mode=='launch':
-        assert json.loads((ROOT/'robot/config/harvest/harvest_handoff_real.json').read_text())['completion_policy']=='ARRIVAL_THEN_ARM'
+        assert json.loads((ROOT/'robot/config/harvest/harvest_handoff_jetson_real.json').read_text())['completion_policy']=='ARRIVAL_THEN_ARM'
         os.environ['HANDOFF_TF_EXECUTOR']='dedicated';os.environ['HANDOFF_TIMING']='1'
     if mode=='dummy-zenoh':
         os.environ['CYCLONEDDS_URI']='<CycloneDDS><Domain><General><Interfaces><NetworkInterface name="lo"/></Interfaces><AllowMulticast>false</AllowMulticast></General><Discovery><ParticipantIndex>auto</ParticipantIndex><MaxAutoParticipantIndex>64</MaxAutoParticipantIndex><Peers><Peer Address="127.0.0.1"/></Peers></Discovery></Domain></CycloneDDS>'

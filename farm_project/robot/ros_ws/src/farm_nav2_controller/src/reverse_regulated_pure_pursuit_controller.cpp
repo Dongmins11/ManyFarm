@@ -9,6 +9,41 @@
 
 namespace farm_nav2_controller
 {
+void ReverseRegulatedPurePursuitController::configure(
+  const rclcpp_lifecycle::LifecycleNode::WeakPtr & parent, std::string name,
+  std::shared_ptr<tf2_ros::Buffer> tf,
+  std::shared_ptr<nav2_costmap_2d::Costmap2DROS> costmap_ros)
+{
+  RegulatedPurePursuitController::configure(parent, name, tf, costmap_ros);
+  auto node = parent.lock();
+  if (!node) {throw nav2_core::ControllerException("Reverse RPP parent expired");}
+  const auto key = name + ".skip_position_approach_rotation";
+  if (!node->has_parameter(key)) {node->declare_parameter(key, false);}
+  node->get_parameter(key, _skip_position_approach_rotation);
+  const auto curvature_key = name + ".use_work_curvature";
+  if (!node->has_parameter(curvature_key)) {node->declare_parameter(curvature_key, false);}
+  node->get_parameter(curvature_key, _use_work_curvature);
+}
+
+geometry_msgs::msg::Point ReverseRegulatedPurePursuitController::curvaturePoint(
+  const nav_msgs::msg::Path & path, const geometry_msgs::msg::Point & carrot)
+{
+  // Nav2의 기존 선행점 계산을 재사용한다. 거리 단위 m, 후진 경로의 점 순서는 유지한다.
+  if (_use_work_curvature && params_->use_fixed_curvature_lookahead) {
+    return getLookAheadPoint(params_->curvature_lookahead_dist, path,
+      params_->interpolate_curvature_after_goal).pose.position;
+  }
+  return carrot;
+}
+
+bool ReverseRegulatedPurePursuitController::skipApproachRotation(
+  double distance, double lookahead, double yaw_tolerance) const
+{
+  return _skip_position_approach_rotation && std::isfinite(distance) &&
+    std::isfinite(lookahead) && distance >= 0.0 && lookahead > 0.0 &&
+    distance <= lookahead && std::abs(yaw_tolerance) >= M_PI - 1e-6;
+}
+
 geometry_msgs::msg::TwistStamped
 ReverseRegulatedPurePursuitController::computeVelocityCommands(
   const geometry_msgs::msg::PoseStamped & pose,
@@ -43,6 +78,7 @@ ReverseRegulatedPurePursuitController::computeVelocityCommands(
     bool rotate = false;
     nav_msgs::msg::Path local;
     geometry_msgs::msg::Point carrot;
+    geometry_msgs::msg::Point curvature_carrot;
     const bool at_goal = distance <= xy_tolerance;
     if (at_goal) {
       // 역방향 주행을 마치면 출발 때의 스테이션 자세만 맞춘다. 180도 뒤집지 않는다.
@@ -52,11 +88,17 @@ ReverseRegulatedPurePursuitController::computeVelocityCommands(
     } else {
       local = path_handler_->transformGlobalPlan(pose, params_->max_robot_pose_search_dist);
       carrot = getLookAheadPoint(getLookAheadDistance(velocity), local).pose.position;
-      const auto & p = carrot;
-      carrot_distance = std::hypot(p.x, p.y);
+      curvature_carrot = curvaturePoint(local, carrot);
+      const auto & p = curvature_carrot;
+      // 충돌 예측 거리는 기존 실제 경로 carrot까지로 유지한다.
+      carrot_distance = std::hypot(carrot.x, carrot.y);
       // 뒤쪽 경로점을 향한 차체 방향. 전진 RPP처럼 carrot 방향으로 몸을 뒤집지 않는다.
       angle = std::atan2(-p.y, -p.x);
-      rotate = std::abs(angle) > params_->rotate_to_heading_min_angle;
+      // 위치만 완료한 뒤 별도 Spin이 방향을 맡는 실물 접근에만 적용한다.
+      // 후진 곡률 추종·감속·충돌 검사와 반대 방향 경로 거절은 그대로 유지한다.
+      rotate = std::abs(angle) > params_->rotate_to_heading_min_angle &&
+        !skipApproachRotation(distance, getLookAheadDistance(velocity),
+          tf2::getYaw(tolerance.orientation));
     }
     if (!std::isfinite(angle) || std::abs(angle) > M_PI_2 + 0.1) {
       throw nav2_core::InvalidPath("Reverse route requires opposite body heading; check station-to-current route");
@@ -74,9 +116,9 @@ ReverseRegulatedPurePursuitController::computeVelocityCommands(
       return command;
     }
     // 복귀는 전 구간 후진이다. 기본 RPP의 cusp 기반 전/후진 선택을 쓰지 않는다.
-    // 같은 carrot으로 정렬·곡률·충돌 검사를 수행하고 기존 속도 제한을 재사용한다.
-    const double squared_distance = carrot.x * carrot.x + carrot.y * carrot.y;
-    const double curvature = squared_distance > 0.001 ? 2.0 * carrot.y / squared_distance : 0.0;
+    // 선택한 선행점으로 정렬·곡률을 계산하고 기존 속도 제한·충돌 검사를 재사용한다.
+    const double squared_distance = curvature_carrot.x * curvature_carrot.x + curvature_carrot.y * curvature_carrot.y;
+    const double curvature = squared_distance > 0.001 ? 2.0 * curvature_carrot.y / squared_distance : 0.0;
     double linear = params_->desired_linear_vel;
     double sign = -1.0;
     if (!at_goal) {

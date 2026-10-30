@@ -192,13 +192,28 @@ class HarvestNode(Node):
                 raise ValueError('차체 시험에는 handoff runtime이 필요합니다.')
             from .handoff_body_trial import BodyTrial
             self.body_trial = BodyTrial(self)
-        self.station_return = StationReturn(self, root=self.root, profile=profile, settings=settings,
+        station_return_class = StationReturn
+        station_options = {}
+        station_settings = settings
+        if self.mode == 'real' and profile.get('station_return_config'):
+            from functools import partial
+            from .station_return_real import RealStationReturn, reverse_control_error
+            station_return_class = RealStationReturn
+            station_settings = replace(settings, collision_retry_count=retry_count)
+            station_options = dict(recovery_output=self.handoff_runtime,
+                client_factory=partial(Nav2Client, retryable_control_error=reverse_control_error))
+        self.station_return = station_return_class(self, root=self.root, profile=profile, settings=station_settings,
             poses=self.poses, motion=self.motion, callbacks=self.callbacks, handoff=self.handoff,
             unavailable=lambda: self.blocked or self.stopping,
             block=lambda: setattr(self, 'blocked', True), prepare=self.prepare_station_return,
-            tag_control=self.tag_control)
+            tag_control=self.tag_control, **station_options)
         from .jetson_connection import create_jetson_connection
         self.jetson_connection = create_jetson_connection(self, settings)
+        self.navigation_trial = None
+        if self.mode == 'real' and profile.get('navigation_trial_config'):
+            from .navigation_trial import NavigationTrial
+            self.navigation_trial = NavigationTrial(self, root=self.root, profile=profile,
+                prepare=self.station_return.prepare_travel)
         self.communication = HarvestCommunication(self)
         self.status_reporter = None
         status_config = self.config.get('status_reporting', {})
@@ -259,6 +274,8 @@ def main(args=None) -> None:
         if node.body_trial is not None:
             node.body_trial.close()
         node.station_return.close()
+        if node.navigation_trial is not None:
+            node.navigation_trial.close()
         if node.transfer is not None:
             node.transfer.close()
         if node.handoff_runtime is not None:

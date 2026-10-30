@@ -1,0 +1,26 @@
+# 실물 스테이션 복귀 선택 프로필. 기존 Jetson·인계·태그 설정을 그대로 참조한다.
+# PC 검증용 Jetson 상태 송수신 프로필. 기존 작업 준비·주행·인계 판정은 유지.
+schema_version: 1
+configured: true
+mode: real
+robot_id: harvest_01
+map_id: many_farm_v1
+map_yaml: robot/config/maps/many_farm/many_farm.yaml
+route_graph: robot/config/maps/many_farm/graph.geojson
+nav_params: robot/config/robots/vicpinky/nav2.yaml
+device_config: robot/config/robots/vicpinky/devices.json
+harvest_config: robot/config/harvest/harvest_handoff_jetson_real.json
+tag_localization_config: robot/config/localization/harvest_handoff_real.yaml
+tag_capture_config: robot/config/cameras/harvest_tag_capture.yaml
+navigation_policy: robot/config/navigation/harvest_navigation.yaml
+navigation:
+  map_frame: map
+  base_frame: base_footprint
+  # 실물 수확 주행의 출발·도착 방향 허용치 6도. 인계 전용 완료 조건은 별도 유지.
+  heading_tolerance_rad: 0.10471975511965978
+route_server_params: robot/config/harvest/route_server.yaml
+station_return_config: robot/config/robots/vicpinky/station_return.yaml
+# 차체 단독 시험: 사용자가 실제 팔 접힘·정지를 확인한다. 운영 복귀 시 false로 복원한다.
+station_return_skip_arm_status: true
+# 팔 없이 시험 출발점으로 이동할 때도 기존 그래프·방향 설정을 재사용한다.
+navigation_trial_config: robot/tools/terminal/dinit.json

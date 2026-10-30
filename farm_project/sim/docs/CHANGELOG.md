@@ -1,3 +1,30 @@
+## 2026-10-28 ControlState 업무 차단·정지 분리 로봇 배포 완료
+
+사용자 “로봇에 적용해줘” 승인으로 jetson_reply_20261027_1741 release의
+src/harvest_robot/harvest_robot/jetson_connection.py 한 파일만 적용하고 harvest_robot 재빌드 성공(패키지4.95초).
+PC·로봇 소스·설치 Python SHA256 일치: 4bdc457d0ab909fe75df29bf8094cc22b044e35854c8932d1fcde4f7e6f8945a.
+백업 대비 소스/설정 및 설치 일반 파일 대조에서 해당 소스와 설치 Python만 변경 확인(__pycache__ 제외).
+PC 백업 /home/eunbi/vmany_artifacts/robot_backups/control_state_blocked_20261028_191811/
+(before.tar.gz, before_hashes.json, verification.json). 로봇에 백업 생성 없음.
+수확89480/관제89957/Jetson브리지90018 PID 유지. 프로세스 재기동·명령·복구·초기위치·이동 없음.
+현재 실행 노드는 기존 코드를 유지하므로 사용자가 laun을 재시작해야 적용된다. zen/dzen 설정 변경 없음.
+blocked 자동 해제 없음. 실제 Jetson 복구·주행 시험은 미실행. PC 검증38개 통과는 아래 기록 참조.
+원복은 사용자 프로세스 종료 후 PC 백업의 해당 소스를 대조 복원·재빌드하며 저널은 복원하지 않는다.
+기존 스테이션 복귀 변경 보존. commit/push/Confluence 수정 없음.
+
+## 2026-10-28 ControlState의 업무 차단·실측 정지 분리 — PC 수정
+
+사용자 “그렇게 바꿔야할것같아” 승인으로 jetson_connection.py의 _motion_idle에서
+blocked만으로 false를 반환하던 조건을 제거했다. blocked 설정/해제·작업 및 주행 수락 로직은 그대로다.
+실제 odom·정지 지속시간·진행 중 이동·stopping·관측0.2초 기준은 유지한다.
+기존 배출 시험 모드의 blocked 중 활성화 거절은 _test_available에서 명시적으로 유지한다.
+Jetson 오류 해제나 Pinky blocked 해제를 자동 수행하지 않는다. 최초 수확 중 false 전환 원인 해결과는 별개다.
+기준 HEAD e135cdef9462276cc25d9fa336f084e2dcac72e4. 다른 작업의 스테이션 복귀/node.py 등 미커밋 변경 보존.
+직접 검증: PC domain231/loopback 통신·미니관제 회귀38개 통과(17.32초), git diff --check 통과.
+로그 /tmp/control_state_blocked_20261028.log. 실제 Jetson 복구/실물 주행은 미검증.
+로봇 적용·재빌드·재기동·명령 전송·Confluence 변경·staging/commit/push 없음.
+원복은 이번 _motion_idle/_test_available 변경 및 추가 회귀 시험만 되돌리며 다른 미커밋 변경을 보존한다.
+
 ## 2026-10-27 현재 로봇 실행본 PC 수집·커밋 준비
 
 사용자 “현재코드 git에 올릴수있도록 PC에 가져오고 커밋 준비” 요청으로 로봇을 읽기 전용 조회했다.

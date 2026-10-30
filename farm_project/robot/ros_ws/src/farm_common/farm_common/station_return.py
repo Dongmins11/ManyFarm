@@ -6,7 +6,6 @@ from dataclasses import dataclass, replace
 from datetime import datetime, timezone
 import math
 import time
-import uuid
 from pathlib import Path
 from typing import Any
 
@@ -16,7 +15,7 @@ from farm_interfaces.action import ReturnToStation
 from farm_navigation.configuration import read_mapping, resolve_file
 from farm_navigation.nav2_client import Nav2Client
 from farm_navigation.navigator import Navigator
-from farm_navigation.route import RouteGraph
+from farm_navigation.route import RouteGraph, reverse_plan
 from .action_handoff import ActionHandoff, ActionInterrupted
 
 
@@ -56,7 +55,8 @@ class StationReturn:
                  poses: Any, motion: Any, callbacks: Any, handoff: ActionHandoff,
                  unavailable: Callable[[], bool], block: Callable[[], None],
                  prepare: Callable[[Callable[[], None]], None] | None = None,
-                 tag_control: Any = None) -> None:
+                 tag_control: Any = None,
+                 client_factory: Callable[..., Any] | None = None) -> None:
         self._node, self._profile, self._handoff = node, profile, handoff
         self._unavailable, self._block, self._prepare = unavailable, block, prepare
         self._poses, self._tag_control = poses, tag_control
@@ -73,7 +73,7 @@ class StationReturn:
                 '현재 환경의 복귀 요청은 거절합니다.')
         # 작업 구간 전용 평행 접근 대신 스테이션 출발 경로를 역순으로 후진한다.
         settings = replace(settings, mode='follow_path', parallel_approach=False, controller_id='StationReverse')
-        self._client = Nav2Client(node, settings, callbacks) if self._graph else None
+        self._client = (client_factory or Nav2Client)(node, settings, callbacks) if self._graph else None
         self._navigator = (Navigator(node, settings, self._client, poses, motion, self._check,
                                     self._graph) if self._graph else None)
         self._server = ActionServer(node, ReturnToStation, 'return_to_station',
@@ -121,6 +121,41 @@ class StationReturn:
         value.phase, value.docked, value.timestamp = 'RETURNING', False, timestamp()
         handle.publish_feedback(value)
 
+    def _run_mission(self) -> None:
+        """기존 환경의 실행 순서를 유지한다. 로봇별 단계 실행기는 이 경계에서 연결한다."""
+        if self._prepare is not None:
+            # 수확 인계·운송 분류장 완료 등 로봇별 조건은 이 경계에서 구현한다.
+            self._prepare(self._check)
+        self._check()
+        self._navigator.preflight_navigation()
+        current = self._poses.current(self._check)
+        # 가상 출발은 스테이션, 가상 목적지는 작업 목표가 아닌 현재 실측 위치다.
+        forward = self._graph.plan(self._station.xy,
+            (float(current[0,3]), float(current[1,3])),
+            self._settings.max_goal_distance_m, self._settings.max_start_distance_m)
+        backward = reverse_plan(forward)
+        if self._tag_control is not None:
+            self._tag_control.begin()
+            self._tag_section = None
+            self._tag_active = True
+            self._next_tag_update = 0.0
+        self._navigator.navigate(self._station.xy, self._station.yaw,
+            route_plan=backward, reverse=True)
+        self._check()
+
+    def _cleanup_mission(self) -> None:
+        """태그 종료 후 자신의 Nav2 Goal 정리를 끝낸다. 실패는 Action 종결부가 처리한다."""
+        self._tag_active = False
+        try:
+            if self._tag_control is not None:
+                self._tag_control.end()
+        finally:
+            self._navigator.cancel_nav()
+
+    def _mission_docked(self) -> bool:
+        """환경 기본 완료 의미. 실물 어댑터는 실제 도킹 결과만 반환한다."""
+        return self._profile.get('mode') == 'sim'
+
     def execute(self, handle: Any) -> Any:
         goal = handle.request
         result = ReturnToStation.Result()
@@ -138,26 +173,7 @@ class StationReturn:
                 f'스테이션 복귀 시작: task_id={goal.task_id}, station_id={goal.station_id}')
             self._feedback(handle)
             timer = self._node.create_timer(1., lambda: self._feedback(handle))
-            if self._prepare is not None:
-                # 수확 인계·운송 분류장 완료 등 로봇별 조건은 이 경계에서 구현한다.
-                self._prepare(self._check)
-            self._check()
-            self._navigator.preflight_navigation()
-            current = self._poses.current(self._check)
-            # 가상 출발은 스테이션, 가상 목적지는 작업 목표가 아닌 현재 실측 위치다.
-            forward = self._graph.plan(self._station.xy,
-                (float(current[0,3]), float(current[1,3])),
-                self._settings.max_goal_distance_m, self._settings.max_start_distance_m)
-            backward = replace(forward, plan_id=uuid.uuid4().hex,
-                points=tuple(reversed(forward.points)), edge_ids=tuple(reversed(forward.edge_ids)))
-            if self._tag_control is not None:
-                self._tag_control.begin()
-                self._tag_section = None
-                self._tag_active = True
-                self._next_tag_update = 0.0
-            self._navigator.navigate(self._station.xy, self._station.yaw,
-                route_plan=backward, reverse=True)
-            self._check()
+            self._run_mission()
             result.result_code, result.error_code = 'SUCCESS', 'NONE'
         except ActionInterrupted as error:
             result.result_code, result.error_code, result.error_message = 'CANCELED', 'NONE', str(error)
@@ -167,11 +183,8 @@ class StationReturn:
             if timer is not None:
                 self._node.destroy_timer(timer)
             if acquired:
-                self._tag_active = False
-                if self._tag_control is not None:
-                    self._tag_control.end()
                 try:
-                    self._navigator.cancel_nav()
+                    self._cleanup_mission()
                 except Exception as error:
                     self._block()
                     result.result_code, result.error_code = 'FAILED', 'CANCEL_UNCONFIRMED'
@@ -180,7 +193,7 @@ class StationReturn:
             # 서버 선점에는 ROS CANCELING 전이가 없으므로 ABORTED + CANCELED payload를 쓴다.
             if result.result_code == 'SUCCESS':
                 # 시뮬은 별도 도킹 없이 스테이션 복귀 성공을 도킹 완료로 처리한다.
-                result.docked = self._profile.get('mode') == 'sim'
+                result.docked = self._mission_docked()
                 handle.succeed()
             elif result.result_code == 'CANCELED' and handle.is_cancel_requested:
                 handle.canceled()

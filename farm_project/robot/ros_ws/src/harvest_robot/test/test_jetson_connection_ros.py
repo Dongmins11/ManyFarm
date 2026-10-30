@@ -142,6 +142,36 @@ class JetsonRosTests(unittest.TestCase):
         self.assertTrue(self.messages[-1].transfer_active)
         self.assertTrue(self.messages[-1].base_stopped)
 
+    def test_blocked_preserves_measured_stop_without_clearing_work_block(self) -> None:
+        """팔 실패로 업무가 막혀도 실측 정지는 전달하며 이동·만료 보호는 유지한다."""
+        self.node.blocked = True
+        self.pump()
+        self.assertTrue(self.messages[-1].base_stopped)
+        self.assertTrue(self.node.blocked)
+        self.assertFalse(self.messages[-1].transfer_active)
+        self.assertFalse(self.toggle_test(True).success)
+        self.node.client.has_goal = True
+        self.pump(.3)
+        self.assertFalse(self.messages[-1].base_stopped)
+        self.node.client.has_goal = False
+        self.velocity = .1
+        self.pump(.3)
+        self.assertFalse(self.messages[-1].base_stopped)
+        self.velocity = 0.
+        self.pump(.4)
+        self.assertTrue(self.messages[-1].base_stopped)
+        self.node.stopping = True
+        self.pump(.3)
+        self.assertFalse(self.messages[-1].base_stopped)
+        self.node.stopping = False
+        self.pump(.4)
+        self.assertTrue(self.messages[-1].base_stopped)
+        self.pump(.4, publish=False)
+        count = len(self.messages)
+        self.pump(.3, publish=False)
+        self.assertEqual(len(self.messages), count)
+        self.assertTrue(self.node.blocked)
+
     def test_wire_control_motion_and_transfer_state(self) -> None:
         self.pump()
         self.assertTrue(self.messages)

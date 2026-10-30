@@ -31,6 +31,8 @@ ament_export_dependencies(
 
 if(BUILD_TESTING)
   find_package(ament_cmake_gtest REQUIRED)
+  ament_add_gtest(test_reverse_approach test/test_reverse_approach.cpp)
+  target_link_libraries(test_reverse_approach ${PROJECT_NAME})
   ament_add_gtest(test_settling_controller test/test_settling_controller.cpp)
   target_link_libraries(test_settling_controller ${PROJECT_NAME})
 endif()

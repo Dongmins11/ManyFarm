@@ -96,7 +96,8 @@ class JetsonConnection:
     def _motion_idle(self, transfer: dict) -> bool:
         """팔 작업의 busy는 이동으로 취급하지 않는다. 미확정/실행 중 주행은 차단한다."""
         node = self._node
-        if node.stopping or node.blocked:
+        # blocked는 업무 차단이다. 팔 오류 복구에 필요한 실제 차체 정지를 부정하지 않는다.
+        if node.stopping:
             return False
         clients = [getattr(node, name, None) for name in ('client', 'work_client', 'exit_client')]
         runtime = getattr(node, 'handoff_runtime', None)
@@ -123,7 +124,7 @@ class JetsonConnection:
 
     def _test_available(self, transfer: dict) -> bool:
         """운영 작업이 소유한 상태를 시험값으로 덮어쓰지 않는다. 작업 수락은 변경하지 않는다."""
-        return (not transfer['task_id'] and not self._node.busy
+        return (not transfer['task_id'] and not self._node.busy and not self._node.blocked
                 and self._node.handoff.current is None and self._motion_idle(transfer))
 
     def _set_transfer_test(self, request: Any, response: Any) -> Any:

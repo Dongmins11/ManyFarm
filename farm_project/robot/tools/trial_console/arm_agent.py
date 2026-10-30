@@ -1,4 +1,4 @@
-"""Pinky에서 SSH 파이프로 사용하는 시험 ROS 클라이언트. 차체/ControlState는 발행하지 않는다.
+"""Pinky에서 SSH 파이프로 사용하는 시험 ROS 클라이언트. 복귀 Action을 지원하며 초기위치/ControlState는 발행하지 않는다.
 
 stdin 요청 → ROS 콜백 → stdout JSONL. 서비스 수락과 Action 최종 결과를 구분한다.
 Jetson 프로세스나 저널에는 접근하지 않는다.
@@ -14,6 +14,15 @@ from typing import Any
 
 def result_success(action: str, goal: Any, payload: dict, ros_status: int) -> bool:
     """ROS terminal 상태와 업무 결과/식별자를 대조한다. 부분 수량은 원문으로 보존한다."""
+    if action == 'move_trial':
+        return ros_status == 4 and payload.get('error_code') == 0
+    if action == 'station_return':
+        if any(payload.get(key) != getattr(goal, key) for key in ('robot_id', 'task_id', 'station_id')):
+            raise ValueError('복귀 Result 식별자 불일치')
+        expected = {4:('SUCCESS',), 5:('CANCELED',), 6:('FAILED', 'CANCELED')}.get(ros_status, ())
+        if payload.get('result_code') not in expected:
+            raise ValueError('복귀 Result/ROS 종료 상태 불일치')
+        return ros_status == 4 and payload.get('error_code') == 'NONE'
     if action == 'harvest':
         expected = {4:'SUCCESS',5:'CANCELED',6:'FAILED'}.get(ros_status)
         task = goal.harvest_task
@@ -38,7 +47,8 @@ def main() -> None:
     from std_srvs.srv import Trigger, SetBool
     from std_msgs.msg import Bool
     from geometry_msgs.msg import PoseWithCovarianceStamped
-    from farm_interfaces.action import HarvestTask, Discharge
+    from nav2_msgs.action import NavigateToPose
+    from farm_interfaces.action import HarvestTask, Discharge, ReturnToStation
     from farm_interfaces.msg import RobotStatus
     from jetson_harvest_interfaces.msg import RuntimeStatus, ControlState
     from jetson_harvest_interfaces.srv import GetOperation, Recover
@@ -82,7 +92,9 @@ def main() -> None:
     node.create_subscription(PoseWithCovarianceStamped, prefix+'/amcl_pose', lambda m: observed('pose', m), pose_qos)
     node.create_subscription(Bool, prefix+'/transfer_test_mode/enabled', lambda m: observed('transfer_test', m), qos)
     clients = {'harvest': ActionClient(node, HarvestTask, prefix+'/arm/harvest_task'),
-               'discharge': ActionClient(node, Discharge, prefix+'/arm/discharge')}
+               'discharge': ActionClient(node, Discharge, prefix+'/arm/discharge'),
+               'station_return': ActionClient(node, ReturnToStation, prefix+'/return_to_station'),
+               'move_trial': ActionClient(node, NavigateToPose, prefix+'/trial/navigate_to_pose')}
     srv_types = {'prepare': Trigger, 'stop': Trigger, 'get_operation': GetOperation, 'recover': Recover, 'transfer_test': SetBool}
     srv_clients = {name: node.create_client(cls, prefix+'/transfer_test_mode/set_enabled' if name=='transfer_test' else prefix+'/arm/'+name) for name, cls in srv_types.items()}
 
@@ -162,14 +174,18 @@ def main() -> None:
             emit('reply', id=request_id, ok=True)
             quitting.set()
             return
-        if action == 'cancel':
+        if action in ('cancel', 'station_cancel', 'move_trial_cancel'):
             if not state['operation']:
                 raise ValueError('이 콘솔이 보낸 활성 Goal이 없습니다.')
+            if action == 'station_cancel' and state['operation']['action'] != 'station_return':
+                raise ValueError('이 콘솔의 활성 복귀 요청이 없습니다.')
+            if action == 'move_trial_cancel' and state['operation']['action'] != 'move_trial':
+                raise ValueError('이 콘솔의 활성 시험 이동 요청이 없습니다.')
             cancel(state['operation'])
         elif action in clients:
             if state['operation']:
                 raise ValueError('이 콘솔의 이전 Goal이 아직 종료되지 않았습니다.')
-            cls = HarvestTask if action == 'harvest' else Discharge
+            cls = {'harvest':HarvestTask, 'discharge':Discharge, 'station_return':ReturnToStation, 'move_trial':NavigateToPose}[action]
             goal = cls.Goal()
             set_message_fields(goal, body['goal'])
             if action == 'harvest':
@@ -177,7 +193,10 @@ def main() -> None:
                 validate_task(goal, {'robot_id': cfg['robot_id'], 'map_id': cfg['map_id'], 'control_aliases':cfg.get('control_aliases',{})})
                 if not goal.timestamp:
                     raise ValueError('원본 timestamp가 필요합니다.')
-            elif not goal.transfer_id.strip():
+            elif action == 'station_return':
+                if goal.robot_id != cfg['robot_id'] or not all((goal.task_id, goal.station_id, goal.map_id, goal.timestamp)):
+                    raise ValueError('복귀 요청 식별자 누락/불일치')
+            elif action == 'discharge' and not goal.transfer_id.strip():
                 raise ValueError('transfer_id가 필요합니다.')
             state['operation'] = dict(id=request_id, action=action, goal=goal, handle=None,
                 phase='WAITING_READY', deadline=time.monotonic()+cfg['readiness_timeout_s'], cancel_requested=False)
@@ -207,7 +226,7 @@ def main() -> None:
             future.add_done_callback(lambda f: service_done(request_id, action, f))
         else:
             raise ValueError('지원하지 않는 시험 요청')
-        emit('reply', id=request_id, ok=True, note='콘솔 접수. Pinky 시험 모드 응답은 서비스 결과 확인' if action=='transfer_test' else '콘솔 접수. Jetson 응답/결과는 별도 이벤트 확인')
+        emit('reply', id=request_id, ok=True, note='콘솔 접수. Pinky 시험 모드 응답은 서비스 결과 확인' if action=='transfer_test' else '콘솔 접수. 로봇 응답/결과는 별도 이벤트 확인')
 
     def tick() -> None:
         while not requests.empty():
@@ -227,7 +246,7 @@ def main() -> None:
                 if ready:
                     send(operation)
                 elif now >= operation['deadline']:
-                    emit('not_sent', id=operation['id'], error='서버 또는 최신 depth_v11 ready 준비 제한시간 초과')
+                    emit('not_sent', id=operation['id'], error='Action 서버 또는 수확 준비 제한시간 초과')
                     state['operation'] = None
             elif phase in ('AWAITING_ACCEPTANCE','EXECUTING') and now >= operation['deadline']:
                 operation['phase'] = 'UNKNOWN'

@@ -12,6 +12,9 @@ using Node=rclcpp_lifecycle::LifecycleNode;
 // Controller/GoalChecker가 동일한 파라미터 계약과 관측 검사를 사용한다.
 inline Config load(const Node::SharedPtr &node){
  Config c;
+ const std::string docking="wall_alignment.station_docking";
+ if(!node->has_parameter(docking))node->declare_parameter(docking,false);
+ node->get_parameter(docking,c.station_docking);
  const std::string hold="wall_alignment.wait_until_fresh";
  if(!node->has_parameter(hold))node->declare_parameter(hold,false);
  node->get_parameter(hold,c.wait_until_fresh);
@@ -20,6 +23,7 @@ inline Config load(const Node::SharedPtr &node){
  node->get_parameter(sequential,c.sequential_alignment);
  auto p=[&](const std::string &key,double &v){const auto n="wall_alignment."+key;
   if(!node->has_parameter(n))node->declare_parameter(n,v);node->get_parameter(n,v);};
+ p("lateral_tolerance",c.lateral_tolerance);p("kp_terminal",c.kp_terminal);
  p("observation_wait",c.observation_wait);p("target_angle",c.target_angle);p("target_distance",c.target);p("distance_tolerance",c.distance_tolerance);p("angle_tolerance",c.angle_tolerance);
  p("kp_distance",c.kp_distance);p("kp_angle",c.kp_angle);p("max_linear",c.max_linear);p("max_angular",c.max_angular);
  p("min_linear",c.min_linear);p("min_angular",c.min_angular);
@@ -32,9 +36,9 @@ class WallInput {
  geometry_msgs::msg::PoseStamped::SharedPtr msg_;std::chrono::steady_clock::time_point received_;
  rclcpp::Subscription<geometry_msgs::msg::PoseStamped>::SharedPtr sub_;
 public:
- WallInput(Node::SharedPtr node,std::string frame,double age):node_(node),frame_(frame),age_(age){
+ WallInput(Node::SharedPtr node,std::string frame,double age,bool docking=false):node_(node),frame_(frame),age_(age){
   // 사설 namespace의 관측만 받는다. QoS는 새 데이터만 전달하며 이전 Goal 성공을 재사용하지 않는다.
-  sub_=node_->create_subscription<geometry_msgs::msg::PoseStamped>("wall_observation",rclcpp::QoS(1).reliable(),
+  sub_=node_->create_subscription<geometry_msgs::msg::PoseStamped>(docking?"dock_target":"wall_observation",rclcpp::QoS(1).reliable(),
    [this](geometry_msgs::msg::PoseStamped::SharedPtr m){std::lock_guard<std::mutex> l(mutex_);msg_=m;received_=std::chrono::steady_clock::now();});
  }
  Wall read(){

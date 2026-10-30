@@ -21,8 +21,10 @@ from .arrival import validate_goal_checkers
 
 
 class Nav2Client:
-    def __init__(self, node: Node, settings: NavigationSettings, group: CallbackGroup, *, execution_clock=None) -> None:
+    def __init__(self, node: Node, settings: NavigationSettings, group: CallbackGroup, *, execution_clock=None,
+                 retryable_control_error: Callable[[str], bool] | None = None) -> None:
         self._pause_clock_factory = execution_clock
+        self._retryable_control_error = retryable_control_error
         self._node: Node = node
         self._settings: NavigationSettings = settings
         self._navigate=ActionClient(node,NavigateToPose,settings.navigate_action,callback_group=group)
@@ -139,6 +141,12 @@ class Nav2Client:
     def _control_feedback(self, message: Any) -> None:
         self._last_control_feedback = time.monotonic()
 
+    def _retryable_message(self, message: str) -> bool:
+        """NO_VALID_CONTROL 문구만 분류한다. 상태·오류 코드 검사는 호출부에서 유지한다."""
+        classifier = getattr(self, '_retryable_control_error', None)
+        return (classifier(message) if classifier is not None
+                else not message.strip() or 'collision ahead' in message.lower())
+
     def execute(self, xy: tuple[float,float], yaw: float, path: Path | None, check: Callable[[],None]) -> int:
         if (not self._settings.tf_recovery_enabled and not self._settings.collision_retry_count) or self._settings.mode != 'follow_path':
             return self._execute_once(xy, yaw, path, check)
@@ -228,8 +236,7 @@ class Nav2Client:
                     and self._settings.mode == 'follow_path'
                     and response.status == GoalStatus.STATUS_ABORTED
                     and code == getattr(FollowPath.Result, 'NO_VALID_CONTROL', -1)
-                    and (not getattr(response.result, 'error_msg', '').strip()
-                         or 'collision ahead' in getattr(response.result, 'error_msg', '').lower())):
+                    and self._retryable_message(getattr(response.result, 'error_msg', ''))):
                 raise Nav2ControlUnavailable(message)
             raise RuntimeError(message)
         return int(response.status)

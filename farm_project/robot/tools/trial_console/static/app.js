@@ -1,3 +1,4 @@
+let movePending=false;
 let token='',state={snapshot:{},jobs:[]};
 const $=id=>document.getElementById(id);
 const names={robot_stop:'수확 시험 종료',robot_reconcile:'수동 복구 기록',dummy_recover:'더미 복구',dummy_prepare:'더미 준비',dummy_stop:'더미 정지',dummy_count:'수확 개수 설정',dummy_repeat:'1회 반복 허용'};
@@ -15,7 +16,7 @@ function render(){const s=state.snapshot||{},r=s.runtime?.status,d=s.dummy?.stat
  $('permit').textContent=s.permit?(remain>0?`${remain}초 남음`:'만료'):'미확인';
  $('repeatTarget').textContent=s.permit?.message||'허용 대상 ID는 성공 결과에서 확인합니다.';
  $('observed').textContent=s.observed_at?`최근 조회 ${new Date(s.observed_at*1000).toLocaleString()} · ${busy?'처리 중':'자동 이동 없음'} · 허용권은 서버 재시작/소비 후 달라질 수 있습니다.`:'상태를 새로 조회하세요.';
- renderArm();renderProcesses();
+ renderStation();renderArm();renderProcesses();
  $('raw').textContent=JSON.stringify(s,null,2);$('jobs').replaceChildren();
  for(const j of [...state.jobs].reverse()){const el=document.createElement('div');el.className='job';const b=document.createElement('b');b.textContent=names[j.action]||j.action;const span=document.createElement('span');span.textContent=statusNames[j.state]||j.state;el.append(b,span);if(j.result){const pre=document.createElement('pre');pre.textContent=JSON.stringify(j.result,null,2);el.append(pre)}$('jobs').append(el)}
 }
@@ -23,14 +24,14 @@ async function poll(){try{const r=await fetch('/api/state');state=await r.json()
 $('refresh').onclick=async()=>{try{await post('/api/refresh',{});await poll()}catch(e){$('notice').textContent=e.message}};
 document.querySelectorAll('[data-action]').forEach(b=>b.onclick=async()=>{const action=b.dataset.action,body={action};
  if(action==='robot_stop'){if(!$('stopConfirm').checked)return $('notice').textContent='수확 시험 종료 확인란을 체크하세요.';body.confirmed=true;}
- if(action==='robot_reconcile'){if(!$('stationConfirm').checked)return $('notice').textContent='실제 스테이션 재배치 확인란을 체크하세요.';body.station_confirmed=true;body.snapshot=state.snapshot.robot?.journal_sha256;if(!body.snapshot)return $('notice').textContent='먼저 상태를 새로 조회하세요.';}
+ if(action==='robot_reconcile'){if(!$('reconcileConfirm').checked)return $('notice').textContent='실제 스테이션 재배치 확인란을 체크하세요.';body.station_confirmed=true;body.snapshot=state.snapshot.robot?.journal_sha256;if(!body.snapshot)return $('notice').textContent='먼저 상태를 새로 조회하세요.';}
  if(action==='dummy_count'){body.count=Number($('count').value);if(!Number.isInteger(body.count)||body.count<0||body.count>1000)return $('notice').textContent='0~1000 정수를 입력하세요.';}
  try{await post('/api/action',body);$('notice').textContent=`${names[action]} 요청 접수. 아래 최종 결과를 확인하세요.`;await poll()}catch(e){$('notice').textContent=e.message}
 });
 (async()=>{token=(await(await fetch('/api/session')).json()).token;await poll();setInterval(poll,1500)})();
 
 let lastEventsKey='';
-const eventNames={requested:'웹 요청',queued:'준비 대기',sent:'ROS 요청 송신',goal_response:'Jetson Goal 수락 응답',feedback:'Jetson Feedback 수신',result:'Jetson 최종 Result',service_response:'Jetson 서비스 응답',cancel_ack:'Jetson 취소 접수 응답',not_sent:'미전송',unknown:'결과 미확인',service_timeout:'서비스 응답 미확인',reply:'시험 클라이언트 접수 응답',connected:'시험 연결됨',disconnected:'시험 연결 끊김'};
+const eventNames={requested:'웹 요청',queued:'준비 대기',sent:'ROS 요청 송신',goal_response:'Goal 수락 응답',feedback:'Feedback 수신',result:'최종 Result',service_response:'Jetson 서비스 응답',cancel_ack:'Jetson 취소 접수 응답',not_sent:'미전송',unknown:'결과 미확인',service_timeout:'서비스 응답 미확인',reply:'시험 클라이언트 접수 응답',connected:'시험 연결됨',disconnected:'시험 연결 끊김'};
 // 화면 요약만 계산한다. 명령 전송이나 작업 상태 변경은 하지 않는다.
 function armOverview(a){
  const s=a.snapshot||{},r=s.runtime?.status||s.observations?.runtime?.payload,events=a.events||[];
@@ -108,3 +109,55 @@ function renderProcesses(){const g=$('processGroup').value;const job=[...state.j
 $('processGroup').onchange=()=>{processResult=null;$('processView').textContent='선택 그룹을 새로 조회하세요.'};
 $('processList').onclick=async()=>{try{await post('/api/action',{action:'process_list',group:$('processGroup').value});await poll()}catch(e){$('notice').textContent=e.message}};
 $('processStop').onclick=async()=>{try{if(!$('processConfirm').checked||!processResult?.snapshot||processResult.group!==$('processGroup').value)throw new Error('그룹을 조회하고 종료 확인란을 체크하세요.');await post('/api/action',{action:'process_stop',group:processResult.group,snapshot:processResult.snapshot,confirmed:true});await poll()}catch(e){$('notice').textContent=e.message}};
+
+// 복귀 요청은 팔 준비 상태와 독립적이다. 중복 클릭은 HTTP 접수 동안 막고 이후 서버가 소유권을 검사한다.
+let stationPending=false;
+function stationView(a){
+ const events=a.events||[], request=[...events].reverse().find(e=>e.action==='station_return'&&['requested','queued','sent'].includes(e.kind));
+ const own=request?events.filter(e=>e.id===request.id):[];
+ const last=[...own].reverse().find(e=>['result','unknown','not_sent','goal_response','feedback','reply','sent','queued'].includes(e.kind));
+ let label=a.connected&&!a.stale?(a.snapshot?.servers?.station_return?'복귀 서버 발견':'복귀 서버 미발견'):'시험 연결 필요';
+ if(last?.kind==='result')label=last.success?`${a.station?.node_id??'스테이션'}번 복귀 완료 · docked=${last.payload?.docked}`:`복귀 ${last.payload?.result_code||'실패'} · ${last.payload?.error_message||''}`;
+ else if(last?.kind==='unknown')label='복귀 결과 미확인 · 재요청 전 확인 필요';
+ else if(last?.kind==='not_sent'||last?.accepted===false||last?.ok===false)label='복귀 거절 / 미전송';
+ else if(request)label=own.some(e=>e.accepted===true||e.kind==='feedback')?'복귀 진행 중':'복귀 요청 접수 / 수락 대기';
+ if(!a.connected||a.stale)label+=' · 연결 상태 미확인';
+ return {label,last:last||request||null};
+}
+function renderStation(){
+ renderMove();
+ const a=state.arm||{},v=stationView(a);
+ $('stationTarget').textContent=a.station?`${a.station.node_id}번`:'설정 미확인';
+ $('stationReturn').textContent=a.station?`${a.station.node_id}번으로 복귀`:'스테이션 복귀';
+ $('stationStatus').textContent=v.label;$('stationResult').textContent=v.last?JSON.stringify(v.last,null,2):'복귀 요청 없음';
+ $('stationReturn').disabled=stationPending||!a.connected||a.stale||!a.snapshot?.servers?.station_return||!!a.snapshot?.operation;
+ $('stationCancel').disabled=stationPending||!a.connected||a.snapshot?.operation?.action!=='station_return';
+}
+async function stationCommand(action){
+ try{if(!$('stationConfirm').checked)throw new Error('차체 후진 이동 확인란을 체크하세요.');
+ stationPending=true;renderStation();
+ const r=await post('/api/arm',{action,confirmed:true});$('notice').textContent=r.note;await poll();
+ }catch(e){$('notice').textContent=e.message;$('stationStatus').textContent=e.message;}
+ finally{stationPending=false;renderStation();}
+}
+$('stationReturn').onclick=()=>stationCommand('station_return');
+$('stationCancel').onclick=()=>stationCommand('station_cancel');
+
+
+function renderMove(){
+ const a=state.arm||{}, events=a.events||[],request=[...events].reverse().find(e=>e.action==='move_trial'&&e.kind==='requested');
+ const last=request?[...events].reverse().find(e=>e.id===request.id):null;
+ $('moveTrial').textContent=a.navigation?.node_id!=null?`${a.navigation.node_id}번으로 이동 · 팔 실행 없음`:'시험 위치로 이동';
+ $('moveTrial').disabled=movePending||!a.connected||a.stale||!a.snapshot?.servers?.move_trial||!!a.snapshot?.operation;
+ $('moveCancel').disabled=movePending||!a.connected||a.snapshot?.operation?.action!=='move_trial';
+ const labels={requested:'웹 요청 접수',queued:'서버 연결 대기',sent:'Goal 전송',accepted:'이동 요청 수락',rejected:'이동 요청 거절',feedback:'이동 진행',error:'이동 오류',unknown:'이동 결과 미확인 · 재요청 전 상태 확인',not_sent:'이동 요청 미전송',cancel_ack:'취소 접수 · 종료 결과 대기',cancel_requested:'취소 요청 중'};
+ $('moveStatus').textContent=last?.kind==='result'?(last.success?'시험 위치 이동 완료 · 팔 실행 없음':`이동 종료 · ${last.payload?.error_msg||last.ros_status||'실패/취소'}`):(last?.kind==='goal_response'?(last.accepted?'이동 요청 수락 · 실행 중':'이동 요청 거절'):(labels[last?.kind]||(a.snapshot?.servers?.move_trial?'이동 서버 발견':'이동 서버 미발견 · 로봇 코드 적용 필요')));
+ $('moveResult').textContent=last?JSON.stringify(last,null,2):'이동 요청 없음';
+}
+async function moveCommand(action){
+ try{if(action==='move_trial'&&!$('moveConfirm').checked)throw new Error('차체 이동 확인란을 체크하세요.');
+ movePending=true;renderMove();const r=await post('/api/arm',{action,confirmed:true});$('notice').textContent=r.note;await poll();
+ }catch(e){$('notice').textContent=e.message;}finally{movePending=false;renderMove();}
+}
+$('moveTrial').onclick=()=>moveCommand('move_trial');
+$('moveCancel').onclick=()=>moveCommand('move_trial_cancel');

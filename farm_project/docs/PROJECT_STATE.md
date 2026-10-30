@@ -1,3 +1,86 @@
+## 2026-10-30 최종: 원본 웹 복귀 성공·PC 일치 확인
+
+사용자 복귀 확인 후 실제 관제에서20:18:43 KST RETURN_3e875504cd584bd6bdfa3e8875289889의 SUCCEEDED/docked=true를 직접 확인했다. 현재 laun 원본 설치본 실행 중. 관련 소스·설정289파일 PC/로봇 일치, 주요 Python 설치본도 일치하여 추가 실행 코드 수정은 없다. 과거 시험 도구·예찰 설정·문서 차이는 별도로 기록했다. 종료된 로그131개를 PC에서 파일별 해시 검증 후 로봇에서 삭제해 가용2.5G→4.5G 확보. 현재 로그·운영 프로세스·드라이버·성공 release 유지. 팔 상태 생략 조건 유지, 전체 팔 운영 검증으로 확대하지 않는다. [상세 대조·백업·원복](changes/STATION_DOCKING_SOURCE_INTEGRATION_20261030.md)의 마지막 절 참조. 아래 원본 웹 복귀 미검증은 이전 상태다. commit/push 없음.
+
+## 2026-10-30 후속: laun 원본 전환·실제 관제 연결 확인
+
+사용자 승인으로 로봇 기존 laun 별칭을 원본 workspace 실행으로 전환했다. zen/dzen은 검증된 관제/실제 Jetson 연결 유지. 별칭 검사·launch --check 통과, 재기동 없음. 실제 관제 웹 수확 복귀 ready=true/allowed=true·차단 사유 없음 및 요청/결과 계약 확인. 웹에서 주행 명령은 보내지 않았으며 원본 재기동 후 실물 검증은 남는다. [변경·검증·원복 기록](changes/STATION_DOCKING_SOURCE_INTEGRATION_20261030.md)의 후속 절을 따른다. 아래 별칭 미변경 기록은 이전 단계다.
+
+## 2026-10-30 최신: 성공본을 원래 코드·정식 workspace로 통합 완료
+
+성공 복귀·두 벽 도킹 구현을 로봇 원래 프로젝트 src/config에 선별 이식하고 robot/ros_ws/install에7패키지 빌드했다. 최종48파일 PC·로봇 일치 및 성공본 실행 소스 대조, 원본 CTest7/Python49 통과. 제어값/인계/sim은 불변. 재기동은 미실행이며 기존 laun 별칭은 그대로다.
+
+원본 실행: `bash /home/vic/vmany/main/farm_project/robot/tools/terminal/run.bash launch`.
+정확한 범위·빌드·원복은 [원본 이식 기록](changes/STATION_DOCKING_SOURCE_INTEGRATION_20261030.md), 성공 근거는 [성공 고정 문서](changes/STATION_DOCKING_SUCCESS_FREEZE_20261030.md)를 따른다. 과거 ‘격리 release만 적용’은 당시 상태다. commit/push 없음.
+
+## 2026-10-30 최신 확정: 스테이션 두 벽 도킹 성공 기준
+
+사용자 실물 동작 만족 확인으로 **뒤+왼쪽 벽 도킹**과 `station_docking_two_wall_20261030`을 성공 기준으로 고정했다. 복귀→도킹→정리 후 SUCCESS/docked=true 수신, 도킹약15.9초. 허용치5mm/5mm/1도·기존 속도/충돌/정지 조건 유지. 구조는 기존 State/Controller/Mission과 도킹 조립·공통 관측/제어 컴포넌트 분리로 확정하며 이번에 제어 코드를 바꾸지 않았다.
+
+현재 상태·파일 책임·성공 증거·실행·원복은 [확정 문서](changes/STATION_DOCKING_SUCCESS_FREEZE_20261030.md)를 우선한다. 아래 과거의 세 벽/허용치 미확정/미배포 표기는 작성 당시 이력이다. 팔 상태 생략 차체 시험의 성공이며 전체 팔·인계 운영 성공은 아니다. commit/push 없음.
+
+## 2026-10-28 ControlState 업무 차단·정지 분리 로봇 배포 완료
+
+사용자 “로봇에 적용해줘” 승인으로 jetson_reply_20261027_1741 release의
+src/harvest_robot/harvest_robot/jetson_connection.py 한 파일만 적용하고 harvest_robot 재빌드 성공(패키지4.95초).
+PC·로봇 소스·설치 Python SHA256 일치: 4bdc457d0ab909fe75df29bf8094cc22b044e35854c8932d1fcde4f7e6f8945a.
+백업 대비 소스/설정 및 설치 일반 파일 대조에서 해당 소스와 설치 Python만 변경 확인(__pycache__ 제외).
+PC 백업 /home/eunbi/vmany_artifacts/robot_backups/control_state_blocked_20261028_191811/
+(before.tar.gz, before_hashes.json, verification.json). 로봇에 백업 생성 없음.
+수확89480/관제89957/Jetson브리지90018 PID 유지. 프로세스 재기동·명령·복구·초기위치·이동 없음.
+현재 실행 노드는 기존 코드를 유지하므로 사용자가 laun을 재시작해야 적용된다. zen/dzen 설정 변경 없음.
+blocked 자동 해제 없음. 실제 Jetson 복구·주행 시험은 미실행. PC 검증38개 통과는 아래 기록 참조.
+원복은 사용자 프로세스 종료 후 PC 백업의 해당 소스를 대조 복원·재빌드하며 저널은 복원하지 않는다.
+기존 스테이션 복귀 변경 보존. commit/push/Confluence 수정 없음.
+
+## 2026-10-28 ControlState의 업무 차단·실측 정지 분리 — PC 수정
+
+사용자 “그렇게 바꿔야할것같아” 승인으로 jetson_connection.py의 _motion_idle에서
+blocked만으로 false를 반환하던 조건을 제거했다. blocked 설정/해제·작업 및 주행 수락 로직은 그대로다.
+실제 odom·정지 지속시간·진행 중 이동·stopping·관측0.2초 기준은 유지한다.
+기존 배출 시험 모드의 blocked 중 활성화 거절은 _test_available에서 명시적으로 유지한다.
+Jetson 오류 해제나 Pinky blocked 해제를 자동 수행하지 않는다. 최초 수확 중 false 전환 원인 해결과는 별개다.
+기준 HEAD e135cdef9462276cc25d9fa336f084e2dcac72e4. 다른 작업의 스테이션 복귀/node.py 등 미커밋 변경 보존.
+직접 검증: PC domain231/loopback 통신·미니관제 회귀38개 통과(17.32초), git diff --check 통과.
+로그 /tmp/control_state_blocked_20261028.log. 실제 Jetson 복구/실물 주행은 미검증.
+로봇 적용·재빌드·재기동·명령 전송·Confluence 변경·staging/commit/push 없음.
+원복은 이번 _motion_idle/_test_available 변경 및 추가 회귀 시험만 되돌리며 다른 미커밋 변경을 보존한다.
+
+## 2026-10-28 스테이션 복귀·dinit 로봇 배포 완료 / 실물 시험 전
+
+사용자 배포·확인 요청으로 jetson_reply_20261027_1741 release에 최소 변경 적용 및 harvest_robot 빌드 성공(3.13초).
+설치 node.py/station_return_real.py가 release 소스와 일치하고 새 프로필·목표18(+90도)·dinit14(+X) 확인.
+laun은 새 복귀 프로필 선택, vinit/zen/dzen은 기존 유지. dinit 별칭 추가. 로봇 원본 harvest_robot 소스는 별도 버전이라 덮어쓰지 않았다.
+소스/설정95파일 해시 대조 통과. 실행 중 Jetson 브리지 PID3346 유지. 운영 기동/종료/재기동·초기위치·주행 명령 없음.
+PC 백업: /home/eunbi/vmany_artifacts/robot_backups/station_return_20261028_180818/ (before.tar.gz, deploy.tar.gz, deployment_manifest.json, verification.json).
+런치 --check 실행은 자동 검토가 기동 위험으로 차단해 실행하지 않았고, 대체로 스크립트 원문과 설치 import/설정 로드/경로 계산을 검사했다.
+관제 docked=true 요구와 실물 시험은 남아 있다. 아래 미배포 절은 과거 상태. 최신 절차/원복은 docs/changes/STATION_RETURN_REAL_PC_20261028.md 마지막 절 참조.
+
+## 2026-10-28 dinit 시험 초기위치 PC 준비 (미배포)
+
+사용자 지정14번에서12번을 등지는 자세: 실물 그래프 기준 (3.576,-0.035)m, yaw=0rad.
+robot/tools/terminal/dinit.*와 추가 별칭 파일 준비. 기존 vinit/런치 유지. --check 및 문법 검사 통과; ROS 발행/배포/실물 시험 미수행.
+상세: docs/changes/STATION_RETURN_REAL_PC_20261028.md 마지막 절.
+
+## 2026-10-28 실물 스테이션 복귀 PC 구현 (미배포)
+
+사용자 최소 변경 승인으로 real 전용 선택 프로필과 복귀 어댑터를 추가했다.
+기존 StationReturn Action·ActionHandoff·HarvestStateController·RouteGraph·Navigator·StationReverse·TagControl을 재사용한다.
+후진 중 기존 작업 선분으로 태그 구역을 갱신한다. 완료는 기존 Navigator의 Nav2 성공·실제 정지 확인을 따른다.
+후속 사용자 지정으로 스테이션 목표는 실물 그래프 18번, 좌표 [0.04600000000000004, -1.12]로 반영했다.
+완료 방향은 사용자 확인으로 18번에서 0번을 바라보는 +90도(pi/2 rad)로 반영했다.
+station_id는 Confluence 공통 규약의 STATION_HARVEST_01로 반영했다.
+사용자 승인으로 별도 완료 허용치와 추가 오차 초과 실패 판정을 제거했다. 목표 설정은 완료되어 별도 허용치 미설정으로 복귀를 막지 않는다.
+잔여 도착 오차는 기존 일반 주행처럼 기록만 남기며, 도착 SUCCESS에도 docked=false를 유지한다.
+사용자 farm_map_v1 통일 승인 후, 실물 복귀도 기존 수확 JSON의 farm_map_v1→many_farm_v1 별칭을 요청 검증에 적용한다.
+실물 지도·장치·태그의 내부 ID와 원본 Goal은 유지한다.
+GitHub 관제 Frontend main(ca06c86d) 직접 확인: real.control.map_id=farm_map_v1이며 성공 시 docked=true 필수.
+지도 ID 요청 호환은 PC 수정·오프라인 검증 완료. 도착 전용 성공 계약 차이는 남아 있다. 운영 관제는 연결 실패로 버전 일치 미확인.
+운영 연동 전 관제 성공 판정 정합화가 필요하다. 상세 기록 참조.
+기존 인계·시뮬·공통 주행·컨트롤러·운영 프로필 변경 없음. 신규 선택 프로필을 지정해야 적용된다.
+최신 PC 오프라인36개 통과. ROS launch/실물 주행·배포·재기동·commit/push 없음. 원격 코드 조회 결과는 상세 기록 참조.
+기준 e135cdef9462276cc25d9fa336f084e2dcac72e4. 상세/한계/원복: docs/changes/STATION_RETURN_REAL_PC_20261028.md.
+
 ## 2026-10-27 현재 로봇 실행본 PC 수집·커밋 준비
 
 사용자 “현재코드 git에 올릴수있도록 PC에 가져오고 커밋 준비” 요청으로 로봇을 읽기 전용 조회했다.
@@ -2242,3 +2325,140 @@ vinit/vstat 및 .bashrc source 경로는 유지했다. 기존 alias와 .bashrc �
 
 ### 2026-10-27 — 미니관제 실제 팔 통신 시험
 사용자 이동 없는 수동 팔 요청·수신/상태 확인·프로세스 정리 요청 및 Jetson SSH 불필요 확인에 따라 trial_console을 확장했다. PC→SSH→Pinky ROS 클라이언트→기존 팔 브리지 구조, ControlState/이동/초기위치 발행 없음. 수락·Feedback·Result/서비스 응답을 구분하고 그룹별 SIGINT 종료 제공. 운영 서버/로봇 프로세스는 개발 중 기동·종료하지 않았다. PC 단위7+격리 ROS3 통과, 모의 웹 UI 확인. 실물/Isaac 검증 아님. 상세 파일·사용법·원복·로그: docs/changes/JETSON_TRIAL_CONSOLE_20261027.md. 기존 주행/인계 변경 없음, commit/push/staging 없음.
+
+
+### 2026-10-29 실물 복귀 차체 단독 시험
+사용자 승인으로 실물 복귀 전용 프로필 station_return_skip_arm_status=true에서 시작 시 팔 수신 검사만 생략(기본false). 실제 팔 접힘·정지는 사용자 확인하며 가짜 팔 상태를 발행하지 않는다. 태그 보정·정지·취소·기존 인계·시뮬 변경 없음. PC38개 시험 통과, 로봇 release 소스/설치모듈/프로필3파일 반영 및 import 검증, 재기동·실물 주행 미실행. 과거 시험46파일 약872MiB를 PC 백업에 해시검증 보존 후 로봇 원본 제거, 여유3.77GiB로 카메라3GiB 검사 충족. 자세한 파일·승인·검증·원복: docs/changes/STATION_RETURN_REAL_PC_20261028.md 최신 절. commit/push 없음.
+
+
+### 2026-10-29 후진 경로점 거리 비교 시험
+사용자 승인으로 실물 vicpinky Nav2 override에서 StationReverse.lookahead_dist만40→10cm 조정. PC 전체 병합 비교 및 로봇 파일 반영 확인, 실행 중 값 변경/재시작은 하지 않음. 기존 인계·시뮬·속도·충돌·도착 허용치 유지. 구독 전용 기록 도구 robot/tools/station_return/collect.bash 준비; 실제 bag 및 경로 진단 메시지 수신·코너 개선은 미검증. 상세/백업/원복은 STATION_RETURN_REAL_PC_20261028.md 최신 절 참조.
+
+
+### 2026-10-29 10cm 복귀 시험 악화로40cm 원복
+두번째 실물 복귀는SUCCESS였으나 사용자 직선 흔들림 보고. bag에서 직선 약59초 동안 회전전용36%/후진-정렬전환25회 확인. 기존 carrot각6도 정렬분기와10cm 추종점의 상호작용이 주요 악화 요인. 실물 nav2.yaml의10cm override를 PC·로봇에서 제거해40cm 복원; 실행중 값은 재시작 전10cm 유지. 인계·시뮬·공통소스 변경없음. 코너 문제는 미해결이며 선택형 직선/코너 추종점 분리안은 공통 변경 승인 전 제안. 상세 근거·분석자료·백업: STATION_RETURN_REAL_PC_20261028.md 최신 절.
+
+
+### 2026-10-29 전진/후진 비교 설명 정정
+저장된 실행 로그와 단계 선택 설정을 재대조했다. 진입 HarvestApproach=10cm, 작업선 HarvestWork=40cm, 일반/이탈 RPP=40cm다. 과거 “수확 작업선10cm와 맞춘다” 설명은 잘못이며 폐기한다. 후진은 최초40cm/두번째시험10cm/현재파일40cm 복원 상태. 컨트롤러31항목과 NavigationSettings30항목 전체표, 설정과 코드 동작 차이를 docs/changes/STATION_RETURN_REAL_PC_20261028.md 최신 절에 기록. 로봇 노드 종료로 live param dump 불가; 저장 기동YAML과 설치Nav2 1.3.11의 기본값을 구분했다. PC/로봇 node.py·task policy·reverse controller 소스SHA 일치 확인. 이번에는 분석·문서만 수정, 운용설정/코드/시뮬/인계 미변경.
+
+
+### 2026-10-29 후진 복귀 컴포넌트 분리 — PC 적용, 시뮬 전환 미적용
+사용자 운송 구조 참고 구현 승인으로 공통 StationReturn에 미션/정리 경계와 client_factory, RoutePlan 역순 함수, Nav2 선택형 오류 분류를 추가했다. 실물 복귀는 수확 Mission + 준비/후진/정리 States + Controller를 사용한다. 기존 retry_count=5와 출력 소유자를 연결하고 같은 구역의 태그 토큰을 방향 흔들림 동안 유지한다. 노드18·방향·도착허용치·후진 C++·기존 인계·운송·sim/ 파일은 변경하지 않았다. 시뮬은 기존 기본 경로를 유지하며 새 컴포넌트 연결 계약은 docs/changes/STATION_RETURN_REAL_PC_20261028.md 마지막 절에 정리했다. 이번 직접 오프라인64개 통과. 기존 시간 시험10개 fixture 오류는 변경 전후 동일 재현, 누락 기본값만 시험 runner에 보완 시 전후12개 통과. 실물/Isaac·태그 경계 ACK는 미검증. PC만 수정, 배포·재기동·commit/push·외부 전달 없음. 기준 HEAD e135cdef9462276cc25d9fa336f084e2dcac72e4, 기존 미커밋 변경 보존.
+
+
+### 2026-10-29 후진 복귀 로봇 적용·빌드 완료
+사용자 배포/빌드 승인으로 실제 import 경로의 공통3파일+격리 release 수확4파일 적용.
+farm_common/farm_navigation/harvest_robot 빌드 성공, PC·소스·설치본7파일 해시 일치,
+로봇 설치본 오프라인 컴포넌트8개 통과. 기존 인계·설정·Jetson 변경 보존.
+팔 상태 생략true/재시도5회, dinit14번·12번 반대 방향, 목표18번·0번 방향 확인.
+14→18 설치본 경로 계산 통과는 실물 주행 성공이 아님. 재기동·명령은 사용자 담당, 미수행.
+PC 백업 /home/eunbi/vmany_artifacts/robot_backups/station_components_20261029_031355/.
+상세 검증·원복은 docs/changes/STATION_RETURN_REAL_PC_20261028.md 마지막 절.
+commit/push·sim/변경 없음. 시뮬 전달 자료는 코드 확정 후 작성한다.
+
+
+### 2026-10-29 미니관제 복귀 버튼·03:21 주행 분석
+PC trial_console에 설정 기반 스테이션 복귀/내 복귀 취소/수락·진행·결과 표시 추가. 현재 목표18, farm_map_v1, 팔 ready와 독립. PC 서버 재시작·새로고침 필요, 로봇 재빌드 불필요. 단위+격리 ROS17개 및 JS 검사 통과, 실물 버튼 미검증. 운영 프로세스/로봇 코드 미변경.
+사용자03:21 복귀83.45초 SUCCESS, 재시도 발동 없음. 태그 단일토큰·9회 모두적용·세션거절0, 직선 반복정렬0. 직선 벽 간격 추정16.4→21.1cm, 코너 지도 기준 최대편차20cm로 주행 품질 문제는 남음. 자료 /home/eunbi/vmany_artifacts/station_return_analysis_20261029/run_0321/, 상세 docs/changes/STATION_RETURN_REAL_PC_20261028.md 최신절. 물리 외곽/실제전송Path와 지도/footprint추정을 구분. sim/인계/관제 미변경, commit/push 없음.
+
+### 2026-10-29 실물 반복 시험 이동 버튼 (PC 구현, 미배포)
+
+미니관제에 기존 dinit 설정의14번으로 팔 없이 주행하는 버튼/취소를 추가했다. real 시험 프로필에서만 NavigationTrial Action→HarvestStateController→StagedNavigation을 연결하며 기존 진입/작업선·태그·재시도를 재사용한다. 초기위치 발행/강제IDLE/팔 오류 초기화는 하지 않는다. PC 오프라인8+복귀회귀35+콘솔19 시험과 JS 화면 검증 통과, 실물 적용·주행 미검증. 직선 벽 이격과 코너20cm 편차는 같은03:21 기록으로 원인을 분리했으며 주행 개선안은 아직 미적용이다. 상세: docs/changes/STATION_RETURN_REAL_PC_20261028.md 마지막 절.
+
+### 2026-10-29 03:52 업데이트: 14번 이동 로봇 배포·빌드 완료
+
+위 PC 미배포 상태를 갱신한다. 기존 격리 release에 이동 관련 소스3파일/시험프로필1파일만 적용, harvest_robot 단독 빌드 성공. 설치 해시/실제14번·yaw0·SEC_01/팔 상태 생략true 검증 및 설치본 mock 계약8개 통과. 재기동은 사용자에게 남겨두었으며 새 Action 실제 기동·주행은 미검증. 인계·시뮬·코너 변경 없음. 백업/원복: docs/changes/STATION_RETURN_REAL_PC_20261028.md 최신절.
+
+### 2026-10-29 04:00 실물 이동·복귀 사용자 시험
+
+14번 팔 없는 이동03:59:31 SUCCESS 로그 확인. 이어 복귀75.43초 SUCCESS이나 직선 벽간격 추정17.2~23.0cm, 코너 그래프 편차19.08cm로 품질 문제 지속. 후진 태그 단일세션/10회 적용 확인. 분석 bag는 전진 완료 후 시작돼 전진과 같은회차 라이다 비교는 불가. 도착 성공과 경로품질·최종 물리도킹을 구분한다. 코너/태그/인계/sim 운영코드 변경 없음. 상세 STATION_RETURN_REAL_PC_20261028.md 최신절, PC 산출물 station_return_analysis_20261029/run_0400/.
+
+### 2026-10-29 코너 선행 공간 검증 결과
+
+기존 arc_clearance와 실제 발행 footprint(.64×.54m)로 검사한 결과, 그래프 꼭짓점 제자리 회전은 정적지도 및 local102개 중10개에서 충돌한다. 앞서 제안한 꼭짓점 정지/회전안은 적용하지 않았다. 반경20cm 원호 대안은 명목 기록상 충돌 없이 최대그래프이격5.86cm이나 시작/추종 오차 포함 실물 검증 전이며, 방식 변경을 사용자에게 질문한 상태다. 운영 소스/설정·인계·sim·로봇 배포 변경 없음.
+두 회차 태그19표본에서 방향 보정은 일관성을 개선하나 거리 보정은 벽Y 잔차RMS 약.92→2.3cm로 악화. PC 읽기전용 review_tag_bias.py로 재현했고 계수는 변경하지 않았다. 상세 STATION_RETURN_REAL_PC_20261028.md 최신절.
+
+### 2026-10-29 실물 복귀 원호 코너 PC 구현 완료, 로봇 미배포
+
+사용자가 후진 원호 방식의 PC 구현·검증을 승인했다. 기존 StationReverse(정밀 진입)→정지/odom 조회→arc_path/arc_clearance→TransferArc→기존 마지막 직선 주행을 실물 선택형 CornerNavigation으로 조립했다. 새 harvest_robot/station_return.launch.py에서만 반경20cm·전용 서버를 선택하며 기존 launch/환경 YAML/인계/공통 주행/sim/태그 계수는 이번에 변경하지 않았다. 태그 구역 세션·충돌 재시도·18번 목표·docked=false 유지. 원호 속도는 기존0.01m/s다.
+직접 PC56시험+C++2프로그램+격리 실제 Nav2 연결/합성 운동 시험+격리 빌드 통과. 새159점 명목 원호는 과거 map1/local102개 모두 충돌 없음(연속 여유 하한 최소4.12cm). 실물 안전/추종 성공 보장은 아니며 로봇 배포·재기동·실물 주행 미수행. 직선 태그 거리 모델 문제는 미해결. 상세·파일·원복: docs/changes/STATION_RETURN_REAL_PC_20261028.md 최신절. 이전 “원호 방식 승인 대기” 상태는 이 기록으로 대체한다.
+
+### 2026-10-29 복귀 원호 속도 분리 갱신 (PC만)
+
+사용자 공통 설정 분리 승인 후 ArcController의 선속도/각속도 상한을 인스턴스별로 선택하게 했다. **기본값0.01m/s·0.15rad/s 유지**, 실물 복귀 전용 server_config만0.05m/s·0.30rad/s 지정. 인계·sim·태그·원호 경로·충돌/1cm이탈 제한·18번 판정 불변. 앞 절 복귀31초는 새 설정 기준 약6.2초로 대체한다(진입/정지 별도).
+Python56/CTest3, 실제 Nav2 격리 합성 추종·RPM·충돌 거절·기본1cm/s 유지·조립 실행, PC2패키지 빌드 통과. 외란 없는 추종편차 약2mm,3mm 외란 계산 시험 최대약5.13mm. 실물/Isaac/로봇 배포·재기동 미수행. 상세 및 승인·원복: STATION_RETURN_REAL_PC_20261028.md 최신절, 근거 corner_speed_pc.
+
+### 2026-10-29 원호 복귀 로봇 overlay 배포·빌드 완료 / 사용자 재기동 대기
+
+새 `/home/vic/vmany-runtime-staging/station_corner_20261029_045549`에 승인된 코너/속도 분리만 적용, ARM2패키지 빌드·CTest3·설치본 오프라인11+실제14→18 경로 검증 통과. 기존 실행 release·인계·sim·laun 별칭 보존, 프로세스 미변경. 새 launch_corner.bash 명령으로만 원호 복귀가 선택된다. 팔 상태 생략true, 코너5cm/s,18번 목표 유지. 기록기는 새 서버 토픽 추가, 종료된 과거2기록/54파일 PC해시검증 이관 후 여유약3.35GiB. 재기동/실물 주행/새기록은 사용자 수행 대기. 명령은 robot/tools/station_return/README.md, 백업·원복·검증 상세는 STATION_RETURN_REAL_PC_20261028.md 최신절. commit/push 없음.
+
+
+### 2026-10-29 05:16 복귀 연결부 결함 수정·새 overlay 적용
+실제 위치→그래프 투영 연결부를 원호 코너로 오인하여 시작 전 실패하던 결함을 수정했다. 선택된 그래프 edge_ids로 본선 코너만 분할하고 실측 시작점을 기존 후진 접근에 유지한다. 인계/공통/sim·태그/속도/허용치 미변경. PC60개, 로봇 설치본15개(실측+오차36사례), ARM빌드2패키지/CTest3 통과. 새 실행 경로 `/home/vic/vmany-runtime-staging/station_corner_20261029_0516`; 기존 launch_corner.bash에 이 경로를 전달한다. 기존 실행 PID261360 보존, 사용자 재기동·실물 시험 대기. 상세/백업/원복은 STATION_RETURN_REAL_PC_20261028.md 마지막 절. commit/push 없음.
+
+
+### 2026-10-29 05:19 실물 복귀 실패 확인
+새0516 overlay 실제시험은 원호 진입 전 StationReverse 정밀 접근에서 실패했다. 지도/18번 목표/지도 bag 데이터는 정상(이전 기록과 동일). 진입점5mm 판정+기존 후진 근접 방향 정렬/최저속도5cm/s 조합에서 반대 회전이 발생, 약94초에 INVALID_PATH103. 원호 자체는 미실행. 기존PC60시험은 기하/계약 검증이며 이 실물 폐루프 성공을 보장하지 않는다. 재주행 전 접근 조립 수정·검증 필요. 이번 읽기분석만 수행, 인계/sim/배포/재기동 미변경. 근거와 수치는 STATION_RETURN_REAL_PC_20261028.md 최신절 및 PC run_0519.
+
+
+### 2026-10-29 접근 감속·위치/방향 분리 수정 및0555 배포
+실물 복귀 접근만 기존 저속 이탈 최저속도0.006m/s로 감속하고, 일반 위치반경4cm 완료→실제정지→동일시각 map/odom으로 고정한 방향차→별도 Spin/충돌검사→정지→원호 순서로 분리했다. 기존 인계/공통/sim·18번 최종 판정·태그/원호속도 불변. PC62개, 기록흔들림 실제Nav2 폐루프3조건/이전실패대조/Spin동적충돌거절, 실제기록 공간검사 통과. 로봇새 `/home/vic/vmany-runtime-staging/station_approach_20261029_0555` 빌드2패키지/CTest3/설치본17개 통과. 재기동·실물시험 사용자 대기. 최종읽기확인 수확프로세스0개, 에이전트는 종료하지 않음. 종료capture3개83파일 PC해시검증이관, 로봇여유3.267GiB. 명령 README/근거·백업·원복 STATION_RETURN_REAL_PC_20261028.md 최신절. commit/push 없음.
+
+
+### 2026-10-29 06:00 실물 결과: 접근/정렬/태그 확인, 원호 미완료 과제
+사용자0555실행본 시험은101.98초뒤SUCCESS/docked=false. 접근6mm/s감속·4cm위치완료후정지·별도8.24도Spin/잔여.30도 확인. 태그동일세션9회적용/거절0 유지. 그러나원호시작에arc deviation exceeded106이빈메시지로돌아와충돌재시도1회로처리됐고,Nav2성공후정지까지1.84cm/7.39도추가이동,원호정지오차1.365cm/5.456도accepted=false에도경고후최종직선진행. 전체SUCCESS를원호정상검증완료로확대하지않는다. 다음은원호시작/끝감속·106분류·원호전용정지후판정검토. 이번읽기분석/문서만,코드/배포/재기동변경없음. 근거run_0600와STATION_RETURN_REAL_PC_20261028.md최신절.
+
+### 2026-10-29 복귀 카메라OFF 비교용 실행본
+
+`station_no_camera_20261029` 로봇 격리overlay 빌드·CTest완료, 사용자 재기동 대기.
+`launch_corner.bash <overlay> --without-camera`로 태그 촬영/보정 프로세스 미생성.
+실물 코너 접근만 `skip_position_approach_rotation=true`: 위치 전용 목표의 기존
+lookahead 범위에서는 제자리 정렬을 생략하고 곡률 추종, 이후 별도Spin 유지.
+공통 기본false로 인계/시뮬 동작 보존. TF/odom 원본·수신시각 기록기 추가.
+실물 개선 미검증. 상세 STATION_RETURN_REAL_PC_20261028.md 최신절 참조.
+
+
+### 2026-10-29 단계별 카메라 비교 시험 준비
+기존0555로 전진 카메라ON→14번 정지 후 camera_phase.py --stop→후진OFF 비교. 사용자 실행 도구만 배포, 운영 종료/재기동/주행 미수행. 주행·인계·sim 미변경. 현재 카메라는 이미 오류 종료되어 사용자 재기동 필요. PC 백업 검증 후 종료 기록만 정리해 당시3.47GiB 확보. 1차 결과 후2차 준비,2차 코드 미적용. 상세 STATION_RETURN_REAL_PC_20261028.md 최신절. commit/push 없음.
+
+
+### 2026-10-29 17:11/17:14 카메라 단계 비교 결과
+기존0555 전진·후진SUCCESS/정상기록,후진카메라실제OFF 확인. 그러나전진보정7요청모두거절(적용0): 세션교체begin이AMCL이전종료barrier보다3.33ms앞서지속거절. ON/OFF는프로세스부하비교만성립. 후진odom age p95약20ms로감소했으나벽간격17→21cm 이격지속,원호정지오차accepted=false 지속. 코드미변경/2차미적용. 상세STATION_RETURN_REAL_PC_20261028.md 최신절,PC run_1711. commit/push 없음.
+
+
+### 2026-10-29 2차 후진 접근 시험 배포 준비 완료
+사용자 공통·격리배포 승인. ReverseRPP 기본OFF 곡률선행점선택을 실물접근만ON, HarvestWork의0.4m/종점연장값을읽어재사용. 전진·인계·sim·태그·속도·허용치불변. PC62+CTest5,기록/오차/충돌재현,ARM3패키지빌드/CTest5통과. 새 station_work_curvature_20261029; 사용자재기동대기. 위치흔들림후접근오차5.75~7.01cm경고는남음,실기성공미검증. 기존0555유지. 명령/근거/원복 STATION_RETURN_REAL_PC_20261028.md 최신절. commit/push없음.
+
+
+### 2026-10-29 도킹 기준 자세 측정 준비
+사용자 요청으로 정지30초 구독 전용 dock_reference.bash를 PC/로봇에 준비했다. 라이다 원본/필터·TF/static·odom·속도 기록 및 실제 메시지 수 확인. 원하는 최종 주차 자세의 사용자 측정 대기이며 목표값/도킹 구현 미확정. 주행·인계·sim 및 운영 프로세스 미변경, commit/push 없음. 검증/명령/원복은 docs/changes/STATION_RETURN_REAL_PC_20261028.md 마지막 절.
+
+
+### 2026-10-30 실물 스테이션 라이다 도킹 PC 구현
+사용자 “ㄱㄱ” 승인으로 기존 공통 벽 관측/제어를 기본 OFF 스테이션 모드로 확장하고 실물 복귀 FSM에 도킹 단계를 연결했다. 20261029_185143_427562432 측정 자세(실측 뒤22/좌25.4/우24.6cm)를 사용한다. 기존 인계 파일/설정·sim/ 및 로봇은 이번에 수정하지 않았다. 기본 launch는 도킹 미선택, 명시 docking_config 인자로만 조립된다. 도착 허용치3종은 null 미확정이며 임의 운영값을 넣지 않았다. PC 별도 빌드/CTest2(90폐루프 포함)/Python98/기록295프레임/격리 Nav2 수렴·충돌·취소 검증. 실물 저속 응답과 도킹 정확도 미검증, 로봇 배포/재기동·commit/push 없음. 상세 파일/검증 한계/원복: docs/changes/STATION_DOCKING_PC_20261030.md.
+
+
+### 2026-10-30 도킹 완료 허용치 승인 반영
+사용자 “오케이 일단 그렇게 해보자”에 따라 실물 도킹 선택 설정의 앞뒤/좌우 허용치를 각각 0.005m, 방향 허용치를 0.017453292519943295rad(1도)로 확정했다. 정지 속도와 0.5초 유지 조건은 기존값을 유지한다. 이전 절의 null/미확정은 당시 기록이며 현재 설정은 확정값이다. 도킹 미선택 기본 실행은 유지한다. 이번 수정은 설정·해당 시험·문서만이며 기존 인계·sim/·주행 제어 코드는 변경하지 않았다. 로봇 배포/재기동·commit/push/원격 조회 없음.
+
+
+2026-10-30 확정 허용치 PC 재시험: 실제 Nav2/가상 센서로 정상17.44초·오차36.19초 완료, 충돌106·취소 정지 확인. 관측 단절은 정지 후 진행 없음105로 실패하여 대기 시계 연결 누락 재현. Python47/CTest2 통과. 로봇 미적용. 상세 STATION_DOCKING_PC_20261030.md 최신절.
+
+
+2026-10-30 사용자 승인으로 실물 도킹 관측 대기를 기존 PauseClock/WaitingProgressChecker/Nav2Client 실행 시계에 연결했다. 새 정지 조건 없음. PC 15초 관측 단절 후 같은 Goal로 재개·완료32.27초, 대기 중 취소·정상 접근 확인, Python48 통과. 기존 인계/공통 C++/sim 미변경, 로봇 미배포. 상세 STATION_DOCKING_PC_20261030.md 최신절.
+
+
+2026-10-30 사용자 승인으로 station_docking_20261030 로봇 격리 배포 완료. 기존 station_work_curvature underlay 유지, ARM4패키지 빌드/CTest2/설정·설치 경로·manifest154 검증 통과. 팔 수신 생략true. 기존 실행본/인계/시뮬 미변경, 재기동·주행 미수행. 사용자 run.bash→실제14번 배치 때만dinit→record.bash→미니관제복귀. 18도착 후 도킹 자동 연결, 별도 도킹만 요청은 없음. 상세 STATION_DOCKING_PC_20261030.md 최신절.
+
+
+2026-10-30 18:53 첫 도킹 실기: 새release/설정/서버 정상선택,18도착 후 오른쪽 벽 지지율 부족으로 목표 생성 실패,60초 준비 후RETURN_FAILED. PC 기록634프레임 뒤/좌 모두통과·우0,우 후보지지율 중앙73.9%(기준80%). 도킹속도출력없음. 임의완화/코드변경없음. 상세 STATION_DOCKING_PC_20261030.md 최신절.
+
+
+2026-10-30 사용자 승인으로 PC 도킹 기준을 뒤+왼쪽 두 벽으로 선택하도록 수정. 공통 선택 미지정은 기존 세 벽 유지, 인계/sim 및 충돌/허용치 불변. 실물기록634중 초기4 제외630개 목표생성·오류0, Python82 통과. 아직 로봇에는 미배포(현재로봇은세벽). 상세 STATION_DOCKING_PC_20261030.md 최신절.
+
+
+2026-10-30 두 벽 수정본 로봇 격리배포 완료: station_docking_two_wall_20261030, ARM4패키지빌드44초/CTest2/설치기하·설정·manifest155 확인. 기존세벽실행본 보존,재기동/주행 미수행. 실제14번배치때만dinit→새record.bash→미니관제복귀. 현재18번이면14초기좌표 보내지않음. 실기미검증. 상세 STATION_DOCKING_PC_20261030.md 최신절.
+
+
+2026-10-30 19:40:34 두 벽 도킹 실물 첫SUCCESS/docked=true 수신 확인. station_docking_two_wall_20261030, 도킹약15.9초, 정지후 라이다 추정오차0.576mm/0.168mm/0.287도 accepted=true. 실제 외곽간격/반복성은별도. 팔상태생략시험으로팔준비·전체수확성공아님. 상세 STATION_DOCKING_PC_20261030.md 최신절.

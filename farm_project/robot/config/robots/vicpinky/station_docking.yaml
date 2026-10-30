@@ -1,0 +1,62 @@
+# PC 구현 후보. 기록 자세를 재현하며 허용치는 2026-10-30 사용자 승인값이다.
+# controller_defaults는 기존 값을 읽기만 하며 인계 원본을 수정하지 않는다.
+schema_version: 1
+# 오른쪽은 측정 기록으로만 보존한다. 전체 scan의 충돌 검사는 그대로 유지한다.
+observation_walls: [rear, left]
+reference:
+  frame_id: base_footprint
+  capture_id: '20261029_185143_427562432'
+  manual_gap_cm:
+    rear: 22.0
+    left: 25.4
+    right: 24.6
+  walls:
+    rear:
+      distance_m: 0.5202428321492166
+      normal_angle_rad: -3.1152585577328904
+      observation:
+        sectors_deg:
+        - - 150.0
+          - 180.0
+        - - -180.0
+          - -150.0
+        normal_center_rad: -3.1152585577328904
+    left:
+      distance_m: 0.49622036468337655
+      normal_angle_rad: 1.571302886969571
+      observation:
+        sectors_deg:
+        - - 60.0
+          - 120.0
+        normal_center_rad: 1.571302886969571
+    right:
+      distance_m: 0.4940746216006377
+      normal_angle_rad: -1.5599485659493049
+      observation:
+        sectors_deg:
+        - - -120.0
+          - -60.0
+        normal_center_rad: -1.5599485659493049
+controller_defaults: robot/config/robots/vicpinky/transfer/wall_alignment_wait_v2.json
+controller:
+  station_docking: true
+  target_distance: 0.5202428321492166
+  target_angle: 0.0
+  kp_terminal: 0.3
+  # PC 후보: 접근 중 선/각속도를 함께 축소한다. 실물 저속 응답은 미검증이다.
+  min_linear: 0.0
+  distance_tolerance: 0.005
+  lateral_tolerance: 0.005
+  angle_tolerance: 0.017453292519943295  # 1도(rad)
+observation:
+  follow_wall_normal: true
+  fit_threshold_m: 0.01
+  min_points: 20
+  min_ratio: 0.8
+  min_span_m: 0.15
+  max_rms_m: 0.005
+  normal_jump_rad: 0.05235987756
+  plane_jump_m: 0.015
+  max_gap_s: 0.45
+  stable_frames: 5
+  reacquire_after_gap: true

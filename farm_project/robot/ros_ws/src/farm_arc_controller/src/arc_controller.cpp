@@ -9,6 +9,26 @@
 namespace farm_arc_controller {
 class ArcController : public nav2_regulated_pure_pursuit_controller::RegulatedPurePursuitController {
 public:
+  // 설정 시 단위 m/s, rad/s의 인스턴스별 상한을 읽는다. 기존 인계 기본값은 유지한다.
+  void configure(const rclcpp_lifecycle::LifecycleNode::WeakPtr & parent,
+      std::string name, std::shared_ptr<tf2_ros::Buffer> tf,
+      std::shared_ptr<nav2_costmap_2d::Costmap2DROS> costmap_ros) override {
+    auto node=parent.lock();
+    if(!node) throw nav2_core::ControllerException("Arc lifecycle node unavailable");
+    rcl_interfaces::msg::ParameterDescriptor descriptor;
+    descriptor.read_only=true;
+    for(const auto & item : std::vector<std::pair<std::string,double>>{
+        {"arc_max_linear_vel",.01},{"arc_max_angular_vel",.15}}){
+      const auto key=name+"."+item.first;
+      if(!node->has_parameter(key)) node->declare_parameter(key,item.second,descriptor);
+    }
+    _arc_max_linear_vel=node->get_parameter(name+".arc_max_linear_vel").as_double();
+    _arc_max_angular_vel=node->get_parameter(name+".arc_max_angular_vel").as_double();
+    if(!std::isfinite(_arc_max_linear_vel) || _arc_max_linear_vel<=0 ||
+       !std::isfinite(_arc_max_angular_vel) || _arc_max_angular_vel<=0)
+      throw nav2_core::ControllerException("Arc velocity limits must be finite and positive");
+    RegulatedPurePursuitController::configure(parent,name,tf,costmap_ros);
+  }
   geometry_msgs::msg::TwistStamped computeVelocityCommands(
       const geometry_msgs::msg::PoseStamped & pose,const geometry_msgs::msg::Twist &,
       nav2_core::GoalChecker *) override {
@@ -38,7 +58,7 @@ public:
     geometry_msgs::msg::TwistStamped out;out.header=pose.header;
     if(cancelling_){finished_cancelling_=true;return out;}
     Command cmd;
-    try {cmd=command(arc.start,now,arc.radius,arc.angle,std::min(params_->desired_linear_vel,.01),.04,.01,.15);}
+    try {cmd=command(arc.start,now,arc.radius,arc.angle,std::min(params_->desired_linear_vel,_arc_max_linear_vel),.04,.01,_arc_max_angular_vel);}
     catch(const std::exception & error){throw nav2_core::NoValidControl(error.what());}
     out.twist.linear.x=cmd.v;out.twist.angular.z=cmd.w;
     // carrot 거리로 자르지 않고 설정된 예측 시간까지 footprint를 검사한다.
@@ -46,6 +66,9 @@ public:
       throw nav2_core::NoValidControl("Collision on transfer arc");
     return out;
   }
+private:
+  double _arc_max_linear_vel=.01;
+  double _arc_max_angular_vel=.15;
 };
 }
 PLUGINLIB_EXPORT_CLASS(farm_arc_controller::ArcController, nav2_core::Controller)

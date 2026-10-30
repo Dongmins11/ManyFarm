@@ -19,7 +19,7 @@ class ArmAgentRosTests(unittest.TestCase):
         from rclpy.executors import MultiThreadedExecutor
         from rclpy.callback_groups import ReentrantCallbackGroup
         from rclpy.node import Node
-        from farm_interfaces.action import HarvestTask, Discharge
+        from farm_interfaces.action import HarvestTask, Discharge, ReturnToStation
         from jetson_harvest_interfaces.msg import RuntimeStatus
         from jetson_harvest_interfaces.srv import GetOperation,Recover
         from std_srvs.srv import Trigger,SetBool
@@ -55,6 +55,31 @@ class ArmAgentRosTests(unittest.TestCase):
             self.ready=True
             return result
         self.server=ActionServer(self.node,HarvestTask,'/console_test/arm/harvest_task',execute,
+            cancel_callback=lambda _:CancelResponse.ACCEPT,callback_group=self.group)
+        def return_execute(handle: object) -> object:
+            goal=handle.request
+            self.received.append(goal)
+            handle.publish_feedback(ReturnToStation.Feedback(robot_id=goal.robot_id,
+                task_id=goal.task_id,station_id=goal.station_id,phase='RETURNING',docked=False))
+            end=time.monotonic()+.5
+            while time.monotonic()<end and not handle.is_cancel_requested:time.sleep(.01)
+            canceled=handle.is_cancel_requested
+            if canceled:handle.canceled()
+            else:handle.succeed()
+            return ReturnToStation.Result(robot_id=goal.robot_id,task_id=goal.task_id,
+                station_id=goal.station_id,result_code='CANCELED' if canceled else 'SUCCESS',
+                error_code='NONE',docked=False)
+        self.return_server=ActionServer(self.node,ReturnToStation,'/console_test/return_to_station',return_execute,
+            goal_callback=lambda g:GoalResponse.ACCEPT if g.station_id=='TEST_STATION' else GoalResponse.REJECT,
+            cancel_callback=lambda _:CancelResponse.ACCEPT,callback_group=self.group)
+        from nav2_msgs.action import NavigateToPose
+        def move_execute(handle: object) -> object:
+            end=time.monotonic()+.4
+            while time.monotonic()<end and not handle.is_cancel_requested:time.sleep(.01)
+            if handle.is_cancel_requested:handle.canceled()
+            else:handle.succeed()
+            return NavigateToPose.Result()
+        self.move_server=ActionServer(self.node,NavigateToPose,'/console_test/trial/navigate_to_pose',move_execute,
             cancel_callback=lambda _:CancelResponse.ACCEPT,callback_group=self.group)
         self.discharge=ActionServer(self.node,Discharge,'/console_test/arm/discharge',lambda _:None,
             goal_callback=lambda _:GoalResponse.REJECT,callback_group=self.group)
@@ -104,6 +129,29 @@ class ArmAgentRosTests(unittest.TestCase):
     def goal(self) -> dict:
         return dict(robot_id='console_test',map_id='test_map',timestamp='TEST_ONLY',harvest_task=dict(task_id='test-task',window_id='test-window',expected_count=0,goal_pose=dict(frame_id='map',position=dict(x=0.,y=0.,z=0.),yaw=0.)))
 
+    def test_station_return_without_arm_ready_and_docked_false(self) -> None:
+        self.ready=False
+        self.wait(lambda e:e['kind']=='snapshot' and e['servers']['station_return'])
+        key=self.send('station_return',{'goal':dict(robot_id='console_test',map_id='test_map',
+            station_id='TEST_STATION',task_id='return-test',timestamp='TEST_ONLY')})
+        self.wait(lambda e:e['kind']=='goal_response' and e.get('id')==key and e['accepted'])
+        self.wait(lambda e:e['kind']=='feedback' and e.get('id')==key)
+        result=self.wait(lambda e:e['kind']=='result' and e.get('id')==key)
+        self.assertTrue(result['success']);self.assertFalse(result['payload']['docked'])
+
+    def test_station_return_cancel_and_rejection(self) -> None:
+        self.ready=False
+        self.wait(lambda e:e['kind']=='snapshot' and e['servers']['station_return'])
+        goal=dict(robot_id='console_test',map_id='test_map',station_id='TEST_STATION',task_id='return-cancel',timestamp='TEST_ONLY')
+        key=self.send('station_return',{'goal':goal})
+        self.wait(lambda e:e['kind']=='goal_response' and e.get('id')==key and e['accepted'])
+        self.send('station_cancel')
+        result=self.wait(lambda e:e['kind']=='result' and e.get('id')==key)
+        self.assertFalse(result['success']);self.assertEqual(result['payload']['result_code'],'CANCELED')
+        goal['station_id']='WRONG'
+        key=self.send('station_return',{'goal':goal})
+        self.wait(lambda e:e['kind']=='goal_response' and e.get('id')==key and not e['accepted'])
+
     def test_transfer_test_roundtrip_uses_pinky_service_without_action(self) -> None:
         self.wait(lambda e:e['kind']=='snapshot' and e['services']['transfer_test'])
         key=self.send('transfer_test',{'enabled':True})
@@ -148,3 +196,20 @@ class ArmAgentRosTests(unittest.TestCase):
         self.wait(lambda e:e['kind']=='not_sent' and e.get('id')==key)
         self.assertFalse(self.received)
         self.assertEqual(self.node.count_publishers('/console_test/control_state'),0)
+
+    def test_move_without_arm_readiness_and_cancel(self) -> None:
+        self.ready=False
+        time.sleep(.2)
+        self.wait(lambda e:e['kind']=='snapshot' and e['servers'].get('move_trial'))
+        goal={'pose':{'header':{'frame_id':'map'},'pose':{'orientation':{'w':1.}}}}
+        key=self.send('move_trial',{'goal':goal})
+        result=self.wait(lambda e:e['kind']=='result' and e.get('id')==key)
+        self.assertTrue(result['success'])
+        self.assertFalse(self.received)
+        key=self.send('move_trial',{'goal':goal})
+        self.wait(lambda e:e['kind']=='goal_response' and e.get('id')==key and e['accepted'])
+        self.send('move_trial_cancel')
+        result=self.wait(lambda e:e['kind']=='result' and e.get('id')==key)
+        self.assertFalse(result['success'])
+        self.assertEqual(result['ros_status'],5)
+        self.assertFalse(self.received)

@@ -8,6 +8,9 @@
 namespace farm_wall_controller {
 // 환경별 SI 설정. 벽 분석은 Python 공통 wall_reference가 담당한다.
 struct Config {
+ // 선택형 스테이션 모드. 기본 false는 기존 인계의 단일 전방 벽 제어다.
+ bool station_docking=false;
+ double lateral_tolerance=.005, kp_terminal=.3;
  double target_angle=0; // signed observed wall normal at desired alignment (rad)
  double target=0, distance_tolerance=.005, angle_tolerance=.01745329252;
  double kp_distance=.4, kp_angle=.8, max_linear=.01, max_angular=.05;
@@ -20,6 +23,8 @@ struct Config {
  double observation_wait=0; // 0: 기존 즉시 실패, 양수: 정지 대기 상한(초)
  double timeout=40, observation_age=.3, stopped_linear=.005, stopped_angular=.02;
  void validate() const {
+  if(station_docking && (!std::isfinite(lateral_tolerance)||lateral_tolerance<=0 ||
+      !std::isfinite(kp_terminal)||kp_terminal<=0))throw std::invalid_argument("Invalid docking configuration");
   if(!std::isfinite(observation_wait)||observation_wait<0)throw std::invalid_argument("Invalid observation wait");
   for(double v:{target,distance_tolerance,angle_tolerance,kp_distance,kp_angle,max_linear,max_angular,
       align_enter,align_exit,dwell,max_distance,max_yaw,timeout,observation_age,stopped_linear,stopped_angular})
@@ -67,6 +72,35 @@ class Control {
   if(!std::isfinite(now))fail("WALL_INVALID_NOW",now);
   if(started_ && now<previous_now_)fail("WALL_CLOCK_REVERSED",now);
  }
+ // 도킹에서는 Wall 필드에 같은 odom 좌표계의 목표 자세를 전달한다.
+ Command dock(const Wall &target,const Pose &p,double linear,double angular){
+  const double dx=target.x-p.x,dy=target.y-p.y;
+  const double longitudinal=std::cos(target.yaw)*dx+std::sin(target.yaw)*dy;
+  const double lateral=-std::sin(target.yaw)*dx+std::cos(target.yaw)*dy;
+  const double heading=wrap(target.yaw-p.yaw);
+  const bool position_ok=std::abs(longitudinal)<=c_.distance_tolerance &&
+                         std::abs(lateral)<=c_.lateral_tolerance;
+  if(position_ok){
+   if(std::abs(heading)>c_.angle_tolerance){
+    within_=-1;
+    return {0,std::copysign(std::clamp(c_.kp_angle*std::abs(heading),c_.min_angular,c_.max_angular),heading),false};
+   }
+   if(std::abs(linear)<c_.stopped_linear && std::abs(angular)<c_.stopped_angular){
+    if(within_<0)within_=target.stamp;
+    return {0,0,target.stamp-within_>=c_.dwell};
+   }
+   within_=-1;return {};
+  }
+  within_=-1;
+  // 후진 가상 진행 방향(yaw+pi)의 극좌표 자세 오차. 선/각속도를 같은 비율로 제한한다.
+  const double bearing=std::atan2(dy,dx),pi=std::acos(-1.);
+  const double alpha=wrap(bearing-p.yaw-pi);
+  const double beta=wrap(target.yaw+pi-bearing);
+  double v=-c_.kp_distance*std::hypot(dx,dy)*std::max(0.,std::cos(alpha));
+  double w=c_.kp_angle*alpha-c_.kp_terminal*beta;
+  const double scale=std::max({1.,std::abs(v)/c_.max_linear,std::abs(w)/c_.max_angular});
+  return {v/scale,w/scale,false};
+ }
 public:
  explicit Control(Config c):c_(c){c_.validate();}
  // WaitClock의 최신성·단일 발행자·세션 검사를 통과한 초 단위 보정만 받는다.
@@ -92,8 +126,8 @@ public:
   previous_now_=now;
   distance_=std::hypot(p.x-origin_.x,p.y-origin_.y);yaw_delta_=std::abs(wrap(p.yaw-origin_.yaw));
   if(check_time && active_elapsed_>c_.timeout)fail("WALL_ACTIVE_TIMEOUT",now);
-  if(distance_>c_.max_distance)fail("WALL_DISTANCE_BOUND",now);
-  if(yaw_delta_>c_.max_yaw)fail("WALL_YAW_BOUND",now);
+  if(!c_.station_docking && distance_>c_.max_distance)fail("WALL_DISTANCE_BOUND",now);
+  if(!c_.station_docking && yaw_delta_>c_.max_yaw)fail("WALL_YAW_BOUND",now);
  }
  Command wait(const Pose &p,double now){
   bounds(p,now,!c_.wait_until_fresh);previous_wait_=true;
@@ -118,6 +152,7 @@ public:
    within_=-1;aligned_since_=-1;phase_=Phase::Stop;align_=true;
   }
   last_=w.stamp;
+  if(c_.station_docking)return dock(w,p,linear,angular);
   if(e.distance < -c_.distance_tolerance)throw std::runtime_error("Already beyond wall target; no automatic reverse");
   if(std::abs(wrap(w.yaw-p.yaw))>c_.max_yaw)throw std::runtime_error("Raw wall angle outside envelope");
   if(std::abs(e.angle)>c_.max_yaw)throw std::runtime_error("Wall angle outside approach envelope");
