@@ -21,3 +21,11 @@ traffic:
   test_drive_enabled: true
   registry: sim/ros_ws/src/farm_sim_config/config/traffic/traffic_zones.yaml
   state_file: sim/state/traffic/harvest_01.sqlite3
+
+# 실물 cf4023b 복귀 컴포넌트. 시뮬 지도와 기존 전진/후진 선택을 유지한다.
+station_return_components: true
+station_return_navigation:
+  arrival_tolerance_m: 0.05
+  heading_tolerance_rad: 0.10471975511965978
+  # 인계 출력 소유자가 없는 단독 실행은 재시도하지 않는다.
+  collision_retry_count: 0

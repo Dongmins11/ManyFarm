@@ -26,6 +26,8 @@ def prepare(out: Path) -> dict:
     source_path = 'farm_project/robot/config/harvest/harvest_handoff_real.json'
     raw = subprocess.check_output(['git','show',SOURCE+':'+source_path],cwd=ROOT)
     source_config = json.loads(raw)
+    source_environment = yaml.safe_load(subprocess.check_output(['git', 'show', SOURCE+
+        ':farm_project/robot/config/environments/harvest_handoff_real.yaml'], cwd=ROOT))
     transfer = source_config['transfer']
     source_transfer = copy.deepcopy(transfer)
     transfer['device_services'] = {op:'/harvest_01/sim/transfer/'+op for op in ('prepare_arm','stop')}
@@ -33,6 +35,8 @@ def prepare(out: Path) -> dict:
     transfer['journal_path'] = str(out/'journal/transfer.json')
     task = json.loads((CONFIG/'harvest_task.json').read_text())
     task['transfer'] = transfer
+    # 인계 선택 시 실물의 주행 재시도 정책도 함께 가져온다. 일반 팔 단독 실행에는 적용하지 않는다.
+    task['navigation_collision_retry_count'] = source_config['navigation_collision_retry_count']
     # 관제 워커가 준비/작업/인계 상태를 받도록 원본의 선택형 보고를 연결한다.
     task['status_reporting'] = copy.deepcopy(source_config['status_reporting'])
     task['status_reporting']['map_id'] = task['map_id']
@@ -58,6 +62,11 @@ def prepare(out: Path) -> dict:
         handoff[key] = write(path.name,data)
     handoff_path = write('handoff.json',handoff)
     profile = yaml.safe_load((CONFIG/'harvest_runtime.yaml').read_text())
+    # map/base frame은 시뮬 좌표계를 유지하고 실제 인계 프로필의 최종 도착 한도를 사용한다.
+    profile['navigation']['heading_tolerance_rad'] = source_environment['navigation']['heading_tolerance_rad']
+    if profile.get('station_return_components', False):
+        # 인계 출력 소유자가 연결된 실행에서만 실물과 같은 복귀 충돌 재시도를 허용한다.
+        profile['station_return_navigation']['collision_retry_count'] = task['navigation_collision_retry_count']
     profile['harvest_config'], profile['device_config'] = task_path, device_path
     (out/'harvest_runtime.yaml').write_text(yaml.safe_dump(profile,sort_keys=False))
     fleet = json.loads((CONFIG/'transport_fleet.json').read_text())
@@ -65,7 +74,11 @@ def prepare(out: Path) -> dict:
     write('fleet.json',fleet)
     changes = {'source_commit':SOURCE,'transfer_source':source_path,'source_transfer':source_transfer,
                'selected_transfer':transfer,'handoff_input_hashes':sources,
-               'numeric_handoff_changes':numeric_changes, 'environment_changes':['mode=sim/use_sim_time=true',
+               'numeric_handoff_changes':numeric_changes,
+               'real_policy_applied': {
+                   'navigation.heading_tolerance_rad': profile['navigation']['heading_tolerance_rad'],
+                   'navigation_collision_retry_count': task['navigation_collision_retry_count']},
+               'environment_changes':['mode=sim/use_sim_time=true',
                    'global TF; harvest_01/scan', 'sim device endpoints', 'independent journal',
                    'device state_clock_delay_s=0.1 (existing transport sensor timing policy)',
                    'source status_reporting enabled with sim map_id'],

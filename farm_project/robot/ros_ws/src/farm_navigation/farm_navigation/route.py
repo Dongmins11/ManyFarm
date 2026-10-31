@@ -7,11 +7,17 @@ import json
 import math
 from pathlib import Path
 import uuid
-from dataclasses import dataclass
+from dataclasses import dataclass, replace
 from .navigation_types import RoutePlan
 
 Point = tuple[float, float]
 NodeId = int | str
+
+
+def reverse_plan(plan: RoutePlan) -> RoutePlan:
+    """계획의 점·엣지 순서만 뒤집는다. 방향 그래프 재탐색이나 주행 실행은 하지 않는다."""
+    return replace(plan, plan_id=uuid.uuid4().hex,
+                   points=tuple(reversed(plan.points)), edge_ids=tuple(reversed(plan.edge_ids)))
 
 
 @dataclass(frozen=True)

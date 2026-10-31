@@ -200,11 +200,23 @@ class HarvestNode(Node):
                 raise ValueError('차체 시험에는 handoff runtime이 필요합니다.')
             from .handoff_body_trial import BodyTrial
             self.body_trial = BodyTrial(self)
-        self.station_return = StationReturn(self, root=self.root, profile=profile, settings=settings,
+        station_return_class = StationReturn
+        station_settings, station_options = settings, {}
+        if profile.get('station_return_components', False):
+            from dataclasses import asdict
+            from functools import partial
+            from .station_return_components import ComponentStationReturn
+            from .station_return_mission import reverse_control_error
+            station_return_class = ComponentStationReturn
+            station_settings = NavigationSettings.from_mapping({
+                **asdict(settings), **profile.get('station_return_navigation', {})})
+            station_options = dict(recovery_output=self.handoff_runtime,
+                client_factory=partial(Nav2Client, retryable_control_error=reverse_control_error))
+        self.station_return = station_return_class(self, root=self.root, profile=profile, settings=station_settings,
             poses=self.poses, motion=self.motion, callbacks=self.callbacks, handoff=self.handoff,
             unavailable=lambda: self.blocked or self.stopping,
             block=lambda: setattr(self, 'blocked', True), prepare=self.prepare_station_return,
-            tag_control=self.tag_control)
+            tag_control=self.tag_control, **station_options)
         from .jetson_connection import create_jetson_connection
         self.jetson_connection = create_jetson_connection(self, settings)
         self.traffic_test = None
