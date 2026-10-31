@@ -1,0 +1,46 @@
+{
+  "event": "CAMERA_INVENTORY",
+  "time_s": 486.70002538338304,
+  "expected_count": 1,
+  "visible_ripe_count": 1,
+  "task_workspace_min_m": [
+    0.265,
+    -0.175,
+    0.087
+  ],
+  "task_workspace_max_m": [
+    0.365,
+    0.175,
+    0.35
+  ],
+  "targets": [
+    {
+      "target_id": "fruit-000001",
+      "label": "Yellow",
+      "anchor_arm_m": [
+        0.3184769680405419,
+        0.07917512355839212,
+        0.11944582034710638
+      ]
+    }
+  ],
+  "detections": [
+    {
+      "label": "Yellow",
+      "confidence": 0.8993998765945435,
+      "candidate_valid": true,
+      "candidate_reason": "ok",
+      "grasp_estimate_arm_m": [
+        0.3184769680405419,
+        0.07917512355839212,
+        0.11944582034710638
+      ],
+      "bbox": [
+        790.978271484375,
+        303.8701477050781,
+        873.6259765625,
+        399.1238708496094
+      ]
+    }
+  ]
+}

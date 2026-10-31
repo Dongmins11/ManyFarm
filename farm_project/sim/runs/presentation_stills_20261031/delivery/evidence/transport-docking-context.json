@@ -1,0 +1,213 @@
+{
+  "name": "transport-docking-context",
+  "show": [
+    "/World/harvest_robot",
+    "/World/StudentSensors",
+    "/World/transport_robot"
+  ],
+  "hide": [
+    "/World/HCRRobot",
+    "/World/HCRStation"
+  ],
+  "placements": {
+    "/World/harvest_robot": {
+      "matrix": [
+        [
+          0.99999941844339,
+          -5.576144619090879e-05,
+          0.001077034634426624,
+          -5.999982203969921
+        ],
+        [
+          5.576219238136458e-05,
+          0.9999999984450694,
+          -6.627905042835046e-07,
+          4.000000201924593
+        ],
+        [
+          -0.001077034595793755,
+          7.228479281749975e-07,
+          0.9999994199978407,
+          0.00029997341334819794
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ]
+    },
+    "/World/transport_robot": {
+      "matrix": [
+        [
+          0.008225644022435974,
+          -0.9999662336642166,
+          -2.201859472766854e-05,
+          -5.996828037314117
+        ],
+        [
+          0.9999629455141212,
+          0.00822567344020575,
+          -0.0025643845605826526,
+          3.61013987660408
+        ],
+        [
+          0.002564478921630031,
+          -9.238959562257731e-07,
+          0.9999967117183128,
+          2.5951214865926886e-07
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ]
+    }
+  },
+  "joints": {
+    "arm_1_shoulder_pan": 0.0,
+    "arm_1_shoulder_lift": -1.6,
+    "arm_1_elbow_flex": 1.2,
+    "arm_1_wrist_flex": -1.5,
+    "arm_1_wrist_roll": 0.04879632679489654,
+    "arm_1_gripper": 1.1,
+    "arm_2_shoulder_pan": 0.0,
+    "arm_2_shoulder_lift": -1.6,
+    "arm_2_elbow_flex": 1.2,
+    "arm_2_wrist_flex": -1.5,
+    "arm_2_wrist_roll": 0.04879632679489654,
+    "arm_2_gripper": 1.1,
+    "top_lid_left_joint": 0.155,
+    "top_lid_right_joint": 0.155,
+    "lid_pinion_joint": 3.1
+  },
+  "fruit_positions": {
+    "/World/Vegetation/Bed_01/Fruits/Pepper_0006_red": [
+      -6.04,
+      3.61,
+      0.55
+    ],
+    "/World/Vegetation/Bed_01/Fruits/Pepper_0007_yellow": [
+      -5.96,
+      3.61,
+      0.55
+    ],
+    "/World/Vegetation/Bed_01/Fruits/Pepper_0008_yellow": [
+      -6.04,
+      3.69,
+      0.55
+    ],
+    "/World/Vegetation/Bed_01/Fruits/Pepper_0009_red": [
+      -5.96,
+      3.69,
+      0.55
+    ],
+    "/World/Vegetation/Bed_01/Fruits/Pepper_0011_red": [
+      -6.04,
+      3.61,
+      0.615
+    ],
+    "/World/Vegetation/Bed_01/Fruits/Pepper_0012_red": [
+      -5.96,
+      3.61,
+      0.615
+    ]
+  },
+  "eye": [
+    -6.85,
+    2.65,
+    1.3
+  ],
+  "target": [
+    -6.0,
+    3.8,
+    0.48
+  ],
+  "focal_mm": 25,
+  "fill_intensity": 500,
+  "inspect": [
+    "/World/harvest_robot/harvest_lid_fixed",
+    "/World/transport_robot/cargo_box"
+  ],
+  "relative_pose_source": "sim/runs/drive_diagnostics/aa4c1a37bc004c0bb6d95523ec2304b0",
+  "meaning": "Recorded docking relative pose, translated into the farm for an illustrative staged photo; no new docking action",
+  "scope": "staged illustration using project USD assets; not an autonomous test result",
+  "resolution": [
+    1920,
+    1080
+  ],
+  "joint_positions": {
+    "arm_1_shoulder_pan": 0.0,
+    "arm_1_shoulder_lift": -1.6,
+    "arm_1_elbow_flex": 1.2,
+    "arm_1_wrist_flex": -1.5,
+    "arm_1_wrist_roll": 0.04879632679489654,
+    "arm_1_gripper": 1.1,
+    "arm_2_shoulder_pan": 0.0,
+    "arm_2_shoulder_lift": -1.6,
+    "arm_2_elbow_flex": 1.2,
+    "arm_2_wrist_flex": -1.5,
+    "arm_2_wrist_roll": 0.04879632679489654,
+    "arm_2_gripper": 1.1,
+    "top_lid_left_joint": 0.155,
+    "top_lid_right_joint": 0.155,
+    "lid_pinion_joint": 3.1
+  },
+  "inspected": {
+    "/World/harvest_robot/harvest_lid_fixed": [
+      [
+        5.576144619090876e-05,
+        0.9999994184433897,
+        0.001077034634426624,
+        -5.999429555346592
+      ],
+      [
+        -0.9999999984450691,
+        5.576219238136457e-05,
+        -6.627905042835045e-07,
+        3.649999872897419
+      ],
+      [
+        -7.228479281749973e-07,
+        -0.0010770345957937545,
+        0.9999994199978404,
+        0.49529940828156716
+      ],
+      [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ]
+    ],
+    "/World/transport_robot/cargo_box": [
+      [
+        0.008225644022435976,
+        -0.9999662336642166,
+        -2.2018594727668542e-05,
+        -5.996126246645919
+      ],
+      [
+        0.9999629455141215,
+        0.008225673440205751,
+        -0.0025643845605826526,
+        3.695482774764211
+      ],
+      [
+        0.002564478921630031,
+        -9.23895956225771e-07,
+        0.9999967117183128,
+        0.2552199707399077
+      ],
+      [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ]
+    ]
+  }
+}

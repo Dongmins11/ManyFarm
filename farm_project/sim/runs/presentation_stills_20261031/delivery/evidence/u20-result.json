@@ -1,0 +1,35 @@
+{
+  "job_id": "f86c3651c26647419ca7c3a3b913b90d",
+  "status": "SUCCESS",
+  "stage": "DONE",
+  "success_count": 1,
+  "failed_count": 0,
+  "event_seq": 2,
+  "error_code": "",
+  "error_message": "student_attempts_completed_arms_stowed",
+  "safe_stopped": true,
+  "attempts": [
+    {
+      "target_id": "/World/Vegetation/Bed_02/Fruits/Pepper_0028_yellow",
+      "camera_target_id": "fruit-000001",
+      "success": true,
+      "reason": "basket_laser_passage",
+      "time_s": 527.9166941996664,
+      "success_source": "basket_parallel_lasers",
+      "identity_confirmed": false,
+      "association": "active_attempt_only",
+      "passage": {
+        "sequence": 3,
+        "stamp_s": 527.9166941996664,
+        "entered_s": 527.816694194451,
+        "source": "basket_parallel_lasers",
+        "beams_seen": [
+          2
+        ],
+        "direction_confirmed": false,
+        "identity_confirmed": false
+      }
+    }
+  ],
+  "candidate_count": 1
+}

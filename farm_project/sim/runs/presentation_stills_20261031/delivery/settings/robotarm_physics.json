@@ -1,0 +1,170 @@
+{
+  "schema_version": 1,
+  "enabled": true,
+  "physics_hz": 60,
+  "render_hz": 30,
+  "control_hz": 20,
+  "adaptive": {
+    "enabled": true,
+    "idle_hz": 60,
+    "harvest_hz": 60,
+    "activation_radius_m": 0.8,
+    "retention_radius_m": 1.0,
+    "settled_linear_m_s": 0.01,
+    "settled_angular_rad_s": 0.1,
+    "settled_seconds": 0.6
+  },
+  "survey_config": "sim/ros_ws/src/farm_sim_config/config/scout_survey.json",
+  "harvest_device_config": "sim/ros_ws/src/farm_sim_config/config/harvest.json",
+  "fruit": {
+    "asset_paths": {
+      "red": "sim/assets/fruit/teacher_9g/pepper_red.usd",
+      "yellow": "sim/assets/fruit/teacher_9g/pepper_yellow.usd",
+      "green": "sim/assets/fruit/teacher_9g/pepper_green.usd"
+    },
+    "mass_kg": 0.009,
+    "static_friction": 1.0,
+    "dynamic_friction": 1.0,
+    "restitution": 0.02,
+    "contact_offset_m": 0.001,
+    "rest_offset_m": 0.0,
+    "linear_damping": 0.0,
+    "angular_damping": 0.02,
+    "max_linear_velocity_m_s": 3.0,
+    "max_angular_velocity_deg_s": 20.0,
+    "break_force_range_N": [
+      2.0,
+      3.0
+    ],
+    "seed": 713,
+    "attachment_local_m": [
+      0.017529832318793216,
+      0.012588152566927921,
+      0.0375
+    ],
+    "attachment_local_m_by_color": {
+      "red": [
+        0.017529832318793216,
+        0.012588152566927921,
+        0.0375
+      ],
+      "yellow": [
+        0.01752983375906352,
+        0.012588151126657617,
+        0.0375
+      ],
+      "green": [
+        0.01752983519933382,
+        0.012588151126657617,
+        0.0375
+      ]
+    }
+  },
+  "stem": {
+    "attachment_version": 4,
+    "stem_response_version": 6,
+    "mass": 0.009,
+    "spring_k": 60.0,
+    "spring_d": 4.2,
+    "angular_k": 0.015,
+    "angular_d": 0.002,
+    "stem_vertical_stiffness": 40.0,
+    "lateral_stiffness_ratio": 0.25,
+    "valid_pull_distance": 0.012,
+    "stem_max_extension": 0.04,
+    "tension_hold_s": 0.04,
+    "hook_opening_m": 0.025,
+    "break_force": 2.5
+  },
+  "arm": {
+    "joint_names": [
+      "arm_2_shoulder_pan",
+      "arm_2_shoulder_lift",
+      "arm_2_elbow_flex",
+      "arm_2_wrist_flex",
+      "arm_2_wrist_roll"
+    ],
+    "stiffness_nm_per_rad": 25.0,
+    "damping_nm_s_per_rad": 1.5,
+    "effort_limit_nm": 2.0,
+    "velocity_limit_rad_s": 1.2,
+    "home_positions_rad": [
+      0.0,
+      -1.39,
+      0.77,
+      0.62,
+      0.04879632679489654
+    ]
+  },
+  "gripper": {
+    "joint_name": "arm_2_gripper",
+    "stiffness_nm_per_rad": 8.0,
+    "damping_nm_s_per_rad": 0.3,
+    "effort_limit_nm": 0.5,
+    "velocity_limit_rad_s": 1.5,
+    "home_position_rad": 1.1
+  },
+  "travel_pose": {
+    "left_positions_rad": [
+      0.0,
+      -1.6,
+      1.2,
+      -1.5,
+      0.04879632679489654,
+      1.1
+    ],
+    "right_positions_rad": [
+      0.0,
+      -1.6,
+      1.2,
+      -1.5,
+      0.04879632679489654,
+      1.1
+    ]
+  },
+  "contact": {
+    "static_friction": 1.0,
+    "dynamic_friction": 1.0,
+    "restitution": 0.02,
+    "contact_offset_m": 0.001,
+    "rest_offset_m": 0.0,
+    "finger_friction": 2.2
+  },
+  "box_floor": {
+    "enabled": true,
+    "mode": "teacher60_unified",
+    "policy_lower_m": [
+      0.3,
+      -0.1,
+      0.451
+    ],
+    "policy_upper_m": [
+      0.5,
+      0.1,
+      0.501
+    ],
+    "contact_offset_m": 0.04
+  },
+  "teacher_alignment": {
+    "enabled": true,
+    "solver_position_iterations": 64,
+    "harvest_solver_position_iterations": 12,
+    "asset_path": "sim/assets/robots/harvest_physics/teacher_arm_reference.usdc",
+    "merged_fixed_bodies": [
+      "arm_2_gripper_frame_link",
+      "arm_2_wrist_camera_mount_link",
+      "arm_2_wrist_camera_link"
+    ],
+    "merged_fixed_joints": [
+      "arm_2_gripper_frame_joint",
+      "arm_2_wrist_camera_mount_link_joint",
+      "arm_2_wrist_camera_joint"
+    ]
+  },
+  "notes": [
+    "기본 SI 단위. teacher_alignment는 전달 current_robot의 오른팔 충돌 메시·질량·관성·고정 카메라 합성과 runtime solver/자기충돌을 맞춘다. 접촉 contact_offset_m은 fruit/box용이며 학습 팔 collider에는 원본 기본값을 유지한다.",
+    "물리60Hz / 정책20Hz / 렌더링30Hz. 480Hz 실행 경로는 폐기했다.",
+    "과실 연결점은 전달 과실 자산 root 기준입니다. 실제 과실별 월드 인장 방향은 해당 베드에서 통로를 향하도록 scene 설정으로 계산합니다.",
+    "과실별 분리 임계력은 고정 seed와 2..3N 범위를 사용합니다. 질량, 강성, 마찰과 실물 성능 검증을 동일하게 해석하지 않습니다."
+  ]
+}

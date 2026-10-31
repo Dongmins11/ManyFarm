@@ -43,6 +43,22 @@ def _make_editable(body: object) -> list:
             prim.SetInstanceable(False)
 
 
+def expand_box_visual_instances(stage: object, robot: object) -> list[str]:
+    """Hydra가 Cube prototype을 누락하는 외형 그룹만 세션에서 인스턴스를 푼다.
+
+    기하·재질·변환과 별도 collisions 그룹은 그대로 둔다. 원본 USD는 저장하지 않는다.
+    """
+    from pxr import Usd, UsdGeom
+    groups = [prim for prim in Usd.PrimRange(robot)
+              if prim.GetName() == 'visuals' and prim.IsInstance()
+              and any(child.IsA(UsdGeom.Cube)
+                      for child in Usd.PrimRange(prim, Usd.TraverseInstanceProxies()))]
+    with Usd.EditContext(stage, stage.GetSessionLayer()):
+        for prim in groups:
+            prim.SetInstanceable(False)
+    return [str(prim.GetPath()) for prim in groups]
+
+
 def configure_harvest_arm(stage: object, robot_path: str, config: dict) -> dict:
     """학습 팔 물리·drive·집게 접촉·박스 바닥을 적용하고 적용값을 반환한다.
 

@@ -1,0 +1,79 @@
+{
+  "kind": "harvest",
+  "index": 1,
+  "name": "harvest-02-closeup",
+  "view_mode": "closeup",
+  "fps": 15,
+  "resolution": [
+    1920,
+    1080
+  ],
+  "requested_sim_s": 431.783355852589,
+  "start_sim_s": 431.950022527948,
+  "frames": 450,
+  "duplicates": 0,
+  "last_render": 461.90002408996224,
+  "pose": {
+    "eye_world_m": [
+      -6.343585385813237,
+      7.822561792456667,
+      1.4213598403117158
+    ],
+    "target_world_m": [
+      -5.641532490954846,
+      8.588652261310937,
+      0.9805341920174336
+    ],
+    "focal_mm": 28.0
+  },
+  "evidence": {
+    "arm": {
+      "job_id": "07fec39d2640423e81039243f6d6a062",
+      "status": "RUNNING",
+      "stage": "WAIT_BOX",
+      "success_count": 1,
+      "failed_count": 0,
+      "event_seq": 1,
+      "error_code": "",
+      "error_message": "",
+      "safe_stopped": false,
+      "travel_ready": false,
+      "busy": true,
+      "travel_ready_measured": true
+    },
+    "transform": [
+      [
+        0.03711111266601384,
+        0.9993112028780511,
+        -4.077302332753177e-05,
+        -6.029024124145508
+      ],
+      [
+        -0.9993105811165994,
+        0.037111135058919595,
+        0.0011147494659658128,
+        8.783312797546387
+      ],
+      [
+        0.0011154946979507717,
+        -6.246167215324971e-07,
+        0.9999993778354358,
+        0.0003007852064911276
+      ],
+      [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ]
+    ]
+  },
+  "started_at": "2026-10-31T06:13:18.966198+00:00",
+  "session": "fa168336fec6435a85853e1ce4a1da4d",
+  "scope": "live simulation; no staged robot poses",
+  "duration_video_s": 30.0,
+  "end_sim_s": 461.90002408996224,
+  "reason": "duration_reached",
+  "encoder_exit": 0,
+  "complete": true
+}

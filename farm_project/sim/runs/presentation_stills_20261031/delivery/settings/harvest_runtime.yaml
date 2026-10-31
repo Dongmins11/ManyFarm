@@ -1,0 +1,23 @@
+schema_version: 1
+configured: true
+mode: sim
+robot_id: harvest_01
+map_id: farm_map_v1
+map_yaml: sim/ros_ws/src/farm_sim_config/maps/hcr_farm_map.yaml
+route_graph: sim/ros_ws/src/farm_sim_config/maps/harvest_graph.geojson
+nav_params: sim/ros_ws/src/farm_sim_config/config/nav2_harvest.yaml
+device_config: sim/runs/section_full_cycle_return_20261031_155740/attempt_001/runtime/harvest.json
+navigation_policy: robot/config/navigation/harvest_navigation.yaml
+navigation:
+  map_frame: map
+  base_frame: harvest_01/base_footprint
+  heading_tolerance_rad: 0.10471975511965978
+harvest_config: sim/runs/section_full_cycle_return_20261031_155740/attempt_001/runtime/harvest_task.json
+tag_localization_config: sim/runs/section_full_cycle_return_20261031_155740/attempt_001/runtime/harvest_tag.yaml
+rviz_config: sim/ros_ws/src/farm_sim_config/config/harvest.rviz
+station_config: sim/ros_ws/src/farm_sim_config/config/station_spawn.json
+station_return_components: true
+station_return_navigation:
+  arrival_tolerance_m: 0.05
+  heading_tolerance_rad: 0.10471975511965978
+  collision_retry_count: 5

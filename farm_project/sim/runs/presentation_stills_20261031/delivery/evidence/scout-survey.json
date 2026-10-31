@@ -1,0 +1,3999 @@
+{
+  "session_id": "b72bfef3293b",
+  "goal": {
+    "robot_id": "scout_01",
+    "task_id": "cycle_scout_b32421fff845",
+    "section_id": "SEC01",
+    "map_id": "farm_map_v1",
+    "frame_id": "map",
+    "crop_type": "PAPRIKA",
+    "target_ripeness": "RIPE"
+  },
+  "config": {
+    "robot_id": "scout_01",
+    "map_id": "farm_map_v1",
+    "base_frame": "scout_01/base_footprint",
+    "vision_config": "sim/ros_ws/src/farm_sim_config/config/scout_vision.json",
+    "output_dir": "sim/runs/scout_survey",
+    "goal_timeout_s": 300.0,
+    "arrival_tolerance_m": 0.08,
+    "heading_tolerance_rad": 0.12,
+    "settle_s": 0.8,
+    "overlap_fraction": 0.15,
+    "association_distance_m": 0.065,
+    "association_band_half_depth_m": 0.2,
+    "evaluation": {
+      "T_map_world": [
+        [
+          1,
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          1,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          1,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          1
+        ]
+      ],
+      "note": "Current scene/map share XY axes and initial robot coordinates. Change this independent registration if map origin/rotation changes; never fit to predictions."
+    },
+    "schema_version": 1,
+    "sections": {
+      "SEC01": {
+        "bed_plane_from_route_m": 1.14,
+        "evaluation_bed_prim": "/World/Vegetation/Bed_02",
+        "harvest": {
+          "heading_offset_rad": 0.0,
+          "mount_xy_base_m": [
+            0.19,
+            0.185
+          ],
+          "work_offset_xy_base_m": [
+            0.0,
+            0.315
+          ],
+          "height_reference_m": 0.713,
+          "height_offsets_m": [
+            0.087,
+            0.35
+          ],
+          "width_m": 0.35,
+          "side_margin_m": 0.03,
+          "depth_m": 0.1,
+          "geometry_status": "오른팔 arm_2/base_link의 논리 base_footprint 장착점은 (0.19,0.185,0.713)m, yaw는 +pi/2다. 과실 root 후보 외곽 x=0.265..0.365, y=-0.175..0.175, z=0.087..0.35m를 작업 상자로 환산했다. 18개 이산 후보의 성공률이나 전체 IK·충돌 회피를 보장하지 않는다. 예찰은 RGB-D 표면 좌표, 평가는 과실 중심 좌표를 사용하므로 root·파지점과 동일하지 않다.",
+          "range_tolerance_m": 0.0,
+          "depth_tolerance_m": 0.02,
+          "membership_margin_m": 0.0
+        },
+        "finish_at": "last_segment",
+        "physical_bed_center_map_m": [
+          -5,
+          6
+        ],
+        "survey_side": "west",
+        "survey_geometry": {
+          "start_xy_m": [
+            -6.655,
+            10
+          ],
+          "end_xy_m": [
+            -6.655,
+            2
+          ]
+        },
+        "harvest_order": "work_heading",
+        "harvest_route": {
+          "x_m": -6.015,
+          "heading_rad": -1.5707963267948966,
+          "entry_node_id": 20102,
+          "exit_node_id": 20100
+        },
+        "route_file": "sim/ros_ws/src/farm_sim_config/maps/graph.geojson",
+        "node_ids": [
+          "SEC01_START",
+          10101,
+          10102,
+          10103,
+          10104,
+          10105,
+          "SEC01_END"
+        ],
+        "patrol_segments": [
+          {
+            "segment_id": "SEC01_G01",
+            "observation_node_id": 10101
+          },
+          {
+            "segment_id": "SEC01_G02",
+            "observation_node_id": 10102
+          },
+          {
+            "segment_id": "SEC01_G03",
+            "observation_node_id": 10103
+          },
+          {
+            "segment_id": "SEC01_G04",
+            "observation_node_id": 10104
+          },
+          {
+            "segment_id": "SEC01_G05",
+            "observation_node_id": 10105
+          }
+        ]
+      },
+      "SEC02": {
+        "bed_plane_from_route_m": 1.14,
+        "evaluation_bed_prim": "/World/Vegetation/Bed_02",
+        "harvest": {
+          "heading_offset_rad": 0.0,
+          "mount_xy_base_m": [
+            0.19,
+            0.185
+          ],
+          "work_offset_xy_base_m": [
+            0.0,
+            0.315
+          ],
+          "height_reference_m": 0.713,
+          "height_offsets_m": [
+            0.087,
+            0.35
+          ],
+          "width_m": 0.35,
+          "side_margin_m": 0.03,
+          "depth_m": 0.1,
+          "geometry_status": "오른팔 arm_2/base_link의 논리 base_footprint 장착점은 (0.19,0.185,0.713)m, yaw는 +pi/2다. 과실 root 후보 외곽 x=0.265..0.365, y=-0.175..0.175, z=0.087..0.35m를 작업 상자로 환산했다. 18개 이산 후보의 성공률이나 전체 IK·충돌 회피를 보장하지 않는다. 예찰은 RGB-D 표면 좌표, 평가는 과실 중심 좌표를 사용하므로 root·파지점과 동일하지 않다.",
+          "range_tolerance_m": 0.0,
+          "depth_tolerance_m": 0.02,
+          "membership_margin_m": 0.0
+        },
+        "finish_at": "last_segment",
+        "physical_bed_center_map_m": [
+          -5,
+          6
+        ],
+        "survey_side": "east",
+        "survey_geometry": {
+          "start_xy_m": [
+            -3.345,
+            2
+          ],
+          "end_xy_m": [
+            -3.345,
+            10
+          ]
+        },
+        "harvest_order": "work_heading",
+        "harvest_route": {
+          "x_m": -3.985,
+          "heading_rad": 1.5707963267948966,
+          "entry_node_id": 20202,
+          "exit_node_id": 20200
+        },
+        "route_file": "sim/ros_ws/src/farm_sim_config/maps/graph.geojson",
+        "node_ids": [
+          "SEC02_START",
+          10201,
+          10202,
+          10203,
+          10204,
+          10205,
+          "SEC02_END"
+        ],
+        "patrol_segments": [
+          {
+            "segment_id": "SEC02_G01",
+            "observation_node_id": 10201
+          },
+          {
+            "segment_id": "SEC02_G02",
+            "observation_node_id": 10202
+          },
+          {
+            "segment_id": "SEC02_G03",
+            "observation_node_id": 10203
+          },
+          {
+            "segment_id": "SEC02_G04",
+            "observation_node_id": 10204
+          },
+          {
+            "segment_id": "SEC02_G05",
+            "observation_node_id": 10205
+          }
+        ]
+      },
+      "SEC03": {
+        "bed_plane_from_route_m": 1.14,
+        "evaluation_bed_prim": "/World/Vegetation/Bed_04",
+        "harvest": {
+          "heading_offset_rad": 0.0,
+          "mount_xy_base_m": [
+            0.19,
+            0.185
+          ],
+          "work_offset_xy_base_m": [
+            0.0,
+            0.315
+          ],
+          "height_reference_m": 0.713,
+          "height_offsets_m": [
+            0.087,
+            0.35
+          ],
+          "width_m": 0.35,
+          "side_margin_m": 0.03,
+          "depth_m": 0.1,
+          "geometry_status": "오른팔 arm_2/base_link의 논리 base_footprint 장착점은 (0.19,0.185,0.713)m, yaw는 +pi/2다. 과실 root 후보 외곽 x=0.265..0.365, y=-0.175..0.175, z=0.087..0.35m를 작업 상자로 환산했다. 18개 이산 후보의 성공률이나 전체 IK·충돌 회피를 보장하지 않는다. 예찰은 RGB-D 표면 좌표, 평가는 과실 중심 좌표를 사용하므로 root·파지점과 동일하지 않다.",
+          "range_tolerance_m": 0.0,
+          "depth_tolerance_m": 0.02,
+          "membership_margin_m": 0.0
+        },
+        "finish_at": "last_segment",
+        "physical_bed_center_map_m": [
+          -2,
+          6
+        ],
+        "survey_side": "west",
+        "survey_geometry": {
+          "start_xy_m": [
+            -3.655,
+            10
+          ],
+          "end_xy_m": [
+            -3.655,
+            2
+          ]
+        },
+        "harvest_order": "work_heading",
+        "harvest_route": {
+          "x_m": -3.015,
+          "heading_rad": -1.5707963267948966,
+          "entry_node_id": 20302,
+          "exit_node_id": 20300
+        },
+        "route_file": "sim/ros_ws/src/farm_sim_config/maps/graph.geojson",
+        "node_ids": [
+          "SEC03_START",
+          10301,
+          10302,
+          10303,
+          10304,
+          10305,
+          "SEC03_END"
+        ],
+        "patrol_segments": [
+          {
+            "segment_id": "SEC03_G01",
+            "observation_node_id": 10301
+          },
+          {
+            "segment_id": "SEC03_G02",
+            "observation_node_id": 10302
+          },
+          {
+            "segment_id": "SEC03_G03",
+            "observation_node_id": 10303
+          },
+          {
+            "segment_id": "SEC03_G04",
+            "observation_node_id": 10304
+          },
+          {
+            "segment_id": "SEC03_G05",
+            "observation_node_id": 10305
+          }
+        ]
+      },
+      "SEC04": {
+        "bed_plane_from_route_m": 1.14,
+        "evaluation_bed_prim": "/World/Vegetation/Bed_04",
+        "harvest": {
+          "heading_offset_rad": 0.0,
+          "mount_xy_base_m": [
+            0.19,
+            0.185
+          ],
+          "work_offset_xy_base_m": [
+            0.0,
+            0.315
+          ],
+          "height_reference_m": 0.713,
+          "height_offsets_m": [
+            0.087,
+            0.35
+          ],
+          "width_m": 0.35,
+          "side_margin_m": 0.03,
+          "depth_m": 0.1,
+          "geometry_status": "오른팔 arm_2/base_link의 논리 base_footprint 장착점은 (0.19,0.185,0.713)m, yaw는 +pi/2다. 과실 root 후보 외곽 x=0.265..0.365, y=-0.175..0.175, z=0.087..0.35m를 작업 상자로 환산했다. 18개 이산 후보의 성공률이나 전체 IK·충돌 회피를 보장하지 않는다. 예찰은 RGB-D 표면 좌표, 평가는 과실 중심 좌표를 사용하므로 root·파지점과 동일하지 않다.",
+          "range_tolerance_m": 0.0,
+          "depth_tolerance_m": 0.02,
+          "membership_margin_m": 0.0
+        },
+        "finish_at": "last_segment",
+        "physical_bed_center_map_m": [
+          -2,
+          6
+        ],
+        "survey_side": "east",
+        "survey_geometry": {
+          "start_xy_m": [
+            -0.345,
+            2
+          ],
+          "end_xy_m": [
+            -0.345,
+            10
+          ]
+        },
+        "harvest_order": "work_heading",
+        "harvest_route": {
+          "x_m": -0.985,
+          "heading_rad": 1.5707963267948966,
+          "entry_node_id": 20402,
+          "exit_node_id": 20400
+        },
+        "route_file": "sim/ros_ws/src/farm_sim_config/maps/graph.geojson",
+        "node_ids": [
+          "SEC04_START",
+          10401,
+          10402,
+          10403,
+          10404,
+          10405,
+          "SEC04_END"
+        ],
+        "patrol_segments": [
+          {
+            "segment_id": "SEC04_G01",
+            "observation_node_id": 10401
+          },
+          {
+            "segment_id": "SEC04_G02",
+            "observation_node_id": 10402
+          },
+          {
+            "segment_id": "SEC04_G03",
+            "observation_node_id": 10403
+          },
+          {
+            "segment_id": "SEC04_G04",
+            "observation_node_id": 10404
+          },
+          {
+            "segment_id": "SEC04_G05",
+            "observation_node_id": 10405
+          }
+        ]
+      },
+      "SEC05": {
+        "bed_plane_from_route_m": 1.14,
+        "evaluation_bed_prim": "/World/Vegetation/Bed_06",
+        "harvest": {
+          "heading_offset_rad": 0.0,
+          "mount_xy_base_m": [
+            0.19,
+            0.185
+          ],
+          "work_offset_xy_base_m": [
+            0.0,
+            0.315
+          ],
+          "height_reference_m": 0.713,
+          "height_offsets_m": [
+            0.087,
+            0.35
+          ],
+          "width_m": 0.35,
+          "side_margin_m": 0.03,
+          "depth_m": 0.1,
+          "geometry_status": "오른팔 arm_2/base_link의 논리 base_footprint 장착점은 (0.19,0.185,0.713)m, yaw는 +pi/2다. 과실 root 후보 외곽 x=0.265..0.365, y=-0.175..0.175, z=0.087..0.35m를 작업 상자로 환산했다. 18개 이산 후보의 성공률이나 전체 IK·충돌 회피를 보장하지 않는다. 예찰은 RGB-D 표면 좌표, 평가는 과실 중심 좌표를 사용하므로 root·파지점과 동일하지 않다.",
+          "range_tolerance_m": 0.0,
+          "depth_tolerance_m": 0.02,
+          "membership_margin_m": 0.0
+        },
+        "finish_at": "last_segment",
+        "physical_bed_center_map_m": [
+          2,
+          6
+        ],
+        "survey_side": "west",
+        "survey_geometry": {
+          "start_xy_m": [
+            0.345,
+            10
+          ],
+          "end_xy_m": [
+            0.345,
+            2
+          ]
+        },
+        "harvest_order": "work_heading",
+        "harvest_route": {
+          "x_m": 0.985,
+          "heading_rad": -1.5707963267948966,
+          "entry_node_id": 20502,
+          "exit_node_id": 20500
+        },
+        "route_file": "sim/ros_ws/src/farm_sim_config/maps/graph.geojson",
+        "node_ids": [
+          "SEC05_START",
+          10501,
+          10502,
+          10503,
+          10504,
+          10505,
+          "SEC05_END"
+        ],
+        "patrol_segments": [
+          {
+            "segment_id": "SEC05_G01",
+            "observation_node_id": 10501
+          },
+          {
+            "segment_id": "SEC05_G02",
+            "observation_node_id": 10502
+          },
+          {
+            "segment_id": "SEC05_G03",
+            "observation_node_id": 10503
+          },
+          {
+            "segment_id": "SEC05_G04",
+            "observation_node_id": 10504
+          },
+          {
+            "segment_id": "SEC05_G05",
+            "observation_node_id": 10505
+          }
+        ]
+      },
+      "SEC06": {
+        "bed_plane_from_route_m": 1.14,
+        "evaluation_bed_prim": "/World/Vegetation/Bed_06",
+        "harvest": {
+          "heading_offset_rad": 0.0,
+          "mount_xy_base_m": [
+            0.19,
+            0.185
+          ],
+          "work_offset_xy_base_m": [
+            0.0,
+            0.315
+          ],
+          "height_reference_m": 0.713,
+          "height_offsets_m": [
+            0.087,
+            0.35
+          ],
+          "width_m": 0.35,
+          "side_margin_m": 0.03,
+          "depth_m": 0.1,
+          "geometry_status": "오른팔 arm_2/base_link의 논리 base_footprint 장착점은 (0.19,0.185,0.713)m, yaw는 +pi/2다. 과실 root 후보 외곽 x=0.265..0.365, y=-0.175..0.175, z=0.087..0.35m를 작업 상자로 환산했다. 18개 이산 후보의 성공률이나 전체 IK·충돌 회피를 보장하지 않는다. 예찰은 RGB-D 표면 좌표, 평가는 과실 중심 좌표를 사용하므로 root·파지점과 동일하지 않다.",
+          "range_tolerance_m": 0.0,
+          "depth_tolerance_m": 0.02,
+          "membership_margin_m": 0.0
+        },
+        "finish_at": "last_segment",
+        "physical_bed_center_map_m": [
+          2,
+          6
+        ],
+        "survey_side": "east",
+        "survey_geometry": {
+          "start_xy_m": [
+            3.655,
+            2
+          ],
+          "end_xy_m": [
+            3.655,
+            10
+          ]
+        },
+        "harvest_order": "work_heading",
+        "harvest_route": {
+          "x_m": 3.015,
+          "heading_rad": 1.5707963267948966,
+          "entry_node_id": 20602,
+          "exit_node_id": 20600
+        },
+        "route_file": "sim/ros_ws/src/farm_sim_config/maps/graph.geojson",
+        "node_ids": [
+          "SEC06_START",
+          10601,
+          10602,
+          10603,
+          10604,
+          10605,
+          "SEC06_END"
+        ],
+        "patrol_segments": [
+          {
+            "segment_id": "SEC06_G01",
+            "observation_node_id": 10601
+          },
+          {
+            "segment_id": "SEC06_G02",
+            "observation_node_id": 10602
+          },
+          {
+            "segment_id": "SEC06_G03",
+            "observation_node_id": 10603
+          },
+          {
+            "segment_id": "SEC06_G04",
+            "observation_node_id": 10604
+          },
+          {
+            "segment_id": "SEC06_G05",
+            "observation_node_id": 10605
+          }
+        ]
+      },
+      "SEC07": {
+        "bed_plane_from_route_m": 1.14,
+        "evaluation_bed_prim": "/World/Vegetation/Bed_08",
+        "harvest": {
+          "heading_offset_rad": 0.0,
+          "mount_xy_base_m": [
+            0.19,
+            0.185
+          ],
+          "work_offset_xy_base_m": [
+            0.0,
+            0.315
+          ],
+          "height_reference_m": 0.713,
+          "height_offsets_m": [
+            0.087,
+            0.35
+          ],
+          "width_m": 0.35,
+          "side_margin_m": 0.03,
+          "depth_m": 0.1,
+          "geometry_status": "오른팔 arm_2/base_link의 논리 base_footprint 장착점은 (0.19,0.185,0.713)m, yaw는 +pi/2다. 과실 root 후보 외곽 x=0.265..0.365, y=-0.175..0.175, z=0.087..0.35m를 작업 상자로 환산했다. 18개 이산 후보의 성공률이나 전체 IK·충돌 회피를 보장하지 않는다. 예찰은 RGB-D 표면 좌표, 평가는 과실 중심 좌표를 사용하므로 root·파지점과 동일하지 않다.",
+          "range_tolerance_m": 0.0,
+          "depth_tolerance_m": 0.02,
+          "membership_margin_m": 0.0
+        },
+        "finish_at": "last_segment",
+        "physical_bed_center_map_m": [
+          5,
+          6
+        ],
+        "survey_side": "west",
+        "survey_geometry": {
+          "start_xy_m": [
+            3.345,
+            10
+          ],
+          "end_xy_m": [
+            3.345,
+            2
+          ]
+        },
+        "harvest_order": "work_heading",
+        "harvest_route": {
+          "x_m": 3.985,
+          "heading_rad": -1.5707963267948966,
+          "entry_node_id": 20702,
+          "exit_node_id": 20700
+        },
+        "route_file": "sim/ros_ws/src/farm_sim_config/maps/graph.geojson",
+        "node_ids": [
+          "SEC07_START",
+          10701,
+          10702,
+          10703,
+          10704,
+          10705,
+          "SEC07_END"
+        ],
+        "patrol_segments": [
+          {
+            "segment_id": "SEC07_G01",
+            "observation_node_id": 10701
+          },
+          {
+            "segment_id": "SEC07_G02",
+            "observation_node_id": 10702
+          },
+          {
+            "segment_id": "SEC07_G03",
+            "observation_node_id": 10703
+          },
+          {
+            "segment_id": "SEC07_G04",
+            "observation_node_id": 10704
+          },
+          {
+            "segment_id": "SEC07_G05",
+            "observation_node_id": 10705
+          }
+        ]
+      },
+      "SEC08": {
+        "bed_plane_from_route_m": 1.14,
+        "evaluation_bed_prim": "/World/Vegetation/Bed_08",
+        "harvest": {
+          "heading_offset_rad": 0.0,
+          "mount_xy_base_m": [
+            0.19,
+            0.185
+          ],
+          "work_offset_xy_base_m": [
+            0.0,
+            0.315
+          ],
+          "height_reference_m": 0.713,
+          "height_offsets_m": [
+            0.087,
+            0.35
+          ],
+          "width_m": 0.35,
+          "side_margin_m": 0.03,
+          "depth_m": 0.1,
+          "geometry_status": "오른팔 arm_2/base_link의 논리 base_footprint 장착점은 (0.19,0.185,0.713)m, yaw는 +pi/2다. 과실 root 후보 외곽 x=0.265..0.365, y=-0.175..0.175, z=0.087..0.35m를 작업 상자로 환산했다. 18개 이산 후보의 성공률이나 전체 IK·충돌 회피를 보장하지 않는다. 예찰은 RGB-D 표면 좌표, 평가는 과실 중심 좌표를 사용하므로 root·파지점과 동일하지 않다.",
+          "range_tolerance_m": 0.0,
+          "depth_tolerance_m": 0.02,
+          "membership_margin_m": 0.0
+        },
+        "finish_at": "last_segment",
+        "physical_bed_center_map_m": [
+          5,
+          6
+        ],
+        "survey_side": "east",
+        "survey_geometry": {
+          "start_xy_m": [
+            6.655,
+            2
+          ],
+          "end_xy_m": [
+            6.655,
+            10
+          ]
+        },
+        "harvest_order": "work_heading",
+        "harvest_route": {
+          "x_m": 6.015,
+          "heading_rad": 1.5707963267948966,
+          "entry_node_id": 20802,
+          "exit_node_id": 20800
+        },
+        "route_file": "sim/ros_ws/src/farm_sim_config/maps/graph.geojson",
+        "node_ids": [
+          "SEC08_START",
+          10801,
+          10802,
+          10803,
+          10804,
+          10805,
+          "SEC08_END"
+        ],
+        "patrol_segments": [
+          {
+            "segment_id": "SEC08_G01",
+            "observation_node_id": 10801
+          },
+          {
+            "segment_id": "SEC08_G02",
+            "observation_node_id": 10802
+          },
+          {
+            "segment_id": "SEC08_G03",
+            "observation_node_id": 10803
+          },
+          {
+            "segment_id": "SEC08_G04",
+            "observation_node_id": 10804
+          },
+          {
+            "segment_id": "SEC08_G05",
+            "observation_node_id": 10805
+          }
+        ]
+      },
+      "SEC09": {
+        "bed_plane_from_route_m": 1.14,
+        "evaluation_bed_prim": "/World/Vegetation/Bed_01",
+        "harvest": {
+          "heading_offset_rad": 0.0,
+          "mount_xy_base_m": [
+            0.19,
+            0.185
+          ],
+          "work_offset_xy_base_m": [
+            0.0,
+            0.315
+          ],
+          "height_reference_m": 0.713,
+          "height_offsets_m": [
+            0.087,
+            0.35
+          ],
+          "width_m": 0.35,
+          "side_margin_m": 0.03,
+          "depth_m": 0.1,
+          "geometry_status": "오른팔 arm_2/base_link의 논리 base_footprint 장착점은 (0.19,0.185,0.713)m, yaw는 +pi/2다. 과실 root 후보 외곽 x=0.265..0.365, y=-0.175..0.175, z=0.087..0.35m를 작업 상자로 환산했다. 18개 이산 후보의 성공률이나 전체 IK·충돌 회피를 보장하지 않는다. 예찰은 RGB-D 표면 좌표, 평가는 과실 중심 좌표를 사용하므로 root·파지점과 동일하지 않다.",
+          "range_tolerance_m": 0.0,
+          "depth_tolerance_m": 0.02,
+          "membership_margin_m": 0.0
+        },
+        "finish_at": "last_segment",
+        "physical_bed_center_map_m": [
+          -5,
+          -6
+        ],
+        "survey_side": "west",
+        "survey_geometry": {
+          "start_xy_m": [
+            -6.655,
+            -2
+          ],
+          "end_xy_m": [
+            -6.655,
+            -10
+          ]
+        },
+        "harvest_order": "work_heading",
+        "harvest_route": {
+          "x_m": -6.015,
+          "heading_rad": -1.5707963267948966,
+          "entry_node_id": 20902,
+          "exit_node_id": 20900
+        },
+        "route_file": "sim/ros_ws/src/farm_sim_config/maps/graph.geojson",
+        "node_ids": [
+          "SEC09_START",
+          10901,
+          10902,
+          10903,
+          10904,
+          10905,
+          "SEC09_END"
+        ],
+        "patrol_segments": [
+          {
+            "segment_id": "SEC09_G01",
+            "observation_node_id": 10901
+          },
+          {
+            "segment_id": "SEC09_G02",
+            "observation_node_id": 10902
+          },
+          {
+            "segment_id": "SEC09_G03",
+            "observation_node_id": 10903
+          },
+          {
+            "segment_id": "SEC09_G04",
+            "observation_node_id": 10904
+          },
+          {
+            "segment_id": "SEC09_G05",
+            "observation_node_id": 10905
+          }
+        ]
+      },
+      "SEC10": {
+        "bed_plane_from_route_m": 1.14,
+        "evaluation_bed_prim": "/World/Vegetation/Bed_01",
+        "harvest": {
+          "heading_offset_rad": 0.0,
+          "mount_xy_base_m": [
+            0.19,
+            0.185
+          ],
+          "work_offset_xy_base_m": [
+            0.0,
+            0.315
+          ],
+          "height_reference_m": 0.713,
+          "height_offsets_m": [
+            0.087,
+            0.35
+          ],
+          "width_m": 0.35,
+          "side_margin_m": 0.03,
+          "depth_m": 0.1,
+          "geometry_status": "오른팔 arm_2/base_link의 논리 base_footprint 장착점은 (0.19,0.185,0.713)m, yaw는 +pi/2다. 과실 root 후보 외곽 x=0.265..0.365, y=-0.175..0.175, z=0.087..0.35m를 작업 상자로 환산했다. 18개 이산 후보의 성공률이나 전체 IK·충돌 회피를 보장하지 않는다. 예찰은 RGB-D 표면 좌표, 평가는 과실 중심 좌표를 사용하므로 root·파지점과 동일하지 않다.",
+          "range_tolerance_m": 0.0,
+          "depth_tolerance_m": 0.02,
+          "membership_margin_m": 0.0
+        },
+        "finish_at": "last_segment",
+        "physical_bed_center_map_m": [
+          -5,
+          -6
+        ],
+        "survey_side": "east",
+        "survey_geometry": {
+          "start_xy_m": [
+            -3.345,
+            -10
+          ],
+          "end_xy_m": [
+            -3.345,
+            -2
+          ]
+        },
+        "harvest_order": "work_heading",
+        "harvest_route": {
+          "x_m": -3.985,
+          "heading_rad": 1.5707963267948966,
+          "entry_node_id": 21002,
+          "exit_node_id": 21000
+        },
+        "route_file": "sim/ros_ws/src/farm_sim_config/maps/graph.geojson",
+        "node_ids": [
+          "SEC10_START",
+          11001,
+          11002,
+          11003,
+          11004,
+          11005,
+          "SEC10_END"
+        ],
+        "patrol_segments": [
+          {
+            "segment_id": "SEC10_G01",
+            "observation_node_id": 11001
+          },
+          {
+            "segment_id": "SEC10_G02",
+            "observation_node_id": 11002
+          },
+          {
+            "segment_id": "SEC10_G03",
+            "observation_node_id": 11003
+          },
+          {
+            "segment_id": "SEC10_G04",
+            "observation_node_id": 11004
+          },
+          {
+            "segment_id": "SEC10_G05",
+            "observation_node_id": 11005
+          }
+        ]
+      },
+      "SEC11": {
+        "bed_plane_from_route_m": 1.14,
+        "evaluation_bed_prim": "/World/Vegetation/Bed_03",
+        "harvest": {
+          "heading_offset_rad": 0.0,
+          "mount_xy_base_m": [
+            0.19,
+            0.185
+          ],
+          "work_offset_xy_base_m": [
+            0.0,
+            0.315
+          ],
+          "height_reference_m": 0.713,
+          "height_offsets_m": [
+            0.087,
+            0.35
+          ],
+          "width_m": 0.35,
+          "side_margin_m": 0.03,
+          "depth_m": 0.1,
+          "geometry_status": "오른팔 arm_2/base_link의 논리 base_footprint 장착점은 (0.19,0.185,0.713)m, yaw는 +pi/2다. 과실 root 후보 외곽 x=0.265..0.365, y=-0.175..0.175, z=0.087..0.35m를 작업 상자로 환산했다. 18개 이산 후보의 성공률이나 전체 IK·충돌 회피를 보장하지 않는다. 예찰은 RGB-D 표면 좌표, 평가는 과실 중심 좌표를 사용하므로 root·파지점과 동일하지 않다.",
+          "range_tolerance_m": 0.0,
+          "depth_tolerance_m": 0.02,
+          "membership_margin_m": 0.0
+        },
+        "finish_at": "last_segment",
+        "physical_bed_center_map_m": [
+          -2,
+          -6
+        ],
+        "survey_side": "west",
+        "survey_geometry": {
+          "start_xy_m": [
+            -3.655,
+            -2
+          ],
+          "end_xy_m": [
+            -3.655,
+            -10
+          ]
+        },
+        "harvest_order": "work_heading",
+        "harvest_route": {
+          "x_m": -3.015,
+          "heading_rad": -1.5707963267948966,
+          "entry_node_id": 21102,
+          "exit_node_id": 21100
+        },
+        "route_file": "sim/ros_ws/src/farm_sim_config/maps/graph.geojson",
+        "node_ids": [
+          "SEC11_START",
+          11101,
+          11102,
+          11103,
+          11104,
+          11105,
+          "SEC11_END"
+        ],
+        "patrol_segments": [
+          {
+            "segment_id": "SEC11_G01",
+            "observation_node_id": 11101
+          },
+          {
+            "segment_id": "SEC11_G02",
+            "observation_node_id": 11102
+          },
+          {
+            "segment_id": "SEC11_G03",
+            "observation_node_id": 11103
+          },
+          {
+            "segment_id": "SEC11_G04",
+            "observation_node_id": 11104
+          },
+          {
+            "segment_id": "SEC11_G05",
+            "observation_node_id": 11105
+          }
+        ]
+      },
+      "SEC12": {
+        "bed_plane_from_route_m": 1.14,
+        "evaluation_bed_prim": "/World/Vegetation/Bed_03",
+        "harvest": {
+          "heading_offset_rad": 0.0,
+          "mount_xy_base_m": [
+            0.19,
+            0.185
+          ],
+          "work_offset_xy_base_m": [
+            0.0,
+            0.315
+          ],
+          "height_reference_m": 0.713,
+          "height_offsets_m": [
+            0.087,
+            0.35
+          ],
+          "width_m": 0.35,
+          "side_margin_m": 0.03,
+          "depth_m": 0.1,
+          "geometry_status": "오른팔 arm_2/base_link의 논리 base_footprint 장착점은 (0.19,0.185,0.713)m, yaw는 +pi/2다. 과실 root 후보 외곽 x=0.265..0.365, y=-0.175..0.175, z=0.087..0.35m를 작업 상자로 환산했다. 18개 이산 후보의 성공률이나 전체 IK·충돌 회피를 보장하지 않는다. 예찰은 RGB-D 표면 좌표, 평가는 과실 중심 좌표를 사용하므로 root·파지점과 동일하지 않다.",
+          "range_tolerance_m": 0.0,
+          "depth_tolerance_m": 0.02,
+          "membership_margin_m": 0.0
+        },
+        "finish_at": "last_segment",
+        "physical_bed_center_map_m": [
+          -2,
+          -6
+        ],
+        "survey_side": "east",
+        "survey_geometry": {
+          "start_xy_m": [
+            -0.345,
+            -10
+          ],
+          "end_xy_m": [
+            -0.345,
+            -2
+          ]
+        },
+        "harvest_order": "work_heading",
+        "harvest_route": {
+          "x_m": -0.985,
+          "heading_rad": 1.5707963267948966,
+          "entry_node_id": 21202,
+          "exit_node_id": 21200
+        },
+        "route_file": "sim/ros_ws/src/farm_sim_config/maps/graph.geojson",
+        "node_ids": [
+          "SEC12_START",
+          11201,
+          11202,
+          11203,
+          11204,
+          11205,
+          "SEC12_END"
+        ],
+        "patrol_segments": [
+          {
+            "segment_id": "SEC12_G01",
+            "observation_node_id": 11201
+          },
+          {
+            "segment_id": "SEC12_G02",
+            "observation_node_id": 11202
+          },
+          {
+            "segment_id": "SEC12_G03",
+            "observation_node_id": 11203
+          },
+          {
+            "segment_id": "SEC12_G04",
+            "observation_node_id": 11204
+          },
+          {
+            "segment_id": "SEC12_G05",
+            "observation_node_id": 11205
+          }
+        ]
+      },
+      "SEC13": {
+        "bed_plane_from_route_m": 1.14,
+        "evaluation_bed_prim": "/World/Vegetation/Bed_05",
+        "harvest": {
+          "heading_offset_rad": 0.0,
+          "mount_xy_base_m": [
+            0.19,
+            0.185
+          ],
+          "work_offset_xy_base_m": [
+            0.0,
+            0.315
+          ],
+          "height_reference_m": 0.713,
+          "height_offsets_m": [
+            0.087,
+            0.35
+          ],
+          "width_m": 0.35,
+          "side_margin_m": 0.03,
+          "depth_m": 0.1,
+          "geometry_status": "오른팔 arm_2/base_link의 논리 base_footprint 장착점은 (0.19,0.185,0.713)m, yaw는 +pi/2다. 과실 root 후보 외곽 x=0.265..0.365, y=-0.175..0.175, z=0.087..0.35m를 작업 상자로 환산했다. 18개 이산 후보의 성공률이나 전체 IK·충돌 회피를 보장하지 않는다. 예찰은 RGB-D 표면 좌표, 평가는 과실 중심 좌표를 사용하므로 root·파지점과 동일하지 않다.",
+          "range_tolerance_m": 0.0,
+          "depth_tolerance_m": 0.02,
+          "membership_margin_m": 0.0
+        },
+        "finish_at": "last_segment",
+        "physical_bed_center_map_m": [
+          2,
+          -6
+        ],
+        "survey_side": "west",
+        "survey_geometry": {
+          "start_xy_m": [
+            0.345,
+            -2
+          ],
+          "end_xy_m": [
+            0.345,
+            -10
+          ]
+        },
+        "harvest_order": "work_heading",
+        "harvest_route": {
+          "x_m": 0.985,
+          "heading_rad": -1.5707963267948966,
+          "entry_node_id": 21302,
+          "exit_node_id": 21300
+        },
+        "route_file": "sim/ros_ws/src/farm_sim_config/maps/graph.geojson",
+        "node_ids": [
+          "SEC13_START",
+          11301,
+          11302,
+          11303,
+          11304,
+          11305,
+          "SEC13_END"
+        ],
+        "patrol_segments": [
+          {
+            "segment_id": "SEC13_G01",
+            "observation_node_id": 11301
+          },
+          {
+            "segment_id": "SEC13_G02",
+            "observation_node_id": 11302
+          },
+          {
+            "segment_id": "SEC13_G03",
+            "observation_node_id": 11303
+          },
+          {
+            "segment_id": "SEC13_G04",
+            "observation_node_id": 11304
+          },
+          {
+            "segment_id": "SEC13_G05",
+            "observation_node_id": 11305
+          }
+        ]
+      },
+      "SEC14": {
+        "bed_plane_from_route_m": 1.14,
+        "evaluation_bed_prim": "/World/Vegetation/Bed_05",
+        "harvest": {
+          "heading_offset_rad": 0.0,
+          "mount_xy_base_m": [
+            0.19,
+            0.185
+          ],
+          "work_offset_xy_base_m": [
+            0.0,
+            0.315
+          ],
+          "height_reference_m": 0.713,
+          "height_offsets_m": [
+            0.087,
+            0.35
+          ],
+          "width_m": 0.35,
+          "side_margin_m": 0.03,
+          "depth_m": 0.1,
+          "geometry_status": "오른팔 arm_2/base_link의 논리 base_footprint 장착점은 (0.19,0.185,0.713)m, yaw는 +pi/2다. 과실 root 후보 외곽 x=0.265..0.365, y=-0.175..0.175, z=0.087..0.35m를 작업 상자로 환산했다. 18개 이산 후보의 성공률이나 전체 IK·충돌 회피를 보장하지 않는다. 예찰은 RGB-D 표면 좌표, 평가는 과실 중심 좌표를 사용하므로 root·파지점과 동일하지 않다.",
+          "range_tolerance_m": 0.0,
+          "depth_tolerance_m": 0.02,
+          "membership_margin_m": 0.0
+        },
+        "finish_at": "last_segment",
+        "physical_bed_center_map_m": [
+          2,
+          -6
+        ],
+        "survey_side": "east",
+        "survey_geometry": {
+          "start_xy_m": [
+            3.655,
+            -10
+          ],
+          "end_xy_m": [
+            3.655,
+            -2
+          ]
+        },
+        "harvest_order": "work_heading",
+        "harvest_route": {
+          "x_m": 3.015,
+          "heading_rad": 1.5707963267948966,
+          "entry_node_id": 21402,
+          "exit_node_id": 21400
+        },
+        "route_file": "sim/ros_ws/src/farm_sim_config/maps/graph.geojson",
+        "node_ids": [
+          "SEC14_START",
+          11401,
+          11402,
+          11403,
+          11404,
+          11405,
+          "SEC14_END"
+        ],
+        "patrol_segments": [
+          {
+            "segment_id": "SEC14_G01",
+            "observation_node_id": 11401
+          },
+          {
+            "segment_id": "SEC14_G02",
+            "observation_node_id": 11402
+          },
+          {
+            "segment_id": "SEC14_G03",
+            "observation_node_id": 11403
+          },
+          {
+            "segment_id": "SEC14_G04",
+            "observation_node_id": 11404
+          },
+          {
+            "segment_id": "SEC14_G05",
+            "observation_node_id": 11405
+          }
+        ]
+      },
+      "SEC15": {
+        "bed_plane_from_route_m": 1.14,
+        "evaluation_bed_prim": "/World/Vegetation/Bed_07",
+        "harvest": {
+          "heading_offset_rad": 0.0,
+          "mount_xy_base_m": [
+            0.19,
+            0.185
+          ],
+          "work_offset_xy_base_m": [
+            0.0,
+            0.315
+          ],
+          "height_reference_m": 0.713,
+          "height_offsets_m": [
+            0.087,
+            0.35
+          ],
+          "width_m": 0.35,
+          "side_margin_m": 0.03,
+          "depth_m": 0.1,
+          "geometry_status": "오른팔 arm_2/base_link의 논리 base_footprint 장착점은 (0.19,0.185,0.713)m, yaw는 +pi/2다. 과실 root 후보 외곽 x=0.265..0.365, y=-0.175..0.175, z=0.087..0.35m를 작업 상자로 환산했다. 18개 이산 후보의 성공률이나 전체 IK·충돌 회피를 보장하지 않는다. 예찰은 RGB-D 표면 좌표, 평가는 과실 중심 좌표를 사용하므로 root·파지점과 동일하지 않다.",
+          "range_tolerance_m": 0.0,
+          "depth_tolerance_m": 0.02,
+          "membership_margin_m": 0.0
+        },
+        "finish_at": "last_segment",
+        "physical_bed_center_map_m": [
+          5,
+          -6
+        ],
+        "survey_side": "west",
+        "survey_geometry": {
+          "start_xy_m": [
+            3.345,
+            -2
+          ],
+          "end_xy_m": [
+            3.345,
+            -10
+          ]
+        },
+        "harvest_order": "work_heading",
+        "harvest_route": {
+          "x_m": 3.985,
+          "heading_rad": -1.5707963267948966,
+          "entry_node_id": 21502,
+          "exit_node_id": 21500
+        },
+        "route_file": "sim/ros_ws/src/farm_sim_config/maps/graph.geojson",
+        "node_ids": [
+          "SEC15_START",
+          11501,
+          11502,
+          11503,
+          11504,
+          11505,
+          "SEC15_END"
+        ],
+        "patrol_segments": [
+          {
+            "segment_id": "SEC15_G01",
+            "observation_node_id": 11501
+          },
+          {
+            "segment_id": "SEC15_G02",
+            "observation_node_id": 11502
+          },
+          {
+            "segment_id": "SEC15_G03",
+            "observation_node_id": 11503
+          },
+          {
+            "segment_id": "SEC15_G04",
+            "observation_node_id": 11504
+          },
+          {
+            "segment_id": "SEC15_G05",
+            "observation_node_id": 11505
+          }
+        ]
+      },
+      "SEC16": {
+        "bed_plane_from_route_m": 1.14,
+        "evaluation_bed_prim": "/World/Vegetation/Bed_07",
+        "harvest": {
+          "heading_offset_rad": 0.0,
+          "mount_xy_base_m": [
+            0.19,
+            0.185
+          ],
+          "work_offset_xy_base_m": [
+            0.0,
+            0.315
+          ],
+          "height_reference_m": 0.713,
+          "height_offsets_m": [
+            0.087,
+            0.35
+          ],
+          "width_m": 0.35,
+          "side_margin_m": 0.03,
+          "depth_m": 0.1,
+          "geometry_status": "오른팔 arm_2/base_link의 논리 base_footprint 장착점은 (0.19,0.185,0.713)m, yaw는 +pi/2다. 과실 root 후보 외곽 x=0.265..0.365, y=-0.175..0.175, z=0.087..0.35m를 작업 상자로 환산했다. 18개 이산 후보의 성공률이나 전체 IK·충돌 회피를 보장하지 않는다. 예찰은 RGB-D 표면 좌표, 평가는 과실 중심 좌표를 사용하므로 root·파지점과 동일하지 않다.",
+          "range_tolerance_m": 0.0,
+          "depth_tolerance_m": 0.02,
+          "membership_margin_m": 0.0
+        },
+        "finish_at": "last_segment",
+        "physical_bed_center_map_m": [
+          5,
+          -6
+        ],
+        "survey_side": "east",
+        "survey_geometry": {
+          "start_xy_m": [
+            6.655,
+            -10
+          ],
+          "end_xy_m": [
+            6.655,
+            -2
+          ]
+        },
+        "harvest_order": "work_heading",
+        "harvest_route": {
+          "x_m": 6.015,
+          "heading_rad": 1.5707963267948966,
+          "entry_node_id": 21602,
+          "exit_node_id": 21600
+        },
+        "route_file": "sim/ros_ws/src/farm_sim_config/maps/graph.geojson",
+        "node_ids": [
+          "SEC16_START",
+          11601,
+          11602,
+          11603,
+          11604,
+          11605,
+          "SEC16_END"
+        ],
+        "patrol_segments": [
+          {
+            "segment_id": "SEC16_G01",
+            "observation_node_id": 11601
+          },
+          {
+            "segment_id": "SEC16_G02",
+            "observation_node_id": 11602
+          },
+          {
+            "segment_id": "SEC16_G03",
+            "observation_node_id": 11603
+          },
+          {
+            "segment_id": "SEC16_G04",
+            "observation_node_id": 11604
+          },
+          {
+            "segment_id": "SEC16_G05",
+            "observation_node_id": 11605
+          }
+        ]
+      }
+    }
+  },
+  "vision_config": {
+    "schema_version": 1,
+    "shm_name": "farm_scout_01_rgbd",
+    "model": "robot/models/scout/yolo11_seg_2class_synth_and_sim_v2.0.pt",
+    "save_dir": "sim/runs/scout_vision",
+    "max_fps": 15.0,
+    "max_frame_age_s": 2.0,
+    "startup_timeout_s": 300.0,
+    "rpc_timeout_s": 180.0,
+    "preprocess": {
+      "edge_fraction": 0.05,
+      "camera_to_bed_plane_m": 1.14,
+      "height_band_m": [
+        0.613,
+        1.063
+      ],
+      "input_size": 640,
+      "pad_value": 114,
+      "vertical_margin_fraction": 0.1
+    },
+    "inference": {
+      "confidence": 0.25,
+      "iou": 0.7,
+      "max_detections": 100,
+      "minimum_mask_pixels": 6,
+      "half": false
+    },
+    "notes": [
+      "height_band_m는 오른팔 arm_2/base_link 장착점 Z=0.713m에 과실 root 외곽 높이 [-0.10,+0.35]m를 더한 범위입니다. 예찰 영상 크롭 기준이며 표면 관측을 root·파지점으로 변환하거나 전체 도달 가능성을 인증하지 않습니다. 농장 배치의 추가 Z 이동·스케일이 없고 지면 기준이 같다는 조건입니다.",
+      "B의 좌우 5% 제외와 상하 높이 양끝에서 공통 확보되는 관측 폭 계산을 이식했습니다.",
+      "기존 B는 모의 검출을 사용합니다. 640x640 크롭/패딩과 실제 YOLO 연결은 이번에 추가했습니다.",
+      "관측 설계 평면은 카메라 수평 시선에 수직이고 렌즈에서 1.14m 떨어졌다고 가정합니다. 정지하여 베드를 정면으로 보는 관측용이며 map상의 베드 위치 추정이 아닙니다.",
+      "카메라 K와 광학축 자세는 현재 프레임에서 읽습니다. 기존 B의 PyBullet 축이나 424x240 보정값을 복사하지 않습니다.",
+      "노이즈, 블러, 깊이 랜덤오차, 깊이 양자화는 추가하지 않습니다.",
+      "vertical_margin_fraction은 원래 투영 크롭 높이에 대한 위/아래 각각의 영상 여유 비율입니다. 원본 영상 경계에서 제한하며 회색 패딩과 구분합니다."
+    ]
+  },
+  "started_at": "2026-10-31T06:58:02.677402+00:00",
+  "status": "SUCCESS",
+  "sections": {
+    "SEC01": {
+      "design": {
+        "segments": [
+          {
+            "segment_id": "SEC01_G01",
+            "observation_node_id": 10101,
+            "offset_m": 0.9550529999999995,
+            "position_map_m": [
+              -6.655,
+              9.044947
+            ]
+          },
+          {
+            "segment_id": "SEC01_G02",
+            "observation_node_id": 10102,
+            "offset_m": 2.4775270000000003,
+            "position_map_m": [
+              -6.655,
+              7.522473
+            ]
+          },
+          {
+            "segment_id": "SEC01_G03",
+            "observation_node_id": 10103,
+            "offset_m": 4.0,
+            "position_map_m": [
+              -6.655,
+              6.0
+            ]
+          },
+          {
+            "segment_id": "SEC01_G04",
+            "observation_node_id": 10104,
+            "offset_m": 5.522473,
+            "position_map_m": [
+              -6.655,
+              4.477527
+            ]
+          },
+          {
+            "segment_id": "SEC01_G05",
+            "observation_node_id": 10105,
+            "offset_m": 7.0449470000000005,
+            "position_map_m": [
+              -6.655,
+              2.955053
+            ]
+          }
+        ],
+        "stops_s_m": [
+          0.9550529999999995,
+          2.4775270000000003,
+          4.0,
+          5.522473,
+          7.0449470000000005
+        ],
+        "segmentation_mode": "graph_nodes",
+        "finish_at": "last_segment",
+        "completion_behavior": "WAIT_FOR_COMMAND",
+        "coverage_policy": "fixed_capture_points"
+      },
+      "status": "COMPLETE",
+      "survey": {
+        "fruits": [
+          {
+            "id": "b72bfef3293b_SEC01_F0001",
+            "position_map_m": [
+              -5.52643788942381,
+              9.297572999662844,
+              0.8237633805825241
+            ],
+            "class_name": "Yellow",
+            "position_first_map_m": [
+              -5.52643788942381,
+              9.297572999662844,
+              0.8237633805825241
+            ],
+            "position_samples": [
+              {
+                "stamp_ns": 52433336068,
+                "position_map_m": [
+                  -5.52643788942381,
+                  9.297572999662844,
+                  0.8237633805825241
+                ],
+                "confidence": 0.9191616177558899,
+                "segment_id": "SEC01_G01"
+              }
+            ],
+            "first_segment_id": "SEC01_G01",
+            "observed_segment_ids": [
+              "SEC01_G01"
+            ],
+            "confidence": 0.9191616177558899,
+            "seen_count": 1,
+            "first_stamp_ns": 52433336068,
+            "last_stamp_ns": 52433336068,
+            "position_latest_map_m": [
+              -5.52643788942381,
+              9.297572999662844,
+              0.8237633805825241
+            ],
+            "position_span_m": [
+              0.0,
+              0.0,
+              0.0
+            ]
+          },
+          {
+            "id": "b72bfef3293b_SEC01_F0002",
+            "position_map_m": [
+              -5.49856581804249,
+              8.670122671883014,
+              0.8222460754908293
+            ],
+            "class_name": "Red",
+            "position_first_map_m": [
+              -5.49856581804249,
+              8.670122671883014,
+              0.8222460754908293
+            ],
+            "position_samples": [
+              {
+                "stamp_ns": 52433336068,
+                "position_map_m": [
+                  -5.49856581804249,
+                  8.670122671883014,
+                  0.8222460754908293
+                ],
+                "confidence": 0.9180075526237488,
+                "segment_id": "SEC01_G01"
+              }
+            ],
+            "first_segment_id": "SEC01_G01",
+            "observed_segment_ids": [
+              "SEC01_G01"
+            ],
+            "confidence": 0.9180075526237488,
+            "seen_count": 1,
+            "first_stamp_ns": 52433336068,
+            "last_stamp_ns": 52433336068,
+            "position_latest_map_m": [
+              -5.49856581804249,
+              8.670122671883014,
+              0.8222460754908293
+            ],
+            "position_span_m": [
+              0.0,
+              0.0,
+              0.0
+            ]
+          },
+          {
+            "id": "b72bfef3293b_SEC01_F0003",
+            "position_map_m": [
+              -5.513622718150359,
+              8.313810621187463,
+              0.8256998099786208
+            ],
+            "class_name": "Yellow",
+            "position_first_map_m": [
+              -5.493618311626939,
+              8.30711709736994,
+              0.8211954758153186
+            ],
+            "position_samples": [
+              {
+                "stamp_ns": 52433336068,
+                "position_map_m": [
+                  -5.493618311626939,
+                  8.30711709736994,
+                  0.8211954758153186
+                ],
+                "confidence": 0.9165675044059753,
+                "segment_id": "SEC01_G01"
+              },
+              {
+                "stamp_ns": 69700003635,
+                "position_map_m": [
+                  -5.53362712467378,
+                  8.320504145004985,
+                  0.830204144141923
+                ],
+                "confidence": 0.9156384468078613,
+                "segment_id": "SEC01_G02"
+              }
+            ],
+            "first_segment_id": "SEC01_G01",
+            "observed_segment_ids": [
+              "SEC01_G01",
+              "SEC01_G02"
+            ],
+            "confidence": 0.9165675044059753,
+            "seen_count": 2,
+            "first_stamp_ns": 52433336068,
+            "last_stamp_ns": 69700003635,
+            "position_latest_map_m": [
+              -5.53362712467378,
+              8.320504145004985,
+              0.830204144141923
+            ],
+            "position_span_m": [
+              0.040008813046840785,
+              0.013387047635045946,
+              0.009008668326604408
+            ]
+          },
+          {
+            "id": "b72bfef3293b_SEC01_F0004",
+            "position_map_m": [
+              -5.542130173266889,
+              7.434710778051385,
+              0.8921122809413977
+            ],
+            "class_name": "Yellow",
+            "position_first_map_m": [
+              -5.542130173266889,
+              7.434710778051385,
+              0.8921122809413977
+            ],
+            "position_samples": [
+              {
+                "stamp_ns": 69700003635,
+                "position_map_m": [
+                  -5.542130173266889,
+                  7.434710778051385,
+                  0.8921122809413977
+                ],
+                "confidence": 0.9159528613090515,
+                "segment_id": "SEC01_G02"
+              }
+            ],
+            "first_segment_id": "SEC01_G02",
+            "observed_segment_ids": [
+              "SEC01_G02"
+            ],
+            "confidence": 0.9159528613090515,
+            "seen_count": 1,
+            "first_stamp_ns": 69700003635,
+            "last_stamp_ns": 69700003635,
+            "position_latest_map_m": [
+              -5.542130173266889,
+              7.434710778051385,
+              0.8921122809413977
+            ],
+            "position_span_m": [
+              0.0,
+              0.0,
+              0.0
+            ]
+          },
+          {
+            "id": "b72bfef3293b_SEC01_F0005",
+            "position_map_m": [
+              -5.528994302877606,
+              6.987529195251956,
+              0.8760889914304839
+            ],
+            "class_name": "Red",
+            "position_first_map_m": [
+              -5.526688048557695,
+              7.018658454516828,
+              0.8685733773951931
+            ],
+            "position_samples": [
+              {
+                "stamp_ns": 69700003635,
+                "position_map_m": [
+                  -5.526688048557695,
+                  7.018658454516828,
+                  0.8685733773951931
+                ],
+                "confidence": 0.9115564227104187,
+                "segment_id": "SEC01_G02"
+              },
+              {
+                "stamp_ns": 86100004490,
+                "position_map_m": [
+                  -5.5313005571975165,
+                  6.9563999359870845,
+                  0.8836046054657748
+                ],
+                "confidence": 0.9050436615943909,
+                "segment_id": "SEC01_G03"
+              }
+            ],
+            "first_segment_id": "SEC01_G02",
+            "observed_segment_ids": [
+              "SEC01_G02",
+              "SEC01_G03"
+            ],
+            "confidence": 0.9115564227104187,
+            "seen_count": 2,
+            "first_stamp_ns": 69700003635,
+            "last_stamp_ns": 86100004490,
+            "position_latest_map_m": [
+              -5.5313005571975165,
+              6.9563999359870845,
+              0.8836046054657748
+            ],
+            "position_span_m": [
+              0.004612508639821655,
+              0.06225851852974351,
+              0.01503122807058166
+            ]
+          },
+          {
+            "id": "b72bfef3293b_SEC01_F0006",
+            "position_map_m": [
+              -5.523304667419345,
+              7.6402872794625365,
+              1.0065583985468036
+            ],
+            "class_name": "Red",
+            "position_first_map_m": [
+              -5.523304667419345,
+              7.6402872794625365,
+              1.0065583985468036
+            ],
+            "position_samples": [
+              {
+                "stamp_ns": 69700003635,
+                "position_map_m": [
+                  -5.523304667419345,
+                  7.6402872794625365,
+                  1.0065583985468036
+                ],
+                "confidence": 0.9044862389564514,
+                "segment_id": "SEC01_G02"
+              }
+            ],
+            "first_segment_id": "SEC01_G02",
+            "observed_segment_ids": [
+              "SEC01_G02"
+            ],
+            "confidence": 0.9044862389564514,
+            "seen_count": 1,
+            "first_stamp_ns": 69700003635,
+            "last_stamp_ns": 69700003635,
+            "position_latest_map_m": [
+              -5.523304667419345,
+              7.6402872794625365,
+              1.0065583985468036
+            ],
+            "position_span_m": [
+              0.0,
+              0.0,
+              0.0
+            ]
+          },
+          {
+            "id": "b72bfef3293b_SEC01_F0007",
+            "position_map_m": [
+              -5.495563228958336,
+              5.771976560330183,
+              0.92658986680051
+            ],
+            "class_name": "Yellow",
+            "position_first_map_m": [
+              -5.495563228958336,
+              5.771976560330183,
+              0.92658986680051
+            ],
+            "position_samples": [
+              {
+                "stamp_ns": 86100004490,
+                "position_map_m": [
+                  -5.495563228958336,
+                  5.771976560330183,
+                  0.92658986680051
+                ],
+                "confidence": 0.9182009100914001,
+                "segment_id": "SEC01_G03"
+              }
+            ],
+            "first_segment_id": "SEC01_G03",
+            "observed_segment_ids": [
+              "SEC01_G03"
+            ],
+            "confidence": 0.9182009100914001,
+            "seen_count": 1,
+            "first_stamp_ns": 86100004490,
+            "last_stamp_ns": 86100004490,
+            "position_latest_map_m": [
+              -5.495563228958336,
+              5.771976560330183,
+              0.92658986680051
+            ],
+            "position_span_m": [
+              0.0,
+              0.0,
+              0.0
+            ]
+          },
+          {
+            "id": "b72bfef3293b_SEC01_F0008",
+            "position_map_m": [
+              -5.530504326895388,
+              6.325322530132879,
+              1.0060375514964628
+            ],
+            "class_name": "Red",
+            "position_first_map_m": [
+              -5.530504326895388,
+              6.325322530132879,
+              1.0060375514964628
+            ],
+            "position_samples": [
+              {
+                "stamp_ns": 86100004490,
+                "position_map_m": [
+                  -5.530504326895388,
+                  6.325322530132879,
+                  1.0060375514964628
+                ],
+                "confidence": 0.910966157913208,
+                "segment_id": "SEC01_G03"
+              }
+            ],
+            "first_segment_id": "SEC01_G03",
+            "observed_segment_ids": [
+              "SEC01_G03"
+            ],
+            "confidence": 0.910966157913208,
+            "seen_count": 1,
+            "first_stamp_ns": 86100004490,
+            "last_stamp_ns": 86100004490,
+            "position_latest_map_m": [
+              -5.530504326895388,
+              6.325322530132879,
+              1.0060375514964628
+            ],
+            "position_span_m": [
+              0.0,
+              0.0,
+              0.0
+            ]
+          },
+          {
+            "id": "b72bfef3293b_SEC01_F0009",
+            "position_map_m": [
+              -5.5047369224164235,
+              5.792988356078159,
+              0.82304065448195
+            ],
+            "class_name": "Red",
+            "position_first_map_m": [
+              -5.5047369224164235,
+              5.792988356078159,
+              0.82304065448195
+            ],
+            "position_samples": [
+              {
+                "stamp_ns": 86100004490,
+                "position_map_m": [
+                  -5.5047369224164235,
+                  5.792988356078159,
+                  0.82304065448195
+                ],
+                "confidence": 0.9103684425354004,
+                "segment_id": "SEC01_G03"
+              }
+            ],
+            "first_segment_id": "SEC01_G03",
+            "observed_segment_ids": [
+              "SEC01_G03"
+            ],
+            "confidence": 0.9103684425354004,
+            "seen_count": 1,
+            "first_stamp_ns": 86100004490,
+            "last_stamp_ns": 86100004490,
+            "position_latest_map_m": [
+              -5.5047369224164235,
+              5.792988356078159,
+              0.82304065448195
+            ],
+            "position_span_m": [
+              0.0,
+              0.0,
+              0.0
+            ]
+          },
+          {
+            "id": "b72bfef3293b_SEC01_F0010",
+            "position_map_m": [
+              -5.499645916797913,
+              5.055784848286154,
+              0.9655118793373946
+            ],
+            "class_name": "Red",
+            "position_first_map_m": [
+              -5.499645916797913,
+              5.055784848286154,
+              0.9655118793373946
+            ],
+            "position_samples": [
+              {
+                "stamp_ns": 103566672068,
+                "position_map_m": [
+                  -5.499645916797913,
+                  5.055784848286154,
+                  0.9655118793373946
+                ],
+                "confidence": 0.912530779838562,
+                "segment_id": "SEC01_G04"
+              }
+            ],
+            "first_segment_id": "SEC01_G04",
+            "observed_segment_ids": [
+              "SEC01_G04"
+            ],
+            "confidence": 0.912530779838562,
+            "seen_count": 1,
+            "first_stamp_ns": 103566672068,
+            "last_stamp_ns": 103566672068,
+            "position_latest_map_m": [
+              -5.499645916797913,
+              5.055784848286154,
+              0.9655118793373946
+            ],
+            "position_span_m": [
+              0.0,
+              0.0,
+              0.0
+            ]
+          },
+          {
+            "id": "b72bfef3293b_SEC01_F0011",
+            "position_map_m": [
+              -5.501441449032435,
+              5.046373540982699,
+              0.8346461064567453
+            ],
+            "class_name": "Yellow",
+            "position_first_map_m": [
+              -5.501441449032435,
+              5.046373540982699,
+              0.8346461064567453
+            ],
+            "position_samples": [
+              {
+                "stamp_ns": 103566672068,
+                "position_map_m": [
+                  -5.501441449032435,
+                  5.046373540982699,
+                  0.8346461064567453
+                ],
+                "confidence": 0.9097010493278503,
+                "segment_id": "SEC01_G04"
+              }
+            ],
+            "first_segment_id": "SEC01_G04",
+            "observed_segment_ids": [
+              "SEC01_G04"
+            ],
+            "confidence": 0.9097010493278503,
+            "seen_count": 1,
+            "first_stamp_ns": 103566672068,
+            "last_stamp_ns": 103566672068,
+            "position_latest_map_m": [
+              -5.501441449032435,
+              5.046373540982699,
+              0.8346461064567453
+            ],
+            "position_span_m": [
+              0.0,
+              0.0,
+              0.0
+            ]
+          },
+          {
+            "id": "b72bfef3293b_SEC01_F0012",
+            "position_map_m": [
+              -5.517803701054017,
+              3.233975993076342,
+              1.004804412171187
+            ],
+            "class_name": "Yellow",
+            "position_first_map_m": [
+              -5.517803701054017,
+              3.233975993076342,
+              1.004804412171187
+            ],
+            "position_samples": [
+              {
+                "stamp_ns": 120366672944,
+                "position_map_m": [
+                  -5.517803701054017,
+                  3.233975993076342,
+                  1.004804412171187
+                ],
+                "confidence": 0.9167304635047913,
+                "segment_id": "SEC01_G05"
+              }
+            ],
+            "first_segment_id": "SEC01_G05",
+            "observed_segment_ids": [
+              "SEC01_G05"
+            ],
+            "confidence": 0.9167304635047913,
+            "seen_count": 1,
+            "first_stamp_ns": 120366672944,
+            "last_stamp_ns": 120366672944,
+            "position_latest_map_m": [
+              -5.517803701054017,
+              3.233975993076342,
+              1.004804412171187
+            ],
+            "position_span_m": [
+              0.0,
+              0.0,
+              0.0
+            ]
+          },
+          {
+            "id": "b72bfef3293b_SEC01_F0013",
+            "position_map_m": [
+              -5.531141748546842,
+              3.216508453907421,
+              0.9052848555559623
+            ],
+            "class_name": "Red",
+            "position_first_map_m": [
+              -5.531141748546842,
+              3.216508453907421,
+              0.9052848555559623
+            ],
+            "position_samples": [
+              {
+                "stamp_ns": 120366672944,
+                "position_map_m": [
+                  -5.531141748546842,
+                  3.216508453907421,
+                  0.9052848555559623
+                ],
+                "confidence": 0.9133263230323792,
+                "segment_id": "SEC01_G05"
+              }
+            ],
+            "first_segment_id": "SEC01_G05",
+            "observed_segment_ids": [
+              "SEC01_G05"
+            ],
+            "confidence": 0.9133263230323792,
+            "seen_count": 1,
+            "first_stamp_ns": 120366672944,
+            "last_stamp_ns": 120366672944,
+            "position_latest_map_m": [
+              -5.531141748546842,
+              3.216508453907421,
+              0.9052848555559623
+            ],
+            "position_span_m": [
+              0.0,
+              0.0,
+              0.0
+            ]
+          }
+        ],
+        "windows": [
+          {
+            "task_id": 1,
+            "anchor_id": "b72bfef3293b_SEC01_F0001",
+            "member_ids": [
+              "b72bfef3293b_SEC01_F0001"
+            ],
+            "observed_ids": [
+              "b72bfef3293b_SEC01_F0001"
+            ],
+            "base_x": 0.6574270003371561,
+            "base_y": 0.6399999999999999,
+            "arm_x": 0.8474270003371561,
+            "arm_y": 0.825,
+            "arm_z": 0.713,
+            "window_x_min": 0.6724270003371562,
+            "window_x_max": 1.022427000337156,
+            "window_y_min": 1.0899999999999999,
+            "window_y_max": 1.19,
+            "window_z_min": 0.7999999999999999,
+            "window_z_max": 1.063,
+            "safe_x_min": 0.6724270003371562,
+            "safe_x_max": 1.022427000337156,
+            "base_yaw": 0.0,
+            "window_id": "b72bfef3293b_SEC01_W001",
+            "segment_id": "SEC01_G01",
+            "goal_pose": {
+              "frame_id": "map",
+              "position": [
+                -6.015000000000001,
+                9.342572999662844,
+                0.0
+              ],
+              "yaw": -1.5707963267948966
+            },
+            "corners_map_m": [
+              [
+                -5.565,
+                9.327572999662843,
+                0.7999999999999999
+              ],
+              [
+                -5.565,
+                8.977572999662844,
+                0.7999999999999999
+              ],
+              [
+                -5.465,
+                9.327572999662843,
+                0.7999999999999999
+              ],
+              [
+                -5.465,
+                8.977572999662844,
+                0.7999999999999999
+              ],
+              [
+                -5.565,
+                9.327572999662843,
+                1.063
+              ],
+              [
+                -5.565,
+                8.977572999662844,
+                1.063
+              ],
+              [
+                -5.465,
+                9.327572999662843,
+                1.063
+              ],
+              [
+                -5.465,
+                8.977572999662844,
+                1.063
+              ]
+            ],
+            "range_tolerance_m": 0.0,
+            "depth_tolerance_m": 0.02,
+            "acceptance_corners_map_m": [
+              [
+                -5.585000000000001,
+                9.327572999662843,
+                0.7999999999999999
+              ],
+              [
+                -5.585000000000001,
+                8.977572999662844,
+                0.7999999999999999
+              ],
+              [
+                -5.445,
+                9.327572999662843,
+                0.7999999999999999
+              ],
+              [
+                -5.445,
+                8.977572999662844,
+                0.7999999999999999
+              ],
+              [
+                -5.585000000000001,
+                9.327572999662843,
+                1.063
+              ],
+              [
+                -5.585000000000001,
+                8.977572999662844,
+                1.063
+              ],
+              [
+                -5.445,
+                9.327572999662843,
+                1.063
+              ],
+              [
+                -5.445,
+                8.977572999662844,
+                1.063
+              ]
+            ],
+            "expected_count": 1
+          },
+          {
+            "task_id": 2,
+            "anchor_id": "b72bfef3293b_SEC01_F0002",
+            "member_ids": [
+              "b72bfef3293b_SEC01_F0002"
+            ],
+            "observed_ids": [
+              "b72bfef3293b_SEC01_F0002"
+            ],
+            "base_x": 1.2848773281169859,
+            "base_y": 0.6399999999999999,
+            "arm_x": 1.4748773281169858,
+            "arm_y": 0.825,
+            "arm_z": 0.713,
+            "window_x_min": 1.2998773281169858,
+            "window_x_max": 1.6498773281169856,
+            "window_y_min": 1.0899999999999999,
+            "window_y_max": 1.19,
+            "window_z_min": 0.7999999999999999,
+            "window_z_max": 1.063,
+            "safe_x_min": 1.2998773281169858,
+            "safe_x_max": 1.6498773281169856,
+            "base_yaw": 0.0,
+            "window_id": "b72bfef3293b_SEC01_W002",
+            "segment_id": "SEC01_G01",
+            "goal_pose": {
+              "frame_id": "map",
+              "position": [
+                -6.015000000000001,
+                8.715122671883014,
+                0.0
+              ],
+              "yaw": -1.5707963267948966
+            },
+            "corners_map_m": [
+              [
+                -5.565,
+                8.700122671883014,
+                0.7999999999999999
+              ],
+              [
+                -5.565,
+                8.350122671883014,
+                0.7999999999999999
+              ],
+              [
+                -5.465,
+                8.700122671883014,
+                0.7999999999999999
+              ],
+              [
+                -5.465,
+                8.350122671883014,
+                0.7999999999999999
+              ],
+              [
+                -5.565,
+                8.700122671883014,
+                1.063
+              ],
+              [
+                -5.565,
+                8.350122671883014,
+                1.063
+              ],
+              [
+                -5.465,
+                8.700122671883014,
+                1.063
+              ],
+              [
+                -5.465,
+                8.350122671883014,
+                1.063
+              ]
+            ],
+            "range_tolerance_m": 0.0,
+            "depth_tolerance_m": 0.02,
+            "acceptance_corners_map_m": [
+              [
+                -5.585000000000001,
+                8.700122671883014,
+                0.7999999999999999
+              ],
+              [
+                -5.585000000000001,
+                8.350122671883014,
+                0.7999999999999999
+              ],
+              [
+                -5.445,
+                8.700122671883014,
+                0.7999999999999999
+              ],
+              [
+                -5.445,
+                8.350122671883014,
+                0.7999999999999999
+              ],
+              [
+                -5.585000000000001,
+                8.700122671883014,
+                1.063
+              ],
+              [
+                -5.585000000000001,
+                8.350122671883014,
+                1.063
+              ],
+              [
+                -5.445,
+                8.700122671883014,
+                1.063
+              ],
+              [
+                -5.445,
+                8.350122671883014,
+                1.063
+              ]
+            ],
+            "expected_count": 1
+          },
+          {
+            "task_id": 3,
+            "anchor_id": "b72bfef3293b_SEC01_F0003",
+            "member_ids": [
+              "b72bfef3293b_SEC01_F0003"
+            ],
+            "observed_ids": [
+              "b72bfef3293b_SEC01_F0003"
+            ],
+            "base_x": 1.6478829026300605,
+            "base_y": 0.6399999999999999,
+            "arm_x": 1.8378829026300605,
+            "arm_y": 0.825,
+            "arm_z": 0.713,
+            "window_x_min": 1.6628829026300604,
+            "window_x_max": 2.0128829026300603,
+            "window_y_min": 1.0899999999999999,
+            "window_y_max": 1.19,
+            "window_z_min": 0.7999999999999999,
+            "window_z_max": 1.063,
+            "safe_x_min": 1.6628829026300604,
+            "safe_x_max": 2.0128829026300603,
+            "base_yaw": 0.0,
+            "window_id": "b72bfef3293b_SEC01_W003",
+            "segment_id": "SEC01_G01",
+            "goal_pose": {
+              "frame_id": "map",
+              "position": [
+                -6.015000000000001,
+                8.35211709736994,
+                0.0
+              ],
+              "yaw": -1.5707963267948966
+            },
+            "corners_map_m": [
+              [
+                -5.565,
+                8.337117097369939,
+                0.7999999999999999
+              ],
+              [
+                -5.565,
+                7.987117097369939,
+                0.7999999999999999
+              ],
+              [
+                -5.465,
+                8.337117097369939,
+                0.7999999999999999
+              ],
+              [
+                -5.465,
+                7.987117097369939,
+                0.7999999999999999
+              ],
+              [
+                -5.565,
+                8.337117097369939,
+                1.063
+              ],
+              [
+                -5.565,
+                7.987117097369939,
+                1.063
+              ],
+              [
+                -5.465,
+                8.337117097369939,
+                1.063
+              ],
+              [
+                -5.465,
+                7.987117097369939,
+                1.063
+              ]
+            ],
+            "range_tolerance_m": 0.0,
+            "depth_tolerance_m": 0.02,
+            "acceptance_corners_map_m": [
+              [
+                -5.585000000000001,
+                8.337117097369939,
+                0.7999999999999999
+              ],
+              [
+                -5.585000000000001,
+                7.987117097369939,
+                0.7999999999999999
+              ],
+              [
+                -5.445,
+                8.337117097369939,
+                0.7999999999999999
+              ],
+              [
+                -5.445,
+                7.987117097369939,
+                0.7999999999999999
+              ],
+              [
+                -5.585000000000001,
+                8.337117097369939,
+                1.063
+              ],
+              [
+                -5.585000000000001,
+                7.987117097369939,
+                1.063
+              ],
+              [
+                -5.445,
+                8.337117097369939,
+                1.063
+              ],
+              [
+                -5.445,
+                7.987117097369939,
+                1.063
+              ]
+            ],
+            "expected_count": 1
+          },
+          {
+            "task_id": 4,
+            "anchor_id": "b72bfef3293b_SEC01_F0006",
+            "member_ids": [
+              "b72bfef3293b_SEC01_F0006",
+              "b72bfef3293b_SEC01_F0004"
+            ],
+            "observed_ids": [
+              "b72bfef3293b_SEC01_F0006",
+              "b72bfef3293b_SEC01_F0004"
+            ],
+            "base_x": 2.314712720537464,
+            "base_y": 0.6399999999999999,
+            "arm_x": 2.504712720537464,
+            "arm_y": 0.825,
+            "arm_z": 0.713,
+            "window_x_min": 2.3297127205374637,
+            "window_x_max": 2.679712720537464,
+            "window_y_min": 1.0899999999999999,
+            "window_y_max": 1.19,
+            "window_z_min": 0.7999999999999999,
+            "window_z_max": 1.063,
+            "safe_x_min": 2.3297127205374637,
+            "safe_x_max": 2.679712720537464,
+            "base_yaw": 0.0,
+            "window_id": "b72bfef3293b_SEC01_W004",
+            "segment_id": "SEC01_G02",
+            "goal_pose": {
+              "frame_id": "map",
+              "position": [
+                -6.015000000000001,
+                7.6852872794625355,
+                0.0
+              ],
+              "yaw": -1.5707963267948966
+            },
+            "corners_map_m": [
+              [
+                -5.565,
+                7.670287279462537,
+                0.7999999999999999
+              ],
+              [
+                -5.565,
+                7.320287279462536,
+                0.7999999999999999
+              ],
+              [
+                -5.465,
+                7.670287279462537,
+                0.7999999999999999
+              ],
+              [
+                -5.465,
+                7.320287279462536,
+                0.7999999999999999
+              ],
+              [
+                -5.565,
+                7.670287279462537,
+                1.063
+              ],
+              [
+                -5.565,
+                7.320287279462536,
+                1.063
+              ],
+              [
+                -5.465,
+                7.670287279462537,
+                1.063
+              ],
+              [
+                -5.465,
+                7.320287279462536,
+                1.063
+              ]
+            ],
+            "range_tolerance_m": 0.0,
+            "depth_tolerance_m": 0.02,
+            "acceptance_corners_map_m": [
+              [
+                -5.585000000000001,
+                7.670287279462537,
+                0.7999999999999999
+              ],
+              [
+                -5.585000000000001,
+                7.320287279462536,
+                0.7999999999999999
+              ],
+              [
+                -5.445,
+                7.670287279462537,
+                0.7999999999999999
+              ],
+              [
+                -5.445,
+                7.320287279462536,
+                0.7999999999999999
+              ],
+              [
+                -5.585000000000001,
+                7.670287279462537,
+                1.063
+              ],
+              [
+                -5.585000000000001,
+                7.320287279462536,
+                1.063
+              ],
+              [
+                -5.445,
+                7.670287279462537,
+                1.063
+              ],
+              [
+                -5.445,
+                7.320287279462536,
+                1.063
+              ]
+            ],
+            "expected_count": 2
+          },
+          {
+            "task_id": 5,
+            "anchor_id": "b72bfef3293b_SEC01_F0005",
+            "member_ids": [
+              "b72bfef3293b_SEC01_F0005"
+            ],
+            "observed_ids": [
+              "b72bfef3293b_SEC01_F0005"
+            ],
+            "base_x": 2.9363415454831725,
+            "base_y": 0.6399999999999999,
+            "arm_x": 3.1263415454831724,
+            "arm_y": 0.825,
+            "arm_z": 0.713,
+            "window_x_min": 2.951341545483172,
+            "window_x_max": 3.3013415454831723,
+            "window_y_min": 1.0899999999999999,
+            "window_y_max": 1.19,
+            "window_z_min": 0.7999999999999999,
+            "window_z_max": 1.063,
+            "safe_x_min": 2.951341545483172,
+            "safe_x_max": 3.3013415454831723,
+            "base_yaw": 0.0,
+            "window_id": "b72bfef3293b_SEC01_W005",
+            "segment_id": "SEC01_G02",
+            "goal_pose": {
+              "frame_id": "map",
+              "position": [
+                -6.015000000000001,
+                7.063658454516828,
+                0.0
+              ],
+              "yaw": -1.5707963267948966
+            },
+            "corners_map_m": [
+              [
+                -5.565,
+                7.048658454516827,
+                0.7999999999999999
+              ],
+              [
+                -5.565,
+                6.698658454516828,
+                0.7999999999999999
+              ],
+              [
+                -5.465,
+                7.048658454516827,
+                0.7999999999999999
+              ],
+              [
+                -5.465,
+                6.698658454516828,
+                0.7999999999999999
+              ],
+              [
+                -5.565,
+                7.048658454516827,
+                1.063
+              ],
+              [
+                -5.565,
+                6.698658454516828,
+                1.063
+              ],
+              [
+                -5.465,
+                7.048658454516827,
+                1.063
+              ],
+              [
+                -5.465,
+                6.698658454516828,
+                1.063
+              ]
+            ],
+            "range_tolerance_m": 0.0,
+            "depth_tolerance_m": 0.02,
+            "acceptance_corners_map_m": [
+              [
+                -5.585000000000001,
+                7.048658454516827,
+                0.7999999999999999
+              ],
+              [
+                -5.585000000000001,
+                6.698658454516828,
+                0.7999999999999999
+              ],
+              [
+                -5.445,
+                7.048658454516827,
+                0.7999999999999999
+              ],
+              [
+                -5.445,
+                6.698658454516828,
+                0.7999999999999999
+              ],
+              [
+                -5.585000000000001,
+                7.048658454516827,
+                1.063
+              ],
+              [
+                -5.585000000000001,
+                6.698658454516828,
+                1.063
+              ],
+              [
+                -5.445,
+                7.048658454516827,
+                1.063
+              ],
+              [
+                -5.445,
+                6.698658454516828,
+                1.063
+              ]
+            ],
+            "expected_count": 1
+          },
+          {
+            "task_id": 6,
+            "anchor_id": "b72bfef3293b_SEC01_F0008",
+            "member_ids": [
+              "b72bfef3293b_SEC01_F0008"
+            ],
+            "observed_ids": [
+              "b72bfef3293b_SEC01_F0008"
+            ],
+            "base_x": 3.6296774698671217,
+            "base_y": 0.6399999999999999,
+            "arm_x": 3.8196774698671216,
+            "arm_y": 0.825,
+            "arm_z": 0.713,
+            "window_x_min": 3.6446774698671214,
+            "window_x_max": 3.9946774698671215,
+            "window_y_min": 1.0899999999999999,
+            "window_y_max": 1.19,
+            "window_z_min": 0.7999999999999999,
+            "window_z_max": 1.063,
+            "safe_x_min": 3.6446774698671214,
+            "safe_x_max": 3.9946774698671215,
+            "base_yaw": 0.0,
+            "window_id": "b72bfef3293b_SEC01_W006",
+            "segment_id": "SEC01_G03",
+            "goal_pose": {
+              "frame_id": "map",
+              "position": [
+                -6.015000000000001,
+                6.370322530132878,
+                0.0
+              ],
+              "yaw": -1.5707963267948966
+            },
+            "corners_map_m": [
+              [
+                -5.565,
+                6.355322530132879,
+                0.7999999999999999
+              ],
+              [
+                -5.565,
+                6.0053225301328785,
+                0.7999999999999999
+              ],
+              [
+                -5.465,
+                6.355322530132879,
+                0.7999999999999999
+              ],
+              [
+                -5.465,
+                6.0053225301328785,
+                0.7999999999999999
+              ],
+              [
+                -5.565,
+                6.355322530132879,
+                1.063
+              ],
+              [
+                -5.565,
+                6.0053225301328785,
+                1.063
+              ],
+              [
+                -5.465,
+                6.355322530132879,
+                1.063
+              ],
+              [
+                -5.465,
+                6.0053225301328785,
+                1.063
+              ]
+            ],
+            "range_tolerance_m": 0.0,
+            "depth_tolerance_m": 0.02,
+            "acceptance_corners_map_m": [
+              [
+                -5.585000000000001,
+                6.355322530132879,
+                0.7999999999999999
+              ],
+              [
+                -5.585000000000001,
+                6.0053225301328785,
+                0.7999999999999999
+              ],
+              [
+                -5.445,
+                6.355322530132879,
+                0.7999999999999999
+              ],
+              [
+                -5.445,
+                6.0053225301328785,
+                0.7999999999999999
+              ],
+              [
+                -5.585000000000001,
+                6.355322530132879,
+                1.063
+              ],
+              [
+                -5.585000000000001,
+                6.0053225301328785,
+                1.063
+              ],
+              [
+                -5.445,
+                6.355322530132879,
+                1.063
+              ],
+              [
+                -5.445,
+                6.0053225301328785,
+                1.063
+              ]
+            ],
+            "expected_count": 1
+          },
+          {
+            "task_id": 7,
+            "anchor_id": "b72bfef3293b_SEC01_F0009",
+            "member_ids": [
+              "b72bfef3293b_SEC01_F0009",
+              "b72bfef3293b_SEC01_F0007"
+            ],
+            "observed_ids": [
+              "b72bfef3293b_SEC01_F0009",
+              "b72bfef3293b_SEC01_F0007"
+            ],
+            "base_x": 4.16201164392184,
+            "base_y": 0.6399999999999999,
+            "arm_x": 4.35201164392184,
+            "arm_y": 0.825,
+            "arm_z": 0.713,
+            "window_x_min": 4.1770116439218405,
+            "window_x_max": 4.52701164392184,
+            "window_y_min": 1.0899999999999999,
+            "window_y_max": 1.19,
+            "window_z_min": 0.7999999999999999,
+            "window_z_max": 1.063,
+            "safe_x_min": 4.1770116439218405,
+            "safe_x_max": 4.52701164392184,
+            "base_yaw": 0.0,
+            "window_id": "b72bfef3293b_SEC01_W007",
+            "segment_id": "SEC01_G03",
+            "goal_pose": {
+              "frame_id": "map",
+              "position": [
+                -6.015000000000001,
+                5.83798835607816,
+                0.0
+              ],
+              "yaw": -1.5707963267948966
+            },
+            "corners_map_m": [
+              [
+                -5.565,
+                5.8229883560781595,
+                0.7999999999999999
+              ],
+              [
+                -5.565,
+                5.47298835607816,
+                0.7999999999999999
+              ],
+              [
+                -5.465,
+                5.8229883560781595,
+                0.7999999999999999
+              ],
+              [
+                -5.465,
+                5.47298835607816,
+                0.7999999999999999
+              ],
+              [
+                -5.565,
+                5.8229883560781595,
+                1.063
+              ],
+              [
+                -5.565,
+                5.47298835607816,
+                1.063
+              ],
+              [
+                -5.465,
+                5.8229883560781595,
+                1.063
+              ],
+              [
+                -5.465,
+                5.47298835607816,
+                1.063
+              ]
+            ],
+            "range_tolerance_m": 0.0,
+            "depth_tolerance_m": 0.02,
+            "acceptance_corners_map_m": [
+              [
+                -5.585000000000001,
+                5.8229883560781595,
+                0.7999999999999999
+              ],
+              [
+                -5.585000000000001,
+                5.47298835607816,
+                0.7999999999999999
+              ],
+              [
+                -5.445,
+                5.8229883560781595,
+                0.7999999999999999
+              ],
+              [
+                -5.445,
+                5.47298835607816,
+                0.7999999999999999
+              ],
+              [
+                -5.585000000000001,
+                5.8229883560781595,
+                1.063
+              ],
+              [
+                -5.585000000000001,
+                5.47298835607816,
+                1.063
+              ],
+              [
+                -5.445,
+                5.8229883560781595,
+                1.063
+              ],
+              [
+                -5.445,
+                5.47298835607816,
+                1.063
+              ]
+            ],
+            "expected_count": 2
+          },
+          {
+            "task_id": 8,
+            "anchor_id": "b72bfef3293b_SEC01_F0010",
+            "member_ids": [
+              "b72bfef3293b_SEC01_F0010",
+              "b72bfef3293b_SEC01_F0011"
+            ],
+            "observed_ids": [
+              "b72bfef3293b_SEC01_F0010",
+              "b72bfef3293b_SEC01_F0011"
+            ],
+            "base_x": 4.899215151713845,
+            "base_y": 0.6399999999999999,
+            "arm_x": 5.089215151713845,
+            "arm_y": 0.825,
+            "arm_z": 0.713,
+            "window_x_min": 4.9142151517138455,
+            "window_x_max": 5.264215151713845,
+            "window_y_min": 1.0899999999999999,
+            "window_y_max": 1.19,
+            "window_z_min": 0.7999999999999999,
+            "window_z_max": 1.063,
+            "safe_x_min": 4.9142151517138455,
+            "safe_x_max": 5.264215151713845,
+            "base_yaw": 0.0,
+            "window_id": "b72bfef3293b_SEC01_W008",
+            "segment_id": "SEC01_G04",
+            "goal_pose": {
+              "frame_id": "map",
+              "position": [
+                -6.015000000000001,
+                5.100784848286155,
+                0.0
+              ],
+              "yaw": -1.5707963267948966
+            },
+            "corners_map_m": [
+              [
+                -5.565,
+                5.0857848482861545,
+                0.7999999999999999
+              ],
+              [
+                -5.565,
+                4.735784848286155,
+                0.7999999999999999
+              ],
+              [
+                -5.465,
+                5.0857848482861545,
+                0.7999999999999999
+              ],
+              [
+                -5.465,
+                4.735784848286155,
+                0.7999999999999999
+              ],
+              [
+                -5.565,
+                5.0857848482861545,
+                1.063
+              ],
+              [
+                -5.565,
+                4.735784848286155,
+                1.063
+              ],
+              [
+                -5.465,
+                5.0857848482861545,
+                1.063
+              ],
+              [
+                -5.465,
+                4.735784848286155,
+                1.063
+              ]
+            ],
+            "range_tolerance_m": 0.0,
+            "depth_tolerance_m": 0.02,
+            "acceptance_corners_map_m": [
+              [
+                -5.585000000000001,
+                5.0857848482861545,
+                0.7999999999999999
+              ],
+              [
+                -5.585000000000001,
+                4.735784848286155,
+                0.7999999999999999
+              ],
+              [
+                -5.445,
+                5.0857848482861545,
+                0.7999999999999999
+              ],
+              [
+                -5.445,
+                4.735784848286155,
+                0.7999999999999999
+              ],
+              [
+                -5.585000000000001,
+                5.0857848482861545,
+                1.063
+              ],
+              [
+                -5.585000000000001,
+                4.735784848286155,
+                1.063
+              ],
+              [
+                -5.445,
+                5.0857848482861545,
+                1.063
+              ],
+              [
+                -5.445,
+                4.735784848286155,
+                1.063
+              ]
+            ],
+            "expected_count": 2
+          },
+          {
+            "task_id": 9,
+            "anchor_id": "b72bfef3293b_SEC01_F0012",
+            "member_ids": [
+              "b72bfef3293b_SEC01_F0012",
+              "b72bfef3293b_SEC01_F0013"
+            ],
+            "observed_ids": [
+              "b72bfef3293b_SEC01_F0012",
+              "b72bfef3293b_SEC01_F0013"
+            ],
+            "base_x": 6.721024006923657,
+            "base_y": 0.6399999999999999,
+            "arm_x": 6.9110240069236575,
+            "arm_y": 0.825,
+            "arm_z": 0.713,
+            "window_x_min": 6.736024006923658,
+            "window_x_max": 7.086024006923657,
+            "window_y_min": 1.0899999999999999,
+            "window_y_max": 1.19,
+            "window_z_min": 0.7999999999999999,
+            "window_z_max": 1.063,
+            "safe_x_min": 6.736024006923658,
+            "safe_x_max": 7.086024006923657,
+            "base_yaw": 0.0,
+            "window_id": "b72bfef3293b_SEC01_W009",
+            "segment_id": "SEC01_G05",
+            "goal_pose": {
+              "frame_id": "map",
+              "position": [
+                -6.015000000000001,
+                3.278975993076343,
+                0.0
+              ],
+              "yaw": -1.5707963267948966
+            },
+            "corners_map_m": [
+              [
+                -5.565,
+                3.2639759930763423,
+                0.7999999999999999
+              ],
+              [
+                -5.565,
+                2.9139759930763427,
+                0.7999999999999999
+              ],
+              [
+                -5.465,
+                3.2639759930763423,
+                0.7999999999999999
+              ],
+              [
+                -5.465,
+                2.9139759930763427,
+                0.7999999999999999
+              ],
+              [
+                -5.565,
+                3.2639759930763423,
+                1.063
+              ],
+              [
+                -5.565,
+                2.9139759930763427,
+                1.063
+              ],
+              [
+                -5.465,
+                3.2639759930763423,
+                1.063
+              ],
+              [
+                -5.465,
+                2.9139759930763427,
+                1.063
+              ]
+            ],
+            "range_tolerance_m": 0.0,
+            "depth_tolerance_m": 0.02,
+            "acceptance_corners_map_m": [
+              [
+                -5.585000000000001,
+                3.2639759930763423,
+                0.7999999999999999
+              ],
+              [
+                -5.585000000000001,
+                2.9139759930763427,
+                0.7999999999999999
+              ],
+              [
+                -5.445,
+                3.2639759930763423,
+                0.7999999999999999
+              ],
+              [
+                -5.445,
+                2.9139759930763427,
+                0.7999999999999999
+              ],
+              [
+                -5.585000000000001,
+                3.2639759930763423,
+                1.063
+              ],
+              [
+                -5.585000000000001,
+                2.9139759930763427,
+                1.063
+              ],
+              [
+                -5.445,
+                3.2639759930763423,
+                1.063
+              ],
+              [
+                -5.445,
+                2.9139759930763427,
+                1.063
+              ]
+            ],
+            "expected_count": 2
+          }
+        ],
+        "holds": [],
+        "observation_count": 5,
+        "harvest_task_count": 9,
+        "total_expected_count": 13,
+        "survey_policy": "median_revalidate",
+        "position_semantics": "map-frame RGB-D surface position, not fruit center/grasp point",
+        "position_fusion": "componentwise_median_all_observations; two observations use their midpoint",
+        "range_tolerance_m": 0.0,
+        "depth_tolerance_m": 0.02,
+        "membership_margin_m": 0.0,
+        "reserved_empty_window_count": 0,
+        "identity_method": "B baseline greedy 3D one-to-one; identity errors remain possible"
+      },
+      "segments": [
+        {
+          "segment_id": "SEC01_G01",
+          "observation_node_id": 10101,
+          "offset_m": 0.9550529999999995,
+          "position_map_m": [
+            -6.655,
+            9.044947
+          ],
+          "status": "COMPLETE",
+          "started_at": "2026-10-31T06:59:56.817501+00:00",
+          "navigation_wall_s": 0.0,
+          "capture_started_at": "2026-10-31T06:59:56.818260+00:00",
+          "segment_expected_count": 3,
+          "finished_at": "2026-10-31T06:59:56.937409+00:00",
+          "observation_wall_s": 0.11915937799494714,
+          "elapsed_wall_s": 0.11992207099683583
+        },
+        {
+          "segment_id": "SEC01_G02",
+          "observation_node_id": 10102,
+          "offset_m": 2.4775270000000003,
+          "position_map_m": [
+            -6.655,
+            7.522473
+          ],
+          "status": "COMPLETE",
+          "started_at": "2026-10-31T06:59:56.960921+00:00",
+          "navigation_wall_s": 32.03739229700295,
+          "capture_started_at": "2026-10-31T07:00:29.000777+00:00",
+          "segment_expected_count": 4,
+          "finished_at": "2026-10-31T07:00:29.117726+00:00",
+          "observation_wall_s": 0.11696695600403473,
+          "elapsed_wall_s": 32.1568375719944
+        },
+        {
+          "segment_id": "SEC01_G03",
+          "observation_node_id": 10103,
+          "offset_m": 4.0,
+          "position_map_m": [
+            -6.655,
+            6.0
+          ],
+          "status": "COMPLETE",
+          "started_at": "2026-10-31T07:00:29.141423+00:00",
+          "navigation_wall_s": 31.496142057992984,
+          "capture_started_at": "2026-10-31T07:01:00.638360+00:00",
+          "segment_expected_count": 4,
+          "finished_at": "2026-10-31T07:01:00.737358+00:00",
+          "observation_wall_s": 0.09901165502378717,
+          "elapsed_wall_s": 31.595965304004494
+        },
+        {
+          "segment_id": "SEC01_G04",
+          "observation_node_id": 10104,
+          "offset_m": 5.522473,
+          "position_map_m": [
+            -6.655,
+            4.477527
+          ],
+          "status": "COMPLETE",
+          "started_at": "2026-10-31T07:01:00.759876+00:00",
+          "navigation_wall_s": 32.73904577502981,
+          "capture_started_at": "2026-10-31T07:01:33.501130+00:00",
+          "segment_expected_count": 2,
+          "finished_at": "2026-10-31T07:01:33.597530+00:00",
+          "observation_wall_s": 0.0964133509551175,
+          "elapsed_wall_s": 32.83767388702836
+        },
+        {
+          "segment_id": "SEC01_G05",
+          "observation_node_id": 10105,
+          "offset_m": 7.0449470000000005,
+          "position_map_m": [
+            -6.655,
+            2.955053
+          ],
+          "status": "COMPLETE",
+          "started_at": "2026-10-31T07:01:33.623515+00:00",
+          "navigation_wall_s": 28.813977940008044,
+          "capture_started_at": "2026-10-31T07:02:02.437912+00:00",
+          "segment_expected_count": 2,
+          "finished_at": "2026-10-31T07:02:02.517400+00:00",
+          "observation_wall_s": 0.07949663896579295,
+          "elapsed_wall_s": 28.893910721992142
+        }
+      ],
+      "batch": [
+        {
+          "task_id": "b72bfef3293b_SEC01_TASK001",
+          "window_id": "b72bfef3293b_SEC01_W001",
+          "goal_pose": {
+            "frame_id": "map",
+            "position": {
+              "x": -6.015000000000001,
+              "y": 9.342572999662844,
+              "z": 0.0
+            },
+            "yaw": -1.5707963267948966
+          },
+          "expected_count": 1,
+          "section_id": "SEC01",
+          "segment_id": "SEC01_G01",
+          "sequence": 1
+        },
+        {
+          "task_id": "b72bfef3293b_SEC01_TASK002",
+          "window_id": "b72bfef3293b_SEC01_W002",
+          "goal_pose": {
+            "frame_id": "map",
+            "position": {
+              "x": -6.015000000000001,
+              "y": 8.715122671883014,
+              "z": 0.0
+            },
+            "yaw": -1.5707963267948966
+          },
+          "expected_count": 1,
+          "section_id": "SEC01",
+          "segment_id": "SEC01_G01",
+          "sequence": 2
+        },
+        {
+          "task_id": "b72bfef3293b_SEC01_TASK003",
+          "window_id": "b72bfef3293b_SEC01_W003",
+          "goal_pose": {
+            "frame_id": "map",
+            "position": {
+              "x": -6.015000000000001,
+              "y": 8.35211709736994,
+              "z": 0.0
+            },
+            "yaw": -1.5707963267948966
+          },
+          "expected_count": 1,
+          "section_id": "SEC01",
+          "segment_id": "SEC01_G01",
+          "sequence": 3
+        },
+        {
+          "task_id": "b72bfef3293b_SEC01_TASK004",
+          "window_id": "b72bfef3293b_SEC01_W004",
+          "goal_pose": {
+            "frame_id": "map",
+            "position": {
+              "x": -6.015000000000001,
+              "y": 7.6852872794625355,
+              "z": 0.0
+            },
+            "yaw": -1.5707963267948966
+          },
+          "expected_count": 2,
+          "section_id": "SEC01",
+          "segment_id": "SEC01_G02",
+          "sequence": 4
+        },
+        {
+          "task_id": "b72bfef3293b_SEC01_TASK005",
+          "window_id": "b72bfef3293b_SEC01_W005",
+          "goal_pose": {
+            "frame_id": "map",
+            "position": {
+              "x": -6.015000000000001,
+              "y": 7.063658454516828,
+              "z": 0.0
+            },
+            "yaw": -1.5707963267948966
+          },
+          "expected_count": 1,
+          "section_id": "SEC01",
+          "segment_id": "SEC01_G02",
+          "sequence": 5
+        },
+        {
+          "task_id": "b72bfef3293b_SEC01_TASK006",
+          "window_id": "b72bfef3293b_SEC01_W006",
+          "goal_pose": {
+            "frame_id": "map",
+            "position": {
+              "x": -6.015000000000001,
+              "y": 6.370322530132878,
+              "z": 0.0
+            },
+            "yaw": -1.5707963267948966
+          },
+          "expected_count": 1,
+          "section_id": "SEC01",
+          "segment_id": "SEC01_G03",
+          "sequence": 6
+        },
+        {
+          "task_id": "b72bfef3293b_SEC01_TASK007",
+          "window_id": "b72bfef3293b_SEC01_W007",
+          "goal_pose": {
+            "frame_id": "map",
+            "position": {
+              "x": -6.015000000000001,
+              "y": 5.83798835607816,
+              "z": 0.0
+            },
+            "yaw": -1.5707963267948966
+          },
+          "expected_count": 2,
+          "section_id": "SEC01",
+          "segment_id": "SEC01_G03",
+          "sequence": 7
+        },
+        {
+          "task_id": "b72bfef3293b_SEC01_TASK008",
+          "window_id": "b72bfef3293b_SEC01_W008",
+          "goal_pose": {
+            "frame_id": "map",
+            "position": {
+              "x": -6.015000000000001,
+              "y": 5.100784848286155,
+              "z": 0.0
+            },
+            "yaw": -1.5707963267948966
+          },
+          "expected_count": 2,
+          "section_id": "SEC01",
+          "segment_id": "SEC01_G04",
+          "sequence": 8
+        },
+        {
+          "task_id": "b72bfef3293b_SEC01_TASK009",
+          "window_id": "b72bfef3293b_SEC01_W009",
+          "goal_pose": {
+            "frame_id": "map",
+            "position": {
+              "x": -6.015000000000001,
+              "y": 3.278975993076343,
+              "z": 0.0
+            },
+            "yaw": -1.5707963267948966
+          },
+          "expected_count": 2,
+          "section_id": "SEC01",
+          "segment_id": "SEC01_G05",
+          "sequence": 9
+        }
+      ],
+      "post_capture_navigation": {
+        "finish_at": "last_segment",
+        "started_at": "2026-10-31T07:02:02.557862+00:00",
+        "status": "SKIPPED",
+        "finished_at": "2026-10-31T07:02:02.557868+00:00",
+        "elapsed_wall_s": 9.649025741964579e-06
+      }
+    }
+  },
+  "observations": [
+    {
+      "section": "SEC01",
+      "segment_id": "SEC01_G01",
+      "index": 1,
+      "stamp_ns": 52433336068,
+      "timings": {
+        "capture_to_result_ms": 83.22787203360349,
+        "preprocess_infer_depth_ms": 30.731560953427106
+      },
+      "valid_depth_detection_count": 3,
+      "depth_rejected_count": 0,
+      "section_accepted_count": 3,
+      "segment_expected_count": 3,
+      "outside_section_count": 0
+    },
+    {
+      "section": "SEC01",
+      "segment_id": "SEC01_G02",
+      "index": 2,
+      "stamp_ns": 69700003635,
+      "timings": {
+        "capture_to_result_ms": 101.7264979891479,
+        "preprocess_infer_depth_ms": 40.9248789655976
+      },
+      "valid_depth_detection_count": 4,
+      "depth_rejected_count": 0,
+      "section_accepted_count": 4,
+      "segment_expected_count": 4,
+      "outside_section_count": 0
+    },
+    {
+      "section": "SEC01",
+      "segment_id": "SEC01_G03",
+      "index": 3,
+      "stamp_ns": 86100004490,
+      "timings": {
+        "capture_to_result_ms": 71.2445990066044,
+        "preprocess_infer_depth_ms": 26.505046989768744
+      },
+      "valid_depth_detection_count": 4,
+      "depth_rejected_count": 0,
+      "section_accepted_count": 4,
+      "segment_expected_count": 4,
+      "outside_section_count": 0
+    },
+    {
+      "section": "SEC01",
+      "segment_id": "SEC01_G04",
+      "index": 4,
+      "stamp_ns": 103566672068,
+      "timings": {
+        "capture_to_result_ms": 82.59002398699522,
+        "preprocess_infer_depth_ms": 26.657003036234528
+      },
+      "valid_depth_detection_count": 2,
+      "depth_rejected_count": 0,
+      "section_accepted_count": 2,
+      "segment_expected_count": 2,
+      "outside_section_count": 0
+    },
+    {
+      "section": "SEC01",
+      "segment_id": "SEC01_G05",
+      "index": 5,
+      "stamp_ns": 120366672944,
+      "timings": {
+        "capture_to_result_ms": 72.01119704404846,
+        "preprocess_infer_depth_ms": 13.705925026442856
+      },
+      "valid_depth_detection_count": 2,
+      "depth_rejected_count": 0,
+      "section_accepted_count": 2,
+      "segment_expected_count": 2,
+      "outside_section_count": 0
+    }
+  ],
+  "completed_segments": [
+    {
+      "section_id": "SEC01",
+      "segment_id": "SEC01_G01"
+    },
+    {
+      "section_id": "SEC01",
+      "segment_id": "SEC01_G02"
+    },
+    {
+      "section_id": "SEC01",
+      "segment_id": "SEC01_G03"
+    },
+    {
+      "section_id": "SEC01",
+      "segment_id": "SEC01_G04"
+    },
+    {
+      "section_id": "SEC01",
+      "segment_id": "SEC01_G05"
+    }
+  ],
+  "completed_segment_count": 5,
+  "navigation": [
+    {
+      "request_id": "1a5be36741cb4658965504e9f1d06ded",
+      "goal_map": {
+        "x": -6.655,
+        "y": 9.044947,
+        "yaw": -1.5707963267948966
+      },
+      "mode": "follow_path",
+      "status": "ARRIVED",
+      "started_at": "2026-10-31T06:58:03.297854+00:00",
+      "route": {
+        "plan_id": "37295eadd691446297f59040d47418d0",
+        "graph_revision": "d580c18443f54de0d445921779886de45a21529a9c5facee0dfe2bda05805a78",
+        "frame_id": "map",
+        "points": [
+          [
+            -5.000000000539015,
+            13.24997633154958
+          ],
+          [
+            -5.0,
+            11.5
+          ],
+          [
+            -5.955,
+            11.5
+          ],
+          [
+            -6.655,
+            11.5
+          ],
+          [
+            -6.655,
+            10.7
+          ],
+          [
+            -6.655,
+            10.0
+          ],
+          [
+            -6.655,
+            9.044947
+          ]
+        ],
+        "edge_ids": [
+          "30509",
+          "30003",
+          "30001",
+          "30124",
+          "30126:SEC01_START:0",
+          "30126:SEC01_START:1"
+        ],
+        "distance_m": 5.860029332088596,
+        "headings": null
+      },
+      "reverse": false,
+      "nav2_status": 4,
+      "actual_map": {
+        "x": -6.65212213646121,
+        "y": 9.07112461569022,
+        "yaw": -1.5859515068251815
+      },
+      "position_error_m": 0.026335331054929214,
+      "heading_error_rad": 0.015155180030284932,
+      "position_tolerance_m": 0.08,
+      "heading_tolerance_rad": 0.12,
+      "accepted": true,
+      "stamp_ns": 52283336060,
+      "finished_at": "2026-10-31T06:59:56.709465+00:00"
+    },
+    {
+      "request_id": "0bd35da6be754e74945212fa29baee5d",
+      "goal_map": {
+        "x": -6.655,
+        "y": 7.522473,
+        "yaw": -1.5707963267948966
+      },
+      "mode": "follow_path",
+      "status": "ARRIVED",
+      "started_at": "2026-10-31T06:59:56.961516+00:00",
+      "route": {
+        "plan_id": "4d8b85e108df449a9beaf317a34e20ad",
+        "graph_revision": "d580c18443f54de0d445921779886de45a21529a9c5facee0dfe2bda05805a78",
+        "frame_id": "map",
+        "points": [
+          [
+            -6.652122321795856,
+            9.071112528216194
+          ],
+          [
+            -6.655,
+            9.071112528216194
+          ],
+          [
+            -6.655,
+            9.044947
+          ],
+          [
+            -6.655,
+            7.522473
+          ]
+        ],
+        "edge_ids": [
+          "30126:SEC01_START:1",
+          "30128"
+        ],
+        "distance_m": 1.5515172064203382,
+        "headings": null
+      },
+      "reverse": false,
+      "nav2_status": 4,
+      "actual_map": {
+        "x": -6.652809148999132,
+        "y": 7.546952184269323,
+        "yaw": -1.6000872051517763
+      },
+      "position_error_m": 0.02457702770066936,
+      "heading_error_rad": 0.029290878356879716,
+      "position_tolerance_m": 0.08,
+      "heading_tolerance_rad": 0.12,
+      "accepted": true,
+      "stamp_ns": 69616670297,
+      "finished_at": "2026-10-31T07:00:28.983530+00:00"
+    },
+    {
+      "request_id": "b0051e4506a145969a27062b07ed29b2",
+      "goal_map": {
+        "x": -6.655,
+        "y": 6.0,
+        "yaw": -1.5707963267948966
+      },
+      "mode": "follow_path",
+      "status": "ARRIVED",
+      "started_at": "2026-10-31T07:00:29.142001+00:00",
+      "route": {
+        "plan_id": "ba69aa0150424972ac4e3ba73854904d",
+        "graph_revision": "d580c18443f54de0d445921779886de45a21529a9c5facee0dfe2bda05805a78",
+        "frame_id": "map",
+        "points": [
+          [
+            -6.652809225953421,
+            7.546949557546755
+          ],
+          [
+            -6.655,
+            7.546949557546755
+          ],
+          [
+            -6.655,
+            7.522473
+          ],
+          [
+            -6.655,
+            6.0
+          ]
+        ],
+        "edge_ids": [
+          "30128",
+          "30130"
+        ],
+        "distance_m": 1.5491403315933345,
+        "headings": null
+      },
+      "reverse": false,
+      "nav2_status": 4,
+      "actual_map": {
+        "x": -6.65400471871125,
+        "y": 6.0267004523309335,
+        "yaw": -1.5659692127085023
+      },
+      "position_error_m": 0.026718995855387055,
+      "heading_error_rad": 0.004827114086394246,
+      "position_tolerance_m": 0.08,
+      "heading_tolerance_rad": 0.12,
+      "accepted": true,
+      "stamp_ns": 86016671153,
+      "finished_at": "2026-10-31T07:01:00.633511+00:00"
+    },
+    {
+      "request_id": "018810d083294d32892dc842e02279fb",
+      "goal_map": {
+        "x": -6.655,
+        "y": 4.477527,
+        "yaw": -1.5707963267948966
+      },
+      "mode": "follow_path",
+      "status": "ARRIVED",
+      "started_at": "2026-10-31T07:01:00.760050+00:00",
+      "route": {
+        "plan_id": "dc8964b031d0473aa124d51e89579e7f",
+        "graph_revision": "d580c18443f54de0d445921779886de45a21529a9c5facee0dfe2bda05805a78",
+        "frame_id": "map",
+        "points": [
+          [
+            -6.654004705434397,
+            6.026697704775151
+          ],
+          [
+            -6.655,
+            6.026697704775151
+          ],
+          [
+            -6.655,
+            6.0
+          ],
+          [
+            -6.655,
+            4.477527
+          ]
+        ],
+        "edge_ids": [
+          "30130",
+          "30132"
+        ],
+        "distance_m": 1.550165999340754,
+        "headings": null
+      },
+      "reverse": false,
+      "nav2_status": 4,
+      "actual_map": {
+        "x": -6.655483493422734,
+        "y": 4.503186657746895,
+        "yaw": -1.5635016667955612
+      },
+      "position_error_m": 0.025664212467511716,
+      "heading_error_rad": 0.007294659999335318,
+      "position_tolerance_m": 0.08,
+      "heading_tolerance_rad": 0.12,
+      "accepted": true,
+      "stamp_ns": 103483338730,
+      "finished_at": "2026-10-31T07:01:33.482613+00:00"
+    },
+    {
+      "request_id": "2d4c3938e5344d57bcb3006d9003be2b",
+      "goal_map": {
+        "x": -6.655,
+        "y": 2.9550529999999995,
+        "yaw": -1.5707963267948966
+      },
+      "mode": "follow_path",
+      "status": "ARRIVED",
+      "started_at": "2026-10-31T07:01:33.623932+00:00",
+      "route": {
+        "plan_id": "1346a4886ee1417ea5e67bd5da6e2eed",
+        "graph_revision": "d580c18443f54de0d445921779886de45a21529a9c5facee0dfe2bda05805a78",
+        "frame_id": "map",
+        "points": [
+          [
+            -6.655483470905946,
+            4.5031835697123395
+          ],
+          [
+            -6.655,
+            4.5031835697123395
+          ],
+          [
+            -6.655,
+            4.477527
+          ],
+          [
+            -6.655,
+            2.955053
+          ]
+        ],
+        "edge_ids": [
+          "30132",
+          "30134"
+        ],
+        "distance_m": 1.5486140406182853,
+        "headings": null
+      },
+      "reverse": false,
+      "nav2_status": 4,
+      "actual_map": {
+        "x": -6.654275122406518,
+        "y": 2.9805618807798098,
+        "yaw": -1.5959111687228666
+      },
+      "position_error_m": 0.025519178007218556,
+      "heading_error_rad": 0.02511484192797009,
+      "position_tolerance_m": 0.08,
+      "heading_tolerance_rad": 0.12,
+      "accepted": true,
+      "stamp_ns": 120283339607,
+      "finished_at": "2026-10-31T07:02:02.423786+00:00"
+    }
+  ],
+  "navigation_preflight": {
+    "mode": "follow_path",
+    "controller_node": "controller_server",
+    "parameters": {
+      "goal_checker_plugins": [
+        "goal_checker"
+      ],
+      "controller_plugins": [
+        "FollowPath",
+        "RPP",
+        "StationReverse"
+      ],
+      "progress_checker_plugins": [
+        "progress_checker"
+      ],
+      "RPP.desired_linear_vel": 0.15,
+      "goal_checker.plugin": "nav2_controller::SimpleGoalChecker",
+      "goal_checker.xy_goal_tolerance": 0.03,
+      "goal_checker.yaw_goal_tolerance": 0.05236,
+      "goal_checker.stateful": true,
+      "goal_checker.symmetric_yaw_tolerance": false
+    },
+    "checkers": [
+      {
+        "id": "goal_checker",
+        "xy_goal_tolerance": 0.03,
+        "yaw_goal_tolerance": 0.05236,
+        "stateful": true
+      }
+    ],
+    "status": "OK"
+  },
+  "vision_worker_log": "/home/ysy/main/farm_project/sim/runs/scout_survey/vision_a9f1910d76cd/vision_worker.log",
+  "worker_cleanup_wall_s": 6.4070336520671844e-06,
+  "finished_at": "2026-10-31T07:02:02.558180+00:00",
+  "elapsed_wall_s": 239.8807525409502,
+  "completed_section_ids": [
+    "SEC01"
+  ],
+  "section_id": "SEC01",
+  "harvest_tasks": [
+    {
+      "task_id": "b72bfef3293b_SEC01_TASK001",
+      "window_id": "b72bfef3293b_SEC01_W001",
+      "goal_pose": {
+        "frame_id": "map",
+        "position": {
+          "x": -6.015000000000001,
+          "y": 9.342572999662844,
+          "z": 0.0
+        },
+        "yaw": -1.5707963267948966
+      },
+      "expected_count": 1
+    },
+    {
+      "task_id": "b72bfef3293b_SEC01_TASK002",
+      "window_id": "b72bfef3293b_SEC01_W002",
+      "goal_pose": {
+        "frame_id": "map",
+        "position": {
+          "x": -6.015000000000001,
+          "y": 8.715122671883014,
+          "z": 0.0
+        },
+        "yaw": -1.5707963267948966
+      },
+      "expected_count": 1
+    },
+    {
+      "task_id": "b72bfef3293b_SEC01_TASK003",
+      "window_id": "b72bfef3293b_SEC01_W003",
+      "goal_pose": {
+        "frame_id": "map",
+        "position": {
+          "x": -6.015000000000001,
+          "y": 8.35211709736994,
+          "z": 0.0
+        },
+        "yaw": -1.5707963267948966
+      },
+      "expected_count": 1
+    },
+    {
+      "task_id": "b72bfef3293b_SEC01_TASK004",
+      "window_id": "b72bfef3293b_SEC01_W004",
+      "goal_pose": {
+        "frame_id": "map",
+        "position": {
+          "x": -6.015000000000001,
+          "y": 7.6852872794625355,
+          "z": 0.0
+        },
+        "yaw": -1.5707963267948966
+      },
+      "expected_count": 2
+    },
+    {
+      "task_id": "b72bfef3293b_SEC01_TASK005",
+      "window_id": "b72bfef3293b_SEC01_W005",
+      "goal_pose": {
+        "frame_id": "map",
+        "position": {
+          "x": -6.015000000000001,
+          "y": 7.063658454516828,
+          "z": 0.0
+        },
+        "yaw": -1.5707963267948966
+      },
+      "expected_count": 1
+    },
+    {
+      "task_id": "b72bfef3293b_SEC01_TASK006",
+      "window_id": "b72bfef3293b_SEC01_W006",
+      "goal_pose": {
+        "frame_id": "map",
+        "position": {
+          "x": -6.015000000000001,
+          "y": 6.370322530132878,
+          "z": 0.0
+        },
+        "yaw": -1.5707963267948966
+      },
+      "expected_count": 1
+    },
+    {
+      "task_id": "b72bfef3293b_SEC01_TASK007",
+      "window_id": "b72bfef3293b_SEC01_W007",
+      "goal_pose": {
+        "frame_id": "map",
+        "position": {
+          "x": -6.015000000000001,
+          "y": 5.83798835607816,
+          "z": 0.0
+        },
+        "yaw": -1.5707963267948966
+      },
+      "expected_count": 2
+    },
+    {
+      "task_id": "b72bfef3293b_SEC01_TASK008",
+      "window_id": "b72bfef3293b_SEC01_W008",
+      "goal_pose": {
+        "frame_id": "map",
+        "position": {
+          "x": -6.015000000000001,
+          "y": 5.100784848286155,
+          "z": 0.0
+        },
+        "yaw": -1.5707963267948966
+      },
+      "expected_count": 2
+    },
+    {
+      "task_id": "b72bfef3293b_SEC01_TASK009",
+      "window_id": "b72bfef3293b_SEC01_W009",
+      "goal_pose": {
+        "frame_id": "map",
+        "position": {
+          "x": -6.015000000000001,
+          "y": 3.278975993076343,
+          "z": 0.0
+        },
+        "yaw": -1.5707963267948966
+      },
+      "expected_count": 2
+    }
+  ],
+  "harvest_task_count": 9,
+  "total_expected_count": 13
+}

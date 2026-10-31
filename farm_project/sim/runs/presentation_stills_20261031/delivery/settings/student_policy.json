@@ -1,0 +1,25 @@
+{
+  "release": "sim/assets/robotarm_student/manyfarm_robotarm",
+  "camera": "u20",
+  "device": "cuda:0",
+  "vision_python": "/home/ysy/venv/robot_venv/bin/python",
+  "inventory_timeout_s": 3.0,
+  "assignment_gate_m": 0.06,
+  "assignment_ambiguity_m": 0.02,
+  "basket_lasers": {
+    "x_fractions": [
+      0.25,
+      0.5,
+      0.75
+    ],
+    "height_offset_m": -0.005,
+    "end_inset_m": 0.007,
+    "head_size_m": [
+      0.012,
+      0.006,
+      0.012
+    ],
+    "clear_s": 0.05,
+    "passage_timeout_s": 2.0
+  }
+}

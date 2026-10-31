@@ -1,0 +1,170 @@
+{
+  "name": "03-u20-staged-input",
+  "show": [
+    "/World/harvest_robot",
+    "/World/StudentSensors"
+  ],
+  "placements": {
+    "/World/harvest_robot": {
+      "xyz": [
+        -6,
+        7.8228,
+        0
+      ],
+      "yaw": 1.5707963267948966
+    }
+  },
+  "joints": {
+    "arm_1_shoulder_pan": 0.0,
+    "arm_1_shoulder_lift": -1.6,
+    "arm_1_elbow_flex": 1.2,
+    "arm_1_wrist_flex": -1.5,
+    "arm_1_wrist_roll": 0.04879632679489654,
+    "arm_1_gripper": 1.1,
+    "arm_2_shoulder_pan": -0.0014122941448851908,
+    "arm_2_shoulder_lift": -0.5567509979497131,
+    "arm_2_elbow_flex": 0.23621741005018163,
+    "arm_2_wrist_flex": 0.2516300414221054,
+    "arm_2_wrist_roll": 0.04943196243572641,
+    "arm_2_gripper": 0.65
+  },
+  "eye": [
+    -5.588652257167897,
+    7.700490629218338,
+    0.9944507080652976
+  ],
+  "target": [
+    -4.683916178228044,
+    7.279160875433219,
+    1.0571712472841726
+  ],
+  "focal_mm": 14.576112597510127,
+  "inspect": [
+    "/World/harvest_robot/arm_2_gripper_link",
+    "/World/Vegetation/Bed_02/Fruits/Pepper_0003_red"
+  ],
+  "hide": [
+    "/World/transport_robot",
+    "/World/HCRRobot",
+    "/World/HCRStation",
+    "/World/harvest_robot/arm_2_gripper_frame_link",
+    "/World/farm_framechanged/Cover_Roof_soft_film",
+    "/World/farm_framechanged/Cover_Side_soft_film__1",
+    "/World/farm_framechanged/Cover_Side_soft_film_1"
+  ],
+  "scope": "staged illustration using project USD assets; not an autonomous test result",
+  "resolution": [
+    1920,
+    1080
+  ],
+  "joint_positions": {
+    "arm_1_shoulder_pan": 0.0,
+    "arm_1_shoulder_lift": -1.6,
+    "arm_1_elbow_flex": 1.2,
+    "arm_1_wrist_flex": -1.5,
+    "arm_1_wrist_roll": 0.04879632679489654,
+    "arm_1_gripper": 1.1,
+    "arm_2_shoulder_pan": -0.0014122941448851908,
+    "arm_2_shoulder_lift": -0.5567509979497131,
+    "arm_2_elbow_flex": 0.23621741005018163,
+    "arm_2_wrist_flex": 0.2516300414221054,
+    "arm_2_wrist_roll": 0.04943196243572641,
+    "arm_2_gripper": 0.65,
+    "joint1": -7.355699155272922e-19,
+    "joint2": -1.6755398318121864,
+    "joint3": 2.009182906548714,
+    "joint4": 6.707244813412473e-19,
+    "joint5": 1.237153252066073,
+    "joint6": -1.0446705034601612e-18
+  },
+  "inspected": {
+    "/World/harvest_robot/arm_2_gripper_link": [
+      [
+        -0.06885634780190521,
+        -0.0013702048291390325,
+        -0.9976256441702502,
+        -5.594134179416842
+      ],
+      [
+        0.0006523200842497856,
+        0.9999987811850706,
+        -0.0014184875318528814,
+        7.6328797495653715
+      ],
+      [
+        0.997626371867689,
+        -0.0007484431151008192,
+        -0.06885537006663112,
+        0.9916106055011075
+      ],
+      [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ]
+    ],
+    "/World/Vegetation/Bed_02/Fruits/Pepper_0003_red": [
+      [
+        0.18798730954544102,
+        -0.7303462540955684,
+        0.0,
+        -5.511154265602804
+      ],
+      [
+        0.7303462540955684,
+        0.18798730954544102,
+        0.0,
+        7.632753138421099
+      ],
+      [
+        0.0,
+        0.0,
+        0.7541517615318298,
+        1.0244999997285635
+      ],
+      [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ]
+    ]
+  },
+  "fill_intensity": 0,
+  "up": [
+    0.420370587495809,
+    0.9069072791933457,
+    0.028421050553203563
+  ],
+  "warmup_frames": 45,
+  "camera_world_optical": [
+    [
+      -0.06885634780442515,
+      -0.420370587495809,
+      0.9047360789398537,
+      -5.588652257167897
+    ],
+    [
+      0.0006523200826355606,
+      -0.9069072791933457,
+      -0.4213297537851192,
+      7.700490629218338
+    ],
+    [
+      0.9976263718675158,
+      -0.028421050553203563,
+      0.0627205392188749,
+      0.9944507080652976
+    ],
+    [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+    ]
+  ],
+  "input_kind": "staged U20 nominal pinhole RGB, same URDF pose; not recorded policy execution",
+  "gui": true,
+  "all_beds": true
+}

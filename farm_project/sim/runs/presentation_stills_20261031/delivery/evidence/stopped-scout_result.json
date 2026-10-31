@@ -1,0 +1,145 @@
+{
+  "scout_result": {
+    "status": 4,
+    "result": {
+      "robot_id": "scout_01",
+      "task_id": "cycle_scout_b32421fff845",
+      "result_code": "SUCCESS",
+      "section_id": "SEC01",
+      "completed_segment_count": 5,
+      "harvest_task_count": 9,
+      "total_expected_count": 13,
+      "harvest_tasks": [
+        {
+          "task_id": "b72bfef3293b_SEC01_TASK001",
+          "window_id": "b72bfef3293b_SEC01_W001",
+          "goal_pose": {
+            "frame_id": "map",
+            "position": {
+              "x": -6.015000000000001,
+              "y": 9.342572999662844,
+              "z": 0.0
+            },
+            "yaw": -1.5707963267948966
+          },
+          "expected_count": 1
+        },
+        {
+          "task_id": "b72bfef3293b_SEC01_TASK002",
+          "window_id": "b72bfef3293b_SEC01_W002",
+          "goal_pose": {
+            "frame_id": "map",
+            "position": {
+              "x": -6.015000000000001,
+              "y": 8.715122671883014,
+              "z": 0.0
+            },
+            "yaw": -1.5707963267948966
+          },
+          "expected_count": 1
+        },
+        {
+          "task_id": "b72bfef3293b_SEC01_TASK003",
+          "window_id": "b72bfef3293b_SEC01_W003",
+          "goal_pose": {
+            "frame_id": "map",
+            "position": {
+              "x": -6.015000000000001,
+              "y": 8.35211709736994,
+              "z": 0.0
+            },
+            "yaw": -1.5707963267948966
+          },
+          "expected_count": 1
+        },
+        {
+          "task_id": "b72bfef3293b_SEC01_TASK004",
+          "window_id": "b72bfef3293b_SEC01_W004",
+          "goal_pose": {
+            "frame_id": "map",
+            "position": {
+              "x": -6.015000000000001,
+              "y": 7.6852872794625355,
+              "z": 0.0
+            },
+            "yaw": -1.5707963267948966
+          },
+          "expected_count": 2
+        },
+        {
+          "task_id": "b72bfef3293b_SEC01_TASK005",
+          "window_id": "b72bfef3293b_SEC01_W005",
+          "goal_pose": {
+            "frame_id": "map",
+            "position": {
+              "x": -6.015000000000001,
+              "y": 7.063658454516828,
+              "z": 0.0
+            },
+            "yaw": -1.5707963267948966
+          },
+          "expected_count": 1
+        },
+        {
+          "task_id": "b72bfef3293b_SEC01_TASK006",
+          "window_id": "b72bfef3293b_SEC01_W006",
+          "goal_pose": {
+            "frame_id": "map",
+            "position": {
+              "x": -6.015000000000001,
+              "y": 6.370322530132878,
+              "z": 0.0
+            },
+            "yaw": -1.5707963267948966
+          },
+          "expected_count": 1
+        },
+        {
+          "task_id": "b72bfef3293b_SEC01_TASK007",
+          "window_id": "b72bfef3293b_SEC01_W007",
+          "goal_pose": {
+            "frame_id": "map",
+            "position": {
+              "x": -6.015000000000001,
+              "y": 5.83798835607816,
+              "z": 0.0
+            },
+            "yaw": -1.5707963267948966
+          },
+          "expected_count": 2
+        },
+        {
+          "task_id": "b72bfef3293b_SEC01_TASK008",
+          "window_id": "b72bfef3293b_SEC01_W008",
+          "goal_pose": {
+            "frame_id": "map",
+            "position": {
+              "x": -6.015000000000001,
+              "y": 5.100784848286155,
+              "z": 0.0
+            },
+            "yaw": -1.5707963267948966
+          },
+          "expected_count": 2
+        },
+        {
+          "task_id": "b72bfef3293b_SEC01_TASK009",
+          "window_id": "b72bfef3293b_SEC01_W009",
+          "goal_pose": {
+            "frame_id": "map",
+            "position": {
+              "x": -6.015000000000001,
+              "y": 3.278975993076343,
+              "z": 0.0
+            },
+            "yaw": -1.5707963267948966
+          },
+          "expected_count": 2
+        }
+      ],
+      "error_code": "NONE",
+      "error_message": "",
+      "timestamp": "2026-10-31T07:02:02.558176+00:00"
+    }
+  }
+}

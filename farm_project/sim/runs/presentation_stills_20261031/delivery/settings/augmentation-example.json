@@ -1,0 +1,233 @@
+{
+  "seed": 930,
+  "scope": "illustrative RGB postprocessing, not new training data; lighting is gain/gamma not physical relighting",
+  "input": "originals/02-scout-rgb.png",
+  "variants": {
+    "original": {
+      "config": null,
+      "sampled": {
+        "enabled": false
+      }
+    },
+    "lighting": {
+      "config": {
+        "enabled": true,
+        "reference": "rgb2.png dominant; image.png occasional stronger defocus",
+        "gaussian_sigma_px": [
+          0.0,
+          0.0
+        ],
+        "strong_blur_probability": 0.0,
+        "strong_gaussian_sigma_px": [
+          0.0,
+          0.0
+        ],
+        "motion_blur_probability": 0.0,
+        "motion_kernel_px": 3,
+        "read_noise_sigma_8bit": [
+          0.0,
+          0.0
+        ],
+        "signal_noise_sigma_8bit": [
+          0.0,
+          0.0
+        ],
+        "chroma_noise_sigma_8bit": [
+          0.0,
+          0.0
+        ],
+        "gain": [
+          0.65,
+          0.65
+        ],
+        "gamma": [
+          1.1,
+          1.1
+        ],
+        "jpeg_probability": 0.0,
+        "jpeg_quality": [
+          92,
+          99
+        ]
+      },
+      "sampled": {
+        "enabled": true,
+        "gaussian_sigma_px": 0.0,
+        "strong_blur": false,
+        "motion_angle_deg": null,
+        "read_noise_sigma_8bit": 0.0,
+        "signal_noise_sigma_8bit": 0.0,
+        "chroma_noise_sigma_8bit": 0.0,
+        "gain": 0.65,
+        "gamma": 1.1,
+        "jpeg_quality": null,
+        "calibration": "visual_reference_preset_not_measured_camera_model"
+      }
+    },
+    "noise": {
+      "config": {
+        "enabled": true,
+        "reference": "rgb2.png dominant; image.png occasional stronger defocus",
+        "gaussian_sigma_px": [
+          0.0,
+          0.0
+        ],
+        "strong_blur_probability": 0.0,
+        "strong_gaussian_sigma_px": [
+          0.0,
+          0.0
+        ],
+        "motion_blur_probability": 0.0,
+        "motion_kernel_px": 3,
+        "read_noise_sigma_8bit": [
+          10.0,
+          10.0
+        ],
+        "signal_noise_sigma_8bit": [
+          4.0,
+          4.0
+        ],
+        "chroma_noise_sigma_8bit": [
+          2.0,
+          2.0
+        ],
+        "gain": [
+          1.0,
+          1.0
+        ],
+        "gamma": [
+          1.0,
+          1.0
+        ],
+        "jpeg_probability": 0.0,
+        "jpeg_quality": [
+          92,
+          99
+        ]
+      },
+      "sampled": {
+        "enabled": true,
+        "gaussian_sigma_px": 0.0,
+        "strong_blur": false,
+        "motion_angle_deg": null,
+        "read_noise_sigma_8bit": 10.0,
+        "signal_noise_sigma_8bit": 4.0,
+        "chroma_noise_sigma_8bit": 2.0,
+        "gain": 1.0,
+        "gamma": 1.0,
+        "jpeg_quality": null,
+        "calibration": "visual_reference_preset_not_measured_camera_model"
+      }
+    },
+    "blur": {
+      "config": {
+        "enabled": true,
+        "reference": "rgb2.png dominant; image.png occasional stronger defocus",
+        "gaussian_sigma_px": [
+          2.8,
+          2.8
+        ],
+        "strong_blur_probability": 0.0,
+        "strong_gaussian_sigma_px": [
+          0.0,
+          0.0
+        ],
+        "motion_blur_probability": 0.0,
+        "motion_kernel_px": 3,
+        "read_noise_sigma_8bit": [
+          0.0,
+          0.0
+        ],
+        "signal_noise_sigma_8bit": [
+          0.0,
+          0.0
+        ],
+        "chroma_noise_sigma_8bit": [
+          0.0,
+          0.0
+        ],
+        "gain": [
+          1.0,
+          1.0
+        ],
+        "gamma": [
+          1.0,
+          1.0
+        ],
+        "jpeg_probability": 0.0,
+        "jpeg_quality": [
+          92,
+          99
+        ]
+      },
+      "sampled": {
+        "enabled": true,
+        "gaussian_sigma_px": 1.4,
+        "strong_blur": false,
+        "motion_angle_deg": null,
+        "read_noise_sigma_8bit": 0.0,
+        "signal_noise_sigma_8bit": 0.0,
+        "chroma_noise_sigma_8bit": 0.0,
+        "gain": 1.0,
+        "gamma": 1.0,
+        "jpeg_quality": null,
+        "calibration": "visual_reference_preset_not_measured_camera_model"
+      }
+    },
+    "production": {
+      "config": {
+        "enabled": true,
+        "reference": "rgb2.png dominant; image.png occasional stronger defocus",
+        "gaussian_sigma_px": [
+          0.35,
+          0.7
+        ],
+        "strong_blur_probability": 0.1,
+        "strong_gaussian_sigma_px": [
+          0.8,
+          1.15
+        ],
+        "motion_blur_probability": 0.1,
+        "motion_kernel_px": 3,
+        "read_noise_sigma_8bit": [
+          0.5,
+          1.3
+        ],
+        "signal_noise_sigma_8bit": [
+          0.3,
+          0.8
+        ],
+        "chroma_noise_sigma_8bit": [
+          0.15,
+          0.4
+        ],
+        "gain": [
+          0.96,
+          1.04
+        ],
+        "gamma": [
+          0.97,
+          1.03
+        ],
+        "jpeg_probability": 0.2,
+        "jpeg_quality": [
+          92,
+          99
+        ]
+      },
+      "sampled": {
+        "enabled": true,
+        "gaussian_sigma_px": 0.32790541572209575,
+        "strong_blur": false,
+        "motion_angle_deg": null,
+        "read_noise_sigma_8bit": 0.9566736588122954,
+        "signal_noise_sigma_8bit": 0.6469005110622139,
+        "chroma_noise_sigma_8bit": 0.3058371262099727,
+        "gain": 1.0339568943223512,
+        "gamma": 1.0019695746823798,
+        "jpeg_quality": null,
+        "calibration": "visual_reference_preset_not_measured_camera_model"
+      }
+    }
+  }
+}

@@ -1,0 +1,123 @@
+{
+  "name": "harvest-grasp-closeup",
+  "show": [
+    "/World/harvest_robot",
+    "/World/StudentSensors"
+  ],
+  "placements": {
+    "/World/harvest_robot": {
+      "xyz": [
+        -6,
+        7.8228,
+        0
+      ],
+      "yaw": 1.5707963267948966
+    }
+  },
+  "joints": {
+    "arm_1_shoulder_pan": 0.0,
+    "arm_1_shoulder_lift": -1.6,
+    "arm_1_elbow_flex": 1.2,
+    "arm_1_wrist_flex": -1.5,
+    "arm_1_wrist_roll": 0.04879632679489654,
+    "arm_1_gripper": 1.1,
+    "arm_2_shoulder_pan": -0.0014122941448851908,
+    "arm_2_shoulder_lift": -0.5567509979497131,
+    "arm_2_elbow_flex": 0.23621741005018163,
+    "arm_2_wrist_flex": 0.2516300414221054,
+    "arm_2_wrist_roll": 0.04943196243572641,
+    "arm_2_gripper": 0.65
+  },
+  "eye": [
+    -6.0,
+    7.0,
+    1.22
+  ],
+  "target": [
+    -5.62,
+    7.61,
+    1.0
+  ],
+  "focal_mm": 42,
+  "inspect": [
+    "/World/harvest_robot/arm_2_gripper_link",
+    "/World/Vegetation/Bed_02/Fruits/Pepper_0003_red"
+  ],
+  "hide": [
+    "/World/harvest_robot/arm_2_gripper_frame_link"
+  ],
+  "scope": "staged illustration using project USD assets; not an autonomous test result",
+  "resolution": [
+    1920,
+    1080
+  ],
+  "joint_positions": {
+    "arm_1_shoulder_pan": 0.0,
+    "arm_1_shoulder_lift": -1.6,
+    "arm_1_elbow_flex": 1.2,
+    "arm_1_wrist_flex": -1.5,
+    "arm_1_wrist_roll": 0.04879632679489654,
+    "arm_1_gripper": 1.1,
+    "arm_2_shoulder_pan": -0.0014122941448851908,
+    "arm_2_shoulder_lift": -0.5567509979497131,
+    "arm_2_elbow_flex": 0.23621741005018163,
+    "arm_2_wrist_flex": 0.2516300414221054,
+    "arm_2_wrist_roll": 0.04943196243572641,
+    "arm_2_gripper": 0.65
+  },
+  "inspected": {
+    "/World/harvest_robot/arm_2_gripper_link": [
+      [
+        -0.06885634780190521,
+        -0.0013702048291390325,
+        -0.9976256441702502,
+        -5.594134179416842
+      ],
+      [
+        0.0006523200842497856,
+        0.9999987811850706,
+        -0.0014184875318528814,
+        7.6328797495653715
+      ],
+      [
+        0.997626371867689,
+        -0.0007484431151008192,
+        -0.06885537006663112,
+        0.9916106055011075
+      ],
+      [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ]
+    ],
+    "/World/Vegetation/Bed_02/Fruits/Pepper_0003_red": [
+      [
+        0.18798730954544102,
+        -0.7303462540955684,
+        0.0,
+        -5.511154265602804
+      ],
+      [
+        0.7303462540955684,
+        0.18798730954544102,
+        0.0,
+        7.632753138421099
+      ],
+      [
+        0.0,
+        0.0,
+        0.7541517615318298,
+        1.0244999997285635
+      ],
+      [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ]
+    ]
+  },
+  "fill_intensity": 1500
+}

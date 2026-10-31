@@ -1,0 +1,108 @@
+{
+  "state": "DONE",
+  "mission_complete": true,
+  "target_priority": "lowest_camera_observed_world_height_first",
+  "ordered_target_ids": [
+    "fruit-000001"
+  ],
+  "observed_target_heights_m": {
+    "fruit-000001": 0.8328427495967989
+  },
+  "harvest_successes": 1,
+  "planned_targets": 1,
+  "harvested_ids": [
+    "fruit-000001"
+  ],
+  "failure": null,
+  "events": [
+    {
+      "state": "TO_HOME",
+      "stamp_s": 490.20002556592226,
+      "target_id": "fruit-000001"
+    },
+    {
+      "state": "HARVEST",
+      "stamp_s": 499.15002603270113,
+      "target_id": "fruit-000001"
+    },
+    {
+      "state": "WAIT_BOX",
+      "stamp_s": 527.7000275216997,
+      "target_id": "fruit-000001"
+    },
+    {
+      "state": "BOX_CONFIRMED",
+      "target_id": "fruit-000001",
+      "stamp_s": 527.9500275347382,
+      "evidence_source": "basket_parallel_lasers"
+    },
+    {
+      "state": "RETURN_STOW",
+      "stamp_s": 527.9500275347382,
+      "target_id": "fruit-000001"
+    },
+    {
+      "state": "FINAL_STOP",
+      "stamp_s": 549.7000286690891,
+      "target_id": "fruit-000001"
+    },
+    {
+      "state": "DONE",
+      "stamp_s": 550.2500286977738,
+      "target_id": "fruit-000001"
+    }
+  ],
+  "harvest_timed_out": false,
+  "controller_mission_complete": true,
+  "session_status": "SUCCESS",
+  "session_error_code": "",
+  "session_error_message": "student_attempts_completed_arms_stowed",
+  "safe_stopped": true,
+  "camera_acquisitions": 956,
+  "max_sensor_fk_error": 2.6527227667827447e-06,
+  "teacher_actors_loaded": false,
+  "mission_config": {
+    "version": "student60_stow_mission_v1",
+    "status": "simulation_candidate_user_visual_review_pending",
+    "joint_order": [
+      "shoulder_pan",
+      "shoulder_lift",
+      "elbow_flex",
+      "wrist_flex",
+      "wrist_roll",
+      "gripper"
+    ],
+    "home_rad": [
+      0.0,
+      -1.39,
+      0.77,
+      0.62,
+      0.04879632679489654,
+      1.1
+    ],
+    "stow_rad": [
+      0.0,
+      -1.6,
+      1.2,
+      -1.5,
+      0.04879632679489654,
+      1.1
+    ],
+    "home_to_stow_via_rad": [],
+    "speed_rad_s": 0.3,
+    "max_command_lead_rad": 0.08,
+    "position_tolerance_rad": 0.035,
+    "stop_speed_rad_s": 0.08,
+    "instantaneous_speed_limit_rad_s": 0.5,
+    "settle_s": 0.4,
+    "waypoint_timeout_s": 20.0,
+    "harvest_timeout_s": 60.0,
+    "joint_ttl_s": 0.1,
+    "box_evidence_ttl_s": 0.15,
+    "return_lift_m": 0.13,
+    "hardware_authorized": false
+  },
+  "success_criterion": "basket_parallel_lasers",
+  "object_identity_confirmed": false,
+  "physical_retention_confirmed": false
+}

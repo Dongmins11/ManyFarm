@@ -1,0 +1,23 @@
+{
+  "schema_version": 1,
+  "docking_markers": "sim/runs/section_full_cycle_return_20261031_155740/attempt_001/runtime/cycle_layout.json",
+  "station_config": "sim/runs/section_full_cycle_return_20261031_155740/attempt_001/runtime/stations.json",
+  "device_configs": [
+    "sim/ros_ws/src/farm_sim_config/config/scout_fleet.json",
+    "sim/runs/section_full_cycle_return_20261031_155740/attempt_001/runtime/harvest.json",
+    "sim/runs/section_full_cycle_return_20261031_155740/attempt_001/runtime/transport.json"
+  ],
+  "evaluation_config": "sim/ros_ws/src/farm_sim_config/config/harvest_audit.json",
+  "clock": {
+    "command_port": 17690,
+    "telemetry_port": 17691
+  },
+  "basket_alignment": {
+    "evaluation_config": "sim/ros_ws/src/farm_sim_config/config/docking/basket_alignment_evaluation.json",
+    "robots": {
+      "harvest": "harvest_01",
+      "transport": "transport_01"
+    }
+  },
+  "sorter_config": "sim/runs/section_full_cycle_return_20261031_155740/attempt_001/runtime/sorter.json"
+}
