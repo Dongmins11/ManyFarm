@@ -1,4 +1,5 @@
 """수확 이동 및 인계 상태를 1 Hz로 보고한다. 동작 명령은 보내지 않는다."""
+from farm_navigation.operation_clock import operation_time
 from datetime import datetime, timezone
 import math
 import time
@@ -38,7 +39,7 @@ class HarvestStatus:
     def on_battery(self, msg) -> None:
         """BatteryState.percentage는0–1. 전압에서 잔량을 추측하지 않는다."""
         value = float(msg.percentage)
-        self.battery = (100.0*value, time.monotonic()) if math.isfinite(value) and 0 <= value <= 1 else None
+        self.battery = (100.0*value, operation_time(self.node)) if math.isfinite(value) and 0 <= value <= 1 else None
 
     def publish(self) -> None:
         node = self.node
@@ -99,7 +100,7 @@ class HarvestStatus:
         except Exception as error:
             # 유효하지 않은 위치를 정상값으로 표시하지 않는다. 주행은 기존 미션이 판단한다.
             errors.append(('POSE_UNAVAILABLE',str(error)))
-        if self.battery is not None and time.monotonic()-self.battery[1] <= 5.0:
+        if self.battery is not None and operation_time(self.node)-self.battery[1] <= 5.0:
             status.battery_percent = self.battery[0]
         else:
             # float 필드에 unknown 규약이 없으므로 오류와 함께 자리값을 명시한다.

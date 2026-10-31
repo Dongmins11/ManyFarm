@@ -102,18 +102,20 @@ class ExecutionClockTests(unittest.TestCase):
             self.execute()
         self.assertEqual(self.wall, 300.)
 
-    def test_response_timeout_remains_wall_time_during_pause(self):
-        self.rate = 0.
+    def test_response_timeout_waits_for_sim_resume(self):
+        self.pause_until = 50.
         with self.assertRaisesRegex(TimeoutError, '응답 시간 초과'):
             self.client._wait(Future(), 5., lambda:None)
-        self.assertEqual(self.wall, 5.)
+        self.assertGreaterEqual(self.sim, 5.)
+        self.assertGreater(self.wall, 50.)
 
-    def test_cancel_timeout_remains_wall_time_during_pause(self):
-        self.rate = 0.
+    def test_cancel_timeout_waits_for_sim_resume(self):
+        self.pause_until = 50.
         self.client._handle, self.client._result = self.handle, self.result
         with self.assertRaisesRegex(TimeoutError, '응답 시간 초과'):
             self.client.cancel()
-        self.assertEqual(self.wall, 10.)
+        self.assertGreaterEqual(self.sim, 10.)
+        self.assertGreater(self.wall, 50.)
         self.assertTrue(self.client.has_goal)
 
     def test_operator_cancel_is_checked_while_sim_paused(self):

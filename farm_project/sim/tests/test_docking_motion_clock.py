@@ -1,4 +1,4 @@
-"""느린/일시정지 시뮬에서도 동작 예산은 /clock으로, 통신 대기는 실제시간으로 계산한다."""
+"""느린/일시정지 시뮬에서도 동작 예산은 /clock으로, 통신·센서 대기도 같은 시계로 계산한다."""
 from pathlib import Path
 import sys
 from types import SimpleNamespace as NS
@@ -20,8 +20,8 @@ def server(monkeypatch, sim=True):
     n.get_logger=lambda:NS(info=lambda *args:None)
     n.stopped=lambda:True
     finished=[];n.finish=lambda *args:finished.append(args)
-    s=dict(lidar_started=n.motion_time(),motion_started=n.motion_time(),started=clock['wall'],
-           lidar_log_at=clock['wall'],lidar_controller=NS(surface=None,good_since=None))
+    s=dict(lidar_started=n.motion_time(),motion_started=n.motion_time(),started=n.motion_time(),
+           lidar_log_at=n.motion_time(),lidar_controller=NS(surface=None,good_since=None))
     p={'lidar_approach':{'timeout_s':25.5,'target_distance_m':.2,'stale_wait_s':1.}}
     return n,s,p,clock,finished
 
@@ -68,20 +68,23 @@ def test_clock_reset_aborts_instead_of_negative_elapsed(monkeypatch):
 
 def test_input_recovery_does_not_mix_wall_and_sim_seconds(monkeypatch):
     n,s,p,c,done=server(monkeypatch)
-    s.update(lidar_input_wait_since=101.,lidar_input_wait_motion=10.5)
+    s.update(lidar_input_wait_since=10.5,lidar_input_wait_motion=10.5)
     c.update(wall=101.8,sim=10.7)
     PrecisionServer.run_lidar_approach(n,s,p)
     assert s['lidar_started']==pytest.approx(10.2)
     assert s['motion_started']==pytest.approx(10.2)
-    assert s['started']==pytest.approx(100.8)
+    assert s['started']==pytest.approx(10.2)
     assert 'lidar_input_wait_motion' not in s and 'lidar_input_wait_since' not in s
 
 
-def test_missing_sensor_watchdog_keeps_wall_time_even_when_sim_pauses(monkeypatch):
+def test_missing_sensor_watchdog_waits_for_sim_resume(monkeypatch):
     n,s,p,c,done=server(monkeypatch)
     s['lidar_stage']=True;n.log_scan_delay=lambda *args:None
     assert PrecisionServer.wait_lidar_inputs(n,s,p,RuntimeError('No raw front scan'))
     c['wall']+=1.1
+    assert PrecisionServer.wait_lidar_inputs(n,s,p,RuntimeError('No raw front scan'))
+    assert not done
+    c['sim']+=1.1
     assert PrecisionServer.wait_lidar_inputs(n,s,p,RuntimeError('No raw front scan'))
     assert done and 'Lidar input wait timeout' in done[-1][1]
 

@@ -1,4 +1,5 @@
 """Nav2 Spin 전용 연결. 자신의 Goal만 취소하며 미확인 요청을 버리지 않는다."""
+from farm_navigation.operation_clock import operation_time
 import math
 import time
 from typing import Any, Callable
@@ -28,7 +29,8 @@ class SpinClient:
     def ready(self) -> bool:
         return self._client.server_is_ready()
 
-    def _wait(self, future: Any, timeout: float, check: Callable[[], None], *, clock=time.monotonic) -> Any:
+    def _wait(self, future: Any, timeout: float, check: Callable[[], None], *, clock=None) -> Any:
+        clock = clock or (lambda: operation_time(self._node))
         deadline = clock() + timeout
         while not future.done():
             check()
@@ -61,7 +63,7 @@ class SpinClient:
             raise RuntimeError('Spin Goal 거절')
         self._result = self._handle.get_result_async()
         response = self._wait(self._result, allowance + self.settings.response_timeout_s, check,
-            clock=self._pause_clock_factory() if self._pause_clock_factory is not None else time.monotonic)
+            clock=self._pause_clock_factory() if self._pause_clock_factory is not None else (lambda: operation_time(self._node)))
         # 잘못된/비종결 응답은 소유권을 유지하여 stop에서 다시 확인한다.
         if response.status not in (4, 5, 6):
             raise RuntimeError('Spin terminal 상태 미확인')

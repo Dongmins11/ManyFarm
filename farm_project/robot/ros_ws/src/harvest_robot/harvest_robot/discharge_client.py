@@ -1,4 +1,5 @@
 """배출 Action 연결. 단일 Goal 소유권을 유지하고 자동 재전송하지 않는다."""
+from farm_navigation.operation_clock import operation_time
 import math
 import time
 from typing import Any, Callable
@@ -43,6 +44,7 @@ class DischargeClient:
             from rclpy.action import ActionClient
             if client is None: client = ActionClient(node, Discharge, endpoint, callback_group=group)
             if goal_factory is None: goal_factory = Discharge.Goal
+        self.node = node
         self.client, self.goal_factory = client, goal_factory
         self.response_timeout_s, self.cancel_timeout_s = response_timeout_s, cancel_timeout_s
         self.feedback = feedback
@@ -75,7 +77,7 @@ class DischargeClient:
                     self.phase = phase
                     if self.feedback: self.feedback(phase)
         self._unknown = True
-        self._deadline = time.monotonic() + self.response_timeout_s
+        self._deadline = operation_time(self.node) + self.response_timeout_s
         try:
             self._pending = self.client.send_goal_async(goal, feedback_callback=report)
             self._unknown = False
@@ -90,7 +92,7 @@ class DischargeClient:
         try:
             if self._handle is None:
                 if not self._pending.done():
-                    if time.monotonic() >= self._deadline: raise TimeoutError('배출 Goal 응답 시간 초과')
+                    if operation_time(self.node) >= self._deadline: raise TimeoutError('배출 Goal 응답 시간 초과')
                     return DeviceResult(False)
                 self._handle = self._pending.result()
                 if self._handle is None: raise RuntimeError('빈 Goal 응답; 종료 미확인')
@@ -118,10 +120,10 @@ class DischargeClient:
         """늦은 승인도 회수한다. terminal 확인은 물리 정지/닫힘 확인이 아니다."""
         if self._evidence: self._evidence.invalidate()
         self._finished = DeviceResult(True, False, '배출 중단')
-        deadline = time.monotonic() + self.cancel_timeout_s
+        deadline = operation_time(self.node) + self.cancel_timeout_s
         def wait(future: Any) -> Any:
             while not future.done():
-                if time.monotonic() >= deadline: raise TimeoutError('배출 취소/종료 미확인')
+                if operation_time(self.node) >= deadline: raise TimeoutError('배출 취소/종료 미확인')
                 time.sleep(.01)
             return future.result()
         if self._unknown: raise RuntimeError('배출 전송 여부 미확인; 현장 복구 필요')

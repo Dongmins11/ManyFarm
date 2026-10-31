@@ -1,4 +1,5 @@
 """최종 cmd_vel 단일 발행자. 제어권 만료 시 영속적인 정지 출력을 보낸다."""
+from farm_navigation.operation_clock import operation_time
 import math
 import time
 import uuid
@@ -13,7 +14,15 @@ class Lease:
         self.ttl, self.owner, self.token, self.deadline = ttl, '', '', 0.
         self.retired={}
         self.reason=''
+        self.last_time=None
+    def _observe_time(self, now):
+        # 시뮬 reset 이전 제어권을 새 시각에서 재사용하지 않는다.
+        if self.last_time is not None and now < self.last_time:
+            if self.token:self.retired[self.owner]=self.token
+            self.owner,self.token,self.deadline='','',0.
+        self.last_time=now
     def request(self, owner, token, release, now):
+        self._observe_time(now)
         self.reason=''
         if now >= self.deadline and self.token:
             self.retired[self.owner]=self.token
@@ -38,7 +47,9 @@ class Lease:
             self.owner,self.token = owner,uuid.uuid4().hex
         self.deadline = now+self.ttl
         return True,self.token
-    def permits(self, owner, now): return bool(self.token) and self.owner==owner and now<self.deadline
+    def permits(self, owner, now):
+        self._observe_time(now)
+        return bool(self.token) and self.owner==owner and now<self.deadline
 
 class MotionGate(Node):
     def __init__(self):
@@ -54,8 +65,10 @@ class MotionGate(Node):
     def request(self, request, response):
         if not request.release and self.count_publishers(self.pub.topic_name)>1:
             response.accepted=False;response.error_message='최종 cmd_vel 중복 발행자 존재';return response
+        if not request.release and self.get_clock().ros_time_is_active and operation_time(self)<=0.:
+            response.accepted=False;response.error_message='CLOCK_NOT_READY';return response
         old=self.lease.token
-        response.accepted,response.token=self.lease.request(request.owner,request.token,request.release,time.monotonic())
+        response.accepted,response.token=self.lease.request(request.owner,request.token,request.release,operation_time(self))
         response.error_message='' if response.accepted else self.lease.reason
         if old!=self.lease.token:
             self.last_command=0.;self.zero()
@@ -64,13 +77,14 @@ class MotionGate(Node):
         age=(self.get_clock().now().nanoseconds-msg.header.stamp.sec*10**9-msg.header.stamp.nanosec)/1e9
         if 0<=age<.25:self.command('precision',msg.twist)
     def command(self, owner, msg):
-        now=time.monotonic()
+        now=operation_time(self)
         values=(msg.linear.x,msg.linear.y,msg.linear.z,msg.angular.x,msg.angular.y,msg.angular.z)
         if self.lease.permits(owner,now) and all(map(math.isfinite,values)):
             self.last_command=now;self.pub.publish(msg)
     def watchdog(self):
+        self.lease._observe_time(operation_time(self))
         if self.count_publishers(self.pub.topic_name)>1:self.lease.deadline=0.
-        if time.monotonic()>=self.lease.deadline or time.monotonic()-self.last_command>.25:self.zero()
+        if operation_time(self)>=self.lease.deadline or operation_time(self)-self.last_command>.25:self.zero()
 
 def main(args=None):
     rclpy.init(args=args); node=MotionGate()

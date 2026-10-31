@@ -1,4 +1,5 @@
 """설정·기존 주행 자원·운송 객체를 조립한다. 속도를 직접 발행하지 않는다."""
+from farm_navigation.operation_clock import operation_time
 from pathlib import Path
 from concurrent.futures import ThreadPoolExecutor
 import math
@@ -77,7 +78,7 @@ class TransportNode(Node):
                 self.device = DeviceBridge(self,self.callbacks)
             else:
                 raise ValueError('Unknown mechanical device backend: ' + backend)
-        self.controller = TransportStateController(self.navigator,self.mission,self.docking,self.device)
+        self.controller = TransportStateController(self.navigator,self.mission,self.docking,self.device,clock=lambda: operation_time(self))
         self.controller.station_return_mode = self.profile.get('station_return_mode', 'marker_docking')
         self.controller.pickup_workflow = self.profile.get('pickup_workflow', {})
         self.controller.unload_workflows = self.profile.get('unload_workflows', {})
@@ -113,18 +114,18 @@ class TransportNode(Node):
         stamp = message.header.stamp.sec*10**9+message.header.stamp.nanosec
         age = (self.get_clock().now().nanoseconds-stamp)/1e9
         if message.header.frame_id and message.ranges and 0 <= age <= 1.0 and any(v == float("inf") or (math.isfinite(v) and message.range_min <= v <= message.range_max) for v in message.ranges):
-            self._scan_at = time.monotonic()
+            self._scan_at = operation_time(self)
 
     def _on_battery(self, message: BatteryState) -> None:
         if math.isfinite(message.percentage) and 0 <= message.percentage <= 1:
             self._battery = message.percentage*100.
-            self._battery_at = time.monotonic()
+            self._battery_at = operation_time(self)
 
     def _observe(self) -> None:
         if self._pose_future is not None and self._pose_future.done():
             try:
                 self._pose = self._pose_future.result()
-                self._pose_at = time.monotonic()
+                self._pose_at = operation_time(self)
             except Exception:
                 self._pose = None
             self._pose_future = None
@@ -140,18 +141,18 @@ class TransportNode(Node):
     def check_motion(self) -> None:
         self.check_precision()
         if self.lease and self.lease.token:self.lease.check()
-        if time.monotonic()-self._scan_at > 1.0:
+        if not 0 <= operation_time(self)-self._scan_at <= 1.0:
             raise RuntimeError('라이다 데이터 단절: 이동 중단')
-        if self._pose is None or time.monotonic()-self._pose_at > self.settings.tf_max_age_s:
+        if self._pose is None or not 0 <= operation_time(self)-self._pose_at <= self.settings.tf_max_age_s:
             raise RuntimeError('위치 TF 단절: 이동 중단')
         if self.sorter_approach is not None:self.sorter_approach.check_handoff()
         if self.harvest_approach is not None:self.harvest_approach.check_handoff()
 
     def route_ready(self) -> bool:
-        now = time.monotonic()
+        now = operation_time(self)
         return (not self.stopping and not self.controller.blocked and self._pose is not None
-                and now-self._pose_at < self.settings.tf_max_age_s
-                and now-self._scan_at < 1.0 and self.motion.stationary_now())
+                and 0 <= now-self._pose_at < self.settings.tf_max_age_s
+                and 0 <= now-self._scan_at < 1.0 and self.motion.stationary_now())
 
     def _publish_status(self) -> None:
         message = RobotStatus()
@@ -163,12 +164,12 @@ class TransportNode(Node):
         message.ready = (self.route_ready() and self.docking.available() and self.device.available() and not self.communication.busy
             and any(p.get('configured') and p.get('clearance_corridor_verified') for p in self.profile.get('precision_registry',{}).get('profiles',{}).values()))
         message.pose.frame_id = self.settings.map_frame
-        fresh = self._pose is not None and time.monotonic()-self._pose_at < self.settings.tf_max_age_s
+        fresh = self._pose is not None and operation_time(self)-self._pose_at < self.settings.tf_max_age_s
         message.pose.position.x = float(self._pose[0,3]) if fresh else float('nan')
         message.pose.position.y = float(self._pose[1,3]) if fresh else float('nan')
         message.pose.yaw = math.atan2(self._pose[1,0],self._pose[0,0]) if fresh else float('nan')
-        message.battery_percent = self._battery if time.monotonic()-self._battery_at < 5 else float('nan')
-        device_state=self.device.state if isinstance(self.device,DeviceBridge) and time.monotonic()-self.device.received<1. else None
+        message.battery_percent = self._battery if operation_time(self)-self._battery_at < 5 else float('nan')
+        device_state=self.device.state if isinstance(self.device,DeviceBridge) and operation_time(self)-self.device.received<1. else None
         count=device_state.loaded_count if device_state and device_state.count_valid else None
         message.transfer_required=False
         # 내부 주행 시험은 기존 빈 적재 제한. 업무 모드의 미측정 수량은 -1로 구분한다.

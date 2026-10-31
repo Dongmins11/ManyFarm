@@ -184,7 +184,7 @@ class PrecisionServer(Dock):
                 if len(candidates)!=1:raise RuntimeError('Exactly one harvest route profile required')
                 name,p=candidates[0]
                 self.activate_profile(p);self.cam_on()
-                self._harvest_route={'profile':name,'observation_start_ns':self.get_clock().now().nanoseconds,'observer_id':str(time.monotonic_ns()),'expires_at':time.monotonic()+p['route_handoff']['observation_timeout_s']}
+                self._harvest_route={'profile':name,'observation_start_ns':self.get_clock().now().nanoseconds,'observer_id':str(time.monotonic_ns()),'expires_at':self.motion_time()+p['route_handoff']['observation_timeout_s']}
             else:self.cam_off()
             response.success=True;response.message=self._harvest_route['observer_id'] if request.data else 'Harvest observation disabled'
         except Exception as exc:
@@ -195,7 +195,7 @@ class PrecisionServer(Dock):
     def update_harvest_route(self):
         route=self._harvest_route
         if route is None:return
-        if time.monotonic()>route['expires_at']:
+        if self.motion_time()>route['expires_at']:
             self._harvest_ready_pub.publish(String(data=json.dumps(dict(
                 observer_id=route['observer_id'],profile=route['profile'],
                 stamp_ns=self.get_clock().now().nanoseconds,ready=False,expired=True,
@@ -278,7 +278,7 @@ class PrecisionServer(Dock):
                 odom=self._last_odom,scan=self._last_scan,scan_history=tuple(getattr(self,'_scan_history',())),gaps=dict(self._sensor_max_gap))
 
     def sensor_status(self):
-        inputs=self.sensor_inputs();now=time.monotonic();ros_now=self.get_clock().now().nanoseconds
+        inputs=self.sensor_inputs();now=self.motion_time();ros_now=self.get_clock().now().nanoseconds
         parts=[]
         for name in ('odom','scan'):
             stamp=inputs[name+'_stamp']
@@ -290,7 +290,7 @@ class PrecisionServer(Dock):
     def on_odom(self,m):
         if not self.fresh(m,self.odom_max_age_s):return
         stamp=m.header.stamp.sec*10**9+m.header.stamp.nanosec
-        now=time.monotonic();v=m.twist.twist
+        now=self.motion_time();v=m.twist.twist
         stopped=math.hypot(v.linear.x,v.linear.y)<.005 and abs(v.angular.z)<.02
         with self._sensor_lock:
             if self._odom_stamp is not None and stamp<=self._odom_stamp:return
@@ -302,7 +302,7 @@ class PrecisionServer(Dock):
     def on_scan(self,m):
         if not self.fresh(m,self.scan_max_age_s):return
         if not any(math.isfinite(x) and m.range_min<=x<=m.range_max or x==float('inf') for x in m.ranges):return
-        stamp=m.header.stamp.sec*10**9+m.header.stamp.nanosec;now=time.monotonic()
+        stamp=m.header.stamp.sec*10**9+m.header.stamp.nanosec;now=self.motion_time()
         with self._sensor_lock:
             if self._last_scan_stamp is not None and stamp<=self._last_scan_stamp:return
             if self._scan_at:self._sensor_max_gap['scan']=max(self._sensor_max_gap['scan'],now-self._scan_at)
@@ -355,7 +355,7 @@ class PrecisionServer(Dock):
         with self._image_lock:
             if self._camera_enabled:
                 stamp = message.header.stamp.sec * 10**9 + message.header.stamp.nanosec
-                self._frames.put(Frame(message, stamp, message.header.frame_id, time.monotonic()))
+                self._frames.put(Frame(message, stamp, message.header.frame_id, self.motion_time()))
 
     def consume_image(self):
         begin=time.monotonic()
@@ -392,7 +392,7 @@ class PrecisionServer(Dock):
                     Time(nanoseconds=frame.stamp_ns), timeout=Duration(seconds=0.02))
                 t=transform.transform.translation; q=transform.transform.rotation
                 self._base_camera=transform_matrix((t.x,t.y,t.z),(q.x,q.y,q.z,q.w))
-                self._tf_at=time.monotonic()
+                self._tf_at=self.motion_time()
             if self.camera_backend == 'ros':
                 gray = self.bridge.imgmsg_to_cv2(frame.pixels, desired_encoding='mono8')
             else:
@@ -440,7 +440,7 @@ class PrecisionServer(Dock):
             marker=int(marker)
             if marker not in self.obj:continue
             raw=self.solve(self.obj[marker],points.reshape(4,2).astype(np.float64),marker_id=marker)
-            if raw is not None:self.meas[marker]=(raw,time.monotonic())
+            if raw is not None:self.meas[marker]=(raw,self.motion_time())
 
     def solve(self, obj, pixels, marker_id=None):
         if self.pose_mode != 'tf_observe':
@@ -583,7 +583,7 @@ class PrecisionServer(Dock):
         return elapsed
 
     def execute(self,handle):
-        session={'handle':handle,'done':Event(),'error':'','candidate':False,'started':time.monotonic(),'motion_started':self.motion_time()}
+        session={'handle':handle,'done':Event(),'error':'','candidate':False,'started':self.motion_time(),'motion_started':self.motion_time()}
         self._pending.put(('start',session))
         while not session['done'].wait(.03):
             if handle.is_cancel_requested or self.motion_time()-session['motion_started']>120:
@@ -612,7 +612,7 @@ class PrecisionServer(Dock):
 
     def stopped(self):
         inputs=self.sensor_inputs()
-        return (time.monotonic()-inputs['odom_at']<self.odom_max_age_s and inputs['stopped_since'] is not None
+        return (self.motion_time()-inputs['odom_at']<self.odom_max_age_s and inputs['stopped_since'] is not None
             and inputs['odom_stamp']-inputs['stopped_since']>=800000000)
 
     def finish(self,state,why):
@@ -630,7 +630,7 @@ class PrecisionServer(Dock):
         if state==DONE:self._session['candidate']=True
         else:self._session['error']=why;self._session['candidate']=False
         self.get_logger().info(f'정밀주행 종료: {state} / {why} / {self.sensor_status()}')
-        self._session['ending_at']=time.monotonic()
+        self._session['ending_at']=self.motion_time()
 
     def complete(self):
         s=self._session
@@ -698,9 +698,9 @@ class PrecisionServer(Dock):
                     if self._pose_controller is not None:
                         with self._pose_lock:self._pose_controller.reset()
                     if not (p.get('distance_departure') or p.get('relative_backout')) and (q.operation in ('TAG','DOCK') or p.get('strategy')=='marker_pose'):self.cam_on()
-                    s['preparing_at']=time.monotonic()
+                    s['preparing_at']=self.motion_time()
                     if p.get('entry',{}).get('enabled'):
-                        s['entry_controller']=StationEntry(p['entry']);s['entry_started']=time.monotonic()
+                        s['entry_controller']=StationEntry(p['entry']);s['entry_started']=self.motion_time()
                     self.state='WAIT_SENSORS'
                     feedback=PrecisionMotion.Feedback();feedback.phase=self.state;s['handle'].publish_feedback(feedback)
                     self.drive(0.,0.,force=True)
@@ -737,13 +737,13 @@ class PrecisionServer(Dock):
                 except Exception as exc:
                     s['candidate']=False
                     s['error']='Final validation failed: '+str(exc)
-                if self.stopped() or time.monotonic()-s['ending_at']>3.:
+                if self.stopped() or self.motion_time()-s['ending_at']>3.:
                     if not self.stopped():s['error']='정지 odom 확인 실패: '+s.get('error','')
                     self.complete()
                 return
             if 'parking_started' in s:
                 self.lease.check()
-                if time.monotonic()-inputs['odom_at']>self.odom_max_age_s or time.monotonic()-inputs['scan_at']>self.scan_max_age_s:raise RuntimeError('Parking odom/scan stale')
+                if self.motion_time()-inputs['odom_at']>self.odom_max_age_s or self.motion_time()-inputs['scan_at']>self.scan_max_age_s:raise RuntimeError('Parking odom/scan stale')
                 self.run_parking(s,p)
                 return
             if not (p.get('distance_departure') or p.get('relative_backout')) and 'lidar_stage' not in s and not self.odom_transit(p) and self._camera_failure and self._camera_failure[0]==self._camera_generation:
@@ -755,7 +755,7 @@ class PrecisionServer(Dock):
                 return
             if 'preparing_at' in s:
                 self.drive(0.,0.,force=True)
-                now=time.monotonic()
+                now=self.motion_time()
                 ready=now-inputs['odom_at']<=self.odom_max_age_s and now-inputs['scan_at']<=self.scan_max_age_s and self.stopped()
                 if not (p.get('distance_departure') or p.get('relative_backout')) and (q.operation in ('TAG','DOCK') or p.get('strategy')=='marker_pose'):ready=ready and self.K is not None and now-self._image_at<=self.image_receive_timeout_s
                 if not ready:
@@ -768,9 +768,9 @@ class PrecisionServer(Dock):
                     else:self.start()
                 elif q.operation=='TAG':self.state=SEARCH
                 else:self.state='CLEAR'
-            if time.monotonic()-inputs['odom_at']>self.odom_max_age_s or time.monotonic()-inputs['scan_at']>self.scan_max_age_s:raise Recoverable('SENSORS','odom/scan 최신성 상실: '+self.sensor_status())
+            if self.motion_time()-inputs['odom_at']>self.odom_max_age_s or self.motion_time()-inputs['scan_at']>self.scan_max_age_s:raise Recoverable('SENSORS','odom/scan 최신성 상실: '+self.sensor_status())
             if not (p.get('distance_departure') or p.get('relative_backout')) and (q.operation in ('DOCK','TAG') or p.get('strategy')=='marker_pose') and self.K is None:raise RuntimeError('CameraInfo 보정값 필요')
-            if not (p.get('distance_departure') or p.get('relative_backout')) and 'lidar_stage' not in s and not self.departure_locked(p) and not self.odom_transit(p) and (q.operation in ('TAG','DOCK') or p.get('strategy')=='marker_pose') and time.monotonic()-s['started']>3. and time.monotonic()-self._image_at>(p['target_tracking']['max_prediction_s'] if self._tracking_enabled else self.image_receive_timeout_s):
+            if not (p.get('distance_departure') or p.get('relative_backout')) and 'lidar_stage' not in s and not self.departure_locked(p) and not self.odom_transit(p) and (q.operation in ('TAG','DOCK') or p.get('strategy')=='marker_pose') and self.motion_time()-s['started']>3. and self.motion_time()-self._image_at>(p['target_tracking']['max_prediction_s'] if self._tracking_enabled else self.image_receive_timeout_s):
                 raise Recoverable('CAMERA','카메라 영상 단절: '+self.sensor_status())
             if self.run_initial_marker_recovery(s, p):
                 return
@@ -798,7 +798,7 @@ class PrecisionServer(Dock):
             if q.operation=='TAG':
                 self.drive(0.,0.,force=True)
                 if self.get(p['target_marker_id']) is not None:
-                    s['candidate']=True;s['ending_at']=time.monotonic()
+                    s['candidate']=True;s['ending_at']=self.motion_time()
             elif q.operation=='CLEAR' and p.get('strategy')!='marker_pose':
                 t=self.tf.lookup_transform('map',p.get('base_frame','base_footprint'),Time(),timeout=Duration(seconds=.02))
                 if not self.fresh(t):raise RuntimeError('이격 map TF 만료')
@@ -813,7 +813,7 @@ class PrecisionServer(Dock):
                        for i,rng in enumerate(scan.ranges)):
                     raise RuntimeError('이격 후방 장애물')
                 self.drive(linear,angular)
-                if done:s['candidate']=True;s['ending_at']=time.monotonic()
+                if done:s['candidate']=True;s['ending_at']=self.motion_time()
             elif p.get('strategy')=='marker_pose':
                 if self.motion_elapsed(s['motion_started'])>p.get('timeout_s',90.):raise TimeoutError('정밀주행 시간 초과')
                 if p.get('bounded_trial'):self.check_trial_extrinsics()
@@ -823,13 +823,13 @@ class PrecisionServer(Dock):
                 if p.get('departure') and not self.departure_locked(p):
                     self.drive(0.,0.,force=True)
                     self.phase_feedback(s,'ACQUIRE_DEPARTURE_TARGET')
-                    s.setdefault('departure_acquire_at',time.monotonic())
-                    if time.monotonic()-s['departure_acquire_at']>p['departure']['acquire_timeout_s']:
+                    s.setdefault('departure_acquire_at',self.motion_time())
+                    if self.motion_time()-s['departure_acquire_at']>p['departure']['acquire_timeout_s']:
                         raise RuntimeError('stable departure target acquisition timed out')
                     return
                 observation=self._last_observation or {}
                 preview=self._tracking_preview if self._tracking_enabled else observation.get('control_preview')
-                now=time.monotonic()
+                now=self.motion_time()
                 if (not preview or preview.get('stamp_ns',0)<s['observation_start_ns'] or
                         not 0<=(self.get_clock().now().nanoseconds-preview.get('stamp_ns',0))/1e9<=(self.odom_max_age_s if p.get('acquire_then_odom') else self.image_header_max_age_s) or
                         preview.get('phase')=='WAIT_OBSERVATION'):
@@ -838,7 +838,7 @@ class PrecisionServer(Dock):
                         s['approach_gate'].phase='STOP'
                     s.setdefault('marker_wait_since',now)
                     self.phase_feedback(s,'ACQUIRE_MARKER')
-                    if time.monotonic()-s.get('awaiting_recovery_frame',-1e9)<.5:return
+                    if self.motion_time()-s.get('awaiting_recovery_frame',-1e9)<.5:return
                     reason='MARKER' if preview and preview.get('reason')=='target marker not visible' else 'OBSERVATION'
                     raise Recoverable(reason,'마커 재관측 대기: '+str(dict(reason=(preview or {}).get('reason','missing preview'),phase=(preview or {}).get('phase'),stamp_ns=(preview or {}).get('stamp_ns'),required_after_ns=s['observation_start_ns'])))
                 s.pop('marker_wait_since',None)
@@ -853,7 +853,7 @@ class PrecisionServer(Dock):
                     self.drive(0.,0.,force=True)
                     with self._pose_lock:self._pose_controller.reset()
                     self._last_observation=None
-                    s['awaiting_recovery_frame']=time.monotonic()
+                    s['awaiting_recovery_frame']=self.motion_time()
                     s['observation_start_ns']=self.get_clock().now().nanoseconds
                     self.phase_feedback(s,'REOBSERVE_TARGET')
                     return
@@ -892,10 +892,10 @@ class PrecisionServer(Dock):
                         self.begin_lidar_approach(s,p)
                     elif p.get('graph_return'):
                         self.prepare_graph_return(s,p)
-                        s['graph_return_stage']=True;s['graph_return_started']=time.monotonic()
+                        s['graph_return_stage']=True;s['graph_return_started']=self.motion_time()
                         self.phase_feedback(s,'REVERSE_TO_EXIT_NODE')
                     elif p.get('departure',{}).get('alignment_mode')=='face_graph_node':
-                        s['exit_alignment']=True;s['exit_started']=time.monotonic()
+                        s['exit_alignment']=True;s['exit_started']=self.motion_time()
                         self.phase_feedback(s,'ALIGN_EXIT_NODE')
                     else:self.finish(DONE,('Marker approach distance reached and stopped' if p.get('acquire_then_odom',{}).get('distance_corridor') else ('Marker clearance' if q.operation=='CLEAR' else 'Marker pose')+' within tolerance and stopped'))
             else:
@@ -925,11 +925,11 @@ class PrecisionServer(Dock):
         if not transient:return False
         self.drive(0.,0.,force=True)
         s['lidar_controller'].good_since=None
-        started=s.setdefault('lidar_input_wait_since',time.monotonic())
+        started=s.setdefault('lidar_input_wait_since',self.motion_time())
         s.setdefault('lidar_input_wait_motion',self.motion_time())
         self.log_scan_delay(s,exc)
         self.phase_feedback(s,'WAIT_LIDAR_INPUTS')
-        if time.monotonic()-started>p['lidar_approach'].get('stale_wait_s',1.):
+        if self.motion_time()-started>p['lidar_approach'].get('stale_wait_s',1.):
             self.finish(FAILED,'Lidar input wait timeout: '+str(exc))
         return True
 
@@ -1056,7 +1056,7 @@ class PrecisionServer(Dock):
         self.control_preview_pub.publish(String(data=json.dumps(preview)))
 
     def log_target_control(self,s,preview,tracker):
-        now=time.monotonic()
+        now=self.motion_time()
         if now-s.get('target_log_at',-1e9)<1.:return
         s['target_log_at']=now
         def value(key,scale=1.):
@@ -1084,7 +1084,7 @@ class PrecisionServer(Dock):
             if s['recovery_count']>cfg['max_episodes']:
                 self.finish(FAILED,'복구 횟수 초과: '+str(exc));return
             timeout=cfg['marker_timeout_s'] if reason in ('MARKER','OBSERVATION') else cfg['wait_timeout_s']
-            s['recovery_wait']=RecoveryWait(reason,time.monotonic(),timeout,cfg['stable_s'])
+            s['recovery_wait']=RecoveryWait(reason,self.motion_time(),timeout,cfg['stable_s'])
             s['recovery_visual_after_ns']=self.get_clock().now().nanoseconds
             if planned:self.get_logger().info(f'Docking observation stage: {self._target_tracker.phase}; waiting for stopped fresh samples')
             else:self.get_logger().warn(f'Docking paused: {reason}: {exc}')
@@ -1093,7 +1093,7 @@ class PrecisionServer(Dock):
 
     def run_recovery(self,s,p):
         inputs=self.sensor_inputs()
-        wait=s['recovery_wait'];cfg=p['recovery'];now=time.monotonic()
+        wait=s['recovery_wait'];cfg=p['recovery'];now=self.motion_time()
         wait.check_deadline(now)
         visual_recovery=bool((p.get('acquire_then_odom',{}).get('continuous_visual_handoff') or
             (p.get('acquire_then_odom',{}).get('visual_correction_during_transit') and getattr(self._target_tracker,'phase','')=='TRANSIT' and not p['acquire_then_odom'].get('distance_corridor')))
@@ -1157,13 +1157,13 @@ class PrecisionServer(Dock):
             s.pop('heading_capture',None);s.pop('distance_heading_sample',None)
             s['distance_acquire_started']=self.motion_time()
         if 'preparing_at' in s:
-            s['preparing_at']=time.monotonic()
+            s['preparing_at']=self.motion_time()
         elif 'entry_controller' in s and not s.get('entry_complete'):
             s['entry_started']+=elapsed
             s['entry_controller'].replan();s.pop('entry_alignment_stopped',None)
         else:
             with self._pose_lock:self._pose_controller.reset()
-            s['awaiting_recovery_frame']=time.monotonic()
+            s['awaiting_recovery_frame']=self.motion_time()
             # Preserve the completed initial heading gate across observation recovery.
             # The resumed pose controller still corrects current position and final yaw.
         self.get_logger().info('Docking resumed after stable sensors and measured stop')
@@ -1179,7 +1179,7 @@ class PrecisionServer(Dock):
     def scan_clearance(self,p):
         inputs=self.sensor_inputs()
         scan=inputs['scan']
-        if scan is None or time.monotonic()-inputs['scan_at']>self.scan_max_age_s:raise Recoverable('SENSORS','filtered scan stale')
+        if scan is None or self.motion_time()-inputs['scan_at']>self.scan_max_age_s:raise Recoverable('SENSORS','filtered scan stale')
         if p.get('collision_guard'):return  # Checked with the actual command in drive().
         valid=[r for r in scan.ranges if math.isfinite(r) and scan.range_min<=r<=scan.range_max]
         if len(valid)<15 or min(valid)<=p['scan_stop_range_m']:
@@ -1218,7 +1218,7 @@ class PrecisionServer(Dock):
         if name not in self._footprint_guards:return
         guard,frame,cfg=self._footprint_guards[name]
         scan=inputs['scan']
-        if scan is None or time.monotonic()-inputs['scan_at']>self.scan_max_age_s or not self.fresh(scan,self.scan_max_age_s):
+        if scan is None or self.motion_time()-inputs['scan_at']>self.scan_max_age_s or not self.fresh(scan,self.scan_max_age_s):
             raise Recoverable('SENSORS','FOOTPRINT_SCAN_STALE')
         profile=self.profiles[name]
         surface=profile.get('target_surface') if 'lidar_stage' in self._session and linear>=0 else None
@@ -1316,8 +1316,8 @@ class PrecisionServer(Dock):
                 self.get_logger().warning(f'Collision audit: class={label} sensor_xy={sensor_point[:2].tolist()} sensor_range={math.hypot(*sensor_point[:2]):.4f} sensor_angle_deg={math.degrees(math.atan2(sensor_point[1],sensor_point[0])):.2f} requested={(linear,angular)} measured={inputs["twist"]} scan_age={scan_age:.3f} stages_cumulative_ms={diag_marks} target_points={len(target_xy) if target_xy is not None else 0}')
                 raise Recoverable('OBSTACLE',f'FOOTPRINT_COLLISION: {label}, point=({px:.3f},{py:.3f})m, predicted={hit["time_s"]:.3f}s, valid={count}')
 
-        if time.monotonic()-getattr(self,'_guard_diag_at',0.)>1.:
-            self._guard_diag_at=time.monotonic()
+        if self.motion_time()-getattr(self,'_guard_diag_at',0.)>1.:
+            self._guard_diag_at=self.motion_time()
             self.get_logger().info(f'Guard timing cumulative_ms={diag_marks} points={count}')
 
     def check_trial_extrinsics(self):
@@ -1362,7 +1362,7 @@ class PrecisionServer(Dock):
 
     def run_distance_departure(self,s,p):
         from .lidar_approach import front_distance
-        c=p['marker_backout'];cfg=p['distance_departure'];now=time.monotonic()
+        c=p['marker_backout'];cfg=p['distance_departure'];now=self.motion_time()
         if 'distance_exit_started' in s:
             self.run_distance_exit(s,p)
             return
@@ -1413,13 +1413,13 @@ class PrecisionServer(Dock):
         q=tm.transform.rotation
         a=math.atan2(2*(q.w*q.z+q.x*q.y),1-2*(q.y*q.y+q.z*q.z))
         goal=a+math.atan2(by-ay,bx-ax)
-        s.update(distance_exit_started=time.monotonic(),distance_exit_yaw=goal,
+        s.update(distance_exit_started=self.motion_time(),distance_exit_yaw=goal,
                  distance_exit_origin=(t.transform.translation.x,t.transform.translation.y))
         self.get_logger().info(f'Distance exit rotation: edge={c["from_node_id"]}->{c["to_node_id"]}, odom_yaw={goal:.4f}')
         self.phase_feedback(s,'ALIGN_EXIT_DIRECTION')
 
     def run_distance_exit(self,s,p):
-        c=p['distance_departure']['exit_rotation'];now=time.monotonic()
+        c=p['distance_departure']['exit_rotation'];now=self.motion_time()
         if now-s['distance_exit_started']>c['timeout_s']:raise RuntimeError('Distance exit rotation timeout')
         x,y,yaw=self.lidar_odom(p);ox,oy=s['distance_exit_origin']
         if math.hypot(x-ox,y-oy)>c['max_translation_m']:raise RuntimeError('Distance exit rotation position drift')
@@ -1441,7 +1441,7 @@ class PrecisionServer(Dock):
         tm=self.tf.lookup_transform(odom,'map',Time.from_msg(t.header.stamp),timeout=Duration(seconds=.02))
         q=tm.transform.rotation
         a=math.atan2(2*(q.w*q.z+q.x*q.y),1-2*(q.y*q.y+q.z*q.z))
-        s.update(parking_started=time.monotonic(),parking_yaw=a+math.atan2(by-ay,bx-ax),
+        s.update(parking_started=self.motion_time(),parking_yaw=a+math.atan2(by-ay,bx-ax),
                  parking_origin=(t.transform.translation.x,t.transform.translation.y))
         self.phase_feedback(s,'ALIGN_PARKING_EXIT')
 
@@ -1451,7 +1451,7 @@ class PrecisionServer(Dock):
         return heading_command(yaw,s['parking_yaw'],c)
 
     def run_parking(self,s,p):
-        c=p['parking'];now=time.monotonic()
+        c=p['parking'];now=self.motion_time()
         if now-s['parking_started']>c['timeout_s']:raise RuntimeError('Parking rotation timeout')
         angular,done=self.parking_status(s,p)
         self.phase_feedback(s,'VERIFY_PARKING_STOP' if done else 'ALIGN_PARKING_EXIT')
@@ -1463,7 +1463,7 @@ class PrecisionServer(Dock):
 
     def run_marker_backout(self,s,p):
         self.prepare_graph_return(s,p)  # Check localization before any departure motion.
-        c=p['marker_backout'];pose=self.lidar_odom(p);now=time.monotonic()
+        c=p['marker_backout'];pose=self.lidar_odom(p);now=self.motion_time()
         s.setdefault('backout_started',now);s.setdefault('backout_origin',pose)
         ox,oy,heading=s['backout_origin']
         if now-s['backout_started']>c['timeout_s']:raise RuntimeError('Marker40 not acquired during return')
@@ -1482,16 +1482,16 @@ class PrecisionServer(Dock):
         self.drive(v,w)
 
     def run_graph_return(self,s,p):
-        if time.monotonic()-s['graph_return_started']>p['graph_return']['timeout_s']:raise TimeoutError('Graph reverse return timed out')
+        if self.motion_time()-s['graph_return_started']>p['graph_return']['timeout_s']:raise TimeoutError('Graph reverse return timed out')
         v,w,done=reverse_point(self.lidar_odom(p),s['graph_return_goal'],p['graph_return'])
         self.phase_feedback(s,'VERIFY_EXIT_NODE_STOP' if done else 'REVERSE_TO_EXIT_NODE')
         self.drive(v,w)
         if done and self.stopped():
-            s['exit_alignment']=True;s['exit_started']=time.monotonic()
+            s['exit_alignment']=True;s['exit_started']=self.motion_time()
             self.phase_feedback(s,'ALIGN_EXIT_NODE')
 
     def log_scan_delay(self,s,exc):
-        now=time.monotonic()
+        now=self.motion_time()
         if now-s.get('scan_delay_log_at',-1e9)<.5:return
         s['scan_delay_log_at']=now
         with self._sensor_lock:
@@ -1653,7 +1653,7 @@ class PrecisionServer(Dock):
 
     def run_relative_backout(self,s,p):
         from .harvest_motion import backout_command
-        now=time.monotonic();pose=self.lidar_odom(p)
+        now=self.motion_time();pose=self.lidar_odom(p)
         if 'backout_origin' not in s:
             self.drive(0.,0.,force=True)
             if not self.stopped():return
@@ -1750,13 +1750,13 @@ class PrecisionServer(Dock):
         self.drive(v,w)  # Retains existing filtered-scan swept-footprint check.
         waited=s.pop('lidar_input_wait_since',None)
         if waited is not None:
-            duration=time.monotonic()-waited
+            duration=self.motion_time()-waited
             motion_duration=self.motion_elapsed(s.pop('lidar_input_wait_motion'))
             s['lidar_started']+=motion_duration;s['motion_started']+=motion_duration
             s['started']+=duration
             self.get_logger().info(f'Lidar inputs recovered after {duration:.3f}s; continuing retained target')
-        if time.monotonic()-s.get('lidar_log_at',-1e9)>1.:
-            s['lidar_log_at']=time.monotonic()
+        if self.motion_time()-s.get('lidar_log_at',-1e9)>1.:
+            s['lidar_log_at']=self.motion_time()
             surface=s['lidar_controller'].surface
             self.get_logger().info(f"Front lidar: distance={d:.3f}m target={p['lidar_approach']['target_distance_m']:.3f}m v={v:.3f} surface={surface.mode if surface else 'legacy'} matched={surface.count if surface else 'n/a'}")
         if done and self.stopped():self.finish(DONE,'Marker alignment and front lidar target reached and stopped')
@@ -1789,7 +1789,7 @@ class PrecisionServer(Dock):
         return heading_command(yaw,s['exit_goal_yaw'],cfg)
 
     def run_exit_heading(self,s,p):
-        if time.monotonic()-s['exit_started']>p['departure']['alignment_timeout_s']:
+        if self.motion_time()-s['exit_started']>p['departure']['alignment_timeout_s']:
             raise TimeoutError('Exit heading alignment timed out')
         angular,done=self.exit_heading_status(s,p)
         self.phase_feedback(s,'VERIFY_EXIT_STOP' if done else 'ALIGN_EXIT_NODE')
@@ -1798,7 +1798,7 @@ class PrecisionServer(Dock):
         if done and self.stopped():self.finish(DONE,'Departure and exit node heading aligned and stopped')
 
     def run_entry(self,s,q,p):
-        if time.monotonic()-s['entry_started']>p['entry']['timeout_s']:raise TimeoutError('A→B 진입 제한시간 초과')
+        if self.motion_time()-s['entry_started']>p['entry']['timeout_s']:raise TimeoutError('A→B 진입 제한시간 초과')
         base=p.get('base_frame','base_footprint')
         odom_frame=p.get('entry',{}).get('odom_frame',self.get_parameter('odom_frame').value)
         t=self.tf.lookup_transform(odom_frame,base,Time(),timeout=Duration(seconds=.02))
@@ -1833,7 +1833,7 @@ class PrecisionServer(Dock):
             with self._pose_lock:self._pose_controller.reset()
             self._last_observation=None
             s['observation_start_ns']=self.get_clock().now().nanoseconds
-            s['marker_wait_since']=time.monotonic()
+            s['marker_wait_since']=self.motion_time()
             s['visual_settled']=0;s['settled_observation']=None
             self.phase_feedback(s,'ACQUIRE_MARKER')
 
@@ -1848,7 +1848,7 @@ class PrecisionServer(Dock):
                     allowed=self.pose_output_enabled and q.operation in p.get('allowed_operations',['DOCK'])
                 else:allowed=q.operation=='CLEAR'
             if not allowed:v,w=0.,0.
-        now=time.monotonic()
+        now=self.motion_time()
         if v or w:
             last=getattr(self,'_smooth_output',(now,0.,0.))
             dt=min(.1,max(0.,now-last[0]))
@@ -1863,8 +1863,8 @@ class PrecisionServer(Dock):
         if self._session is not None and v:
             self._session['entry_motion_started']=True
         super().drive(v,w,force)
-        if self._session and time.monotonic()-self._session.get('speed_log_at',-1e9)>=1.:
-            self._session['speed_log_at']=time.monotonic()
+        if self._session and self.motion_time()-self._session.get('speed_log_at',-1e9)>=1.:
+            self._session['speed_log_at']=self.motion_time()
             measured=self.sensor_inputs()['twist']
             self.get_logger().info(f'Dock speed: requested_v={requested[0]:.4f} requested_w={requested[1]:.4f} command_v={self._v:.4f} command_w={self._w:.4f} measured_v={measured[0]:.4f} measured_w={measured[1]:.4f} dry_run={self.c["dry_run"]}')
 

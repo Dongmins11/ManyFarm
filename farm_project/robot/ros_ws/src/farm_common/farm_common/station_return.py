@@ -1,6 +1,7 @@
 """환경별 스테이션으로 향하는 공통 Action. 작업 의미는 로봇의 준비 콜백에 둔다."""
 from __future__ import annotations
 
+from farm_navigation.operation_clock import operation_time
 from collections.abc import Callable
 from dataclasses import dataclass, replace
 from datetime import datetime, timezone
@@ -103,9 +104,9 @@ class StationReturn:
 
     def _check(self) -> None:
         self._cancel_check()
-        if not self._tag_active or self._tag_control is None or time.monotonic() < self._next_tag_update:
+        if not self._tag_active or self._tag_control is None or operation_time(self._node) < self._next_tag_update:
             return
-        self._next_tag_update = time.monotonic() + .2
+        self._next_tag_update = operation_time(self._node) + .2
         current = self._poses.current(self._cancel_check)
         section = self._graph.section_at((float(current[0,3]), float(current[1,3])),
             math.atan2(current[1,0], current[0,0]), self._settings.max_start_distance_m,

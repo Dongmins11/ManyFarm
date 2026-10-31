@@ -3,6 +3,7 @@
 UNLOAD and optional lid services: timed completion is not a verified fruit count.
 No retries. Cancellation sends STOP and drains the original service response.
 """
+from farm_navigation.operation_clock import operation_time
 from dataclasses import dataclass
 from threading import Lock
 import math
@@ -46,11 +47,10 @@ class TriggerDevice:
     def operation_ready(self, operation):
         return self.available() and operation in self.clients and self.clients[operation].service_is_ready()
 
-    @staticmethod
-    def _wait(future, timeout):
-        deadline = time.monotonic() + timeout
+    def _wait(self, future, timeout):
+        deadline = operation_time(self.node) + timeout
         while not future.done():
-            if time.monotonic() >= deadline:
+            if operation_time(self.node) >= deadline:
                 raise TimeoutError('Device service response timeout')
             time.sleep(.02)
         return future.result()
@@ -69,10 +69,10 @@ class TriggerDevice:
             self.pending = self.clients[operation].call_async(Trigger.Request())
             self.node.get_logger().info(f'{operation} requested once: task_id={request.task_id}')
             try:
-                deadline = time.monotonic() + self.timeout
+                deadline = operation_time(self.node) + self.timeout
                 while not self.pending.done():
                     check()
-                    if time.monotonic() >= deadline:
+                    if operation_time(self.node) >= deadline:
                         raise TimeoutError(operation + ' response timeout; not retried')
                     time.sleep(.02)
                 check()  # cancellation wins even when DONE arrived concurrently

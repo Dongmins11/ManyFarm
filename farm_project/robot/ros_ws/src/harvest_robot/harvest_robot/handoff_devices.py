@@ -13,8 +13,9 @@ class ComponentTransferDevices:
 restore는 기존 미션이 TRANSPORT_CLEAR를 확인한 뒤에만 요청한다.
 """
     def __init__(self, devices: Any, build_body: Callable, ready: Callable,
-                 timeout_s: float, stop_timeout_s: float, *, clock_factory=None) -> None:
+                 timeout_s: float, stop_timeout_s: float, *, clock_factory=None, clock=time.monotonic) -> None:
         self.clock_factory = clock_factory
+        self.clock = clock
         self.devices = devices
         self._build, self._ready = build_body, ready
         self._timeout, self._stop_timeout = timeout_s, stop_timeout_s
@@ -57,7 +58,7 @@ restore는 기존 미션이 TRANSPORT_CLEAR를 확인한 뒤에만 요청한다.
             return DeviceResult(True, False, str(error))
 
     def _await(self, source: Any, ticket: Any, *, stopping: bool = False) -> None:
-        clock = (self.clock_factory() if self.clock_factory is not None and source is self._body and not stopping else time.monotonic)
+        clock = (self.clock_factory() if self.clock_factory is not None and source is self._body and not stopping else self.clock)
         deadline = clock() + (self._stop_timeout if stopping else self._timeout)
         while True:
             if not stopping and self._cancel.is_set():

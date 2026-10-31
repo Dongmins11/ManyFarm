@@ -1,4 +1,5 @@
 """선택적 내부 수신 계측. 유한 큐와 별도 기록 스레드로 제어 callback의 파일 I/O를 피한다."""
+from farm_navigation.operation_clock import operation_time
 import hashlib
 import json
 import marshal
@@ -95,7 +96,7 @@ class InputTrace:
     def tick(self) -> None:
         if not self.enabled:
             return
-        now = time.monotonic()
+        now = operation_time(self.node)
         gap = None if self.previous_tick is None else now-self.previous_tick
         self.previous_tick = now
         self.emit('watchdog_tick', gap_s=gap, dropped=self.dropped, writer_error=self.write_error)
@@ -114,7 +115,7 @@ class InputTrace:
 
     def expired(self, key: str, received: float, msg: Any, limit: float,
                 receive_age: float, header_age: float, snapshot: bool) -> str:
-        values = dict(key=key, stamp_ns=stamp_ns(msg), received_mono_s=received,
+        values = dict(key=key, stamp_ns=stamp_ns(msg), received_operation_s=received,
                       receive_age_s=receive_age, header_age_s=header_age,
                       age_limit_s=limit, header_min_s=-.1, snapshot=snapshot,
                       receive_expired=receive_age>limit, header_invalid=not -.1<=header_age<=limit)

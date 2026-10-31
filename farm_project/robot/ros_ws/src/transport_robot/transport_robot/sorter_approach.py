@@ -1,4 +1,5 @@
 """Configured route observation and stopped handoff to the unchanged distance trial."""
+from farm_navigation.operation_clock import operation_time
 import json
 import math
 import threading
@@ -44,9 +45,9 @@ class SorterApproach:
     def enable(self,value):
         if not self.service.wait_for_service(timeout_sec=5):raise RuntimeError('Sorter observation service unavailable')
         q=self.SetBool.Request();q.data=value;future=self.service.call_async(q)
-        deadline=time.monotonic()+15
+        deadline=operation_time(self.node)+15
         while not future.done():
-            if time.monotonic()>deadline:raise TimeoutError('Sorter observation service timeout')
+            if operation_time(self.node)>deadline:raise TimeoutError('Sorter observation service timeout')
             time.sleep(.02)
         result=future.result()
         if not result.success:raise RuntimeError('Sorter observation: '+result.message)

@@ -24,7 +24,7 @@ class TransferTests(unittest.TestCase):
         self.node=S(config={'robot_id':'harvest_01','transfer':{'device_services':services,
             'journal_path':str(Path(self.temp.name)/'transfer.json')}},callbacks=None,
             lock=threading.Lock(),handoff=ActionHandoff(),busy=False,blocked=False,stopping=False,
-            completed_ids=set(),get_logger=lambda:S(warning=lambda m:None,error=lambda m:None),
+            completed_ids=set(),get_clock=lambda:S(ros_time_is_active=False),get_logger=lambda:S(warning=lambda m:None,error=lambda m:None),
             declare_parameter=lambda k,v:self.params.setdefault(k,v),
             get_parameter=lambda k:S(value=self.params[k]),
             create_client=self.client,create_service=lambda *a,**k:S(),

@@ -58,7 +58,8 @@ def rotation_parameters(config: Mapping) -> dict:
 class RotatingTransferDevices:
     """단일 작업 스레드가 장치 요청을 순차 실행. ROS 콜백은 executor에서 진행한다."""
     def __init__(self, devices: Any, spin: Any, poses: Any, motion: Any,
-                 settings: RotationSettings, timeout_s: float, stop_timeout_s: float) -> None:
+                 settings: RotationSettings, timeout_s: float, stop_timeout_s: float, *, clock=time.monotonic) -> None:
+        self.clock = clock
         self.devices, self.spin, self.poses, self.motion = devices, spin, poses, motion
         self.settings, self.timeout_s, self.stop_timeout_s = settings, timeout_s, stop_timeout_s
         self._pool = ThreadPoolExecutor(max_workers=1, thread_name_prefix='transfer_rotation')
@@ -96,7 +97,7 @@ class RotatingTransferDevices:
     def _check(self, deadline: float, *, stopping: bool = False) -> None:
         if not stopping and self._cancel.is_set():
             raise RuntimeError('인계 회전 중단 요청')
-        if time.monotonic() >= deadline:
+        if self.clock() >= deadline:
             raise TimeoutError('인계 장치/회전 제한시간 초과')
 
     def _device(self, operation: str, check: Any) -> None:
@@ -134,7 +135,7 @@ class RotatingTransferDevices:
         self._verify(target, check)
 
     def _run(self, operation: str) -> None:
-        deadline = time.monotonic() + self.timeout_s
+        deadline = self.clock() + self.timeout_s
         check = lambda: self._check(deadline)
         check()
         if operation == 'prepare_arm':
@@ -162,7 +163,7 @@ class RotatingTransferDevices:
             raise ValueError('지원하지 않는 인계 동작: '+operation)
 
     def _stop(self) -> None:
-        deadline = time.monotonic() + self.stop_timeout_s
+        deadline = self.clock() + self.stop_timeout_s
         check = lambda: self._check(deadline, stopping=True)
         # 두 정지를 모두 시도한다. 한쪽 실패로 다른 장치의 정리를 생략하지 않는다.
         errors = []

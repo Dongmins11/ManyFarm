@@ -1,4 +1,5 @@
 """ComputeRoute 결과를 공통 Navigator에 전달. 실패 시 자체 경로로 대체하지 않는다."""
+from farm_navigation.operation_clock import operation_time
 import math
 import time
 import uuid
@@ -41,10 +42,10 @@ class RouteServerPlanner:
         self.pending = self.handle = self.result = None
 
     def _wait(self, future: Any, timeout: float, check: Callable) -> Any:
-        end = time.monotonic() + timeout
+        end = operation_time(self.node) + timeout
         while not future.done():
             check()
-            if time.monotonic() >= end:
+            if operation_time(self.node) >= end:
                 raise TimeoutError('ComputeRoute 응답 시간 초과')
             time.sleep(.02)
         check()
@@ -54,10 +55,10 @@ class RouteServerPlanner:
         if self.pending is not None:
             raise RuntimeError('이전 ComputeRoute 종료 확인 필요')
         s = self.settings
-        end = time.monotonic() + s.readiness_timeout_s
+        end = operation_time(self.node) + s.readiness_timeout_s
         while not self.client.server_is_ready():
             check()
-            if time.monotonic() >= end:
+            if operation_time(self.node) >= end:
                 raise TimeoutError('ComputeRoute 서버 준비 시간 초과')
             time.sleep(.05)
         request = ComputeRoute.Goal()

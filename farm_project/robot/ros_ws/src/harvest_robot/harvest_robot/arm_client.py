@@ -3,6 +3,7 @@
 시뮬 패키지를 import하지 않으며 후보·Teacher·재시도·수확 성공을 판단하지 않습니다.
 취소 요청 ACK와 terminal Result를 기다려 늦게 수락된 자신의 Goal까지 정리합니다.
 """
+from farm_navigation.operation_clock import operation_time
 from collections.abc import Callable, Mapping
 from dataclasses import dataclass
 import math
@@ -63,6 +64,7 @@ class ArmActionClient:
             from rclpy.action import ActionClient
             from farm_interfaces.action import HarvestTask
             client = ActionClient(node, HarvestTask, settings.endpoint, callback_group=group)
+        self.node = node
         self._client, self.settings = client, settings
         self._pending = self._handle = self._result = None
         self._goal = self._progress = None
@@ -82,12 +84,12 @@ class ArmActionClient:
         return self._pending is not None or self._handle is not None
 
     def _wait(self, future: Any, timeout: float, check: Callable[[], None], *, cleanup: bool = False) -> Any:
-        deadline = time.monotonic()+timeout
+        deadline = operation_time(self.node)+timeout
         while not future.done():
             check()
             if not cleanup and self._feedback_error is not None:
                 raise ArmExecutionError('ARM_PROTOCOL_ERROR', str(self._feedback_error))
-            if time.monotonic() >= deadline:
+            if operation_time(self.node) >= deadline:
                 raise ArmExecutionError('ARM_TIMEOUT', '팔 Action 응답/종료 대기 시간 초과')
             time.sleep(.01)
         check()
@@ -148,16 +150,16 @@ class ArmActionClient:
         self._goal, self._progress, self._counts = goal, progress, (0, 0)
         self._feedback_error, self.last_result = None, None
         self._cancel_ack = False
-        deadline = time.monotonic()+self.settings.readiness_timeout_s
+        deadline = operation_time(self.node)+self.settings.readiness_timeout_s
         while not self._client.server_is_ready():
             check()
-            if time.monotonic() >= deadline:
+            if operation_time(self.node) >= deadline:
                 raise ArmExecutionError('ARM_UNAVAILABLE', '팔 Action 서버가 준비되지 않았습니다.')
             time.sleep(.01)
         check()
         if before_send is not None:
             # 서버 발견과 상태 준비는 같은 준비 제한시간 예산을 사용한다.
-            before_send(max(0., deadline-time.monotonic()))
+            before_send(max(0., deadline-operation_time(self.node)))
             check()
         self._pending = self._client.send_goal_async(goal, feedback_callback=lambda value: self._feedback(value, token))
         self._handle = self._wait(self._pending, self.settings.response_timeout_s, check)

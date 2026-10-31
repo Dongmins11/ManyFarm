@@ -1,4 +1,5 @@
 """Observation-only helper for the removable sorter trial client."""
+from farm_navigation.operation_clock import operation_time
 import json,math,time
 from pathlib import Path
 import numpy as np
@@ -33,13 +34,13 @@ class RouteObserver:
         if not f.done() or not f.result().success:raise RuntimeError('Observation service failed: '+(f.result().message if f.done() else 'timeout'))
     def on_odom(self,m):
         age=(self.node.get_clock().now().nanoseconds-m.header.stamp.sec*10**9-m.header.stamp.nanosec)/1e9
-        now=time.monotonic();v=m.twist.twist
+        now=operation_time(self.node);v=m.twist.twist
         good=0<=age<=.5 and abs(v.linear.x)<.005 and abs(v.angular.z)<.02
         if not good or now-self.last_odom>.5:self.stopped_since=None
         if good and self.stopped_since is None:self.stopped_since=now
         self.last_odom=now if 0<=age<=.5 else 0.
     def stopped(self):
-        return self.stopped_since is not None and time.monotonic()-self.stopped_since>=.8 and time.monotonic()-self.last_odom<.5
+        return self.stopped_since is not None and operation_time(self.node)-self.stopped_since>=.8 and operation_time(self.node)-self.last_odom<.5
     def observe(self,msg):
         try:
             report=json.loads(msg.data);stamp=report['stamp_ns'];now=self.node.get_clock().now().nanoseconds
@@ -59,8 +60,8 @@ class RouteObserver:
     def reject(self,reason):
         self.samples=[];self.reason=reason
     def status(self):
-        if time.monotonic()-self.log_at>=1.:
-            self.log_at=time.monotonic()
+        if operation_time(self.node)-self.log_at>=1.:
+            self.log_at=operation_time(self.node)
             self.node.get_logger().info(f'Route marker: samples={len(self.samples)}/{self.c["acquire_samples"]} ready={self.ready()} reason={self.reason}')
     def ready(self):
         if len(self.samples)<self.c['acquire_samples']:return False

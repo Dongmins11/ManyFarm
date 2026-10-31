@@ -1,4 +1,5 @@
 """Observe during pickup navigation; stop Nav2 before the shared precision action."""
+from farm_navigation.operation_clock import operation_time
 import json,time,threading
 from .sorter_approach import MarkerHandoff
 class HarvestApproach:
@@ -13,9 +14,9 @@ class HarvestApproach:
     def applies(self,r):return r.kind=='pickup'
     def enable(self,value):
         if not self.service.wait_for_service(timeout_sec=5):raise RuntimeError('Harvest observation service unavailable')
-        q=self.SetBool.Request();q.data=value;f=self.service.call_async(q);deadline=time.monotonic()+15
+        q=self.SetBool.Request();q.data=value;f=self.service.call_async(q);deadline=operation_time(self.node)+15
         while not f.done():
-            if time.monotonic()>deadline:raise TimeoutError('Harvest observation request timeout')
+            if operation_time(self.node)>deadline:raise TimeoutError('Harvest observation request timeout')
             time.sleep(.02)
         result=f.result()
         if not result.success:raise RuntimeError(result.message)

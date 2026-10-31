@@ -1870,3 +1870,14 @@
 - 사용자 “공통코드에서 … 조치한다음 커밋” 승인. farm_navigation 도착오류형, harvest wall 재보정, farm_docking 접근전 거절/정지증거, transport 상태 재접근 연결. 시뮬 전용 성공조건 변경 없음.
 - 최초+재시도2회 한도, 원래 목표/거리/각도/충돌/취소 유지. 실패값/정지시각/재시도번호 기록. 새 회귀와 기존검사353PASS, 공통네패키지빌드 성공. 실제 새 시뮬시험 미실행/기존실행유지.
 - 상세·복원 범위: docs/changes/STOPPED_ARRIVAL_RECOVERY_20261030.md. 이번 코드/검사/기록만커밋하고 이전수정은작업트리에보존. 원격push미요청.
+
+
+## 2026-10-31 — 공통 동작 시계의 sim/real 선택 적용
+
+- 승인: 사용자 “시간 시뮬레이션 시간으로 시뮬레이션 시행시에 맞추는 코드 공통코드에 작성하고 커밋푸시”. 기준 a2db520. 기존 미커밋 변경과 실행 시험은 보존.
+- farm_navigation.operation_clock.operation_time: ROS sim clock 활성 시 /clock 초, 실물은 기존 monotonic. farm_common→farm_navigation 기존 의존 방향을 유지하기 위해 navigation에 배치. farm_docking의 의존성만 추가.
+- 운송 pose/scan/device 수신과 만료, lease/명령, 정밀 도킹·이탈·센서 회복, Nav2/Spin 응답·취소·TF/충돌 회복·정지 대기, 수확 팔/인계/배출·영상 RPC 대기에 생산·소비 시계를 함께 적용. 하위 legacy 도킹의 lidar 버퍼도 같은 기준. lease 독립 IO 타이머는 부모 ROS 시계 사용.
+- 제한시간 수치/거리/각도/수확 성공 조건은 변경하지 않음. 프로파일링·일시·OS 종료 정리는 실제시간 유지. 시계0에서 실제시간 fallback 금지, gate는 clock 준비 전 소유권 거절. 시계 역행 시 이전 lease 무효화·미래 수신 캐시 거절; 시뮬 reset은 기존 캠페인처럼 관련 노드를 재시작해야 함. 모든 노드의 무중단 reset 복구를 보장하지 않음.
+- 검증: 작업 트리 대상 회귀126PASS, 공통6패키지 빌드 성공. 커밋 전용 소스(기존 미커밋 기능 제외) 별도 검사 결과는 상세 문서 참조. 실제 촬영 ON/OFF 비교·전체 사이클 재검증은 미실행. 실행 중인 프로세스에 hot reload하지 않으며 다음 노드 시작부터 설치본 적용.
+- 남은 범위: sim UDP/ROS 어댑터·world command watchdog·시험 도구의 실제시간 경로는 이번 공통 코드 커밋에 포함하지 않음. 따라서 시스템 전체의 실제시간 판정 제거 완료 또는 TF 실패 완전 해결로 보고하지 않는다.
+- 상세: docs/changes/OPERATION_CLOCK_20261031.md. 복원은 이 변경 커밋만 revert 후6패키지 재빌드; 기존 허용값을 조정하지 않는다.

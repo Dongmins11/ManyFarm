@@ -1,5 +1,6 @@
 """단일 전환 경로·I/O 큐·세대 확인·취소 후 정지 확인을 관리한다."""
 from concurrent.futures import Future, ThreadPoolExecutor
+import time
 from queue import Queue, Empty
 from threading import Event
 from typing import Callable, Any
@@ -12,11 +13,11 @@ from .device_port import UnavailableDevice
 
 
 class TransportStateController:
-    def __init__(self, navigator: Any, mission: Any, docking: Any, device: Any = None) -> None:
+    def __init__(self, navigator: Any, mission: Any, docking: Any, device: Any = None, *, clock=time.monotonic) -> None:
         self.navigator, self.mission, self.docking = navigator, mission, docking
         self.device = device or UnavailableDevice()
-        self.transfer = TransferSession()
-        self.unload = UnloadSession()
+        self.transfer = TransferSession(clock=clock)
+        self.unload = UnloadSession(clock=clock)
         self.docked_request = None
         self.parked_request = None
         self.parking_profiles = set()

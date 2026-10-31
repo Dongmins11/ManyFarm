@@ -3,6 +3,7 @@
 기존 HarvestTask와 node.lock/busy를 공유한다. 로봇 간 직접 통신은 하지 않는다.
 인계 기록은 원자적으로 보관하며 중단·미확인 인계는 재시작해도 자동 해제하지 않는다.
 """
+from farm_navigation.operation_clock import operation_time
 from dataclasses import replace
 from datetime import datetime, timezone
 import json
@@ -105,7 +106,7 @@ class TransferCommunication:
             else:
                 devices = TriggerTransferDevices(node, services, operations=ROTATION_DEVICE_OPERATIONS)
             self.devices = ComponentTransferDevices(devices, runtime.build_body, runtime.ready,
-                self.stage_timeout_s, self.stop_timeout_s, clock_factory=runtime.pause_clock.scoped)
+                self.stage_timeout_s, self.stop_timeout_s, clock_factory=runtime.pause_clock.scoped, clock=lambda: operation_time(node))
         elif mode == 'nav2_spin':
             if navigation_settings is None:
                 raise ValueError('공통 회전에는 기존 주행 설정과 위치/정지 관측 연결이 필요합니다.')
@@ -119,7 +120,7 @@ class TransferCommunication:
                 devices = TriggerTransferDevices(node, services, operations=ROTATION_DEVICE_OPERATIONS)
             spin = SpinClient(node, rotation_settings.endpoint, navigation_settings, node.callbacks)
             self.devices = RotatingTransferDevices(devices, spin, node.poses, node.motion,
-                rotation_settings, self.stage_timeout_s, self.stop_timeout_s)
+                rotation_settings, self.stage_timeout_s, self.stop_timeout_s, clock=lambda: operation_time(node))
         else:
             self.devices = TriggerTransferDevices(node, services)
         journal = parameter('transfer_journal_path', config.get('journal_path', str(Path.home() / '.local/state/manyfarm'
@@ -306,7 +307,7 @@ class TransferCommunication:
         goal = handle.request
         mission = TransferMission(self.devices, lambda event: self._feedback(handle, event),
             lambda: self._cancel_requested or handle.is_cancel_requested, lambda: self.node.stopping,
-            self.stage_timeout_s, self.stop_timeout_s, event_timeout_s=None)
+            self.stage_timeout_s, self.stop_timeout_s, clock=lambda: operation_time(self.node), event_timeout_s=None)
         with self.node.lock:
             self.active = (handle, mission)
         if self._discharge_devices is not None:
@@ -345,8 +346,8 @@ class TransferCommunication:
         if outcome.result_code == 'CANCELED':
             # rclpy는 cancel_callback 반환 뒤 Goal 상태를 CANCELING으로 바꾼다.
             # 내부 취소 플래그만 보고 canceled()를 너무 일찍 부르지 않는다.
-            deadline = time.monotonic() + self.stop_timeout_s
-            while not handle.is_cancel_requested and time.monotonic() < deadline:
+            deadline = operation_time(self.node) + self.stop_timeout_s
+            while not handle.is_cancel_requested and operation_time(self.node) < deadline:
                 time.sleep(0.01)
             if not handle.is_cancel_requested:
                 outcome = replace(outcome, result_code='FAILED', error_code='CANCEL_STATE_UNCONFIRMED',

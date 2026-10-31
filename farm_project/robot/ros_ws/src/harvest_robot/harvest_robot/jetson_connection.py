@@ -3,6 +3,7 @@
 별도 상호배제 콜백 그룹에서 입력을 받고 짧은 캐시 판정만 발행한다.
 수신 상태는 팔 Goal 직전 준비 확인에만 사용하며 주행·인계·실행 중 중단 판단에 연결하지 않는다.
 """
+from farm_navigation.operation_clock import operation_time
 from collections.abc import Callable
 from dataclasses import fields
 import threading
@@ -63,12 +64,12 @@ class JetsonConnection:
         self._test_publisher = node.create_publisher(Bool, test_prefix + '/enabled', qos)
         self._test_service = node.create_service(SetBool, test_prefix + '/set_enabled',
             self._set_transfer_test, callback_group=self._group)
-        self._clock = Clock(clock_type=ClockType.STEADY_TIME)
+        self._clock = node.get_clock() if node.get_clock().ros_time_is_active else Clock(clock_type=ClockType.STEADY_TIME)
         self._timer = node.create_timer(1.0/settings.control_state_rate_hz, self._publish,
                                        callback_group=self._group, clock=self._clock)
 
     def _now(self) -> tuple[int, float]:
-        return self._node.get_clock().now().nanoseconds, time.monotonic()
+        return self._node.get_clock().now().nanoseconds, operation_time(self._node)
 
     @staticmethod
     def _stamp(message: Any) -> int:
@@ -87,7 +88,7 @@ class JetsonConnection:
         values = {f.name: getattr(message, f.name) for f in fields(RuntimeSample) if f.name != 'stamp_ns'}
         sample = RuntimeSample(stamp_ns=self._stamp(message.stamp), **values)
         with self._lock:
-            self._runtime.receive(sample, time.monotonic())
+            self._runtime.receive(sample, operation_time(self._node))
 
     def _transfer(self) -> dict:
         transfer = getattr(self._node, 'transfer', None)
@@ -164,18 +165,18 @@ class JetsonConnection:
     def snapshot(self) -> dict:
         """마지막 Jetson 원문 값과 수신 경과 시간을 조회한다. 작업 상태를 바꾸지 않는다."""
         with self._lock:
-            return self._runtime.snapshot(time.monotonic())
+            return self._runtime.snapshot(operation_time(self._node))
 
     def wait_before_send(self, check: Callable[[], None], timeout_s: float) -> None:
         """팔 Goal 전송 직전만 회신의 준비 상태를 기다린다. 기존 취소 확인은 유지한다."""
         from .arm_client import ArmExecutionError
-        deadline = time.monotonic() + timeout_s
+        deadline = operation_time(self._node) + timeout_s
         while True:
             check()
             with self._lock:
                 if self._runtime.ready_to_send(*self._now()):
                     return
-            if time.monotonic() >= deadline:
+            if operation_time(self._node) >= deadline:
                 raise ArmExecutionError('ARM_UNAVAILABLE', 'Jetson 최신 depth_v11 ready 상태 대기 시간 초과')
             time.sleep(.01)
 

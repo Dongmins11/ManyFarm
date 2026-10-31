@@ -1,4 +1,5 @@
 """ROS Action 접수/예약/취소/최종 응답. 업무 진행은 Controller가 담당한다."""
+from farm_navigation.operation_clock import operation_time
 from concurrent.futures import Future
 from datetime import datetime
 from threading import Lock
@@ -46,7 +47,7 @@ class TransportCommunication:
         self._unload_service=node.create_service(UnloadEvent,'unload_event',self._unload_event,callback_group=node.callbacks)
 
     def _recovery_odom(self, message):
-        now=time.monotonic()
+        now=operation_time(self._node)
         stamp=message.header.stamp.sec*1e9+message.header.stamp.nanosec
         age=(self._node.get_clock().now().nanoseconds-stamp)/1e9
         v=message.twist.twist
@@ -68,7 +69,7 @@ class TransportCommunication:
                 if not request.data:raise ValueError('로봇을 도킹 구역 밖으로 옮겼다는 운영자 확인(data=true)이 필요합니다.')
                 if self._node.stopping or self._reservation is not None or c.busy:
                     raise ValueError('실행 중인 작업/종료 처리 중에는 복구할 수 없습니다.')
-                now=time.monotonic()
+                now=operation_time(self._node)
                 if (now-self._reset_odom_at>.5 or self._reset_stationary_since is None
                         or now-self._reset_stationary_since<1.):
                     raise ValueError('최신 odom으로 1초 이상 정지를 확인해야 합니다.')
@@ -80,9 +81,9 @@ class TransportCommunication:
                 if self._node.docking.pending:
                     # 결과 대기 중 시간이 흘러도 과거 정지 표본을 재사용하지 않는다.
                     self._node.docking.stop(stationary_confirmed=lambda:
-                        time.monotonic()-self._reset_odom_at<=.5
+                        operation_time(self._node)-self._reset_odom_at<=.5
                         and self._reset_stationary_since is not None
-                        and time.monotonic()-self._reset_stationary_since>=1.)
+                        and operation_time(self._node)-self._reset_stationary_since>=1.)
                 if self._node.lease is not None and self._node.lease.token:
                     raise ValueError('주행 제어권이 남아 있습니다.')
                 self._node.mission.operator_reset()

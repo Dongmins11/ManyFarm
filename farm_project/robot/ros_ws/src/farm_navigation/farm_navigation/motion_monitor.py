@@ -1,4 +1,5 @@
 """장치가 발행한 odom을 읽습니다. 바퀴 odom을 다시 계산하지 않습니다."""
+from farm_navigation.operation_clock import operation_time
 from collections.abc import Callable
 import math
 import threading
@@ -21,13 +22,13 @@ class MotionMonitor:
     def _on_odom(self, message: Odometry) -> None:
         with self._lock:
             self._message=message
-            self._received=time.monotonic()
+            self._received=operation_time(self._node)
 
     def _sample(self) -> tuple[int,bool] | None:
         with self._lock:
             msg=self._message
-            age=time.monotonic()-self._received
-        if msg is None or age>self._settings.odom_max_age_s:
+            age=operation_time(self._node)-self._received
+        if msg is None or not 0<=age<=self._settings.odom_max_age_s:
             return None
         twist=msg.twist.twist
         values=(twist.linear.x,twist.linear.y,twist.angular.z)
@@ -41,10 +42,10 @@ class MotionMonitor:
 
     def wait_stopped(self, check: Callable[[],None]) -> int:
         """동일한 odom의 반복 수신이나 멈춘 /clock으로 정지 시간이 누적되지 않습니다."""
-        deadline=time.monotonic()+self._settings.settle_timeout_s
+        deadline=operation_time(self._node)+self._settings.settle_timeout_s
         first: int | None = None
         previous: int | None = None
-        while time.monotonic()<deadline:
+        while operation_time(self._node)<deadline:
             check()
             sample=self._sample()
             if sample is None:

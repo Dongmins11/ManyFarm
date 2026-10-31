@@ -3,7 +3,8 @@ from threading import Condition
 import time
 
 class TransferSession:
-    def __init__(self, timeout: float = 60.) -> None:
+    def __init__(self, timeout: float = 60., *, clock=time.monotonic) -> None:
+        self._clock = clock
         self._cv = Condition()
         self.request = None
         self.events = set()
@@ -35,11 +36,11 @@ class TransferSession:
             self._cv.notify_all()
 
     def wait(self, event: str, check) -> None:
-        deadline = time.monotonic()+self.timeout
+        deadline = self._clock()+self.timeout
         with self._cv:
             while event not in self.events:
                 check()
-                if time.monotonic() >= deadline:
+                if self._clock() >= deadline:
                     raise TimeoutError(event+' 대기 시간 초과')
                 self._cv.wait(.05)
             check()

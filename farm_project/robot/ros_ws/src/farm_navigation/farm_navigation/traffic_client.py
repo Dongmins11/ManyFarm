@@ -1,5 +1,6 @@
 """관제 계약의 로봇 측 상태 관리. 허가 대기는 I/O 스레드, 보고/등록은 ROS 콜백이다."""
 from __future__ import annotations
+from farm_navigation.operation_clock import operation_time
 from copy import deepcopy
 from datetime import datetime, timezone
 from pathlib import Path
@@ -85,7 +86,7 @@ class TrafficClient:
                                for endpoint in (settings.follow_action, settings.navigate_action)]
         self.cancel_sent: set[int] = set()
         self.timer = node.create_timer(.05, self._tick, callback_group=self.group,
-                                      clock=Clock(clock_type=ClockType.STEADY_TIME))
+                                      clock=node.get_clock() if node.get_clock().ros_time_is_active else Clock(clock_type=ClockType.STEADY_TIME))
         self._stop()
 
     def _stop(self) -> None:
@@ -540,7 +541,7 @@ class TrafficClient:
 
     def wait_position_report(self, stamp_ns: int, check: Callable[[], None], timeout_s: float) -> None:
         """도착 이후 실제 Status 표본과 같은 허가 문맥의 Progress를 보낸 뒤 결과를 반환한다."""
-        deadline = time.monotonic() + timeout_s
+        deadline = operation_time(self.node) + timeout_s
         while True:
             check()
             with self.lock:
@@ -549,13 +550,13 @@ class TrafficClient:
                 if self.pose_valid and self.latest_stamp >= stamp_ns:
                     self._report()
                     return
-            if time.monotonic() >= deadline:
+            if operation_time(self.node) >= deadline:
                 raise TimeoutError('도착 이후 RobotStatus 표본 미수신')
             time.sleep(.02)
 
     def finish_task(self, task_id: str, timeout_s: float) -> None:
         """시험 소유권 반납 전 자신의 취소·미사용 예약 정리를 확인한다. 실제 점유는 유지한다."""
-        deadline = time.monotonic() + timeout_s
+        deadline = operation_time(self.node) + timeout_s
         while True:
             with self.lock:
                 request = self.pending
@@ -576,7 +577,7 @@ class TrafficClient:
                 if not own_pending and not unused and self.release is None:
                     self._report()
                     return
-                if self.fault or time.monotonic() >= deadline:
+                if self.fault or operation_time(self.node) >= deadline:
                     raise RuntimeError('교통 요청/반납 종료 미확인: ' + self.fault)
             time.sleep(.02)
 

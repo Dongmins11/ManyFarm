@@ -1,4 +1,5 @@
 """TF 조회 어댑터. 위치추정기를 구현하거나 TF를 발행하지 않습니다."""
+from farm_navigation.operation_clock import operation_time
 from collections.abc import Callable
 import time
 import numpy as np
@@ -28,9 +29,9 @@ class PoseProvider:
     def lookup(self, target: str, source: str, stamp_ns: int, check: Callable[[],None], *,
                on_unavailable: Callable[[Exception], None] | None = None) -> NDArray[np.float64]:
         """stamp=0은 최신 위치, 양수는 촬영 등 특정 ROS 시각의 변환입니다."""
-        end=time.monotonic()+self._settings.tf_timeout_s
+        end=operation_time(self._node)+self._settings.tf_timeout_s
         error: Exception | None = None
-        while time.monotonic()<end:
+        while operation_time(self._node)<end:
             check()
             try:
                 message=self._buffer.lookup_transform(target,source,Time(nanoseconds=int(stamp_ns)))
@@ -70,10 +71,10 @@ class PoseProvider:
                               sample_stamp: Callable[[], int], check: Callable[[], None]
                               ) -> tuple[int, tuple[NDArray[np.float64], NDArray[np.float64]]]:
         """진행하는 표본 중 두 TF가 함께 존재하는 시각을 선택한다. 최신 TF로 대체하지 않는다."""
-        deadline = time.monotonic() + self._settings.tf_timeout_s
+        deadline = operation_time(self._node) + self._settings.tf_timeout_s
         stamps: list[int] = []
         previous: int | None = None
-        while time.monotonic() < deadline:
+        while operation_time(self._node) < deadline:
             check()
             stamp = int(sample_stamp())
             if stamp <= 0 or (previous is not None and stamp < previous):

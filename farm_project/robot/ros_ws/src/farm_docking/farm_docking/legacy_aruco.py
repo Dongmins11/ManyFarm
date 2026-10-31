@@ -53,6 +53,7 @@ dock.py  —  운송로봇 wmany 정밀 도킹 · 하나의 코드로 여러 장
   그다음 PC 에서:  ros2 topic pub -t 3 -r 2 /dock/cmd std_msgs/msg/String "{data: START harvest}"
 """
 
+from farm_navigation.operation_clock import operation_time
 import csv
 import math
 import os
@@ -324,7 +325,7 @@ class Dock(Node):
         self.bridge = CvBridge()
         self.K = None
         self.D = None
-        self.t_start_node = time.monotonic()
+        self.t_start_node = operation_time(self)
         # 마커별 최신 측정 {id: (meas, t)}
         self.meas = {}
         self.near_streak = 0            # 12 연속 검출 횟수
@@ -332,7 +333,7 @@ class Dock(Node):
         self.n_det = 0
         self.stale = 0
         self.hz = 0.0
-        self.hz_t = time.monotonic()
+        self.hz_t = operation_time(self)
 
         self.create_subscription(CameraInfo, c["info_topic"], self.on_info, 10)
         ### 수정 (10-02) 카메라 영상은 도킹 · TEACH 하는 동안에만 받는다 (cam_on / cam_off)
@@ -519,7 +520,7 @@ class Dock(Node):
         self.odom_yaw = math.atan2(2.0 * (q.w * q.z + q.x * q.y), 1.0 - 2.0 * (q.y * q.y + q.z * q.z))
 
     def ensure_K(self):
-        if self.K is None and time.monotonic() - self.t_start_node > 3.0:
+        if self.K is None and operation_time(self) - self.t_start_node > 3.0:
             self.K = np.array(K_DEFAULT, np.float64).reshape(3, 3)
             self.D = np.array(D_DEFAULT, np.float64)
             self.get_logger().warn("camera_info 없음 → 백업 캘리브레이션 값 사용 (fx 1760)")
@@ -573,7 +574,7 @@ class Dock(Node):
         self.undock_xy0 = self.odom_xy
         self.undock_yaw0 = self.odom_yaw
         self.rear_block = 0
-        self.t0 = self.t_undock = time.monotonic()
+        self.t0 = self.t_undock = operation_time(self)
         self.get_logger().info(f"UNDOCK — {src} {self.undock_target:.2f}m 후진 ({c['undock_speed']:.2f}m/s · 방향 유지)")
         self.enter(UNDOCK)
 
@@ -629,7 +630,7 @@ class Dock(Node):
             self.get_logger().warn("도킹 중에는 TEACH 불가 — STOP 후 다시")
             return
         self.teach_buf = []
-        self.t_teach = time.monotonic()
+        self.t_teach = operation_time(self)
         self.cam_start()                ### 수정 (10-02) 카메라 프로세스
         self.cam_on()                   ### 수정 (10-02)
         self.get_logger().info(f"TEACH — ID {self.c['near_id']} 를 {self.c['teach_frames']} 프레임 모읍니다. 로봇을 움직이지 마십시오")
@@ -658,7 +659,7 @@ class Dock(Node):
                 f"각도 {math.degrees(ps):+.1f}° · 좌우 흔들림 ±{sd*100:.1f}cm")
             if sd > 0.005:
                 self.get_logger().warn("  좌우 흔들림이 0.5cm 를 넘는다 — 마커가 화면 가장자리이거나 너무 가깝다. 다시 TEACH 권장")
-        elif time.monotonic() - self.t_teach > 5.0:
+        elif operation_time(self) - self.t_teach > 5.0:
             self.teach_buf = None
             if self.state in (IDLE, DONE, FAILED):
                 self.cam_off()          ### 수정 (10-02)
@@ -735,7 +736,7 @@ class Dock(Node):
 
     def process_image(self, img):
         if self.first_img is None:
-            self.first_img = time.monotonic()   ### 수정 (10-02) 카메라가 켜졌다는 표시
+            self.first_img = operation_time(self)   ### 수정 (10-02) 카메라가 켜졌다는 표시
         if self.K is None:
             return
         if self.state in (IDLE, NAV, FACE, DONE, FAILED) and self.teach_buf is None:
@@ -746,7 +747,7 @@ class Dock(Node):
             corners, ids, _ = cv2.aruco.detectMarkers(img, self.dict, parameters=self.params)
 
         near_seen = False
-        now = time.monotonic()
+        now = operation_time(self)
         if ids is not None:
             for cn, i in zip(corners, ids.flatten()):
                 i = int(i)
@@ -850,7 +851,7 @@ class Dock(Node):
         self.cam_on()                   ### 수정 (10-02) 도킹 시작할 때만 영상을 받는다
         self.open_log()                 ### 통합 (10-01) 도킹마다 새 로그
         self.aligned_by = ""
-        self.t0 = time.monotonic()
+        self.t0 = operation_time(self)
         self.meas = {}
         self.near_streak = 0
         self.last_near = None
@@ -860,7 +861,7 @@ class Dock(Node):
                 self.get_logger().warn("/odom 이 아직 없음 — 회전 없이 SEARCH")
             else:
                 self.face_goal = self.odom_yaw + math.radians(self.face_deg)
-                self.t_face = time.monotonic()
+                self.t_face = operation_time(self)
                 self.get_logger().info(f"제자리 회전 {self.face_deg:+.1f}° ({'왼' if self.face_deg > 0 else '오른'}쪽) 후 도킹")
                 self.enter(FACE)
                 return
@@ -870,7 +871,7 @@ class Dock(Node):
             self.enter(NAV)
             self.send_nav()
         else:
-            self.t_dock = time.monotonic()
+            self.t_dock = operation_time(self)
             self.enter(SEARCH)
 
     def enter(self, s):
@@ -887,7 +888,7 @@ class Dock(Node):
         self.cam_off()                  ### 수정 (10-02) DONE · FAILED · STOP 이면 영상 끊기
         if self.teach_buf is None:
             self.cam_stop()             ### 수정 (10-02) 카메라도 끈다
-        el = time.monotonic() - self.t0 if self.t0 else 0.0
+        el = operation_time(self) - self.t0 if self.t0 else 0.0
         self.get_logger().info(f"■ [{self.site}] {s} — {why}  ({el:.1f}s)")
         if s == DONE and self.last_near:
             m = self.last_near
@@ -935,7 +936,7 @@ class Dock(Node):
                 pts.append((r * math.cos(d), r * math.sin(d)))
         res = fit_face(pts, c["lidar_inlier_tol"], c["lidar_min_inliers"], 150)
         if res:
-            self.lidar_buf.append((time.monotonic(), res[0], res[1]))
+            self.lidar_buf.append((operation_time(self), res[0], res[1]))
 
     def lidar_mean_since(self, t0, n):
         """t0 이후 들어온 측정 중 마지막 n 개의 (평균 각도, 표준편차, 평균 거리). 모자라면 None"""
@@ -949,7 +950,7 @@ class Dock(Node):
 
     def lidar_fresh(self, max_age=1.0):
         """최근 max_age 초 안에 면을 찾은 스캔이 있나"""
-        return bool(self.lidar_buf) and time.monotonic() - self.lidar_buf[-1][0] <= max_age
+        return bool(self.lidar_buf) and operation_time(self) - self.lidar_buf[-1][0] <= max_age
 
     def load_lidar_teach(self):
         """LTEACH 파일이 있으면 그 목표 각도를 쓴다 (없으면 파라미터 lidar_target_deg)"""
@@ -973,7 +974,7 @@ class Dock(Node):
         if not self.lidar_fresh(2.0):
             self.get_logger().warn("최근 2초 동안 라이다로 면을 못 찾음 — 로봇 정면 0.6m 안에 면이 있는지 · bringup 확인")
             return
-        self.lteach_t0 = time.monotonic()
+        self.lteach_t0 = operation_time(self)
         self.get_logger().info(f"[{self.site}] LTEACH — 라이다 {self.c['lidar_teach_frames']}장을 모읍니다. 로봇을 움직이지 마십시오 "
                                "(로봇 정면 ±30° · 0.6m 안에 사람이 없어야 한다)")
 
@@ -981,7 +982,7 @@ class Dock(Node):
         c = self.c
         r = self.lidar_mean_since(self.lteach_t0, c["lidar_teach_frames"])
         if r is None:
-            if time.monotonic() - self.lteach_t0 > 10.0:
+            if operation_time(self) - self.lteach_t0 > 10.0:
                 got = len([1 for (t, _, _) in self.lidar_buf if t >= self.lteach_t0])
                 self.lteach_t0 = None
                 self.get_logger().error(f"LTEACH 실패 — 10초 동안 면을 {got}장밖에 못 찾음 (라이다 높이에 면이 있는지 · bringup 확인)")
@@ -1024,9 +1025,9 @@ class Dock(Node):
             self.aligned_by = "lidar"
             self.l_iter = 0
             self.l_first = None
-            self.l_meas_t0 = time.monotonic()
+            self.l_meas_t0 = operation_time(self)
             self.align_why = why
-            self.t_align = time.monotonic()
+            self.t_align = operation_time(self)
             self.get_logger().info(f"{why} · 라이다 정렬 시작 (목표 {self.lidar_target:+.1f}° · {self.lidar_src})")
             self.enter(ALIGN)
             return
@@ -1046,7 +1047,7 @@ class Dock(Node):
         # 마커 각도 psi 는 시계방향 +, 오도메트리 yaw 는 반시계방향 + → 부호 반대
         self.align_goal = self.odom_yaw - delta
         self.align_psi0 = psi_now
-        self.t_align = time.monotonic()
+        self.t_align = operation_time(self)
         self.get_logger().info(
             f"{why} · 현재 각도 {math.degrees(psi_now):+.1f}° → 목표 {math.degrees(self.yaw_ref):+.1f}° "
             f"({'오른' if delta > 0 else '왼'}쪽으로 {abs(math.degrees(delta)):.1f}° 회전)")
@@ -1087,7 +1088,7 @@ class Dock(Node):
             return
         self.drive(0.0, 0.0, force=True)              # 회전 끝난 직후 잔여 회전을 확실히 끊고 시작
         self.push_xy0 = self.odom_xy                  # 출발점 기억 — 여기서부터 직선거리를 잰다
-        self.t_push = time.monotonic()
+        self.t_push = operation_time(self)
         self.push_why = why
         if self.push_lidar:
             self.get_logger().info(
@@ -1107,7 +1108,7 @@ class Dock(Node):
     def get(self, mid):
         """lost_timeout 안의 측정만 돌려준다"""
         e = self.meas.get(mid)
-        if e is None or time.monotonic() - e[1] > self.c["lost_timeout"]:
+        if e is None or operation_time(self) - e[1] > self.c["lost_timeout"]:
             return None
         return e[0]
 
@@ -1166,12 +1167,12 @@ class Dock(Node):
             return
 
         if s == NAV:
-            if time.monotonic() - self.t0 > c["nav_timeout"]:
+            if operation_time(self) - self.t0 > c["nav_timeout"]:
                 self.cancel_nav()
                 self.finish(FAILED, f"대기점 이동 시간 초과 {c['nav_timeout']:.0f}s")
             elif self.nav_done == "ok":
                 self.get_logger().info("대기점 도착")
-                self.t_dock = time.monotonic()
+                self.t_dock = operation_time(self)
                 self.meas = {}
                 self.enter(SEARCH)
             elif self.nav_done is not None:
@@ -1186,12 +1187,12 @@ class Dock(Node):
                 self.state = IDLE
                 self.dock_start_xy = None
                 self.pub_state.publish(String(data=f"{self.site or 'dock'}:UNDOCKED"))
-                self.get_logger().info(f"■ UNDOCKED — {moved:.2f}m 후진 완료 ({time.monotonic() - self.t_undock:.1f}s)")
+                self.get_logger().info(f"■ UNDOCKED — {moved:.2f}m 후진 완료 ({operation_time(self) - self.t_undock:.1f}s)")
                 return
             if self.rear_block >= 3:
                 self.finish(FAILED, f"UNDOCK 정지 — 뒤쪽 {c['undock_rear_stop']:.2f}m 안에 장애물 ({moved:.2f}/{self.undock_target:.2f}m)")
                 return
-            if time.monotonic() - self.t_undock > self.undock_target / max(c["undock_speed"], 0.01) + 8.0:
+            if operation_time(self) - self.t_undock > self.undock_target / max(c["undock_speed"], 0.01) + 8.0:
                 self.finish(FAILED, f"UNDOCK 시간 초과 ({moved:.2f}/{self.undock_target:.2f}m)")
                 return
             err = math.atan2(math.sin(self.undock_yaw0 - self.odom_yaw), math.cos(self.undock_yaw0 - self.odom_yaw))
@@ -1202,14 +1203,14 @@ class Dock(Node):
             ### 수정 (10-02) 오도메트리로 정해진 각도만큼 제자리 회전 → 끝나면 SEARCH
             err = math.atan2(math.sin(self.face_goal - self.odom_yaw),
                              math.cos(self.face_goal - self.odom_yaw))    # + 면 반시계(왼쪽)로 더
-            timeout = time.monotonic() - self.t_face > c["face_timeout"]
+            timeout = operation_time(self) - self.t_face > c["face_timeout"]
             if abs(math.degrees(err)) <= c["face_tol_deg"] or timeout:
                 self.drive(0.0, 0.0, force=True)
                 if timeout:
                     self.get_logger().warn(f"회전 시간 초과 (남은 {math.degrees(err):+.1f}°) — 그대로 SEARCH")
                 else:
                     self.get_logger().info("회전 완료")
-                self.t_dock = time.monotonic()
+                self.t_dock = operation_time(self)
                 self.meas = {}
                 self.enter(SEARCH)
                 return
@@ -1219,7 +1220,7 @@ class Dock(Node):
             self.drive(0.0, w)
             return
 
-        if time.monotonic() - self.t_dock > c["dock_timeout"]:
+        if operation_time(self) - self.t_dock > c["dock_timeout"]:
             self.finish(FAILED, f"도킹 시간 초과 {c['dock_timeout']:.0f}s")
             return
 
@@ -1234,7 +1235,7 @@ class Dock(Node):
                 return
             if self.first_img is None:
                 ### 수정 (10-02) 카메라가 아직 안 켜졌으면 돌지 않고 기다린다
-                if time.monotonic() - self.t0 > c["cam_wait_s"]:
+                if operation_time(self) - self.t0 > c["cam_wait_s"]:
                     self.finish(FAILED, f"카메라 영상이 {c['cam_wait_s']:.0f}초 안에 안 옴 (로그 ~/wmany/logs/cam_*.log)")
                     return
                 w = 0.0
@@ -1291,7 +1292,7 @@ class Dock(Node):
                 self.get_logger().warn(
                     f"작은 마커 놓침 ({ln['dist']:.3f}m) → {'오른' if self.reacq_dir > 0 else '왼'}쪽으로 돌며 다시 찾기"
                     if ln else "작은 마커 놓침 → 다시 찾기")
-                self.t_reacq = time.monotonic()
+                self.t_reacq = operation_time(self)
                 self.enter(REACQ)
                 return
 
@@ -1300,7 +1301,7 @@ class Dock(Node):
             w = 0.0
             r = self.lidar_mean_since(self.l_meas_t0 + c["lidar_settle_s"], c["lidar_avg_n"])
             if r is None:
-                if time.monotonic() - self.l_meas_t0 > c["lidar_wait_s"] + c["lidar_settle_s"]:
+                if operation_time(self) - self.l_meas_t0 > c["lidar_wait_s"] + c["lidar_settle_s"]:
                     if self.l_iter == 0:                     # 처음부터 못 잼 → 예전 방식으로 대체
                         self.get_logger().warn("라이다 측정 실패 → 카메라 각도 + 오도메트리로 대체")
                         ln = self.last_near                   # 마지막으로 본 2cm 마커 각도로 예전 방식 회전
@@ -1332,7 +1333,7 @@ class Dock(Node):
                 # ② 그 차이만큼 오도메트리로 돈다
                 self.align_goal = self.odom_yaw + math.radians(err)
                 self.l_iter += 1
-                self.l_turn_t0 = time.monotonic()
+                self.l_turn_t0 = operation_time(self)
                 self.align_mode = "l_turn"
                 self.get_logger().info(f"  → {'왼' if err > 0 else '오른'}쪽으로 {abs(err):.1f}° 회전")
 
@@ -1341,10 +1342,10 @@ class Dock(Node):
             err = math.atan2(math.sin(self.align_goal - self.odom_yaw),
                              math.cos(self.align_goal - self.odom_yaw))    # + 면 반시계(왼쪽)로 더
             if (abs(math.degrees(err)) <= c["lidar_turn_tol_deg"]
-                    or time.monotonic() - self.l_turn_t0 > c["lidar_turn_timeout"]):
+                    or operation_time(self) - self.l_turn_t0 > c["lidar_turn_timeout"]):
                 self.drive(0.0, 0.0, force=True)
                 self.align_mode = "l_meas"
-                self.l_meas_t0 = time.monotonic()            # 지금부터 settle 지난 스캔만 쓴다
+                self.l_meas_t0 = operation_time(self)            # 지금부터 settle 지난 스캔만 쓴다
                 return
             w = clamp(c["k_w"] * err, -0.15, 0.15)
             if abs(w) < 0.05:
@@ -1359,7 +1360,7 @@ class Dock(Node):
                 turned = math.degrees(self.yaw_ref - self.align_psi0)
                 self.done_or_push(f"각도 {turned:+.1f}° 회전 완료")   ### 수정 (09-30) 바로 DONE → PUSH 거쳐 DONE
                 return
-            if time.monotonic() - self.t_align > c["align_timeout"]:
+            if operation_time(self) - self.t_align > c["align_timeout"]:
                 self.finish(DONE, f"DOCK_STABLE (각도 맞추기 시간 초과 · 남은 {math.degrees(err):+.1f}°)")
                 return
             w = clamp(c["k_w"] * err, -0.15, 0.15)
@@ -1393,7 +1394,7 @@ class Dock(Node):
             # 라이다 직진은 최대 push_max 만큼 가므로 제한 시간도 그만큼 늘린다 (8cm ÷ 0.02m/s = 4초 + 1초)
             t_lim = (max(c["push_timeout"], c["push_max"] / max(c["push_speed"], 1e-3) + 1.0)
                      if self.push_lidar else c["push_timeout"])
-            if time.monotonic() - self.t_push > t_lim:           # 제시간에 못 감 → 더 밀지 않고 정지
+            if operation_time(self) - self.t_push > t_lim:           # 제시간에 못 감 → 더 밀지 않고 정지
                 self.finish(DONE, f"DOCK_STABLE ({self.push_why} · 마지막 직진 시간 초과 · "
                                   f"{moved*100:.1f}cm 에서 멈춤 — 걸림 확인)")
                 return
@@ -1411,7 +1412,7 @@ class Dock(Node):
                 self.near_streak = 0
                 self.enter(TRACK)
                 return
-            if time.monotonic() - self.t_reacq > c["reacq_timeout"]:
+            if operation_time(self) - self.t_reacq > c["reacq_timeout"]:
                 ln = self.last_near
                 self.finish(FAILED, "두 마커 모두 놓침"
                             + (f" (마지막 12 거리 {ln['dist']:.3f}m)" if ln else ""))
@@ -1437,7 +1438,7 @@ class Dock(Node):
         self.pub.publish(t)
 
     def status(self, src, info, v, w, alpha):
-        now = time.monotonic()
+        now = operation_time(self)
         v, w = self._v, self._w
         row = [f"{now - self.t0:.2f}", self.state, src]
         row += ([f"{info[1]:.4f}", f"{info[0]:.4f}", f"{math.degrees(info[2]):.2f}",

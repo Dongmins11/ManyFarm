@@ -1,3 +1,4 @@
+from farm_navigation.operation_clock import operation_time
 from .handoff_locking import TimingProbe, TimedRLock
 from .transient_gate import TransientCommandGate
 from .handoff_wait import InputUnavailable, ClearancePending, WaitingPoses, TransformUnavailable
@@ -81,7 +82,7 @@ class HandoffRuntime:
         self.latest = {}
         self.wait_status = None
         self._waiting_workers = set()
-        self.pause_clock = PauseClock(unlimited=self._sensor_wait_indefinite)
+        self.pause_clock = PauseClock(clock=lambda: operation_time(node), unlimited=self._sensor_wait_indefinite)
         self._pause_requested = False
         self._controller_wait = (0., False)
         self._pause_session = secrets.randbits(48)
@@ -131,12 +132,12 @@ class HandoffRuntime:
 
     def _receive_controller_wait(self, msg: Any) -> None:
         with self.lock:
-            self._controller_wait = (time.monotonic(), bool(msg.data))
+            self._controller_wait = (operation_time(self.node), bool(msg.data))
 
     def _publish_pause_clock(self) -> None:
         with self.lock:
             recent, waiting = self._controller_wait
-            wall_wait = (self.stage == 'wall' and waiting and time.monotonic()-recent <= .2
+            wall_wait = (self.stage == 'wall' and waiting and operation_time(self.node)-recent <= .2
                 and len(self.node.get_publishers_info_by_topic(self.bundle['prefix']+'/controller_wait')) == 1)
             trial = getattr(self.node, 'body_trial', None)
             transfer = self.node.transfer
@@ -155,7 +156,7 @@ class HandoffRuntime:
     def _receive(self, key: str, msg: Any) -> None:
         self._input_trace.receive("callback_begin", key, msg)
         with self.lock:
-            self.latest[key] = (time.monotonic(), msg)
+            self.latest[key] = (operation_time(self.node), msg)
             self._input_trace.receive("stored", key, msg)
             if key == 'odom' and self.speed is not None:
                 previous_stamp = self.speed.last_stamp
@@ -180,7 +181,7 @@ class HandoffRuntime:
             raise error_type('입력 없음: '+key)
         received, msg = pair
         age = (self.node.get_clock().now().nanoseconds-stamp(msg))/1e9
-        receive_age = time.monotonic()-received
+        receive_age = operation_time(self.node)-received
         if receive_age > age_limit or not -.1 <= age <= age_limit:
             error_type = ScanTemporarilyUnavailable if key == 'scan' and age >= 0 and self.wall['controller'].get('observation_wait', 0) > 0 else InputUnavailable if age >= 0 else RuntimeError
             raise error_type(self._input_trace.expired(key, received, msg, age_limit,
@@ -237,7 +238,7 @@ class HandoffRuntime:
             self._pause_requested = True
             self.pause_clock.update(True)
             if self.wait_status is None:
-                self.wait_status = {'since': time.monotonic(), 'reason': reason}
+                self.wait_status = {'since': operation_time(self.node), 'reason': reason}
                 self.node.get_logger().warning('HANDOFF_WAIT '+reason)
             if self.gate is not None and self.gate.enabled:
                 self.gate.hold()
@@ -256,7 +257,7 @@ class HandoffRuntime:
         # ROS 콜백은 기다리지 않는다. worker의 재관측 중에는 출력부도 계속 0이다.
         if getattr(self._validation_inputs, 'nonblocking', False):
             return operation()
-        deadline = float('inf') if getattr(self, '_sensor_wait_indefinite', False) else time.monotonic() + self._recovery_timeout
+        deadline = float('inf') if getattr(self, '_sensor_wait_indefinite', False) else operation_time(self.node) + self._recovery_timeout
         epoch = self._output_epoch
         previous_deadline = getattr(self._validation_inputs, 'deadline', None)
         if previous_deadline is not None:
@@ -270,7 +271,7 @@ class HandoffRuntime:
                 self._check_state()
                 if self._output_epoch != epoch:
                     raise RuntimeError('재관측 중 출력 세션 변경')
-                if time.monotonic() >= deadline:
+                if operation_time(self.node) >= deadline:
                     raise TimeoutError('재관측 제한시간 초과')
                 try:
                     if check is not None:
@@ -279,14 +280,14 @@ class HandoffRuntime:
                     self._check_state()
                     if self._output_epoch != epoch:
                         raise RuntimeError('재관측 중 출력 세션 변경')
-                    if time.monotonic() >= deadline:
+                    if operation_time(self.node) >= deadline:
                         raise TimeoutError('재관측 제한시간 초과')
                     return value
                 except (InputUnavailable, TransformUnavailable) as error:
                     with self.lock:
                         self._waiting_workers.add(ticket)
                         self._pause_output(str(error))
-                    if time.monotonic() >= deadline:
+                    if operation_time(self.node) >= deadline:
                         raise TimeoutError('재관측 제한시간 초과: '+str(error)) from error
                     time.sleep(.02)
         finally:
@@ -324,13 +325,13 @@ class HandoffRuntime:
 
     def settling_check(self) -> None:
         # 취소 후 Goal 정리에서도 정지 증거는 기다린다. 이동 재개는 하지 않는다.
-        deadline = time.monotonic() + self._recovery_timeout
+        deadline = operation_time(self.node) + self._recovery_timeout
         while True:
             try:
                 self._read('odom')
                 return
             except InputUnavailable:
-                if time.monotonic() >= deadline:
+                if operation_time(self.node) >= deadline:
                     raise TimeoutError('정지 확인용 odom 재관측 시간 초과')
                 time.sleep(.02)
 
@@ -380,7 +381,7 @@ class HandoffRuntime:
                         continue
                     self.wall_last_stamp = stamp(scan)
                     if value['ready']:
-                        self.wall_value = (time.monotonic(), value)
+                        self.wall_value = (operation_time(self.node), value)
                         msg = PoseStamped()
                         msg.header.frame_id=self.odom_frame; msg.header.stamp=scan.header.stamp
                         msg.pose.position.x=value['x']; msg.pose.position.y=value['y']
@@ -416,7 +417,7 @@ class HandoffRuntime:
                 age = (self.node.get_clock().now().nanoseconds-wall['stamp_ns'])/1e9
                 if age < 0:
                     raise RuntimeError('벽 관측 미래 시각')
-                if time.monotonic()-received > self.wall['controller']['observation_age'] or age > self.wall['controller']['observation_age']:
+                if operation_time(self.node)-received > self.wall['controller']['observation_age'] or age > self.wall['controller']['observation_age']:
                     if self.wall['controller'].get('observation_wait', 0) <= 0:
                         raise RuntimeError('벽 관측 만료')
                     raise InputUnavailable('벽 관측 만료: 새 관측 대기')
@@ -521,7 +522,7 @@ class HandoffRuntime:
             self._align_pose_valid(current)
             self._align_preparing = True
             try:
-                self.clearance=AsyncClearance(self._snapshot, response_timeout_s=self._recovery_timeout)
+                self.clearance=AsyncClearance(self._snapshot, response_timeout_s=self._recovery_timeout, clock=lambda: operation_time(self.node))
             finally:
                 self._align_preparing = False
 
@@ -539,7 +540,7 @@ class HandoffRuntime:
                 current = self._odom_pose()
                 self._align_pose_valid(current)
                 ready, reason = self.clearance.check(current, self._grid_key(cm),
-                    self.node.get_clock().now().nanoseconds, time.monotonic(),
+                    self.node.get_clock().now().nanoseconds, operation_time(self.node),
                     max(math.hypot(x,y) for x,y in self.body_footprint))
                 if not ready:
                     raise ClearancePending(reason)
@@ -571,7 +572,7 @@ class HandoffRuntime:
             self.gate = TransientCommandGate(factory, self._resume_stopped_stamp, self.settings.settle_s)
             self.speed=MeasuredVelocityGuard(MeasuredVelocityLimits(**(
                 self.wall['measured_velocity'] if stage=='wall' else self.policy['measured_velocity'])), allow_sample_gap=True)
-            self.gate.arm(time.monotonic())
+            self.gate.arm(operation_time(self.node))
 
     def _resume_stopped_stamp(self) -> int | None:
         # 최신 입력과 기존 정지 속도 조건이 모두 성립한 새 표본만 사용한다.
@@ -683,7 +684,7 @@ class HandoffRuntime:
                         pending = True
                     else:
                         ready, _ = clearance.check(current, align_key,
-                            self.node.get_clock().now().nanoseconds, time.monotonic(),
+                            self.node.get_clock().now().nanoseconds, operation_time(self.node),
                             max(math.hypot(x,y) for x,y in self.body_footprint))
                         pending = pending or not ready
                 elif changed and not latest_contract:
@@ -705,7 +706,7 @@ class HandoffRuntime:
                     return
                 if pending:
                     gate.hold()
-                    now = time.monotonic()
+                    now = operation_time(self.node)
                     if self._validation_wait_started is None:
                         self._validation_wait_started = now
                     if not getattr(self, '_sensor_wait_indefinite', False) and now - self._validation_wait_started >= self._recovery_timeout:
@@ -714,7 +715,7 @@ class HandoffRuntime:
                     self._timing.add('clearance_wait_zero', 1)
                 else:
                     self._validation_wait_started = None
-                if not gate.accept(msg.linear.x, msg.angular.z, time.monotonic()):
+                if not gate.accept(msg.linear.x, msg.angular.z, operation_time(self.node)):
                     raise RuntimeError(gate.error or '출력 차단')
                 if not self.gate.waiting:
                     self._pause_requested = False
@@ -747,7 +748,7 @@ class HandoffRuntime:
                 except Exception as error:
                     self.error = str(error)
                     self.stop_output()
-            if self.gate is not None and self.gate.expired(time.monotonic()):
+            if self.gate is not None and self.gate.expired(operation_time(self.node)):
                 self.error=self.gate.error
                 self.stop_output()
             elif self._owned() and (self.gate is None or not self.gate.enabled or getattr(self.gate, 'waiting', False)):

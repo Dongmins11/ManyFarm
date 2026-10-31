@@ -6,7 +6,8 @@ from .mission_types import Request
 
 
 class UnloadSession:
-    def __init__(self, timeout: float = 60.) -> None:
+    def __init__(self, timeout: float = 60., *, clock=time.monotonic) -> None:
+        self._clock = clock
         self._cv = Condition()
         self.timeout = timeout
         self.request = None
@@ -35,11 +36,11 @@ class UnloadSession:
             self._cv.notify_all()
 
     def wait(self, check: Callable[[], None]) -> None:
-        deadline = time.monotonic() + self.timeout
+        deadline = self._clock() + self.timeout
         with self._cv:
             while not self.ready:
                 check()
-                if time.monotonic() >= deadline:
+                if self._clock() >= deadline:
                     raise TimeoutError('UNLOAD_READY 대기 시간 초과')
                 self._cv.wait(.05)
             check()

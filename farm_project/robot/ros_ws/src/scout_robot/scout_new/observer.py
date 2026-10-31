@@ -14,7 +14,8 @@ from .mission_types import JsonObject
 
 
 class SurveyObserver:
-    def __init__(self, command: list[str], log: Path) -> None:
+    def __init__(self, command: list[str], log: Path, *, clock: Callable[[], float] = time.monotonic) -> None:
+        self._clock = clock
         self._rpc_timeout = 30.0
         self._responses: queue.Queue[JsonObject] = queue.Queue()
         self._serial: int = 0
@@ -49,8 +50,8 @@ class SurveyObserver:
             self._responses.put({'dead': True})
 
     def receive(self, check: Callable[[], None], timeout: float) -> JsonObject:
-        deadline = time.monotonic() + timeout
-        while time.monotonic() < deadline:
+        deadline = self._clock() + timeout
+        while self._clock() < deadline:
             check()
             try:
                 response = self._responses.get(timeout=0.05)

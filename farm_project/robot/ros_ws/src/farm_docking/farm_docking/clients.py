@@ -1,4 +1,5 @@
 """로봇 업무와 독립적인 공통 Action/구동 제어권 클라이언트."""
+from farm_navigation.operation_clock import operation_time
 import time
 from threading import Lock, RLock, Thread
 from rclpy.node import Node
@@ -7,16 +8,16 @@ from rclpy.action import ActionClient
 from farm_interfaces.action import PrecisionMotion
 from farm_interfaces.srv import MotionLease
 
-def wait(future, seconds=5.):
-    deadline=time.monotonic()+seconds
+def wait(future, seconds=5., *, clock=time.monotonic):
+    deadline=clock()+seconds
     while not future.done():
-        if time.monotonic()>deadline:raise TimeoutError('ROS 응답 시간 초과')
+        if clock()>deadline:raise TimeoutError('ROS 응답 시간 초과')
         time.sleep(.01)
     return future.result()
 
-def accepted_goal(client, goal):
+def accepted_goal(client, goal, *, clock=time.monotonic):
     future=client.send_goal_async(goal)
-    try:return wait(future)
+    try:return wait(future, clock=clock)
     except TimeoutError:
         # 접수 응답이 늦어도 원격 작업을 방치하지 않는다.
         def cancel_late(done):
@@ -37,7 +38,7 @@ class LeaseClient:
         self.pending=None
         self.node=node;self.last_renew=None;self.last_error='';self.pending_at=0.;self.diag_at=0.
         self.lock=Lock()
-        self.timer=self.io_node.create_timer(.15,self.renew)
+        self.timer=self.io_node.create_timer(.15,self.renew,clock=node.get_clock())
         self.thread=Thread(target=self._spin,name=owner+'_lease_io',daemon=True)
         self.thread.start()
     def _spin(self):
@@ -61,9 +62,12 @@ class LeaseClient:
         future.add_done_callback(report)
         return future
     def acquire(self):
-        if not self.client.wait_for_service(timeout_sec=2.):raise RuntimeError('motion gate 미연결')
+        deadline=operation_time(self.node)+2.
+        while not self.client.service_is_ready():
+            if operation_time(self.node)>=deadline:raise RuntimeError('motion gate 미연결')
+            time.sleep(.01)
         with self.lock:
-            result=wait(self.call())
+            result=wait(self.call(),clock=lambda: operation_time(self.node))
             if not result.accepted:raise RuntimeError(result.error_message)
             self.pending=None
             self.token,self.failed=result.token,False
@@ -73,7 +77,7 @@ class LeaseClient:
         if not self.lock.acquire(blocking=False):return
         try:
             if not self.token:return
-            now=time.monotonic()
+            now=operation_time(self.node)
             gap=now-self.last_renew if self.last_renew is not None else 0.
             self.last_renew=now
             if gap>.25:self.node.get_logger().warning(f'Lease timer delayed: owner={self.owner} gap={gap:.3f}s')
@@ -87,7 +91,7 @@ class LeaseClient:
                         self.failed=True;self.last_error=self.pending.result().error_message
                 except Exception as exc:self.failed=True;self.last_error=repr(exc)
                 self.pending=None
-            if not self.failed:self.pending_at=time.monotonic();self.pending=self.call(self.token)
+            if not self.failed:self.pending_at=operation_time(self.node);self.pending=self.call(self.token)
         finally:self.lock.release()
     def check(self):
         if self.failed or not self.token:raise RuntimeError('모터 제어권 상실: '+self.last_error)
@@ -96,7 +100,7 @@ class LeaseClient:
             token,self.token=self.token,''
             self.pending=None
         if token:
-            result=wait(self.call(token,True),2.)
+            result=wait(self.call(token,True),2.,clock=lambda: operation_time(self.node))
             if not result.accepted:raise RuntimeError('제어권 해제 확인 실패')
 
 class ExclusiveNavigator:
@@ -112,6 +116,7 @@ class ExclusiveNavigator:
 class PrecisionClient:
     def __init__(self,node,group,check,timeout=120.):
         self.client=ActionClient(node,PrecisionMotion,'precision_motion',callback_group=group)
+        self.node=node
         self.check,self.timeout=check,timeout
         self.handle=None
         self.pre_entry_stopped=False
@@ -131,7 +136,7 @@ class PrecisionClient:
             self._accept_future=future
             self._late_error=''
         try:
-            handle=wait(future)
+            handle=wait(future,clock=lambda: operation_time(self.node))
         except BaseException:
             # 응답을 기다리던 작업은 실패하더라도 접수 Future의 소유권은 유지한다.
             # 콜백에서는 기다리지 않아 ROS 결과/취소 응답 처리를 막지 않는다.
@@ -178,7 +183,11 @@ class PrecisionClient:
     def run(self,request,operation):
         if self.pending:raise RuntimeError('이전 정밀주행 종료 미확인')
         self.pre_entry_stopped=False
-        if not self.client.wait_for_server(timeout_sec=2.):raise RuntimeError('정밀주행 서버 없음')
+        deadline=operation_time(self.node)+2.
+        while not self.client.server_is_ready():
+            self.check()
+            if operation_time(self.node)>=deadline:raise RuntimeError('정밀주행 서버 없음')
+            time.sleep(.01)
         q=PrecisionMotion.Goal();q.session_id=request.task_id;q.profile_id=request.profile_id;q.operation=operation
         q.target_marker_id=request.target_marker_id;q.docking_marker_id=request.docking_marker_id
         q.clearance_pose.frame_id='map'
@@ -191,10 +200,10 @@ class PrecisionClient:
         self.result_future=None
         try:
             self.result_future=self.handle.get_result_async()
-            future=self.result_future;deadline=time.monotonic()+self.timeout
+            future=self.result_future;deadline=operation_time(self.node)+self.timeout
             while not future.done():
                 self.check()
-                if time.monotonic()>deadline:raise TimeoutError('정밀주행 제한시간 초과')
+                if operation_time(self.node)>deadline:raise TimeoutError('정밀주행 제한시간 초과')
                 time.sleep(.02)
             result=future.result()
             self.check()
@@ -227,9 +236,9 @@ class PrecisionClient:
             future=self.result_future
         # 콜백과 독립적으로 결과를 기다린다. 취소 응답 유실도 종료 결과로 확인한다.
         if not future.done():
-            try:wait(handle.cancel_goal_async(),3.)
+            try:wait(handle.cancel_goal_async(),3.,clock=lambda: operation_time(self.node))
             except Exception:pass
-        result=wait(future,5.)
+        result=wait(future,5.,clock=lambda: operation_time(self.node))
         measured_stop = bool(stationary_confirmed and stationary_confirmed())
         if result.status not in (4,5,6) or not (result.result.stopped or measured_stop):
             raise RuntimeError('정밀주행 종료/정지 확인 실패')

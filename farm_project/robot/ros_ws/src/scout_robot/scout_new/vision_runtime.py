@@ -1,4 +1,5 @@
 """노드 수명의 영상 워커. 미션은 준비된 워커를 빌리고 반환합니다."""
+from farm_navigation.operation_clock import operation_time
 from pathlib import Path
 from concurrent.futures import ThreadPoolExecutor
 import threading
@@ -43,7 +44,7 @@ class VisionRuntime:
                 command += ['--device', str(node.get_parameter('device').value)]
                 if node.get_parameter('headless').value:
                     command.append('--headless')
-            worker = RealObserver(command, self.log_path, node) if real else SurveyObserver(command, self.log_path)
+            worker = RealObserver(command, self.log_path, node) if real else SurveyObserver(command, self.log_path, clock=lambda: operation_time(node))
             if not worker.receive(self._check, float(node._vcfg.get('startup_timeout_s', 120))).get('ready'):
                 raise RuntimeError('영상 워커 ready 응답 누락')
             self._check()

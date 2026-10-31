@@ -85,9 +85,10 @@ def usable(result: dict | None, current: tuple, key: str, now_ns: int, now: floa
 
 
 class AsyncClearance:
-    def __init__(self, snapshot, *, solver=solve, response_timeout_s: float = 3.):
+    def __init__(self, snapshot, *, solver=solve, response_timeout_s: float = 3., clock=time.monotonic):
         if not math.isfinite(response_timeout_s) or response_timeout_s <= 0:
             raise ValueError('충돌 계산 응답 제한은 양수 초 필요')
+        self._clock = clock
         self._response_timeout = response_timeout_s
         self._snapshot=snapshot
         context=mp.get_context('spawn')
@@ -112,10 +113,10 @@ class AsyncClearance:
                             self._result = None
                         self._stop.wait(.02)
                         continue
-                    self._requests.put_nowait(job);pending=True;sent=time.monotonic()
+                    self._requests.put_nowait(job);pending=True;sent=self._clock()
                 try:result=self._responses.get(timeout=.01)
                 except queue.Empty:
-                    if time.monotonic()-sent>self._response_timeout:raise RuntimeError('충돌 계산 응답 시간 초과')
+                    if self._clock()-sent>self._response_timeout:raise RuntimeError('충돌 계산 응답 시간 초과')
                     continue
                 with self._lock:
                     self._result=result;self._statistics.append(result['elapsed_s'])

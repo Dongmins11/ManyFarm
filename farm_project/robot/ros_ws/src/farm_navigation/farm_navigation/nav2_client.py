@@ -1,4 +1,5 @@
 """Nav2 액션 연결. 로봇 Mission/State를 모르며 자신의 Goal만 관리합니다."""
+from farm_navigation.operation_clock import operation_time
 from collections.abc import Callable
 from typing import Any
 import time
@@ -63,8 +64,8 @@ class Nav2Client:
     def _wait(self, future: Future, timeout: float, check: Callable[[],None], *,
               clock: Callable[[], float] | None = None,
               timeout_message: str = 'Nav2 응답 시간 초과; 요청 종료 여부 확인 필요') -> Any:
-        # 연결/응답/취소는 sim 일시정지 중에도 실시간으로 제한한다.
-        clock = time.monotonic if clock is None else clock
+        # 연결/응답/취소도 시뮬 동작 시계를 사용한다.
+        clock = (lambda: operation_time(self._node)) if clock is None else clock
         deadline=clock()+timeout
         while not future.done() and clock()<deadline:
             check()
@@ -86,10 +87,10 @@ class Nav2Client:
     def preflight(self, check: Callable[[],None], *, wall_parameters: dict[str,Any] | None = None) -> dict[str,Any]:
         s=self._settings
         client=self._follow if s.mode=='follow_path' else self._navigate
-        deadline=time.monotonic()+s.readiness_timeout_s
+        deadline=operation_time(self._node)+s.readiness_timeout_s
         while not client.server_is_ready() or not self._parameters.service_is_ready():
             check()
-            if time.monotonic()>deadline: raise RuntimeError('Nav2 액션/파라미터 서버가 준비되지 않았습니다.')
+            if operation_time(self._node)>deadline: raise RuntimeError('Nav2 액션/파라미터 서버가 준비되지 않았습니다.')
             time.sleep(.05)
         names = ['goal_checker_plugins', 'controller_plugins', 'progress_checker_plugins']
         speed_parameter = f'{s.controller_id}.desired_linear_vel'
@@ -143,7 +144,7 @@ class Nav2Client:
             publisher.publish(Twist())
 
     def _control_feedback(self, message: Any) -> None:
-        self._last_control_feedback = time.monotonic()
+        self._last_control_feedback = operation_time(self._node)
 
     def _execution_timeout(self, path: Path | None) -> float:
         """전송 경로 길이/설정 속도의2배+60초. 기존 제한시간을 하한으로 둔다."""
@@ -224,12 +225,12 @@ class Nav2Client:
                 self._recovery_probe, self._stop_for_recovery, bounded_check,
                 lambda: self._last_control_feedback,
                 self._settings.tf_recovery_timeout_s,
-                lambda text: self._node.get_logger().warning(text))
+                lambda text: self._node.get_logger().warning(text), clock=lambda: operation_time(self._node))
         if self._settings.collision_retry_count:
             return run_with_collision_recovery(execute_with_tf_recovery,
                 self._recovery_probe, self._stop_for_recovery, bounded_check,
                 self._settings.collision_retry_count,
-                lambda text: self._node.get_logger().warning(text), waiting=retry_waiting)
+                lambda text: self._node.get_logger().warning(text), clock=lambda: operation_time(self._node), waiting=retry_waiting)
         return execute_with_tf_recovery()
 
     def _execute_once(self, xy: tuple[float,float], yaw: float, path: Path | None, check: Callable[[],None]) -> int:

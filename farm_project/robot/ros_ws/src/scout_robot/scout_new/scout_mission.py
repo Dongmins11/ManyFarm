@@ -1,5 +1,6 @@
 """미션 데이터와 작업 수명 관리. 단계별 실행 순서는 State가 담당합니다."""
 from __future__ import annotations
+from farm_navigation.operation_clock import operation_time
 
 import time
 import uuid
@@ -103,7 +104,7 @@ class ScoutMission:
                      '--config',str(self._node._root/self._node._cfg['vision_config'])]
             context.worker=RealObserver(command,context.folder/'vision_worker.log',self._node)
         else:
-            context.worker = SurveyObserver(command, context.folder / 'vision_worker.log')
+            context.worker = SurveyObserver(command, context.folder / 'vision_worker.log', clock=lambda: operation_time(self._node))
         if not context.worker.receive(self._node.check, float(self._node._vcfg.get("startup_timeout_s",120))).get('ready'):
             raise RuntimeError('Vision worker failed to initialize')
 
