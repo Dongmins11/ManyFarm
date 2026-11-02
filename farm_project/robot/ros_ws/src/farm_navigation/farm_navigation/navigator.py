@@ -225,5 +225,8 @@ class Navigator:
         finally:
             self._lock.release()
 
+    def stationary_epoch(self) -> int | None:
+        return self._motion.stationary_epoch()
+
     def stationary_now(self) -> bool:
         return self._motion.stationary_now()

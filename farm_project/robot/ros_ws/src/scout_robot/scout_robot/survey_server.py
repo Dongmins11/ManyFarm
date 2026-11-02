@@ -1,3 +1,4 @@
+from scout_robot.graph_harvest_goal import load_harvest_route
 """ScoutArea → B stop/capture/accumulate → one task batch at bed completion."""
 import json
 import math
@@ -102,7 +103,7 @@ class SurveyServer(Node):
         if not self.python.is_file():raise ValueError('vision_python must be the YOLO environment Python path')
         self.beds={}
         for key,c in self.cfg['sections'].items():
-            self.beds[key]=StraightBed(load_route(self.root/c['route_file'],c['node_ids']),c)
+            self.beds[key]=StraightBed(load_route(self.root/c['route_file'],c['node_ids']),c, harvest_route=load_harvest_route(self.root, c))
         self.cb=ReentrantCallbackGroup();self.lock=threading.Lock();self.busy=False
         self.shutdown_requested=False;self.active_goal=None;self.nav_handle=None;self.pending_nav=None
         self.odom=None;self.odom_wall=0.;self.odom_lock=threading.Lock()

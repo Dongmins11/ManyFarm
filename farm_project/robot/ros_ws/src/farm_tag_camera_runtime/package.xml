@@ -1,0 +1,12 @@
+<?xml version="1.0"?>
+<package format="3">
+  <name>farm_tag_camera_runtime</name><version>0.1.0</version>
+  <description>영상 전용 컴포넌트의 OpenCV/TBB 종료 수명 관리</description>
+  <maintainer email="maintainer@example.com">Farm Team</maintainer>
+  <license>Proprietary</license>
+  <buildtool_depend>ament_cmake</buildtool_depend>
+  <depend>rclcpp</depend><depend>rclcpp_components</depend><depend>class_loader</depend>
+  <depend>libtbb-dev</depend><depend>libopencv-dev</depend>
+  <exec_depend>image_proc</exec_depend><exec_depend>apriltag_ros</exec_depend>
+  <export><build_type>ament_cmake</build_type></export>
+</package>

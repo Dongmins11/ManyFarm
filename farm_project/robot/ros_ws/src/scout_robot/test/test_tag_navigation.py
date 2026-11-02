@@ -23,7 +23,7 @@ class TagNavigationTests(unittest.TestCase):
         def check():
             if canceled_before:
                 raise RuntimeError('canceled')
-        context = NS(section=section, segment={'offset_m': 1.0},
+        context = NS(worker=None, section=section, segment={'offset_m': 1.0},
             bed=NS(cfg={}, origin=(0., 0.), length=3., yaw=0., world=lambda s,n:(s,n,0.)))
         node = NS(_tag_control=control, _navigator=NS(navigate=navigate), check=check)
         state = NavigationMoveState(NS(context=context,node=node),None,purpose)

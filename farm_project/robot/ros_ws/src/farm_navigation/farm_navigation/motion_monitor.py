@@ -16,13 +16,22 @@ class MotionMonitor:
         self._settings: NavigationSettings = settings
         self._lock = threading.Lock()
         self._message: Odometry | None = None
+        self._stationary_epoch = 0
         self._received: float = 0.
         self._subscription = node.create_subscription(Odometry,settings.odom_topic,self._on_odom,10,callback_group=group)
 
     def _on_odom(self, message: Odometry) -> None:
         with self._lock:
+            now = operation_time(self._node)
+            v = message.twist.twist
+            values = (v.linear.x, v.linear.y, v.angular.z)
+            stopped = (all(map(math.isfinite, values)) and
+                       math.hypot(*values[:2]) < self._settings.stopped_linear_mps and
+                       abs(values[2]) < self._settings.stopped_angular_rps)
+            if not stopped or not 0 <= now-self._received <= self._settings.odom_max_age_s:
+                self._stationary_epoch += 1
             self._message=message
-            self._received=operation_time(self._node)
+            self._received=now
 
     def _sample(self) -> tuple[int,bool] | None:
         with self._lock:
@@ -35,6 +44,12 @@ class MotionMonitor:
         if not all(map(math.isfinite,values)): return None
         stopped=(math.hypot(*values[:2])<self._settings.stopped_linear_mps and abs(values[2])<self._settings.stopped_angular_rps)
         return msg.header.stamp.sec*10**9+msg.header.stamp.nanosec,stopped
+
+    def stationary_epoch(self) -> int | None:
+        """이동 또는 수신 단절을 넘겨 관측 자세를 재사용하지 않도록 구간을 구분한다."""
+        with self._lock:
+            epoch = self._stationary_epoch
+        return epoch if self.stationary_now() else None
 
     def stationary_now(self) -> bool:
         sample=self._sample()

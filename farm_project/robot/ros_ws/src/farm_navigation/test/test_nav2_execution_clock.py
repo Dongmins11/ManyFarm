@@ -20,6 +20,7 @@ class ExecutionClockTests(unittest.TestCase):
         self.response = NS(status=GoalStatus.STATUS_SUCCEEDED, result=NS(error_code=0))
         self.clock = NS(ros_time_is_active=True, now=self.now)
         self.client = Nav2Client.__new__(Nav2Client)
+        self.client._pause_clock_factory = None
         self.client._node = NS(get_clock=lambda:self.clock, get_logger=lambda:NS(warning=lambda _:None))
         self.client._settings = NavigationSettings(mode='follow_path')
         self.client._pending = self.client._handle = self.client._result = None

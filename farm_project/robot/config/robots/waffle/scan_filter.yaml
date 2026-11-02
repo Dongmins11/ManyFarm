@@ -1,0 +1,11 @@
+# 기존 와플 거리 필터. 제거된 빔은 빈 공간이 아니라 유효하지 않은 측정으로 표시한다.
+/**:
+  ros__parameters:
+    filter1:
+      name: body_range_filter
+      type: laser_filters/LaserScanRangeFilter
+      params:
+        lower_threshold: 0.22
+        upper_threshold: 100.0
+        lower_replacement_value: .nan
+        upper_replacement_value: .nan

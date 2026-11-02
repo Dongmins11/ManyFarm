@@ -5,7 +5,7 @@ import subprocess
 import yaml
 
 ROOT = Path(__file__).resolve().parents[2]
-SOURCE = '366e0c37164c22afdd2f640624b61eef8f0fa6f7'
+SOURCE = '4648f762ca0fc842c0b0e917c764c19d03bec949'
 REAL = 'robot/config/robots/waffle/transport_nav2.yaml'
 SIM = 'sim/ros_ws/src/farm_sim_config/config/nav2_transport.yaml'
 

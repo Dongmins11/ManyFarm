@@ -2,9 +2,9 @@
   "backend": "realsense_legacy",
   "worker_python": "~/pi_d435_setup/.venv/bin/python",
   "legacy_directory": "~/bmany_fleet_ws/perception_worker",
-  "model": "model_yolo11_seg_ver1.2.pt",
+  "model": "robot/models/scout/yolo11_seg_2class_synth_and_sim_v2.0.pt",
   "camera_frame": "camera_color_optical_frame",
-  "confidence": 0.6,
+  "confidence": 0.25,
   "preprocess": {},
   "rpc_timeout_s": 180,
   "startup_timeout_s": 300,
@@ -14,7 +14,14 @@
     "fps": 6,
     "auto_white_balance": true,
     "auto_exposure": true,
-    "warmup_frames": 120,
+    "warmup_frames": 30,
     "warmup_timeout_s": 90
+  },
+  "model_base": "project",
+  "inference": {
+    "confidence": 0.25,
+    "iou": 0.7,
+    "max_detections": 100,
+    "half": false
   }
 }

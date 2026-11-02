@@ -70,6 +70,11 @@ class NavigationMoveState(MissionState):
         # 반복 ID는 관측 이동과 위치/방향 게이트를 통과한 접근에서만 보정에 사용한다.
         # 이탈에서는 사용권을 열지 않으며 완료·실패·취소 시 즉시 닫는다.
         node.check()
+        # 실물 관측·저장 뒤 최신 TF와 정지를 확보한 후에만 다음 Goal을 전송한다.
+        # 시뮬레이션 SurveyObserver에는 이 어댑터가 없으므로 기존 흐름을 유지한다.
+        ready = getattr(context.worker, 'wait_ready', None)
+        if ready is not None:
+            ready(node.check)
         if control is not None:
             if self._purpose == 'observation':
                 control.begin(context.section)
@@ -109,11 +114,11 @@ class NavigationMoveState(MissionState):
         info = context.worker.call('info', node.check, after_stamp_ns=context.stamp, session=context.camera_session)
         meta = info['metadata']
         context.camera_session = meta['session']
-        base = node.lookup(meta['pose_frame'], node._cfg['base_frame'], meta['stamp_ns'])
-        camera = np.linalg.inv(base) @ np.array(meta['T_odom_camera_optical'])
         if context.bed.cfg.get('patrol_segments'):
             from ..patrol_config import patrol_design
             return patrol_design(context.bed,node._route_graph)
+        base = node.lookup(meta['pose_frame'], node._cfg['base_frame'], meta['stamp_ns'])
+        camera = np.linalg.inv(base) @ np.array(meta['T_odom_camera_optical'])
         return plan_segments(
             context.bed, context.section, meta['K'], camera,
             info['width'], info['height'], node._vcfg['preprocess'], node._cfg['overlap_fraction'],

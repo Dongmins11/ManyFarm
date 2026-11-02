@@ -282,6 +282,7 @@ class Nav2Client:
 
     def _execute_once(self, xy: tuple[float,float], yaw: float, path: Path | None, check: Callable[[],None]) -> int:
         check()
+        self._wait_active_nav2(check)
         if self.has_goal: raise RuntimeError('이전 주행 종료 확인 전에는 새 Goal을 보낼 수 없습니다.')
         if self._settings.mode=='follow_path':
             if path is None or len(path.poses)<2: raise ValueError('FollowPath에 유효한 경로 필요')

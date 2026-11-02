@@ -29,7 +29,7 @@ class SegmentProgressState(MissionState):
             'capture', node.check,
             after_stamp_ns=context.stamp, session=context.camera_session,
         )
-        if not node._navigator.stationary_now():
+        if not hasattr(context.worker, 'wait_ready') and not node._navigator.stationary_now():
             raise RuntimeError('Robot moved during observation; result rejected')
         return response
 

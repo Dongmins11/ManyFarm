@@ -12,6 +12,8 @@ from launch.event_handlers import OnShutdown
 from launch.launch_description_sources import PythonLaunchDescriptionSource, AnyLaunchDescriptionSource
 from launch.substitutions import LaunchConfiguration
 from launch_ros.actions import PushRosNamespace, SetRemap, Node
+from launch_ros.parameter_descriptions import ParameterValue
+from farm_real_devices.description import load_description
 
 
 def start_devices(context: LaunchContext) -> list:
@@ -59,7 +61,17 @@ def start_devices(context: LaunchContext) -> list:
                 launch_arguments={'namespace': '', 'use_sim_time': 'false',
                                   'usb_port': config['usb_port'], 'tb3_param_dir': str(parameter_file)}.items())])
     mount=config.get('camera_mount')
-    if mount:
+    description=config.get('mount_description', {})
+    if description.get('enabled', False):
+        # 기존 본체 publisher는 유지하고 추가 링크만 별도 발행한다.
+        # 카메라 static publisher를 함께 실행하지 않아 TF 중복을 막는다.
+        share = Path(get_package_share_directory('farm_real_devices'))
+        xml = load_description(config, share / 'description')
+        actions.append(Node(package='robot_state_publisher', executable='robot_state_publisher',
+            name='scout_mount_state_publisher', output='screen',
+            parameters=[{'robot_description': ParameterValue(xml, value_type=str)}],
+            remappings=[('robot_description', 'scout_mount_description')]))
+    elif mount:
         # 기존 run_camera_mount.sh 값을 재사용합니다. 같은 TF를 별도로 실행하지 않습니다.
         def fixed(parent: str, child: str, xyz: list, rpy: list) -> Node:
             args=['--frame-id',parent,'--child-frame-id',child]

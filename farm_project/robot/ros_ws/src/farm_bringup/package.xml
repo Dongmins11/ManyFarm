@@ -5,6 +5,9 @@
   <maintainer email="maintainer@example.com">Farm Team</maintainer>
   <license>Proprietary</license>
   <buildtool_depend>ament_python</buildtool_depend>
+  <exec_depend>rclpy</exec_depend>
+  <exec_depend>tf2_ros</exec_depend>
+  <exec_depend>nav2_msgs</exec_depend>
   <exec_depend>launch</exec_depend>
   <exec_depend>launch_ros</exec_depend>
   <exec_depend>ament_index_python</exec_depend>
@@ -29,4 +32,9 @@
   <exec_depend>farm_real_devices</exec_depend>
   <exec_depend>nav2_route</exec_depend>
   <export><build_type>ament_python</build_type></export>
+<exec_depend>transport_robot</exec_depend>
+<exec_depend>farm_docking</exec_depend>
+<exec_depend>transport_device_bridge</exec_depend>
+<exec_depend>laser_filters</exec_depend>
+<exec_depend>turtlebot3_bringup</exec_depend>
 </package>

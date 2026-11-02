@@ -23,6 +23,7 @@ class NavigationSettings:
     response_timeout_s: float = 15.0
     cancel_timeout_s: float = 10.0
     readiness_timeout_s: float = 60.0
+    tf_dedicated_executor: bool = False  # 실물 예찰만 전용 TF 수신 실행기 선택
     tf_timeout_s: float = 3.0
     tf_max_age_s: float = 1.0
     arrival_tolerance_m: float = .08

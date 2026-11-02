@@ -2300,3 +2300,15 @@ SEC02 departure_recovery/attempt_001은 passed=true로 완료. 후속 sec03_to_s
 - 사용자 승인에 따라 공통 인계 planner/navigation/factory에 저속1회 보정 접근 추가, 원래 벽 목표·허용거리 불변. 관측·충돌·정지 조건 유지. 관련31 검사 PASS, 설치 일치. 물리 인계 시험 아직 미검증, 실패 수확 결과 재사용 예정.
 - 실행 재개: wall_approach_recovery_20261102/attempt_001 PID1263459, 실패한 fresh SEC04 수확·scene 재사용. 성공 후 새 SEC04~16 자동 이어가기 PID1263460, continuation_status.json 기록. 실제 보정 접근/인계 성공은 아직 미확정.
 - 벽 보정 재개 attempt_001은 초기 배치 방향 불일치로 출발 전 실패. 회전 후 스냅샷을 옮길 때 방향도 맞추도록 sim 재개 도구 수정, 상대 적재좌표 검사 통과. attempt_002 PID1266032 / 연속 실행기1266033 재실행. 성공 및 보정 실제 실행 아직 미확인.
+
+촬영 자료만 별도 커밋: 최종 delivery 및 ZIP, GUI 촬영 도구, 촬영 호출에 필요한 외형 helper 정의만 포함. 기존 runtime 호출 변경과 주행/수확/영상 캠페인 수정은 제외. 전체 작업 트리 패치는 전달본에서 제외하고 촬영 소스 패치로 교체.
+
+
+## 2026-11-02 PC 실물 통합 후보
+
+최신 main c40a036 기준으로 예찰·운송 fleet_ready_20261101을 별도 워크스페이스에 선택 병합했다. 수확·시뮬 원본은 보존하고 실물 선택은 프로파일 및 launch 인자로 분리했다. 빌드20패키지와 집중검증223건 통과. main 수확과 실물 예찰·운송의 지도 좌표계 차이는 전체 협업 운전 전 해결해야 한다. 커밋·푸시·배포 없음. 세부 변경·검증·한계·복원은 [통합 검토](changes/FLEET_MAIN_MERGE_20261102.md) 참조.
+
+
+### 실물 업데이트 환경별 통합 — 2026-11-02
+
+사용자 승인에 따라 main58522cb와 feature_dongmin4648f76 통합. 시뮬은 ROS 시계, 실물은 monotonic 시계; 운송 PoseProgressChecker·기존 RPC timeout 전달·시뮬 지도/최근 복구 보존. 소스 회귀169PASS, 격리8패키지 빌드 성공. 운영 install/실물 배포/Isaac 재시험은 미실행. SEC05 도착 판정 불일치는 별도 미해결. 상세 sim/docs/CHANGELOG.md의 환경별 시계 통합 절 참조.

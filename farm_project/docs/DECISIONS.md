@@ -623,3 +623,15 @@ D-026 반복 검증 보완(2026-10-14): CPU/GPU 각2회 추가에서 둘 다1성
 ### 2026-11-01 — 공통 운송 인계 경로의 후방 진입 보장
 
 사용자 실물·시뮬 공통 수정 명시 승인. farm_navigation/route.py 선택적 방향 제한 + transport_robot/navigation_adapter.py 및 harvest_approach.py에 인계 전용 적용. 목표와 같은 방향으로 진입하고 해당 직선 통로 역방향/목표 초과 통과는 금지. 경로 없음은 거절, 일반 운송/도킹 판정·수치 불변. 공통·SEC01~16 경로 검사33개 통과. 설치3개 Python 파일 교체; 8차를 적용 목적 중단으로 기록하고 캠페인 감독기로 SEC02 재시작. 실물 및 수정 후 도킹 성공 미검증, Nav2 충돌 미검출 별도 과제. 상세 docs/changes/TRANSPORT_REAR_APPROACH_20261101.md, 경로·설치 증거 sim/runs/rear_approach_fix_20261101. 미커밋·미푸시.
+
+사용자 분석·수치 선택·반영 승인으로 cf4023b의 Mission/Controller/States와 정리 보완·선택형 후진 충돌 분류를 도입했다. 원본 상태 코드는 그대로, Mission에는 기존 전진/후진 선택과 시뮬 시계 주입만 추가했다. 복귀 검사5cm/6°, 출력 소유자가 있는 전체 사이클 재시도5회; 단독·교통 프로필은 기존0회. Nav2 도착4cm/2.5°·속도0.1m/s 유지. 시뮬 지도/스테이션좌표·최종방향·마커 생략·SUCCESS/docked 의미 유지. 실물 코너반경/벽도킹 측정치/팔상태생략은 가져오지 않았다. 전체 사이클 생성 설정과 최종9개 제어값 비교 완료. 실제 Isaac 복귀 검증은 아직 하지 않았고 진행 시험은 유지했다. 상세 및 소스 범위: sim/docs/changes/HARVEST_RETURN_COMPONENT_INTEGRATION_20261031.md; 수치 근거 sim/runs/return_components_20261031/effective_settings.json. 사용자 커밋·푸시 및 후속 실제 시험 승인. 커밋 시점 실제 복귀 검증은 미완료.
+
+
+## 2026-11-02 PC 실물 통합 후보
+
+최신 main c40a036 기준으로 예찰·운송 fleet_ready_20261101을 별도 워크스페이스에 선택 병합했다. 수확·시뮬 원본은 보존하고 실물 선택은 프로파일 및 launch 인자로 분리했다. 빌드20패키지와 집중검증223건 통과. main 수확과 실물 예찰·운송의 지도 좌표계 차이는 전체 협업 운전 전 해결해야 한다. 커밋·푸시·배포 없음. 세부 변경·검증·한계·복원은 [통합 검토](changes/FLEET_MAIN_MERGE_20261102.md) 참조.
+
+
+### 실물 업데이트 환경별 통합 — 2026-11-02
+
+사용자 승인에 따라 main58522cb와 feature_dongmin4648f76 통합. 시뮬은 ROS 시계, 실물은 monotonic 시계; 운송 PoseProgressChecker·기존 RPC timeout 전달·시뮬 지도/최근 복구 보존. 소스 회귀169PASS, 격리8패키지 빌드 성공. 운영 install/실물 배포/Isaac 재시험은 미실행. SEC05 도착 판정 불일치는 별도 미해결. 상세 sim/docs/CHANGELOG.md의 환경별 시계 통합 절 참조.

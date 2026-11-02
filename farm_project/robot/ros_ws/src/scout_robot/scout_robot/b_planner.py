@@ -37,6 +37,7 @@ class Config:
     work_side: int = 1
     range_tolerance: float = 0.0
     membership_margin: float = 0.03
+    far_depth_extension: float = 0.0  # 베드 좌표 +Y(먼 쪽)만 확장(m). 정차 위치는 유지한다.
     depth_tolerance: float = 0.0  # 깊이(Y) 측정 오차 여유(m). 실제 작업 상자는 유지한다.
 
     @property
@@ -79,6 +80,8 @@ class Config:
             raise ValueError("range_tolerance must be nonnegative")
         if self.depth_tolerance < 0:
             raise ValueError("depth_tolerance must be nonnegative")
+        if self.far_depth_extension < 0:
+            raise ValueError("far_depth_extension must be nonnegative")
         if self.depth <= 0:
             raise ValueError("depth must be positive")
         if self.work_distance <= 0:
@@ -211,7 +214,7 @@ def plan_harvest(fruits: Iterable[Fruit], config: Config | None = None) -> PlanR
     pending = list(observations)
     result = PlanResult()
     y_min = config.bed_y - config.depth / 2
-    y_max = config.bed_y + config.depth / 2
+    y_max = config.bed_y + config.depth / 2 + config.far_depth_extension
     z_min = config.mount_z + config.z_min
     z_max = config.mount_z + config.z_max
 
@@ -294,7 +297,8 @@ def _fits_task(fruit: Fruit, task: Task, *, safe: bool, tolerance: float = 0.0,
 
 
 def extend_plan(previous: PlanResult, observed: Iterable[Fruit],
-                config: Config | None = None, *, revalidate: bool = False) -> PlanResult:
+                config: Config | None = None, *, revalidate: bool = False,
+                overlap_trigger_ratio: float | None = None) -> PlanResult:
     """Accumulate one observation without moving or replacing existing windows.
 
     With revalidate=True, updated points are checked against their existing
@@ -367,6 +371,10 @@ def extend_plan(previous: PlanResult, observed: Iterable[Fruit],
     appended_events: list[Event] = []
     for event in extension.events:
         if event.kind == "task" and event.task is not None:
+            if overlap_trigger_ratio is not None:
+                from .window_overlap import reduce_overlap
+                event = replace(event, task=reduce_overlap(
+                    event.task, tasks, by_id, config, overlap_trigger_ratio))
             task = replace(event.task, task_id=next_task_id,
                            observed_ids=tuple(fruit.id for fruit in observations
                                               if _fits_task(fruit, event.task, safe=False, tolerance=config.range_tolerance, depth_tolerance=config.depth_tolerance)))

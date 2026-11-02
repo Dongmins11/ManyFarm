@@ -1,7 +1,10 @@
 """TF 조회 어댑터. 위치추정기를 구현하거나 TF를 발행하지 않습니다."""
-from farm_navigation.operation_clock import operation_time
 from collections.abc import Callable
 import time
+from .operation_clock import operation_time
+import threading
+from rclpy.executors import SingleThreadedExecutor, ExternalShutdownException
+from rclpy.parameter import Parameter
 import numpy as np
 from numpy.typing import NDArray
 from rclpy.node import Node
@@ -24,7 +27,34 @@ class PoseProvider:
         self._node: Node = node
         self._settings: NavigationSettings = settings
         self._buffer: Buffer = Buffer(cache_time=Duration(seconds=30))
-        self._listener: TransformListener = TransformListener(self._buffer,node)
+        self._tf_node = None
+        self._tf_executor = None
+        self._tf_thread = None
+        self._closed = False
+        if settings.tf_dedicated_executor:
+            # 기존 업무 노드를 두 실행기에 중복 등록하지 않는다.
+            self._tf_node = Node(
+                node.get_name() + '_tf_listener', namespace=node.get_namespace(),
+                context=node.context, use_global_arguments=False,
+                cli_args=['--ros-args', '-r', '/tf:=' + node.resolve_topic_name('/tf'),
+                          '-r', '/tf_static:=' + node.resolve_topic_name('/tf_static')],
+                parameter_overrides=[Parameter('use_sim_time', value=bool(
+                    node.get_parameter('use_sim_time').value))],
+                enable_rosout=False, start_parameter_services=False)
+            self._listener = TransformListener(self._buffer, self._tf_node)
+            self._tf_executor = SingleThreadedExecutor(context=node.context)
+            self._tf_executor.add_node(self._tf_node)
+            self._tf_thread = threading.Thread(target=self._spin_tf,
+                                               name='pose_tf_receiver', daemon=True)
+            self._tf_thread.start()
+        else:
+            self._listener = TransformListener(self._buffer, node)
+
+    def _spin_tf(self) -> None:
+        try:
+            self._tf_executor.spin()
+        except ExternalShutdownException:
+            pass
 
     def lookup(self, target: str, source: str, stamp_ns: int, check: Callable[[],None], *,
                on_unavailable: Callable[[Exception], None] | None = None) -> NDArray[np.float64]:
@@ -122,6 +152,18 @@ class PoseProvider:
         raise TransformUnavailable('기준 저장 실패 상세: '+str(details))
 
 
+    def observation_latest(self, target: str, source: str):
+        """관측 캐시 검증용 비차단 조회. 새 자료가 없으면 기다리지 않는다."""
+        try:
+            msg = self._buffer.lookup_transform(target, source, Time())
+            stamp = msg.header.stamp.sec*10**9 + msg.header.stamp.nanosec
+            age = (self._node.get_clock().now().nanoseconds-stamp)/1e9
+            if stamp <= 0 or not 0 <= age <= self._settings.tf_max_age_s:
+                return None
+            return self.lookup(target, source, stamp, lambda: None)
+        except TransformException:
+            return None
+
     def latest_sample(self):
         """등록 보고용 원본 TF와 샘플 시각을 반환한다. 캐시를 새 시각으로 포장하지 않는다."""
         return self._buffer.lookup_transform(self._settings.map_frame, self._settings.base_frame, Time())
@@ -141,4 +183,13 @@ class PoseProvider:
             return False
 
     def close(self) -> None:
+        if self._closed:
+            return
+        self._closed = True
+        if self._tf_executor is not None:
+            self._tf_executor.shutdown()
+            self._tf_thread.join()
         self._listener.unregister()
+        if self._tf_node is not None:
+            self._tf_executor.remove_node(self._tf_node)
+            self._tf_node.destroy_node()

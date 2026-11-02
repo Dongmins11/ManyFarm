@@ -2200,3 +2200,26 @@ SEC02 departure_recovery/attempt_001은 passed=true로 완료. 후속 sec03_to_s
 - 사용자 현재 상태 커밋·푸시 요청. main/c40a036 이후 공통코드·시뮬·검사·문서 변경을 함께 보존. 별도 저장소 Frontend는 변경 없어 제외. COMMON_CODE_FAILURE_SUMMARY.md를 저장하고 포함.
 - Python 변경/신규 파일 53개 AST 문법 검사 통과. 선택 회귀검사 40PASS/8FAIL: PrecisionClient 모의 객체 node 누락 4건, 구 출발 순서 검사 cycle_departure_gate 모듈 import 실패 4건. 통합시험 성공 또는 전체 검사 통과로 보고하지 않음.
 - 이번 작업은 현재 상태 저장이며 운영 코드 추가 수정·새 주행 시험 없음. 기존 기록과 미해결 항목 보존. 문서만 되돌릴 때 이번 절과 요약 문서만 제거.
+
+촬영 자료만 별도 커밋: 최종 delivery 및 ZIP, GUI 촬영 도구, 촬영 호출에 필요한 외형 helper 정의만 포함. 기존 runtime 호출 변경과 주행/수확/영상 캠페인 수정은 제외. 전체 작업 트리 패치는 전달본에서 제외하고 촬영 소스 패치로 교체.
+
+
+## 2026-11-02 — 승인된 공통 코드 선택 병합(PC 후보)
+
+- 승인: 사용자의 최신 main+실물 통합본 병합 요청, push 금지.
+- 대상: 공통 StationReturn/Nav2Client/PoseProvider, 예찰 관측·윈도우, 공용 launch.
+- 변경: 실물 예찰은 별도 복귀 전략과 TF 실행기를 선택; main 수확 hooks·sim operation clock·기본 launch 동작 유지. 수확/시뮬 전용 업무 소스·설정·수치는 변경하지 않음.
+- 검증: PC20패키지 빌드, 집중검증223건(시뮬 시계/운송 복귀 단위검사 포함). Isaac 실행 안 함. 전수검사 원본 동등 실패는 상세 보고서에 공개.
+- 실물 영향: 기존 fleet 값 유지; main 수확과 현장 지도 좌표가 달라 전체 연동은 미확정. 배포 안 함.
+- 복원: 새 통합 폴더를 사용하지 않고 기존 배포본 유지. 상세: ../../docs/changes/FLEET_MAIN_MERGE_20261102.md
+
+
+## 실물 업데이트의 환경별 시계 통합 — 2026-11-02
+
+- 사용자 승인: 운송 PoseProgressChecker, 정지 감시·Nav2 활성화 대기는 시뮬 ROS 시계/실물 monotonic, rpc_timeout_s 전달 및 시뮬 지도 보존. 현재 58522cb와 실물 4648f76을 integration/fleet-sim-clock-20261102에서 병합.
+- 7개 파일 충돌 해결. 실물 transport_nav2는 4648f76 값을 사용하되 진행 검사만 PoseProgressChecker/각도0.5 유지. 문서는 양쪽 기록 보존. navigation_types 중복 필드 제거, 최신 전용 TF 수신 설정 유지.
+- MotionMonitor는 수신 간격 판정과 저장 모두 operation_time으로 통일하고 시계 역행 시 정지 구간 무효화. Nav2 활성화 응답 대기/로그 간격도 operation_time 유지. 실제time.sleep은 CPU 양보이며 동작 예산으로 사용하지 않음.
+- 검증: 병합 소스 직접 로드 169PASS(시뮬 pause/실물 시계·만료·역행·lifecycle 취소, 주행·후방 접근·출발/복귀·실물 예찰/스테이션 포함). 변경 Python 75개 AST 검사 통과. /tmp/farm-fleet-integration-build에 8패키지 격리 빌드 성공. 최초 설치본 참조로 신규 API 검사3실패, 소스 경로 수정 후 통과. 통합 작업 중 YAML 들여쓰기 오류도 수정 후 설정 검사 통과.
+- 시뮬 config 전체 및 기존 복구/출발 순서 등 11개 경로의 58522cb 대비 차이 없음 확인. RPC timeout·시계 전달 보존 확인. 새 실물 지도는 실물 프로파일 선택에만 반영.
+- 원격 실물 담당자 검증과 이번 검증을 구분한다. 이번에는 실제 로봇/Isaac 전체주행 미실행, 기존 운영 install 미변경. SEC05 도착 판정 불일치는 별도 미해결이며 이번 통합의 해결 항목이 아님.
+- 복원: 통합 브랜치의 병합 전 58522cb로 작업 기준을 선택. 이번 격리 빌드를 source하지 않으면 기존 설치 실행 유지. 원격 push는 수행하지 않음.

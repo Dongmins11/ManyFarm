@@ -1,5 +1,6 @@
 """실제 rclpy.Node. ROS 자원·설정을 준비하고 역할별 객체를 연결합니다."""
 from __future__ import annotations
+from scout_robot.graph_harvest_goal import load_harvest_route
 
 import numpy as np
 from numpy.typing import NDArray
@@ -92,7 +93,8 @@ class ScoutNode(Node):
             self._cfg = apply_patrol(self._cfg,patrol,self._route_graph)
         self._beds: dict[str, StraightBed] = {}
         for key, c in self._cfg['sections'].items():
-            self._beds[key] = StraightBed(load_route(self._root / c['route_file'], c['node_ids']), c)
+            self._beds[key] = StraightBed(load_route(self._root / c['route_file'], c['node_ids']), c,
+                                           harvest_route=load_harvest_route(self._root, c))
             if c.get('patrol_segments'):
                 from .patrol_config import patrol_design
                 patrol_design(self._beds[key],self._route_graph)

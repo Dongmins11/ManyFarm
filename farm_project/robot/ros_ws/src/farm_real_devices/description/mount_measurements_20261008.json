@@ -1,0 +1,154 @@
+{
+  "date": "2026-10-08",
+  "status": "user_confirmed_20261008",
+  "units": "meters",
+  "axes": {
+    "x": "robot forward",
+    "y": "robot left",
+    "z": "up from ground"
+  },
+  "reference": "scout_plate_center_ground: plate XY center projected to ground; X forward, Y left, Z from floor",
+  "robot_top_height": 0.2,
+  "mast": {
+    "section_outer_dimensions": [
+      0.05,
+      0.05
+    ],
+    "height_above_robot_top": 0.42,
+    "bottom_height_from_ground": 0.2,
+    "top_height_from_ground": 0.62,
+    "center_xy": [
+      0,
+      0
+    ],
+    "xyz_center_in_base_footprint": [
+      -0.032,
+      0,
+      0.41
+    ]
+  },
+  "d435_rgb_optical_center": {
+    "xyz": [
+      -0.017,
+      0.055,
+      0.595
+    ],
+    "height_above_mast_bottom": 0.395,
+    "lateral_offset_already_accounts_for_half_mast_width": true,
+    "rpy": [
+      0,
+      0.017453292519943295,
+      1.5707963267948966
+    ],
+    "rotation_note": "Nominal downward 1 degree and zero roll per user; not calibrated.",
+    "xyz_in_base_footprint": [
+      -0.049,
+      0.055,
+      0.595
+    ]
+  },
+  "pi_camera_optical_center": {
+    "xyz": [
+      0,
+      0.063,
+      0.117
+    ],
+    "rpy": [
+      0,
+      0,
+      1.5707963267948966
+    ],
+    "fore_aft_note": "User said robot center reference; interpreted as X=0, not an explicit numerical measurement.",
+    "xyz_in_base_footprint": [
+      -0.032,
+      0.063,
+      0.117
+    ]
+  },
+  "mount": {
+    "supplied_file": "../d435_flat_mount/print_ready/D435_flat_A1mini_PLA_04.gcode.3mf",
+    "existing_mesh": "../d435_flat_mount/D435_to_20x20_flat.stl",
+    "mesh_extents_approx": [
+      0.113,
+      0.044,
+      0.004
+    ],
+    "installation_transform": null,
+    "note": "39.5 cm is the confirmed RGB lens center height above mast bottom; do not assign it to a mounting screw or mesh origin. Print-bed coordinates are not robot mounting coordinates."
+  },
+  "pending": [],
+  "plate_center_ground_in_base_footprint": [
+    -0.032,
+    0,
+    0
+  ],
+  "imu": {
+    "status": "keep_existing_per_user",
+    "existing_base_link_xyz": [
+      -0.032,
+      0,
+      0.068
+    ],
+    "existing_base_link_rpy": [
+      0,
+      0,
+      0
+    ],
+    "existing_ground_height_m": 0.078
+  },
+  "holder": {
+    "source_3mf": "/home/rungmin/Documents/ChatGPT/프로젝트ROS/outputs/dux_cross_tee_50x50/dux_cross_tee_50x50_A1mini.3mf",
+    "origin_in_plate_center_ground_m": [
+      0,
+      0,
+      0.2
+    ],
+    "outer_dimensions_m": [
+      0.137,
+      0.137,
+      0.05
+    ],
+    "inner_clear_width_m": 0.051,
+    "mast_width_m": 0.05,
+    "nominal_clearance_per_side_m": 0.0005,
+    "z_bounds_from_ground_m": [
+      0.2,
+      0.25
+    ],
+    "source_geometry_note": "User-supplied reference reconstruction; source hole layout provisional."
+  },
+  "plate_supports": {
+    "xy_in_plate_center_m": [
+      [
+        -0.064,
+        -0.024
+      ],
+      [
+        -0.064,
+        0.024
+      ],
+      [
+        0.024,
+        -0.064
+      ],
+      [
+        0.024,
+        0.064
+      ],
+      [
+        0.064,
+        -0.024
+      ],
+      [
+        0.064,
+        0.024
+      ]
+    ],
+    "gap_m": 0.0395,
+    "across_flats_m": 0.005,
+    "count": 6,
+    "note": "XY from original Burger upper-tier spacer axes; added spacer length from model plate gap. Physical number/length not newly measured."
+  },
+  "confirmation": "사용자: 오케이 이대로 확정",
+  "deployment_status": "pc_project_source_integration_not_robot_deployed_or_pushed"
+}

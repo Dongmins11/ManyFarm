@@ -70,13 +70,36 @@ def setup(context):
         actions.append(Node(package=package, executable=name, name=name,
                             namespace=namespace, output='screen',
                             parameters=[params, *extra], remappings=remaps))
-    actions.append(Node(package='nav2_lifecycle_manager', executable='lifecycle_manager',
-        name='lifecycle_manager_navigation', namespace=namespace, output='screen',
-        parameters=[{'use_sim_time': sim, 'autostart': True,
-                     'node_names': [name for _, name in servers], 'bond_timeout': 10.0}]))
-    actions.append(Node(package='scout_robot', executable='route_preview',
-        namespace=namespace, output='screen',
-        parameters=[{'use_sim_time': sim, 'route_file': selected['route_file']}]))
+    deferred = not sim and value('wait_for_localization') == 'true'
+    if not deferred:
+        actions.append(Node(package='nav2_lifecycle_manager', executable='lifecycle_manager',
+            name='lifecycle_manager_navigation', namespace=namespace, output='screen',
+            parameters=[{'use_sim_time': sim, 'autostart': True,
+                         'node_names': [name for _, name in servers], 'bond_timeout': 10.0}]))
+    else:
+        # AMCL must activate before the operator can publish an initial pose.
+        for manager, names, autostart in (
+            ('localization', ['map_server', 'amcl'], True),
+            ('navigation', [name for _, name in servers[2:]], False),
+        ):
+            actions.append(Node(package='nav2_lifecycle_manager', executable='lifecycle_manager',
+                name='lifecycle_manager_' + manager, namespace=namespace, output='screen',
+                parameters=[{'use_sim_time': False, 'autostart': autostart,
+                             'node_names': names, 'bond_timeout': 10.0}]))
+        bindings = load_nav2_parameters(selected['nav_params'], root)
+        costmap = bindings['global_costmap']['global_costmap']['ros__parameters']
+        actions.append(Node(package='farm_bringup', executable='scout_navigation_start',
+            namespace=namespace, output='screen',
+            parameters=[{'map_frame': costmap.get('global_frame', 'map'),
+                         'base_frame': costmap.get('robot_base_frame', 'base_link')}],
+            remappings=[('/tf', '/' + namespace + '/tf'),
+                        ('/tf_static', '/' + namespace + '/tf_static')]))
+    # 실물 예찰 호출자가 명시적으로 끈다. 수확·시뮬 기본 동작은 유지한다.
+    preview = value('route_preview')
+    if preview != 'false':
+        actions.append(Node(package='scout_robot', executable='route_preview',
+            namespace=namespace, output='screen',
+            parameters=[{'use_sim_time': sim, 'route_file': selected['route_file']}]))
     if value('rviz') == 'true':
         rviz = Path(get_package_share_directory('scout_robot')) / 'config/scout.rviz'
         actions.append(Node(package='rviz2', executable='rviz2', name='scout_rviz',
@@ -97,6 +120,8 @@ def generate_launch_description():
         DeclareLaunchArgument('route_file', default_value=''),
         DeclareLaunchArgument('tag_scan_sync', default_value='false', choices=['true', 'false']),
         DeclareLaunchArgument('tag_map_id', default_value=''),
+        DeclareLaunchArgument('route_preview', default_value='true', choices=['true', 'false']),
+        DeclareLaunchArgument('wait_for_localization', default_value='false', choices=['true', 'false']),
         DeclareLaunchArgument('rviz', default_value='false', choices=['true', 'false']),
         OpaqueFunction(function=setup),
     ])
