@@ -44,7 +44,9 @@ class VisionRuntime:
                 command += ['--device', str(node.get_parameter('device').value)]
                 if node.get_parameter('headless').value:
                     command.append('--headless')
-            worker = RealObserver(command, self.log_path, node) if real else SurveyObserver(command, self.log_path, clock=lambda: operation_time(node))
+            worker = (RealObserver(command, self.log_path, node) if real else
+                      SurveyObserver(command, self.log_path,
+                          rpc_timeout_s=node._vcfg.get('rpc_timeout_s', 30.0), clock=lambda: operation_time(node)))
             if not worker.receive(self._check, float(node._vcfg.get('startup_timeout_s', 120))).get('ready'):
                 raise RuntimeError('영상 워커 ready 응답 누락')
             self._check()

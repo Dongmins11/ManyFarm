@@ -5,6 +5,8 @@
   "save_dir": "sim/runs/scout_vision",
   "max_fps": 15.0,
   "max_frame_age_s": 2.0,
+  "startup_timeout_s": 300.0,
+  "rpc_timeout_s": 180.0,
   "preprocess": {
     "edge_fraction": 0.05,
     "camera_to_bed_plane_m": 1.14,

@@ -3,6 +3,7 @@
 #include <memory>
 
 #include "gtest/gtest.h"
+#include "farm_nav2_controller/reverse_regulated_pure_pursuit_controller.hpp"
 #include "farm_nav2_controller/settling_regulated_pure_pursuit_controller.hpp"
 #include "geometry_msgs/msg/transform_stamped.hpp"
 #include "nav2_core/controller_exceptions.hpp"
@@ -17,6 +18,41 @@ geometry_msgs::msg::Quaternion yawQuaternion(double yaw)
   result.z = std::sin(yaw / 2.0);
   result.w = std::cos(yaw / 2.0);
   return result;
+}
+
+class ReverseHeadingProbe : public farm_nav2_controller::ReverseRegulatedPurePursuitController
+{
+public:
+  using ReverseRegulatedPurePursuitController::validateHeading;
+};
+
+TEST(ReverseArrival, FinalAlignmentAllowsBothHalfTurnsWithoutRelaxingTracking)
+{
+  for (double angle : {M_PI, -M_PI, 2.0, -2.0}) {
+    EXPECT_NO_THROW(ReverseHeadingProbe::validateHeading(angle, true));
+    EXPECT_THROW(ReverseHeadingProbe::validateHeading(angle, false), nav2_core::InvalidPath);
+  }
+  EXPECT_NO_THROW(ReverseHeadingProbe::validateHeading(0.01092, false));
+  EXPECT_NO_THROW(ReverseHeadingProbe::validateHeading(M_PI_2 + 0.1, false));
+  EXPECT_THROW(ReverseHeadingProbe::validateHeading(M_PI_2 + 0.1001, false), nav2_core::InvalidPath);
+}
+
+TEST(ReverseArrival, InvalidAnglesFailInBothPhasesWithDiagnostic)
+{
+  for (bool at_goal : {false, true}) {
+    for (double angle : {std::numeric_limits<double>::quiet_NaN(),
+      std::numeric_limits<double>::infinity()})
+    {
+      EXPECT_THROW(ReverseHeadingProbe::validateHeading(angle, at_goal), nav2_core::InvalidPath);
+    }
+  }
+  try {
+    ReverseHeadingProbe::validateHeading(2.0, false);
+    FAIL() << "후진 방향과 반대인 경로를 거절해야 한다";
+  } catch (const nav2_core::InvalidPath & error) {
+    EXPECT_NE(std::string(error.what()).find("phase=TRACKING"), std::string::npos);
+    EXPECT_NE(std::string(error.what()).find("angle_rad=2.000000"), std::string::npos);
+  }
 }
 
 class GoalChecker : public nav2_core::GoalChecker

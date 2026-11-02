@@ -226,3 +226,30 @@ def test_precision_client_preserves_reentry_only_after_confirmed_cleanup(status,
     with pytest.raises(RuntimeError) as caught:client.run(request,'DOCK')
     assert isinstance(caught.value,ApproachReentryRequired)==typed
     if typed:assert not client.pending
+
+
+@pytest.mark.parametrize('outcomes', [[False,True],[False,False,False]])
+def test_alignment_replans_after_stopped_residual(outcomes):
+    from harvest_robot.handoff_navigation import AlignmentStep
+    steps,_,state,events,records=wall_fixture(outcomes)
+    def plan(stage,reference,check):
+        check();state['plans']+=1;attempt=state['plans']
+        def validate(stamp,check):
+            check()
+            if not outcomes[attempt-1]:
+                raise ArrivalValidationError(dict(heading_error_rad=.019540),stamp)
+            return dict(accepted=True)
+        return AlignmentStep(.019540/attempt,40.,False,validate,lambda:events.append('guard'))
+    from harvest_robot.handoff_components import SpinMotion
+    steps._spin=NS(ready=lambda:True,execute=lambda *a:events.append('spin'),cancel=lambda:events.append('spin_cancel'))
+    # 동작 구성의 실제 실행 경로를 사용한다.
+    from harvest_robot.handoff_components import ComponentSteps
+    actions=dict(steps.components.actions);actions['align']=SpinMotion('align',plan,steps._align)
+    steps.components=ComponentSteps(capture=steps._capture_checked,actions=actions,stop=steps.stop)
+    if outcomes[-1]:
+        steps.execute('align',object(),lambda:None)
+    else:
+        with pytest.raises(ArrivalValidationError):steps.execute('align',object(),lambda:None)
+    assert state['plans']==len(outcomes)
+    assert events.count('spin')==len(outcomes)
+    assert events.count('spin_cancel')==outcomes.count(False)

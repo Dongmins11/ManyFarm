@@ -133,3 +133,17 @@ def test_auto_keeps_latest_success_and_can_follow_new_standalone(tmp_path):
     write(standalone/'single_cycle.json',{})
     os.utime(standalone/'single_cycle.json',((parent/'status.json').stat().st_mtime+1,)*2)
     assert select_run(None,last,runs_root=tmp_path)==standalone
+
+
+def test_continuation_tracks_nested_fresh_sections(tmp_path):
+    parent=tmp_path/'recovery'
+    old=parent/'attempt_003'
+    write(old/'single_cycle.json',{'section':'SEC04'})
+    write(parent/'continuation_status.json',{'state':'WAITING_FOR_RESUME_SUCCESS','source':str(old)})
+    assert select_run(None,runs_root=tmp_path)==old.resolve()
+    for section in ('SEC04','SEC05'):
+        fresh=parent/'fresh_sec04_to_sec16'/section
+        write(fresh/'single_cycle.json',{'section':section})
+        write(parent/'continuation_status.json',{'state':'RUNNING_FRESH_CYCLE','trial':str(fresh)})
+        assert select_run(None,runs_root=tmp_path)==fresh.resolve()
+        assert select_run(parent)==fresh.resolve()

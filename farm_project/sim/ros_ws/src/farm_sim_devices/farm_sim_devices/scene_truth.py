@@ -37,6 +37,8 @@ class SceneTruth:
         self.lines.CreateCurveVertexCountsAttr([2]*12)
         self.lines.CreateWidthsAttr([.005])
         self.lines.CreateDisplayColorAttr([Gf.Vec3f(.72, .12, 1.)])
+        # 평가 좌표 계산은 유지하고, 촬영을 가리는 디버그 상자는 표시하지 않는다.
+        self.lines.CreateVisibilityAttr('invisible')
         self.output.parent.mkdir(parents=True, exist_ok=True)
 
     def _geometry_changed(self, notice: object, sender: object) -> None:

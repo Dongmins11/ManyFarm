@@ -324,6 +324,16 @@ def main():
         from farm_sim_runtime.basket_monitor import BasketMonitor
         basket_monitor = BasketMonitor(stage, robots, task['basket_alignment']) if task.get('basket_alignment') else None
         if sorter_runtime is not None:sorter_runtime.basket_monitor = basket_monitor
+        portfolio = None
+        capture_request = args.fleet_config.parent/'portfolio_capture.json'
+        if capture_request.exists() and json.loads(capture_request.read_text()).get('enabled'):
+            capture_config=json.loads(capture_request.read_text())
+            if capture_config.get('video'):
+                from farm_sim_runtime.portfolio_video import PortfolioVideo
+                portfolio=PortfolioVideo(args.fleet_config.parent.parent/'videos',session,capture_config)
+            else:
+                from farm_sim_runtime.portfolio_capture import PortfolioCapture
+                portfolio = PortfolioCapture(args.fleet_config.parent.parent/'screenshots/portfolio', session)
         previous = float(world.current_time)
         start_sim = previous
         last_truth = -math.inf
@@ -474,6 +484,7 @@ def main():
                         arm=robot['arm'].telemetry() if robot['arm'] is not None else None))
                     robot['last_telemetry']=now
             if basket_monitor is not None:basket_monitor.update(now)
+            if portfolio is not None:portfolio.update(now, robots, sorter_runtime, basket_monitor)
             truth_started = time.perf_counter()
             if truth is not None and now-last_truth>=.2:
                 harvest=next(r for r in robots if r['cfg']['robot_id']==hcfg['robot_id'])
@@ -522,6 +533,9 @@ def main():
         traceback.print_exc()
         raise
     finally:
+        if 'portfolio' in locals() and portfolio is not None and hasattr(portfolio,'close'):
+            try:portfolio.close()
+            except Exception as error:print('[portfolio_video] cleanup: '+str(error),flush=True)
         if sorter_runtime is not None:
             sorter_runtime.close()
         if 'truth' in locals() and truth is not None:

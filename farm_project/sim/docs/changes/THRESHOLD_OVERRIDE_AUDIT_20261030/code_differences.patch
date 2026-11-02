@@ -1,0 +1,2176 @@
+--- real_drive/robot/ros_ws/src/farm_navigation/farm_navigation/parallel_approach.py
++++ local/robot/ros_ws/src/farm_navigation/farm_navigation/parallel_approach.py
+@@ -28,9 +28,9 @@
+     delta = (goal[0]-xy[0], goal[1]-xy[1])
+     lateral = abs(delta[0]*direction[1]-delta[1]*direction[0])
+     forward = delta[0]*direction[0]+delta[1]*direction[1]
+-    # 미지정 호출자는 기존 각도 기준을 유지한다.
+-    path_limit = heading_limit if path_heading_limit is None else path_heading_limit
+-    if (isinstance(path_limit, bool) or not isinstance(path_limit, (int, float))
++    # D-059: 기본 호출은 차체 방향/횡오차를 분리한다. 실물 인계 프로필이 명시한 목표선 제한만 추가한다.
++    path_limit = path_heading_limit
++    if path_limit is not None and (isinstance(path_limit, bool) or not isinstance(path_limit, (int, float))
+             or not math.isfinite(path_limit) or not 0 < path_limit < math.pi / 2):
+         raise ValueError('path_heading_limit는 0~pi/2 사이의 유한한 각도여야 합니다.')
+     heading_error = abs(math.remainder(yaw-corridor['yaw'], 2*math.pi))
+@@ -38,13 +38,13 @@
+     failed = []
+     if heading_error > heading_limit: failed.append('body_heading')
+     if lateral > position_limit: failed.append('lateral')
+-    if forward <= 0: failed.append('not_ahead')
+-    if path_angle > path_limit: failed.append('path_heading')
++    if forward <= 1e-9: failed.append('not_ahead')
++    if path_limit is not None and path_angle > path_limit: failed.append('path_heading')
+     if failed:
+         raise RuntimeError(
+             'APPROACH_RECOVERY_REQUIRED: ' + ','.join(failed)
+             + f'; current_xy={xy}, goal_xy={goal}, forward_m={forward:.6f}'
+             + f', lateral_m={lateral:.6f}/{position_limit:.6f}'
+             + f', body_heading_rad={heading_error:.6f}/{heading_limit:.6f}'
+-            + f', path_heading_rad={path_angle:.6f}/{path_limit:.6f}')
++            + f', path_heading_rad={path_angle:.6f}/{path_limit}')
+     return replace(template, points=(tuple(xy), tuple(goal)), distance_m=math.dist(xy, goal), edge_ids=())
+--- real_drive/robot/ros_ws/src/farm_navigation/farm_navigation/spin_client.py
++++ local/robot/ros_ws/src/farm_navigation/farm_navigation/spin_client.py
+@@ -39,8 +39,8 @@
+         return future.result()
+ 
+     def execute(self, angle: float, allowance: float, check: Callable[[], None]) -> None:
+-        if getattr(self._node, "_traffic", None) is not None:
+-            raise RuntimeError("교통 첫 범위에서 도킹/인계 Spin은 지원하지 않습니다.")
++        if getattr(self._node, '_traffic', None) is not None:
++            raise RuntimeError('교통 첫 범위에서 도킹/인계 Spin은 지원하지 않습니다.')
+         if (type(angle) not in (int, float) or not math.isfinite(angle) or not 0 < abs(angle) <= math.pi
+                 or type(allowance) not in (int, float) or not math.isfinite(allowance)
+                 or not 0 < allowance < 2147483647):
+--- real_drive/robot/ros_ws/src/farm_navigation/farm_navigation/nav2_client.py
++++ local/robot/ros_ws/src/farm_navigation/farm_navigation/nav2_client.py
+@@ -10,7 +10,6 @@
+ from rclpy.action.client import ClientGoalHandle
+ from rclpy.parameter import parameter_value_to_python
+ from rcl_interfaces.srv import GetParameters
+-from lifecycle_msgs.srv import GetState
+ from nav2_msgs.action import NavigateToPose, FollowPath
+ from action_msgs.msg import GoalStatus
+ from nav_msgs.msg import Path
+@@ -29,10 +28,6 @@
+         self._navigate=ActionClient(node,NavigateToPose,settings.navigate_action,callback_group=group)
+         self._follow=ActionClient(node,FollowPath,settings.follow_action,callback_group=group)
+         self._parameters=node.create_client(GetParameters,settings.controller_node.rstrip('/')+'/get_parameters',callback_group=group)
+-        self._lifecycle_clients = ([node.create_client(GetState, name + '/get_state', callback_group=group)
+-            for name in ('map_server', 'amcl', 'controller_server', 'planner_server',
+-                         'behavior_server', 'bt_navigator', 'velocity_smoother')]
+-            if settings.require_active_nav2 else [])
+         self._pending: Future | None = None
+         self._handle: ClientGoalHandle | None = None
+         self._result: Future | None = None
+@@ -50,7 +45,7 @@
+ 
+     def _execution_clock(self) -> Callable[[], float]:
+         """주행 경과시간: use_sim_time 활성 시 ROS 시계, 실물은 단조 실시간이다."""
+-        if self._pause_clock_factory is not None:
++        if getattr(self, '_pause_clock_factory', None) is not None:
+             return self._pause_clock_factory()
+         ros_clock = self._node.get_clock()
+         if not ros_clock.ros_time_is_active:
+@@ -88,38 +83,7 @@
+         finally:
+             if not future.done(): self._parameters.remove_pending_request(future)
+ 
+-    def _wait_active_nav2(self, check: Callable[[], None]) -> None:
+-        """An action server may exist even while its downstream smoother is inactive."""
+-        clients = getattr(self, '_lifecycle_clients', [])
+-        next_log = 0.0
+-        while clients:
+-            check()
+-            pending = []
+-            try:
+-                for client in clients:
+-                    if client.service_is_ready():
+-                        pending.append((client, client.call_async(GetState.Request())))
+-                deadline = time.monotonic() + 2.0
+-                while any(not f.done() for _, f in pending) and time.monotonic() < deadline:
+-                    check()
+-                    time.sleep(.05)
+-                check()
+-                if len(pending) == len(clients) and all(
+-                    f.done() and f.exception() is None and f.result() is not None
+-                    and f.result().current_state.id == 3 for _, f in pending
+-                ):
+-                    return
+-            finally:
+-                for client, future in pending:
+-                    if not future.done():
+-                        client.remove_pending_request(future)
+-            if time.monotonic() >= next_log:
+-                self._node.get_logger().warning('NAV2_READY_WAIT: 필수 주행 노드 활성화 대기; Goal 미전송')
+-                next_log = time.monotonic() + 5.0
+-            time.sleep(.2)
+-
+     def preflight(self, check: Callable[[],None], *, wall_parameters: dict[str,Any] | None = None) -> dict[str,Any]:
+-        self._wait_active_nav2(check)
+         s=self._settings
+         client=self._follow if s.mode=='follow_path' else self._navigate
+         deadline=time.monotonic()+s.readiness_timeout_s
+@@ -129,11 +93,9 @@
+             time.sleep(.05)
+         names = ['goal_checker_plugins', 'controller_plugins', 'progress_checker_plugins']
+         speed_parameter = f'{s.controller_id}.desired_linear_vel'
+-        # 벽/곡선 제어기는 이 파라미터가 없으므로 기존 고정 제한시간을 사용한다.
+-        adaptive_speed = s.mode == 'follow_path' and s.controller_id in ('RPP', 'StationReverse')
+-        if adaptive_speed:
++        if s.mode == 'follow_path' and wall_parameters is None:
+             names.append(speed_parameter)
+-        values = self._read_parameters(names, check)
++        values=self._read_parameters(names,check)
+         speed = values.get(speed_parameter)
+         self._nominal_linear_speed_mps = (float(speed) if isinstance(speed, (int, float))
+             and not isinstance(speed, bool) and math.isfinite(speed) and speed > 0 else None)
+@@ -177,8 +139,6 @@
+         if self._recovery_stop is not None:
+             self._recovery_stop()
+             return
+-        if not self._stop_publishers:
+-            raise RuntimeError('재시도 정지 출력 소유자 연결 누락')
+         for publisher in self._stop_publishers:
+             publisher.publish(Twist())
+ 
+@@ -188,6 +148,9 @@
+     def _execution_timeout(self, path: Path | None) -> float:
+         """전송 경로 길이/설정 속도의2배+60초. 기존 제한시간을 하한으로 둔다."""
+         base = self._settings.goal_timeout_s
++        # 인계 전용 시계 선택은 원본 단계별 예산을 유지한다. 일반 주행은 거리 예산을 유지한다.
++        if getattr(self, '_pause_clock_factory', None) is not None:
++            return base
+         speed = getattr(self, '_nominal_linear_speed_mps', None)
+         if self._settings.mode != 'follow_path' or path is None or speed is None:
+             return base
+@@ -199,10 +162,7 @@
+ 
+     def request_stop(self) -> None:
+         """교통 콜백에서 기다리지 않고 자신의 진행/지연 승인 Goal에 취소를 보낸다."""
+-        # TrafficClient가 자신의 정지 publisher로 이미 0을 보낸다.
+-        # 기존 출력 소유자가 연결된 경우에만 그 정지 경로도 사용한다.
+-        if self._recovery_stop is not None or self._stop_publishers:
+-            self._stop_for_recovery()
++        self._stop_for_recovery()
+         if self._handle is not None and self._handle.accepted:
+             self._handle.cancel_goal_async()
+         elif self._pending is not None:
+@@ -264,9 +224,7 @@
+                 self._recovery_probe, self._stop_for_recovery, bounded_check,
+                 lambda: self._last_control_feedback,
+                 self._settings.tf_recovery_timeout_s,
+-                lambda text: self._node.get_logger().warning(text),
+-                wait_forever=self._settings.tf_recovery_wait_forever,
+-                waiting=retry_waiting if self._settings.tf_recovery_wait_forever else lambda active: None)
++                lambda text: self._node.get_logger().warning(text))
+         if self._settings.collision_retry_count:
+             return run_with_collision_recovery(execute_with_tf_recovery,
+                 self._recovery_probe, self._stop_for_recovery, bounded_check,
+@@ -276,7 +234,6 @@
+ 
+     def _execute_once(self, xy: tuple[float,float], yaw: float, path: Path | None, check: Callable[[],None]) -> int:
+         check()
+-        self._wait_active_nav2(check)
+         if self.has_goal: raise RuntimeError('이전 주행 종료 확인 전에는 새 Goal을 보낼 수 없습니다.')
+         if self._settings.mode=='follow_path':
+             if path is None or len(path.poses)<2: raise ValueError('FollowPath에 유효한 경로 필요')
+@@ -307,7 +264,12 @@
+             self._clear()
+             raise RuntimeError('Nav2 Goal 거절')
+         self._result=self._handle.get_result_async()
+-        response=self._wait(self._result,self._execution_timeout(path),check,
++        timeout = self._execution_timeout(path)
++        if timeout > self._settings.goal_timeout_s:
++            self._node.get_logger().info(
++                f'경로별 주행 제한 {timeout:.1f}초 '
++                f'(기본 {self._settings.goal_timeout_s:.1f}초, 설정 속도 {self._nominal_linear_speed_mps:.3f}m/s)')
++        response=self._wait(self._result,timeout,check,
+             clock=self._execution_clock(),
+             timeout_message='Nav2 주행 완료 시간 초과; 요청 종료 여부 확인 필요')
+         self._clear()
+--- real_drive/robot/ros_ws/src/farm_navigation/farm_navigation/wall_trial_support.py
++++ local/robot/ros_ws/src/farm_navigation/farm_navigation/wall_trial_support.py
+@@ -3,11 +3,11 @@
+ import math
+ 
+ 
+-def isolated_parameters(controller: dict, costmap: dict, prefix: str, scan: str, odom: str, config: dict) -> dict:
++def isolated_parameters(controller: dict, costmap: dict, prefix: str, scan: str, odom: str, config: dict, *, odom_frame: str = 'odom') -> dict:
+     if not all(v.startswith('/') for v in (prefix,scan,odom)):
+         raise ValueError('절대 ROS 연결명 필요')
+     if controller.get('enable_stamped_cmd_vel',False):raise ValueError('시험 연결은 Twist 전용')
+-    if costmap.get('global_frame')!='odom' or not costmap.get('footprint') or not costmap.get('plugins'):
++    if costmap.get('global_frame')!=odom_frame or not costmap.get('footprint') or not costmap.get('plugins'):
+         raise ValueError('실행 중 odom costmap·footprint 필요')
+     cm=deepcopy(costmap)
+     for layer in cm['plugins']:
+--- real_drive/robot/ros_ws/src/farm_navigation/farm_navigation/arc_isolation.py
++++ local/robot/ros_ws/src/farm_navigation/farm_navigation/arc_isolation.py
+@@ -4,13 +4,13 @@
+ from .transfer_arc import trial_profile
+ 
+ 
+-def isolated_parameters(controller: dict, costmap: dict, prefix: str, scan_topic: str, odom_topic: str) -> dict:
++def isolated_parameters(controller: dict, costmap: dict, prefix: str, scan_topic: str, odom_topic: str, *, odom_frame: str = 'odom') -> dict:
+     """실행 중 costmap 수치는 보존하고 독립 controller의 플러그인만 선택한다."""
+     if not prefix.startswith('/') or not scan_topic.startswith('/') or not odom_topic.startswith('/'):
+         raise ValueError('절대 ROS 이름 필요')
+     if controller.get('enable_stamped_cmd_vel', False):
+         raise ValueError('이번 연결은 기존 Twist 입력 환경에 한정한다')
+-    if not costmap.get('plugins') or costmap.get('global_frame') != 'odom':
++    if not costmap.get('plugins') or costmap.get('global_frame') != odom_frame:
+         raise ValueError('실행 중 odom local costmap 필요')
+     if not costmap.get('footprint') or costmap.get('resolution', 0) <= 0:
+         raise ValueError('실행 중 footprint와 해상도 필요')
+--- real_drive/robot/ros_ws/src/farm_navigation/farm_navigation/tf_recovery.py
++++ local/robot/ros_ws/src/farm_navigation/farm_navigation/tf_recovery.py
+@@ -11,9 +11,7 @@
+                          feedback_time: Callable[[], float], timeout: float,
+                          log: Callable[[str], None],
+                          clock: Callable[[], float] = time.monotonic,
+-                         sleep: Callable[[float], None] = time.sleep, *,
+-                         wait_forever: bool = False,
+-                         waiting: Callable[[bool], None] = lambda active: None) -> int:
++                         sleep: Callable[[float], None] = time.sleep) -> int:
+     deadline = None
+     failed_at = None
+     while True:
+@@ -26,23 +24,14 @@
+                 deadline = clock() + timeout
+             failed_at = clock()
+             stop()
+-            log('TF_RECOVERY_WAIT: 정지 유지·TF 재확보 후 같은 경로 재개'
+-                if wait_forever else f'TF_RECOVERY_WAIT: 최대 {timeout:.1f}초, 정지 후 같은 경로 재개')
+-            waiting(True)
+-            next_log = clock() + 5.0
+-            try:
+-                while True:
+-                    check()  # 관제 취소·종료 신호를 삼키지 않는다.
+-                    stop()
+-                    if not wait_forever and clock() >= deadline:
+-                        log('TF_RECOVERY_TIMEOUT')
+-                        raise TimeoutError(f'TF_RECOVERY_TIMEOUT: {timeout:.1f}초 내 복구되지 않음')
+-                    if ready():
+-                        log('TF_RECOVERY_RESUME')
+-                        break
+-                    if clock() >= next_log:
+-                        log('TF_RECOVERY_WAIT: TF·정지 확인 대기 중')
+-                        next_log = clock() + 5.0
+-                    sleep(0.05)
+-            finally:
+-                waiting(False)
++            log(f'TF_RECOVERY_WAIT: 최대 {timeout:.1f}초, 정지 후 같은 경로 재개')
++            while True:
++                check()  # 관제 취소·종료 신호를 삼키지 않는다.
++                stop()
++                if clock() >= deadline:
++                    log('TF_RECOVERY_TIMEOUT')
++                    raise TimeoutError(f'TF_RECOVERY_TIMEOUT: {timeout:.1f}초 내 복구되지 않음')
++                if ready():
++                    log('TF_RECOVERY_RESUME')
++                    break
++                sleep(0.05)
+--- real_drive/robot/ros_ws/src/farm_navigation/farm_navigation/pose_provider.py
++++ local/robot/ros_ws/src/farm_navigation/farm_navigation/pose_provider.py
+@@ -30,10 +30,7 @@
+         """stamp=0은 최신 위치, 양수는 촬영 등 특정 ROS 시각의 변환입니다."""
+         end=time.monotonic()+self._settings.tf_timeout_s
+         error: Exception | None = None
+-        persistent = (getattr(self._settings, 'tf_recovery_enabled', False)
+-                      and getattr(self._settings, 'tf_recovery_wait_forever', False))
+-        next_log = 0.0
+-        while persistent or time.monotonic()<end:
++        while time.monotonic()<end:
+             check()
+             try:
+                 message=self._buffer.lookup_transform(target,source,Time(nanoseconds=int(stamp_ns)))
+@@ -63,13 +60,8 @@
+                 return result
+             except (TransformException,RuntimeError,ValueError) as exc:
+                 error=exc
+-                if persistent and not isinstance(exc, (TransformException, TransformUnavailable)):
+-                    raise  # 비정상 값·미래 시각을 정상 TF처럼 사용하지 않는다.
+                 if on_unavailable is not None:
+                     on_unavailable(exc)
+-                if persistent and time.monotonic() >= next_log:
+-                    self._node.get_logger().warning(f'TF_WAIT: {target} ← {source}: {exc}')
+-                    next_log = time.monotonic() + 5.0
+                 time.sleep(.02)
+         kind = TransformUnavailable if isinstance(error, (TransformException, TransformUnavailable)) else RuntimeError
+         raise kind(f'TF 조회 실패: {target} ← {source}, stamp={stamp_ns}: {error}') from error
+--- real_drive/robot/ros_ws/src/farm_navigation/farm_navigation/navigation_types.py
++++ local/robot/ros_ws/src/farm_navigation/farm_navigation/navigation_types.py
+@@ -36,11 +36,9 @@
+     max_goal_distance_m: float = .02
+     path_spacing_m: float = .04
+     parallel_approach: bool = False
+-    require_active_nav2: bool = False  # 실물 예찰에서만 사용
++    collision_retry_count: int = 0
+     tf_recovery_enabled: bool = False
+     tf_recovery_timeout_s: float = 10.0
+-    tf_recovery_wait_forever: bool = False  # 실물 예찰만 명시적으로 선택; 취소 가능
+-    collision_retry_count: int = 0  # 명시적 선택만 허용; 일반/타 로봇 기본값 불변
+ 
+     @classmethod
+     def from_mapping(cls, values: dict[str, Any]) -> NavigationSettings:
+--- real_drive/robot/ros_ws/src/farm_common/farm_common/station_return.py
++++ local/robot/ros_ws/src/farm_common/farm_common/station_return.py
+@@ -5,6 +5,7 @@
+ from dataclasses import dataclass, replace
+ from datetime import datetime, timezone
+ import math
++import json
+ import time
+ import uuid
+ from pathlib import Path
+@@ -17,6 +18,7 @@
+ from farm_navigation.nav2_client import Nav2Client
+ from farm_navigation.navigator import Navigator
+ from farm_navigation.route import RouteGraph
++from farm_navigation.navigation_types import NavigationSettings, RoutePlan
+ from .action_handoff import ActionHandoff, ActionInterrupted
+ 
+ 
+@@ -49,6 +51,49 @@
+     if not any(edge.start == value['node_id'] for edge in graph.edges):
+         raise ValueError('스테이션에서 출발하는 지정 경로가 없습니다.')
+     return Station(name, xy, yaw)
++
++
++def plan_station_return(graph: RouteGraph, station: Station, xy: tuple[float, float],
++                        yaw: float, settings: NavigationSettings) -> tuple[RoutePlan, bool, dict]:
++    """방향 그래프의 전진/역순 후진 경로 중 짧은 것을 선택한다. 장애물 검사는 Nav2가 한다."""
++    if not all(math.isfinite(v) for v in (*xy, yaw)):
++        raise ValueError('복귀 출발 위치·방향이 유효하지 않습니다.')
++    candidates, audit = [], {}
++    for reverse in (False, True):
++        name = 'reverse' if reverse else 'forward'
++        try:
++            if reverse:
++                outward = graph.plan(station.xy, xy, settings.max_goal_distance_m,
++                                     settings.max_start_distance_m)
++                plan = replace(outward, plan_id=uuid.uuid4().hex,
++                               points=tuple(reversed(outward.points)),
++                               edge_ids=tuple(reversed(outward.edge_ids)))
++            else:
++                plan = graph.plan(xy, station.xy, settings.max_start_distance_m,
++                                  settings.max_goal_distance_m)
++        except ValueError as error:
++            audit[name] = dict(available=False, reason=str(error))
++            continue
++        # 현재 위치에서 그래프까지의 짧은 횡방향 투영선을 주행 방향으로 오인하지 않는다.
++        ahead = next((p for p in plan.points[1:] if math.dist(xy, p) > settings.max_start_distance_m),
++                     plan.points[-1])
++        heading = (math.atan2(ahead[1]-xy[1], ahead[0]-xy[0]) + (math.pi if reverse else 0.)
++                   if math.dist(xy, ahead) > settings.arrival_tolerance_m else station.yaw)
++        error = abs(math.remainder(heading-yaw, 2*math.pi))
++        audit[name] = dict(available=True, distance_m=plan.distance_m, start_heading_error_rad=error)
++        # 기존 StationReverse가 거절하는 앞쪽 경로를 짧다는 이유로 선택하지 않는다.
++        # 제어기의 pi/2+0.1 조건과 동일하며 그 조건을 완화하지 않는다.
++        if reverse and error > math.pi/2 + .1:
++            audit[name].update(available=False, reason='reverse_start_heading_incompatible')
++            continue
++        candidates.append((plan, reverse, error))
++    if not candidates:
++        raise ValueError('실행 가능한 스테이션 복귀 경로 없음: '+json.dumps(audit, ensure_ascii=False))
++    # 거리 동률(부동소수점 잡음 제외)은 초기 방향 정렬량으로 결정한다.
++    plan, reverse, _ = min(candidates, key=lambda c: (round(c[0].distance_m, 6), c[2], c[1]))
++    audit.update(selected='reverse' if reverse else 'forward', points=plan.points,
++                 final_yaw_rad=station.yaw)
++    return plan, reverse, audit
+ 
+ 
+ class StationReturn:
+@@ -71,11 +116,15 @@
+             node.get_logger().warning(
+                 'STATION_RETURN_NOT_CONFIGURED: 스테이션 위치·복귀 경로 추가 처리가 필요합니다. '
+                 '현재 환경의 복귀 요청은 거절합니다.')
+-        # 작업 구간 전용 평행 접근 대신 스테이션 출발 경로를 역순으로 후진한다.
+-        settings = replace(settings, mode='follow_path', parallel_approach=False, controller_id='StationReverse')
+-        self._client = Nav2Client(node, settings, callbacks) if self._graph else None
+-        self._navigator = (Navigator(node, settings, self._client, poses, motion, self._check,
++        # 기존 후진 제어는 보존하고 전진은 일반 RPP의 도착 후 방향 정렬까지 사용한다.
++        reverse_settings = replace(settings, mode='follow_path', parallel_approach=False, controller_id='StationReverse')
++        forward_settings = replace(settings, mode='follow_path', parallel_approach=False, controller_id='RPP')
++        self._client = Nav2Client(node, reverse_settings, callbacks) if self._graph else None
++        self._navigator = (Navigator(node, reverse_settings, self._client, poses, motion, self._check,
+                                     self._graph) if self._graph else None)
++        self._forward_client = Nav2Client(node, forward_settings, callbacks) if self._graph else None
++        self._forward_navigator = (Navigator(node, forward_settings, self._forward_client, poses, motion,
++                                            self._check, self._graph) if self._graph else None)
+         self._server = ActionServer(node, ReturnToStation, 'return_to_station',
+             execute_callback=self.execute, goal_callback=self.accept,
+             cancel_callback=lambda _: CancelResponse.ACCEPT, callback_group=callbacks)
+@@ -130,6 +179,7 @@
+         result.result_code, result.error_code = 'FAILED', 'RETURN_FAILED'
+         acquired = False
+         timer = None
++        navigator = self._navigator
+         try:
+             token = self._handoff.acquire('return', goal.task_id, lambda: self._external_check(handle))
+             self._handle, self._token, acquired = handle, token, True
+@@ -142,21 +192,22 @@
+                 # 수확 인계·운송 분류장 완료 등 로봇별 조건은 이 경계에서 구현한다.
+                 self._prepare(self._check)
+             self._check()
+-            self._navigator.preflight_navigation()
+             current = self._poses.current(self._check)
+-            # 가상 출발은 스테이션, 가상 목적지는 작업 목표가 아닌 현재 실측 위치다.
+-            forward = self._graph.plan(self._station.xy,
++            plan, reverse, audit = plan_station_return(self._graph, self._station,
+                 (float(current[0,3]), float(current[1,3])),
+-                self._settings.max_goal_distance_m, self._settings.max_start_distance_m)
+-            backward = replace(forward, plan_id=uuid.uuid4().hex,
+-                points=tuple(reversed(forward.points)), edge_ids=tuple(reversed(forward.edge_ids)))
++                math.atan2(current[1,0], current[0,0]), self._settings)
++            self._node.get_logger().info('STATION_RETURN_PLAN: '+json.dumps(audit, ensure_ascii=False))
++            navigator = self._navigator if reverse else self._forward_navigator
++            navigator.preflight_navigation()
+             if self._tag_control is not None:
+                 self._tag_control.begin()
+                 self._tag_section = None
+                 self._tag_active = True
+                 self._next_tag_update = 0.0
+-            self._navigator.navigate(self._station.xy, self._station.yaw,
+-                route_plan=backward, reverse=True)
++            # 전진도 위치 도착만으로 성공하지 않는다. 스테이션 yaw(통상180도 회전)까지
++            # RPP가 충돌 검사하며 정렬한 뒤 기존 Navigator의 정지 확인을 통과해야 한다.
++            navigator.navigate(self._station.xy, self._station.yaw,
++                route_plan=plan, reverse=reverse)
+             self._check()
+             result.result_code, result.error_code = 'SUCCESS', 'NONE'
+         except ActionInterrupted as error:
+@@ -171,7 +222,7 @@
+                 if self._tag_control is not None:
+                     self._tag_control.end()
+                 try:
+-                    self._navigator.cancel_nav()
++                    navigator.cancel_nav()
+                 except Exception as error:
+                     self._block()
+                     result.result_code, result.error_code = 'FAILED', 'CANCEL_UNCONFIRMED'
+@@ -197,3 +248,5 @@
+         self._server.destroy()
+         if self._client is not None:
+             self._client.close()
++        if self._forward_client is not None:
++            self._forward_client.close()
+--- real_drive/robot/ros_ws/src/harvest_robot/harvest_robot/arm_client.py
++++ local/robot/ros_ws/src/harvest_robot/harvest_robot/arm_client.py
+@@ -139,7 +139,8 @@
+         except (AttributeError, TypeError, ValueError) as error:
+             raise ArmExecutionError('ARM_PROTOCOL_ERROR', str(error)) from error
+ 
+-    def execute(self, goal: Any, check: Callable[[], None], progress: Callable[[int, int], None]) -> dict:
++    def execute(self, goal: Any, check: Callable[[], None], progress: Callable[[int, int], None], *,
++                before_send: Callable[[float], None] | None = None) -> dict:
+         if self.has_goal:
+             raise ArmExecutionError('CANCEL_UNCONFIRMED', '이전 팔 Goal 종료 확인이 필요합니다.')
+         self._token += 1
+@@ -154,6 +155,10 @@
+                 raise ArmExecutionError('ARM_UNAVAILABLE', '팔 Action 서버가 준비되지 않았습니다.')
+             time.sleep(.01)
+         check()
++        if before_send is not None:
++            # 서버 발견과 상태 준비는 같은 준비 제한시간 예산을 사용한다.
++            before_send(max(0., deadline-time.monotonic()))
++            check()
+         self._pending = self._client.send_goal_async(goal, feedback_callback=lambda value: self._feedback(value, token))
+         self._handle = self._wait(self._pending, self.settings.response_timeout_s, check)
+         if self._handle is None or not self._handle.accepted:
+--- real_drive/robot/ros_ws/src/harvest_robot/harvest_robot/mission.py
++++ local/robot/ros_ws/src/harvest_robot/harvest_robot/mission.py
+@@ -35,7 +35,12 @@
+             if arm is not None:
+                 self.node.mission_stage = 'ARM'
+                 self.node.arm_travel_ready = False
+-                self.node.arm_result = arm.execute(self.goal, self.node.check, self.node.communication.arm_feedback)
++                connection = getattr(self.node, 'jetson_connection', None)
++                options = {} if connection is None else {
++                    'before_send': lambda remaining_s: connection.wait_before_send(
++                        self.node.check, remaining_s)}
++                self.node.arm_result = arm.execute(self.goal, self.node.check,
++                    self.node.communication.arm_feedback, **options)
+             return arrival
+         except Exception:
+             # 팔과 주행 종료를 각각 확인합니다. 한쪽 실패로 다른 쪽 정리를 생략하지 않습니다.
+--- real_drive/robot/ros_ws/src/harvest_robot/harvest_robot/transfer_retreat.py
++++ local/robot/ros_ws/src/harvest_robot/harvest_robot/transfer_retreat.py
+@@ -88,10 +88,10 @@
+ 
+ 
+ def alignment_parameters(prefix: str, base_frame: str, *, use_sim_time: bool = False,
+-                         transform_tolerance: float = .5) -> dict:
++                         transform_tolerance: float = .5, odom_frame: str = 'odom') -> dict:
+     """독립 Nav2 Spin 인스턴스. 같은 costmap/footprint를 구독한다."""
+     return dict(use_sim_time=use_sim_time,behavior_plugins=['spin'],
+-        **{'spin.plugin':'nav2_behaviors::Spin'},local_frame='odom',global_frame='odom',
++        **{'spin.plugin':'nav2_behaviors::Spin'},local_frame=odom_frame,global_frame=odom_frame,
+         robot_base_frame=base_frame,cycle_frequency=20.,transform_tolerance=transform_tolerance,
+         local_costmap_topic=prefix+'/local_costmap/costmap_raw',global_costmap_topic=prefix+'/local_costmap/costmap_raw',
+         local_footprint_topic=prefix+'/local_costmap/published_footprint',global_footprint_topic=prefix+'/local_costmap/published_footprint',
+--- real_drive/robot/ros_ws/src/harvest_robot/harvest_robot/status.py
++++ local/robot/ros_ws/src/harvest_robot/harvest_robot/status.py
+@@ -18,7 +18,8 @@
+     """환경 설정에서 선택적으로 활성화한다. 타이머는 주행 명령을 보내지 않는다."""
+     def __init__(self, node, settings, config: dict) -> None:
+         self.node, self.settings, self.config = node, settings, config
+-        self.boot_id = uuid.uuid4().hex
++        self.traffic = getattr(node, '_traffic', None)
++        self.boot_id = self.traffic.boot_id if self.traffic is not None else uuid.uuid4().hex
+         self.sequence = 0
+         self.battery = None
+         self.group = MutuallyExclusiveCallbackGroup()
+@@ -79,6 +80,7 @@
+         if not arm_ready:
+             errors.append(('ARM_NOT_READY', '팔 Action 서버 연결 대기'))
+         if stopping: errors.append(('SHUTDOWN', '서버 종료 중'))
++        stamp = 0
+         try:
+             tf = self.buffer.lookup_transform(self.settings.map_frame, self.settings.base_frame, Time())
+             stamp = tf.header.stamp.sec*10**9 + tf.header.stamp.nanosec
+@@ -106,6 +108,8 @@
+         status.error_code = errors[0][0] if errors else 'NONE'
+         status.error_message = '; '.join(code+': '+message for code,message in errors)
+         self.publisher.publish(status)
++        if self.traffic is not None:
++            self.traffic.on_status(status, stamp)
+ 
+     def close(self) -> None:
+         self.node.destroy_timer(self.timer)
+--- real_drive/robot/ros_ws/src/harvest_robot/harvest_robot/handoff_runtime.py
++++ local/robot/ros_ws/src/harvest_robot/harvest_robot/handoff_runtime.py
+@@ -1,7 +1,7 @@
+ from .handoff_locking import TimingProbe, TimedRLock
+ from .transient_gate import TransientCommandGate
+ from .handoff_wait import InputUnavailable, ClearancePending, WaitingPoses, TransformUnavailable
+-"""수확 Node의 센서·서버·단일 출력 연결. 명시 선택한 실물 환경에서만 생성한다."""
++"""수확 Node의 센서·서버·단일 출력 연결. 명시 선택한 인계 환경에서만 생성한다."""
+ import math
+ import secrets
+ from std_msgs.msg import Bool, Float64MultiArray
+@@ -49,8 +49,8 @@
+ 
+ class HandoffRuntime:
+     def __init__(self, node: Any, environment: dict, settings: Any) -> None:
+-        if node.mode != 'real' or settings.tf_recovery_enabled:
+-            raise ValueError('실물 Twist 단일 출력 환경이 필요합니다.')
++        if node.mode not in ('real', 'sim') or settings.tf_recovery_enabled:
++            raise ValueError('Twist 단일 출력 및 TF 복구 비활성 환경이 필요합니다.')
+         self.node, self.settings = node, settings
+         cfg = node.config['handoff_runtime']
+         self.wall = read_mapping(resolve_file(node.root, cfg['wall_config']))
+@@ -67,9 +67,10 @@
+                 and self.completion.reentry_position > self.spec.deviation):
+             raise ValueError('재진입 위치 허용오차는 기존 경로 이탈 한계 이하여야 합니다.')
+         self.bundle = build_server_config(load_nav2_parameters(environment['nav_params'], node.root),
+-            node.config['robot_id'], self.wall, settings, False,
++            node.config['robot_id'], self.wall, settings, node.mode == 'sim',
+             footprint_padding=cfg.get('footprint_padding'))
+         self.bundle['spin']['wall_alignment.wait_until_fresh'] = self._sensor_wait_indefinite
++        self.odom_frame = self.bundle['costmap']['global_frame']
+         self.profile = MotionProfile.from_mapping(self.bundle['profile'])
+         self.body_footprint = alignment_footprint(self.bundle['costmap'])
+         self._timing = TimingProbe(node)
+@@ -345,12 +346,12 @@
+     def pose(self, at: int, check: Any) -> tuple:
+         check()
+         m = self._retry(lambda: self.poses.lookup(
+-            'odom', self.settings.base_frame, at or self.odom_stamp(), check), check=check)
++            self.odom_frame, self.settings.base_frame, at or self.odom_stamp(), check), check=check)
+         return float(m[0,3]), float(m[1,3]), math.atan2(m[1,0], m[0,0])
+ 
+     def _odom_pose(self) -> tuple:
+         msg=self._read('odom')
+-        if msg.header.frame_id != 'odom' or msg.child_frame_id != self.settings.base_frame:
++        if msg.header.frame_id != self.odom_frame or msg.child_frame_id != self.settings.base_frame:
+             raise RuntimeError('차체 odom frame 불일치')
+         p,q=msg.pose.pose.position,msg.pose.pose.orientation
+         values=(p.x,p.y,q.x,q.y,q.z,q.w)
+@@ -372,7 +373,7 @@
+                 record = dict(stamp_ns=stamp(scan), scan={k:getattr(scan,k) for k in
+                     ('ranges','angle_min','angle_increment','range_min','range_max')},
+                     base_from_scan=self.node.poses.lookup(self.settings.base_frame, scan.header.frame_id, stamp(scan), check),
+-                    odom_from_base=self.node.poses.lookup('odom', self.settings.base_frame, stamp(scan), check))
++                    odom_from_base=self.node.poses.lookup(self.odom_frame, self.settings.base_frame, stamp(scan), check))
+                 value = tracker.observe(record)
+                 with self.lock:
+                     if tracker is not self.tracker:
+@@ -381,7 +382,7 @@
+                     if value['ready']:
+                         self.wall_value = (time.monotonic(), value)
+                         msg = PoseStamped()
+-                        msg.header.frame_id='odom'; msg.header.stamp=scan.header.stamp
++                        msg.header.frame_id=self.odom_frame; msg.header.stamp=scan.header.stamp
+                         msg.pose.position.x=value['x']; msg.pose.position.y=value['y']
+                         msg.pose.orientation.z=math.sin(value['yaw']/2)
+                         msg.pose.orientation.w=math.cos(value['yaw']/2)
+@@ -426,7 +427,7 @@
+ 
+     def _grid_inputs(self) -> tuple:
+         cm, fp = self._read('costmap'), self._read('footprint')
+-        if cm.header.frame_id != 'odom' or fp.header.frame_id != 'odom':
++        if cm.header.frame_id != self.odom_frame or fp.header.frame_id != self.odom_frame:
+             raise RuntimeError('충돌 입력 frame 불일치')
+         points = [(p.x,p.y) for p in fp.polygon.points]
+         if len(points) != 4 or not all(math.isfinite(v) for p in points for v in p):
+@@ -764,14 +765,14 @@
+             self.active_context=(self.node.config['map_id'],window_id,self.session)
+         if self._input_trace is not None: self._input_trace.emit('tf_pair_begin')
+         _, matrices = self.poses.lookup_available_pair(
+-            (self.settings.map_frame, 'odom'), self.settings.base_frame,
++            (self.settings.map_frame, self.odom_frame), self.settings.base_frame,
+             self.odom_stamp, self.check)
+         if self._input_trace is not None: self._input_trace.emit('tf_pair_end')
+         current = matrices[0]
+         reference.check_position((float(current[0,3]), float(current[1,3])))
+         planner=HandoffPlanner(poses=self.poses,motion=self.node.motion,inputs=self,
+             guard=self.guard,wall=self.wall['controller'],spec=self.spec,window_xy=xy,
+-            map_frame=self.settings.map_frame,odom_frame='odom',base_frame=self.settings.base_frame,
++            map_frame=self.settings.map_frame,odom_frame=self.odom_frame,base_frame=self.settings.base_frame,
+             policy=self.completion, window_correction=True)
+         return build_vicpinky_motion(profile=self.profile,bindings=self.bindings,spin=self.spin,
+             spin_endpoint=self.profile.spin_endpoint,node=self.node,motion=self.node.motion,
+--- real_drive/robot/ros_ws/src/harvest_robot/harvest_robot/node.py
++++ local/robot/ros_ws/src/harvest_robot/harvest_robot/node.py
+@@ -75,9 +75,9 @@
+         if movement_mode not in ('graph_only', 'route_then_pose', 'route_then_follow'):
+             raise ValueError('알 수 없는 movement_mode')
+         # 진입 FollowPath만 별도 제어기·도착 검사를 선택한다. 작업·이탈은 기존 설정이다.
+-        if settings.collision_retry_count:
+-            raise ValueError('수확 재시도는 harvest_config.navigation_collision_retry_count로 선택해야 합니다.')
+-        retry_count = self.config.get('navigation_collision_retry_count', 0)
++        if settings.collision_retry_count and 'navigation_collision_retry_count' in self.config:
++            raise ValueError('수확 재시도 설정을 두 경로로 동시에 지정할 수 없습니다.')
++        retry_count = self.config.get('navigation_collision_retry_count', settings.collision_retry_count)
+         if type(retry_count) is not int or not 0 <= retry_count <= 20:
+             raise ValueError('navigation_collision_retry_count: 0~20 정수 필요')
+         approach_settings = replace(settings, collision_retry_count=retry_count)
+@@ -90,6 +90,12 @@
+                 raise ValueError('approach_goal_checker_id는 비어 있지 않은 문자열이어야 합니다.')
+             approach_settings = approach_navigation_settings(
+                 approach_settings, self.config, controller_id, goal_checker_id)
++        self._traffic = None
++        if profile.get('traffic', {}).get('enabled', False):
++            from farm_navigation.traffic_client import configure_traffic
++            configure_traffic(self, self.root, profile, settings,
++                lambda: self.handoff.current[1] if self.handoff.current else
++                    self.active_goal.request.harvest_task.task_id if self.active_goal else '')
+         # 수확 실물 인계 비교에서만 별도 TF executor를 명시 선택한다.
+         isolate_tf = os.environ.get('HANDOFF_TF_EXECUTOR', '')
+         if isolate_tf not in ('', 'dedicated'):
+@@ -174,9 +180,11 @@
+         self.declare_parameter("transfer_enabled", transfer_config.get("enabled", False))
+         self.handoff_runtime = None
+         if self.get_parameter("transfer_enabled").value and transfer_config.get('rotation_mode') == 'components':
++            if self._traffic is not None:
++                raise ValueError('인계 출력 소유자와 교통 정지 연결은 아직 함께 사용할 수 없습니다.')
+             from .handoff_runtime import HandoffRuntime
+             self.handoff_runtime = HandoffRuntime(self, profile, settings)
+-        if retry_count:
++        if self.config.get('navigation_collision_retry_count', 0):
+             if self.handoff_runtime is None:
+                 raise ValueError('일반 주행 재시도는 기존 출력 소유자 연결이 필요합니다.')
+             for client in (self.client, self.work_client, self.exit_client):
+@@ -197,10 +205,22 @@
+             unavailable=lambda: self.blocked or self.stopping,
+             block=lambda: setattr(self, 'blocked', True), prepare=self.prepare_station_return,
+             tag_control=self.tag_control)
++        from .jetson_connection import create_jetson_connection
++        self.jetson_connection = create_jetson_connection(self, settings)
++        self.traffic_test = None
++        if profile.get('traffic', {}).get('test_drive_enabled', False):
++            if self.mode != 'sim':
++                raise ValueError('교통 주행 시험은 sim 전용입니다.')
++            from farm_sim_runtime.traffic_drive_test import TrafficDriveTest
++            self.traffic_test = TrafficDriveTest(self, profile, approach_settings,
++                self.client, self.poses, self.motion, self.handoff,
++                unavailable=lambda: self.busy or self.blocked or self.stopping,
++                block=lambda: setattr(self, 'blocked', True),
++                record=lambda entry: self.navigation_log.append(entry))
+         self.communication = HarvestCommunication(self)
+         self.status_reporter = None
+         status_config = self.config.get('status_reporting', {})
+-        if status_config.get('enabled', False):
++        if status_config.get('enabled', False) or self._traffic is not None:
+             from .status import HarvestStatus
+             self.status_reporter = HarvestStatus(self, settings, status_config)
+         self.get_logger().info('HarvestTask 완료 정책: '+policy)
+@@ -222,6 +242,8 @@
+                 raise RuntimeError('ARM_TRAVEL_NOT_READY: 중단된 팔의 접힘 확인이 필요합니다.')
+ 
+     def check(self) -> None:
++        if getattr(self, '_traffic', None) is not None:
++            self._traffic.check_work()
+         if self.handoff.work_interrupted or self.stopping or not rclpy.ok() or (self.active_goal and self.active_goal.is_cancel_requested):
+             raise MissionCanceled('수확 작업 취소/종료 요청')
+ 
+@@ -243,7 +265,13 @@
+     finally:
+         if node.tag_control is not None:
+             node.tag_control.end()
++        if node._traffic is not None:
++            node._traffic.close()
++        if node.traffic_test is not None:
++            node.traffic_test.close()
+         executor.shutdown()
++        if node.jetson_connection is not None:
++            node.jetson_connection.close()
+         if node.status_reporter is not None:
+             node.status_reporter.close()
+         if node.route_planner is not None:
+--- real_drive/robot/ros_ws/src/harvest_robot/harvest_robot/handoff_input_trace.py
++++ local/robot/ros_ws/src/harvest_robot/harvest_robot/handoff_input_trace.py
+@@ -104,8 +104,8 @@
+         self.next_buffer = now+.2
+         from rclpy.time import Time
+         poses = self.node.poses
+-        for parent, child in ((self.runtime.settings.map_frame, 'odom'),
+-                              ('odom', self.runtime.settings.base_frame)):
++        for parent, child in ((self.runtime.settings.map_frame, self.runtime.odom_frame),
++                              (self.runtime.odom_frame, self.runtime.settings.base_frame)):
+             try:
+                 value = poses._buffer.lookup_transform(parent, child, Time())
+                 self.emit('tf_buffer', parent=parent, child=child, stamp_ns=stamp_ns(value))
+--- real_drive/robot/ros_ws/src/harvest_robot/harvest_robot/communication.py
++++ local/robot/ros_ws/src/harvest_robot/harvest_robot/communication.py
+@@ -83,6 +83,8 @@
+             node.handoff.release('work', task_id)
+             return result
+         try:
++            if getattr(node, '_traffic', None) is not None:
++                node._traffic.begin_task()
+             return self._execute_work(handle)
+         finally:
+             node.handoff.release('work', task_id)
+--- real_drive/robot/ros_ws/src/harvest_robot/harvest_robot/handoff_server_config.py
++++ local/robot/ros_ws/src/harvest_robot/harvest_robot/handoff_server_config.py
+@@ -35,9 +35,10 @@
+         cm['footprint_padding'] = float(footprint_padding)
+     cm['use_sim_time'] = cp['use_sim_time'] = use_sim_time
+     scan, odom = root + '/scan_filtered', root + '/odom'
+-    values = isolated_parameters(cp, cm, prefix, scan, odom)
++    odom_frame = nav.get('amcl', {}).get('ros__parameters', {}).get('odom_frame_id', 'odom')
++    values = isolated_parameters(cp, cm, prefix, scan, odom, odom_frame=odom_frame)
+     server = values[prefix + '/controller_server']['ros__parameters']
+-    wp = wall_parameters(cp, cm, prefix, scan, odom, wall)[prefix + '/controller_server']['ros__parameters']
++    wp = wall_parameters(cp, cm, prefix, scan, odom, wall, odom_frame=odom_frame)[prefix + '/controller_server']['ros__parameters']
+     for name, value in wp.items():
+         if name.startswith(('WallAlign.', 'wall_goal.', 'wall_progress.', 'wall_alignment.')):
+             server[name] = value
+@@ -83,7 +84,7 @@
+     profiles['wall'].update(arrival_tolerance_m=wall['controller']['distance_tolerance'],
+                             heading_tolerance_rad=wall['controller']['angle_tolerance'])
+     profiles['retreat']['heading_tolerance_rad'] = .2617993877991494
+-    spin = alignment_parameters(prefix, settings.base_frame, use_sim_time=use_sim_time)
++    spin = alignment_parameters(prefix, settings.base_frame, use_sim_time=use_sim_time, odom_frame=odom_frame)
+     spin['spin.plugin'] = 'farm_wall_controller::WaitingSpin'
+     return dict(prefix=prefix, values=values, spin=spin, costmap=deepcopy(cm),
+                 profile={'navigation': profiles, 'spin_endpoint': prefix+'/spin'}, scan=scan, odom=odom)
+--- real_drive/robot/ros_ws/src/scout_robot/scout_new/real_observer.py
++++ local/robot/ros_ws/src/scout_robot/scout_new/real_observer.py
+@@ -1,4 +1,4 @@
+-"""실물 정지 관측: TF는 관측 전후에 확보하고 추론 중에는 odom 정지만 감시한다."""
++"""실물 정지 관측 어댑터. 노출 시각 대신 관측 구간의 TF 안정성을 검사합니다."""
+ from typing import Callable, Any
+ from pathlib import Path
+ import threading
+@@ -9,90 +9,48 @@
+ 
+ class RealObserver(SurveyObserver):
+     def __init__(self, command: list[str], log: Path, node: Any) -> None:
+-        self._rpc_clean = True
+         super().__init__(command,log)
+         self._node=node
+         self._rpc_timeout=float(node._vcfg.get("rpc_timeout_s",180))
+         self._capture_stamp=None
+ 
+-    @property
+-    def reusable(self) -> bool:
+-        """RPC 성공 응답을 모두 읽었고 살아 있는 워커만 재사용합니다."""
+-        return self._rpc_clean and self.is_alive and self._responses.empty()
+-
+-    def _call_worker(self, op: str, check: Callable[[], None], **values: object) -> dict:
+-        # 전송 전 취소는 연결을 손상시키지 않습니다. 전송 이후 예외는 교체 대상입니다.
+-        check()
+-        if not self._rpc_clean:
+-            raise RuntimeError('영상 RPC 상태 불확실: 워커 교체 필요')
+-        self._rpc_clean = False
+-        result = super().call(op, check, **values)
+-        self._rpc_clean = True
++    def call(self, op: str, check: Callable[[],None], **values: object) -> dict:
++        if op=='annotate':
++            if values.get('stamp_ns')!=self._capture_stamp:raise ValueError('Annotation capture mismatch')
++            return super().call(op,check,**values)
++        if op not in ('info','capture'):return super().call(op,check,**values)
++        frame=self._node._vcfg['camera_frame']
++        reference=self._node.lookup('map',frame,0)
++        stamp=self._node.get_clock().now().nanoseconds
++        if stamp<=int(values.get('after_stamp_ns',0)):raise RuntimeError('관측 기준 시각이 정지 시각보다 늦어야 합니다.')
++        done=threading.Event();errors=[]
++        last_check=[time.monotonic()]
++        def monitor() -> None:
++            while not done.is_set():
++                try:
++                    check()
++                    if time.monotonic()-last_check[0]>.25:
++                        raise RuntimeError('관측 TF 감시 간격 초과: 결과 폐기')
++                    current=self._node.lookup('map',frame,0)
++                    angle=np.arccos(np.clip((np.trace(reference[:3,:3].T@current[:3,:3])-1)/2,-1,1))
++                    if np.linalg.norm(reference[:3,3]-current[:3,3])>.01 or angle>.01 or not self._node._navigator.stationary_now():
++                        raise RuntimeError('관측 중 로봇/카메라 움직임: 결과 폐기')
++                    last_check[0]=time.monotonic()
++                except Exception as error:
++                    errors.append(error);return
++                done.wait(.05)
++        thread=threading.Thread(target=monitor,daemon=True);thread.start()
++        try:
++            result=super().call(op,check,**values)
++        finally:
++            done.set();thread.join(timeout=5)
++        if thread.is_alive():raise RuntimeError('관측 TF 감시 종료 실패')
++        if errors:raise errors[0]
++        current=self._node.lookup('map',frame,0)
++        angle=np.arccos(np.clip((np.trace(reference[:3,:3].T@current[:3,:3])-1)/2,-1,1))
++        if time.monotonic()-last_check[0]>.25 or np.linalg.norm(reference[:3,3]-current[:3,3])>.01 or angle>.01 or not self._node._navigator.stationary_now():
++            raise RuntimeError('관측 종료 위치/정지 확인 실패: 결과 폐기')
++        result['metadata']['stamp_ns']=stamp
++        result['metadata']['T_map_camera_reference']=reference.tolist()
++        if op=='capture':self._capture_stamp=stamp
+         return result
+-
+-    def wait_ready(self, check: Callable[[], None]) -> np.ndarray:
+-        """I/O 스레드에서 정상 TF·정지를 기다린다. 취소 시 즉시 예외를 전달한다."""
+-        from farm_navigation.pose_provider import TransformUnavailable
+-        frame = self._node._vcfg['camera_frame']
+-        next_log = 0.0
+-        while True:
+-            check()
+-            reason = '정지 odom 수신 대기'
+-            if self._node._navigator.stationary_now():
+-                try:
+-                    pose = self._node.lookup('map', frame, 0)
+-                    check()
+-                    if self._node._navigator.stationary_now():
+-                        return pose
+-                except TransformUnavailable as error:
+-                    reason = str(error)
+-            if time.monotonic() >= next_log:
+-                self._node.get_logger().warning('관측/주행 재개 대기: ' + reason)
+-                next_log = time.monotonic() + 5.0
+-            time.sleep(.05)
+-
+-    def call(self, op: str, check: Callable[[],None], **values: object) -> dict:
+-        if op == 'annotate':
+-            if values.get('stamp_ns') != self._capture_stamp:
+-                raise ValueError('Annotation capture mismatch')
+-            return self._call_worker(op, check, **values)
+-        if op not in ('info', 'capture'):
+-            return self._call_worker(op, check, **values)
+-        while True:
+-            reference = self.wait_ready(check)
+-            stamp = self._node.get_clock().now().nanoseconds
+-            if stamp <= int(values.get('after_stamp_ns', 0)):
+-                raise RuntimeError('관측 기준 시각이 정지 시각보다 늦어야 합니다.')
+-            done = threading.Event()
+-            uncertain = threading.Event()
+-
+-            def monitor() -> None:
+-                # 추론 시간과 스레드 스케줄링 지연을 TF 오류로 취급하지 않는다.
+-                # odom 정지가 불확실했던 관측은 응답을 소진한 후 재촬영한다.
+-                while not done.is_set():
+-                    if not self._node._navigator.stationary_now():
+-                        uncertain.set()
+-                    done.wait(.05)
+-
+-            thread = threading.Thread(target=monitor, daemon=True)
+-            thread.start()
+-            try:
+-                result = self._call_worker(op, check, **values)
+-            finally:
+-                done.set()
+-                thread.join(timeout=5)
+-            if thread.is_alive():
+-                raise RuntimeError('관측 감시 종료 실패')
+-            # 촬영 기준 TF를 최신 TF로 덮어쓰지 않는다. 정상 TF를 다시 받은 뒤
+-            # 전후 자세가 달라졌으면 해당 결과만 버리고 같은 위치에서 재관측한다.
+-            current = self.wait_ready(check)
+-            angle = np.arccos(np.clip((np.trace(reference[:3,:3].T @ current[:3,:3])-1)/2, -1, 1))
+-            if uncertain.is_set() or np.linalg.norm(reference[:3,3]-current[:3,3]) > .01 or angle > .01:
+-                self._node.get_logger().warning('관측 결과 재측정: 정지 불확실 또는 관측 전후 자세 변경')
+-                check()
+-                continue
+-            result['metadata']['stamp_ns'] = stamp
+-            result['metadata']['T_map_camera_reference'] = reference.tolist()
+-            if op == 'capture':
+-                self._capture_stamp = stamp
+-            return result
+--- real_drive/robot/ros_ws/src/scout_robot/scout_new/vision_runtime.py
++++ local/robot/ros_ws/src/scout_robot/scout_new/vision_runtime.py
+@@ -83,11 +83,7 @@
+ 
+     def release(self, reusable: bool) -> None:
+         # Controller의 단일 I/O 작업이 끝난 뒤 호출합니다.
+-        # 실물은 미션 결과 대신 RPC 동기화 상태로 판단합니다. 시뮬 정책은 유지합니다.
+-        if self._node._vcfg.get('backend') == 'realsense_legacy':
+-            reusable = self._worker is not None and self._worker.reusable
+-            self._node.get_logger().info('영상 워커 반환: ' +
+-                ('정상 RPC 상태, 재사용' if reusable else 'RPC/프로세스 상태 불확실, 재준비'))
++        # 실패·취소는 읽지 않은 RPC 응답이 남을 수 있어 워커를 교체합니다.
+         with self._lock:
+             self._leased = False
+             if reusable:
+--- real_drive/robot/ros_ws/src/scout_robot/scout_new/scout_node.py
++++ local/robot/ros_ws/src/scout_robot/scout_new/scout_node.py
+@@ -1,6 +1,5 @@
+ """실제 rclpy.Node. ROS 자원·설정을 준비하고 역할별 객체를 연결합니다."""
+ from __future__ import annotations
+-from scout_robot.graph_harvest_goal import load_harvest_route
+ 
+ import numpy as np
+ from numpy.typing import NDArray
+@@ -93,8 +92,7 @@
+             self._cfg = apply_patrol(self._cfg,patrol,self._route_graph)
+         self._beds: dict[str, StraightBed] = {}
+         for key, c in self._cfg['sections'].items():
+-            self._beds[key] = StraightBed(load_route(self._root / c['route_file'], c['node_ids']), c,
+-                                           harvest_route=load_harvest_route(self._root, c))
++            self._beds[key] = StraightBed(load_route(self._root / c['route_file'], c['node_ids']), c)
+             if c.get('patrol_segments'):
+                 from .patrol_config import patrol_design
+                 patrol_design(self._beds[key],self._route_graph)
+--- real_drive/robot/ros_ws/src/scout_robot/scout_robot/graph_harvest_goal.py
++++ local/robot/ros_ws/src/scout_robot/scout_robot/graph_harvest_goal.py
+@@ -1,48 +0,0 @@
+-"""선택된 그래프 직선으로 수확 정차선을 정한다. 기존 작업창 범위/팔 치수는 유지."""
+-from dataclasses import asdict, dataclass
+-from pathlib import Path
+-from typing import Any
+-import math
+-from .b_planner import Config
+-
+-
+-@dataclass(frozen=True)
+-class GraphLineConfig(Config):
+-    graph_normal_m: float = 0.0
+-
+-    @property
+-    def route_y(self) -> float:
+-        """베드 좌표계에서 그래프 주행선의 법선 거리(m)."""
+-        return self.graph_normal_m
+-
+-
+-def load_harvest_route(root: Path, cfg: dict) -> list | None:
+-    """옵션이 없으면 그래프를 읽지 않는다. map의 연결된 노드 순서를 검증한다."""
+-    goal = cfg.get('harvest_goal', {})
+-    if goal.get('mode', 'window_offset') != 'graph_line':
+-        return None
+-    from farm_navigation.route import load_route
+-    return load_route(root / goal['route_file'], goal['node_ids'])
+-
+-
+-def constrain_to_graph(bed: Any, route: list | None) -> GraphLineConfig:
+-    """현재 직선 베드와 평행·동일 진행 방향인 경로만 지원한다. 범위 밖 목표는 기존 hold 처리."""
+-    if route is None or len(route) < 2:
+-        raise ValueError('graph_line requires a connected harvest route')
+-    coords = [bed.local([x, y, 0.0]) for _, x, y, _ in route]
+-    normal = coords[0][1]
+-    if any(not all(math.isfinite(v) for v in p) for p in coords):
+-        raise ValueError('Harvest graph contains non-finite coordinates')
+-    if any(abs(p[1] - normal) > 1e-6 for p in coords):
+-        raise ValueError('Harvest graph must be straight and parallel to survey bed')
+-    if any(b[0] <= a[0] for a, b in zip(coords, coords[1:])):
+-        raise ValueError('Harvest graph must follow survey direction')
+-    if abs(math.remainder(bed.harvest_yaw-bed.yaw, 2*math.pi)) > 1e-6:
+-        raise ValueError('Graph goal heading must follow the selected route')
+-    values = asdict(bed.plan_cfg)
+-    values.update(route_start=coords[0][0], route_end=coords[-1][0], graph_normal_m=normal)
+-    result = GraphLineConfig(**values)
+-    result.validate()
+-    if bed.bed_n - normal - result.mount_y <= 0:
+-        raise ValueError('Harvest arm must remain on the approach side of the bed')
+-    return result
+--- real_drive/robot/ros_ws/src/scout_robot/scout_robot/survey_core.py
++++ local/robot/ros_ws/src/scout_robot/scout_robot/survey_core.py
+@@ -25,7 +25,7 @@
+ 
+ 
+ class StraightBed:
+-    def __init__(self, route, cfg, *, harvest_route=None):
++    def __init__(self, route, cfg):
+         self.origin=np.array(route[0][1:3],dtype=float)
+         end=np.array(route[-1][1:3],dtype=float)
+         self.length=float(np.linalg.norm(end-self.origin))
+@@ -54,12 +54,6 @@
+             depth_tolerance=h.get('depth_tolerance_m',0.0),
+             membership_margin=h.get('membership_margin_m',h['side_margin_m']))
+         self.plan_cfg.validate()
+-        mode = cfg.get('harvest_goal', {}).get('mode', 'window_offset')
+-        if mode == 'graph_line':
+-            from .graph_harvest_goal import constrain_to_graph
+-            self.plan_cfg = constrain_to_graph(self, harvest_route)
+-        elif mode != 'window_offset':
+-            raise ValueError('Unknown harvest_goal mode: ' + str(mode))
+ 
+     def local(self, xyz):
+         p=np.array(xyz);d=p[:2]-self.origin
+@@ -149,11 +143,7 @@
+         # Recheck corrected coordinates against fixed windows before dispatch.
+         observed=[Fruit(f['id'],*self.bed.local(f['position_map_m'])) for f in self.fruits]
+         # Exclude out-of-section/context detections before calling ingest in server.
+-        overlap = getattr(self.bed, 'cfg', {}).get('window_overlap', {})
+-        self.plan=extend_plan(self.plan,observed,self.bed.plan_cfg,
+-            revalidate=self._policy is SurveyPolicy.MEDIAN_REVALIDATE,
+-            overlap_trigger_ratio=overlap.get('trigger_ratio', 0.5) if overlap.get('enabled', False) else None)
+-        self.observations+=1
++        self.plan=extend_plan(self.plan,observed,self.bed.plan_cfg,revalidate=self._policy is SurveyPolicy.MEDIAN_REVALIDATE);self.observations+=1
+         for task in self.plan.tasks:self.window_segments.setdefault(task.task_id,segment_id)
+         return [self.fruits[assigned[i]]['id'] for i in range(len(detections))]
+ 
+@@ -174,12 +164,6 @@
+                 for z in [task.window_z_min-tol,task.window_z_max+tol]
+                 for n in [task.window_y_min-tol-depth_tol,task.window_y_max+tol+depth_tol]
+                 for s in [task.safe_x_min-tol,task.safe_x_max+tol]]
+-            if getattr(self.bed, 'cfg', {}).get('harvest_goal', {}).get('mode') == 'graph_line':
+-                d['goal_mode'] = 'graph_line'
+-                d['harvest_node_ids'] = self.bed.cfg['harvest_goal']['node_ids']
+-                d['actual_work_distance_m'] = (task.window_y_min + task.window_y_max)/2 - task.arm_y
+-                d['nominal_work_distance_m'] = self.bed.plan_cfg.work_distance
+-                d['reachability_status'] = 'NOT_VALIDATED'
+             d['expected_count']=len(task.member_ids);out.append(d)
+         # 추가 관측으로 뒤늦게 생성된 창도 ID는 유지하고 실제 수확 진행 방향으로 반환한다.
+         forward = (math.cos(self.bed.harvest_yaw), math.sin(self.bed.harvest_yaw))
+--- real_drive/robot/ros_ws/src/scout_robot/scout_robot/fruit_association.py
++++ local/robot/ros_ws/src/scout_robot/scout_robot/fruit_association.py
+@@ -1,44 +0,0 @@
+-"""예찰 내부 ID 재연결. map 표면 좌표(m)와 색상을 사용하며 한 관측은 일대일 대응한다."""
+-import math
+-
+-
+-def match_observations(detections: list[dict], fruits: list[dict], *,
+-                       max_distance_m: float, ambiguity_margin_m: float) -> tuple[dict, list[dict]]:
+-    """양쪽 최근접 후보가 일치하고 차선 후보와 충분히 떨어진 경우만 기존 ID를 선택한다."""
+-    if not math.isfinite(max_distance_m) or not 0 < max_distance_m < .5:
+-        raise ValueError('max_distance_m must be between 0 and 0.5')
+-    if not math.isfinite(ambiguity_margin_m) or not 0 <= ambiguity_margin_m < max_distance_m:
+-        raise ValueError('invalid ambiguity_margin_m')
+-    rows = [[] for _ in detections]
+-    cols = [[] for _ in fruits]
+-    for i, d in enumerate(detections):
+-        p = d['position_map_m']
+-        if len(p) != 3 or not all(math.isfinite(v) for v in p):
+-            raise ValueError('invalid map position')
+-        for j, f in enumerate(fruits):
+-            if d['class_name'] != f['class_name']:
+-                continue
+-            # 대표 좌표의 중앙값은 작업창에 유지하고 매칭은 가장 최근 실제 측정으로 한다.
+-            q = f.get('position_latest_map_m', f['position_map_m'])
+-            distance = math.dist(p, q)
+-            if distance <= max_distance_m:
+-                rows[i].append((distance, j)); cols[j].append((distance, i))
+-    for candidates in rows + cols:
+-        candidates.sort()
+-    assigned, diagnostics = {}, []
+-    for i, candidates in enumerate(rows):
+-        record = dict(detection_index=i, candidates=[dict(fruit_id=fruits[j]['id'],distance_m=d) for d,j in candidates])
+-        if not candidates:
+-            record['reason'] = 'no_same_class_candidate'
+-        else:
+-            distance,j = candidates[0]
+-            reverse = cols[j]
+-            unique = (len(candidates)==1 or candidates[1][0]-distance > ambiguity_margin_m)
+-            reciprocal = reverse[0][1]==i and (len(reverse)==1 or reverse[1][0]-distance > ambiguity_margin_m)
+-            if unique and reciprocal:
+-                assigned[i] = j
+-                record.update(reason='matched', fruit_id=fruits[j]['id'], distance_m=distance)
+-            else:
+-                record['reason'] = 'ambiguous_new_identity'
+-        diagnostics.append(record)
+-    return assigned, diagnostics
+--- real_drive/robot/ros_ws/src/scout_robot/scout_robot/window_overlap.py
++++ local/robot/ros_ws/src/scout_robot/scout_robot/window_overlap.py
+@@ -1,53 +0,0 @@
+-"""신규 작업창만 진행축으로 이동한다. 단위 m, 기존 창/배정/깊이/높이는 유지한다."""
+-from dataclasses import replace
+-import math
+-
+-
+-def reduce_overlap(task, existing, fruits, config, trigger_ratio: float):
+-    """배정 과실과 경로 범위를 지키며 기존 창과의 겹침 길이 합을 최소화한다.
+-
+-    trigger_ratio는 한 창 너비 대비 교집합 길이(0~1)다. 보장이 불가능한
+-    겹침은 남긴다. 작업을 버리거나 기존 창을 이동하지 않는다.
+-    """
+-    if not math.isfinite(trigger_ratio) or not 0 <= trigger_ratio <= 1:
+-        raise ValueError('overlap trigger_ratio must be between 0 and 1')
+-    width = task.window_x_max - task.window_x_min
+-    occupied = [t for t in existing if t.member_ids]
+-    def overlap(left, other):
+-        return max(0., min(left + width, other.window_x_max) - max(left, other.window_x_min))
+-    original = task.window_x_min
+-    if not occupied or max(overlap(original, t) / width for t in occupied) <= trigger_ratio:
+-        return task
+-    # 배정점은 새 위치에서도 nominal membership 범위 안에 둔다.
+-    # 원래 허용오차로만 들어온 점은 그 점의 기존 초과량까지만 허용한다.
+-    offset = width / 2 - config.work_world_xy[0] - config.mount_world_xy[0]
+-    lo, hi = config.route_start - offset, config.route_end - offset
+-    inset = config.membership_margin
+-    for fid in task.member_ids:
+-        x = fruits[fid].x
+-        left_slack = max(0., original + inset - x)
+-        right_slack = max(0., x - (original + width - inset))
+-        lo = max(lo, x - width + inset - right_slack)
+-        hi = min(hi, x - inset + left_slack)
+-    anchor = fruits[task.anchor_id].x
+-    lo = max(lo, anchor - width + config.margin)
+-    hi = min(hi, anchor - config.margin)
+-    if lo > hi + 1e-9:
+-        return task
+-    if lo > hi:
+-        lo = hi
+-    # 겹침 합은 구간별 선형이므로 경계와 꺾임점만 비교하면 된다.
+-    candidates = [original, lo, hi]
+-    for t in occupied:
+-        candidates += [t.window_x_min-width, t.window_x_max-width,
+-                       t.window_x_min, t.window_x_max]
+-    candidates = [max(lo, min(hi, x)) for x in candidates]
+-    def cost(left):
+-        return sum(overlap(left,t) for t in occupied)
+-    best = min(candidates, key=lambda x:(cost(x), abs(x-original)))
+-    if cost(best) >= cost(original) - 1e-9:
+-        return task
+-    shift = best-original
+-    return replace(task, window_x_min=best, window_x_max=best+width,
+-                   safe_x_min=best+inset, safe_x_max=best+width-inset,
+-                   arm_x=task.arm_x+shift, base_x=task.base_x+shift)
+--- real_drive/robot/ros_ws/src/scout_robot/scout_robot/survey_server.py
++++ local/robot/ros_ws/src/scout_robot/scout_robot/survey_server.py
+@@ -1,4 +1,3 @@
+-from scout_robot.graph_harvest_goal import load_harvest_route
+ """ScoutArea → B stop/capture/accumulate → one task batch at bed completion."""
+ import json
+ import math
+@@ -103,7 +102,7 @@
+         if not self.python.is_file():raise ValueError('vision_python must be the YOLO environment Python path')
+         self.beds={}
+         for key,c in self.cfg['sections'].items():
+-            self.beds[key]=StraightBed(load_route(self.root/c['route_file'],c['node_ids']),c, harvest_route=load_harvest_route(self.root, c))
++            self.beds[key]=StraightBed(load_route(self.root/c['route_file'],c['node_ids']),c)
+         self.cb=ReentrantCallbackGroup();self.lock=threading.Lock();self.busy=False
+         self.shutdown_requested=False;self.active_goal=None;self.nav_handle=None;self.pending_nav=None
+         self.odom=None;self.odom_wall=0.;self.odom_lock=threading.Lock()
+--- real_drive/robot/ros_ws/src/scout_robot/scout_robot/b_planner.py
++++ local/robot/ros_ws/src/scout_robot/scout_robot/b_planner.py
+@@ -294,8 +294,7 @@
+ 
+ 
+ def extend_plan(previous: PlanResult, observed: Iterable[Fruit],
+-                config: Config | None = None, *, revalidate: bool = False,
+-                overlap_trigger_ratio: float | None = None) -> PlanResult:
++                config: Config | None = None, *, revalidate: bool = False) -> PlanResult:
+     """Accumulate one observation without moving or replacing existing windows.
+ 
+     With revalidate=True, updated points are checked against their existing
+@@ -368,10 +367,6 @@
+     appended_events: list[Event] = []
+     for event in extension.events:
+         if event.kind == "task" and event.task is not None:
+-            if overlap_trigger_ratio is not None:
+-                from .window_overlap import reduce_overlap
+-                event = replace(event, task=reduce_overlap(
+-                    event.task, tasks, by_id, config, overlap_trigger_ratio))
+             task = replace(event.task, task_id=next_task_id,
+                            observed_ids=tuple(fruit.id for fruit in observations
+                                               if _fits_task(fruit, event.task, safe=False, tolerance=config.range_tolerance, depth_tolerance=config.depth_tolerance)))
+--- real_drive/robot/ros_ws/src/scout_robot/scout_new/states/navigation_move_state.py
++++ local/robot/ros_ws/src/scout_robot/scout_new/states/navigation_move_state.py
+@@ -70,11 +70,6 @@
+         # 반복 ID는 관측 이동과 위치/방향 게이트를 통과한 접근에서만 보정에 사용한다.
+         # 이탈에서는 사용권을 열지 않으며 완료·실패·취소 시 즉시 닫는다.
+         node.check()
+-        # 실물 관측·저장 뒤 최신 TF와 정지를 확보한 후에만 다음 Goal을 전송한다.
+-        # 시뮬레이션 SurveyObserver에는 이 어댑터가 없으므로 기존 흐름을 유지한다.
+-        ready = getattr(context.worker, 'wait_ready', None)
+-        if ready is not None:
+-            ready(node.check)
+         if control is not None:
+             if self._purpose == 'observation':
+                 control.begin(context.section)
+@@ -114,11 +109,11 @@
+         info = context.worker.call('info', node.check, after_stamp_ns=context.stamp, session=context.camera_session)
+         meta = info['metadata']
+         context.camera_session = meta['session']
++        base = node.lookup(meta['pose_frame'], node._cfg['base_frame'], meta['stamp_ns'])
++        camera = np.linalg.inv(base) @ np.array(meta['T_odom_camera_optical'])
+         if context.bed.cfg.get('patrol_segments'):
+             from ..patrol_config import patrol_design
+             return patrol_design(context.bed,node._route_graph)
+-        base = node.lookup(meta['pose_frame'], node._cfg['base_frame'], meta['stamp_ns'])
+-        camera = np.linalg.inv(base) @ np.array(meta['T_odom_camera_optical'])
+         return plan_segments(
+             context.bed, context.section, meta['K'], camera,
+             info['width'], info['height'], node._vcfg['preprocess'], node._cfg['overlap_fraction'],
+--- real_drive/robot/ros_ws/src/scout_robot/scout_new/states/segment_progress_state.py
++++ local/robot/ros_ws/src/scout_robot/scout_new/states/segment_progress_state.py
+@@ -29,7 +29,7 @@
+             'capture', node.check,
+             after_stamp_ns=context.stamp, session=context.camera_session,
+         )
+-        if not hasattr(context.worker, 'wait_ready') and not node._navigator.stationary_now():
++        if not node._navigator.stationary_now():
+             raise RuntimeError('Robot moved during observation; result rejected')
+         return response
+ 
+--- real_drive/robot/ros_ws/src/transport_robot/transport_robot/route_cli.py
++++ local/robot/ros_ws/src/transport_robot/transport_robot/route_cli.py
+@@ -12,7 +12,7 @@
+     parser = argparse.ArgumentParser(description=__doc__)
+     parser.add_argument('--project-root',required=True)
+     parser.add_argument('--environment',required=True)
+-    parser.add_argument('--mode',choices=['real'],required=True)
++    parser.add_argument('--mode',choices=['real','sim'],required=True)
+     target = parser.add_mutually_exclusive_group(required=True)
+     target.add_argument('--destination')
+     target.add_argument('--node',type=int)
+--- real_drive/robot/ros_ws/src/transport_robot/transport_robot/transport_state_controller.py
++++ local/robot/ros_ws/src/transport_robot/transport_robot/transport_state_controller.py
+@@ -22,6 +22,7 @@
+         self.parking_profiles = set()
+         self.unload_workflows = {}
+         self.pickup_workflow = {}
++        self.station_return_mode = 'marker_docking'
+         self.loaded_count = None
+         self._pool = ThreadPoolExecutor(max_workers=1,thread_name_prefix='transport_io')
+         self._events = Queue()
+@@ -48,7 +49,8 @@
+             raise ValueError('지원하지 않는 운송 작업 종류')
+         if self.busy or self.blocked:
+             raise RuntimeError('작업 중이거나 정지/복구 확인이 필요합니다.')
+-        if request.kind != 'route' and not self.docking.available():
++        navigation_return = request.kind == 'return' and self.station_return_mode == 'navigation_only'
++        if request.kind != 'route' and not navigation_return and not self.docking.available():
+             raise ValueError('ReturnToStation은 도킹 연결 후 사용 가능합니다.')
+         if request.kind in ('pickup','unload') and not (request.kind == 'unload' and request.dock_only_trial) and not self.device.available():
+             raise ValueError('기구 브릿지 미연결')
+@@ -136,6 +138,12 @@
+             self.unload.stage('DOCKING')
+             self.transition(DockingState(self))
+         elif self.request.kind == 'return':
++            if self.station_return_mode == 'navigation_only':
++                # Navigator가 실제 도착 오차와 정지를 확인한 이후에만 호출된다.
++                self.mission.record_stage(self.request, 'STATION_PARKED', 'marker_stage=SKIPPED_SIM_POLICY')
++                self.feedback('ARRIVED')
++                self.finish(Outcome('SUCCESS', arrived=True, docked=True))
++                return
+             if self.request.kind == 'return': self.feedback('APPROACHING')
+             self.transition(DockingState(self))
+         else:
+--- real_drive/robot/ros_ws/src/transport_robot/transport_robot/configuration.py
++++ local/robot/ros_ws/src/transport_robot/transport_robot/configuration.py
+@@ -9,12 +9,24 @@
+ 
+ 
+ def load_profile(root: Path, filename: str, mode: str) -> dict[str, Any]:
+-    if mode != "real":
+-        raise ValueError("이번 단계는 real 전용입니다. Isaac/sim 통합은 제외했습니다.")
+-    profile = load_environment(resolve_file(root, filename), root, mode, require_survey=False)
++    if mode not in ('real', 'sim'):
++        raise ValueError('mode는 real 또는 sim이어야 합니다.')
++    environment = resolve_file(root, filename)
++    if not environment.is_relative_to(root) or environment.is_relative_to(root/'sim') != (mode == 'sim'):
++        raise ValueError('환경 파일의 real/sim 경로 혼용')
++    profile = load_environment(environment, root, mode, require_survey=False)
++    return_mode = profile.get('station_return_mode', 'marker_docking')
++    if return_mode not in ('marker_docking', 'navigation_only'):
++        raise ValueError('알 수 없는 station_return_mode')
++    if return_mode == 'navigation_only' and mode != 'sim':
++        raise ValueError('마커 없는 스테이션 복귀는 sim에서만 허용합니다.')
+     if not re.fullmatch(r'[A-Za-z][A-Za-z0-9_]*', profile['robot_id']):
+         raise ValueError('robot_id는 단일 ROS namespace여야 합니다.')
+     settings = NavigationSettings.from_mapping(profile['navigation'])
++    if profile.get('traffic', {}).get('enabled'):
++        raise ValueError('운송 교통 허가 연결 전에는 traffic.enabled를 사용할 수 없습니다.')
++    if profile.get('precision_enabled') and (settings.tf_recovery_enabled or settings.collision_retry_count):
++        raise ValueError('정밀 도킹의 단일 출력 연결에는 별도 Nav2 정지 publisher를 사용할 수 없습니다.')
+     if settings.mode != 'follow_path' or settings.parallel_approach:
+         raise ValueError('1차 운송은 기본 그래프 FollowPath만 사용합니다.')
+     for key in ('device_config', 'map_yaml', 'nav_params', 'route_graph', 'destinations'):
+@@ -41,8 +53,11 @@
+     """외부 브릿지 사용 여부와 무관하게 설정 검증을 생략하지 않는다."""
+     if profile.get('execution_enabled') is not True:
+         raise ValueError('실측·장치·Nav2 설정 확인 후 execution_enabled를 활성화하세요.')
+-    if profile['device'].get('hardware_configured') is not True:
+-        raise ValueError('device hardware_configured가 false입니다. sim도 실제 브릿지 설정 확인 필요')
++    if profile['mode'] == 'sim':
++        if profile['device'].get('use_sim_time') is not True:
++            raise ValueError('sim 장치는 use_sim_time=true가 필요합니다.')
++    elif profile['device'].get('hardware_configured') is not True:
++        raise ValueError('device hardware_configured가 false입니다.')
+ 
+ 
+ def destination(profile: dict[str, Any], graph: RouteGraph, station_id: str) -> tuple[tuple[float,float],float]:
+--- real_drive/robot/ros_ws/src/transport_robot/transport_robot/docking_port.py
++++ local/robot/ros_ws/src/transport_robot/transport_robot/docking_port.py
+@@ -12,6 +12,11 @@
+ 
+ 
+ class UnavailableDocking:
++    @property
++    def pending(self) -> bool:
++        """이 포트는 정밀주행 Goal을 만들지 않는다."""
++        return False
++
+     def available(self) -> bool:
+         return False
+ 
+--- real_drive/robot/ros_ws/src/transport_robot/transport_robot/transport_communication.py
++++ local/robot/ros_ws/src/transport_robot/transport_robot/transport_communication.py
+@@ -125,7 +125,12 @@
+                                    and goal.station_id == trial.get('station_id'))
+                 profile_id='';clearance_xy=None;clearance_yaw=None;entry_stage=False
+                 transfer_id='';harvest_robot_id='';target_marker_id=-1;docking_marker_id=-1
+-                if kind in ('return','unload'):
++                navigation_return = (kind == 'return'
++                    and self._node.profile.get('station_return_mode') == 'navigation_only')
++                if navigation_return:
++                    xy,yaw = destination(self._node.profile,self._node.graph,goal.station_id)
++                    station = goal.station_id
++                elif kind in ('return','unload'):
+                     if not self._node.docking.available():
+                         raise ValueError('ROBOT_NOT_READY: 정밀 도킹 미연결. internal/check_route로 이동만 점검하세요.')
+                     xy,yaw = destination(self._node.profile,self._node.graph,goal.station_id)
+@@ -177,7 +182,7 @@
+                     self._node.graph._candidates(xy,self._node.settings.max_goal_distance_m)
+                     station = ''
+                 integrated_clearance = kind == 'unload' and not dock_only_trial and validate_unload_workflow(self._node.profile, station)
+-                if kind != 'route' and not (kind == 'pickup' and self._node.profile.get('pickup_workflow')):validate_precision(self._node.profile,profile_id,target_marker_id,docking_marker_id,require_clearance=not (dock_only_trial or entry_stage or integrated_clearance))
++                if kind != 'route' and not navigation_return and not (kind == 'pickup' and self._node.profile.get('pickup_workflow')):validate_precision(self._node.profile,profile_id,target_marker_id,docking_marker_id,require_clearance=not (dock_only_trial or entry_stage or integrated_clearance))
+                 if not self._node.route_ready():
+                     raise ValueError('ROBOT_NOT_READY: 최신 TF/odom/scan 및 정지 필요')
+                 self._reservation = Request(goal.task_id,kind,xy,yaw,station,transfer_id,harvest_robot_id,target_marker_id,docking_marker_id,profile_id,clearance_xy,clearance_yaw,dock_only_trial,entry_stage)
+--- real_drive/robot/ros_ws/src/transport_robot/transport_robot/transport_node.py
++++ local/robot/ros_ws/src/transport_robot/transport_robot/transport_node.py
+@@ -78,6 +78,7 @@
+             else:
+                 raise ValueError('Unknown mechanical device backend: ' + backend)
+         self.controller = TransportStateController(self.navigator,self.mission,self.docking,self.device)
++        self.controller.station_return_mode = self.profile.get('station_return_mode', 'marker_docking')
+         self.controller.pickup_workflow = self.profile.get('pickup_workflow', {})
+         self.controller.unload_workflows = self.profile.get('unload_workflows', {})
+         self.controller.parking_profiles = {name for name,p in self.profile.get("precision_registry",{}).get("profiles",{}).items() if p.get("parking",{}).get("enabled") and p["parking"].get("next_mission") == "direct"}
+@@ -195,7 +196,7 @@
+ 
+     def close(self) -> None:
+         self.controller.close()
+-        if hasattr(self, "lease"):self.lease.close()
++        if self.lease is not None:self.lease.close()
+         self._telemetry_pool.shutdown(wait=True)
+         self.communication.close()
+         self.client.close()
+--- real_drive/robot/ros_ws/src/farm_docking/farm_docking/precision_server.py
++++ local/robot/ros_ws/src/farm_docking/farm_docking/precision_server.py
+@@ -206,16 +206,39 @@
+         report=self._raw_reports[-1] if self._raw_reports else {}
+         stamp=report.get('stamp_ns',0)
+         age=(now-stamp)/1e9
+-        # Recognition only: do not calculate or filter a taught goal while Nav2 moves.
+         ready=(stamp>=route['observation_start_ns'] and
+                0<=age<=p['route_handoff']['recognition_max_age_s'] and
+                any(m.get('marker_id')==p['target_marker_id'] for m in report.get('markers',[])))
++        reason='waiting for fresh target marker'
++        if ready:
++            # 도킹과 같은 입력 시각·최종 설정·거리 판정으로 전환 가능 여부만 확인한다.
++            # 일회용 검사기의 목표/샘플은 버리고, 실제 목표는 정차 후 새로 취득한다.
++            ready=False
++            try:
++                frame=p.get('entry',{}).get('odom_frame',self.get_parameter('odom_frame').value)
++                captured=self.tf.lookup_transform(frame,p.get('base_frame',self.marker_base_frame),
++                    Time(nanoseconds=stamp),timeout=Duration(seconds=0.))
++                v,q=captured.transform.translation,captured.transform.rotation
++                odom_base=transform_matrix((v.x,v.y,v.z),(q.x,q.y,q.z,q.w))
++                controller=self._pose_controller
++                checker=(StagedDockTracker(controller.target,controller.marker_id,p['target_tracking'],p['acquire_then_odom'])
++                         if p.get('acquire_then_odom') else
++                         FixedTargetTracker(controller.target,controller.marker_id,p['target_tracking']))
++                # 정차 후 관측 변동을 위한 전환 여유. 실제 도킹의 허용범위는 변경하지 않는다.
++                margin=float(p['route_handoff'].get('approach_margin_m',0.))
++                limit=controller.c['max_planar_distance_m']
++                if not math.isfinite(margin) or not 0<=margin<limit:
++                    raise ValueError('Invalid route approach margin')
++                ready=checker.update(report,odom_base,now,limit-margin,controller.c['max_tilt_rad'])
++                reason='marker within approach envelope; stop before acquisition' if ready else checker.reason
++            except (TransformException,ValueError,KeyError,TypeError) as exc:
++                reason='waiting for valid route marker/TF: '+str(exc)
+         if ready and not route.get('ready_logged'):
+             route['ready_logged']=True
+-            self.get_logger().info(f"Harvest route marker recognized: id={p['target_marker_id']}; stop Nav2 before taught target acquisition")
++            self.get_logger().info(f"Harvest route marker recognized: id={p['target_marker_id']}; within approach envelope; stop Nav2 before taught target acquisition")
+         self._harvest_ready_pub.publish(String(data=json.dumps(dict(
+             observer_id=route['observer_id'],profile=route['profile'],stamp_ns=stamp,
+-            ready=ready,reason='marker recognized; stop before acquisition' if ready else 'waiting for fresh target marker'))))
++            ready=bool(ready),reason=reason))))
+ 
+     def odom_transit(self,p):
+         return bool(p.get('acquire_then_odom') and getattr(self._target_tracker,'phase','') in ('TRANSIT','ALIGN'))
+@@ -548,11 +571,22 @@
+                 self._last_observation=None;self._observations={}
+                 self.get_logger().info(f'Marker profile selected: target={p["pose_target"]}, id={controller.marker_id}, size={controller.size:.3f}m, direction={controller.c["direction"]}')
+ 
++    def motion_time(self) -> float:
++        """동작 예산: 시뮬은 ROS /clock, 실물은 기존 단조 증가 실제시간."""
++        if self.get_parameter('use_sim_time').value:
++            return self.get_clock().now().nanoseconds/1e9
++        return time.monotonic()
++
++    def motion_elapsed(self, started: float) -> float:
++        elapsed=self.motion_time()-started
++        if elapsed<0:raise RuntimeError('Motion clock moved backwards; restart the action')
++        return elapsed
++
+     def execute(self,handle):
+-        session={'handle':handle,'done':Event(),'error':'','candidate':False,'started':time.monotonic()}
++        session={'handle':handle,'done':Event(),'error':'','candidate':False,'started':time.monotonic(),'motion_started':self.motion_time()}
+         self._pending.put(('start',session))
+         while not session['done'].wait(.03):
+-            if handle.is_cancel_requested or time.monotonic()-session['started']>120:
++            if handle.is_cancel_requested or self.motion_time()-session['motion_started']>120:
+                 self._pending.put(('stop',session))
+         result=PrecisionMotion.Result()
+         result.stopped=self.stopped()
+@@ -709,7 +743,7 @@
+             if not (p.get('distance_departure') or p.get('relative_backout')) and 'lidar_stage' not in s and not self.odom_transit(p) and self._camera_failure and self._camera_failure[0]==self._camera_generation:
+                 raise RuntimeError(self._camera_failure[1])
+             self.lease.check()
+-            if time.monotonic()-s['started']>p.get('timeout_s',90.):raise TimeoutError('정밀주행 시간 초과')
++            if self.motion_elapsed(s['motion_started'])>p.get('timeout_s',90.):raise TimeoutError('정밀주행 시간 초과')
+             if 'recovery_wait' in s:
+                 self.run_recovery(s,p)
+                 return
+@@ -775,7 +809,7 @@
+                 self.drive(linear,angular)
+                 if done:s['candidate']=True;s['ending_at']=time.monotonic()
+             elif p.get('strategy')=='marker_pose':
+-                if time.monotonic()-s['started']>p.get('timeout_s',90.):raise TimeoutError('정밀주행 시간 초과')
++                if self.motion_elapsed(s['motion_started'])>p.get('timeout_s',90.):raise TimeoutError('정밀주행 시간 초과')
+                 if p.get('bounded_trial'):self.check_trial_extrinsics()
+                 if 'entry_controller' in s and not s.get('entry_complete'):
+                     self.run_entry(s,q,p)
+@@ -864,7 +898,7 @@
+                     s['candidate']=False;s['error']='최종 거리/정렬 실측 검증 실패'
+             if s.get('last_phase')!=self.state:
+                 feedback=PrecisionMotion.Feedback();feedback.phase=self.state;s['handle'].publish_feedback(feedback);s['last_phase']=self.state
+-            if time.monotonic()-s['started']>p.get('timeout_s',90.):raise TimeoutError('정밀주행 시간 초과')
++            if self.motion_elapsed(s['motion_started'])>p.get('timeout_s',90.):raise TimeoutError('정밀주행 시간 초과')
+         except (Recoverable,TransformException) as exc:
+             if 'parking_started' in s:
+                 self.finish(FAILED,'Parking rotation: '+str(exc));return
+@@ -886,6 +920,7 @@
+         self.drive(0.,0.,force=True)
+         s['lidar_controller'].good_since=None
+         started=s.setdefault('lidar_input_wait_since',time.monotonic())
++        s.setdefault('lidar_input_wait_motion',self.motion_time())
+         self.log_scan_delay(s,exc)
+         self.phase_feedback(s,'WAIT_LIDAR_INPUTS')
+         if time.monotonic()-started>p['lidar_approach'].get('stale_wait_s',1.):
+@@ -1114,7 +1149,7 @@
+         s.pop('recovery_wait');s.pop('marker_wait_since',None)
+         if p.get('distance_heading_trial'):
+             s.pop('heading_capture',None);s.pop('distance_heading_sample',None)
+-            s['distance_acquire_started']=now
++            s['distance_acquire_started']=self.motion_time()
+         if 'preparing_at' in s:
+             s['preparing_at']=time.monotonic()
+         elif 'entry_controller' in s and not s.get('entry_complete'):
+@@ -1483,9 +1518,10 @@
+         if s['handle'].request.operation != 'DOCK':
+             return False
+         from .initial_marker_recovery import InitialMarkerRecovery
+-        now = time.monotonic()
++        now = self.motion_time()
+         if 'initial_marker_policy' not in s:s['initial_marker_policy']=InitialMarkerRecovery(c,now)
+         policy = s['initial_marker_policy']
++        self.motion_elapsed(policy.started)  # /clock 역행은 새 액션으로 재시작해야 한다.
+         stamp_now = self.get_clock().now().nanoseconds
+         marker_id = p['target_marker_id']
+         visible = any(report.get('stamp_ns', 0) >= s['observation_start_ns']
+@@ -1546,7 +1582,7 @@
+             return
+         self.drive(0.,0.,force=True)
+         self.phase_feedback(s,'ACQUIRE_DISTANCE_HEADING')
+-        if time.monotonic()-s.get('distance_acquire_started',s['started'])>c['acquire_timeout_s']:
++        if self.motion_elapsed(s.get('distance_acquire_started',s['motion_started']))>c['acquire_timeout_s']:
+             raise TimeoutError('Distance trial: stable front marker not acquired; no search motion')
+         if not self.stopped():return
+         captured=self.capture_distance_heading(s,p)
+@@ -1580,7 +1616,7 @@
+ 
+     def run_harvest_heading(self,s,p):
+         c=p['distance_heading_trial']
+-        if time.monotonic()-s.get('distance_acquire_started',s['started'])>c['acquire_timeout_s']:
++        if self.motion_elapsed(s.get('distance_acquire_started',s['motion_started']))>c['acquire_timeout_s']:
+             raise TimeoutError('Marker42 heading alignment timeout')
+         _,_,yaw=self.lidar_odom(p)
+         error=math.atan2(math.sin(s['harvest_locked_heading']-yaw),math.cos(s['harvest_locked_heading']-yaw))
+@@ -1622,7 +1658,7 @@
+         # Marker target reached and measured stop confirmed by the caller.
+         c=p['lidar_approach']
+         if 'lidar_initial_wait_since' in s:
+-            elapsed=time.monotonic()-s['lidar_initial_wait_since']
++            elapsed=self.motion_elapsed(s['lidar_initial_wait_since'])
+             if elapsed>=c.get('initial_acquire_wait_s',3.)+c.get('initial_creep_s',0.):
+                 raise TimeoutError('Initial lidar surface acquisition timeout: '+s.get('lidar_initial_error',''))
+         candidate=dict(s)
+@@ -1640,9 +1676,9 @@
+                 'Raw front center cluster insufficient','Raw front surface inconsistent',
+                 'Marker surface not matched','Marker surface ambiguous'))
+             if not retryable or not p['lidar_approach'].get('initial_acquire_wait_s'):raise
+-            s.setdefault('lidar_initial_wait_since',time.monotonic())
++            s.setdefault('lidar_initial_wait_since',self.motion_time())
+             s['lidar_initial_error']=str(exc)
+-            if time.monotonic()-s['lidar_initial_wait_since']>=c['initial_acquire_wait_s'] and c.get('initial_creep_s',0.)>0:
++            if self.motion_elapsed(s['lidar_initial_wait_since'])>=c['initial_acquire_wait_s'] and c.get('initial_creep_s',0.)>0:
+                 self.run_initial_surface_creep(s,p)
+             else:
+                 self.drive(0.,0.,force=True)
+@@ -1656,7 +1692,7 @@
+             remaining=max(0.,distance-limits['target_distance_m'])
+             limits['max_travel_m']=min(limits['max_travel_m'],remaining+.10)
+             limits['timeout_s']=min(limits['timeout_s'],remaining/limits['max_linear_mps']*1.5+10.)
+-        s.update(lidar_stage=True,lidar_started=time.monotonic(),
++        s.update(lidar_stage=True,lidar_started=self.motion_time(),
+                  lidar_origin=candidate['lidar_origin'],lidar_controller=candidate['lidar_controller'],lidar_limits=limits)
+         self.phase_feedback(s,'LIDAR_APPROACH')
+ 
+@@ -1687,14 +1723,19 @@
+         return s['lidar_controller'].step(scan,self.get_clock().now().nanoseconds,error,**poses)
+ 
+     def run_lidar_approach(self,s,p):
+-        if s.get('lidar_input_wait_since',time.monotonic())-s['lidar_started']>s.get('lidar_limits',p['lidar_approach'])['timeout_s']:raise TimeoutError('Final lidar approach timed out')
++        elapsed=self.motion_elapsed(s['lidar_started'])
++        if 'lidar_input_wait_motion' in s:
++            elapsed-=self.motion_elapsed(s['lidar_input_wait_motion'])
++        if elapsed>s.get('lidar_limits',p['lidar_approach'])['timeout_s']:raise TimeoutError('Final lidar approach timed out')
+         v,w,done,d=self.lidar_status(s,p)
+         self.phase_feedback(s,'VERIFY_LIDAR_STOP' if v==0. else 'LIDAR_APPROACH')
+         self.drive(v,w)  # Retains existing filtered-scan swept-footprint check.
+         waited=s.pop('lidar_input_wait_since',None)
+         if waited is not None:
+             duration=time.monotonic()-waited
+-            s['lidar_started']+=duration;s['started']+=duration
++            motion_duration=self.motion_elapsed(s.pop('lidar_input_wait_motion'))
++            s['lidar_started']+=motion_duration;s['motion_started']+=motion_duration
++            s['started']+=duration
+             self.get_logger().info(f'Lidar inputs recovered after {duration:.3f}s; continuing retained target')
+         if time.monotonic()-s.get('lidar_log_at',-1e9)>1.:
+             s['lidar_log_at']=time.monotonic()
+--- real_drive/robot/ros_ws/src/farm_bringup/setup.py
++++ local/robot/ros_ws/src/farm_bringup/setup.py
+@@ -12,5 +12,5 @@
+     install_requires=['setuptools'], zip_safe=True,
+     maintainer='Farm Team', maintainer_email='maintainer@example.com',
+     description='Farm integration scaffold', license='Proprietary',
+-    entry_points={'console_scripts': ['scout_navigation_start = farm_bringup.scout_navigation_start:main']},
++    entry_points={'console_scripts': []},
+ )
+--- real_drive/robot/ros_ws/src/farm_bringup/launch/scout_navigation.launch.py
++++ local/robot/ros_ws/src/farm_bringup/launch/scout_navigation.launch.py
+@@ -70,29 +70,10 @@
+         actions.append(Node(package=package, executable=name, name=name,
+                             namespace=namespace, output='screen',
+                             parameters=[params, *extra], remappings=remaps))
+-    if sim:
+-        actions.append(Node(package='nav2_lifecycle_manager', executable='lifecycle_manager',
+-            name='lifecycle_manager_navigation', namespace=namespace, output='screen',
+-            parameters=[{'use_sim_time': True, 'autostart': True,
+-                         'node_names': [name for _, name in servers], 'bond_timeout': 10.0}]))
+-    else:
+-        # AMCL must activate before the operator can publish an initial pose.
+-        for manager, names, autostart in (
+-            ('localization', ['map_server', 'amcl'], True),
+-            ('navigation', [name for _, name in servers[2:]], False),
+-        ):
+-            actions.append(Node(package='nav2_lifecycle_manager', executable='lifecycle_manager',
+-                name='lifecycle_manager_' + manager, namespace=namespace, output='screen',
+-                parameters=[{'use_sim_time': False, 'autostart': autostart,
+-                             'node_names': names, 'bond_timeout': 10.0}]))
+-        bindings = load_nav2_parameters(selected['nav_params'], root)
+-        costmap = bindings['global_costmap']['global_costmap']['ros__parameters']
+-        actions.append(Node(package='farm_bringup', executable='scout_navigation_start',
+-            namespace=namespace, output='screen',
+-            parameters=[{'map_frame': costmap.get('global_frame', 'map'),
+-                         'base_frame': costmap.get('robot_base_frame', 'base_link')}],
+-            remappings=[('/tf', '/' + namespace + '/tf'),
+-                        ('/tf_static', '/' + namespace + '/tf_static')]))
++    actions.append(Node(package='nav2_lifecycle_manager', executable='lifecycle_manager',
++        name='lifecycle_manager_navigation', namespace=namespace, output='screen',
++        parameters=[{'use_sim_time': sim, 'autostart': True,
++                     'node_names': [name for _, name in servers], 'bond_timeout': 10.0}]))
+     actions.append(Node(package='scout_robot', executable='route_preview',
+         namespace=namespace, output='screen',
+         parameters=[{'use_sim_time': sim, 'route_file': selected['route_file']}]))
+--- real_drive/robot/ros_ws/src/farm_bringup/launch/transport_navigation.launch.py
++++ local/robot/ros_ws/src/farm_bringup/launch/transport_navigation.launch.py
+@@ -1,76 +0,0 @@
+-"""Common localization/navigation; map and parameters are selected by mode."""
+-from pathlib import Path
+-from ament_index_python.packages import get_package_share_directory
+-from launch import LaunchDescription
+-from launch.actions import DeclareLaunchArgument, OpaqueFunction, LogInfo
+-from launch.substitutions import LaunchConfiguration
+-from launch_ros.actions import Node
+-from launch_ros.descriptions import ParameterFile
+-from nav2_common.launch import RewrittenYaml
+-
+-
+-def setup(context):
+-    value = lambda name: LaunchConfiguration(name).perform(context)
+-    sim = value('mode') == 'sim'
+-    config = Path(get_package_share_directory('farm_sim_config')) if sim else None
+-    selected = {}
+-    for name, relative in [('map', 'maps/farm_map.yaml'),
+-                           ('nav_params', 'config/nav2_scout.yaml'),
+-                           ('route_file', 'maps/graph.geojson')]:
+-        path = Path(value(name)) if value(name) else (config / relative if sim else None)
+-        if path is None or not path.is_file():
+-            raise RuntimeError(f'{name}: 실제 존재하는 파일을 지정하세요. real 설정은 아직 준비되지 않았습니다.')
+-        selected[name] = str(path.absolute())
+-    # 프레임 이름은 유지하고 실물 TF·센서 토픽을 장치 namespace에 연결합니다.
+-    namespace = value('robot_id')
+-    params = ParameterFile(RewrittenYaml(
+-        source_file=selected['nav_params'], root_key=namespace,
+-        param_rewrites={'use_sim_time': 'true' if sim else 'false'},
+-        convert_types=True), allow_substs=False)
+-    servers = [
+-        ('nav2_map_server', 'map_server'), ('nav2_amcl', 'amcl'),
+-        ('nav2_controller', 'controller_server'), ('nav2_planner', 'planner_server'),
+-        ('nav2_behaviors', 'behavior_server'), ('nav2_bt_navigator', 'bt_navigator'),
+-        ('nav2_velocity_smoother', 'velocity_smoother'),
+-    ]
+-    actions = [LogInfo(msg='Scout Nav2 설정 파일: '+selected['nav_params'])]
+-    for package, name in servers:
+-        extra = [{'yaml_filename': selected['map']}] if name == 'map_server' else []
+-        remaps = []
+-        if name in ('controller_server', 'behavior_server'):
+-            remaps = [('cmd_vel', 'cmd_vel_nav')]
+-        elif name == 'velocity_smoother':
+-            remaps = [('cmd_vel', 'cmd_vel_nav'), ('cmd_vel_smoothed', value('cmd_vel_output'))]
+-        if not sim:
+-            remaps += [('/'+topic, '/'+namespace+'/'+topic)
+-                       for topic in ('tf', 'tf_static', 'scan', 'scan_filtered', 'odom', 'map')]
+-        actions.append(Node(package=package, executable=name, name=name,
+-                            namespace=namespace, output='screen',
+-                            parameters=[params, *extra], remappings=remaps))
+-    actions.append(Node(package='nav2_lifecycle_manager', executable='lifecycle_manager',
+-        name='lifecycle_manager_navigation', namespace=namespace, output='screen',
+-        parameters=[{'use_sim_time': sim, 'autostart': True,
+-                     'node_names': [name for _, name in servers], 'bond_timeout': 10.0}]))
+-    actions.append(Node(package='scout_robot', executable='route_preview',
+-        namespace=namespace, output='screen',
+-        parameters=[{'use_sim_time': sim, 'route_file': selected['route_file']}]))
+-    if value('rviz') == 'true':
+-        rviz = Path(get_package_share_directory('scout_robot')) / 'config/scout.rviz'
+-        actions.append(Node(package='rviz2', executable='rviz2', name='scout_rviz',
+-            output='screen', arguments=['-d', str(rviz)],
+-            parameters=[{'use_sim_time': sim}],
+-            remappings=[('/initialpose', f'/{namespace}/initialpose')]))
+-    return actions
+-
+-
+-def generate_launch_description():
+-    return LaunchDescription([
+-        DeclareLaunchArgument('cmd_vel_output', default_value='cmd_vel'),
+-        DeclareLaunchArgument('robot_id', default_value='scout_01'),
+-        DeclareLaunchArgument('mode', default_value='sim', choices=['sim', 'real']),
+-        DeclareLaunchArgument('map', default_value=''),
+-        DeclareLaunchArgument('nav_params', default_value=''),
+-        DeclareLaunchArgument('route_file', default_value=''),
+-        DeclareLaunchArgument('rviz', default_value='false', choices=['true', 'false']),
+-        OpaqueFunction(function=setup),
+-    ])
+--- real_drive/robot/ros_ws/src/farm_bringup/launch/transport_devices.launch.py
++++ local/robot/ros_ws/src/farm_bringup/launch/transport_devices.launch.py
+@@ -1,107 +0,0 @@
+-"""실물 장치만 실행합니다. Nav2·미션·카메라는 여기서 중복 실행하지 않습니다."""
+-import json
+-import os
+-from pathlib import Path
+-import tempfile
+-import re
+-from ament_index_python.packages import get_package_share_directory
+-from launch import LaunchContext, LaunchDescription
+-from launch.actions import (DeclareLaunchArgument, GroupAction, IncludeLaunchDescription,
+-                            OpaqueFunction, RegisterEventHandler, SetEnvironmentVariable)
+-from launch.event_handlers import OnShutdown
+-from launch.launch_description_sources import PythonLaunchDescriptionSource, AnyLaunchDescriptionSource
+-from launch.substitutions import LaunchConfiguration
+-from launch_ros.actions import PushRosNamespace, SetRemap, Node
+-from launch_ros.parameter_descriptions import ParameterValue
+-from farm_bringup.transport_description import load_description
+-
+-
+-def start_devices(context: LaunchContext) -> list:
+-    """기존 미니관제의 하드웨어 bringup을 재사용합니다."""
+-    config_path = Path(LaunchConfiguration('config_file').perform(context)).resolve()
+-    config = json.loads(config_path.read_text())
+-    model = config['model']
+-    robot_id = config['robot_id']
+-    velocity_type = LaunchConfiguration('cmd_vel_type').perform(context)
+-    if model not in ('burger', 'waffle', 'waffle_pi', 'vicpinky'):
+-        raise ValueError(f'지원하지 않는 실물 모델: {model}')
+-    if not isinstance(robot_id, str) or not robot_id.strip():
+-        raise ValueError('robot_id가 필요합니다.')
+-    actions = [PushRosNamespace(robot_id)]
+-    # 기존 드라이버의 절대 토픽도 로봇 namespace 안으로 모읍니다.
+-    for topic in ('tf', 'tf_static', 'odom', 'scan', 'scan_filtered', 'cmd_vel', 'joint_states'):
+-        actions.append(SetRemap(src='/' + topic, dst=topic))
+-    if model == 'vicpinky':
+-        if velocity_type != 'twist':
+-            raise ValueError('기존 vicpinky 연결은 cmd_vel_type:=twist를 사용합니다.')
+-        launch = Path(get_package_share_directory('vicpinky_bringup')) / 'launch/bringup.launch.xml'
+-        actions.append(IncludeLaunchDescription(AnyLaunchDescriptionSource(str(launch)),
+-                       launch_arguments={'use_sim_time': 'false'}.items()))
+-    else:
+-        share = Path(get_package_share_directory('turtlebot3_bringup'))
+-        parameter_dir = share / 'param'
+-        if os.environ.get('ROS_DISTRO') == 'humble':
+-            parameter_dir /= 'humble'
+-        parameters = (parameter_dir / (model + '.yaml')).read_text()
+-        # 모터·바퀴 보정값은 원본을 유지하고 속도 메시지 형식만 상위 런치와 맞춥니다.
+-        parameters, count = re.subn(r'(enable_stamped_cmd_vel:\s*)(true|false)',
+-                                    lambda match: match[1] + ('true' if velocity_type == 'twist_stamped' else 'false'), parameters)
+-        if count != 1:
+-            raise ValueError('기존 드라이버의 enable_stamped_cmd_vel 설정을 확인하세요.')
+-        with tempfile.NamedTemporaryFile(mode='w', prefix='farm_base_', suffix='.yaml', delete=False) as output:
+-            output.write(parameters)
+-            parameter_file = Path(output.name)
+-        def cleanup(context: LaunchContext) -> list:
+-            parameter_file.unlink(missing_ok=True)
+-            return []
+-        actions.extend([
+-            RegisterEventHandler(OnShutdown(on_shutdown=[OpaqueFunction(function=cleanup)])),
+-            SetEnvironmentVariable('TURTLEBOT3_MODEL', model),
+-            SetEnvironmentVariable('LDS_MODEL', config['lds_model']),
+-            IncludeLaunchDescription(PythonLaunchDescriptionSource(str(share / 'launch/robot.launch.py')),
+-                launch_arguments={'namespace': '', 'use_sim_time': 'false',
+-                                  'usb_port': config['usb_port'], 'tb3_param_dir': str(parameter_file)}.items())])
+-    # 필터는 기종 장치 설정에서 선택한다. 미설정 기종의 기존 scan 경로는 보존한다.
+-    scan_filter = config.get('scan_filter', {})
+-    if scan_filter.get('enabled', False):
+-        filter_path = (config_path.parent / scan_filter['config_file']).resolve()
+-        if not filter_path.is_file():
+-            raise ValueError(f'라이다 필터 설정이 없습니다: {filter_path}')
+-        input_topic = scan_filter.get('input_topic', 'scan')
+-        output_topic = scan_filter.get('output_topic', 'scan_filtered')
+-        if input_topic == output_topic:
+-            raise ValueError('라이다 필터 입출력 토픽은 달라야 합니다.')
+-        actions.append(Node(
+-            package='laser_filters', executable='scan_to_scan_filter_chain',
+-            name='body_scan_filter', output='screen',
+-            parameters=[str(filter_path), {
+-                f'qos_overrides./{robot_id}/{input_topic}.subscription.reliability': 'best_effort'}],
+-            remappings=[('scan', input_topic), ('scan_filtered', output_topic)]))
+-    mount=config.get('camera_mount')
+-    description=config.get('mount_description', {})
+-    if description.get('enabled', False):
+-        # 기존 본체 publisher는 유지하고 추가 링크만 별도 발행한다.
+-        # 카메라 static publisher를 함께 실행하지 않아 TF 중복을 막는다.
+-        share = Path(get_package_share_directory('farm_real_devices'))
+-        xml = load_description(config, share / 'description')
+-        actions.append(Node(package='robot_state_publisher', executable='robot_state_publisher',
+-            name='scout_mount_state_publisher', output='screen',
+-            parameters=[{'robot_description': ParameterValue(xml, value_type=str)}],
+-            remappings=[('robot_description', 'scout_mount_description')]))
+-    elif mount:
+-        # 기존 run_camera_mount.sh 값을 재사용합니다. 같은 TF를 별도로 실행하지 않습니다.
+-        def fixed(parent: str, child: str, xyz: list, rpy: list) -> Node:
+-            args=['--frame-id',parent,'--child-frame-id',child]
+-            for key,value in zip(('x','y','z','roll','pitch','yaw'),[*xyz,*rpy]):args.extend(['--'+key,str(value)])
+-            return Node(package='tf2_ros',executable='static_transform_publisher',arguments=args,output='screen')
+-        actions.append(fixed(mount['parent_frame'],mount['link_frame'],mount['xyz_m'],mount['rpy_rad']))
+-        actions.append(fixed(mount['link_frame'],mount['optical_frame'],[0,0,0],mount['optical_rpy_rad']))
+-    return [GroupAction(actions=actions)]
+-
+-
+-def generate_launch_description() -> LaunchDescription:
+-    default = Path(get_package_share_directory('farm_real_devices')) / 'config/scout_devices_real.json'
+-    return LaunchDescription([
+-        DeclareLaunchArgument('config_file', default_value=str(default)),
+-        DeclareLaunchArgument('cmd_vel_type', default_value='twist', choices=['twist', 'twist_stamped']),
+-        OpaqueFunction(function=start_devices)])
+--- real_drive/robot/ros_ws/src/farm_bringup/launch/harvest.launch.py
++++ local/robot/ros_ws/src/farm_bringup/launch/harvest.launch.py
+@@ -36,8 +36,10 @@
+         ('/tf', '/' + profile['robot_id'] + '/tf'),
+         ('/tf_static', '/' + profile['robot_id'] + '/tf_static')]
+     handoff_file = value('handoff_config')
+-    if handoff_file and (mode != 'real' or value('navigation') != 'true'):
+-        raise ValueError('인계 구성은 실물 Nav2와 함께 시작해야 합니다.')
++    if handoff_file and value('navigation') != 'true':
++        raise ValueError('인계 구성은 Nav2와 함께 시작해야 합니다.')
++    if handoff_file and resolve_file(root, handoff_file).is_relative_to(root/'sim') != (mode == 'sim'):
++        raise ValueError('인계 설정도 선택한 환경 경로에 있어야 합니다.')
+     actions = []
+     if value('devices') == 'true':
+         if mode == 'real':
+@@ -62,7 +64,7 @@
+         cfg = read_mapping(resolve_file(root, handoff_file))
+         wall = read_mapping(resolve_file(root, cfg['wall_config']))
+         bundle = build_server_config(load_nav2_parameters(profile['nav_params'], root),
+-            profile['robot_id'], wall, NavigationSettings.from_mapping(profile['navigation']), False,
++            profile['robot_id'], wall, NavigationSettings.from_mapping(profile['navigation']), mode == 'sim',
+             footprint_padding=cfg.get('footprint_padding'))
+         prefix = bundle['prefix']
+         cp = bundle['values'][prefix+'/controller_server']['ros__parameters']
+@@ -73,8 +75,12 @@
+             yaml.safe_dump(bundle['values'], stream, sort_keys=False)
+             server_file = stream.name
+         atexit.register(Path(server_file).unlink, missing_ok=True)
+-        sensor_remaps = [(topic, '/'+profile['robot_id']+'/'+topic.lstrip('/'))
+-                         for topic in ('/tf', '/tf_static', 'odom', 'scan_filtered')]
++        sensor_remaps = tf_remaps + [(topic, '/'+profile['robot_id']+'/'+topic)
++                                    for topic in ('odom', 'scan_filtered')]
++        if mode == 'sim':
++            # 가상 LiDAR는 기존 scan을 발행한다. 입력 이름만 연결하며 측정값은 보존한다.
++            sensor_remaps.append(('/'+profile['robot_id']+'/scan_filtered',
++                                  '/'+profile['robot_id']+'/scan'))
+         actions.append(Node(package='nav2_controller', executable='controller_server',
+             name='controller_server', namespace=prefix, output='screen',
+             parameters=[server_file], remappings=sensor_remaps+[('cmd_vel', 'raw_nav')]))
+@@ -83,7 +89,7 @@
+             parameters=[bundle['spin']], remappings=sensor_remaps+[('cmd_vel', 'raw_spin')]))
+         actions.append(Node(package='nav2_lifecycle_manager', executable='lifecycle_manager',
+             name='lifecycle_manager', namespace=prefix, output='screen', parameters=[{
+-                'use_sim_time': False, 'autostart': True,
++                'use_sim_time': mode == 'sim', 'autostart': True,
+                 'node_names': ['controller_server', 'behavior_server'], 'bond_timeout': 0.0}]))
+         harvest_config.setdefault('transfer', {})['rotation_mode'] = 'components'
+         harvest_config['transfer']['rotation'] = {}
+@@ -107,8 +113,11 @@
+             name='route_lifecycle_manager', namespace=profile['robot_id'], output='screen',
+             parameters=[{'use_sim_time': mode == 'sim', 'autostart': True,
+                 'node_names': ['route_server'], 'bond_timeout': 10.0}]))
++    harvest_remaps = list(tf_remaps)
++    if handoff_file and mode == 'sim':
++        harvest_remaps.append(('/'+profile['robot_id']+'/scan_filtered', '/'+profile['robot_id']+'/scan'))
+     actions.append(Node(package='harvest_robot',executable='harvest_node',namespace=profile['robot_id'],
+-        output='screen',sigterm_timeout='60',sigkill_timeout='5',remappings=tf_remaps,parameters=[dict(
++        output='screen',sigterm_timeout='60',sigkill_timeout='5',remappings=harvest_remaps,parameters=[dict(
+             project_root=str(root),environment_config=str(environment),mode=mode,use_sim_time=mode=='sim',
+             tag_correction=tag_on, handoff_config=handoff_file, **transfer_parameters(harvest_config))]))
+     actions.extend(tag_actions)
+--- real_drive/robot/ros_ws/src/farm_bringup/launch/transport.launch.py
++++ local/robot/ros_ws/src/farm_bringup/launch/transport.launch.py
+@@ -1,76 +1,10 @@
+-"""기존 장치·Nav2 launch와 운송 서버 조립. Isaac/RViz는 독립 실행."""
+-from pathlib import Path
+-from ament_index_python.packages import get_package_share_directory
+ from launch import LaunchDescription
+-from launch.actions import DeclareLaunchArgument, IncludeLaunchDescription, OpaqueFunction
+-from launch.launch_description_sources import PythonLaunchDescriptionSource
+-from launch.substitutions import LaunchConfiguration
+-from launch_ros.actions import Node
+-from transport_robot.configuration import load_profile, require_execution
+-from farm_bringup.docking_sensors import load_docking_sensors, camera_runtime_options
++from launch.actions import OpaqueFunction
+ 
+ 
+-def setup(context) -> list:
+-    def value(name: str) -> str:
+-        return LaunchConfiguration(name).perform(context)
+-    root = Path(value('project_root')).expanduser().resolve()
+-    mode = value('mode')
+-    environment = value('environment_config')
+-    profile = load_profile(root,environment,mode)
+-    require_execution(profile)
+-    def include(package: str, name: str, arguments: dict):
+-        path = Path(get_package_share_directory(package))/'launch'/name
+-        return IncludeLaunchDescription(PythonLaunchDescriptionSource(str(path)),launch_arguments=arguments.items())
+-    actions = []
+-    if value('devices') == 'true':
+-        arguments = dict(config_file=profile['device_config'],cmd_vel_type='twist')
+-        actions.append(include('farm_bringup','transport_devices.launch.py',arguments))
+-    if value('navigation') == 'true':
+-        actions.append(include('farm_bringup','transport_navigation.launch.py',dict(mode=mode,
+-            robot_id=profile['robot_id'],map=profile['map_yaml'],nav_params=profile['nav_params'],
+-            route_file=profile['route_graph'],rviz='false',
+-            cmd_vel_output='motion/nav' if profile.get('precision_enabled') else 'cmd_vel')))
+-    if profile.get('precision_enabled'):
+-        if profile['device']['model']!='waffle':
+-            raise ValueError('Burger/빅핑키 정밀주행은 해당 기종 프로파일 검증 후 연결해야 합니다.')
+-        if value('navigation')!='true':
+-            raise ValueError('외부 Nav2 속도 우회 방지: 정밀주행 사용 시 navigation=true 필요')
+-        sensors, sensor_params = load_docking_sensors(root, profile['docking_sensors'])
+-        for item in profile['precision_registry']['profiles'].values():
+-            if item.get('base_frame', 'base_footprint') != sensors['base_frame']:
+-                raise ValueError('도킹 profile과 센서 base_frame 불일치')
+-        actions.append(Node(package='farm_docking',executable='motion_gate',namespace=profile['robot_id'],output='screen'))
+-        actions.append(Node(package='farm_docking',executable='precision_server',namespace=profile['robot_id'],output='screen',
+-            **camera_runtime_options(sensors),
+-            parameters=[dict(profiles_file=str(root/profile['precision_profiles']),sites_file=str(root/profile['legacy_sites']),
+-                log_dir=str(root/'runs/precision'),
+-                teach_file=str(root/'robot/config/docking/calibration/teach_{site}.yaml'),
+-                lidar_teach_file=str(root/'robot/config/docking/calibration/lidar_{site}.yaml'),
+-                skip_staging=True,cam_auto=False,autostart=False,dry_run=False,
+-                **sensor_params)],
+-            remappings=[('/cmd_vel','motion/precision'),('/odom',sensors['topics']['odom']),('/dock/cmd','precision_legacy_disabled'),
+-                        ('/dock/state','precision_legacy_state'),('/tf','tf'),('/tf_static','tf_static')]))
+-    if profile.get('mechanical_device', {}).get('backend') == 'trigger' and value('mechanical_bridge') == 'true':
+-        cfg = str(Path(get_package_share_directory('transport_device_bridge'))/'config'/'device_bridge.yaml')
+-        actions.append(Node(package='transport_device_bridge', executable='device_bridge',
+-            name='device_bridge', output='screen', parameters=[cfg, {'robot_ns': profile['robot_id']}],
+-            sigterm_timeout='50', sigkill_timeout='5'))
+-    remaps = [] if mode=='sim' else [('/tf','tf'),('/tf_static','tf_static')]
+-    actions.append(Node(package='transport_robot',executable='transport_node',namespace=profile['robot_id'],
+-        output='screen',sigterm_timeout='60',sigkill_timeout='5',remappings=remaps,
+-        parameters=[dict(project_root=str(root),environment_config=environment,mode=mode,
+-            use_sim_time=mode=='sim',allow_route_checks=value('allow_route_checks')=='true')]))
+-    return actions
++def unavailable(context):
++    raise RuntimeError('transport bringup은 후속 구현 대상입니다. 현재 scout의 경로 점검만 지원합니다.')
+ 
+ 
+-def generate_launch_description() -> LaunchDescription:
+-    return LaunchDescription([
+-        DeclareLaunchArgument('project_root'),
+-        DeclareLaunchArgument('mode',default_value='real',choices=['real']),
+-        DeclareLaunchArgument('environment_config',description='기종/환경 설정을 명시한다'),
+-        DeclareLaunchArgument('devices',default_value='true',choices=['true','false']),
+-        DeclareLaunchArgument('mechanical_bridge',default_value='true',choices=['true','false'],
+-            description='Start OpenCR bridge; false only when one external bridge is already running'),
+-        DeclareLaunchArgument('navigation',default_value='true',choices=['true','false']),
+-        DeclareLaunchArgument('allow_route_checks',default_value='false',choices=['true','false']),
+-        OpaqueFunction(function=setup)])
++def generate_launch_description():
++    return LaunchDescription([OpaqueFunction(function=unavailable)])
+--- real_drive/robot/ros_ws/src/farm_bringup/farm_bringup/transport_description.py
++++ local/robot/ros_ws/src/farm_bringup/farm_bringup/transport_description.py
+@@ -1,48 +0,0 @@
+-"""확정 장착 형상에 실물 장치 설정의 카메라 외부 파라미터를 적용한다."""
+-import math
+-from pathlib import Path
+-import xml.etree.ElementTree as ET
+-
+-
+-def _vector(config: dict, key: str) -> str:
+-    """유한한 xyz/rpy 세 성분을 URDF 속성으로 변환한다(m/rad)."""
+-    values = config[key]
+-    if not isinstance(values, list) or len(values) != 3:
+-        raise ValueError(f'{key}는 세 성분이어야 합니다.')
+-    if any(isinstance(v, bool) or not isinstance(v, (int, float))
+-           or not math.isfinite(v) for v in values):
+-        raise ValueError(f'{key}는 유한한 수여야 합니다.')
+-    return ' '.join(str(v) for v in values)
+-
+-
+-def load_description(config: dict, directory: Path, *, full: bool = False) -> str:
+-    """카메라 위치 원본 devices.json으로 장착/전체 URDF를 구성한다."""
+-    if config['model'] != 'burger':
+-        raise ValueError('확정 장착 모델은 Burger 전용입니다.')
+-    filename = 'scout_burger.urdf' if full else config['mount_description']['file']
+-    if filename not in ('scout_mount.urdf', 'scout_burger.urdf') or (not full and filename != 'scout_mount.urdf'):
+-        raise ValueError('실물 보조 publisher에는 scout_mount.urdf만 사용합니다.')
+-    root = ET.parse(directory / filename).getroot()
+-    links = {e.get('name') for e in root.findall('link')}
+-    joints = {e.find('child').get('link'): e for e in root.findall('joint')}
+-    for key in ('camera_mount', 'pi_camera_mount'):
+-        mount = config[key]
+-        parent, child, optical = (mount[k] for k in ('parent_frame', 'link_frame', 'optical_frame'))
+-        # 이 확정 모델의 프레임 계약을 유지하고 잘못된 이름 변경은 거절한다.
+-        expected = ('bmany_camera_link', 'camera_color_optical_frame') if key == 'camera_mount' else ('picam_frame', 'picam_optical_frame')
+-        if parent != 'base_footprint' or (child, optical) != expected:
+-            raise ValueError(f'{key}의 프레임 계약이 확정 모델과 다릅니다.')
+-        if not {parent, child, optical} <= links:
+-            raise ValueError(f'{key} 프레임이 URDF에 없습니다.')
+-        joint = joints[child]
+-        joint.find('parent').set('link', parent)
+-        joint.find('origin').set('xyz', _vector(mount, 'xyz_m'))
+-        joint.find('origin').set('rpy', _vector(mount, 'rpy_rad'))
+-        optical_joint = joints[optical]
+-        optical_joint.find('parent').set('link', child)
+-        optical_joint.find('origin').set('rpy', _vector(mount, 'optical_rpy_rad'))
+-    if not full:
+-        forbidden = {'base_link', 'base_scan', 'imu_link', 'wheel_left_link', 'wheel_right_link'}
+-        if links & forbidden or any(j.get('type') != 'fixed' for j in joints.values()):
+-            raise ValueError('보조 URDF에 기존 Burger TF 또는 구동 관절이 포함되었습니다.')
+-    return ET.tostring(root, encoding='unicode')
+--- real_drive/robot/ros_ws/src/farm_bringup/farm_bringup/scout_navigation_start.py
++++ local/robot/ros_ws/src/farm_bringup/farm_bringup/scout_navigation_start.py
+@@ -1,78 +0,0 @@
+-"""Start real scout navigation only after localization provides a fresh TF."""
+-import time
+-import rclpy
+-from rclpy.node import Node
+-from rclpy.time import Time
+-from tf2_ros import Buffer, TransformListener, TransformException
+-from nav2_msgs.srv import ManageLifecycleNodes
+-
+-
+-class NavigationStart(Node):
+-    def __init__(self):
+-        super().__init__('scout_navigation_start')
+-        self.map_frame = self.declare_parameter('map_frame', 'map').value
+-        self.base_frame = self.declare_parameter('base_frame', 'base_link').value
+-        self.buffer = Buffer()
+-        self.listener = TransformListener(self.buffer, self)
+-        self.manager = self.create_client(ManageLifecycleNodes,
+-                                         'lifecycle_manager_navigation/manage_nodes')
+-
+-    def ready(self):
+-        try:
+-            tf = self.buffer.lookup_transform(self.map_frame, self.base_frame, Time())
+-            age = (self.get_clock().now() - Time.from_msg(tf.header.stamp)).nanoseconds / 1e9
+-            return 0.0 <= age <= 1.0
+-        except TransformException:
+-            return False
+-
+-    def command(self, command):
+-        request = ManageLifecycleNodes.Request()
+-        request.command = command
+-        future = self.manager.call_async(request)
+-        # Do not issue overlapping STARTUP/RESET requests on a slow response.
+-        while rclpy.ok() and not future.done():
+-            rclpy.spin_once(self, timeout_sec=.1)
+-        if not rclpy.ok():
+-            return False
+-        result = future.result()
+-        return result is not None and result.success
+-
+-    def run(self):
+-        next_log = 0.0
+-        reset_needed = False
+-        while rclpy.ok():
+-            rclpy.spin_once(self, timeout_sec=.1)
+-            if not self.manager.service_is_ready():
+-                continue
+-            if reset_needed:
+-                if not self.command(ManageLifecycleNodes.Request.RESET):
+-                    self.get_logger().error('Navigation reset failed; startup retry stopped')
+-                    return
+-                reset_needed = False
+-            if not self.ready():
+-                if time.monotonic() >= next_log:
+-                    self.get_logger().info('NAV2_START_WAIT: 초기위치/최신 TF 대기; init 후 자동 활성화')
+-                    next_log = time.monotonic() + 5.0
+-                continue
+-            self.get_logger().info('Localization TF ready; activating navigation nodes')
+-            if self.command(ManageLifecycleNodes.Request.STARTUP):
+-                self.get_logger().info('NAV2_START_READY: 주행 노드 활성화 완료')
+-                return
+-            if rclpy.ok():
+-                self.get_logger().warning('Navigation startup failed; reset then wait for TF and retry')
+-                reset_needed = True
+-                # Bound retry rate for non-TF startup failures, while still processing TF.
+-                until = time.monotonic() + 5.0
+-                while rclpy.ok() and time.monotonic() < until:
+-                    rclpy.spin_once(self, timeout_sec=.1)
+-
+-
+-def main(args=None):
+-    rclpy.init(args=args)
+-    node = NavigationStart()
+-    try:
+-        node.run()
+-    finally:
+-        node.destroy_node()
+-        if rclpy.ok():
+-            rclpy.shutdown()
+--- real_drive/robot/ros_ws/src/farm_bringup/farm_bringup/docking_sensors.py
++++ local/robot/ros_ws/src/farm_bringup/farm_bringup/docking_sensors.py
+@@ -1,95 +0,0 @@
+-"""실물 도킹 입력 설정. 장착 변환은 여기서 생성하지 않는다."""
+-from pathlib import Path
+-import math
+-import re
+-import yaml
+-
+-
+-def load_docking_sensors(root, filename):
+-    root = Path(root).resolve()
+-    path = (root / filename).resolve()
+-    if not path.is_relative_to(root):
+-        raise ValueError('도킹 센서 파일은 project_root 안에 있어야 합니다.')
+-    data = yaml.safe_load(path.read_text())
+-    if not isinstance(data, dict) or data.get('schema_version') != 1:
+-        raise ValueError('도킹 센서 schema_version=1 필요')
+-    topics = data.get('topics', {})
+-    for name in ('image', 'camera_info', 'scan', 'odom'):
+-        value = topics.get(name)
+-        if not isinstance(value, str) or not re.fullmatch(r'[A-Za-z_][A-Za-z0-9_]*(/[A-Za-z_][A-Za-z0-9_]*)*', value):
+-            raise ValueError(f'{name}: 로봇 namespace 기준 상대 토픽 필요')
+-    if data.get('scan_is_filtered') is not True:
+-        raise ValueError('필터된 도킹 scan 입력을 명시해야 합니다.')
+-    frame = data.get('base_frame')
+-    if not isinstance(frame, str) or not frame or frame.startswith('/'):
+-        raise ValueError('base_frame 필요')
+-    timing = data.get('freshness', {})
+-    parameters = {}
+-    for key in ('odom_max_age_s', 'scan_max_age_s', 'image_header_max_age_s', 'image_receive_timeout_s', 'sensor_ready_timeout_s'):
+-        value = timing.get(key)
+-        if isinstance(value, bool) or not isinstance(value, (int, float)) or not math.isfinite(value) or value <= 0:
+-            raise ValueError(f'{key}: 양의 유한 시간 필요')
+-        parameters[key] = float(value)
+-    parameters.update(image_topic=topics['image'], info_topic=topics['camera_info'], lidar_topic=topics['scan'])
+-    parameters.update(camera_parameters(data))
+-    pose_mode = data.get('marker_pose_mode', 'legacy_camera')
+-    if pose_mode not in ('legacy_camera', 'tf_observe'):
+-        raise ValueError('Unknown marker_pose_mode')
+-    parameters.update(marker_pose_mode=pose_mode, marker_base_frame=frame)
+-    control = data.get('pose_control', {})
+-    if control:
+-        target_file = (root / control['file']).resolve()
+-        if not target_file.is_relative_to(root) or not target_file.is_file():
+-            raise ValueError('pose_control file must exist inside project_root')
+-        if type(control.get('output_enabled',False)) is not bool:raise ValueError('pose_control.output_enabled must be bool')
+-        parameters.update(pose_control_file=str(target_file), pose_control_target=control['target'],pose_output_enabled=control.get('output_enabled',False))
+-    return data, parameters
+-
+-
+-def camera_parameters(data):
+-    camera = data.get('camera', {'backend': 'ros'})
+-    if not isinstance(camera, dict) or camera.get('backend') not in ('ros', 'picamera2'):
+-        raise ValueError('camera.backend: ros 또는 picamera2 필요')
+-    params = {'camera_input_backend': camera['backend']}
+-    if camera['backend'] == 'ros':
+-        return params
+-    if camera.get('geometry_verified') is not True:
+-        raise ValueError('직접 캡처 sensor mode/crop과 보정 조건 확인 필요')
+-    for key in ('width', 'height', 'sensor_width', 'sensor_height', 'sensor_bit_depth'):
+-        if type(camera.get(key)) is not int or camera[key] <= 0:
+-            raise ValueError(f'camera.{key}: 양의 정수 필요')
+-    if type(camera.get('index')) is not int or camera['index'] < 0:
+-        raise ValueError('camera.index: 0 이상의 정수 필요')
+-    fps = camera.get('fps')
+-    if type(fps) not in (int, float) or not math.isfinite(fps) or fps <= 0:
+-        raise ValueError('camera.fps: 양의 유한 값 필요')
+-    crop = camera.get('crop')
+-    if (not isinstance(crop, list) or len(crop) != 4
+-            or any(type(x) is not int for x in crop)
+-            or min(crop[:2]) < 0 or min(crop[2:]) <= 0):
+-        raise ValueError('camera.crop: [x,y,width,height] 필요')
+-    for key in ('calibration_file', 'frame_id'):
+-        if not isinstance(camera.get(key), str) or not camera[key].strip():
+-            raise ValueError(f'camera.{key} 필요')
+-    for key in ('width', 'height', 'sensor_width', 'sensor_height', 'sensor_bit_depth',
+-                'index', 'crop', 'calibration_file', 'frame_id', 'geometry_verified'):
+-        params['camera_' + key] = camera[key]
+-    params['camera_fps'] = float(fps)
+-    return params
+-
+-
+-def camera_runtime_options(data):
+-    """Only the precision process uses this interpreter; other ROS nodes stay intact."""
+-    if data.get('camera', {}).get('backend', 'ros') != 'picamera2':
+-        return {}
+-    import os
+-    import shlex
+-    runtime = data.get('camera_runtime', {})
+-    python = Path(runtime.get('python_executable', '')).expanduser()
+-    paths = [Path(p).expanduser() for p in runtime.get('python_paths', [])]
+-    if not python.is_absolute() or not python.is_file() or not os.access(python, os.X_OK):
+-        raise ValueError('camera_runtime.python_executable must be an installed executable')
+-    if not paths or any(not p.is_absolute() or not p.is_dir() for p in paths):
+-        raise ValueError('camera_runtime.python_paths must be installed directories')
+-    pythonpath = os.pathsep.join([*(str(p) for p in paths), os.environ.get('PYTHONPATH', '')])
+-    return dict(prefix=shlex.quote(str(python)), additional_env={'PYTHONPATH': pythonpath})

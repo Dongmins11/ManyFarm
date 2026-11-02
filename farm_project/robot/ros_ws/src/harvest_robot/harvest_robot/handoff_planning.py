@@ -94,6 +94,64 @@ class HandoffPlanner:
             session_id=context[2], window_xy=self._window, stamp_ns=stamp, arc_spec=self._spec,
             check=stopped, map_frame=self._map, odom_frame=self._odom, base_frame=self._base)
 
+    def plan_wall_approach(self, reference: RestoreReference, check: Check) -> NavigationStep | None:
+        """벽 접근 상한을 3cm 이내 초과할 때 한 번만 최대 4cm 전진한다.
+
+        정상 범위는 기존 wall 단계에 맡긴다. 관측·방향·충돌·실제 정지 조건은
+        그대로 요구하며 보정 뒤 같은 벽까지의 거리가 줄었는지 확인한다.
+        """
+        reference.require_context(*self._inputs.context())
+        self._motion.wait_stopped(check)
+        distance, angle = self._inputs.wall_error(check)
+        c = self._wall
+        excess = distance-c['target_distance']-c['max_distance']
+        if not all(math.isfinite(v) for v in (distance, angle)):
+            raise ValueError('벽 관측 비정상')
+        if excess <= 0:
+            return None
+        if excess > .03 or abs(angle) > .05 or abs(wrap(angle-c['target_angle'])) > c['max_yaw']:
+            raise RuntimeError(f'벽 보정 접근 범위 초과: 초과거리={excess:.6f}m, 방향={angle:.6f}rad')
+        current = self._inputs.pose(0, check)
+        length = (excess+.01)/math.cos(angle)
+        if length > .041:
+            raise RuntimeError('벽 보정 접근 총거리 초과')
+        x, y, yaw = current
+        count = max(1, math.ceil(length/.002))
+        path = tuple((x+length*i/count*math.cos(yaw),
+                      y+length*i/count*math.sin(yaw), yaw) for i in range(count+1))
+        live = self._guard('window', path, check)
+        def monitor() -> None:
+            check()
+            reference.require_context(*self._inputs.context())
+            live()
+            px, py, heading = self._inputs.pose(0, check)
+            along = (px-x)*math.cos(yaw)+(py-y)*math.sin(yaw)
+            cross = -(px-x)*math.sin(yaw)+(py-y)*math.cos(yaw)
+            if not -.003 <= along <= length+.005 or abs(cross) > .005 or abs(wrap(heading-yaw)) > .035:
+                raise RuntimeError('벽 보정 접근 경로 이탈')
+            observed, normal = self._inputs.wall_error(check)
+            if (not all(math.isfinite(v) for v in (observed, normal))
+                    or abs(observed-(distance-along*math.cos(angle))) > .015
+                    or abs(wrap(heading+normal-yaw-angle)) > .035):
+                raise RuntimeError('벽 보정 중 관측 불일치')
+        def validate(stamp: int, stopped_check: Check) -> dict:
+            stopped_check()
+            reference.require_context(*self._inputs.context())
+            px, py, heading = self._inputs.pose(stamp, stopped_check)
+            remaining, observed_angle = self._inputs.wall_error(stopped_check)
+            along = (px-x)*math.cos(yaw)+(py-y)*math.sin(yaw)
+            predicted = distance-along*math.cos(angle)
+            normal_change = wrap(heading+observed_angle-yaw-angle)
+            if (not all(math.isfinite(v) for v in (remaining, observed_angle))
+                    or math.dist((px,py),path[-1][:2]) > .008
+                    or abs(remaining-predicted) > .015 or abs(normal_change) > .035
+                    or not -c['distance_tolerance'] <= remaining-c['target_distance'] <= c['max_distance']):
+                raise RuntimeError('벽 보정 후 재관측 불일치 또는 접근 범위 미확보')
+            return dict(accepted=True, approach_m=along, wall_distance=remaining)
+        route = RoutePlan(uuid.uuid4().hex, '', reference.odom_frame,
+                          tuple(p[:2] for p in path), (), length, tuple(p[2] for p in path))
+        return NavigationStep(route, yaw, validate, monitor)
+
     @traced
     def plan(self, stage: str, reference: RestoreReference, check: Check) -> NavigationStep | AlignmentStep:
         reference.require_context(*self._inputs.context())
@@ -185,6 +243,15 @@ class HandoffPlanner:
                 result['accepted'] = result['position_error_m'] <= reference.arc_spec.endpoint_tolerance
                 return result
             elif stage == 'align':
+                # 정지 후 방향 잔차만 재보정한다. 위치 이탈·관측 오류는 재시도하지 않는다.
+                from farm_navigation.arrival import ArrivalValidationError
+                distance=math.dist(pose[:2],target[:2])
+                heading=abs(wrap(pose[2]-target[2]))
+                limit=(reference.arc_spec.endpoint_tolerance if policy.reentry_position is None
+                       else policy.reentry_position)
+                if distance <= limit and heading > policy.alignment_heading:
+                    raise ArrivalValidationError(dict(position_error_m=distance,
+                        heading_error_rad=heading,heading_limit_rad=policy.alignment_heading),stamp)
                 result = reference.check_reentry(pose, heading_limit=policy.alignment_heading,
                                                  position_limit=policy.reentry_position)
             elif stage == 'wall':

@@ -94,7 +94,7 @@ controller_server:
     - FollowPath
     - RPP
     progress_checker:
-      # 제자리 방향 전환도 진행으로 인정한다. 실물 프로파일은 별도로 보존한다.
+      # 공통 운송 정책과 동일: robot/config/robots/waffle/transport_nav2.yaml.
       plugin: nav2_controller::PoseProgressChecker
       required_movement_radius: 0.1
       required_movement_angle: 0.5

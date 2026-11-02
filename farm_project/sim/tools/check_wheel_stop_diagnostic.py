@@ -68,6 +68,8 @@ def main() -> None:
                         help='병행 진단용: 수확 모델과 평면만 사용, 카메라/농장 렌더 없음')
     parser.add_argument('--arc-stop', action='store_true', help='후진 원호→정지와 회전→정지를 함께 대조')
     parser.add_argument('--position-sweep', action='store_true', help='속도 반복 대신 구동기/접촉 위치 반복 수 비교')
+    parser.add_argument('--idle-seconds', type=float, help='장시간 정지 제동 비교: 주행 solver64, 기준/감쇠10배/기준 재시험')
+    parser.add_argument('--idle-position-hold', action='store_true', help='정지 바퀴 엔코더 위치를 joint drive 목표로 유지하는 단일 비교')
     parser.add_argument('--spin-goal', type=float,
                         help='인계 Spin과 같은 ±0.03rad/s/20Hz 및 0.1초 관측 지연으로 지정 rad 회전 후 정지')
     parser.add_argument('--arm-trace', type=Path, help='저장된 Student 팔 명령으로 정지 차체 이동을 대조')
@@ -75,6 +77,7 @@ def main() -> None:
     args=parser.parse_args();args.output.mkdir(parents=True,exist_ok=False)
     root=Path(__file__).resolve().parents[2]
     cfg=json.loads((root/'sim/ros_ws/src/farm_sim_config/config/harvest.json').read_text())
+    cfg['base']['wheel_position_hold'] = args.idle_position_hold
     profile=json.loads((root/cfg['runtime']['robotarm_physics_config']).read_text())
     from isaacsim import SimulationApp
     sys.argv=[sys.argv[0]]
@@ -129,6 +132,11 @@ def main() -> None:
             return
         results=[]
         cases=[('baseline',1.,4),('damping10',10.,4),('velocity16',1.,16),('baseline_repeat',1.,4)]
+        if args.idle_seconds is not None:
+            if not math.isfinite(args.idle_seconds) or args.idle_seconds <= 0:
+                raise ValueError('정지 시험 시간은 양의 유한한 초여야 합니다.')
+            cases=[('idle_baseline',1.,4),('idle_damping10',10.,4),('idle_baseline_repeat',1.,4)]
+            if args.idle_position_hold:cases=[('idle_position_hold',1.,4)]
         if args.arc_stop:
             cases=[(f'{mode}_{label}',1.,iterations) for mode in ('arc','spin')
                    for label,iterations in [('baseline',4),('velocity16',16),('velocity32',32),('baseline_repeat',4)]]
@@ -150,14 +158,16 @@ def main() -> None:
             base.robot.set_solver_velocity_iteration_count(iterations)
             position_iterations=(128 if 'position128' in label else 64 if 'position64' in label
                                  else 32 if 'position32' in label else 12)
+            if args.idle_seconds is not None:position_iterations=64
             base.robot.set_solver_position_iteration_count(position_iterations)
             rows=[]
             spin_finished=False;spin_command=0.
-            for tick in range(720):
+            for tick in range(max(720,math.ceil(args.idle_seconds*60)) if args.idle_seconds is not None else 720):
                 # 정지3초 → 0.03rad/s 회전3초 → 정지6초. 모든 조건 동일.
                 moving=180<=tick<360
                 cmd=(.1 if label.startswith('arc_') else .03) if moving else 0.
                 linear=-.01 if moving and label.startswith('arc_') else 0.
+                if args.idle_seconds is not None:linear=cmd=0.
                 if args.spin_goal is not None:
                     linear=0.
                     if tick>=180 and tick%3==0 and not spin_finished:
@@ -178,6 +188,10 @@ def main() -> None:
             origin=rows[179]['odom'];stopped=rows[359]['odom'];end=rows[540]['odom']
             result.update(stop_travel_mm=1000*math.dist(stopped[:2],end[:2]),
                           stop_rotation_deg=math.degrees(math.remainder(end[2]-stopped[2],2*math.pi)))
+            if args.idle_seconds is not None:
+                result.update(idle_seconds=args.idle_seconds,
+                    idle_world_travel_mm=1000*math.dist(rows[180]['xyz'][:2],rows[-1]['xyz'][:2]),
+                    idle_odom_travel_mm=1000*math.dist(rows[180]['odom'][:2],rows[-1]['odom'][:2]))
             if args.spin_goal is not None:
                 result.update(spin_goal_rad=args.spin_goal,spin_finished=spin_finished,
                     final_goal_error_deg=math.degrees(math.remainder(

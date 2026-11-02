@@ -226,7 +226,9 @@ def configure_harvest_arm(stage: object, robot_path: str, config: dict) -> dict:
             UsdPhysics.FilteredPairsAPI.Apply(mount).CreateFilteredPairsRel().AddTarget(wrist.GetPath())
         travel = dict(joint_names=travel_names, positions_rad=positions,
                       filtered_pairs=[[str(mount.GetPath()), str(wrist.GetPath())]])
-    return dict(travel_pose=travel, joint_paths=[row['path'] for row in drives], joint_names=names,
+    visual_instances = expand_box_visual_instances(stage, robot)
+    return dict(expanded_box_visuals=visual_instances,
+                travel_pose=travel, joint_paths=[row['path'] for row in drives], joint_names=names,
                 home_positions_rad=None if home_arm is None else [float(v) for v in homes],
                 usd_drives=drives, grip_colliders=grip_paths, floor_colliders=floor_paths,
                 grip_material=str(material_path), edit_layer='session', teacher_alignment=alignment)

@@ -15,6 +15,7 @@ from std_srvs.srv import Trigger
 class MechanicalRosServer:
     def __init__(self,node) -> None:
         self.node=node;self.lock=threading.RLock()
+        self.proof_changed=threading.Condition(self.lock);self.waiting_for_hold=False;self.hold_cancelled=False
         self.session=None;self.proof=None;self.received=0.;self.lid_open=False;self.task=None;self.busy=False
         self.group=ReentrantCallbackGroup()
         self.publisher=node.create_publisher(TransportDeviceState,'devices/transport_state',qos_profile_sensor_data)
@@ -37,11 +38,18 @@ class MechanicalRosServer:
         """Trigger에는 task ID가 없으므로 Action 세션과 혼용하지 않는다."""
         with self.lock:
             owner='trigger_lid'
-            if (self.busy or not self.operation_ready(operation) or
+            settled=True
+            if (operation=='LID_OPEN' and not self.busy and not self.lid_open
+                    and not self.ready() and self.hold_pending()):
+                settled=self.wait_for_hold()
+
+            if (not settled or self.busy or not self.operation_ready(operation) or
                     (self.lid_open and self.task!=owner) or
                     (operation=='LID_CLOSE' and not self.lid_open)):
                 response.success=False
-                response.message='가상 덮개: 바구니 정렬·정지·세션 조건 불충족'
+                response.message='가상 덮개 조건 불충족: '+json.dumps(dict(
+                    fresh=self.fresh(),session=self.session,settled=settled,
+                    proof=self.proof),ensure_ascii=False)
                 self.node.get_logger().warning('SIM_VIRTUAL_LID_REJECT '+json.dumps(dict(
                     operation=operation,busy=self.busy,fresh=self.fresh(),lid_open=self.lid_open,
                     task=self.task,proof=self.proof),ensure_ascii=False))
@@ -54,10 +62,35 @@ class MechanicalRosServer:
             self.node.get_logger().info(response.message)
             return response
 
+    def hold_pending(self) -> bool:
+        """정렬·정지는 충족하고 연속 유지 시간만 부족한 경우다."""
+        return (self.fresh() and all(self.proof.get(key) is True
+                for key in ('aligned','wheel_stopped','world_stopped')))
+
+    def wait_for_hold(self) -> bool:
+        """잠금을 풀어 새 평가를 받되 현재 세션에서 최대 시뮬 2초만 기다린다."""
+        session=self.session
+        start=self.node.get_clock().now().nanoseconds/1e9
+        self.busy=True;self.waiting_for_hold=True;self.hold_cancelled=False
+        self.node.get_logger().info('SIM_VIRTUAL_LID_WAIT '+json.dumps(self.proof))
+        try:
+            while True:
+                now=self.node.get_clock().now().nanoseconds/1e9
+                if self.hold_cancelled or self.session!=session or not 0<=now-start<2.:
+                    return False
+                if not self.hold_pending():return False
+                if self.ready():return True
+                # 실제시간은 콜백 양보에만 사용하며 완료/제한시간은 시뮬 시계다.
+                self.proof_changed.wait(timeout=.02)
+        finally:
+            self.busy=False;self.waiting_for_hold=False
+
     def stop_device(self,request: Trigger.Request,response: Trigger.Response) -> Trigger.Response:
         with self.lock:
+            if self.waiting_for_hold:
+                self.hold_cancelled=True;self.proof_changed.notify_all()
             # 순간 상태 전이만 존재한다. STOP은 자동 닫힘이나 수량 확인을 의미하지 않는다.
-            response.success=not self.busy and self.fresh()
+            response.success=(not self.busy or self.waiting_for_hold) and self.fresh()
             response.message='가상 기구 정지 확인' if response.success else '기구 작업/연결 확인 필요'
             return response
 
@@ -71,6 +104,7 @@ class MechanicalRosServer:
             if session!=self.session:
                 self.session=session;self.lid_open=False;self.task=None;self.proof=None
             self.proof=proof;self.received=time.monotonic()
+            self.proof_changed.notify_all()
 
     def fresh(self) -> bool:
         if not isinstance(self.proof,dict) or time.monotonic()-self.received>.5:return False

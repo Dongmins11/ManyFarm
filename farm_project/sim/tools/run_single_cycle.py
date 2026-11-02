@@ -13,7 +13,11 @@ from prepare_harvest_handoff import ROOT, CONFIG
 from run_sorter_cycle_trial import prepare_sorter, configure_sorting
 
 
-def prepare_cycle(base: Path, scout_result: Path | None = None) -> Path:
+def prepare_cycle(base: Path, scout_result: Path | None = None, section: str | None = None) -> Path:
+    if section is not None:
+        sections = yaml.safe_load((CONFIG/'task.yaml').read_text())['sections']
+        if section not in sections or scout_result is not None:
+            raise ValueError('섹션 캠페인은 등록된 SEC의 새 예찰만 허용')
     runtime=prepare_sorter(base)
     configure_sorting(base,runtime)
     def read(name):return json.loads((runtime/name).read_text())
@@ -38,6 +42,10 @@ def prepare_cycle(base: Path, scout_result: Path | None = None) -> Path:
     markers['markers']=[m for m in markers['markers'] if m['id']!=40]+read('sorter_layout.json')['markers']
     write('cycle_layout.json',markers);fleet['docking_markers']=str((runtime/'cycle_layout.json').relative_to(ROOT))
     write('fleet.json',fleet)
+    # 해당 반복 시험에만 명시적으로 요청한 외부 촬영을 다음 실행에 연결한다.
+    capture_request=base.parent/'portfolio_capture.json'
+    if capture_request.exists():
+        write('portfolio_capture.json',json.loads(capture_request.read_text()))
     map_yaml=read('transport_runtime.json')['map_yaml']
     for name,source in [('scout_runtime.yaml','scout_fleet_runtime.yaml'),('harvest_runtime.yaml',None)]:
         profile=yaml.safe_load(((CONFIG/source) if source else runtime/name).read_text())
@@ -71,29 +79,41 @@ def prepare_cycle(base: Path, scout_result: Path | None = None) -> Path:
     # 분리시험의 접근점 초기배치 필드는 전체시험에 적용하지 않는다.
     f.pop('initial_xy',None);f.pop('initial_yaw',None)
     if scout_result is not None:
-        saved=json.loads(scout_result.read_text())['scout_result'];result=saved['result'];tasks=result['harvest_tasks']
-        if (saved['status']!=4 or result['result_code']!='SUCCESS' or result['section_id']!='SEC01'
+        document=json.loads(scout_result.read_text())
+        saved=document.get('scout_result',document.get('scout',{}));result=saved['result'];tasks=result['harvest_tasks']
+        section_specs=yaml.safe_load((CONFIG/'task.yaml').read_text())['sections']
+        if (saved['status']!=4 or result['result_code']!='SUCCESS' or result['section_id'] not in section_specs
                 or not tasks or len(tasks)!=result['harvest_task_count']
                 or len({t['window_id'] for t in tasks})!=len(tasks)
                 or sum(t['expected_count'] for t in tasks)!=result['total_expected_count']):
-            raise ValueError('재사용 가능한 SEC01 예찰 성공 결과가 아님')
+            raise ValueError('재사용 가능한 등록 섹션 예찰 성공 결과가 아님')
         for task in tasks:
             pose=task['goal_pose']
             if (pose['frame_id']!='map' or not all(math.isfinite(v) for v in [*pose['position'].values(),pose['yaw']])
                     or type(task['expected_count']) is not int or task['expected_count']<0):
                 raise ValueError('저장 윈도우 좌표/수량 오류')
         ys=[t['goal_pose']['position']['y'] for t in tasks]
-        if ys!=sorted(ys,reverse=True):raise ValueError('SEC01 작업 방향 순서 불일치')
+        heading=section_specs[result['section_id']]['harvest_route']['heading_rad']
+        if ys!=sorted(ys,reverse=math.sin(heading)<0):raise ValueError('저장 섹션 작업 방향 순서 불일치')
         prior_tag=yaml.safe_load((scout_result.parent/'runtime/scout_tag.yaml').read_text())
         current_tag=yaml.safe_load((runtime/'scout_tag.yaml').read_text())
         if any(prior_tag[k]!=current_tag[k] for k in ('map_yaml_sha256','map_image_sha256')):
             raise ValueError('저장 예찰 당시 지도와 현재 지도 불일치')
-        (base/'reused_scout_result.json').write_bytes(scout_result.read_bytes())
+        (base/'reused_scout_result.json').write_text(json.dumps(dict(scout_result=saved),ensure_ascii=False)+'\n')
         f.update(fresh_scout=False,scout_after_sec01='not_commanded',
                  scope='reuse SEC01 survey; harvest/handoff/sort/transport and harvest returns, one attempt',
                  reused_scout_source=str(scout_result),reused_scout_sha256=hashlib.sha256(scout_result.read_bytes()).hexdigest())
     (base/'fixture.json').write_text(json.dumps(f,ensure_ascii=False,indent=2)+'\n')
-    (base/'single_cycle.json').write_text(json.dumps(dict(section='SEC01',attempts=1))+'\n')
+    schedule = dict(section=result['section_id'] if scout_result is not None else 'SEC01',attempts=1)
+    if scout_result is not None:schedule.update(single_section=True,overlap_cycle=False)
+    if section is not None:
+        schedule.update(section=section, single_section=True, overlap_cycle=True,
+                        scout_return='before_harvest_departure')
+        f.update(section=section, single_section=True, overlap_cycle=True, require_all_sorted=False,
+                 scout_after_sec01='not_applicable', scout_return='before_harvest_departure',
+                 scope=f'{section} fresh survey/return/harvest/handoff/sorting/all returns')
+        (base/'fixture.json').write_text(json.dumps(f,ensure_ascii=False,indent=2)+'\n')
+    (base/'single_cycle.json').write_text(json.dumps(schedule)+'\n')
     # 장치 서비스는 시작부터 제공하되 운송/선별 명령은 실제 인계 완료 뒤에만 보낸다.
     post=base/'post_sorter';post.mkdir()
     (post/'fixture.json').write_text(json.dumps(f,ensure_ascii=False,indent=2)+'\n')
@@ -112,18 +132,22 @@ def main() -> None:
     resume=(Path(sys.argv[sys.argv.index('--resume-harvest')+1]).resolve() if '--resume-harvest' in sys.argv else None)
     if resume is not None:
         scout_result=resume/'reused_scout_result.json'
+        if not scout_result.exists():scout_result=resume/'partial_result.json'
     overlap='--overlap-cycle' in sys.argv
     if overlap and (scout_result is not None or '--pickup-preflight' in sys.argv):
         raise ValueError('병행 전체시험은 새 예찰·수확만 허용')
     if scout_result is not None and '--pickup-preflight' in sys.argv:raise ValueError('예찰 재사용과 접수 단독검증은 별도 실행')
-    runtime=prepare_cycle(base,scout_result)
+    section=(sys.argv[sys.argv.index('--section')+1] if '--section' in sys.argv else None)
+    if section is not None and (overlap or resume is not None or '--pickup-preflight' in sys.argv):
+        raise ValueError('--section은 독립 섹션 전체시험 전용')
+    runtime=prepare_cycle(base,scout_result,section)
     if overlap:
         schedule=dict(section='SEC01',attempts=1,overlap_cycle=True,
                       scout_return='after_SEC02_and_other_robot_returns')
         (base/'single_cycle.json').write_text(json.dumps(schedule)+'\n')
         for path in (base/'fixture.json',base/'post_sorter/fixture.json'):
             fixture=json.loads(path.read_text())
-            fixture.update(overlap_cycle=True,require_all_sorted=True,
+            fixture.update(overlap_cycle=True,require_all_sorted=False,
                 scout_after_sec01='survey_SEC02_then_return_after_other_robots',
                 scope='fresh SEC01 survey/harvest; SEC02 survey; concurrent handoff returns/sorting; all robots return')
             path.write_text(json.dumps(fixture,ensure_ascii=False,indent=2)+'\n')
@@ -139,13 +163,23 @@ def main() -> None:
     if '--prepare-only' in sys.argv:return
     # 반복시험 중 설정 개선이 적용되면 시도별 소스/수치를 구분한다.
     selected = {}
-    for relative in ('sim/ros_ws/src/farm_sim_config/config/nav2_harvest.yaml',
+    for relative in ('sim/docs/TEST_CONDITIONS.md', 'sim/tools/cycle_departure_gate.py', 'sim/tools/single_cycle_steps.py',
+                     'robot/ros_ws/src/harvest_robot/harvest_robot/handoff_planning.py',
+                     'robot/ros_ws/src/harvest_robot/harvest_robot/handoff_navigation.py',
+                     'robot/ros_ws/src/harvest_robot/harvest_robot/handoff_factory.py',
+                     'sim/tools/probe_handoff_window.py', 'sim/tools/probe_sorter_cycle.py',
+                     'sim/ros_ws/src/farm_sim_config/config/nav2_harvest.yaml',
+                     'sim/ros_ws/src/farm_sim_config/config/scout_fleet.json',
                      'sim/ros_ws/src/farm_sim_config/config/robotarm_physics.json',
                      'sim/ros_ws/src/farm_sim_config/config/student_policy.json',
                      'sim/ros_ws/src/farm_sim_config/config/harvest.json',
+                     'sim/ros_ws/src/farm_sim_devices/farm_sim_devices/base_sim.py',
                      'sim/ros_ws/src/farm_sim_devices/farm_sim_devices/student_camera.py',
                      'sim/ros_ws/src/farm_sim_runtime/farm_sim_runtime/teacher_arm_alignment.py',
+                     'sim/ros_ws/src/farm_sim_runtime/farm_sim_runtime/robotarm_asset_setup.py',
                      'sim/ros_ws/src/farm_sim_runtime/farm_sim_runtime/run_fleet.py',
+                     'sim/ros_ws/src/farm_sim_runtime/farm_sim_runtime/portfolio_capture.py',
+                     'sim/ros_ws/src/farm_sim_runtime/farm_sim_runtime/portfolio_video.py',
                      'sim/ros_ws/src/farm_sim_devices/farm_sim_devices/student_session.py'):
         raw = (ROOT/relative).read_bytes()
         selected[relative] = dict(sha256=hashlib.sha256(raw).hexdigest(), text=raw.decode())
@@ -168,7 +202,7 @@ def main() -> None:
             if robot=='harvest':
                 cmd+=['handoff_config:='+str(runtime/'handoff.json')]
                 if resume is not None:cmd+=['initial_spawn_config:='+str(runtime/'stations.json')]
-            else:cmd+=['vision_python:=/home/ysy/venv/robot_venv/bin/python']
+            else:cmd+=['vision_python:=/home/ysy/venv/robot_venv/bin/python','headless:=true']
             start(robot,cmd)
         start('adapter',['ros2','run','farm_sim_devices','ros_adapter','--ros-args','-r','__ns:=/transport_01',
                          '-p','use_sim_time:=true','-p','config_file:='+str(runtime/'transport.json')])

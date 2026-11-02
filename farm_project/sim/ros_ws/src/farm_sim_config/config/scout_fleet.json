@@ -55,6 +55,7 @@
     "command_timeout_s": 0.5
   },
   "runtime": {
+    "state_clock_delay_s": 0.1,
     "physics_hz": 60,
     "render_hz": 30,
     "realtime": true,

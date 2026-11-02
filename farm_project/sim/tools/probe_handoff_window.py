@@ -44,6 +44,11 @@ def main() -> None:
     if pickup:
         result['scope'] = 'one actual window + TransportPickup + DockTransfer + restore; not full SEC01'
     if full_cycle: result['scope'] = 'SEC01 fresh survey/all windows/handoff/sort/harvest and transport returns; scout continues SEC02; single attempt'
+    if (base/'single_cycle.json').exists():
+        schedule=json.loads((base/'single_cycle.json').read_text())
+        if schedule.get('single_section'):
+            result.update(section=schedule['section'],single_section=True,
+                          scope=schedule['section']+' fresh survey/return/harvest/handoff/sort/all returns')
     if (base/'reused_scout_result.json').exists():result['scope']='reuse SEC01 survey; harvest/handoff/sort/transport and harvest returns; single attempt'
     if pickup_preflight: result['scope'] = 'simulation ROS transport pickup acceptance/cancel only; no survey/harvest/handoff/sorting'
     events = (base/'events.jsonl').open('w', buffering=1)
@@ -112,8 +117,20 @@ def main() -> None:
     if pickup:
         node.create_subscription(String, '/transport_01/sim/basket_alignment',
             lambda msg:record('basket_alignment',data=json.loads(msg.data)),10)
+        # 미인식과 TF/거리 검사 거절을 다음 시험에서 구분할 수 있도록 원문을 남긴다.
+        pickup_observations=(base/'pickup_observations.jsonl').open('w',buffering=1)
+        def pickup_observation(kind,message):
+            pickup_observations.write(json.dumps(dict(kind=kind,
+                sim_time_ns=node.get_clock().now().nanoseconds,data=json.loads(message.data)),
+                ensure_ascii=False)+'\n')
+        for topic in ('marker_observations','harvest_route_target'):
+            node.create_subscription(String,'/transport_01/precision/'+topic,
+                lambda msg,kind=topic:pickup_observation(kind,msg),10)
     def wait(predicate, timeout: float, label: str) -> None:
         deadline = time.monotonic()+timeout
+        sim_started=node.get_clock().now().nanoseconds/1e9
+        last_sim=sim_started;last_advance=time.monotonic()
+        use_motion_clock=result.get('single_section',False) and sim_started>0 and not cleaning
         while not predicate():
             if overlap_cycle and not cleaning:
                 for _,_,ticket in owned_actions:
@@ -122,7 +139,12 @@ def main() -> None:
                         if reply.status!=4 or reply.result.result_code!='SUCCESS':
                             raise RuntimeError('병행 액션 실패: '+json.dumps(dict(message_to_ordereddict(reply.result)),ensure_ascii=False))
             if worker.poll() is not None: raise RuntimeError('Frontend 워커 종료')
-            if time.monotonic()>deadline: raise TimeoutError(label)
+            if use_motion_clock:
+                sim_now=node.get_clock().now().nanoseconds/1e9
+                if sim_now!=last_sim:last_sim=sim_now;last_advance=time.monotonic()
+                if sim_now-sim_started>timeout:raise TimeoutError(label+' (시뮬시간)')
+                if time.monotonic()-last_advance>120:raise TimeoutError(label+' (/clock 120실제초 정지)')
+            elif time.monotonic()>deadline: raise TimeoutError(label)
             time.sleep(.05)
     def future(ticket, timeout: float, label: str):
         wait(ticket.done, timeout, label); return ticket.result()
@@ -141,8 +163,11 @@ def main() -> None:
         return get_job(job_id)
     try:
         if full_cycle:
-            from single_cycle_steps import transport_devices_ready
+            from single_cycle_steps import transport_devices_ready, transport_robot_ready
             transport_devices_ready(base,node,wait,record)
+            transport_robot_ready(node,wait,record)
+            from single_cycle_steps import harvest_handoff_ready
+            harvest_handoff_ready(base,node,wait,future,record)
         wait(lambda:client.server_is_ready() and prepare.service_is_ready() and statuses.get('harvest',{}).get('ready'),
              240, '수확 서버·센서 준비')
         deadline = time.monotonic()+120
@@ -196,6 +221,8 @@ def main() -> None:
              not latest.get('state',{}).get('blocked',{}).get('harvest'),30,'관제 수확 종료·인계서버 확인')
         if pickup:
             wait(lambda:latest.get('state',{}).get('ready',{}).get('transport'),60,'관제 운송 서버 확인')
+            from single_cycle_steps import transport_robot_ready
+            transport_robot_ready(node,wait,record)
             response = command(dict(op='start_pickup',
                 staging_pose=json.loads((base/'runtime/pickup_goal.json').read_text()),
                 target_marker_id=42, docking_marker_id=41))
@@ -205,6 +232,7 @@ def main() -> None:
                  get_job(pickup_id).get('state') in terminal, 480, '실제 42번 접근')
             if 'WAITING_FOR_TRANSFER' not in get_job(pickup_id).get('observed_events',{}):
                 raise RuntimeError('42번 접근 실패: '+json.dumps(get_job(pickup_id),ensure_ascii=False))
+        if full_cycle:harvest_handoff_ready(base,node,wait,future,record)
         response = command(dict(op='start_dock',expected_count=expected_transfer_count))
         job_id = response['job_id']
         record('dock_started', **response)
@@ -283,8 +311,11 @@ def main() -> None:
                 except Exception as error:record('cleanup_error',detail=str(error))
             client.destroy()
         result['frontend_final'] = latest.get('state',{})
+        snapshot=ROOT/'sim/runs/runtime/harvest_scene.json'
+        if snapshot.exists():(base/'final_scene.json').write_bytes(snapshot.read_bytes())
         (base/'result.json').write_text(json.dumps(result,ensure_ascii=False,indent=2)+'\n')
         executor.shutdown(timeout_sec=3); spinner.join(3); node.destroy_node()
+        if pickup:pickup_observations.close()
         if rclpy.ok(): rclpy.shutdown()
         if worker.poll() is None:
             worker.send_signal(signal.SIGINT)

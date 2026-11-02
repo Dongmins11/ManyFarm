@@ -40,7 +40,7 @@ class HarvestApproach:
         try:
             with self.lock:self.ready=None;self.armed=True
             self.node.get_logger().info('Harvest route: marker42 observation active during navigation')
-            try:return self.node.navigator.navigate(request.xy,request.yaw)
+            try:return self.node.navigator.navigate(request.xy,request.yaw,rear_approach=True)
             except MarkerHandoff:
                 with self.lock:self.armed=False
                 self.node.navigator.cancel_nav()

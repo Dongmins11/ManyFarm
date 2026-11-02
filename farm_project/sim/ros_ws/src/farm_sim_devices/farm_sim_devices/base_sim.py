@@ -8,6 +8,8 @@ class BaseSim:
         from isaacsim.core.prims import SingleArticulation
         self.config=config
         self.world=world
+        self._wheel_drive_gains = None
+        self._hold_positions = None
         self.robot=world.scene.add(SingleArticulation(prim_path=root_path,name=name))
         self.odometry=WheelOdometry(config['wheel_radius_m'],config['wheel_separation_m'])
 
@@ -22,7 +24,22 @@ class BaseSim:
         if self.config.get('wheel_velocity_servo'):
             from .wheel_servo import WheelVelocityServo
             self.servo = WheelVelocityServo(self.config['wheel_velocity_servo'])
+        if self.config.get('wheel_position_hold', False):
+            if self._wheel_drive_gains is None:
+                kp, kd = self.robot.get_articulation_controller().get_gains()
+                self._wheel_drive_gains = (np.asarray(kp)[self.indices].copy(),
+                                           np.asarray(kd)[self.indices].copy())
+            self._set_wheel_hold(False)
+        self._hold_positions = None
         self.command(0.0,0.0)
+
+    def _set_wheel_hold(self, enabled: bool) -> None:
+        """바퀴 관절만 제동 전환한다. 팔 gain과 차체 pose는 변경하지 않는다."""
+        kp, kd = self._wheel_drive_gains
+        # 정지 위치 복원 시간상수 1초의 joint drive. 주행에는 원래 gain 복원.
+        self.robot._articulation_view.set_gains(
+            kps=(kd if enabled else kp)[None, :], kds=kd[None, :],
+            joint_indices=self.indices)
 
     def command(self, linear: float, angular: float) -> None:
         from isaacsim.core.utils.types import ArticulationAction
@@ -39,6 +56,19 @@ class BaseSim:
             self.encoder_positions, self.encoder_time = positions.copy(), now
             targets = self.servo.command(targets, measured)
         self.last_joint_targets = targets.copy()
+        if self.config.get('wheel_position_hold', False):
+            if np.all(np.abs(rates)<1e-8):
+                if self._hold_positions is None:
+                    self._hold_positions = np.asarray(
+                        self.robot.get_joint_positions(joint_indices=self.indices)).copy()
+                    self._set_wheel_hold(True)
+                self.robot.apply_action(ArticulationAction(
+                    joint_positions=self._hold_positions, joint_velocities=targets,
+                    joint_indices=self.indices))
+                return
+            if self._hold_positions is not None:
+                self._set_wheel_hold(False)
+                self._hold_positions = None
         self.robot.apply_action(ArticulationAction(joint_velocities=targets,
                                                    joint_indices=self.indices))
 

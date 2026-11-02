@@ -13,16 +13,12 @@ bindings:
     yaw: -1.5707963267948966
 # 시뮬 회전 시 병진 불확실성: 동일 센서 재생으로 검증, 실물 기본값 0.2 유지.
 overrides:
-  # 2026-10-30 사용자 승인: 일반 경로 이동/방향 회전만 0.1→0.15.
-  # 정밀 접근·작업·후진·인계 제어기 및 가감속/도착 판정은 유지한다.
-  controller_server:
+  # 2026-10-30 실물 수치 정합: RPP 속도는 공통 0.1을 상속하고 일반 Spin도 실물과 맞춘다.
+  behavior_server:
     ros__parameters:
-      FollowPath:
-        desired_linear_vel: 0.15
-        rotate_to_heading_angular_vel: 0.15
-      RPP:
-        desired_linear_vel: 0.15
-        rotate_to_heading_angular_vel: 0.15
+      min_rotational_vel: 0.1
+      max_rotational_vel: 0.1
+      rotational_acc_lim: 1.0
   amcl:
     ros__parameters:
       alpha4: 0.002

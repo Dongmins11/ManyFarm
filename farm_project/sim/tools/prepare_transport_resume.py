@@ -51,17 +51,21 @@ def prepare_resume(base: Path, source: Path, snapshot: Path) -> None:
     last_task=json.loads((base/'reused_scout_result.json').read_text())['scout_result']['result']['harvest_tasks'][-1]
     goal=last_task['goal_pose'];heading=goal['yaw']
     start=np.array([goal['position']['x']-.1*math.cos(heading),goal['position']['y']-.1*math.sin(heading)])
-    delta_map=np.r_[start-np.asarray(xy),0.]
-    delta_world=np.asarray(stations['T_map_world'])[:3,:3].T@delta_map
+    # 회전 후 실패한 장면도 도착 재검증 방향으로 로봇·적재물을 함께 초기 배치한다.
+    delta_map=np.eye(4);angle=heading-yaw
+    delta_map[:2,:2]=[[math.cos(angle),-math.sin(angle)],[math.sin(angle),math.cos(angle)]]
+    delta_map[:3,3]=np.r_[start,T[2,3]]-delta_map[:3,:3]@T[:3,3]
+    map_world=np.asarray(stations['T_map_world'])
+    placement=np.linalg.inv(map_world)@delta_map@map_world
     for fruit in manifest['fruits']:
-        fruit['center_world_m']=(np.asarray(fruit['center_world_m'])+delta_world).tolist()
-    manifest['basket_corners_world']=(corners+delta_world).tolist()
-    restored_base=np.asarray(saved['T_world_base']).copy();restored_base[:3,3]+=delta_world
+        fruit['center_world_m']=(placement@np.r_[fruit['center_world_m'],1.])[:3].tolist()
+    manifest['basket_corners_world']=(corners@placement[:3,:3].T+placement[:3,3]).tolist()
+    restored_base=placement@np.asarray(saved['T_world_base'])
     manifest.update(T_world_base=restored_base.tolist(),arrival_revalidation_task=last_task,
-        initial_shift_world_m=delta_world.tolist(),
-        restore_mode='saved cargo translated with harvest robot to 0.10m before last window; fresh arrival-only validation required')
+        initial_transform_world=placement.tolist(),
+        restore_mode='saved cargo rigidly repositioned with harvest robot to 0.10m before last window and its heading; fresh arrival-only validation required')
     (base/'resume_manifest.json').write_text(json.dumps(manifest,ensure_ascii=False,indent=2)+'\n')
-    xy=start.tolist()
+    xy=start.tolist();yaw=heading
     stations['stations']['harvest_01'].update(xy_m=xy,yaw_rad=yaw)
     (runtime/'stations.json').write_text(json.dumps(stations,indent=2))
     nav=yaml.safe_load((CONFIG/'nav2_harvest.yaml').read_text())

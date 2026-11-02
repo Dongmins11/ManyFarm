@@ -31,7 +31,10 @@ class PoseProvider:
         """stamp=0은 최신 위치, 양수는 촬영 등 특정 ROS 시각의 변환입니다."""
         end=operation_time(self._node)+self._settings.tf_timeout_s
         error: Exception | None = None
-        while operation_time(self._node)<end:
+        persistent = (getattr(self._settings, 'tf_recovery_enabled', False)
+                      and getattr(self._settings, 'tf_recovery_wait_forever', False))
+        next_log = 0.0
+        while persistent or operation_time(self._node)<end:
             check()
             try:
                 message=self._buffer.lookup_transform(target,source,Time(nanoseconds=int(stamp_ns)))
@@ -61,8 +64,13 @@ class PoseProvider:
                 return result
             except (TransformException,RuntimeError,ValueError) as exc:
                 error=exc
+                if persistent and not isinstance(exc, (TransformException, TransformUnavailable)):
+                    raise  # 비정상 값·미래 시각을 정상 TF처럼 사용하지 않는다.
                 if on_unavailable is not None:
                     on_unavailable(exc)
+                if persistent and operation_time(self._node) >= next_log:
+                    self._node.get_logger().warning(f'TF_WAIT: {target} ← {source}: {exc}')
+                    next_log = operation_time(self._node) + 5.0
                 time.sleep(.02)
         kind = TransformUnavailable if isinstance(error, (TransformException, TransformUnavailable)) else RuntimeError
         raise kind(f'TF 조회 실패: {target} ← {source}, stamp={stamp_ns}: {error}') from error

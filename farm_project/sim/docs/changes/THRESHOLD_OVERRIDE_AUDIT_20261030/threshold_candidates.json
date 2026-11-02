@@ -1,0 +1,2545 @@
+[
+  {
+    "source": "drive",
+    "key": "harvest.arm_action_effective.cancel_timeout_s",
+    "real": 10.0,
+    "sim": 20.0,
+    "equal": false
+  },
+  {
+    "source": "drive",
+    "key": "harvest.arm_action_effective.execution_timeout_s",
+    "real": 180.0,
+    "sim": 7260.0,
+    "equal": false
+  },
+  {
+    "source": "drive",
+    "key": "harvest.environment.navigation.heading_tolerance_rad",
+    "real": 0.10471975511965978,
+    "sim": "<ABSENT>",
+    "equal": false
+  },
+  {
+    "source": "drive",
+    "key": "harvest.generated_handoff_server.profile.navigation.departure.tf_recovery_wait_forever",
+    "real": false,
+    "sim": "<ABSENT>",
+    "equal": false
+  },
+  {
+    "source": "drive",
+    "key": "harvest.generated_handoff_server.profile.navigation.retreat.tf_recovery_wait_forever",
+    "real": false,
+    "sim": "<ABSENT>",
+    "equal": false
+  },
+  {
+    "source": "drive",
+    "key": "harvest.generated_handoff_server.profile.navigation.return.tf_recovery_wait_forever",
+    "real": false,
+    "sim": "<ABSENT>",
+    "equal": false
+  },
+  {
+    "source": "drive",
+    "key": "harvest.generated_handoff_server.profile.navigation.wall.heading_tolerance_rad",
+    "real": 0.008726646259971648,
+    "sim": 0.013962634015954637,
+    "equal": false
+  },
+  {
+    "source": "drive",
+    "key": "harvest.generated_handoff_server.profile.navigation.wall.tf_recovery_wait_forever",
+    "real": false,
+    "sim": "<ABSENT>",
+    "equal": false
+  },
+  {
+    "source": "drive",
+    "key": "harvest.generated_handoff_server.profile.navigation.window.tf_recovery_wait_forever",
+    "real": false,
+    "sim": "<ABSENT>",
+    "equal": false
+  },
+  {
+    "source": "drive",
+    "key": "harvest.generated_handoff_server.values./harvest_01/handoff/controller_server.ros__parameters.wall_alignment.angle_tolerance",
+    "real": 0.008726646259971648,
+    "sim": 0.013962634015954637,
+    "equal": false
+  },
+  {
+    "source": "drive",
+    "key": "harvest.nav2.controller_server.ros__parameters.FollowPath.desired_linear_vel",
+    "real": 0.1,
+    "sim": 0.15,
+    "equal": false
+  },
+  {
+    "source": "drive",
+    "key": "harvest.nav2.controller_server.ros__parameters.FollowPath.rotate_to_heading_angular_vel",
+    "real": 0.1,
+    "sim": 0.15,
+    "equal": false
+  },
+  {
+    "source": "drive",
+    "key": "harvest.nav2.controller_server.ros__parameters.RPP.desired_linear_vel",
+    "real": 0.1,
+    "sim": 0.15,
+    "equal": false
+  },
+  {
+    "source": "drive",
+    "key": "harvest.nav2.controller_server.ros__parameters.RPP.rotate_to_heading_angular_vel",
+    "real": 0.1,
+    "sim": 0.15,
+    "equal": false
+  },
+  {
+    "source": "drive",
+    "key": "harvest.nav2.velocity_smoother.ros__parameters.use_sim_time",
+    "real": false,
+    "sim": true,
+    "equal": false
+  },
+  {
+    "source": "drive",
+    "key": "harvest.navigation.heading_tolerance_rad",
+    "real": 0.10471975511965978,
+    "sim": 0.05236,
+    "equal": false
+  },
+  {
+    "source": "drive",
+    "key": "harvest.navigation.tf_recovery_wait_forever",
+    "real": false,
+    "sim": "<ABSENT>",
+    "equal": false
+  },
+  {
+    "source": "drive",
+    "key": "harvest.pixel_bias.distance_bias_m",
+    "real": [
+      0.02316284358688556,
+      0.04866276347063953
+    ],
+    "sim": "<ABSENT>",
+    "equal": false
+  },
+  {
+    "source": "drive",
+    "key": "harvest.pixel_bias.map_image_sha256",
+    "real": "c16144d12bf45bafbb122f2fa34bd0243a39f25e525349e92195fc0223ae410b",
+    "sim": "<ABSENT>",
+    "equal": false
+  },
+  {
+    "source": "drive",
+    "key": "harvest.pixel_bias.max_distance_bias_m",
+    "real": 0.05,
+    "sim": "<ABSENT>",
+    "equal": false
+  },
+  {
+    "source": "drive",
+    "key": "harvest.pixel_bias.provenance.samples",
+    "real": 74,
+    "sim": "<ABSENT>",
+    "equal": false
+  },
+  {
+    "source": "drive",
+    "key": "harvest.tag.map_image_sha256",
+    "real": "c16144d12bf45bafbb122f2fa34bd0243a39f25e525349e92195fc0223ae410b",
+    "sim": "3c2fcdae2c4f58716999ca84dc2aae0484fbe280bbf63913ccbdc84111a881e5",
+    "equal": false
+  },
+  {
+    "source": "drive",
+    "key": "harvest.tag_capture.startup_timeout_s",
+    "real": 60.0,
+    "sim": "<ABSENT>",
+    "equal": false
+  },
+  {
+    "source": "drive",
+    "key": "harvest.task.arm_action.cancel_timeout_s",
+    "real": 10.0,
+    "sim": 20.0,
+    "equal": false
+  },
+  {
+    "source": "drive",
+    "key": "harvest.task.arm_action.execution_timeout_s",
+    "real": 180.0,
+    "sim": 7260.0,
+    "equal": false
+  },
+  {
+    "source": "drive",
+    "key": "harvest.task.navigation_collision_retry_count",
+    "real": 5,
+    "sim": "<ABSENT>",
+    "equal": false
+  },
+  {
+    "source": "drive",
+    "key": "harvest.task.work_path_heading_limit_rad",
+    "real": 0.08726646259971647,
+    "sim": "<ABSENT>",
+    "equal": false
+  },
+  {
+    "source": "drive",
+    "key": "harvest.wall.controller.angle_tolerance",
+    "real": 0.008726646259971648,
+    "sim": 0.013962634015954637,
+    "equal": false
+  },
+  {
+    "source": "drive",
+    "key": "harvest.work_policy_effective.navigation_collision_retry_count",
+    "real": 5,
+    "sim": 0,
+    "equal": false
+  },
+  {
+    "source": "drive",
+    "key": "harvest.work_policy_effective.work_path_heading_limit_rad",
+    "real": 0.08726646259971647,
+    "sim": null,
+    "equal": false
+  },
+  {
+    "source": "drive",
+    "key": "scout.environment.navigation.tf_recovery_enabled",
+    "real": true,
+    "sim": "<ABSENT>",
+    "equal": false
+  },
+  {
+    "source": "drive",
+    "key": "scout.environment.navigation.tf_recovery_wait_forever",
+    "real": true,
+    "sim": "<ABSENT>",
+    "equal": false
+  },
+  {
+    "source": "drive",
+    "key": "scout.nav2.velocity_smoother.ros__parameters.use_sim_time",
+    "real": false,
+    "sim": true,
+    "equal": false
+  },
+  {
+    "source": "drive",
+    "key": "scout.navigation.tf_recovery_enabled",
+    "real": true,
+    "sim": false,
+    "equal": false
+  },
+  {
+    "source": "drive",
+    "key": "scout.navigation.tf_recovery_wait_forever",
+    "real": true,
+    "sim": "<ABSENT>",
+    "equal": false
+  },
+  {
+    "source": "drive",
+    "key": "scout.survey.sections.SEC01.harvest.depth_tolerance_m",
+    "real": "<ABSENT>",
+    "sim": 0.02,
+    "equal": false
+  },
+  {
+    "source": "drive",
+    "key": "scout.survey.sections.SEC01.harvest.range_tolerance_m",
+    "real": 0.02,
+    "sim": 0.0,
+    "equal": false
+  },
+  {
+    "source": "drive",
+    "key": "scout.survey.sections.SEC01.window_overlap.enabled",
+    "real": true,
+    "sim": "<ABSENT>",
+    "equal": false
+  },
+  {
+    "source": "drive",
+    "key": "scout.survey.sections.SEC02.harvest.depth_tolerance_m",
+    "real": "<ABSENT>",
+    "sim": 0.02,
+    "equal": false
+  },
+  {
+    "source": "drive",
+    "key": "scout.survey.sections.SEC02.harvest.membership_margin_m",
+    "real": "<ABSENT>",
+    "sim": 0.0,
+    "equal": false
+  },
+  {
+    "source": "drive",
+    "key": "scout.survey.sections.SEC02.harvest.range_tolerance_m",
+    "real": "<ABSENT>",
+    "sim": 0.0,
+    "equal": false
+  },
+  {
+    "source": "drive",
+    "key": "scout.survey.sections.SEC02.harvest.side_margin_m",
+    "real": "<ABSENT>",
+    "sim": 0.03,
+    "equal": false
+  },
+  {
+    "source": "drive",
+    "key": "scout.survey.sections.SEC03.harvest.depth_tolerance_m",
+    "real": "<ABSENT>",
+    "sim": 0.02,
+    "equal": false
+  },
+  {
+    "source": "drive",
+    "key": "scout.survey.sections.SEC03.harvest.membership_margin_m",
+    "real": "<ABSENT>",
+    "sim": 0.0,
+    "equal": false
+  },
+  {
+    "source": "drive",
+    "key": "scout.survey.sections.SEC03.harvest.range_tolerance_m",
+    "real": "<ABSENT>",
+    "sim": 0.0,
+    "equal": false
+  },
+  {
+    "source": "drive",
+    "key": "scout.survey.sections.SEC03.harvest.side_margin_m",
+    "real": "<ABSENT>",
+    "sim": 0.03,
+    "equal": false
+  },
+  {
+    "source": "drive",
+    "key": "scout.survey.sections.SEC04.harvest.depth_tolerance_m",
+    "real": "<ABSENT>",
+    "sim": 0.02,
+    "equal": false
+  },
+  {
+    "source": "drive",
+    "key": "scout.survey.sections.SEC04.harvest.membership_margin_m",
+    "real": "<ABSENT>",
+    "sim": 0.0,
+    "equal": false
+  },
+  {
+    "source": "drive",
+    "key": "scout.survey.sections.SEC04.harvest.range_tolerance_m",
+    "real": "<ABSENT>",
+    "sim": 0.0,
+    "equal": false
+  },
+  {
+    "source": "drive",
+    "key": "scout.survey.sections.SEC04.harvest.side_margin_m",
+    "real": "<ABSENT>",
+    "sim": 0.03,
+    "equal": false
+  },
+  {
+    "source": "drive",
+    "key": "scout.survey.sections.SEC05.harvest.depth_tolerance_m",
+    "real": "<ABSENT>",
+    "sim": 0.02,
+    "equal": false
+  },
+  {
+    "source": "drive",
+    "key": "scout.survey.sections.SEC05.harvest.membership_margin_m",
+    "real": "<ABSENT>",
+    "sim": 0.0,
+    "equal": false
+  },
+  {
+    "source": "drive",
+    "key": "scout.survey.sections.SEC05.harvest.range_tolerance_m",
+    "real": "<ABSENT>",
+    "sim": 0.0,
+    "equal": false
+  },
+  {
+    "source": "drive",
+    "key": "scout.survey.sections.SEC05.harvest.side_margin_m",
+    "real": "<ABSENT>",
+    "sim": 0.03,
+    "equal": false
+  },
+  {
+    "source": "drive",
+    "key": "scout.survey.sections.SEC06.harvest.depth_tolerance_m",
+    "real": "<ABSENT>",
+    "sim": 0.02,
+    "equal": false
+  },
+  {
+    "source": "drive",
+    "key": "scout.survey.sections.SEC06.harvest.membership_margin_m",
+    "real": "<ABSENT>",
+    "sim": 0.0,
+    "equal": false
+  },
+  {
+    "source": "drive",
+    "key": "scout.survey.sections.SEC06.harvest.range_tolerance_m",
+    "real": "<ABSENT>",
+    "sim": 0.0,
+    "equal": false
+  },
+  {
+    "source": "drive",
+    "key": "scout.survey.sections.SEC06.harvest.side_margin_m",
+    "real": "<ABSENT>",
+    "sim": 0.03,
+    "equal": false
+  },
+  {
+    "source": "drive",
+    "key": "scout.survey.sections.SEC07.harvest.depth_tolerance_m",
+    "real": "<ABSENT>",
+    "sim": 0.02,
+    "equal": false
+  },
+  {
+    "source": "drive",
+    "key": "scout.survey.sections.SEC07.harvest.membership_margin_m",
+    "real": "<ABSENT>",
+    "sim": 0.0,
+    "equal": false
+  },
+  {
+    "source": "drive",
+    "key": "scout.survey.sections.SEC07.harvest.range_tolerance_m",
+    "real": "<ABSENT>",
+    "sim": 0.0,
+    "equal": false
+  },
+  {
+    "source": "drive",
+    "key": "scout.survey.sections.SEC07.harvest.side_margin_m",
+    "real": "<ABSENT>",
+    "sim": 0.03,
+    "equal": false
+  },
+  {
+    "source": "drive",
+    "key": "scout.survey.sections.SEC08.harvest.depth_tolerance_m",
+    "real": "<ABSENT>",
+    "sim": 0.02,
+    "equal": false
+  },
+  {
+    "source": "drive",
+    "key": "scout.survey.sections.SEC08.harvest.membership_margin_m",
+    "real": "<ABSENT>",
+    "sim": 0.0,
+    "equal": false
+  },
+  {
+    "source": "drive",
+    "key": "scout.survey.sections.SEC08.harvest.range_tolerance_m",
+    "real": "<ABSENT>",
+    "sim": 0.0,
+    "equal": false
+  },
+  {
+    "source": "drive",
+    "key": "scout.survey.sections.SEC08.harvest.side_margin_m",
+    "real": "<ABSENT>",
+    "sim": 0.03,
+    "equal": false
+  },
+  {
+    "source": "drive",
+    "key": "scout.survey.sections.SEC09.harvest.depth_tolerance_m",
+    "real": "<ABSENT>",
+    "sim": 0.02,
+    "equal": false
+  },
+  {
+    "source": "drive",
+    "key": "scout.survey.sections.SEC09.harvest.membership_margin_m",
+    "real": "<ABSENT>",
+    "sim": 0.0,
+    "equal": false
+  },
+  {
+    "source": "drive",
+    "key": "scout.survey.sections.SEC09.harvest.range_tolerance_m",
+    "real": "<ABSENT>",
+    "sim": 0.0,
+    "equal": false
+  },
+  {
+    "source": "drive",
+    "key": "scout.survey.sections.SEC09.harvest.side_margin_m",
+    "real": "<ABSENT>",
+    "sim": 0.03,
+    "equal": false
+  },
+  {
+    "source": "drive",
+    "key": "scout.survey.sections.SEC10.harvest.depth_tolerance_m",
+    "real": "<ABSENT>",
+    "sim": 0.02,
+    "equal": false
+  },
+  {
+    "source": "drive",
+    "key": "scout.survey.sections.SEC10.harvest.membership_margin_m",
+    "real": "<ABSENT>",
+    "sim": 0.0,
+    "equal": false
+  },
+  {
+    "source": "drive",
+    "key": "scout.survey.sections.SEC10.harvest.range_tolerance_m",
+    "real": "<ABSENT>",
+    "sim": 0.0,
+    "equal": false
+  },
+  {
+    "source": "drive",
+    "key": "scout.survey.sections.SEC10.harvest.side_margin_m",
+    "real": "<ABSENT>",
+    "sim": 0.03,
+    "equal": false
+  },
+  {
+    "source": "drive",
+    "key": "scout.survey.sections.SEC11.harvest.depth_tolerance_m",
+    "real": "<ABSENT>",
+    "sim": 0.02,
+    "equal": false
+  },
+  {
+    "source": "drive",
+    "key": "scout.survey.sections.SEC11.harvest.membership_margin_m",
+    "real": "<ABSENT>",
+    "sim": 0.0,
+    "equal": false
+  },
+  {
+    "source": "drive",
+    "key": "scout.survey.sections.SEC11.harvest.range_tolerance_m",
+    "real": "<ABSENT>",
+    "sim": 0.0,
+    "equal": false
+  },
+  {
+    "source": "drive",
+    "key": "scout.survey.sections.SEC11.harvest.side_margin_m",
+    "real": "<ABSENT>",
+    "sim": 0.03,
+    "equal": false
+  },
+  {
+    "source": "drive",
+    "key": "scout.survey.sections.SEC12.harvest.depth_tolerance_m",
+    "real": "<ABSENT>",
+    "sim": 0.02,
+    "equal": false
+  },
+  {
+    "source": "drive",
+    "key": "scout.survey.sections.SEC12.harvest.membership_margin_m",
+    "real": "<ABSENT>",
+    "sim": 0.0,
+    "equal": false
+  },
+  {
+    "source": "drive",
+    "key": "scout.survey.sections.SEC12.harvest.range_tolerance_m",
+    "real": "<ABSENT>",
+    "sim": 0.0,
+    "equal": false
+  },
+  {
+    "source": "drive",
+    "key": "scout.survey.sections.SEC12.harvest.side_margin_m",
+    "real": "<ABSENT>",
+    "sim": 0.03,
+    "equal": false
+  },
+  {
+    "source": "drive",
+    "key": "scout.survey.sections.SEC13.harvest.depth_tolerance_m",
+    "real": "<ABSENT>",
+    "sim": 0.02,
+    "equal": false
+  },
+  {
+    "source": "drive",
+    "key": "scout.survey.sections.SEC13.harvest.membership_margin_m",
+    "real": "<ABSENT>",
+    "sim": 0.0,
+    "equal": false
+  },
+  {
+    "source": "drive",
+    "key": "scout.survey.sections.SEC13.harvest.range_tolerance_m",
+    "real": "<ABSENT>",
+    "sim": 0.0,
+    "equal": false
+  },
+  {
+    "source": "drive",
+    "key": "scout.survey.sections.SEC13.harvest.side_margin_m",
+    "real": "<ABSENT>",
+    "sim": 0.03,
+    "equal": false
+  },
+  {
+    "source": "drive",
+    "key": "scout.survey.sections.SEC14.harvest.depth_tolerance_m",
+    "real": "<ABSENT>",
+    "sim": 0.02,
+    "equal": false
+  },
+  {
+    "source": "drive",
+    "key": "scout.survey.sections.SEC14.harvest.membership_margin_m",
+    "real": "<ABSENT>",
+    "sim": 0.0,
+    "equal": false
+  },
+  {
+    "source": "drive",
+    "key": "scout.survey.sections.SEC14.harvest.range_tolerance_m",
+    "real": "<ABSENT>",
+    "sim": 0.0,
+    "equal": false
+  },
+  {
+    "source": "drive",
+    "key": "scout.survey.sections.SEC14.harvest.side_margin_m",
+    "real": "<ABSENT>",
+    "sim": 0.03,
+    "equal": false
+  },
+  {
+    "source": "drive",
+    "key": "scout.survey.sections.SEC15.harvest.depth_tolerance_m",
+    "real": "<ABSENT>",
+    "sim": 0.02,
+    "equal": false
+  },
+  {
+    "source": "drive",
+    "key": "scout.survey.sections.SEC15.harvest.membership_margin_m",
+    "real": "<ABSENT>",
+    "sim": 0.0,
+    "equal": false
+  },
+  {
+    "source": "drive",
+    "key": "scout.survey.sections.SEC15.harvest.range_tolerance_m",
+    "real": "<ABSENT>",
+    "sim": 0.0,
+    "equal": false
+  },
+  {
+    "source": "drive",
+    "key": "scout.survey.sections.SEC15.harvest.side_margin_m",
+    "real": "<ABSENT>",
+    "sim": 0.03,
+    "equal": false
+  },
+  {
+    "source": "drive",
+    "key": "scout.survey.sections.SEC16.harvest.depth_tolerance_m",
+    "real": "<ABSENT>",
+    "sim": 0.02,
+    "equal": false
+  },
+  {
+    "source": "drive",
+    "key": "scout.survey.sections.SEC16.harvest.membership_margin_m",
+    "real": "<ABSENT>",
+    "sim": 0.0,
+    "equal": false
+  },
+  {
+    "source": "drive",
+    "key": "scout.survey.sections.SEC16.harvest.range_tolerance_m",
+    "real": "<ABSENT>",
+    "sim": 0.0,
+    "equal": false
+  },
+  {
+    "source": "drive",
+    "key": "scout.survey.sections.SEC16.harvest.side_margin_m",
+    "real": "<ABSENT>",
+    "sim": 0.03,
+    "equal": false
+  },
+  {
+    "source": "drive",
+    "key": "scout.tag.map_image_sha256",
+    "real": null,
+    "sim": "3c2fcdae2c4f58716999ca84dc2aae0484fbe280bbf63913ccbdc84111a881e5",
+    "equal": false
+  },
+  {
+    "source": "drive",
+    "key": "scout.tag_model.quality.min_margin",
+    "real": "<ABSENT>",
+    "sim": 80.0,
+    "equal": false
+  },
+  {
+    "source": "drive",
+    "key": "scout.tag_model.tag.distance_interval_m",
+    "real": "<ABSENT>",
+    "sim": [
+      0.8,
+      1.4
+    ],
+    "equal": false
+  },
+  {
+    "source": "drive",
+    "key": "scout.vision.camera.warmup_timeout_s",
+    "real": 90,
+    "sim": "<ABSENT>",
+    "equal": false
+  },
+  {
+    "source": "drive",
+    "key": "scout.vision.confidence",
+    "real": 0.25,
+    "sim": "<ABSENT>",
+    "equal": false
+  },
+  {
+    "source": "drive",
+    "key": "scout.vision.max_frame_age_s",
+    "real": "<ABSENT>",
+    "sim": 2.0,
+    "equal": false
+  },
+  {
+    "source": "drive",
+    "key": "scout.vision.preprocess.vertical_margin_fraction",
+    "real": "<ABSENT>",
+    "sim": 0.1,
+    "equal": false
+  },
+  {
+    "source": "drive",
+    "key": "scout.vision.rpc_timeout_s",
+    "real": 180,
+    "sim": "<ABSENT>",
+    "equal": false
+  },
+  {
+    "source": "drive",
+    "key": "scout.vision.startup_timeout_s",
+    "real": 300,
+    "sim": "<ABSENT>",
+    "equal": false
+  },
+  {
+    "source": "drive",
+    "key": "transport.destinations.destinations.SORT_01.clearance_node_id",
+    "real": 17,
+    "sim": 9001,
+    "equal": false
+  },
+  {
+    "source": "drive",
+    "key": "transport.destinations.destinations.SORT_01.clearance_yaw_rad",
+    "real": 0.0,
+    "sim": 1.7654431305110627,
+    "equal": false
+  },
+  {
+    "source": "drive",
+    "key": "transport.destinations.destinations.STATION_HARVEST_01.clearance_node_id",
+    "real": null,
+    "sim": "<ABSENT>",
+    "equal": false
+  },
+  {
+    "source": "drive",
+    "key": "transport.destinations.destinations.STATION_HARVEST_01.clearance_yaw_rad",
+    "real": null,
+    "sim": "<ABSENT>",
+    "equal": false
+  },
+  {
+    "source": "drive",
+    "key": "transport.destinations.destinations.STATION_SCOUT_01.clearance_node_id",
+    "real": null,
+    "sim": "<ABSENT>",
+    "equal": false
+  },
+  {
+    "source": "drive",
+    "key": "transport.destinations.destinations.STATION_SCOUT_01.clearance_yaw_rad",
+    "real": null,
+    "sim": "<ABSENT>",
+    "equal": false
+  },
+  {
+    "source": "drive",
+    "key": "transport.environment.sorter_distance_handoff.approach_end_node",
+    "real": 17,
+    "sim": 8004,
+    "equal": false
+  },
+  {
+    "source": "drive",
+    "key": "transport.environment.sorter_distance_handoff.observation_start_node",
+    "real": 15,
+    "sim": 9001,
+    "equal": false
+  },
+  {
+    "source": "drive",
+    "key": "transport.environment.sorter_dock_trial.enabled",
+    "real": false,
+    "sim": "<ABSENT>",
+    "equal": false
+  },
+  {
+    "source": "drive",
+    "key": "transport.environment.station_return_trial_enabled",
+    "real": true,
+    "sim": "<ABSENT>",
+    "equal": false
+  },
+  {
+    "source": "drive",
+    "key": "transport.legacy_sites.harvest.enabled",
+    "real": false,
+    "sim": "<ABSENT>",
+    "equal": false
+  },
+  {
+    "source": "drive",
+    "key": "transport.legacy_sites.harvest.lost_margin",
+    "real": 0.04,
+    "sim": "<ABSENT>",
+    "equal": false
+  },
+  {
+    "source": "drive",
+    "key": "transport.legacy_sites.harvest.lost_timeout",
+    "real": 1.0,
+    "sim": "<ABSENT>",
+    "equal": false
+  },
+  {
+    "source": "drive",
+    "key": "transport.legacy_sites.parking.enabled",
+    "real": true,
+    "sim": "<ABSENT>",
+    "equal": false
+  },
+  {
+    "source": "drive",
+    "key": "transport.legacy_sites.parking.lost_margin",
+    "real": 0.07,
+    "sim": "<ABSENT>",
+    "equal": false
+  },
+  {
+    "source": "drive",
+    "key": "transport.legacy_sites.parking.lost_timeout",
+    "real": 0.5,
+    "sim": "<ABSENT>",
+    "equal": false
+  },
+  {
+    "source": "drive",
+    "key": "transport.legacy_sites.sorter.enabled",
+    "real": true,
+    "sim": "<ABSENT>",
+    "equal": false
+  },
+  {
+    "source": "drive",
+    "key": "transport.legacy_sites.sorter.lost_margin",
+    "real": 0.07,
+    "sim": "<ABSENT>",
+    "equal": false
+  },
+  {
+    "source": "drive",
+    "key": "transport.legacy_sites.sorter.lost_timeout",
+    "real": 0.5,
+    "sim": "<ABSENT>",
+    "equal": false
+  },
+  {
+    "source": "drive",
+    "key": "transport.nav2.controller_server.ros__parameters.progress_checker.plugin",
+    "real": "nav2_controller::SimpleProgressChecker",
+    "sim": "nav2_controller::PoseProgressChecker",
+    "equal": false
+  },
+  {
+    "source": "drive",
+    "key": "transport.nav2.controller_server.ros__parameters.progress_checker.required_movement_angle",
+    "real": "<ABSENT>",
+    "sim": 0.5,
+    "equal": false
+  },
+  {
+    "source": "drive",
+    "key": "transport.nav2.velocity_smoother.ros__parameters.use_sim_time",
+    "real": false,
+    "sim": true,
+    "equal": false
+  },
+  {
+    "source": "drive",
+    "key": "transport.navigation.tf_recovery_wait_forever",
+    "real": false,
+    "sim": "<ABSENT>",
+    "equal": false
+  },
+  {
+    "source": "drive",
+    "key": "transport.precision_profiles.profiles.harvest.clearance_corridor_verified",
+    "real": false,
+    "sim": "<ABSENT>",
+    "equal": false
+  },
+  {
+    "source": "drive",
+    "key": "transport.precision_profiles.profiles.harvest.timeout_s",
+    "real": 90.0,
+    "sim": "<ABSENT>",
+    "equal": false
+  },
+  {
+    "source": "drive",
+    "key": "transport.precision_profiles.profiles.harvest_approach_42.route_handoff.approach_margin_m",
+    "real": "<ABSENT>",
+    "sim": 0.1,
+    "equal": false
+  },
+  {
+    "source": "drive",
+    "key": "transport.precision_profiles.profiles.harvest_approach_42.route_handoff.observation_timeout_s",
+    "real": 180.0,
+    "sim": 900.0,
+    "equal": false
+  },
+  {
+    "source": "drive",
+    "key": "transport.precision_profiles.profiles.marker_32_pose_trial.approach_clearance_verified",
+    "real": false,
+    "sim": "<ABSENT>",
+    "equal": false
+  },
+  {
+    "source": "drive",
+    "key": "transport.precision_profiles.profiles.marker_32_pose_trial.scan_stop_range_m",
+    "real": 0.0,
+    "sim": "<ABSENT>",
+    "equal": false
+  },
+  {
+    "source": "drive",
+    "key": "transport.precision_profiles.profiles.marker_32_pose_trial.timeout_s",
+    "real": 20.0,
+    "sim": "<ABSENT>",
+    "equal": false
+  },
+  {
+    "source": "drive",
+    "key": "transport.precision_profiles.profiles.sort_01_distance_trial.base_frame",
+    "real": "base_footprint",
+    "sim": "transport_01/base_footprint",
+    "equal": false
+  },
+  {
+    "source": "drive",
+    "key": "transport.precision_profiles.profiles.sort_01_distance_trial.collision_guard.nav2_file",
+    "real": "../robots/waffle/transport_nav2.yaml",
+    "sim": "/home/ysy/main/farm_project/sim/ros_ws/src/farm_sim_config/config/nav2_transport.yaml",
+    "equal": false
+  },
+  {
+    "source": "drive",
+    "key": "transport.precision_profiles.profiles.sort_01_distance_trial.collision_guard.odom_frame",
+    "real": "odom",
+    "sim": "transport_01/odom",
+    "equal": false
+  },
+  {
+    "source": "drive",
+    "key": "transport.precision_profiles.profiles.sort_01_distance_trial.lidar_approach.scan_frame",
+    "real": "base_scan",
+    "sim": "transport_01/base_scan",
+    "equal": false
+  },
+  {
+    "source": "drive",
+    "key": "transport.precision_profiles.profiles.sort_departure.approach.align_tolerance_rad",
+    "real": 0.05,
+    "sim": "<ABSENT>",
+    "equal": false
+  },
+  {
+    "source": "drive",
+    "key": "transport.precision_profiles.profiles.sort_departure.approach.max_distance_m",
+    "real": 0.5,
+    "sim": "<ABSENT>",
+    "equal": false
+  },
+  {
+    "source": "drive",
+    "key": "transport.precision_profiles.profiles.sort_departure.approach.position_tolerance_m",
+    "real": 0.01,
+    "sim": "<ABSENT>",
+    "equal": false
+  },
+  {
+    "source": "drive",
+    "key": "transport.precision_profiles.profiles.sort_departure.approach.realign_threshold_rad",
+    "real": 0.17,
+    "sim": "<ABSENT>",
+    "equal": false
+  },
+  {
+    "source": "drive",
+    "key": "transport.precision_profiles.profiles.sort_departure.approach_clearance_verified",
+    "real": false,
+    "sim": "<ABSENT>",
+    "equal": false
+  },
+  {
+    "source": "drive",
+    "key": "transport.precision_profiles.profiles.sort_departure.clearance_corridor_verified",
+    "real": false,
+    "sim": "<ABSENT>",
+    "equal": false
+  },
+  {
+    "source": "drive",
+    "key": "transport.precision_profiles.profiles.sort_departure.collision_guard.angular_decel_rps2",
+    "real": 0.4,
+    "sim": "<ABSENT>",
+    "equal": false
+  },
+  {
+    "source": "drive",
+    "key": "transport.precision_profiles.profiles.sort_departure.collision_guard.linear_decel_mps2",
+    "real": 0.2,
+    "sim": "<ABSENT>",
+    "equal": false
+  },
+  {
+    "source": "drive",
+    "key": "transport.precision_profiles.profiles.sort_departure.collision_guard.margin_m",
+    "real": 0.02,
+    "sim": "<ABSENT>",
+    "equal": false
+  },
+  {
+    "source": "drive",
+    "key": "transport.precision_profiles.profiles.sort_departure.collision_guard.max_angular_rps",
+    "real": 0.5,
+    "sim": "<ABSENT>",
+    "equal": false
+  },
+  {
+    "source": "drive",
+    "key": "transport.precision_profiles.profiles.sort_departure.collision_guard.max_linear_mps",
+    "real": 0.2,
+    "sim": "<ABSENT>",
+    "equal": false
+  },
+  {
+    "source": "drive",
+    "key": "transport.precision_profiles.profiles.sort_departure.departure.acquire_samples",
+    "real": 6,
+    "sim": "<ABSENT>",
+    "equal": false
+  },
+  {
+    "source": "drive",
+    "key": "transport.precision_profiles.profiles.sort_departure.departure.acquire_timeout_s",
+    "real": 10.0,
+    "sim": "<ABSENT>",
+    "equal": false
+  },
+  {
+    "source": "drive",
+    "key": "transport.precision_profiles.profiles.sort_departure.departure.alignment_max_angular_rps",
+    "real": 0.3,
+    "sim": "<ABSENT>",
+    "equal": false
+  },
+  {
+    "source": "drive",
+    "key": "transport.precision_profiles.profiles.sort_departure.departure.alignment_timeout_s",
+    "real": 35.0,
+    "sim": "<ABSENT>",
+    "equal": false
+  },
+  {
+    "source": "drive",
+    "key": "transport.precision_profiles.profiles.sort_departure.departure.yaw_tolerance_rad",
+    "real": 0.05236,
+    "sim": "<ABSENT>",
+    "equal": false
+  },
+  {
+    "source": "drive",
+    "key": "transport.precision_profiles.profiles.sort_departure.entry.enabled",
+    "real": false,
+    "sim": "<ABSENT>",
+    "equal": false
+  },
+  {
+    "source": "drive",
+    "key": "transport.precision_profiles.profiles.sort_departure.graph_return.linear_kp",
+    "real": 0.6,
+    "sim": "<ABSENT>",
+    "equal": false
+  },
+  {
+    "source": "drive",
+    "key": "transport.precision_profiles.profiles.sort_departure.graph_return.max_angular_rps",
+    "real": 0.12,
+    "sim": "<ABSENT>",
+    "equal": false
+  },
+  {
+    "source": "drive",
+    "key": "transport.precision_profiles.profiles.sort_departure.graph_return.max_distance_m",
+    "real": 0.8,
+    "sim": "<ABSENT>",
+    "equal": false
+  },
+  {
+    "source": "drive",
+    "key": "transport.precision_profiles.profiles.sort_departure.graph_return.max_linear_mps",
+    "real": 0.06,
+    "sim": "<ABSENT>",
+    "equal": false
+  },
+  {
+    "source": "drive",
+    "key": "transport.precision_profiles.profiles.sort_departure.graph_return.min_linear_mps",
+    "real": 0.02,
+    "sim": "<ABSENT>",
+    "equal": false
+  },
+  {
+    "source": "drive",
+    "key": "transport.precision_profiles.profiles.sort_departure.graph_return.position_tolerance_m",
+    "real": 0.04,
+    "sim": "<ABSENT>",
+    "equal": false
+  },
+  {
+    "source": "drive",
+    "key": "transport.precision_profiles.profiles.sort_departure.graph_return.timeout_s",
+    "real": 30.0,
+    "sim": "<ABSENT>",
+    "equal": false
+  },
+  {
+    "source": "drive",
+    "key": "transport.precision_profiles.profiles.sort_departure.marker_backout.distance_tolerance_m",
+    "real": 0.01,
+    "sim": "<ABSENT>",
+    "equal": false
+  },
+  {
+    "source": "drive",
+    "key": "transport.precision_profiles.profiles.sort_departure.marker_backout.linear_kp",
+    "real": 0.4,
+    "sim": "<ABSENT>",
+    "equal": false
+  },
+  {
+    "source": "drive",
+    "key": "transport.precision_profiles.profiles.sort_departure.marker_backout.max_angular_rps",
+    "real": 0.08,
+    "sim": "<ABSENT>",
+    "equal": false
+  },
+  {
+    "source": "drive",
+    "key": "transport.precision_profiles.profiles.sort_departure.marker_backout.max_linear_mps",
+    "real": 0.025,
+    "sim": "<ABSENT>",
+    "equal": false
+  },
+  {
+    "source": "drive",
+    "key": "transport.precision_profiles.profiles.sort_departure.marker_backout.min_front_distance_m",
+    "real": 0.105,
+    "sim": "<ABSENT>",
+    "equal": false
+  },
+  {
+    "source": "drive",
+    "key": "transport.precision_profiles.profiles.sort_departure.marker_backout.min_linear_mps",
+    "real": 0.01,
+    "sim": "<ABSENT>",
+    "equal": false
+  },
+  {
+    "source": "drive",
+    "key": "transport.precision_profiles.profiles.sort_departure.marker_backout.reference_front_distance_m",
+    "real": 0.422,
+    "sim": "<ABSENT>",
+    "equal": false
+  },
+  {
+    "source": "drive",
+    "key": "transport.precision_profiles.profiles.sort_departure.marker_backout.scan.distance_tolerance_m",
+    "real": 0.005,
+    "sim": "<ABSENT>",
+    "equal": false
+  },
+  {
+    "source": "drive",
+    "key": "transport.precision_profiles.profiles.sort_departure.marker_backout.scan.hard_min_distance_m",
+    "real": 0.12,
+    "sim": "<ABSENT>",
+    "equal": false
+  },
+  {
+    "source": "drive",
+    "key": "transport.precision_profiles.profiles.sort_departure.marker_backout.scan.linear_kp",
+    "real": 0.5,
+    "sim": "<ABSENT>",
+    "equal": false
+  },
+  {
+    "source": "drive",
+    "key": "transport.precision_profiles.profiles.sort_departure.marker_backout.scan.max_age_s",
+    "real": 0.3,
+    "sim": "<ABSENT>",
+    "equal": false
+  },
+  {
+    "source": "drive",
+    "key": "transport.precision_profiles.profiles.sort_departure.marker_backout.scan.max_angular_rps",
+    "real": 0.08,
+    "sim": "<ABSENT>",
+    "equal": false
+  },
+  {
+    "source": "drive",
+    "key": "transport.precision_profiles.profiles.sort_departure.marker_backout.scan.max_linear_mps",
+    "real": 0.04,
+    "sim": "<ABSENT>",
+    "equal": false
+  },
+  {
+    "source": "drive",
+    "key": "transport.precision_profiles.profiles.sort_departure.marker_backout.scan.max_start_distance_m",
+    "real": 0.5,
+    "sim": "<ABSENT>",
+    "equal": false
+  },
+  {
+    "source": "drive",
+    "key": "transport.precision_profiles.profiles.sort_departure.marker_backout.scan.min_linear_mps",
+    "real": 0.01,
+    "sim": "<ABSENT>",
+    "equal": false
+  },
+  {
+    "source": "drive",
+    "key": "transport.precision_profiles.profiles.sort_departure.marker_backout.scan.stable_s",
+    "real": 0.5,
+    "sim": "<ABSENT>",
+    "equal": false
+  },
+  {
+    "source": "drive",
+    "key": "transport.precision_profiles.profiles.sort_departure.marker_backout.scan.target_distance_m",
+    "real": 0.15,
+    "sim": "<ABSENT>",
+    "equal": false
+  },
+  {
+    "source": "drive",
+    "key": "transport.precision_profiles.profiles.sort_departure.marker_backout.scan.timeout_s",
+    "real": 25.0,
+    "sim": "<ABSENT>",
+    "equal": false
+  },
+  {
+    "source": "drive",
+    "key": "transport.precision_profiles.profiles.sort_departure.marker_backout.timeout_s",
+    "real": 20.0,
+    "sim": "<ABSENT>",
+    "equal": false
+  },
+  {
+    "source": "drive",
+    "key": "transport.precision_profiles.profiles.sort_departure.marker_wait_timeout_s",
+    "real": 2.0,
+    "sim": "<ABSENT>",
+    "equal": false
+  },
+  {
+    "source": "drive",
+    "key": "transport.precision_profiles.profiles.sort_departure.pose_controller.angular_pid.kd",
+    "real": 0.0,
+    "sim": "<ABSENT>",
+    "equal": false
+  },
+  {
+    "source": "drive",
+    "key": "transport.precision_profiles.profiles.sort_departure.pose_controller.angular_pid.ki",
+    "real": 0.0,
+    "sim": "<ABSENT>",
+    "equal": false
+  },
+  {
+    "source": "drive",
+    "key": "transport.precision_profiles.profiles.sort_departure.pose_controller.angular_pid.kp",
+    "real": 0.8,
+    "sim": "<ABSENT>",
+    "equal": false
+  },
+  {
+    "source": "drive",
+    "key": "transport.precision_profiles.profiles.sort_departure.pose_controller.linear_pid.kd",
+    "real": 0.0,
+    "sim": "<ABSENT>",
+    "equal": false
+  },
+  {
+    "source": "drive",
+    "key": "transport.precision_profiles.profiles.sort_departure.pose_controller.linear_pid.ki",
+    "real": 0.0,
+    "sim": "<ABSENT>",
+    "equal": false
+  },
+  {
+    "source": "drive",
+    "key": "transport.precision_profiles.profiles.sort_departure.pose_controller.linear_pid.kp",
+    "real": 0.6,
+    "sim": "<ABSENT>",
+    "equal": false
+  },
+  {
+    "source": "drive",
+    "key": "transport.precision_profiles.profiles.sort_departure.pose_controller.max_angular_rps",
+    "real": 0.12,
+    "sim": "<ABSENT>",
+    "equal": false
+  },
+  {
+    "source": "drive",
+    "key": "transport.precision_profiles.profiles.sort_departure.pose_controller.max_linear_mps",
+    "real": 0.06,
+    "sim": "<ABSENT>",
+    "equal": false
+  },
+  {
+    "source": "drive",
+    "key": "transport.precision_profiles.profiles.sort_departure.pose_controller.min_linear_mps",
+    "real": 0.02,
+    "sim": "<ABSENT>",
+    "equal": false
+  },
+  {
+    "source": "drive",
+    "key": "transport.precision_profiles.profiles.sort_departure.pose_controller.position_tolerance_m",
+    "real": 0.02,
+    "sim": "<ABSENT>",
+    "equal": false
+  },
+  {
+    "source": "drive",
+    "key": "transport.precision_profiles.profiles.sort_departure.pose_controller.settle_samples",
+    "real": 3,
+    "sim": "<ABSENT>",
+    "equal": false
+  },
+  {
+    "source": "drive",
+    "key": "transport.precision_profiles.profiles.sort_departure.pose_controller.yaw_tolerance_rad",
+    "real": 0.035,
+    "sim": "<ABSENT>",
+    "equal": false
+  },
+  {
+    "source": "drive",
+    "key": "transport.precision_profiles.profiles.sort_departure.recovery.marker_timeout_s",
+    "real": 30.0,
+    "sim": "<ABSENT>",
+    "equal": false
+  },
+  {
+    "source": "drive",
+    "key": "transport.precision_profiles.profiles.sort_departure.recovery.max_episodes",
+    "real": 5,
+    "sim": "<ABSENT>",
+    "equal": false
+  },
+  {
+    "source": "drive",
+    "key": "transport.precision_profiles.profiles.sort_departure.recovery.search_angle_rad",
+    "real": 0.2617993878,
+    "sim": "<ABSENT>",
+    "equal": false
+  },
+  {
+    "source": "drive",
+    "key": "transport.precision_profiles.profiles.sort_departure.recovery.search_dwell_s",
+    "real": 1.0,
+    "sim": "<ABSENT>",
+    "equal": false
+  },
+  {
+    "source": "drive",
+    "key": "transport.precision_profiles.profiles.sort_departure.recovery.search_enabled",
+    "real": true,
+    "sim": "<ABSENT>",
+    "equal": false
+  },
+  {
+    "source": "drive",
+    "key": "transport.precision_profiles.profiles.sort_departure.recovery.search_speed_rps",
+    "real": 0.12,
+    "sim": "<ABSENT>",
+    "equal": false
+  },
+  {
+    "source": "drive",
+    "key": "transport.precision_profiles.profiles.sort_departure.recovery.stable_s",
+    "real": 0.5,
+    "sim": "<ABSENT>",
+    "equal": false
+  },
+  {
+    "source": "drive",
+    "key": "transport.precision_profiles.profiles.sort_departure.recovery.wait_timeout_s",
+    "real": 15.0,
+    "sim": "<ABSENT>",
+    "equal": false
+  },
+  {
+    "source": "drive",
+    "key": "transport.precision_profiles.profiles.sort_departure.scan_stop_range_m",
+    "real": 0.3,
+    "sim": "<ABSENT>",
+    "equal": false
+  },
+  {
+    "source": "drive",
+    "key": "transport.precision_profiles.profiles.sort_departure.target_tracking.enabled",
+    "real": true,
+    "sim": "<ABSENT>",
+    "equal": false
+  },
+  {
+    "source": "drive",
+    "key": "transport.precision_profiles.profiles.sort_departure.target_tracking.max_input_age_s",
+    "real": 0.3,
+    "sim": "<ABSENT>",
+    "equal": false
+  },
+  {
+    "source": "drive",
+    "key": "transport.precision_profiles.profiles.sort_departure.target_tracking.max_prediction_distance_m",
+    "real": 0.06,
+    "sim": "<ABSENT>",
+    "equal": false
+  },
+  {
+    "source": "drive",
+    "key": "transport.precision_profiles.profiles.sort_departure.timeout_s",
+    "real": 110.0,
+    "sim": "<ABSENT>",
+    "equal": false
+  },
+  {
+    "source": "drive",
+    "key": "transport.precision_profiles.profiles.sort_departure_distance_trial.base_frame",
+    "real": "base_footprint",
+    "sim": "transport_01/base_footprint",
+    "equal": false
+  },
+  {
+    "source": "drive",
+    "key": "transport.precision_profiles.profiles.sort_departure_distance_trial.collision_guard.nav2_file",
+    "real": "../robots/waffle/transport_nav2.yaml",
+    "sim": "/home/ysy/main/farm_project/sim/ros_ws/src/farm_sim_config/config/nav2_transport.yaml",
+    "equal": false
+  },
+  {
+    "source": "drive",
+    "key": "transport.precision_profiles.profiles.sort_departure_distance_trial.collision_guard.odom_frame",
+    "real": "odom",
+    "sim": "transport_01/odom",
+    "equal": false
+  },
+  {
+    "source": "drive",
+    "key": "transport.precision_profiles.profiles.sort_departure_distance_trial.distance_departure.exit_rotation.from_node_id",
+    "real": 17,
+    "sim": 8004,
+    "equal": false
+  },
+  {
+    "source": "drive",
+    "key": "transport.precision_profiles.profiles.sort_departure_distance_trial.distance_departure.exit_rotation.graph_file",
+    "real": "../maps/transport_real/graph.geojson",
+    "sim": "/home/ysy/main/farm_project/sim/ros_ws/src/farm_sim_config/maps/transport_graph.geojson",
+    "equal": false
+  },
+  {
+    "source": "drive",
+    "key": "transport.precision_profiles.profiles.sort_departure_distance_trial.distance_departure.exit_rotation.to_node_id",
+    "real": 15,
+    "sim": 9001,
+    "equal": false
+  },
+  {
+    "source": "drive",
+    "key": "transport.precision_profiles.profiles.sort_departure_distance_trial.distance_departure.map_yaw_rad",
+    "real": 0.0,
+    "sim": 1.7654431305110627,
+    "equal": false
+  },
+  {
+    "source": "drive",
+    "key": "transport.precision_profiles.profiles.sort_departure_distance_trial.marker_backout.scan.scan_frame",
+    "real": "base_scan",
+    "sim": "transport_01/base_scan",
+    "equal": false
+  },
+  {
+    "source": "drive",
+    "key": "transport.precision_profiles.profiles.station_transport_01.acquire_then_odom.acquire_samples",
+    "real": 8,
+    "sim": "<ABSENT>",
+    "equal": false
+  },
+  {
+    "source": "drive",
+    "key": "transport.precision_profiles.profiles.station_transport_01.acquire_then_odom.acquire_timeout_s",
+    "real": 10.0,
+    "sim": "<ABSENT>",
+    "equal": false
+  },
+  {
+    "source": "drive",
+    "key": "transport.precision_profiles.profiles.station_transport_01.acquire_then_odom.reobserve_distance_m",
+    "real": 0.04,
+    "sim": "<ABSENT>",
+    "equal": false
+  },
+  {
+    "source": "drive",
+    "key": "transport.precision_profiles.profiles.station_transport_01.approach.align_tolerance_rad",
+    "real": 0.05,
+    "sim": "<ABSENT>",
+    "equal": false
+  },
+  {
+    "source": "drive",
+    "key": "transport.precision_profiles.profiles.station_transport_01.approach.max_distance_m",
+    "real": 0.8,
+    "sim": "<ABSENT>",
+    "equal": false
+  },
+  {
+    "source": "drive",
+    "key": "transport.precision_profiles.profiles.station_transport_01.approach.position_tolerance_m",
+    "real": 0.01,
+    "sim": "<ABSENT>",
+    "equal": false
+  },
+  {
+    "source": "drive",
+    "key": "transport.precision_profiles.profiles.station_transport_01.approach.realign_threshold_rad",
+    "real": 0.17,
+    "sim": "<ABSENT>",
+    "equal": false
+  },
+  {
+    "source": "drive",
+    "key": "transport.precision_profiles.profiles.station_transport_01.approach_clearance_verified",
+    "real": false,
+    "sim": "<ABSENT>",
+    "equal": false
+  },
+  {
+    "source": "drive",
+    "key": "transport.precision_profiles.profiles.station_transport_01.clearance_corridor_verified",
+    "real": false,
+    "sim": "<ABSENT>",
+    "equal": false
+  },
+  {
+    "source": "drive",
+    "key": "transport.precision_profiles.profiles.station_transport_01.collision_guard.angular_decel_rps2",
+    "real": 0.4,
+    "sim": "<ABSENT>",
+    "equal": false
+  },
+  {
+    "source": "drive",
+    "key": "transport.precision_profiles.profiles.station_transport_01.collision_guard.linear_decel_mps2",
+    "real": 0.2,
+    "sim": "<ABSENT>",
+    "equal": false
+  },
+  {
+    "source": "drive",
+    "key": "transport.precision_profiles.profiles.station_transport_01.collision_guard.margin_m",
+    "real": 0.02,
+    "sim": "<ABSENT>",
+    "equal": false
+  },
+  {
+    "source": "drive",
+    "key": "transport.precision_profiles.profiles.station_transport_01.collision_guard.max_angular_rps",
+    "real": 0.5,
+    "sim": "<ABSENT>",
+    "equal": false
+  },
+  {
+    "source": "drive",
+    "key": "transport.precision_profiles.profiles.station_transport_01.collision_guard.max_linear_mps",
+    "real": 0.2,
+    "sim": "<ABSENT>",
+    "equal": false
+  },
+  {
+    "source": "drive",
+    "key": "transport.precision_profiles.profiles.station_transport_01.entry.angular_kp",
+    "real": 0.8,
+    "sim": "<ABSENT>",
+    "equal": false
+  },
+  {
+    "source": "drive",
+    "key": "transport.precision_profiles.profiles.station_transport_01.entry.enabled",
+    "real": true,
+    "sim": "<ABSENT>",
+    "equal": false
+  },
+  {
+    "source": "drive",
+    "key": "transport.precision_profiles.profiles.station_transport_01.entry.linear_kp",
+    "real": 0.7,
+    "sim": "<ABSENT>",
+    "equal": false
+  },
+  {
+    "source": "drive",
+    "key": "transport.precision_profiles.profiles.station_transport_01.entry.max_angular_rps",
+    "real": 0.3,
+    "sim": "<ABSENT>",
+    "equal": false
+  },
+  {
+    "source": "drive",
+    "key": "transport.precision_profiles.profiles.station_transport_01.entry.max_distance_m",
+    "real": 0.5,
+    "sim": "<ABSENT>",
+    "equal": false
+  },
+  {
+    "source": "drive",
+    "key": "transport.precision_profiles.profiles.station_transport_01.entry.max_linear_mps",
+    "real": 0.15,
+    "sim": "<ABSENT>",
+    "equal": false
+  },
+  {
+    "source": "drive",
+    "key": "transport.precision_profiles.profiles.station_transport_01.entry.min_angular_rps",
+    "real": 0.011,
+    "sim": "<ABSENT>",
+    "equal": false
+  },
+  {
+    "source": "drive",
+    "key": "transport.precision_profiles.profiles.station_transport_01.entry.min_linear_mps",
+    "real": 0.035,
+    "sim": "<ABSENT>",
+    "equal": false
+  },
+  {
+    "source": "drive",
+    "key": "transport.precision_profiles.profiles.station_transport_01.entry.position_tolerance_m",
+    "real": 0.015,
+    "sim": "<ABSENT>",
+    "equal": false
+  },
+  {
+    "source": "drive",
+    "key": "transport.precision_profiles.profiles.station_transport_01.entry.timeout_s",
+    "real": 65.0,
+    "sim": "<ABSENT>",
+    "equal": false
+  },
+  {
+    "source": "drive",
+    "key": "transport.precision_profiles.profiles.station_transport_01.entry.yaw_tolerance_rad",
+    "real": 0.035,
+    "sim": "<ABSENT>",
+    "equal": false
+  },
+  {
+    "source": "drive",
+    "key": "transport.precision_profiles.profiles.station_transport_01.marker_wait_timeout_s",
+    "real": 2.0,
+    "sim": "<ABSENT>",
+    "equal": false
+  },
+  {
+    "source": "drive",
+    "key": "transport.precision_profiles.profiles.station_transport_01.parking.alignment_max_angular_rps",
+    "real": 0.3,
+    "sim": "<ABSENT>",
+    "equal": false
+  },
+  {
+    "source": "drive",
+    "key": "transport.precision_profiles.profiles.station_transport_01.parking.enabled",
+    "real": true,
+    "sim": "<ABSENT>",
+    "equal": false
+  },
+  {
+    "source": "drive",
+    "key": "transport.precision_profiles.profiles.station_transport_01.parking.settle_s",
+    "real": 0.5,
+    "sim": "<ABSENT>",
+    "equal": false
+  },
+  {
+    "source": "drive",
+    "key": "transport.precision_profiles.profiles.station_transport_01.parking.timeout_s",
+    "real": 35.0,
+    "sim": "<ABSENT>",
+    "equal": false
+  },
+  {
+    "source": "drive",
+    "key": "transport.precision_profiles.profiles.station_transport_01.parking.yaw_tolerance_rad",
+    "real": 0.05236,
+    "sim": "<ABSENT>",
+    "equal": false
+  },
+  {
+    "source": "drive",
+    "key": "transport.precision_profiles.profiles.station_transport_01.pose_controller.angular_pid.kd",
+    "real": 0.0,
+    "sim": "<ABSENT>",
+    "equal": false
+  },
+  {
+    "source": "drive",
+    "key": "transport.precision_profiles.profiles.station_transport_01.pose_controller.angular_pid.ki",
+    "real": 0.0,
+    "sim": "<ABSENT>",
+    "equal": false
+  },
+  {
+    "source": "drive",
+    "key": "transport.precision_profiles.profiles.station_transport_01.pose_controller.angular_pid.kp",
+    "real": 0.8,
+    "sim": "<ABSENT>",
+    "equal": false
+  },
+  {
+    "source": "drive",
+    "key": "transport.precision_profiles.profiles.station_transport_01.pose_controller.linear_pid.kd",
+    "real": 0.0,
+    "sim": "<ABSENT>",
+    "equal": false
+  },
+  {
+    "source": "drive",
+    "key": "transport.precision_profiles.profiles.station_transport_01.pose_controller.linear_pid.ki",
+    "real": 0.0,
+    "sim": "<ABSENT>",
+    "equal": false
+  },
+  {
+    "source": "drive",
+    "key": "transport.precision_profiles.profiles.station_transport_01.pose_controller.linear_pid.kp",
+    "real": 0.6,
+    "sim": "<ABSENT>",
+    "equal": false
+  },
+  {
+    "source": "drive",
+    "key": "transport.precision_profiles.profiles.station_transport_01.pose_controller.max_angular_rps",
+    "real": 0.3,
+    "sim": "<ABSENT>",
+    "equal": false
+  },
+  {
+    "source": "drive",
+    "key": "transport.precision_profiles.profiles.station_transport_01.pose_controller.max_linear_mps",
+    "real": 0.08,
+    "sim": "<ABSENT>",
+    "equal": false
+  },
+  {
+    "source": "drive",
+    "key": "transport.precision_profiles.profiles.station_transport_01.pose_controller.max_planar_distance_m",
+    "real": 0.8,
+    "sim": "<ABSENT>",
+    "equal": false
+  },
+  {
+    "source": "drive",
+    "key": "transport.precision_profiles.profiles.station_transport_01.pose_controller.min_linear_mps",
+    "real": 0.03,
+    "sim": "<ABSENT>",
+    "equal": false
+  },
+  {
+    "source": "drive",
+    "key": "transport.precision_profiles.profiles.station_transport_01.pose_path.linear_kp",
+    "real": 0.6,
+    "sim": "<ABSENT>",
+    "equal": false
+  },
+  {
+    "source": "drive",
+    "key": "transport.precision_profiles.profiles.station_transport_01.pose_path.max_angular_rps",
+    "real": 0.15,
+    "sim": "<ABSENT>",
+    "equal": false
+  },
+  {
+    "source": "drive",
+    "key": "transport.precision_profiles.profiles.station_transport_01.pose_path.max_linear_mps",
+    "real": 0.08,
+    "sim": "<ABSENT>",
+    "equal": false
+  },
+  {
+    "source": "drive",
+    "key": "transport.precision_profiles.profiles.station_transport_01.pose_path.min_linear_mps",
+    "real": 0.03,
+    "sim": "<ABSENT>",
+    "equal": false
+  },
+  {
+    "source": "drive",
+    "key": "transport.precision_profiles.profiles.station_transport_01.recovery.marker_timeout_s",
+    "real": 30.0,
+    "sim": "<ABSENT>",
+    "equal": false
+  },
+  {
+    "source": "drive",
+    "key": "transport.precision_profiles.profiles.station_transport_01.recovery.max_episodes",
+    "real": 5,
+    "sim": "<ABSENT>",
+    "equal": false
+  },
+  {
+    "source": "drive",
+    "key": "transport.precision_profiles.profiles.station_transport_01.recovery.search_angle_rad",
+    "real": 0.2617993878,
+    "sim": "<ABSENT>",
+    "equal": false
+  },
+  {
+    "source": "drive",
+    "key": "transport.precision_profiles.profiles.station_transport_01.recovery.search_dwell_s",
+    "real": 1.0,
+    "sim": "<ABSENT>",
+    "equal": false
+  },
+  {
+    "source": "drive",
+    "key": "transport.precision_profiles.profiles.station_transport_01.recovery.search_enabled",
+    "real": true,
+    "sim": "<ABSENT>",
+    "equal": false
+  },
+  {
+    "source": "drive",
+    "key": "transport.precision_profiles.profiles.station_transport_01.recovery.search_speed_rps",
+    "real": 0.12,
+    "sim": "<ABSENT>",
+    "equal": false
+  },
+  {
+    "source": "drive",
+    "key": "transport.precision_profiles.profiles.station_transport_01.recovery.stable_s",
+    "real": 0.5,
+    "sim": "<ABSENT>",
+    "equal": false
+  },
+  {
+    "source": "drive",
+    "key": "transport.precision_profiles.profiles.station_transport_01.recovery.wait_timeout_s",
+    "real": 15.0,
+    "sim": "<ABSENT>",
+    "equal": false
+  },
+  {
+    "source": "drive",
+    "key": "transport.precision_profiles.profiles.station_transport_01.scan_stop_range_m",
+    "real": 0.3,
+    "sim": "<ABSENT>",
+    "equal": false
+  },
+  {
+    "source": "drive",
+    "key": "transport.precision_profiles.profiles.station_transport_01.target_tracking.enabled",
+    "real": true,
+    "sim": "<ABSENT>",
+    "equal": false
+  },
+  {
+    "source": "drive",
+    "key": "transport.precision_profiles.profiles.station_transport_01.target_tracking.max_input_age_s",
+    "real": 0.3,
+    "sim": "<ABSENT>",
+    "equal": false
+  },
+  {
+    "source": "drive",
+    "key": "transport.precision_profiles.profiles.station_transport_01.target_tracking.max_prediction_distance_m",
+    "real": 0.06,
+    "sim": "<ABSENT>",
+    "equal": false
+  },
+  {
+    "source": "drive",
+    "key": "transport.precision_profiles.profiles.station_transport_01.timeout_s",
+    "real": 100.0,
+    "sim": "<ABSENT>",
+    "equal": false
+  },
+  {
+    "source": "drive",
+    "key": "transport.precision_profiles.profiles.station_transport_departure.approach.align_tolerance_rad",
+    "real": 0.05,
+    "sim": "<ABSENT>",
+    "equal": false
+  },
+  {
+    "source": "drive",
+    "key": "transport.precision_profiles.profiles.station_transport_departure.approach.max_distance_m",
+    "real": 0.5,
+    "sim": "<ABSENT>",
+    "equal": false
+  },
+  {
+    "source": "drive",
+    "key": "transport.precision_profiles.profiles.station_transport_departure.approach.position_tolerance_m",
+    "real": 0.01,
+    "sim": "<ABSENT>",
+    "equal": false
+  },
+  {
+    "source": "drive",
+    "key": "transport.precision_profiles.profiles.station_transport_departure.approach.realign_threshold_rad",
+    "real": 0.17,
+    "sim": "<ABSENT>",
+    "equal": false
+  },
+  {
+    "source": "drive",
+    "key": "transport.precision_profiles.profiles.station_transport_departure.approach_clearance_verified",
+    "real": false,
+    "sim": "<ABSENT>",
+    "equal": false
+  },
+  {
+    "source": "drive",
+    "key": "transport.precision_profiles.profiles.station_transport_departure.clearance_corridor_verified",
+    "real": false,
+    "sim": "<ABSENT>",
+    "equal": false
+  },
+  {
+    "source": "drive",
+    "key": "transport.precision_profiles.profiles.station_transport_departure.collision_guard.angular_decel_rps2",
+    "real": 0.4,
+    "sim": "<ABSENT>",
+    "equal": false
+  },
+  {
+    "source": "drive",
+    "key": "transport.precision_profiles.profiles.station_transport_departure.collision_guard.linear_decel_mps2",
+    "real": 0.2,
+    "sim": "<ABSENT>",
+    "equal": false
+  },
+  {
+    "source": "drive",
+    "key": "transport.precision_profiles.profiles.station_transport_departure.collision_guard.margin_m",
+    "real": 0.02,
+    "sim": "<ABSENT>",
+    "equal": false
+  },
+  {
+    "source": "drive",
+    "key": "transport.precision_profiles.profiles.station_transport_departure.collision_guard.max_angular_rps",
+    "real": 0.5,
+    "sim": "<ABSENT>",
+    "equal": false
+  },
+  {
+    "source": "drive",
+    "key": "transport.precision_profiles.profiles.station_transport_departure.collision_guard.max_linear_mps",
+    "real": 0.2,
+    "sim": "<ABSENT>",
+    "equal": false
+  },
+  {
+    "source": "drive",
+    "key": "transport.precision_profiles.profiles.station_transport_departure.departure.acquire_samples",
+    "real": 6,
+    "sim": "<ABSENT>",
+    "equal": false
+  },
+  {
+    "source": "drive",
+    "key": "transport.precision_profiles.profiles.station_transport_departure.departure.acquire_timeout_s",
+    "real": 10.0,
+    "sim": "<ABSENT>",
+    "equal": false
+  },
+  {
+    "source": "drive",
+    "key": "transport.precision_profiles.profiles.station_transport_departure.departure.alignment_max_angular_rps",
+    "real": 0.3,
+    "sim": "<ABSENT>",
+    "equal": false
+  },
+  {
+    "source": "drive",
+    "key": "transport.precision_profiles.profiles.station_transport_departure.departure.alignment_timeout_s",
+    "real": 35.0,
+    "sim": "<ABSENT>",
+    "equal": false
+  },
+  {
+    "source": "drive",
+    "key": "transport.precision_profiles.profiles.station_transport_departure.departure.yaw_tolerance_rad",
+    "real": 0.05236,
+    "sim": "<ABSENT>",
+    "equal": false
+  },
+  {
+    "source": "drive",
+    "key": "transport.precision_profiles.profiles.station_transport_departure.entry.enabled",
+    "real": false,
+    "sim": "<ABSENT>",
+    "equal": false
+  },
+  {
+    "source": "drive",
+    "key": "transport.precision_profiles.profiles.station_transport_departure.marker_wait_timeout_s",
+    "real": 2.0,
+    "sim": "<ABSENT>",
+    "equal": false
+  },
+  {
+    "source": "drive",
+    "key": "transport.precision_profiles.profiles.station_transport_departure.pose_controller.angular_pid.kd",
+    "real": 0.0,
+    "sim": "<ABSENT>",
+    "equal": false
+  },
+  {
+    "source": "drive",
+    "key": "transport.precision_profiles.profiles.station_transport_departure.pose_controller.angular_pid.ki",
+    "real": 0.0,
+    "sim": "<ABSENT>",
+    "equal": false
+  },
+  {
+    "source": "drive",
+    "key": "transport.precision_profiles.profiles.station_transport_departure.pose_controller.angular_pid.kp",
+    "real": 0.8,
+    "sim": "<ABSENT>",
+    "equal": false
+  },
+  {
+    "source": "drive",
+    "key": "transport.precision_profiles.profiles.station_transport_departure.pose_controller.linear_pid.kd",
+    "real": 0.0,
+    "sim": "<ABSENT>",
+    "equal": false
+  },
+  {
+    "source": "drive",
+    "key": "transport.precision_profiles.profiles.station_transport_departure.pose_controller.linear_pid.ki",
+    "real": 0.0,
+    "sim": "<ABSENT>",
+    "equal": false
+  },
+  {
+    "source": "drive",
+    "key": "transport.precision_profiles.profiles.station_transport_departure.pose_controller.linear_pid.kp",
+    "real": 0.6,
+    "sim": "<ABSENT>",
+    "equal": false
+  },
+  {
+    "source": "drive",
+    "key": "transport.precision_profiles.profiles.station_transport_departure.pose_controller.max_angular_rps",
+    "real": 0.12,
+    "sim": "<ABSENT>",
+    "equal": false
+  },
+  {
+    "source": "drive",
+    "key": "transport.precision_profiles.profiles.station_transport_departure.pose_controller.max_linear_mps",
+    "real": 0.06,
+    "sim": "<ABSENT>",
+    "equal": false
+  },
+  {
+    "source": "drive",
+    "key": "transport.precision_profiles.profiles.station_transport_departure.pose_controller.min_linear_mps",
+    "real": 0.02,
+    "sim": "<ABSENT>",
+    "equal": false
+  },
+  {
+    "source": "drive",
+    "key": "transport.precision_profiles.profiles.station_transport_departure.pose_controller.position_tolerance_m",
+    "real": 0.04,
+    "sim": "<ABSENT>",
+    "equal": false
+  },
+  {
+    "source": "drive",
+    "key": "transport.precision_profiles.profiles.station_transport_departure.pose_controller.settle_samples",
+    "real": 3,
+    "sim": "<ABSENT>",
+    "equal": false
+  },
+  {
+    "source": "drive",
+    "key": "transport.precision_profiles.profiles.station_transport_departure.pose_controller.yaw_tolerance_rad",
+    "real": 0.035,
+    "sim": "<ABSENT>",
+    "equal": false
+  },
+  {
+    "source": "drive",
+    "key": "transport.precision_profiles.profiles.station_transport_departure.recovery.marker_timeout_s",
+    "real": 30.0,
+    "sim": "<ABSENT>",
+    "equal": false
+  },
+  {
+    "source": "drive",
+    "key": "transport.precision_profiles.profiles.station_transport_departure.recovery.max_episodes",
+    "real": 5,
+    "sim": "<ABSENT>",
+    "equal": false
+  },
+  {
+    "source": "drive",
+    "key": "transport.precision_profiles.profiles.station_transport_departure.recovery.search_angle_rad",
+    "real": 0.2617993878,
+    "sim": "<ABSENT>",
+    "equal": false
+  },
+  {
+    "source": "drive",
+    "key": "transport.precision_profiles.profiles.station_transport_departure.recovery.search_dwell_s",
+    "real": 1.0,
+    "sim": "<ABSENT>",
+    "equal": false
+  },
+  {
+    "source": "drive",
+    "key": "transport.precision_profiles.profiles.station_transport_departure.recovery.search_enabled",
+    "real": true,
+    "sim": "<ABSENT>",
+    "equal": false
+  },
+  {
+    "source": "drive",
+    "key": "transport.precision_profiles.profiles.station_transport_departure.recovery.search_speed_rps",
+    "real": 0.12,
+    "sim": "<ABSENT>",
+    "equal": false
+  },
+  {
+    "source": "drive",
+    "key": "transport.precision_profiles.profiles.station_transport_departure.recovery.stable_s",
+    "real": 0.5,
+    "sim": "<ABSENT>",
+    "equal": false
+  },
+  {
+    "source": "drive",
+    "key": "transport.precision_profiles.profiles.station_transport_departure.recovery.wait_timeout_s",
+    "real": 15.0,
+    "sim": "<ABSENT>",
+    "equal": false
+  },
+  {
+    "source": "drive",
+    "key": "transport.precision_profiles.profiles.station_transport_departure.scan_stop_range_m",
+    "real": 0.3,
+    "sim": "<ABSENT>",
+    "equal": false
+  },
+  {
+    "source": "drive",
+    "key": "transport.precision_profiles.profiles.station_transport_departure.target_tracking.enabled",
+    "real": true,
+    "sim": "<ABSENT>",
+    "equal": false
+  },
+  {
+    "source": "drive",
+    "key": "transport.precision_profiles.profiles.station_transport_departure.target_tracking.max_input_age_s",
+    "real": 0.3,
+    "sim": "<ABSENT>",
+    "equal": false
+  },
+  {
+    "source": "drive",
+    "key": "transport.precision_profiles.profiles.station_transport_departure.target_tracking.max_prediction_distance_m",
+    "real": 0.06,
+    "sim": "<ABSENT>",
+    "equal": false
+  },
+  {
+    "source": "drive",
+    "key": "transport.precision_profiles.profiles.station_transport_departure.timeout_s",
+    "real": 100.0,
+    "sim": "<ABSENT>",
+    "equal": false
+  },
+  {
+    "source": "harvest",
+    "key": "harvest.arm_action_effective.cancel_timeout_s",
+    "real": 10.0,
+    "sim": 20.0,
+    "equal": false
+  },
+  {
+    "source": "harvest",
+    "key": "harvest.arm_action_effective.execution_timeout_s",
+    "real": 180.0,
+    "sim": 7260.0,
+    "equal": false
+  },
+  {
+    "source": "harvest",
+    "key": "harvest.environment.navigation.heading_tolerance_rad",
+    "real": 0.10471975511965978,
+    "sim": "<ABSENT>",
+    "equal": false
+  },
+  {
+    "source": "harvest",
+    "key": "harvest.generated_handoff_server.profile.navigation.wall.heading_tolerance_rad",
+    "real": 0.008726646259971648,
+    "sim": 0.013962634015954637,
+    "equal": false
+  },
+  {
+    "source": "harvest",
+    "key": "harvest.generated_handoff_server.values./harvest_01/handoff/controller_server.ros__parameters.wall_alignment.angle_tolerance",
+    "real": 0.008726646259971648,
+    "sim": 0.013962634015954637,
+    "equal": false
+  },
+  {
+    "source": "harvest",
+    "key": "harvest.jetson_environment.navigation.heading_tolerance_rad",
+    "real": 0.10471975511965978,
+    "sim": "<ABSENT>",
+    "equal": false
+  },
+  {
+    "source": "harvest",
+    "key": "harvest.jetson_task.approach_max_start_distance_m",
+    "real": 0.2,
+    "sim": "<ABSENT>",
+    "equal": false
+  },
+  {
+    "source": "harvest",
+    "key": "harvest.jetson_task.arm_action.cancel_timeout_s",
+    "real": 20.0,
+    "sim": "<ABSENT>",
+    "equal": false
+  },
+  {
+    "source": "harvest",
+    "key": "harvest.jetson_task.arm_action.execution_timeout_s",
+    "real": 1260.0,
+    "sim": "<ABSENT>",
+    "equal": false
+  },
+  {
+    "source": "harvest",
+    "key": "harvest.jetson_task.arm_action.readiness_timeout_s",
+    "real": 10.0,
+    "sim": "<ABSENT>",
+    "equal": false
+  },
+  {
+    "source": "harvest",
+    "key": "harvest.jetson_task.arm_action.response_timeout_s",
+    "real": 5.0,
+    "sim": "<ABSENT>",
+    "equal": false
+  },
+  {
+    "source": "harvest",
+    "key": "harvest.jetson_task.completion_policy",
+    "real": "ARRIVAL_THEN_ARM",
+    "sim": "<ABSENT>",
+    "equal": false
+  },
+  {
+    "source": "harvest",
+    "key": "harvest.jetson_task.jetson_connection.enabled",
+    "real": true,
+    "sim": "<ABSENT>",
+    "equal": false
+  },
+  {
+    "source": "harvest",
+    "key": "harvest.jetson_task.jetson_connection.future_tolerance_s",
+    "real": 0.05,
+    "sim": "<ABSENT>",
+    "equal": false
+  },
+  {
+    "source": "harvest",
+    "key": "harvest.jetson_task.jetson_connection.runtime_status_timeout_s",
+    "real": 2.5,
+    "sim": "<ABSENT>",
+    "equal": false
+  },
+  {
+    "source": "harvest",
+    "key": "harvest.jetson_task.movement_mode",
+    "real": "route_then_follow",
+    "sim": "<ABSENT>",
+    "equal": false
+  },
+  {
+    "source": "harvest",
+    "key": "harvest.jetson_task.navigation_collision_retry_count",
+    "real": 5,
+    "sim": "<ABSENT>",
+    "equal": false
+  },
+  {
+    "source": "harvest",
+    "key": "harvest.jetson_task.status_reporting.enabled",
+    "real": true,
+    "sim": "<ABSENT>",
+    "equal": false
+  },
+  {
+    "source": "harvest",
+    "key": "harvest.jetson_task.transfer.discharge_action.cancel_timeout_s",
+    "real": 10.0,
+    "sim": "<ABSENT>",
+    "equal": false
+  },
+  {
+    "source": "harvest",
+    "key": "harvest.jetson_task.transfer.discharge_action.response_timeout_s",
+    "real": 5.0,
+    "sim": "<ABSENT>",
+    "equal": false
+  },
+  {
+    "source": "harvest",
+    "key": "harvest.jetson_task.transfer.enabled",
+    "real": true,
+    "sim": "<ABSENT>",
+    "equal": false
+  },
+  {
+    "source": "harvest",
+    "key": "harvest.jetson_task.transfer.stage_timeout_s",
+    "real": 120.0,
+    "sim": "<ABSENT>",
+    "equal": false
+  },
+  {
+    "source": "harvest",
+    "key": "harvest.jetson_task.transfer.stop_timeout_s",
+    "real": 20.0,
+    "sim": "<ABSENT>",
+    "equal": false
+  },
+  {
+    "source": "harvest",
+    "key": "harvest.jetson_task.work_path_heading_limit_rad",
+    "real": 0.08726646259971647,
+    "sim": "<ABSENT>",
+    "equal": false
+  },
+  {
+    "source": "harvest",
+    "key": "harvest.nav2.controller_server.ros__parameters.FollowPath.desired_linear_vel",
+    "real": 0.1,
+    "sim": 0.15,
+    "equal": false
+  },
+  {
+    "source": "harvest",
+    "key": "harvest.nav2.controller_server.ros__parameters.FollowPath.rotate_to_heading_angular_vel",
+    "real": 0.1,
+    "sim": 0.15,
+    "equal": false
+  },
+  {
+    "source": "harvest",
+    "key": "harvest.nav2.controller_server.ros__parameters.RPP.desired_linear_vel",
+    "real": 0.1,
+    "sim": 0.15,
+    "equal": false
+  },
+  {
+    "source": "harvest",
+    "key": "harvest.nav2.controller_server.ros__parameters.RPP.rotate_to_heading_angular_vel",
+    "real": 0.1,
+    "sim": 0.15,
+    "equal": false
+  },
+  {
+    "source": "harvest",
+    "key": "harvest.nav2.velocity_smoother.ros__parameters.use_sim_time",
+    "real": false,
+    "sim": true,
+    "equal": false
+  },
+  {
+    "source": "harvest",
+    "key": "harvest.navigation.heading_tolerance_rad",
+    "real": 0.10471975511965978,
+    "sim": 0.05236,
+    "equal": false
+  },
+  {
+    "source": "harvest",
+    "key": "harvest.pixel_bias.distance_bias_m",
+    "real": [
+      0.02316284358688556,
+      0.04866276347063953
+    ],
+    "sim": "<ABSENT>",
+    "equal": false
+  },
+  {
+    "source": "harvest",
+    "key": "harvest.pixel_bias.map_image_sha256",
+    "real": "c16144d12bf45bafbb122f2fa34bd0243a39f25e525349e92195fc0223ae410b",
+    "sim": "<ABSENT>",
+    "equal": false
+  },
+  {
+    "source": "harvest",
+    "key": "harvest.pixel_bias.max_distance_bias_m",
+    "real": 0.05,
+    "sim": "<ABSENT>",
+    "equal": false
+  },
+  {
+    "source": "harvest",
+    "key": "harvest.pixel_bias.provenance.samples",
+    "real": 74,
+    "sim": "<ABSENT>",
+    "equal": false
+  },
+  {
+    "source": "harvest",
+    "key": "harvest.tag.map_image_sha256",
+    "real": "c16144d12bf45bafbb122f2fa34bd0243a39f25e525349e92195fc0223ae410b",
+    "sim": "3c2fcdae2c4f58716999ca84dc2aae0484fbe280bbf63913ccbdc84111a881e5",
+    "equal": false
+  },
+  {
+    "source": "harvest",
+    "key": "harvest.tag_capture.startup_timeout_s",
+    "real": 60.0,
+    "sim": "<ABSENT>",
+    "equal": false
+  },
+  {
+    "source": "harvest",
+    "key": "harvest.task.arm_action.cancel_timeout_s",
+    "real": 10.0,
+    "sim": 20.0,
+    "equal": false
+  },
+  {
+    "source": "harvest",
+    "key": "harvest.task.arm_action.execution_timeout_s",
+    "real": 180.0,
+    "sim": 7260.0,
+    "equal": false
+  },
+  {
+    "source": "harvest",
+    "key": "harvest.task.navigation_collision_retry_count",
+    "real": 5,
+    "sim": "<ABSENT>",
+    "equal": false
+  },
+  {
+    "source": "harvest",
+    "key": "harvest.task.work_path_heading_limit_rad",
+    "real": 0.08726646259971647,
+    "sim": "<ABSENT>",
+    "equal": false
+  },
+  {
+    "source": "harvest",
+    "key": "harvest.wall.controller.angle_tolerance",
+    "real": 0.008726646259971648,
+    "sim": 0.013962634015954637,
+    "equal": false
+  },
+  {
+    "source": "harvest",
+    "key": "harvest.work_policy_effective.navigation_collision_retry_count",
+    "real": 5,
+    "sim": 0,
+    "equal": false
+  },
+  {
+    "source": "harvest",
+    "key": "harvest.work_policy_effective.work_path_heading_limit_rad",
+    "real": 0.08726646259971647,
+    "sim": null,
+    "equal": false
+  }
+]

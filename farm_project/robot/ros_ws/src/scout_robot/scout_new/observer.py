@@ -2,6 +2,7 @@
 from __future__ import annotations
 
 import json
+import math
 import queue
 import subprocess
 import threading
@@ -14,9 +15,12 @@ from .mission_types import JsonObject
 
 
 class SurveyObserver:
-    def __init__(self, command: list[str], log: Path, *, clock: Callable[[], float] = time.monotonic) -> None:
+    def __init__(self, command: list[str], log: Path, *, rpc_timeout_s: float = 30.0, clock: Callable[[], float] = time.monotonic) -> None:
+        if (isinstance(rpc_timeout_s, bool) or not isinstance(rpc_timeout_s, (int, float))
+                or not math.isfinite(rpc_timeout_s) or rpc_timeout_s <= 0):
+            raise ValueError('rpc_timeout_s는 양의 유한한 동작시간 초여야 합니다.')
         self._clock = clock
-        self._rpc_timeout = 30.0
+        self._rpc_timeout = float(rpc_timeout_s)
         self._responses: queue.Queue[JsonObject] = queue.Queue()
         self._serial: int = 0
         self._log: TextIO = log.open('w')

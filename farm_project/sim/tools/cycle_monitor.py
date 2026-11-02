@@ -55,19 +55,20 @@ def select_run(run: Path | None, previous: Path | None = None,
                runs_root: Path = ROOT/'sim/runs') -> Path | None:
     """반복 시험의 current를 매번 읽는다. 종료 뒤에는 마지막 결과를 유지한다."""
     def current(parent: Path) -> Path | None:
-        state = read_json(parent/'status.json')
-        value = state.get('current') or state.get('successful_attempt')
+        state = read_json(parent/'continuation_status.json') if (parent/'continuation_status.json').exists() else read_json(parent/'status.json')
+        value = state.get('current') or state.get('successful_attempt') or state.get('trial') or state.get('source')
         if not isinstance(value, str) or not value:
             return None
         path = Path(value)
         return (path if path.is_absolute() else parent/path).resolve()
 
     if run is not None:
-        if (run/'status.json').exists():
+        if (run/'status.json').exists() or (run/'continuation_status.json').exists():
             return current(run) or previous
         return run.resolve()
     candidates = {}
-    for status in runs_root.glob('*/status.json'):
+    for status in (*runs_root.glob('*/status.json'), *runs_root.glob('*/*/status.json'),
+                   *runs_root.glob('*/continuation_status.json')):
         path = current(status.parent)
         if path is not None:
             candidates[path] = status.stat().st_mtime
@@ -169,23 +170,28 @@ class Monitor:
         age = f'{max(0, int(time.time()-log.stat().st_mtime))}초 전' if log.exists() else '대기'
         lines = ['농장 시험 모니터  |  ' + state + '  |  경과 ' + elapsed,
                  f'{self.base.name}', f'로그 갱신 {age} · 진행률은 완료 작업 수 기준', '']
+        campaign=read_json(self.base.parent/'status.json')
+        if len(campaign.get('sections',[]))>1:
+            lines.insert(1,'전체 섹션 '+bar(len(campaign.get('completed_sections',[])),len(campaign['sections']),'SEC'))
 
         next_scout = 'scout_sec02_goal' in e
         prefix = 'scout_sec02' if next_scout else 'scout'
-        section = e.get(prefix+'_goal', {}).get('goal', {}).get('section_id', 'SEC01')
+        section = e.get(prefix+'_goal', {}).get('goal', {}).get('section_id',
+            read_json(self.base/'single_cycle.json').get('section','SEC01'))
         sr = e.get('scout_reused',e.get(prefix+'_completed', e.get(prefix+'_result', {})))
         feedback = e.get(prefix+'_feedback', {}).get('data', {})
         done = sr.get('result', {}).get('completed_segment_count', feedback.get('completed_segment_count', 0))
         total = len(self.patrol.get('sections', {}).get(section, {}).get('segments', []))
         current = '예찰 완료 · 현위치 대기' if success(sr) else '예찰 실패' if sr else '예찰/이동 중' if prefix+'_goal' in e else '시작 준비 중'
         remain = '없음 (추가 예찰·복귀 명령 없음)' if success(sr) and next_scout else f'관측 {max(0,total-done)}구간'
-        if not next_scout:
+        single=read_json(self.base/'single_cycle.json').get('single_section')
+        if not next_scout and not single:
             remain += ' → SEC02 예찰'
         if 'scout_reused' in e:current,remain='예찰 생략 · 저장 결과 사용','없음'
         elif (self.base/'reused_scout_result.json').exists():current,remain='예찰 생략 · 재사용 준비 중','없음'
         if stopped and not sr:current='미실행 / 중단'
         if read_json(self.base/'single_cycle.json').get('overlap_cycle'):
-            if success(sr):remain='다른 로봇 복귀 후 스테이션 복귀'
+            if success(sr):remain='수확 출발 전 스테이션 복귀' if single else '다른 로봇 복귀 후 스테이션 복귀'
             if 'scout_return_goal' in e:current,remain='스테이션 복귀 중','스테이션 복귀'
             if 'scout_return_result' in e:
                 current,remain=('스테이션 복귀 완료','없음') if success(e['scout_return_result']) else ('스테이션 복귀 실패','오류 확인')
@@ -218,7 +224,8 @@ class Monitor:
             current, remain = '스테이션 복귀 완료', '없음'
         elif stopped:
             current = '중단 · '+('수확 완료, 후속 작업 미완료' if total and done==total else '수확 미완료')
-        lines += [f'수확  SEC01 | {current}', '  '+bar(done,total,'윈도우'),
+        harvest_section=read_json(self.base/'single_cycle.json').get('section','SEC01')
+        lines += [f'수확  {harvest_section} | {current}', '  '+bar(done,total,'윈도우'),
                   f"  수확 집계 {count}개 / 예찰 예상 {scout.get('total_expected_count', '?')}개"+
                   (' · 이전 시험 실적 재사용' if 'harvest_reused' in e else ''),
                   '  남은 일: '+remain, '']
@@ -314,7 +321,7 @@ def main() -> None:
     if args.run is not None:
         args.run = args.run.resolve()
     monitor = None
-    following = args.run is None or (args.run/'status.json').exists()
+    following = args.run is None or (args.run/'status.json').exists() or (args.run/'continuation_status.json').exists()
     interactive = sys.stdout.isatty() and not args.once
     try:
         if interactive:

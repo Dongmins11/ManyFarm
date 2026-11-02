@@ -19,5 +19,5 @@ planner의 wall/spec/policy와 bindings의 controller/checker ID는 로봇 설�
         return HandoffNavigationSteps(node=node, motion=motion, spin=spin,
             bindings=bindings, capture=planner.capture, plan=planner.plan,
             check=check, settling_check=settling_check, arm_output=arm_output,
-            stop_output=stop_output, record=record)
+            stop_output=stop_output, record=record, wall_approach=planner.plan_wall_approach)
     return configured_motion(config, steps)

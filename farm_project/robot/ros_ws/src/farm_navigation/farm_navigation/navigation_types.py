@@ -36,8 +36,10 @@ class NavigationSettings:
     max_goal_distance_m: float = .02
     path_spacing_m: float = .04
     parallel_approach: bool = False
+    require_active_nav2: bool = False  # 선택된 실물/시뮬 예찰의 lifecycle 준비 확인
     collision_retry_count: int = 0
     tf_recovery_enabled: bool = False
+    tf_recovery_wait_forever: bool = False
     tf_recovery_timeout_s: float = 10.0
 
     @classmethod

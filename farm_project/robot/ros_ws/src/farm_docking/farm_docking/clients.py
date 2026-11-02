@@ -107,9 +107,9 @@ class ExclusiveNavigator:
     def __init__(self,navigator,lease):self.navigator,self.lease=navigator,lease
     def preflight_navigation(self):return self.navigator.preflight_navigation()
     def plan(self,xy):return self.navigator.plan(xy)
-    def navigate(self,xy,yaw):
+    def navigate(self,xy,yaw,**options):
         self.lease.acquire()
-        try:return self.navigator.navigate(xy,yaw)
+        try:return self.navigator.navigate(xy,yaw,**options)
         finally:self.lease.release()
     def cancel_nav(self):return self.navigator.cancel_nav()
 

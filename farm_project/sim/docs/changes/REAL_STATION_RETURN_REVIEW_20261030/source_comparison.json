@@ -1,0 +1,56 @@
+{
+  "origin/feature_dongmin": {
+    "commit": "366e0c37164c22afdd2f640624b61eef8f0fa6f7",
+    "files": {
+      "robot/ros_ws/src/farm_common/farm_common/station_return.py": {
+        "remote_sha256": "01e2009b7ac2039f43326fa7e79047edabef5dc52a0c564972ad98062666794c",
+        "local_equal": true
+      },
+      "robot/ros_ws/src/farm_nav2_controller/src/reverse_regulated_pure_pursuit_controller.cpp": {
+        "remote_sha256": "18d0a47aff9b9717a1997070b998849f99e5c4a6bda56f405579b64ec654b964",
+        "local_equal": true
+      },
+      "robot/config/destinations/transport_real.yaml": {
+        "remote_sha256": "7f9c089b08040610670ac4860f87a63b293480c49a7e61d543ed56d86d69f40f",
+        "local_equal": false
+      },
+      "robot/config/docking/waffle_profiles.yaml": {
+        "remote_sha256": "6ec3fdb863529c2128ade91f1422b4391aaadce5b9c446c5c3f0780dabbcfd8c",
+        "local_equal": false
+      },
+      "robot/config/docking/burger_profiles.yaml": {
+        "remote_sha256": "f2c49d2f903d31e7cc0f92a6490c7be67b2e92cfe5ef988b259671895a9123b9",
+        "local_equal": false
+      },
+      "robot/config/docking/vicpinky_profiles.yaml": {
+        "remote_sha256": "f2c49d2f903d31e7cc0f92a6490c7be67b2e92cfe5ef988b259671895a9123b9",
+        "local_equal": false
+      },
+      "robot/ros_ws/src/transport_robot/transport_robot/states/navigation_move_state.py": {
+        "remote_sha256": "7c7f1ef526af0122c271646bb20d7adac4fc834c21704835cc4faee56b8a7284",
+        "local_equal": true
+      },
+      "robot/ros_ws/src/transport_robot/transport_robot/states/docking_state.py": {
+        "remote_sha256": "6609d1a78ca7ce315caede8e6498f6f89bb1db61658ce46a093fc48692724a40",
+        "local_equal": true
+      },
+      "robot/ros_ws/src/farm_docking/farm_docking/precision_server.py": {
+        "remote_sha256": "5a7855c86e5c33d270b90a7142cbb59c071c4d482238c610c3bf2b6a88d636f8",
+        "local_equal": false
+      }
+    }
+  },
+  "origin/feat/harvest-handoff-real-20261018": {
+    "commit": "e135cdef9462276cc25d9fa336f084e2dcac72e4",
+    "files": {
+      "robot/ros_ws/src/farm_common/farm_common/station_return.py": {
+        "remote_sha256": "01e2009b7ac2039f43326fa7e79047edabef5dc52a0c564972ad98062666794c",
+        "local_equal": true
+      },
+      "robot/ros_ws/src/farm_nav2_controller/src/reverse_regulated_pure_pursuit_controller.cpp": {
+        "remote_sha256": "18d0a47aff9b9717a1997070b998849f99e5c4a6bda56f405579b64ec654b964",
+        "local_equal": true
+      }
+    }
+  }
+}

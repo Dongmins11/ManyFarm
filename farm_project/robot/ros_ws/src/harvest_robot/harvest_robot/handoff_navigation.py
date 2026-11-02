@@ -47,7 +47,8 @@ class HandoffNavigationSteps:
                  plan: Callable[[str, Any, Check], NavigationStep | AlignmentStep],
                  check: Check, settling_check: Check,
                  arm_output: Callable[[str], None], stop_output: Check,
-                 record: Callable[[dict], None], navigator_factory: Any = None) -> None:
+                 record: Callable[[dict], None], navigator_factory: Any = None,
+                 wall_approach: Callable | None = None) -> None:
         if set(bindings) not in ({'departure', 'wall', 'retreat', 'return'}, {'departure', 'wall', 'retreat', 'return', 'window'}):
             raise ValueError('차체 주행 4단계 연결 필요')
         if navigator_factory is None:
@@ -61,6 +62,7 @@ class HandoffNavigationSteps:
         self._check, self._settling_check = check, settling_check
         self._arm_output, self._stop_output, self._record = arm_output, stop_output, record
         self._active = None
+        self._wall_approach = wall_approach
         self._owns_output = False
         from .handoff_components import PathMotion, SpinMotion, ComponentSteps, SequenceMotion
         actions = {
@@ -90,13 +92,22 @@ class HandoffNavigationSteps:
     def execute(self, stage: str, reference: Any, check: Check) -> Any:
         if self._active is not None or self._owns_output:
             raise RuntimeError('이전 차체 동작 정리 필요')
-        # 벽 정렬의 정지 후 오차만 최대 2회 재보정한다. 원호/복귀를 통째로 재실행하지 않는다.
+        if stage == 'wall' and self._wall_approach is not None and 'window' in self._bindings:
+            checked = self._checked(check)
+            step = self._wall_approach(reference, checked)
+            if step is not None:
+                self._record(dict(stage='wall', event='BOUNDED_APPROACH_START',
+                                  distance_m=step.route.distance_m))
+                # 기존 0.01m/s 전진 제어기·충돌 검사·정지 확인을 재사용한다.
+                result = self._navigate_step('window', self._bindings['window'], step, checked)
+                self._record(dict(stage='wall', event='BOUNDED_APPROACH_STOPPED', result=result))
+        # 벽/재진입 회전의 정지 후 오차만 최대 2회 재보정한다. 원호는 재실행하지 않는다.
         for attempt in range(3):
             self._checked(check)()
             try:
                 return self.components.execute(stage, reference, self._checked(check))
             except ArrivalValidationError as error:
-                if stage != 'wall':
+                if stage not in ('wall', 'align'):
                     raise
                 self._record(dict(stage=stage, event='STOPPED_ARRIVAL_REJECTED',
                     attempt=attempt+1, measurement=error.measurement, stamp_ns=error.stamp_ns,
@@ -107,7 +118,7 @@ class HandoffNavigationSteps:
                 if attempt == 2:
                     raise
                 self._node.get_logger().warning(
-                    f'WALL_REALIGN_RETRY: {attempt+1}/2; stopped={error.measurement}')
+                    f'{stage.upper()}_REALIGN_RETRY: {attempt+1}/2; stopped={error.measurement}')
                 # components가 현재 관측으로 새 계획·충돌 검사를 수행한다.
 
     def _navigate_step(self, stage: str, binding: NavigationBinding,

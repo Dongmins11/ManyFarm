@@ -48,16 +48,19 @@ class TransportNavigator:
     def preflight_navigation(self) -> dict[str,Any]:
         return self._client.preflight(self._check)
 
-    def plan(self, xy: tuple[float,float]) -> RoutePlan | None:
+    def plan(self, xy: tuple[float,float], *, approach_yaw: float | None = None) -> RoutePlan | None:
         """명령을 보내지 않고 경로만 계산합니다. pose 모드는 Nav2가 계획합니다."""
         self._check()
-        if self._settings.mode=='navigate_to_pose': return None
+        if self._settings.mode=='navigate_to_pose':
+            if approach_yaw is not None:raise ValueError('인계 방향 제한은 follow_path 그래프가 필요합니다.')
+            return None
         assert self._graph is not None
         actual=self._poses.current(self._check)
         return self._graph.plan((float(actual[0,3]),float(actual[1,3])),xy,
-                                self._settings.max_start_distance_m,self._settings.max_goal_distance_m)
+                                self._settings.max_start_distance_m,self._settings.max_goal_distance_m,
+                                goal_yaw=approach_yaw,heading_tolerance=self._settings.heading_tolerance_rad)
 
-    def navigate(self, xy: Sequence[float], yaw: float) -> NavigationResult:
+    def navigate(self, xy: Sequence[float], yaw: float, *, rear_approach: bool = False) -> NavigationResult:
         """I/O 작업 스레드에서 호출합니다. State enter에서 직접 기다리지 않습니다."""
         if not self._lock.acquire(blocking=False):
             raise RuntimeError('이미 이동 요청을 처리 중입니다.')
@@ -76,7 +79,10 @@ class TransportNavigator:
                    'mode':self._settings.mode,'status':'PLANNING','started_at':datetime.now(timezone.utc).isoformat()}
             if self._record is not None: self._record(entry)
             plan = None
-            if self._settings.parallel_approach:
+            if rear_approach:
+                plan=self.plan(target,approach_yaw=yaw)
+                entry['rear_approach']=True
+            elif self._settings.parallel_approach:
                 if self._settings.mode != 'follow_path':
                     raise ValueError('평행 접근은 follow_path 모드에서만 지원합니다.')
                 current = self._poses.current(self._check)

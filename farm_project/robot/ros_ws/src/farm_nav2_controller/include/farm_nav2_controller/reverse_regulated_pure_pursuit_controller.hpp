@@ -12,6 +12,11 @@ public:
     const geometry_msgs::msg::PoseStamped & pose,
     const geometry_msgs::msg::Twist & velocity,
     nav2_core::GoalChecker * goal_checker) override;
+
+protected:
+  // 경로 추종의 방향 제한을 도착 후 제자리 정렬에 적용하지 않는다.
+  static void validateHeading(double angle, bool at_goal);
+  double last_diagnostic_stamp_ = -1.0;
 };
 }
 #endif

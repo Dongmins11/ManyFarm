@@ -12,6 +12,8 @@ class VirtualMechanicalTests(unittest.TestCase):
     def setUp(self):
         self.s=MechanicalRosServer.__new__(MechanicalRosServer)
         self.s.lock=threading.RLock();self.s.session=None;self.s.proof=None
+        self.s.proof_changed=threading.Condition(self.s.lock)
+        self.s.waiting_for_hold=False;self.s.hold_cancelled=False
         self.s.busy=False;self.s.task=None;self.s.lid_open=False;self.s.received=0.
         self.now=10.
         self.s.node=SimpleNamespace(get_clock=lambda:SimpleNamespace(now=lambda:SimpleNamespace(nanoseconds=round(self.now*1e9))),
@@ -75,6 +77,44 @@ class VirtualMechanicalTests(unittest.TestCase):
         self.assertFalse(self.s.close_lid(None,Trigger.Response()).success)
         self.proof['world_stopped']=True
         self.assertTrue(self.s.close_lid(None,Trigger.Response()).success)
+        self.assertFalse(self.s.lid_open)
+
+    def start_pending_open(self):
+        self.proof.update(aligned=True,hold_pass=False,held_s=.683333)
+        result=[]
+        thread=threading.Thread(target=lambda:result.append(self.s.open_lid(None,Trigger.Response())))
+        thread.start()
+        for _ in range(100):
+            if self.s.waiting_for_hold:break
+            time.sleep(.001)
+        self.assertTrue(self.s.waiting_for_hold)
+        return thread,result
+
+    def test_trigger_waits_for_actual_hold_proof(self):
+        thread,result=self.start_pending_open()
+        self.assertFalse(self.s.lid_open)
+        self.now=10.117
+        self.s.observe('session1',dict(self.proof,sim_time_s=self.now,held_s=.8,hold_pass=True))
+        thread.join(1)
+        self.assertFalse(thread.is_alive());self.assertTrue(result[0].success)
+
+    def test_pending_open_rejects_session_change_movement_and_timeout(self):
+        for cause in ('session','movement','timeout'):
+            with self.subTest(cause=cause):
+                self.setUp();thread,result=self.start_pending_open()
+                self.now=12.1 if cause=='timeout' else 10.1
+                self.s.observe('session2' if cause=='session' else 'session1',
+                    dict(self.proof,sim_time_s=self.now,world_stopped=cause!='movement',
+                         hold_pass=cause=='session'))
+                thread.join(1)
+                self.assertFalse(thread.is_alive());self.assertFalse(result[0].success)
+                self.assertFalse(self.s.lid_open)
+
+    def test_stop_cancels_pending_open(self):
+        thread,result=self.start_pending_open()
+        self.assertTrue(self.s.stop_device(None,Trigger.Response()).success)
+        thread.join(1)
+        self.assertFalse(thread.is_alive());self.assertFalse(result[0].success)
         self.assertFalse(self.s.lid_open)
 
 if __name__=='__main__':unittest.main()

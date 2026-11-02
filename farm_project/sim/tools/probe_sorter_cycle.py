@@ -30,8 +30,20 @@ from farm_interfaces.srv import UnloadEvent
 from transport_robot.mission_types import utc
 
 
+def harvest_return_authorized(base,token):
+    """같은 시험에서 받은 실제 수확 복귀 성공 결과만 허가한다."""
+    path=base/'harvest_return_complete.json'
+    if not path.exists():return False
+    data=json.loads(path.read_text());reply=data.get('reply',{});result=reply.get('result',{})
+    return (data.get('token')==token and reply.get('status')==4
+            and result.get('result_code')=='SUCCESS' and result.get('docked') is True
+            and result.get('robot_id')=='harvest_01'
+            and result.get('station_id')=='STATION_HARVEST_01')
+
 def main() -> None:
     base=Path(sys.argv[1]).resolve()
+    # 같은 시험 경로를 재사용해도 이전 도킹 증거로 복귀를 허가하지 않는다.
+    (base/'sorter_docked.json').unlink(missing_ok=True)
     fixture=json.loads((base/'fixture.json').read_text())
     wait_for_handoff='--wait-for-handoff' in sys.argv[2:]
     sorting=bool(fixture.get('integrated_sorting'))
@@ -155,7 +167,9 @@ def main() -> None:
         if reply.status!=4 or data['result']['result_code']!='SUCCESS':raise RuntimeError(name+' failed: '+json.dumps(data,ensure_ascii=False))
         return data
     def finish_sort(ticket) -> None:
-        data=outcome(ticket,'sort',1200 if fixture.get('overlap_cycle') else 600)
+        from hcr_sorting.core import Settings
+        # 실제 선별 서버의 기본 batch 예산보다 외부 시험이 먼저 종료하지 않는다.
+        data=outcome(ticket,'sort',Settings().batch_timeout + 30.0)
         physical=json.loads((Path(fixture['sorting_output'])/'physical_report.json').read_text())
         result['physical_sorting']=physical
         if physical['counts']!=[data['result']['red_count'],data['result']['yellow_count']]:
@@ -168,6 +182,10 @@ def main() -> None:
         result['remaining_fruit_paths']=[f['path'] for f in physical['fruits'] if not f['sorted']]
         result['all_input_fruits_sorted']=(set(f['path'] for f in physical['fruits'])==set(fixture['fruit_paths'])
             and result['sorted_count']==result['input_count'] and not result['remaining_fruit_paths'])
+        result['sorting_performance']=dict(input_count=result['input_count'], sorted_count=result['sorted_count'],
+            missed_count=len(result['remaining_fruit_paths']), remaining_fruit_paths=result['remaining_fruit_paths'],
+            sorted_ratio=(result['sorted_count']/result['input_count'] if result['input_count'] else None))
+        record('sorting_performance', **result['sorting_performance'])
         if fixture.get('require_all_sorted') and (result['empty_input_batch'] or not result['all_input_fruits_sorted']):
             raise RuntimeError('선별 미완료: '+json.dumps(dict(input_count=result['input_count'],sorted_count=result['sorted_count'],remaining=result['remaining_fruit_paths'])))
     try:
@@ -208,6 +226,11 @@ def main() -> None:
         if not reply.accepted:
             state['ready_accepted']=False
             raise RuntimeError('UNLOAD_READY 거절')
+        # 자기 작업의 WAITING_FOR_UNLOAD, 정지 0.8초, UNLOAD_READY 접수까지
+        # 확인한 뒤에만 수확 시험기에 공유 출발 통로를 벗어났음을 알린다.
+        docked=dict(task_id=task_id,station_id='SORT_01',unload_ready_accepted=True,timestamp=utc())
+        temp=base/'sorter_docked.tmp';temp.write_text(json.dumps(docked)+'\n');temp.replace(base/'sorter_docked.json')
+        record('sorter_docked_for_harvest_return',**docked)
         outcome(ticket,'unload',300);state['active']=False
         if not state['completed']:raise RuntimeError('가상 기구 완료 누락')
         wait(stopped,10,'이격 후 정지')
@@ -221,7 +244,11 @@ def main() -> None:
             if not handle.accepted:raise RuntimeError('SortBatch Goal 거절')
             ticket=handle.get_result_async();handles.append((handle,ticket))
             sort_ticket=ticket
-            if not fixture.get('overlap_cycle'):finish_sort(sort_ticket)
+            if not fixture.get('overlap_cycle') and not fixture.get('harvest_return_gate'):finish_sort(sort_ticket)
+        if fixture.get('harvest_return_gate'):
+            record('transport_return_waiting',reason='harvest_station_return_required')
+            wait(lambda:harvest_return_authorized(base,fixture['harvest_return_gate']),1500,'수확 스테이션 복귀 완료')
+            record('transport_return_released',reason='unload_and_harvest_return_complete')
         goal=ReturnToStation.Goal(robot_id='transport_01',task_id='return_'+uuid4().hex[:16],
             station_id='STATION_TRANSPORT_01',map_id='farm_map_v1',timestamp=utc())
         record('return_goal',data=dict(message_to_ordereddict(goal)))
@@ -229,7 +256,7 @@ def main() -> None:
             record('return_feedback',data=dict(message_to_ordereddict(msg.feedback)))),15,'복귀 접수')
         if not handle.accepted:raise RuntimeError('ReturnToStation Goal 거절')
         ticket=handle.get_result_async();handles.append((handle,ticket))
-        if sort_ticket is not None and fixture.get('overlap_cycle'):finish_sort(sort_ticket)
+        if sort_ticket is not None and (fixture.get('overlap_cycle') or fixture.get('harvest_return_gate')):finish_sort(sort_ticket)
         outcome(ticket,'return',900);result['passed']=True
     except BaseException as exc:
         result['error']=type(exc).__name__+': '+str(exc);record('error',detail=result['error'])

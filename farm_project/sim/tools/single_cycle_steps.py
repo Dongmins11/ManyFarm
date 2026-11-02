@@ -42,6 +42,77 @@ def transport_devices_ready(base,node,wait,record) -> None:
     finally:
         for client in clients:node.destroy_client(client)
 
+def harvest_handoff_ready(base,node,wait,future,record) -> None:
+    """인계 전용 lifecycle·실제 충돌 입력·장치 연결을 출발 전에 확인한다."""
+    from lifecycle_msgs.srv import GetState
+    from nav2_msgs.msg import Costmap
+    from geometry_msgs.msg import PolygonStamped
+    from farm_interfaces.action import Discharge
+    from nav2_msgs.action import Spin
+    from rclpy.qos import qos_profile_sensor_data
+    config=json.loads((base/'runtime/harvest_task.json').read_text())
+    prefix='/'+config['robot_id']+'/handoff'
+    states={}; samples={}; pending={}
+    clients={name:node.create_client(GetState,prefix+'/'+name+'/get_state')
+             for name in ('controller_server','behavior_server')}
+    services=[node.create_client(Trigger,path) for path in config['transfer']['device_services'].values()]
+    actions=[ActionClient(node,Discharge,config['transfer']['discharge_action']['endpoint']),
+             ActionClient(node,Spin,prefix+'/spin')]
+    def observe(key,msg):
+        stamp=msg.header.stamp
+        samples[key]=(node.get_clock().now().nanoseconds,stamp.sec*10**9+stamp.nanosec)
+    subscriptions=[node.create_subscription(kind,prefix+'/local_costmap/'+topic,
+        lambda msg,k=key:observe(k,msg),qos_profile_sensor_data)
+        for key,kind,topic in (('costmap',Costmap,'costmap_raw'),
+                              ('footprint',PolygonStamped,'published_footprint'))]
+    def check():
+        for name,client in clients.items():
+            ticket=pending.get(name)
+            if ticket is not None and ticket.done():
+                states[name]=ticket.result().current_state.id
+                del pending[name]
+            if name not in pending and client.service_is_ready():
+                pending[name]=client.call_async(GetState.Request())
+        now=node.get_clock().now().nanoseconds
+        return (all(states.get(name)==3 for name in clients)
+            and all(key in samples and 0<=now-samples[key][0]<=500_000_000
+                    and -100_000_000<=now-samples[key][1]<=500_000_000
+                    for key in ('costmap','footprint'))
+            and all(c.service_is_ready() for c in services)
+            and all(c.server_is_ready() for c in actions))
+    try:
+        wait(check,60,'인계 전용 제어기·충돌 입력·배출 장치 준비')
+        record('harvest_handoff_ready',states=states,samples=samples)
+    except Exception:
+        record('harvest_handoff_not_ready',states=states,samples=samples,
+            services=[c.service_is_ready() for c in services],
+            actions=[c.server_is_ready() for c in actions])
+        raise
+    finally:
+        for sub in subscriptions:node.destroy_subscription(sub)
+        for c in [*clients.values(),*services]:node.destroy_client(c)
+        for c in actions:c.destroy()
+
+def transport_robot_ready(node,wait,record) -> None:
+    """액션 서버 발견과 실제 TF·센서·정지 준비를 구분한다. 새 상태만 받는다."""
+    from farm_interfaces.msg import RobotStatus
+    from rclpy.qos import qos_profile_sensor_data
+    status={}
+    def observe(message):
+        data=dict(message_to_ordereddict(message))
+        if any(status.get(k)!=data.get(k) for k in ('ready','state','error_code','error_message')):
+            record('transport_readiness',data=data)
+        status.update(data)
+    subscription=node.create_subscription(RobotStatus,'/transport_01/status',observe,qos_profile_sensor_data)
+    try:
+        wait(lambda:status.get('ready',False),180,'운송 실제 TF·센서·정지 준비')
+        record('transport_robot_ready',data=status.copy())
+    except Exception:
+        record('transport_not_ready',data=status.copy())
+        raise
+    finally:
+        node.destroy_subscription(subscription)
+
 def check_pickup_acceptance(base,goal_path,node,wait,future,record,result,owned) -> None:
     """실제 서버 접수 후 취소하는 짧은 시험. 인계 성공으로 집계하지 않는다."""
     from farm_interfaces.action import TransportPickup
@@ -78,6 +149,9 @@ def check_pickup_acceptance(base,goal_path,node,wait,future,record,result,owned)
         assert not json.loads((base/'post_sorter/fixture.json').read_text()).get('handoff_complete')
 
 def survey(base,node,wait,future,record,result,owned):
+    schedule=json.loads((base/'single_cycle.json').read_text())
+    section=schedule.get('section','SEC01')
+    result.update(section=section, single_section=schedule.get('single_section',False))
     reused=base/'reused_scout_result.json'
     if reused.exists():
         saved=json.loads(reused.read_text())['scout_result']
@@ -98,13 +172,21 @@ def survey(base,node,wait,future,record,result,owned):
         wait(active,300,'예찰 Nav2 활성화')
     finally:
         for client in clients:node.destroy_client(client)
-    goal=ScoutArea.Goal(robot_id='scout_01',task_id='cycle_scout_'+uuid4().hex[:12],section_id='SEC01',
+    snapshot=ROOT/'sim/runs/runtime/harvest_scene.json'
+    if snapshot.exists():
+        (base/'initial_scene.json').write_bytes(snapshot.read_bytes())
+    goal=ScoutArea.Goal(robot_id='scout_01',task_id='cycle_scout_'+uuid4().hex[:12],section_id=section,
         map_id='farm_map_v1',frame_id='map',crop_type='PAPRIKA',target_ripeness='RIPE',timestamp=utc())
     bundle=start_action(node,wait,future,record,ScoutArea,'/scout_01/scout_area',goal,'scout');owned.append(bundle)
     response=finish_action(bundle,future,record,result,'scout',2400)
     (base/'scout_result.json').write_text(json.dumps(dict(scout_result=result['scout']),ensure_ascii=False,indent=2)+'\n')
     tasks=[dict(message_to_ordereddict(t)) for t in response.result.harvest_tasks]
     if len(tasks)!=response.result.harvest_task_count or not tasks:raise RuntimeError('새 예찰 윈도우 없음/개수 불일치; 수확·인계 성공 생성 금지')
+    if schedule.get('single_section'):
+        # 교통 미연결 캠페인은 예찰 복귀 완료 후 수확을 출발시킨다.
+        result['window_count']=len(tasks);result['harvest_results']=[]
+        return_scout(base,node,wait,future,record,result,owned,None)
+        return tasks,None
     # SEC01 뒤에는 북쪽 스테이션으로 역주행하지 않고 SEC02 예찰을 이어간다.
     # SEC02 결과는 별도로 보존하며 이번 SEC01 수확 목록에 합치지 않는다.
     goal=ScoutArea.Goal(robot_id='scout_01',task_id='cycle_scout_sec02_'+uuid4().hex[:12],section_id='SEC02',
@@ -120,7 +202,49 @@ def survey(base,node,wait,future,record,result,owned):
     return tasks,next_scout
 
 def pickup_pose(base,task):
-    # 기존 분리시험과 같은 그래프 X 투영 계약. 관제 운영 계약 변경이 아니다.
+    schedule=json.loads((base/'single_cycle.json').read_text())
+    if schedule.get('single_section'):
+        import yaml
+        profile=json.loads((base/'runtime/transport_runtime.json').read_text())
+        graph=json.loads((ROOT/profile['route_graph']).read_text())
+        spec=yaml.safe_load((ROOT/'sim/ros_ws/src/farm_sim_config/config/task.yaml').read_text())
+        route=spec['sections'][schedule['section']]['harvest_route']
+        nodes={f['properties']['id']:f['geometry']['coordinates'] for f in graph['features']
+               if f['geometry']['type']=='Point'}
+        start,end=nodes[route['entry_node_id']],nodes[route['exit_node_id']]
+        if abs(start[0]-end[0])>1e-8:raise ValueError('직선 베드 운송 주행선 필요')
+        goal=copy.deepcopy(task['goal_pose'])
+        if not min(start[1],end[1])<=goal['position']['y']<=max(start[1],end[1]):
+            raise ValueError('인계 목표가 해당 섹션 주행선 밖임')
+        goal['position']['x']=start[0]
+        # 차체 중심까지 보내면 마커 전환을 놓쳤을 때 수확로봇을 밀고 들어간다.
+        # 장착표와 기존 접근 거리로 대기점을 계산한다. 실제 자세 정답은 사용하지 않는다.
+        import math
+        fleet=json.loads((base/'runtime/fleet.json').read_text())
+        layout=json.loads((ROOT/fleet['docking_markers']).read_text())
+        profiles=json.loads((ROOT/profile['precision_profiles']).read_text())['profiles']
+        approach=profiles[profile['pickup_workflow']['approach_profile']]
+        marker=next(m for m in layout['markers'] if m['id']==approach['target_marker_id'])
+        harvest=json.loads((base/'runtime/harvest.json').read_text())
+        binding=harvest['scene_binding']
+        if marker['reference_prim']!=binding['robot_prim']+'/'+binding['articulation_relative']:
+            raise ValueError('인계 마커와 수확 자산 기준 프레임 불일치')
+        asset_yaw=binding.get('control_frame_yaw_rad',0.)
+        marker_forward=math.cos(asset_yaw)*marker['center_m'][0]+math.sin(asset_yaw)*marker['center_m'][1]
+        marker_range=approach['acquire_then_odom']['distance_corridor']['target_range_m']
+        margin=approach['route_handoff']['approach_margin_m']
+        stand_off=marker_range+margin-marker_forward
+        if not math.isfinite(stand_off) or stand_off<=0:
+            raise ValueError('인계 접근 대기 거리 오류')
+        goal['position']['y']-=stand_off*math.sin(goal['yaw'])
+        if not min(start[1],end[1])<=goal['position']['y']<=max(start[1],end[1]):
+            raise ValueError('안전한 인계 대기점이 해당 섹션 주행선 밖임')
+        (base/'runtime/pickup_goal.json').write_text(json.dumps(goal)+'\n')
+        (base/'pickup_projection.json').write_text(json.dumps(dict(section=schedule['section'],
+            original=task['goal_pose'],selected=goal,route=route,stand_off_m=stand_off,
+            marker_forward_m=marker_forward,marker_range_m=marker_range,approach_margin_m=margin),indent=2)+'\n')
+        return
+    # 기존 SEC01 분리시험의 투영 계약은 보존한다.
     path=base/'runtime/pickup_goal.json';prior=json.loads(path.read_text());goal=copy.deepcopy(task['goal_pose'])
     goal['position']['x']=prior['position']['x'];path.write_text(json.dumps(goal)+'\n')
 
@@ -185,27 +309,55 @@ def transfer_cargo(base,node,wait,record):
     (base/'cargo_manifest.json').write_text(json.dumps(data,ensure_ascii=False,indent=2)+'\n')
 
 def after_handoff(base,node,wait,future,record,result,owned):
+    from cycle_departure_gate import DepartureGate
     post=base/'post_sorter'
     fixture=json.loads((base/'fixture.json').read_text());cargo=json.loads((base/'cargo_manifest.json').read_text())
-    fixture['fruit_paths']=cargo['fruit_paths'];fixture['actual_harvest_tested']=True;fixture['handoff_complete']=True
-    temp=post/'fixture.tmp';temp.write_text(json.dumps(fixture,ensure_ascii=False,indent=2)+'\n');temp.replace(post/'fixture.json')
+    gate=DepartureGate(base,node,wait,record)
     bundle=None
-    if fixture.get('overlap_cycle'):
+    def start_return():
         goal=ReturnToStation.Goal(robot_id='harvest_01',task_id='cycle_harvest_return_'+uuid4().hex[:12],station_id='STATION_HARVEST_01',map_id='farm_map_v1',timestamp=utc())
-        bundle=start_action(node,wait,future,record,ReturnToStation,'/harvest_01/return_to_station',goal,'harvest_return');owned.append(bundle)
-    wait(lambda:(post/'result.json').exists(),2400,'선별장 이동·도킹·선별·운송 복귀')
-    data=json.loads((post/'result.json').read_text());result['sorter_and_transport_return']=data
-    record('sorter_sequence_result',data=data)
-    if not data['passed']:raise RuntimeError('선별장/운송복귀 실패: '+data.get('error',''))
-    if bundle is None:
-        goal=ReturnToStation.Goal(robot_id='harvest_01',task_id='cycle_harvest_return_'+uuid4().hex[:12],station_id='STATION_HARVEST_01',map_id='farm_map_v1',timestamp=utc())
-        bundle=start_action(node,wait,future,record,ReturnToStation,'/harvest_01/return_to_station',goal,'harvest_return');owned.append(bundle)
-    finish_action(bundle,future,record,result,'harvest_return',1500)
+        ticket=start_action(node,wait,future,record,ReturnToStation,'/harvest_01/return_to_station',goal,'harvest_return')
+        owned.append(ticket)
+        return ticket
+    def return_clear():
+        if bundle[2].done() and 'harvest_return' not in result:
+            finish_action(bundle,future,record,result,'harvest_return',1500)
+        return gate.cleared('harvest')
+    def transport_clear():
+        if (post/'result.json').exists():
+            data=json.loads((post/'result.json').read_text())
+            if not data['passed']:raise RuntimeError('운송 출발 실패: '+data.get('error',''))
+        return gate.cleared('transport')
+    try:
+        first=gate.plan()
+        if first=='harvest':
+            bundle=start_return()
+            wait(return_clear,1500,'수확 선행 복귀 경로 이탈')
+        fixture.update(fruit_paths=cargo['fruit_paths'],actual_harvest_tested=True,handoff_complete=True,
+                       harvest_return_gate=uuid4().hex)
+        temp=post/'fixture.tmp';temp.write_text(json.dumps(fixture,ensure_ascii=False,indent=2)+'\n');temp.replace(post/'fixture.json')
+        if first=='transport':
+            wait(transport_clear,2400,'운송 선행 출발 경로 이탈')
+            bundle=start_return()
+        # 선별장 작업과 병행하되 운송 스테이션 복귀는 수확 복귀 SUCCESS 이후다.
+        if 'harvest_return' not in result:finish_action(bundle,future,record,result,'harvest_return',1500)
+        grant=dict(token=fixture['harvest_return_gate'],reply=result['harvest_return'])
+        temp=post/'harvest_return_complete.tmp';temp.write_text(json.dumps(grant,ensure_ascii=False)+'\n');temp.replace(post/'harvest_return_complete.json')
+        record('transport_station_return_authorized',**grant)
+        wait(lambda:(post/'result.json').exists(),3660,'선별장 이동·도킹·선별·운송 복귀')
+        data=json.loads((post/'result.json').read_text());result['sorter_and_transport_return']=data
+        record('sorter_sequence_result',data=data)
+        if not data['passed']:raise RuntimeError('선별장/운송복귀 실패: '+data.get('error',''))
+        if 'harvest_return' not in result:finish_action(bundle,future,record,result,'harvest_return',1500)
+    finally:gate.close()
 
 def return_scout(base,node,wait,future,record,result,owned,next_scout):
     """SEC02와 다른 로봇 복귀 후 기존 예찰 복귀 액션을 실행한다."""
-    if next_scout is None:raise RuntimeError('새 SEC02 예찰 결과 누락')
-    finish_action(next_scout,future,record,result,'scout_sec02',2400)
+    if result.get('single_section'):
+        if 'scout_return' in result:return
+    else:
+        if next_scout is None:raise RuntimeError('새 SEC02 예찰 결과 누락')
+        finish_action(next_scout,future,record,result,'scout_sec02',2400)
     goal=ReturnToStation.Goal(robot_id='scout_01',task_id='cycle_scout_return_'+uuid4().hex[:12],
         station_id='STATION_SCOUT_01',map_id='farm_map_v1',timestamp=utc())
     bundle=start_action(node,wait,future,record,ReturnToStation,'/scout_01/return_to_station',goal,'scout_return')

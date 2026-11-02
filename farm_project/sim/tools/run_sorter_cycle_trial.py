@@ -82,7 +82,7 @@ def prepare_sorter(base: Path) -> Path:
     selected_progress = nav['controller_server']['ros__parameters']['progress_checker']
     progress_changes = [dict(parameter='controller_server.progress_checker.'+key,
         original=original_progress.get(key), selected=value,
-        reason='sim in-place rotation must count as progress; real file unchanged')
+        reason='shared transport progress policy updated locally; pinned upstream snapshot predates this change')
         for key,value in selected_progress.items() if original_progress.get(key)!=value]
     fixture = dict(source_commit=SOURCE,scope='isolated public BucketUnload + ReturnToStation',
         domain=13,discovery='SUBNET',initial_xy=nodes[start],initial_yaw=yaw,

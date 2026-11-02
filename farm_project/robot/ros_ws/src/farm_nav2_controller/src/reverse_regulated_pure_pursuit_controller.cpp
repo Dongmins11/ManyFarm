@@ -2,6 +2,7 @@
 #include <algorithm>
 #include <cmath>
 #include <mutex>
+#include <string>
 #include "nav2_core/controller_exceptions.hpp"
 #include "pluginlib/class_list_macros.hpp"
 #include "tf2/utils.hpp"
@@ -9,6 +10,15 @@
 
 namespace farm_nav2_controller
 {
+void ReverseRegulatedPurePursuitController::validateHeading(double angle, bool at_goal)
+{
+  if (!std::isfinite(angle) || (!at_goal && std::abs(angle) > M_PI_2 + 0.1)) {
+    throw nav2_core::InvalidPath(
+      std::string("Reverse heading rejected: phase=") + (at_goal ? "FINAL_ALIGN" : "TRACKING") +
+      ", angle_rad=" + std::to_string(angle));
+  }
+}
+
 geometry_msgs::msg::TwistStamped
 ReverseRegulatedPurePursuitController::computeVelocityCommands(
   const geometry_msgs::msg::PoseStamped & pose,
@@ -58,9 +68,28 @@ ReverseRegulatedPurePursuitController::computeVelocityCommands(
       angle = std::atan2(-p.y, -p.x);
       rotate = std::abs(angle) > params_->rotate_to_heading_min_angle;
     }
-    if (!std::isfinite(angle) || std::abs(angle) > M_PI_2 + 0.1) {
-      throw nav2_core::InvalidPath("Reverse route requires opposite body heading; check station-to-current route");
+    // 위치 도착 후에는 최종 자세를 어느 방향으로든 맞출 수 있다.
+    // 주행 중 전방 경로 거절 및 아래 제자리 회전 충돌 검사는 그대로 유지한다.
+    // 실패 직전 입력을 실제 차체 로그와 같은 시뮬 시각으로 대조한다.
+    const double stamp = rclcpp::Time(pose.header.stamp).seconds();
+    if (stamp < last_diagnostic_stamp_ || stamp - last_diagnostic_stamp_ >= 0.5 ||
+      !std::isfinite(angle) || std::abs(angle) > M_PI_2 + 0.1)
+    {
+      geometry_msgs::msg::PoseStamped map_pose;
+      const bool map_valid = path_handler_->transformPose(plan.header.frame_id, pose, map_pose);
+      RCLCPP_INFO(logger_,
+        "REVERSE_TRACE stamp=%.9f phase=%s pose_frame=%s pose=(%.6f,%.6f,%.6f) "
+        "plan_frame=%s map_valid=%d map_pose=(%.6f,%.6f,%.6f) "
+        "carrot=(%.6f,%.6f) angle=%.6f distance=%.6f lookahead=%.6f",
+        stamp, at_goal ? "FINAL_ALIGN" : "TRACKING", pose.header.frame_id.c_str(),
+        pose.pose.position.x, pose.pose.position.y, tf2::getYaw(pose.pose.orientation),
+        plan.header.frame_id.c_str(), map_valid,
+        map_pose.pose.position.x, map_pose.pose.position.y,
+        map_valid ? tf2::getYaw(map_pose.pose.orientation) : 0.0,
+        carrot.x, carrot.y, angle, distance, getLookAheadDistance(velocity));
+      last_diagnostic_stamp_ = stamp;
     }
+    validateHeading(angle, at_goal);
     if (!cancelling_ && (rotate || at_goal)) {
       geometry_msgs::msg::TwistStamped command;
       command.header = pose.header;

@@ -1,0 +1,4601 @@
+{
+  "groups": {
+    "scout.survey": {
+      "configured": true,
+      "schema_version": 1,
+      "robot_id": "scout_01",
+      "map_id": "farm_map_v1",
+      "base_frame": "base_footprint",
+      "vision_config": "robot/config/vision/scout_real.json",
+      "output_dir": "runs/scout_survey",
+      "goal_timeout_s": 300.0,
+      "arrival_tolerance_m": 0.08,
+      "heading_tolerance_rad": 0.12,
+      "settle_s": 0.8,
+      "overlap_fraction": 0.15,
+      "association_distance_m": 0.065,
+      "association_band_half_depth_m": 0.2,
+      "sections": {
+        "SEC01": {
+          "route_file": "robot/config/maps/many_farm/graph.geojson",
+          "node_ids": [
+            2,
+            3,
+            4,
+            5,
+            8,
+            9
+          ],
+          "bed_plane_from_route_m": 1.14,
+          "finish_at": "last_segment",
+          "segmentation": {
+            "mode": "manual",
+            "segments": [
+              {
+                "segment_id": "SEG01",
+                "offset_m": 0.7107571817313698
+              },
+              {
+                "segment_id": "SEG02",
+                "offset_m": 1.8192428182686302
+              },
+              {
+                "segment_id": "SEG03",
+                "offset_m": 2.53
+              }
+            ]
+          },
+          "harvest": {
+            "heading_offset_rad": 0.0,
+            "mount_xy_base_m": [
+              0.19,
+              0.185
+            ],
+            "work_offset_xy_base_m": [
+              0.0,
+              0.315
+            ],
+            "height_reference_m": 0.713,
+            "height_offsets_m": [
+              -0.1,
+              0.35
+            ],
+            "width_m": 0.35,
+            "side_margin_m": 0.03,
+            "depth_m": 0.1,
+            "range_tolerance_m": 0.02,
+            "membership_margin_m": 0.0
+          },
+          "harvest_goal": {
+            "mode": "graph_line",
+            "route_file": "robot/config/maps/many_farm/graph.geojson",
+            "node_ids": [
+              11,
+              12,
+              14
+            ]
+          },
+          "window_overlap": {
+            "enabled": true,
+            "trigger_ratio": 0.5
+          }
+        }
+      },
+      "notes": [
+        "2026-10-14 many_farm_253cm_20261014: 새 지도 원점[-0.509,-1.768,0], 화단길이2.53m.",
+        "베드 경로2→3→4→5→8→9, map +X 방향/yaw0. 촬영목표는 별도 patrol의4→8→9.",
+        "bed_plane_from_route_m=1.14: 차체 기준 경로에서 map +Y 화단면까지 거리. 카메라 장착 오프셋을 중복 차감하지 않는다.",
+        "새 지도/TF 세션으로 측정한다. 이전 지도에서 등록한 과실/윈도우 좌표를 재사용하지 않는다.",
+        "2026-10-28 수확 작업창/팔 오프셋을 PC main 시뮬 SEC01과 일치. 실제 도달 가능 범위는 별도 확인."
+      ]
+    },
+    "scout.vision": {
+      "backend": "realsense_legacy",
+      "worker_python": "~/pi_d435_setup/.venv/bin/python",
+      "legacy_directory": "~/bmany_fleet_ws/perception_worker",
+      "model": "robot/models/scout/yolo11_seg_2class_synth_and_sim_v2.0.pt",
+      "camera_frame": "camera_color_optical_frame",
+      "confidence": 0.25,
+      "preprocess": {},
+      "rpc_timeout_s": 180,
+      "startup_timeout_s": 300,
+      "camera": {
+        "width": 1280,
+        "height": 720,
+        "fps": 6,
+        "auto_white_balance": true,
+        "auto_exposure": true,
+        "warmup_frames": 30,
+        "warmup_timeout_s": 90
+      },
+      "model_base": "project",
+      "inference": {
+        "confidence": 0.25,
+        "iou": 0.7,
+        "max_detections": 100,
+        "half": false
+      }
+    },
+    "scout.navigation": {
+      "mode": "follow_path",
+      "map_frame": "map",
+      "base_frame": "base_footprint",
+      "odom_topic": "odom",
+      "navigate_action": "navigate_to_pose",
+      "follow_action": "follow_path",
+      "controller_node": "controller_server",
+      "controller_id": "RPP",
+      "goal_checker_id": "goal_checker",
+      "progress_checker_id": "progress_checker",
+      "goal_timeout_s": 300.0,
+      "response_timeout_s": 15.0,
+      "cancel_timeout_s": 10.0,
+      "readiness_timeout_s": 60.0,
+      "tf_timeout_s": 3.0,
+      "tf_max_age_s": 1.0,
+      "arrival_tolerance_m": 0.08,
+      "heading_tolerance_rad": 0.12,
+      "settle_s": 0.8,
+      "settle_timeout_s": 20.0,
+      "odom_max_age_s": 0.5,
+      "stopped_linear_mps": 0.005,
+      "stopped_angular_rps": 0.02,
+      "max_start_distance_m": 0.1,
+      "max_goal_distance_m": 0.02,
+      "path_spacing_m": 0.04,
+      "parallel_approach": false,
+      "require_active_nav2": true,
+      "tf_recovery_enabled": true,
+      "tf_recovery_timeout_s": 10.0,
+      "tf_recovery_wait_forever": true,
+      "collision_retry_count": 0
+    },
+    "scout.environment": {
+      "schema_version": 1,
+      "configured": true,
+      "survey_configured": true,
+      "mode": "real",
+      "robot_id": "scout_01",
+      "map_id": "farm_map_v1",
+      "map_yaml": "robot/config/maps/many_farm/many_farm.yaml",
+      "route_graph": "robot/config/maps/many_farm/graph.geojson",
+      "nav_params": "robot/config/robots/burger/nav2.yaml",
+      "survey_config": "robot/config/survey/scout_real.json",
+      "device_config": "robot/config/robots/burger/devices.json",
+      "tag_localization_config": "robot/config/localization/scout_real.yaml",
+      "tag_capture_config": "robot/config/cameras/scout_tag_capture.yaml",
+      "navigation_policy": "robot/config/navigation/scout_navigation.yaml",
+      "navigation": {
+        "require_active_nav2": true,
+        "map_frame": "map",
+        "base_frame": "base_footprint",
+        "tf_recovery_enabled": true,
+        "tf_recovery_wait_forever": true
+      },
+      "patrol_config": "robot/config/patrol/scout_real_sections.json",
+      "rviz_config": "robot/config/robots/burger/scout_real.rviz"
+    },
+    "scout.nav2": {
+      "amcl": {
+        "ros__parameters": {
+          "alpha1": 0.2,
+          "alpha2": 0.2,
+          "alpha3": 0.2,
+          "alpha4": 0.2,
+          "alpha5": 0.2,
+          "base_frame_id": "base_footprint",
+          "beam_skip_distance": 0.5,
+          "beam_skip_error_threshold": 0.9,
+          "beam_skip_threshold": 0.3,
+          "do_beamskip": false,
+          "global_frame_id": "map",
+          "lambda_short": 0.1,
+          "laser_likelihood_max_dist": 2.0,
+          "laser_max_range": 100.0,
+          "laser_min_range": -1.0,
+          "laser_model_type": "likelihood_field",
+          "max_beams": 60,
+          "max_particles": 2000,
+          "min_particles": 500,
+          "odom_frame_id": "odom",
+          "pf_err": 0.05,
+          "pf_z": 0.99,
+          "recovery_alpha_fast": 0.0,
+          "recovery_alpha_slow": 0.0,
+          "resample_interval": 1,
+          "robot_model_type": "nav2_amcl::DifferentialMotionModel",
+          "save_pose_rate": 0.5,
+          "sigma_hit": 0.2,
+          "tf_broadcast": true,
+          "transform_tolerance": 0.5,
+          "update_min_a": 0.2,
+          "update_min_d": 0.25,
+          "z_hit": 0.5,
+          "z_max": 0.05,
+          "z_rand": 0.5,
+          "z_short": 0.05,
+          "scan_topic": "scan",
+          "map_topic": "map",
+          "set_initial_pose": false,
+          "always_reset_initial_pose": true,
+          "first_map_only": false,
+          "initial_pose": {
+            "x": -0.244,
+            "y": 0.364,
+            "z": 0.0,
+            "yaw": -1.5707963267948966
+          },
+          "use_sim_time": false
+        }
+      },
+      "bt_navigator": {
+        "ros__parameters": {
+          "global_frame": "map",
+          "robot_base_frame": "base_link",
+          "transform_tolerance": 0.5,
+          "filter_duration": 0.3,
+          "always_reload_bt_xml": false,
+          "goal_blackboard_id": "goal",
+          "goals_blackboard_id": "goals",
+          "path_blackboard_id": "path",
+          "navigators": [
+            "navigate_to_pose",
+            "navigate_through_poses"
+          ],
+          "navigate_to_pose": {
+            "plugin": "nav2_bt_navigator::NavigateToPoseNavigator"
+          },
+          "navigate_through_poses": {
+            "plugin": "nav2_bt_navigator::NavigateThroughPosesNavigator"
+          },
+          "error_code_name_prefixes": [
+            "assisted_teleop",
+            "backup",
+            "compute_path",
+            "dock_robot",
+            "drive_on_heading",
+            "follow_path",
+            "nav_thru_poses",
+            "nav_to_pose",
+            "spin",
+            "route",
+            "undock_robot",
+            "wait"
+          ],
+          "use_sim_time": false
+        }
+      },
+      "controller_server": {
+        "ros__parameters": {
+          "controller_frequency": 10.0,
+          "min_x_velocity_threshold": 0.001,
+          "min_y_velocity_threshold": 0.001,
+          "min_theta_velocity_threshold": 0.001,
+          "failure_tolerance": 0.3,
+          "progress_checker_plugins": [
+            "progress_checker"
+          ],
+          "goal_checker_plugins": [
+            "goal_checker"
+          ],
+          "controller_plugins": [
+            "FollowPath",
+            "RPP",
+            "StationReverse"
+          ],
+          "progress_checker": {
+            "plugin": "nav2_controller::PoseProgressChecker",
+            "required_movement_radius": 0.1,
+            "required_movement_angle": 0.1,
+            "movement_time_allowance": 10.0
+          },
+          "goal_checker": {
+            "stateful": true,
+            "plugin": "nav2_controller::SimpleGoalChecker",
+            "xy_goal_tolerance": 0.03,
+            "yaw_goal_tolerance": 0.05236
+          },
+          "FollowPath": {
+            "plugin": "dwb_core::DWBLocalPlanner",
+            "debug_trajectory_details": true,
+            "min_vel_x": 0.0,
+            "min_vel_y": 0.0,
+            "max_vel_x": 0.3,
+            "max_vel_y": 0.0,
+            "max_vel_theta": 1.0,
+            "min_speed_xy": 0.0,
+            "max_speed_xy": 0.3,
+            "min_speed_theta": 0.0,
+            "acc_lim_x": 3.0,
+            "acc_lim_y": 0.0,
+            "acc_lim_theta": 3.2,
+            "decel_lim_x": -2.5,
+            "decel_lim_y": 0.0,
+            "decel_lim_theta": -3.2,
+            "vx_samples": 20,
+            "vy_samples": 0,
+            "vtheta_samples": 40,
+            "sim_time": 1.5,
+            "linear_granularity": 0.05,
+            "angular_granularity": 0.025,
+            "transform_tolerance": 0.2,
+            "xy_goal_tolerance": 0.05,
+            "trans_stopped_velocity": 0.25,
+            "short_circuit_trajectory_evaluation": true,
+            "stateful": true,
+            "critics": [
+              "RotateToGoal",
+              "Oscillation",
+              "BaseObstacle",
+              "GoalAlign",
+              "PathAlign",
+              "PathDist",
+              "GoalDist"
+            ],
+            "BaseObstacle.scale": 0.02,
+            "PathAlign.scale": 32.0,
+            "PathAlign.forward_point_distance": 0.1,
+            "GoalAlign.scale": 24.0,
+            "GoalAlign.forward_point_distance": 0.1,
+            "PathDist.scale": 32.0,
+            "GoalDist.scale": 24.0,
+            "RotateToGoal.scale": 32.0,
+            "RotateToGoal.slowing_factor": 5.0,
+            "RotateToGoal.lookahead_time": -1.0
+          },
+          "enable_stamped_cmd_vel": false,
+          "RPP": {
+            "plugin": "nav2_regulated_pure_pursuit_controller::RegulatedPurePursuitController",
+            "desired_linear_vel": 0.15,
+            "lookahead_dist": 0.15,
+            "use_velocity_scaled_lookahead_dist": false,
+            "min_lookahead_dist": 0.2,
+            "max_lookahead_dist": 0.6,
+            "lookahead_time": 1.5,
+            "rotate_to_heading_angular_vel": 0.35,
+            "transform_tolerance": 0.1,
+            "min_approach_linear_velocity": 0.03,
+            "approach_velocity_scaling_dist": 0.6,
+            "use_collision_detection": true,
+            "max_allowed_time_to_collision_up_to_carrot": 1.0,
+            "use_regulated_linear_velocity_scaling": true,
+            "use_cost_regulated_linear_velocity_scaling": true,
+            "cost_scaling_dist": 0.3,
+            "cost_scaling_gain": 1.0,
+            "inflation_cost_scaling_factor": 20.0,
+            "regulated_linear_scaling_min_radius": 0.9,
+            "regulated_linear_scaling_min_speed": 0.11,
+            "use_fixed_curvature_lookahead": false,
+            "curvature_lookahead_dist": 0.3,
+            "use_rotate_to_heading": true,
+            "allow_reversing": false,
+            "rotate_to_heading_min_angle": 0.3,
+            "max_angular_accel": 3.2,
+            "max_robot_pose_search_dist": 1.5,
+            "stateful": false
+          },
+          "StationReverse": {
+            "plugin": "farm_nav2_controller::ReverseRegulatedPurePursuitController",
+            "desired_linear_vel": 0.15,
+            "lookahead_dist": 0.15,
+            "use_velocity_scaled_lookahead_dist": false,
+            "min_lookahead_dist": 0.2,
+            "max_lookahead_dist": 0.6,
+            "lookahead_time": 1.5,
+            "rotate_to_heading_angular_vel": 0.35,
+            "transform_tolerance": 0.1,
+            "min_approach_linear_velocity": 0.03,
+            "approach_velocity_scaling_dist": 0.6,
+            "use_collision_detection": true,
+            "max_allowed_time_to_collision_up_to_carrot": 1.0,
+            "use_regulated_linear_velocity_scaling": true,
+            "use_cost_regulated_linear_velocity_scaling": true,
+            "cost_scaling_dist": 0.3,
+            "cost_scaling_gain": 1.0,
+            "inflation_cost_scaling_factor": 20.0,
+            "regulated_linear_scaling_min_radius": 0.9,
+            "regulated_linear_scaling_min_speed": 0.11,
+            "use_fixed_curvature_lookahead": false,
+            "curvature_lookahead_dist": 0.3,
+            "use_rotate_to_heading": false,
+            "allow_reversing": true,
+            "rotate_to_heading_min_angle": 0.3,
+            "max_angular_accel": 3.2,
+            "max_robot_pose_search_dist": 1.5,
+            "stateful": false,
+            "interpolate_curvature_after_goal": false
+          },
+          "use_sim_time": false
+        }
+      },
+      "local_costmap": {
+        "local_costmap": {
+          "ros__parameters": {
+            "update_frequency": 5.0,
+            "publish_frequency": 2.0,
+            "global_frame": "odom",
+            "robot_base_frame": "base_link",
+            "rolling_window": true,
+            "width": 3,
+            "height": 3,
+            "resolution": 0.05,
+            "robot_radius": 0.1,
+            "plugins": [
+              "obstacle_layer",
+              "voxel_layer",
+              "inflation_layer"
+            ],
+            "inflation_layer": {
+              "plugin": "nav2_costmap_2d::InflationLayer",
+              "inflation_radius": 0.3,
+              "cost_scaling_factor": 20.0
+            },
+            "obstacle_layer": {
+              "plugin": "nav2_costmap_2d::ObstacleLayer",
+              "enabled": true,
+              "observation_sources": "scan",
+              "scan": {
+                "topic": "scan",
+                "max_obstacle_height": 2.0,
+                "clearing": true,
+                "marking": true,
+                "data_type": "LaserScan"
+              }
+            },
+            "voxel_layer": {
+              "plugin": "nav2_costmap_2d::VoxelLayer",
+              "enabled": true,
+              "publish_voxel_map": true,
+              "origin_z": 0.0,
+              "z_resolution": 0.05,
+              "z_voxels": 16,
+              "max_obstacle_height": 2.0,
+              "mark_threshold": 0,
+              "observation_sources": "scan",
+              "scan": {
+                "topic": "scan",
+                "max_obstacle_height": 2.0,
+                "clearing": true,
+                "marking": true,
+                "data_type": "LaserScan",
+                "raytrace_max_range": 3.0,
+                "raytrace_min_range": 0.0,
+                "obstacle_max_range": 2.5,
+                "obstacle_min_range": 0.0
+              }
+            },
+            "static_layer": {
+              "map_subscribe_transient_local": true
+            },
+            "always_send_full_costmap": true
+          }
+        }
+      },
+      "global_costmap": {
+        "global_costmap": {
+          "ros__parameters": {
+            "update_frequency": 1.0,
+            "publish_frequency": 1.0,
+            "global_frame": "map",
+            "robot_base_frame": "base_link",
+            "transform_tolerance": 0.5,
+            "robot_radius": 0.1,
+            "resolution": 0.05,
+            "track_unknown_space": true,
+            "plugins": [
+              "static_layer",
+              "obstacle_layer",
+              "voxel_layer",
+              "inflation_layer"
+            ],
+            "obstacle_layer": {
+              "plugin": "nav2_costmap_2d::ObstacleLayer",
+              "enabled": true,
+              "observation_sources": "scan",
+              "scan": {
+                "topic": "scan",
+                "max_obstacle_height": 2.0,
+                "clearing": true,
+                "marking": true,
+                "data_type": "LaserScan",
+                "raytrace_max_range": 3.0,
+                "raytrace_min_range": 0.0,
+                "obstacle_max_range": 2.5,
+                "obstacle_min_range": 0.0
+              }
+            },
+            "voxel_layer": {
+              "plugin": "nav2_costmap_2d::VoxelLayer",
+              "enabled": true,
+              "publish_voxel_map": true,
+              "origin_z": 0.0,
+              "z_resolution": 0.05,
+              "z_voxels": 16,
+              "max_obstacle_height": 2.0,
+              "mark_threshold": 0,
+              "observation_sources": "scan",
+              "scan": {
+                "topic": "scan",
+                "max_obstacle_height": 2.0,
+                "clearing": true,
+                "marking": true,
+                "data_type": "LaserScan",
+                "raytrace_max_range": 3.0,
+                "raytrace_min_range": 0.0,
+                "obstacle_max_range": 2.5,
+                "obstacle_min_range": 0.0
+              }
+            },
+            "static_layer": {
+              "plugin": "nav2_costmap_2d::StaticLayer",
+              "map_subscribe_transient_local": true,
+              "transform_tolerance": 0.1
+            },
+            "inflation_layer": {
+              "plugin": "nav2_costmap_2d::InflationLayer",
+              "inflation_radius": 0.3,
+              "cost_scaling_factor": 20.0
+            },
+            "always_send_full_costmap": true
+          }
+        }
+      },
+      "map_server": {
+        "ros__parameters": {
+          "yaml_filename": "",
+          "use_sim_time": false
+        }
+      },
+      "planner_server": {
+        "ros__parameters": {
+          "expected_planner_frequency": 10.0,
+          "planner_plugins": [
+            "GridBased"
+          ],
+          "GridBased": {
+            "plugin": "nav2_navfn_planner::NavfnPlanner",
+            "tolerance": 0.5,
+            "use_astar": false,
+            "allow_unknown": true
+          },
+          "use_sim_time": false
+        }
+      },
+      "behavior_server": {
+        "ros__parameters": {
+          "local_costmap_topic": "local_costmap/costmap_raw",
+          "local_footprint_topic": "local_costmap/published_footprint",
+          "global_costmap_topic": "global_costmap/costmap_raw",
+          "global_footprint_topic": "global_costmap/published_footprint",
+          "cycle_frequency": 10.0,
+          "behavior_plugins": [
+            "spin",
+            "backup",
+            "drive_on_heading",
+            "wait",
+            "assisted_teleop"
+          ],
+          "spin": {
+            "plugin": "nav2_behaviors::Spin"
+          },
+          "backup": {
+            "plugin": "nav2_behaviors::BackUp"
+          },
+          "drive_on_heading": {
+            "plugin": "nav2_behaviors::DriveOnHeading"
+          },
+          "wait": {
+            "plugin": "nav2_behaviors::Wait"
+          },
+          "assisted_teleop": {
+            "plugin": "nav2_behaviors::AssistedTeleop"
+          },
+          "local_frame": "odom",
+          "global_frame": "map",
+          "robot_base_frame": "base_link",
+          "transform_timeout": 0.1,
+          "simulate_ahead_time": 2.0,
+          "max_rotational_vel": 1.0,
+          "min_rotational_vel": 0.4,
+          "rotational_acc_lim": 3.2,
+          "enable_stamped_cmd_vel": false,
+          "use_sim_time": false
+        }
+      },
+      "velocity_smoother": {
+        "ros__parameters": {
+          "smoothing_frequency": 20.0,
+          "scale_velocities": false,
+          "feedback": "OPEN_LOOP",
+          "max_velocity": [
+            0.15,
+            0.0,
+            1.0
+          ],
+          "min_velocity": [
+            -0.15,
+            0.0,
+            -1.0
+          ],
+          "deadband_velocity": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "velocity_timeout": 1.0,
+          "max_accel": [
+            2.5,
+            0.0,
+            3.2
+          ],
+          "max_decel": [
+            -2.5,
+            0.0,
+            -3.2
+          ],
+          "odom_topic": "odom",
+          "odom_duration": 0.1,
+          "use_realtime_priority": false,
+          "enable_stamped_cmd_vel": false,
+          "use_sim_time": false
+        }
+      }
+    },
+    "scout.tag": {
+      "configured": false,
+      "setup_required": [
+        "실제 예찰 태그 카메라의 1280x720 CameraInfo와 보정 해시",
+        "base_footprint 기준 실제 카메라 optical TF 및 버전",
+        "many_farm 지도에 등록한 태그 family/id/edge_m/t_map_tag 및 지도 해시",
+        "실측 관측 거리와 태그 투영 면적에 맞춘 observation model overrides",
+        "위 정보를 가진 assets_file/model_file 연결 후 configured=true 지정"
+      ],
+      "robot_id": "scout_01",
+      "map_id": "farm_map_v1",
+      "assets_file": null,
+      "model_file": null,
+      "map_yaml_sha256": null,
+      "map_image_sha256": null,
+      "map_frame": "map",
+      "odom_frame": "odom",
+      "base_frame": "base_footprint",
+      "correction_transport": "scan_sync"
+    },
+    "scout.tag_capture": {
+      "configured": false,
+      "setup_required": [
+        "실제 PiCam 드라이버가 아래 namespace에 image_raw와 camera_info를 발행하도록 연결",
+        "scout_real.yaml의 실제 K/TF/태그 등록과 CameraInfo 일치 확인",
+        "장치 연결 검증 후 configured=true 지정"
+      ],
+      "backend": "ros",
+      "camera_namespace": "scout_01/apriltag_camera",
+      "output_root": "runs/scout_tag"
+    },
+    "scout.patrol": {
+      "schema_version": 1,
+      "robot_id": "scout_01",
+      "map_id": "farm_map_v1",
+      "route_graph": "robot/config/maps/many_farm/graph.geojson",
+      "sections": {
+        "SEC01": {
+          "segments": [
+            {
+              "segment_id": "SEG01",
+              "observation_node_id": 4
+            },
+            {
+              "segment_id": "SEG02",
+              "observation_node_id": 8
+            },
+            {
+              "segment_id": "SEG03",
+              "observation_node_id": 9
+            }
+          ],
+          "on_complete": "WAIT_FOR_COMMAND"
+        }
+      },
+      "notes": [
+        "SEC01은 SEG01(4번) → SEG02(8번) → SEG03(9번)에서 정지 관측.",
+        "9번 관측 완료 후 WAIT_FOR_COMMAND. 1번·스테이션 자동 이동 없음."
+      ]
+    },
+    "harvest.navigation": {
+      "mode": "follow_path",
+      "map_frame": "map",
+      "base_frame": "base_footprint",
+      "odom_topic": "odom",
+      "navigate_action": "navigate_to_pose",
+      "follow_action": "follow_path",
+      "controller_node": "controller_server",
+      "controller_id": "RPP",
+      "goal_checker_id": "general_goal_checker",
+      "progress_checker_id": "progress_checker",
+      "goal_timeout_s": 300.0,
+      "response_timeout_s": 15.0,
+      "cancel_timeout_s": 10.0,
+      "readiness_timeout_s": 60.0,
+      "tf_timeout_s": 3.0,
+      "tf_max_age_s": 1.0,
+      "arrival_tolerance_m": 0.05,
+      "heading_tolerance_rad": 0.10471975511965978,
+      "settle_s": 0.8,
+      "settle_timeout_s": 20.0,
+      "odom_max_age_s": 0.5,
+      "stopped_linear_mps": 0.005,
+      "stopped_angular_rps": 0.02,
+      "max_start_distance_m": 0.1,
+      "max_goal_distance_m": 0.02,
+      "path_spacing_m": 0.04,
+      "parallel_approach": false,
+      "require_active_nav2": false,
+      "tf_recovery_enabled": false,
+      "tf_recovery_timeout_s": 10.0,
+      "tf_recovery_wait_forever": false,
+      "collision_retry_count": 0
+    },
+    "harvest.environment": {
+      "schema_version": 1,
+      "configured": true,
+      "mode": "real",
+      "robot_id": "harvest_01",
+      "map_id": "many_farm_v1",
+      "map_yaml": "robot/config/maps/many_farm/many_farm.yaml",
+      "route_graph": "robot/config/maps/many_farm/graph.geojson",
+      "nav_params": "robot/config/robots/vicpinky/nav2.yaml",
+      "device_config": "robot/config/robots/vicpinky/devices.json",
+      "harvest_config": "robot/config/harvest/harvest_handoff_real.json",
+      "tag_localization_config": "robot/config/localization/harvest_handoff_real.yaml",
+      "tag_capture_config": "robot/config/cameras/harvest_tag_capture.yaml",
+      "navigation_policy": "robot/config/navigation/harvest_navigation.yaml",
+      "navigation": {
+        "map_frame": "map",
+        "base_frame": "base_footprint",
+        "heading_tolerance_rad": 0.10471975511965978
+      },
+      "route_server_params": "robot/config/harvest/route_server.yaml"
+    },
+    "harvest.nav2": {
+      "amcl": {
+        "ros__parameters": {
+          "use_sim_time": false,
+          "alpha1": 0.2,
+          "alpha2": 0.2,
+          "alpha3": 0.2,
+          "alpha4": 0.2,
+          "alpha5": 0.2,
+          "base_frame_id": "base_footprint",
+          "beam_skip_distance": 0.5,
+          "beam_skip_error_threshold": 0.9,
+          "beam_skip_threshold": 0.3,
+          "do_beamskip": false,
+          "global_frame_id": "map",
+          "lambda_short": 0.1,
+          "laser_likelihood_max_dist": 2.0,
+          "laser_max_range": 100.0,
+          "laser_min_range": -1.0,
+          "laser_model_type": "likelihood_field",
+          "max_beams": 60,
+          "max_particles": 2000,
+          "min_particles": 500,
+          "odom_frame_id": "odom",
+          "pf_err": 0.05,
+          "pf_z": 0.99,
+          "recovery_alpha_fast": 0.0,
+          "recovery_alpha_slow": 0.0,
+          "resample_interval": 1,
+          "robot_model_type": "nav2_amcl::DifferentialMotionModel",
+          "save_pose_rate": 0.5,
+          "sigma_hit": 0.2,
+          "tf_broadcast": true,
+          "transform_tolerance": 1.0,
+          "update_min_a": 0.2,
+          "update_min_d": 0.05,
+          "z_hit": 0.5,
+          "z_max": 0.05,
+          "z_rand": 0.5,
+          "z_short": 0.05,
+          "scan_topic": "scan_filtered",
+          "set_initial_pose": false,
+          "initial_pose": {
+            "x": 0.608,
+            "y": 0.357,
+            "z": 0.0,
+            "yaw": -1.5707963267948966
+          },
+          "always_reset_initial_pose": true
+        }
+      },
+      "bt_navigator": {
+        "ros__parameters": {
+          "global_frame": "map",
+          "robot_base_frame": "base_footprint",
+          "odom_topic": "odom",
+          "bt_loop_duration": 10,
+          "default_server_timeout": 20,
+          "wait_for_service_timeout": 1000,
+          "action_server_result_timeout": 900.0,
+          "navigators": [
+            "navigate_to_pose",
+            "navigate_through_poses"
+          ],
+          "navigate_to_pose": {
+            "plugin": "nav2_bt_navigator::NavigateToPoseNavigator"
+          },
+          "navigate_through_poses": {
+            "plugin": "nav2_bt_navigator::NavigateThroughPosesNavigator"
+          },
+          "error_code_names": [
+            "compute_path_error_code",
+            "follow_path_error_code"
+          ],
+          "use_sim_time": false,
+          "default_nav_to_pose_bt_xml": "/tmp/farm_threshold_audit_20261030/drive/farm_project/robot/config/navigation/harvest_navigate_to_pose.xml",
+          "default_nav_through_poses_bt_xml": "/tmp/farm_threshold_audit_20261030/drive/farm_project/robot/config/navigation/harvest_navigate_through_poses.xml"
+        }
+      },
+      "controller_server": {
+        "ros__parameters": {
+          "use_sim_time": false,
+          "controller_frequency": 20.0,
+          "min_x_velocity_threshold": 0.001,
+          "goal_checker_plugins": [
+            "general_goal_checker"
+          ],
+          "controller_plugins": [
+            "FollowPath",
+            "RPP",
+            "StationReverse",
+            "HarvestApproach",
+            "HarvestWork"
+          ],
+          "progress_checker": {
+            "plugin": "nav2_controller::PoseProgressChecker",
+            "required_movement_radius": 0.1,
+            "required_movement_angle": 0.1,
+            "movement_time_allowance": 20.0
+          },
+          "general_goal_checker": {
+            "stateful": true,
+            "plugin": "nav2_controller::SimpleGoalChecker",
+            "xy_goal_tolerance": 0.04,
+            "yaw_goal_tolerance": 0.04363323129985824
+          },
+          "FollowPath": {
+            "plugin": "nav2_regulated_pure_pursuit_controller::RegulatedPurePursuitController",
+            "desired_linear_vel": 0.1,
+            "lookahead_dist": 0.4,
+            "use_velocity_scaled_lookahead_dist": false,
+            "use_rotate_to_heading": true,
+            "rotate_to_heading_angular_vel": 0.1,
+            "max_angular_accel": 1.0,
+            "allow_reversing": false,
+            "use_collision_detection": true,
+            "max_allowed_time_to_collision_up_to_carrot": 1.0,
+            "use_regulated_linear_velocity_scaling": true,
+            "regulated_linear_scaling_min_speed": 0.05,
+            "min_approach_linear_velocity": 0.05,
+            "approach_velocity_scaling_dist": 0.6,
+            "rotate_to_heading_min_angle": 0.10471975511965978
+          },
+          "progress_checker_plugins": [
+            "progress_checker"
+          ],
+          "RPP": {
+            "plugin": "nav2_regulated_pure_pursuit_controller::RegulatedPurePursuitController",
+            "desired_linear_vel": 0.1,
+            "lookahead_dist": 0.4,
+            "use_velocity_scaled_lookahead_dist": false,
+            "use_rotate_to_heading": true,
+            "rotate_to_heading_angular_vel": 0.1,
+            "max_angular_accel": 1.0,
+            "allow_reversing": false,
+            "use_collision_detection": true,
+            "max_allowed_time_to_collision_up_to_carrot": 1.0,
+            "use_regulated_linear_velocity_scaling": true,
+            "regulated_linear_scaling_min_speed": 0.05,
+            "min_approach_linear_velocity": 0.05,
+            "approach_velocity_scaling_dist": 0.6,
+            "rotate_to_heading_min_angle": 0.10471975511965978
+          },
+          "StationReverse": {
+            "plugin": "farm_nav2_controller::ReverseRegulatedPurePursuitController",
+            "desired_linear_vel": 0.1,
+            "lookahead_dist": 0.4,
+            "use_velocity_scaled_lookahead_dist": false,
+            "use_rotate_to_heading": false,
+            "rotate_to_heading_angular_vel": 0.1,
+            "max_angular_accel": 1.0,
+            "allow_reversing": true,
+            "use_collision_detection": true,
+            "max_allowed_time_to_collision_up_to_carrot": 1.0,
+            "use_regulated_linear_velocity_scaling": true,
+            "regulated_linear_scaling_min_speed": 0.05,
+            "min_approach_linear_velocity": 0.05,
+            "approach_velocity_scaling_dist": 0.6,
+            "rotate_to_heading_min_angle": 0.10471975511965978,
+            "use_fixed_curvature_lookahead": false,
+            "interpolate_curvature_after_goal": false,
+            "stateful": false
+          },
+          "HarvestApproach": {
+            "plugin": "nav2_regulated_pure_pursuit_controller::RegulatedPurePursuitController",
+            "desired_linear_vel": 0.1,
+            "lookahead_dist": 0.1,
+            "use_velocity_scaled_lookahead_dist": false,
+            "use_rotate_to_heading": true,
+            "rotate_to_heading_angular_vel": 0.1,
+            "max_angular_accel": 1.0,
+            "allow_reversing": false,
+            "use_collision_detection": true,
+            "max_allowed_time_to_collision_up_to_carrot": 1.0,
+            "use_regulated_linear_velocity_scaling": true,
+            "regulated_linear_scaling_min_speed": 0.05,
+            "min_approach_linear_velocity": 0.05,
+            "approach_velocity_scaling_dist": 0.6,
+            "rotate_to_heading_min_angle": 0.10471975511965978,
+            "use_fixed_curvature_lookahead": true,
+            "curvature_lookahead_dist": 0.1,
+            "interpolate_curvature_after_goal": true
+          },
+          "HarvestWork": {
+            "plugin": "nav2_regulated_pure_pursuit_controller::RegulatedPurePursuitController",
+            "desired_linear_vel": 0.1,
+            "lookahead_dist": 0.4,
+            "use_velocity_scaled_lookahead_dist": false,
+            "use_rotate_to_heading": true,
+            "rotate_to_heading_angular_vel": 0.1,
+            "max_angular_accel": 1.0,
+            "allow_reversing": false,
+            "use_collision_detection": true,
+            "max_allowed_time_to_collision_up_to_carrot": 1.0,
+            "use_regulated_linear_velocity_scaling": true,
+            "regulated_linear_scaling_min_speed": 0.05,
+            "min_approach_linear_velocity": 0.05,
+            "approach_velocity_scaling_dist": 0.6,
+            "rotate_to_heading_min_angle": 0.10471975511965978,
+            "use_fixed_curvature_lookahead": true,
+            "curvature_lookahead_dist": 0.4,
+            "interpolate_curvature_after_goal": true
+          },
+          "enable_stamped_cmd_vel": false
+        }
+      },
+      "local_costmap": {
+        "local_costmap": {
+          "ros__parameters": {
+            "update_frequency": 10.0,
+            "publish_frequency": 5.0,
+            "global_frame": "odom",
+            "robot_base_frame": "base_link",
+            "use_sim_time": false,
+            "rolling_window": true,
+            "width": 5,
+            "height": 5,
+            "resolution": 0.02,
+            "footprint": "[[0.30, -0.25], [0.30, 0.25], [-0.30, 0.25], [-0.30, -0.25]]",
+            "plugins": [
+              "voxel_layer",
+              "inflation_layer"
+            ],
+            "inflation_layer": {
+              "plugin": "nav2_costmap_2d::InflationLayer",
+              "cost_scaling_factor": 3.0,
+              "inflation_radius": 0.7
+            },
+            "voxel_layer": {
+              "plugin": "nav2_costmap_2d::VoxelLayer",
+              "enabled": true,
+              "publish_voxel_map": true,
+              "origin_z": 0.0,
+              "z_resolution": 0.05,
+              "z_voxels": 16,
+              "max_obstacle_height": 2.0,
+              "mark_threshold": 0,
+              "observation_sources": "scan",
+              "scan": {
+                "topic": "/scan_filtered",
+                "max_obstacle_height": 2.0,
+                "clearing": true,
+                "marking": true,
+                "data_type": "LaserScan",
+                "raytrace_max_range": 5.0,
+                "raytrace_min_range": 0.0,
+                "obstacle_max_range": 4.5,
+                "obstacle_min_range": 0.0
+              }
+            },
+            "static_layer": {
+              "plugin": "nav2_costmap_2d::StaticLayer",
+              "map_subscribe_transient_local": true
+            },
+            "always_send_full_costmap": true,
+            "footprint_padding": 0.02
+          }
+        }
+      },
+      "global_costmap": {
+        "global_costmap": {
+          "ros__parameters": {
+            "update_frequency": 1.0,
+            "publish_frequency": 1.0,
+            "global_frame": "map",
+            "robot_base_frame": "base_footprint",
+            "use_sim_time": false,
+            "footprint": "[[0.30, -0.25], [0.30, 0.25], [-0.30, 0.25], [-0.30, -0.25]]",
+            "resolution": 0.05,
+            "track_unknown_space": true,
+            "plugins": [
+              "static_layer",
+              "obstacle_layer",
+              "inflation_layer"
+            ],
+            "obstacle_layer": {
+              "plugin": "nav2_costmap_2d::ObstacleLayer",
+              "enabled": true,
+              "observation_sources": "scan",
+              "scan": {
+                "topic": "/scan_filtered",
+                "max_obstacle_height": 2.0,
+                "clearing": true,
+                "marking": true,
+                "data_type": "LaserScan",
+                "raytrace_max_range": 3.0,
+                "raytrace_min_range": 0.0,
+                "obstacle_max_range": 2.5,
+                "obstacle_min_range": 0.0
+              }
+            },
+            "static_layer": {
+              "plugin": "nav2_costmap_2d::StaticLayer",
+              "map_subscribe_transient_local": true
+            },
+            "inflation_layer": {
+              "plugin": "nav2_costmap_2d::InflationLayer",
+              "cost_scaling_factor": 3.0,
+              "inflation_radius": 0.6
+            },
+            "always_send_full_costmap": true,
+            "footprint_padding": 0.02
+          }
+        }
+      },
+      "map_server": {
+        "ros__parameters": {
+          "use_sim_time": false,
+          "yaml_filename": ""
+        }
+      },
+      "planner_server": {
+        "ros__parameters": {
+          "expected_planner_frequency": 20.0,
+          "planner_plugins": [
+            "GridBased"
+          ],
+          "costmap_update_timeout": 1.0,
+          "GridBased": {
+            "plugin": "nav2_navfn_planner::NavfnPlanner",
+            "tolerance": 0.5,
+            "use_astar": false,
+            "allow_unknown": true
+          },
+          "use_sim_time": false
+        }
+      },
+      "behavior_server": {
+        "ros__parameters": {
+          "local_costmap_topic": "local_costmap/costmap_raw",
+          "global_costmap_topic": "global_costmap/costmap_raw",
+          "local_footprint_topic": "local_costmap/published_footprint",
+          "global_footprint_topic": "global_costmap/published_footprint",
+          "cycle_frequency": 10.0,
+          "behavior_plugins": [
+            "spin",
+            "backup",
+            "drive_on_heading",
+            "assisted_teleop",
+            "wait"
+          ],
+          "spin": {
+            "plugin": "nav2_behaviors::Spin"
+          },
+          "backup": {
+            "plugin": "nav2_behaviors::BackUp"
+          },
+          "drive_on_heading": {
+            "plugin": "nav2_behaviors::DriveOnHeading"
+          },
+          "wait": {
+            "plugin": "nav2_behaviors::Wait"
+          },
+          "assisted_teleop": {
+            "plugin": "nav2_behaviors::AssistedTeleop"
+          },
+          "local_frame": "odom",
+          "global_frame": "map",
+          "robot_base_frame": "base_link",
+          "transform_tolerance": 0.1,
+          "simulate_ahead_time": 2.0,
+          "max_rotational_vel": 0.1,
+          "min_rotational_vel": 0.1,
+          "rotational_acc_lim": 1.0,
+          "enable_stamped_cmd_vel": false,
+          "use_sim_time": false
+        }
+      },
+      "velocity_smoother": {
+        "ros__parameters": {
+          "use_sim_time": false,
+          "smoothing_frequency": 20.0,
+          "scale_velocities": false,
+          "feedback": "CLOSED_LOOP",
+          "max_velocity": [
+            0.25,
+            0.0,
+            1.0
+          ],
+          "min_velocity": [
+            -0.25,
+            0.0,
+            -1.0
+          ],
+          "max_accel": [
+            1.8,
+            0.0,
+            2.0
+          ],
+          "max_decel": [
+            -1.8,
+            0.0,
+            -2.0
+          ],
+          "odom_topic": "odom",
+          "odom_duration": 0.1,
+          "deadband_velocity": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "velocity_timeout": 1.0,
+          "enable_stamped_cmd_vel": false
+        }
+      }
+    },
+    "harvest.tag": {
+      "configured": true,
+      "robot_id": "harvest_01",
+      "map_id": "many_farm_v1",
+      "assets_file": "robot/config/localization/reference_20261014/assets.candidate.json",
+      "model_file": "robot/config/localization/common_observation_model.json",
+      "map_yaml_sha256": "d56627220f61708f56b5ebe6e682726a0f45ce25f008dab4e1ab96f42987b157",
+      "map_image_sha256": "c16144d12bf45bafbb122f2fa34bd0243a39f25e525349e92195fc0223ae410b",
+      "map_frame": "map",
+      "odom_frame": "odom",
+      "base_frame": "base_footprint",
+      "correction_transport": "scan_sync",
+      "pixel_bias_profile": "robot/config/localization/bias_trial_20261014/profile.json"
+    },
+    "harvest.tag_model": {
+      "quality": {
+        "min_area_px2": 10000.0,
+        "max_rms_px": 4.0,
+        "min_margin": 80.0,
+        "max_hamming": 0,
+        "base_z_m": 0.0,
+        "max_z_error_m": 0.08,
+        "max_roll_rad": 0.2617993877991494,
+        "max_pitch_rad": 0.2617993877991494,
+        "max_detections": 7
+      },
+      "tag": {
+        "pose_solver": "ippe_lm",
+        "map_base_pose6_covariance_bound": [
+          [
+            0.0025000000000000005,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          [
+            0.0,
+            0.0025000000000000005,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          [
+            0.0,
+            0.0,
+            0.0064,
+            0.0,
+            0.0,
+            0.0
+          ],
+          [
+            0.0,
+            0.0,
+            0.0,
+            0.01949551486634935,
+            0.0,
+            0.0
+          ],
+          [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.01949551486634935,
+            0.0
+          ],
+          [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.007615435494667714
+          ]
+        ],
+        "distance_interval_m": [
+          0.12,
+          0.45
+        ]
+      },
+      "model_ids": {
+        "motion": "field-candidate-motion-v1",
+        "amcl": "field-candidate-amcl-v1",
+        "tag": "field-candidate-tag-ippe-lm-v1"
+      }
+    },
+    "harvest.pixel_bias": {
+      "schema_version": 1,
+      "experimental": true,
+      "model_id": "sec01-pixel-bias-trial-20261010-v1-map20261014",
+      "robot_id": "harvest_01",
+      "map_id": "many_farm_v1",
+      "map_frame": "map",
+      "sha256": {
+        "assets_file": "2fc5983d7b52adfc8b0c9a2e1d37b8ee7b6eccf6d8c1ade0ac132fe809c6c5b0",
+        "model_file": "539bf6c8a81578a5100b6a113ab18e9e7bd34da0226a8308581556d8f7fb6bb4"
+      },
+      "map_yaml_sha256": "d56627220f61708f56b5ebe6e682726a0f45ce25f008dab4e1ab96f42987b157",
+      "map_image_sha256": "c16144d12bf45bafbb122f2fa34bd0243a39f25e525349e92195fc0223ae410b",
+      "wall_normal_map": [
+        -0.0,
+        1.0
+      ],
+      "family": "tag36h11",
+      "tag_ids": [
+        100,
+        101,
+        102,
+        103,
+        104,
+        105
+      ],
+      "u_center_px": 640.0,
+      "u_scale_px": 640.0,
+      "u_interval_px": [
+        388.04473876953125,
+        889.77978515625
+      ],
+      "heading_interval_rad": [
+        -0.2617993877991496,
+        0.26179938779914935
+      ],
+      "distance_bias_m": [
+        0.02316284358688556,
+        0.04866276347063953
+      ],
+      "yaw_bias_rad": [
+        0.04603614825476121,
+        -0.07805139861644357
+      ],
+      "max_distance_bias_m": 0.05,
+      "max_yaw_bias_rad": 0.10471975511965978,
+      "provenance": {
+        "task_id": "graph_test_b6d4bda1031940ecb28eac9c7118ec82",
+        "source_archive_sha256": "527e4268456e18df43b7c02fe0148187afe63762e96956d877a6be2956376dc5",
+        "samples": 74,
+        "reference": "left planar LiDAR wall fit, not independent metrology",
+        "independent_run_validated": false,
+        "physical_accuracy_validated": false,
+        "map_transfer": {
+          "source_profile": "robot/config/localization/bias_trial_20261010/profile.json",
+          "yaw_rad": 1.5707963267948966,
+          "coefficients_refitted": false,
+          "new_map_field_validated": false
+        }
+      }
+    },
+    "harvest.tag_capture": {
+      "script": "robot/tools/tag_camera/pinky_tag_capture_compare.py",
+      "calibration": "robot/config/cameras/pcweb400_720p_report.json",
+      "device": "/dev/video0",
+      "trial_label": "manual_2ms",
+      "output_root": "runs/harvest_tag",
+      "startup_timeout_s": 60.0
+    },
+    "harvest.task": {
+      "schema_version": 1,
+      "movement_mode": "route_then_follow",
+      "approach_planner": "graph",
+      "approach_controller_id": "HarvestApproach",
+      "approach_goal_checker_id": "general_goal_checker",
+      "work_controller_id": "HarvestWork",
+      "resolve_section_from_goal_pose": true,
+      "robot_id": "harvest_01",
+      "map_id": "many_farm_v1",
+      "control_aliases": {
+        "map_ids": {
+          "farm_map_v1": "many_farm_v1"
+        },
+        "section_ids": {
+          "SEC01": "SEC_01"
+        }
+      },
+      "status_reporting": {
+        "enabled": true,
+        "map_id": "farm_map_v1",
+        "battery_topic": "battery_state"
+      },
+      "default_section_id": "SEC_01",
+      "completion_policy": "ARRIVAL_THEN_ARM",
+      "sections": {
+        "SEC_01": {
+          "entry_node": 11,
+          "entry_heading_node": 12,
+          "exit_node": 11,
+          "exit_heading_node": 10,
+          "work_corridor_nodes": [
+            10,
+            14
+          ]
+        }
+      },
+      "task_navigation_policy": "robot/config/navigation/harvest_task.yaml",
+      "approach_max_start_distance_m": 0.2,
+      "transfer": {
+        "enabled": true,
+        "device_services": {
+          "prepare_arm": "/harvest_01/arm/prepare",
+          "stop": "/harvest_01/arm/stop"
+        },
+        "capacity_count": 0,
+        "loaded_count_topic": "",
+        "stage_timeout_s": 120.0,
+        "stop_timeout_s": 10.0,
+        "load_source": "arm_feedback",
+        "request_count": 0,
+        "rotation_mode": "components",
+        "rotation": {},
+        "discharge_mode": "action",
+        "discharge_action": {
+          "endpoint": "/harvest_01/arm/discharge",
+          "response_timeout_s": 5.0,
+          "cancel_timeout_s": 10.0
+        }
+      },
+      "work_path_heading_limit_rad": 0.08726646259971647,
+      "arm_action": {
+        "endpoint": "/harvest_01/arm/harvest_task",
+        "readiness_timeout_s": 5.0,
+        "response_timeout_s": 5.0,
+        "execution_timeout_s": 180.0,
+        "cancel_timeout_s": 10.0
+      },
+      "navigation_collision_retry_count": 5
+    },
+    "harvest.arm_action_effective": {
+      "endpoint": "/harvest_01/arm/harvest_task",
+      "readiness_timeout_s": 5.0,
+      "response_timeout_s": 5.0,
+      "execution_timeout_s": 180.0,
+      "cancel_timeout_s": 10.0
+    },
+    "harvest.work_policy_effective": {
+      "navigation_collision_retry_count": 5,
+      "work_path_heading_limit_rad": 0.08726646259971647
+    },
+    "harvest.handoff": {
+      "wall_config": "robot/config/robots/vicpinky/transfer/wall_alignment_wait_v2.json",
+      "monitor_policy": "robot/config/robots/vicpinky/transfer/arc_monitor_policy.json",
+      "arc": {
+        "radius": 0.1,
+        "angle": 1.5707963267948966,
+        "spacing": 0.002,
+        "deviation": 0.01,
+        "yaw_tolerance": 0.05,
+        "endpoint_tolerance": 0.008,
+        "timeout": 60.0
+      },
+      "body_trial_enabled": false,
+      "completion": {
+        "reentry_position": 0.01,
+        "return_position": 0.05,
+        "return_endpoint_position": 0.05,
+        "return_heading": 0.10471975511965978
+      },
+      "footprint_padding": 0.01,
+      "transient_recovery_timeout_s": 5.0,
+      "sensor_wait_indefinite": true
+    },
+    "harvest.wall": {
+      "schema_version": 1,
+      "trial_only": true,
+      "controller": {
+        "target_distance": 0.4325,
+        "distance_tolerance": 0.005,
+        "angle_tolerance": 0.008726646259971648,
+        "kp_distance": 0.4,
+        "kp_angle": 0.8,
+        "max_linear": 0.02,
+        "max_angular": 0.05,
+        "align_enter": 0.06981317008,
+        "align_exit": 0.03490658504,
+        "dwell": 0.5,
+        "max_distance": 0.2,
+        "max_yaw": 0.2617993878,
+        "timeout": 40.0,
+        "observation_age": 0.45,
+        "stopped_linear": 0.005,
+        "stopped_angular": 0.02,
+        "min_linear": 0.006,
+        "min_angular": 0.03,
+        "sequential_alignment": true,
+        "target_angle": 0.04276056667386108,
+        "observation_wait": 5.0,
+        "wait_until_fresh": true
+      },
+      "observation": {
+        "sector_deg": [
+          -30.0,
+          30.0
+        ],
+        "fit_threshold_m": 0.01,
+        "min_points": 20,
+        "min_ratio": 0.8,
+        "min_span_m": 0.15,
+        "max_rms_m": 0.005,
+        "min_distance_m": 0.35,
+        "max_distance_m": 0.7,
+        "max_angle_rad": 0.2617993878,
+        "normal_jump_rad": 0.05235987756,
+        "plane_jump_m": 0.015,
+        "max_gap_s": 0.45,
+        "stable_frames": 5,
+        "reacquire_after_gap": true
+      },
+      "measured_velocity": {
+        "linear_abs_mps": 0.025,
+        "forward_mps": 0.025,
+        "angular_soft_rps": 0.1,
+        "angular_hard_rps": 0.15,
+        "angular_persistence_s": 0.1,
+        "sample_gap_s": 0.5
+      }
+    },
+    "harvest.monitor": {
+      "measured_velocity": {
+        "linear_abs_mps": 0.025,
+        "forward_mps": 0.005,
+        "angular_soft_rps": 0.18,
+        "angular_hard_rps": 0.2,
+        "angular_persistence_s": 0.1,
+        "sample_gap_s": 0.5
+      },
+      "stationary": {
+        "odom_topic": "odom",
+        "stopped_linear_mps": 0.005,
+        "stopped_angular_rps": 0.02,
+        "settle_s": 0.8,
+        "settle_timeout_s": 5.0,
+        "odom_max_age_s": 0.5
+      }
+    },
+    "harvest.generated_handoff_server": {
+      "prefix": "/harvest_01/handoff",
+      "values": {
+        "/harvest_01/handoff/controller_server": {
+          "ros__parameters": {
+            "use_sim_time": false,
+            "controller_frequency": 20.0,
+            "enable_stamped_cmd_vel": false,
+            "odom_topic": "/harvest_01/odom",
+            "controller_plugins": [
+              "TransferArc",
+              "WallAlign",
+              "Retreat",
+              "WindowCorrection"
+            ],
+            "goal_checker_plugins": [
+              "transfer_arc_goal",
+              "window_goal",
+              "wall_goal",
+              "retreat_goal"
+            ],
+            "progress_checker_plugins": [
+              "transfer_arc_progress",
+              "window_progress",
+              "wall_progress",
+              "retreat_progress"
+            ],
+            "failure_tolerance": 0.0,
+            "bond_heartbeat_period": 0.0,
+            "min_x_velocity_threshold": 0.0,
+            "min_y_velocity_threshold": 0.0,
+            "min_theta_velocity_threshold": 0.0,
+            "TransferArc.plugin": "farm_arc_controller::ArcController",
+            "TransferArc.desired_linear_vel": 0.01,
+            "TransferArc.lookahead_dist": 0.04,
+            "TransferArc.min_lookahead_dist": 0.04,
+            "TransferArc.max_lookahead_dist": 0.04,
+            "TransferArc.use_velocity_scaled_lookahead_dist": false,
+            "TransferArc.use_rotate_to_heading": false,
+            "TransferArc.allow_reversing": true,
+            "TransferArc.use_collision_detection": true,
+            "TransferArc.max_allowed_time_to_collision_up_to_carrot": 2.0,
+            "TransferArc.use_regulated_linear_velocity_scaling": true,
+            "TransferArc.regulated_linear_scaling_min_speed": 0.003,
+            "TransferArc.min_approach_linear_velocity": 0.003,
+            "TransferArc.approach_velocity_scaling_dist": 0.04,
+            "TransferArc.use_fixed_curvature_lookahead": false,
+            "TransferArc.interpolate_curvature_after_goal": false,
+            "TransferArc.stateful": false,
+            "transfer_arc_goal.plugin": "nav2_controller::SimpleGoalChecker",
+            "transfer_arc_goal.stateful": false,
+            "transfer_arc_goal.xy_goal_tolerance": 0.005,
+            "transfer_arc_goal.yaw_goal_tolerance": 0.04,
+            "transfer_arc_progress.plugin": "farm_wall_controller::WaitingProgressChecker",
+            "transfer_arc_progress.required_movement_radius": 0.01,
+            "transfer_arc_progress.required_movement_angle": 0.04,
+            "transfer_arc_progress.movement_time_allowance": 10.0,
+            "WallAlign.plugin": "farm_wall_controller::WallController",
+            "WallAlign.desired_linear_vel": 0.02,
+            "WallAlign.use_collision_detection": true,
+            "WallAlign.max_allowed_time_to_collision_up_to_carrot": 2.0,
+            "wall_goal.plugin": "farm_wall_controller::WallGoalChecker",
+            "wall_progress.plugin": "farm_wall_controller::WaitingProgressChecker",
+            "wall_progress.required_movement_radius": 0.005,
+            "wall_progress.required_movement_angle": 0.01745,
+            "wall_progress.movement_time_allowance": 10.0,
+            "wall_alignment.target_distance": 0.4325,
+            "wall_alignment.distance_tolerance": 0.005,
+            "wall_alignment.angle_tolerance": 0.008726646259971648,
+            "wall_alignment.kp_distance": 0.4,
+            "wall_alignment.kp_angle": 0.8,
+            "wall_alignment.max_linear": 0.02,
+            "wall_alignment.max_angular": 0.05,
+            "wall_alignment.align_enter": 0.06981317008,
+            "wall_alignment.align_exit": 0.03490658504,
+            "wall_alignment.dwell": 0.5,
+            "wall_alignment.max_distance": 0.2,
+            "wall_alignment.max_yaw": 0.2617993878,
+            "wall_alignment.timeout": 40.0,
+            "wall_alignment.observation_age": 0.45,
+            "wall_alignment.stopped_linear": 0.005,
+            "wall_alignment.stopped_angular": 0.02,
+            "wall_alignment.min_linear": 0.006,
+            "wall_alignment.min_angular": 0.03,
+            "wall_alignment.sequential_alignment": true,
+            "wall_alignment.target_angle": 0.04276056667386108,
+            "wall_alignment.observation_wait": 5.0,
+            "wall_alignment.wait_until_fresh": true,
+            "Retreat.plugin": "farm_nav2_controller::ReverseRegulatedPurePursuitController",
+            "Retreat.desired_linear_vel": 0.01,
+            "Retreat.lookahead_dist": 0.04,
+            "Retreat.use_velocity_scaled_lookahead_dist": false,
+            "Retreat.use_rotate_to_heading": false,
+            "Retreat.rotate_to_heading_angular_vel": 0.03,
+            "Retreat.max_angular_accel": 1.0,
+            "Retreat.allow_reversing": true,
+            "Retreat.use_collision_detection": true,
+            "Retreat.max_allowed_time_to_collision_up_to_carrot": 2.0,
+            "Retreat.use_regulated_linear_velocity_scaling": true,
+            "Retreat.regulated_linear_scaling_min_speed": 0.006,
+            "Retreat.min_approach_linear_velocity": 0.006,
+            "Retreat.approach_velocity_scaling_dist": 0.04,
+            "Retreat.rotate_to_heading_min_angle": 0.10471975511965978,
+            "Retreat.use_fixed_curvature_lookahead": false,
+            "Retreat.interpolate_curvature_after_goal": false,
+            "Retreat.stateful": false,
+            "Retreat.min_lookahead_dist": 0.04,
+            "Retreat.max_lookahead_dist": 0.04,
+            "retreat_goal.plugin": "nav2_controller::SimpleGoalChecker",
+            "retreat_goal.stateful": false,
+            "retreat_goal.xy_goal_tolerance": 0.005,
+            "retreat_goal.yaw_goal_tolerance": 0.24434609527920614,
+            "retreat_progress.plugin": "farm_wall_controller::WaitingProgressChecker",
+            "retreat_progress.required_movement_radius": 0.01,
+            "retreat_progress.required_movement_angle": 0.04,
+            "retreat_progress.movement_time_allowance": 10.0,
+            "WindowCorrection.plugin": "farm_nav2_controller::SettlingRegulatedPurePursuitController",
+            "WindowCorrection.desired_linear_vel": 0.01,
+            "WindowCorrection.lookahead_dist": 0.04,
+            "WindowCorrection.use_velocity_scaled_lookahead_dist": false,
+            "WindowCorrection.use_rotate_to_heading": false,
+            "WindowCorrection.rotate_to_heading_angular_vel": 0.03,
+            "WindowCorrection.max_angular_accel": 1.0,
+            "WindowCorrection.allow_reversing": false,
+            "WindowCorrection.use_collision_detection": true,
+            "WindowCorrection.max_allowed_time_to_collision_up_to_carrot": 2.0,
+            "WindowCorrection.use_regulated_linear_velocity_scaling": true,
+            "WindowCorrection.regulated_linear_scaling_min_speed": 0.006,
+            "WindowCorrection.min_approach_linear_velocity": 0.006,
+            "WindowCorrection.approach_velocity_scaling_dist": 0.04,
+            "WindowCorrection.rotate_to_heading_min_angle": 0.10471975511965978,
+            "WindowCorrection.use_fixed_curvature_lookahead": false,
+            "WindowCorrection.interpolate_curvature_after_goal": false,
+            "WindowCorrection.stateful": false,
+            "WindowCorrection.min_lookahead_dist": 0.04,
+            "WindowCorrection.max_lookahead_dist": 0.04,
+            "window_goal.plugin": "nav2_controller::SimpleGoalChecker",
+            "window_goal.stateful": false,
+            "window_goal.xy_goal_tolerance": 0.003,
+            "window_goal.yaw_goal_tolerance": 0.03490658503988659,
+            "window_progress.plugin": "farm_wall_controller::WaitingProgressChecker",
+            "window_progress.required_movement_radius": 0.005,
+            "window_progress.required_movement_angle": 0.04,
+            "window_progress.movement_time_allowance": 15.0
+          }
+        },
+        "/harvest_01/handoff/local_costmap/local_costmap": {
+          "ros__parameters": {
+            "update_frequency": 10.0,
+            "publish_frequency": 5.0,
+            "global_frame": "odom",
+            "robot_base_frame": "base_link",
+            "use_sim_time": false,
+            "rolling_window": true,
+            "width": 5,
+            "height": 5,
+            "resolution": 0.02,
+            "footprint": "[[0.30, -0.25], [0.30, 0.25], [-0.30, 0.25], [-0.30, -0.25]]",
+            "plugins": [
+              "voxel_layer",
+              "inflation_layer"
+            ],
+            "inflation_layer.plugin": "nav2_costmap_2d::InflationLayer",
+            "inflation_layer.cost_scaling_factor": 3.0,
+            "inflation_layer.inflation_radius": 0.7,
+            "voxel_layer.plugin": "nav2_costmap_2d::VoxelLayer",
+            "voxel_layer.enabled": true,
+            "voxel_layer.publish_voxel_map": true,
+            "voxel_layer.origin_z": 0.0,
+            "voxel_layer.z_resolution": 0.05,
+            "voxel_layer.z_voxels": 16,
+            "voxel_layer.max_obstacle_height": 2.0,
+            "voxel_layer.mark_threshold": 0,
+            "voxel_layer.observation_sources": "scan",
+            "voxel_layer.scan.topic": "/harvest_01/scan_filtered",
+            "voxel_layer.scan.max_obstacle_height": 2.0,
+            "voxel_layer.scan.clearing": true,
+            "voxel_layer.scan.marking": true,
+            "voxel_layer.scan.data_type": "LaserScan",
+            "voxel_layer.scan.raytrace_max_range": 5.0,
+            "voxel_layer.scan.raytrace_min_range": 0.0,
+            "voxel_layer.scan.obstacle_max_range": 4.5,
+            "voxel_layer.scan.obstacle_min_range": 0.0,
+            "static_layer.plugin": "nav2_costmap_2d::StaticLayer",
+            "static_layer.map_subscribe_transient_local": true,
+            "always_send_full_costmap": true,
+            "footprint_padding": 0.01
+          }
+        }
+      },
+      "spin": {
+        "use_sim_time": false,
+        "behavior_plugins": [
+          "spin"
+        ],
+        "spin.plugin": "farm_wall_controller::WaitingSpin",
+        "local_frame": "odom",
+        "global_frame": "odom",
+        "robot_base_frame": "base_footprint",
+        "cycle_frequency": 20.0,
+        "transform_tolerance": 0.5,
+        "local_costmap_topic": "/harvest_01/handoff/local_costmap/costmap_raw",
+        "global_costmap_topic": "/harvest_01/handoff/local_costmap/costmap_raw",
+        "local_footprint_topic": "/harvest_01/handoff/local_costmap/published_footprint",
+        "global_footprint_topic": "/harvest_01/handoff/local_costmap/published_footprint",
+        "min_rotational_vel": 0.03,
+        "max_rotational_vel": 0.03,
+        "rotational_acc_lim": 1.0,
+        "simulate_ahead_time": 2.0,
+        "enable_stamped_cmd_vel": false,
+        "bond_heartbeat_period": 0.0
+      },
+      "costmap": {
+        "update_frequency": 10.0,
+        "publish_frequency": 5.0,
+        "global_frame": "odom",
+        "robot_base_frame": "base_link",
+        "use_sim_time": false,
+        "rolling_window": true,
+        "width": 5,
+        "height": 5,
+        "resolution": 0.02,
+        "footprint": "[[0.30, -0.25], [0.30, 0.25], [-0.30, 0.25], [-0.30, -0.25]]",
+        "plugins": [
+          "voxel_layer",
+          "inflation_layer"
+        ],
+        "inflation_layer.plugin": "nav2_costmap_2d::InflationLayer",
+        "inflation_layer.cost_scaling_factor": 3.0,
+        "inflation_layer.inflation_radius": 0.7,
+        "voxel_layer.plugin": "nav2_costmap_2d::VoxelLayer",
+        "voxel_layer.enabled": true,
+        "voxel_layer.publish_voxel_map": true,
+        "voxel_layer.origin_z": 0.0,
+        "voxel_layer.z_resolution": 0.05,
+        "voxel_layer.z_voxels": 16,
+        "voxel_layer.max_obstacle_height": 2.0,
+        "voxel_layer.mark_threshold": 0,
+        "voxel_layer.observation_sources": "scan",
+        "voxel_layer.scan.topic": "/scan_filtered",
+        "voxel_layer.scan.max_obstacle_height": 2.0,
+        "voxel_layer.scan.clearing": true,
+        "voxel_layer.scan.marking": true,
+        "voxel_layer.scan.data_type": "LaserScan",
+        "voxel_layer.scan.raytrace_max_range": 5.0,
+        "voxel_layer.scan.raytrace_min_range": 0.0,
+        "voxel_layer.scan.obstacle_max_range": 4.5,
+        "voxel_layer.scan.obstacle_min_range": 0.0,
+        "static_layer.plugin": "nav2_costmap_2d::StaticLayer",
+        "static_layer.map_subscribe_transient_local": true,
+        "always_send_full_costmap": true,
+        "footprint_padding": 0.01
+      },
+      "profile": {
+        "navigation": {
+          "departure": {
+            "mode": "follow_path",
+            "map_frame": "odom",
+            "base_frame": "base_footprint",
+            "odom_topic": "/harvest_01/odom",
+            "navigate_action": "navigate_to_pose",
+            "follow_action": "/harvest_01/handoff/follow_path",
+            "controller_node": "/harvest_01/handoff/controller_server",
+            "controller_id": "TransferArc",
+            "goal_checker_id": "transfer_arc_goal",
+            "progress_checker_id": "transfer_arc_progress",
+            "goal_timeout_s": 300.0,
+            "response_timeout_s": 15.0,
+            "cancel_timeout_s": 10.0,
+            "readiness_timeout_s": 60.0,
+            "tf_timeout_s": 3.0,
+            "tf_max_age_s": 1.0,
+            "arrival_tolerance_m": 0.008,
+            "heading_tolerance_rad": 0.05235987755982989,
+            "settle_s": 0.8,
+            "settle_timeout_s": 20.0,
+            "odom_max_age_s": 0.5,
+            "stopped_linear_mps": 0.005,
+            "stopped_angular_rps": 0.02,
+            "max_start_distance_m": 0.1,
+            "max_goal_distance_m": 0.02,
+            "path_spacing_m": 0.04,
+            "parallel_approach": false,
+            "require_active_nav2": false,
+            "tf_recovery_enabled": false,
+            "tf_recovery_timeout_s": 10.0,
+            "tf_recovery_wait_forever": false,
+            "collision_retry_count": 0
+          },
+          "wall": {
+            "mode": "follow_path",
+            "map_frame": "odom",
+            "base_frame": "base_footprint",
+            "odom_topic": "/harvest_01/odom",
+            "navigate_action": "navigate_to_pose",
+            "follow_action": "/harvest_01/handoff/follow_path",
+            "controller_node": "/harvest_01/handoff/controller_server",
+            "controller_id": "WallAlign",
+            "goal_checker_id": "wall_goal",
+            "progress_checker_id": "wall_progress",
+            "goal_timeout_s": 300.0,
+            "response_timeout_s": 15.0,
+            "cancel_timeout_s": 10.0,
+            "readiness_timeout_s": 60.0,
+            "tf_timeout_s": 3.0,
+            "tf_max_age_s": 1.0,
+            "arrival_tolerance_m": 0.005,
+            "heading_tolerance_rad": 0.008726646259971648,
+            "settle_s": 0.8,
+            "settle_timeout_s": 20.0,
+            "odom_max_age_s": 0.5,
+            "stopped_linear_mps": 0.005,
+            "stopped_angular_rps": 0.02,
+            "max_start_distance_m": 0.1,
+            "max_goal_distance_m": 0.02,
+            "path_spacing_m": 0.04,
+            "parallel_approach": false,
+            "require_active_nav2": false,
+            "tf_recovery_enabled": false,
+            "tf_recovery_timeout_s": 10.0,
+            "tf_recovery_wait_forever": false,
+            "collision_retry_count": 0
+          },
+          "retreat": {
+            "mode": "follow_path",
+            "map_frame": "odom",
+            "base_frame": "base_footprint",
+            "odom_topic": "/harvest_01/odom",
+            "navigate_action": "navigate_to_pose",
+            "follow_action": "/harvest_01/handoff/follow_path",
+            "controller_node": "/harvest_01/handoff/controller_server",
+            "controller_id": "Retreat",
+            "goal_checker_id": "retreat_goal",
+            "progress_checker_id": "retreat_progress",
+            "goal_timeout_s": 300.0,
+            "response_timeout_s": 15.0,
+            "cancel_timeout_s": 10.0,
+            "readiness_timeout_s": 60.0,
+            "tf_timeout_s": 3.0,
+            "tf_max_age_s": 1.0,
+            "arrival_tolerance_m": 0.008,
+            "heading_tolerance_rad": 0.2617993877991494,
+            "settle_s": 0.8,
+            "settle_timeout_s": 20.0,
+            "odom_max_age_s": 0.5,
+            "stopped_linear_mps": 0.005,
+            "stopped_angular_rps": 0.02,
+            "max_start_distance_m": 0.1,
+            "max_goal_distance_m": 0.02,
+            "path_spacing_m": 0.04,
+            "parallel_approach": false,
+            "require_active_nav2": false,
+            "tf_recovery_enabled": false,
+            "tf_recovery_timeout_s": 10.0,
+            "tf_recovery_wait_forever": false,
+            "collision_retry_count": 0
+          },
+          "return": {
+            "mode": "follow_path",
+            "map_frame": "odom",
+            "base_frame": "base_footprint",
+            "odom_topic": "/harvest_01/odom",
+            "navigate_action": "navigate_to_pose",
+            "follow_action": "/harvest_01/handoff/follow_path",
+            "controller_node": "/harvest_01/handoff/controller_server",
+            "controller_id": "TransferArc",
+            "goal_checker_id": "transfer_arc_goal",
+            "progress_checker_id": "transfer_arc_progress",
+            "goal_timeout_s": 300.0,
+            "response_timeout_s": 15.0,
+            "cancel_timeout_s": 10.0,
+            "readiness_timeout_s": 60.0,
+            "tf_timeout_s": 3.0,
+            "tf_max_age_s": 1.0,
+            "arrival_tolerance_m": 0.008,
+            "heading_tolerance_rad": 0.05235987755982989,
+            "settle_s": 0.8,
+            "settle_timeout_s": 20.0,
+            "odom_max_age_s": 0.5,
+            "stopped_linear_mps": 0.005,
+            "stopped_angular_rps": 0.02,
+            "max_start_distance_m": 0.1,
+            "max_goal_distance_m": 0.02,
+            "path_spacing_m": 0.04,
+            "parallel_approach": false,
+            "require_active_nav2": false,
+            "tf_recovery_enabled": false,
+            "tf_recovery_timeout_s": 10.0,
+            "tf_recovery_wait_forever": false,
+            "collision_retry_count": 0
+          },
+          "window": {
+            "mode": "follow_path",
+            "map_frame": "odom",
+            "base_frame": "base_footprint",
+            "odom_topic": "/harvest_01/odom",
+            "navigate_action": "navigate_to_pose",
+            "follow_action": "/harvest_01/handoff/follow_path",
+            "controller_node": "/harvest_01/handoff/controller_server",
+            "controller_id": "WindowCorrection",
+            "goal_checker_id": "window_goal",
+            "progress_checker_id": "window_progress",
+            "goal_timeout_s": 300.0,
+            "response_timeout_s": 15.0,
+            "cancel_timeout_s": 10.0,
+            "readiness_timeout_s": 60.0,
+            "tf_timeout_s": 3.0,
+            "tf_max_age_s": 1.0,
+            "arrival_tolerance_m": 0.008,
+            "heading_tolerance_rad": 0.05235987755982989,
+            "settle_s": 0.8,
+            "settle_timeout_s": 20.0,
+            "odom_max_age_s": 0.5,
+            "stopped_linear_mps": 0.005,
+            "stopped_angular_rps": 0.02,
+            "max_start_distance_m": 0.1,
+            "max_goal_distance_m": 0.02,
+            "path_spacing_m": 0.04,
+            "parallel_approach": false,
+            "require_active_nav2": false,
+            "tf_recovery_enabled": false,
+            "tf_recovery_timeout_s": 10.0,
+            "tf_recovery_wait_forever": false,
+            "collision_retry_count": 0
+          }
+        },
+        "spin_endpoint": "/harvest_01/handoff/spin"
+      },
+      "scan": "/harvest_01/scan_filtered",
+      "odom": "/harvest_01/odom"
+    },
+    "transport.navigation": {
+      "mode": "follow_path",
+      "map_frame": "map",
+      "base_frame": "base_footprint",
+      "odom_topic": "odom",
+      "navigate_action": "navigate_to_pose",
+      "follow_action": "follow_path",
+      "controller_node": "controller_server",
+      "controller_id": "RPP",
+      "goal_checker_id": "goal_checker",
+      "progress_checker_id": "progress_checker",
+      "goal_timeout_s": 300.0,
+      "response_timeout_s": 15.0,
+      "cancel_timeout_s": 10.0,
+      "readiness_timeout_s": 60.0,
+      "tf_timeout_s": 3.0,
+      "tf_max_age_s": 1.0,
+      "arrival_tolerance_m": 0.1,
+      "heading_tolerance_rad": 0.12,
+      "settle_s": 0.8,
+      "settle_timeout_s": 20.0,
+      "odom_max_age_s": 0.5,
+      "stopped_linear_mps": 0.005,
+      "stopped_angular_rps": 0.02,
+      "max_start_distance_m": 0.15,
+      "max_goal_distance_m": 0.02,
+      "path_spacing_m": 0.04,
+      "parallel_approach": false,
+      "require_active_nav2": false,
+      "tf_recovery_enabled": false,
+      "tf_recovery_timeout_s": 10.0,
+      "tf_recovery_wait_forever": false,
+      "collision_retry_count": 0
+    },
+    "transport.environment": {
+      "schema_version": 1,
+      "configured": true,
+      "mode": "real",
+      "map_id": "farm_map_v1",
+      "map_yaml": "robot/config/maps/transport_real/many_farm.yaml",
+      "route_graph": "robot/config/maps/transport_real/graph.geojson",
+      "navigation": {
+        "base_frame": "base_footprint",
+        "goal_timeout_s": 300.0,
+        "arrival_tolerance_m": 0.1,
+        "heading_tolerance_rad": 0.12,
+        "settle_s": 0.8,
+        "mode": "follow_path",
+        "map_frame": "map",
+        "controller_id": "RPP",
+        "goal_checker_id": "goal_checker",
+        "progress_checker_id": "progress_checker",
+        "max_start_distance_m": 0.15,
+        "max_goal_distance_m": 0.02,
+        "path_spacing_m": 0.04,
+        "tf_recovery_enabled": false,
+        "collision_retry_count": 0
+      },
+      "robot_id": "transport_01",
+      "device_config": "robot/config/robots/waffle/transport_devices.json",
+      "nav_params": "robot/config/robots/waffle/transport_nav2.yaml",
+      "destinations": "robot/config/destinations/transport_real.yaml",
+      "execution_enabled": true,
+      "scan_topic": "scan",
+      "battery_topic": "battery_state",
+      "precision_enabled": true,
+      "precision_profiles": "robot/config/docking/waffle_profiles.yaml",
+      "legacy_sites": "robot/config/docking/legacy_waffle_sites.yaml",
+      "pickup_profile": "harvest",
+      "sorter_dock_trial": {
+        "enabled": false,
+        "station_id": "SORT_01"
+      },
+      "docking_sensors": "robot/config/robots/waffle/docking_sensors.yaml",
+      "station_return_trial_enabled": true,
+      "sorter_distance_handoff": {
+        "enabled": true,
+        "station_id": "SORT_01",
+        "observation_start_node": 15,
+        "approach_end_node": 17,
+        "docking_profile": "sort_01_distance_trial",
+        "marker_id": 40,
+        "samples": 5,
+        "max_age_s": 0.3,
+        "min_marker_forward_m": 0.25,
+        "max_marker_forward_m": 1.5,
+        "max_bearing_rad": 0.15,
+        "max_heading_error_rad": 0.2,
+        "corridor_half_width_m": 0.12
+      },
+      "mechanical_device": {
+        "backend": "trigger",
+        "unload_service": "device/unload",
+        "stop_service": "device/stop",
+        "unload_timeout_s": 45.0,
+        "stop_timeout_s": 3.0,
+        "drain_timeout_s": 45.0,
+        "pickup_lid_enabled": true,
+        "lid_open_service": "device/lid_open",
+        "lid_close_service": "device/lid_close"
+      },
+      "unload_workflows": {
+        "SORT_01": {
+          "assume_unload_ready": false,
+          "ready_timeout_s": 60.0,
+          "auto_clear": true,
+          "clearance_profile": "sort_departure_distance_trial",
+          "marker_id": 40,
+          "allow_bounded_clearance_trial": true
+        }
+      },
+      "route_policy": {
+        "blocked_connections": [
+          [
+            5,
+            12
+          ]
+        ]
+      },
+      "pickup_workflow": {
+        "enabled": true,
+        "initial_marker_id": 42,
+        "final_marker_id": 41,
+        "approach_profile": "harvest_approach_42",
+        "dock_profile": "harvest_dock_41",
+        "clearance_profile": "harvest_clear",
+        "ready_timeout_s": 300.0,
+        "transfer_timeout_s": 60.0,
+        "receipt_confirmation": "transfer_complete_event",
+        "route_handoff": {
+          "enabled": true,
+          "max_ready_age_s": 0.5
+        }
+      },
+      "pickup_targets_file": "robot/config/docking/waffle_marker_targets.yaml"
+    },
+    "transport.nav2": {
+      "amcl": {
+        "ros__parameters": {
+          "alpha1": 0.2,
+          "alpha2": 0.2,
+          "alpha3": 0.2,
+          "alpha4": 0.2,
+          "alpha5": 0.2,
+          "base_frame_id": "base_footprint",
+          "beam_skip_distance": 0.5,
+          "beam_skip_error_threshold": 0.9,
+          "beam_skip_threshold": 0.3,
+          "do_beamskip": false,
+          "global_frame_id": "map",
+          "lambda_short": 0.1,
+          "laser_likelihood_max_dist": 2.0,
+          "laser_max_range": 100.0,
+          "laser_min_range": -0.15,
+          "laser_model_type": "likelihood_field",
+          "max_beams": 60,
+          "max_particles": 2000,
+          "min_particles": 500,
+          "odom_frame_id": "odom",
+          "pf_err": 0.05,
+          "pf_z": 0.99,
+          "recovery_alpha_fast": 0.0,
+          "recovery_alpha_slow": 0.0,
+          "resample_interval": 1,
+          "robot_model_type": "nav2_amcl::DifferentialMotionModel",
+          "save_pose_rate": 0.5,
+          "sigma_hit": 0.2,
+          "tf_broadcast": true,
+          "transform_tolerance": 0.5,
+          "update_min_a": 0.2,
+          "update_min_d": 0.25,
+          "z_hit": 0.5,
+          "z_max": 0.05,
+          "z_rand": 0.5,
+          "z_short": 0.05,
+          "scan_topic": "scan_filtered",
+          "map_topic": "map",
+          "set_initial_pose": false,
+          "always_reset_initial_pose": true,
+          "first_map_only": false,
+          "initial_pose": {
+            "x": 0.303,
+            "y": -1.27,
+            "z": 0.0,
+            "yaw": 0.0
+          },
+          "use_sim_time": false
+        }
+      },
+      "bt_navigator": {
+        "ros__parameters": {
+          "global_frame": "map",
+          "robot_base_frame": "base_link",
+          "transform_tolerance": 0.5,
+          "filter_duration": 0.3,
+          "always_reload_bt_xml": false,
+          "goal_blackboard_id": "goal",
+          "goals_blackboard_id": "goals",
+          "path_blackboard_id": "path",
+          "navigators": [
+            "navigate_to_pose",
+            "navigate_through_poses"
+          ],
+          "navigate_to_pose": {
+            "plugin": "nav2_bt_navigator::NavigateToPoseNavigator"
+          },
+          "navigate_through_poses": {
+            "plugin": "nav2_bt_navigator::NavigateThroughPosesNavigator"
+          },
+          "error_code_name_prefixes": [
+            "assisted_teleop",
+            "backup",
+            "compute_path",
+            "dock_robot",
+            "drive_on_heading",
+            "follow_path",
+            "nav_thru_poses",
+            "nav_to_pose",
+            "spin",
+            "route",
+            "undock_robot",
+            "wait"
+          ],
+          "use_sim_time": false
+        }
+      },
+      "controller_server": {
+        "ros__parameters": {
+          "controller_frequency": 10.0,
+          "min_x_velocity_threshold": 0.001,
+          "min_y_velocity_threshold": 0.001,
+          "min_theta_velocity_threshold": 0.001,
+          "failure_tolerance": 0.3,
+          "progress_checker_plugins": [
+            "progress_checker"
+          ],
+          "goal_checker_plugins": [
+            "goal_checker"
+          ],
+          "controller_plugins": [
+            "FollowPath",
+            "RPP"
+          ],
+          "progress_checker": {
+            "plugin": "nav2_controller::SimpleProgressChecker",
+            "required_movement_radius": 0.1,
+            "movement_time_allowance": 10.0
+          },
+          "goal_checker": {
+            "stateful": true,
+            "plugin": "nav2_controller::SimpleGoalChecker",
+            "xy_goal_tolerance": 0.01,
+            "yaw_goal_tolerance": 0.05236
+          },
+          "FollowPath": {
+            "plugin": "dwb_core::DWBLocalPlanner",
+            "debug_trajectory_details": true,
+            "min_vel_x": 0.0,
+            "min_vel_y": 0.0,
+            "max_vel_x": 0.3,
+            "max_vel_y": 0.0,
+            "max_vel_theta": 1.0,
+            "min_speed_xy": 0.0,
+            "max_speed_xy": 0.3,
+            "min_speed_theta": 0.0,
+            "acc_lim_x": 3.0,
+            "acc_lim_y": 0.0,
+            "acc_lim_theta": 3.2,
+            "decel_lim_x": -2.5,
+            "decel_lim_y": 0.0,
+            "decel_lim_theta": -3.2,
+            "vx_samples": 20,
+            "vy_samples": 0,
+            "vtheta_samples": 40,
+            "sim_time": 1.5,
+            "linear_granularity": 0.05,
+            "angular_granularity": 0.025,
+            "transform_tolerance": 0.2,
+            "xy_goal_tolerance": 0.05,
+            "trans_stopped_velocity": 0.25,
+            "short_circuit_trajectory_evaluation": true,
+            "stateful": true,
+            "critics": [
+              "RotateToGoal",
+              "Oscillation",
+              "BaseObstacle",
+              "GoalAlign",
+              "PathAlign",
+              "PathDist",
+              "GoalDist"
+            ],
+            "BaseObstacle.scale": 0.02,
+            "PathAlign.scale": 32.0,
+            "PathAlign.forward_point_distance": 0.1,
+            "GoalAlign.scale": 24.0,
+            "GoalAlign.forward_point_distance": 0.1,
+            "PathDist.scale": 32.0,
+            "GoalDist.scale": 24.0,
+            "RotateToGoal.scale": 32.0,
+            "RotateToGoal.slowing_factor": 5.0,
+            "RotateToGoal.lookahead_time": -1.0
+          },
+          "enable_stamped_cmd_vel": false,
+          "RPP": {
+            "plugin": "nav2_regulated_pure_pursuit_controller::RegulatedPurePursuitController",
+            "desired_linear_vel": 0.1,
+            "lookahead_dist": 0.07,
+            "use_velocity_scaled_lookahead_dist": false,
+            "min_lookahead_dist": 0.2,
+            "max_lookahead_dist": 0.6,
+            "lookahead_time": 1.5,
+            "rotate_to_heading_angular_vel": 0.3,
+            "transform_tolerance": 0.1,
+            "min_approach_linear_velocity": 0.04,
+            "approach_velocity_scaling_dist": 0.3,
+            "use_collision_detection": true,
+            "max_allowed_time_to_collision_up_to_carrot": 1.0,
+            "use_regulated_linear_velocity_scaling": true,
+            "use_cost_regulated_linear_velocity_scaling": true,
+            "cost_scaling_dist": 0.3,
+            "cost_scaling_gain": 1.0,
+            "inflation_cost_scaling_factor": 40.0,
+            "regulated_linear_scaling_min_radius": 0.9,
+            "regulated_linear_scaling_min_speed": 0.05,
+            "use_fixed_curvature_lookahead": false,
+            "curvature_lookahead_dist": 0.3,
+            "use_rotate_to_heading": true,
+            "allow_reversing": false,
+            "rotate_to_heading_min_angle": 0.3,
+            "max_angular_accel": 3.2,
+            "max_robot_pose_search_dist": 1.5
+          },
+          "use_sim_time": false
+        }
+      },
+      "local_costmap": {
+        "local_costmap": {
+          "ros__parameters": {
+            "update_frequency": 5.0,
+            "publish_frequency": 2.0,
+            "global_frame": "odom",
+            "robot_base_frame": "base_link",
+            "rolling_window": true,
+            "width": 3,
+            "height": 3,
+            "resolution": 0.025,
+            "footprint": "[[0.075, 0.145], [0.075, -0.145], [-0.195, -0.145], [-0.195, 0.145]]",
+            "plugins": [
+              "obstacle_layer",
+              "voxel_layer",
+              "inflation_layer"
+            ],
+            "inflation_layer": {
+              "plugin": "nav2_costmap_2d::InflationLayer",
+              "inflation_radius": 0.04,
+              "cost_scaling_factor": 40.0
+            },
+            "obstacle_layer": {
+              "plugin": "nav2_costmap_2d::ObstacleLayer",
+              "enabled": true,
+              "observation_sources": "scan",
+              "scan": {
+                "topic": "/scan_filtered",
+                "max_obstacle_height": 2.0,
+                "clearing": true,
+                "marking": true,
+                "data_type": "LaserScan",
+                "raytrace_max_range": 3.0,
+                "raytrace_min_range": 0.15,
+                "obstacle_max_range": 2.5,
+                "obstacle_min_range": 0.15
+              }
+            },
+            "voxel_layer": {
+              "plugin": "nav2_costmap_2d::VoxelLayer",
+              "enabled": true,
+              "publish_voxel_map": true,
+              "origin_z": 0.0,
+              "z_resolution": 0.05,
+              "z_voxels": 16,
+              "max_obstacle_height": 2.0,
+              "mark_threshold": 0,
+              "observation_sources": "scan",
+              "scan": {
+                "topic": "/scan_filtered",
+                "max_obstacle_height": 2.0,
+                "clearing": true,
+                "marking": true,
+                "data_type": "LaserScan",
+                "raytrace_max_range": 3.0,
+                "raytrace_min_range": 0.15,
+                "obstacle_max_range": 2.5,
+                "obstacle_min_range": 0.15
+              }
+            },
+            "static_layer": {
+              "map_subscribe_transient_local": true
+            },
+            "always_send_full_costmap": true
+          }
+        }
+      },
+      "global_costmap": {
+        "global_costmap": {
+          "ros__parameters": {
+            "update_frequency": 1.0,
+            "publish_frequency": 1.0,
+            "global_frame": "map",
+            "robot_base_frame": "base_link",
+            "transform_tolerance": 0.5,
+            "footprint": "[[0.075, 0.145], [0.075, -0.145], [-0.195, -0.145], [-0.195, 0.145]]",
+            "resolution": 0.05,
+            "track_unknown_space": true,
+            "plugins": [
+              "static_layer",
+              "obstacle_layer",
+              "voxel_layer",
+              "inflation_layer"
+            ],
+            "obstacle_layer": {
+              "plugin": "nav2_costmap_2d::ObstacleLayer",
+              "enabled": true,
+              "observation_sources": "scan",
+              "scan": {
+                "topic": "/scan_filtered",
+                "max_obstacle_height": 2.0,
+                "clearing": true,
+                "marking": true,
+                "data_type": "LaserScan",
+                "raytrace_max_range": 3.0,
+                "raytrace_min_range": 0.15,
+                "obstacle_max_range": 2.5,
+                "obstacle_min_range": 0.15
+              }
+            },
+            "voxel_layer": {
+              "plugin": "nav2_costmap_2d::VoxelLayer",
+              "enabled": true,
+              "publish_voxel_map": true,
+              "origin_z": 0.0,
+              "z_resolution": 0.05,
+              "z_voxels": 16,
+              "max_obstacle_height": 2.0,
+              "mark_threshold": 0,
+              "observation_sources": "scan",
+              "scan": {
+                "topic": "/scan_filtered",
+                "max_obstacle_height": 2.0,
+                "clearing": true,
+                "marking": true,
+                "data_type": "LaserScan",
+                "raytrace_max_range": 3.0,
+                "raytrace_min_range": 0.15,
+                "obstacle_max_range": 2.5,
+                "obstacle_min_range": 0.15
+              }
+            },
+            "static_layer": {
+              "plugin": "nav2_costmap_2d::StaticLayer",
+              "map_subscribe_transient_local": true,
+              "transform_tolerance": 0.1
+            },
+            "inflation_layer": {
+              "plugin": "nav2_costmap_2d::InflationLayer",
+              "inflation_radius": 0.04,
+              "cost_scaling_factor": 40.0
+            },
+            "always_send_full_costmap": true
+          }
+        }
+      },
+      "map_server": {
+        "ros__parameters": {
+          "yaml_filename": "",
+          "use_sim_time": false
+        }
+      },
+      "planner_server": {
+        "ros__parameters": {
+          "expected_planner_frequency": 10.0,
+          "planner_plugins": [
+            "GridBased"
+          ],
+          "GridBased": {
+            "plugin": "nav2_navfn_planner::NavfnPlanner",
+            "tolerance": 0.5,
+            "use_astar": false,
+            "allow_unknown": true
+          },
+          "use_sim_time": false
+        }
+      },
+      "behavior_server": {
+        "ros__parameters": {
+          "local_costmap_topic": "local_costmap/costmap_raw",
+          "local_footprint_topic": "local_costmap/published_footprint",
+          "global_costmap_topic": "global_costmap/costmap_raw",
+          "global_footprint_topic": "global_costmap/published_footprint",
+          "cycle_frequency": 10.0,
+          "behavior_plugins": [
+            "spin",
+            "backup",
+            "drive_on_heading",
+            "wait",
+            "assisted_teleop"
+          ],
+          "spin": {
+            "plugin": "nav2_behaviors::Spin"
+          },
+          "backup": {
+            "plugin": "nav2_behaviors::BackUp"
+          },
+          "drive_on_heading": {
+            "plugin": "nav2_behaviors::DriveOnHeading"
+          },
+          "wait": {
+            "plugin": "nav2_behaviors::Wait"
+          },
+          "assisted_teleop": {
+            "plugin": "nav2_behaviors::AssistedTeleop"
+          },
+          "local_frame": "odom",
+          "global_frame": "map",
+          "robot_base_frame": "base_link",
+          "transform_timeout": 0.1,
+          "simulate_ahead_time": 2.0,
+          "max_rotational_vel": 1.0,
+          "min_rotational_vel": 0.4,
+          "rotational_acc_lim": 3.2,
+          "enable_stamped_cmd_vel": false,
+          "use_sim_time": false
+        }
+      },
+      "velocity_smoother": {
+        "ros__parameters": {
+          "smoothing_frequency": 20.0,
+          "scale_velocities": false,
+          "feedback": "OPEN_LOOP",
+          "max_velocity": [
+            0.15,
+            0.0,
+            1.0
+          ],
+          "min_velocity": [
+            -0.15,
+            0.0,
+            -1.0
+          ],
+          "deadband_velocity": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "velocity_timeout": 1.0,
+          "max_accel": [
+            2.5,
+            0.0,
+            3.2
+          ],
+          "max_decel": [
+            -2.5,
+            0.0,
+            -3.2
+          ],
+          "odom_topic": "odom",
+          "odom_duration": 0.1,
+          "use_realtime_priority": false,
+          "enable_stamped_cmd_vel": false,
+          "use_sim_time": false
+        }
+      }
+    },
+    "transport.precision_profiles": {
+      "schema_version": 1,
+      "profiles": {
+        "station_transport_01": {
+          "configured": true,
+          "strategy": "marker_pose",
+          "legacy_site": "parking",
+          "target_marker_id": 32,
+          "docking_marker_id": 32,
+          "base_frame": "base_footprint",
+          "target_tracking": {
+            "enabled": true,
+            "fixed_target": true,
+            "max_prediction_s": 0.8,
+            "max_prediction_distance_m": 0.06,
+            "max_prediction_yaw_rad": 0.2,
+            "max_input_age_s": 0.3,
+            "filter_alpha": 0.35,
+            "max_innovation_m": 0.08,
+            "max_innovation_yaw_rad": 0.25
+          },
+          "pose_target": "station_parking_entry_20261023",
+          "clearance_corridor_verified": false,
+          "approach_clearance_verified": false,
+          "extrinsics_verified": false,
+          "bounded_trial": true,
+          "scan_stop_range_m": 0.3,
+          "collision_guard": {
+            "nav2_file": "../robots/waffle/transport_nav2.yaml",
+            "odom_frame": "odom",
+            "margin_m": 0.02,
+            "reaction_s": 0.4,
+            "linear_decel_mps2": 0.2,
+            "angular_decel_rps2": 0.4,
+            "sample_motion_m": 0.005,
+            "max_linear_mps": 0.2,
+            "max_angular_rps": 0.5,
+            "min_valid_points": 15
+          },
+          "timeout_s": 100.0,
+          "marker_wait_timeout_s": 2.0,
+          "recovery": {
+            "wait_timeout_s": 15.0,
+            "marker_timeout_s": 30.0,
+            "stable_s": 0.5,
+            "max_episodes": 5,
+            "search_enabled": true,
+            "search_angle_rad": 0.2617993878,
+            "search_speed_rps": 0.12,
+            "search_dwell_s": 1.0
+          },
+          "approach": {
+            "max_distance_m": 0.8,
+            "align_tolerance_rad": 0.05,
+            "realign_threshold_rad": 0.17,
+            "position_tolerance_m": 0.01
+          },
+          "entry": {
+            "enabled": true,
+            "direction": "forward",
+            "odom_frame": "odom",
+            "lookahead_m": 0.08,
+            "max_replans": 3,
+            "rotate_in_place_rad": 0.2,
+            "position_tolerance_m": 0.015,
+            "yaw_tolerance_rad": 0.035,
+            "max_distance_m": 0.5,
+            "max_lateral_m": 0.05,
+            "max_linear_mps": 0.15,
+            "max_angular_rps": 0.3,
+            "min_linear_mps": 0.035,
+            "min_angular_rps": 0.011,
+            "linear_kp": 0.7,
+            "angular_kp": 0.8,
+            "timeout_s": 65.0,
+            "mode": "align_then_marker"
+          },
+          "note": "At A align, acquire 8 consistent marker poses while stopped, freeze taught goal in odom; no visual updates/reacquisition after lock, including final arrival. Then parking exit turn. Runtime test pending.",
+          "pose_controller": {
+            "direction": "forward",
+            "linear_pid": {
+              "kp": 0.6,
+              "ki": 0.0,
+              "kd": 0.0
+            },
+            "angular_pid": {
+              "kp": 0.8,
+              "ki": 0.0,
+              "kd": 0.0
+            },
+            "max_linear_mps": 0.08,
+            "max_angular_rps": 0.3,
+            "min_linear_mps": 0.03,
+            "max_planar_distance_m": 0.8
+          },
+          "marker_installation": {
+            "dictionary": "DICT_4X4_50",
+            "marker_size_m": 0.05,
+            "teaching_status": "taught_incoming_parking_pose"
+          },
+          "parking": {
+            "enabled": true,
+            "next_mission": "direct",
+            "graph_file": "../maps/transport_real/graph.geojson",
+            "from_node_id": 20,
+            "to_node_id": 3,
+            "yaw_tolerance_rad": 0.05236,
+            "alignment_max_angular_rps": 0.3,
+            "alignment_kp": 1.2,
+            "timeout_s": 35.0,
+            "max_translation_m": 0.05,
+            "settle_s": 0.5
+          },
+          "acquire_then_odom": {
+            "odom_only_after_acquire": true,
+            "acquire_samples": 8,
+            "acquire_spread_m": 0.02,
+            "acquire_yaw_spread_rad": 0.07,
+            "acquire_timeout_s": 10.0,
+            "max_odom_duration_s": 60.0,
+            "max_odom_travel_m": 1.0,
+            "max_odom_yaw_rad": 1.0,
+            "reobserve_distance_m": 0.04,
+            "terminal_position_m": 0.01,
+            "terminal_position_exit_m": 0.025,
+            "terminal_yaw_rad": 0.034906585
+          },
+          "pose_path": {
+            "max_linear_mps": 0.08,
+            "min_linear_mps": 0.03,
+            "linear_kp": 0.6,
+            "heading_kp": 0.8,
+            "max_angular_rps": 0.15,
+            "rotate_first_rad": 0.5
+          }
+        },
+        "sort_01": {
+          "configured": true,
+          "lidar_entry_alignment": {
+            "forward_tolerance_m": 0.02,
+            "behind_tolerance_m": 0.005,
+            "lateral_tolerance_m": 0.005,
+            "yaw_tolerance_rad": 0.05
+          },
+          "target_surface": {
+            "plane_tolerance_m": 0.008,
+            "half_width_m": 0.18,
+            "margin_m": 0.002,
+            "sample_motion_m": 0.001,
+            "max_scan_skew_s": 0.05
+          },
+          "pose_path": {
+            "approach_heading_kp": 0.8,
+            "approach_max_angular_rps": 0.1,
+            "approach_max_linear_mps": 0.04,
+            "terminal_min_linear_mps": 0.02,
+            "terminal_gain": 0.6,
+            "heading_kp": 1.2,
+            "linear_kp": 0.5,
+            "max_linear_mps": 0.06,
+            "min_linear_mps": 0.01,
+            "max_angular_rps": 0.3,
+            "rotate_first_rad": 0.6,
+            "overshoot_m": 0.005,
+            "line_lookahead_m": 0.12
+          },
+          "route_observation": {
+            "enabled": true,
+            "acquire_samples": 5,
+            "max_target_distance_m": 0.2,
+            "max_observation_age_s": 0.3,
+            "position_spread_m": 0.025,
+            "yaw_spread_rad": 0.1
+          },
+          "acquire_then_odom": {
+            "acquire_samples": 6,
+            "acquire_spread_m": 0.025,
+            "acquire_timeout_s": 10.0,
+            "max_odom_duration_s": 40.0,
+            "max_odom_travel_m": 0.5,
+            "max_odom_yaw_rad": 0.8,
+            "reobserve_distance_m": 0.04,
+            "terminal_position_m": 0.02,
+            "terminal_position_exit_m": 0.035,
+            "terminal_yaw_rad": 0.05,
+            "continuous_visual_handoff": true
+          },
+          "strategy": "marker_pose",
+          "legacy_site": "sorter",
+          "target_marker_id": 40,
+          "docking_marker_id": 40,
+          "base_frame": "base_footprint",
+          "target_tracking": {
+            "enabled": true,
+            "fixed_target": true,
+            "max_prediction_s": 0.8,
+            "max_prediction_distance_m": 0.06,
+            "max_prediction_yaw_rad": 0.2,
+            "max_input_age_s": 0.3,
+            "filter_alpha": 0.35,
+            "max_innovation_m": 0.08,
+            "max_innovation_yaw_rad": 0.25
+          },
+          "pose_target": "marker_40_lidar_entry_pose",
+          "clearance_corridor_verified": false,
+          "approach_clearance_verified": false,
+          "extrinsics_verified": false,
+          "bounded_trial": true,
+          "scan_stop_range_m": 0.3,
+          "collision_guard": {
+            "nav2_file": "../robots/waffle/transport_nav2.yaml",
+            "odom_frame": "odom",
+            "margin_m": 0.02,
+            "reaction_s": 0.4,
+            "linear_decel_mps2": 0.2,
+            "angular_decel_rps2": 0.4,
+            "sample_motion_m": 0.005,
+            "max_linear_mps": 0.2,
+            "max_angular_rps": 0.5,
+            "min_valid_points": 15
+          },
+          "timeout_s": 100.0,
+          "marker_wait_timeout_s": 2.0,
+          "recovery": {
+            "wait_timeout_s": 15.0,
+            "marker_timeout_s": 30.0,
+            "stable_s": 0.5,
+            "max_episodes": 5,
+            "search_enabled": true,
+            "search_angle_rad": 0.2617993878,
+            "search_speed_rps": 0.12,
+            "search_dwell_s": 1.0
+          },
+          "approach": {
+            "heading_first": false,
+            "max_distance_m": 0.4,
+            "align_tolerance_rad": 0.05,
+            "realign_threshold_rad": 0.17,
+            "position_tolerance_m": 0.01
+          },
+          "entry": {
+            "enabled": false
+          },
+          "note": "17 FollowPath arrival -> marker40 taught entry -> raw front scan 0.15m -> measured stop. No unloading or departure.",
+          "pose_controller": {
+            "direction": "forward",
+            "linear_pid": {
+              "kp": 0.6,
+              "ki": 0.0,
+              "kd": 0.0
+            },
+            "angular_pid": {
+              "kp": 0.8,
+              "ki": 0.0,
+              "kd": 0.0
+            },
+            "max_linear_mps": 0.08,
+            "max_angular_rps": 0.3,
+            "min_linear_mps": 0.02
+          },
+          "marker_installation": {
+            "dictionary": "DICT_4X4_50",
+            "marker_size_m": 0.05,
+            "teaching_status": "lidar_entry_taught"
+          },
+          "allowed_operations": [
+            "DOCK"
+          ],
+          "lidar_approach": {
+            "raw_scan_topic": "scan",
+            "scan_frame": "base_scan",
+            "target_distance_m": 0.15,
+            "distance_tolerance_m": 0.005,
+            "hard_min_distance_m": 0.12,
+            "max_start_distance_m": 0.5,
+            "sector_half_angle_rad": 0.0872664626,
+            "min_points": 5,
+            "max_spread_m": 0.03,
+            "max_age_s": 0.3,
+            "max_linear_mps": 0.04,
+            "min_linear_mps": 0.01,
+            "linear_kp": 0.5,
+            "heading_kp": 0.8,
+            "max_angular_rps": 0.08,
+            "max_heading_error_rad": 0.15,
+            "max_travel_m": 0.35,
+            "timeout_s": 25.0,
+            "stable_s": 0.5
+          }
+        },
+        "harvest": {
+          "configured": false,
+          "strategy": "legacy_aruco",
+          "legacy_site": "harvest",
+          "target_marker_id": 42,
+          "docking_marker_id": 41,
+          "base_frame": "base_footprint",
+          "clearance_corridor_verified": false,
+          "rear_stop_m": 0.25,
+          "timeout_s": 90.0,
+          "note": "Superseded: approach42 -> DOCK_READY -> verify41 -> lidar -> receipt -> clear",
+          "marker_installation": {
+            "dictionary": "DICT_4X4_50",
+            "marker_size_m": 0.05,
+            "teaching_status": "required_after_marker_replacement",
+            "initial_approach": {
+              "marker_id": 42,
+              "mount": "side"
+            },
+            "after_rotation": {
+              "marker_id": 41,
+              "mount": "rear"
+            }
+          }
+        },
+        "marker_32_pose_trial": {
+          "configured": false,
+          "strategy": "marker_pose",
+          "legacy_site": "parking",
+          "target_marker_id": 32,
+          "docking_marker_id": 32,
+          "base_frame": "base_footprint",
+          "pose_target": "marker_32_confirmed_pose",
+          "approach_clearance_verified": false,
+          "extrinsics_verified": false,
+          "scan_stop_range_m": 0.0,
+          "timeout_s": 20.0,
+          "note": "실물 운송 스테이션 ID32, 5cm. 기존 6cm 임시 완료자세는 보존만 하며 재티칭 전 실행하지 않음. B 복귀 자세도 별도 티칭 필요. 주행/PID 설정 유지.",
+          "marker_installation": {
+            "dictionary": "DICT_4X4_50",
+            "marker_size_m": 0.05,
+            "teaching_status": "required_after_marker_replacement"
+          }
+        },
+        "station_transport_departure": {
+          "configured": true,
+          "strategy": "marker_pose",
+          "legacy_site": "parking",
+          "target_marker_id": 32,
+          "docking_marker_id": 32,
+          "base_frame": "base_footprint",
+          "target_tracking": {
+            "enabled": true,
+            "fixed_target": true,
+            "max_prediction_s": 0.8,
+            "max_prediction_distance_m": 0.06,
+            "max_prediction_yaw_rad": 0.2,
+            "max_input_age_s": 0.3,
+            "filter_alpha": 1.0,
+            "max_innovation_m": 0.08,
+            "max_innovation_yaw_rad": 0.25
+          },
+          "pose_target": "marker_32_departure_pose",
+          "clearance_corridor_verified": false,
+          "approach_clearance_verified": false,
+          "extrinsics_verified": false,
+          "bounded_trial": true,
+          "scan_stop_range_m": 0.3,
+          "collision_guard": {
+            "nav2_file": "../robots/waffle/transport_nav2.yaml",
+            "odom_frame": "odom",
+            "margin_m": 0.02,
+            "reaction_s": 0.4,
+            "linear_decel_mps2": 0.2,
+            "angular_decel_rps2": 0.4,
+            "sample_motion_m": 0.005,
+            "max_linear_mps": 0.2,
+            "max_angular_rps": 0.5,
+            "min_valid_points": 15
+          },
+          "timeout_s": 100.0,
+          "marker_wait_timeout_s": 2.0,
+          "recovery": {
+            "wait_timeout_s": 15.0,
+            "marker_timeout_s": 30.0,
+            "stable_s": 0.5,
+            "max_episodes": 5,
+            "search_enabled": true,
+            "search_angle_rad": 0.2617993878,
+            "search_speed_rps": 0.12,
+            "search_dwell_s": 1.0
+          },
+          "approach": {
+            "max_distance_m": 0.5,
+            "align_tolerance_rad": 0.05,
+            "realign_threshold_rad": 0.17,
+            "position_tolerance_m": 0.01
+          },
+          "entry": {
+            "enabled": false
+          },
+          "note": "Standalone CLEAR: acquire stationary marker-relative B target, lock in odom, reverse with bounded gentle steering, stop within 4cm without final yaw alignment. No pickup integration.",
+          "pose_controller": {
+            "direction": "reverse",
+            "linear_pid": {
+              "kp": 0.6,
+              "ki": 0.0,
+              "kd": 0.0
+            },
+            "angular_pid": {
+              "kp": 0.8,
+              "ki": 0.0,
+              "kd": 0.0
+            },
+            "max_linear_mps": 0.06,
+            "max_angular_rps": 0.12,
+            "min_linear_mps": 0.02,
+            "position_tolerance_m": 0.04,
+            "yaw_tolerance_rad": 0.035,
+            "settle_samples": 3
+          },
+          "marker_installation": {
+            "dictionary": "DICT_4X4_50",
+            "marker_size_m": 0.05,
+            "teaching_status": "departure_taught"
+          },
+          "allowed_operations": [
+            "CLEAR"
+          ],
+          "departure": {
+            "alignment_mode": "face_graph_node",
+            "exit_heading_from_node_id": 20,
+            "exit_heading_node_id": 3,
+            "graph_file": "../maps/transport_real/graph.geojson",
+            "yaw_tolerance_rad": 0.05236,
+            "alignment_max_angular_rps": 0.3,
+            "alignment_kp": 1.2,
+            "alignment_timeout_s": 35.0,
+            "acquire_samples": 6,
+            "acquire_spread_m": 0.025,
+            "acquire_timeout_s": 10.0,
+            "max_odom_duration_s": 30.0,
+            "max_odom_travel_m": 0.6,
+            "max_odom_yaw_rad": 0.8,
+            "lookahead_m": 0.15,
+            "steering_kp": 0.6,
+            "max_heading_error_rad": 0.8
+          }
+        },
+        "sort_departure": {
+          "configured": true,
+          "strategy": "marker_pose",
+          "legacy_site": "sorter",
+          "target_marker_id": 40,
+          "docking_marker_id": 40,
+          "base_frame": "base_footprint",
+          "target_tracking": {
+            "enabled": true,
+            "fixed_target": true,
+            "max_prediction_s": 0.8,
+            "max_prediction_distance_m": 0.06,
+            "max_prediction_yaw_rad": 0.2,
+            "max_input_age_s": 0.3,
+            "filter_alpha": 1.0,
+            "max_innovation_m": 0.08,
+            "max_innovation_yaw_rad": 0.25
+          },
+          "pose_target": "marker_40_lidar_entry_pose",
+          "clearance_corridor_verified": false,
+          "approach_clearance_verified": false,
+          "extrinsics_verified": false,
+          "bounded_trial": true,
+          "scan_stop_range_m": 0.3,
+          "collision_guard": {
+            "nav2_file": "../robots/waffle/transport_nav2.yaml",
+            "odom_frame": "odom",
+            "margin_m": 0.02,
+            "reaction_s": 0.4,
+            "linear_decel_mps2": 0.2,
+            "angular_decel_rps2": 0.4,
+            "sample_motion_m": 0.005,
+            "max_linear_mps": 0.2,
+            "max_angular_rps": 0.5,
+            "min_valid_points": 15
+          },
+          "timeout_s": 110.0,
+          "marker_wait_timeout_s": 2.0,
+          "recovery": {
+            "wait_timeout_s": 15.0,
+            "marker_timeout_s": 30.0,
+            "stable_s": 0.5,
+            "max_episodes": 5,
+            "search_enabled": true,
+            "search_angle_rad": 0.2617993878,
+            "search_speed_rps": 0.12,
+            "search_dwell_s": 1.0
+          },
+          "approach": {
+            "max_distance_m": 0.5,
+            "align_tolerance_rad": 0.05,
+            "realign_threshold_rad": 0.17,
+            "position_tolerance_m": 0.01
+          },
+          "entry": {
+            "enabled": false
+          },
+          "note": "CLEAR only: reverse with raw front range until marker40 visible; return to taught marker approach pose; reverse to graph17; align graph17->15. Standalone, no mission dispatch.",
+          "pose_controller": {
+            "direction": "reverse",
+            "linear_pid": {
+              "kp": 0.6,
+              "ki": 0.0,
+              "kd": 0.0
+            },
+            "angular_pid": {
+              "kp": 0.8,
+              "ki": 0.0,
+              "kd": 0.0
+            },
+            "max_linear_mps": 0.06,
+            "max_angular_rps": 0.12,
+            "min_linear_mps": 0.02,
+            "position_tolerance_m": 0.02,
+            "yaw_tolerance_rad": 0.035,
+            "settle_samples": 3
+          },
+          "marker_installation": {
+            "dictionary": "DICT_4X4_50",
+            "marker_size_m": 0.05,
+            "teaching_status": "sorter_approach_taught"
+          },
+          "allowed_operations": [
+            "CLEAR"
+          ],
+          "departure": {
+            "alignment_mode": "face_graph_node",
+            "exit_heading_from_node_id": 17,
+            "exit_heading_node_id": 15,
+            "graph_file": "../maps/transport_real/graph.geojson",
+            "yaw_tolerance_rad": 0.05236,
+            "alignment_max_angular_rps": 0.3,
+            "alignment_kp": 1.2,
+            "alignment_timeout_s": 35.0,
+            "acquire_samples": 6,
+            "acquire_spread_m": 0.025,
+            "acquire_timeout_s": 10.0,
+            "max_odom_duration_s": 30.0,
+            "max_odom_travel_m": 0.6,
+            "max_odom_yaw_rad": 0.8,
+            "lookahead_m": 0.15,
+            "steering_kp": 0.6,
+            "max_heading_error_rad": 0.8
+          },
+          "marker_backout": {
+            "raw_scan_topic": "scan",
+            "reference_front_distance_m": 0.422,
+            "distance_tolerance_m": 0.01,
+            "min_front_distance_m": 0.105,
+            "max_linear_mps": 0.025,
+            "min_linear_mps": 0.01,
+            "linear_kp": 0.4,
+            "heading_kp": 0.8,
+            "max_angular_rps": 0.08,
+            "max_heading_error_rad": 0.15,
+            "max_travel_m": 0.35,
+            "timeout_s": 20.0,
+            "scan": {
+              "raw_scan_topic": "scan",
+              "scan_frame": "base_scan",
+              "target_distance_m": 0.15,
+              "distance_tolerance_m": 0.005,
+              "hard_min_distance_m": 0.12,
+              "max_start_distance_m": 0.5,
+              "sector_half_angle_rad": 0.0872664626,
+              "min_points": 5,
+              "max_spread_m": 0.03,
+              "max_age_s": 0.3,
+              "max_linear_mps": 0.04,
+              "min_linear_mps": 0.01,
+              "linear_kp": 0.5,
+              "heading_kp": 0.8,
+              "max_angular_rps": 0.08,
+              "max_heading_error_rad": 0.15,
+              "max_travel_m": 0.35,
+              "timeout_s": 25.0,
+              "stable_s": 0.5
+            }
+          },
+          "graph_return": {
+            "node_id": 17,
+            "position_tolerance_m": 0.04,
+            "max_distance_m": 0.8,
+            "max_heading_error_rad": 0.8,
+            "max_angular_rps": 0.12,
+            "max_linear_mps": 0.06,
+            "min_linear_mps": 0.02,
+            "linear_kp": 0.6,
+            "steering_kp": 0.6,
+            "lookahead_m": 0.15,
+            "timeout_s": 30.0
+          }
+        },
+        "sort_01_distance_trial": {
+          "configured": true,
+          "target_surface": {
+            "plane_tolerance_m": 0.008,
+            "half_width_m": 0.18,
+            "margin_m": 0.002,
+            "sample_motion_m": 0.001,
+            "max_scan_skew_s": 0.05
+          },
+          "strategy": "marker_pose",
+          "legacy_site": "sorter",
+          "target_marker_id": 40,
+          "docking_marker_id": 40,
+          "base_frame": "base_footprint",
+          "target_tracking": {
+            "enabled": true,
+            "fixed_target": true,
+            "max_prediction_s": 0.8,
+            "max_prediction_distance_m": 0.06,
+            "max_prediction_yaw_rad": 0.2,
+            "max_input_age_s": 0.3,
+            "filter_alpha": 0.35,
+            "max_innovation_m": 0.08,
+            "max_innovation_yaw_rad": 0.25
+          },
+          "pose_target": "marker_40_lidar_entry_pose",
+          "clearance_corridor_verified": false,
+          "approach_clearance_verified": false,
+          "extrinsics_verified": false,
+          "bounded_trial": true,
+          "scan_stop_range_m": 0.3,
+          "collision_guard": {
+            "nav2_file": "../robots/waffle/transport_nav2.yaml",
+            "odom_frame": "odom",
+            "margin_m": 0.02,
+            "reaction_s": 0.4,
+            "linear_decel_mps2": 0.2,
+            "angular_decel_rps2": 0.4,
+            "sample_motion_m": 0.005,
+            "max_linear_mps": 0.2,
+            "max_angular_rps": 0.5,
+            "min_valid_points": 15
+          },
+          "timeout_s": 100.0,
+          "marker_wait_timeout_s": 2.0,
+          "recovery": {
+            "wait_timeout_s": 15.0,
+            "marker_timeout_s": 30.0,
+            "stable_s": 0.5,
+            "max_episodes": 5,
+            "search_enabled": false,
+            "search_angle_rad": 0.2617993878,
+            "search_speed_rps": 0.12,
+            "search_dwell_s": 1.0
+          },
+          "approach": {
+            "heading_first": false,
+            "max_distance_m": 0.4,
+            "align_tolerance_rad": 0.05,
+            "realign_threshold_rad": 0.17,
+            "position_tolerance_m": 0.01
+          },
+          "entry": {
+            "enabled": false
+          },
+          "note": "17 FollowPath arrival -> marker40 taught entry -> raw front scan 0.15m -> measured stop. No unloading or departure.",
+          "pose_controller": {
+            "direction": "forward",
+            "linear_pid": {
+              "kp": 0.6,
+              "ki": 0.0,
+              "kd": 0.0
+            },
+            "angular_pid": {
+              "kp": 0.8,
+              "ki": 0.0,
+              "kd": 0.0
+            },
+            "max_linear_mps": 0.08,
+            "max_angular_rps": 0.3,
+            "min_linear_mps": 0.02
+          },
+          "marker_installation": {
+            "dictionary": "DICT_4X4_50",
+            "marker_size_m": 0.05,
+            "teaching_status": "lidar_entry_taught"
+          },
+          "allowed_operations": [
+            "DOCK"
+          ],
+          "lidar_approach": {
+            "raw_scan_topic": "scan",
+            "scan_frame": "base_scan",
+            "target_distance_m": 0.17,
+            "distance_tolerance_m": 0.005,
+            "hard_min_distance_m": 0.12,
+            "max_start_distance_m": 1.5,
+            "sector_half_angle_rad": 0.0872664626,
+            "min_points": 5,
+            "max_spread_m": 0.03,
+            "max_age_s": 0.3,
+            "max_linear_mps": 0.04,
+            "min_linear_mps": 0.01,
+            "linear_kp": 0.5,
+            "heading_kp": 0.8,
+            "max_angular_rps": 0.08,
+            "max_heading_error_rad": 0.3,
+            "max_travel_m": 1.5,
+            "timeout_s": 65.0,
+            "stable_s": 0.5
+          },
+          "distance_heading_trial": {
+            "front_scan_only": true,
+            "marker_id": 40,
+            "samples": 5,
+            "max_age_s": 0.3,
+            "max_bearing_rad": 0.2,
+            "spread_rad": 0.03,
+            "heading_offset_rad": 0.0,
+            "acquire_timeout_s": 12.0
+          },
+          "initial_marker_recovery": {
+            "enabled": true,
+            "wait_s": 3.0,
+            "reverse_distance_m": 0.05,
+            "reverse_speed_mps": 0.02,
+            "search_angle_rad": 0.2617993877991494,
+            "search_speed_rps": 0.12,
+            "timeout_s": 30.0
+          }
+        },
+        "sort_departure_distance_trial": {
+          "configured": true,
+          "strategy": "marker_pose",
+          "legacy_site": "sorter",
+          "target_marker_id": 40,
+          "docking_marker_id": 40,
+          "base_frame": "base_footprint",
+          "target_tracking": {
+            "enabled": false,
+            "fixed_target": true,
+            "max_prediction_s": 0.8,
+            "max_prediction_distance_m": 0.06,
+            "max_prediction_yaw_rad": 0.2,
+            "max_input_age_s": 0.3,
+            "filter_alpha": 1.0,
+            "max_innovation_m": 0.08,
+            "max_innovation_yaw_rad": 0.25
+          },
+          "pose_target": "marker_40_lidar_entry_pose",
+          "clearance_corridor_verified": false,
+          "approach_clearance_verified": false,
+          "extrinsics_verified": false,
+          "bounded_trial": true,
+          "scan_stop_range_m": 0.3,
+          "collision_guard": {
+            "nav2_file": "../robots/waffle/transport_nav2.yaml",
+            "odom_frame": "odom",
+            "margin_m": 0.02,
+            "reaction_s": 0.4,
+            "linear_decel_mps2": 0.2,
+            "angular_decel_rps2": 0.4,
+            "sample_motion_m": 0.005,
+            "max_linear_mps": 0.2,
+            "max_angular_rps": 0.5,
+            "min_valid_points": 15
+          },
+          "timeout_s": 110.0,
+          "marker_wait_timeout_s": 2.0,
+          "recovery": {
+            "wait_timeout_s": 15.0,
+            "marker_timeout_s": 30.0,
+            "stable_s": 0.5,
+            "max_episodes": 5,
+            "search_enabled": true,
+            "search_angle_rad": 0.2617993878,
+            "search_speed_rps": 0.12,
+            "search_dwell_s": 1.0
+          },
+          "approach": {
+            "max_distance_m": 0.5,
+            "align_tolerance_rad": 0.05,
+            "realign_threshold_rad": 0.17,
+            "position_tolerance_m": 0.01
+          },
+          "entry": {
+            "enabled": false
+          },
+          "note": "CLEAR only: reverse with raw front range until marker40 visible; return to taught marker approach pose; reverse to graph17; align graph17->15. Standalone, no mission dispatch.",
+          "pose_controller": {
+            "direction": "reverse",
+            "linear_pid": {
+              "kp": 0.6,
+              "ki": 0.0,
+              "kd": 0.0
+            },
+            "angular_pid": {
+              "kp": 0.8,
+              "ki": 0.0,
+              "kd": 0.0
+            },
+            "max_linear_mps": 0.06,
+            "max_angular_rps": 0.12,
+            "min_linear_mps": 0.02,
+            "position_tolerance_m": 0.02,
+            "yaw_tolerance_rad": 0.035,
+            "settle_samples": 3
+          },
+          "marker_installation": {
+            "dictionary": "DICT_4X4_50",
+            "marker_size_m": 0.05,
+            "teaching_status": "sorter_approach_taught"
+          },
+          "allowed_operations": [
+            "CLEAR"
+          ],
+          "marker_backout": {
+            "raw_scan_topic": "scan",
+            "reference_front_distance_m": 0.422,
+            "distance_tolerance_m": 0.01,
+            "min_front_distance_m": 0.105,
+            "max_linear_mps": 0.025,
+            "min_linear_mps": 0.01,
+            "linear_kp": 0.4,
+            "heading_kp": 0.6,
+            "max_angular_rps": 0.06,
+            "max_heading_error_rad": 0.2,
+            "max_travel_m": 0.35,
+            "timeout_s": 30.0,
+            "scan": {
+              "raw_scan_topic": "scan",
+              "scan_frame": "base_scan",
+              "target_distance_m": 0.15,
+              "distance_tolerance_m": 0.005,
+              "hard_min_distance_m": 0.12,
+              "max_start_distance_m": 0.5,
+              "sector_half_angle_rad": 0.0872664626,
+              "min_points": 5,
+              "max_spread_m": 0.03,
+              "max_age_s": 0.3,
+              "max_linear_mps": 0.04,
+              "min_linear_mps": 0.01,
+              "linear_kp": 0.5,
+              "heading_kp": 0.8,
+              "max_angular_rps": 0.08,
+              "max_heading_error_rad": 0.15,
+              "max_travel_m": 0.35,
+              "timeout_s": 25.0,
+              "stable_s": 0.5
+            }
+          },
+          "distance_departure": {
+            "map_yaw_rad": 0.0,
+            "rear_half_angle_rad": 0.5,
+            "rear_stop_m": 0.26,
+            "exit_rotation": {
+              "skip_footprint_check": true,
+              "enabled": true,
+              "graph_file": "../maps/transport_real/graph.geojson",
+              "from_node_id": 17,
+              "to_node_id": 15,
+              "yaw_tolerance_rad": 0.05236,
+              "alignment_max_angular_rps": 0.3,
+              "alignment_kp": 1.2,
+              "timeout_s": 35.0,
+              "max_translation_m": 0.05
+            }
+          }
+        },
+        "harvest_clear": {
+          "configured": true,
+          "strategy": "marker_pose",
+          "target_marker_id": 41,
+          "docking_marker_id": 41,
+          "base_frame": "base_footprint",
+          "target_tracking": {
+            "enabled": false,
+            "fixed_target": true,
+            "max_prediction_s": 0.8,
+            "max_prediction_distance_m": 0.06,
+            "max_prediction_yaw_rad": 0.2,
+            "max_input_age_s": 0.3,
+            "filter_alpha": 0.35,
+            "max_innovation_m": 0.08,
+            "max_innovation_yaw_rad": 0.25
+          },
+          "clearance_corridor_verified": false,
+          "approach_clearance_verified": false,
+          "extrinsics_verified": false,
+          "bounded_trial": true,
+          "scan_stop_range_m": 0.3,
+          "collision_guard": {
+            "nav2_file": "../robots/waffle/transport_nav2.yaml",
+            "odom_frame": "odom",
+            "margin_m": 0.02,
+            "reaction_s": 0.4,
+            "linear_decel_mps2": 0.2,
+            "angular_decel_rps2": 0.4,
+            "sample_motion_m": 0.005,
+            "max_linear_mps": 0.2,
+            "max_angular_rps": 0.5,
+            "min_valid_points": 15
+          },
+          "timeout_s": 100.0,
+          "marker_wait_timeout_s": 2.0,
+          "approach": {
+            "max_distance_m": 0.8,
+            "align_tolerance_rad": 0.05,
+            "realign_threshold_rad": 0.17,
+            "position_tolerance_m": 0.01
+          },
+          "entry": {
+            "enabled": false
+          },
+          "note": "Reverse 0.252m along initial odom heading, matching nominal sorter retreat: 0.422m front clearance minus 0.170m docking range. Not a 0.422m displacement.",
+          "pose_controller": {
+            "direction": "forward",
+            "linear_pid": {
+              "kp": 0.6,
+              "ki": 0.0,
+              "kd": 0.0
+            },
+            "angular_pid": {
+              "kp": 0.8,
+              "ki": 0.0,
+              "kd": 0.0
+            },
+            "max_linear_mps": 0.08,
+            "max_angular_rps": 0.3,
+            "min_linear_mps": 0.03,
+            "max_planar_distance_m": 0.8
+          },
+          "marker_installation": {
+            "dictionary": "DICT_4X4_50",
+            "marker_size_m": 0.05,
+            "teaching_status": "required"
+          },
+          "pose_path": {
+            "max_linear_mps": 0.08,
+            "min_linear_mps": 0.03,
+            "linear_kp": 0.6,
+            "heading_kp": 0.8,
+            "max_angular_rps": 0.15,
+            "rotate_first_rad": 0.5
+          },
+          "allowed_operations": [
+            "CLEAR"
+          ],
+          "relative_backout": {
+            "distance_m": 0.252,
+            "max_linear_mps": 0.04,
+            "min_linear_mps": 0.01,
+            "heading_kp": 0.8,
+            "max_angular_rps": 0.08,
+            "max_heading_error_rad": 0.2,
+            "distance_tolerance_m": 0.01,
+            "max_lateral_m": 0.05,
+            "timeout_s": 35.0
+          },
+          "runtime_config": "profile",
+          "runtime_name": "harvest_clear"
+        },
+        "harvest_approach_42": {
+          "route_handoff": {
+            "enabled": true,
+            "observation_timeout_s": 180.0,
+            "recognition_max_age_s": 0.5
+          },
+          "configured": true,
+          "strategy": "marker_pose",
+          "target_marker_id": 42,
+          "docking_marker_id": 42,
+          "base_frame": "base_footprint",
+          "target_tracking": {
+            "enabled": true,
+            "fixed_target": true,
+            "max_prediction_s": 2.0,
+            "max_prediction_distance_m": 0.12,
+            "max_prediction_yaw_rad": 0.35,
+            "max_input_age_s": 0.5,
+            "filter_alpha": 0.35,
+            "max_innovation_m": 0.12,
+            "max_innovation_yaw_rad": 0.35
+          },
+          "pose_target": "harvest_42_wait_pose",
+          "clearance_corridor_verified": false,
+          "approach_clearance_verified": false,
+          "extrinsics_verified": false,
+          "bounded_trial": true,
+          "scan_stop_range_m": 0.3,
+          "collision_guard": {
+            "nav2_file": "../robots/waffle/transport_nav2.yaml",
+            "odom_frame": "odom",
+            "margin_m": 0.02,
+            "reaction_s": 0.4,
+            "linear_decel_mps2": 0.2,
+            "angular_decel_rps2": 0.4,
+            "sample_motion_m": 0.005,
+            "max_linear_mps": 0.2,
+            "max_angular_rps": 0.5,
+            "min_valid_points": 15
+          },
+          "timeout_s": 120.0,
+          "marker_wait_timeout_s": 2.0,
+          "recovery": {
+            "wait_timeout_s": 15.0,
+            "marker_timeout_s": 30.0,
+            "stable_s": 0.5,
+            "max_episodes": 5,
+            "search_enabled": false,
+            "search_angle_rad": 0.2617993878,
+            "search_speed_rps": 0.12,
+            "search_dwell_s": 1.0
+          },
+          "approach": {
+            "max_distance_m": 1.2,
+            "align_tolerance_rad": 0.05,
+            "realign_threshold_rad": 0.17,
+            "position_tolerance_m": 0.01
+          },
+          "entry": {
+            "enabled": false
+          },
+          "note": "Marker42 approach wait pose taught 2026-10-24; reference sample spread recorded. Activation awaits remaining harvest measurements.",
+          "pose_controller": {
+            "direction": "forward",
+            "linear_pid": {
+              "kp": 0.6,
+              "ki": 0.0,
+              "kd": 0.0
+            },
+            "angular_pid": {
+              "kp": 0.8,
+              "ki": 0.0,
+              "kd": 0.0
+            },
+            "max_linear_mps": 0.08,
+            "max_angular_rps": 0.3,
+            "min_linear_mps": 0.03,
+            "max_planar_distance_m": 1.2
+          },
+          "marker_installation": {
+            "dictionary": "DICT_4X4_50",
+            "marker_size_m": 0.05,
+            "teaching_status": "taught_pending_validation"
+          },
+          "acquire_then_odom": {
+            "odom_only_after_acquire": true,
+            "visual_correction_during_transit": true,
+            "hybrid_relative_control": true,
+            "distance_corridor": {
+              "target_range_m": 0.54,
+              "distance_tolerance_m": 0.02,
+              "max_heading_offset_rad": 0.1745329252,
+              "lookahead_m": 0.25,
+              "max_linear_mps": 0.06,
+              "min_linear_mps": 0.03,
+              "linear_kp": 0.6,
+              "heading_kp": 0.8,
+              "max_angular_rps": 0.1
+            },
+            "occluded_speed_scale": 0.75,
+            "source_speed_transition_s": 0.5,
+            "update_step_m": 0.005,
+            "update_step_rad": 0.015,
+            "acquire_samples": 8,
+            "acquire_spread_m": 0.03,
+            "acquire_yaw_spread_rad": 0.1,
+            "acquire_timeout_s": 15.0,
+            "max_odom_duration_s": 90.0,
+            "max_odom_travel_m": 1.5,
+            "max_odom_yaw_rad": 1.57,
+            "reobserve_distance_m": 0.04,
+            "terminal_position_m": 0.01,
+            "terminal_position_exit_m": 0.05,
+            "terminal_yaw_rad": 0.034906585
+          },
+          "pose_path": {
+            "track_final_heading": true,
+            "aligned_min_linear_mps": 0.02,
+            "aligned_min_speed_bearing_rad": 0.1,
+            "final_heading_kp": 0.3,
+            "max_linear_mps": 0.08,
+            "min_linear_mps": 0.03,
+            "linear_kp": 0.6,
+            "heading_kp": 0.8,
+            "max_angular_rps": 0.15,
+            "rotate_first_rad": 0.5
+          },
+          "allowed_operations": [
+            "DOCK"
+          ],
+          "runtime_config": "profile",
+          "runtime_name": "harvest_approach_42",
+          "initial_marker_recovery": {
+            "enabled": true,
+            "wait_s": 3.0,
+            "reverse_distance_m": 0.05,
+            "reverse_speed_mps": 0.02,
+            "search_angle_rad": 0.2617993877991494,
+            "search_speed_rps": 0.12,
+            "timeout_s": 30.0
+          }
+        },
+        "harvest_dock_41": {
+          "configured": true,
+          "target_surface": {
+            "plane_tolerance_m": 0.008,
+            "half_width_m": 0.18,
+            "margin_m": 0.002,
+            "sample_motion_m": 0.001,
+            "max_scan_skew_s": 0.05
+          },
+          "strategy": "marker_pose",
+          "target_marker_id": 41,
+          "docking_marker_id": 41,
+          "base_frame": "base_footprint",
+          "target_tracking": {
+            "enabled": false,
+            "fixed_target": true,
+            "max_prediction_s": 0.8,
+            "max_prediction_distance_m": 0.06,
+            "max_prediction_yaw_rad": 0.2,
+            "max_input_age_s": 0.3,
+            "filter_alpha": 0.35,
+            "max_innovation_m": 0.08,
+            "max_innovation_yaw_rad": 0.25
+          },
+          "clearance_corridor_verified": false,
+          "approach_clearance_verified": false,
+          "extrinsics_verified": false,
+          "bounded_trial": true,
+          "scan_stop_range_m": 0.3,
+          "collision_guard": {
+            "nav2_file": "../robots/waffle/transport_nav2.yaml",
+            "odom_frame": "odom",
+            "margin_m": 0.02,
+            "reaction_s": 0.4,
+            "linear_decel_mps2": 0.2,
+            "angular_decel_rps2": 0.4,
+            "sample_motion_m": 0.005,
+            "max_linear_mps": 0.2,
+            "max_angular_rps": 0.5,
+            "min_valid_points": 15
+          },
+          "timeout_s": 100.0,
+          "marker_wait_timeout_s": 2.0,
+          "approach": {
+            "heading_first": false,
+            "max_distance_m": 0.4,
+            "align_tolerance_rad": 0.05,
+            "realign_threshold_rad": 0.17,
+            "position_tolerance_m": 0.01
+          },
+          "entry": {
+            "enabled": false
+          },
+          "note": "Marker41 identity confirmation only. Hold current odom heading at lidar entry; no marker normal/bearing rotation. Raw front lidar target 0.20m.",
+          "pose_controller": {
+            "direction": "forward",
+            "linear_pid": {
+              "kp": 0.6,
+              "ki": 0.0,
+              "kd": 0.0
+            },
+            "angular_pid": {
+              "kp": 0.8,
+              "ki": 0.0,
+              "kd": 0.0
+            },
+            "max_linear_mps": 0.08,
+            "max_angular_rps": 0.3,
+            "min_linear_mps": 0.02
+          },
+          "marker_installation": {
+            "dictionary": "DICT_4X4_50",
+            "marker_size_m": 0.05,
+            "teaching_status": "no_terminal_pose_required"
+          },
+          "allowed_operations": [
+            "DOCK"
+          ],
+          "lidar_approach": {
+            "raw_scan_topic": "scan",
+            "scan_frame": "base_scan",
+            "target_distance_m": 0.2,
+            "distance_tolerance_m": 0.005,
+            "hard_min_distance_m": 0.12,
+            "max_start_distance_m": 1.5,
+            "sector_half_angle_rad": 0.0872664626,
+            "min_points": 3,
+            "max_spread_m": 0.04,
+            "max_age_s": 0.3,
+            "max_linear_mps": 0.04,
+            "min_linear_mps": 0.01,
+            "linear_kp": 0.5,
+            "heading_kp": 0.8,
+            "max_angular_rps": 0.08,
+            "max_heading_error_rad": 0.3,
+            "max_travel_m": 1.5,
+            "timeout_s": 65.0,
+            "stable_s": 0.5,
+            "selection_mode": "center_cluster",
+            "initial_acquire_wait_s": 3.0,
+            "initial_creep_s": 3.0,
+            "initial_creep_mps": 0.02,
+            "initial_creep_max_travel_m": 0.06,
+            "stale_wait_s": 2.0,
+            "marker_surface_selection": true,
+            "marker_surface_depth_gate_m": 0.08,
+            "marker_surface_angle_gate_rad": 0.12,
+            "surface_tracking": true,
+            "surface_match_m": 0.025,
+            "surface_anchor_tolerance_m": 0.03,
+            "surface_occlusion_s": 0.6,
+            "surface_occlusion_travel_m": 0.02,
+            "surface_prediction_speed_scale": 0.5,
+            "center_max_angle_rad": 0.01745329252
+          },
+          "distance_heading_trial": {
+            "front_scan_only": true,
+            "marker_id": 41,
+            "samples": 5,
+            "max_age_s": 0.3,
+            "max_bearing_rad": 0.2,
+            "spread_rad": 0.03,
+            "heading_offset_rad": 0.0,
+            "acquire_timeout_s": 12.0,
+            "max_lateral_m": 0.05,
+            "align_before_lidar": false,
+            "alignment_tolerance_rad": 0.035,
+            "alignment_kp": 0.8,
+            "alignment_max_angular_rps": 0.12,
+            "heading_source": "odom_current"
+          },
+          "observation_only": true,
+          "runtime_config": "profile",
+          "runtime_name": "harvest_dock_41"
+        }
+      }
+    },
+    "transport.pickup_targets": {
+      "schema_version": 1,
+      "targets": {
+        "marker_32_confirmed_pose": {
+          "status": "taught",
+          "robot_id": "transport_01",
+          "base_frame": "base_footprint",
+          "marker_id": 32,
+          "marker_size_m": 0.05,
+          "mission_profile": "station_transport_01",
+          "coordinate_convention": "OpenCV IPPE_SQUARE marker frame; T_marker_base transforms base coordinates into marker coordinates",
+          "T_marker_base": [
+            [
+              0.0678528466806646,
+              -0.9962477996220882,
+              -0.05372441666019417,
+              -0.00021944910289569376
+            ],
+            [
+              0.05792872274346015,
+              -0.04982368156202955,
+              0.997076658957032,
+              -0.12433786283199692
+            ],
+            [
+              -0.9960121757682696,
+              -0.07076667650634345,
+              0.05433068394199556,
+              0.23064497973341133
+            ],
+            [
+              0.0,
+              0.0,
+              0.0,
+              1.0
+            ]
+          ],
+          "reference_T_base_marker": [
+            [
+              0.06785284668066471,
+              0.05792872274346011,
+              -0.9960121757682687,
+              0.2369428319231454
+            ],
+            [
+              -0.996247799622088,
+              -0.04982368156202915,
+              -0.07076667650634326,
+              0.009908382898872865
+            ],
+            [
+              -0.05372441666019452,
+              0.9970766589570312,
+              0.054330683941995486,
+              0.11143149158264153
+            ],
+            [
+              0.0,
+              0.0,
+              0.0,
+              1.0
+            ]
+          ],
+          "saved_at_utc": "2026-10-20T18:31:13.735724+00:00",
+          "camera_range_m": 0.1683875748060516,
+          "camera_extrinsics_T_base_camera": [
+            [
+              0.1391731009600655,
+              6.063643103410976e-17,
+              0.9902680687415704,
+              0.069
+            ],
+            [
+              -0.9902680687415704,
+              8.521894630907781e-18,
+              0.1391731009600655,
+              -0.0015
+            ],
+            [
+              0.0,
+              -1.0,
+              6.123233995736766e-17,
+              0.11699999999999999
+            ],
+            [
+              0.0,
+              0.0,
+              0.0,
+              1.0
+            ]
+          ],
+          "position_tolerance_m": null,
+          "yaw_tolerance_rad": null,
+          "note": "User confirmed physical station docking completion pose. Marker 32, black square 50mm. Averaged stationary observations. Departure/observation pose remains to be taught.",
+          "previous_teaching": {
+            "status": "taught_pending_controller_integration",
+            "robot_id": "transport_01",
+            "base_frame": "base_footprint",
+            "marker_id": 32,
+            "marker_size_m": 0.06,
+            "mission_profile": null,
+            "coordinate_convention": "OpenCV IPPE_SQUARE marker frame; T_marker_base transforms base coordinates into marker coordinates",
+            "T_marker_base": [
+              [
+                0.007877148975993627,
+                -0.9999654702075195,
+                -0.002647435866184919,
+                0.026577806693877683
+              ],
+              [
+                0.10979681800969386,
+                -0.001766600559797628,
+                0.9939524827059935,
+                -0.14866514069121722
+              ],
+              [
+                -0.9939228386947129,
+                -0.008120191815325497,
+                0.10977911097256238,
+                0.2892618706856299
+              ],
+              [
+                0.0,
+                0.0,
+                0.0,
+                1.0
+              ]
+            ],
+            "reference_T_base_marker": [
+              [
+                0.007877148975993627,
+                0.10979681800969386,
+                -0.9939228386947129,
+                0.30361758169208053
+              ],
+              [
+                -0.9999654702075195,
+                -0.001766600559797628,
+                -0.008120191815325497,
+                0.028663118921787665
+              ],
+              [
+                -0.002647435866184919,
+                0.9939524827059935,
+                0.10977911097256238,
+                0.11608153771842833
+              ],
+              [
+                0.0,
+                0.0,
+                0.0,
+                1.0
+              ]
+            ],
+            "source_stamp_ns": 1792401789136752230,
+            "saved_at_utc": "2026-10-19T09:24:48.538965+00:00",
+            "camera_range_m": 0.23655034761143903,
+            "camera_extrinsics_T_base_camera": [
+              [
+                0.1391731009600655,
+                6.063643103410976e-17,
+                0.9902680687415704,
+                0.069
+              ],
+              [
+                -0.9902680687415704,
+                8.521894630907781e-18,
+                0.1391731009600655,
+                -0.0015
+              ],
+              [
+                0.0,
+                -1.0,
+                6.123233995736766e-17,
+                0.11699999999999999
+              ],
+              [
+                0.0,
+                0.0,
+                0.0,
+                1.0
+              ]
+            ],
+            "position_tolerance_m": null,
+            "yaw_tolerance_rad": null,
+            "note": "User confirmed this exact pose as docking completion. Single observation; goal saved, controller not enabled. Mission association and tolerances remain to be set. Recheck if marker mount or camera extrinsics change."
+          },
+          "teaching_quality": {
+            "total_frames": 93,
+            "valid_frames": 93,
+            "position_spread_p95_m": 0.0028399938495421934,
+            "angle_spread_p95_deg": 0.6555806621178529,
+            "reprojection_median_px": 0.34496359625921313
+          }
+        },
+        "marker_32_departure_pose": {
+          "robot_id": "transport_01",
+          "base_frame": "base_footprint",
+          "marker_id": 32,
+          "coordinate_convention": "OpenCV IPPE_SQUARE marker frame; T_marker_base transforms base coordinates into marker coordinates",
+          "camera_extrinsics_T_base_camera": [
+            [
+              0.1391731009600655,
+              6.063643103410976e-17,
+              0.9902680687415704,
+              0.069
+            ],
+            [
+              -0.9902680687415704,
+              8.521894630907781e-18,
+              0.1391731009600655,
+              -0.0015
+            ],
+            [
+              0.0,
+              -1.0,
+              6.123233995736766e-17,
+              0.11699999999999999
+            ],
+            [
+              0.0,
+              0.0,
+              0.0,
+              1.0
+            ]
+          ],
+          "status": "taught",
+          "marker_size_m": 0.05,
+          "T_marker_base": [
+            [
+              0.10229145940755609,
+              -0.9931477596398443,
+              -0.056515350610517816,
+              0.026836261566911088
+            ],
+            [
+              0.05339905103524117,
+              -0.051249249384459794,
+              0.99725726659978,
+              -0.1199501855018312
+            ],
+            [
+              -0.9933201894056146,
+              -0.10502876729680749,
+              0.04779078738946527,
+              0.5854705781039398
+            ],
+            [
+              0.0,
+              0.0,
+              0.0,
+              1.0
+            ]
+          ],
+          "reference_T_base_marker": [
+            [
+              0.10229145940755636,
+              0.053399051035241195,
+              -0.9933201894056166,
+              0.5852198512501979
+            ],
+            [
+              -0.993147759639845,
+              -0.051249249384459725,
+              -0.1050287672968075,
+              0.08199626918859713
+            ],
+            [
+              -0.05651535061051797,
+              0.9972572665997804,
+              0.04779078738946536,
+              0.09315775493226959
+            ],
+            [
+              0.0,
+              0.0,
+              0.0,
+              1.0
+            ]
+          ],
+          "saved_at_utc": "2026-10-20T18:44:56.214341+00:00",
+          "camera_range_m": 0.5235785969878983,
+          "mission_profile": "station_transport_01",
+          "note": "User confirmed B departure stop pose facing station marker 32, 50mm. Reverse from dock to this pose before turning. Teaching data only; automatic undock integration pending.",
+          "teaching_quality": {
+            "total_frames": 94,
+            "valid_frames": 94,
+            "position_spread_p95_m": 0.017237704914441397,
+            "angle_spread_p95_deg": 1.6403758293618262,
+            "reprojection_median_px": 0.13643536061889622
+          }
+        },
+        "marker_40_lidar_entry_pose": {
+          "status": "taught",
+          "robot_id": "transport_01",
+          "base_frame": "base_footprint",
+          "marker_id": 40,
+          "marker_size_m": 0.05,
+          "mission_profile": "sort_01",
+          "T_marker_base": [
+            [
+              0.07973044871250162,
+              -0.9968150902800118,
+              -0.001652676058646106,
+              0.003882533787224456
+            ],
+            [
+              0.037870788078806186,
+              0.0013723367504124143,
+              0.9992817020751122,
+              -0.11889325616190528
+            ],
+            [
+              -0.9960968120410751,
+              -0.0797357666414209,
+              0.037859590062645394,
+              0.3482916171723181
+            ],
+            [
+              0.0,
+              0.0,
+              0.0,
+              1.0
+            ]
+          ],
+          "reference_T_base_marker": [
+            [
+              0.07973044871250158,
+              0.03787078807880619,
+              -0.9960968120410755,
+              0.3511251946730866
+            ],
+            [
+              -0.996815090280012,
+              0.0013723367504120908,
+              -0.07973576664142101,
+              0.03180462896244958
+            ],
+            [
+              -0.0016526760586457812,
+              0.9992817020751126,
+              0.037859590062645436,
+              0.1056280941049583
+            ],
+            [
+              0.0,
+              0.0,
+              0.0,
+              1.0
+            ]
+          ],
+          "camera_extrinsics_T_base_camera": [
+            [
+              0.1391731009600655,
+              6.063643103410976e-17,
+              0.9902680687415704,
+              0.069
+            ],
+            [
+              -0.9902680687415704,
+              8.521894630907781e-18,
+              0.1391731009600655,
+              -0.0015
+            ],
+            [
+              0.0,
+              -1.0,
+              6.123233995736766e-17,
+              0.11699999999999999
+            ],
+            [
+              0.0,
+              0.0,
+              0.0,
+              1.0
+            ]
+          ],
+          "saved_at_utc": "2026-10-22T11:00:43.268311+00:00",
+          "note": "User taught farther visual entry; marker40 5cm. Final raw lidar target 0.15m.",
+          "teaching_quality": {
+            "total_frames": 93,
+            "valid_frames": 93,
+            "position_spread_p95_m": 0.003137506460696682,
+            "angle_spread_p95_deg": 0.526122238217436,
+            "reprojection_median_px": 0.2914687210624236
+          },
+          "camera_range_m": 0.284339158591219
+        },
+        "station_parking_entry_20261023": {
+          "status": "taught",
+          "robot_id": "transport_01",
+          "base_frame": "base_footprint",
+          "marker_id": 32,
+          "marker_size_m": 0.05,
+          "mission_profile": "station_transport_01",
+          "coordinate_convention": "OpenCV IPPE_SQUARE marker frame; T_marker_base transforms base coordinates into marker coordinates",
+          "T_marker_base": [
+            [
+              0.10733216027769607,
+              -0.9942172575384544,
+              -0.003442699934253407,
+              -0.021601268261697726
+            ],
+            [
+              0.061605259800970855,
+              0.0031945556689647026,
+              0.9980954797908523,
+              -0.15692392109557501
+            ],
+            [
+              -0.9923127527825977,
+              -0.10733983243322233,
+              0.061591891010342514,
+              0.601813813202905
+            ],
+            [
+              0.0,
+              0.0,
+              0.0,
+              1.0
+            ]
+          ],
+          "reference_T_base_marker": [
+            [
+              0.10733216027769622,
+              0.06160525980097083,
+              -0.9923127527825988,
+              0.6091733713573133
+            ],
+            [
+              -0.9942172575384548,
+              0.003194555668965008,
+              -0.10733983243322232,
+              0.04362354237643288
+            ],
+            [
+              -0.003442699934253726,
+              0.9980954797908536,
+              0.06159189101034266,
+              0.11948383884041361
+            ],
+            [
+              0.0,
+              0.0,
+              0.0,
+              1.0
+            ]
+          ],
+          "saved_at_utc": "2026-10-23T09:21:03.968489+00:00",
+          "camera_range_m": 0.5422174603235812,
+          "camera_extrinsics_T_base_camera": [
+            [
+              0.1391731009600655,
+              6.063643103410976e-17,
+              0.9902680687415704,
+              0.069
+            ],
+            [
+              -0.9902680687415704,
+              8.521894630907781e-18,
+              0.1391731009600655,
+              -0.0015
+            ],
+            [
+              0.0,
+              -1.0,
+              6.123233995736766e-17,
+              0.11699999999999999
+            ],
+            [
+              0.0,
+              0.0,
+              0.0,
+              1.0
+            ]
+          ],
+          "position_tolerance_m": null,
+          "yaw_tolerance_rad": null,
+          "note": "Retaught incoming parking pose at user request. Final graph20->3 rotation separate. Control strategy unchanged by reteaching.",
+          "teaching_quality": {
+            "valid_frames": 187,
+            "repeat_position_difference_m": 0.0014529606282677136,
+            "repeat_angle_difference_deg": 0.07341893705609943,
+            "batch_position_spread_p95_m": [
+              0.012514732700060037,
+              0.014682369338546128
+            ]
+          }
+        },
+        "harvest_42_reference_20261024": {
+          "status": "taught_reference_only",
+          "robot_id": "transport_01",
+          "base_frame": "base_footprint",
+          "marker_id": 42,
+          "marker_size_m": 0.05,
+          "saved_at_utc": "2026-10-24T10:00:36.960625+00:00",
+          "T_marker_base": [
+            [
+              0.09631266612220525,
+              -0.9948634840220507,
+              0.03115314597178886,
+              -0.036886016501832104
+            ],
+            [
+              0.07209562264501104,
+              0.03818917313971286,
+              0.9966663475056899,
+              -0.12098230746334913
+            ],
+            [
+              -0.9927366677724061,
+              -0.09374558770636636,
+              0.075403403409443,
+              0.5905150451150607
+            ],
+            [
+              0.0,
+              0.0,
+              0.0,
+              1.0
+            ]
+          ],
+          "reference_T_base_marker": [
+            [
+              0.09631266612220532,
+              0.07209562264501108,
+              -0.9927366677724062,
+              0.598500823534517
+            ],
+            [
+              -0.9948634840220506,
+              0.03818917313971268,
+              -0.09374558770636632,
+              0.02328184335161504
+            ],
+            [
+              0.031153145971789052,
+              0.9966663475056904,
+              0.07540340340944302,
+              0.07720126578254963
+            ],
+            [
+              0.0,
+              0.0,
+              0.0,
+              1.0
+            ]
+          ],
+          "camera_extrinsics_T_base_camera": [
+            [
+              0.1391731009600655,
+              6.063643103410976e-17,
+              0.9902680687415704,
+              0.069
+            ],
+            [
+              -0.9902680687415704,
+              8.521894630907781e-18,
+              0.1391731009600655,
+              -0.0015
+            ],
+            [
+              0.0,
+              -1.0,
+              6.123233995736766e-17,
+              0.11699999999999999
+            ],
+            [
+              0.0,
+              0.0,
+              0.0,
+              1.0
+            ]
+          ],
+          "camera_range_m": 0.531801739996524,
+          "teaching_quality": {
+            "valid_frames": 186,
+            "repeat_position_difference_m": 0.003876977812607231,
+            "repeat_angle_difference_deg": 0.5132532343489292,
+            "batch_position_spread_p95_m": [
+              0.0413014416894838,
+              0.03453097168129758
+            ],
+            "batch_angle_spread_p95_deg": [
+              3.5916694013625556,
+              3.0740357270803105
+            ]
+          },
+          "note": "Current pose captured at user request. Marker42 observed, not marker41. Reference only; not assigned as marker41 approach target or final lidar distance."
+        },
+        "harvest_42_wait_pose": {
+          "status": "taught",
+          "robot_id": "transport_01",
+          "base_frame": "base_footprint",
+          "marker_id": 42,
+          "marker_size_m": 0.05,
+          "saved_at_utc": "2026-10-25T12:30:25.194058+00:00",
+          "T_marker_base": [
+            [
+              0.02632182807970074,
+              -0.999209522825837,
+              0.029790784828648973,
+              0.03384443681569307
+            ],
+            [
+              0.062328063140381515,
+              0.03138355653578529,
+              0.9975621709569453,
+              -0.11582471887693045
+            ],
+            [
+              -0.9977085616109107,
+              -0.024400858044940216,
+              0.06310486680882371,
+              0.5321756669901403
+            ],
+            [
+              0.0,
+              0.0,
+              0.0,
+              1.0
+            ]
+          ],
+          "reference_T_base_marker": [
+            [
+              0.026321828079700696,
+              0.06232806314038145,
+              -0.9977085616109096,
+              0.5372845021811206
+            ],
+            [
+              -0.999209522825836,
+              0.03138355653578575,
+              -0.024400858044940178,
+              0.05043821807923123
+            ],
+            [
+              0.029790784828648487,
+              0.9975621709569454,
+              0.06310486680882371,
+              0.08095123109421581
+            ],
+            [
+              0.0,
+              0.0,
+              0.0,
+              1.0
+            ]
+          ],
+          "camera_extrinsics_T_base_camera": [
+            [
+              0.1391731009600655,
+              6.063643103410976e-17,
+              0.9902680687415704,
+              0.069
+            ],
+            [
+              -0.9902680687415704,
+              8.521894630907781e-18,
+              0.1391731009600655,
+              -0.0015
+            ],
+            [
+              0.0,
+              -1.0,
+              6.123233995736766e-17,
+              0.11699999999999999
+            ],
+            [
+              0.0,
+              0.0,
+              0.0,
+              1.0
+            ]
+          ],
+          "camera_range_m": 0.47257298841922335,
+          "teaching_quality": {
+            "valid_frames": 186,
+            "repeat_position_difference_m": 0.0003536300800080958,
+            "repeat_angle_difference_deg": 0.042800476026331094,
+            "batch_position_spread_p95_m": [
+              0.010479679983666022,
+              0.01066890721218294
+            ],
+            "batch_angle_spread_p95_deg": [
+              1.087711029372002,
+              1.1464205132109009
+            ]
+          },
+          "note": "Retaught at user-positioned stationary approach wait pose on 2026-10-25. Marker42 approach reference; marker41 confirmation and lidar20cm unchanged. Physical approach validation pending. User confirmed physical black square side is 50mm; candidate activated.",
+          "mission_profile": "harvest_approach_42"
+        }
+      },
+      "shadow_controller": {
+        "direction": "forward",
+        "position_tolerance_m": 0.01,
+        "yaw_tolerance_rad": 0.03490658503988659,
+        "max_linear_mps": 0.08,
+        "max_angular_rps": 0.3,
+        "rotate_first_rad": 0.17,
+        "max_observation_age_s": 0.3,
+        "max_planar_distance_m": 0.5,
+        "max_tilt_rad": 0.2,
+        "settle_samples": 5,
+        "linear_pid": {
+          "kp": 0.3,
+          "ki": 0.0,
+          "kd": 0.0
+        },
+        "angular_pid": {
+          "kp": 0.8,
+          "ki": 0.0,
+          "kd": 0.0
+        },
+        "min_linear_mps": 0.011,
+        "min_angular_rps": 0.011,
+        "approach_yaw_deadband_rad": 0.01
+      }
+    },
+    "transport.destinations": {
+      "schema_version": 1,
+      "mode": "real",
+      "map_id": "farm_map_v1",
+      "destinations": {
+        "STATION_TRANSPORT_01": {
+          "configured": true,
+          "entry_node_id": 3,
+          "observation_node_id": 20,
+          "docking_profile": "station_transport_01",
+          "note": "Entry yaw: null derives A->B direction; set radians to override. Teach incoming pose at B, then rotate B->A and park ready.",
+          "entry_yaw_rad": null
+        },
+        "STATION_SCOUT_01": {
+          "configured": false,
+          "approach_node_id": null,
+          "approach_yaw_rad": null,
+          "clearance_node_id": null,
+          "clearance_yaw_rad": null,
+          "docking_profile": "station_scout_01",
+          "note": "실물 station_exit 18/19/20의 역할 매핑 및 yaw 실측 필요. 선별장은 별도 확인."
+        },
+        "STATION_HARVEST_01": {
+          "configured": false,
+          "approach_node_id": null,
+          "approach_yaw_rad": null,
+          "clearance_node_id": null,
+          "clearance_yaw_rad": null,
+          "docking_profile": "station_harvest_01",
+          "note": "실물 station_exit 18/19/20의 역할 매핑 및 yaw 실측 필요. 선별장은 별도 확인."
+        },
+        "SORT_01": {
+          "configured": true,
+          "approach_node_id": 17,
+          "approach_yaw_rad": 0.0,
+          "clearance_node_id": 17,
+          "clearance_yaw_rad": 0.0,
+          "docking_profile": "sort_01",
+          "note": "2026-10-18 사용자 확인: 15→17 map +X 방향. 준비 신호 가정/기구 없는 도킹 시험. 이탈 통로 미검증 유지.",
+          "approach_heading_from_node_id": 15
+        }
+      }
+    },
+    "transport.legacy_sites": {
+      "harvest": {
+        "enabled": false,
+        "desc": "1차 뒷면42 → 회전 후 옆면41 / 각 5cm — 같은 면 far/near 쌍 아님, 실행 비활성",
+        "far_id": 42,
+        "far_size": 0.05,
+        "near_id": 41,
+        "near_size": 0.05,
+        "off_x": 0.0,
+        "final_dist": 0.08,
+        "final_yaw_deg": 8.0,
+        "switch_dist": 0.33,
+        "far_min_dist": 0.25,
+        "near_lost_dist": 0.25,
+        "lost_margin": 0.04,
+        "lost_timeout": 1.0,
+        "push_to_dist": 0.17,
+        "push_max": 0.08,
+        "push_dist": 0.02,
+        "lidar_align": true,
+        "lidar_target_deg": 8.2,
+        "staging_x": null,
+        "staging_y": null,
+        "staging_qz": 0.0,
+        "staging_qw": 1.0
+      },
+      "sorter": {
+        "enabled": true,
+        "desc": "ID40 5cm detector preset; actual completion uses marker_40_lidar_entry_pose then raw front lidar 0.15m",
+        "far_id": 40,
+        "far_size": 0.05,
+        "near_id": 40,
+        "near_size": 0.05,
+        "off_x": 0.0,
+        "final_dist": 0.18,
+        "final_yaw_deg": 8.0,
+        "switch_dist": 0.6,
+        "far_min_dist": 0.35,
+        "near_lost_dist": 0.25,
+        "lost_margin": 0.07,
+        "lost_timeout": 0.5,
+        "push_dist": 0.0,
+        "lidar_align": true,
+        "lidar_target_deg": null,
+        "staging_x": null,
+        "staging_y": null,
+        "staging_qz": 0.0,
+        "staging_qw": 1.0
+      },
+      "parking": {
+        "enabled": true,
+        "desc": "운송 스테이션 단일 ID32 / 5cm — 도킹 목표 재티칭 필요",
+        "far_id": 32,
+        "far_size": 0.05,
+        "near_id": 32,
+        "near_size": 0.05,
+        "off_x": 0.0,
+        "final_dist": 0.18,
+        "final_yaw_deg": 8.0,
+        "switch_dist": 0.6,
+        "far_min_dist": 0.35,
+        "near_lost_dist": 0.25,
+        "lost_margin": 0.07,
+        "lost_timeout": 0.5,
+        "push_dist": 0.0,
+        "lidar_align": true,
+        "lidar_target_deg": null,
+        "staging_x": 0.667,
+        "staging_y": -1.295,
+        "staging_qz": -0.9998,
+        "staging_qw": 0.0189
+      }
+    }
+  },
+  "sources": {
+    "robot/config/environments/scout_real.yaml": "48ff9606bb33a47d975f1c9fa0fac0a99a28598b3132d546f409e5fb8fcb7f52",
+    "robot/config/navigation/scout_navigation.yaml": "702b0a863af6f83ee0362264ada2b8df9909a1234221548aa3091bfbb19e850e",
+    "robot/config/survey/scout_real.json": "cccc91898b274815e45378711319fbcc9fb3b6908852f5bf4af0b56fab27deed",
+    "robot/config/vision/scout_real.json": "4d69085b2130ee53519a830b9b686fa4a20254986f212d221c1682f015404f79",
+    "robot/config/robots/burger/nav2.yaml": "31abd545ccf86b70d146aeb5e9251e816bce669d56217511a7a48d41bce330f4",
+    "robot/config/navigation/scout_nav2.yaml": "a71785c8363a7f3a711ef718fef97ed5ab202dd2bc58c9960b37b97bbe7bc70d",
+    "robot/config/localization/scout_real.yaml": "72127f374414bc2fd061d53f11aaa18782e24fb642fe18304ba22da1a6ea8551",
+    "robot/config/cameras/scout_tag_capture.yaml": "f2bad4d197a8f1bc9049f115bed9285b8703bfda85270d2dcd652b3f27d320cb",
+    "robot/config/patrol/scout_real_sections.json": "28f46b39868f5cc78d017c5150744b14de532428207f2dbc911e1fa7f6a6a3cf",
+    "robot/config/environments/harvest_handoff_real.yaml": "1b357280ad9ab8d4b8b1f96eb203ae005274efe17cd837b6c8814fcbd5665f7a",
+    "robot/config/navigation/harvest_navigation.yaml": "7754c8c0a0d2558f67580d73d6a21eff86308bd0e28c41e8610ae913f9a60d7e",
+    "robot/config/robots/vicpinky/nav2.yaml": "fce60a99a2a62926dffa60acd6b41c234051f25ab3cdcc954dd0a119d5ed2536",
+    "robot/config/navigation/harvest_nav2.yaml": "5a07c2ea26051d494511ac988c0a4235f26a9b63c10f24baf827bfbde2130787",
+    "robot/config/localization/harvest_handoff_real.yaml": "f59018fdcc74758e92af0f7dcd4c3e451e36bf020558fcc49a45f939238b6d4f",
+    "robot/config/localization/common_observation_model.json": "539bf6c8a81578a5100b6a113ab18e9e7bd34da0226a8308581556d8f7fb6bb4",
+    "robot/config/localization/bias_trial_20261014/profile.json": "eb1642e853e0975eb2595f3a6fb98df314754ffed2eadeccb0d077d460edd905",
+    "robot/config/cameras/harvest_tag_capture.yaml": "35b3ad43a653e5130ae67b6f8bc16935acfa2ed672d3a9c9f2516c512b3f4ef3",
+    "robot/config/harvest/harvest_handoff_real.json": "9b393c5b763269e2a69ee899cc606c9cc7bda84555eb5cf00047891afddd4c61",
+    "robot/config/robots/vicpinky/transfer/handoff_fsm.json": "6e3937ee1b9d521814f2da0979b8d01b372e7d1c465ae513127ed8778d905524",
+    "robot/config/robots/vicpinky/transfer/wall_alignment_wait_v2.json": "afde31e019233ec827976c057aa395dbcd03aa14a7d12d4dcd700564d5171f53",
+    "robot/config/robots/vicpinky/transfer/arc_monitor_policy.json": "ff4e992d5e49948fbfcbd61521e1d60b4a454c3f450dccdd684adcc29fa67bd5",
+    "robot/config/environments/transport_docking_trial.yaml": "3b1017aeb4c9e8e268df25b9922ed7506f7adc369f4bff610383b4b0496833fb",
+    "robot/config/robots/waffle/transport_nav2.yaml": "895f4d77a3fb00968425a3a0feb0c47d406adc9cd7b03cb3bad21aa06ca93177",
+    "robot/config/docking/waffle_profiles.yaml": "6ec3fdb863529c2128ade91f1422b4391aaadce5b9c446c5c3f0780dabbcfd8c",
+    "robot/config/docking/waffle_marker_targets.yaml": "4dafe592f789e640ccc40635f01afd8f55abbbfbb9fad73b184648f7ce8b1e82",
+    "robot/config/destinations/transport_real.yaml": "7f9c089b08040610670ac4860f87a63b293480c49a7e61d543ed56d86d69f40f",
+    "robot/config/docking/legacy_waffle_sites.yaml": "d2de9deaeb39d85a63f492d7c8d30040dc054d37186bca95faa309bf61b62e36"
+  }
+}

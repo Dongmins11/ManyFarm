@@ -12,6 +12,9 @@ rviz_config: sim/ros_ws/src/farm_sim_config/config/scout.rviz
 tag_localization_config: sim/ros_ws/src/farm_sim_config/config/tag_localization/scout.yaml
 navigation_policy: robot/config/navigation/scout_navigation.yaml
 navigation:
+  require_active_nav2: true
+  tf_recovery_enabled: true
+  tf_recovery_wait_forever: true
   map_frame: map
   base_frame: scout_01/base_footprint
 patrol_config: sim/ros_ws/src/farm_sim_config/config/scout_patrol.json

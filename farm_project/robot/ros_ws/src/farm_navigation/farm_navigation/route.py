@@ -120,9 +120,42 @@ class RouteGraph:
         return next(iter(sections)) if len(sections) == 1 else None
 
     def plan(self, start: Point, goal: Point, max_start: float=.10, max_goal: float=.02, *,
-             blocked_nodes: frozenset[str] = frozenset(), blocked_edges: frozenset[str] = frozenset()) -> RoutePlan:
+             blocked_nodes: frozenset[str] = frozenset(), blocked_edges: frozenset[str] = frozenset(),
+             goal_yaw: float | None = None, heading_tolerance: float = .12) -> RoutePlan:
         """거리 기반 다익스트라 탐색. 교통·장애물 비용이나 진입 허가는 포함하지 않습니다."""
         starts, goals = self._candidates(start,max_start), self._candidates(goal,max_goal)
+        transit_blocked: set[str] = set()
+        if goal_yaw is not None:
+            # 인계는 마지막 회전만 맞춰서는 안 된다. 목표 직선 구간의 역방향
+            # 통과와 목표를 지나친 뒤 돌아오는 우회도 제외하고 뒤쪽에서 진입한다.
+            if not math.isfinite(goal_yaw) or not 0 < heading_tolerance < math.pi/2:
+                raise ValueError('접근 방향/허용각이 유효하지 않습니다.')
+            u = (math.cos(goal_yaw), math.sin(goal_yaw))
+            def along(point: Point) -> float:
+                return (point[0]-goal[0])*u[0]+(point[1]-goal[1])*u[1]
+            def aligned(edge: Edge) -> bool:
+                a,b=self.nodes[edge.start],self.nodes[edge.end]
+                return abs(math.remainder(math.atan2(b[1]-a[1],b[0]-a[0])-goal_yaw,2*math.pi))<=heading_tolerance
+            goals=[item for item in goals if aligned(item[0])]
+            if not goals:raise ValueError('인계 목표 방향으로 진입하는 그래프 엣지가 없습니다.')
+            # 요청 yaw의 작은 허용 오차를 통로의 기하 오차로 확대하지 않는다.
+            reference=goals[0][0]
+            a,b=self.nodes[reference.start],self.nodes[reference.end]
+            length=math.dist(a,b)
+            u=((b[0]-a[0])/length,(b[1]-a[1])/length)
+            # 분할된 직선 엣지도 함께 검사한다. 떨어진 별도 통로는 제한하지 않는다.
+            straight=[e for e in self.edges if all(abs((self.nodes[n][0]-goal[0])*u[1]-(self.nodes[n][1]-goal[1])*u[0])<=max_goal
+                                                  for n in (e.start,e.end))]
+            connected={n for e,*_ in goals for n in (e.start,e.end)}
+            while True:
+                expanded=connected|{n for e in straight if e.start in connected or e.end in connected for n in (e.start,e.end)}
+                if expanded==connected:break
+                connected=expanded
+            corridor={e.edge_id for e in straight if e.start in connected and e.end in connected}
+            blocked_edges=blocked_edges|frozenset(e.edge_id for e in self.edges if e.edge_id in corridor and not aligned(e))
+            # 목표가 놓인 엣지는 목표까지 부분 주행만 허용한다.
+            transit_blocked={e.edge_id for e in self.edges if e.edge_id in corridor and along(self.nodes[e.end])>1e-7}
+            starts=[item for item in starts if item[0].edge_id not in corridor or along(item[3])<=1e-7]
         def allowed(edge: Edge) -> bool:
             return (edge.edge_id not in blocked_edges and str(edge.start) not in blocked_nodes
                     and str(edge.end) not in blocked_nodes)
@@ -135,7 +168,7 @@ class RouteGraph:
                 if edge.edge_id==target.edge_id and ratio<=target_ratio:
                     candidate=(distance+math.dist(snapped,endpoint)+tail,[start,snapped,endpoint,goal],[edge.edge_id])
                     if best is None or candidate[0]<best[0]: best=candidate
-            queue=[(distance+math.dist(snapped,self.nodes[edge.end]),next(order),edge.end,[start,snapped,self.nodes[edge.end]],[edge.edge_id])]
+            queue=[] if edge.edge_id in transit_blocked else [(distance+math.dist(snapped,self.nodes[edge.end]),next(order),edge.end,[start,snapped,self.nodes[edge.end]],[edge.edge_id])]
             seen: set[NodeId] = set()
             while queue:
                 cost, _, node, points, used = heapq.heappop(queue)
@@ -146,7 +179,7 @@ class RouteGraph:
                         candidate=(cost+math.dist(self.nodes[node],endpoint)+tail,points+[endpoint,goal],used+[target.edge_id])
                         if best is None or candidate[0]<best[0]: best=candidate
                 for following in self._adj[node]:
-                    if following.end not in seen and allowed(following):
+                    if following.end not in seen and allowed(following) and following.edge_id not in transit_blocked:
                         heapq.heappush(queue,(cost+math.dist(self.nodes[node],self.nodes[following.end]),next(order),following.end,points+[self.nodes[following.end]],used+[following.edge_id]))
         if best is None:
             raise ValueError('목표까지 연결되는 방향 경로가 없습니다. 그래프 연결을 확인하세요.')

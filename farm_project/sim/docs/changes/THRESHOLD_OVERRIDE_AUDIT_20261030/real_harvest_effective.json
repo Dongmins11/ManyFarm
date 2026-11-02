@@ -1,0 +1,2011 @@
+{
+  "groups": {
+    "scout.survey": {
+      "configured": true,
+      "schema_version": 1,
+      "robot_id": "scout_01",
+      "map_id": "farm_map_v1",
+      "base_frame": "base_footprint",
+      "vision_config": "robot/config/vision/scout_real.json",
+      "output_dir": "runs/scout_survey",
+      "goal_timeout_s": 300.0,
+      "arrival_tolerance_m": 0.08,
+      "heading_tolerance_rad": 0.12,
+      "settle_s": 0.8,
+      "overlap_fraction": 0.15,
+      "association_distance_m": 0.065,
+      "association_band_half_depth_m": 0.2,
+      "sections": {
+        "SEC01": {
+          "route_file": "robot/config/maps/many_farm/graph.geojson",
+          "node_ids": [
+            2,
+            3,
+            4,
+            5,
+            6,
+            7,
+            8,
+            9
+          ],
+          "bed_plane_from_route_m": 1.14,
+          "finish_at": "last_segment",
+          "segmentation": {
+            "mode": "manual",
+            "segments": [
+              {
+                "segment_id": "SEG01",
+                "offset_m": 0
+              }
+            ]
+          },
+          "harvest": {
+            "heading_offset_rad": 0,
+            "mount_xy_base_m": [
+              0,
+              0.255
+            ],
+            "work_offset_xy_base_m": [
+              0,
+              0.2
+            ],
+            "height_reference_m": 0.4,
+            "height_offsets_m": [
+              -0.1,
+              0.35
+            ],
+            "width_m": 0.35,
+            "side_margin_m": 0.03,
+            "membership_margin_m": 0.0,
+            "depth_m": 0.1,
+            "range_tolerance_m": 0.0
+          }
+        }
+      },
+      "notes": [
+        "기존 bmany.yaml의 MapToWorld 변환을 매니팜 map 및 직선 베드 기준으로 환산. bed_y=-2.133 → map x=1.659, 경로 x=.519 → 1.14m.",
+        "베드 구간은 기존 world route -1.5~-5.0에 대응하는 map 노드2~9. 촬영은 별도 patrol의4·6·8에서만 수행.",
+        "수확 장착값은 기존 planner 설정 재사용. 현장 장착 변경 시 재확인."
+      ]
+    },
+    "scout.vision": {
+      "backend": "realsense_legacy",
+      "worker_python": "~/pi_d435_setup/.venv/bin/python",
+      "legacy_directory": "~/bmany_fleet_ws/perception_worker",
+      "model": "model_yolo11_seg_ver1.2.pt",
+      "camera_frame": "camera_color_optical_frame",
+      "confidence": 0.6,
+      "preprocess": {},
+      "rpc_timeout_s": 180,
+      "startup_timeout_s": 300,
+      "camera": {
+        "width": 1280,
+        "height": 720,
+        "fps": 6,
+        "auto_white_balance": true,
+        "auto_exposure": true,
+        "warmup_frames": 120,
+        "warmup_timeout_s": 90
+      }
+    },
+    "scout.navigation": {
+      "mode": "follow_path",
+      "map_frame": "map",
+      "base_frame": "base_footprint",
+      "odom_topic": "odom",
+      "navigate_action": "navigate_to_pose",
+      "follow_action": "follow_path",
+      "controller_node": "controller_server",
+      "controller_id": "RPP",
+      "goal_checker_id": "goal_checker",
+      "progress_checker_id": "progress_checker",
+      "goal_timeout_s": 300.0,
+      "response_timeout_s": 15.0,
+      "cancel_timeout_s": 10.0,
+      "readiness_timeout_s": 60.0,
+      "tf_timeout_s": 3.0,
+      "tf_max_age_s": 1.0,
+      "arrival_tolerance_m": 0.08,
+      "heading_tolerance_rad": 0.12,
+      "settle_s": 0.8,
+      "settle_timeout_s": 20.0,
+      "odom_max_age_s": 0.5,
+      "stopped_linear_mps": 0.005,
+      "stopped_angular_rps": 0.02,
+      "max_start_distance_m": 0.1,
+      "max_goal_distance_m": 0.02,
+      "path_spacing_m": 0.04,
+      "parallel_approach": false,
+      "tf_recovery_enabled": false,
+      "tf_recovery_timeout_s": 10.0,
+      "collision_retry_count": 0
+    },
+    "scout.environment": {
+      "schema_version": 1,
+      "configured": true,
+      "survey_configured": true,
+      "mode": "real",
+      "robot_id": "scout_01",
+      "map_id": "many_farm_v1",
+      "map_yaml": "robot/config/maps/many_farm/many_farm.yaml",
+      "route_graph": "robot/config/maps/many_farm/graph.geojson",
+      "nav_params": "robot/config/robots/burger/nav2.yaml",
+      "survey_config": "robot/config/survey/scout_real.json",
+      "device_config": "robot/config/robots/burger/devices.json",
+      "tag_localization_config": "robot/config/localization/scout_real.yaml",
+      "tag_capture_config": "robot/config/cameras/scout_tag_capture.yaml",
+      "navigation_policy": "robot/config/navigation/scout_navigation.yaml",
+      "navigation": {
+        "map_frame": "map",
+        "base_frame": "base_footprint"
+      },
+      "patrol_config": "robot/config/patrol/scout_real_sections.json"
+    },
+    "scout.nav2": {
+      "amcl": {
+        "ros__parameters": {
+          "alpha1": 0.2,
+          "alpha2": 0.2,
+          "alpha3": 0.2,
+          "alpha4": 0.2,
+          "alpha5": 0.2,
+          "base_frame_id": "base_footprint",
+          "beam_skip_distance": 0.5,
+          "beam_skip_error_threshold": 0.9,
+          "beam_skip_threshold": 0.3,
+          "do_beamskip": false,
+          "global_frame_id": "map",
+          "lambda_short": 0.1,
+          "laser_likelihood_max_dist": 2.0,
+          "laser_max_range": 100.0,
+          "laser_min_range": -1.0,
+          "laser_model_type": "likelihood_field",
+          "max_beams": 60,
+          "max_particles": 2000,
+          "min_particles": 500,
+          "odom_frame_id": "odom",
+          "pf_err": 0.05,
+          "pf_z": 0.99,
+          "recovery_alpha_fast": 0.0,
+          "recovery_alpha_slow": 0.0,
+          "resample_interval": 1,
+          "robot_model_type": "nav2_amcl::DifferentialMotionModel",
+          "save_pose_rate": 0.5,
+          "sigma_hit": 0.2,
+          "tf_broadcast": true,
+          "transform_tolerance": 0.5,
+          "update_min_a": 0.2,
+          "update_min_d": 0.25,
+          "z_hit": 0.5,
+          "z_max": 0.05,
+          "z_rand": 0.5,
+          "z_short": 0.05,
+          "scan_topic": "scan",
+          "map_topic": "map",
+          "set_initial_pose": false,
+          "always_reset_initial_pose": true,
+          "first_map_only": false,
+          "initial_pose": {
+            "x": -0.244,
+            "y": 0.364,
+            "z": 0.0,
+            "yaw": -1.5707963267948966
+          },
+          "use_sim_time": false
+        }
+      },
+      "bt_navigator": {
+        "ros__parameters": {
+          "global_frame": "map",
+          "robot_base_frame": "base_link",
+          "transform_tolerance": 0.5,
+          "filter_duration": 0.3,
+          "always_reload_bt_xml": false,
+          "goal_blackboard_id": "goal",
+          "goals_blackboard_id": "goals",
+          "path_blackboard_id": "path",
+          "navigators": [
+            "navigate_to_pose",
+            "navigate_through_poses"
+          ],
+          "navigate_to_pose": {
+            "plugin": "nav2_bt_navigator::NavigateToPoseNavigator"
+          },
+          "navigate_through_poses": {
+            "plugin": "nav2_bt_navigator::NavigateThroughPosesNavigator"
+          },
+          "error_code_name_prefixes": [
+            "assisted_teleop",
+            "backup",
+            "compute_path",
+            "dock_robot",
+            "drive_on_heading",
+            "follow_path",
+            "nav_thru_poses",
+            "nav_to_pose",
+            "spin",
+            "route",
+            "undock_robot",
+            "wait"
+          ],
+          "use_sim_time": false
+        }
+      },
+      "controller_server": {
+        "ros__parameters": {
+          "controller_frequency": 10.0,
+          "min_x_velocity_threshold": 0.001,
+          "min_y_velocity_threshold": 0.001,
+          "min_theta_velocity_threshold": 0.001,
+          "failure_tolerance": 0.3,
+          "progress_checker_plugins": [
+            "progress_checker"
+          ],
+          "goal_checker_plugins": [
+            "goal_checker"
+          ],
+          "controller_plugins": [
+            "FollowPath",
+            "RPP",
+            "StationReverse"
+          ],
+          "progress_checker": {
+            "plugin": "nav2_controller::PoseProgressChecker",
+            "required_movement_radius": 0.1,
+            "required_movement_angle": 0.1,
+            "movement_time_allowance": 10.0
+          },
+          "goal_checker": {
+            "stateful": true,
+            "plugin": "nav2_controller::SimpleGoalChecker",
+            "xy_goal_tolerance": 0.03,
+            "yaw_goal_tolerance": 0.05236
+          },
+          "FollowPath": {
+            "plugin": "dwb_core::DWBLocalPlanner",
+            "debug_trajectory_details": true,
+            "min_vel_x": 0.0,
+            "min_vel_y": 0.0,
+            "max_vel_x": 0.3,
+            "max_vel_y": 0.0,
+            "max_vel_theta": 1.0,
+            "min_speed_xy": 0.0,
+            "max_speed_xy": 0.3,
+            "min_speed_theta": 0.0,
+            "acc_lim_x": 3.0,
+            "acc_lim_y": 0.0,
+            "acc_lim_theta": 3.2,
+            "decel_lim_x": -2.5,
+            "decel_lim_y": 0.0,
+            "decel_lim_theta": -3.2,
+            "vx_samples": 20,
+            "vy_samples": 0,
+            "vtheta_samples": 40,
+            "sim_time": 1.5,
+            "linear_granularity": 0.05,
+            "angular_granularity": 0.025,
+            "transform_tolerance": 0.2,
+            "xy_goal_tolerance": 0.05,
+            "trans_stopped_velocity": 0.25,
+            "short_circuit_trajectory_evaluation": true,
+            "stateful": true,
+            "critics": [
+              "RotateToGoal",
+              "Oscillation",
+              "BaseObstacle",
+              "GoalAlign",
+              "PathAlign",
+              "PathDist",
+              "GoalDist"
+            ],
+            "BaseObstacle.scale": 0.02,
+            "PathAlign.scale": 32.0,
+            "PathAlign.forward_point_distance": 0.1,
+            "GoalAlign.scale": 24.0,
+            "GoalAlign.forward_point_distance": 0.1,
+            "PathDist.scale": 32.0,
+            "GoalDist.scale": 24.0,
+            "RotateToGoal.scale": 32.0,
+            "RotateToGoal.slowing_factor": 5.0,
+            "RotateToGoal.lookahead_time": -1.0
+          },
+          "enable_stamped_cmd_vel": false,
+          "RPP": {
+            "plugin": "nav2_regulated_pure_pursuit_controller::RegulatedPurePursuitController",
+            "desired_linear_vel": 0.15,
+            "lookahead_dist": 0.15,
+            "use_velocity_scaled_lookahead_dist": false,
+            "min_lookahead_dist": 0.2,
+            "max_lookahead_dist": 0.6,
+            "lookahead_time": 1.5,
+            "rotate_to_heading_angular_vel": 0.35,
+            "transform_tolerance": 0.1,
+            "min_approach_linear_velocity": 0.03,
+            "approach_velocity_scaling_dist": 0.6,
+            "use_collision_detection": true,
+            "max_allowed_time_to_collision_up_to_carrot": 1.0,
+            "use_regulated_linear_velocity_scaling": true,
+            "use_cost_regulated_linear_velocity_scaling": true,
+            "cost_scaling_dist": 0.3,
+            "cost_scaling_gain": 1.0,
+            "inflation_cost_scaling_factor": 20.0,
+            "regulated_linear_scaling_min_radius": 0.9,
+            "regulated_linear_scaling_min_speed": 0.11,
+            "use_fixed_curvature_lookahead": false,
+            "curvature_lookahead_dist": 0.3,
+            "use_rotate_to_heading": true,
+            "allow_reversing": false,
+            "rotate_to_heading_min_angle": 0.3,
+            "max_angular_accel": 3.2,
+            "max_robot_pose_search_dist": 1.5,
+            "stateful": false
+          },
+          "StationReverse": {
+            "plugin": "farm_nav2_controller::ReverseRegulatedPurePursuitController",
+            "desired_linear_vel": 0.15,
+            "lookahead_dist": 0.15,
+            "use_velocity_scaled_lookahead_dist": false,
+            "min_lookahead_dist": 0.2,
+            "max_lookahead_dist": 0.6,
+            "lookahead_time": 1.5,
+            "rotate_to_heading_angular_vel": 0.35,
+            "transform_tolerance": 0.1,
+            "min_approach_linear_velocity": 0.03,
+            "approach_velocity_scaling_dist": 0.6,
+            "use_collision_detection": true,
+            "max_allowed_time_to_collision_up_to_carrot": 1.0,
+            "use_regulated_linear_velocity_scaling": true,
+            "use_cost_regulated_linear_velocity_scaling": true,
+            "cost_scaling_dist": 0.3,
+            "cost_scaling_gain": 1.0,
+            "inflation_cost_scaling_factor": 20.0,
+            "regulated_linear_scaling_min_radius": 0.9,
+            "regulated_linear_scaling_min_speed": 0.11,
+            "use_fixed_curvature_lookahead": false,
+            "curvature_lookahead_dist": 0.3,
+            "use_rotate_to_heading": false,
+            "allow_reversing": true,
+            "rotate_to_heading_min_angle": 0.3,
+            "max_angular_accel": 3.2,
+            "max_robot_pose_search_dist": 1.5,
+            "stateful": false,
+            "interpolate_curvature_after_goal": false
+          },
+          "use_sim_time": false
+        }
+      },
+      "local_costmap": {
+        "local_costmap": {
+          "ros__parameters": {
+            "update_frequency": 5.0,
+            "publish_frequency": 2.0,
+            "global_frame": "odom",
+            "robot_base_frame": "base_link",
+            "rolling_window": true,
+            "width": 3,
+            "height": 3,
+            "resolution": 0.05,
+            "robot_radius": 0.1,
+            "plugins": [
+              "obstacle_layer",
+              "voxel_layer",
+              "inflation_layer"
+            ],
+            "inflation_layer": {
+              "plugin": "nav2_costmap_2d::InflationLayer",
+              "inflation_radius": 0.3,
+              "cost_scaling_factor": 20.0
+            },
+            "obstacle_layer": {
+              "plugin": "nav2_costmap_2d::ObstacleLayer",
+              "enabled": true,
+              "observation_sources": "scan",
+              "scan": {
+                "topic": "scan",
+                "max_obstacle_height": 2.0,
+                "clearing": true,
+                "marking": true,
+                "data_type": "LaserScan"
+              }
+            },
+            "voxel_layer": {
+              "plugin": "nav2_costmap_2d::VoxelLayer",
+              "enabled": true,
+              "publish_voxel_map": true,
+              "origin_z": 0.0,
+              "z_resolution": 0.05,
+              "z_voxels": 16,
+              "max_obstacle_height": 2.0,
+              "mark_threshold": 0,
+              "observation_sources": "scan",
+              "scan": {
+                "topic": "scan",
+                "max_obstacle_height": 2.0,
+                "clearing": true,
+                "marking": true,
+                "data_type": "LaserScan",
+                "raytrace_max_range": 3.0,
+                "raytrace_min_range": 0.0,
+                "obstacle_max_range": 2.5,
+                "obstacle_min_range": 0.0
+              }
+            },
+            "static_layer": {
+              "map_subscribe_transient_local": true
+            },
+            "always_send_full_costmap": true
+          }
+        }
+      },
+      "global_costmap": {
+        "global_costmap": {
+          "ros__parameters": {
+            "update_frequency": 1.0,
+            "publish_frequency": 1.0,
+            "global_frame": "map",
+            "robot_base_frame": "base_link",
+            "transform_tolerance": 0.5,
+            "robot_radius": 0.1,
+            "resolution": 0.05,
+            "track_unknown_space": true,
+            "plugins": [
+              "static_layer",
+              "obstacle_layer",
+              "voxel_layer",
+              "inflation_layer"
+            ],
+            "obstacle_layer": {
+              "plugin": "nav2_costmap_2d::ObstacleLayer",
+              "enabled": true,
+              "observation_sources": "scan",
+              "scan": {
+                "topic": "scan",
+                "max_obstacle_height": 2.0,
+                "clearing": true,
+                "marking": true,
+                "data_type": "LaserScan",
+                "raytrace_max_range": 3.0,
+                "raytrace_min_range": 0.0,
+                "obstacle_max_range": 2.5,
+                "obstacle_min_range": 0.0
+              }
+            },
+            "voxel_layer": {
+              "plugin": "nav2_costmap_2d::VoxelLayer",
+              "enabled": true,
+              "publish_voxel_map": true,
+              "origin_z": 0.0,
+              "z_resolution": 0.05,
+              "z_voxels": 16,
+              "max_obstacle_height": 2.0,
+              "mark_threshold": 0,
+              "observation_sources": "scan",
+              "scan": {
+                "topic": "scan",
+                "max_obstacle_height": 2.0,
+                "clearing": true,
+                "marking": true,
+                "data_type": "LaserScan",
+                "raytrace_max_range": 3.0,
+                "raytrace_min_range": 0.0,
+                "obstacle_max_range": 2.5,
+                "obstacle_min_range": 0.0
+              }
+            },
+            "static_layer": {
+              "plugin": "nav2_costmap_2d::StaticLayer",
+              "map_subscribe_transient_local": true,
+              "transform_tolerance": 0.1
+            },
+            "inflation_layer": {
+              "plugin": "nav2_costmap_2d::InflationLayer",
+              "inflation_radius": 0.3,
+              "cost_scaling_factor": 20.0
+            },
+            "always_send_full_costmap": true
+          }
+        }
+      },
+      "map_server": {
+        "ros__parameters": {
+          "yaml_filename": "",
+          "use_sim_time": false
+        }
+      },
+      "planner_server": {
+        "ros__parameters": {
+          "expected_planner_frequency": 10.0,
+          "planner_plugins": [
+            "GridBased"
+          ],
+          "GridBased": {
+            "plugin": "nav2_navfn_planner::NavfnPlanner",
+            "tolerance": 0.5,
+            "use_astar": false,
+            "allow_unknown": true
+          },
+          "use_sim_time": false
+        }
+      },
+      "behavior_server": {
+        "ros__parameters": {
+          "local_costmap_topic": "local_costmap/costmap_raw",
+          "local_footprint_topic": "local_costmap/published_footprint",
+          "global_costmap_topic": "global_costmap/costmap_raw",
+          "global_footprint_topic": "global_costmap/published_footprint",
+          "cycle_frequency": 10.0,
+          "behavior_plugins": [
+            "spin",
+            "backup",
+            "drive_on_heading",
+            "wait",
+            "assisted_teleop"
+          ],
+          "spin": {
+            "plugin": "nav2_behaviors::Spin"
+          },
+          "backup": {
+            "plugin": "nav2_behaviors::BackUp"
+          },
+          "drive_on_heading": {
+            "plugin": "nav2_behaviors::DriveOnHeading"
+          },
+          "wait": {
+            "plugin": "nav2_behaviors::Wait"
+          },
+          "assisted_teleop": {
+            "plugin": "nav2_behaviors::AssistedTeleop"
+          },
+          "local_frame": "odom",
+          "global_frame": "map",
+          "robot_base_frame": "base_link",
+          "transform_timeout": 0.1,
+          "simulate_ahead_time": 2.0,
+          "max_rotational_vel": 1.0,
+          "min_rotational_vel": 0.4,
+          "rotational_acc_lim": 3.2,
+          "enable_stamped_cmd_vel": false,
+          "use_sim_time": false
+        }
+      },
+      "velocity_smoother": {
+        "ros__parameters": {
+          "smoothing_frequency": 20.0,
+          "scale_velocities": false,
+          "feedback": "OPEN_LOOP",
+          "max_velocity": [
+            0.15,
+            0.0,
+            1.0
+          ],
+          "min_velocity": [
+            -0.15,
+            0.0,
+            -1.0
+          ],
+          "deadband_velocity": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "velocity_timeout": 1.0,
+          "max_accel": [
+            2.5,
+            0.0,
+            3.2
+          ],
+          "max_decel": [
+            -2.5,
+            0.0,
+            -3.2
+          ],
+          "odom_topic": "odom",
+          "odom_duration": 0.1,
+          "use_realtime_priority": false,
+          "enable_stamped_cmd_vel": false,
+          "use_sim_time": false
+        }
+      }
+    },
+    "scout.tag": {
+      "configured": false,
+      "setup_required": [
+        "실제 예찰 태그 카메라의 1280x720 CameraInfo와 보정 해시",
+        "base_footprint 기준 실제 카메라 optical TF 및 버전",
+        "many_farm 지도에 등록한 태그 family/id/edge_m/t_map_tag 및 지도 해시",
+        "실측 관측 거리와 태그 투영 면적에 맞춘 observation model overrides",
+        "위 정보를 가진 assets_file/model_file 연결 후 configured=true 지정"
+      ],
+      "robot_id": "scout_01",
+      "map_id": "many_farm_v1",
+      "assets_file": null,
+      "model_file": null,
+      "map_yaml_sha256": null,
+      "map_image_sha256": null,
+      "map_frame": "map",
+      "odom_frame": "odom",
+      "base_frame": "base_footprint",
+      "correction_transport": "scan_sync"
+    },
+    "scout.tag_capture": {
+      "configured": false,
+      "setup_required": [
+        "실제 PiCam 드라이버가 아래 namespace에 image_raw와 camera_info를 발행하도록 연결",
+        "scout_real.yaml의 실제 K/TF/태그 등록과 CameraInfo 일치 확인",
+        "장치 연결 검증 후 configured=true 지정"
+      ],
+      "backend": "ros",
+      "camera_namespace": "scout_01/apriltag_camera",
+      "output_root": "runs/scout_tag"
+    },
+    "scout.patrol": {
+      "schema_version": 1,
+      "robot_id": "scout_01",
+      "map_id": "farm_map_v1",
+      "route_graph": "robot/config/maps/many_farm/graph.geojson",
+      "sections": {
+        "SEC01": {
+          "segments": [
+            {
+              "segment_id": "SEG01",
+              "observation_node_id": 4
+            },
+            {
+              "segment_id": "SEG02",
+              "observation_node_id": 6
+            },
+            {
+              "segment_id": "SEG03",
+              "observation_node_id": 8
+            }
+          ],
+          "on_complete": "WAIT_FOR_COMMAND"
+        }
+      },
+      "notes": [
+        "실행에는 SEC01의 실제 베드·카메라 설정이 필요합니다.",
+        "1번으로 자동 복귀하지 않습니다. 별도 복귀 명령을 기다립니다."
+      ]
+    },
+    "harvest.navigation": {
+      "mode": "follow_path",
+      "map_frame": "map",
+      "base_frame": "base_footprint",
+      "odom_topic": "odom",
+      "navigate_action": "navigate_to_pose",
+      "follow_action": "follow_path",
+      "controller_node": "controller_server",
+      "controller_id": "RPP",
+      "goal_checker_id": "general_goal_checker",
+      "progress_checker_id": "progress_checker",
+      "goal_timeout_s": 300.0,
+      "response_timeout_s": 15.0,
+      "cancel_timeout_s": 10.0,
+      "readiness_timeout_s": 60.0,
+      "tf_timeout_s": 3.0,
+      "tf_max_age_s": 1.0,
+      "arrival_tolerance_m": 0.05,
+      "heading_tolerance_rad": 0.10471975511965978,
+      "settle_s": 0.8,
+      "settle_timeout_s": 20.0,
+      "odom_max_age_s": 0.5,
+      "stopped_linear_mps": 0.005,
+      "stopped_angular_rps": 0.02,
+      "max_start_distance_m": 0.1,
+      "max_goal_distance_m": 0.02,
+      "path_spacing_m": 0.04,
+      "parallel_approach": false,
+      "tf_recovery_enabled": false,
+      "tf_recovery_timeout_s": 10.0,
+      "collision_retry_count": 0
+    },
+    "harvest.environment": {
+      "schema_version": 1,
+      "configured": true,
+      "mode": "real",
+      "robot_id": "harvest_01",
+      "map_id": "many_farm_v1",
+      "map_yaml": "robot/config/maps/many_farm/many_farm.yaml",
+      "route_graph": "robot/config/maps/many_farm/graph.geojson",
+      "nav_params": "robot/config/robots/vicpinky/nav2.yaml",
+      "device_config": "robot/config/robots/vicpinky/devices.json",
+      "harvest_config": "robot/config/harvest/harvest_handoff_real.json",
+      "tag_localization_config": "robot/config/localization/harvest_handoff_real.yaml",
+      "tag_capture_config": "robot/config/cameras/harvest_tag_capture.yaml",
+      "navigation_policy": "robot/config/navigation/harvest_navigation.yaml",
+      "navigation": {
+        "map_frame": "map",
+        "base_frame": "base_footprint",
+        "heading_tolerance_rad": 0.10471975511965978
+      },
+      "route_server_params": "robot/config/harvest/route_server.yaml"
+    },
+    "harvest.nav2": {
+      "amcl": {
+        "ros__parameters": {
+          "use_sim_time": false,
+          "alpha1": 0.2,
+          "alpha2": 0.2,
+          "alpha3": 0.2,
+          "alpha4": 0.2,
+          "alpha5": 0.2,
+          "base_frame_id": "base_footprint",
+          "beam_skip_distance": 0.5,
+          "beam_skip_error_threshold": 0.9,
+          "beam_skip_threshold": 0.3,
+          "do_beamskip": false,
+          "global_frame_id": "map",
+          "lambda_short": 0.1,
+          "laser_likelihood_max_dist": 2.0,
+          "laser_max_range": 100.0,
+          "laser_min_range": -1.0,
+          "laser_model_type": "likelihood_field",
+          "max_beams": 60,
+          "max_particles": 2000,
+          "min_particles": 500,
+          "odom_frame_id": "odom",
+          "pf_err": 0.05,
+          "pf_z": 0.99,
+          "recovery_alpha_fast": 0.0,
+          "recovery_alpha_slow": 0.0,
+          "resample_interval": 1,
+          "robot_model_type": "nav2_amcl::DifferentialMotionModel",
+          "save_pose_rate": 0.5,
+          "sigma_hit": 0.2,
+          "tf_broadcast": true,
+          "transform_tolerance": 1.0,
+          "update_min_a": 0.2,
+          "update_min_d": 0.05,
+          "z_hit": 0.5,
+          "z_max": 0.05,
+          "z_rand": 0.5,
+          "z_short": 0.05,
+          "scan_topic": "scan_filtered",
+          "set_initial_pose": false,
+          "initial_pose": {
+            "x": 0.608,
+            "y": 0.357,
+            "z": 0.0,
+            "yaw": -1.5707963267948966
+          },
+          "always_reset_initial_pose": true
+        }
+      },
+      "bt_navigator": {
+        "ros__parameters": {
+          "global_frame": "map",
+          "robot_base_frame": "base_footprint",
+          "odom_topic": "odom",
+          "bt_loop_duration": 10,
+          "default_server_timeout": 20,
+          "wait_for_service_timeout": 1000,
+          "action_server_result_timeout": 900.0,
+          "navigators": [
+            "navigate_to_pose",
+            "navigate_through_poses"
+          ],
+          "navigate_to_pose": {
+            "plugin": "nav2_bt_navigator::NavigateToPoseNavigator"
+          },
+          "navigate_through_poses": {
+            "plugin": "nav2_bt_navigator::NavigateThroughPosesNavigator"
+          },
+          "error_code_names": [
+            "compute_path_error_code",
+            "follow_path_error_code"
+          ],
+          "use_sim_time": false,
+          "default_nav_to_pose_bt_xml": "/tmp/farm_threshold_audit_20261030/harvest/farm_project/robot/config/navigation/harvest_navigate_to_pose.xml",
+          "default_nav_through_poses_bt_xml": "/tmp/farm_threshold_audit_20261030/harvest/farm_project/robot/config/navigation/harvest_navigate_through_poses.xml"
+        }
+      },
+      "controller_server": {
+        "ros__parameters": {
+          "use_sim_time": false,
+          "controller_frequency": 20.0,
+          "min_x_velocity_threshold": 0.001,
+          "goal_checker_plugins": [
+            "general_goal_checker"
+          ],
+          "controller_plugins": [
+            "FollowPath",
+            "RPP",
+            "StationReverse",
+            "HarvestApproach",
+            "HarvestWork"
+          ],
+          "progress_checker": {
+            "plugin": "nav2_controller::PoseProgressChecker",
+            "required_movement_radius": 0.1,
+            "required_movement_angle": 0.1,
+            "movement_time_allowance": 20.0
+          },
+          "general_goal_checker": {
+            "stateful": true,
+            "plugin": "nav2_controller::SimpleGoalChecker",
+            "xy_goal_tolerance": 0.04,
+            "yaw_goal_tolerance": 0.04363323129985824
+          },
+          "FollowPath": {
+            "plugin": "nav2_regulated_pure_pursuit_controller::RegulatedPurePursuitController",
+            "desired_linear_vel": 0.1,
+            "lookahead_dist": 0.4,
+            "use_velocity_scaled_lookahead_dist": false,
+            "use_rotate_to_heading": true,
+            "rotate_to_heading_angular_vel": 0.1,
+            "max_angular_accel": 1.0,
+            "allow_reversing": false,
+            "use_collision_detection": true,
+            "max_allowed_time_to_collision_up_to_carrot": 1.0,
+            "use_regulated_linear_velocity_scaling": true,
+            "regulated_linear_scaling_min_speed": 0.05,
+            "min_approach_linear_velocity": 0.05,
+            "approach_velocity_scaling_dist": 0.6,
+            "rotate_to_heading_min_angle": 0.10471975511965978
+          },
+          "progress_checker_plugins": [
+            "progress_checker"
+          ],
+          "RPP": {
+            "plugin": "nav2_regulated_pure_pursuit_controller::RegulatedPurePursuitController",
+            "desired_linear_vel": 0.1,
+            "lookahead_dist": 0.4,
+            "use_velocity_scaled_lookahead_dist": false,
+            "use_rotate_to_heading": true,
+            "rotate_to_heading_angular_vel": 0.1,
+            "max_angular_accel": 1.0,
+            "allow_reversing": false,
+            "use_collision_detection": true,
+            "max_allowed_time_to_collision_up_to_carrot": 1.0,
+            "use_regulated_linear_velocity_scaling": true,
+            "regulated_linear_scaling_min_speed": 0.05,
+            "min_approach_linear_velocity": 0.05,
+            "approach_velocity_scaling_dist": 0.6,
+            "rotate_to_heading_min_angle": 0.10471975511965978
+          },
+          "StationReverse": {
+            "plugin": "farm_nav2_controller::ReverseRegulatedPurePursuitController",
+            "desired_linear_vel": 0.1,
+            "lookahead_dist": 0.4,
+            "use_velocity_scaled_lookahead_dist": false,
+            "use_rotate_to_heading": false,
+            "rotate_to_heading_angular_vel": 0.1,
+            "max_angular_accel": 1.0,
+            "allow_reversing": true,
+            "use_collision_detection": true,
+            "max_allowed_time_to_collision_up_to_carrot": 1.0,
+            "use_regulated_linear_velocity_scaling": true,
+            "regulated_linear_scaling_min_speed": 0.05,
+            "min_approach_linear_velocity": 0.05,
+            "approach_velocity_scaling_dist": 0.6,
+            "rotate_to_heading_min_angle": 0.10471975511965978,
+            "use_fixed_curvature_lookahead": false,
+            "interpolate_curvature_after_goal": false,
+            "stateful": false
+          },
+          "HarvestApproach": {
+            "plugin": "nav2_regulated_pure_pursuit_controller::RegulatedPurePursuitController",
+            "desired_linear_vel": 0.1,
+            "lookahead_dist": 0.1,
+            "use_velocity_scaled_lookahead_dist": false,
+            "use_rotate_to_heading": true,
+            "rotate_to_heading_angular_vel": 0.1,
+            "max_angular_accel": 1.0,
+            "allow_reversing": false,
+            "use_collision_detection": true,
+            "max_allowed_time_to_collision_up_to_carrot": 1.0,
+            "use_regulated_linear_velocity_scaling": true,
+            "regulated_linear_scaling_min_speed": 0.05,
+            "min_approach_linear_velocity": 0.05,
+            "approach_velocity_scaling_dist": 0.6,
+            "rotate_to_heading_min_angle": 0.10471975511965978,
+            "use_fixed_curvature_lookahead": true,
+            "curvature_lookahead_dist": 0.1,
+            "interpolate_curvature_after_goal": true
+          },
+          "HarvestWork": {
+            "plugin": "nav2_regulated_pure_pursuit_controller::RegulatedPurePursuitController",
+            "desired_linear_vel": 0.1,
+            "lookahead_dist": 0.4,
+            "use_velocity_scaled_lookahead_dist": false,
+            "use_rotate_to_heading": true,
+            "rotate_to_heading_angular_vel": 0.1,
+            "max_angular_accel": 1.0,
+            "allow_reversing": false,
+            "use_collision_detection": true,
+            "max_allowed_time_to_collision_up_to_carrot": 1.0,
+            "use_regulated_linear_velocity_scaling": true,
+            "regulated_linear_scaling_min_speed": 0.05,
+            "min_approach_linear_velocity": 0.05,
+            "approach_velocity_scaling_dist": 0.6,
+            "rotate_to_heading_min_angle": 0.10471975511965978,
+            "use_fixed_curvature_lookahead": true,
+            "curvature_lookahead_dist": 0.4,
+            "interpolate_curvature_after_goal": true
+          },
+          "enable_stamped_cmd_vel": false
+        }
+      },
+      "local_costmap": {
+        "local_costmap": {
+          "ros__parameters": {
+            "update_frequency": 10.0,
+            "publish_frequency": 5.0,
+            "global_frame": "odom",
+            "robot_base_frame": "base_link",
+            "use_sim_time": false,
+            "rolling_window": true,
+            "width": 5,
+            "height": 5,
+            "resolution": 0.02,
+            "footprint": "[[0.30, -0.25], [0.30, 0.25], [-0.30, 0.25], [-0.30, -0.25]]",
+            "plugins": [
+              "voxel_layer",
+              "inflation_layer"
+            ],
+            "inflation_layer": {
+              "plugin": "nav2_costmap_2d::InflationLayer",
+              "cost_scaling_factor": 3.0,
+              "inflation_radius": 0.7
+            },
+            "voxel_layer": {
+              "plugin": "nav2_costmap_2d::VoxelLayer",
+              "enabled": true,
+              "publish_voxel_map": true,
+              "origin_z": 0.0,
+              "z_resolution": 0.05,
+              "z_voxels": 16,
+              "max_obstacle_height": 2.0,
+              "mark_threshold": 0,
+              "observation_sources": "scan",
+              "scan": {
+                "topic": "/scan_filtered",
+                "max_obstacle_height": 2.0,
+                "clearing": true,
+                "marking": true,
+                "data_type": "LaserScan",
+                "raytrace_max_range": 5.0,
+                "raytrace_min_range": 0.0,
+                "obstacle_max_range": 4.5,
+                "obstacle_min_range": 0.0
+              }
+            },
+            "static_layer": {
+              "plugin": "nav2_costmap_2d::StaticLayer",
+              "map_subscribe_transient_local": true
+            },
+            "always_send_full_costmap": true,
+            "footprint_padding": 0.02
+          }
+        }
+      },
+      "global_costmap": {
+        "global_costmap": {
+          "ros__parameters": {
+            "update_frequency": 1.0,
+            "publish_frequency": 1.0,
+            "global_frame": "map",
+            "robot_base_frame": "base_footprint",
+            "use_sim_time": false,
+            "footprint": "[[0.30, -0.25], [0.30, 0.25], [-0.30, 0.25], [-0.30, -0.25]]",
+            "resolution": 0.05,
+            "track_unknown_space": true,
+            "plugins": [
+              "static_layer",
+              "obstacle_layer",
+              "inflation_layer"
+            ],
+            "obstacle_layer": {
+              "plugin": "nav2_costmap_2d::ObstacleLayer",
+              "enabled": true,
+              "observation_sources": "scan",
+              "scan": {
+                "topic": "/scan_filtered",
+                "max_obstacle_height": 2.0,
+                "clearing": true,
+                "marking": true,
+                "data_type": "LaserScan",
+                "raytrace_max_range": 3.0,
+                "raytrace_min_range": 0.0,
+                "obstacle_max_range": 2.5,
+                "obstacle_min_range": 0.0
+              }
+            },
+            "static_layer": {
+              "plugin": "nav2_costmap_2d::StaticLayer",
+              "map_subscribe_transient_local": true
+            },
+            "inflation_layer": {
+              "plugin": "nav2_costmap_2d::InflationLayer",
+              "cost_scaling_factor": 3.0,
+              "inflation_radius": 0.6
+            },
+            "always_send_full_costmap": true,
+            "footprint_padding": 0.02
+          }
+        }
+      },
+      "map_server": {
+        "ros__parameters": {
+          "use_sim_time": false,
+          "yaml_filename": ""
+        }
+      },
+      "planner_server": {
+        "ros__parameters": {
+          "expected_planner_frequency": 20.0,
+          "planner_plugins": [
+            "GridBased"
+          ],
+          "costmap_update_timeout": 1.0,
+          "GridBased": {
+            "plugin": "nav2_navfn_planner::NavfnPlanner",
+            "tolerance": 0.5,
+            "use_astar": false,
+            "allow_unknown": true
+          },
+          "use_sim_time": false
+        }
+      },
+      "behavior_server": {
+        "ros__parameters": {
+          "local_costmap_topic": "local_costmap/costmap_raw",
+          "global_costmap_topic": "global_costmap/costmap_raw",
+          "local_footprint_topic": "local_costmap/published_footprint",
+          "global_footprint_topic": "global_costmap/published_footprint",
+          "cycle_frequency": 10.0,
+          "behavior_plugins": [
+            "spin",
+            "backup",
+            "drive_on_heading",
+            "assisted_teleop",
+            "wait"
+          ],
+          "spin": {
+            "plugin": "nav2_behaviors::Spin"
+          },
+          "backup": {
+            "plugin": "nav2_behaviors::BackUp"
+          },
+          "drive_on_heading": {
+            "plugin": "nav2_behaviors::DriveOnHeading"
+          },
+          "wait": {
+            "plugin": "nav2_behaviors::Wait"
+          },
+          "assisted_teleop": {
+            "plugin": "nav2_behaviors::AssistedTeleop"
+          },
+          "local_frame": "odom",
+          "global_frame": "map",
+          "robot_base_frame": "base_link",
+          "transform_tolerance": 0.1,
+          "simulate_ahead_time": 2.0,
+          "max_rotational_vel": 0.1,
+          "min_rotational_vel": 0.1,
+          "rotational_acc_lim": 1.0,
+          "enable_stamped_cmd_vel": false,
+          "use_sim_time": false
+        }
+      },
+      "velocity_smoother": {
+        "ros__parameters": {
+          "use_sim_time": false,
+          "smoothing_frequency": 20.0,
+          "scale_velocities": false,
+          "feedback": "CLOSED_LOOP",
+          "max_velocity": [
+            0.25,
+            0.0,
+            1.0
+          ],
+          "min_velocity": [
+            -0.25,
+            0.0,
+            -1.0
+          ],
+          "max_accel": [
+            1.8,
+            0.0,
+            2.0
+          ],
+          "max_decel": [
+            -1.8,
+            0.0,
+            -2.0
+          ],
+          "odom_topic": "odom",
+          "odom_duration": 0.1,
+          "deadband_velocity": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "velocity_timeout": 1.0,
+          "enable_stamped_cmd_vel": false
+        }
+      }
+    },
+    "harvest.tag": {
+      "configured": true,
+      "robot_id": "harvest_01",
+      "map_id": "many_farm_v1",
+      "assets_file": "robot/config/localization/reference_20261014/assets.candidate.json",
+      "model_file": "robot/config/localization/common_observation_model.json",
+      "map_yaml_sha256": "d56627220f61708f56b5ebe6e682726a0f45ce25f008dab4e1ab96f42987b157",
+      "map_image_sha256": "c16144d12bf45bafbb122f2fa34bd0243a39f25e525349e92195fc0223ae410b",
+      "map_frame": "map",
+      "odom_frame": "odom",
+      "base_frame": "base_footprint",
+      "correction_transport": "scan_sync",
+      "pixel_bias_profile": "robot/config/localization/bias_trial_20261014/profile.json"
+    },
+    "harvest.tag_model": {
+      "quality": {
+        "min_area_px2": 10000.0,
+        "max_rms_px": 4.0,
+        "min_margin": 80.0,
+        "max_hamming": 0,
+        "base_z_m": 0.0,
+        "max_z_error_m": 0.08,
+        "max_roll_rad": 0.2617993877991494,
+        "max_pitch_rad": 0.2617993877991494,
+        "max_detections": 7
+      },
+      "tag": {
+        "pose_solver": "ippe_lm",
+        "map_base_pose6_covariance_bound": [
+          [
+            0.0025000000000000005,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          [
+            0.0,
+            0.0025000000000000005,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          [
+            0.0,
+            0.0,
+            0.0064,
+            0.0,
+            0.0,
+            0.0
+          ],
+          [
+            0.0,
+            0.0,
+            0.0,
+            0.01949551486634935,
+            0.0,
+            0.0
+          ],
+          [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.01949551486634935,
+            0.0
+          ],
+          [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.007615435494667714
+          ]
+        ],
+        "distance_interval_m": [
+          0.12,
+          0.45
+        ]
+      },
+      "model_ids": {
+        "motion": "field-candidate-motion-v1",
+        "amcl": "field-candidate-amcl-v1",
+        "tag": "field-candidate-tag-ippe-lm-v1"
+      }
+    },
+    "harvest.pixel_bias": {
+      "schema_version": 1,
+      "experimental": true,
+      "model_id": "sec01-pixel-bias-trial-20261010-v1-map20261014",
+      "robot_id": "harvest_01",
+      "map_id": "many_farm_v1",
+      "map_frame": "map",
+      "sha256": {
+        "assets_file": "2fc5983d7b52adfc8b0c9a2e1d37b8ee7b6eccf6d8c1ade0ac132fe809c6c5b0",
+        "model_file": "539bf6c8a81578a5100b6a113ab18e9e7bd34da0226a8308581556d8f7fb6bb4"
+      },
+      "map_yaml_sha256": "d56627220f61708f56b5ebe6e682726a0f45ce25f008dab4e1ab96f42987b157",
+      "map_image_sha256": "c16144d12bf45bafbb122f2fa34bd0243a39f25e525349e92195fc0223ae410b",
+      "wall_normal_map": [
+        -0.0,
+        1.0
+      ],
+      "family": "tag36h11",
+      "tag_ids": [
+        100,
+        101,
+        102,
+        103,
+        104,
+        105
+      ],
+      "u_center_px": 640.0,
+      "u_scale_px": 640.0,
+      "u_interval_px": [
+        388.04473876953125,
+        889.77978515625
+      ],
+      "heading_interval_rad": [
+        -0.2617993877991496,
+        0.26179938779914935
+      ],
+      "distance_bias_m": [
+        0.02316284358688556,
+        0.04866276347063953
+      ],
+      "yaw_bias_rad": [
+        0.04603614825476121,
+        -0.07805139861644357
+      ],
+      "max_distance_bias_m": 0.05,
+      "max_yaw_bias_rad": 0.10471975511965978,
+      "provenance": {
+        "task_id": "graph_test_b6d4bda1031940ecb28eac9c7118ec82",
+        "source_archive_sha256": "527e4268456e18df43b7c02fe0148187afe63762e96956d877a6be2956376dc5",
+        "samples": 74,
+        "reference": "left planar LiDAR wall fit, not independent metrology",
+        "independent_run_validated": false,
+        "physical_accuracy_validated": false,
+        "map_transfer": {
+          "source_profile": "robot/config/localization/bias_trial_20261010/profile.json",
+          "yaw_rad": 1.5707963267948966,
+          "coefficients_refitted": false,
+          "new_map_field_validated": false
+        }
+      }
+    },
+    "harvest.tag_capture": {
+      "script": "robot/tools/tag_camera/pinky_tag_capture_compare.py",
+      "calibration": "robot/config/cameras/pcweb400_720p_report.json",
+      "device": "/dev/video0",
+      "trial_label": "manual_2ms",
+      "output_root": "runs/harvest_tag",
+      "startup_timeout_s": 60.0
+    },
+    "harvest.task": {
+      "schema_version": 1,
+      "movement_mode": "route_then_follow",
+      "approach_planner": "graph",
+      "approach_controller_id": "HarvestApproach",
+      "approach_goal_checker_id": "general_goal_checker",
+      "work_controller_id": "HarvestWork",
+      "resolve_section_from_goal_pose": true,
+      "robot_id": "harvest_01",
+      "map_id": "many_farm_v1",
+      "control_aliases": {
+        "map_ids": {
+          "farm_map_v1": "many_farm_v1"
+        },
+        "section_ids": {
+          "SEC01": "SEC_01"
+        }
+      },
+      "status_reporting": {
+        "enabled": true,
+        "map_id": "farm_map_v1",
+        "battery_topic": "battery_state"
+      },
+      "default_section_id": "SEC_01",
+      "completion_policy": "ARRIVAL_THEN_ARM",
+      "sections": {
+        "SEC_01": {
+          "entry_node": 11,
+          "entry_heading_node": 12,
+          "exit_node": 11,
+          "exit_heading_node": 10,
+          "work_corridor_nodes": [
+            10,
+            14
+          ]
+        }
+      },
+      "task_navigation_policy": "robot/config/navigation/harvest_task.yaml",
+      "approach_max_start_distance_m": 0.2,
+      "transfer": {
+        "enabled": true,
+        "device_services": {
+          "prepare_arm": "/harvest_01/arm/prepare",
+          "stop": "/harvest_01/arm/stop"
+        },
+        "capacity_count": 0,
+        "loaded_count_topic": "",
+        "stage_timeout_s": 120.0,
+        "stop_timeout_s": 10.0,
+        "load_source": "arm_feedback",
+        "request_count": 0,
+        "rotation_mode": "components",
+        "rotation": {},
+        "discharge_mode": "action",
+        "discharge_action": {
+          "endpoint": "/harvest_01/arm/discharge",
+          "response_timeout_s": 5.0,
+          "cancel_timeout_s": 10.0
+        }
+      },
+      "work_path_heading_limit_rad": 0.08726646259971647,
+      "arm_action": {
+        "endpoint": "/harvest_01/arm/harvest_task",
+        "readiness_timeout_s": 5.0,
+        "response_timeout_s": 5.0,
+        "execution_timeout_s": 180.0,
+        "cancel_timeout_s": 10.0
+      },
+      "navigation_collision_retry_count": 5
+    },
+    "harvest.arm_action_effective": {
+      "endpoint": "/harvest_01/arm/harvest_task",
+      "readiness_timeout_s": 5.0,
+      "response_timeout_s": 5.0,
+      "execution_timeout_s": 180.0,
+      "cancel_timeout_s": 10.0
+    },
+    "harvest.work_policy_effective": {
+      "navigation_collision_retry_count": 5,
+      "work_path_heading_limit_rad": 0.08726646259971647
+    },
+    "harvest.handoff": {
+      "wall_config": "robot/config/robots/vicpinky/transfer/wall_alignment_wait_v2.json",
+      "monitor_policy": "robot/config/robots/vicpinky/transfer/arc_monitor_policy.json",
+      "arc": {
+        "radius": 0.1,
+        "angle": 1.5707963267948966,
+        "spacing": 0.002,
+        "deviation": 0.01,
+        "yaw_tolerance": 0.05,
+        "endpoint_tolerance": 0.008,
+        "timeout": 60.0
+      },
+      "body_trial_enabled": false,
+      "completion": {
+        "reentry_position": 0.01,
+        "return_position": 0.05,
+        "return_endpoint_position": 0.05,
+        "return_heading": 0.10471975511965978
+      },
+      "footprint_padding": 0.01,
+      "transient_recovery_timeout_s": 5.0,
+      "sensor_wait_indefinite": true
+    },
+    "harvest.wall": {
+      "schema_version": 1,
+      "trial_only": true,
+      "controller": {
+        "target_distance": 0.4325,
+        "distance_tolerance": 0.005,
+        "angle_tolerance": 0.008726646259971648,
+        "kp_distance": 0.4,
+        "kp_angle": 0.8,
+        "max_linear": 0.02,
+        "max_angular": 0.05,
+        "align_enter": 0.06981317008,
+        "align_exit": 0.03490658504,
+        "dwell": 0.5,
+        "max_distance": 0.2,
+        "max_yaw": 0.2617993878,
+        "timeout": 40.0,
+        "observation_age": 0.45,
+        "stopped_linear": 0.005,
+        "stopped_angular": 0.02,
+        "min_linear": 0.006,
+        "min_angular": 0.03,
+        "sequential_alignment": true,
+        "target_angle": 0.04276056667386108,
+        "observation_wait": 5.0,
+        "wait_until_fresh": true
+      },
+      "observation": {
+        "sector_deg": [
+          -30.0,
+          30.0
+        ],
+        "fit_threshold_m": 0.01,
+        "min_points": 20,
+        "min_ratio": 0.8,
+        "min_span_m": 0.15,
+        "max_rms_m": 0.005,
+        "min_distance_m": 0.35,
+        "max_distance_m": 0.7,
+        "max_angle_rad": 0.2617993878,
+        "normal_jump_rad": 0.05235987756,
+        "plane_jump_m": 0.015,
+        "max_gap_s": 0.45,
+        "stable_frames": 5,
+        "reacquire_after_gap": true
+      },
+      "measured_velocity": {
+        "linear_abs_mps": 0.025,
+        "forward_mps": 0.025,
+        "angular_soft_rps": 0.1,
+        "angular_hard_rps": 0.15,
+        "angular_persistence_s": 0.1,
+        "sample_gap_s": 0.5
+      }
+    },
+    "harvest.monitor": {
+      "measured_velocity": {
+        "linear_abs_mps": 0.025,
+        "forward_mps": 0.005,
+        "angular_soft_rps": 0.18,
+        "angular_hard_rps": 0.2,
+        "angular_persistence_s": 0.1,
+        "sample_gap_s": 0.5
+      },
+      "stationary": {
+        "odom_topic": "odom",
+        "stopped_linear_mps": 0.005,
+        "stopped_angular_rps": 0.02,
+        "settle_s": 0.8,
+        "settle_timeout_s": 5.0,
+        "odom_max_age_s": 0.5
+      }
+    },
+    "harvest.generated_handoff_server": {
+      "prefix": "/harvest_01/handoff",
+      "values": {
+        "/harvest_01/handoff/controller_server": {
+          "ros__parameters": {
+            "use_sim_time": false,
+            "controller_frequency": 20.0,
+            "enable_stamped_cmd_vel": false,
+            "odom_topic": "/harvest_01/odom",
+            "controller_plugins": [
+              "TransferArc",
+              "WallAlign",
+              "Retreat",
+              "WindowCorrection"
+            ],
+            "goal_checker_plugins": [
+              "transfer_arc_goal",
+              "window_goal",
+              "wall_goal",
+              "retreat_goal"
+            ],
+            "progress_checker_plugins": [
+              "transfer_arc_progress",
+              "window_progress",
+              "wall_progress",
+              "retreat_progress"
+            ],
+            "failure_tolerance": 0.0,
+            "bond_heartbeat_period": 0.0,
+            "min_x_velocity_threshold": 0.0,
+            "min_y_velocity_threshold": 0.0,
+            "min_theta_velocity_threshold": 0.0,
+            "TransferArc.plugin": "farm_arc_controller::ArcController",
+            "TransferArc.desired_linear_vel": 0.01,
+            "TransferArc.lookahead_dist": 0.04,
+            "TransferArc.min_lookahead_dist": 0.04,
+            "TransferArc.max_lookahead_dist": 0.04,
+            "TransferArc.use_velocity_scaled_lookahead_dist": false,
+            "TransferArc.use_rotate_to_heading": false,
+            "TransferArc.allow_reversing": true,
+            "TransferArc.use_collision_detection": true,
+            "TransferArc.max_allowed_time_to_collision_up_to_carrot": 2.0,
+            "TransferArc.use_regulated_linear_velocity_scaling": true,
+            "TransferArc.regulated_linear_scaling_min_speed": 0.003,
+            "TransferArc.min_approach_linear_velocity": 0.003,
+            "TransferArc.approach_velocity_scaling_dist": 0.04,
+            "TransferArc.use_fixed_curvature_lookahead": false,
+            "TransferArc.interpolate_curvature_after_goal": false,
+            "TransferArc.stateful": false,
+            "transfer_arc_goal.plugin": "nav2_controller::SimpleGoalChecker",
+            "transfer_arc_goal.stateful": false,
+            "transfer_arc_goal.xy_goal_tolerance": 0.005,
+            "transfer_arc_goal.yaw_goal_tolerance": 0.04,
+            "transfer_arc_progress.plugin": "farm_wall_controller::WaitingProgressChecker",
+            "transfer_arc_progress.required_movement_radius": 0.01,
+            "transfer_arc_progress.required_movement_angle": 0.04,
+            "transfer_arc_progress.movement_time_allowance": 10.0,
+            "WallAlign.plugin": "farm_wall_controller::WallController",
+            "WallAlign.desired_linear_vel": 0.02,
+            "WallAlign.use_collision_detection": true,
+            "WallAlign.max_allowed_time_to_collision_up_to_carrot": 2.0,
+            "wall_goal.plugin": "farm_wall_controller::WallGoalChecker",
+            "wall_progress.plugin": "farm_wall_controller::WaitingProgressChecker",
+            "wall_progress.required_movement_radius": 0.005,
+            "wall_progress.required_movement_angle": 0.01745,
+            "wall_progress.movement_time_allowance": 10.0,
+            "wall_alignment.target_distance": 0.4325,
+            "wall_alignment.distance_tolerance": 0.005,
+            "wall_alignment.angle_tolerance": 0.008726646259971648,
+            "wall_alignment.kp_distance": 0.4,
+            "wall_alignment.kp_angle": 0.8,
+            "wall_alignment.max_linear": 0.02,
+            "wall_alignment.max_angular": 0.05,
+            "wall_alignment.align_enter": 0.06981317008,
+            "wall_alignment.align_exit": 0.03490658504,
+            "wall_alignment.dwell": 0.5,
+            "wall_alignment.max_distance": 0.2,
+            "wall_alignment.max_yaw": 0.2617993878,
+            "wall_alignment.timeout": 40.0,
+            "wall_alignment.observation_age": 0.45,
+            "wall_alignment.stopped_linear": 0.005,
+            "wall_alignment.stopped_angular": 0.02,
+            "wall_alignment.min_linear": 0.006,
+            "wall_alignment.min_angular": 0.03,
+            "wall_alignment.sequential_alignment": true,
+            "wall_alignment.target_angle": 0.04276056667386108,
+            "wall_alignment.observation_wait": 5.0,
+            "wall_alignment.wait_until_fresh": true,
+            "Retreat.plugin": "farm_nav2_controller::ReverseRegulatedPurePursuitController",
+            "Retreat.desired_linear_vel": 0.01,
+            "Retreat.lookahead_dist": 0.04,
+            "Retreat.use_velocity_scaled_lookahead_dist": false,
+            "Retreat.use_rotate_to_heading": false,
+            "Retreat.rotate_to_heading_angular_vel": 0.03,
+            "Retreat.max_angular_accel": 1.0,
+            "Retreat.allow_reversing": true,
+            "Retreat.use_collision_detection": true,
+            "Retreat.max_allowed_time_to_collision_up_to_carrot": 2.0,
+            "Retreat.use_regulated_linear_velocity_scaling": true,
+            "Retreat.regulated_linear_scaling_min_speed": 0.006,
+            "Retreat.min_approach_linear_velocity": 0.006,
+            "Retreat.approach_velocity_scaling_dist": 0.04,
+            "Retreat.rotate_to_heading_min_angle": 0.10471975511965978,
+            "Retreat.use_fixed_curvature_lookahead": false,
+            "Retreat.interpolate_curvature_after_goal": false,
+            "Retreat.stateful": false,
+            "Retreat.min_lookahead_dist": 0.04,
+            "Retreat.max_lookahead_dist": 0.04,
+            "retreat_goal.plugin": "nav2_controller::SimpleGoalChecker",
+            "retreat_goal.stateful": false,
+            "retreat_goal.xy_goal_tolerance": 0.005,
+            "retreat_goal.yaw_goal_tolerance": 0.24434609527920614,
+            "retreat_progress.plugin": "farm_wall_controller::WaitingProgressChecker",
+            "retreat_progress.required_movement_radius": 0.01,
+            "retreat_progress.required_movement_angle": 0.04,
+            "retreat_progress.movement_time_allowance": 10.0,
+            "WindowCorrection.plugin": "farm_nav2_controller::SettlingRegulatedPurePursuitController",
+            "WindowCorrection.desired_linear_vel": 0.01,
+            "WindowCorrection.lookahead_dist": 0.04,
+            "WindowCorrection.use_velocity_scaled_lookahead_dist": false,
+            "WindowCorrection.use_rotate_to_heading": false,
+            "WindowCorrection.rotate_to_heading_angular_vel": 0.03,
+            "WindowCorrection.max_angular_accel": 1.0,
+            "WindowCorrection.allow_reversing": false,
+            "WindowCorrection.use_collision_detection": true,
+            "WindowCorrection.max_allowed_time_to_collision_up_to_carrot": 2.0,
+            "WindowCorrection.use_regulated_linear_velocity_scaling": true,
+            "WindowCorrection.regulated_linear_scaling_min_speed": 0.006,
+            "WindowCorrection.min_approach_linear_velocity": 0.006,
+            "WindowCorrection.approach_velocity_scaling_dist": 0.04,
+            "WindowCorrection.rotate_to_heading_min_angle": 0.10471975511965978,
+            "WindowCorrection.use_fixed_curvature_lookahead": false,
+            "WindowCorrection.interpolate_curvature_after_goal": false,
+            "WindowCorrection.stateful": false,
+            "WindowCorrection.min_lookahead_dist": 0.04,
+            "WindowCorrection.max_lookahead_dist": 0.04,
+            "window_goal.plugin": "nav2_controller::SimpleGoalChecker",
+            "window_goal.stateful": false,
+            "window_goal.xy_goal_tolerance": 0.003,
+            "window_goal.yaw_goal_tolerance": 0.03490658503988659,
+            "window_progress.plugin": "farm_wall_controller::WaitingProgressChecker",
+            "window_progress.required_movement_radius": 0.005,
+            "window_progress.required_movement_angle": 0.04,
+            "window_progress.movement_time_allowance": 15.0
+          }
+        },
+        "/harvest_01/handoff/local_costmap/local_costmap": {
+          "ros__parameters": {
+            "update_frequency": 10.0,
+            "publish_frequency": 5.0,
+            "global_frame": "odom",
+            "robot_base_frame": "base_link",
+            "use_sim_time": false,
+            "rolling_window": true,
+            "width": 5,
+            "height": 5,
+            "resolution": 0.02,
+            "footprint": "[[0.30, -0.25], [0.30, 0.25], [-0.30, 0.25], [-0.30, -0.25]]",
+            "plugins": [
+              "voxel_layer",
+              "inflation_layer"
+            ],
+            "inflation_layer.plugin": "nav2_costmap_2d::InflationLayer",
+            "inflation_layer.cost_scaling_factor": 3.0,
+            "inflation_layer.inflation_radius": 0.7,
+            "voxel_layer.plugin": "nav2_costmap_2d::VoxelLayer",
+            "voxel_layer.enabled": true,
+            "voxel_layer.publish_voxel_map": true,
+            "voxel_layer.origin_z": 0.0,
+            "voxel_layer.z_resolution": 0.05,
+            "voxel_layer.z_voxels": 16,
+            "voxel_layer.max_obstacle_height": 2.0,
+            "voxel_layer.mark_threshold": 0,
+            "voxel_layer.observation_sources": "scan",
+            "voxel_layer.scan.topic": "/harvest_01/scan_filtered",
+            "voxel_layer.scan.max_obstacle_height": 2.0,
+            "voxel_layer.scan.clearing": true,
+            "voxel_layer.scan.marking": true,
+            "voxel_layer.scan.data_type": "LaserScan",
+            "voxel_layer.scan.raytrace_max_range": 5.0,
+            "voxel_layer.scan.raytrace_min_range": 0.0,
+            "voxel_layer.scan.obstacle_max_range": 4.5,
+            "voxel_layer.scan.obstacle_min_range": 0.0,
+            "static_layer.plugin": "nav2_costmap_2d::StaticLayer",
+            "static_layer.map_subscribe_transient_local": true,
+            "always_send_full_costmap": true,
+            "footprint_padding": 0.01
+          }
+        }
+      },
+      "spin": {
+        "use_sim_time": false,
+        "behavior_plugins": [
+          "spin"
+        ],
+        "spin.plugin": "farm_wall_controller::WaitingSpin",
+        "local_frame": "odom",
+        "global_frame": "odom",
+        "robot_base_frame": "base_footprint",
+        "cycle_frequency": 20.0,
+        "transform_tolerance": 0.5,
+        "local_costmap_topic": "/harvest_01/handoff/local_costmap/costmap_raw",
+        "global_costmap_topic": "/harvest_01/handoff/local_costmap/costmap_raw",
+        "local_footprint_topic": "/harvest_01/handoff/local_costmap/published_footprint",
+        "global_footprint_topic": "/harvest_01/handoff/local_costmap/published_footprint",
+        "min_rotational_vel": 0.03,
+        "max_rotational_vel": 0.03,
+        "rotational_acc_lim": 1.0,
+        "simulate_ahead_time": 2.0,
+        "enable_stamped_cmd_vel": false,
+        "bond_heartbeat_period": 0.0
+      },
+      "costmap": {
+        "update_frequency": 10.0,
+        "publish_frequency": 5.0,
+        "global_frame": "odom",
+        "robot_base_frame": "base_link",
+        "use_sim_time": false,
+        "rolling_window": true,
+        "width": 5,
+        "height": 5,
+        "resolution": 0.02,
+        "footprint": "[[0.30, -0.25], [0.30, 0.25], [-0.30, 0.25], [-0.30, -0.25]]",
+        "plugins": [
+          "voxel_layer",
+          "inflation_layer"
+        ],
+        "inflation_layer.plugin": "nav2_costmap_2d::InflationLayer",
+        "inflation_layer.cost_scaling_factor": 3.0,
+        "inflation_layer.inflation_radius": 0.7,
+        "voxel_layer.plugin": "nav2_costmap_2d::VoxelLayer",
+        "voxel_layer.enabled": true,
+        "voxel_layer.publish_voxel_map": true,
+        "voxel_layer.origin_z": 0.0,
+        "voxel_layer.z_resolution": 0.05,
+        "voxel_layer.z_voxels": 16,
+        "voxel_layer.max_obstacle_height": 2.0,
+        "voxel_layer.mark_threshold": 0,
+        "voxel_layer.observation_sources": "scan",
+        "voxel_layer.scan.topic": "/scan_filtered",
+        "voxel_layer.scan.max_obstacle_height": 2.0,
+        "voxel_layer.scan.clearing": true,
+        "voxel_layer.scan.marking": true,
+        "voxel_layer.scan.data_type": "LaserScan",
+        "voxel_layer.scan.raytrace_max_range": 5.0,
+        "voxel_layer.scan.raytrace_min_range": 0.0,
+        "voxel_layer.scan.obstacle_max_range": 4.5,
+        "voxel_layer.scan.obstacle_min_range": 0.0,
+        "static_layer.plugin": "nav2_costmap_2d::StaticLayer",
+        "static_layer.map_subscribe_transient_local": true,
+        "always_send_full_costmap": true,
+        "footprint_padding": 0.01
+      },
+      "profile": {
+        "navigation": {
+          "departure": {
+            "mode": "follow_path",
+            "map_frame": "odom",
+            "base_frame": "base_footprint",
+            "odom_topic": "/harvest_01/odom",
+            "navigate_action": "navigate_to_pose",
+            "follow_action": "/harvest_01/handoff/follow_path",
+            "controller_node": "/harvest_01/handoff/controller_server",
+            "controller_id": "TransferArc",
+            "goal_checker_id": "transfer_arc_goal",
+            "progress_checker_id": "transfer_arc_progress",
+            "goal_timeout_s": 300.0,
+            "response_timeout_s": 15.0,
+            "cancel_timeout_s": 10.0,
+            "readiness_timeout_s": 60.0,
+            "tf_timeout_s": 3.0,
+            "tf_max_age_s": 1.0,
+            "arrival_tolerance_m": 0.008,
+            "heading_tolerance_rad": 0.05235987755982989,
+            "settle_s": 0.8,
+            "settle_timeout_s": 20.0,
+            "odom_max_age_s": 0.5,
+            "stopped_linear_mps": 0.005,
+            "stopped_angular_rps": 0.02,
+            "max_start_distance_m": 0.1,
+            "max_goal_distance_m": 0.02,
+            "path_spacing_m": 0.04,
+            "parallel_approach": false,
+            "tf_recovery_enabled": false,
+            "tf_recovery_timeout_s": 10.0,
+            "collision_retry_count": 0
+          },
+          "wall": {
+            "mode": "follow_path",
+            "map_frame": "odom",
+            "base_frame": "base_footprint",
+            "odom_topic": "/harvest_01/odom",
+            "navigate_action": "navigate_to_pose",
+            "follow_action": "/harvest_01/handoff/follow_path",
+            "controller_node": "/harvest_01/handoff/controller_server",
+            "controller_id": "WallAlign",
+            "goal_checker_id": "wall_goal",
+            "progress_checker_id": "wall_progress",
+            "goal_timeout_s": 300.0,
+            "response_timeout_s": 15.0,
+            "cancel_timeout_s": 10.0,
+            "readiness_timeout_s": 60.0,
+            "tf_timeout_s": 3.0,
+            "tf_max_age_s": 1.0,
+            "arrival_tolerance_m": 0.005,
+            "heading_tolerance_rad": 0.008726646259971648,
+            "settle_s": 0.8,
+            "settle_timeout_s": 20.0,
+            "odom_max_age_s": 0.5,
+            "stopped_linear_mps": 0.005,
+            "stopped_angular_rps": 0.02,
+            "max_start_distance_m": 0.1,
+            "max_goal_distance_m": 0.02,
+            "path_spacing_m": 0.04,
+            "parallel_approach": false,
+            "tf_recovery_enabled": false,
+            "tf_recovery_timeout_s": 10.0,
+            "collision_retry_count": 0
+          },
+          "retreat": {
+            "mode": "follow_path",
+            "map_frame": "odom",
+            "base_frame": "base_footprint",
+            "odom_topic": "/harvest_01/odom",
+            "navigate_action": "navigate_to_pose",
+            "follow_action": "/harvest_01/handoff/follow_path",
+            "controller_node": "/harvest_01/handoff/controller_server",
+            "controller_id": "Retreat",
+            "goal_checker_id": "retreat_goal",
+            "progress_checker_id": "retreat_progress",
+            "goal_timeout_s": 300.0,
+            "response_timeout_s": 15.0,
+            "cancel_timeout_s": 10.0,
+            "readiness_timeout_s": 60.0,
+            "tf_timeout_s": 3.0,
+            "tf_max_age_s": 1.0,
+            "arrival_tolerance_m": 0.008,
+            "heading_tolerance_rad": 0.2617993877991494,
+            "settle_s": 0.8,
+            "settle_timeout_s": 20.0,
+            "odom_max_age_s": 0.5,
+            "stopped_linear_mps": 0.005,
+            "stopped_angular_rps": 0.02,
+            "max_start_distance_m": 0.1,
+            "max_goal_distance_m": 0.02,
+            "path_spacing_m": 0.04,
+            "parallel_approach": false,
+            "tf_recovery_enabled": false,
+            "tf_recovery_timeout_s": 10.0,
+            "collision_retry_count": 0
+          },
+          "return": {
+            "mode": "follow_path",
+            "map_frame": "odom",
+            "base_frame": "base_footprint",
+            "odom_topic": "/harvest_01/odom",
+            "navigate_action": "navigate_to_pose",
+            "follow_action": "/harvest_01/handoff/follow_path",
+            "controller_node": "/harvest_01/handoff/controller_server",
+            "controller_id": "TransferArc",
+            "goal_checker_id": "transfer_arc_goal",
+            "progress_checker_id": "transfer_arc_progress",
+            "goal_timeout_s": 300.0,
+            "response_timeout_s": 15.0,
+            "cancel_timeout_s": 10.0,
+            "readiness_timeout_s": 60.0,
+            "tf_timeout_s": 3.0,
+            "tf_max_age_s": 1.0,
+            "arrival_tolerance_m": 0.008,
+            "heading_tolerance_rad": 0.05235987755982989,
+            "settle_s": 0.8,
+            "settle_timeout_s": 20.0,
+            "odom_max_age_s": 0.5,
+            "stopped_linear_mps": 0.005,
+            "stopped_angular_rps": 0.02,
+            "max_start_distance_m": 0.1,
+            "max_goal_distance_m": 0.02,
+            "path_spacing_m": 0.04,
+            "parallel_approach": false,
+            "tf_recovery_enabled": false,
+            "tf_recovery_timeout_s": 10.0,
+            "collision_retry_count": 0
+          },
+          "window": {
+            "mode": "follow_path",
+            "map_frame": "odom",
+            "base_frame": "base_footprint",
+            "odom_topic": "/harvest_01/odom",
+            "navigate_action": "navigate_to_pose",
+            "follow_action": "/harvest_01/handoff/follow_path",
+            "controller_node": "/harvest_01/handoff/controller_server",
+            "controller_id": "WindowCorrection",
+            "goal_checker_id": "window_goal",
+            "progress_checker_id": "window_progress",
+            "goal_timeout_s": 300.0,
+            "response_timeout_s": 15.0,
+            "cancel_timeout_s": 10.0,
+            "readiness_timeout_s": 60.0,
+            "tf_timeout_s": 3.0,
+            "tf_max_age_s": 1.0,
+            "arrival_tolerance_m": 0.008,
+            "heading_tolerance_rad": 0.05235987755982989,
+            "settle_s": 0.8,
+            "settle_timeout_s": 20.0,
+            "odom_max_age_s": 0.5,
+            "stopped_linear_mps": 0.005,
+            "stopped_angular_rps": 0.02,
+            "max_start_distance_m": 0.1,
+            "max_goal_distance_m": 0.02,
+            "path_spacing_m": 0.04,
+            "parallel_approach": false,
+            "tf_recovery_enabled": false,
+            "tf_recovery_timeout_s": 10.0,
+            "collision_retry_count": 0
+          }
+        },
+        "spin_endpoint": "/harvest_01/handoff/spin"
+      },
+      "scan": "/harvest_01/scan_filtered",
+      "odom": "/harvest_01/odom"
+    },
+    "harvest.jetson_environment": {
+      "schema_version": 1,
+      "configured": true,
+      "mode": "real",
+      "robot_id": "harvest_01",
+      "map_id": "many_farm_v1",
+      "map_yaml": "robot/config/maps/many_farm/many_farm.yaml",
+      "route_graph": "robot/config/maps/many_farm/graph.geojson",
+      "nav_params": "robot/config/robots/vicpinky/nav2.yaml",
+      "device_config": "robot/config/robots/vicpinky/devices.json",
+      "harvest_config": "robot/config/harvest/harvest_handoff_jetson_real.json",
+      "tag_localization_config": "robot/config/localization/harvest_handoff_real.yaml",
+      "tag_capture_config": "robot/config/cameras/harvest_tag_capture.yaml",
+      "navigation_policy": "robot/config/navigation/harvest_navigation.yaml",
+      "navigation": {
+        "map_frame": "map",
+        "base_frame": "base_footprint",
+        "heading_tolerance_rad": 0.10471975511965978
+      },
+      "route_server_params": "robot/config/harvest/route_server.yaml"
+    },
+    "harvest.jetson_task": {
+      "schema_version": 1,
+      "movement_mode": "route_then_follow",
+      "approach_planner": "graph",
+      "approach_controller_id": "HarvestApproach",
+      "approach_goal_checker_id": "general_goal_checker",
+      "work_controller_id": "HarvestWork",
+      "resolve_section_from_goal_pose": true,
+      "robot_id": "harvest_01",
+      "map_id": "many_farm_v1",
+      "control_aliases": {
+        "map_ids": {
+          "farm_map_v1": "many_farm_v1"
+        },
+        "section_ids": {
+          "SEC01": "SEC_01"
+        }
+      },
+      "status_reporting": {
+        "enabled": true,
+        "map_id": "farm_map_v1",
+        "battery_topic": "battery_state"
+      },
+      "default_section_id": "SEC_01",
+      "completion_policy": "ARRIVAL_THEN_ARM",
+      "sections": {
+        "SEC_01": {
+          "entry_node": 11,
+          "entry_heading_node": 12,
+          "exit_node": 11,
+          "exit_heading_node": 10,
+          "work_corridor_nodes": [
+            10,
+            14
+          ]
+        }
+      },
+      "task_navigation_policy": "robot/config/navigation/harvest_task.yaml",
+      "approach_max_start_distance_m": 0.2,
+      "transfer": {
+        "enabled": true,
+        "device_services": {
+          "prepare_arm": "/harvest_01/arm/prepare",
+          "stop": "/harvest_01/arm/stop"
+        },
+        "capacity_count": 0,
+        "loaded_count_topic": "",
+        "stage_timeout_s": 120.0,
+        "stop_timeout_s": 20.0,
+        "load_source": "arm_feedback",
+        "request_count": 0,
+        "rotation_mode": "components",
+        "rotation": {},
+        "discharge_mode": "action",
+        "discharge_action": {
+          "endpoint": "/harvest_01/arm/discharge",
+          "response_timeout_s": 5.0,
+          "cancel_timeout_s": 10.0
+        }
+      },
+      "work_path_heading_limit_rad": 0.08726646259971647,
+      "arm_action": {
+        "endpoint": "/harvest_01/arm/harvest_task",
+        "readiness_timeout_s": 10.0,
+        "response_timeout_s": 5.0,
+        "execution_timeout_s": 1260.0,
+        "cancel_timeout_s": 20.0
+      },
+      "navigation_collision_retry_count": 5,
+      "jetson_connection": {
+        "enabled": true,
+        "control_state_topic": "/harvest_01/control_state",
+        "runtime_status_topic": "/harvest_01/arm/runtime_status",
+        "odom_frame": "odom",
+        "control_state_rate_hz": 10.0,
+        "runtime_status_timeout_s": 2.5,
+        "future_tolerance_s": 0.05,
+        "runtime_mode": "depth_v11"
+      }
+    }
+  },
+  "sources": {
+    "robot/config/environments/scout_real.yaml": "ba3e4c05cca871f390b37b01113006fb5644760e19d1bdbd9d64fa4bd82d1ec9",
+    "robot/config/navigation/scout_navigation.yaml": "702b0a863af6f83ee0362264ada2b8df9909a1234221548aa3091bfbb19e850e",
+    "robot/config/survey/scout_real.json": "7b762b866a9ec9c4dfe44123dcc675765ffb703f3a3155e4a0d6b7e6bc7d3820",
+    "robot/config/vision/scout_real.json": "9aa82529865d2dda169110fb31e48a9ea3bb0fc176c300afbc37cf05ab47d05c",
+    "robot/config/robots/burger/nav2.yaml": "31abd545ccf86b70d146aeb5e9251e816bce669d56217511a7a48d41bce330f4",
+    "robot/config/navigation/scout_nav2.yaml": "a71785c8363a7f3a711ef718fef97ed5ab202dd2bc58c9960b37b97bbe7bc70d",
+    "robot/config/localization/scout_real.yaml": "feb279ee115fb9922455dea62327a1654b0a87b892c6fba3313b7064a92c104d",
+    "robot/config/cameras/scout_tag_capture.yaml": "f2bad4d197a8f1bc9049f115bed9285b8703bfda85270d2dcd652b3f27d320cb",
+    "robot/config/patrol/scout_real_sections.json": "45bc6a2c7d133b2bc26accff59a6a4a8d92a3070fabf200748236f805a296cfe",
+    "robot/config/environments/harvest_handoff_real.yaml": "1b357280ad9ab8d4b8b1f96eb203ae005274efe17cd837b6c8814fcbd5665f7a",
+    "robot/config/navigation/harvest_navigation.yaml": "7754c8c0a0d2558f67580d73d6a21eff86308bd0e28c41e8610ae913f9a60d7e",
+    "robot/config/robots/vicpinky/nav2.yaml": "fce60a99a2a62926dffa60acd6b41c234051f25ab3cdcc954dd0a119d5ed2536",
+    "robot/config/navigation/harvest_nav2.yaml": "5a07c2ea26051d494511ac988c0a4235f26a9b63c10f24baf827bfbde2130787",
+    "robot/config/localization/harvest_handoff_real.yaml": "f59018fdcc74758e92af0f7dcd4c3e451e36bf020558fcc49a45f939238b6d4f",
+    "robot/config/localization/common_observation_model.json": "539bf6c8a81578a5100b6a113ab18e9e7bd34da0226a8308581556d8f7fb6bb4",
+    "robot/config/localization/bias_trial_20261014/profile.json": "eb1642e853e0975eb2595f3a6fb98df314754ffed2eadeccb0d077d460edd905",
+    "robot/config/cameras/harvest_tag_capture.yaml": "35b3ad43a653e5130ae67b6f8bc16935acfa2ed672d3a9c9f2516c512b3f4ef3",
+    "robot/config/harvest/harvest_handoff_real.json": "9b393c5b763269e2a69ee899cc606c9cc7bda84555eb5cf00047891afddd4c61",
+    "robot/config/robots/vicpinky/transfer/handoff_fsm.json": "6e3937ee1b9d521814f2da0979b8d01b372e7d1c465ae513127ed8778d905524",
+    "robot/config/robots/vicpinky/transfer/wall_alignment_wait_v2.json": "afde31e019233ec827976c057aa395dbcd03aa14a7d12d4dcd700564d5171f53",
+    "robot/config/robots/vicpinky/transfer/arc_monitor_policy.json": "ff4e992d5e49948fbfcbd61521e1d60b4a454c3f450dccdd684adcc29fa67bd5",
+    "robot/config/environments/harvest_handoff_jetson_real.yaml": "23484e63d921ebf25ffd86d5d85c147029c4ac57e899538ac79bb2fea6e33ba8"
+  }
+}
