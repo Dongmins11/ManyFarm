@@ -23,6 +23,7 @@ class NavigationSettings:
     response_timeout_s: float = 15.0
     cancel_timeout_s: float = 10.0
     readiness_timeout_s: float = 60.0
+    tf_dedicated_executor: bool = False  # 실물 예찰만 전용 TF 수신 실행기 선택
     tf_timeout_s: float = 3.0
     tf_max_age_s: float = 1.0
     arrival_tolerance_m: float = .08
@@ -36,9 +37,11 @@ class NavigationSettings:
     max_goal_distance_m: float = .02
     path_spacing_m: float = .04
     parallel_approach: bool = False
-    collision_retry_count: int = 0
+    require_active_nav2: bool = False  # 실물 예찰에서만 사용
     tf_recovery_enabled: bool = False
     tf_recovery_timeout_s: float = 10.0
+    tf_recovery_wait_forever: bool = False  # 실물 예찰만 명시적으로 선택; 취소 가능
+    collision_retry_count: int = 0  # 명시적 선택만 허용; 일반/타 로봇 기본값 불변
 
     @classmethod
     def from_mapping(cls, values: dict[str, Any]) -> NavigationSettings:

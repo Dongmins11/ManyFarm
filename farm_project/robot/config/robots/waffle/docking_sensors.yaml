@@ -1,0 +1,43 @@
+schema_version: 1
+base_frame: base_footprint
+extrinsics_verified: false
+scan_is_filtered: true
+topics:
+  image: camera/image_raw
+  camera_info: camera/camera_info
+  scan: scan_filtered
+  odom: odom
+freshness:
+  odom_max_age_s: 0.5
+  scan_max_age_s: 0.5
+  image_header_max_age_s: 0.3
+  image_receive_timeout_s: 0.5
+  sensor_ready_timeout_s: 3.0
+camera:
+  backend: picamera2
+  calibration_file: ~/.ros/camera_info/imx219__base_soc_i2c0mux_i2c_1_imx219_10_1280x720.yaml
+  index: 0
+  width: 1280
+  height: 720
+  fps: 10.0
+  frame_id: camera
+  geometry_verified: true
+  sensor_width: 1920
+  sensor_height: 1080
+  sensor_bit_depth: 10
+  crop:
+  - 680
+  - 692
+  - 1920
+  - 1080
+marker_pose_mode: tf_observe
+camera_runtime:
+  python_executable: ~/venvs/waffle-camera/bin/python
+  python_paths:
+  - ~/libcamera/build/src/py
+  - ~/venvs/waffle-camera/kmsxx-build/py
+  - ~/venvs/waffle-camera/lib/python3.12/site-packages
+pose_control:
+  file: robot/config/docking/waffle_marker_targets.yaml
+  target: marker_32_confirmed_pose
+  output_enabled: true

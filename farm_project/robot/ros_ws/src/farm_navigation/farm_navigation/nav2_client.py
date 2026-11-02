@@ -11,6 +11,7 @@ from rclpy.action import ActionClient
 from rclpy.action.client import ClientGoalHandle
 from rclpy.parameter import parameter_value_to_python
 from rcl_interfaces.srv import GetParameters
+from lifecycle_msgs.srv import GetState
 from nav2_msgs.action import NavigateToPose, FollowPath
 from action_msgs.msg import GoalStatus
 from nav_msgs.msg import Path
@@ -31,6 +32,10 @@ class Nav2Client:
         self._navigate=ActionClient(node,NavigateToPose,settings.navigate_action,callback_group=group)
         self._follow=ActionClient(node,FollowPath,settings.follow_action,callback_group=group)
         self._parameters=node.create_client(GetParameters,settings.controller_node.rstrip('/')+'/get_parameters',callback_group=group)
+        self._lifecycle_clients = ([node.create_client(GetState, name + '/get_state', callback_group=group)
+            for name in ('map_server', 'amcl', 'controller_server', 'planner_server',
+                         'behavior_server', 'bt_navigator', 'velocity_smoother')]
+            if settings.require_active_nav2 else [])
         self._pending: Future | None = None
         self._handle: ClientGoalHandle | None = None
         self._result: Future | None = None
@@ -86,7 +91,38 @@ class Nav2Client:
         finally:
             if not future.done(): self._parameters.remove_pending_request(future)
 
+    def _wait_active_nav2(self, check: Callable[[], None]) -> None:
+        """An action server may exist even while its downstream smoother is inactive."""
+        clients = getattr(self, '_lifecycle_clients', [])
+        next_log = 0.0
+        while clients:
+            check()
+            pending = []
+            try:
+                for client in clients:
+                    if client.service_is_ready():
+                        pending.append((client, client.call_async(GetState.Request())))
+                deadline = time.monotonic() + 2.0
+                while any(not f.done() for _, f in pending) and time.monotonic() < deadline:
+                    check()
+                    time.sleep(.05)
+                check()
+                if len(pending) == len(clients) and all(
+                    f.done() and f.exception() is None and f.result() is not None
+                    and f.result().current_state.id == 3 for _, f in pending
+                ):
+                    return
+            finally:
+                for client, future in pending:
+                    if not future.done():
+                        client.remove_pending_request(future)
+            if time.monotonic() >= next_log:
+                self._node.get_logger().warning('NAV2_READY_WAIT: 필수 주행 노드 활성화 대기; Goal 미전송')
+                next_log = time.monotonic() + 5.0
+            time.sleep(.2)
+
     def preflight(self, check: Callable[[],None], *, wall_parameters: dict[str,Any] | None = None) -> dict[str,Any]:
+        self._wait_active_nav2(check)
         s=self._settings
         client=self._follow if s.mode=='follow_path' else self._navigate
         deadline=operation_time(self._node)+s.readiness_timeout_s
@@ -233,7 +269,10 @@ class Nav2Client:
                 self._recovery_probe, self._stop_for_recovery, bounded_check,
                 lambda: self._last_control_feedback,
                 self._settings.tf_recovery_timeout_s,
-                lambda text: self._node.get_logger().warning(text), clock=lambda: operation_time(self._node))
+                lambda text: self._node.get_logger().warning(text),
+                clock=lambda: operation_time(self._node),
+                wait_forever=self._settings.tf_recovery_wait_forever,
+                waiting=retry_waiting if self._settings.tf_recovery_wait_forever else lambda active: None)
         if self._settings.collision_retry_count:
             return run_with_collision_recovery(execute_with_tf_recovery,
                 self._recovery_probe, self._stop_for_recovery, bounded_check,
@@ -243,6 +282,7 @@ class Nav2Client:
 
     def _execute_once(self, xy: tuple[float,float], yaw: float, path: Path | None, check: Callable[[],None]) -> int:
         check()
+        self._wait_active_nav2(check)
         if self.has_goal: raise RuntimeError('이전 주행 종료 확인 전에는 새 Goal을 보낼 수 없습니다.')
         if self._settings.mode=='follow_path':
             if path is None or len(path.poses)<2: raise ValueError('FollowPath에 유효한 경로 필요')
@@ -321,3 +361,5 @@ class Nav2Client:
             self._node.destroy_publisher(publisher)
         self._navigate.destroy();self._follow.destroy()
         self._node.destroy_client(self._parameters)
+        for client in self._lifecycle_clients:
+            self._node.destroy_client(client)

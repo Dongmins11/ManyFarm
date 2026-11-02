@@ -1,0 +1,155 @@
+schema_version: 1
+map_id: farm_map_v1
+stations:
+  scout_01:
+    station_id: STATION_SCOUT_01
+    node_id: 19
+    xy_m: [0.796, -1.12]
+    # 목표 방향은 아래 접근 노드와 스테이션 좌표에서 계산한다.
+    yaw_rad: 1.5707963267948966
+    return_motion:
+      strategy: forward_wall_then_turn
+      approach_retry_count: 2
+      navigation:
+        arrival_tolerance_m: 0.03
+        heading_tolerance_rad: 0.08726646259971647
+        goal_checker_id: station_goal_checker
+      approach_node_id: 19
+      entry_reference_node_id: 1
+      final_rotation_rad: 3.141592653589793
+      forward_controller_id: RPP
+      spin_action: spin
+      rotation_timeout_s: 30.0
+      tag_alignment:
+        enabled: false
+        # 향후 카메라/태그/목표 상대각과 정렬 어댑터를 연결 후 활성화.
+
+      # 현재 정차 스캔(71프레임) 기준. 거리 원점은 base_footprint, 단위 m/rad.
+      # enabled=false로 기존 Nav2 StationReverse 흐름 복원.
+      wall_reverse:
+        enabled: true
+        smooth_control_enabled: true
+        wall_fresh_s: 0.25
+        wall_continuation_s: 1.0  # 최신 센서가 유지될 때만 오돔 연결 후 감속
+        supervisor_timeout_s: 2.0
+        linear_accel_mps2: 0.03
+        linear_decel_mps2: 0.08
+        angular_accel_rps2: 0.3
+        scan_topic: scan
+        command_topic: cmd_vel_nav
+        odom_frame: odom
+        speed_mps: 0.05
+        min_speed_mps: 0.025
+        heading_gain: 1.0
+        lateral_gain: 1.5
+        distance_gain: 0.5
+        max_angular_rps: 0.12
+        max_steer_angle_rad: 0.0872664626
+        blend_step: 0.1
+        alignment_timeout_s: 45.0
+        max_age_s: 0.5
+        max_pair_gap_s: 0.2
+        command_timeout_s: 0.25
+        stable_frames: 3
+        tracking_gap_s: 2.0  # 센서 age와 별개인 벽 처리 프레임 간격 허용
+        settle_s: 0.8
+        settle_gap_s: 2.0  # 짧은 수신 공백 보존 한도; 명시적 대기 시간은 누적 제외
+        settle_min_samples: 3  # 최신 스캔으로 거리·각도·정지를 최소 3회 확인
+        travel_margin_m: 0.15
+        odom_jump_m: 0.1
+        stop_radius_m: 0.15
+        min_scan_points: 30
+        max_range_m: 1.5
+        fit_threshold_m: 0.015
+        min_points: 12
+        min_span_m: 0.15
+        max_rms_m: 0.01
+        max_wall_angle_rad: 0.3490658504
+        side_capture_m: 0.12
+        plane_jump_m: 0.06
+        plane_angle_jump_rad: 0.1745329252
+        distance_tolerance_m: 0.015
+        lateral_tolerance_m: 0.03
+        angle_tolerance_rad: 0.0523598776
+        walls:
+          left:
+            target_m: 0.2493
+            target_angle_rad: -0.0220307
+            half_sector_deg: 45.0
+            min_ratio: 0.65
+          right:
+            target_m: 0.2472
+            target_angle_rad: -0.0051428
+            half_sector_deg: 45.0
+            min_ratio: 0.65
+          rear:
+            target_m: 0.5748
+            target_angle_rad: -0.0038056
+            half_sector_deg: 25.0
+            min_ratio: 0.65
+
+      # 전진 티칭: 77프레임, base_footprint 기준. 회전 전 자세.
+      # max_travel_m은 미측정 접근구간의 초기 한도이며 실주행 검증 필요.
+      wall_forward:
+        enabled: true
+        smooth_control_enabled: true
+        wall_fresh_s: 0.25
+        wall_continuation_s: 1.0
+        supervisor_timeout_s: 2.0
+        linear_accel_mps2: 0.03
+        linear_decel_mps2: 0.08
+        angular_accel_rps2: 0.3
+        scan_topic: scan
+        command_topic: cmd_vel_nav
+        odom_frame: odom
+        speed_mps: 0.05
+        min_speed_mps: 0.025
+        heading_gain: 1.0
+        lateral_gain: 1.5
+        distance_gain: 0.5
+        max_angular_rps: 0.12
+        max_steer_angle_rad: 0.0872664626
+        blend_step: 0.1
+        alignment_timeout_s: 45.0
+        max_age_s: 0.5
+        max_pair_gap_s: 0.2
+        command_timeout_s: 0.25
+        stable_frames: 3
+        tracking_gap_s: 2.0
+        settle_s: 0.8
+        settle_gap_s: 2.0
+        settle_min_samples: 3
+        travel_margin_m: 0.0
+        odom_jump_m: 0.1
+        stop_radius_m: 0.15
+        min_scan_points: 30
+        max_range_m: 1.5
+        fit_threshold_m: 0.015
+        min_points: 12
+        min_span_m: 0.15
+        max_rms_m: 0.01
+        max_wall_angle_rad: 0.3490658504
+        side_capture_m: 0.12
+        plane_jump_m: 0.06
+        plane_angle_jump_rad: 0.1745329252
+        distance_tolerance_m: 0.015
+        lateral_tolerance_m: 0.03
+        angle_tolerance_rad: 0.0523598776
+        walls:
+          left:
+            target_m: 0.24408128959821654
+            target_angle_rad: 0.01935571101104716
+            half_sector_deg: 35.0
+            min_ratio: 0.6
+          right:
+            target_m: 0.25529477712741594
+            target_angle_rad: 0.014244973892896029
+            half_sector_deg: 35.0
+            min_ratio: 0.6
+          front:
+            target_m: 0.35668578920403915
+            target_angle_rad: 0.01362471212935662
+            half_sector_deg: 35.0
+            min_ratio: 0.6
+        direction: forward
+        max_travel_m: 0.6

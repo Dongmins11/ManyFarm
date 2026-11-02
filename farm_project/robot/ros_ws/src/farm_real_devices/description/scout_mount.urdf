@@ -1,0 +1,312 @@
+<?xml version='1.0' encoding='utf-8'?>
+<robot name="scout_burger_mount">
+  <material name="black">
+    <color rgba="0.0 0.0 0.0 1.0" />
+  </material>
+  <material name="dark">
+    <color rgba="0.3 0.3 0.3 1.0" />
+  </material>
+  <material name="light_black">
+    <color rgba="0.4 0.4 0.4 1.0" />
+  </material>
+  <material name="blue">
+    <color rgba="0.0 0.0 0.8 1.0" />
+  </material>
+  <material name="green">
+    <color rgba="0.0 0.8 0.0 1.0" />
+  </material>
+  <material name="grey">
+    <color rgba="0.5 0.5 0.5 1.0" />
+  </material>
+  <material name="orange">
+    <color rgba="1.0 0.4235 0.0392 1.0" />
+  </material>
+  <material name="brown">
+    <color rgba="0.8706 0.8118 0.7647 1.0" />
+  </material>
+  <material name="red">
+    <color rgba="0.8 0.0 0.0 1.0" />
+  </material>
+  <material name="white">
+    <color rgba="1.0 1.0 1.0 1.0" />
+  </material>
+  <link name="base_footprint" />
+  <link name="scout_plate_center_ground" />
+  <joint name="scout_plate_center_ground_joint" type="fixed">
+    <parent link="base_footprint" />
+    <child link="scout_plate_center_ground" />
+    <origin xyz="-0.032 0 0" rpy="0 0 0" />
+  </joint>
+  <link name="scout_plate_post_0">
+    <visual>
+      <origin xyz="0 0 0" />
+      <geometry>
+        <mesh filename="package://farm_real_devices/description/meshes/hex_spacer_39p5mm.stl" scale="0.001 0.001 0.001" />
+      </geometry>
+      <material name="scout_plate_post_0_material">
+        <color rgba="0.5 0.5 0.5 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin xyz="0 0 0" />
+      <geometry>
+        <mesh filename="package://farm_real_devices/description/meshes/hex_spacer_39p5mm.stl" scale="0.001 0.001 0.001" />
+      </geometry>
+    </collision>
+  </link>
+  <joint name="scout_plate_post_0_joint" type="fixed">
+    <parent link="scout_plate_center_ground" />
+    <child link="scout_plate_post_0" />
+    <origin xyz="-0.064 -0.024 0.17125" rpy="0 0 0" />
+  </joint>
+  <link name="scout_plate_post_1">
+    <visual>
+      <origin xyz="0 0 0" />
+      <geometry>
+        <mesh filename="package://farm_real_devices/description/meshes/hex_spacer_39p5mm.stl" scale="0.001 0.001 0.001" />
+      </geometry>
+      <material name="scout_plate_post_1_material">
+        <color rgba="0.5 0.5 0.5 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin xyz="0 0 0" />
+      <geometry>
+        <mesh filename="package://farm_real_devices/description/meshes/hex_spacer_39p5mm.stl" scale="0.001 0.001 0.001" />
+      </geometry>
+    </collision>
+  </link>
+  <joint name="scout_plate_post_1_joint" type="fixed">
+    <parent link="scout_plate_center_ground" />
+    <child link="scout_plate_post_1" />
+    <origin xyz="-0.064 0.024 0.17125" rpy="0 0 0" />
+  </joint>
+  <link name="scout_plate_post_2">
+    <visual>
+      <origin xyz="0 0 0" />
+      <geometry>
+        <mesh filename="package://farm_real_devices/description/meshes/hex_spacer_39p5mm.stl" scale="0.001 0.001 0.001" />
+      </geometry>
+      <material name="scout_plate_post_2_material">
+        <color rgba="0.5 0.5 0.5 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin xyz="0 0 0" />
+      <geometry>
+        <mesh filename="package://farm_real_devices/description/meshes/hex_spacer_39p5mm.stl" scale="0.001 0.001 0.001" />
+      </geometry>
+    </collision>
+  </link>
+  <joint name="scout_plate_post_2_joint" type="fixed">
+    <parent link="scout_plate_center_ground" />
+    <child link="scout_plate_post_2" />
+    <origin xyz="0.024 -0.064 0.17125" rpy="0 0 1.5707963267948966" />
+  </joint>
+  <link name="scout_plate_post_3">
+    <visual>
+      <origin xyz="0 0 0" />
+      <geometry>
+        <mesh filename="package://farm_real_devices/description/meshes/hex_spacer_39p5mm.stl" scale="0.001 0.001 0.001" />
+      </geometry>
+      <material name="scout_plate_post_3_material">
+        <color rgba="0.5 0.5 0.5 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin xyz="0 0 0" />
+      <geometry>
+        <mesh filename="package://farm_real_devices/description/meshes/hex_spacer_39p5mm.stl" scale="0.001 0.001 0.001" />
+      </geometry>
+    </collision>
+  </link>
+  <joint name="scout_plate_post_3_joint" type="fixed">
+    <parent link="scout_plate_center_ground" />
+    <child link="scout_plate_post_3" />
+    <origin xyz="0.024 0.064 0.17125" rpy="0 0 1.5707963267948966" />
+  </joint>
+  <link name="scout_plate_post_4">
+    <visual>
+      <origin xyz="0 0 0" />
+      <geometry>
+        <mesh filename="package://farm_real_devices/description/meshes/hex_spacer_39p5mm.stl" scale="0.001 0.001 0.001" />
+      </geometry>
+      <material name="scout_plate_post_4_material">
+        <color rgba="0.5 0.5 0.5 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin xyz="0 0 0" />
+      <geometry>
+        <mesh filename="package://farm_real_devices/description/meshes/hex_spacer_39p5mm.stl" scale="0.001 0.001 0.001" />
+      </geometry>
+    </collision>
+  </link>
+  <joint name="scout_plate_post_4_joint" type="fixed">
+    <parent link="scout_plate_center_ground" />
+    <child link="scout_plate_post_4" />
+    <origin xyz="0.064 -0.024 0.17125" rpy="0 0 0" />
+  </joint>
+  <link name="scout_plate_post_5">
+    <visual>
+      <origin xyz="0 0 0" />
+      <geometry>
+        <mesh filename="package://farm_real_devices/description/meshes/hex_spacer_39p5mm.stl" scale="0.001 0.001 0.001" />
+      </geometry>
+      <material name="scout_plate_post_5_material">
+        <color rgba="0.5 0.5 0.5 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin xyz="0 0 0" />
+      <geometry>
+        <mesh filename="package://farm_real_devices/description/meshes/hex_spacer_39p5mm.stl" scale="0.001 0.001 0.001" />
+      </geometry>
+    </collision>
+  </link>
+  <joint name="scout_plate_post_5_joint" type="fixed">
+    <parent link="scout_plate_center_ground" />
+    <child link="scout_plate_post_5" />
+    <origin xyz="0.064 0.024 0.17125" rpy="0 0 0" />
+  </joint>
+  <link name="scout_top_plate">
+    <visual>
+      <origin xyz="0 0 0" />
+      <geometry>
+        <mesh filename="package://farm_real_devices/description/meshes/burger_top_plate.stl" scale="0.001 0.001 0.001" />
+      </geometry>
+      <material name="scout_top_plate_material">
+        <color rgba="0.5 0.5 0.5 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin xyz="0 0 0" />
+      <geometry>
+        <mesh filename="package://farm_real_devices/description/meshes/burger_top_plate.stl" scale="0.001 0.001 0.001" />
+      </geometry>
+    </collision>
+  </link>
+  <joint name="scout_top_plate_joint" type="fixed">
+    <parent link="scout_plate_center_ground" />
+    <child link="scout_top_plate" />
+    <origin xyz="0 0 0.20" rpy="0 0 0" />
+  </joint>
+  <link name="scout_mast_holder">
+    <visual>
+      <origin xyz="0 0 0" />
+      <geometry>
+        <mesh filename="package://farm_real_devices/description/meshes/dux_cross_tee_50x50.stl" scale="0.001 0.001 0.001" />
+      </geometry>
+      <material name="scout_mast_holder_material">
+        <color rgba="0.18 0.18 0.18 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin xyz="0 0 0" />
+      <geometry>
+        <mesh filename="package://farm_real_devices/description/meshes/dux_cross_tee_50x50.stl" scale="0.001 0.001 0.001" />
+      </geometry>
+    </collision>
+  </link>
+  <joint name="scout_mast_holder_joint" type="fixed">
+    <parent link="scout_top_plate" />
+    <child link="scout_mast_holder" />
+    <origin xyz="0 0 0" rpy="0 0 0" />
+  </joint>
+  <link name="scout_camera_mast">
+    <visual>
+      <origin xyz="0 0 0" />
+      <geometry>
+        <box size="0.05 0.05 0.42" />
+      </geometry>
+      <material name="scout_camera_mast_material">
+        <color rgba="0.85 0.85 0.80 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin xyz="0 0 0" />
+      <geometry>
+        <box size="0.05 0.05 0.42" />
+      </geometry>
+    </collision>
+  </link>
+  <joint name="scout_camera_mast_joint" type="fixed">
+    <parent link="scout_plate_center_ground" />
+    <child link="scout_camera_mast" />
+    <origin xyz="0 0 0.41" rpy="0 0 0" />
+  </joint>
+  <link name="bmany_camera_link" />
+  <joint name="bmany_camera_link_joint" type="fixed">
+    <parent link="base_footprint" />
+    <child link="bmany_camera_link" />
+    <origin xyz="-0.049 0.055 0.595" rpy="0 0.017453292519943295 1.5707963267948966" />
+  </joint>
+  <link name="camera_color_optical_frame" />
+  <joint name="camera_color_optical_frame_joint" type="fixed">
+    <parent link="bmany_camera_link" />
+    <child link="camera_color_optical_frame" />
+    <origin xyz="0 0 0" rpy="-1.5707963267948966 0 -1.5707963267948966" />
+  </joint>
+  <link name="scout_camera_body_visual">
+    <visual>
+      <origin xyz="-0.012525 0 0" />
+      <geometry>
+        <box size="0.02505 0.09 0.025" />
+      </geometry>
+      <material name="scout_camera_body_visual_material">
+        <color rgba="0.75 0.75 0.78 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin xyz="-0.012525 0 0" />
+      <geometry>
+        <box size="0.02505 0.09 0.025" />
+      </geometry>
+    </collision>
+  </link>
+  <joint name="scout_camera_body_visual_joint" type="fixed">
+    <parent link="bmany_camera_link" />
+    <child link="scout_camera_body_visual" />
+    <origin xyz="0 0 0" rpy="0 0 0" />
+  </joint>
+  <link name="picam_frame" />
+  <joint name="picam_frame_joint" type="fixed">
+    <parent link="base_footprint" />
+    <child link="picam_frame" />
+    <origin xyz="-0.032 0.063 0.117" rpy="0 0 1.5707963267948966" />
+  </joint>
+  <link name="picam_optical_frame" />
+  <joint name="picam_optical_frame_joint" type="fixed">
+    <parent link="picam_frame" />
+    <child link="picam_optical_frame" />
+    <origin xyz="0 0 0" rpy="-1.5707963267948966 0 -1.5707963267948966" />
+  </joint>
+  <link name="picam_body_visual">
+    <visual>
+      <origin xyz="-0.004 0 0" />
+      <geometry>
+        <box size="0.008 0.025 0.024" />
+      </geometry>
+      <material name="picam_body_visual_material">
+        <color rgba="0.1 0.45 0.15 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin xyz="-0.004 0 0" />
+      <geometry>
+        <box size="0.008 0.025 0.024" />
+      </geometry>
+    </collision>
+  </link>
+  <joint name="picam_body_visual_joint" type="fixed">
+    <parent link="picam_frame" />
+    <child link="picam_body_visual" />
+    <origin xyz="0 0 0" rpy="0 0 0" />
+  </joint>
+  <link name="camera_color_frame" />
+  <joint name="camera_color_frame_alias_joint" type="fixed">
+    <parent link="bmany_camera_link" />
+    <child link="camera_color_frame" />
+    <origin xyz="0 0 0" rpy="0 0 0" />
+  </joint>
+</robot>

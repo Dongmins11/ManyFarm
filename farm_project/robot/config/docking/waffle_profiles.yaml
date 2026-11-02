@@ -1,0 +1,1104 @@
+schema_version: 1
+profiles:
+  station_transport_01:
+    configured: true
+    strategy: marker_pose
+    legacy_site: parking
+    target_marker_id: 32
+    docking_marker_id: 32
+    base_frame: base_footprint
+    target_tracking:
+      enabled: true
+      fixed_target: true
+      max_prediction_s: 0.8
+      max_prediction_distance_m: 0.06
+      max_prediction_yaw_rad: 0.2
+      max_input_age_s: 0.3
+      filter_alpha: 0.35
+      max_innovation_m: 0.08
+      max_innovation_yaw_rad: 0.25
+    pose_target: station_parking_entry_20261023
+    clearance_corridor_verified: false
+    approach_clearance_verified: false
+    extrinsics_verified: false
+    bounded_trial: true
+    scan_stop_range_m: 0.3
+    collision_guard:
+      nav2_file: ../robots/waffle/transport_nav2.yaml
+      odom_frame: odom
+      margin_m: 0.02
+      reaction_s: 0.4
+      linear_decel_mps2: 0.2
+      angular_decel_rps2: 0.4
+      sample_motion_m: 0.005
+      max_linear_mps: 0.2
+      max_angular_rps: 0.5
+      min_valid_points: 15
+    timeout_s: 100.0
+    marker_wait_timeout_s: 2.0
+    recovery:
+      wait_timeout_s: 15.0
+      marker_timeout_s: 30.0
+      stable_s: 0.5
+      max_episodes: 5
+      search_enabled: true
+      search_angle_rad: 0.2617993878
+      search_speed_rps: 0.12
+      search_dwell_s: 1.0
+    approach:
+      max_distance_m: 0.8
+      align_tolerance_rad: 0.05
+      realign_threshold_rad: 0.17
+      position_tolerance_m: 0.01
+    entry:
+      enabled: true
+      direction: forward
+      odom_frame: odom
+      lookahead_m: 0.08
+      max_replans: 3
+      rotate_in_place_rad: 0.2
+      position_tolerance_m: 0.015
+      yaw_tolerance_rad: 0.035
+      max_distance_m: 0.5
+      max_lateral_m: 0.05
+      max_linear_mps: 0.15
+      max_angular_rps: 0.3
+      min_linear_mps: 0.035
+      min_angular_rps: 0.011
+      linear_kp: 0.7
+      angular_kp: 0.8
+      timeout_s: 65.0
+      mode: align_then_marker
+    note: At A align, acquire 8 consistent marker poses while stopped, freeze taught
+      goal in odom; no visual updates/reacquisition after lock, including final arrival.
+      Then parking exit turn. Runtime test pending.
+    pose_controller:
+      direction: forward
+      linear_pid:
+        kp: 0.6
+        ki: 0.0
+        kd: 0.0
+      angular_pid:
+        kp: 0.8
+        ki: 0.0
+        kd: 0.0
+      max_linear_mps: 0.08
+      max_angular_rps: 0.3
+      min_linear_mps: 0.03
+      max_planar_distance_m: 0.8
+    marker_installation:
+      dictionary: DICT_4X4_50
+      marker_size_m: 0.05
+      teaching_status: taught_incoming_parking_pose
+    parking:
+      enabled: true
+      next_mission: direct
+      graph_file: ../maps/transport_real/graph.geojson
+      from_node_id: 20
+      to_node_id: 3
+      yaw_tolerance_rad: 0.05236
+      alignment_max_angular_rps: 0.3
+      alignment_kp: 1.2
+      timeout_s: 35.0
+      max_translation_m: 0.05
+      settle_s: 0.5
+    acquire_then_odom:
+      odom_only_after_acquire: true
+      acquire_samples: 8
+      acquire_spread_m: 0.02
+      acquire_yaw_spread_rad: 0.07
+      acquire_timeout_s: 10.0
+      max_odom_duration_s: 60.0
+      max_odom_travel_m: 1.0
+      max_odom_yaw_rad: 1.0
+      reobserve_distance_m: 0.04
+      terminal_position_m: 0.01
+      terminal_position_exit_m: 0.025
+      terminal_yaw_rad: 0.034906585
+    pose_path:
+      max_linear_mps: 0.08
+      min_linear_mps: 0.03
+      linear_kp: 0.6
+      heading_kp: 0.8
+      max_angular_rps: 0.15
+      rotate_first_rad: 0.5
+  sort_01:
+    configured: true
+    lidar_entry_alignment:
+      forward_tolerance_m: 0.02
+      behind_tolerance_m: 0.005
+      lateral_tolerance_m: 0.005
+      yaw_tolerance_rad: 0.05
+    target_surface:
+      plane_tolerance_m: 0.008
+      half_width_m: 0.18
+      margin_m: 0.002
+      sample_motion_m: 0.001
+      max_scan_skew_s: 0.05
+    pose_path:
+      approach_heading_kp: 0.8
+      approach_max_angular_rps: 0.1
+      approach_max_linear_mps: 0.04
+      terminal_min_linear_mps: 0.02
+      terminal_gain: 0.6
+      heading_kp: 1.2
+      linear_kp: 0.5
+      max_linear_mps: 0.06
+      min_linear_mps: 0.01
+      max_angular_rps: 0.3
+      rotate_first_rad: 0.6
+      overshoot_m: 0.005
+      line_lookahead_m: 0.12
+    route_observation:
+      enabled: true
+      acquire_samples: 5
+      max_target_distance_m: 0.2
+      max_observation_age_s: 0.3
+      position_spread_m: 0.025
+      yaw_spread_rad: 0.1
+    acquire_then_odom:
+      acquire_samples: 6
+      acquire_spread_m: 0.025
+      acquire_timeout_s: 10.0
+      max_odom_duration_s: 40.0
+      max_odom_travel_m: 0.5
+      max_odom_yaw_rad: 0.8
+      reobserve_distance_m: 0.04
+      terminal_position_m: 0.02
+      terminal_position_exit_m: 0.035
+      terminal_yaw_rad: 0.05
+      continuous_visual_handoff: true
+    strategy: marker_pose
+    legacy_site: sorter
+    target_marker_id: 40
+    docking_marker_id: 40
+    base_frame: base_footprint
+    target_tracking:
+      enabled: true
+      fixed_target: true
+      max_prediction_s: 0.8
+      max_prediction_distance_m: 0.06
+      max_prediction_yaw_rad: 0.2
+      max_input_age_s: 0.3
+      filter_alpha: 0.35
+      max_innovation_m: 0.08
+      max_innovation_yaw_rad: 0.25
+    pose_target: marker_40_lidar_entry_pose
+    clearance_corridor_verified: false
+    approach_clearance_verified: false
+    extrinsics_verified: false
+    bounded_trial: true
+    scan_stop_range_m: 0.3
+    collision_guard:
+      nav2_file: ../robots/waffle/transport_nav2.yaml
+      odom_frame: odom
+      margin_m: 0.02
+      reaction_s: 0.4
+      linear_decel_mps2: 0.2
+      angular_decel_rps2: 0.4
+      sample_motion_m: 0.005
+      max_linear_mps: 0.2
+      max_angular_rps: 0.5
+      min_valid_points: 15
+    timeout_s: 100.0
+    marker_wait_timeout_s: 2.0
+    recovery:
+      wait_timeout_s: 15.0
+      marker_timeout_s: 30.0
+      stable_s: 0.5
+      max_episodes: 5
+      search_enabled: true
+      search_angle_rad: 0.2617993878
+      search_speed_rps: 0.12
+      search_dwell_s: 1.0
+    approach:
+      heading_first: false
+      max_distance_m: 0.4
+      align_tolerance_rad: 0.05
+      realign_threshold_rad: 0.17
+      position_tolerance_m: 0.01
+    entry:
+      enabled: false
+    note: 17 FollowPath arrival -> marker40 taught entry -> raw front scan 0.15m ->
+      measured stop. No unloading or departure.
+    pose_controller:
+      direction: forward
+      linear_pid:
+        kp: 0.6
+        ki: 0.0
+        kd: 0.0
+      angular_pid:
+        kp: 0.8
+        ki: 0.0
+        kd: 0.0
+      max_linear_mps: 0.08
+      max_angular_rps: 0.3
+      min_linear_mps: 0.02
+    marker_installation:
+      dictionary: DICT_4X4_50
+      marker_size_m: 0.05
+      teaching_status: lidar_entry_taught
+    allowed_operations:
+    - DOCK
+    lidar_approach:
+      raw_scan_topic: scan
+      scan_frame: base_scan
+      target_distance_m: 0.15
+      distance_tolerance_m: 0.005
+      hard_min_distance_m: 0.12
+      max_start_distance_m: 0.5
+      sector_half_angle_rad: 0.0872664626
+      min_points: 5
+      max_spread_m: 0.03
+      max_age_s: 0.3
+      max_linear_mps: 0.04
+      min_linear_mps: 0.01
+      linear_kp: 0.5
+      heading_kp: 0.8
+      max_angular_rps: 0.08
+      max_heading_error_rad: 0.15
+      max_travel_m: 0.35
+      timeout_s: 25.0
+      stable_s: 0.5
+  harvest:
+    configured: false
+    strategy: legacy_aruco
+    legacy_site: harvest
+    target_marker_id: 42
+    docking_marker_id: 41
+    base_frame: base_footprint
+    clearance_corridor_verified: false
+    rear_stop_m: 0.25
+    timeout_s: 90.0
+    note: 'Superseded: approach42 -> DOCK_READY -> verify41 -> lidar -> receipt ->
+      clear'
+    marker_installation:
+      dictionary: DICT_4X4_50
+      marker_size_m: 0.05
+      teaching_status: required_after_marker_replacement
+      initial_approach:
+        marker_id: 42
+        mount: side
+      after_rotation:
+        marker_id: 41
+        mount: rear
+  marker_32_pose_trial:
+    configured: false
+    strategy: marker_pose
+    legacy_site: parking
+    target_marker_id: 32
+    docking_marker_id: 32
+    base_frame: base_footprint
+    pose_target: marker_32_confirmed_pose
+    approach_clearance_verified: false
+    extrinsics_verified: false
+    scan_stop_range_m: 0.0
+    timeout_s: 20.0
+    note: 실물 운송 스테이션 ID32, 5cm. 기존 6cm 임시 완료자세는 보존만 하며 재티칭 전 실행하지 않음. B 복귀 자세도 별도
+      티칭 필요. 주행/PID 설정 유지.
+    marker_installation:
+      dictionary: DICT_4X4_50
+      marker_size_m: 0.05
+      teaching_status: required_after_marker_replacement
+  station_transport_departure:
+    configured: true
+    strategy: marker_pose
+    legacy_site: parking
+    target_marker_id: 32
+    docking_marker_id: 32
+    base_frame: base_footprint
+    target_tracking:
+      enabled: true
+      fixed_target: true
+      max_prediction_s: 0.8
+      max_prediction_distance_m: 0.06
+      max_prediction_yaw_rad: 0.2
+      max_input_age_s: 0.3
+      filter_alpha: 1.0
+      max_innovation_m: 0.08
+      max_innovation_yaw_rad: 0.25
+    pose_target: marker_32_departure_pose
+    clearance_corridor_verified: false
+    approach_clearance_verified: false
+    extrinsics_verified: false
+    bounded_trial: true
+    scan_stop_range_m: 0.3
+    collision_guard:
+      nav2_file: ../robots/waffle/transport_nav2.yaml
+      odom_frame: odom
+      margin_m: 0.02
+      reaction_s: 0.4
+      linear_decel_mps2: 0.2
+      angular_decel_rps2: 0.4
+      sample_motion_m: 0.005
+      max_linear_mps: 0.2
+      max_angular_rps: 0.5
+      min_valid_points: 15
+    timeout_s: 100.0
+    marker_wait_timeout_s: 2.0
+    recovery:
+      wait_timeout_s: 15.0
+      marker_timeout_s: 30.0
+      stable_s: 0.5
+      max_episodes: 5
+      search_enabled: true
+      search_angle_rad: 0.2617993878
+      search_speed_rps: 0.12
+      search_dwell_s: 1.0
+    approach:
+      max_distance_m: 0.5
+      align_tolerance_rad: 0.05
+      realign_threshold_rad: 0.17
+      position_tolerance_m: 0.01
+    entry:
+      enabled: false
+    note: 'Standalone CLEAR: acquire stationary marker-relative B target, lock in
+      odom, reverse with bounded gentle steering, stop within 4cm without final yaw
+      alignment. No pickup integration.'
+    pose_controller:
+      direction: reverse
+      linear_pid:
+        kp: 0.6
+        ki: 0.0
+        kd: 0.0
+      angular_pid:
+        kp: 0.8
+        ki: 0.0
+        kd: 0.0
+      max_linear_mps: 0.06
+      max_angular_rps: 0.12
+      min_linear_mps: 0.02
+      position_tolerance_m: 0.04
+      yaw_tolerance_rad: 0.035
+      settle_samples: 3
+    marker_installation:
+      dictionary: DICT_4X4_50
+      marker_size_m: 0.05
+      teaching_status: departure_taught
+    allowed_operations:
+    - CLEAR
+    departure:
+      alignment_mode: face_graph_node
+      exit_heading_from_node_id: 20
+      exit_heading_node_id: 3
+      graph_file: ../maps/transport_real/graph.geojson
+      yaw_tolerance_rad: 0.05236
+      alignment_max_angular_rps: 0.3
+      alignment_kp: 1.2
+      alignment_timeout_s: 35.0
+      acquire_samples: 6
+      acquire_spread_m: 0.025
+      acquire_timeout_s: 10.0
+      max_odom_duration_s: 30.0
+      max_odom_travel_m: 0.6
+      max_odom_yaw_rad: 0.8
+      lookahead_m: 0.15
+      steering_kp: 0.6
+      max_heading_error_rad: 0.8
+  sort_departure:
+    configured: true
+    strategy: marker_pose
+    legacy_site: sorter
+    target_marker_id: 40
+    docking_marker_id: 40
+    base_frame: base_footprint
+    target_tracking:
+      enabled: true
+      fixed_target: true
+      max_prediction_s: 0.8
+      max_prediction_distance_m: 0.06
+      max_prediction_yaw_rad: 0.2
+      max_input_age_s: 0.3
+      filter_alpha: 1.0
+      max_innovation_m: 0.08
+      max_innovation_yaw_rad: 0.25
+    pose_target: marker_40_lidar_entry_pose
+    clearance_corridor_verified: false
+    approach_clearance_verified: false
+    extrinsics_verified: false
+    bounded_trial: true
+    scan_stop_range_m: 0.3
+    collision_guard:
+      nav2_file: ../robots/waffle/transport_nav2.yaml
+      odom_frame: odom
+      margin_m: 0.02
+      reaction_s: 0.4
+      linear_decel_mps2: 0.2
+      angular_decel_rps2: 0.4
+      sample_motion_m: 0.005
+      max_linear_mps: 0.2
+      max_angular_rps: 0.5
+      min_valid_points: 15
+    timeout_s: 110.0
+    marker_wait_timeout_s: 2.0
+    recovery:
+      wait_timeout_s: 15.0
+      marker_timeout_s: 30.0
+      stable_s: 0.5
+      max_episodes: 5
+      search_enabled: true
+      search_angle_rad: 0.2617993878
+      search_speed_rps: 0.12
+      search_dwell_s: 1.0
+    approach:
+      max_distance_m: 0.5
+      align_tolerance_rad: 0.05
+      realign_threshold_rad: 0.17
+      position_tolerance_m: 0.01
+    entry:
+      enabled: false
+    note: 'CLEAR only: reverse with raw front range until marker40 visible; return
+      to taught marker approach pose; reverse to graph17; align graph17->15. Standalone,
+      no mission dispatch.'
+    pose_controller:
+      direction: reverse
+      linear_pid:
+        kp: 0.6
+        ki: 0.0
+        kd: 0.0
+      angular_pid:
+        kp: 0.8
+        ki: 0.0
+        kd: 0.0
+      max_linear_mps: 0.06
+      max_angular_rps: 0.12
+      min_linear_mps: 0.02
+      position_tolerance_m: 0.02
+      yaw_tolerance_rad: 0.035
+      settle_samples: 3
+    marker_installation:
+      dictionary: DICT_4X4_50
+      marker_size_m: 0.05
+      teaching_status: sorter_approach_taught
+    allowed_operations:
+    - CLEAR
+    departure:
+      alignment_mode: face_graph_node
+      exit_heading_from_node_id: 17
+      exit_heading_node_id: 15
+      graph_file: ../maps/transport_real/graph.geojson
+      yaw_tolerance_rad: 0.05236
+      alignment_max_angular_rps: 0.3
+      alignment_kp: 1.2
+      alignment_timeout_s: 35.0
+      acquire_samples: 6
+      acquire_spread_m: 0.025
+      acquire_timeout_s: 10.0
+      max_odom_duration_s: 30.0
+      max_odom_travel_m: 0.6
+      max_odom_yaw_rad: 0.8
+      lookahead_m: 0.15
+      steering_kp: 0.6
+      max_heading_error_rad: 0.8
+    marker_backout:
+      raw_scan_topic: scan
+      reference_front_distance_m: 0.422
+      distance_tolerance_m: 0.01
+      min_front_distance_m: 0.105
+      max_linear_mps: 0.025
+      min_linear_mps: 0.01
+      linear_kp: 0.4
+      heading_kp: 0.8
+      max_angular_rps: 0.08
+      max_heading_error_rad: 0.15
+      max_travel_m: 0.35
+      timeout_s: 20.0
+      scan:
+        raw_scan_topic: scan
+        scan_frame: base_scan
+        target_distance_m: 0.15
+        distance_tolerance_m: 0.005
+        hard_min_distance_m: 0.12
+        max_start_distance_m: 0.5
+        sector_half_angle_rad: 0.0872664626
+        min_points: 5
+        max_spread_m: 0.03
+        max_age_s: 0.3
+        max_linear_mps: 0.04
+        min_linear_mps: 0.01
+        linear_kp: 0.5
+        heading_kp: 0.8
+        max_angular_rps: 0.08
+        max_heading_error_rad: 0.15
+        max_travel_m: 0.35
+        timeout_s: 25.0
+        stable_s: 0.5
+    graph_return:
+      node_id: 17
+      position_tolerance_m: 0.04
+      max_distance_m: 0.8
+      max_heading_error_rad: 0.8
+      max_angular_rps: 0.12
+      max_linear_mps: 0.06
+      min_linear_mps: 0.02
+      linear_kp: 0.6
+      steering_kp: 0.6
+      lookahead_m: 0.15
+      timeout_s: 30.0
+  sort_01_distance_trial:
+    configured: true
+    target_surface:
+      plane_tolerance_m: 0.008
+      half_width_m: 0.18
+      margin_m: 0.002
+      sample_motion_m: 0.001
+      max_scan_skew_s: 0.05
+    strategy: marker_pose
+    legacy_site: sorter
+    target_marker_id: 40
+    docking_marker_id: 40
+    base_frame: base_footprint
+    target_tracking:
+      enabled: true
+      fixed_target: true
+      max_prediction_s: 0.8
+      max_prediction_distance_m: 0.06
+      max_prediction_yaw_rad: 0.2
+      max_input_age_s: 0.3
+      filter_alpha: 0.35
+      max_innovation_m: 0.08
+      max_innovation_yaw_rad: 0.25
+    pose_target: marker_40_lidar_entry_pose
+    clearance_corridor_verified: false
+    approach_clearance_verified: false
+    extrinsics_verified: false
+    bounded_trial: true
+    scan_stop_range_m: 0.3
+    collision_guard:
+      nav2_file: ../robots/waffle/transport_nav2.yaml
+      odom_frame: odom
+      margin_m: 0.02
+      reaction_s: 0.4
+      linear_decel_mps2: 0.2
+      angular_decel_rps2: 0.4
+      sample_motion_m: 0.005
+      max_linear_mps: 0.2
+      max_angular_rps: 0.5
+      min_valid_points: 15
+    timeout_s: 100.0
+    marker_wait_timeout_s: 2.0
+    recovery:
+      wait_timeout_s: 15.0
+      marker_timeout_s: 30.0
+      stable_s: 0.5
+      max_episodes: 5
+      search_enabled: false
+      search_angle_rad: 0.2617993878
+      search_speed_rps: 0.12
+      search_dwell_s: 1.0
+    approach:
+      heading_first: false
+      max_distance_m: 0.4
+      align_tolerance_rad: 0.05
+      realign_threshold_rad: 0.17
+      position_tolerance_m: 0.01
+    entry:
+      enabled: false
+    note: 17 FollowPath arrival -> marker40 taught entry -> raw front scan 0.15m ->
+      measured stop. No unloading or departure.
+    pose_controller:
+      direction: forward
+      linear_pid:
+        kp: 0.6
+        ki: 0.0
+        kd: 0.0
+      angular_pid:
+        kp: 0.8
+        ki: 0.0
+        kd: 0.0
+      max_linear_mps: 0.08
+      max_angular_rps: 0.3
+      min_linear_mps: 0.02
+    marker_installation:
+      dictionary: DICT_4X4_50
+      marker_size_m: 0.05
+      teaching_status: lidar_entry_taught
+    allowed_operations:
+    - DOCK
+    lidar_approach:
+      raw_scan_topic: scan
+      scan_frame: base_scan
+      target_distance_m: 0.17
+      distance_tolerance_m: 0.005
+      hard_min_distance_m: 0.12
+      max_start_distance_m: 1.5
+      sector_half_angle_rad: 0.0872664626
+      min_points: 5
+      max_spread_m: 0.03
+      max_age_s: 0.3
+      max_linear_mps: 0.04
+      min_linear_mps: 0.01
+      linear_kp: 0.5
+      heading_kp: 0.8
+      max_angular_rps: 0.08
+      max_heading_error_rad: 0.3
+      max_travel_m: 1.5
+      timeout_s: 65.0
+      stable_s: 0.5
+    distance_heading_trial:
+      front_scan_only: true
+      marker_id: 40
+      samples: 5
+      max_age_s: 0.3
+      max_bearing_rad: 0.2
+      spread_rad: 0.03
+      heading_offset_rad: 0.0
+      acquire_timeout_s: 12.0
+    initial_marker_recovery: &id001
+      enabled: true
+      wait_s: 3.0
+      reverse_distance_m: 0.05
+      reverse_speed_mps: 0.02
+      search_angle_rad: 0.2617993877991494
+      search_speed_rps: 0.12
+      timeout_s: 30.0
+  sort_departure_distance_trial:
+    configured: true
+    strategy: marker_pose
+    legacy_site: sorter
+    target_marker_id: 40
+    docking_marker_id: 40
+    base_frame: base_footprint
+    target_tracking:
+      enabled: false
+      fixed_target: true
+      max_prediction_s: 0.8
+      max_prediction_distance_m: 0.06
+      max_prediction_yaw_rad: 0.2
+      max_input_age_s: 0.3
+      filter_alpha: 1.0
+      max_innovation_m: 0.08
+      max_innovation_yaw_rad: 0.25
+    pose_target: marker_40_lidar_entry_pose
+    clearance_corridor_verified: false
+    approach_clearance_verified: false
+    extrinsics_verified: false
+    bounded_trial: true
+    scan_stop_range_m: 0.3
+    collision_guard:
+      nav2_file: ../robots/waffle/transport_nav2.yaml
+      odom_frame: odom
+      margin_m: 0.02
+      reaction_s: 0.4
+      linear_decel_mps2: 0.2
+      angular_decel_rps2: 0.4
+      sample_motion_m: 0.005
+      max_linear_mps: 0.2
+      max_angular_rps: 0.5
+      min_valid_points: 15
+    timeout_s: 110.0
+    marker_wait_timeout_s: 2.0
+    recovery:
+      wait_timeout_s: 15.0
+      marker_timeout_s: 30.0
+      stable_s: 0.5
+      max_episodes: 5
+      search_enabled: true
+      search_angle_rad: 0.2617993878
+      search_speed_rps: 0.12
+      search_dwell_s: 1.0
+    approach:
+      max_distance_m: 0.5
+      align_tolerance_rad: 0.05
+      realign_threshold_rad: 0.17
+      position_tolerance_m: 0.01
+    entry:
+      enabled: false
+    note: 'CLEAR only: reverse with raw front range until marker40 visible; return
+      to taught marker approach pose; reverse to graph17; align graph17->15. Standalone,
+      no mission dispatch.'
+    pose_controller:
+      direction: reverse
+      linear_pid:
+        kp: 0.6
+        ki: 0.0
+        kd: 0.0
+      angular_pid:
+        kp: 0.8
+        ki: 0.0
+        kd: 0.0
+      max_linear_mps: 0.06
+      max_angular_rps: 0.12
+      min_linear_mps: 0.02
+      position_tolerance_m: 0.02
+      yaw_tolerance_rad: 0.035
+      settle_samples: 3
+    marker_installation:
+      dictionary: DICT_4X4_50
+      marker_size_m: 0.05
+      teaching_status: sorter_approach_taught
+    allowed_operations:
+    - CLEAR
+    marker_backout:
+      raw_scan_topic: scan
+      reference_front_distance_m: 0.422
+      distance_tolerance_m: 0.01
+      min_front_distance_m: 0.105
+      max_linear_mps: 0.025
+      min_linear_mps: 0.01
+      linear_kp: 0.4
+      heading_kp: 0.6
+      max_angular_rps: 0.06
+      max_heading_error_rad: 0.2
+      max_travel_m: 0.35
+      timeout_s: 30.0
+      scan:
+        raw_scan_topic: scan
+        scan_frame: base_scan
+        target_distance_m: 0.15
+        distance_tolerance_m: 0.005
+        hard_min_distance_m: 0.12
+        max_start_distance_m: 0.5
+        sector_half_angle_rad: 0.0872664626
+        min_points: 5
+        max_spread_m: 0.03
+        max_age_s: 0.3
+        max_linear_mps: 0.04
+        min_linear_mps: 0.01
+        linear_kp: 0.5
+        heading_kp: 0.8
+        max_angular_rps: 0.08
+        max_heading_error_rad: 0.15
+        max_travel_m: 0.35
+        timeout_s: 25.0
+        stable_s: 0.5
+    distance_departure:
+      map_yaw_rad: 0.0
+      rear_half_angle_rad: 0.5
+      rear_stop_m: 0.26
+      exit_rotation:
+        skip_footprint_check: true
+        enabled: true
+        graph_file: ../maps/transport_real/graph.geojson
+        from_node_id: 17
+        to_node_id: 15
+        yaw_tolerance_rad: 0.05236
+        alignment_max_angular_rps: 0.3
+        alignment_kp: 1.2
+        timeout_s: 35.0
+        max_translation_m: 0.05
+  harvest_clear:
+    configured: true
+    strategy: marker_pose
+    target_marker_id: 41
+    docking_marker_id: 41
+    base_frame: base_footprint
+    target_tracking:
+      enabled: false
+      fixed_target: true
+      max_prediction_s: 0.8
+      max_prediction_distance_m: 0.06
+      max_prediction_yaw_rad: 0.2
+      max_input_age_s: 0.3
+      filter_alpha: 0.35
+      max_innovation_m: 0.08
+      max_innovation_yaw_rad: 0.25
+    clearance_corridor_verified: false
+    approach_clearance_verified: false
+    extrinsics_verified: false
+    bounded_trial: true
+    scan_stop_range_m: 0.3
+    collision_guard:
+      nav2_file: ../robots/waffle/transport_nav2.yaml
+      odom_frame: odom
+      margin_m: 0.02
+      reaction_s: 0.4
+      linear_decel_mps2: 0.2
+      angular_decel_rps2: 0.4
+      sample_motion_m: 0.005
+      max_linear_mps: 0.2
+      max_angular_rps: 0.5
+      min_valid_points: 15
+    timeout_s: 100.0
+    marker_wait_timeout_s: 2.0
+    approach:
+      max_distance_m: 0.8
+      align_tolerance_rad: 0.05
+      realign_threshold_rad: 0.17
+      position_tolerance_m: 0.01
+    entry:
+      enabled: false
+    note: 'Reverse 0.252m along initial odom heading, matching nominal sorter retreat:
+      0.422m front clearance minus 0.170m docking range. Not a 0.422m displacement.'
+    pose_controller:
+      direction: forward
+      linear_pid:
+        kp: 0.6
+        ki: 0.0
+        kd: 0.0
+      angular_pid:
+        kp: 0.8
+        ki: 0.0
+        kd: 0.0
+      max_linear_mps: 0.08
+      max_angular_rps: 0.3
+      min_linear_mps: 0.03
+      max_planar_distance_m: 0.8
+    marker_installation:
+      dictionary: DICT_4X4_50
+      marker_size_m: 0.05
+      teaching_status: required
+    pose_path:
+      max_linear_mps: 0.08
+      min_linear_mps: 0.03
+      linear_kp: 0.6
+      heading_kp: 0.8
+      max_angular_rps: 0.15
+      rotate_first_rad: 0.5
+    allowed_operations:
+    - CLEAR
+    relative_backout:
+      distance_m: 0.252
+      max_linear_mps: 0.04
+      min_linear_mps: 0.01
+      heading_kp: 0.8
+      max_angular_rps: 0.08
+      max_heading_error_rad: 0.2
+      distance_tolerance_m: 0.01
+      max_lateral_m: 0.05
+      timeout_s: 35.0
+    runtime_config: profile
+    runtime_name: harvest_clear
+  harvest_approach_42:
+    route_handoff:
+      enabled: true
+      observation_timeout_s: 180.0
+      recognition_max_age_s: 0.5
+    configured: true
+    strategy: marker_pose
+    target_marker_id: 42
+    docking_marker_id: 42
+    base_frame: base_footprint
+    target_tracking:
+      enabled: true
+      fixed_target: true
+      max_prediction_s: 2.0
+      max_prediction_distance_m: 0.12
+      max_prediction_yaw_rad: 0.35
+      max_input_age_s: 0.5
+      filter_alpha: 0.35
+      max_innovation_m: 0.12
+      max_innovation_yaw_rad: 0.35
+    pose_target: harvest_42_wait_pose
+    clearance_corridor_verified: false
+    approach_clearance_verified: false
+    extrinsics_verified: false
+    bounded_trial: true
+    scan_stop_range_m: 0.3
+    collision_guard:
+      nav2_file: ../robots/waffle/transport_nav2.yaml
+      odom_frame: odom
+      margin_m: 0.02
+      reaction_s: 0.4
+      linear_decel_mps2: 0.2
+      angular_decel_rps2: 0.4
+      sample_motion_m: 0.005
+      max_linear_mps: 0.2
+      max_angular_rps: 0.5
+      min_valid_points: 15
+    timeout_s: 120.0
+    marker_wait_timeout_s: 2.0
+    recovery:
+      wait_timeout_s: 15.0
+      marker_timeout_s: 30.0
+      stable_s: 0.5
+      max_episodes: 5
+      search_enabled: false
+      search_angle_rad: 0.2617993878
+      search_speed_rps: 0.12
+      search_dwell_s: 1.0
+    approach:
+      max_distance_m: 1.2
+      align_tolerance_rad: 0.05
+      realign_threshold_rad: 0.17
+      position_tolerance_m: 0.01
+    entry:
+      enabled: false
+    note: Marker42 approach wait pose taught 2026-10-24; reference sample spread recorded.
+      Activation awaits remaining harvest measurements.
+    pose_controller:
+      direction: forward
+      linear_pid:
+        kp: 0.6
+        ki: 0.0
+        kd: 0.0
+      angular_pid:
+        kp: 0.8
+        ki: 0.0
+        kd: 0.0
+      max_linear_mps: 0.08
+      max_angular_rps: 0.3
+      min_linear_mps: 0.03
+      max_planar_distance_m: 1.2
+    marker_installation:
+      dictionary: DICT_4X4_50
+      marker_size_m: 0.05
+      teaching_status: taught_pending_validation
+    acquire_then_odom:
+      odom_only_after_acquire: true
+      visual_correction_during_transit: true
+      hybrid_relative_control: true
+      distance_corridor:
+        target_range_m: 0.54
+        distance_tolerance_m: 0.02
+        max_heading_offset_rad: 0.1745329252
+        lookahead_m: 0.25
+        max_linear_mps: 0.06
+        min_linear_mps: 0.03
+        linear_kp: 0.6
+        heading_kp: 0.8
+        max_angular_rps: 0.1
+      occluded_speed_scale: 0.75
+      source_speed_transition_s: 0.5
+      update_step_m: 0.005
+      update_step_rad: 0.015
+      acquire_samples: 8
+      acquire_spread_m: 0.03
+      acquire_yaw_spread_rad: 0.1
+      acquire_timeout_s: 15.0
+      max_odom_duration_s: 90.0
+      max_odom_travel_m: 1.5
+      max_odom_yaw_rad: 1.57
+      reobserve_distance_m: 0.04
+      terminal_position_m: 0.01
+      terminal_position_exit_m: 0.05
+      terminal_yaw_rad: 0.034906585
+    pose_path:
+      track_final_heading: true
+      aligned_min_linear_mps: 0.02
+      aligned_min_speed_bearing_rad: 0.1
+      final_heading_kp: 0.3
+      max_linear_mps: 0.08
+      min_linear_mps: 0.03
+      linear_kp: 0.6
+      heading_kp: 0.8
+      max_angular_rps: 0.15
+      rotate_first_rad: 0.5
+    allowed_operations:
+    - DOCK
+    runtime_config: profile
+    runtime_name: harvest_approach_42
+    initial_marker_recovery: *id001
+  harvest_dock_41:
+    configured: true
+    target_surface:
+      plane_tolerance_m: 0.008
+      half_width_m: 0.18
+      margin_m: 0.002
+      sample_motion_m: 0.001
+      max_scan_skew_s: 0.05
+    strategy: marker_pose
+    target_marker_id: 41
+    docking_marker_id: 41
+    base_frame: base_footprint
+    target_tracking:
+      enabled: false
+      fixed_target: true
+      max_prediction_s: 0.8
+      max_prediction_distance_m: 0.06
+      max_prediction_yaw_rad: 0.2
+      max_input_age_s: 0.3
+      filter_alpha: 0.35
+      max_innovation_m: 0.08
+      max_innovation_yaw_rad: 0.25
+    clearance_corridor_verified: false
+    approach_clearance_verified: false
+    extrinsics_verified: false
+    bounded_trial: true
+    scan_stop_range_m: 0.3
+    collision_guard:
+      nav2_file: ../robots/waffle/transport_nav2.yaml
+      odom_frame: odom
+      margin_m: 0.02
+      reaction_s: 0.4
+      linear_decel_mps2: 0.2
+      angular_decel_rps2: 0.4
+      sample_motion_m: 0.005
+      max_linear_mps: 0.2
+      max_angular_rps: 0.5
+      min_valid_points: 15
+    timeout_s: 100.0
+    marker_wait_timeout_s: 2.0
+    approach:
+      heading_first: false
+      max_distance_m: 0.4
+      align_tolerance_rad: 0.05
+      realign_threshold_rad: 0.17
+      position_tolerance_m: 0.01
+    entry:
+      enabled: false
+    note: Marker41 identity confirmation only. Hold current odom heading at lidar
+      entry; no marker normal/bearing rotation. Raw front lidar target 0.20m.
+    pose_controller:
+      direction: forward
+      linear_pid:
+        kp: 0.6
+        ki: 0.0
+        kd: 0.0
+      angular_pid:
+        kp: 0.8
+        ki: 0.0
+        kd: 0.0
+      max_linear_mps: 0.08
+      max_angular_rps: 0.3
+      min_linear_mps: 0.02
+    marker_installation:
+      dictionary: DICT_4X4_50
+      marker_size_m: 0.05
+      teaching_status: no_terminal_pose_required
+    allowed_operations:
+    - DOCK
+    lidar_approach:
+      raw_scan_topic: scan
+      scan_frame: base_scan
+      target_distance_m: 0.2
+      distance_tolerance_m: 0.005
+      hard_min_distance_m: 0.12
+      max_start_distance_m: 1.5
+      sector_half_angle_rad: 0.0872664626
+      min_points: 3
+      max_spread_m: 0.04
+      max_age_s: 0.3
+      max_linear_mps: 0.04
+      min_linear_mps: 0.01
+      linear_kp: 0.5
+      heading_kp: 0.8
+      max_angular_rps: 0.08
+      max_heading_error_rad: 0.3
+      max_travel_m: 1.5
+      timeout_s: 65.0
+      stable_s: 0.5
+      selection_mode: center_cluster
+      initial_acquire_wait_s: 3.0
+      initial_creep_s: 3.0
+      initial_creep_mps: 0.02
+      initial_creep_max_travel_m: 0.06
+      stale_wait_s: 2.0
+      marker_surface_selection: true
+      marker_surface_depth_gate_m: 0.08
+      marker_surface_angle_gate_rad: 0.12
+      surface_tracking: true
+      surface_match_m: 0.025
+      surface_anchor_tolerance_m: 0.03
+      surface_occlusion_s: 0.6
+      surface_occlusion_travel_m: 0.02
+      surface_prediction_speed_scale: 0.5
+      center_max_angle_rad: 0.01745329252
+    distance_heading_trial:
+      front_scan_only: true
+      marker_id: 41
+      samples: 5
+      max_age_s: 0.3
+      max_bearing_rad: 0.2
+      spread_rad: 0.03
+      heading_offset_rad: 0.0
+      acquire_timeout_s: 12.0
+      max_lateral_m: 0.05
+      align_before_lidar: false
+      alignment_tolerance_rad: 0.035
+      alignment_kp: 0.8
+      alignment_max_angular_rps: 0.12
+      heading_source: odom_current
+    observation_only: true
+    runtime_config: profile
+    runtime_name: harvest_dock_41

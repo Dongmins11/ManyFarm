@@ -1,0 +1,69 @@
+harvest:
+  enabled: false
+  desc: 1차 뒷면42 → 회전 후 옆면41 / 각 5cm — 같은 면 far/near 쌍 아님, 실행 비활성
+  far_id: 42
+  far_size: 0.05
+  near_id: 41
+  near_size: 0.05
+  off_x: 0.0
+  final_dist: 0.08
+  final_yaw_deg: 8.0
+  switch_dist: 0.33
+  far_min_dist: 0.25
+  near_lost_dist: 0.25
+  lost_margin: 0.04
+  lost_timeout: 1.0
+  push_to_dist: 0.17
+  push_max: 0.08
+  push_dist: 0.02
+  lidar_align: true
+  lidar_target_deg: 8.2
+  staging_x: null
+  staging_y: null
+  staging_qz: 0.0
+  staging_qw: 1.0
+sorter:
+  enabled: true
+  desc: ID40 5cm detector preset; actual completion uses marker_40_lidar_entry_pose
+    then raw front lidar 0.15m
+  far_id: 40
+  far_size: 0.05
+  near_id: 40
+  near_size: 0.05
+  off_x: 0.0
+  final_dist: 0.18
+  final_yaw_deg: 8.0
+  switch_dist: 0.6
+  far_min_dist: 0.35
+  near_lost_dist: 0.25
+  lost_margin: 0.07
+  lost_timeout: 0.5
+  push_dist: 0.0
+  lidar_align: true
+  lidar_target_deg: null
+  staging_x: null
+  staging_y: null
+  staging_qz: 0.0
+  staging_qw: 1.0
+parking:
+  enabled: true
+  desc: 운송 스테이션 단일 ID32 / 5cm — 도킹 목표 재티칭 필요
+  far_id: 32
+  far_size: 0.05
+  near_id: 32
+  near_size: 0.05
+  off_x: 0.0
+  final_dist: 0.18
+  final_yaw_deg: 8.0
+  switch_dist: 0.6
+  far_min_dist: 0.35
+  near_lost_dist: 0.25
+  lost_margin: 0.07
+  lost_timeout: 0.5
+  push_dist: 0.0
+  lidar_align: true
+  lidar_target_deg: null
+  staging_x: 0.667
+  staging_y: -1.295
+  staging_qz: -0.9998
+  staging_qw: 0.0189

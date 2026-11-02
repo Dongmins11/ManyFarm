@@ -1896,3 +1896,13 @@
 사용자 요청으로 전경만 GUI 수직 탑뷰로 교체. station_spawn.json의 scout(-5,13.25), harvest(-2,13.25), transport(2,13.25), yaw=-pi/2 적용. 29.5m 수평 시야, map +Y 화면 왼쪽/+X 위. 원본·라벨2PNG 교체, 다른32PNG SHA256 동일 확인. 동일 delivery/index.html 및 ZIP 갱신, 이전 전경은 before_topdown 보존. 촬영 세션 종료, 시험 재개 없음. 공통 코드·원본 모델 수정 없음.
 
 촬영 자료만 별도 커밋: 최종 delivery 및 ZIP, GUI 촬영 도구, 촬영 호출에 필요한 외형 helper 정의만 포함. 기존 runtime 호출 변경과 주행/수확/영상 캠페인 수정은 제외. 전체 작업 트리 패치는 전달본에서 제외하고 촬영 소스 패치로 교체.
+
+
+## 2026-11-02 — 승인된 공통 코드 선택 병합(PC 후보)
+
+- 승인: 사용자의 최신 main+실물 통합본 병합 요청, push 금지.
+- 대상: 공통 StationReturn/Nav2Client/PoseProvider, 예찰 관측·윈도우, 공용 launch.
+- 변경: 실물 예찰은 별도 복귀 전략과 TF 실행기를 선택; main 수확 hooks·sim operation clock·기본 launch 동작 유지. 수확/시뮬 전용 업무 소스·설정·수치는 변경하지 않음.
+- 검증: PC20패키지 빌드, 집중검증223건(시뮬 시계/운송 복귀 단위검사 포함). Isaac 실행 안 함. 전수검사 원본 동등 실패는 상세 보고서에 공개.
+- 실물 영향: 기존 fleet 값 유지; main 수확과 현장 지도 좌표가 달라 전체 연동은 미확정. 배포 안 함.
+- 복원: 새 통합 폴더를 사용하지 않고 기존 배포본 유지. 상세: ../../docs/changes/FLEET_MAIN_MERGE_20261102.md

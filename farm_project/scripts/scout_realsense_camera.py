@@ -23,6 +23,7 @@ class ConfiguredCamera(ContinuousCamera):
         config.enable_stream(rs.stream.depth,c['width'],c['height'],rs.format.z16,c['fps'])
         try:
             profile=self.pipe.start(config)
+            pipeline_ready=time.monotonic()
             self.started=True
             self._color_sensor=profile.get_device().first_color_sensor()
             for option,value in ((rs.option.enable_auto_white_balance,c['auto_white_balance']),
@@ -30,6 +31,7 @@ class ConfiguredCamera(ContinuousCamera):
                 if not self._color_sensor.supports(option):raise RuntimeError(f'Unsupported camera option: {option}')
                 self._color_sensor.set_option(option,float(value))
             self.scale=profile.get_device().first_depth_sensor().get_depth_scale()
+            options_ready=time.monotonic()
             self.thread=threading.Thread(target=self._receive,daemon=True)
             self.thread.start()
             deadline=time.monotonic()+c['warmup_timeout_s']
@@ -39,7 +41,10 @@ class ConfiguredCamera(ContinuousCamera):
                     remaining=deadline-time.monotonic()
                     if remaining<=0:raise RuntimeError('Camera warmup timed out')
                     self.condition.wait(remaining)
-            return {'start_and_warmup_s':time.monotonic()-begin,**self._options()}
+            return {'start_and_warmup_s':time.monotonic()-begin,
+                    'pipeline_start_s':pipeline_ready-begin,
+                    'sensor_setup_s':options_ready-pipeline_ready,
+                    'warmup_s':time.monotonic()-options_ready,**self._options()}
         except Exception:
             self.close()
             raise

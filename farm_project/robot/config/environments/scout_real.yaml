@@ -1,13 +1,11 @@
-# 기존 Burger 하드웨어·매니팜 지도·Nav2 설정입니다. 실제 주행 검증 완료 표시는 아닙니다.
-# 전체 예찰 준비 상태는 survey_configured로 별도 검사합니다.
 schema_version: 1
 configured: true
 survey_configured: true
 mode: real
 robot_id: scout_01
-map_id: many_farm_v1
-map_yaml: robot/config/maps/many_farm/many_farm.yaml
-route_graph: robot/config/maps/many_farm/graph.geojson
+map_id: farm_map_v1
+map_yaml: robot/config/maps/scout_real/many_farm.yaml
+route_graph: robot/config/maps/scout_real/graph.geojson
 nav_params: robot/config/robots/burger/nav2.yaml
 survey_config: robot/config/survey/scout_real.json
 device_config: robot/config/robots/burger/devices.json
@@ -15,6 +13,14 @@ tag_localization_config: robot/config/localization/scout_real.yaml
 tag_capture_config: robot/config/cameras/scout_tag_capture.yaml
 navigation_policy: robot/config/navigation/scout_navigation.yaml
 navigation:
+  require_active_nav2: true
   map_frame: map
   base_frame: base_footprint
+  tf_dedicated_executor: true
+  tf_recovery_enabled: true
+  tf_recovery_wait_forever: true
 patrol_config: robot/config/patrol/scout_real_sections.json
+
+rviz_config: robot/config/robots/burger/scout_real.rviz
+
+station_config: robot/config/stations/scout_real.yaml

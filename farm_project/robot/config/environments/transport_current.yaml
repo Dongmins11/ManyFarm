@@ -1,0 +1,89 @@
+schema_version: 1
+configured: true
+mode: real
+map_id: farm_map_v1
+map_yaml: robot/config/maps/transport_real/many_farm.yaml
+route_graph: robot/config/maps/transport_real/graph.geojson
+navigation:
+  base_frame: base_footprint
+  goal_timeout_s: 300.0
+  arrival_tolerance_m: 0.1
+  heading_tolerance_rad: 0.12
+  settle_s: 0.8
+  mode: follow_path
+  map_frame: map
+  controller_id: RPP
+  goal_checker_id: goal_checker
+  progress_checker_id: progress_checker
+  max_start_distance_m: 0.15
+  max_goal_distance_m: 0.02
+  path_spacing_m: 0.04
+  tf_dedicated_executor: true
+  tf_recovery_enabled: false
+  collision_retry_count: 0
+robot_id: transport_01
+device_config: robot/config/robots/waffle/transport_devices.json
+nav_params: robot/config/robots/waffle/transport_nav2.yaml
+destinations: robot/config/destinations/transport_current.yaml
+execution_enabled: true
+scan_topic: scan
+battery_topic: battery_state
+precision_enabled: true
+precision_profiles: robot/config/docking/waffle_profiles_current.yaml
+legacy_sites: robot/config/docking/legacy_waffle_sites.yaml
+pickup_profile: harvest
+sorter_dock_trial:
+  enabled: false
+  station_id: SORT_01
+docking_sensors: robot/config/robots/waffle/docking_sensors.yaml
+station_return_trial_enabled: true
+sorter_distance_handoff:
+  enabled: true
+  station_id: SORT_01
+  observation_start_node: 15
+  approach_end_node: 17
+  docking_profile: sort_01_distance_trial
+  marker_id: 40
+  samples: 5
+  max_age_s: 0.3
+  min_marker_forward_m: 0.25
+  max_marker_forward_m: 1.5
+  max_bearing_rad: 0.15
+  max_heading_error_rad: 0.2
+  corridor_half_width_m: 0.12
+mechanical_device:
+  backend: trigger
+  unload_service: device/unload
+  stop_service: device/stop
+  unload_timeout_s: 45.0
+  stop_timeout_s: 3.0
+  drain_timeout_s: 45.0
+  pickup_lid_enabled: true
+  lid_open_service: device/lid_open
+  lid_close_service: device/lid_close
+unload_workflows:
+  SORT_01:
+    assume_unload_ready: false
+    ready_timeout_s: 60.0
+    auto_clear: true
+    clearance_profile: sort_departure_distance_trial
+    marker_id: 40
+    allow_bounded_clearance_trial: true
+route_policy:
+  blocked_connections:
+  - - 5
+    - 12
+pickup_workflow:
+  enabled: true
+  initial_marker_id: 42
+  final_marker_id: 41
+  approach_profile: harvest_approach_42
+  dock_profile: harvest_dock_41
+  clearance_profile: harvest_clear
+  ready_timeout_s: 300.0
+  transfer_timeout_s: 60.0
+  receipt_confirmation: transfer_complete_event
+  route_handoff:
+    enabled: true
+    max_ready_age_s: 0.5
+pickup_targets_file: robot/config/docking/waffle_marker_targets.yaml

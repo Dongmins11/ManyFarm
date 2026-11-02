@@ -49,6 +49,8 @@ def select_mode(context) -> list:
         if value('cmd_vel_type')!='twist': raise RuntimeError('현재 farm Nav2 구성은 cmd_vel_type:=twist를 사용합니다.')
         args={name:value(name) for name in ('mode','map','nav_params','route_file','rviz')}
         args['project_root'] = str(root)
+        args.update(wait_for_localization='true' if mode == 'real' else 'false',
+                    route_preview='false' if mode == 'real' else 'true')
         if profile: args.update(map=profile['map_yaml'],nav_params=profile['nav_params'],route_file=profile['route_graph'],robot_id=profile['robot_id'])
         args.update(tag_scan_sync='true' if tag_sync else 'false', tag_map_id=profile['map_id'] if tag_sync else '')
         actions.append(IncludeLaunchDescription(PythonLaunchDescriptionSource(str(share/'scout_navigation.launch.py')),launch_arguments=args.items()))

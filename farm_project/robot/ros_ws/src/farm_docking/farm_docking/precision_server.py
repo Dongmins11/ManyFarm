@@ -40,6 +40,7 @@ from tf2_ros import Buffer,TransformListener,TransformException
 from farm_interfaces.action import PrecisionMotion
 from .legacy_aruco import Dock,IDLE,DONE,FAILED,SEARCH
 from .clients import LeaseClient
+from .tf_receiver import DedicatedTfReceiver
 from .clearance import reverse_to_pose
 
 class PrecisionServer(Dock):
@@ -76,7 +77,7 @@ class PrecisionServer(Dock):
             'camera_geometry_verified': False,
             'pose_output_enabled': False, 'pose_control_file': '', 'pose_control_target': '',
             'marker_pose_mode': 'legacy_camera', 'marker_base_frame': 'base_footprint',
-            'odom_frame': 'odom',
+            'odom_frame': 'odom', 'tf_dedicated_executor': False,
         }
         for key, default in defaults.items():
             self.declare_parameter(key, default)
@@ -148,7 +149,11 @@ class PrecisionServer(Dock):
             raise ValueError('공통 서버는 autostart=false, skip_staging=true, cam_auto=false 필요')
         self.group=ReentrantCallbackGroup()
         self.lease=LeaseClient(self,self.group,'precision')
-        self.tf=Buffer();self.listener=TransformListener(self.tf,self)
+        self.tf=Buffer()
+        self._tf_receiver = (DedicatedTfReceiver(self, self.tf)
+                             if self.get_parameter('tf_dedicated_executor').value else None)
+        self.listener = (self._tf_receiver.listener if self._tf_receiver else
+                         TransformListener(self.tf, self))
         self._observe_service=self.create_service(SetBool,'precision/observe_sorter',self.observe_sorter)
         self._harvest_route=None
         self._harvest_observe_service=self.create_service(SetBool,'precision/observe_harvest',self.observe_harvest)
@@ -469,6 +474,10 @@ class PrecisionServer(Dock):
         self.teach_buf = None
         self.cam_off()
         self.lease.close()
+        if self._tf_receiver:
+            self._tf_receiver.close()
+        else:
+            self.listener.unregister()
         super().destroy_node()
 
     def goal(self,q):

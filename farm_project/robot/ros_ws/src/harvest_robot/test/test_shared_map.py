@@ -13,11 +13,13 @@ from farm_navigation.route import RouteGraph
 
 
 class SharedMap(unittest.TestCase):
-    def test_shared_paths_and_documented_hashes(self) -> None:
+    def test_role_paths_and_preserved_harvest_hashes(self) -> None:
         scout = yaml.safe_load((ROOT / 'robot/config/environments/scout_real.yaml').read_text())
         harvest = yaml.safe_load((ROOT / 'robot/config/environments/harvest_real.yaml').read_text())
-        for key in ('map_yaml', 'route_graph', 'map_id'):
-            self.assertEqual(harvest[key], scout[key])
+        self.assertEqual(harvest['map_id'], 'many_farm_v1')
+        self.assertEqual(harvest['route_graph'], 'robot/config/maps/many_farm/graph.geojson')
+        self.assertEqual(scout['map_id'], 'farm_map_v1')
+        self.assertEqual(scout['route_graph'], 'robot/config/maps/scout_real/graph.geojson')
         expected = {
             'graph.geojson': 'fc72ffb617c0f756a6eb58477c0e1211dbc3f4cea2ca9855874008b150cfc504',
             'many_farm.yaml': 'bbe46086336b76b5f11611160803260a91339d87c97709a6ffe5114d8d328fac',

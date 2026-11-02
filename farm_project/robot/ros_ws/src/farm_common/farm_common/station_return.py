@@ -32,6 +32,7 @@ class Station:
     station_id: str
     xy: tuple[float, float]
     yaw: float
+    options: dict | None = None
 
 
 def load_station(root: Path, profile: dict, graph: RouteGraph) -> Station | None:
@@ -51,7 +52,11 @@ def load_station(root: Path, profile: dict, graph: RouteGraph) -> Station | None
         raise ValueError('스테이션 위치와 경로 노드가 다릅니다.')
     if not any(edge.start == value['node_id'] for edge in graph.edges):
         raise ValueError('스테이션에서 출발하는 지정 경로가 없습니다.')
-    return Station(name, xy, yaw)
+    options = value.get("return_motion")
+    if options is not None:
+        from .station_stages import staged_geometry
+        _, yaw, _ = staged_geometry(graph, options, xy)
+    return Station(name, xy, yaw, options)
 
 
 def plan_station_return(graph: RouteGraph, station: Station, xy: tuple[float, float],
@@ -111,6 +116,9 @@ class StationReturn:
         self._tag_section = None
         self._next_tag_update = 0.0
         self._settings = settings
+        self._motion = motion
+        self._forward = self._forward_client = self._spin = None
+        self._wall_reverse = None
         self._handle = self._token = None
         self._graph = RouteGraph(profile['route_graph']) if profile.get('route_graph') else None
         self._station = load_station(root, profile, self._graph) if self._graph else None
@@ -118,15 +126,41 @@ class StationReturn:
             node.get_logger().warning(
                 'STATION_RETURN_NOT_CONFIGURED: 스테이션 위치·복귀 경로 추가 처리가 필요합니다. '
                 '현재 환경의 복귀 요청은 거절합니다.')
+        # return_motion을 선택한 실물 프로파일만 별도 복귀 전략을 조립한다.
+        if self._station is not None and self._station.options is not None:
+            from dataclasses import asdict
+            overrides = self._station.options.get('navigation', {})
+            allowed = {'arrival_tolerance_m', 'heading_tolerance_rad', 'goal_checker_id'}
+            if set(overrides) - allowed:
+                raise ValueError('스테이션 전용 navigation 설정에 허용되지 않은 항목이 있습니다.')
+            settings = NavigationSettings.from_mapping({**asdict(settings), **overrides})
+            self._settings = settings
         # 기존 후진 제어는 보존하고 전진은 일반 RPP의 도착 후 방향 정렬까지 사용한다.
         reverse_settings = replace(settings, mode='follow_path', parallel_approach=False, controller_id='StationReverse')
-        forward_settings = replace(settings, mode='follow_path', parallel_approach=False, controller_id='RPP')
+        forward_controller = (self._station.options.get('forward_controller_id', 'RPP')
+                              if self._station is not None and self._station.options is not None else 'RPP')
+        forward_settings = replace(settings, mode='follow_path', parallel_approach=False, controller_id=forward_controller)
         self._client = (client_factory or Nav2Client)(node, reverse_settings, callbacks) if self._graph else None
         self._navigator = (Navigator(node, reverse_settings, self._client, poses, motion, self._check,
                                     self._graph) if self._graph else None)
         self._forward_client = (client_factory or Nav2Client)(node, forward_settings, callbacks) if self._graph else None
         self._forward_navigator = (Navigator(node, forward_settings, self._forward_client, poses, motion,
                                             self._check, self._graph) if self._graph else None)
+        if self._station is not None and self._station.options is not None:
+            from farm_navigation.spin_client import SpinClient
+            options = self._station.options
+            self._forward = self._forward_navigator
+            self._spin = SpinClient(node, options.get('spin_action', 'spin'), settings, callbacks)
+            wall_key = 'wall_forward' if options.get('strategy') == 'forward_wall_then_turn' else 'wall_reverse'
+            if options.get(wall_key, {}).get('enabled', False):
+                if profile.get('mode') != 'real':
+                    raise ValueError('실측 벽 도킹은 실물 프로파일만 지원합니다.')
+                from .station_wall_runtime import StationWallRuntime
+                runtime_class = StationWallRuntime
+                if wall_key == 'wall_forward' or options[wall_key].get('smooth_control_enabled', False):
+                    from .station_smooth_runtime import StationSmoothWallRuntime
+                    runtime_class = StationSmoothWallRuntime
+                self._wall_reverse = runtime_class(node, poses, motion, settings, options[wall_key], callbacks)
         self._server = ActionServer(node, ReturnToStation, 'return_to_station',
             execute_callback=self.execute, goal_callback=self.accept,
             cancel_callback=lambda _: CancelResponse.ACCEPT, callback_group=callbacks)
@@ -178,6 +212,18 @@ class StationReturn:
             # 수확 인계·운송 분류장 완료 등 로봇별 조건은 이 경계에서 구현한다.
             self._prepare(self._check)
         self._check()
+        if self._station.options is not None:
+            from .station_stages import run_stages
+            self._navigator.preflight_navigation()
+            self._forward.preflight_navigation()
+            run_stages(graph=self._graph, options=self._station.options, station_xy=self._station.xy,
+                forward=self._forward, backward=self._navigator, spin=self._spin,
+                poses=self._poses, motion=self._motion, settings=self._settings, check=self._check,
+                phase=lambda value: self._node.get_logger().info('Station return phase: ' + value),
+                wall_reverse=self._wall_reverse)
+            self._check()
+            self._wall_docking_confirmed = self._wall_reverse is not None
+            return
         current = self._poses.current(self._check)
         plan, reverse, audit = plan_station_return(self._graph, self._station,
             (float(current[0,3]), float(current[1,3])),
@@ -199,6 +245,20 @@ class StationReturn:
 
     def _cleanup_mission(self) -> None:
         """태그 종료가 실패해도 선택한 주행 Goal의 정리를 반드시 시도한다."""
+        if getattr(self._station, 'options', None) is not None:
+            errors = []
+            stops = ([self._wall_reverse.stop] if self._wall_reverse is not None else [])
+            stops += ([self._spin.cancel] if self._spin is not None else [])
+            stops += ([self._forward.cancel_nav] if self._forward is not None else [])
+            stops += [self._navigator.cancel_nav, lambda: self._motion.wait_stopped(lambda: None)]
+            for stop in stops:
+                try:
+                    stop()
+                except Exception as exc:
+                    errors.append(str(exc))
+            if errors:
+                raise RuntimeError('; '.join(errors))
+            return
         self._tag_active = False
         try:
             if self._tag_control is not None:
@@ -208,7 +268,7 @@ class StationReturn:
 
     def _mission_docked(self) -> bool:
         """기존 시뮬 스테이션 위치·방향·정지 완료 계약을 유지한다."""
-        return self._profile.get('mode') == 'sim'
+        return getattr(self, '_wall_docking_confirmed', False) or self._profile.get('mode') == 'sim'
 
     def execute(self, handle: Any) -> Any:
         goal = handle.request
@@ -218,6 +278,7 @@ class StationReturn:
         result.docked = False  # 실패·취소 및 실물의 별도 도킹 미완료 상태.
         result.result_code, result.error_code = 'FAILED', 'RETURN_FAILED'
         acquired = False
+        self._wall_docking_confirmed = False
         timer = None
         self._active_navigator = self._navigator
         try:
@@ -263,7 +324,11 @@ class StationReturn:
 
     def close(self) -> None:
         self._server.destroy()
+        if self._wall_reverse is not None:
+            self._wall_reverse.close()
         if self._client is not None:
             self._client.close()
         if self._forward_client is not None:
             self._forward_client.close()
+        if self._spin is not None:
+            self._spin.close()
