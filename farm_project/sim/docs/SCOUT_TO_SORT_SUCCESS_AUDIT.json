@@ -1,0 +1,155 @@
+{
+  "fresh_successes": 4,
+  "reused_successes": 5,
+  "partial_failures": 3,
+  "records": [
+    {
+      "row": 1,
+      "section": "SEC01",
+      "classification": "새 전체 실행 성공",
+      "input_count": 12,
+      "sorted_count": 9,
+      "source": "sim/runs/section_full_cycle_return_20261031_165651/attempt_006/result.json",
+      "sha256": "ee6eeecea5d08261e1081f83b9a657628bd6912e56f103c6f53267e84b286fe1",
+      "sort_task_id": "sort_sorter_1fd89d63ea8b45d7",
+      "overall_passed": true,
+      "error": null
+    },
+    {
+      "row": 2,
+      "section": "SEC03",
+      "classification": "새 전체 실행 성공",
+      "input_count": 11,
+      "sorted_count": 7,
+      "source": "sim/runs/sec02_departure_recovery_20261101/sec03_to_sec16/attempt_010/result.json",
+      "sha256": "e197862a239a1fb8690aedd177e44b336e781af8f8c65024297a1b4514039632",
+      "sort_task_id": "sort_sorter_17525854ec9443ef",
+      "overall_passed": true,
+      "error": null
+    },
+    {
+      "row": 3,
+      "section": "SEC04",
+      "classification": "새 전체 실행 성공",
+      "input_count": 11,
+      "sorted_count": 10,
+      "source": "sim/runs/wall_approach_recovery_20261102/fresh_sec04_to_sec16/SEC04/result.json",
+      "sha256": "74b03c75fb7c52e0e30a4df4c34c67922cf98da6a0496f1ccc3a6a39cfd565d4",
+      "sort_task_id": "sort_sorter_b272e11083cf4afc",
+      "overall_passed": true,
+      "error": null
+    },
+    {
+      "row": 4,
+      "section": "SEC05",
+      "classification": "새 전체 실행 성공",
+      "input_count": 13,
+      "sorted_count": 10,
+      "source": "sim/runs/amcl_alpha1_recovery_20261102/retry_sec05_to_sec16/SEC05/result.json",
+      "sha256": "296ea42422e892b93f1c2b1f4f97cfc3fb8cd4e4bc37535c5e0dcd5b5b6212ef",
+      "sort_task_id": "sort_sorter_f293dc4c1c784e42",
+      "overall_passed": true,
+      "error": null
+    },
+    {
+      "row": 5,
+      "section": "SEC01",
+      "classification": "예찰·수확 재사용 완료",
+      "input_count": 10,
+      "sorted_count": 1,
+      "source": "sim/runs/transport_full_resume_20261029_attempt03/result.json",
+      "sha256": "cce4eaa396d21d051381d6bf8c036bdc92953d2551843a0c901f610a483cfde3",
+      "sort_task_id": "sort_sorter_172a3659976641ce",
+      "overall_passed": true,
+      "error": null
+    },
+    {
+      "row": 6,
+      "section": "SEC01",
+      "classification": "예찰·수확 재사용 완료",
+      "input_count": 10,
+      "sorted_count": 10,
+      "source": "sim/runs/transport_full_resume_20261030_roi05_attempt01/result.json",
+      "sha256": "2b4517fa1f53b7a8456bb34c10ed17d2236e26692bc57116177406feabe535eb",
+      "sort_task_id": "sort_sorter_5018ebc908ec4da3",
+      "overall_passed": true,
+      "error": null
+    },
+    {
+      "row": 7,
+      "section": "SEC02",
+      "classification": "예찰·수확 재사용 완료",
+      "input_count": 11,
+      "sorted_count": 11,
+      "source": "sim/runs/sec02_departure_recovery_20261101/attempt_001/result.json",
+      "sha256": "883d0a3d08711d8a53a0cfb0c324fca0973453b621e8e367af982aeb2f0237a2",
+      "sort_task_id": "sort_sorter_23f678ceadd94e01",
+      "overall_passed": true,
+      "error": null
+    },
+    {
+      "row": 8,
+      "section": "SEC04",
+      "classification": "예찰·수확 재사용 완료",
+      "input_count": 10,
+      "sorted_count": 8,
+      "source": "sim/runs/sec04_idle_recovery_20261102/attempt_003/result.json",
+      "sha256": "477090382f2a036581fa7ee211079d0fd84da97598e19101e46ae9d3956ef2b2",
+      "sort_task_id": "sort_sorter_a6f06ae75d8245b1",
+      "overall_passed": true,
+      "error": null
+    },
+    {
+      "row": 9,
+      "section": "SEC04",
+      "classification": "예찰·수확 재사용 완료",
+      "input_count": 12,
+      "sorted_count": 12,
+      "source": "sim/runs/wall_approach_recovery_20261102/attempt_002/result.json",
+      "sha256": "e0d02e1de7c603d9aa24b4d9539ed23633ec5630b7931b0479a441c91d5d228b",
+      "sort_task_id": "sort_sorter_5059c6d326eb403c",
+      "overall_passed": true,
+      "error": null
+    },
+    {
+      "row": 10,
+      "section": "SEC01",
+      "classification": "선별 액션 성공 / 전체 실패",
+      "input_count": 13,
+      "sorted_count": 13,
+      "source": "sim/runs/fresh_full_cycle_20261030_114723_after_push/attempt_002/result.json",
+      "sha256": "e9b965cff7e018475d722286564f76ff4c9a7cc83ab85de1c8943c8ba08015da",
+      "sort_task_id": "sort_sorter_f76938a5136f4c60",
+      "overall_passed": false,
+      "error": "RuntimeError: scout_return 실패: {\"status\": 6, \"result\": {\"robot_id\": \"scout_01\", \"task_id\": \"cycle_scout_return_7cd8a03e2c78\", \"result_code\": \"FAILED\", \"station_id\": \"STATION_SCOUT_01\", \"docked\": false, \"error_code\": \"RETURN_FAILED\", \"error_message\": \"Nav2 실패: status=6, error_code=103, \", \"timestamp\": \"2026-10-30T06:06:53.509734+00:00\"}}"
+    },
+    {
+      "row": 11,
+      "section": "SEC01",
+      "classification": "선별 액션 성공 / 전체 실패",
+      "input_count": 13,
+      "sorted_count": 8,
+      "source": "sim/runs/section_full_cycle_return_20261031_165651/attempt_001/result.json",
+      "sha256": "3c677b660d5ed679816f3804771dd72cd57b7250cd51a9faccd6307a8751d0c5",
+      "sort_task_id": "sort_sorter_6e9213baf8d945d1",
+      "overall_passed": false,
+      "error": "RuntimeError: 선별장/운송복귀 실패: RuntimeError: 선별 미완료: {\"input_count\": 13, \"sorted_count\": 8, \"remaining\": [\"/World/Vegetation/Bed_02/Fruits/Pepper_0026_yellow\", \"/World/Vegetation/Bed_02/Fruits/Pepper_0030_yellow\", \"/World/Vegetation/Bed_02/Fruits/Pepper_0032_red\", \"/World/Vegetation/Bed_02/Fruits/Pepper_0033_red\", \"/World/Vegetation/Bed_02/Fruits/Pepper_0036_yellow\"]}"
+    },
+    {
+      "row": 12,
+      "section": "SEC02",
+      "classification": "선별 액션 성공 / 전체 실패",
+      "input_count": 11,
+      "sorted_count": 8,
+      "source": "sim/runs/sec02_restore_resume_20261101/attempt_001/result.json",
+      "sha256": "75d46f2dfa14b4d3f332ea9f68a95b6c31ecd76b5077a1f43fc84f9eee2144c4",
+      "sort_task_id": "sort_sorter_4034f8fd5e814ebf",
+      "overall_passed": false,
+      "error": "RuntimeError: harvest_return 실패: {\"status\": 6, \"result\": {\"robot_id\": \"harvest_01\", \"task_id\": \"cycle_harvest_return_e139e8d6a347\", \"result_code\": \"FAILED\", \"station_id\": \"STATION_HARVEST_01\", \"docked\": false, \"error_code\": \"RETURN_FAILED\", \"error_message\": \"실행 가능한 스테이션 복귀 경로 없음: {\\\"forward\\\": {\\\"available\\\": false, \\\"reason\\\": \\\"위치 (-3.2938382001305375, 10.959639530981121)가 그래프에서 0.1m 이상 떨어져 있습니다.\\\"}, \\\"reverse\\\": {\\\"available\\\": false, \\\"reason\\\": \\\"위치 (-3.2938382001305375, 10.959639530981121)가 그래프에서 0.1m 이상 떨어져 있습니다.\\\"}}\", \"timestamp\": \"2026-11-01T09:38:53.593923+00:00\"}}"
+    }
+  ],
+  "excluded_duplicates": [
+    "sim/docs/test_results/20261030_roi05_cycle/result.json",
+    "sim/runs/portfolio_capture_20261030/worktree/farm_project/sim/docs/test_results/20261030_roi05_cycle/result.json"
+  ]
+}

@@ -1,0 +1,488 @@
+{
+  "schema_version": 3,
+  "description": "시뮬 기록 11개 + 합성 예시 5개. 16회 실험 결과가 아님.",
+  "recorded_row_count": 11,
+  "synthetic_row_count": 5,
+  "excluded_records": [
+    {
+      "original_audit_row": 5,
+      "source": "sim/runs/transport_full_resume_20261029_attempt03/result.json",
+      "reason": "사용자 요청으로 ROI 수정 전 10개 투입/1개 선별 기록을 이 파생 데이터에서 제외. 원본·감사 목록은 보존.",
+      "replacement_row": 5,
+      "replacement_type": "synthetic"
+    }
+  ],
+  "definitions": {
+    "actual_sec_fruit_count": "초기 스냅샷에서 해당 SEC 면의 red/yellow 과실만 집계. task.yaml의 Bed 중심 x와 west/east로 구분; green 제외. 영상 가시성이나 팔 도달 가능성 필터는 적용하지 않음.",
+    "scout_predicted_fruit_count": "scout.result.total_expected_count: 예찰이 수확 작업에 배정한 예측 합계.",
+    "harvested_basket_fruit_count": "cargo_manifest의 실제 바구니 안 분리 과실 고유 경로 수. 선별장 input_count와 일치 확인. 레이저/수확 액션 카운터 사용 안 함.",
+    "sorted_fruit_count": "sorter_and_transport_return.sorted_count: 기록된 선별 수.",
+    "synthetic": "true인 행은 임의 생성값이며 실측 성공률·독립 실험 수에서 제외."
+  },
+  "limitations": [
+    "기존 실행의 가상 인계 기구를 포함한 시뮬 기록이다. 실물 장치 실험 데이터가 아니다.",
+    "이전 예찰·수확 재사용 기록 및 전체 실패 기록의 분류를 보존했다.",
+    "미확인 실측값은 null이다. 합성 평균 계산에서 null은 제외했다."
+  ],
+  "synthetic_generation": {
+    "method": "5번을 제외한 실측 11행 필드별 평균을 정수 반올림한 뒤 명시된 -1/0/+1 편차 적용",
+    "recorded_means": {
+      "actual_sec_fruit_count": 12.11111111111111,
+      "scout_predicted_fruit_count": 12.818181818181818,
+      "harvested_basket_fruit_count": 11.545454545454545,
+      "sorted_fruit_count": 9.636363636363637
+    },
+    "non_null_sample_counts": {
+      "actual_sec_fruit_count": 9,
+      "scout_predicted_fruit_count": 11,
+      "harvested_basket_fruit_count": 11,
+      "sorted_fruit_count": 11
+    }
+  },
+  "records": [
+    {
+      "row": 1,
+      "data_type": "recorded_simulation",
+      "synthetic": false,
+      "section": "SEC01",
+      "bed": "Bed_02",
+      "classification": "새 전체 실행 성공",
+      "overall_passed": true,
+      "actual_sec_fruit_count": 13,
+      "survey_side": "west",
+      "scout_predicted_fruit_count": 14,
+      "harvested_basket_fruit_count": 12,
+      "sorted_fruit_count": 9,
+      "sec_fruits_by_class": {
+        "red": 7,
+        "yellow": 6
+      },
+      "sources": {
+        "section_geometry": "sim/ros_ws/src/farm_sim_config/config/task.yaml",
+        "result": "sim/runs/section_full_cycle_return_20261031_165651/attempt_006/result.json",
+        "basket_manifest": "sim/runs/section_full_cycle_return_20261031_165651/attempt_006/cargo_manifest.json",
+        "bed_initial_scene": "sim/runs/section_full_cycle_return_20261031_165651/attempt_006/initial_scene.json"
+      },
+      "missing_data_reason": null
+    },
+    {
+      "row": 2,
+      "data_type": "recorded_simulation",
+      "synthetic": false,
+      "section": "SEC03",
+      "bed": "Bed_04",
+      "classification": "새 전체 실행 성공",
+      "overall_passed": true,
+      "actual_sec_fruit_count": 12,
+      "survey_side": "west",
+      "scout_predicted_fruit_count": 13,
+      "harvested_basket_fruit_count": 11,
+      "sorted_fruit_count": 7,
+      "sec_fruits_by_class": {
+        "red": 6,
+        "yellow": 6
+      },
+      "sources": {
+        "section_geometry": "sim/ros_ws/src/farm_sim_config/config/task.yaml",
+        "result": "sim/runs/sec02_departure_recovery_20261101/sec03_to_sec16/attempt_010/result.json",
+        "basket_manifest": "sim/runs/sec02_departure_recovery_20261101/sec03_to_sec16/attempt_010/cargo_manifest.json",
+        "bed_initial_scene": "sim/runs/sec02_departure_recovery_20261101/sec03_to_sec16/attempt_010/initial_scene.json"
+      },
+      "missing_data_reason": null
+    },
+    {
+      "row": 3,
+      "data_type": "recorded_simulation",
+      "synthetic": false,
+      "section": "SEC04",
+      "bed": "Bed_04",
+      "classification": "새 전체 실행 성공",
+      "overall_passed": true,
+      "actual_sec_fruit_count": 12,
+      "survey_side": "east",
+      "scout_predicted_fruit_count": 12,
+      "harvested_basket_fruit_count": 11,
+      "sorted_fruit_count": 10,
+      "sec_fruits_by_class": {
+        "red": 6,
+        "yellow": 6
+      },
+      "sources": {
+        "section_geometry": "sim/ros_ws/src/farm_sim_config/config/task.yaml",
+        "result": "sim/runs/wall_approach_recovery_20261102/fresh_sec04_to_sec16/SEC04/result.json",
+        "basket_manifest": "sim/runs/wall_approach_recovery_20261102/fresh_sec04_to_sec16/SEC04/cargo_manifest.json",
+        "bed_initial_scene": "sim/runs/wall_approach_recovery_20261102/fresh_sec04_to_sec16/SEC04/initial_scene.json"
+      },
+      "missing_data_reason": null
+    },
+    {
+      "row": 4,
+      "data_type": "recorded_simulation",
+      "synthetic": false,
+      "section": "SEC05",
+      "bed": "Bed_06",
+      "classification": "새 전체 실행 성공",
+      "overall_passed": true,
+      "actual_sec_fruit_count": 13,
+      "survey_side": "west",
+      "scout_predicted_fruit_count": 13,
+      "harvested_basket_fruit_count": 13,
+      "sorted_fruit_count": 10,
+      "sec_fruits_by_class": {
+        "red": 6,
+        "yellow": 7
+      },
+      "sources": {
+        "section_geometry": "sim/ros_ws/src/farm_sim_config/config/task.yaml",
+        "result": "sim/runs/amcl_alpha1_recovery_20261102/retry_sec05_to_sec16/SEC05/result.json",
+        "basket_manifest": "sim/runs/amcl_alpha1_recovery_20261102/retry_sec05_to_sec16/SEC05/cargo_manifest.json",
+        "bed_initial_scene": "sim/runs/amcl_alpha1_recovery_20261102/retry_sec05_to_sec16/SEC05/initial_scene.json"
+      },
+      "missing_data_reason": null
+    },
+    {
+      "row": 5,
+      "data_type": "synthetic",
+      "synthetic": true,
+      "section": null,
+      "bed": null,
+      "classification": "평균 기반 합성 예시 · 실행하지 않음",
+      "overall_passed": null,
+      "actual_sec_fruit_count": 12,
+      "scout_predicted_fruit_count": 13,
+      "harvested_basket_fruit_count": 12,
+      "sorted_fruit_count": 10,
+      "sources": null,
+      "generation": {
+        "base_rows": [
+          1,
+          2,
+          3,
+          4,
+          6,
+          7,
+          8,
+          9,
+          10,
+          11,
+          12
+        ],
+        "offsets": {
+          "actual_sec_fruit_count": 0,
+          "scout_predicted_fruit_count": 0,
+          "harvested_basket_fruit_count": 0,
+          "sorted_fruit_count": 0
+        }
+      }
+    },
+    {
+      "row": 6,
+      "data_type": "recorded_simulation",
+      "synthetic": false,
+      "section": "SEC01",
+      "bed": "Bed_02",
+      "classification": "예찰·수확 재사용 완료",
+      "overall_passed": true,
+      "actual_sec_fruit_count": null,
+      "survey_side": "west",
+      "scout_predicted_fruit_count": 13,
+      "harvested_basket_fruit_count": 10,
+      "sorted_fruit_count": 10,
+      "sec_fruits_by_class": null,
+      "sources": {
+        "section_geometry": "sim/ros_ws/src/farm_sim_config/config/task.yaml",
+        "result": "sim/runs/transport_full_resume_20261030_roi05_attempt01/result.json",
+        "basket_manifest": "sim/runs/transport_full_resume_20261030_roi05_attempt01/cargo_manifest.json",
+        "bed_initial_scene": null
+      },
+      "missing_data_reason": "원 실행의 initial_scene.json 없음. 다른 실행의 SEC 과실 수를 복사하지 않음."
+    },
+    {
+      "row": 7,
+      "data_type": "recorded_simulation",
+      "synthetic": false,
+      "section": "SEC02",
+      "bed": "Bed_02",
+      "classification": "예찰·수확 재사용 완료",
+      "overall_passed": true,
+      "actual_sec_fruit_count": 11,
+      "survey_side": "east",
+      "scout_predicted_fruit_count": 13,
+      "harvested_basket_fruit_count": 11,
+      "sorted_fruit_count": 11,
+      "sec_fruits_by_class": {
+        "red": 5,
+        "yellow": 6
+      },
+      "sources": {
+        "section_geometry": "sim/ros_ws/src/farm_sim_config/config/task.yaml",
+        "result": "sim/runs/sec02_departure_recovery_20261101/attempt_001/result.json",
+        "basket_manifest": "sim/runs/sec02_departure_recovery_20261101/attempt_001/cargo_manifest.json",
+        "bed_initial_scene": "sim/runs/section_full_cycle_return_20261031_165651/attempt_014/initial_scene.json"
+      },
+      "missing_data_reason": null
+    },
+    {
+      "row": 8,
+      "data_type": "recorded_simulation",
+      "synthetic": false,
+      "section": "SEC04",
+      "bed": "Bed_04",
+      "classification": "예찰·수확 재사용 완료",
+      "overall_passed": true,
+      "actual_sec_fruit_count": 12,
+      "survey_side": "east",
+      "scout_predicted_fruit_count": 12,
+      "harvested_basket_fruit_count": 10,
+      "sorted_fruit_count": 8,
+      "sec_fruits_by_class": {
+        "red": 6,
+        "yellow": 6
+      },
+      "sources": {
+        "section_geometry": "sim/ros_ws/src/farm_sim_config/config/task.yaml",
+        "result": "sim/runs/sec04_idle_recovery_20261102/attempt_003/result.json",
+        "basket_manifest": "sim/runs/sec04_idle_recovery_20261102/attempt_003/cargo_manifest.json",
+        "bed_initial_scene": "sim/runs/headless_sec04_20261102_073346/attempt_001/initial_scene.json"
+      },
+      "missing_data_reason": null
+    },
+    {
+      "row": 9,
+      "data_type": "recorded_simulation",
+      "synthetic": false,
+      "section": "SEC04",
+      "bed": "Bed_04",
+      "classification": "예찰·수확 재사용 완료",
+      "overall_passed": true,
+      "actual_sec_fruit_count": 12,
+      "survey_side": "east",
+      "scout_predicted_fruit_count": 12,
+      "harvested_basket_fruit_count": 12,
+      "sorted_fruit_count": 12,
+      "sec_fruits_by_class": {
+        "red": 6,
+        "yellow": 6
+      },
+      "sources": {
+        "section_geometry": "sim/ros_ws/src/farm_sim_config/config/task.yaml",
+        "result": "sim/runs/wall_approach_recovery_20261102/attempt_002/result.json",
+        "basket_manifest": "sim/runs/wall_approach_recovery_20261102/attempt_002/cargo_manifest.json",
+        "bed_initial_scene": "sim/runs/sec04_idle_recovery_20261102/fresh_sec04_to_sec16/SEC04/initial_scene.json"
+      },
+      "missing_data_reason": null
+    },
+    {
+      "row": 10,
+      "data_type": "recorded_simulation",
+      "synthetic": false,
+      "section": "SEC01",
+      "bed": "Bed_02",
+      "classification": "선별 액션 성공 / 전체 실패",
+      "overall_passed": false,
+      "actual_sec_fruit_count": null,
+      "survey_side": "west",
+      "scout_predicted_fruit_count": 13,
+      "harvested_basket_fruit_count": 13,
+      "sorted_fruit_count": 13,
+      "sec_fruits_by_class": null,
+      "sources": {
+        "section_geometry": "sim/ros_ws/src/farm_sim_config/config/task.yaml",
+        "result": "sim/runs/fresh_full_cycle_20261030_114723_after_push/attempt_002/result.json",
+        "basket_manifest": "sim/runs/fresh_full_cycle_20261030_114723_after_push/attempt_002/cargo_manifest.json",
+        "bed_initial_scene": null
+      },
+      "missing_data_reason": "원 실행의 initial_scene.json 없음. 다른 실행의 SEC 과실 수를 복사하지 않음."
+    },
+    {
+      "row": 11,
+      "data_type": "recorded_simulation",
+      "synthetic": false,
+      "section": "SEC01",
+      "bed": "Bed_02",
+      "classification": "선별 액션 성공 / 전체 실패",
+      "overall_passed": false,
+      "actual_sec_fruit_count": 13,
+      "survey_side": "west",
+      "scout_predicted_fruit_count": 13,
+      "harvested_basket_fruit_count": 13,
+      "sorted_fruit_count": 8,
+      "sec_fruits_by_class": {
+        "red": 7,
+        "yellow": 6
+      },
+      "sources": {
+        "section_geometry": "sim/ros_ws/src/farm_sim_config/config/task.yaml",
+        "result": "sim/runs/section_full_cycle_return_20261031_165651/attempt_001/result.json",
+        "basket_manifest": "sim/runs/section_full_cycle_return_20261031_165651/attempt_001/cargo_manifest.json",
+        "bed_initial_scene": "sim/runs/section_full_cycle_return_20261031_165651/attempt_001/initial_scene.json"
+      },
+      "missing_data_reason": null
+    },
+    {
+      "row": 12,
+      "data_type": "recorded_simulation",
+      "synthetic": false,
+      "section": "SEC02",
+      "bed": "Bed_02",
+      "classification": "선별 액션 성공 / 전체 실패",
+      "overall_passed": false,
+      "actual_sec_fruit_count": 11,
+      "survey_side": "east",
+      "scout_predicted_fruit_count": 13,
+      "harvested_basket_fruit_count": 11,
+      "sorted_fruit_count": 8,
+      "sec_fruits_by_class": {
+        "red": 5,
+        "yellow": 6
+      },
+      "sources": {
+        "section_geometry": "sim/ros_ws/src/farm_sim_config/config/task.yaml",
+        "result": "sim/runs/sec02_restore_resume_20261101/attempt_001/result.json",
+        "basket_manifest": "sim/runs/sec02_restore_resume_20261101/attempt_001/cargo_manifest.json",
+        "bed_initial_scene": "sim/runs/section_full_cycle_return_20261031_165651/attempt_014/initial_scene.json"
+      },
+      "missing_data_reason": null
+    },
+    {
+      "row": 13,
+      "data_type": "synthetic",
+      "synthetic": true,
+      "section": null,
+      "bed": null,
+      "classification": "평균 기반 합성 예시 · 실행하지 않음",
+      "overall_passed": null,
+      "actual_sec_fruit_count": 11,
+      "scout_predicted_fruit_count": 13,
+      "harvested_basket_fruit_count": 11,
+      "sorted_fruit_count": 9,
+      "sources": null,
+      "generation": {
+        "base_rows": [
+          1,
+          2,
+          3,
+          4,
+          6,
+          7,
+          8,
+          9,
+          10,
+          11,
+          12
+        ],
+        "offsets": {
+          "actual_sec_fruit_count": -1,
+          "scout_predicted_fruit_count": 0,
+          "harvested_basket_fruit_count": -1,
+          "sorted_fruit_count": -1
+        }
+      }
+    },
+    {
+      "row": 14,
+      "data_type": "synthetic",
+      "synthetic": true,
+      "section": null,
+      "bed": null,
+      "classification": "평균 기반 합성 예시 · 실행하지 않음",
+      "overall_passed": null,
+      "actual_sec_fruit_count": 12,
+      "scout_predicted_fruit_count": 12,
+      "harvested_basket_fruit_count": 12,
+      "sorted_fruit_count": 10,
+      "sources": null,
+      "generation": {
+        "base_rows": [
+          1,
+          2,
+          3,
+          4,
+          6,
+          7,
+          8,
+          9,
+          10,
+          11,
+          12
+        ],
+        "offsets": {
+          "actual_sec_fruit_count": 0,
+          "scout_predicted_fruit_count": -1,
+          "harvested_basket_fruit_count": 0,
+          "sorted_fruit_count": 0
+        }
+      }
+    },
+    {
+      "row": 15,
+      "data_type": "synthetic",
+      "synthetic": true,
+      "section": null,
+      "bed": null,
+      "classification": "평균 기반 합성 예시 · 실행하지 않음",
+      "overall_passed": null,
+      "actual_sec_fruit_count": 13,
+      "scout_predicted_fruit_count": 14,
+      "harvested_basket_fruit_count": 13,
+      "sorted_fruit_count": 11,
+      "sources": null,
+      "generation": {
+        "base_rows": [
+          1,
+          2,
+          3,
+          4,
+          6,
+          7,
+          8,
+          9,
+          10,
+          11,
+          12
+        ],
+        "offsets": {
+          "actual_sec_fruit_count": 1,
+          "scout_predicted_fruit_count": 1,
+          "harvested_basket_fruit_count": 1,
+          "sorted_fruit_count": 1
+        }
+      }
+    },
+    {
+      "row": 16,
+      "data_type": "synthetic",
+      "synthetic": true,
+      "section": null,
+      "bed": null,
+      "classification": "평균 기반 합성 예시 · 실행하지 않음",
+      "overall_passed": null,
+      "actual_sec_fruit_count": 12,
+      "scout_predicted_fruit_count": 13,
+      "harvested_basket_fruit_count": 12,
+      "sorted_fruit_count": 10,
+      "sources": null,
+      "generation": {
+        "base_rows": [
+          1,
+          2,
+          3,
+          4,
+          6,
+          7,
+          8,
+          9,
+          10,
+          11,
+          12
+        ],
+        "offsets": {
+          "actual_sec_fruit_count": 0,
+          "scout_predicted_fruit_count": 0,
+          "harvested_basket_fruit_count": 0,
+          "sorted_fruit_count": 0
+        }
+      }
+    }
+  ]
+}
