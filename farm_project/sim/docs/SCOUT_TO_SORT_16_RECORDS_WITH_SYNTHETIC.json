@@ -183,19 +183,22 @@
       "bed": "Bed_02",
       "classification": "예찰·수확 재사용 완료",
       "overall_passed": true,
-      "actual_sec_fruit_count": null,
+      "actual_sec_fruit_count": 13,
       "survey_side": "west",
       "scout_predicted_fruit_count": 13,
       "harvested_basket_fruit_count": 10,
       "sorted_fruit_count": 10,
-      "sec_fruits_by_class": null,
+      "sec_fruits_by_class": {
+        "red": 7,
+        "yellow": 6
+      },
       "sources": {
         "section_geometry": "sim/ros_ws/src/farm_sim_config/config/task.yaml",
         "result": "sim/runs/transport_full_resume_20261030_roi05_attempt01/result.json",
         "basket_manifest": "sim/runs/transport_full_resume_20261030_roi05_attempt01/cargo_manifest.json",
         "bed_initial_scene": null
       },
-      "missing_data_reason": "원 실행의 initial_scene.json 없음. 다른 실행의 SEC 과실 수를 복사하지 않음."
+      "missing_data_reason": "원 실행의 initial_scene.json 없음. 사용자 지정에 따라 동일 SEC01의 구역 과실 수 13개(빨강 7·노랑 6)를 적용."
     },
     {
       "row": 7,
@@ -280,19 +283,22 @@
       "bed": "Bed_02",
       "classification": "선별 액션 성공 / 전체 실패",
       "overall_passed": false,
-      "actual_sec_fruit_count": null,
+      "actual_sec_fruit_count": 13,
       "survey_side": "west",
       "scout_predicted_fruit_count": 13,
       "harvested_basket_fruit_count": 13,
       "sorted_fruit_count": 13,
-      "sec_fruits_by_class": null,
+      "sec_fruits_by_class": {
+        "red": 7,
+        "yellow": 6
+      },
       "sources": {
         "section_geometry": "sim/ros_ws/src/farm_sim_config/config/task.yaml",
         "result": "sim/runs/fresh_full_cycle_20261030_114723_after_push/attempt_002/result.json",
         "basket_manifest": "sim/runs/fresh_full_cycle_20261030_114723_after_push/attempt_002/cargo_manifest.json",
         "bed_initial_scene": null
       },
-      "missing_data_reason": "원 실행의 initial_scene.json 없음. 다른 실행의 SEC 과실 수를 복사하지 않음."
+      "missing_data_reason": "원 실행의 initial_scene.json 없음. 사용자 지정에 따라 동일 SEC01의 구역 과실 수 13개(빨강 7·노랑 6)를 적용."
     },
     {
       "row": 11,
