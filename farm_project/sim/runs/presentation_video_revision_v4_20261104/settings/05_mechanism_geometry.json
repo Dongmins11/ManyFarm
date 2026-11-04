@@ -1,0 +1,1685 @@
+{
+  "status": "offline USD measurement; GUI not reviewed here",
+  "method": "original joint frames + actual Cube size vertices / Mesh points; no BBoxCache Cube extent",
+  "joints": {
+    "box_bottom_left_joint": {
+      "path": "/World/harvest_robot/joints/box_bottom_left_joint",
+      "type": "PhysicsPrismaticJoint",
+      "body0": "/World/harvest_robot/harvest_lid_fixed",
+      "body1": "/World/harvest_robot/box_bottom_left",
+      "axis_token": "Y",
+      "axis_world": [
+        0.9999999999999993,
+        -3.422854177870249e-08,
+        0.0
+      ],
+      "lower_limit_usd": 0.0,
+      "upper_limit_usd": 0.10499999672174454,
+      "limit_units": "m",
+      "closed_value_for_capture": 0.0
+    },
+    "box_bottom_right_joint": {
+      "path": "/World/harvest_robot/joints/box_bottom_right_joint",
+      "type": "PhysicsPrismaticJoint",
+      "body0": "/World/harvest_robot/harvest_lid_fixed",
+      "body1": "/World/harvest_robot/box_bottom_right",
+      "axis_token": "Y",
+      "axis_world": [
+        -0.9999999999999993,
+        3.422854177870249e-08,
+        1.2246467991473532e-16
+      ],
+      "lower_limit_usd": -0.020999999716877937,
+      "upper_limit_usd": 0.12600000202655792,
+      "limit_units": "m",
+      "closed_value_for_capture": 0.0
+    },
+    "harvest_lid_pinion_joint": {
+      "path": "/World/harvest_robot/joints/harvest_lid_pinion_joint",
+      "type": "PhysicsRevoluteJoint",
+      "body0": "/World/harvest_robot/harvest_lid_fixed",
+      "body1": "/World/harvest_robot/harvest_lid_gear",
+      "axis_token": "X",
+      "axis_world": [
+        3.422854190116717e-08,
+        0.9999999999999993,
+        0.0
+      ],
+      "lower_limit_usd": -0.5,
+      "upper_limit_usd": 3.000000238418579,
+      "limit_units": "degrees",
+      "closed_value_for_capture": 0.0
+    },
+    "box_tilt_joint": {
+      "path": "/World/transport_robot/joints/box_tilt_joint",
+      "type": "PhysicsRevoluteJoint",
+      "body0": "/World/transport_robot/base_link",
+      "body1": "/World/transport_robot/cargo_box",
+      "axis_token": "Y",
+      "axis_world": [
+        -1.0,
+        2.220446049250313e-16,
+        0.0
+      ],
+      "lower_limit_usd": 0.0,
+      "upper_limit_usd": 45.0,
+      "limit_units": "degrees",
+      "closed_value_for_capture": 0.0
+    },
+    "lid_pinion_joint": {
+      "path": "/World/transport_robot/joints/lid_pinion_joint",
+      "type": "PhysicsRevoluteJoint",
+      "body0": "/World/transport_robot/cargo_box",
+      "body1": "/World/transport_robot/lid_pinion",
+      "axis_token": "X",
+      "axis_world": [
+        -3.4450928483976665e-16,
+        -1.0,
+        0.0
+      ],
+      "lower_limit_usd": 0.0,
+      "upper_limit_usd": 177.6168975830078,
+      "limit_units": "degrees",
+      "closed_value_for_capture": 0.0
+    },
+    "side_lid_joint": {
+      "path": "/World/transport_robot/joints/side_lid_joint",
+      "type": "PhysicsRevoluteJoint",
+      "body0": "/World/transport_robot/cargo_box",
+      "body1": "/World/transport_robot/side_lid",
+      "axis_token": "Y",
+      "axis_world": [
+        1.0,
+        -2.220446049250313e-16,
+        1.2246467991473532e-16
+      ],
+      "lower_limit_usd": 0.0,
+      "upper_limit_usd": 90.0,
+      "limit_units": "degrees",
+      "closed_value_for_capture": 0.0
+    },
+    "top_lid_left_joint": {
+      "path": "/World/transport_robot/joints/top_lid_left_joint",
+      "type": "PhysicsPrismaticJoint",
+      "body0": "/World/transport_robot/cargo_box",
+      "body1": "/World/transport_robot/top_lid_left",
+      "axis_token": "Y",
+      "axis_world": [
+        -1.0,
+        2.220446049250313e-16,
+        0.0
+      ],
+      "lower_limit_usd": 0.0,
+      "upper_limit_usd": 0.0,
+      "limit_units": "m",
+      "closed_value_for_capture": 0.0
+    },
+    "top_lid_right_joint": {
+      "path": "/World/transport_robot/joints/top_lid_right_joint",
+      "type": "PhysicsPrismaticJoint",
+      "body0": "/World/transport_robot/cargo_box",
+      "body1": "/World/transport_robot/top_lid_right",
+      "axis_token": "Y",
+      "axis_world": [
+        1.0,
+        -2.220446049250313e-16,
+        1.2246467991473532e-16
+      ],
+      "lower_limit_usd": 0.0,
+      "upper_limit_usd": 0.0,
+      "limit_units": "m",
+      "closed_value_for_capture": 0.0
+    }
+  },
+  "urdf_transport_joints": {
+    "box_tilt_joint": {
+      "type": "revolute",
+      "axis": "0 1 0",
+      "limit": {
+        "lower": "0",
+        "upper": "0.7853981633974483",
+        "effort": "20",
+        "velocity": "0.25"
+      },
+      "mimic": null
+    },
+    "side_lid_joint": {
+      "type": "revolute",
+      "axis": "0 -1 0",
+      "limit": {
+        "lower": "0",
+        "upper": "1.5707963267948966",
+        "effort": "1",
+        "velocity": "1"
+      },
+      "mimic": null
+    },
+    "lid_pinion_joint": {
+      "type": "revolute",
+      "axis": "-1 0 0",
+      "limit": {
+        "lower": "0",
+        "upper": "3.0999999999999996",
+        "effort": "1",
+        "velocity": "1"
+      },
+      "mimic": null
+    },
+    "top_lid_left_joint": {
+      "type": "prismatic",
+      "axis": "0 1 0",
+      "limit": {
+        "lower": "0",
+        "upper": "0.155",
+        "effort": "20",
+        "velocity": "0.05"
+      },
+      "mimic": {
+        "joint": "lid_pinion_joint",
+        "multiplier": "0.05",
+        "offset": "0"
+      }
+    },
+    "top_lid_right_joint": {
+      "type": "prismatic",
+      "axis": "0 -1 0",
+      "limit": {
+        "lower": "0",
+        "upper": "0.155",
+        "effort": "20",
+        "velocity": "0.05"
+      },
+      "mimic": {
+        "joint": "lid_pinion_joint",
+        "multiplier": "0.05",
+        "offset": "0"
+      }
+    }
+  },
+  "transport_visual_cubes": [
+    {
+      "path": "/World/transport_robot/top_lid_left/visuals/mesh_0/box",
+      "actual_world_bounds_closed": [
+        [
+          -6.1500000059604645,
+          3.4999999909996986,
+          0.4449999884236604
+        ],
+        [
+          -6.0,
+          3.8000000029206276,
+          0.44799998844973743
+        ]
+      ]
+    },
+    {
+      "path": "/World/transport_robot/top_lid_left/visuals/mesh_1/box",
+      "actual_world_bounds_closed": [
+        [
+          -6.170000001788139,
+          3.4700000149533152,
+          0.43200000235810876
+        ],
+        [
+          -5.829999998211861,
+          3.480000014729798,
+          0.4380000024102628
+        ]
+      ]
+    },
+    {
+      "path": "/World/transport_robot/top_lid_left/visuals/mesh_2/box",
+      "actual_world_bounds_closed": [
+        [
+          -5.833500002278015,
+          3.4700000149533152,
+          0.4294999942649156
+        ],
+        [
+          -5.830500002251938,
+          3.480000014729798,
+          0.4324999942909926
+        ]
+      ]
+    },
+    {
+      "path": "/World/transport_robot/top_lid_left/visuals/mesh_3/box",
+      "actual_world_bounds_closed": [
+        [
+          -5.841500003589317,
+          3.4700000149533152,
+          0.4294999942649156
+        ],
+        [
+          -5.83850000356324,
+          3.480000014729798,
+          0.4324999942909926
+        ]
+      ]
+    },
+    {
+      "path": "/World/transport_robot/top_lid_left/visuals/mesh_4/box",
+      "actual_world_bounds_closed": [
+        [
+          -5.849500004900619,
+          3.4700000149533152,
+          0.4294999942649156
+        ],
+        [
+          -5.846500004874542,
+          3.480000014729798,
+          0.4324999942909926
+        ]
+      ]
+    },
+    {
+      "path": "/World/transport_robot/top_lid_left/visuals/mesh_5/box",
+      "actual_world_bounds_closed": [
+        [
+          -5.857500006211922,
+          3.4700000149533152,
+          0.4294999942649156
+        ],
+        [
+          -5.8545000061858445,
+          3.480000014729798,
+          0.4324999942909926
+        ]
+      ]
+    },
+    {
+      "path": "/World/transport_robot/top_lid_left/visuals/mesh_6/box",
+      "actual_world_bounds_closed": [
+        [
+          -5.865499992622063,
+          3.4700000149533152,
+          0.4294999942649156
+        ],
+        [
+          -5.8624999925959855,
+          3.480000014729798,
+          0.4324999942909926
+        ]
+      ]
+    },
+    {
+      "path": "/World/transport_robot/top_lid_left/visuals/mesh_7/box",
+      "actual_world_bounds_closed": [
+        [
+          -5.873499993933365,
+          3.4700000149533152,
+          0.4294999942649156
+        ],
+        [
+          -5.870499993907288,
+          3.480000014729798,
+          0.4324999942909926
+        ]
+      ]
+    },
+    {
+      "path": "/World/transport_robot/top_lid_left/visuals/mesh_8/box",
+      "actual_world_bounds_closed": [
+        [
+          -5.8815000026952475,
+          3.4700000149533152,
+          0.4294999942649156
+        ],
+        [
+          -5.8785000026691705,
+          3.480000014729798,
+          0.4324999942909926
+        ]
+      ]
+    },
+    {
+      "path": "/World/transport_robot/top_lid_left/visuals/mesh_9/box",
+      "actual_world_bounds_closed": [
+        [
+          -5.889499996555969,
+          3.4700000149533152,
+          0.4294999942649156
+        ],
+        [
+          -5.886499996529892,
+          3.480000014729798,
+          0.4324999942909926
+        ]
+      ]
+    },
+    {
+      "path": "/World/transport_robot/top_lid_left/visuals/mesh_10/box",
+      "actual_world_bounds_closed": [
+        [
+          -5.897499997867271,
+          3.4700000149533152,
+          0.4294999942649156
+        ],
+        [
+          -5.894499997841194,
+          3.480000014729798,
+          0.4324999942909926
+        ]
+      ]
+    },
+    {
+      "path": "/World/transport_robot/top_lid_left/visuals/mesh_11/box",
+      "actual_world_bounds_closed": [
+        [
+          -5.9054999991785735,
+          3.4700000149533152,
+          0.4294999942649156
+        ],
+        [
+          -5.9024999991524965,
+          3.480000014729798,
+          0.4324999942909926
+        ]
+      ]
+    },
+    {
+      "path": "/World/transport_robot/top_lid_left/visuals/mesh_12/box",
+      "actual_world_bounds_closed": [
+        [
+          -5.913500000489876,
+          3.4700000149533152,
+          0.4294999942649156
+        ],
+        [
+          -5.910500000463799,
+          3.480000014729798,
+          0.4324999942909926
+        ]
+      ]
+    },
+    {
+      "path": "/World/transport_robot/top_lid_left/visuals/mesh_13/box",
+      "actual_world_bounds_closed": [
+        [
+          -5.921500001801178,
+          3.4700000149533152,
+          0.4294999942649156
+        ],
+        [
+          -5.918500001775101,
+          3.480000014729798,
+          0.4324999942909926
+        ]
+      ]
+    },
+    {
+      "path": "/World/transport_robot/top_lid_left/visuals/mesh_14/box",
+      "actual_world_bounds_closed": [
+        [
+          -5.92950000311248,
+          3.4700000149533152,
+          0.4294999942649156
+        ],
+        [
+          -5.926500003086403,
+          3.480000014729798,
+          0.4324999942909926
+        ]
+      ]
+    },
+    {
+      "path": "/World/transport_robot/top_lid_left/visuals/mesh_15/box",
+      "actual_world_bounds_closed": [
+        [
+          -5.937499996973202,
+          3.4700000149533152,
+          0.4294999942649156
+        ],
+        [
+          -5.934499996947125,
+          3.480000014729798,
+          0.4324999942909926
+        ]
+      ]
+    },
+    {
+      "path": "/World/transport_robot/top_lid_left/visuals/mesh_16/box",
+      "actual_world_bounds_closed": [
+        [
+          -5.945499998284504,
+          3.4700000149533152,
+          0.4294999942649156
+        ],
+        [
+          -5.942499998258427,
+          3.480000014729798,
+          0.4324999942909926
+        ]
+      ]
+    },
+    {
+      "path": "/World/transport_robot/top_lid_left/visuals/mesh_17/box",
+      "actual_world_bounds_closed": [
+        [
+          -5.953499999595806,
+          3.4700000149533152,
+          0.4294999942649156
+        ],
+        [
+          -5.950499999569729,
+          3.480000014729798,
+          0.4324999942909926
+        ]
+      ]
+    },
+    {
+      "path": "/World/transport_robot/top_lid_left/visuals/mesh_18/box",
+      "actual_world_bounds_closed": [
+        [
+          -5.961500000907108,
+          3.4700000149533152,
+          0.4294999942649156
+        ],
+        [
+          -5.958500000881031,
+          3.480000014729798,
+          0.4324999942909926
+        ]
+      ]
+    },
+    {
+      "path": "/World/transport_robot/top_lid_left/visuals/mesh_19/box",
+      "actual_world_bounds_closed": [
+        [
+          -5.96949999849312,
+          3.4700000149533152,
+          0.4294999942649156
+        ],
+        [
+          -5.966499998467043,
+          3.480000014729798,
+          0.4324999942909926
+        ]
+      ]
+    },
+    {
+      "path": "/World/transport_robot/top_lid_left/visuals/mesh_20/box",
+      "actual_world_bounds_closed": [
+        [
+          -5.977499999804422,
+          3.4700000149533152,
+          0.4294999942649156
+        ],
+        [
+          -5.974499999778345,
+          3.480000014729798,
+          0.4324999942909926
+        ]
+      ]
+    },
+    {
+      "path": "/World/transport_robot/top_lid_left/visuals/mesh_21/box",
+      "actual_world_bounds_closed": [
+        [
+          -5.985499999253079,
+          3.4700000149533152,
+          0.4294999942649156
+        ],
+        [
+          -5.982499999227002,
+          3.480000014729798,
+          0.4324999942909926
+        ]
+      ]
+    },
+    {
+      "path": "/World/transport_robot/top_lid_left/visuals/mesh_22/box",
+      "actual_world_bounds_closed": [
+        [
+          -5.993499999633059,
+          3.4700000149533152,
+          0.4294999942649156
+        ],
+        [
+          -5.990499999606982,
+          3.480000014729798,
+          0.4324999942909926
+        ]
+      ]
+    },
+    {
+      "path": "/World/transport_robot/top_lid_left/visuals/mesh_23/box",
+      "actual_world_bounds_closed": [
+        [
+          -6.0015000000130385,
+          3.4700000149533152,
+          0.4294999942649156
+        ],
+        [
+          -5.9984999999869615,
+          3.480000014729798,
+          0.4324999942909926
+        ]
+      ]
+    },
+    {
+      "path": "/World/transport_robot/top_lid_left/visuals/mesh_24/box",
+      "actual_world_bounds_closed": [
+        [
+          -6.009500000393018,
+          3.4700000149533152,
+          0.4294999942649156
+        ],
+        [
+          -6.006500000366941,
+          3.480000014729798,
+          0.4324999942909926
+        ]
+      ]
+    },
+    {
+      "path": "/World/transport_robot/top_lid_left/visuals/mesh_25/box",
+      "actual_world_bounds_closed": [
+        [
+          -6.017500000772998,
+          3.4700000149533152,
+          0.4294999942649156
+        ],
+        [
+          -6.014500000746921,
+          3.480000014729798,
+          0.4324999942909926
+        ]
+      ]
+    },
+    {
+      "path": "/World/transport_robot/top_lid_left/visuals/mesh_26/box",
+      "actual_world_bounds_closed": [
+        [
+          -6.025500000221655,
+          3.4700000149533152,
+          0.4294999942649156
+        ],
+        [
+          -6.022500000195578,
+          3.480000014729798,
+          0.4324999942909926
+        ]
+      ]
+    },
+    {
+      "path": "/World/transport_robot/top_lid_left/visuals/mesh_27/box",
+      "actual_world_bounds_closed": [
+        [
+          -6.033500001532957,
+          3.4700000149533152,
+          0.4294999942649156
+        ],
+        [
+          -6.03050000150688,
+          3.480000014729798,
+          0.4324999942909926
+        ]
+      ]
+    },
+    {
+      "path": "/World/transport_robot/top_lid_left/visuals/mesh_28/box",
+      "actual_world_bounds_closed": [
+        [
+          -6.041499999118969,
+          3.4700000149533152,
+          0.4294999942649156
+        ],
+        [
+          -6.038499999092892,
+          3.480000014729798,
+          0.4324999942909926
+        ]
+      ]
+    },
+    {
+      "path": "/World/transport_robot/top_lid_left/visuals/mesh_29/box",
+      "actual_world_bounds_closed": [
+        [
+          -6.049500000430271,
+          3.4700000149533152,
+          0.4294999942649156
+        ],
+        [
+          -6.046500000404194,
+          3.480000014729798,
+          0.4324999942909926
+        ]
+      ]
+    },
+    {
+      "path": "/World/transport_robot/top_lid_left/visuals/mesh_30/box",
+      "actual_world_bounds_closed": [
+        [
+          -6.057500001741573,
+          3.4700000149533152,
+          0.4294999942649156
+        ],
+        [
+          -6.054500001715496,
+          3.480000014729798,
+          0.4324999942909926
+        ]
+      ]
+    },
+    {
+      "path": "/World/transport_robot/top_lid_left/visuals/mesh_31/box",
+      "actual_world_bounds_closed": [
+        [
+          -6.065500003052875,
+          3.4700000149533152,
+          0.4294999942649156
+        ],
+        [
+          -6.062500003026798,
+          3.480000014729798,
+          0.4324999942909926
+        ]
+      ]
+    },
+    {
+      "path": "/World/transport_robot/top_lid_left/visuals/mesh_32/box",
+      "actual_world_bounds_closed": [
+        [
+          -6.073499996913597,
+          3.4700000149533152,
+          0.4294999942649156
+        ],
+        [
+          -6.07049999688752,
+          3.480000014729798,
+          0.4324999942909926
+        ]
+      ]
+    },
+    {
+      "path": "/World/transport_robot/top_lid_left/visuals/mesh_33/box",
+      "actual_world_bounds_closed": [
+        [
+          -6.081499998224899,
+          3.4700000149533152,
+          0.4294999942649156
+        ],
+        [
+          -6.078499998198822,
+          3.480000014729798,
+          0.4324999942909926
+        ]
+      ]
+    },
+    {
+      "path": "/World/transport_robot/top_lid_left/visuals/mesh_34/box",
+      "actual_world_bounds_closed": [
+        [
+          -6.089499999536201,
+          3.4700000149533152,
+          0.4294999942649156
+        ],
+        [
+          -6.086499999510124,
+          3.480000014729798,
+          0.4324999942909926
+        ]
+      ]
+    },
+    {
+      "path": "/World/transport_robot/top_lid_left/visuals/mesh_35/box",
+      "actual_world_bounds_closed": [
+        [
+          -6.0975000008475035,
+          3.4700000149533152,
+          0.4294999942649156
+        ],
+        [
+          -6.0945000008214265,
+          3.480000014729798,
+          0.4324999942909926
+        ]
+      ]
+    },
+    {
+      "path": "/World/transport_robot/top_lid_left/visuals/mesh_36/box",
+      "actual_world_bounds_closed": [
+        [
+          -6.105500002158806,
+          3.4700000149533152,
+          0.4294999942649156
+        ],
+        [
+          -6.102500002132729,
+          3.480000014729798,
+          0.4324999942909926
+        ]
+      ]
+    },
+    {
+      "path": "/World/transport_robot/top_lid_left/visuals/mesh_37/box",
+      "actual_world_bounds_closed": [
+        [
+          -6.113500003470108,
+          3.4700000149533152,
+          0.4294999942649156
+        ],
+        [
+          -6.110500003444031,
+          3.480000014729798,
+          0.4324999942909926
+        ]
+      ]
+    },
+    {
+      "path": "/World/transport_robot/top_lid_left/visuals/mesh_38/box",
+      "actual_world_bounds_closed": [
+        [
+          -6.1214999973308295,
+          3.4700000149533152,
+          0.4294999942649156
+        ],
+        [
+          -6.1184999973047525,
+          3.480000014729798,
+          0.4324999942909926
+        ]
+      ]
+    },
+    {
+      "path": "/World/transport_robot/top_lid_left/visuals/mesh_39/box",
+      "actual_world_bounds_closed": [
+        [
+          -6.129500006092712,
+          3.4700000149533152,
+          0.4294999942649156
+        ],
+        [
+          -6.126500006066635,
+          3.480000014729798,
+          0.4324999942909926
+        ]
+      ]
+    },
+    {
+      "path": "/World/transport_robot/top_lid_left/visuals/mesh_40/box",
+      "actual_world_bounds_closed": [
+        [
+          -6.1375000074040145,
+          3.4700000149533152,
+          0.4294999942649156
+        ],
+        [
+          -6.134500007377937,
+          3.480000014729798,
+          0.4324999942909926
+        ]
+      ]
+    },
+    {
+      "path": "/World/transport_robot/top_lid_left/visuals/mesh_41/box",
+      "actual_world_bounds_closed": [
+        [
+          -6.1454999938141555,
+          3.4700000149533152,
+          0.4294999942649156
+        ],
+        [
+          -6.142499993788078,
+          3.480000014729798,
+          0.4324999942909926
+        ]
+      ]
+    },
+    {
+      "path": "/World/transport_robot/top_lid_left/visuals/mesh_42/box",
+      "actual_world_bounds_closed": [
+        [
+          -6.153499995125458,
+          3.4700000149533152,
+          0.4294999942649156
+        ],
+        [
+          -6.150499995099381,
+          3.480000014729798,
+          0.4324999942909926
+        ]
+      ]
+    },
+    {
+      "path": "/World/transport_robot/top_lid_left/visuals/mesh_43/box",
+      "actual_world_bounds_closed": [
+        [
+          -6.16149999643676,
+          3.4700000149533152,
+          0.4294999942649156
+        ],
+        [
+          -6.158499996410683,
+          3.480000014729798,
+          0.4324999942909926
+        ]
+      ]
+    },
+    {
+      "path": "/World/transport_robot/top_lid_left/visuals/mesh_44/box",
+      "actual_world_bounds_closed": [
+        [
+          -6.169499997748062,
+          3.4700000149533152,
+          0.4294999942649156
+        ],
+        [
+          -6.166499997721985,
+          3.480000014729798,
+          0.4324999942909926
+        ]
+      ]
+    },
+    {
+      "path": "/World/transport_robot/top_lid_left/visuals/mesh_45/box",
+      "actual_world_bounds_closed": [
+        [
+          -6.145000000484288,
+          3.4700000149533152,
+          0.4349999977275729
+        ],
+        [
+          -6.135000000707805,
+          3.480000014729798,
+          0.4449999975040555
+        ]
+      ]
+    },
+    {
+      "path": "/World/transport_robot/top_lid_left/visuals/mesh_46/box",
+      "actual_world_bounds_closed": [
+        [
+          -6.1460000006482005,
+          3.4700000028461218,
+          0.44499999890103936
+        ],
+        [
+          -6.134000000543892,
+          3.5050000029951334,
+          0.4509999989531934
+        ]
+      ]
+    },
+    {
+      "path": "/World/transport_robot/top_lid_right/visuals/mesh_0/box",
+      "actual_world_bounds_closed": [
+        [
+          -6.0,
+          3.4999999909996986,
+          0.4449999884236604
+        ],
+        [
+          -5.8499999940395355,
+          3.8000000029206276,
+          0.44799998844973743
+        ]
+      ]
+    },
+    {
+      "path": "/World/transport_robot/top_lid_right/visuals/mesh_1/box",
+      "actual_world_bounds_closed": [
+        [
+          -6.170000001788139,
+          3.4700000149533152,
+          0.32399999210610986
+        ],
+        [
+          -5.829999998211861,
+          3.480000014729798,
+          0.3299999921582639
+        ]
+      ]
+    },
+    {
+      "path": "/World/transport_robot/top_lid_right/visuals/mesh_2/box",
+      "actual_world_bounds_closed": [
+        [
+          -5.833500002278015,
+          3.4700000149533152,
+          0.32949999277479947
+        ],
+        [
+          -5.830500002251938,
+          3.480000014729798,
+          0.3324999928008765
+        ]
+      ]
+    },
+    {
+      "path": "/World/transport_robot/top_lid_right/visuals/mesh_3/box",
+      "actual_world_bounds_closed": [
+        [
+          -5.841500003589317,
+          3.4700000149533152,
+          0.32949999277479947
+        ],
+        [
+          -5.83850000356324,
+          3.480000014729798,
+          0.3324999928008765
+        ]
+      ]
+    },
+    {
+      "path": "/World/transport_robot/top_lid_right/visuals/mesh_4/box",
+      "actual_world_bounds_closed": [
+        [
+          -5.849500004900619,
+          3.4700000149533152,
+          0.32949999277479947
+        ],
+        [
+          -5.846500004874542,
+          3.480000014729798,
+          0.3324999928008765
+        ]
+      ]
+    },
+    {
+      "path": "/World/transport_robot/top_lid_right/visuals/mesh_5/box",
+      "actual_world_bounds_closed": [
+        [
+          -5.857500006211922,
+          3.4700000149533152,
+          0.32949999277479947
+        ],
+        [
+          -5.8545000061858445,
+          3.480000014729798,
+          0.3324999928008765
+        ]
+      ]
+    },
+    {
+      "path": "/World/transport_robot/top_lid_right/visuals/mesh_6/box",
+      "actual_world_bounds_closed": [
+        [
+          -5.865499992622063,
+          3.4700000149533152,
+          0.32949999277479947
+        ],
+        [
+          -5.8624999925959855,
+          3.480000014729798,
+          0.3324999928008765
+        ]
+      ]
+    },
+    {
+      "path": "/World/transport_robot/top_lid_right/visuals/mesh_7/box",
+      "actual_world_bounds_closed": [
+        [
+          -5.873499993933365,
+          3.4700000149533152,
+          0.32949999277479947
+        ],
+        [
+          -5.870499993907288,
+          3.480000014729798,
+          0.3324999928008765
+        ]
+      ]
+    },
+    {
+      "path": "/World/transport_robot/top_lid_right/visuals/mesh_8/box",
+      "actual_world_bounds_closed": [
+        [
+          -5.8815000026952475,
+          3.4700000149533152,
+          0.32949999277479947
+        ],
+        [
+          -5.8785000026691705,
+          3.480000014729798,
+          0.3324999928008765
+        ]
+      ]
+    },
+    {
+      "path": "/World/transport_robot/top_lid_right/visuals/mesh_9/box",
+      "actual_world_bounds_closed": [
+        [
+          -5.889499996555969,
+          3.4700000149533152,
+          0.32949999277479947
+        ],
+        [
+          -5.886499996529892,
+          3.480000014729798,
+          0.3324999928008765
+        ]
+      ]
+    },
+    {
+      "path": "/World/transport_robot/top_lid_right/visuals/mesh_10/box",
+      "actual_world_bounds_closed": [
+        [
+          -5.897499997867271,
+          3.4700000149533152,
+          0.32949999277479947
+        ],
+        [
+          -5.894499997841194,
+          3.480000014729798,
+          0.3324999928008765
+        ]
+      ]
+    },
+    {
+      "path": "/World/transport_robot/top_lid_right/visuals/mesh_11/box",
+      "actual_world_bounds_closed": [
+        [
+          -5.9054999991785735,
+          3.4700000149533152,
+          0.32949999277479947
+        ],
+        [
+          -5.9024999991524965,
+          3.480000014729798,
+          0.3324999928008765
+        ]
+      ]
+    },
+    {
+      "path": "/World/transport_robot/top_lid_right/visuals/mesh_12/box",
+      "actual_world_bounds_closed": [
+        [
+          -5.913500000489876,
+          3.4700000149533152,
+          0.32949999277479947
+        ],
+        [
+          -5.910500000463799,
+          3.480000014729798,
+          0.3324999928008765
+        ]
+      ]
+    },
+    {
+      "path": "/World/transport_robot/top_lid_right/visuals/mesh_13/box",
+      "actual_world_bounds_closed": [
+        [
+          -5.921500001801178,
+          3.4700000149533152,
+          0.32949999277479947
+        ],
+        [
+          -5.918500001775101,
+          3.480000014729798,
+          0.3324999928008765
+        ]
+      ]
+    },
+    {
+      "path": "/World/transport_robot/top_lid_right/visuals/mesh_14/box",
+      "actual_world_bounds_closed": [
+        [
+          -5.92950000311248,
+          3.4700000149533152,
+          0.32949999277479947
+        ],
+        [
+          -5.926500003086403,
+          3.480000014729798,
+          0.3324999928008765
+        ]
+      ]
+    },
+    {
+      "path": "/World/transport_robot/top_lid_right/visuals/mesh_15/box",
+      "actual_world_bounds_closed": [
+        [
+          -5.937499996973202,
+          3.4700000149533152,
+          0.32949999277479947
+        ],
+        [
+          -5.934499996947125,
+          3.480000014729798,
+          0.3324999928008765
+        ]
+      ]
+    },
+    {
+      "path": "/World/transport_robot/top_lid_right/visuals/mesh_16/box",
+      "actual_world_bounds_closed": [
+        [
+          -5.945499998284504,
+          3.4700000149533152,
+          0.32949999277479947
+        ],
+        [
+          -5.942499998258427,
+          3.480000014729798,
+          0.3324999928008765
+        ]
+      ]
+    },
+    {
+      "path": "/World/transport_robot/top_lid_right/visuals/mesh_17/box",
+      "actual_world_bounds_closed": [
+        [
+          -5.953499999595806,
+          3.4700000149533152,
+          0.32949999277479947
+        ],
+        [
+          -5.950499999569729,
+          3.480000014729798,
+          0.3324999928008765
+        ]
+      ]
+    },
+    {
+      "path": "/World/transport_robot/top_lid_right/visuals/mesh_18/box",
+      "actual_world_bounds_closed": [
+        [
+          -5.961500000907108,
+          3.4700000149533152,
+          0.32949999277479947
+        ],
+        [
+          -5.958500000881031,
+          3.480000014729798,
+          0.3324999928008765
+        ]
+      ]
+    },
+    {
+      "path": "/World/transport_robot/top_lid_right/visuals/mesh_19/box",
+      "actual_world_bounds_closed": [
+        [
+          -5.96949999849312,
+          3.4700000149533152,
+          0.32949999277479947
+        ],
+        [
+          -5.966499998467043,
+          3.480000014729798,
+          0.3324999928008765
+        ]
+      ]
+    },
+    {
+      "path": "/World/transport_robot/top_lid_right/visuals/mesh_20/box",
+      "actual_world_bounds_closed": [
+        [
+          -5.977499999804422,
+          3.4700000149533152,
+          0.32949999277479947
+        ],
+        [
+          -5.974499999778345,
+          3.480000014729798,
+          0.3324999928008765
+        ]
+      ]
+    },
+    {
+      "path": "/World/transport_robot/top_lid_right/visuals/mesh_21/box",
+      "actual_world_bounds_closed": [
+        [
+          -5.985499999253079,
+          3.4700000149533152,
+          0.32949999277479947
+        ],
+        [
+          -5.982499999227002,
+          3.480000014729798,
+          0.3324999928008765
+        ]
+      ]
+    },
+    {
+      "path": "/World/transport_robot/top_lid_right/visuals/mesh_22/box",
+      "actual_world_bounds_closed": [
+        [
+          -5.993499999633059,
+          3.4700000149533152,
+          0.32949999277479947
+        ],
+        [
+          -5.990499999606982,
+          3.480000014729798,
+          0.3324999928008765
+        ]
+      ]
+    },
+    {
+      "path": "/World/transport_robot/top_lid_right/visuals/mesh_23/box",
+      "actual_world_bounds_closed": [
+        [
+          -6.0015000000130385,
+          3.4700000149533152,
+          0.32949999277479947
+        ],
+        [
+          -5.9984999999869615,
+          3.480000014729798,
+          0.3324999928008765
+        ]
+      ]
+    },
+    {
+      "path": "/World/transport_robot/top_lid_right/visuals/mesh_24/box",
+      "actual_world_bounds_closed": [
+        [
+          -6.009500000393018,
+          3.4700000149533152,
+          0.32949999277479947
+        ],
+        [
+          -6.006500000366941,
+          3.480000014729798,
+          0.3324999928008765
+        ]
+      ]
+    },
+    {
+      "path": "/World/transport_robot/top_lid_right/visuals/mesh_25/box",
+      "actual_world_bounds_closed": [
+        [
+          -6.017500000772998,
+          3.4700000149533152,
+          0.32949999277479947
+        ],
+        [
+          -6.014500000746921,
+          3.480000014729798,
+          0.3324999928008765
+        ]
+      ]
+    },
+    {
+      "path": "/World/transport_robot/top_lid_right/visuals/mesh_26/box",
+      "actual_world_bounds_closed": [
+        [
+          -6.025500000221655,
+          3.4700000149533152,
+          0.32949999277479947
+        ],
+        [
+          -6.022500000195578,
+          3.480000014729798,
+          0.3324999928008765
+        ]
+      ]
+    },
+    {
+      "path": "/World/transport_robot/top_lid_right/visuals/mesh_27/box",
+      "actual_world_bounds_closed": [
+        [
+          -6.033500001532957,
+          3.4700000149533152,
+          0.32949999277479947
+        ],
+        [
+          -6.03050000150688,
+          3.480000014729798,
+          0.3324999928008765
+        ]
+      ]
+    },
+    {
+      "path": "/World/transport_robot/top_lid_right/visuals/mesh_28/box",
+      "actual_world_bounds_closed": [
+        [
+          -6.041499999118969,
+          3.4700000149533152,
+          0.32949999277479947
+        ],
+        [
+          -6.038499999092892,
+          3.480000014729798,
+          0.3324999928008765
+        ]
+      ]
+    },
+    {
+      "path": "/World/transport_robot/top_lid_right/visuals/mesh_29/box",
+      "actual_world_bounds_closed": [
+        [
+          -6.049500000430271,
+          3.4700000149533152,
+          0.32949999277479947
+        ],
+        [
+          -6.046500000404194,
+          3.480000014729798,
+          0.3324999928008765
+        ]
+      ]
+    },
+    {
+      "path": "/World/transport_robot/top_lid_right/visuals/mesh_30/box",
+      "actual_world_bounds_closed": [
+        [
+          -6.057500001741573,
+          3.4700000149533152,
+          0.32949999277479947
+        ],
+        [
+          -6.054500001715496,
+          3.480000014729798,
+          0.3324999928008765
+        ]
+      ]
+    },
+    {
+      "path": "/World/transport_robot/top_lid_right/visuals/mesh_31/box",
+      "actual_world_bounds_closed": [
+        [
+          -6.065500003052875,
+          3.4700000149533152,
+          0.32949999277479947
+        ],
+        [
+          -6.062500003026798,
+          3.480000014729798,
+          0.3324999928008765
+        ]
+      ]
+    },
+    {
+      "path": "/World/transport_robot/top_lid_right/visuals/mesh_32/box",
+      "actual_world_bounds_closed": [
+        [
+          -6.073499996913597,
+          3.4700000149533152,
+          0.32949999277479947
+        ],
+        [
+          -6.07049999688752,
+          3.480000014729798,
+          0.3324999928008765
+        ]
+      ]
+    },
+    {
+      "path": "/World/transport_robot/top_lid_right/visuals/mesh_33/box",
+      "actual_world_bounds_closed": [
+        [
+          -6.081499998224899,
+          3.4700000149533152,
+          0.32949999277479947
+        ],
+        [
+          -6.078499998198822,
+          3.480000014729798,
+          0.3324999928008765
+        ]
+      ]
+    },
+    {
+      "path": "/World/transport_robot/top_lid_right/visuals/mesh_34/box",
+      "actual_world_bounds_closed": [
+        [
+          -6.089499999536201,
+          3.4700000149533152,
+          0.32949999277479947
+        ],
+        [
+          -6.086499999510124,
+          3.480000014729798,
+          0.3324999928008765
+        ]
+      ]
+    },
+    {
+      "path": "/World/transport_robot/top_lid_right/visuals/mesh_35/box",
+      "actual_world_bounds_closed": [
+        [
+          -6.0975000008475035,
+          3.4700000149533152,
+          0.32949999277479947
+        ],
+        [
+          -6.0945000008214265,
+          3.480000014729798,
+          0.3324999928008765
+        ]
+      ]
+    },
+    {
+      "path": "/World/transport_robot/top_lid_right/visuals/mesh_36/box",
+      "actual_world_bounds_closed": [
+        [
+          -6.105500002158806,
+          3.4700000149533152,
+          0.32949999277479947
+        ],
+        [
+          -6.102500002132729,
+          3.480000014729798,
+          0.3324999928008765
+        ]
+      ]
+    },
+    {
+      "path": "/World/transport_robot/top_lid_right/visuals/mesh_37/box",
+      "actual_world_bounds_closed": [
+        [
+          -6.113500003470108,
+          3.4700000149533152,
+          0.32949999277479947
+        ],
+        [
+          -6.110500003444031,
+          3.480000014729798,
+          0.3324999928008765
+        ]
+      ]
+    },
+    {
+      "path": "/World/transport_robot/top_lid_right/visuals/mesh_38/box",
+      "actual_world_bounds_closed": [
+        [
+          -6.1214999973308295,
+          3.4700000149533152,
+          0.32949999277479947
+        ],
+        [
+          -6.1184999973047525,
+          3.480000014729798,
+          0.3324999928008765
+        ]
+      ]
+    },
+    {
+      "path": "/World/transport_robot/top_lid_right/visuals/mesh_39/box",
+      "actual_world_bounds_closed": [
+        [
+          -6.129500006092712,
+          3.4700000149533152,
+          0.32949999277479947
+        ],
+        [
+          -6.126500006066635,
+          3.480000014729798,
+          0.3324999928008765
+        ]
+      ]
+    },
+    {
+      "path": "/World/transport_robot/top_lid_right/visuals/mesh_40/box",
+      "actual_world_bounds_closed": [
+        [
+          -6.1375000074040145,
+          3.4700000149533152,
+          0.32949999277479947
+        ],
+        [
+          -6.134500007377937,
+          3.480000014729798,
+          0.3324999928008765
+        ]
+      ]
+    },
+    {
+      "path": "/World/transport_robot/top_lid_right/visuals/mesh_41/box",
+      "actual_world_bounds_closed": [
+        [
+          -6.1454999938141555,
+          3.4700000149533152,
+          0.32949999277479947
+        ],
+        [
+          -6.142499993788078,
+          3.480000014729798,
+          0.3324999928008765
+        ]
+      ]
+    },
+    {
+      "path": "/World/transport_robot/top_lid_right/visuals/mesh_42/box",
+      "actual_world_bounds_closed": [
+        [
+          -6.153499995125458,
+          3.4700000149533152,
+          0.32949999277479947
+        ],
+        [
+          -6.150499995099381,
+          3.480000014729798,
+          0.3324999928008765
+        ]
+      ]
+    },
+    {
+      "path": "/World/transport_robot/top_lid_right/visuals/mesh_43/box",
+      "actual_world_bounds_closed": [
+        [
+          -6.16149999643676,
+          3.4700000149533152,
+          0.32949999277479947
+        ],
+        [
+          -6.158499996410683,
+          3.480000014729798,
+          0.3324999928008765
+        ]
+      ]
+    },
+    {
+      "path": "/World/transport_robot/top_lid_right/visuals/mesh_44/box",
+      "actual_world_bounds_closed": [
+        [
+          -6.169499997748062,
+          3.4700000149533152,
+          0.32949999277479947
+        ],
+        [
+          -6.166499997721985,
+          3.480000014729798,
+          0.3324999928008765
+        ]
+      ]
+    },
+    {
+      "path": "/World/transport_robot/top_lid_right/visuals/mesh_45/box",
+      "actual_world_bounds_closed": [
+        [
+          -5.864999999292195,
+          3.4700000149533152,
+          0.3269999921321869
+        ],
+        [
+          -5.854999999515712,
+          3.480000014729798,
+          0.4449999928474426
+        ]
+      ]
+    },
+    {
+      "path": "/World/transport_robot/top_lid_right/visuals/mesh_46/box",
+      "actual_world_bounds_closed": [
+        [
+          -5.865999999456108,
+          3.4700000028461218,
+          0.44499999890103936
+        ],
+        [
+          -5.8539999993517995,
+          3.5050000029951334,
+          0.4509999989531934
+        ]
+      ]
+    },
+    {
+      "path": "/World/transport_robot/cargo_box/visuals/mesh_0/box",
+      "actual_world_bounds_closed": [
+        [
+          -6.1500000059604645,
+          3.4999999909996986,
+          0.2549999952316284
+        ],
+        [
+          -5.8499999940395355,
+          3.8000000029206276,
+          0.25799999525770545
+        ]
+      ]
+    },
+    {
+      "path": "/World/transport_robot/cargo_box/visuals/mesh_1/box",
+      "actual_world_bounds_closed": [
+        [
+          -6.1500000059604645,
+          3.5000000014770776,
+          0.2579999938607216
+        ],
+        [
+          -5.8499999940395355,
+          3.5030000015031546,
+          0.4450000002980232
+        ]
+      ]
+    },
+    {
+      "path": "/World/transport_robot/cargo_box/visuals/mesh_2/box",
+      "actual_world_bounds_closed": [
+        [
+          -5.8530000045429915,
+          3.5030000119805336,
+          0.2579999938607216
+        ],
+        [
+          -5.8500000045169145,
+          3.8000000029206276,
+          0.4450000002980232
+        ]
+      ]
+    },
+    {
+      "path": "/World/transport_robot/cargo_box/visuals/mesh_3/box",
+      "actual_world_bounds_closed": [
+        [
+          -6.1499999954830855,
+          3.5030000119805336,
+          0.2579999938607216
+        ],
+        [
+          -6.1469999954570085,
+          3.8000000029206276,
+          0.4450000002980232
+        ]
+      ]
+    }
+  ],
+  "simulation_lock_note": "transport_robot.sim.usda locks top lid prismatic limits to 0. Capture disables all rigid bodies/joints/mimic in session and uses original joint frames for manual FK with URDF 0..0.155m range. Original simulation lock remains unchanged.",
+  "restored_harvest_floor_bounds": [
+    [
+      -6.10000000491297,
+      3.550000008498075,
+      0.5000000224635005
+    ],
+    [
+      -5.89999999508703,
+      3.750000018324015,
+      0.5060000225156546
+    ]
+  ],
+  "original_asset_files_saved": false
+}

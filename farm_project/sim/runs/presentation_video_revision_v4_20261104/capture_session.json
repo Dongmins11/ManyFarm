@@ -1,0 +1,20 @@
+{
+  "process_observed_during_capture": {
+    "pid": 75520,
+    "argv": [
+      "/home/ysy/isaac/env_isaaclab/bin/python",
+      "sim/tools/stage_portfolio_photos.py",
+      "--gui",
+      "--all-beds",
+      "--runtime",
+      "sim/runs/presentation_video_revision_v4_20261104/settings",
+      "--output",
+      "sim/runs/presentation_video_revision_v4_20261104"
+    ]
+  },
+  "gui_argument_present": true,
+  "all_beds_argument_present": true,
+  "headless_argument_present": false,
+  "capture_tool_sha256": "3c51868fcd463672394441fd98acf222ada58e978c6d1c99762d7a8470eb7011",
+  "scope": "Standalone Isaac Sim GUI session; staged keyframes; no ROS mission or physics dynamics."
+}

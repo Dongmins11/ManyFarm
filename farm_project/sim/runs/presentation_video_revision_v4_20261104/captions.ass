@@ -1,0 +1,26 @@
+[Script Info]
+ScriptType: v4.00+
+PlayResX: 1920
+PlayResY: 1080
+ScaledBorderAndShadow: yes
+
+[V4+ Styles]
+Format: Name, Fontname, Fontsize, PrimaryColour, SecondaryColour, OutlineColour, BackColour, Bold, Italic, Underline, StrikeOut, ScaleX, ScaleY, Spacing, Angle, BorderStyle, Outline, Shadow, Alignment, MarginL, MarginR, MarginV, Encoding
+Style: Caption,Noto Sans CJK KR,42,&H00FFFFFF,&H00FFFFFF,&H80301E12,&H80301E12,-1,0,0,0,100,100,0,0,3,12,0,7,80,80,880,1
+Style: Label,Noto Sans CJK KR,29,&H00C6DE79,&H00C6DE79,&H80301E12,&H80301E12,-1,0,0,0,100,100,0,0,3,8,0,7,80,80,830,1
+Style: Title,Noto Sans CJK KR,66,&H00FFFFFF,&H00FFFFFF,&H80301E12,&H80301E12,-1,0,0,0,100,100,0,0,3,12,0,7,80,80,830,1
+
+[Events]
+Format: Layer, Start, End, Style, Name, MarginL, MarginR, MarginV, Effect, Text
+Dialogue: 0,0:00:00.10,0:00:02.85,Title,,0,0,0,,{\fad(150,150)}ManyFarm\N{\fs30\c&H00C6DE79&}시뮬레이션 연출 영상
+Dialogue: 0,0:00:15.13,0:00:23.60,Label,,0,0,0,,{\fad(150,300)}운송 · 선별
+Dialogue: 0,0:00:03.13,0:00:05.87,Label,,0,0,0,,{\fad(150,300)}02  예찰
+Dialogue: 0,0:00:03.13,0:00:05.87,Caption,,0,0,0,,{\fad(150,300)}작물 예찰 · 수확 태스크 생성
+Dialogue: 0,0:00:06.13,0:00:08.87,Label,,0,0,0,,{\fad(150,300)}03  수확
+Dialogue: 0,0:00:06.13,0:00:08.87,Caption,,0,0,0,,{\fad(150,300)}과실을 잡아 수확
+Dialogue: 0,0:00:09.13,0:00:11.87,Label,,0,0,0,,{\fad(150,300)}04  적재
+Dialogue: 0,0:00:09.13,0:00:11.87,Caption,,0,0,0,,{\fad(150,300)}수확한 과실을 바구니에 투입
+Dialogue: 0,0:00:12.13,0:00:14.87,Label,,0,0,0,,{\fad(150,300)}05  인계
+Dialogue: 0,0:00:12.13,0:00:14.87,Caption,,0,0,0,,{\fad(150,300)}바구니를 열어 수확물을 전달
+Dialogue: 0,0:00:15.13,0:00:18.67,Caption,,0,0,0,,{\fad(150,300)}선별장 도킹 · 수확물 배출
+Dialogue: 0,0:00:19.13,0:00:23.60,Caption,,0,0,0,,{\fad(150,300)}혼합 과실을 색상별로 분류

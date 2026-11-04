@@ -1,0 +1,171 @@
+{
+  "reviewer": "capture_geometry_review",
+  "source": "06_07_transport_sorting.mp4",
+  "source_sha256": "8d1af6dac28cb7399fde82bc4803353af5b02bb4dd57412ff1eb0b9881fec31a",
+  "extraction_manifest": "qa/06_07_transport_sorting-mp4-keyphases.json",
+  "extraction_manifest_sha256": "d7aa225209fe11a59cbe6b932fee10577565f7d9fa624dd26171771bfb79d292",
+  "review_method": "실제로 인코딩된 MP4에서 ffmpeg로 추출한 원본 해상도 PNG 15장을 view_image로 직접 열어 순서 비교. GUI 프리뷰를 대신 사용하지 않음.",
+  "reviewed_frames": [
+    {
+      "frame": 168,
+      "time_s": 5.6,
+      "file": "qa/06_07_transport_sorting-mp4-frame-0168.png",
+      "sha256": "cc15a4df14fd8cec1a78803c0f53bbe8585c768cacd8153544fda2621db94d02",
+      "directly_opened_full_resolution": true
+    },
+    {
+      "frame": 186,
+      "time_s": 6.2,
+      "file": "qa/06_07_transport_sorting-mp4-frame-0186.png",
+      "sha256": "b08a06b2c45b6514f5793f1f3727d71c464483c802040bce807a63704de79745",
+      "directly_opened_full_resolution": true
+    },
+    {
+      "frame": 192,
+      "time_s": 6.4,
+      "file": "qa/06_07_transport_sorting-mp4-frame-0192.png",
+      "sha256": "a442751860d964f33b5aa4af6639874f8a8e43df15bfeab6f551536119bd5911",
+      "directly_opened_full_resolution": true
+    },
+    {
+      "frame": 193,
+      "time_s": 6.433333333333334,
+      "file": "qa/06_07_transport_sorting-mp4-frame-0193.png",
+      "sha256": "880f7d73b5fb5fa10e390543e07de0b481867689969d227be5e2d684fec853bb",
+      "directly_opened_full_resolution": true
+    },
+    {
+      "frame": 194,
+      "time_s": 6.466666666666667,
+      "file": "qa/06_07_transport_sorting-mp4-frame-0194.png",
+      "sha256": "c4ec1c738ba6aebb21da3f652bbae9486640bd39023051e8d95c6a324dccbd5e",
+      "directly_opened_full_resolution": true
+    },
+    {
+      "frame": 204,
+      "time_s": 6.8,
+      "file": "qa/06_07_transport_sorting-mp4-frame-0204.png",
+      "sha256": "aa07525701bfa600d4db441915c1457a5e21bad5606707f4bc3ee5c14984a29a",
+      "directly_opened_full_resolution": true
+    },
+    {
+      "frame": 220,
+      "time_s": 7.333333333333333,
+      "file": "qa/06_07_transport_sorting-mp4-frame-0220.png",
+      "sha256": "4950e360e6df31443c377a7957c7e1c928881deeaeb5adf2cb99668deca81d27",
+      "directly_opened_full_resolution": true
+    },
+    {
+      "frame": 222,
+      "time_s": 7.4,
+      "file": "qa/06_07_transport_sorting-mp4-frame-0222.png",
+      "sha256": "a5a7383ccbba7e3a2eb1afa216a53d549f412bd8ce0038bfa58ccec790e52a19",
+      "directly_opened_full_resolution": true
+    },
+    {
+      "frame": 240,
+      "time_s": 8.0,
+      "file": "qa/06_07_transport_sorting-mp4-frame-0240.png",
+      "sha256": "396eaa1414654b4a3d3a52c6a54e82b3685dd3b48378939c453469b3a1e04a74",
+      "directly_opened_full_resolution": true
+    },
+    {
+      "frame": 244,
+      "time_s": 8.133333333333333,
+      "file": "qa/06_07_transport_sorting-mp4-frame-0244.png",
+      "sha256": "fe4358821746de92d60e04a90e261a9c78418b20e13564b4acc167655757137e",
+      "directly_opened_full_resolution": true
+    },
+    {
+      "frame": 245,
+      "time_s": 8.166666666666666,
+      "file": "qa/06_07_transport_sorting-mp4-frame-0245.png",
+      "sha256": "04067707beabf43b6e2f7602da446248f6f62e646f3ddf23a3c4334a2c9f23a4",
+      "directly_opened_full_resolution": true
+    },
+    {
+      "frame": 246,
+      "time_s": 8.2,
+      "file": "qa/06_07_transport_sorting-mp4-frame-0246.png",
+      "sha256": "ff7cefefcd107aaed5c71f4a26423365c87bef905020b2c2cdb19f8ebbdb6075",
+      "directly_opened_full_resolution": true
+    },
+    {
+      "frame": 258,
+      "time_s": 8.6,
+      "file": "qa/06_07_transport_sorting-mp4-frame-0258.png",
+      "sha256": "b728f8de17ac46411228a7434578c597e34ef086750a90471daa2128223ed994",
+      "directly_opened_full_resolution": true
+    },
+    {
+      "frame": 270,
+      "time_s": 9.0,
+      "file": "qa/06_07_transport_sorting-mp4-frame-0270.png",
+      "sha256": "78d191896238fc105bfe7268b0bae7a68f329734f4e77e80afaa10da0815b40f",
+      "directly_opened_full_resolution": true
+    },
+    {
+      "frame": 359,
+      "time_s": 11.966666666666667,
+      "file": "qa/06_07_transport_sorting-mp4-frame-0359.png",
+      "sha256": "631d8b9f0f4528708a1d30def9e0b1c0f179dcea73b0892f2cf5f5d77e6ba2ec",
+      "directly_opened_full_resolution": true
+    }
+  ],
+  "observations": [
+    {
+      "frames": [
+        168
+      ],
+      "finding": "팔이 첫 빨강 과실 위치까지 내려와 있고 투입 레인의 나머지 과실이 보인다. 목표 과실과 집게 끝은 전완에 일부 가려져 접촉 순간 자체는 선명하지 않다."
+    },
+    {
+      "frames": [
+        186
+      ],
+      "finding": "빨강 과실 한 개가 들어 올려진 집게 끝에 보이며 투입 레인에는 나머지 다섯 개가 보인다. 손목과 과실이 팔 주요 링크 안으로 시각적으로 파묻힌 모습은 보이지 않는다."
+    },
+    {
+      "frames": [
+        192,
+        193,
+        194
+      ],
+      "finding": "빨강 과실을 분류함 위로 옮긴 자세가 유지된다. 집게 손가락과 과실 사이 작은 간격 변화는 이 전체 구도에서 뚜렷하지 않아 프레임만으로 놓기 시점을 단정하지 않는다."
+    },
+    {
+      "frames": [
+        204,
+        220,
+        222
+      ],
+      "finding": "204에서 집게가 빈 채 후퇴하고, 220/222에서는 빨강 과실이 위쪽 분류함 안에 분명하게 보인다. 팔은 두 번째 노랑 과실 쪽으로 내려와 있다. 두 번째 접촉 순간도 전완에 일부 가려져 있다."
+    },
+    {
+      "frames": [
+        240,
+        244,
+        245,
+        246
+      ],
+      "finding": "노랑 과실 한 개가 집게 끝에 들려 다른 분류함 위로 이동한다. 먼저 놓은 빨강 과실은 제자리 분류함에 남아 있으며 투입 레인에는 빨강 둘·노랑 둘이 보인다."
+    },
+    {
+      "frames": [
+        258,
+        270,
+        359
+      ],
+      "finding": "258에서 집게는 빈 채 후퇴한다. 270/359에서는 빨강과 노랑이 서로 다른 분류함 안에 있고 투입 레인에 네 개가 남는다. 팔과 운송로봇 바퀴가 모두 화면 안에 유지되며 끝 상태가 두 표본에서 동일하게 읽힌다."
+    }
+  ],
+  "visual_blocking_findings": [],
+  "visibility_limitations": [
+    "첫·두 번째 집기 순간은 팔과 레인 전면 구조물에 일부 가려진다. 들어 올린 과실과 이후 분류함 결과는 식별된다.",
+    "팔/과실의 미세 간섭이나 손가락의 정확한 접촉은 전체 구도의 정지 이미지로 판정하지 않았다. 별도 수치 기하 검사 결과를 사용한다.",
+    "15개 추출 정지 프레임의 독립 검수이며 12초 전체 재생의 연속성·속도 검수를 대신하지 않는다. 손목 회전 중간의 모든 프레임을 직접 본 것은 아니다."
+  ],
+  "scope_result": "직접 본 15개 최종 MP4 프레임에서 재촬영을 요구할 시각적 결함은 확인하지 못함. 위 가림 한계는 남음.",
+  "source_unchanged_at_end": true,
+  "media_or_settings_modified": false
+}

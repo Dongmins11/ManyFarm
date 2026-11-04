@@ -1,0 +1,40 @@
+{
+  "schema": 1,
+  "source_workspace": "sim/vendor/hcr3a_20261008/HCR3A_SIM_TEAM_20261008/workspace",
+  "robot_asset": "sim/assets/props/HCR3A/hcr3a.usd",
+  "source_config": "src/smartfarm_description/config/hcr3a_random8_validation.json",
+  "source_roi": "../../../../ros_ws/src/farm_sim_config/config/sorter_camera_zones.json",
+  "replace_prim": "/World/sorting_station_portable",
+  "station_pose_world_m": [
+    -7.204447723212479,
+    14.2870536684691,
+    0.0
+  ],
+  "station_yaw_rad": -1.3761495230787304,
+  "modbus_port": 1502,
+  "output_dir": "sim/runs/section_full_cycle_return_20261031_155740/attempt_001/sorting",
+  "camera_fps": 15,
+  "lane_map": {
+    "A": "D",
+    "B": "C",
+    "C": "B",
+    "D": "A"
+  },
+  "transport_robot_id": "transport_01",
+  "deposit_settle_s": 1.0,
+  "fixture_fruit_paths": [],
+  "intake_distance_from_approach_m": 0.358,
+  "placement_basis": "\uc2e4\ubb3c \uc774\uaca9 \ub77c\uc774\ub2e4 \uac70\ub9ac0.422m + \uc6b4\uc1a1 URDF base_scan\uc758 \uc804\ubc29 offset(-0.064m). \uc774\uaca9 \uc644\ub8cc \ucc28\uccb4 \uae30\uc900\uc810\uc744 \uae30\uc874 \uc811\uadfc node\uc5d0 \ub9de\ucd98 \ubc30\uce58.",
+  "occupancy_map": {
+    "base_yaml": "sim/ros_ws/src/farm_sim_config/maps/count_test_farm_map.yaml",
+    "yaml": "sim/ros_ws/src/farm_sim_config/maps/hcr_farm_map.yaml",
+    "manifest": "sim/ros_ws/src/farm_sim_config/maps/hcr_farm_map.manifest.json",
+    "scan_height_m": 0.132,
+    "replace_bounds_xy_m": [
+      -7.45,
+      13.5,
+      -6.5,
+      14.75
+    ]
+  }
+}

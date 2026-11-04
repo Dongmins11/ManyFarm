@@ -1,0 +1,1774 @@
+{
+  "request_sha256": "d4a56368171f4b4cd6e456618fd976b8db9017c30d65f6d0594fc1b624bcc22a",
+  "request_unchanged_at_check_end": true,
+  "frames_checked": 361,
+  "evidence_sha256": "045f6ebfe033fc5192aa93afcc635a698affdcd75b69a5b291864e8ea10dc462",
+  "source_hashes": {
+    "settings/06_07_transport_sorting.json": "d4a56368171f4b4cd6e456618fd976b8db9017c30d65f6d0594fc1b624bcc22a",
+    "settings/06_07_motion_evidence.json": "045f6ebfe033fc5192aa93afcc635a698affdcd75b69a5b291864e8ea10dc462",
+    "settings/06_07_source_joint_geometry.json": "63462f7ff2f79ad96c58e252d9c3a04a728dfd6289829c99cd1d3dc31be8eb5b",
+    "qa/06_07_actual_robot_cubes.json": "7d78f731eeaca3ea1ffa8aacf39fb13a430d9f72d02cf213c40a226fac66ff53",
+    "../presentation_video_revision_v3_20261104/settings/handoff_mesh_points.json": "65d437a2c2a1948ea301ce4d2a5f92ad3a44d13f9142ae3d68830c0f2b3e253d",
+    "../../vendor/hcr3a_20261008/HCR3A_SIM_TEAM_20261008/workspace/src/smartfarm_description/config/hcr3a_random8_validation.json": "7676d054764c69df6959d8db53a9d44a8ae44ff5aac768d0dd475f4f5147bedf",
+    "../../vendor/hcr3a_20261008/HCR3A_SIM_TEAM_20261008/workspace/src/smartfarm_description/scripts/hcr3a_environment.py": "69315e9d92fed2277d1215586c4c53033f066988cae7a1a6ff559e4d9f693d5d"
+  },
+  "all_sources_unchanged_at_check_end": true,
+  "method": "independent original USD Cube OBB + original fruit convex hull feasibility; actual vertex penetration retained; original station box expressions",
+  "limits": "Convex hull can fill pepper concavities; intersection is a conservative alarm, actual vertex inside a cube is stronger evidence. No dynamic solver or continuous-time swept collision.",
+  "max_events_by_fruit_and_obstacle": [
+    {
+      "time_s": 3.6,
+      "frame": 108,
+      "fruit": "/World/PresentationFruits/Handoff_04",
+      "obstacle": "/World/HCRStation/IntakeSupport360",
+      "phase": "intake_roll",
+      "convex_intersection_inscribed_radius_m": 0.0006548841234746537,
+      "actual_vertex_max_penetration_m": 0.0,
+      "contact_class": "conservative_hull_only"
+    },
+    {
+      "time_s": 5.366666666666666,
+      "frame": 161,
+      "fruit": "/World/PresentationFruits/Handoff_03",
+      "obstacle": "/hcr3a_functional/tcp/visuals/mesh_0/box",
+      "phase": "lane_stable",
+      "convex_intersection_inscribed_radius_m": 0.001000000047497487,
+      "actual_vertex_max_penetration_m": 0.0
+    },
+    {
+      "time_s": 6.4,
+      "frame": 192,
+      "fruit": "/World/PresentationFruits/Handoff_03",
+      "obstacle": "/hcr3a_functional/tcp/visuals/mesh_0/box",
+      "phase": "gripper_attached",
+      "convex_intersection_inscribed_radius_m": 0.001000000047497563,
+      "actual_vertex_max_penetration_m": 0.0
+    },
+    {
+      "time_s": 6.2,
+      "frame": 186,
+      "fruit": "/World/PresentationFruits/Handoff_03",
+      "obstacle": "/hcr3a_functional/left_pad/visuals/mesh_0/box",
+      "phase": "gripper_attached",
+      "convex_intersection_inscribed_radius_m": 0.0008301691446961357,
+      "actual_vertex_max_penetration_m": 0.0016615616566012376,
+      "contact_class": "allowed_grip_pad_contact"
+    },
+    {
+      "time_s": 5.8,
+      "frame": 174,
+      "fruit": "/World/PresentationFruits/Handoff_03",
+      "obstacle": "/hcr3a_functional/right_pad/visuals/mesh_0/box",
+      "phase": "gripper_attached",
+      "convex_intersection_inscribed_radius_m": 0.0009674990014545401,
+      "actual_vertex_max_penetration_m": 0.001935675754026922,
+      "contact_class": "allowed_grip_pad_contact"
+    },
+    {
+      "time_s": 6.433333333333334,
+      "frame": 193,
+      "fruit": "/World/PresentationFruits/Handoff_03",
+      "obstacle": "/hcr3a_functional/tcp/visuals/mesh_0/box",
+      "phase": "bin_gravity_fall",
+      "convex_intersection_inscribed_radius_m": 0.0010000000474974945,
+      "actual_vertex_max_penetration_m": 0.0
+    },
+    {
+      "time_s": 7.233333333333333,
+      "frame": 217,
+      "fruit": "/World/PresentationFruits/Handoff_04",
+      "obstacle": "/hcr3a_functional/tcp/visuals/mesh_0/box",
+      "phase": "lane_stable",
+      "convex_intersection_inscribed_radius_m": 0.0010000000474974676,
+      "actual_vertex_max_penetration_m": 0.0
+    },
+    {
+      "time_s": 7.966666666666667,
+      "frame": 239,
+      "fruit": "/World/PresentationFruits/Handoff_04",
+      "obstacle": "/hcr3a_functional/tcp/visuals/mesh_0/box",
+      "phase": "gripper_attached",
+      "convex_intersection_inscribed_radius_m": 0.0010000000474976076,
+      "actual_vertex_max_penetration_m": 0.0
+    },
+    {
+      "time_s": 7.6,
+      "frame": 228,
+      "fruit": "/World/PresentationFruits/Handoff_04",
+      "obstacle": "/hcr3a_functional/left_pad/visuals/mesh_0/box",
+      "phase": "gripper_attached",
+      "convex_intersection_inscribed_radius_m": 0.00024031225655298186,
+      "actual_vertex_max_penetration_m": 0.00048084213436207224,
+      "contact_class": "allowed_grip_pad_contact"
+    },
+    {
+      "time_s": 7.866666666666666,
+      "frame": 236,
+      "fruit": "/World/PresentationFruits/Handoff_04",
+      "obstacle": "/hcr3a_functional/right_pad/visuals/mesh_0/box",
+      "phase": "gripper_attached",
+      "convex_intersection_inscribed_radius_m": 0.0001470767257037511,
+      "actual_vertex_max_penetration_m": 0.0002942422450771254,
+      "contact_class": "allowed_grip_pad_contact"
+    },
+    {
+      "time_s": 8.166666666666666,
+      "frame": 245,
+      "fruit": "/World/PresentationFruits/Handoff_04",
+      "obstacle": "/hcr3a_functional/tcp/visuals/mesh_0/box",
+      "phase": "bin_gravity_fall",
+      "convex_intersection_inscribed_radius_m": 0.001000000047497489,
+      "actual_vertex_max_penetration_m": 0.0
+    }
+  ],
+  "non_gripper_contact_events": 68,
+  "attached_gripper_contact_events": 90,
+  "max_actual_vertex_events_by_phase": [
+    {
+      "time_s": 3.6,
+      "frame": 108,
+      "fruit": "/World/PresentationFruits/Handoff_04",
+      "obstacle": "/World/HCRStation/IntakeSupport360",
+      "phase": "intake_roll",
+      "convex_intersection_inscribed_radius_m": 0.0006548841234746537,
+      "actual_vertex_max_penetration_m": 0.0,
+      "contact_class": "conservative_hull_only"
+    },
+    {
+      "time_s": 5.333333333333333,
+      "frame": 160,
+      "fruit": "/World/PresentationFruits/Handoff_03",
+      "obstacle": "/hcr3a_functional/tcp/visuals/mesh_0/box",
+      "phase": "lane_stable",
+      "convex_intersection_inscribed_radius_m": 0.0010000000474974444,
+      "actual_vertex_max_penetration_m": 0.0
+    },
+    {
+      "time_s": 5.6,
+      "frame": 168,
+      "fruit": "/World/PresentationFruits/Handoff_03",
+      "obstacle": "/hcr3a_functional/tcp/visuals/mesh_0/box",
+      "phase": "gripper_attached",
+      "convex_intersection_inscribed_radius_m": 0.001000000047497423,
+      "actual_vertex_max_penetration_m": 0.0
+    },
+    {
+      "time_s": 6.333333333333333,
+      "frame": 190,
+      "fruit": "/World/PresentationFruits/Handoff_03",
+      "obstacle": "/hcr3a_functional/left_pad/visuals/mesh_0/box",
+      "phase": "gripper_attached",
+      "convex_intersection_inscribed_radius_m": 0.0008301600734060094,
+      "actual_vertex_max_penetration_m": 0.001661561656601418,
+      "contact_class": "allowed_grip_pad_contact"
+    },
+    {
+      "time_s": 5.933333333333334,
+      "frame": 178,
+      "fruit": "/World/PresentationFruits/Handoff_03",
+      "obstacle": "/hcr3a_functional/right_pad/visuals/mesh_0/box",
+      "phase": "gripper_attached",
+      "convex_intersection_inscribed_radius_m": 0.0009674917115646661,
+      "actual_vertex_max_penetration_m": 0.0019356757540275882,
+      "contact_class": "allowed_grip_pad_contact"
+    },
+    {
+      "time_s": 6.433333333333334,
+      "frame": 193,
+      "fruit": "/World/PresentationFruits/Handoff_03",
+      "obstacle": "/hcr3a_functional/tcp/visuals/mesh_0/box",
+      "phase": "bin_gravity_fall",
+      "convex_intersection_inscribed_radius_m": 0.0010000000474974945,
+      "actual_vertex_max_penetration_m": 0.0
+    },
+    {
+      "time_s": 7.233333333333333,
+      "frame": 217,
+      "fruit": "/World/PresentationFruits/Handoff_04",
+      "obstacle": "/hcr3a_functional/tcp/visuals/mesh_0/box",
+      "phase": "lane_stable",
+      "convex_intersection_inscribed_radius_m": 0.0010000000474974676,
+      "actual_vertex_max_penetration_m": 0.0
+    },
+    {
+      "time_s": 7.3999999999999995,
+      "frame": 222,
+      "fruit": "/World/PresentationFruits/Handoff_04",
+      "obstacle": "/hcr3a_functional/tcp/visuals/mesh_0/box",
+      "phase": "gripper_attached",
+      "convex_intersection_inscribed_radius_m": 0.001000000047497507,
+      "actual_vertex_max_penetration_m": 0.0
+    },
+    {
+      "time_s": 7.7,
+      "frame": 231,
+      "fruit": "/World/PresentationFruits/Handoff_04",
+      "obstacle": "/hcr3a_functional/left_pad/visuals/mesh_0/box",
+      "phase": "gripper_attached",
+      "convex_intersection_inscribed_radius_m": 0.00024031225655177804,
+      "actual_vertex_max_penetration_m": 0.0004808421343627245,
+      "contact_class": "allowed_grip_pad_contact"
+    },
+    {
+      "time_s": 7.933333333333334,
+      "frame": 238,
+      "fruit": "/World/PresentationFruits/Handoff_04",
+      "obstacle": "/hcr3a_functional/right_pad/visuals/mesh_0/box",
+      "phase": "gripper_attached",
+      "convex_intersection_inscribed_radius_m": 0.00014707672570362032,
+      "actual_vertex_max_penetration_m": 0.00029424224507715313,
+      "contact_class": "allowed_grip_pad_contact"
+    },
+    {
+      "time_s": 8.166666666666666,
+      "frame": 245,
+      "fruit": "/World/PresentationFruits/Handoff_04",
+      "obstacle": "/hcr3a_functional/tcp/visuals/mesh_0/box",
+      "phase": "bin_gravity_fall",
+      "convex_intersection_inscribed_radius_m": 0.001000000047497489,
+      "actual_vertex_max_penetration_m": 0.0
+    }
+  ],
+  "blocking_events": [],
+  "conservative_hull_only_events": [
+    {
+      "time_s": 3.6,
+      "frame": 108,
+      "fruit": "/World/PresentationFruits/Handoff_04",
+      "obstacle": "/World/HCRStation/IntakeSupport360",
+      "phase": "intake_roll",
+      "convex_intersection_inscribed_radius_m": 0.0006548841234746537,
+      "actual_vertex_max_penetration_m": 0.0,
+      "contact_class": "conservative_hull_only"
+    }
+  ],
+  "allowed_grip_pad_contacts": [
+    {
+      "time_s": 5.6,
+      "frame": 168,
+      "fruit": "/World/PresentationFruits/Handoff_03",
+      "obstacle": "/hcr3a_functional/left_pad/visuals/mesh_0/box",
+      "phase": "gripper_attached",
+      "convex_intersection_inscribed_radius_m": 0.0008301600734059467,
+      "actual_vertex_max_penetration_m": 0.0016615616566013035,
+      "contact_class": "allowed_grip_pad_contact"
+    },
+    {
+      "time_s": 5.6,
+      "frame": 168,
+      "fruit": "/World/PresentationFruits/Handoff_03",
+      "obstacle": "/hcr3a_functional/right_pad/visuals/mesh_0/box",
+      "phase": "gripper_attached",
+      "convex_intersection_inscribed_radius_m": 0.0009674990014534487,
+      "actual_vertex_max_penetration_m": 0.0019356757540269082,
+      "contact_class": "allowed_grip_pad_contact"
+    },
+    {
+      "time_s": 5.633333333333333,
+      "frame": 169,
+      "fruit": "/World/PresentationFruits/Handoff_03",
+      "obstacle": "/hcr3a_functional/left_pad/visuals/mesh_0/box",
+      "phase": "gripper_attached",
+      "convex_intersection_inscribed_radius_m": 0.0008301600734059147,
+      "actual_vertex_max_penetration_m": 0.0016615616566013278,
+      "contact_class": "allowed_grip_pad_contact"
+    },
+    {
+      "time_s": 5.633333333333333,
+      "frame": 169,
+      "fruit": "/World/PresentationFruits/Handoff_03",
+      "obstacle": "/hcr3a_functional/right_pad/visuals/mesh_0/box",
+      "phase": "gripper_attached",
+      "convex_intersection_inscribed_radius_m": 0.0009674990014534917,
+      "actual_vertex_max_penetration_m": 0.0019356757540268943,
+      "contact_class": "allowed_grip_pad_contact"
+    },
+    {
+      "time_s": 5.666666666666667,
+      "frame": 170,
+      "fruit": "/World/PresentationFruits/Handoff_03",
+      "obstacle": "/hcr3a_functional/left_pad/visuals/mesh_0/box",
+      "phase": "gripper_attached",
+      "convex_intersection_inscribed_radius_m": 0.0008301600734058666,
+      "actual_vertex_max_penetration_m": 0.0016615616566013,
+      "contact_class": "allowed_grip_pad_contact"
+    },
+    {
+      "time_s": 5.666666666666667,
+      "frame": 170,
+      "fruit": "/World/PresentationFruits/Handoff_03",
+      "obstacle": "/hcr3a_functional/right_pad/visuals/mesh_0/box",
+      "phase": "gripper_attached",
+      "convex_intersection_inscribed_radius_m": 0.0009674990014535558,
+      "actual_vertex_max_penetration_m": 0.001935675754026922,
+      "contact_class": "allowed_grip_pad_contact"
+    },
+    {
+      "time_s": 5.7,
+      "frame": 171,
+      "fruit": "/World/PresentationFruits/Handoff_03",
+      "obstacle": "/hcr3a_functional/left_pad/visuals/mesh_0/box",
+      "phase": "gripper_attached",
+      "convex_intersection_inscribed_radius_m": 0.0008301600734056848,
+      "actual_vertex_max_penetration_m": 0.0016615616566013,
+      "contact_class": "allowed_grip_pad_contact"
+    },
+    {
+      "time_s": 5.7,
+      "frame": 171,
+      "fruit": "/World/PresentationFruits/Handoff_03",
+      "obstacle": "/hcr3a_functional/right_pad/visuals/mesh_0/box",
+      "phase": "gripper_attached",
+      "convex_intersection_inscribed_radius_m": 0.0009674990014536628,
+      "actual_vertex_max_penetration_m": 0.001935675754026922,
+      "contact_class": "allowed_grip_pad_contact"
+    },
+    {
+      "time_s": 5.733333333333333,
+      "frame": 172,
+      "fruit": "/World/PresentationFruits/Handoff_03",
+      "obstacle": "/hcr3a_functional/left_pad/visuals/mesh_0/box",
+      "phase": "gripper_attached",
+      "convex_intersection_inscribed_radius_m": 0.0008301600734054011,
+      "actual_vertex_max_penetration_m": 0.0016615616566013,
+      "contact_class": "allowed_grip_pad_contact"
+    },
+    {
+      "time_s": 5.733333333333333,
+      "frame": 172,
+      "fruit": "/World/PresentationFruits/Handoff_03",
+      "obstacle": "/hcr3a_functional/right_pad/visuals/mesh_0/box",
+      "phase": "gripper_attached",
+      "convex_intersection_inscribed_radius_m": 0.0009674990014539622,
+      "actual_vertex_max_penetration_m": 0.0019356757540268804,
+      "contact_class": "allowed_grip_pad_contact"
+    },
+    {
+      "time_s": 5.766666666666667,
+      "frame": 173,
+      "fruit": "/World/PresentationFruits/Handoff_03",
+      "obstacle": "/hcr3a_functional/left_pad/visuals/mesh_0/box",
+      "phase": "gripper_attached",
+      "convex_intersection_inscribed_radius_m": 0.0008301600734051818,
+      "actual_vertex_max_penetration_m": 0.001661561656601293,
+      "contact_class": "allowed_grip_pad_contact"
+    },
+    {
+      "time_s": 5.766666666666667,
+      "frame": 173,
+      "fruit": "/World/PresentationFruits/Handoff_03",
+      "obstacle": "/hcr3a_functional/right_pad/visuals/mesh_0/box",
+      "phase": "gripper_attached",
+      "convex_intersection_inscribed_radius_m": 0.000967499001454112,
+      "actual_vertex_max_penetration_m": 0.001935675754026922,
+      "contact_class": "allowed_grip_pad_contact"
+    },
+    {
+      "time_s": 5.8,
+      "frame": 174,
+      "fruit": "/World/PresentationFruits/Handoff_03",
+      "obstacle": "/hcr3a_functional/left_pad/visuals/mesh_0/box",
+      "phase": "gripper_attached",
+      "convex_intersection_inscribed_radius_m": 0.0008301600734049787,
+      "actual_vertex_max_penetration_m": 0.0016615616566012861,
+      "contact_class": "allowed_grip_pad_contact"
+    },
+    {
+      "time_s": 5.8,
+      "frame": 174,
+      "fruit": "/World/PresentationFruits/Handoff_03",
+      "obstacle": "/hcr3a_functional/right_pad/visuals/mesh_0/box",
+      "phase": "gripper_attached",
+      "convex_intersection_inscribed_radius_m": 0.0009674990014545401,
+      "actual_vertex_max_penetration_m": 0.001935675754026922,
+      "contact_class": "allowed_grip_pad_contact"
+    },
+    {
+      "time_s": 5.833333333333333,
+      "frame": 175,
+      "fruit": "/World/PresentationFruits/Handoff_03",
+      "obstacle": "/hcr3a_functional/left_pad/visuals/mesh_0/box",
+      "phase": "gripper_attached",
+      "convex_intersection_inscribed_radius_m": 0.0008301600734060814,
+      "actual_vertex_max_penetration_m": 0.0016615616566012861,
+      "contact_class": "allowed_grip_pad_contact"
+    },
+    {
+      "time_s": 5.833333333333333,
+      "frame": 175,
+      "fruit": "/World/PresentationFruits/Handoff_03",
+      "obstacle": "/hcr3a_functional/right_pad/visuals/mesh_0/box",
+      "phase": "gripper_attached",
+      "convex_intersection_inscribed_radius_m": 0.0009674917115641726,
+      "actual_vertex_max_penetration_m": 0.0019356757540269082,
+      "contact_class": "allowed_grip_pad_contact"
+    },
+    {
+      "time_s": 5.866666666666666,
+      "frame": 176,
+      "fruit": "/World/PresentationFruits/Handoff_03",
+      "obstacle": "/hcr3a_functional/left_pad/visuals/mesh_0/box",
+      "phase": "gripper_attached",
+      "convex_intersection_inscribed_radius_m": 0.0008301600734059833,
+      "actual_vertex_max_penetration_m": 0.0016615616566011265,
+      "contact_class": "allowed_grip_pad_contact"
+    },
+    {
+      "time_s": 5.866666666666666,
+      "frame": 176,
+      "fruit": "/World/PresentationFruits/Handoff_03",
+      "obstacle": "/hcr3a_functional/right_pad/visuals/mesh_0/box",
+      "phase": "gripper_attached",
+      "convex_intersection_inscribed_radius_m": 0.0009674917115643751,
+      "actual_vertex_max_penetration_m": 0.0019356757540270886,
+      "contact_class": "allowed_grip_pad_contact"
+    },
+    {
+      "time_s": 5.9,
+      "frame": 177,
+      "fruit": "/World/PresentationFruits/Handoff_03",
+      "obstacle": "/hcr3a_functional/left_pad/visuals/mesh_0/box",
+      "phase": "gripper_attached",
+      "convex_intersection_inscribed_radius_m": 0.0008301600734056987,
+      "actual_vertex_max_penetration_m": 0.0016615616566008629,
+      "contact_class": "allowed_grip_pad_contact"
+    },
+    {
+      "time_s": 5.9,
+      "frame": 177,
+      "fruit": "/World/PresentationFruits/Handoff_03",
+      "obstacle": "/hcr3a_functional/right_pad/visuals/mesh_0/box",
+      "phase": "gripper_attached",
+      "convex_intersection_inscribed_radius_m": 0.0009674917115640052,
+      "actual_vertex_max_penetration_m": 0.0019356757540274216,
+      "contact_class": "allowed_grip_pad_contact"
+    },
+    {
+      "time_s": 5.933333333333334,
+      "frame": 178,
+      "fruit": "/World/PresentationFruits/Handoff_03",
+      "obstacle": "/hcr3a_functional/left_pad/visuals/mesh_0/box",
+      "phase": "gripper_attached",
+      "convex_intersection_inscribed_radius_m": 0.0008301600734055872,
+      "actual_vertex_max_penetration_m": 0.0016615616566005298,
+      "contact_class": "allowed_grip_pad_contact"
+    },
+    {
+      "time_s": 5.933333333333334,
+      "frame": 178,
+      "fruit": "/World/PresentationFruits/Handoff_03",
+      "obstacle": "/hcr3a_functional/right_pad/visuals/mesh_0/box",
+      "phase": "gripper_attached",
+      "convex_intersection_inscribed_radius_m": 0.0009674917115646661,
+      "actual_vertex_max_penetration_m": 0.0019356757540275882,
+      "contact_class": "allowed_grip_pad_contact"
+    },
+    {
+      "time_s": 5.966666666666667,
+      "frame": 179,
+      "fruit": "/World/PresentationFruits/Handoff_03",
+      "obstacle": "/hcr3a_functional/left_pad/visuals/mesh_0/box",
+      "phase": "gripper_attached",
+      "convex_intersection_inscribed_radius_m": 0.0008301600734057047,
+      "actual_vertex_max_penetration_m": 0.0016615616566008629,
+      "contact_class": "allowed_grip_pad_contact"
+    },
+    {
+      "time_s": 5.966666666666667,
+      "frame": 179,
+      "fruit": "/World/PresentationFruits/Handoff_03",
+      "obstacle": "/hcr3a_functional/right_pad/visuals/mesh_0/box",
+      "phase": "gripper_attached",
+      "convex_intersection_inscribed_radius_m": 0.0009674917115642339,
+      "actual_vertex_max_penetration_m": 0.0019356757540272551,
+      "contact_class": "allowed_grip_pad_contact"
+    },
+    {
+      "time_s": 6.0,
+      "frame": 180,
+      "fruit": "/World/PresentationFruits/Handoff_03",
+      "obstacle": "/hcr3a_functional/left_pad/visuals/mesh_0/box",
+      "phase": "gripper_attached",
+      "convex_intersection_inscribed_radius_m": 0.0008301691446961257,
+      "actual_vertex_max_penetration_m": 0.0016615616566012237,
+      "contact_class": "allowed_grip_pad_contact"
+    },
+    {
+      "time_s": 6.0,
+      "frame": 180,
+      "fruit": "/World/PresentationFruits/Handoff_03",
+      "obstacle": "/hcr3a_functional/right_pad/visuals/mesh_0/box",
+      "phase": "gripper_attached",
+      "convex_intersection_inscribed_radius_m": 0.0009674990014534505,
+      "actual_vertex_max_penetration_m": 0.0019356757540269914,
+      "contact_class": "allowed_grip_pad_contact"
+    },
+    {
+      "time_s": 6.033333333333333,
+      "frame": 181,
+      "fruit": "/World/PresentationFruits/Handoff_03",
+      "obstacle": "/hcr3a_functional/left_pad/visuals/mesh_0/box",
+      "phase": "gripper_attached",
+      "convex_intersection_inscribed_radius_m": 0.0008301691446961234,
+      "actual_vertex_max_penetration_m": 0.0016615616566013347,
+      "contact_class": "allowed_grip_pad_contact"
+    },
+    {
+      "time_s": 6.033333333333333,
+      "frame": 181,
+      "fruit": "/World/PresentationFruits/Handoff_03",
+      "obstacle": "/hcr3a_functional/right_pad/visuals/mesh_0/box",
+      "phase": "gripper_attached",
+      "convex_intersection_inscribed_radius_m": 0.0009674917115640472,
+      "actual_vertex_max_penetration_m": 0.0019356757540268943,
+      "contact_class": "allowed_grip_pad_contact"
+    },
+    {
+      "time_s": 6.066666666666666,
+      "frame": 182,
+      "fruit": "/World/PresentationFruits/Handoff_03",
+      "obstacle": "/hcr3a_functional/left_pad/visuals/mesh_0/box",
+      "phase": "gripper_attached",
+      "convex_intersection_inscribed_radius_m": 0.0008301600734059151,
+      "actual_vertex_max_penetration_m": 0.0016615616566012792,
+      "contact_class": "allowed_grip_pad_contact"
+    },
+    {
+      "time_s": 6.066666666666666,
+      "frame": 182,
+      "fruit": "/World/PresentationFruits/Handoff_03",
+      "obstacle": "/hcr3a_functional/right_pad/visuals/mesh_0/box",
+      "phase": "gripper_attached",
+      "convex_intersection_inscribed_radius_m": 0.0009674917115640213,
+      "actual_vertex_max_penetration_m": 0.0019356757540269637,
+      "contact_class": "allowed_grip_pad_contact"
+    },
+    {
+      "time_s": 6.1,
+      "frame": 183,
+      "fruit": "/World/PresentationFruits/Handoff_03",
+      "obstacle": "/hcr3a_functional/left_pad/visuals/mesh_0/box",
+      "phase": "gripper_attached",
+      "convex_intersection_inscribed_radius_m": 0.0008301691446961119,
+      "actual_vertex_max_penetration_m": 0.001661561656601307,
+      "contact_class": "allowed_grip_pad_contact"
+    },
+    {
+      "time_s": 6.1,
+      "frame": 183,
+      "fruit": "/World/PresentationFruits/Handoff_03",
+      "obstacle": "/hcr3a_functional/right_pad/visuals/mesh_0/box",
+      "phase": "gripper_attached",
+      "convex_intersection_inscribed_radius_m": 0.0009674917115640338,
+      "actual_vertex_max_penetration_m": 0.0019356757540269082,
+      "contact_class": "allowed_grip_pad_contact"
+    },
+    {
+      "time_s": 6.133333333333333,
+      "frame": 184,
+      "fruit": "/World/PresentationFruits/Handoff_03",
+      "obstacle": "/hcr3a_functional/left_pad/visuals/mesh_0/box",
+      "phase": "gripper_attached",
+      "convex_intersection_inscribed_radius_m": 0.0008301600734059444,
+      "actual_vertex_max_penetration_m": 0.0016615616566013347,
+      "contact_class": "allowed_grip_pad_contact"
+    },
+    {
+      "time_s": 6.133333333333333,
+      "frame": 184,
+      "fruit": "/World/PresentationFruits/Handoff_03",
+      "obstacle": "/hcr3a_functional/right_pad/visuals/mesh_0/box",
+      "phase": "gripper_attached",
+      "convex_intersection_inscribed_radius_m": 0.0009674990014534174,
+      "actual_vertex_max_penetration_m": 0.0019356757540268665,
+      "contact_class": "allowed_grip_pad_contact"
+    },
+    {
+      "time_s": 6.166666666666667,
+      "frame": 185,
+      "fruit": "/World/PresentationFruits/Handoff_03",
+      "obstacle": "/hcr3a_functional/left_pad/visuals/mesh_0/box",
+      "phase": "gripper_attached",
+      "convex_intersection_inscribed_radius_m": 0.0008301600734059584,
+      "actual_vertex_max_penetration_m": 0.0016615616566013486,
+      "contact_class": "allowed_grip_pad_contact"
+    },
+    {
+      "time_s": 6.166666666666667,
+      "frame": 185,
+      "fruit": "/World/PresentationFruits/Handoff_03",
+      "obstacle": "/hcr3a_functional/right_pad/visuals/mesh_0/box",
+      "phase": "gripper_attached",
+      "convex_intersection_inscribed_radius_m": 0.0009674990014534106,
+      "actual_vertex_max_penetration_m": 0.0019356757540268527,
+      "contact_class": "allowed_grip_pad_contact"
+    },
+    {
+      "time_s": 6.2,
+      "frame": 186,
+      "fruit": "/World/PresentationFruits/Handoff_03",
+      "obstacle": "/hcr3a_functional/left_pad/visuals/mesh_0/box",
+      "phase": "gripper_attached",
+      "convex_intersection_inscribed_radius_m": 0.0008301691446961357,
+      "actual_vertex_max_penetration_m": 0.0016615616566012376,
+      "contact_class": "allowed_grip_pad_contact"
+    },
+    {
+      "time_s": 6.2,
+      "frame": 186,
+      "fruit": "/World/PresentationFruits/Handoff_03",
+      "obstacle": "/hcr3a_functional/right_pad/visuals/mesh_0/box",
+      "phase": "gripper_attached",
+      "convex_intersection_inscribed_radius_m": 0.0009674917115640348,
+      "actual_vertex_max_penetration_m": 0.0019356757540269064,
+      "contact_class": "allowed_grip_pad_contact"
+    },
+    {
+      "time_s": 6.233333333333333,
+      "frame": 187,
+      "fruit": "/World/PresentationFruits/Handoff_03",
+      "obstacle": "/hcr3a_functional/left_pad/visuals/mesh_0/box",
+      "phase": "gripper_attached",
+      "convex_intersection_inscribed_radius_m": 0.0008301691446960667,
+      "actual_vertex_max_penetration_m": 0.001661561656601182,
+      "contact_class": "allowed_grip_pad_contact"
+    },
+    {
+      "time_s": 6.233333333333333,
+      "frame": 187,
+      "fruit": "/World/PresentationFruits/Handoff_03",
+      "obstacle": "/hcr3a_functional/right_pad/visuals/mesh_0/box",
+      "phase": "gripper_attached",
+      "convex_intersection_inscribed_radius_m": 0.0009674917115640423,
+      "actual_vertex_max_penetration_m": 0.0019356757540269585,
+      "contact_class": "allowed_grip_pad_contact"
+    },
+    {
+      "time_s": 6.266666666666667,
+      "frame": 188,
+      "fruit": "/World/PresentationFruits/Handoff_03",
+      "obstacle": "/hcr3a_functional/left_pad/visuals/mesh_0/box",
+      "phase": "gripper_attached",
+      "convex_intersection_inscribed_radius_m": 0.00083016007340593,
+      "actual_vertex_max_penetration_m": 0.0016615616566012514,
+      "contact_class": "allowed_grip_pad_contact"
+    },
+    {
+      "time_s": 6.266666666666667,
+      "frame": 188,
+      "fruit": "/World/PresentationFruits/Handoff_03",
+      "obstacle": "/hcr3a_functional/right_pad/visuals/mesh_0/box",
+      "phase": "gripper_attached",
+      "convex_intersection_inscribed_radius_m": 0.0009674917115640698,
+      "actual_vertex_max_penetration_m": 0.0019356757540269498,
+      "contact_class": "allowed_grip_pad_contact"
+    },
+    {
+      "time_s": 6.3,
+      "frame": 189,
+      "fruit": "/World/PresentationFruits/Handoff_03",
+      "obstacle": "/hcr3a_functional/left_pad/visuals/mesh_0/box",
+      "phase": "gripper_attached",
+      "convex_intersection_inscribed_radius_m": 0.0008301600734058574,
+      "actual_vertex_max_penetration_m": 0.0016615616566012653,
+      "contact_class": "allowed_grip_pad_contact"
+    },
+    {
+      "time_s": 6.3,
+      "frame": 189,
+      "fruit": "/World/PresentationFruits/Handoff_03",
+      "obstacle": "/hcr3a_functional/right_pad/visuals/mesh_0/box",
+      "phase": "gripper_attached",
+      "convex_intersection_inscribed_radius_m": 0.0009674917115640442,
+      "actual_vertex_max_penetration_m": 0.0019356757540269706,
+      "contact_class": "allowed_grip_pad_contact"
+    },
+    {
+      "time_s": 6.333333333333333,
+      "frame": 190,
+      "fruit": "/World/PresentationFruits/Handoff_03",
+      "obstacle": "/hcr3a_functional/left_pad/visuals/mesh_0/box",
+      "phase": "gripper_attached",
+      "convex_intersection_inscribed_radius_m": 0.0008301600734060094,
+      "actual_vertex_max_penetration_m": 0.001661561656601418,
+      "contact_class": "allowed_grip_pad_contact"
+    },
+    {
+      "time_s": 6.333333333333333,
+      "frame": 190,
+      "fruit": "/World/PresentationFruits/Handoff_03",
+      "obstacle": "/hcr3a_functional/right_pad/visuals/mesh_0/box",
+      "phase": "gripper_attached",
+      "convex_intersection_inscribed_radius_m": 0.0009674917115640815,
+      "actual_vertex_max_penetration_m": 0.0019356757540268804,
+      "contact_class": "allowed_grip_pad_contact"
+    },
+    {
+      "time_s": 6.366666666666666,
+      "frame": 191,
+      "fruit": "/World/PresentationFruits/Handoff_03",
+      "obstacle": "/hcr3a_functional/left_pad/visuals/mesh_0/box",
+      "phase": "gripper_attached",
+      "convex_intersection_inscribed_radius_m": 0.00026995975205538624,
+      "actual_vertex_max_penetration_m": 0.0005403232306753492,
+      "contact_class": "allowed_grip_pad_contact"
+    },
+    {
+      "time_s": 6.366666666666666,
+      "frame": 191,
+      "fruit": "/World/PresentationFruits/Handoff_03",
+      "obstacle": "/hcr3a_functional/right_pad/visuals/mesh_0/box",
+      "phase": "gripper_attached",
+      "convex_intersection_inscribed_radius_m": 0.00040709666611877583,
+      "actual_vertex_max_penetration_m": 0.0008144373281009781,
+      "contact_class": "allowed_grip_pad_contact"
+    },
+    {
+      "time_s": 7.3999999999999995,
+      "frame": 222,
+      "fruit": "/World/PresentationFruits/Handoff_04",
+      "obstacle": "/hcr3a_functional/left_pad/visuals/mesh_0/box",
+      "phase": "gripper_attached",
+      "convex_intersection_inscribed_radius_m": 0.00024031225655164433,
+      "actual_vertex_max_penetration_m": 0.00048084213436207224,
+      "contact_class": "allowed_grip_pad_contact"
+    },
+    {
+      "time_s": 7.3999999999999995,
+      "frame": 222,
+      "fruit": "/World/PresentationFruits/Handoff_04",
+      "obstacle": "/hcr3a_functional/right_pad/visuals/mesh_0/box",
+      "phase": "gripper_attached",
+      "convex_intersection_inscribed_radius_m": 0.00014707580262020458,
+      "actual_vertex_max_penetration_m": 0.0002942422450770907,
+      "contact_class": "allowed_grip_pad_contact"
+    },
+    {
+      "time_s": 7.433333333333334,
+      "frame": 223,
+      "fruit": "/World/PresentationFruits/Handoff_04",
+      "obstacle": "/hcr3a_functional/left_pad/visuals/mesh_0/box",
+      "phase": "gripper_attached",
+      "convex_intersection_inscribed_radius_m": 0.00024031225655156042,
+      "actual_vertex_max_penetration_m": 0.00048084213436207224,
+      "contact_class": "allowed_grip_pad_contact"
+    },
+    {
+      "time_s": 7.433333333333334,
+      "frame": 223,
+      "fruit": "/World/PresentationFruits/Handoff_04",
+      "obstacle": "/hcr3a_functional/right_pad/visuals/mesh_0/box",
+      "phase": "gripper_attached",
+      "convex_intersection_inscribed_radius_m": 0.00014707580262014535,
+      "actual_vertex_max_penetration_m": 0.00029424224507710456,
+      "contact_class": "allowed_grip_pad_contact"
+    },
+    {
+      "time_s": 7.466666666666667,
+      "frame": 224,
+      "fruit": "/World/PresentationFruits/Handoff_04",
+      "obstacle": "/hcr3a_functional/left_pad/visuals/mesh_0/box",
+      "phase": "gripper_attached",
+      "convex_intersection_inscribed_radius_m": 0.00024031225655214285,
+      "actual_vertex_max_penetration_m": 0.00048084213436207224,
+      "contact_class": "allowed_grip_pad_contact"
+    },
+    {
+      "time_s": 7.466666666666667,
+      "frame": 224,
+      "fruit": "/World/PresentationFruits/Handoff_04",
+      "obstacle": "/hcr3a_functional/right_pad/visuals/mesh_0/box",
+      "phase": "gripper_attached",
+      "convex_intersection_inscribed_radius_m": 0.00014707580261985912,
+      "actual_vertex_max_penetration_m": 0.0002942422450770976,
+      "contact_class": "allowed_grip_pad_contact"
+    },
+    {
+      "time_s": 7.5,
+      "frame": 225,
+      "fruit": "/World/PresentationFruits/Handoff_04",
+      "obstacle": "/hcr3a_functional/left_pad/visuals/mesh_0/box",
+      "phase": "gripper_attached",
+      "convex_intersection_inscribed_radius_m": 0.00024031225655226127,
+      "actual_vertex_max_penetration_m": 0.00048084213436205836,
+      "contact_class": "allowed_grip_pad_contact"
+    },
+    {
+      "time_s": 7.5,
+      "frame": 225,
+      "fruit": "/World/PresentationFruits/Handoff_04",
+      "obstacle": "/hcr3a_functional/right_pad/visuals/mesh_0/box",
+      "phase": "gripper_attached",
+      "convex_intersection_inscribed_radius_m": 0.00014707580261967155,
+      "actual_vertex_max_penetration_m": 0.00029424224507710456,
+      "contact_class": "allowed_grip_pad_contact"
+    },
+    {
+      "time_s": 7.533333333333333,
+      "frame": 226,
+      "fruit": "/World/PresentationFruits/Handoff_04",
+      "obstacle": "/hcr3a_functional/left_pad/visuals/mesh_0/box",
+      "phase": "gripper_attached",
+      "convex_intersection_inscribed_radius_m": 0.00024031225655251796,
+      "actual_vertex_max_penetration_m": 0.00048084213436207224,
+      "contact_class": "allowed_grip_pad_contact"
+    },
+    {
+      "time_s": 7.533333333333333,
+      "frame": 226,
+      "fruit": "/World/PresentationFruits/Handoff_04",
+      "obstacle": "/hcr3a_functional/right_pad/visuals/mesh_0/box",
+      "phase": "gripper_attached",
+      "convex_intersection_inscribed_radius_m": 0.00014707580261927672,
+      "actual_vertex_max_penetration_m": 0.0002942422450770976,
+      "contact_class": "allowed_grip_pad_contact"
+    },
+    {
+      "time_s": 7.566666666666666,
+      "frame": 227,
+      "fruit": "/World/PresentationFruits/Handoff_04",
+      "obstacle": "/hcr3a_functional/left_pad/visuals/mesh_0/box",
+      "phase": "gripper_attached",
+      "convex_intersection_inscribed_radius_m": 0.00024031225655268577,
+      "actual_vertex_max_penetration_m": 0.00048084213436205836,
+      "contact_class": "allowed_grip_pad_contact"
+    },
+    {
+      "time_s": 7.566666666666666,
+      "frame": 227,
+      "fruit": "/World/PresentationFruits/Handoff_04",
+      "obstacle": "/hcr3a_functional/right_pad/visuals/mesh_0/box",
+      "phase": "gripper_attached",
+      "convex_intersection_inscribed_radius_m": 0.00014707580261906944,
+      "actual_vertex_max_penetration_m": 0.00029424224507708374,
+      "contact_class": "allowed_grip_pad_contact"
+    },
+    {
+      "time_s": 7.6,
+      "frame": 228,
+      "fruit": "/World/PresentationFruits/Handoff_04",
+      "obstacle": "/hcr3a_functional/left_pad/visuals/mesh_0/box",
+      "phase": "gripper_attached",
+      "convex_intersection_inscribed_radius_m": 0.00024031225655298186,
+      "actual_vertex_max_penetration_m": 0.00048084213436207224,
+      "contact_class": "allowed_grip_pad_contact"
+    },
+    {
+      "time_s": 7.6,
+      "frame": 228,
+      "fruit": "/World/PresentationFruits/Handoff_04",
+      "obstacle": "/hcr3a_functional/right_pad/visuals/mesh_0/box",
+      "phase": "gripper_attached",
+      "convex_intersection_inscribed_radius_m": 0.00014707580261902992,
+      "actual_vertex_max_penetration_m": 0.0002942422450770976,
+      "contact_class": "allowed_grip_pad_contact"
+    },
+    {
+      "time_s": 7.633333333333333,
+      "frame": 229,
+      "fruit": "/World/PresentationFruits/Handoff_04",
+      "obstacle": "/hcr3a_functional/left_pad/visuals/mesh_0/box",
+      "phase": "gripper_attached",
+      "convex_intersection_inscribed_radius_m": 0.00024031225655154359,
+      "actual_vertex_max_penetration_m": 0.00048084213436223877,
+      "contact_class": "allowed_grip_pad_contact"
+    },
+    {
+      "time_s": 7.633333333333333,
+      "frame": 229,
+      "fruit": "/World/PresentationFruits/Handoff_04",
+      "obstacle": "/hcr3a_functional/right_pad/visuals/mesh_0/box",
+      "phase": "gripper_attached",
+      "convex_intersection_inscribed_radius_m": 0.00014707179713159893,
+      "actual_vertex_max_penetration_m": 0.00029424224507690333,
+      "contact_class": "allowed_grip_pad_contact"
+    },
+    {
+      "time_s": 7.666666666666667,
+      "frame": 230,
+      "fruit": "/World/PresentationFruits/Handoff_04",
+      "obstacle": "/hcr3a_functional/left_pad/visuals/mesh_0/box",
+      "phase": "gripper_attached",
+      "convex_intersection_inscribed_radius_m": 0.00024031225655187652,
+      "actual_vertex_max_penetration_m": 0.00048084213436255796,
+      "contact_class": "allowed_grip_pad_contact"
+    },
+    {
+      "time_s": 7.666666666666667,
+      "frame": 230,
+      "fruit": "/World/PresentationFruits/Handoff_04",
+      "obstacle": "/hcr3a_functional/right_pad/visuals/mesh_0/box",
+      "phase": "gripper_attached",
+      "convex_intersection_inscribed_radius_m": 0.00014707179713161639,
+      "actual_vertex_max_penetration_m": 0.0002942422450766258,
+      "contact_class": "allowed_grip_pad_contact"
+    },
+    {
+      "time_s": 7.7,
+      "frame": 231,
+      "fruit": "/World/PresentationFruits/Handoff_04",
+      "obstacle": "/hcr3a_functional/left_pad/visuals/mesh_0/box",
+      "phase": "gripper_attached",
+      "convex_intersection_inscribed_radius_m": 0.00024031225655177804,
+      "actual_vertex_max_penetration_m": 0.0004808421343627245,
+      "contact_class": "allowed_grip_pad_contact"
+    },
+    {
+      "time_s": 7.7,
+      "frame": 231,
+      "fruit": "/World/PresentationFruits/Handoff_04",
+      "obstacle": "/hcr3a_functional/right_pad/visuals/mesh_0/box",
+      "phase": "gripper_attached",
+      "convex_intersection_inscribed_radius_m": 0.00014707179713134818,
+      "actual_vertex_max_penetration_m": 0.0002942422450762927,
+      "contact_class": "allowed_grip_pad_contact"
+    },
+    {
+      "time_s": 7.733333333333333,
+      "frame": 232,
+      "fruit": "/World/PresentationFruits/Handoff_04",
+      "obstacle": "/hcr3a_functional/left_pad/visuals/mesh_0/box",
+      "phase": "gripper_attached",
+      "convex_intersection_inscribed_radius_m": 0.00024031225655171684,
+      "actual_vertex_max_penetration_m": 0.0004808421343623914,
+      "contact_class": "allowed_grip_pad_contact"
+    },
+    {
+      "time_s": 7.733333333333333,
+      "frame": 232,
+      "fruit": "/World/PresentationFruits/Handoff_04",
+      "obstacle": "/hcr3a_functional/right_pad/visuals/mesh_0/box",
+      "phase": "gripper_attached",
+      "convex_intersection_inscribed_radius_m": 0.00014707179713202817,
+      "actual_vertex_max_penetration_m": 0.0002942422450767368,
+      "contact_class": "allowed_grip_pad_contact"
+    },
+    {
+      "time_s": 7.766666666666667,
+      "frame": 233,
+      "fruit": "/World/PresentationFruits/Handoff_04",
+      "obstacle": "/hcr3a_functional/left_pad/visuals/mesh_0/box",
+      "phase": "gripper_attached",
+      "convex_intersection_inscribed_radius_m": 0.00024031225655159958,
+      "actual_vertex_max_penetration_m": 0.00048084213436207224,
+      "contact_class": "allowed_grip_pad_contact"
+    },
+    {
+      "time_s": 7.766666666666667,
+      "frame": 233,
+      "fruit": "/World/PresentationFruits/Handoff_04",
+      "obstacle": "/hcr3a_functional/right_pad/visuals/mesh_0/box",
+      "phase": "gripper_attached",
+      "convex_intersection_inscribed_radius_m": 0.00014707672570363344,
+      "actual_vertex_max_penetration_m": 0.0002942422450770976,
+      "contact_class": "allowed_grip_pad_contact"
+    },
+    {
+      "time_s": 7.8,
+      "frame": 234,
+      "fruit": "/World/PresentationFruits/Handoff_04",
+      "obstacle": "/hcr3a_functional/left_pad/visuals/mesh_0/box",
+      "phase": "gripper_attached",
+      "convex_intersection_inscribed_radius_m": 0.00024031225655154277,
+      "actual_vertex_max_penetration_m": 0.00048084213436207224,
+      "contact_class": "allowed_grip_pad_contact"
+    },
+    {
+      "time_s": 7.8,
+      "frame": 234,
+      "fruit": "/World/PresentationFruits/Handoff_04",
+      "obstacle": "/hcr3a_functional/right_pad/visuals/mesh_0/box",
+      "phase": "gripper_attached",
+      "convex_intersection_inscribed_radius_m": 0.00014707672570363586,
+      "actual_vertex_max_penetration_m": 0.0002942422450770976,
+      "contact_class": "allowed_grip_pad_contact"
+    },
+    {
+      "time_s": 7.833333333333333,
+      "frame": 235,
+      "fruit": "/World/PresentationFruits/Handoff_04",
+      "obstacle": "/hcr3a_functional/left_pad/visuals/mesh_0/box",
+      "phase": "gripper_attached",
+      "convex_intersection_inscribed_radius_m": 0.0002403122565515804,
+      "actual_vertex_max_penetration_m": 0.0004808421343620861,
+      "contact_class": "allowed_grip_pad_contact"
+    },
+    {
+      "time_s": 7.833333333333333,
+      "frame": 235,
+      "fruit": "/World/PresentationFruits/Handoff_04",
+      "obstacle": "/hcr3a_functional/right_pad/visuals/mesh_0/box",
+      "phase": "gripper_attached",
+      "convex_intersection_inscribed_radius_m": 0.00014707672570361545,
+      "actual_vertex_max_penetration_m": 0.0002942422450770976,
+      "contact_class": "allowed_grip_pad_contact"
+    },
+    {
+      "time_s": 7.866666666666666,
+      "frame": 236,
+      "fruit": "/World/PresentationFruits/Handoff_04",
+      "obstacle": "/hcr3a_functional/left_pad/visuals/mesh_0/box",
+      "phase": "gripper_attached",
+      "convex_intersection_inscribed_radius_m": 0.00024031225655149173,
+      "actual_vertex_max_penetration_m": 0.00048084213436205836,
+      "contact_class": "allowed_grip_pad_contact"
+    },
+    {
+      "time_s": 7.866666666666666,
+      "frame": 236,
+      "fruit": "/World/PresentationFruits/Handoff_04",
+      "obstacle": "/hcr3a_functional/right_pad/visuals/mesh_0/box",
+      "phase": "gripper_attached",
+      "convex_intersection_inscribed_radius_m": 0.0001470767257037511,
+      "actual_vertex_max_penetration_m": 0.0002942422450771254,
+      "contact_class": "allowed_grip_pad_contact"
+    },
+    {
+      "time_s": 7.8999999999999995,
+      "frame": 237,
+      "fruit": "/World/PresentationFruits/Handoff_04",
+      "obstacle": "/hcr3a_functional/left_pad/visuals/mesh_0/box",
+      "phase": "gripper_attached",
+      "convex_intersection_inscribed_radius_m": 0.00024031225655154337,
+      "actual_vertex_max_penetration_m": 0.0004808421343620167,
+      "contact_class": "allowed_grip_pad_contact"
+    },
+    {
+      "time_s": 7.8999999999999995,
+      "frame": 237,
+      "fruit": "/World/PresentationFruits/Handoff_04",
+      "obstacle": "/hcr3a_functional/right_pad/visuals/mesh_0/box",
+      "phase": "gripper_attached",
+      "convex_intersection_inscribed_radius_m": 0.00014707672570364594,
+      "actual_vertex_max_penetration_m": 0.0002942422450771254,
+      "contact_class": "allowed_grip_pad_contact"
+    },
+    {
+      "time_s": 7.933333333333334,
+      "frame": 238,
+      "fruit": "/World/PresentationFruits/Handoff_04",
+      "obstacle": "/hcr3a_functional/left_pad/visuals/mesh_0/box",
+      "phase": "gripper_attached",
+      "convex_intersection_inscribed_radius_m": 0.0002403122565515348,
+      "actual_vertex_max_penetration_m": 0.00048084213436202713,
+      "contact_class": "allowed_grip_pad_contact"
+    },
+    {
+      "time_s": 7.933333333333334,
+      "frame": 238,
+      "fruit": "/World/PresentationFruits/Handoff_04",
+      "obstacle": "/hcr3a_functional/right_pad/visuals/mesh_0/box",
+      "phase": "gripper_attached",
+      "convex_intersection_inscribed_radius_m": 0.00014707672570362032,
+      "actual_vertex_max_penetration_m": 0.00029424224507715313,
+      "contact_class": "allowed_grip_pad_contact"
+    },
+    {
+      "time_s": 7.966666666666667,
+      "frame": 239,
+      "fruit": "/World/PresentationFruits/Handoff_04",
+      "obstacle": "/hcr3a_functional/left_pad/visuals/mesh_0/box",
+      "phase": "gripper_attached",
+      "convex_intersection_inscribed_radius_m": 0.00024031225655159758,
+      "actual_vertex_max_penetration_m": 0.00048084213436206356,
+      "contact_class": "allowed_grip_pad_contact"
+    },
+    {
+      "time_s": 7.966666666666667,
+      "frame": 239,
+      "fruit": "/World/PresentationFruits/Handoff_04",
+      "obstacle": "/hcr3a_functional/right_pad/visuals/mesh_0/box",
+      "phase": "gripper_attached",
+      "convex_intersection_inscribed_radius_m": 0.00014707179713178788,
+      "actual_vertex_max_penetration_m": 0.00029424224507710456,
+      "contact_class": "allowed_grip_pad_contact"
+    },
+    {
+      "time_s": 8.0,
+      "frame": 240,
+      "fruit": "/World/PresentationFruits/Handoff_04",
+      "obstacle": "/hcr3a_functional/left_pad/visuals/mesh_0/box",
+      "phase": "gripper_attached",
+      "convex_intersection_inscribed_radius_m": 0.0002403122565515043,
+      "actual_vertex_max_penetration_m": 0.00048084213436204015,
+      "contact_class": "allowed_grip_pad_contact"
+    },
+    {
+      "time_s": 8.0,
+      "frame": 240,
+      "fruit": "/World/PresentationFruits/Handoff_04",
+      "obstacle": "/hcr3a_functional/right_pad/visuals/mesh_0/box",
+      "phase": "gripper_attached",
+      "convex_intersection_inscribed_radius_m": 0.00014707179713171635,
+      "actual_vertex_max_penetration_m": 0.0002942422450771254,
+      "contact_class": "allowed_grip_pad_contact"
+    },
+    {
+      "time_s": 8.033333333333333,
+      "frame": 241,
+      "fruit": "/World/PresentationFruits/Handoff_04",
+      "obstacle": "/hcr3a_functional/left_pad/visuals/mesh_0/box",
+      "phase": "gripper_attached",
+      "convex_intersection_inscribed_radius_m": 0.000240312256551535,
+      "actual_vertex_max_penetration_m": 0.00048084213436202367,
+      "contact_class": "allowed_grip_pad_contact"
+    },
+    {
+      "time_s": 8.033333333333333,
+      "frame": 241,
+      "fruit": "/World/PresentationFruits/Handoff_04",
+      "obstacle": "/hcr3a_functional/right_pad/visuals/mesh_0/box",
+      "phase": "gripper_attached",
+      "convex_intersection_inscribed_radius_m": 0.00014707179713178457,
+      "actual_vertex_max_penetration_m": 0.0002942422450771115,
+      "contact_class": "allowed_grip_pad_contact"
+    },
+    {
+      "time_s": 8.066666666666666,
+      "frame": 242,
+      "fruit": "/World/PresentationFruits/Handoff_04",
+      "obstacle": "/hcr3a_functional/left_pad/visuals/mesh_0/box",
+      "phase": "gripper_attached",
+      "convex_intersection_inscribed_radius_m": 0.00024031225655145617,
+      "actual_vertex_max_penetration_m": 0.0004808421343620306,
+      "contact_class": "allowed_grip_pad_contact"
+    },
+    {
+      "time_s": 8.066666666666666,
+      "frame": 242,
+      "fruit": "/World/PresentationFruits/Handoff_04",
+      "obstacle": "/hcr3a_functional/right_pad/visuals/mesh_0/box",
+      "phase": "gripper_attached",
+      "convex_intersection_inscribed_radius_m": 0.00014707179713177097,
+      "actual_vertex_max_penetration_m": 0.00029424224507715313,
+      "contact_class": "allowed_grip_pad_contact"
+    }
+  ],
+  "excluded_nonphysical_tcp_marker_contacts": [
+    {
+      "time_s": 5.333333333333333,
+      "frame": 160,
+      "fruit": "/World/PresentationFruits/Handoff_03",
+      "obstacle": "/hcr3a_functional/tcp/visuals/mesh_0/box",
+      "phase": "lane_stable",
+      "convex_intersection_inscribed_radius_m": 0.0010000000474974444,
+      "actual_vertex_max_penetration_m": 0.0
+    },
+    {
+      "time_s": 5.366666666666666,
+      "frame": 161,
+      "fruit": "/World/PresentationFruits/Handoff_03",
+      "obstacle": "/hcr3a_functional/tcp/visuals/mesh_0/box",
+      "phase": "lane_stable",
+      "convex_intersection_inscribed_radius_m": 0.001000000047497487,
+      "actual_vertex_max_penetration_m": 0.0
+    },
+    {
+      "time_s": 5.4,
+      "frame": 162,
+      "fruit": "/World/PresentationFruits/Handoff_03",
+      "obstacle": "/hcr3a_functional/tcp/visuals/mesh_0/box",
+      "phase": "lane_stable",
+      "convex_intersection_inscribed_radius_m": 0.001000000047497423,
+      "actual_vertex_max_penetration_m": 0.0
+    },
+    {
+      "time_s": 5.433333333333334,
+      "frame": 163,
+      "fruit": "/World/PresentationFruits/Handoff_03",
+      "obstacle": "/hcr3a_functional/tcp/visuals/mesh_0/box",
+      "phase": "lane_stable",
+      "convex_intersection_inscribed_radius_m": 0.0010000000474974656,
+      "actual_vertex_max_penetration_m": 0.0
+    },
+    {
+      "time_s": 5.466666666666667,
+      "frame": 164,
+      "fruit": "/World/PresentationFruits/Handoff_03",
+      "obstacle": "/hcr3a_functional/tcp/visuals/mesh_0/box",
+      "phase": "lane_stable",
+      "convex_intersection_inscribed_radius_m": 0.001000000047497487,
+      "actual_vertex_max_penetration_m": 0.0
+    },
+    {
+      "time_s": 5.5,
+      "frame": 165,
+      "fruit": "/World/PresentationFruits/Handoff_03",
+      "obstacle": "/hcr3a_functional/tcp/visuals/mesh_0/box",
+      "phase": "lane_stable",
+      "convex_intersection_inscribed_radius_m": 0.0010000000474974444,
+      "actual_vertex_max_penetration_m": 0.0
+    },
+    {
+      "time_s": 5.533333333333333,
+      "frame": 166,
+      "fruit": "/World/PresentationFruits/Handoff_03",
+      "obstacle": "/hcr3a_functional/tcp/visuals/mesh_0/box",
+      "phase": "lane_stable",
+      "convex_intersection_inscribed_radius_m": 0.001000000047497423,
+      "actual_vertex_max_penetration_m": 0.0
+    },
+    {
+      "time_s": 5.566666666666666,
+      "frame": 167,
+      "fruit": "/World/PresentationFruits/Handoff_03",
+      "obstacle": "/hcr3a_functional/tcp/visuals/mesh_0/box",
+      "phase": "lane_stable",
+      "convex_intersection_inscribed_radius_m": 0.0010000000474974444,
+      "actual_vertex_max_penetration_m": 0.0
+    },
+    {
+      "time_s": 5.6,
+      "frame": 168,
+      "fruit": "/World/PresentationFruits/Handoff_03",
+      "obstacle": "/hcr3a_functional/tcp/visuals/mesh_0/box",
+      "phase": "gripper_attached",
+      "convex_intersection_inscribed_radius_m": 0.001000000047497423,
+      "actual_vertex_max_penetration_m": 0.0
+    },
+    {
+      "time_s": 5.633333333333333,
+      "frame": 169,
+      "fruit": "/World/PresentationFruits/Handoff_03",
+      "obstacle": "/hcr3a_functional/tcp/visuals/mesh_0/box",
+      "phase": "gripper_attached",
+      "convex_intersection_inscribed_radius_m": 0.0010000000474974658,
+      "actual_vertex_max_penetration_m": 0.0
+    },
+    {
+      "time_s": 5.666666666666667,
+      "frame": 170,
+      "fruit": "/World/PresentationFruits/Handoff_03",
+      "obstacle": "/hcr3a_functional/tcp/visuals/mesh_0/box",
+      "phase": "gripper_attached",
+      "convex_intersection_inscribed_radius_m": 0.0010000000474974873,
+      "actual_vertex_max_penetration_m": 0.0
+    },
+    {
+      "time_s": 5.7,
+      "frame": 171,
+      "fruit": "/World/PresentationFruits/Handoff_03",
+      "obstacle": "/hcr3a_functional/tcp/visuals/mesh_0/box",
+      "phase": "gripper_attached",
+      "convex_intersection_inscribed_radius_m": 0.0010000000474974658,
+      "actual_vertex_max_penetration_m": 0.0
+    },
+    {
+      "time_s": 5.733333333333333,
+      "frame": 172,
+      "fruit": "/World/PresentationFruits/Handoff_03",
+      "obstacle": "/hcr3a_functional/tcp/visuals/mesh_0/box",
+      "phase": "gripper_attached",
+      "convex_intersection_inscribed_radius_m": 0.0010000000474974444,
+      "actual_vertex_max_penetration_m": 0.0
+    },
+    {
+      "time_s": 5.766666666666667,
+      "frame": 173,
+      "fruit": "/World/PresentationFruits/Handoff_03",
+      "obstacle": "/hcr3a_functional/tcp/visuals/mesh_0/box",
+      "phase": "gripper_attached",
+      "convex_intersection_inscribed_radius_m": 0.001000000047497423,
+      "actual_vertex_max_penetration_m": 0.0
+    },
+    {
+      "time_s": 5.8,
+      "frame": 174,
+      "fruit": "/World/PresentationFruits/Handoff_03",
+      "obstacle": "/hcr3a_functional/tcp/visuals/mesh_0/box",
+      "phase": "gripper_attached",
+      "convex_intersection_inscribed_radius_m": 0.0010000000474974873,
+      "actual_vertex_max_penetration_m": 0.0
+    },
+    {
+      "time_s": 5.833333333333333,
+      "frame": 175,
+      "fruit": "/World/PresentationFruits/Handoff_03",
+      "obstacle": "/hcr3a_functional/tcp/visuals/mesh_0/box",
+      "phase": "gripper_attached",
+      "convex_intersection_inscribed_radius_m": 0.001000000047497452,
+      "actual_vertex_max_penetration_m": 0.0
+    },
+    {
+      "time_s": 5.866666666666666,
+      "frame": 176,
+      "fruit": "/World/PresentationFruits/Handoff_03",
+      "obstacle": "/hcr3a_functional/tcp/visuals/mesh_0/box",
+      "phase": "gripper_attached",
+      "convex_intersection_inscribed_radius_m": 0.001000000047497412,
+      "actual_vertex_max_penetration_m": 0.0
+    },
+    {
+      "time_s": 5.9,
+      "frame": 177,
+      "fruit": "/World/PresentationFruits/Handoff_03",
+      "obstacle": "/hcr3a_functional/tcp/visuals/mesh_0/box",
+      "phase": "gripper_attached",
+      "convex_intersection_inscribed_radius_m": 0.0010000000474974977,
+      "actual_vertex_max_penetration_m": 0.0
+    },
+    {
+      "time_s": 5.933333333333334,
+      "frame": 178,
+      "fruit": "/World/PresentationFruits/Handoff_03",
+      "obstacle": "/hcr3a_functional/tcp/visuals/mesh_0/box",
+      "phase": "gripper_attached",
+      "convex_intersection_inscribed_radius_m": 0.0010000000474974756,
+      "actual_vertex_max_penetration_m": 0.0
+    },
+    {
+      "time_s": 5.966666666666667,
+      "frame": 179,
+      "fruit": "/World/PresentationFruits/Handoff_03",
+      "obstacle": "/hcr3a_functional/tcp/visuals/mesh_0/box",
+      "phase": "gripper_attached",
+      "convex_intersection_inscribed_radius_m": 0.001000000047497466,
+      "actual_vertex_max_penetration_m": 0.0
+    },
+    {
+      "time_s": 6.0,
+      "frame": 180,
+      "fruit": "/World/PresentationFruits/Handoff_03",
+      "obstacle": "/hcr3a_functional/tcp/visuals/mesh_0/box",
+      "phase": "gripper_attached",
+      "convex_intersection_inscribed_radius_m": 0.001000000047497432,
+      "actual_vertex_max_penetration_m": 0.0
+    },
+    {
+      "time_s": 6.033333333333333,
+      "frame": 181,
+      "fruit": "/World/PresentationFruits/Handoff_03",
+      "obstacle": "/hcr3a_functional/tcp/visuals/mesh_0/box",
+      "phase": "gripper_attached",
+      "convex_intersection_inscribed_radius_m": 0.0010000000474973993,
+      "actual_vertex_max_penetration_m": 0.0
+    },
+    {
+      "time_s": 6.066666666666666,
+      "frame": 182,
+      "fruit": "/World/PresentationFruits/Handoff_03",
+      "obstacle": "/hcr3a_functional/tcp/visuals/mesh_0/box",
+      "phase": "gripper_attached",
+      "convex_intersection_inscribed_radius_m": 0.0010000000474974474,
+      "actual_vertex_max_penetration_m": 0.0
+    },
+    {
+      "time_s": 6.1,
+      "frame": 183,
+      "fruit": "/World/PresentationFruits/Handoff_03",
+      "obstacle": "/hcr3a_functional/tcp/visuals/mesh_0/box",
+      "phase": "gripper_attached",
+      "convex_intersection_inscribed_radius_m": 0.001000000047497355,
+      "actual_vertex_max_penetration_m": 0.0
+    },
+    {
+      "time_s": 6.133333333333333,
+      "frame": 184,
+      "fruit": "/World/PresentationFruits/Handoff_03",
+      "obstacle": "/hcr3a_functional/tcp/visuals/mesh_0/box",
+      "phase": "gripper_attached",
+      "convex_intersection_inscribed_radius_m": 0.0010000000474974513,
+      "actual_vertex_max_penetration_m": 0.0
+    },
+    {
+      "time_s": 6.166666666666667,
+      "frame": 185,
+      "fruit": "/World/PresentationFruits/Handoff_03",
+      "obstacle": "/hcr3a_functional/tcp/visuals/mesh_0/box",
+      "phase": "gripper_attached",
+      "convex_intersection_inscribed_radius_m": 0.0010000000474974513,
+      "actual_vertex_max_penetration_m": 0.0
+    },
+    {
+      "time_s": 6.2,
+      "frame": 186,
+      "fruit": "/World/PresentationFruits/Handoff_03",
+      "obstacle": "/hcr3a_functional/tcp/visuals/mesh_0/box",
+      "phase": "gripper_attached",
+      "convex_intersection_inscribed_radius_m": 0.0010000000474975144,
+      "actual_vertex_max_penetration_m": 0.0
+    },
+    {
+      "time_s": 6.233333333333333,
+      "frame": 187,
+      "fruit": "/World/PresentationFruits/Handoff_03",
+      "obstacle": "/hcr3a_functional/tcp/visuals/mesh_0/box",
+      "phase": "gripper_attached",
+      "convex_intersection_inscribed_radius_m": 0.0010000000474975608,
+      "actual_vertex_max_penetration_m": 0.0
+    },
+    {
+      "time_s": 6.266666666666667,
+      "frame": 188,
+      "fruit": "/World/PresentationFruits/Handoff_03",
+      "obstacle": "/hcr3a_functional/tcp/visuals/mesh_0/box",
+      "phase": "gripper_attached",
+      "convex_intersection_inscribed_radius_m": 0.001000000047497454,
+      "actual_vertex_max_penetration_m": 0.0
+    },
+    {
+      "time_s": 6.3,
+      "frame": 189,
+      "fruit": "/World/PresentationFruits/Handoff_03",
+      "obstacle": "/hcr3a_functional/tcp/visuals/mesh_0/box",
+      "phase": "gripper_attached",
+      "convex_intersection_inscribed_radius_m": 0.0010000000474974194,
+      "actual_vertex_max_penetration_m": 0.0
+    },
+    {
+      "time_s": 6.333333333333333,
+      "frame": 190,
+      "fruit": "/World/PresentationFruits/Handoff_03",
+      "obstacle": "/hcr3a_functional/tcp/visuals/mesh_0/box",
+      "phase": "gripper_attached",
+      "convex_intersection_inscribed_radius_m": 0.0010000000474975146,
+      "actual_vertex_max_penetration_m": 0.0
+    },
+    {
+      "time_s": 6.366666666666666,
+      "frame": 191,
+      "fruit": "/World/PresentationFruits/Handoff_03",
+      "obstacle": "/hcr3a_functional/tcp/visuals/mesh_0/box",
+      "phase": "gripper_attached",
+      "convex_intersection_inscribed_radius_m": 0.001000000047497333,
+      "actual_vertex_max_penetration_m": 0.0
+    },
+    {
+      "time_s": 6.4,
+      "frame": 192,
+      "fruit": "/World/PresentationFruits/Handoff_03",
+      "obstacle": "/hcr3a_functional/tcp/visuals/mesh_0/box",
+      "phase": "gripper_attached",
+      "convex_intersection_inscribed_radius_m": 0.001000000047497563,
+      "actual_vertex_max_penetration_m": 0.0
+    },
+    {
+      "time_s": 6.433333333333334,
+      "frame": 193,
+      "fruit": "/World/PresentationFruits/Handoff_03",
+      "obstacle": "/hcr3a_functional/tcp/visuals/mesh_0/box",
+      "phase": "bin_gravity_fall",
+      "convex_intersection_inscribed_radius_m": 0.0010000000474974945,
+      "actual_vertex_max_penetration_m": 0.0
+    },
+    {
+      "time_s": 6.466666666666667,
+      "frame": 194,
+      "fruit": "/World/PresentationFruits/Handoff_03",
+      "obstacle": "/hcr3a_functional/tcp/visuals/mesh_0/box",
+      "phase": "bin_gravity_fall",
+      "convex_intersection_inscribed_radius_m": 0.0010000000474974014,
+      "actual_vertex_max_penetration_m": 0.0
+    },
+    {
+      "time_s": 6.5,
+      "frame": 195,
+      "fruit": "/World/PresentationFruits/Handoff_03",
+      "obstacle": "/hcr3a_functional/tcp/visuals/mesh_0/box",
+      "phase": "bin_gravity_fall",
+      "convex_intersection_inscribed_radius_m": 0.0010000000474972809,
+      "actual_vertex_max_penetration_m": 0.0
+    },
+    {
+      "time_s": 7.233333333333333,
+      "frame": 217,
+      "fruit": "/World/PresentationFruits/Handoff_04",
+      "obstacle": "/hcr3a_functional/tcp/visuals/mesh_0/box",
+      "phase": "lane_stable",
+      "convex_intersection_inscribed_radius_m": 0.0010000000474974676,
+      "actual_vertex_max_penetration_m": 0.0
+    },
+    {
+      "time_s": 7.266666666666667,
+      "frame": 218,
+      "fruit": "/World/PresentationFruits/Handoff_04",
+      "obstacle": "/hcr3a_functional/tcp/visuals/mesh_0/box",
+      "phase": "lane_stable",
+      "convex_intersection_inscribed_radius_m": 0.0010000000474973986,
+      "actual_vertex_max_penetration_m": 0.0
+    },
+    {
+      "time_s": 7.3,
+      "frame": 219,
+      "fruit": "/World/PresentationFruits/Handoff_04",
+      "obstacle": "/hcr3a_functional/tcp/visuals/mesh_0/box",
+      "phase": "lane_stable",
+      "convex_intersection_inscribed_radius_m": 0.0010000000474973789,
+      "actual_vertex_max_penetration_m": 0.0
+    },
+    {
+      "time_s": 7.333333333333333,
+      "frame": 220,
+      "fruit": "/World/PresentationFruits/Handoff_04",
+      "obstacle": "/hcr3a_functional/tcp/visuals/mesh_0/box",
+      "phase": "lane_stable",
+      "convex_intersection_inscribed_radius_m": 0.0010000000474974183,
+      "actual_vertex_max_penetration_m": 0.0
+    },
+    {
+      "time_s": 7.366666666666666,
+      "frame": 221,
+      "fruit": "/World/PresentationFruits/Handoff_04",
+      "obstacle": "/hcr3a_functional/tcp/visuals/mesh_0/box",
+      "phase": "lane_stable",
+      "convex_intersection_inscribed_radius_m": 0.0010000000474974183,
+      "actual_vertex_max_penetration_m": 0.0
+    },
+    {
+      "time_s": 7.3999999999999995,
+      "frame": 222,
+      "fruit": "/World/PresentationFruits/Handoff_04",
+      "obstacle": "/hcr3a_functional/tcp/visuals/mesh_0/box",
+      "phase": "gripper_attached",
+      "convex_intersection_inscribed_radius_m": 0.001000000047497507,
+      "actual_vertex_max_penetration_m": 0.0
+    },
+    {
+      "time_s": 7.433333333333334,
+      "frame": 223,
+      "fruit": "/World/PresentationFruits/Handoff_04",
+      "obstacle": "/hcr3a_functional/tcp/visuals/mesh_0/box",
+      "phase": "gripper_attached",
+      "convex_intersection_inscribed_radius_m": 0.001000000047497428,
+      "actual_vertex_max_penetration_m": 0.0
+    },
+    {
+      "time_s": 7.466666666666667,
+      "frame": 224,
+      "fruit": "/World/PresentationFruits/Handoff_04",
+      "obstacle": "/hcr3a_functional/tcp/visuals/mesh_0/box",
+      "phase": "gripper_attached",
+      "convex_intersection_inscribed_radius_m": 0.0010000000474974975,
+      "actual_vertex_max_penetration_m": 0.0
+    },
+    {
+      "time_s": 7.5,
+      "frame": 225,
+      "fruit": "/World/PresentationFruits/Handoff_04",
+      "obstacle": "/hcr3a_functional/tcp/visuals/mesh_0/box",
+      "phase": "gripper_attached",
+      "convex_intersection_inscribed_radius_m": 0.0010000000474974775,
+      "actual_vertex_max_penetration_m": 0.0
+    },
+    {
+      "time_s": 7.533333333333333,
+      "frame": 226,
+      "fruit": "/World/PresentationFruits/Handoff_04",
+      "obstacle": "/hcr3a_functional/tcp/visuals/mesh_0/box",
+      "phase": "gripper_attached",
+      "convex_intersection_inscribed_radius_m": 0.0010000000474975073,
+      "actual_vertex_max_penetration_m": 0.0
+    },
+    {
+      "time_s": 7.566666666666666,
+      "frame": 227,
+      "fruit": "/World/PresentationFruits/Handoff_04",
+      "obstacle": "/hcr3a_functional/tcp/visuals/mesh_0/box",
+      "phase": "gripper_attached",
+      "convex_intersection_inscribed_radius_m": 0.0010000000474973691,
+      "actual_vertex_max_penetration_m": 0.0
+    },
+    {
+      "time_s": 7.6,
+      "frame": 228,
+      "fruit": "/World/PresentationFruits/Handoff_04",
+      "obstacle": "/hcr3a_functional/tcp/visuals/mesh_0/box",
+      "phase": "gripper_attached",
+      "convex_intersection_inscribed_radius_m": 0.0010000000474974973,
+      "actual_vertex_max_penetration_m": 0.0
+    },
+    {
+      "time_s": 7.633333333333333,
+      "frame": 229,
+      "fruit": "/World/PresentationFruits/Handoff_04",
+      "obstacle": "/hcr3a_functional/tcp/visuals/mesh_0/box",
+      "phase": "gripper_attached",
+      "convex_intersection_inscribed_radius_m": 0.0010000000474974535,
+      "actual_vertex_max_penetration_m": 0.0
+    },
+    {
+      "time_s": 7.666666666666667,
+      "frame": 230,
+      "fruit": "/World/PresentationFruits/Handoff_04",
+      "obstacle": "/hcr3a_functional/tcp/visuals/mesh_0/box",
+      "phase": "gripper_attached",
+      "convex_intersection_inscribed_radius_m": 0.0010000000474974426,
+      "actual_vertex_max_penetration_m": 0.0
+    },
+    {
+      "time_s": 7.7,
+      "frame": 231,
+      "fruit": "/World/PresentationFruits/Handoff_04",
+      "obstacle": "/hcr3a_functional/tcp/visuals/mesh_0/box",
+      "phase": "gripper_attached",
+      "convex_intersection_inscribed_radius_m": 0.00100000004749747,
+      "actual_vertex_max_penetration_m": 0.0
+    },
+    {
+      "time_s": 7.733333333333333,
+      "frame": 232,
+      "fruit": "/World/PresentationFruits/Handoff_04",
+      "obstacle": "/hcr3a_functional/tcp/visuals/mesh_0/box",
+      "phase": "gripper_attached",
+      "convex_intersection_inscribed_radius_m": 0.001000000047497448,
+      "actual_vertex_max_penetration_m": 0.0
+    },
+    {
+      "time_s": 7.766666666666667,
+      "frame": 233,
+      "fruit": "/World/PresentationFruits/Handoff_04",
+      "obstacle": "/hcr3a_functional/tcp/visuals/mesh_0/box",
+      "phase": "gripper_attached",
+      "convex_intersection_inscribed_radius_m": 0.0010000000474974901,
+      "actual_vertex_max_penetration_m": 0.0
+    },
+    {
+      "time_s": 7.8,
+      "frame": 234,
+      "fruit": "/World/PresentationFruits/Handoff_04",
+      "obstacle": "/hcr3a_functional/tcp/visuals/mesh_0/box",
+      "phase": "gripper_attached",
+      "convex_intersection_inscribed_radius_m": 0.0010000000474974374,
+      "actual_vertex_max_penetration_m": 0.0
+    },
+    {
+      "time_s": 7.833333333333333,
+      "frame": 235,
+      "fruit": "/World/PresentationFruits/Handoff_04",
+      "obstacle": "/hcr3a_functional/tcp/visuals/mesh_0/box",
+      "phase": "gripper_attached",
+      "convex_intersection_inscribed_radius_m": 0.0010000000474973993,
+      "actual_vertex_max_penetration_m": 0.0
+    },
+    {
+      "time_s": 7.866666666666666,
+      "frame": 236,
+      "fruit": "/World/PresentationFruits/Handoff_04",
+      "obstacle": "/hcr3a_functional/tcp/visuals/mesh_0/box",
+      "phase": "gripper_attached",
+      "convex_intersection_inscribed_radius_m": 0.0010000000474974363,
+      "actual_vertex_max_penetration_m": 0.0
+    },
+    {
+      "time_s": 7.8999999999999995,
+      "frame": 237,
+      "fruit": "/World/PresentationFruits/Handoff_04",
+      "obstacle": "/hcr3a_functional/tcp/visuals/mesh_0/box",
+      "phase": "gripper_attached",
+      "convex_intersection_inscribed_radius_m": 0.0010000000474974513,
+      "actual_vertex_max_penetration_m": 0.0
+    },
+    {
+      "time_s": 7.933333333333334,
+      "frame": 238,
+      "fruit": "/World/PresentationFruits/Handoff_04",
+      "obstacle": "/hcr3a_functional/tcp/visuals/mesh_0/box",
+      "phase": "gripper_attached",
+      "convex_intersection_inscribed_radius_m": 0.001000000047497511,
+      "actual_vertex_max_penetration_m": 0.0
+    },
+    {
+      "time_s": 7.966666666666667,
+      "frame": 239,
+      "fruit": "/World/PresentationFruits/Handoff_04",
+      "obstacle": "/hcr3a_functional/tcp/visuals/mesh_0/box",
+      "phase": "gripper_attached",
+      "convex_intersection_inscribed_radius_m": 0.0010000000474976076,
+      "actual_vertex_max_penetration_m": 0.0
+    },
+    {
+      "time_s": 8.0,
+      "frame": 240,
+      "fruit": "/World/PresentationFruits/Handoff_04",
+      "obstacle": "/hcr3a_functional/tcp/visuals/mesh_0/box",
+      "phase": "gripper_attached",
+      "convex_intersection_inscribed_radius_m": 0.0010000000474974298,
+      "actual_vertex_max_penetration_m": 0.0
+    },
+    {
+      "time_s": 8.033333333333333,
+      "frame": 241,
+      "fruit": "/World/PresentationFruits/Handoff_04",
+      "obstacle": "/hcr3a_functional/tcp/visuals/mesh_0/box",
+      "phase": "gripper_attached",
+      "convex_intersection_inscribed_radius_m": 0.0010000000474974231,
+      "actual_vertex_max_penetration_m": 0.0
+    },
+    {
+      "time_s": 8.066666666666666,
+      "frame": 242,
+      "fruit": "/World/PresentationFruits/Handoff_04",
+      "obstacle": "/hcr3a_functional/tcp/visuals/mesh_0/box",
+      "phase": "gripper_attached",
+      "convex_intersection_inscribed_radius_m": 0.0010000000474974222,
+      "actual_vertex_max_penetration_m": 0.0
+    },
+    {
+      "time_s": 8.1,
+      "frame": 243,
+      "fruit": "/World/PresentationFruits/Handoff_04",
+      "obstacle": "/hcr3a_functional/tcp/visuals/mesh_0/box",
+      "phase": "gripper_attached",
+      "convex_intersection_inscribed_radius_m": 0.00100000004749739,
+      "actual_vertex_max_penetration_m": 0.0
+    },
+    {
+      "time_s": 8.133333333333333,
+      "frame": 244,
+      "fruit": "/World/PresentationFruits/Handoff_04",
+      "obstacle": "/hcr3a_functional/tcp/visuals/mesh_0/box",
+      "phase": "gripper_attached",
+      "convex_intersection_inscribed_radius_m": 0.001000000047497489,
+      "actual_vertex_max_penetration_m": 0.0
+    },
+    {
+      "time_s": 8.166666666666666,
+      "frame": 245,
+      "fruit": "/World/PresentationFruits/Handoff_04",
+      "obstacle": "/hcr3a_functional/tcp/visuals/mesh_0/box",
+      "phase": "bin_gravity_fall",
+      "convex_intersection_inscribed_radius_m": 0.001000000047497489,
+      "actual_vertex_max_penetration_m": 0.0
+    },
+    {
+      "time_s": 8.2,
+      "frame": 246,
+      "fruit": "/World/PresentationFruits/Handoff_04",
+      "obstacle": "/hcr3a_functional/tcp/visuals/mesh_0/box",
+      "phase": "bin_gravity_fall",
+      "convex_intersection_inscribed_radius_m": 0.0010000000474974396,
+      "actual_vertex_max_penetration_m": 0.0
+    },
+    {
+      "time_s": 8.233333333333333,
+      "frame": 247,
+      "fruit": "/World/PresentationFruits/Handoff_04",
+      "obstacle": "/hcr3a_functional/tcp/visuals/mesh_0/box",
+      "phase": "bin_gravity_fall",
+      "convex_intersection_inscribed_radius_m": 0.0010000000474974396,
+      "actual_vertex_max_penetration_m": 0.0
+    }
+  ],
+  "actual_arm_cube_station_intersections": [],
+  "blocking_arm_station_events": [],
+  "joint_limit_events": [],
+  "minimum_intake_mesh_vertical_gap_m": 0.0010999999999999621,
+  "minimum_intake_mesh_gap_at": {
+    "time_s": 3.3666666666666667,
+    "id": "/World/PresentationFruits/Handoff_04",
+    "phase": "intake_roll"
+  },
+  "contact_thresholds_m": {
+    "actual_vertex_blocking": 5e-05,
+    "grip_pad_allowed_max": 0.00205,
+    "arm_station_inscribed_radius_blocking": 1e-05
+  },
+  "contact_policy": {
+    "actual_vertex_tolerance_m": 5e-05,
+    "allowed_grip_pad_penetration_m": 0.00205,
+    "pre_attach_contact_window_s": 0.1,
+    "arm_station_radius_tolerance_m": 1e-05
+  },
+  "gui_review": "none by this script",
+  "automatically_declared_pass": false
+}

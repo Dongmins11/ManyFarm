@@ -1,0 +1,86 @@
+{
+  "source": "05_handoff_continuity.mp4",
+  "source_sha256": "9ca41f1df471ec848faa03e0f2682422f2535477f7820f98bb57490f768ff60b",
+  "extraction": "ffmpeg select by decoded MP4 frame number; no GUI preview substitution",
+  "fps": 30,
+  "frames": [
+    {
+      "requested_time_s": 0.0,
+      "frame": 0,
+      "actual_time_s": 0.0,
+      "file": "qa/05_handoff_continuity-mp4-frame-0000.png",
+      "sha256": "d0b7149ba621672ef240db8b582836265dff2a8c9cab0d14bf1e334cc7832b3e"
+    },
+    {
+      "requested_time_s": 1.0,
+      "frame": 30,
+      "actual_time_s": 1.0,
+      "file": "qa/05_handoff_continuity-mp4-frame-0030.png",
+      "sha256": "54964d234c085c8a856fd574c22fc97df3400ed9ee5f7e01baca22d2214752f5"
+    },
+    {
+      "requested_time_s": 1.3666666666666667,
+      "frame": 41,
+      "actual_time_s": 1.3666666666666667,
+      "file": "qa/05_handoff_continuity-mp4-frame-0041.png",
+      "sha256": "95c0216438b2d33c1b582c2a514060e73bcd3e8ed25a5b0863df30d6b1764c77"
+    },
+    {
+      "requested_time_s": 1.5,
+      "frame": 45,
+      "actual_time_s": 1.5,
+      "file": "qa/05_handoff_continuity-mp4-frame-0045.png",
+      "sha256": "9df6c3dbca0761b3e6b12f2310cb2196398ab23a049662d77709cb1bbad6673c"
+    },
+    {
+      "requested_time_s": 1.8,
+      "frame": 54,
+      "actual_time_s": 1.8,
+      "file": "qa/05_handoff_continuity-mp4-frame-0054.png",
+      "sha256": "37058bac524d3660c0b57ac71563a4ceb64e42c900c066dab6b38142dfe79f38"
+    },
+    {
+      "requested_time_s": 2.1,
+      "frame": 63,
+      "actual_time_s": 2.1,
+      "file": "qa/05_handoff_continuity-mp4-frame-0063.png",
+      "sha256": "fd116890bf8a667e06a2e418f48a91cb4b2efc747002178187fd40eb67642b04"
+    },
+    {
+      "requested_time_s": 2.5,
+      "frame": 75,
+      "actual_time_s": 2.5,
+      "file": "qa/05_handoff_continuity-mp4-frame-0075.png",
+      "sha256": "5acb5c60edb7bddc5704f1e800b92390386113bba6124d9cdfa8b8db1a649ff6"
+    },
+    {
+      "requested_time_s": 3.0,
+      "frame": 90,
+      "actual_time_s": 3.0,
+      "file": "qa/05_handoff_continuity-mp4-frame-0090.png",
+      "sha256": "07e9c18de788004f8a7e46e5f8c4566181ab75df5dbc933ce44fdd54be4e5330"
+    },
+    {
+      "requested_time_s": 3.5,
+      "frame": 105,
+      "actual_time_s": 3.5,
+      "file": "qa/05_handoff_continuity-mp4-frame-0105.png",
+      "sha256": "15257c83a8c5e20621d5721e247f670a6921a66ebea0edc0b78f442a8dad719d"
+    },
+    {
+      "requested_time_s": 3.9,
+      "frame": 117,
+      "actual_time_s": 3.9,
+      "file": "qa/05_handoff_continuity-mp4-frame-0117.png",
+      "sha256": "a86d26b2c08d084fc869249d7b7c9696764856ab13d9310a5d306abe360c3d25"
+    },
+    {
+      "requested_time_s": 4.966666666666667,
+      "frame": 149,
+      "actual_time_s": 4.966666666666667,
+      "file": "qa/05_handoff_continuity-mp4-frame-0149.png",
+      "sha256": "55ff1c90081cb29c75f39d1669442ccd1613b9e8959bd4d852669d1e0de25352"
+    }
+  ],
+  "contact_sheet": "qa/05_handoff_continuity-mp4-keyphases.jpg"
+}

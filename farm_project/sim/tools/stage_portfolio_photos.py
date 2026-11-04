@@ -40,7 +40,7 @@ def main() -> None:
         sys.path.insert(0, str(ROOT/'sim/ros_ws/src/farm_sim_runtime'))
         sys.path.insert(0, str(ROOT/'sim/ros_ws/src/farm_sim_devices'))
         fleet = json.loads((args.runtime/'fleet.json').read_text())
-        is_v3 = fleet.get('presentation_revision') == 'v3'
+        is_v3 = fleet.get('presentation_revision') in ('v3', 'v4')
         configs = [json.loads((ROOT/p).read_text()) for p in fleet['device_configs']]
         open_stage(str(ROOT/'sim/assets'/configs[0]['scene']))
         stage = omni.usd.get_context().get_stage()

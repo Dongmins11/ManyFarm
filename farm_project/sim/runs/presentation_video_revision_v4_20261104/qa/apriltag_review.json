@@ -1,0 +1,12 @@
+{
+  "passed": true,
+  "image": "00_apriltag_closeup.png",
+  "image_sha256": "4c0e65e18b6ecc95009b78d19f645f7362fa9a2a04766a647f4eb1db1ba0704c",
+  "reviewer": "root; V4 GUI rendered PNG directly inspected",
+  "findings": [
+    "원래 배치표의 AprilTag240개 및 Pattern240개 설치 확인",
+    "근접 렌더 ID100 pattern 및 옆 베드 태그 확인",
+    "원본 하우스 304개 Imageable 활성/visibility baseline 보존"
+  ],
+  "scope": "Visual filming review, not marker detection performance test"
+}

@@ -1,0 +1,84 @@
+{
+  "review_type": "independent offline numerical review only; GUI/full MP4 visual validation is pending",
+  "calculated_at": "2026-11-04T19:53:27.043526+09:00",
+  "sources": {
+    "capture_request": {
+      "path": "sim/runs/presentation_video_revision_v4_20261104/settings/05_handoff_continuity.json",
+      "sha256": "9cf78b35786a10db2239efbc39c1547cc32dffd161a66e32e5968d361a1ff0f2"
+    },
+    "continuity_state": {
+      "path": "sim/runs/presentation_video_revision_v4_20261104/settings/handoff_continuity_state.json",
+      "sha256": "7a917c9782c1724dbee8485077cd189f2d4f4dfa86b81b76d9b4f3e64473cc8e"
+    },
+    "mechanism_geometry": {
+      "path": "sim/runs/presentation_video_revision_v4_20261104/settings/05_mechanism_geometry.json",
+      "sha256": "886d5254e3a0091959f5e792cbf4e19a3e82de537956aaa6c81a8510418ed2ed"
+    },
+    "builder_evidence": {
+      "path": "sim/runs/presentation_video_revision_v4_20261104/settings/05_handoff_continuity_evidence.json",
+      "sha256": "8e2a4a8a01924abcaca5c696c1d36bafabd84886161a73079d7161f2ce17d317"
+    },
+    "source_mesh_points": {
+      "path": "sim/runs/presentation_video_revision_v3_20261104/settings/handoff_mesh_points.json",
+      "sha256": "65d437a2c2a1948ea301ce4d2a5f92ad3a44d13f9142ae3d68830c0f2b3e253d"
+    }
+  },
+  "method": [
+    "Read saved original mesh root-local vertices, transform each by all151 actual V4 keyframe matrices (0..5s at30Hz).",
+    "Recompute transformed vertex AABBs and source-scale column norms; no builder pass flags used for these measurements.",
+    "Use measured cargo Cube inner faces; check XY clearance when any fruit portion is below cargo top.",
+    "Translate each measured top-lid visual Cube along its actual measured world joint axis for every closure keyframe(time>=2.65s); test against all fruit AABBs.",
+    "No live GUI request, no new PhysX simulation, no source/config edits."
+  ],
+  "keyframes": 151,
+  "identical_ids_each_frame": [
+    "/World/PresentationFruits/Handoff_01",
+    "/World/PresentationFruits/Handoff_02",
+    "/World/PresentationFruits/Handoff_03",
+    "/World/PresentationFruits/Handoff_04",
+    "/World/PresentationFruits/Handoff_05",
+    "/World/PresentationFruits/Handoff_06"
+  ],
+  "colour_counts": {
+    "red": 3,
+    "yellow": 3
+  },
+  "maximum_source_scale_difference": 3.3306690738754696e-16,
+  "maximum_pair_aabb_overlap_m": 0.0,
+  "cargo_inner_faces_world_m": {
+    "min": [
+      -6.1469999954570085,
+      3.5030000015031546,
+      0.25799999525770545
+    ],
+    "max": [
+      -5.8530000045429915,
+      3.8000000029206276,
+      0.4449999884236604
+    ]
+  },
+  "minimum_cargo_xy_clearance_m": 0.04232025666631323,
+  "minimum_floor_clearance_m": -4.814126504770755e-06,
+  "minimum_floor_clearance_at": {
+    "frame": 51,
+    "time_s": 1.7,
+    "fruit": "/World/PresentationFruits/Handoff_02"
+  },
+  "floor_interpretation": "Transient4.814micrometre AABB floor penetration is retained as measured; this is not an exact-zero contact claim and is below visual resolution.",
+  "closing_lid_cube_aabb_overlap_count": 0,
+  "closing_lid_cube_aabb_overlap_details": [],
+  "first_fully_closed_lid_sample": {
+    "frame": 101,
+    "time_s": 3.3666666666666667
+  },
+  "continuous_design_closure_time_s": 3.35,
+  "main_plate_to_fruit_clearance_m": 0.013137132521764017,
+  "restored_harvest_floor_to_lid_clearance_m": 0.04900002351030708,
+  "saved_cargo_relative_matrix_max_difference": 0.0,
+  "limits": [
+    "Cargo and lid checks use actual saved mesh/Cube measurements with conservative AABBs, not mesh collision or full robot dynamics.",
+    "3.35s closure design lies between frame100 and101; first exact-zero sampled state is frame101/3.3666667s, inside the intended raw[1,4) edit.",
+    "Upper-basket reddish form in GUI remains a separate visual investigation; numerical checks do not diagnose reflection/ghosting.",
+    "No final capture/visual PASS is claimed."
+  ]
+}

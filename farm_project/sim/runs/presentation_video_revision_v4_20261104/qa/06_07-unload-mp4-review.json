@@ -1,0 +1,138 @@
+{
+  "source": "06_07_transport_sorting.mp4",
+  "source_sha256": "8d1af6dac28cb7399fde82bc4803353af5b02bb4dd57412ff1eb0b9881fec31a",
+  "extraction_metadata": "qa/06_07_transport_sorting-mp4-keyphases.json",
+  "reviewer": "travel_shot_settings",
+  "method": "인코딩된 MP4에서 ffmpeg로 추출한 아래 원본 PNG를 직접 열어 시각 검수. GUI 미리보기 대체 없음.",
+  "scope": "도킹, 게이트 열림, 적재함 틸트, 6개 배출, 혼합 3+3 안착, 기구 복귀. 선택 프레임 0~167.",
+  "result": "pass_with_visibility_limitations",
+  "frames": [
+    {
+      "requested_time_s": 0.0,
+      "frame": 0,
+      "actual_time_s": 0.0,
+      "file": "qa/06_07_transport_sorting-mp4-frame-0000.png",
+      "sha256": "dda87356bb22c69dd62e823fd61cafac16635462c55c7cea8b386bfb3ab07af6",
+      "observation_ko": "도킹 전 차량과 빈 투입 레인, 빈 집게가 보인다. 차량과 설비 전체가 화면 안에 있다."
+    },
+    {
+      "requested_time_s": 1.8,
+      "frame": 54,
+      "actual_time_s": 1.8,
+      "file": "qa/06_07_transport_sorting-mp4-frame-0054.png",
+      "sha256": "05970d59721e0a5af0f4786a79b983cbf3c05d0ce65c0c9f3048613ade085644",
+      "observation_ko": "차량이 투입 레인 옆에 도킹했다. 적재함은 수평이며 배출 게이트가 닫혀 있다."
+    },
+    {
+      "requested_time_s": 2.3,
+      "frame": 69,
+      "actual_time_s": 2.3,
+      "file": "qa/06_07_transport_sorting-mp4-frame-0069.png",
+      "sha256": "6cd0fac66add909f875ec76f62c93e257be7f8879c2eaa32f4e52c3c09b561ae",
+      "observation_ko": "적재함이 수평인 상태에서 게이트가 먼저 열린 모습이 보인다."
+    },
+    {
+      "requested_time_s": 2.8,
+      "frame": 84,
+      "actual_time_s": 2.8,
+      "file": "qa/06_07_transport_sorting-mp4-frame-0084.png",
+      "sha256": "3d0f34e7fae17c773d4c008a415b59daff143f65548e9ee448c8206ca62d3144",
+      "observation_ko": "차량 차체와 바퀴는 수평을 유지하고 적재함만 기울었다. 게이트 아래 배출구는 일부 가려진다."
+    },
+    {
+      "requested_time_s": 3.1666666666666665,
+      "frame": 95,
+      "actual_time_s": 3.1666666666666665,
+      "file": "qa/06_07_transport_sorting-mp4-frame-0095.png",
+      "sha256": "2652da2ce9f11579ba38359cc09c04ffd8596061a2d57ccded8fac135fb35ad5",
+      "observation_ko": "최대 틸트 부근에서 첫 과실이 투입 레인으로 나온다. 뒤쪽 과실은 게이트에 가려져 수량 판독이 제한된다."
+    },
+    {
+      "requested_time_s": 3.8,
+      "frame": 114,
+      "actual_time_s": 3.8,
+      "file": "qa/06_07_transport_sorting-mp4-frame-0114.png",
+      "sha256": "5d2daec0d0497fda223ba3457099cdd45585226ee2ebc75e0bd842ef1c0d4f0f",
+      "observation_ko": "서로 다른 색 과실들이 중앙 두 레인에 추가로 진입한 모습이 보인다."
+    },
+    {
+      "requested_time_s": 4.3,
+      "frame": 129,
+      "actual_time_s": 4.3,
+      "file": "qa/06_07_transport_sorting-mp4-frame-0129.png",
+      "sha256": "fb49ac027743d9abe911e90444c16d5713426fed12084e3a765283fc4a4b7ef6",
+      "observation_ko": "중앙 두 레인에 과실이 늘어났으며 뒤쪽 일부는 게이트 아래에 가려져 있다."
+    },
+    {
+      "requested_time_s": 4.6,
+      "frame": 138,
+      "actual_time_s": 4.6,
+      "file": "qa/06_07_transport_sorting-mp4-frame-0138.png",
+      "sha256": "6d495d44eb1a560ed59bf7b1d35dfb504a4459ed32dc3743fa6f7fe8b9fc72d2",
+      "observation_ko": "적재함 복귀 직전 과실들이 두 레인에 모여 있다. 집게는 아직 과실을 들지 않았다."
+    },
+    {
+      "requested_time_s": 5.0,
+      "frame": 150,
+      "actual_time_s": 5.0,
+      "file": "qa/06_07_transport_sorting-mp4-frame-0150.png",
+      "sha256": "da7e3f9a63003f634bc34cdf05f3621f831692c8cb880c8024984c33b9cb6b93",
+      "observation_ko": "적재함이 내려오면서 과실 6개가 모두 드러난다. 가까운 레인 빨강2+노랑1, 먼 레인 노랑2+빨강1로 혼합 3+3을 직접 셀 수 있다."
+    },
+    {
+      "requested_time_s": 5.2,
+      "frame": 156,
+      "actual_time_s": 5.2,
+      "file": "qa/06_07_transport_sorting-mp4-frame-0156.png",
+      "sha256": "94de9b13d454c2c8ef81941fc8b3737ff7268fd0a41288d63a189969b6009495",
+      "observation_ko": "적재함이 수평으로 돌아왔고 중앙 두 레인의 과실 6개가 유지된다. 빈 집게가 첫 빨강 과실에 접근한다."
+    },
+    {
+      "requested_time_s": 5.566666666666666,
+      "frame": 167,
+      "actual_time_s": 5.566666666666666,
+      "file": "qa/06_07_transport_sorting-mp4-frame-0167.png",
+      "sha256": "78e9773c0f3d50c83347b240d35d1a052cdc49e86d90c07923f8fe2ae2dc9057",
+      "observation_ko": "게이트가 닫힌 자세로 복귀했고 집게가 첫 과실을 집기 직전이다. 6개는 여전히 투입 레인에 있다."
+    }
+  ],
+  "checks": {
+    "docking_visible": true,
+    "gate_opens_before_tilt_visible": true,
+    "cargo_tilts_while_chassis_stays_level_visible": true,
+    "top_lid_remains_closed_in_reviewed_frames": true,
+    "six_fruits_visually_countable_at_frame": 150,
+    "visible_color_counts_at_frame150": {
+      "red": 3,
+      "yellow": 3
+    },
+    "visible_groups_at_frame150": [
+      {
+        "image_position": "near_lane",
+        "red": 2,
+        "yellow": 1,
+        "total": 3
+      },
+      {
+        "image_position": "far_lane",
+        "red": 1,
+        "yellow": 2,
+        "total": 3
+      }
+    ],
+    "empty_gripper_before_first_pick_visible": true,
+    "equipment_and_wheels_in_frame": true,
+    "blocking_visual_issue_found": false
+  },
+  "limitations_ko": [
+    "최대 틸트 중 게이트와 적재함이 뒤쪽 과실을 일부 가린다. 138 이전 한 장만으로 6개 전량을 셀 수 없으며, 150프레임에서 6개가 모두 보인다.",
+    "닫힌 적재함 내부는 영상에서 보이지 않으므로 도킹 이전 내부 수량 및 개별 USD ID 연속성은 영상 단독으로 입증하지 않는다. 별도 모션·기하 근거를 참조해야 한다.",
+    "선택 프레임 시각 검수이며 360개 전체 프레임 또는 실시간 재생 검수가 아니다. 픽셀 기반 검수로 미세 기하 충돌·동역학 성공을 판정하지 않는다.",
+    "촬영용으로 구성한 Isaac Sim GUI 연출 영상이며 자율 작업이나 물리 시뮬레이션 시험 성공을 주장하지 않는다."
+  ],
+  "related_evidence": [
+    "settings/06_07_motion_evidence.json",
+    "qa/06_07_independent_geometry_audit.json",
+    "qa/06_07_support_triangle_audit.json"
+  ]
+}

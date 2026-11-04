@@ -1,0 +1,502 @@
+{
+  "name": "06_07_camera_c_probe",
+  "fps": 30,
+  "duration_s": 12,
+  "preview_only": true,
+  "base": {
+    "show": [
+      "/World/transport_robot",
+      "/World/HCRRobot",
+      "/World/HCRStation",
+      "/World/PresentationFruits/Handoff_01",
+      "/World/PresentationFruits/Handoff_02",
+      "/World/PresentationFruits/Handoff_03",
+      "/World/PresentationFruits/Handoff_04",
+      "/World/PresentationFruits/Handoff_05",
+      "/World/PresentationFruits/Handoff_06"
+    ],
+    "hide": [
+      "/World/scout_robot_camera_fixed",
+      "/World/harvest_robot",
+      "/World/StudentSensors/WristVisuals",
+      "/World/harvest_robot/arm_2_gripper_frame_link",
+      "/World/PresentationFruits/Handoff_07"
+    ],
+    "placements": {
+      "/World/scout_robot_camera_fixed": {
+        "xyz": [
+          -5.0,
+          13.25,
+          0.0
+        ],
+        "yaw": -1.5707963267948966
+      },
+      "/World/harvest_robot": {
+        "xyz": [
+          -2.0,
+          13.25,
+          0.0
+        ],
+        "yaw": -1.5707963267948966
+      },
+      "/World/transport_robot": {
+        "matrix": [
+          [
+            -0.19342002049252083,
+            -0.9811160459765567,
+            0.0,
+            -5.209287859794375
+          ],
+          [
+            0.9811160459765567,
+            -0.19342002049252083,
+            0.0,
+            12.132619578667114
+          ],
+          [
+            0.0,
+            0.0,
+            1.0,
+            0.0
+          ],
+          [
+            0.0,
+            0.0,
+            0.0,
+            1.0
+          ]
+        ]
+      },
+      "/World/HCRStation": {
+        "matrix": [
+          [
+            0.19342002049252094,
+            0.9811160459765567,
+            0.0,
+            -5.4
+          ],
+          [
+            -0.9811160459765567,
+            0.19342002049252094,
+            -0.0,
+            13.1
+          ],
+          [
+            -0.0,
+            0.0,
+            1.0,
+            0.0
+          ],
+          [
+            0.0,
+            0.0,
+            0.0,
+            1.0
+          ]
+        ]
+      },
+      "/World/HCRRobot": {
+        "matrix": [
+          [
+            0.19342002049252094,
+            0.9811160459765567,
+            0.0,
+            -5.4
+          ],
+          [
+            -0.9811160459765567,
+            0.19342002049252094,
+            0.0,
+            13.1
+          ],
+          [
+            0.0,
+            0.0,
+            1.0,
+            0.04
+          ],
+          [
+            0.0,
+            0.0,
+            0.0,
+            1.0
+          ]
+        ]
+      }
+    },
+    "joints": {
+      "arm_1_shoulder_pan": 0.0,
+      "arm_1_shoulder_lift": -1.6,
+      "arm_1_elbow_flex": 1.2,
+      "arm_1_wrist_flex": -1.5,
+      "arm_1_wrist_roll": 0.04879632679489654,
+      "arm_1_gripper": 1.1,
+      "arm_2_shoulder_pan": 0.0,
+      "arm_2_shoulder_lift": -1.6,
+      "arm_2_elbow_flex": 1.2,
+      "arm_2_wrist_flex": -1.5,
+      "arm_2_wrist_roll": 0.04879632679489654,
+      "arm_2_gripper": 1.1,
+      "joint1": -7.355699155272922e-19,
+      "joint2": -1.6755398318121864,
+      "joint3": 2.009182906548714,
+      "joint4": 6.707244813412473e-19,
+      "joint5": 1.237153252066073,
+      "joint6": -1.0446705034601612e-18,
+      "wheel_left_joint": 0,
+      "wheel_right_joint": 0,
+      "left_wheel_joint": 0,
+      "right_wheel_joint": 0,
+      "top_lid_left_joint": 0.0,
+      "top_lid_right_joint": 0.0,
+      "lid_pinion_joint": 0.0,
+      "side_lid_joint": 0.0,
+      "box_tilt_joint": 0.0,
+      "left_jaw": 0.01,
+      "right_jaw": 0.01
+    },
+    "fruit_positions": {},
+    "attach_fruits": [
+      {
+        "fruit": "/World/PresentationFruits/Handoff_01",
+        "link": "/World/transport_robot/cargo_box",
+        "matrix": [
+          [
+            -0.10616373154485309,
+            0.7024160939696038,
+            -0.015439840117081256,
+            -0.20625367341917888
+          ],
+          [
+            -0.7024420443414078,
+            -0.10580055548644109,
+            0.016700671426866986,
+            0.031345914316205814
+          ],
+          [
+            0.014210280497584559,
+            0.017758632186324817,
+            0.7101972926848807,
+            0.04485950393632643
+          ],
+          [
+            0.0,
+            0.0,
+            0.0,
+            1.0
+          ]
+        ]
+      },
+      {
+        "fruit": "/World/PresentationFruits/Handoff_02",
+        "link": "/World/transport_robot/cargo_box",
+        "matrix": [
+          [
+            -0.07178407516745322,
+            0.7152217670369658,
+            0.017884185561081685,
+            -0.20625367341918022
+          ],
+          [
+            -0.7154453299425887,
+            -0.07176164251793257,
+            -0.001794466711483475,
+            -0.07134591431620585
+          ],
+          [
+            -5.997088544320714e-08,
+            -0.01797398686875643,
+            0.718812847256049,
+            0.04502372161492907
+          ],
+          [
+            0.0,
+            0.0,
+            0.0,
+            1.0
+          ]
+        ]
+      },
+      {
+        "fruit": "/World/PresentationFruits/Handoff_03",
+        "link": "/World/transport_robot/cargo_box",
+        "matrix": [
+          [
+            -0.036923503496779905,
+            0.7377530952251852,
+            -0.019186470214501188,
+            -0.09476939337649037
+          ],
+          [
+            -0.7378545756681816,
+            -0.03728828717879246,
+            -0.013831271413331602,
+            0.029299792407379677
+          ],
+          [
+            -0.014777527504986235,
+            0.01846752254744964,
+            0.7385469995578537,
+            0.046107046892197745
+          ],
+          [
+            0.0,
+            0.0,
+            0.0,
+            1.0
+          ]
+        ]
+      },
+      {
+        "fruit": "/World/PresentationFruits/Handoff_04",
+        "link": "/World/transport_robot/cargo_box",
+        "matrix": [
+          [
+            0.07740773491694865,
+            0.7024858333683448,
+            -0.038686866456078405,
+            -0.08940094906685658
+          ],
+          [
+            -0.7028919782314831,
+            0.07890159123099372,
+            0.026313171291775073,
+            -0.07419889616273245
+          ],
+          [
+            0.03042838571532392,
+            0.035541102436196466,
+            0.7062477755892477,
+            0.045007826395661754
+          ],
+          [
+            0.0,
+            0.0,
+            0.0,
+            1.0
+          ]
+        ]
+      },
+      {
+        "fruit": "/World/PresentationFruits/Handoff_05",
+        "link": "/World/transport_robot/cargo_box",
+        "matrix": [
+          [
+            0.03757269508621088,
+            0.7505929643863454,
+            -0.018768734419146144,
+            -0.18724787162995948
+          ],
+          [
+            -0.7508275857864959,
+            0.03756095423073101,
+            -0.0009392195261521895,
+            0.054288917288525695
+          ],
+          [
+            8.170327800404152e-12,
+            0.018792219800086062,
+            0.751532183920958,
+            0.13109972457315144
+          ],
+          [
+            0.0,
+            0.0,
+            0.0,
+            1.0
+          ]
+        ]
+      },
+      {
+        "fruit": "/World/PresentationFruits/Handoff_06",
+        "link": "/World/transport_robot/cargo_box",
+        "matrix": [
+          [
+            0.07628832944236975,
+            0.7602149600175833,
+            0.02053578149027571,
+            -0.18628163122142682
+          ],
+          [
+            -0.7603386531965564,
+            0.07665992644068326,
+            -0.013296657415135983,
+            -0.06113651062503411
+          ],
+          [
+            -0.01528516310671625,
+            -0.01910191636022212,
+            0.763917465139545,
+            0.13128193246949182
+          ],
+          [
+            0.0,
+            0.0,
+            0.0,
+            1.0
+          ]
+        ]
+      }
+    ],
+    "up": [
+      0,
+      0,
+      1
+    ],
+    "fill_intensity": 110,
+    "eye": [
+      -6.505577624380441,
+      10.43584945686823,
+      1.75
+    ],
+    "target": [
+      -5.365184396311347,
+      12.923399111724219,
+      0.35
+    ],
+    "focal_mm": 27,
+    "inspect": [
+      "/World/PresentationFruits/Handoff_01",
+      "/World/PresentationFruits/Handoff_02",
+      "/World/PresentationFruits/Handoff_03",
+      "/World/PresentationFruits/Handoff_04",
+      "/World/PresentationFruits/Handoff_05",
+      "/World/PresentationFruits/Handoff_06",
+      "/World/PresentationFruits/Handoff_07",
+      "/World/transport_robot/cargo_box"
+    ]
+  },
+  "keyframes": [
+    {
+      "time": 0,
+      "state": {}
+    },
+    {
+      "time": 1,
+      "state": {}
+    },
+    {
+      "time": 1.8,
+      "state": {
+        "placements": {
+          "/World/transport_robot": {
+            "matrix": [
+              [
+                -0.19342002049252083,
+                -0.9811160459765567,
+                0.0,
+                -5.2537744645076545
+              ],
+              [
+                0.9811160459765567,
+                -0.19342002049252083,
+                0.0,
+                12.358276269241722
+              ],
+              [
+                0.0,
+                0.0,
+                1.0,
+                0.0
+              ],
+              [
+                0.0,
+                0.0,
+                0.0,
+                1.0
+              ]
+            ]
+          }
+        },
+        "joints": {
+          "wheel_left_joint": 6.96969696969697,
+          "wheel_right_joint": 6.96969696969697
+        }
+      }
+    },
+    {
+      "time": 2.3,
+      "state": {
+        "joints": {
+          "side_lid_joint": 1.5707963267948966
+        }
+      }
+    },
+    {
+      "time": 3.3,
+      "state": {
+        "joints": {
+          "box_tilt_joint": 0.7853981633974483
+        }
+      }
+    },
+    {
+      "time": 4.6,
+      "state": {}
+    },
+    {
+      "time": 5.2,
+      "state": {
+        "joints": {
+          "box_tilt_joint": 0
+        }
+      }
+    },
+    {
+      "time": 5.6,
+      "state": {
+        "joints": {
+          "side_lid_joint": 0,
+          "joint1": -0.6334258829693379,
+          "joint2": -2.58496845756547,
+          "joint3": 1.2606049499855951,
+          "joint4": 0.6481265829465147,
+          "joint5": -1.7687074317126479,
+          "joint6": -2.9937862720443578
+        }
+      }
+    },
+    {
+      "time": 7.0,
+      "state": {
+        "joints": {
+          "joint1": 0.6334258829600327,
+          "joint2": -2.584968457555793,
+          "joint3": 1.2606049499748793,
+          "joint4": -0.6481265829301676,
+          "joint5": -1.7687074317274176,
+          "joint6": -3.289399035129792
+        }
+      }
+    },
+    {
+      "time": 12,
+      "state": {}
+    }
+  ],
+  "provenance": {
+    "scope": "Camera/mechanism probe only; payload remains attached; final six-fruit discharge is pending",
+    "camera_station_eye": [
+      2.4,
+      -1.6,
+      1.75
+    ],
+    "camera_station_target": [
+      0.18,
+      0,
+      0.35
+    ],
+    "station_transform": "V3 unchanged",
+    "transport_front_pivot_station_x_m": 0.67
+  },
+  "preview_warmup_frames": 48,
+  "preview_frames": [
+    0,
+    54,
+    99,
+    168,
+    210,
+    270
+  ],
+  "easing": "smooth"
+}

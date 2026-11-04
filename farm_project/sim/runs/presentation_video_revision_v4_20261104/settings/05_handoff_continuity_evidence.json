@@ -1,0 +1,46 @@
+{
+  "scope": "presentation staged animation only; no physical robot/autonomous/PhysX success claim",
+  "offline_checks": {
+    "six_identical_ids_every_frame": true,
+    "red_three_yellow_three": true,
+    "source_scales_preserved": true,
+    "closed_by_raw_3_35_s": true,
+    "fruit_below_closing_top_lids": true,
+    "harvest_floor_above_top_lids": true,
+    "all_moving_lid_visual_cubes_clear_fruit_aabbs": true,
+    "top_lid_pinion_mimic_consistent": true,
+    "pair_aabb_overlap_below_1mm": true
+  },
+  "offline_all_pass": true,
+  "gui_review": "not performed by this builder",
+  "source_trajectory": "sim/runs/presentation_video_revision_v3_20261104/settings/05_handoff.json",
+  "source_sha256": "82c24e006512ec7412209582c9a4fcc0147640cfff0f51f5d52ec35b9e06c49b",
+  "method": "V3 six baked trajectories reused; slots 5/6 exchanged from first frame with original scales and mesh-bottom height preserved. No new dynamic solver run.",
+  "timeline_s": {
+    "harvest_floor_open": [
+      1.0,
+      1.65
+    ],
+    "harvest_floor_restore": [
+      2.15,
+      2.5
+    ],
+    "transport_top_lids_close": [
+      2.65,
+      3.35
+    ],
+    "hold_closed": [
+      3.35,
+      5.0
+    ]
+  },
+  "actual_top_lid_bottom_world_z_m": 0.4449999884236604,
+  "minimum_fruit_top_to_closing_lid_m": 0.013137132521764017,
+  "minimum_harvest_floor_to_transport_lid_m": 0.04900002351030708,
+  "max_pair_aabb_overlap_m": 0.0,
+  "max_pair_aabb_overlap_at": null,
+  "max_closing_lid_visual_cube_fruit_aabb_overlap_m": 0.0,
+  "limits": "Actual fruit vertex bounds and original USD plate vertices checked. Conservative AABB bounds are not full mesh collision/arm collision or physical dynamics validation. GUI/MP4 review required.",
+  "mechanism_measurement": "05_mechanism_geometry.json",
+  "continuity_state": "handoff_continuity_state.json"
+}

@@ -1,0 +1,26 @@
+{
+  "request_sha256": "d4a56368171f4b4cd6e456618fd976b8db9017c30d65f6d0594fc1b624bcc22a",
+  "evidence_sha256": "045f6ebfe033fc5192aa93afcc635a698affdcd75b69a5b291864e8ea10dc462",
+  "audit_sha256": "f2b62d6f820c42bedc445d6ab7b9f5c72ba0b4fa75edde0c631b3942d70773ff",
+  "topology_sha256": "b561e65cab8b4cb9805bc0f9558d62497fcd7a6f193ee6433ebe675566b6fc39",
+  "request_matches_independent_audit": true,
+  "evidence_matches_independent_audit": true,
+  "source_hashes": {
+    "settings/06_07_transport_sorting.json": "d4a56368171f4b4cd6e456618fd976b8db9017c30d65f6d0594fc1b624bcc22a",
+    "settings/06_07_motion_evidence.json": "045f6ebfe033fc5192aa93afcc635a698affdcd75b69a5b291864e8ea10dc462",
+    "qa/06_07_independent_geometry_audit.json": "f2b62d6f820c42bedc445d6ab7b9f5c72ba0b4fa75edde0c631b3942d70773ff",
+    "qa/06_07_actual_fruit_triangles.json": "b561e65cab8b4cb9805bc0f9558d62497fcd7a6f193ee6433ebe675566b6fc39",
+    "qa/06_07_actual_station_boxes.json": "c13535f897bec81bd184c4027e7d9e057c85f35ee12515f5ba884dfef8fad705",
+    "../presentation_video_revision_v3_20261104/settings/handoff_mesh_points.json": "65d437a2c2a1948ea301ce4d2a5f92ad3a44d13f9142ae3d68830c0f2b3e253d",
+    "../../assets/envs/output/farm_with_plants_v5.usd": "22be2e1f423ab553eee3d471f321ea2fb49761a6cab8ddfe0648d6d3182207f3"
+  },
+  "all_sources_unchanged_at_check_end": true,
+  "original_mesh_points_max_delta_m": 0.0,
+  "topology_source_unchanged": true,
+  "hull_only_station_events_checked": 1,
+  "actual_triangle_max_penetration_m": 0.0,
+  "blocking_events": [],
+  "threshold_m": 5e-05,
+  "method": "original mesh faces fan-triangulated; triangle clipped against each original Cube shrunk by a physical margin",
+  "limitations": "Only station hull-only events from the independent audit; no dynamic or swept-volume validation."
+}

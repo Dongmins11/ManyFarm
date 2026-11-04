@@ -1,0 +1,29 @@
+{
+  "passed": true,
+  "reviewer": "root; independent unload and sorting reviewers also recorded",
+  "videos": {
+    "05_handoff_continuity.mp4": "9ca41f1df471ec848faa03e0f2682422f2535477f7820f98bb57490f768ff60b",
+    "06_07_transport_sorting.mp4": "8d1af6dac28cb7399fde82bc4803353af5b02bb4dd57412ff1eb0b9881fec31a",
+    "ManyFarm_25s_clean.mp4": "dd0b60fc3513d130f0210c1aac5b7968704efe5e99af28ad06c7b02162daef2a",
+    "ManyFarm_25s_captioned.mp4": "a5dfad1a671e3fd52c801fe5ca2ce463d93f14729e841257f91d7049466188af"
+  },
+  "reviews": [
+    "qa/05_handoff_continuity-mp4-review.json",
+    "qa/06_07_transport_sorting-mp4-review.json",
+    "qa/ManyFarm_25s_clean-mp4-review.json",
+    "qa/ManyFarm_25s_captioned-mp4-review.json",
+    "qa/06_07-unload-mp4-review.json",
+    "qa/06_07-independent-mp4-review.json"
+  ],
+  "scope": "Direct actual encoded-MP4 key-phase visual review; technical validation in verification.txt.",
+  "findings": [
+    "Camera F35mm chosen after three candidate comparisons; entire vehicle/wheels, gate, arm and bins remain in frame.",
+    "Six persistent fruits, red3/yellow3; mixed3+3 visibly counted at raw frame150; one of each color placed into matching bin and four remain.",
+    "Top lids closed throughout continuous take; gate/tilt/reset cycle3.8s.",
+    "Korean captions/inset/ending reviewed on final edits."
+  ],
+  "limitations": [
+    "Fruit partially occluded by gate/basket during discharge and forearm at grasp.",
+    "Frame-based geometry/visual checks are not continuous-contact physics or autonomous mission success."
+  ]
+}

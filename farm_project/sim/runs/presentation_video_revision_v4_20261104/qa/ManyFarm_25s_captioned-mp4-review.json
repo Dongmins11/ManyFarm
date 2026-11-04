@@ -1,0 +1,22 @@
+{
+  "passed": true,
+  "source_sha256": "a5dfad1a671e3fd52c801fe5ca2ce463d93f14729e841257f91d7049466188af",
+  "reviewer": "root",
+  "review_method": "Direct visual review of the decoded MP4 contact sheet; captioned frames135 and585 also inspected at full1920x1080.",
+  "keyphase_evidence": "qa/ManyFarm_25s_captioned-mp4-keyphases.json",
+  "additional_full_resolution_frames": [
+    135,
+    585
+  ],
+  "findings": [
+    "01–05 each3s; continuous unloading/sorting follows with no internal cut.",
+    "03→04 direct cut preserves reused source; handoff lids close before continuous scene.",
+    "Stable final2s and end fade; frame749 black.",
+    "Korean font and mint captions legible; scout RGB/detection insert and text do not hide robot, tags or actions.",
+    "Unloading and sorting captions remain in clear margin, without hiding gate, gripper target or bins."
+  ],
+  "limitations": [
+    "Staged GUI presentation, not autonomous mission validation.",
+    "Basket and forearm partially occlude fruit during some motion phases."
+  ]
+}

@@ -1,0 +1,28 @@
+{
+  "passed": true,
+  "source_sha256": "9ca41f1df471ec848faa03e0f2682422f2535477f7820f98bb57490f768ff60b",
+  "reviewer": "root; actual encoded MP4 frames directly inspected",
+  "frames": [
+    0,
+    30,
+    41,
+    45,
+    54,
+    63,
+    75,
+    90,
+    105,
+    117,
+    149
+  ],
+  "findings": [
+    "기존 구도와 하우스/태그, 바퀴 전체 유지",
+    "바닥 패널 개방 후 6개 적재의 낙하/안착 흐름 확인; 내부 벽에 의해 일부 과실 가려짐",
+    "바닥 복원 후 상부덮개 닫힘, raw3.5초와 끝 상태 닫힘",
+    "실제 MP4105프레임을 전체해상도로 확인: 상부바구니 비어있음; 프리뷰에 보였던 색형상은 최종MP4에 재현되지 않음"
+  ],
+  "count_evidence": "settings/05_handoff_continuity_evidence.json and qa/05-independent-geometry-review.json; occluded count is verified by six persistent IDs, not simultaneous visibility",
+  "limitations": [
+    "촬영용 키프레임 연출이며 자율 인계 성공 시험이 아님"
+  ]
+}

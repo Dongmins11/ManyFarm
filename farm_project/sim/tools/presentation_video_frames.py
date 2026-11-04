@@ -51,8 +51,8 @@ def state_at(request: dict, t: float) -> dict:
 def capture(request: dict, out: Path, app: object, camera: object, apply_state, inspect_state) -> None:
     from PIL import Image
     name=request['name'];fps=int(request.get('fps',30));duration=float(request['duration_s'])
-    if fps != 30 or duration not in (4,5,7):
-        raise ValueError('발표 원본은 30fps, 4/5/7초만 지원합니다.')
+    if fps != 30 or duration not in (4,5,7,12):
+        raise ValueError('발표 원본은 30fps, 4/5/7/12초만 지원합니다.')
     count=round(fps*duration); previews=out/'preview';previews.mkdir(exist_ok=True)
     preview_only=request.get('preview_only',False)
     indices=sorted({0,count//2,count-1} | {min(count-1,round(f['time']*fps)) for f in request['keyframes']}) if preview_only else range(count)

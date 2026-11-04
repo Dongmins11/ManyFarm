@@ -1,0 +1,128 @@
+{
+  "review_scope": "GUI preview composition comparison before full continuous recording; motion collision audit is separate",
+  "selected": "F",
+  "rationale": "35 mm preserves wheels, open gate, highest arm, intake lanes and storage bins while enlarging fruit actions relative to E; G is higher but less tight.",
+  "contact_sheet": "qa/final-camera-comparison.jpg",
+  "final_motion_recheck_pending": false,
+  "candidates": {
+    "E": {
+      "settings": "settings/06_07_final_camera_e.json",
+      "settings_sha256": "477d81c781b1fac44efc2cfde72e30a608211b109b53c0a207d43cfcbdc5b87c",
+      "camera": {
+        "eye": [
+          -3.2373399157973903,
+          13.755224120196136,
+          2.0500000000000003
+        ],
+        "target": [
+          -5.434815603688654,
+          11.97660088827578,
+          0.35
+        ],
+        "focal_mm": 31
+      },
+      "preview_frames_reviewed": [
+        54,
+        99,
+        165,
+        168,
+        193,
+        219,
+        222,
+        245,
+        270
+      ],
+      "images_sha256": {
+        "preview/06_07_final_camera_e-0054.png": "7c3ed18f6fd089e74575b0aa6204455717b19326c68c79eef05191735054e08e",
+        "preview/06_07_final_camera_e-0099.png": "e4706ca2d194d58d28a8e3a7ed3e344fa0bc5c72862b16904aebe3111cbb9208",
+        "preview/06_07_final_camera_e-0165.png": "d26f27340f66d3ab282070454f31eaa4a775784c10e9f45d928e73c050e2373b",
+        "preview/06_07_final_camera_e-0168.png": "0ee12c5184731dde92e43a47657950b4f467eac4c418502fa98573ac00a2df1a",
+        "preview/06_07_final_camera_e-0193.png": "fdbf172aea6c422cb6f4872cd66d21cc0a1255d5d6b33cd775a460ebc0ce5326",
+        "preview/06_07_final_camera_e-0219.png": "e7f1f2786b5d25fbf738c9e11c3d253804f43ea153ec4cb1e1ca9158f41ecc6a",
+        "preview/06_07_final_camera_e-0222.png": "d49dacfc4d01566c928b0cf0bb149645d1fc900f0aaab9a01092ed038ad1a451",
+        "preview/06_07_final_camera_e-0245.png": "5d368c5975cb0e459588eef6ea60718913fc96c392fc701af7b153a41c0f397b",
+        "preview/06_07_final_camera_e-0270.png": "cdbeb18ffb890f247f50392ad802fa6e865b9dc54d2e6c128d72062b0c9008be"
+      }
+    },
+    "F": {
+      "settings": "settings/06_07_final_camera_f.json",
+      "settings_sha256": "9bdb15954cc7c7f653384b1a661e7a207144560106f3377a63b474f56d8e4a96",
+      "camera": {
+        "eye": [
+          -3.2373399157973903,
+          13.755224120196136,
+          2.0500000000000003
+        ],
+        "target": [
+          -5.434815603688654,
+          11.97660088827578,
+          0.35
+        ],
+        "focal_mm": 35
+      },
+      "preview_frames_reviewed": [
+        54,
+        99,
+        165,
+        168,
+        193,
+        219,
+        222,
+        245,
+        270
+      ],
+      "images_sha256": {
+        "preview/06_07_final_camera_f-0054.png": "1b00861ee0763cc082d01fb2783e005352700f1c36738de4e77b0db07db7b5d0",
+        "preview/06_07_final_camera_f-0099.png": "8725d04b936014d9a0283fb7df107696ac7fb760c6ba784228fa14fa29a9f2c4",
+        "preview/06_07_final_camera_f-0165.png": "297de392643b7eae85081631a7f3c74201418dc2bc054a1d76d426274e6be0bc",
+        "preview/06_07_final_camera_f-0168.png": "4af103d935dc29a9837b0e2fd7fd4a4de151e31d06ab36e833b9e03045a85539",
+        "preview/06_07_final_camera_f-0193.png": "aa6dcb8b823b482cd769cf9ffd15ea0ca429dabd4157284ee871cc5fcfdac06e",
+        "preview/06_07_final_camera_f-0219.png": "b04cb141c8dc4047f9174484146bc5f6753f9c9187ee828526428fd0718529ee",
+        "preview/06_07_final_camera_f-0222.png": "63d075374fb9207f3289572712b908d0f75b3143f5e5cf6ce91adf29d9ffef34",
+        "preview/06_07_final_camera_f-0245.png": "3f122c0c09dc34d7d52adf9599ef516edcef019552f1c60f23e3c9d6633871cf",
+        "preview/06_07_final_camera_f-0270.png": "7f981f583784dc826e021f2fef3fda9c1a3d62e7c930f65b95f8a9f8d0a63426"
+      }
+    },
+    "G": {
+      "settings": "settings/06_07_final_camera_g.json",
+      "settings_sha256": "13061d58b7793958d8cc700de82fd6730516c9e6d5ee6cbc62ad8749b6c48811",
+      "camera": {
+        "eye": [
+          -3.2373399157973903,
+          13.755224120196136,
+          2.2500000000000004
+        ],
+        "target": [
+          -5.434815603688654,
+          11.97660088827578,
+          0.35
+        ],
+        "focal_mm": 34
+      },
+      "preview_frames_reviewed": [
+        54,
+        99,
+        165,
+        168,
+        193,
+        219,
+        222,
+        245,
+        270
+      ],
+      "images_sha256": {
+        "preview/06_07_final_camera_g-0054.png": "edf03dda9295778da5c3ffad810d32e0264f21a928761b6361c1d10f30b85913",
+        "preview/06_07_final_camera_g-0099.png": "8df216aa41bdc44a2b1f457a50de5577464688728df7d0c75ac676cb8fc82561",
+        "preview/06_07_final_camera_g-0165.png": "2e5b88508e83aa9c63dd32cc35211fc1b1760c7b08874dd7b4f889ff6b5a54a7",
+        "preview/06_07_final_camera_g-0168.png": "7d7971644be14998d9aec4c22b98af7959ce93c2613f38ffdb77f72cd701885c",
+        "preview/06_07_final_camera_g-0193.png": "a91ca367c5dc87565e664ad37e7eb933dc5983aa3de8f234b2753625c4c39095",
+        "preview/06_07_final_camera_g-0219.png": "971ac2440ab412ac03c4e599b353af259bd3b0ef7769da781ecaf5e7ebb8b0e6",
+        "preview/06_07_final_camera_g-0222.png": "03d15269f82831395770317bd3e811f0c2ae6043513ae076a99afe14e1515a3b",
+        "preview/06_07_final_camera_g-0245.png": "4c88e9196049f3d1dadcf1783fecc2e10414a5d268280667e45617dd298073b6",
+        "preview/06_07_final_camera_g-0270.png": "f643b14c55ce58694c157ad92ab45249c4f3f21836762f31ab7b27b29a9096a2"
+      }
+    }
+  },
+  "final_raw_review": "qa/06_07_transport_sorting-mp4-review.json",
+  "final_settings_sha256": "d4a56368171f4b4cd6e456618fd976b8db9017c30d65f6d0594fc1b624bcc22a"
+}
