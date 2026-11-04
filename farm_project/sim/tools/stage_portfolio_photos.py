@@ -40,7 +40,8 @@ def main() -> None:
         sys.path.insert(0, str(ROOT/'sim/ros_ws/src/farm_sim_runtime'))
         sys.path.insert(0, str(ROOT/'sim/ros_ws/src/farm_sim_devices'))
         fleet = json.loads((args.runtime/'fleet.json').read_text())
-        is_v3 = fleet.get('presentation_revision') in ('v3', 'v4')
+        is_v3 = fleet.get('presentation_revision') in ('v3', 'v4', 'v5')
+        is_v5 = fleet.get('presentation_revision') == 'v5'
         configs = [json.loads((ROOT/p).read_text()) for p in fleet['device_configs']]
         open_stage(str(ROOT/'sim/assets'/configs[0]['scene']))
         stage = omni.usd.get_context().get_stage()
@@ -50,6 +51,11 @@ def main() -> None:
             'visibility': UsdGeom.Imageable(p).GetVisibilityAttr().Get()}
             for p in stage.TraverseAll()
             if str(p.GetPath()).startswith('/World/farm_framechanged') and p.IsA(UsdGeom.Imageable)} if is_v3 else {}
+        vegetation_baseline = {str(p.GetPath()): {
+            'active': p.IsActive(),
+            'visibility': UsdGeom.Imageable(p).GetVisibilityAttr().Get()}
+            for p in stage.TraverseAll()
+            if str(p.GetPath()).startswith('/World/Vegetation') and p.IsA(UsdGeom.Imageable)} if is_v5 else {}
         # 먼 베드만 끄고, 줄기 등이 참조하는 공용 Looks 재질은 유지한다.
         for prim in list(stage.GetPrimAtPath('/World/Vegetation').GetChildren()):
             if not args.all_beds and prim.GetName().startswith('Bed_') and prim.GetName() not in ('Bed_01', 'Bed_02'):
@@ -149,6 +155,8 @@ def main() -> None:
             presentation_assets = install_handoff_assets(stage, ROOT, roots['harvest_01'])
             (out/'handoff_assets.json').write_text(json.dumps(presentation_assets,indent=2)+'\n')
             (out/'house_visibility_baseline.json').write_text(json.dumps(house_baseline,indent=2)+'\n')
+            if is_v5:
+                (out/'vegetation_visibility_baseline.json').write_text(json.dumps(vegetation_baseline,indent=2)+'\n')
 
         # 물리 연결을 끈 별도 촬영 stage. 모든 변화는 세션 layer에만 존재한다.
         joints = []
@@ -237,6 +245,13 @@ def main() -> None:
         camera.set_clipping_range(.01, 100.)
         camera.set_horizontal_aperture(36.)
         def apply_request(request: dict) -> None:
+            if is_v5:
+                # V5는 배경 베드/작물을 숨기거나 이동하지 않고 구도로만 제외한다.
+                affected = [*request.get('hide', []), *request.get('placements', {}),
+                            *request.get('fruit_positions', {}),
+                            *(item['fruit'] for item in request.get('attach_fruits', []))]
+                if any(p == '/' or p.startswith('/World/Vegetation') for p in affected):
+                    raise ValueError('V5 촬영에서 원본 베드/작물 숨김·이동은 허용하지 않습니다.')
             for path in request.get('hide', []):
                 if is_v3 and (path == '/World' or path.startswith('/World/farm_framechanged') or path.startswith('/World/AprilTags')):
                     raise ValueError('촬영 중 하우스와 베드 태그 숨김은 허용하지 않습니다: '+path)
@@ -306,10 +321,10 @@ def main() -> None:
                 side_key.CreateHeightAttr(float(key.get('height',2.)))
 
         def inspect_request(request: dict) -> dict:
-            for path, expected in house_baseline.items():
+            for path, expected in {**house_baseline, **vegetation_baseline}.items():
                 prim = stage.GetPrimAtPath(path)
                 if prim.IsActive() != expected['active'] or UsdGeom.Imageable(prim).GetVisibilityAttr().Get() != expected['visibility']:
-                    raise RuntimeError('원본 하우스 표시 상태 변경: '+path)
+                    raise RuntimeError('원본 하우스/베드/작물 표시 상태 변경: '+path)
             return {p:matrix(p).tolist() for p in request.get('inspect',[])}
 
         baseline_fruits = {p:matrix(p).copy() for p in set(info['fruit_paths']) | set(presentation_assets.get('clone_paths',[]))}

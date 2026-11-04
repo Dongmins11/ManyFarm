@@ -1,0 +1,39 @@
+{
+  "schema_version": 5,
+  "passed": true,
+  "pass_scope": "Actual MP4 decoded-frame visual inspection only; technical validation is separate.",
+  "all_v5_acceptance_complete": false,
+  "continuous_playback_viewed": false,
+  "method": "Team direct review of all510 raw decoded frames on numbered contact sheets, critical full-resolution images, and26 actual decoded phase frames per edit. Root separately reviewed phase sheets and selected full-resolution frames. Exact per-review coverage and occlusions are recorded in the linked reviews.",
+  "videos": {
+    "05_handoff_continuity.mp4": "6cdce97dc24d08af4309154c47669084dbfed9c184accf6b42594a7ccc238de6",
+    "06_07_transport_sorting.mp4": "680923f5ece7084968aabb14c02c4b0f7bd4ba133d50e4c8093791169779968c",
+    "ManyFarm_25s_clean.mp4": "96d3c185acb08313c2b77083a38b035db47278a0233a804616cbfdbe731d3d9b",
+    "ManyFarm_25s_captioned.mp4": "bec004736571f4bde2bf6c52085eea5a94906f0fabb4dff8071a898e9c8f29cf"
+  },
+  "reviews_sha256": {
+    "qa/05_handoff_continuity-mp4-review.json": "ec055072628997582524af7ccb8f73c24c558f37cee48e8a8f315b69f8ea3465",
+    "qa/06_07_transport_sorting-mp4-review.json": "37bd994209aa8634c10463f7994feabb74436982bae48d63c5d9a1a5c66b49ee",
+    "qa/ManyFarm_25s_clean-mp4-review.json": "f7700fe1bd0ad772dda060f1e1234b1b4d83a4adc58ed77cc600e3c4adcc2aba",
+    "qa/ManyFarm_25s_captioned-mp4-review.json": "051ceebd58f3f813dbf54bc0a2925ae001cf0c074574671c3b98715a0f82c20b",
+    "qa/root_keyframe_review.json": "3c67acde2356b57df10c0153257bfa81a0bb745123080c21089a519ff336f5b2",
+    "qa/04_cut_stability_review.json": "205974c921a46706727d8dddda53ff2b464da26d208d7db1e7251172643e1386",
+    "qa/bed_nonexposure_review.json": "16bd65de9702146cd727902af8d8cb7bec554d9335b40eef3ddb960bef23f047",
+    "qa/05_render_history_diagnostic_review.json": "f75461e0f148662883c77a006d66dce607ddbe373d1164e28494226bc1d9e245",
+    "qa/camera_selection.json": "c937da683ca683b95aa870cc7eaf8e18d4d80f4ce4561fa27fe384f2f48ef1d8"
+  },
+  "findings": [
+    "Seven original-size4red/3yellow IDs remain across05→06·07. Wholeclip frame reviews found no unexplained visible disappearance, duplication or upper-basket history ghost.",
+    "06·07 actual360-frame review found no beds/crops/wooden bed edges; final bins contain1red/1yellow and lanes retain3red/2yellow.",
+    "Captioned scout frames contain only source and lowercaption, without inset/card/panel. The original palette andNotoSansCJK font remain.",
+    "04 trim ends in completed stable deposit, independently compared against raw119/149. Cuts at9/12/15 seconds avoid moving-fruit overlap.",
+    "Final sorting shot is continuous, with a stable2-second ending and0.8-second fade toblack.",
+    "05 raw frame149(4.9667s) precedes the saved5.000s bake endpoint by one sample. 06 uses the saved endpoint unchanged. Independent comparison of24934 original mesh vertices across actual GUI boundary poses found maximum0.639436µm residual settled motion; the physical bound is1µm. This is not exact equality of the two captured boundary frames. See continuity_precision_review.json and validation_initial.txt."
+  ],
+  "limitations": [
+    "Connected-browser video playback was unavailable. Continuous normal-speed/slow-speed viewing remains incomplete; 1x/0.25x timed decoding does not replace viewing.",
+    "04→05 is a montage time/pose change from one deposited fruit to seven already loaded fruit. Intermediate loading is omitted. Identity continuity is evidenced from05 through06·07, not all the way from04.",
+    "Opaque walls/lids and fruit overlap prevent identifying every fruit in every video frame; identity/count evidence also uses recorded states and independent geometry audits.",
+    "05 uses an isolated Bullet contact bake with presentation material assumptions;06·07 is geometric keyframe motion, not a full rigid-body or autonomous/hardware validation."
+  ]
+}

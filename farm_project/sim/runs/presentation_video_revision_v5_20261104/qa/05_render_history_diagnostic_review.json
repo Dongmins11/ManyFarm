@@ -1,0 +1,47 @@
+{
+  "reviewer": "travel_shot_settings",
+  "method": "Direct visual review of four full-resolution GUI PNGs: original dynamic72, static72 initial state, accumulation-reset-only dynamic72, and camera-history-reset dynamic72; state/inspector equality cross-check.",
+  "images": {
+    "preview/05_camera_probe_e-0072.png": "f8aacd5540aafb7f77ef716fa6a9bd908f5734219ebd67768abae0ada2d2fc19",
+    "preview/05_static_settled_diagnostic-0000.png": "b02e1f5a514b106a67da7f65a76eb2871108827c3efd80155b2b24059673470a",
+    "preview/05_renderer_reset_probe-0072.png": "3ea9d79635a9ebbfdc6039668d851ff460b8c18f0141ea4d68888efeef453451",
+    "preview/05_camera_history_reset_probe-0072.png": "7cfb0a67b061f5dc9d03a999482fe7a1fcb102eecf31d0359fa714f28f64b8f8"
+  },
+  "requested_state_exact_equal": true,
+  "inspected_state_exact_equal": true,
+  "observations": {
+    "dynamic_raw72": "Faint upright red and yellow initial fruit silhouettes remain inside upper harvest basket while the baked seven fruit are in lower cargo.",
+    "static_raw72_as_initial": "Upper basket is visually empty; lower cargo remains populated.",
+    "accumulation_reset_only_dynamic_raw72": "Initial upright red/yellow silhouettes remain visible in upper basket; accumulation reset API alone is insufficient in this render-product setup.",
+    "camera_history_reset_dynamic_raw72": "Upper basket is completely empty, matching the static72 diagnostic; lower cargo fruit remain present. No faint initial silhouettes are visible."
+  },
+  "inference": "Identical requested and inspected scene states show the initial fruit silhouettes only with retained dynamic render history. API accumulation reset alone did not clear them; camera-history invalidation removed them in the repeated raw72 preview. This resolves the observed V5 preview ghost without modifying fruit visibility or physical motion. Specific internal RTX cache subsystem is not separately identified.",
+  "next_validation": "Final encoded MP4 all150-frame contact-sheet and critical8 full-resolution review completed without observed upper-basket ghost. This is frame-based review, not continuous playback; see linked final_encoded_frame_review.",
+  "comparison_to_dynamic_raw72": {
+    "preview/05_renderer_reset_probe-0072.png": {
+      "requested_state_exact_equal": true,
+      "inspected_state_exact_equal": true
+    },
+    "preview/05_camera_history_reset_probe-0072.png": {
+      "requested_state_exact_equal": true,
+      "inspected_state_exact_equal": true
+    }
+  },
+  "implemented_capture_fix": {
+    "tool": "sim/tools/presentation_video_frames.py",
+    "procedure": [
+      "Apply baked scene state",
+      "Update and reset renderer accumulation",
+      "Save camera world pose",
+      "Render one unrecorded frame with camera translated +1000m in world Z",
+      "Restore exact camera pose and reset renderer accumulation",
+      "Wait requested output settling updates before recording"
+    ],
+    "final_capture_settle_updates": 24,
+    "fruit_visibility_modified": false,
+    "original_usd_modified": false,
+    "physics_bake_modified": false,
+    "scope": "Request opt-in reset_renderer_accumulation, used by V5 capture"
+  },
+  "final_encoded_frame_review": "05_handoff_continuity-all150-frame-review.json"
+}

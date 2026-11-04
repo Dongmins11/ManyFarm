@@ -1,0 +1,35 @@
+{
+  "reviewer": "root",
+  "method": "Direct viewing of actual MP4 decoded keyphase sheets and the listed full-resolution images through view_image. Independent all-raw-frame reviews are recorded separately.",
+  "continuous_playback_viewed": false,
+  "images": {
+    "qa/05_handoff_continuity-mp4-keyphases.jpg": "7899009f6e96e5845b5a51a6e2ce2ae6859a8f3d2f45d95ed4395c2dca7ad8fc",
+    "qa/06_07_transport_sorting-mp4-keyphases.jpg": "ab45ed50aa17f96bef46b90f57db7c9a274546b7d73d0f8019fbc756ad16c83c",
+    "qa/ManyFarm_25s_clean-mp4-keyphases.jpg": "4cb01a9a3c2477e1c3868f3af2168d790800cb96ecac68bfecad969cf7596109",
+    "qa/05_handoff_continuity-mp4-frame-0045.png": "2f6e65580c6abf9d473f0617ea9f645bc6cbe17656e766e5b94e946f8e8c2200",
+    "qa/05_handoff_continuity-mp4-frame-0054.png": "bda3cd8aef42d7bc3e8ac9edcfe3eff768b2f63f1a0b6baa67844fe84ab8d22d",
+    "qa/05_handoff_continuity-mp4-frame-0072.png": "2e2a8680e35f3cc623fa0d67a63a8f15c112b94df1bcd575e890e6b4483d6fce",
+    "qa/06_07_transport_sorting-mp4-frame-0150.png": "49eea21bc906715b7931ec85635d94874b537696cd5f5f96285f7d90ad351d41",
+    "qa/06_07_transport_sorting-mp4-frame-0245.png": "52ab7340dbbe5b8f7200a4ca1ef30cafe5e1f5b74fd93d0b7e4e1d47cee8df02",
+    "qa/ManyFarm_25s_captioned-mp4-frame-0135.png": "b8e55cacfd4d9ca4489e5ef7230d9090ea49dbb9521dd2d3ae3301cd9b04b117",
+    "qa/ManyFarm_25s_captioned-mp4-frame-0390.png": "d238784f8247aa153430a5af1c25e97529a74cd04b6799bc071d933a0a65a2c9",
+    "qa/ManyFarm_25s_captioned-mp4-frame-0675.png": "a454ec1098f4ea1f1c00759f9ca194d4da5a0a805371e129991c2cc18d8fd7a8"
+  },
+  "source_videos": {
+    "05_handoff_continuity.mp4": "6cdce97dc24d08af4309154c47669084dbfed9c184accf6b42594a7ccc238de6",
+    "06_07_transport_sorting.mp4": "680923f5ece7084968aabb14c02c4b0f7bd4ba133d50e4c8093791169779968c",
+    "ManyFarm_25s_captioned.mp4": "bec004736571f4bde2bf6c52085eea5a94906f0fabb4dff8071a898e9c8f29cf",
+    "ManyFarm_25s_clean.mp4": "96d3c185acb08313c2b77083a38b035db47278a0233a804616cbfdbe731d3d9b"
+  },
+  "findings": [
+    "05 frames45/54/72: upper basket empties, lower cargo receives red/yellow fruit with different rotations; no prior upper-basket silhouette remains after settling.",
+    "06 frame150: seven mixed fruit visible at intake, equipment and vehicle in frame, no bed/crop/wood edge visible. Frame245: yellow held above bin, red in other bin, remaining intake fruit retained.",
+    "Captioned frame135: scout source and lower mint/white caption only, no inserted panel/photo. Frames390/675: lower captions remain readable and do not overlap the working mechanism.",
+    "Clean keyphase sheet: direct transitions at9/12/15 seconds; continuous final sorting shot, steady ending and black final frame.",
+    "04-to-05 is a montage cut from one-fruit deposit to a separately staged seven-fruit load, not a record of all seven fruits being harvested continuously."
+  ],
+  "limitations": [
+    "This record is selected-frame visual review, not continuous normal/slow playback.",
+    "Opaque basket walls, overlapping fruit and closed lids obscure individual fruit during parts of the footage."
+  ]
+}

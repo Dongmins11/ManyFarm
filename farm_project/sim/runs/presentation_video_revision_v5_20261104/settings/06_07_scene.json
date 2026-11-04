@@ -1,0 +1,119 @@
+{
+  "schema_version": 5,
+  "scope": "V5 filming session only; measured north greenhouse work area, source models/maps unchanged",
+  "base": {
+    "eye": [
+      -5.56266008420261,
+      11.444775879803863,
+      2.2500000000000004
+    ],
+    "target": [
+      -3.3651843963113466,
+      13.22339911172422,
+      0.35
+    ],
+    "focal_mm": 35,
+    "side_key": {
+      "eye": [
+        -4.794306060767828,
+        12.717423550870596,
+        2.4
+      ],
+      "target": [
+        -3.380657997950748,
+        13.301888395402345,
+        0.3
+      ],
+      "intensity": 600,
+      "width": 2,
+      "height": 2
+    },
+    "fill_intensity": 140,
+    "placements": {
+      "/World/HCRStation": {
+        "matrix": [
+          [
+            0.1934200204925208,
+            0.9811160459765566,
+            0.0,
+            -3.4000000000000004
+          ],
+          [
+            -0.9811160459765567,
+            0.19342002049252083,
+            0.0,
+            13.4
+          ],
+          [
+            0.0,
+            0.0,
+            1.0,
+            0.0
+          ],
+          [
+            0.0,
+            0.0,
+            0.0,
+            1.0
+          ]
+        ]
+      },
+      "/World/HCRRobot": {
+        "matrix": [
+          [
+            0.1934200204925208,
+            0.9811160459765566,
+            0.0,
+            -3.4000000000000004
+          ],
+          [
+            -0.9811160459765567,
+            0.19342002049252083,
+            0.0,
+            13.4
+          ],
+          [
+            0.0,
+            0.0,
+            1.0,
+            0.04
+          ],
+          [
+            0.0,
+            0.0,
+            0.0,
+            1.0
+          ]
+        ]
+      }
+    }
+  },
+  "v4_to_candidate_rigid_transform": [
+    [
+      -0.9999999999999999,
+      -1.1102230246251565e-16,
+      0.0,
+      -8.799999999999999
+    ],
+    [
+      1.1102230246251565e-16,
+      -1.0,
+      0.0,
+      25.2
+    ],
+    [
+      0.0,
+      0.0,
+      1.0,
+      0.0
+    ],
+    [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+    ]
+  ],
+  "source_measurement": "workspace_bounds.json",
+  "selection_note": "A/B/C GUI six-phase composition comparison selected B: higher view reads intake/bin interiors; wheels, open gate and highest arm remain in frame; no beds or crops visible. Initial camera probes used V4 six-fruit motion solely for composition. Final seven-fruit motion must be re-reviewed."
+}

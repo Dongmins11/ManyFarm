@@ -1,0 +1,29 @@
+{
+  "request_sha256": "aac95d9fd82dab6f14b498843b01d47b528bffcdcc97fb096fa4603c9ceab0d3",
+  "evidence_sha256": "0260793715d25ce002a92ec57fa20f2e7afc342a7fcbdf4ca08597ad00863c42",
+  "audit_sha256": "914450c1dc2172233c5a717c8adc85e0bdd809beb2b2ffed7f625d109717de9f",
+  "topology_sha256": "5c1399606115abfb920b9c084888fd438d812c56ae5284cda82d74567b275d28",
+  "request_matches_independent_audit": true,
+  "evidence_matches_independent_audit": true,
+  "source_hashes": {
+    "settings/06_07_transport_sorting.json": "aac95d9fd82dab6f14b498843b01d47b528bffcdcc97fb096fa4603c9ceab0d3",
+    "settings/06_07_motion_evidence.json": "0260793715d25ce002a92ec57fa20f2e7afc342a7fcbdf4ca08597ad00863c42",
+    "qa/06_07_independent_geometry_audit.json": "914450c1dc2172233c5a717c8adc85e0bdd809beb2b2ffed7f625d109717de9f",
+    "qa/06_07_actual_fruit_triangles.json": "5c1399606115abfb920b9c084888fd438d812c56ae5284cda82d74567b275d28",
+    "qa/06_07_actual_station_boxes.json": "c13535f897bec81bd184c4027e7d9e057c85f35ee12515f5ba884dfef8fad705",
+    "../presentation_video_revision_v3_20261104/settings/handoff_mesh_points.json": "65d437a2c2a1948ea301ce4d2a5f92ad3a44d13f9142ae3d68830c0f2b3e253d",
+    "../../assets/envs/output/farm_with_plants_v5.usd": "22be2e1f423ab553eee3d471f321ea2fb49761a6cab8ddfe0648d6d3182207f3",
+    "qa/06_07_actual_robot_cubes.json": "7d78f731eeaca3ea1ffa8aacf39fb13a430d9f72d02cf213c40a226fac66ff53",
+    "settings/06_07_source_joint_geometry.json": "f9c58eb6b026b75d73c520295786de9d46c9712918218f5c26a089e73cd3c987"
+  },
+  "all_sources_unchanged_at_check_end": true,
+  "original_mesh_points_max_delta_m": 0.0,
+  "topology_source_unchanged": true,
+  "hull_only_station_events_checked": 1,
+  "hull_only_all_equipment_events_checked": 28,
+  "actual_triangle_max_penetration_m": 0.0,
+  "blocking_events": [],
+  "threshold_m": 5e-05,
+  "method": "original mesh faces fan-triangulated; triangle clipped against each original Cube shrunk by a physical margin",
+  "limitations": "All station and moving-equipment hull-only events from the independent audit; no dynamic or swept-volume validation."
+}

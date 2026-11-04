@@ -1,0 +1,364 @@
+{
+  "schema_version": 5,
+  "reviewer": "capture_geometry_review",
+  "source": "06_07_transport_sorting.mp4",
+  "source_sha256": "680923f5ece7084968aabb14c02c4b0f7bd4ba133d50e4c8093791169779968c",
+  "passed": true,
+  "pass_scope": "Direct visual inspection of decoded frame sequence and listed full-resolution images; not continuous playback or dynamic simulation validation.",
+  "decoded_frame_sequence_reviewed": true,
+  "reviewed_frame_range": [
+    0,
+    359
+  ],
+  "decoded_frame_count": 360,
+  "continuous_playback_viewed": false,
+  "method": [
+    "Decoded all 360 RGB frames from the completed H.264 MP4 with FFmpeg; source hash checked unchanged before and after extraction.",
+    "Directly opened all 18 consecutive contact sheets, each showing 20 numbered frames at 480x270, covering frames 0 through 359 without sampling gaps.",
+    "Directly opened all 22 listed 1920x1080 PNGs from that same encoded MP4 for discharge, grip, wrist, release, end count and frame-edge checks."
+  ],
+  "contact_sheets_reviewed": [
+    {
+      "frame_range": [
+        0,
+        19
+      ],
+      "path": "qa/all_frames/06_07_transport_sorting-mp4-allframes-000-019.jpg",
+      "sha256": "cebe128ce8daee6d9c8bc1a24c96f58b77b034d7fa2025203b57ee56c17b29de"
+    },
+    {
+      "frame_range": [
+        20,
+        39
+      ],
+      "path": "qa/all_frames/06_07_transport_sorting-mp4-allframes-020-039.jpg",
+      "sha256": "b0e86e7ff3b84dfc713975b66eeb35012f423feea3f7d242761a7c1e2e7453e6"
+    },
+    {
+      "frame_range": [
+        40,
+        59
+      ],
+      "path": "qa/all_frames/06_07_transport_sorting-mp4-allframes-040-059.jpg",
+      "sha256": "b3ac8bc834eefe7456c03155026252b8f95d90ddfe4e6f6681d1e15228243e45"
+    },
+    {
+      "frame_range": [
+        60,
+        79
+      ],
+      "path": "qa/all_frames/06_07_transport_sorting-mp4-allframes-060-079.jpg",
+      "sha256": "ec6d667c86f534f00ac931bee6bb51ab6ddbd46d7d182f475b06cd5d643825a3"
+    },
+    {
+      "frame_range": [
+        80,
+        99
+      ],
+      "path": "qa/all_frames/06_07_transport_sorting-mp4-allframes-080-099.jpg",
+      "sha256": "48647a987e204aef0ddc7f55643f49ebe11585af6bfbce01e99b5fdfe1bdf2e1"
+    },
+    {
+      "frame_range": [
+        100,
+        119
+      ],
+      "path": "qa/all_frames/06_07_transport_sorting-mp4-allframes-100-119.jpg",
+      "sha256": "b078c3e8a59b8802ea75d26f859180d799a69406d9d09a1e3ecd48f52bc6da59"
+    },
+    {
+      "frame_range": [
+        120,
+        139
+      ],
+      "path": "qa/all_frames/06_07_transport_sorting-mp4-allframes-120-139.jpg",
+      "sha256": "5bc7b64ec7673f02b34da031ba4224c58dd386993d3bb43d37612303b5aa2840"
+    },
+    {
+      "frame_range": [
+        140,
+        159
+      ],
+      "path": "qa/all_frames/06_07_transport_sorting-mp4-allframes-140-159.jpg",
+      "sha256": "664a084180e9a1eea88f1b35916b2e3d0bb94994eb00b37303362bce2b625231"
+    },
+    {
+      "frame_range": [
+        160,
+        179
+      ],
+      "path": "qa/all_frames/06_07_transport_sorting-mp4-allframes-160-179.jpg",
+      "sha256": "4a484a73270e7fe5cb182561646fd200216373a1ffcd0a187062a651b9f949a8"
+    },
+    {
+      "frame_range": [
+        180,
+        199
+      ],
+      "path": "qa/all_frames/06_07_transport_sorting-mp4-allframes-180-199.jpg",
+      "sha256": "8643e2d751a79ba95072994a2793fc4b3025fd2d2a067487d37d6af3c4115007"
+    },
+    {
+      "frame_range": [
+        200,
+        219
+      ],
+      "path": "qa/all_frames/06_07_transport_sorting-mp4-allframes-200-219.jpg",
+      "sha256": "fb0eb19df4fc87c97b9cd9390972290923e30c70c51b85f9b8d17ade63c3994f"
+    },
+    {
+      "frame_range": [
+        220,
+        239
+      ],
+      "path": "qa/all_frames/06_07_transport_sorting-mp4-allframes-220-239.jpg",
+      "sha256": "aa71ef765c379257e5cf7646959830d9c71fea2cc102861e371cb5b6b299557a"
+    },
+    {
+      "frame_range": [
+        240,
+        259
+      ],
+      "path": "qa/all_frames/06_07_transport_sorting-mp4-allframes-240-259.jpg",
+      "sha256": "279a83f6bfbbb2fc43674288cb7329282bda343201e0ed673b32b41d31f86c84"
+    },
+    {
+      "frame_range": [
+        260,
+        279
+      ],
+      "path": "qa/all_frames/06_07_transport_sorting-mp4-allframes-260-279.jpg",
+      "sha256": "c5a1ce5b379b199ea6fc07fdb2beb3ffee1e13113340f122bf4826dbf37f7a8a"
+    },
+    {
+      "frame_range": [
+        280,
+        299
+      ],
+      "path": "qa/all_frames/06_07_transport_sorting-mp4-allframes-280-299.jpg",
+      "sha256": "0f3fa18ea499b0271794c73153554e48b9b62305ad57bfce71c6bcd450de2c8b"
+    },
+    {
+      "frame_range": [
+        300,
+        319
+      ],
+      "path": "qa/all_frames/06_07_transport_sorting-mp4-allframes-300-319.jpg",
+      "sha256": "2f76a841b25569cb291210628e55bbe8498c4a8e73b577bbd48f263cf2a933df"
+    },
+    {
+      "frame_range": [
+        320,
+        339
+      ],
+      "path": "qa/all_frames/06_07_transport_sorting-mp4-allframes-320-339.jpg",
+      "sha256": "a3bed365e5d95a5ddf4d69b25363d6152f12632c23e61ae0a8cd89604f27b879"
+    },
+    {
+      "frame_range": [
+        340,
+        359
+      ],
+      "path": "qa/all_frames/06_07_transport_sorting-mp4-allframes-340-359.jpg",
+      "sha256": "40af5a6f7e73a50505d02f3f38b9fba193a4efb5d84f28cf4b2bbc34d4ac5a11"
+    }
+  ],
+  "full_resolution_frames_reviewed": [
+    {
+      "frame": 0,
+      "path": "qa/all_frames/06_07_transport_sorting-mp4-frame-0000.png",
+      "sha256": "8aa924bfde70b0c025c1ec219e19926d40e995be01b58cf5b5871e1e7517e6d0"
+    },
+    {
+      "frame": 69,
+      "path": "qa/all_frames/06_07_transport_sorting-mp4-frame-0069.png",
+      "sha256": "42234b35d40fd994f275f234e0b4fb8ec8f3f3b5f7c4771b9cc78a50975302c4"
+    },
+    {
+      "frame": 87,
+      "path": "qa/all_frames/06_07_transport_sorting-mp4-frame-0087.png",
+      "sha256": "d9a190a31ce743309003dbfea69258e6b899a2a3ddb4f3572a2dc50d724049a8"
+    },
+    {
+      "frame": 99,
+      "path": "qa/all_frames/06_07_transport_sorting-mp4-frame-0099.png",
+      "sha256": "805eed2d2d81f4536ea6a7d9d345f6a6c15a20e5e04bd6a919d8c13e7224f619"
+    },
+    {
+      "frame": 114,
+      "path": "qa/all_frames/06_07_transport_sorting-mp4-frame-0114.png",
+      "sha256": "c5909e2d3a1e6a385feab3dde4a0f71c6c5b8f44efcbf102129418c94187070b"
+    },
+    {
+      "frame": 138,
+      "path": "qa/all_frames/06_07_transport_sorting-mp4-frame-0138.png",
+      "sha256": "8428b65509911e7ec768a43f6da9a1662c6b314aa6e92970c3c6fccc7b883133"
+    },
+    {
+      "frame": 150,
+      "path": "qa/all_frames/06_07_transport_sorting-mp4-frame-0150.png",
+      "sha256": "0b8eabea2a360c096a3d9cdd80ea7317928de8da3ee28bd46e6b605cd23f82e2"
+    },
+    {
+      "frame": 165,
+      "path": "qa/all_frames/06_07_transport_sorting-mp4-frame-0165.png",
+      "sha256": "da620a70027acfd6991dc260791c27a4aff81852f2cce4ddd4d7f80b2d490854"
+    },
+    {
+      "frame": 168,
+      "path": "qa/all_frames/06_07_transport_sorting-mp4-frame-0168.png",
+      "sha256": "f35ad9335049b1f947a7b22e4f84eb0cf16a05f1077f2491a457f7843bec33ab"
+    },
+    {
+      "frame": 175,
+      "path": "qa/all_frames/06_07_transport_sorting-mp4-frame-0175.png",
+      "sha256": "e4eaf8ec08bd02ef25f21f661d50a2df8ce9ced59d97966bcbbbb8e3fec25060"
+    },
+    {
+      "frame": 183,
+      "path": "qa/all_frames/06_07_transport_sorting-mp4-frame-0183.png",
+      "sha256": "66901a8abf249aa0db8498aede81218daab0185e87b374ea7db4f683e1f0193f"
+    },
+    {
+      "frame": 193,
+      "path": "qa/all_frames/06_07_transport_sorting-mp4-frame-0193.png",
+      "sha256": "6a8a4c289a61078e9aaa8b4faa9c1cdaebe1b62f680201326989caaafac44c92"
+    },
+    {
+      "frame": 200,
+      "path": "qa/all_frames/06_07_transport_sorting-mp4-frame-0200.png",
+      "sha256": "88b364add59104c58449acde106cb4bfe6a47cac5cd73ea7d951458b8c5b5839"
+    },
+    {
+      "frame": 219,
+      "path": "qa/all_frames/06_07_transport_sorting-mp4-frame-0219.png",
+      "sha256": "848acaf20642f8090fec63d5679df60ef4309d8b77f881ad1dca67a46ee02a60"
+    },
+    {
+      "frame": 222,
+      "path": "qa/all_frames/06_07_transport_sorting-mp4-frame-0222.png",
+      "sha256": "05db5a0f618746f9cae5395358e2abff8c19fcd1347a47b21c7260aa882ee30f"
+    },
+    {
+      "frame": 232,
+      "path": "qa/all_frames/06_07_transport_sorting-mp4-frame-0232.png",
+      "sha256": "a354978d4812836ad27766f46dba2db6c8543f9e9e4a9bfaf73a5abec86a7df6"
+    },
+    {
+      "frame": 245,
+      "path": "qa/all_frames/06_07_transport_sorting-mp4-frame-0245.png",
+      "sha256": "274501a220a0c82a5f1cb4feb1c2fea4fcff752ae532746e77f72c354ab2ed0d"
+    },
+    {
+      "frame": 250,
+      "path": "qa/all_frames/06_07_transport_sorting-mp4-frame-0250.png",
+      "sha256": "601ee086919db8cfbca7f4e10f3cf9fb7e771adc13c19d409549bb09c66719d5"
+    },
+    {
+      "frame": 267,
+      "path": "qa/all_frames/06_07_transport_sorting-mp4-frame-0267.png",
+      "sha256": "0b835cdb2b01b0f6f46371f38667f2b07298fd9fac18f0222724b1959871b1d7"
+    },
+    {
+      "frame": 270,
+      "path": "qa/all_frames/06_07_transport_sorting-mp4-frame-0270.png",
+      "sha256": "63c94206d278087789a925c6c0fd670bf03f0450aa9b32f15afe3b90ed5de06d"
+    },
+    {
+      "frame": 329,
+      "path": "qa/all_frames/06_07_transport_sorting-mp4-frame-0329.png",
+      "sha256": "c5b9a2134c4cdfe10daaeaa5ec71be8d956801151453d1836a30e6cfa393998f"
+    },
+    {
+      "frame": 359,
+      "path": "qa/all_frames/06_07_transport_sorting-mp4-frame-0359.png",
+      "sha256": "9e8249eeb86cb438e4d2312687d14c25bc8b05376ef1f27a90c95dea4f327b23"
+    }
+  ],
+  "decoded_frame_ledger": "qa/06_07_transport_sorting-mp4-decoded-frames.json",
+  "evidence_hashes": {
+    "qa/06_07_transport_sorting-mp4-decoded-frames.json": "191e940ad1bcded39112ca6e231775ae096df1ff4fc77185331e29bc4cba17c7",
+    "settings/06_07_transport_sorting.json": "aac95d9fd82dab6f14b498843b01d47b528bffcdcc97fb096fa4603c9ceab0d3",
+    "settings/06_07_motion_evidence.json": "0260793715d25ce002a92ec57fa20f2e7afc342a7fcbdf4ca08597ad00863c42",
+    "06_07_transport_sorting.json": "f8fc386f2d0ae9bd4135bd6a86dbefba55b79d4b91ee2f49de01f24dea8af709",
+    "06_07_transport_sorting-frames.jsonl": "a6bd34cecee1cc430e1a5b0fa374258a819dd35426b85512a3fddec50c86aa6e"
+  },
+  "findings": [
+    {
+      "frames": [
+        0,
+        359
+      ],
+      "finding": "The camera/background remain fixed with no inserted cut. Station, arm and transport wheels remain within the frame. No visible bed, crop canopy, stalk/support line or wooden bed edge appears at any frame edge or behind the equipment."
+    },
+    {
+      "frames": [
+        0,
+        168
+      ],
+      "finding": "Approach, side-gate opening, cargo tilt, progressive discharge, tilt return and gate closing are visible. Closed lids and cargo walls initially conceal the fruit. Frame 150 exposes seven mixed red/yellow fruit on the intake; four are in one central lane and three in the other."
+    },
+    {
+      "frames": [
+        165,
+        211
+      ],
+      "finding": "The first red fruit is approached, lifted and carried at the gripper. Its original lane position becomes empty. After release the red fruit is briefly occluded by the bin wall, then appears in the bin; no detached copy or persisting red silhouette remains at the pick position."
+    },
+    {
+      "frames": [
+        219,
+        267
+      ],
+      "finding": "The yellow fruit is approached, lifted and carried after the red deposit. It leaves its lane position, falls below the opened gripper and settles in the other bin. Bin edges partly occlude the fall; the empty returning gripper and five remaining lane fruit are visible."
+    },
+    {
+      "frames": [
+        270,
+        359
+      ],
+      "finding": "The stable ending shows one red fruit in the rear bin and one yellow fruit in the front bin. Five fruit remain in the two central lanes: three red and two yellow. No new duplicate or disappearance is visible throughout the ending hold."
+    },
+    {
+      "frames": [
+        0,
+        359
+      ],
+      "finding": "No unexplained fruit fading, old-position renderer ghost, sudden mesh pop or visible gross arm/equipment penetration was found in the reviewed sequence. Occluded cargo contents and bin-wall occlusions are not counted as disappearance."
+    }
+  ],
+  "fruit_accounting": {
+    "total": 7,
+    "initial_colors": {
+      "red": 4,
+      "yellow": 3
+    },
+    "final_bins": {
+      "red": 1,
+      "yellow": 1
+    },
+    "final_intake": {
+      "red": 3,
+      "yellow": 2
+    },
+    "unexplained_visible_disappearance_observed": false,
+    "duplicate_or_stale_fruit_silhouette_observed": false,
+    "identity_basis": "Seven object IDs and original scales come from motion/capture evidence; images confirm visible colors/counts at exposed phases but cannot independently identify every occluded object.",
+    "ids": [
+      "/World/PresentationFruits/Handoff_01",
+      "/World/PresentationFruits/Handoff_02",
+      "/World/PresentationFruits/Handoff_03",
+      "/World/PresentationFruits/Handoff_04",
+      "/World/PresentationFruits/Handoff_05",
+      "/World/PresentationFruits/Handoff_06",
+      "/World/PresentationFruits/Handoff_07"
+    ]
+  },
+  "limitations": [
+    "Continuous normal-speed or slow-speed playback was not viewed. The rapid carry/reorientation around frames 176-184 and 229-238 was inspected frame by frame; subjective real-time pacing is not certified here.",
+    "All-frame contact sheets reduce each frame to 480x270; fine contact details were additionally inspected only in the listed 22 full-resolution frames. Pixel review cannot prove submillimetre clearance or contact forces.",
+    "Closed cargo lids, lane walls and bin edges cause legitimate partial/full occlusion. Seven-ID conservation and original geometry are supported separately by recorded transforms and geometry audits.",
+    "This is an explicitly staged kinematic continuous animation. Visual review does not turn it into autonomous task-performance or rigid-body force evidence."
+  ],
+  "artifact_scope": "All 360 frames were decoded in memory and retained as numbered contact-sheet thumbnails plus per-frame RGB hashes. Only the listed 22 full-resolution PNGs were retained/published; other full-resolution frames can be reproduced from the source MP4 with FFmpeg. No unavailable full-frame PNG archive is claimed."
+}

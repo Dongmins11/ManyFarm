@@ -1,0 +1,89 @@
+{
+  "selected": "B",
+  "contact_sheet": "qa/workspace-camera-comparison.jpg",
+  "final_motion_recheck_pending": false,
+  "scope": "A/B/C GUI six-phase composition comparison selected B: higher view reads intake/bin interiors; wheels, open gate and highest arm remain in frame; no beds or crops visible. Initial camera probes used V4 six-fruit motion solely for composition. Final seven-fruit GUI preview subsequently re-reviewed with canonical V5 settings.",
+  "candidates": {
+    "A": {
+      "camera": {
+        "eye": [
+          -5.56266008420261,
+          11.144775879803863,
+          2.0500000000000003
+        ],
+        "target": [
+          -3.3651843963113466,
+          12.923399111724219,
+          0.35
+        ],
+        "focal_mm": 35
+      },
+      "settings": "settings/06_07_workspace_probe_a.json",
+      "settings_sha256": "97a16d7f1fc16507ad1c6f768af31588cad227652120f63631a3f6cd651e0d1a",
+      "images_sha256": {
+        "preview/06_07_workspace_probe_a-0000.png": "4111554074737717aae2c48188aae95bd18652138faad5d05e8db6b61ae318e9",
+        "preview/06_07_workspace_probe_a-0099.png": "7944d00f15e0a68b7f6e8afda850cda92dc9deb7e5d52f252c1e74a4d6478365",
+        "preview/06_07_workspace_probe_a-0168.png": "24c143c19d725a3ef20008c293428cf99ba992458f3f9a4ecb6cd0fff578ac2d",
+        "preview/06_07_workspace_probe_a-0193.png": "3b5f8615b2e4a4b7cc914a26a99badd1061444a0c90b39232d9a4968233272fe",
+        "preview/06_07_workspace_probe_a-0245.png": "837f04f39e5ae9cd2d08cbe5d94fd2329a2c91849e63c0f0c2d275734d99a06f",
+        "preview/06_07_workspace_probe_a-0270.png": "bb8a560f7d8db91fa88864463db5bca2dc4986e4ef62b1129d822c7955c36f94"
+      },
+      "bed_visible_in_reviewed_frames": false
+    },
+    "B": {
+      "camera": {
+        "eye": [
+          -5.56266008420261,
+          11.444775879803863,
+          2.2500000000000004
+        ],
+        "target": [
+          -3.3651843963113466,
+          13.22339911172422,
+          0.35
+        ],
+        "focal_mm": 35
+      },
+      "settings": "settings/06_07_workspace_probe_b.json",
+      "settings_sha256": "a0ec116f00ce5e792e3366dc8a1ee7b27eb6636c68ca0bc01c64cd4eb1782b55",
+      "images_sha256": {
+        "preview/06_07_workspace_probe_b-0000.png": "1ef32b42886967e84cc513c67db89a59f394aa49dad7b5d61eaafda92931ef84",
+        "preview/06_07_workspace_probe_b-0099.png": "35297c8fc5251f3ce14bdf76ea4b472b8b6633a03115a9696fd0283970401389",
+        "preview/06_07_workspace_probe_b-0168.png": "c3404cb5b1325535b02b3f80b64d7860ae540cc73f7cb11a3b49fcbb1e87b39c",
+        "preview/06_07_workspace_probe_b-0193.png": "5f62b61b9e1f8ddd374824f437604b8f4e089299dc0f0e910aa6f8a661b30ae0",
+        "preview/06_07_workspace_probe_b-0245.png": "bd119430bc004954317a1165afca1d9c163b66b751fdb30191617f76298989ad",
+        "preview/06_07_workspace_probe_b-0270.png": "19a57af4e9e353e9328769b289bf48712c89babe10eadcf1667b5153fde3dc94"
+      },
+      "bed_visible_in_reviewed_frames": false
+    },
+    "C": {
+      "camera": {
+        "eye": [
+          -4.76266008420261,
+          11.044775879803861,
+          2.1500000000000004
+        ],
+        "target": [
+          -2.565184396311346,
+          12.823399111724218,
+          0.35
+        ],
+        "focal_mm": 32
+      },
+      "settings": "settings/06_07_workspace_probe_c.json",
+      "settings_sha256": "f131eb22e8245e5ce13c6255cab5a479cb0ac21523b48d634f06a803ad90805a",
+      "images_sha256": {
+        "preview/06_07_workspace_probe_c-0000.png": "65679aaa89a3b067070bca04e26586756839a54144db87721b26cefe76609099",
+        "preview/06_07_workspace_probe_c-0099.png": "9c5a8b32a44e24b4436656f6ec2aa5255d8f92752cbf24a8dc43ba6b71ced6f5",
+        "preview/06_07_workspace_probe_c-0168.png": "728dab29dc995a15c8d7e659f54443020604e3bce777ad6d8200e4b12f0ea3f2",
+        "preview/06_07_workspace_probe_c-0193.png": "32585d9fe53ec8509a77762ae02945f6153feb1e06c8ac9e6c73df5b884d3206",
+        "preview/06_07_workspace_probe_c-0245.png": "ed72605aa65bc8405e8d71f5fd6734d3ed4c7c95d0c8902c3c5f090b4709f8ce",
+        "preview/06_07_workspace_probe_c-0270.png": "e9b8950f1e23a0b384d488df70cd09a80ebcacc2ddee2e1f16d6926688d3f5f1"
+      },
+      "bed_visible_in_reviewed_frames": false
+    }
+  },
+  "final_motion_request_sha256": "aac95d9fd82dab6f14b498843b01d47b528bffcdcc97fb096fa4603c9ceab0d3",
+  "final_seven_fruit_preview_review": "qa/06_07-independent-preview-review.json",
+  "final_motion_recheck_scope": "Final seven-fruit GUI preview reviewed at docking, discharge, grasp, release and hold; final encoded MP4 review is recorded separately in qa/06_07_transport_sorting-mp4-review.json."
+}

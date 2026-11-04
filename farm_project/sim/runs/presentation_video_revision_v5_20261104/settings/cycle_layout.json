@@ -1,0 +1,240 @@
+{
+  "schema_version": 1,
+  "dictionary": "DICT_4X4_50",
+  "source_commit": "9686aca909cb52191862ee3500c62fadf7a8ed38",
+  "status": "PROVISIONAL_NOT_MEASURED",
+  "notes": [
+    "\uc704\uce58\ub294 \uc2e4\uce21 \uc544\ub2d8. \uc6d0\ubcf8 \uc81c\uc5b4 \ubaa9\ud45c/\ud310\uc815/\uc18d\ub3c4/timeout \ubcc0\uacbd \uc5c6\uc74c. \uc2e4\uce21 \ub2f5\ubcc0 \ud6c4 \uc774 \ubc30\uce58\ud45c\ub9cc \uad50\uccb4.",
+    "\uc88c\ud45c\ub294 \uba85\uc2dc reference_prim\uc758 USD \uc790\uc0b0\ucd95 \uae30\uc900 m. harvest\uc758 \ub17c\ub9ac \uc8fc\ud589\ucd95\uacfc pi \ud68c\uc804 \ucc28\uc774 \uc788\uc74c.",
+    "\ub192\uc774 \ucd94\uc815\uc740 \uc800\uc7a5\ub41c \uc6b4\uc1a1 base\u2192marker \ub192\uc774\ub97c \ucc38\uace0. \uc2e4\ubb3c \uc218\ud655 base\u2192marker \uc7a5\ucc29 \uce21\uc815\uac12\uc774 \uc544\ub2d8.",
+    "\ud45c\uba74 \ub80c\ub354\ub9cc \ucd94\uac00: \uc9c8\ub7c9/\ucda9\ub3cc/\ub77c\uc774\ub2e4 \ubc18\uc0ac\ud310\uc744 \ub9cc\ub4e4\uc9c0 \uc54a\uc74c. \uc81c\uc5b4 \uc785\ub825\uc5d0 \uc815\ub2f5 \uc88c\ud45c\ub97c \ubcf4\ub0b4\uc9c0 \uc54a\uc74c.",
+    "\uc120\ubcc4\uc7a5 \uae30\uc874 world(-7,14), \uc6b4\uc1a1 \uadf8\ub798\ud5048004(5,13.25) \uc704\uce58 \ubd88\uc77c\uce58 \uc720\uc9c0. \uc804\uccb4 \uc8fc\ud589 \uc5f0\uacb0 \uc804 \ubcc4\ub3c4 \uc815\ud569 \ud544\uc694."
+  ],
+  "markers": [
+    {
+      "id": 42,
+      "status": "PROVISIONAL_NOT_MEASURED",
+      "parent_prim": "/World/harvest_robot/base_link",
+      "reference_prim": "/World/harvest_robot/base_footprint",
+      "center_m": [
+        0.34,
+        -0.06,
+        0.081
+      ],
+      "right": [
+        0,
+        1,
+        0
+      ],
+      "up": [
+        0,
+        0,
+        1
+      ],
+      "black_edge_m": 0.05,
+      "paper_edge_m": 0.07,
+      "pattern_cells": [
+        [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          1,
+          1,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          1,
+          0,
+          0
+        ],
+        [
+          0,
+          1,
+          0,
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          1,
+          1,
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ]
+      ],
+      "texture": "sim/assets/docking_markers/DICT_4X4_50_42_50mm.png",
+      "basis": "Existing SEC01 handoff trial provisional mounting; not measured hardware"
+    },
+    {
+      "id": 41,
+      "status": "PROVISIONAL_NOT_MEASURED",
+      "parent_prim": "/World/harvest_robot/base_link",
+      "reference_prim": "/World/harvest_robot/base_footprint",
+      "center_m": [
+        0,
+        -0.251,
+        0.081
+      ],
+      "right": [
+        1,
+        0,
+        0
+      ],
+      "up": [
+        0,
+        0,
+        1
+      ],
+      "black_edge_m": 0.05,
+      "paper_edge_m": 0.07,
+      "pattern_cells": [
+        [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          1,
+          0,
+          0
+        ],
+        [
+          0,
+          1,
+          0,
+          1,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          1,
+          0,
+          0
+        ],
+        [
+          0,
+          1,
+          0,
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ]
+      ],
+      "texture": "sim/assets/docking_markers/DICT_4X4_50_41_50mm.png",
+      "basis": "\uc784\uc2dc \ubc30\uce58 \ubcf4\uc815: \ub77c\uc774\ub2e4\uac00 \uad00\uce21\ud55c \ucc28\uccb4 \uba74 Y=-0.25m \ubc14\uae65 1mm. \uae30\uc874 -0.455m\ub294 \ub77c\uc774\ub2e4 \uba74\uacfc \uc57d20cm \ubd88\uc77c\uce58. \uc2e4\uce21 \uc7a5\ucc29\uac12 \uc544\ub2d8."
+    },
+    {
+      "id": 40,
+      "status": "PROVISIONAL_NOT_MEASURED",
+      "parent_prim": "/World/HCRStation",
+      "reference_prim": "/World/HCRStation",
+      "center_m": [
+        0.7000142774872937,
+        0.0,
+        0.106
+      ],
+      "right": [
+        0,
+        1,
+        0
+      ],
+      "up": [
+        0,
+        0,
+        1
+      ],
+      "black_edge_m": 0.05,
+      "paper_edge_m": 0.07,
+      "pattern_cells": [
+        [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          1,
+          0
+        ],
+        [
+          0,
+          0,
+          1,
+          1,
+          1,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          1,
+          0
+        ],
+        [
+          0,
+          1,
+          0,
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ]
+      ],
+      "texture": "sim/assets/docking_markers/DICT_4X4_50_40_50mm.png",
+      "basis": "HCR \uae30\uc874 IntakeSupport \uc804\uba74; \uc811\uadfc edge\uc640 \uc9c1\uad50, \uc6d0\ubcf8 \ud6c4\uc9c4 \uc885\ub8cc \uac70\ub9ac\uc640 URDF \uc13c\uc11c offset\uc744 \ubc18\uc601\ud55c \ubc30\uce58; \uc2e4\uce21\uc544\ub2d8"
+    }
+  ]
+}

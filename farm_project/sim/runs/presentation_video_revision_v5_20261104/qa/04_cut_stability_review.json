@@ -1,0 +1,26 @@
+{
+  "source": "../presentation_video_revision_v3_20261104/04_deposit.mp4",
+  "source_sha256": "a06ee144e928fd1e0861b440cfd548d916dab466c75f76286ec5be18effcbe26",
+  "reviewer": "review_publish_scope",
+  "method": "Direct full-resolution inspection of decoded actual source frames119 and149, plus original capture metadata state_at at119/30 and149/30; no source or trim modification.",
+  "frames": [
+    {
+      "frame": 119,
+      "time_s": 3.966666666666667,
+      "file": "qa/reused04-source-frame-0119.png",
+      "sha256": "976d8c99f5a7d9bb01939aff27d231feb9c1dfaf9a8d69b58bca14e6a26a8c34"
+    },
+    {
+      "frame": 149,
+      "time_s": 4.966666666666667,
+      "file": "qa/reused04-source-frame-0149.png",
+      "sha256": "97b2bed223b6cdbff199f287ffeb2470730c317f2353e21f2d9d281a9d5a4273"
+    }
+  ],
+  "fruit_attachments_at_both": [],
+  "maximum_joint_delta": 2.220446049250313e-16,
+  "maximum_fruit_matrix_delta": 0.0,
+  "findings": "Both frames show the deposited red fruit resting inside the open harvest basket, with the open gripper stationary beside/above it. No additional deposition or arm withdrawal appears at149. The current raw[1,4) cut ends in the stable completed-deposit state; shifting the trim is unnecessary.",
+  "decision": "Keep existing04 trim and preserve03→04 continuity.",
+  "limitation": "04 shows one fruit deposition;05 is a separate staged seven-fruit loaded state. The intermediate loading/pose transition is omitted, not continuous identity evidence."
+}

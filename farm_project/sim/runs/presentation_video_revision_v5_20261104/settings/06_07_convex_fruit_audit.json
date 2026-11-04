@@ -1,0 +1,16 @@
+{
+  "method": "30fps rotated original-mesh convex hull halfspace intersection; maximum common interior sphere",
+  "rendered_frames": 360,
+  "keyframes_including_terminal": 361,
+  "aabb_candidates": 463,
+  "positive_overlaps": [],
+  "min_lane_side_clearance_m": 0.012839674031991918,
+  "min_intake_support_gap_m": 0.0010999999999999621,
+  "hold_max_matrix_delta": 0.0,
+  "first_bin_stable_s": {
+    "/World/PresentationFruits/Handoff_03": 7.2,
+    "/World/PresentationFruits/Handoff_06": 8.933333333333334
+  },
+  "scope_limit": "Fruit pair/plane check only; equipment/arm mesh and GUI review separate",
+  "passed": true
+}

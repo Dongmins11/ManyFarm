@@ -1,0 +1,90 @@
+{
+  "reviewer": "travel_shot_settings",
+  "source": "05_handoff_continuity.mp4",
+  "source_sha256": "6cdce97dc24d08af4309154c47669084dbfed9c184accf6b42594a7ccc238de6",
+  "passed": true,
+  "reviewed_frame_range": [
+    0,
+    149
+  ],
+  "decoded_frame_sequence_reviewed": true,
+  "continuous_playback_viewed": false,
+  "method": "Actual encoded MP4 decoded to all 150 PNGs. Directly inspected 10 labelled contact sheets covering every frame 0..149, then opened frames 40,43,48,51,54,60,72,116 at original 1920x1080 resolution. No continuous normal-speed or slow-motion video playback was viewed in this review.",
+  "limitations": [
+    "No continuous-video playback claim; temporal smoothness at real playback speed is not independently judged here.",
+    "Contact sheets are reduced resolution; selected critical frames were additionally opened full resolution.",
+    "Single camera cannot distinguish every occluded individual ID visually; use independent geometry/bake ledger for count continuity.",
+    "No real-robot or operational autonomous success claim."
+  ],
+  "findings": [
+    {
+      "frames": [
+        0,
+        29
+      ],
+      "finding": "Upper basket contains visible red/yellow fruit and lower basket is empty; both walls and overlapping fruit occlude some items, so seven cannot be counted individually from this view."
+    },
+    {
+      "frames": [
+        30,
+        44
+      ],
+      "finding": "Harvest floor panels separate. The first visible red fruit moves downward through the opening, changes pitch and travels toward the lower front region across frames40..43. It is not a row of fixed-orientation vertical sprites."
+    },
+    {
+      "frames": [
+        45,
+        59
+      ],
+      "finding": "Further red/yellow fruit descend with differing orientations. Yellow fruit seen upright/tilted at48 are lying and turned at51..54; red fruit shift left and rotate. The upper basket becomes visually empty, and fruit roll/settle in the lower basket. Some travel is hidden behind the solid upper front wall."
+    },
+    {
+      "frames": [
+        60,
+        89
+      ],
+      "finding": "Lower cargo has stable lying fruit and upper basket stays empty. No reappearance of the initial upright red/yellow silhouettes seen in the earlier reset-only probe; frame72 checked full resolution."
+    },
+    {
+      "frames": [
+        90,
+        100
+      ],
+      "finding": "Harvest floor closes after the lower fruit visually settle. No visible fruit remain trapped in the upper basket."
+    },
+    {
+      "frames": [
+        101,
+        116
+      ],
+      "finding": "Lower top lids close over the settled fruit. Their disappearance from view follows the closing opaque lid edges; this is occlusion, not visible fading."
+    },
+    {
+      "frames": [
+        117,
+        149
+      ],
+      "finding": "Lids remain closed, upper basket empty, camera/framing stable. No visible initial-pose ghost or off-screen camera-reset frame appears."
+    }
+  ],
+  "contact_interpretation": "Frame pairs show orientation/trajectory changes and settling consistent with the Bullet contact bake. Visual review does not independently measure contact forces, submillimetre penetration or hidden contact.",
+  "count_interpretation": {
+    "visually_individually_counted_seven_every_frame": false,
+    "reason": "Opaque basket walls, fruit overlap and final closed lid prevent individual counting. The movie alone does not prove each ID continuously.",
+    "separate_numeric_evidence": "../settings/05_handoff_continuity_evidence.json records the same seven IDs in all151 bake samples with visibility/scale unchanged; offline geometry audit verifies all seven end inside lower cargo.",
+    "numeric_ledger_all_seven": true
+  },
+  "full_resolution_frames_reviewed": [
+    40,
+    43,
+    48,
+    51,
+    54,
+    60,
+    72,
+    116
+  ],
+  "all_frame_review": "qa/05_handoff_continuity-all150-frame-review.json",
+  "extraction_record": "qa/05_all_frames/extraction.json",
+  "result": "No blocking visual defect found within all-frame contact-sheet and selected full-resolution-frame scope. Earlier upper-basket ghost not observed in final encoded frames."
+}

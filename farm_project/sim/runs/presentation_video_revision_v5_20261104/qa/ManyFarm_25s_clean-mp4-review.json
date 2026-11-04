@@ -1,0 +1,58 @@
+{
+  "reviewer": "review_publish_scope",
+  "source": "ManyFarm_25s_clean.mp4",
+  "source_sha256": "96d3c185acb08313c2b77083a38b035db47278a0233a804616cbfdbe731d3d9b",
+  "passed": true,
+  "scope": "Selected actual decoded edit-frame visual review, not every edited frame or continuous-playback viewing.",
+  "decoded_frame_sequence_reviewed": true,
+  "continuous_playback_viewed": false,
+  "method": "Direct viewing of all 26 panels in the actual MP4 keyphase contact sheet and additional listed full-resolution decoded frames through view_image.",
+  "reviewed_frames": [
+    45,
+    105,
+    135,
+    165,
+    225,
+    269,
+    270,
+    315,
+    359,
+    360,
+    363,
+    390,
+    405,
+    435,
+    449,
+    450,
+    453,
+    495,
+    540,
+    585,
+    630,
+    675,
+    705,
+    726,
+    738,
+    749
+  ],
+  "full_resolution_frames": [
+    359,
+    360,
+    449
+  ],
+  "contact_sheet": "qa/ManyFarm_25s_clean-mp4-keyphases.jpg",
+  "findings": [
+    "Scout phase shows original scene only; no detection inset/photo/panel remains.",
+    "03→04,04→05,05→continuous are direct scene cuts at frames270,360,450. Selected adjacent frames show no dissolving duplicate fruit.",
+    "04 ends after its red-fruit deposit is stable. The 05 loading scene begins with seven staged fruit, without depicting intervening loading.",
+    "05 upper basket is empty after handoff; no persistent starting-fruit silhouette is visible in reviewed settled frames.",
+    "Final sorting phase shows red/yellow in separate bins and retained mixed fruit on intake, with no visible bed in selected frames.",
+    "Ending holds the sorted state, then fades uniformly to black at frame749."
+  ],
+  "limitations": [
+    "Continuous normal/slow playback was not viewed; separately recorded 1x/0.25x timed decoding does not replace that viewing.",
+    "This edit review covers selected decoded frames and cut boundaries; full raw-frame review is in the separate raw review records.",
+    "04→05 omits intermediate loading and changes the scene from one deposited fruit to seven staged fruit. Same-seven-fruit identity continuity begins at05.",
+    "Opaque walls/lids and overlap obscure individual fruit in some frames; identity/count preservation relies additionally on the numerical evidence."
+  ]
+}

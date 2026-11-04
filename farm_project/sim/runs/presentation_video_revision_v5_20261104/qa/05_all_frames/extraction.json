@@ -1,0 +1,772 @@
+{
+  "video": "sim/runs/presentation_video_revision_v5_20261104/05_handoff_continuity.mp4",
+  "video_sha256": "6cdce97dc24d08af4309154c47669084dbfed9c184accf6b42594a7ccc238de6",
+  "captured_frames": 150,
+  "extracted_frames": 150,
+  "source_unchanged": true,
+  "method": "ffmpeg decoded each actual MP4 frame, passthrough cadence, zero-based frame index; 10 labelled contact sheets with 15 frames each. These are frame-based inspection artifacts, not continuous video playback.",
+  "sheets": [
+    "sim/runs/presentation_video_revision_v5_20261104/qa/05_all_frames/sheet-000-014.jpg",
+    "sim/runs/presentation_video_revision_v5_20261104/qa/05_all_frames/sheet-015-029.jpg",
+    "sim/runs/presentation_video_revision_v5_20261104/qa/05_all_frames/sheet-030-044.jpg",
+    "sim/runs/presentation_video_revision_v5_20261104/qa/05_all_frames/sheet-045-059.jpg",
+    "sim/runs/presentation_video_revision_v5_20261104/qa/05_all_frames/sheet-060-074.jpg",
+    "sim/runs/presentation_video_revision_v5_20261104/qa/05_all_frames/sheet-075-089.jpg",
+    "sim/runs/presentation_video_revision_v5_20261104/qa/05_all_frames/sheet-090-104.jpg",
+    "sim/runs/presentation_video_revision_v5_20261104/qa/05_all_frames/sheet-105-119.jpg",
+    "sim/runs/presentation_video_revision_v5_20261104/qa/05_all_frames/sheet-120-134.jpg",
+    "sim/runs/presentation_video_revision_v5_20261104/qa/05_all_frames/sheet-135-149.jpg"
+  ],
+  "frame_files": [
+    {
+      "frame": 0,
+      "file": "sim/runs/presentation_video_revision_v5_20261104/qa/05_all_frames/frame-0000.png",
+      "sha256": "2b8138813707e3cf96ae9e3b487ab6e676af83c395578bb1bfc4daa8a208fe87"
+    },
+    {
+      "frame": 1,
+      "file": "sim/runs/presentation_video_revision_v5_20261104/qa/05_all_frames/frame-0001.png",
+      "sha256": "1f166c6ba4ff6cdf90c40f5e74bf64350c51b688f43404131b2f2ee2899aaf63"
+    },
+    {
+      "frame": 2,
+      "file": "sim/runs/presentation_video_revision_v5_20261104/qa/05_all_frames/frame-0002.png",
+      "sha256": "7038d37dbb31ba45b1349efb375bcc3631c0645d68e2f00a742f7ccab4062168"
+    },
+    {
+      "frame": 3,
+      "file": "sim/runs/presentation_video_revision_v5_20261104/qa/05_all_frames/frame-0003.png",
+      "sha256": "a5bfc3a991ba353adb1fcbe6a681fe3699dd76c2df2a5ce07168771def7cb000"
+    },
+    {
+      "frame": 4,
+      "file": "sim/runs/presentation_video_revision_v5_20261104/qa/05_all_frames/frame-0004.png",
+      "sha256": "40ecbcc9ba3c8438c6a1d5f1f1faa23e37a617010474a0613e954359c483a70b"
+    },
+    {
+      "frame": 5,
+      "file": "sim/runs/presentation_video_revision_v5_20261104/qa/05_all_frames/frame-0005.png",
+      "sha256": "66c96169fd9ebb67b333b7214e69ec9f4d34cf0dbd323949ec87857214f19486"
+    },
+    {
+      "frame": 6,
+      "file": "sim/runs/presentation_video_revision_v5_20261104/qa/05_all_frames/frame-0006.png",
+      "sha256": "7e60ab15e70cd7dd04b15a8e0e6114bd440812141fbfde0d4b53a2025e2d8fba"
+    },
+    {
+      "frame": 7,
+      "file": "sim/runs/presentation_video_revision_v5_20261104/qa/05_all_frames/frame-0007.png",
+      "sha256": "ed8258e330f1024f7f69dcfe66caf5eb1281286432f52df2c1d97c4dd7ef307a"
+    },
+    {
+      "frame": 8,
+      "file": "sim/runs/presentation_video_revision_v5_20261104/qa/05_all_frames/frame-0008.png",
+      "sha256": "7ec0ef40033bcc97ed4e418f84b8d9d69bfba2f564083ed0b019433b292d62ce"
+    },
+    {
+      "frame": 9,
+      "file": "sim/runs/presentation_video_revision_v5_20261104/qa/05_all_frames/frame-0009.png",
+      "sha256": "9491e5f73550f5016d758db97f3a496efb74f483d4fd5c63ec5144f77072fe33"
+    },
+    {
+      "frame": 10,
+      "file": "sim/runs/presentation_video_revision_v5_20261104/qa/05_all_frames/frame-0010.png",
+      "sha256": "f543f44d89688b08923248d89cdbf6f90583d81cce28e7a2354ec43a93d4b351"
+    },
+    {
+      "frame": 11,
+      "file": "sim/runs/presentation_video_revision_v5_20261104/qa/05_all_frames/frame-0011.png",
+      "sha256": "e67d76a4fbeb88503e9596e48c3966dd658de66cc159b760a63e1edd34e72c46"
+    },
+    {
+      "frame": 12,
+      "file": "sim/runs/presentation_video_revision_v5_20261104/qa/05_all_frames/frame-0012.png",
+      "sha256": "84e07a161f429d58cec34c838ce0383eea87cc4d8ce157b1b56ba5eebd802a30"
+    },
+    {
+      "frame": 13,
+      "file": "sim/runs/presentation_video_revision_v5_20261104/qa/05_all_frames/frame-0013.png",
+      "sha256": "9a7669bdc6317844073cdeb173bac683b60ec1e520980ec455384aeeade89015"
+    },
+    {
+      "frame": 14,
+      "file": "sim/runs/presentation_video_revision_v5_20261104/qa/05_all_frames/frame-0014.png",
+      "sha256": "31b8896fc6afeb33acc777891cabd722a2fd1c7c0807fb3bc4de885ff2fe828b"
+    },
+    {
+      "frame": 15,
+      "file": "sim/runs/presentation_video_revision_v5_20261104/qa/05_all_frames/frame-0015.png",
+      "sha256": "76f61cd49c72ab4da4c17c39a7e63137955ff66452f2049984eaebe18d1953ec"
+    },
+    {
+      "frame": 16,
+      "file": "sim/runs/presentation_video_revision_v5_20261104/qa/05_all_frames/frame-0016.png",
+      "sha256": "05c3a81d4b3a751a8effdd594ceaf583e4c6aedd249d04bb4b952a0a6ec8229d"
+    },
+    {
+      "frame": 17,
+      "file": "sim/runs/presentation_video_revision_v5_20261104/qa/05_all_frames/frame-0017.png",
+      "sha256": "8af741ddc232675183ba17dcc590d298332eb278b16a5f262fde61c64db13248"
+    },
+    {
+      "frame": 18,
+      "file": "sim/runs/presentation_video_revision_v5_20261104/qa/05_all_frames/frame-0018.png",
+      "sha256": "cef450870be5ecee39cc44fd4fc542c2f8bf85d8271bd11c09029f429184f8a0"
+    },
+    {
+      "frame": 19,
+      "file": "sim/runs/presentation_video_revision_v5_20261104/qa/05_all_frames/frame-0019.png",
+      "sha256": "df004e64f9e556e71a838e4d821de30ac77a61c00d7db2a5a39b91fa6196f425"
+    },
+    {
+      "frame": 20,
+      "file": "sim/runs/presentation_video_revision_v5_20261104/qa/05_all_frames/frame-0020.png",
+      "sha256": "ccd885c8662884a01824e77e401637b667d2b390d63b991e1a6d80794c44b80a"
+    },
+    {
+      "frame": 21,
+      "file": "sim/runs/presentation_video_revision_v5_20261104/qa/05_all_frames/frame-0021.png",
+      "sha256": "9b5e1ce3023dd5c4804b46bead2e72dead559416a0176cfc9b7f36e41433ba92"
+    },
+    {
+      "frame": 22,
+      "file": "sim/runs/presentation_video_revision_v5_20261104/qa/05_all_frames/frame-0022.png",
+      "sha256": "6e5a443520b665845587e0665a82951b3970d9fddefc6841887545fdb3f8aade"
+    },
+    {
+      "frame": 23,
+      "file": "sim/runs/presentation_video_revision_v5_20261104/qa/05_all_frames/frame-0023.png",
+      "sha256": "528b42acd2f67b9d0ff4bbb248cf36152119efc2b3c7feaf70f8c543798a408e"
+    },
+    {
+      "frame": 24,
+      "file": "sim/runs/presentation_video_revision_v5_20261104/qa/05_all_frames/frame-0024.png",
+      "sha256": "17469903b53826a4ee641b3c4fc87df2108f0eaf864845f6c1039599e9a75aa7"
+    },
+    {
+      "frame": 25,
+      "file": "sim/runs/presentation_video_revision_v5_20261104/qa/05_all_frames/frame-0025.png",
+      "sha256": "4607e42f4d1de95b8be20b86e521d44ecb72faf79e3eb1fa9b100e0f605c9969"
+    },
+    {
+      "frame": 26,
+      "file": "sim/runs/presentation_video_revision_v5_20261104/qa/05_all_frames/frame-0026.png",
+      "sha256": "ab1a140384314ca981ff3fe01dac760480643f1d47d050dc83779d6a704ba80f"
+    },
+    {
+      "frame": 27,
+      "file": "sim/runs/presentation_video_revision_v5_20261104/qa/05_all_frames/frame-0027.png",
+      "sha256": "d922694cc4e75ba730e56eb0f964aeb94fe3409ebd8384673480f36571fb08ef"
+    },
+    {
+      "frame": 28,
+      "file": "sim/runs/presentation_video_revision_v5_20261104/qa/05_all_frames/frame-0028.png",
+      "sha256": "8d225230ede982dcc418317729cfb62afddbd07f85b8b675f56297725feeb361"
+    },
+    {
+      "frame": 29,
+      "file": "sim/runs/presentation_video_revision_v5_20261104/qa/05_all_frames/frame-0029.png",
+      "sha256": "9165ed9419633085493c4f325673b56e17688ab5f2fd98759d72db3824db0a7c"
+    },
+    {
+      "frame": 30,
+      "file": "sim/runs/presentation_video_revision_v5_20261104/qa/05_all_frames/frame-0030.png",
+      "sha256": "4162e8006355b95ec19b12697b94b86451de84101fb9c820ff068c85be7ddc66"
+    },
+    {
+      "frame": 31,
+      "file": "sim/runs/presentation_video_revision_v5_20261104/qa/05_all_frames/frame-0031.png",
+      "sha256": "f659779aab8d7bca920311f3b1c7aff3fe77bdb2d493c123f71b482ad337a4e0"
+    },
+    {
+      "frame": 32,
+      "file": "sim/runs/presentation_video_revision_v5_20261104/qa/05_all_frames/frame-0032.png",
+      "sha256": "1a842f3da7943bf7b9bd3f9b28091b25086d9c1091aef6f1c5331c70c5bd0410"
+    },
+    {
+      "frame": 33,
+      "file": "sim/runs/presentation_video_revision_v5_20261104/qa/05_all_frames/frame-0033.png",
+      "sha256": "a7c6b7d106fcc4348cdc99e800a9b783e33c6b521ef08ac3521a9f11440db467"
+    },
+    {
+      "frame": 34,
+      "file": "sim/runs/presentation_video_revision_v5_20261104/qa/05_all_frames/frame-0034.png",
+      "sha256": "4959cc49e86a8a5c106a65262eb5e711f49fa9f3859b214b3d51215e7f33cf6b"
+    },
+    {
+      "frame": 35,
+      "file": "sim/runs/presentation_video_revision_v5_20261104/qa/05_all_frames/frame-0035.png",
+      "sha256": "28407574a531dc6f73731fc34206bef04993911582da6c3fac6cfd42223f1065"
+    },
+    {
+      "frame": 36,
+      "file": "sim/runs/presentation_video_revision_v5_20261104/qa/05_all_frames/frame-0036.png",
+      "sha256": "ce8a35c62af9a10193cff080749a850b88da53b8a7f25fe10d3f1efda1dfd282"
+    },
+    {
+      "frame": 37,
+      "file": "sim/runs/presentation_video_revision_v5_20261104/qa/05_all_frames/frame-0037.png",
+      "sha256": "96d15acd9e7ae4158cc83efd9d65380ac0afa108ea5002ed0ee1b0d6f2fecbab"
+    },
+    {
+      "frame": 38,
+      "file": "sim/runs/presentation_video_revision_v5_20261104/qa/05_all_frames/frame-0038.png",
+      "sha256": "06a6effaee45deea45cb9eb97ce42cbecf97ee331e65f067c84c61cb877547b4"
+    },
+    {
+      "frame": 39,
+      "file": "sim/runs/presentation_video_revision_v5_20261104/qa/05_all_frames/frame-0039.png",
+      "sha256": "c77af93c4d48ad05e9663cfec30f54fb9ea0de05b443672e4cde262c40ef42c2"
+    },
+    {
+      "frame": 40,
+      "file": "sim/runs/presentation_video_revision_v5_20261104/qa/05_all_frames/frame-0040.png",
+      "sha256": "15a8f16b46697ef1dfa286502dbc3d8d753749336174843e612162c4a603c0d7"
+    },
+    {
+      "frame": 41,
+      "file": "sim/runs/presentation_video_revision_v5_20261104/qa/05_all_frames/frame-0041.png",
+      "sha256": "13272aa94be99d94f4af0706de3970f100c977a17a31685cd43d3bbfd1f92aa2"
+    },
+    {
+      "frame": 42,
+      "file": "sim/runs/presentation_video_revision_v5_20261104/qa/05_all_frames/frame-0042.png",
+      "sha256": "8a5417fa2d1578aef44396063de5373e0a7c2ecf7c07371de83d5cd4018a09d3"
+    },
+    {
+      "frame": 43,
+      "file": "sim/runs/presentation_video_revision_v5_20261104/qa/05_all_frames/frame-0043.png",
+      "sha256": "1dac220d97dbf864f21c4d6968e633449045ea5298caa22cc4724a38aab660be"
+    },
+    {
+      "frame": 44,
+      "file": "sim/runs/presentation_video_revision_v5_20261104/qa/05_all_frames/frame-0044.png",
+      "sha256": "15ebf4326655686ebd8e28194bf90ad4cfb731a1ad8d42ccb6275630adec6596"
+    },
+    {
+      "frame": 45,
+      "file": "sim/runs/presentation_video_revision_v5_20261104/qa/05_all_frames/frame-0045.png",
+      "sha256": "2f6e65580c6abf9d473f0617ea9f645bc6cbe17656e766e5b94e946f8e8c2200"
+    },
+    {
+      "frame": 46,
+      "file": "sim/runs/presentation_video_revision_v5_20261104/qa/05_all_frames/frame-0046.png",
+      "sha256": "d8e5fc50c0b8e5e3183b1d205ddbbff338e3571a3750f64ad5002a367948129d"
+    },
+    {
+      "frame": 47,
+      "file": "sim/runs/presentation_video_revision_v5_20261104/qa/05_all_frames/frame-0047.png",
+      "sha256": "f4de4af5ff61020936e83793a6890592854e540444e0e30e617c1e7e555c1217"
+    },
+    {
+      "frame": 48,
+      "file": "sim/runs/presentation_video_revision_v5_20261104/qa/05_all_frames/frame-0048.png",
+      "sha256": "38d3746cdc1454dfe735fc5097b4e2bd9b4b823dd40b683501ea4d62e12beb1f"
+    },
+    {
+      "frame": 49,
+      "file": "sim/runs/presentation_video_revision_v5_20261104/qa/05_all_frames/frame-0049.png",
+      "sha256": "5ddba2c208a5cd37258bde6135dde5b638093701c271a8fb91864cf365e9f3d4"
+    },
+    {
+      "frame": 50,
+      "file": "sim/runs/presentation_video_revision_v5_20261104/qa/05_all_frames/frame-0050.png",
+      "sha256": "11ae5c27580dc01735fced7e0c39d0a6b46829b7f2061d86f5b36188289d4fac"
+    },
+    {
+      "frame": 51,
+      "file": "sim/runs/presentation_video_revision_v5_20261104/qa/05_all_frames/frame-0051.png",
+      "sha256": "1e9c0203a3e51ba728cddf35064d1f7a435c7038cf44a5cd7eb966caa680691b"
+    },
+    {
+      "frame": 52,
+      "file": "sim/runs/presentation_video_revision_v5_20261104/qa/05_all_frames/frame-0052.png",
+      "sha256": "ac9c620fca23ec300a8e58217a10405a9393c487cca6a96b5887943de34e44eb"
+    },
+    {
+      "frame": 53,
+      "file": "sim/runs/presentation_video_revision_v5_20261104/qa/05_all_frames/frame-0053.png",
+      "sha256": "4b8e37d9f0546c36b3dbd511ec886d27886fe974fadc776edeaf3ef447c56053"
+    },
+    {
+      "frame": 54,
+      "file": "sim/runs/presentation_video_revision_v5_20261104/qa/05_all_frames/frame-0054.png",
+      "sha256": "bda3cd8aef42d7bc3e8ac9edcfe3eff768b2f63f1a0b6baa67844fe84ab8d22d"
+    },
+    {
+      "frame": 55,
+      "file": "sim/runs/presentation_video_revision_v5_20261104/qa/05_all_frames/frame-0055.png",
+      "sha256": "9cc8dbefacdef40ce584c72e0dafb0cb0f75b4c2fb0793013cb1aab537268c71"
+    },
+    {
+      "frame": 56,
+      "file": "sim/runs/presentation_video_revision_v5_20261104/qa/05_all_frames/frame-0056.png",
+      "sha256": "29ac55dc44a64daa546f53c1bfccba5341f10c24e4349e2222f9d9dced468e95"
+    },
+    {
+      "frame": 57,
+      "file": "sim/runs/presentation_video_revision_v5_20261104/qa/05_all_frames/frame-0057.png",
+      "sha256": "d77e4a3ef3b5e7584aaa3de5751a58db188486a61553dcb8fb7028be916ad5e2"
+    },
+    {
+      "frame": 58,
+      "file": "sim/runs/presentation_video_revision_v5_20261104/qa/05_all_frames/frame-0058.png",
+      "sha256": "75f0d452948a19cfae3069c744e7716523f19699297fb148e72d92b9fcfda715"
+    },
+    {
+      "frame": 59,
+      "file": "sim/runs/presentation_video_revision_v5_20261104/qa/05_all_frames/frame-0059.png",
+      "sha256": "475236249159347e6e9ff4a359209c7341abb8be5b7387eb7b600674e7a3c9b4"
+    },
+    {
+      "frame": 60,
+      "file": "sim/runs/presentation_video_revision_v5_20261104/qa/05_all_frames/frame-0060.png",
+      "sha256": "ea91649c1057613820328761a29150be9087c2a804ad1153234f09be48042199"
+    },
+    {
+      "frame": 61,
+      "file": "sim/runs/presentation_video_revision_v5_20261104/qa/05_all_frames/frame-0061.png",
+      "sha256": "f05fc9e27d5fc701cd9649ffd2354b94b0f174eec2bee98991d0de42cbda61d5"
+    },
+    {
+      "frame": 62,
+      "file": "sim/runs/presentation_video_revision_v5_20261104/qa/05_all_frames/frame-0062.png",
+      "sha256": "fea1273c3bab7f95770979d48017173324b8f301920e33b0c0baa4dc373d1c7a"
+    },
+    {
+      "frame": 63,
+      "file": "sim/runs/presentation_video_revision_v5_20261104/qa/05_all_frames/frame-0063.png",
+      "sha256": "41f25aa29ec7a1c8aebd19c9f22defd8b1805c819f558b1c5c351adc1a8c7aac"
+    },
+    {
+      "frame": 64,
+      "file": "sim/runs/presentation_video_revision_v5_20261104/qa/05_all_frames/frame-0064.png",
+      "sha256": "3394c4f65e44d863725735e0e17ccfcb6baff88f93518d28817b1829599b13ca"
+    },
+    {
+      "frame": 65,
+      "file": "sim/runs/presentation_video_revision_v5_20261104/qa/05_all_frames/frame-0065.png",
+      "sha256": "5be130ac4efb7df15af9196cd595b4fd42bf82744c40b1ca42666538aef362c1"
+    },
+    {
+      "frame": 66,
+      "file": "sim/runs/presentation_video_revision_v5_20261104/qa/05_all_frames/frame-0066.png",
+      "sha256": "ff6e6d8f9811d51ad99d7a9279abb29392cb06b42c7730b062735bd9a237b0ee"
+    },
+    {
+      "frame": 67,
+      "file": "sim/runs/presentation_video_revision_v5_20261104/qa/05_all_frames/frame-0067.png",
+      "sha256": "8f3f7759f4c55e79141d3a6f90aab9d0b77772f3427cbc04b8e21d585c25a682"
+    },
+    {
+      "frame": 68,
+      "file": "sim/runs/presentation_video_revision_v5_20261104/qa/05_all_frames/frame-0068.png",
+      "sha256": "d0de034d7dc6cb8c79622d56ec09694c58d343de61a887abde48e5665848d115"
+    },
+    {
+      "frame": 69,
+      "file": "sim/runs/presentation_video_revision_v5_20261104/qa/05_all_frames/frame-0069.png",
+      "sha256": "ac634ba1cf265e0bfa7bdd1c63345b53d5b8ba00f5918029daf0a289aa17502e"
+    },
+    {
+      "frame": 70,
+      "file": "sim/runs/presentation_video_revision_v5_20261104/qa/05_all_frames/frame-0070.png",
+      "sha256": "ed1dd77d597498a37168a7b6b5a8f3f691020d9f3bef95c41b0bfcc652b73574"
+    },
+    {
+      "frame": 71,
+      "file": "sim/runs/presentation_video_revision_v5_20261104/qa/05_all_frames/frame-0071.png",
+      "sha256": "024b349b26a29fd9253a5cdafa25ff2d2c4f4fd0ccb3676389fd62d0f5f70574"
+    },
+    {
+      "frame": 72,
+      "file": "sim/runs/presentation_video_revision_v5_20261104/qa/05_all_frames/frame-0072.png",
+      "sha256": "2e2a8680e35f3cc623fa0d67a63a8f15c112b94df1bcd575e890e6b4483d6fce"
+    },
+    {
+      "frame": 73,
+      "file": "sim/runs/presentation_video_revision_v5_20261104/qa/05_all_frames/frame-0073.png",
+      "sha256": "50514da3b2897ef61ce75a125c91cf697166e5d920414e8bbef66179c178c7b9"
+    },
+    {
+      "frame": 74,
+      "file": "sim/runs/presentation_video_revision_v5_20261104/qa/05_all_frames/frame-0074.png",
+      "sha256": "785946510f70b1d6dae194cf63c328ede3606821aec616537894787cbcd8d9e2"
+    },
+    {
+      "frame": 75,
+      "file": "sim/runs/presentation_video_revision_v5_20261104/qa/05_all_frames/frame-0075.png",
+      "sha256": "4f0f96c94a86662960322f42a8bbb649d2475490781d8c6e238d8161b6a4936c"
+    },
+    {
+      "frame": 76,
+      "file": "sim/runs/presentation_video_revision_v5_20261104/qa/05_all_frames/frame-0076.png",
+      "sha256": "b0b1b4b17d3c3b79c3be0773f830996cca64609f7262f51b4eebd35d8b129168"
+    },
+    {
+      "frame": 77,
+      "file": "sim/runs/presentation_video_revision_v5_20261104/qa/05_all_frames/frame-0077.png",
+      "sha256": "f2e7f8ee82f8734a6c642dca2c12beaa9ecb9b79c442d6a9e4116eb9a885cbb9"
+    },
+    {
+      "frame": 78,
+      "file": "sim/runs/presentation_video_revision_v5_20261104/qa/05_all_frames/frame-0078.png",
+      "sha256": "913da4e1719106d211819bf483f085216a9526e6c7f88164818bad5f3d8affcc"
+    },
+    {
+      "frame": 79,
+      "file": "sim/runs/presentation_video_revision_v5_20261104/qa/05_all_frames/frame-0079.png",
+      "sha256": "c55a83532e4e07a39a3b9192bf15171a57fcea4dae788d9727166be559e79a50"
+    },
+    {
+      "frame": 80,
+      "file": "sim/runs/presentation_video_revision_v5_20261104/qa/05_all_frames/frame-0080.png",
+      "sha256": "ea851a6e59c8a9a96946029abe8d094ef0ba7db5bd2637670602d5dfcdc43786"
+    },
+    {
+      "frame": 81,
+      "file": "sim/runs/presentation_video_revision_v5_20261104/qa/05_all_frames/frame-0081.png",
+      "sha256": "a001590d209b1a7f85cd548e747f1002be13d83114cb848252c9ea2660c24d5d"
+    },
+    {
+      "frame": 82,
+      "file": "sim/runs/presentation_video_revision_v5_20261104/qa/05_all_frames/frame-0082.png",
+      "sha256": "3c9809a2ca5306785ad979ef3b36ed8a83c34a2cbeb41cd319043b959c296066"
+    },
+    {
+      "frame": 83,
+      "file": "sim/runs/presentation_video_revision_v5_20261104/qa/05_all_frames/frame-0083.png",
+      "sha256": "54ba3c0298df843802e47b47431082bb397c63f6efa4d0ee42eba9ffe5d21855"
+    },
+    {
+      "frame": 84,
+      "file": "sim/runs/presentation_video_revision_v5_20261104/qa/05_all_frames/frame-0084.png",
+      "sha256": "c49b986c7e627566577f7d5911d869964e0082d964c8ae8cf9ca9c907ac8e43f"
+    },
+    {
+      "frame": 85,
+      "file": "sim/runs/presentation_video_revision_v5_20261104/qa/05_all_frames/frame-0085.png",
+      "sha256": "07b0591a10a058d68ef10636c1b42200231a95c937f2c6bb4e56b8d37c11eb98"
+    },
+    {
+      "frame": 86,
+      "file": "sim/runs/presentation_video_revision_v5_20261104/qa/05_all_frames/frame-0086.png",
+      "sha256": "c14dd74893245332a752ed938d10c9a7d978d826d1f3971b112c219e4205b527"
+    },
+    {
+      "frame": 87,
+      "file": "sim/runs/presentation_video_revision_v5_20261104/qa/05_all_frames/frame-0087.png",
+      "sha256": "79caba6a31e41fae0398bef8f206d08d09dfca55af05767308ab6aca7b87c73e"
+    },
+    {
+      "frame": 88,
+      "file": "sim/runs/presentation_video_revision_v5_20261104/qa/05_all_frames/frame-0088.png",
+      "sha256": "b94042ff39bc7f0e54d954e24d1450c703f525840e9a150144ed2c694635feed"
+    },
+    {
+      "frame": 89,
+      "file": "sim/runs/presentation_video_revision_v5_20261104/qa/05_all_frames/frame-0089.png",
+      "sha256": "f5b452bb76e87b9372ebc09a523ca8d790cace85b5c85189e6451cca91a59eb7"
+    },
+    {
+      "frame": 90,
+      "file": "sim/runs/presentation_video_revision_v5_20261104/qa/05_all_frames/frame-0090.png",
+      "sha256": "f39377f9cb467751731a53ae58e723f6fd55a7cd15b33029d686a500f2f705dc"
+    },
+    {
+      "frame": 91,
+      "file": "sim/runs/presentation_video_revision_v5_20261104/qa/05_all_frames/frame-0091.png",
+      "sha256": "c3dfd4c56888117d421f2a2f92dac8e9c827334ee1a769a463af07cdb520d5cb"
+    },
+    {
+      "frame": 92,
+      "file": "sim/runs/presentation_video_revision_v5_20261104/qa/05_all_frames/frame-0092.png",
+      "sha256": "2751d0839e706b16610dad0e2cafad72e4860f6b4456c5fa5a579273b1e3d139"
+    },
+    {
+      "frame": 93,
+      "file": "sim/runs/presentation_video_revision_v5_20261104/qa/05_all_frames/frame-0093.png",
+      "sha256": "794ddb99783cdc98e71a5694c13541d0b1d8358c73b4c5c33e5edd365603b861"
+    },
+    {
+      "frame": 94,
+      "file": "sim/runs/presentation_video_revision_v5_20261104/qa/05_all_frames/frame-0094.png",
+      "sha256": "992ccd26f004de5cb2b0d8c64d567aceac9b517ff7d25413d45fb1a276f6122e"
+    },
+    {
+      "frame": 95,
+      "file": "sim/runs/presentation_video_revision_v5_20261104/qa/05_all_frames/frame-0095.png",
+      "sha256": "b0866bf88c92bc2276f3c3c8df55ae860974b87adee0df7d7e9558dafcef5b41"
+    },
+    {
+      "frame": 96,
+      "file": "sim/runs/presentation_video_revision_v5_20261104/qa/05_all_frames/frame-0096.png",
+      "sha256": "03abe25eb93e9fb1eb6a29155e81bf28154529dc7eca8f6ff3a4494021173197"
+    },
+    {
+      "frame": 97,
+      "file": "sim/runs/presentation_video_revision_v5_20261104/qa/05_all_frames/frame-0097.png",
+      "sha256": "88982490993273178ffc287759c20891649ab1d2a8b0f64ca0bc9b715c6da453"
+    },
+    {
+      "frame": 98,
+      "file": "sim/runs/presentation_video_revision_v5_20261104/qa/05_all_frames/frame-0098.png",
+      "sha256": "d5d2a8f7a9b7fb7dd253c8d979b63dea2704eba6c14f50c5656912194a925674"
+    },
+    {
+      "frame": 99,
+      "file": "sim/runs/presentation_video_revision_v5_20261104/qa/05_all_frames/frame-0099.png",
+      "sha256": "1abe100b4efee9d81f14757c239c5a8dc2cafeb278ef5c07fb4c103c339eb0a2"
+    },
+    {
+      "frame": 100,
+      "file": "sim/runs/presentation_video_revision_v5_20261104/qa/05_all_frames/frame-0100.png",
+      "sha256": "c4a6f543dcc62ba60b297b2850d144717df82b63b08ce469ddab151e521fdc8e"
+    },
+    {
+      "frame": 101,
+      "file": "sim/runs/presentation_video_revision_v5_20261104/qa/05_all_frames/frame-0101.png",
+      "sha256": "24bf06291b25946aa1f8193282a2bfd6a09c7eb4e400324ec03e562bf38fcb32"
+    },
+    {
+      "frame": 102,
+      "file": "sim/runs/presentation_video_revision_v5_20261104/qa/05_all_frames/frame-0102.png",
+      "sha256": "44d5f7475af4ac6c3a5ef77122632cd11609a53cbe1e7ba071f1706c04256809"
+    },
+    {
+      "frame": 103,
+      "file": "sim/runs/presentation_video_revision_v5_20261104/qa/05_all_frames/frame-0103.png",
+      "sha256": "d993d5ba6eecb7486be6f8790734a1dcd15c52d1b56a0b023c5267170ad49f72"
+    },
+    {
+      "frame": 104,
+      "file": "sim/runs/presentation_video_revision_v5_20261104/qa/05_all_frames/frame-0104.png",
+      "sha256": "98f5845f950a14e9abd2ca972e0faef0222d76534d5b1fd8d32b3116bbbf5156"
+    },
+    {
+      "frame": 105,
+      "file": "sim/runs/presentation_video_revision_v5_20261104/qa/05_all_frames/frame-0105.png",
+      "sha256": "2d7d5cc8bcaa135cbba7d9beb0d09c5cb74f3b660e75cae2e1c8b03737338966"
+    },
+    {
+      "frame": 106,
+      "file": "sim/runs/presentation_video_revision_v5_20261104/qa/05_all_frames/frame-0106.png",
+      "sha256": "66edebd13a4114a56314cd3a4c4c120207134fe1f6b48203cdcd7aab37141ae9"
+    },
+    {
+      "frame": 107,
+      "file": "sim/runs/presentation_video_revision_v5_20261104/qa/05_all_frames/frame-0107.png",
+      "sha256": "76e429620ff99a76745106abfd268c0a18591c3badaa05e2cf5041b82c4250f0"
+    },
+    {
+      "frame": 108,
+      "file": "sim/runs/presentation_video_revision_v5_20261104/qa/05_all_frames/frame-0108.png",
+      "sha256": "ed5ee4145b31152dfe9928fe28a73ab41514df11943dd202ae1f03e4dde0fdb9"
+    },
+    {
+      "frame": 109,
+      "file": "sim/runs/presentation_video_revision_v5_20261104/qa/05_all_frames/frame-0109.png",
+      "sha256": "47b939c8f0ad4a5c6fc2a8c0a7ff4bd7874dea2af4f3602133d67a691d0cb947"
+    },
+    {
+      "frame": 110,
+      "file": "sim/runs/presentation_video_revision_v5_20261104/qa/05_all_frames/frame-0110.png",
+      "sha256": "289f2ea40f3d75715826e5eef7c4580aae4b6fb86158c17b1e641eaa87c4e9a9"
+    },
+    {
+      "frame": 111,
+      "file": "sim/runs/presentation_video_revision_v5_20261104/qa/05_all_frames/frame-0111.png",
+      "sha256": "ca77d63a210add6824ba10d717d30971da6cab724427d87abe5a4f24300a3869"
+    },
+    {
+      "frame": 112,
+      "file": "sim/runs/presentation_video_revision_v5_20261104/qa/05_all_frames/frame-0112.png",
+      "sha256": "c5b4c7135c678af829e41457e4c7eda43f507acf423f5633a442c77d08635269"
+    },
+    {
+      "frame": 113,
+      "file": "sim/runs/presentation_video_revision_v5_20261104/qa/05_all_frames/frame-0113.png",
+      "sha256": "14b8e203e57dae8def14ba41c8cf5415fd3aee82a3d4f99f85631368a2103dbf"
+    },
+    {
+      "frame": 114,
+      "file": "sim/runs/presentation_video_revision_v5_20261104/qa/05_all_frames/frame-0114.png",
+      "sha256": "e3b73a8e4ec36900eee1b5a87d924380981c3d5456cca2d46aa99020e454a0d8"
+    },
+    {
+      "frame": 115,
+      "file": "sim/runs/presentation_video_revision_v5_20261104/qa/05_all_frames/frame-0115.png",
+      "sha256": "2e6bf3aa9060dcf77c9b62d64504cec67a2db2169200ef62a7889bf882a29514"
+    },
+    {
+      "frame": 116,
+      "file": "sim/runs/presentation_video_revision_v5_20261104/qa/05_all_frames/frame-0116.png",
+      "sha256": "703f1d0738a8cb32a110ce975f349017dba5d52eaf82504aed534a6f6c62607a"
+    },
+    {
+      "frame": 117,
+      "file": "sim/runs/presentation_video_revision_v5_20261104/qa/05_all_frames/frame-0117.png",
+      "sha256": "e89da636cbc23177f972d1ad2f74e514314c52bdcdbe7cd9c66f1ae94059c2af"
+    },
+    {
+      "frame": 118,
+      "file": "sim/runs/presentation_video_revision_v5_20261104/qa/05_all_frames/frame-0118.png",
+      "sha256": "bc73fc01942577040b50b6c86b7c04260cc07241f3de52d57a04823a0f17ad6f"
+    },
+    {
+      "frame": 119,
+      "file": "sim/runs/presentation_video_revision_v5_20261104/qa/05_all_frames/frame-0119.png",
+      "sha256": "f3127b33d040714e92e74d57b2bbecad0fd762c3fbd6836efbc55bd65bda12e9"
+    },
+    {
+      "frame": 120,
+      "file": "sim/runs/presentation_video_revision_v5_20261104/qa/05_all_frames/frame-0120.png",
+      "sha256": "392dafaf33a78f856521c8d199bf26dd838da4a7e8b021900c8bf731aa821dc2"
+    },
+    {
+      "frame": 121,
+      "file": "sim/runs/presentation_video_revision_v5_20261104/qa/05_all_frames/frame-0121.png",
+      "sha256": "6f5784eef5af449d850953cf33f9dbe55fa10d1127fb2283c40e166de530161b"
+    },
+    {
+      "frame": 122,
+      "file": "sim/runs/presentation_video_revision_v5_20261104/qa/05_all_frames/frame-0122.png",
+      "sha256": "ebc46dcdced3666e30abaffc1837a5af6c073ecc47066bd24ab22b5787f15b16"
+    },
+    {
+      "frame": 123,
+      "file": "sim/runs/presentation_video_revision_v5_20261104/qa/05_all_frames/frame-0123.png",
+      "sha256": "cbb59884ae6b7cc44867aa0cd3df62c7d818374c9c82517b515b6377c98f19fe"
+    },
+    {
+      "frame": 124,
+      "file": "sim/runs/presentation_video_revision_v5_20261104/qa/05_all_frames/frame-0124.png",
+      "sha256": "518867decb4c21ce06b656b6737ee7914663c3e51bada755b059c02aeec2f4b7"
+    },
+    {
+      "frame": 125,
+      "file": "sim/runs/presentation_video_revision_v5_20261104/qa/05_all_frames/frame-0125.png",
+      "sha256": "c6ec7bd695ecd6b99248f3eb8e88f44263b67dc7d9e5d47ee517173aee77c531"
+    },
+    {
+      "frame": 126,
+      "file": "sim/runs/presentation_video_revision_v5_20261104/qa/05_all_frames/frame-0126.png",
+      "sha256": "9c2462254d9acb7550412d77953e3cc661c000eb964f3c48af03f755afc23d84"
+    },
+    {
+      "frame": 127,
+      "file": "sim/runs/presentation_video_revision_v5_20261104/qa/05_all_frames/frame-0127.png",
+      "sha256": "d96a5b2fab083aef15e3631d915fe757fdfc682c94cb354b1783d6fc4cc65f8a"
+    },
+    {
+      "frame": 128,
+      "file": "sim/runs/presentation_video_revision_v5_20261104/qa/05_all_frames/frame-0128.png",
+      "sha256": "654c342eaa35b3d1d357dd60b53d41f1f9f6975cbd42ef0d625e13e9fed3abd1"
+    },
+    {
+      "frame": 129,
+      "file": "sim/runs/presentation_video_revision_v5_20261104/qa/05_all_frames/frame-0129.png",
+      "sha256": "2114c2c306389cd99ba003e8f45ed234dd179906779584247a24979f1b033ed6"
+    },
+    {
+      "frame": 130,
+      "file": "sim/runs/presentation_video_revision_v5_20261104/qa/05_all_frames/frame-0130.png",
+      "sha256": "003d841754bc2f83ced4f68acff24e72474ef64a720669b0fffb99a7055e914b"
+    },
+    {
+      "frame": 131,
+      "file": "sim/runs/presentation_video_revision_v5_20261104/qa/05_all_frames/frame-0131.png",
+      "sha256": "3b059f09dcdc5251e3e8007aaad17c5a240da185f1a08a59c43ab9bbf6a2e008"
+    },
+    {
+      "frame": 132,
+      "file": "sim/runs/presentation_video_revision_v5_20261104/qa/05_all_frames/frame-0132.png",
+      "sha256": "5feaaa8c8faff3e42b6ab96d72f469b4c542f01fe705945df29bdfd02ae912f0"
+    },
+    {
+      "frame": 133,
+      "file": "sim/runs/presentation_video_revision_v5_20261104/qa/05_all_frames/frame-0133.png",
+      "sha256": "0f00748c7d65e67a7f3aefec2a20bfb73a5e5fca0f503fc75727710ae28ccb30"
+    },
+    {
+      "frame": 134,
+      "file": "sim/runs/presentation_video_revision_v5_20261104/qa/05_all_frames/frame-0134.png",
+      "sha256": "b86676492a046a09f620f9780ce0b970c1558b28366e245d1764cfba70edbb54"
+    },
+    {
+      "frame": 135,
+      "file": "sim/runs/presentation_video_revision_v5_20261104/qa/05_all_frames/frame-0135.png",
+      "sha256": "74623091a7523dd2bacbb205f82f50a33726d34316b3ec569acd792211c390a3"
+    },
+    {
+      "frame": 136,
+      "file": "sim/runs/presentation_video_revision_v5_20261104/qa/05_all_frames/frame-0136.png",
+      "sha256": "d83d7d721b12d91fbedfba9d80c9d7ea30aa785e9ebceb49790a7e8df3f3d706"
+    },
+    {
+      "frame": 137,
+      "file": "sim/runs/presentation_video_revision_v5_20261104/qa/05_all_frames/frame-0137.png",
+      "sha256": "07b747aeb96af6892b5ea4ee3151efba28dc97d231522088141705e36762180a"
+    },
+    {
+      "frame": 138,
+      "file": "sim/runs/presentation_video_revision_v5_20261104/qa/05_all_frames/frame-0138.png",
+      "sha256": "19007f22812bd20953690408998d4bdf2605787c8d22d4c2a1159c4d2e910ad5"
+    },
+    {
+      "frame": 139,
+      "file": "sim/runs/presentation_video_revision_v5_20261104/qa/05_all_frames/frame-0139.png",
+      "sha256": "636f7a2ecffc1f0f1b939ce1591b90f1a113fac48a7a991e022557806b3ecc32"
+    },
+    {
+      "frame": 140,
+      "file": "sim/runs/presentation_video_revision_v5_20261104/qa/05_all_frames/frame-0140.png",
+      "sha256": "fedb9ee9d51654e06c32fa8aa6d96e63a0e4dfff180caad11c147ae81ceff990"
+    },
+    {
+      "frame": 141,
+      "file": "sim/runs/presentation_video_revision_v5_20261104/qa/05_all_frames/frame-0141.png",
+      "sha256": "4b5ee87f7f213e28e214084fd4677cf8cc57c75ee6c79eb4f2a2a58bf26a5f1b"
+    },
+    {
+      "frame": 142,
+      "file": "sim/runs/presentation_video_revision_v5_20261104/qa/05_all_frames/frame-0142.png",
+      "sha256": "fc8a5f91e6bd0c086da40ed31278c2ea79b8ff3db32d00b60752b446ae23b2dd"
+    },
+    {
+      "frame": 143,
+      "file": "sim/runs/presentation_video_revision_v5_20261104/qa/05_all_frames/frame-0143.png",
+      "sha256": "84ba50f55e6abde6417b22f6ee699a2bc86fbb16dd6e0cb0f37ac0614b78879f"
+    },
+    {
+      "frame": 144,
+      "file": "sim/runs/presentation_video_revision_v5_20261104/qa/05_all_frames/frame-0144.png",
+      "sha256": "106462a8c47d07e635662bc30e6e6e901797e9a041d3242c1429b1eccf007165"
+    },
+    {
+      "frame": 145,
+      "file": "sim/runs/presentation_video_revision_v5_20261104/qa/05_all_frames/frame-0145.png",
+      "sha256": "d8ad374765b8cf841a11ccce52168ea0ab8284ceaf179874cb530585ca6f165d"
+    },
+    {
+      "frame": 146,
+      "file": "sim/runs/presentation_video_revision_v5_20261104/qa/05_all_frames/frame-0146.png",
+      "sha256": "caa24cda2247ca41854c64d50a20319aa7e4d144345557741d43520bd0b83e5a"
+    },
+    {
+      "frame": 147,
+      "file": "sim/runs/presentation_video_revision_v5_20261104/qa/05_all_frames/frame-0147.png",
+      "sha256": "ce09dd90c56c25b50eb19b44cbd62c9171038833b7521a3a6c7dbef564f71b62"
+    },
+    {
+      "frame": 148,
+      "file": "sim/runs/presentation_video_revision_v5_20261104/qa/05_all_frames/frame-0148.png",
+      "sha256": "7fdc859430f78114307c667f0935bafb8ad6d2d3a68b8fcd3962571abbcf5aa8"
+    },
+    {
+      "frame": 149,
+      "file": "sim/runs/presentation_video_revision_v5_20261104/qa/05_all_frames/frame-0149.png",
+      "sha256": "e0120d6df49cc2df435933594688248080944b331383b25aa2e9984a37274d80"
+    }
+  ]
+}

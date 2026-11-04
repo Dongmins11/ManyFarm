@@ -1,0 +1,21 @@
+{
+  "scope": "151 discrete baked frames; actual fruit vertex-vs-source-box penetration and conservative fruit convex intersection; not swept/full robot/dynamic certification",
+  "input_sha256": {
+    "05_physics_geometry.json": "59cd3c5efd09c72fe0db786d667d57f247fa1a1a3189429472f3a7b82bf69c89",
+    "05_physics_bake.json": "ec77c106c8a057e7021a71cd189aad84916be7fddd5d8666171bb70a004d1849",
+    "05_handoff_continuity.json": "f755fcd646608d4fee8e6271c7b833631d836d22172063a205ef4867408bd307"
+  },
+  "actual_vertex_penetration_max_m": 0.00028410023208708113,
+  "actual_vertex_penetration_over_0_5mm_events": [],
+  "pair_convex_intersection_insphere_radius_max_m": 0.00011683884012209157,
+  "pair_convex_intersection_over_0_5mm_events": [],
+  "settle_definition": {
+    "max_linear_speed_m_s": 0.005,
+    "max_angular_speed_rad_s": 0.1,
+    "must_hold_through_raw5": true
+  },
+  "all_settled_s": 2.4,
+  "max_linear_speed_after_raw3_m_s": 2.0232030690045745e-05,
+  "max_angular_speed_after_raw3_rad_s": 0.0005232356085706349,
+  "passed": true
+}

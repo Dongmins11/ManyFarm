@@ -1,0 +1,144 @@
+{
+  "scope": "Independent direct visual review of GUI preview PNGs; not final MP4 or continuous speed review",
+  "request_sha256": "aac95d9fd82dab6f14b498843b01d47b528bffcdcc97fb096fa4603c9ceab0d3",
+  "reviewer": "capture_geometry_review",
+  "viewed_full_size_images": [
+    {
+      "frame": 0,
+      "path": "preview/06_07_final_seven_preview-0000.png",
+      "sha256": "f6fdc909d6e0bdcac5af79e5ddb059869f8e17d273bc35ca9a3979e299e7ad78",
+      "sidecar_sha256": "c0219d61b6898732dc65037e200d7df5b9e40a9570d630fea3a4f9498046f37c"
+    },
+    {
+      "frame": 69,
+      "path": "preview/06_07_final_seven_preview-0069.png",
+      "sha256": "c2653dbdf898fadf4de853e80252e11effe5e929ee4fc75a41f0f2475d07d008",
+      "sidecar_sha256": "388389e11a5a30feb6a8eb38033fe07c5b323dcd926f0ab3014c924f869f7083"
+    },
+    {
+      "frame": 87,
+      "path": "preview/06_07_final_seven_preview-0087.png",
+      "sha256": "a5075b89cdcbd9db6a19662b0aa5622239070f8dd7235d14c6422b8b906e5629",
+      "sidecar_sha256": "70b1635f222ce19ada7516f4716357e15e069ae5cd973a2ade810b343148ea9a"
+    },
+    {
+      "frame": 99,
+      "path": "preview/06_07_final_seven_preview-0099.png",
+      "sha256": "1c4ddfe14112254cd2a01ccd478eef6248cdcc894f0e51563de8f78fc58a273a",
+      "sidecar_sha256": "cbbc1761f26df843377f098bcce755d473cd8d9586cfa271b33d17f72b734509"
+    },
+    {
+      "frame": 114,
+      "path": "preview/06_07_final_seven_preview-0114.png",
+      "sha256": "f71abcb3a8a7929975eac4043454e674ee173e404263bb4608e0e34647e00ade",
+      "sidecar_sha256": "feb3b15a6d08078ca1d41426c06205c9ac818939a6950272cddda2157a48d080"
+    },
+    {
+      "frame": 138,
+      "path": "preview/06_07_final_seven_preview-0138.png",
+      "sha256": "9e5d0c0e3d78ce2f7f0f7b1063bdbca2cf91eed85778b90f8e2d27c7267ec510",
+      "sidecar_sha256": "d87efa19edc6d47785986f17f6a1fe682c179e73653f06eb72f6c011c81f941f"
+    },
+    {
+      "frame": 150,
+      "path": "preview/06_07_final_seven_preview-0150.png",
+      "sha256": "1a56cde801c1f25f6ae4432677039c0d1eeb8affd0f27ee7e69ffb06e8db73e8",
+      "sidecar_sha256": "3eb3b2859b76ee6d727c5c8d24a85deddcabe828d39359d13d115fe2c8a5cd56"
+    },
+    {
+      "frame": 168,
+      "path": "preview/06_07_final_seven_preview-0168.png",
+      "sha256": "3cb68cd45946b92d027f3dd12248b54d451738b448c6f8c2ae3d41eed64d5b30",
+      "sidecar_sha256": "8f5b7e08b252259aa1a94137c747ff0357722d2d499d36adc80ca4fc1e5668de"
+    },
+    {
+      "frame": 193,
+      "path": "preview/06_07_final_seven_preview-0193.png",
+      "sha256": "f5d0a14c01e41bf6fd22de2ecf6cddfc02bef789d0dd9c4a9ba4b6f0a5ea08cf",
+      "sidecar_sha256": "a9e5df56633340889a3d01229fca7ba6e3ee0335fc98e9072d5f9751df4a5f1b"
+    },
+    {
+      "frame": 222,
+      "path": "preview/06_07_final_seven_preview-0222.png",
+      "sha256": "6cb79945d011e863e446e804c898e702ecef8af2df0755b65f6ab9daf2e8674e",
+      "sidecar_sha256": "33a8c38c28690a5fd65daf79ac4df37dac8cbe4c73b352c693f9048ecf32c3b4"
+    },
+    {
+      "frame": 245,
+      "path": "preview/06_07_final_seven_preview-0245.png",
+      "sha256": "4f83702a0fe2737ea013dbbae0c3b72a9e193f90174c00fc4f4ba10183f5389d",
+      "sidecar_sha256": "d1515b0f031f0a06979a223f50d92589d51e670f97f7a62f211b93c50a48509c"
+    },
+    {
+      "frame": 270,
+      "path": "preview/06_07_final_seven_preview-0270.png",
+      "sha256": "c3954e2d2ba5cfefa4c6e867be8d04379469731c99f1dc10eeba5080bd4d4258",
+      "sidecar_sha256": "d574bc3db2687059ec234b1f48fcc585b175e1d17de424482be37dc525f9de9b"
+    },
+    {
+      "frame": 359,
+      "path": "preview/06_07_final_seven_preview-0359.png",
+      "sha256": "fede4b537939dc2e00de2c8a7ba173bfe5d9d9505abee89617039cdd2d4923f8",
+      "sidecar_sha256": "d3cfdfd4dbd56616cc15a3558a6fdafc22a6008672164999688eb5cea16b8d00"
+    }
+  ],
+  "preview_state_vs_canonical_max_abs_delta": 1.0024419656862182e-07,
+  "findings": [
+    {
+      "frames": [
+        168,
+        193
+      ],
+      "observation": "빨강 과실에 집게가 접근/파지하고 분류함 위로 가져가는 장면이 보인다. 팔 최고점과 집게가 프레임 안에 있다."
+    },
+    {
+      "frames": [
+        222,
+        245
+      ],
+      "observation": "노랑 과실 파지와 별도 분류함 위 운반/놓임 자세가 보인다. 이미 놓인 빨강 과실이 다른 분류함에 남아 있다."
+    },
+    {
+      "frames": [
+        270,
+        359
+      ],
+      "observation": "분류함에 빨강1/노랑1, 투입부에 빨강3/노랑2 총5개가 식별된다. 팔은 과실을 놓고 빈 집게로 물러나 있다."
+    },
+    {
+      "frames": [
+        0,
+        69,
+        87,
+        99,
+        114,
+        138,
+        150
+      ],
+      "observation": "도킹부터 앞문 개방·기울임·배출·복원으로 이어지는 구성이다. 일부 배출 과실은 실제 덮개/본체에 가려진다."
+    },
+    {
+      "frames": [
+        0,
+        69,
+        87,
+        99,
+        114,
+        138,
+        150,
+        168,
+        193,
+        222,
+        245,
+        270,
+        359
+      ],
+      "observation": "베드 나무테두리·작물·지지대는 화면에 보이지 않는다. 운송 바퀴, 선별장 전체, 팔 끝과 분류함이 프레임 안에 있다. 뚜렷한 부유 잔상/소실 형상은 보이지 않는다."
+    }
+  ],
+  "blocking_visual_findings": [],
+  "limitations": [
+    "정지 PNG만 확인했다. 정상속도/느린 재생의 자연스러움은 최종 MP4 검수 대상이다.",
+    "이 화면에서 물체별 identity를 픽셀만으로 확정하지 않는다. 7ID/원본 크기 보존은 별도 수치 검사와 결합한다."
+  ]
+}

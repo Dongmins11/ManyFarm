@@ -1,0 +1,22 @@
+{
+  "process_observed_during_capture": {
+    "pid": 107070,
+    "argv": [
+      "/home/ysy/isaac/env_isaaclab/bin/python",
+      "sim/tools/stage_portfolio_photos.py",
+      "--gui",
+      "--all-beds",
+      "--runtime",
+      "sim/runs/presentation_video_revision_v5_20261104/settings",
+      "--output",
+      "sim/runs/presentation_video_revision_v5_20261104"
+    ]
+  },
+  "observed_at": "2026-11-04T21:21:29.469578+09:00",
+  "gui_argument_present": true,
+  "all_beds_argument_present": true,
+  "headless_argument_present": false,
+  "capture_tool_sha256": "f83fe9f21021852e33d307d95733e7424215beccb7d35f7e5d6047b38356cbde",
+  "frames_tool_sha256": "cef2c351311518fbcdb7347978cd975d9e5170780a4c8a4698110cbfbba1d70a",
+  "mode": "Isaac Sim GUI; separate Bullet bake; per-output frame camera history reset, exact original camera restored before 24 render updates and RGB capture"
+}

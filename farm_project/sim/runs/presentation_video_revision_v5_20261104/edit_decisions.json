@@ -1,0 +1,91 @@
+{
+  "fps": 30,
+  "frames": 750,
+  "duration_s": 25,
+  "core_boundaries_frames": [
+    0,
+    90,
+    180,
+    270,
+    360,
+    450,
+    750
+  ],
+  "source_trims_with_handles": [
+    {
+      "clip": "01_overview",
+      "start_frame": 30,
+      "end_frame_exclusive": 123,
+      "sha256": "e65bee9b64c4cbf5e2d4b13b80870e86156934b2f7aa54f1e25d5cdc55386d91"
+    },
+    {
+      "clip": "02_scout",
+      "start_frame": 27,
+      "end_frame_exclusive": 123,
+      "sha256": "63d878d752f8c91a187f3c1d667e542a12156d32d5f562a1af1a272008e61bd4"
+    },
+    {
+      "clip": "03_grasp",
+      "start_frame": 27,
+      "end_frame_exclusive": 120,
+      "sha256": "f2b3f141f2b90aaae628e42176d4e9e7171bf126920cdbc6e45455aa2b90cd7a"
+    },
+    {
+      "clip": "04_deposit",
+      "start_frame": 30,
+      "end_frame_exclusive": 120,
+      "sha256": "a06ee144e928fd1e0861b440cfd548d916dab466c75f76286ec5be18effcbe26"
+    },
+    {
+      "clip": "05_handoff_continuity",
+      "start_frame": 30,
+      "end_frame_exclusive": 120,
+      "sha256": "6cdce97dc24d08af4309154c47669084dbfed9c184accf6b42594a7ccc238de6"
+    },
+    {
+      "clip": "06_07_transport_sorting",
+      "start_frame": 30,
+      "end_frame_exclusive": 330,
+      "sha256": "680923f5ece7084968aabb14c02c4b0f7bd4ba133d50e4c8093791169779968c"
+    }
+  ],
+  "transitions": {
+    "dissolve_duration_frames": 6,
+    "centres_frames": [
+      90,
+      180
+    ],
+    "direct_cut_frames": [
+      270,
+      360,
+      450
+    ]
+  },
+  "ending": {
+    "stable_hold_start_frame": 690,
+    "fade_start_frame": 726,
+    "fade_duration_frames": 24
+  },
+  "continuous_segment": {
+    "file": "06_07_transport_sorting.mp4",
+    "timeline_frames": [
+      450,
+      750
+    ],
+    "source_frames": [
+      30,
+      330
+    ],
+    "internal_cuts": [],
+    "action_end_frame": 690
+  },
+  "inset": {
+    "enabled": false,
+    "reason": "V5: source video and bottom captions only; no image/panel/overlay input"
+  },
+  "raw_sources_unchanged": true,
+  "outputs": {
+    "ManyFarm_25s_clean.mp4": "96d3c185acb08313c2b77083a38b035db47278a0233a804616cbfdbe731d3d9b",
+    "ManyFarm_25s_captioned.mp4": "bec004736571f4bde2bf6c52085eea5a94906f0fabb4dff8071a898e9c8f29cf"
+  }
+}

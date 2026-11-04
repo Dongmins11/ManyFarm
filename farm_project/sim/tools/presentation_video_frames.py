@@ -75,8 +75,23 @@ def capture(request: dict, out: Path, app: object, camera: object, apply_state, 
             state=state_at(request,index/fps)
             before=render_id()
             apply_state(state)
+            if request.get('reset_renderer_accumulation', False):
+                # 베이크 자세 변경 후 이전 과실의 RTX 잔상이 남지 않게 한다.
+                import omni.usd
+                app.update()
+                omni.usd.get_context().reset_renderer_accumulation()
+                # Kit 107의 카메라 render product에는 위 호출만으로 잔상이
+                # 남아, 저장하지 않는 한 프레임으로 카메라 이력도 비운다.
+                position, orientation = camera.get_world_pose()
+                camera.set_world_pose(np.asarray(position)+[0.,0.,1000.], orientation)
+                app.update()
+                camera.set_world_pose(position, orientation)
+                omni.usd.get_context().reset_renderer_accumulation()
             # 자세 적용 전 프레임을 저장하지 않도록 동기 렌더를 진행한다.
-            for _ in range(int(request.get('preview_warmup_frames',48)) if preview_only else 6):app.update()
+            settle_frames = int(request.get('preview_warmup_frames',48) if preview_only
+                                else request.get('render_settle_frames',6))
+            if not 1 <= settle_frames <= 240:raise ValueError('render settle frames must be 1..240')
+            for _ in range(settle_frames):app.update()
             frame=camera.get_current_frame(); after=render_id()
             if after <= before:raise RuntimeError(f'new rendered frame missing: {index} {before}->{after}')
             rgb=np.asarray(camera.get_rgb(),dtype=np.uint8)
@@ -85,7 +100,7 @@ def capture(request: dict, out: Path, app: object, camera: object, apply_state, 
                 filename=f'{name}-{index:04d}.png';Image.fromarray(rgb).save(previews/filename);saved.append(filename)
                 (previews/(filename+'.json')).write_text(json.dumps(dict(frame=index,time_s=index/fps,state=state,inspected=inspect_state(state)),indent=2)+'\n')
             if encoder:encoder.stdin.write(rgb.tobytes())
-            ledger.append(dict(frame=index,time_s=index/fps,render_reference_time=after,render_time=float(frame.get('rendering_time',0)),sha256=hashlib.sha256(rgb.tobytes()).hexdigest()))
+            ledger.append(dict(frame=index,time_s=index/fps,render_reference_time=after,render_time=float(frame.get('rendering_time',0)),sha256=hashlib.sha256(rgb.tobytes()).hexdigest(),reset_renderer_accumulation=bool(request.get('reset_renderer_accumulation',False)),render_settle_frames=settle_frames))
             if index%30==0:print(f'VIDEO_FRAME {name} {index}/{count}',flush=True)
         if encoder:
             encoder.stdin.close()
