@@ -1,5 +1,7 @@
 # 농작물 수확 로봇 — 현재 상태 인수인계
 
+> 2026-11-04 발표 영상 V3: 원격 지시 `1ee8fbe`와 카메라 참조를 우선 적용해 Isaac Sim **GUI**에서 01·02·04·05·06·07을 재촬영하고 기존03을 그대로 사용했다. [22초 결과 모음](../sim/runs/presentation_video_revision_v3_20261104/index.html) · [재현·검수·한계](../sim/runs/presentation_video_revision_v3_20261104/README.md). 하우스 표시 보존, AprilTag240개 설치, 회색 바닥 개방과7개 인계, 선별 경사면 구름·안착, 엔딩2초 포함. 새 원본930프레임과 편집본 각660프레임 전체 디코딩/규격 통과, 기존358파일 해시 일치. 자율 시험 성과가 아닌 촬영용 연출이며 공통/실물 설정·원본 USD는 보존했다. 이번 촬영 결과만 main에 게시한다.
+
 > 2026-11-04 재촬영: 원격 리뷰 `524a193`에 따라 **04 투입→07 선별→02 예찰**을 독립 Isaac GUI에서 재촬영·직접 검수했다. [새 영상](../sim/runs/presentation_video_retake_20261104/index.html) · [설정·검수·남은 한계](../sim/runs/presentation_video_retake_20261104/README.md). 후보 각3방향×3장 비교, 최종각150프레임/5초/1080p30 전체디코딩통과, 기존179파일해시일치. 원본 모션과03→04연결 보존. 실제 업무 성공을 검증한 영상은 아니다. 기존 작업 보존 후 main에 이번 결과만 게시한다.
 
 > 2026-11-04 발표 영상: 최신 원격 콘티에 따라 별도 Isaac Sim **GUI** 세션에서 7종 1080p30 원본 및 20초 편집본 2종 촬영·검수 완료. [영상 모아보기](../sim/runs/presentation_video_20261104/index.html) · [촬영·재촬영 기록](../sim/runs/presentation_video_20261104/README.md) · [검수/해시](../sim/runs/presentation_video_20261104/manifest.json). 원본 1,020프레임, 편집본 각각 600프레임 전체 디코딩 통과. 업무 성공을 기다리지 않는 콘티의 키프레임 연출이며 자율 시험 성과가 아니다. 기존 통합 브랜치와 미커밋 작업 보존, 원본 USD·공통 업무 코드 변경 없음. 사용자 요청에 따라 촬영 도구·문서·영상 9개와 재촬영 설정을 main 게시 대상으로 포함했다. 상세는 `sim/docs/CHANGELOG.md`의 PRESENTATION-GUI-VIDEO-20261104 참조.

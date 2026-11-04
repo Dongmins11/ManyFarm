@@ -1,0 +1,3398 @@
+{
+  "roots": {
+    "scout_01": "/World/scout_robot_camera_fixed",
+    "harvest_01": "/World/harvest_robot",
+    "transport_01": "/World/transport_robot"
+  },
+  "joints": [
+    {
+      "name": "base_joint",
+      "a": "/World/scout_robot_camera_fixed/base_footprint",
+      "b": "/World/scout_robot_camera_fixed/base_link",
+      "axis": 0,
+      "kind": "PhysicsFixedJoint",
+      "path": "/World/scout_robot_camera_fixed/joints/base_joint"
+    },
+    {
+      "name": "caster_back_joint",
+      "a": "/World/scout_robot_camera_fixed/base_link",
+      "b": "/World/scout_robot_camera_fixed/caster_back_link",
+      "axis": 0,
+      "kind": "PhysicsFixedJoint",
+      "path": "/World/scout_robot_camera_fixed/joints/caster_back_joint"
+    },
+    {
+      "name": "scan_joint",
+      "a": "/World/scout_robot_camera_fixed/base_link",
+      "b": "/World/scout_robot_camera_fixed/base_scan",
+      "axis": 0,
+      "kind": "PhysicsFixedJoint",
+      "path": "/World/scout_robot_camera_fixed/joints/scan_joint"
+    },
+    {
+      "name": "wheel_left_joint",
+      "a": "/World/scout_robot_camera_fixed/base_link",
+      "b": "/World/scout_robot_camera_fixed/wheel_left_link",
+      "axis": 2,
+      "kind": "PhysicsRevoluteJoint",
+      "path": "/World/scout_robot_camera_fixed/joints/wheel_left_joint"
+    },
+    {
+      "name": "wheel_right_joint",
+      "a": "/World/scout_robot_camera_fixed/base_link",
+      "b": "/World/scout_robot_camera_fixed/wheel_right_link",
+      "axis": 2,
+      "kind": "PhysicsRevoluteJoint",
+      "path": "/World/scout_robot_camera_fixed/joints/wheel_right_joint"
+    },
+    {
+      "name": "base_link_fixed_joint",
+      "a": "/World/harvest_robot/base_footprint",
+      "b": "/World/harvest_robot/base_link",
+      "axis": 0,
+      "kind": "PhysicsFixedJoint",
+      "path": "/World/harvest_robot/joints/base_link_fixed_joint"
+    },
+    {
+      "name": "front_left_caster_joint",
+      "a": "/World/harvest_robot/base_link",
+      "b": "/World/harvest_robot/front_left_caster",
+      "axis": 0,
+      "kind": "PhysicsFixedJoint",
+      "path": "/World/harvest_robot/joints/front_left_caster_joint"
+    },
+    {
+      "name": "front_left_post_joint",
+      "a": "/World/harvest_robot/base_link",
+      "b": "/World/harvest_robot/front_left_post",
+      "axis": 0,
+      "kind": "PhysicsFixedJoint",
+      "path": "/World/harvest_robot/joints/front_left_post_joint"
+    },
+    {
+      "name": "front_right_caster_joint",
+      "a": "/World/harvest_robot/base_link",
+      "b": "/World/harvest_robot/front_right_caster",
+      "axis": 0,
+      "kind": "PhysicsFixedJoint",
+      "path": "/World/harvest_robot/joints/front_right_caster_joint"
+    },
+    {
+      "name": "front_right_post_joint",
+      "a": "/World/harvest_robot/base_link",
+      "b": "/World/harvest_robot/front_right_post",
+      "axis": 0,
+      "kind": "PhysicsFixedJoint",
+      "path": "/World/harvest_robot/joints/front_right_post_joint"
+    },
+    {
+      "name": "left_wheel_joint",
+      "a": "/World/harvest_robot/base_link",
+      "b": "/World/harvest_robot/left_wheel",
+      "axis": 2,
+      "kind": "PhysicsRevoluteJoint",
+      "path": "/World/harvest_robot/joints/left_wheel_joint"
+    },
+    {
+      "name": "lidar_mount_fixed_joint",
+      "a": "/World/harvest_robot/base_link",
+      "b": "/World/harvest_robot/lidar_mount",
+      "axis": 0,
+      "kind": "PhysicsFixedJoint",
+      "path": "/World/harvest_robot/joints/lidar_mount_fixed_joint"
+    },
+    {
+      "name": "lower_rail_front_joint",
+      "a": "/World/harvest_robot/base_link",
+      "b": "/World/harvest_robot/lower_rail_front",
+      "axis": 0,
+      "kind": "PhysicsFixedJoint",
+      "path": "/World/harvest_robot/joints/lower_rail_front_joint"
+    },
+    {
+      "name": "lower_rail_left_joint",
+      "a": "/World/harvest_robot/base_link",
+      "b": "/World/harvest_robot/lower_rail_left",
+      "axis": 0,
+      "kind": "PhysicsFixedJoint",
+      "path": "/World/harvest_robot/joints/lower_rail_left_joint"
+    },
+    {
+      "name": "lower_rail_rear_joint",
+      "a": "/World/harvest_robot/base_link",
+      "b": "/World/harvest_robot/lower_rail_rear",
+      "axis": 0,
+      "kind": "PhysicsFixedJoint",
+      "path": "/World/harvest_robot/joints/lower_rail_rear_joint"
+    },
+    {
+      "name": "lower_rail_right_joint",
+      "a": "/World/harvest_robot/base_link",
+      "b": "/World/harvest_robot/lower_rail_right",
+      "axis": 0,
+      "kind": "PhysicsFixedJoint",
+      "path": "/World/harvest_robot/joints/lower_rail_right_joint"
+    },
+    {
+      "name": "rear_left_caster_joint",
+      "a": "/World/harvest_robot/base_link",
+      "b": "/World/harvest_robot/rear_left_caster",
+      "axis": 0,
+      "kind": "PhysicsFixedJoint",
+      "path": "/World/harvest_robot/joints/rear_left_caster_joint"
+    },
+    {
+      "name": "rear_left_post_joint",
+      "a": "/World/harvest_robot/base_link",
+      "b": "/World/harvest_robot/rear_left_post",
+      "axis": 0,
+      "kind": "PhysicsFixedJoint",
+      "path": "/World/harvest_robot/joints/rear_left_post_joint"
+    },
+    {
+      "name": "rear_right_caster_joint",
+      "a": "/World/harvest_robot/base_link",
+      "b": "/World/harvest_robot/rear_right_caster",
+      "axis": 0,
+      "kind": "PhysicsFixedJoint",
+      "path": "/World/harvest_robot/joints/rear_right_caster_joint"
+    },
+    {
+      "name": "rear_right_post_joint",
+      "a": "/World/harvest_robot/base_link",
+      "b": "/World/harvest_robot/rear_right_post",
+      "axis": 0,
+      "kind": "PhysicsFixedJoint",
+      "path": "/World/harvest_robot/joints/rear_right_post_joint"
+    },
+    {
+      "name": "right_wheel_joint",
+      "a": "/World/harvest_robot/base_link",
+      "b": "/World/harvest_robot/right_wheel",
+      "axis": 2,
+      "kind": "PhysicsRevoluteJoint",
+      "path": "/World/harvest_robot/joints/right_wheel_joint"
+    },
+    {
+      "name": "top_deck_joint",
+      "a": "/World/harvest_robot/base_link",
+      "b": "/World/harvest_robot/top_deck",
+      "axis": 0,
+      "kind": "PhysicsFixedJoint",
+      "path": "/World/harvest_robot/joints/top_deck_joint"
+    },
+    {
+      "name": "arm_1_mount_joint",
+      "a": "/World/harvest_robot/top_deck",
+      "b": "/World/harvest_robot/arm_1_mount",
+      "axis": 0,
+      "kind": "PhysicsFixedJoint",
+      "path": "/World/harvest_robot/joints/arm_1_mount_joint"
+    },
+    {
+      "name": "arm_1_attachment",
+      "a": "/World/harvest_robot/arm_1_mount",
+      "b": "/World/harvest_robot/arm_1_base_link",
+      "axis": 0,
+      "kind": "PhysicsFixedJoint",
+      "path": "/World/harvest_robot/joints/arm_1_attachment"
+    },
+    {
+      "name": "arm_1_shoulder_pan",
+      "a": "/World/harvest_robot/arm_1_base_link",
+      "b": "/World/harvest_robot/arm_1_shoulder_link",
+      "axis": 2,
+      "kind": "PhysicsRevoluteJoint",
+      "path": "/World/harvest_robot/joints/arm_1_shoulder_pan"
+    },
+    {
+      "name": "arm_1_shoulder_lift",
+      "a": "/World/harvest_robot/arm_1_shoulder_link",
+      "b": "/World/harvest_robot/arm_1_upper_arm_link",
+      "axis": 2,
+      "kind": "PhysicsRevoluteJoint",
+      "path": "/World/harvest_robot/joints/arm_1_shoulder_lift"
+    },
+    {
+      "name": "arm_1_elbow_flex",
+      "a": "/World/harvest_robot/arm_1_upper_arm_link",
+      "b": "/World/harvest_robot/arm_1_lower_arm_link",
+      "axis": 2,
+      "kind": "PhysicsRevoluteJoint",
+      "path": "/World/harvest_robot/joints/arm_1_elbow_flex"
+    },
+    {
+      "name": "arm_1_wrist_flex",
+      "a": "/World/harvest_robot/arm_1_lower_arm_link",
+      "b": "/World/harvest_robot/arm_1_wrist_link",
+      "axis": 2,
+      "kind": "PhysicsRevoluteJoint",
+      "path": "/World/harvest_robot/joints/arm_1_wrist_flex"
+    },
+    {
+      "name": "arm_1_wrist_roll",
+      "a": "/World/harvest_robot/arm_1_wrist_link",
+      "b": "/World/harvest_robot/arm_1_gripper_link",
+      "axis": 2,
+      "kind": "PhysicsRevoluteJoint",
+      "path": "/World/harvest_robot/joints/arm_1_wrist_roll"
+    },
+    {
+      "name": "arm_1_gripper",
+      "a": "/World/harvest_robot/arm_1_gripper_link",
+      "b": "/World/harvest_robot/arm_1_moving_jaw_so101_v1_link",
+      "axis": 2,
+      "kind": "PhysicsRevoluteJoint",
+      "path": "/World/harvest_robot/joints/arm_1_gripper"
+    },
+    {
+      "name": "arm_1_gripper_frame_joint",
+      "a": "/World/harvest_robot/arm_1_gripper_link",
+      "b": "/World/harvest_robot/arm_1_gripper_frame_link",
+      "axis": 0,
+      "kind": "PhysicsFixedJoint",
+      "path": "/World/harvest_robot/joints/arm_1_gripper_frame_joint"
+    },
+    {
+      "name": "arm_1_wrist_camera_mount_link_joint",
+      "a": "/World/harvest_robot/arm_1_gripper_link",
+      "b": "/World/harvest_robot/arm_1_wrist_camera_mount_link",
+      "axis": 0,
+      "kind": "PhysicsFixedJoint",
+      "path": "/World/harvest_robot/joints/arm_1_wrist_camera_mount_link_joint"
+    },
+    {
+      "name": "arm_1_wrist_camera_joint",
+      "a": "/World/harvest_robot/arm_1_wrist_camera_mount_link",
+      "b": "/World/harvest_robot/arm_1_wrist_camera_link",
+      "axis": 0,
+      "kind": "PhysicsFixedJoint",
+      "path": "/World/harvest_robot/joints/arm_1_wrist_camera_joint"
+    },
+    {
+      "name": "arm_2_mount_joint",
+      "a": "/World/harvest_robot/top_deck",
+      "b": "/World/harvest_robot/arm_2_mount",
+      "axis": 0,
+      "kind": "PhysicsFixedJoint",
+      "path": "/World/harvest_robot/joints/arm_2_mount_joint"
+    },
+    {
+      "name": "arm_2_attachment",
+      "a": "/World/harvest_robot/arm_2_mount",
+      "b": "/World/harvest_robot/arm_2_base_link",
+      "axis": 0,
+      "kind": "PhysicsFixedJoint",
+      "path": "/World/harvest_robot/joints/arm_2_attachment"
+    },
+    {
+      "name": "arm_2_shoulder_pan",
+      "a": "/World/harvest_robot/arm_2_base_link",
+      "b": "/World/harvest_robot/arm_2_shoulder_link",
+      "axis": 2,
+      "kind": "PhysicsRevoluteJoint",
+      "path": "/World/harvest_robot/joints/arm_2_shoulder_pan"
+    },
+    {
+      "name": "arm_2_shoulder_lift",
+      "a": "/World/harvest_robot/arm_2_shoulder_link",
+      "b": "/World/harvest_robot/arm_2_upper_arm_link",
+      "axis": 2,
+      "kind": "PhysicsRevoluteJoint",
+      "path": "/World/harvest_robot/joints/arm_2_shoulder_lift"
+    },
+    {
+      "name": "arm_2_elbow_flex",
+      "a": "/World/harvest_robot/arm_2_upper_arm_link",
+      "b": "/World/harvest_robot/arm_2_lower_arm_link",
+      "axis": 2,
+      "kind": "PhysicsRevoluteJoint",
+      "path": "/World/harvest_robot/joints/arm_2_elbow_flex"
+    },
+    {
+      "name": "arm_2_wrist_flex",
+      "a": "/World/harvest_robot/arm_2_lower_arm_link",
+      "b": "/World/harvest_robot/arm_2_wrist_link",
+      "axis": 2,
+      "kind": "PhysicsRevoluteJoint",
+      "path": "/World/harvest_robot/joints/arm_2_wrist_flex"
+    },
+    {
+      "name": "arm_2_wrist_roll",
+      "a": "/World/harvest_robot/arm_2_wrist_link",
+      "b": "/World/harvest_robot/arm_2_gripper_link",
+      "axis": 2,
+      "kind": "PhysicsRevoluteJoint",
+      "path": "/World/harvest_robot/joints/arm_2_wrist_roll"
+    },
+    {
+      "name": "arm_2_gripper",
+      "a": "/World/harvest_robot/arm_2_gripper_link",
+      "b": "/World/harvest_robot/arm_2_moving_jaw_so101_v1_link",
+      "axis": 2,
+      "kind": "PhysicsRevoluteJoint",
+      "path": "/World/harvest_robot/joints/arm_2_gripper"
+    },
+    {
+      "name": "arm_2_gripper_frame_joint",
+      "a": "/World/harvest_robot/arm_2_gripper_link",
+      "b": "/World/harvest_robot/arm_2_gripper_frame_link",
+      "axis": 0,
+      "kind": "PhysicsFixedJoint",
+      "path": "/World/harvest_robot/joints/arm_2_gripper_frame_joint"
+    },
+    {
+      "name": "arm_2_wrist_camera_mount_link_joint",
+      "a": "/World/harvest_robot/arm_2_gripper_link",
+      "b": "/World/harvest_robot/arm_2_wrist_camera_mount_link",
+      "axis": 0,
+      "kind": "PhysicsFixedJoint",
+      "path": "/World/harvest_robot/joints/arm_2_wrist_camera_mount_link_joint"
+    },
+    {
+      "name": "arm_2_wrist_camera_joint",
+      "a": "/World/harvest_robot/arm_2_wrist_camera_mount_link",
+      "b": "/World/harvest_robot/arm_2_wrist_camera_link",
+      "axis": 0,
+      "kind": "PhysicsFixedJoint",
+      "path": "/World/harvest_robot/joints/arm_2_wrist_camera_joint"
+    },
+    {
+      "name": "overhead_base_link_joint",
+      "a": "/World/harvest_robot/top_deck",
+      "b": "/World/harvest_robot/overhead_base_link",
+      "axis": 0,
+      "kind": "PhysicsFixedJoint",
+      "path": "/World/harvest_robot/joints/overhead_base_link_joint"
+    },
+    {
+      "name": "overhead_riser_link_joint",
+      "a": "/World/harvest_robot/overhead_base_link",
+      "b": "/World/harvest_robot/overhead_riser_link",
+      "axis": 0,
+      "kind": "PhysicsFixedJoint",
+      "path": "/World/harvest_robot/joints/overhead_riser_link_joint"
+    },
+    {
+      "name": "overhead_post_link_joint",
+      "a": "/World/harvest_robot/overhead_riser_link",
+      "b": "/World/harvest_robot/overhead_post_link",
+      "axis": 0,
+      "kind": "PhysicsFixedJoint",
+      "path": "/World/harvest_robot/joints/overhead_post_link_joint"
+    },
+    {
+      "name": "overhead_adapter_link_joint",
+      "a": "/World/harvest_robot/overhead_post_link",
+      "b": "/World/harvest_robot/overhead_adapter_link",
+      "axis": 0,
+      "kind": "PhysicsFixedJoint",
+      "path": "/World/harvest_robot/joints/overhead_adapter_link_joint"
+    },
+    {
+      "name": "top_camera_joint",
+      "a": "/World/harvest_robot/overhead_adapter_link",
+      "b": "/World/harvest_robot/top_camera_link",
+      "axis": 0,
+      "kind": "PhysicsFixedJoint",
+      "path": "/World/harvest_robot/joints/top_camera_joint"
+    },
+    {
+      "name": "upper_rail_front_joint",
+      "a": "/World/harvest_robot/base_link",
+      "b": "/World/harvest_robot/upper_rail_front",
+      "axis": 0,
+      "kind": "PhysicsFixedJoint",
+      "path": "/World/harvest_robot/joints/upper_rail_front_joint"
+    },
+    {
+      "name": "upper_rail_left_joint",
+      "a": "/World/harvest_robot/base_link",
+      "b": "/World/harvest_robot/upper_rail_left",
+      "axis": 0,
+      "kind": "PhysicsFixedJoint",
+      "path": "/World/harvest_robot/joints/upper_rail_left_joint"
+    },
+    {
+      "name": "upper_rail_rear_joint",
+      "a": "/World/harvest_robot/base_link",
+      "b": "/World/harvest_robot/upper_rail_rear",
+      "axis": 0,
+      "kind": "PhysicsFixedJoint",
+      "path": "/World/harvest_robot/joints/upper_rail_rear_joint"
+    },
+    {
+      "name": "upper_rail_right_joint",
+      "a": "/World/harvest_robot/base_link",
+      "b": "/World/harvest_robot/upper_rail_right",
+      "axis": 0,
+      "kind": "PhysicsFixedJoint",
+      "path": "/World/harvest_robot/joints/upper_rail_right_joint"
+    },
+    {
+      "name": "box_front_wall_joint",
+      "a": "/World/harvest_robot/upper_rail_right",
+      "b": "/World/harvest_robot/box_front_wall",
+      "axis": 0,
+      "kind": "PhysicsFixedJoint",
+      "path": "/World/harvest_robot/joints/box_front_wall_joint"
+    },
+    {
+      "name": "box_left_wall_joint",
+      "a": "/World/harvest_robot/upper_rail_right",
+      "b": "/World/harvest_robot/box_left_wall",
+      "axis": 0,
+      "kind": "PhysicsFixedJoint",
+      "path": "/World/harvest_robot/joints/box_left_wall_joint"
+    },
+    {
+      "name": "box_rear_wall_joint",
+      "a": "/World/harvest_robot/upper_rail_right",
+      "b": "/World/harvest_robot/box_rear_wall",
+      "axis": 0,
+      "kind": "PhysicsFixedJoint",
+      "path": "/World/harvest_robot/joints/box_rear_wall_joint"
+    },
+    {
+      "name": "box_right_wall_joint",
+      "a": "/World/harvest_robot/upper_rail_right",
+      "b": "/World/harvest_robot/box_right_wall",
+      "axis": 0,
+      "kind": "PhysicsFixedJoint",
+      "path": "/World/harvest_robot/joints/box_right_wall_joint"
+    },
+    {
+      "name": "harvest_lid_mount",
+      "a": "/World/harvest_robot/upper_rail_right",
+      "b": "/World/harvest_robot/harvest_lid_fixed",
+      "axis": 0,
+      "kind": "PhysicsFixedJoint",
+      "path": "/World/harvest_robot/joints/harvest_lid_mount"
+    },
+    {
+      "name": "box_bottom_left_joint",
+      "a": "/World/harvest_robot/harvest_lid_fixed",
+      "b": "/World/harvest_robot/box_bottom_left",
+      "axis": 1,
+      "kind": "PhysicsPrismaticJoint",
+      "path": "/World/harvest_robot/joints/box_bottom_left_joint"
+    },
+    {
+      "name": "box_bottom_right_joint",
+      "a": "/World/harvest_robot/harvest_lid_fixed",
+      "b": "/World/harvest_robot/box_bottom_right",
+      "axis": 1,
+      "kind": "PhysicsPrismaticJoint",
+      "path": "/World/harvest_robot/joints/box_bottom_right_joint"
+    },
+    {
+      "name": "harvest_lid_pinion_joint",
+      "a": "/World/harvest_robot/harvest_lid_fixed",
+      "b": "/World/harvest_robot/harvest_lid_gear",
+      "axis": 0,
+      "kind": "PhysicsRevoluteJoint",
+      "path": "/World/harvest_robot/joints/harvest_lid_pinion_joint"
+    },
+    {
+      "name": "base_joint",
+      "a": "/World/transport_robot/base_footprint",
+      "b": "/World/transport_robot/base_link",
+      "axis": 0,
+      "kind": "PhysicsFixedJoint",
+      "path": "/World/transport_robot/joints/base_joint"
+    },
+    {
+      "name": "box_tilt_joint",
+      "a": "/World/transport_robot/base_link",
+      "b": "/World/transport_robot/cargo_box",
+      "axis": 1,
+      "kind": "PhysicsRevoluteJoint",
+      "path": "/World/transport_robot/joints/box_tilt_joint"
+    },
+    {
+      "name": "lid_drive_mount_joint",
+      "a": "/World/transport_robot/cargo_box",
+      "b": "/World/transport_robot/lid_drive_mount",
+      "axis": 0,
+      "kind": "PhysicsFixedJoint",
+      "path": "/World/transport_robot/joints/lid_drive_mount_joint"
+    },
+    {
+      "name": "top_mg996r_joint",
+      "a": "/World/transport_robot/lid_drive_mount",
+      "b": "/World/transport_robot/top_mg996r",
+      "axis": 0,
+      "kind": "PhysicsFixedJoint",
+      "path": "/World/transport_robot/joints/top_mg996r_joint"
+    },
+    {
+      "name": "lid_pinion_joint",
+      "a": "/World/transport_robot/cargo_box",
+      "b": "/World/transport_robot/lid_pinion",
+      "axis": 0,
+      "kind": "PhysicsRevoluteJoint",
+      "path": "/World/transport_robot/joints/lid_pinion_joint"
+    },
+    {
+      "name": "side_lid_joint",
+      "a": "/World/transport_robot/cargo_box",
+      "b": "/World/transport_robot/side_lid",
+      "axis": 1,
+      "kind": "PhysicsRevoluteJoint",
+      "path": "/World/transport_robot/joints/side_lid_joint"
+    },
+    {
+      "name": "side_mg996r_joint",
+      "a": "/World/transport_robot/cargo_box",
+      "b": "/World/transport_robot/side_mg996r",
+      "axis": 0,
+      "kind": "PhysicsFixedJoint",
+      "path": "/World/transport_robot/joints/side_mg996r_joint"
+    },
+    {
+      "name": "top_lid_left_joint",
+      "a": "/World/transport_robot/cargo_box",
+      "b": "/World/transport_robot/top_lid_left",
+      "axis": 1,
+      "kind": "PhysicsPrismaticJoint",
+      "path": "/World/transport_robot/joints/top_lid_left_joint"
+    },
+    {
+      "name": "top_lid_right_joint",
+      "a": "/World/transport_robot/cargo_box",
+      "b": "/World/transport_robot/top_lid_right",
+      "axis": 1,
+      "kind": "PhysicsPrismaticJoint",
+      "path": "/World/transport_robot/joints/top_lid_right_joint"
+    },
+    {
+      "name": "cargo_support_joint",
+      "a": "/World/transport_robot/base_link",
+      "b": "/World/transport_robot/cargo_support",
+      "axis": 0,
+      "kind": "PhysicsFixedJoint",
+      "path": "/World/transport_robot/joints/cargo_support_joint"
+    },
+    {
+      "name": "tilt_motor_mount",
+      "a": "/World/transport_robot/cargo_support",
+      "b": "/World/transport_robot/tilt_motor_5840_31zy",
+      "axis": 0,
+      "kind": "PhysicsFixedJoint",
+      "path": "/World/transport_robot/joints/tilt_motor_mount"
+    },
+    {
+      "name": "caster_back_left_joint",
+      "a": "/World/transport_robot/base_link",
+      "b": "/World/transport_robot/caster_back_left_link",
+      "axis": 0,
+      "kind": "PhysicsFixedJoint",
+      "path": "/World/transport_robot/joints/caster_back_left_joint"
+    },
+    {
+      "name": "caster_back_right_joint",
+      "a": "/World/transport_robot/base_link",
+      "b": "/World/transport_robot/caster_back_right_link",
+      "axis": 0,
+      "kind": "PhysicsFixedJoint",
+      "path": "/World/transport_robot/joints/caster_back_right_joint"
+    },
+    {
+      "name": "scan_joint",
+      "a": "/World/transport_robot/base_link",
+      "b": "/World/transport_robot/base_scan",
+      "axis": 0,
+      "kind": "PhysicsFixedJoint",
+      "path": "/World/transport_robot/joints/scan_joint"
+    },
+    {
+      "name": "wheel_left_joint",
+      "a": "/World/transport_robot/base_link",
+      "b": "/World/transport_robot/wheel_left_link",
+      "axis": 2,
+      "kind": "PhysicsRevoluteJoint",
+      "path": "/World/transport_robot/joints/wheel_left_joint"
+    },
+    {
+      "name": "wheel_right_joint",
+      "a": "/World/transport_robot/base_link",
+      "b": "/World/transport_robot/wheel_right_link",
+      "axis": 2,
+      "kind": "PhysicsRevoluteJoint",
+      "path": "/World/transport_robot/joints/wheel_right_joint"
+    },
+    {
+      "name": "joint1",
+      "a": "/World/HCRRobot/base",
+      "b": "/World/HCRRobot/link1",
+      "axis": 2,
+      "kind": "PhysicsRevoluteJoint",
+      "path": "/World/HCRRobot/joints/joint1"
+    },
+    {
+      "name": "joint2",
+      "a": "/World/HCRRobot/link1",
+      "b": "/World/HCRRobot/link2",
+      "axis": 1,
+      "kind": "PhysicsRevoluteJoint",
+      "path": "/World/HCRRobot/joints/joint2"
+    },
+    {
+      "name": "joint3",
+      "a": "/World/HCRRobot/link2",
+      "b": "/World/HCRRobot/link3",
+      "axis": 1,
+      "kind": "PhysicsRevoluteJoint",
+      "path": "/World/HCRRobot/joints/joint3"
+    },
+    {
+      "name": "joint4",
+      "a": "/World/HCRRobot/link3",
+      "b": "/World/HCRRobot/link4",
+      "axis": 0,
+      "kind": "PhysicsRevoluteJoint",
+      "path": "/World/HCRRobot/joints/joint4"
+    },
+    {
+      "name": "joint5",
+      "a": "/World/HCRRobot/link4",
+      "b": "/World/HCRRobot/link5",
+      "axis": 1,
+      "kind": "PhysicsRevoluteJoint",
+      "path": "/World/HCRRobot/joints/joint5"
+    },
+    {
+      "name": "joint6",
+      "a": "/World/HCRRobot/link5",
+      "b": "/World/HCRRobot/link6",
+      "axis": 0,
+      "kind": "PhysicsRevoluteJoint",
+      "path": "/World/HCRRobot/joints/joint6"
+    },
+    {
+      "name": "tcp_mount",
+      "a": "/World/HCRRobot/link6",
+      "b": "/World/HCRRobot/tcp",
+      "axis": 0,
+      "kind": "PhysicsFixedJoint",
+      "path": "/World/HCRRobot/joints/tcp_mount"
+    },
+    {
+      "name": "tool_mount",
+      "a": "/World/HCRRobot/link6",
+      "b": "/World/HCRRobot/tool",
+      "axis": 0,
+      "kind": "PhysicsFixedJoint",
+      "path": "/World/HCRRobot/joints/tool_mount"
+    },
+    {
+      "name": "left_jaw",
+      "a": "/World/HCRRobot/tool",
+      "b": "/World/HCRRobot/left_finger",
+      "axis": 1,
+      "kind": "PhysicsPrismaticJoint",
+      "path": "/World/HCRRobot/joints/left_jaw"
+    },
+    {
+      "name": "left_pad_mount",
+      "a": "/World/HCRRobot/left_finger",
+      "b": "/World/HCRRobot/left_pad",
+      "axis": 0,
+      "kind": "PhysicsFixedJoint",
+      "path": "/World/HCRRobot/joints/left_pad_mount"
+    },
+    {
+      "name": "right_jaw",
+      "a": "/World/HCRRobot/tool",
+      "b": "/World/HCRRobot/right_finger",
+      "axis": 1,
+      "kind": "PhysicsPrismaticJoint",
+      "path": "/World/HCRRobot/joints/right_jaw"
+    },
+    {
+      "name": "right_pad_mount",
+      "a": "/World/HCRRobot/right_finger",
+      "b": "/World/HCRRobot/right_pad",
+      "axis": 0,
+      "kind": "PhysicsFixedJoint",
+      "path": "/World/HCRRobot/joints/right_pad_mount"
+    }
+  ],
+  "fruit_paths": [
+    "/World/Vegetation/Bed_01/Fruits/Pepper_0001_yellow",
+    "/World/Vegetation/Bed_01/Fruits/Pepper_0002_yellow",
+    "/World/Vegetation/Bed_01/Fruits/Pepper_0003_yellow",
+    "/World/Vegetation/Bed_01/Fruits/Pepper_0004_red",
+    "/World/Vegetation/Bed_01/Fruits/Pepper_0005_green",
+    "/World/Vegetation/Bed_01/Fruits/Pepper_0006_red",
+    "/World/Vegetation/Bed_01/Fruits/Pepper_0007_yellow",
+    "/World/Vegetation/Bed_01/Fruits/Pepper_0008_yellow",
+    "/World/Vegetation/Bed_01/Fruits/Pepper_0009_red",
+    "/World/Vegetation/Bed_01/Fruits/Pepper_0010_green",
+    "/World/Vegetation/Bed_01/Fruits/Pepper_0011_red",
+    "/World/Vegetation/Bed_01/Fruits/Pepper_0012_red",
+    "/World/Vegetation/Bed_01/Fruits/Pepper_0013_yellow",
+    "/World/Vegetation/Bed_01/Fruits/Pepper_0014_green",
+    "/World/Vegetation/Bed_01/Fruits/Pepper_0015_green",
+    "/World/Vegetation/Bed_01/Fruits/Pepper_0016_green",
+    "/World/Vegetation/Bed_01/Fruits/Pepper_0017_yellow",
+    "/World/Vegetation/Bed_01/Fruits/Pepper_0018_green",
+    "/World/Vegetation/Bed_01/Fruits/Pepper_0019_green",
+    "/World/Vegetation/Bed_01/Fruits/Pepper_0020_red",
+    "/World/Vegetation/Bed_01/Fruits/Pepper_0021_green",
+    "/World/Vegetation/Bed_01/Fruits/Pepper_0022_yellow",
+    "/World/Vegetation/Bed_01/Fruits/Pepper_0023_green",
+    "/World/Vegetation/Bed_01/Fruits/Pepper_0024_yellow",
+    "/World/Vegetation/Bed_01/Fruits/Pepper_0025_red",
+    "/World/Vegetation/Bed_01/Fruits/Pepper_0026_red",
+    "/World/Vegetation/Bed_01/Fruits/Pepper_0027_red",
+    "/World/Vegetation/Bed_01/Fruits/Pepper_0028_green",
+    "/World/Vegetation/Bed_01/Fruits/Pepper_0029_green",
+    "/World/Vegetation/Bed_01/Fruits/Pepper_0030_green",
+    "/World/Vegetation/Bed_01/Fruits/Pepper_0031_yellow",
+    "/World/Vegetation/Bed_01/Fruits/Pepper_0032_yellow",
+    "/World/Vegetation/Bed_01/Fruits/Pepper_0033_yellow",
+    "/World/Vegetation/Bed_01/Fruits/Pepper_0034_red",
+    "/World/Vegetation/Bed_01/Fruits/Pepper_0035_red",
+    "/World/Vegetation/Bed_01/Fruits/Pepper_0036_red",
+    "/World/Vegetation/Bed_02/Fruits/Pepper_0001_green",
+    "/World/Vegetation/Bed_02/Fruits/Pepper_0002_yellow",
+    "/World/Vegetation/Bed_02/Fruits/Pepper_0003_red",
+    "/World/Vegetation/Bed_02/Fruits/Pepper_0004_red",
+    "/World/Vegetation/Bed_02/Fruits/Pepper_0005_green",
+    "/World/Vegetation/Bed_02/Fruits/Pepper_0006_yellow",
+    "/World/Vegetation/Bed_02/Fruits/Pepper_0007_red",
+    "/World/Vegetation/Bed_02/Fruits/Pepper_0008_green",
+    "/World/Vegetation/Bed_02/Fruits/Pepper_0009_green",
+    "/World/Vegetation/Bed_02/Fruits/Pepper_0010_red",
+    "/World/Vegetation/Bed_02/Fruits/Pepper_0011_yellow",
+    "/World/Vegetation/Bed_02/Fruits/Pepper_0012_green",
+    "/World/Vegetation/Bed_02/Fruits/Pepper_0013_yellow",
+    "/World/Vegetation/Bed_02/Fruits/Pepper_0014_green",
+    "/World/Vegetation/Bed_02/Fruits/Pepper_0015_red",
+    "/World/Vegetation/Bed_02/Fruits/Pepper_0016_red",
+    "/World/Vegetation/Bed_02/Fruits/Pepper_0017_yellow",
+    "/World/Vegetation/Bed_02/Fruits/Pepper_0018_green",
+    "/World/Vegetation/Bed_02/Fruits/Pepper_0019_green",
+    "/World/Vegetation/Bed_02/Fruits/Pepper_0020_yellow",
+    "/World/Vegetation/Bed_02/Fruits/Pepper_0021_red",
+    "/World/Vegetation/Bed_02/Fruits/Pepper_0022_green",
+    "/World/Vegetation/Bed_02/Fruits/Pepper_0023_green",
+    "/World/Vegetation/Bed_02/Fruits/Pepper_0024_green",
+    "/World/Vegetation/Bed_02/Fruits/Pepper_0025_red",
+    "/World/Vegetation/Bed_02/Fruits/Pepper_0026_yellow",
+    "/World/Vegetation/Bed_02/Fruits/Pepper_0027_red",
+    "/World/Vegetation/Bed_02/Fruits/Pepper_0028_yellow",
+    "/World/Vegetation/Bed_02/Fruits/Pepper_0029_red",
+    "/World/Vegetation/Bed_02/Fruits/Pepper_0030_yellow",
+    "/World/Vegetation/Bed_02/Fruits/Pepper_0031_yellow",
+    "/World/Vegetation/Bed_02/Fruits/Pepper_0032_red",
+    "/World/Vegetation/Bed_02/Fruits/Pepper_0033_red",
+    "/World/Vegetation/Bed_02/Fruits/Pepper_0034_yellow",
+    "/World/Vegetation/Bed_02/Fruits/Pepper_0035_green",
+    "/World/Vegetation/Bed_02/Fruits/Pepper_0036_yellow",
+    "/World/Vegetation/Bed_03/Fruits/Pepper_0001_red",
+    "/World/Vegetation/Bed_03/Fruits/Pepper_0002_green",
+    "/World/Vegetation/Bed_03/Fruits/Pepper_0003_yellow",
+    "/World/Vegetation/Bed_03/Fruits/Pepper_0004_red",
+    "/World/Vegetation/Bed_03/Fruits/Pepper_0005_green",
+    "/World/Vegetation/Bed_03/Fruits/Pepper_0006_yellow",
+    "/World/Vegetation/Bed_03/Fruits/Pepper_0007_green",
+    "/World/Vegetation/Bed_03/Fruits/Pepper_0008_yellow",
+    "/World/Vegetation/Bed_03/Fruits/Pepper_0009_red",
+    "/World/Vegetation/Bed_03/Fruits/Pepper_0010_green",
+    "/World/Vegetation/Bed_03/Fruits/Pepper_0011_yellow",
+    "/World/Vegetation/Bed_03/Fruits/Pepper_0012_red",
+    "/World/Vegetation/Bed_03/Fruits/Pepper_0013_red",
+    "/World/Vegetation/Bed_03/Fruits/Pepper_0014_yellow",
+    "/World/Vegetation/Bed_03/Fruits/Pepper_0015_yellow",
+    "/World/Vegetation/Bed_03/Fruits/Pepper_0016_yellow",
+    "/World/Vegetation/Bed_03/Fruits/Pepper_0017_green",
+    "/World/Vegetation/Bed_03/Fruits/Pepper_0018_yellow",
+    "/World/Vegetation/Bed_03/Fruits/Pepper_0019_red",
+    "/World/Vegetation/Bed_03/Fruits/Pepper_0020_red",
+    "/World/Vegetation/Bed_03/Fruits/Pepper_0021_red",
+    "/World/Vegetation/Bed_03/Fruits/Pepper_0022_green",
+    "/World/Vegetation/Bed_03/Fruits/Pepper_0023_green",
+    "/World/Vegetation/Bed_03/Fruits/Pepper_0024_green",
+    "/World/Vegetation/Bed_03/Fruits/Pepper_0025_yellow",
+    "/World/Vegetation/Bed_03/Fruits/Pepper_0026_red",
+    "/World/Vegetation/Bed_03/Fruits/Pepper_0027_green",
+    "/World/Vegetation/Bed_03/Fruits/Pepper_0028_yellow",
+    "/World/Vegetation/Bed_03/Fruits/Pepper_0029_red",
+    "/World/Vegetation/Bed_03/Fruits/Pepper_0030_yellow",
+    "/World/Vegetation/Bed_03/Fruits/Pepper_0031_green",
+    "/World/Vegetation/Bed_03/Fruits/Pepper_0032_red",
+    "/World/Vegetation/Bed_03/Fruits/Pepper_0033_green",
+    "/World/Vegetation/Bed_03/Fruits/Pepper_0034_red",
+    "/World/Vegetation/Bed_03/Fruits/Pepper_0035_green",
+    "/World/Vegetation/Bed_03/Fruits/Pepper_0036_yellow",
+    "/World/Vegetation/Bed_04/Fruits/Pepper_0001_green",
+    "/World/Vegetation/Bed_04/Fruits/Pepper_0002_yellow",
+    "/World/Vegetation/Bed_04/Fruits/Pepper_0003_yellow",
+    "/World/Vegetation/Bed_04/Fruits/Pepper_0004_green",
+    "/World/Vegetation/Bed_04/Fruits/Pepper_0005_red",
+    "/World/Vegetation/Bed_04/Fruits/Pepper_0006_red",
+    "/World/Vegetation/Bed_04/Fruits/Pepper_0007_yellow",
+    "/World/Vegetation/Bed_04/Fruits/Pepper_0008_yellow",
+    "/World/Vegetation/Bed_04/Fruits/Pepper_0009_red",
+    "/World/Vegetation/Bed_04/Fruits/Pepper_0010_yellow",
+    "/World/Vegetation/Bed_04/Fruits/Pepper_0011_red",
+    "/World/Vegetation/Bed_04/Fruits/Pepper_0012_green",
+    "/World/Vegetation/Bed_04/Fruits/Pepper_0013_red",
+    "/World/Vegetation/Bed_04/Fruits/Pepper_0014_yellow",
+    "/World/Vegetation/Bed_04/Fruits/Pepper_0015_red",
+    "/World/Vegetation/Bed_04/Fruits/Pepper_0016_green",
+    "/World/Vegetation/Bed_04/Fruits/Pepper_0017_green",
+    "/World/Vegetation/Bed_04/Fruits/Pepper_0018_green",
+    "/World/Vegetation/Bed_04/Fruits/Pepper_0019_yellow",
+    "/World/Vegetation/Bed_04/Fruits/Pepper_0020_yellow",
+    "/World/Vegetation/Bed_04/Fruits/Pepper_0021_yellow",
+    "/World/Vegetation/Bed_04/Fruits/Pepper_0022_green",
+    "/World/Vegetation/Bed_04/Fruits/Pepper_0023_green",
+    "/World/Vegetation/Bed_04/Fruits/Pepper_0024_yellow",
+    "/World/Vegetation/Bed_04/Fruits/Pepper_0025_yellow",
+    "/World/Vegetation/Bed_04/Fruits/Pepper_0026_red",
+    "/World/Vegetation/Bed_04/Fruits/Pepper_0027_yellow",
+    "/World/Vegetation/Bed_04/Fruits/Pepper_0028_green",
+    "/World/Vegetation/Bed_04/Fruits/Pepper_0029_green",
+    "/World/Vegetation/Bed_04/Fruits/Pepper_0030_red",
+    "/World/Vegetation/Bed_04/Fruits/Pepper_0031_red",
+    "/World/Vegetation/Bed_04/Fruits/Pepper_0032_red",
+    "/World/Vegetation/Bed_04/Fruits/Pepper_0033_green",
+    "/World/Vegetation/Bed_04/Fruits/Pepper_0034_green",
+    "/World/Vegetation/Bed_04/Fruits/Pepper_0035_red",
+    "/World/Vegetation/Bed_04/Fruits/Pepper_0036_red",
+    "/World/Vegetation/Bed_05/Fruits/Pepper_0001_yellow",
+    "/World/Vegetation/Bed_05/Fruits/Pepper_0002_red",
+    "/World/Vegetation/Bed_05/Fruits/Pepper_0003_green",
+    "/World/Vegetation/Bed_05/Fruits/Pepper_0004_red",
+    "/World/Vegetation/Bed_05/Fruits/Pepper_0005_red",
+    "/World/Vegetation/Bed_05/Fruits/Pepper_0006_red",
+    "/World/Vegetation/Bed_05/Fruits/Pepper_0007_yellow",
+    "/World/Vegetation/Bed_05/Fruits/Pepper_0008_green",
+    "/World/Vegetation/Bed_05/Fruits/Pepper_0009_green",
+    "/World/Vegetation/Bed_05/Fruits/Pepper_0010_yellow",
+    "/World/Vegetation/Bed_05/Fruits/Pepper_0011_yellow",
+    "/World/Vegetation/Bed_05/Fruits/Pepper_0012_red",
+    "/World/Vegetation/Bed_05/Fruits/Pepper_0013_yellow",
+    "/World/Vegetation/Bed_05/Fruits/Pepper_0014_yellow",
+    "/World/Vegetation/Bed_05/Fruits/Pepper_0015_yellow",
+    "/World/Vegetation/Bed_05/Fruits/Pepper_0016_yellow",
+    "/World/Vegetation/Bed_05/Fruits/Pepper_0017_red",
+    "/World/Vegetation/Bed_05/Fruits/Pepper_0018_green",
+    "/World/Vegetation/Bed_05/Fruits/Pepper_0019_yellow",
+    "/World/Vegetation/Bed_05/Fruits/Pepper_0020_green",
+    "/World/Vegetation/Bed_05/Fruits/Pepper_0021_green",
+    "/World/Vegetation/Bed_05/Fruits/Pepper_0022_green",
+    "/World/Vegetation/Bed_05/Fruits/Pepper_0023_red",
+    "/World/Vegetation/Bed_05/Fruits/Pepper_0024_red",
+    "/World/Vegetation/Bed_05/Fruits/Pepper_0025_green",
+    "/World/Vegetation/Bed_05/Fruits/Pepper_0026_yellow",
+    "/World/Vegetation/Bed_05/Fruits/Pepper_0027_green",
+    "/World/Vegetation/Bed_05/Fruits/Pepper_0028_yellow",
+    "/World/Vegetation/Bed_05/Fruits/Pepper_0029_red",
+    "/World/Vegetation/Bed_05/Fruits/Pepper_0030_red",
+    "/World/Vegetation/Bed_05/Fruits/Pepper_0031_red",
+    "/World/Vegetation/Bed_05/Fruits/Pepper_0032_red",
+    "/World/Vegetation/Bed_05/Fruits/Pepper_0033_green",
+    "/World/Vegetation/Bed_05/Fruits/Pepper_0034_green",
+    "/World/Vegetation/Bed_05/Fruits/Pepper_0035_yellow",
+    "/World/Vegetation/Bed_05/Fruits/Pepper_0036_green",
+    "/World/Vegetation/Bed_06/Fruits/Pepper_0001_red",
+    "/World/Vegetation/Bed_06/Fruits/Pepper_0002_green",
+    "/World/Vegetation/Bed_06/Fruits/Pepper_0003_red",
+    "/World/Vegetation/Bed_06/Fruits/Pepper_0004_yellow",
+    "/World/Vegetation/Bed_06/Fruits/Pepper_0005_yellow",
+    "/World/Vegetation/Bed_06/Fruits/Pepper_0006_green",
+    "/World/Vegetation/Bed_06/Fruits/Pepper_0007_green",
+    "/World/Vegetation/Bed_06/Fruits/Pepper_0008_green",
+    "/World/Vegetation/Bed_06/Fruits/Pepper_0009_green",
+    "/World/Vegetation/Bed_06/Fruits/Pepper_0010_yellow",
+    "/World/Vegetation/Bed_06/Fruits/Pepper_0011_green",
+    "/World/Vegetation/Bed_06/Fruits/Pepper_0012_red",
+    "/World/Vegetation/Bed_06/Fruits/Pepper_0013_yellow",
+    "/World/Vegetation/Bed_06/Fruits/Pepper_0014_green",
+    "/World/Vegetation/Bed_06/Fruits/Pepper_0015_yellow",
+    "/World/Vegetation/Bed_06/Fruits/Pepper_0016_red",
+    "/World/Vegetation/Bed_06/Fruits/Pepper_0017_red",
+    "/World/Vegetation/Bed_06/Fruits/Pepper_0018_yellow",
+    "/World/Vegetation/Bed_06/Fruits/Pepper_0019_red",
+    "/World/Vegetation/Bed_06/Fruits/Pepper_0020_yellow",
+    "/World/Vegetation/Bed_06/Fruits/Pepper_0021_red",
+    "/World/Vegetation/Bed_06/Fruits/Pepper_0022_yellow",
+    "/World/Vegetation/Bed_06/Fruits/Pepper_0023_green",
+    "/World/Vegetation/Bed_06/Fruits/Pepper_0024_green",
+    "/World/Vegetation/Bed_06/Fruits/Pepper_0025_yellow",
+    "/World/Vegetation/Bed_06/Fruits/Pepper_0026_red",
+    "/World/Vegetation/Bed_06/Fruits/Pepper_0027_red",
+    "/World/Vegetation/Bed_06/Fruits/Pepper_0028_green",
+    "/World/Vegetation/Bed_06/Fruits/Pepper_0029_yellow",
+    "/World/Vegetation/Bed_06/Fruits/Pepper_0030_red",
+    "/World/Vegetation/Bed_06/Fruits/Pepper_0031_yellow",
+    "/World/Vegetation/Bed_06/Fruits/Pepper_0032_green",
+    "/World/Vegetation/Bed_06/Fruits/Pepper_0033_red",
+    "/World/Vegetation/Bed_06/Fruits/Pepper_0034_red",
+    "/World/Vegetation/Bed_06/Fruits/Pepper_0035_green",
+    "/World/Vegetation/Bed_06/Fruits/Pepper_0036_yellow",
+    "/World/Vegetation/Bed_07/Fruits/Pepper_0001_red",
+    "/World/Vegetation/Bed_07/Fruits/Pepper_0002_yellow",
+    "/World/Vegetation/Bed_07/Fruits/Pepper_0003_yellow",
+    "/World/Vegetation/Bed_07/Fruits/Pepper_0004_yellow",
+    "/World/Vegetation/Bed_07/Fruits/Pepper_0005_red",
+    "/World/Vegetation/Bed_07/Fruits/Pepper_0006_green",
+    "/World/Vegetation/Bed_07/Fruits/Pepper_0007_red",
+    "/World/Vegetation/Bed_07/Fruits/Pepper_0008_red",
+    "/World/Vegetation/Bed_07/Fruits/Pepper_0009_red",
+    "/World/Vegetation/Bed_07/Fruits/Pepper_0010_red",
+    "/World/Vegetation/Bed_07/Fruits/Pepper_0011_green",
+    "/World/Vegetation/Bed_07/Fruits/Pepper_0012_red",
+    "/World/Vegetation/Bed_07/Fruits/Pepper_0013_yellow",
+    "/World/Vegetation/Bed_07/Fruits/Pepper_0014_yellow",
+    "/World/Vegetation/Bed_07/Fruits/Pepper_0015_green",
+    "/World/Vegetation/Bed_07/Fruits/Pepper_0016_red",
+    "/World/Vegetation/Bed_07/Fruits/Pepper_0017_yellow",
+    "/World/Vegetation/Bed_07/Fruits/Pepper_0018_yellow",
+    "/World/Vegetation/Bed_07/Fruits/Pepper_0019_red",
+    "/World/Vegetation/Bed_07/Fruits/Pepper_0020_green",
+    "/World/Vegetation/Bed_07/Fruits/Pepper_0021_red",
+    "/World/Vegetation/Bed_07/Fruits/Pepper_0022_yellow",
+    "/World/Vegetation/Bed_07/Fruits/Pepper_0023_yellow",
+    "/World/Vegetation/Bed_07/Fruits/Pepper_0024_yellow",
+    "/World/Vegetation/Bed_07/Fruits/Pepper_0025_yellow",
+    "/World/Vegetation/Bed_07/Fruits/Pepper_0026_red",
+    "/World/Vegetation/Bed_07/Fruits/Pepper_0027_green",
+    "/World/Vegetation/Bed_07/Fruits/Pepper_0028_red",
+    "/World/Vegetation/Bed_07/Fruits/Pepper_0029_green",
+    "/World/Vegetation/Bed_07/Fruits/Pepper_0030_green",
+    "/World/Vegetation/Bed_07/Fruits/Pepper_0031_green",
+    "/World/Vegetation/Bed_07/Fruits/Pepper_0032_green",
+    "/World/Vegetation/Bed_07/Fruits/Pepper_0033_green",
+    "/World/Vegetation/Bed_07/Fruits/Pepper_0034_green",
+    "/World/Vegetation/Bed_07/Fruits/Pepper_0035_green",
+    "/World/Vegetation/Bed_07/Fruits/Pepper_0036_yellow",
+    "/World/Vegetation/Bed_08/Fruits/Pepper_0001_yellow",
+    "/World/Vegetation/Bed_08/Fruits/Pepper_0002_red",
+    "/World/Vegetation/Bed_08/Fruits/Pepper_0003_red",
+    "/World/Vegetation/Bed_08/Fruits/Pepper_0004_yellow",
+    "/World/Vegetation/Bed_08/Fruits/Pepper_0005_red",
+    "/World/Vegetation/Bed_08/Fruits/Pepper_0006_green",
+    "/World/Vegetation/Bed_08/Fruits/Pepper_0007_yellow",
+    "/World/Vegetation/Bed_08/Fruits/Pepper_0008_green",
+    "/World/Vegetation/Bed_08/Fruits/Pepper_0009_yellow",
+    "/World/Vegetation/Bed_08/Fruits/Pepper_0010_green",
+    "/World/Vegetation/Bed_08/Fruits/Pepper_0011_yellow",
+    "/World/Vegetation/Bed_08/Fruits/Pepper_0012_yellow",
+    "/World/Vegetation/Bed_08/Fruits/Pepper_0013_yellow",
+    "/World/Vegetation/Bed_08/Fruits/Pepper_0014_red",
+    "/World/Vegetation/Bed_08/Fruits/Pepper_0015_red",
+    "/World/Vegetation/Bed_08/Fruits/Pepper_0016_yellow",
+    "/World/Vegetation/Bed_08/Fruits/Pepper_0017_green",
+    "/World/Vegetation/Bed_08/Fruits/Pepper_0018_green",
+    "/World/Vegetation/Bed_08/Fruits/Pepper_0019_yellow",
+    "/World/Vegetation/Bed_08/Fruits/Pepper_0020_green",
+    "/World/Vegetation/Bed_08/Fruits/Pepper_0021_green",
+    "/World/Vegetation/Bed_08/Fruits/Pepper_0022_red",
+    "/World/Vegetation/Bed_08/Fruits/Pepper_0023_red",
+    "/World/Vegetation/Bed_08/Fruits/Pepper_0024_green",
+    "/World/Vegetation/Bed_08/Fruits/Pepper_0025_green",
+    "/World/Vegetation/Bed_08/Fruits/Pepper_0026_yellow",
+    "/World/Vegetation/Bed_08/Fruits/Pepper_0027_red",
+    "/World/Vegetation/Bed_08/Fruits/Pepper_0028_red",
+    "/World/Vegetation/Bed_08/Fruits/Pepper_0029_yellow",
+    "/World/Vegetation/Bed_08/Fruits/Pepper_0030_yellow",
+    "/World/Vegetation/Bed_08/Fruits/Pepper_0031_green",
+    "/World/Vegetation/Bed_08/Fruits/Pepper_0032_red",
+    "/World/Vegetation/Bed_08/Fruits/Pepper_0033_red",
+    "/World/Vegetation/Bed_08/Fruits/Pepper_0034_green",
+    "/World/Vegetation/Bed_08/Fruits/Pepper_0035_red",
+    "/World/Vegetation/Bed_08/Fruits/Pepper_0036_green"
+  ],
+  "prims": [
+    {
+      "path": "/World",
+      "type": "Xform",
+      "xyz": [
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "path": "/World/farm_framechanged",
+      "type": "Xform",
+      "xyz": [
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "path": "/World/farm_framechanged/Frame_07_Post__1",
+      "type": "Xform",
+      "xyz": [
+        8.0,
+        -1.0,
+        1.5
+      ]
+    },
+    {
+      "path": "/World/farm_framechanged/Frame_08_Post__1",
+      "type": "Xform",
+      "xyz": [
+        -8.0,
+        1.0,
+        1.5
+      ]
+    },
+    {
+      "path": "/World/farm_framechanged/Frame_09_Post__1",
+      "type": "Xform",
+      "xyz": [
+        -8.0,
+        3.0,
+        1.5
+      ]
+    },
+    {
+      "path": "/World/farm_framechanged/Frame_10_Post__1",
+      "type": "Xform",
+      "xyz": [
+        -8.0,
+        5.0,
+        1.5
+      ]
+    },
+    {
+      "path": "/World/farm_framechanged/Frame_11_Post__1",
+      "type": "Xform",
+      "xyz": [
+        -8.0,
+        7.0,
+        1.5
+      ]
+    },
+    {
+      "path": "/World/farm_framechanged/Frame_12_Post__1",
+      "type": "Xform",
+      "xyz": [
+        -8.0,
+        9.0,
+        1.5
+      ]
+    },
+    {
+      "path": "/World/farm_framechanged/Frame_13_Post__1",
+      "type": "Xform",
+      "xyz": [
+        -8.0,
+        11.0,
+        1.5
+      ]
+    },
+    {
+      "path": "/World/farm_framechanged/Frame_14_Post__1",
+      "type": "Xform",
+      "xyz": [
+        -8.0,
+        13.0,
+        1.5
+      ]
+    },
+    {
+      "path": "/World/farm_framechanged/Frame_15_Post__1",
+      "type": "Xform",
+      "xyz": [
+        -8.0,
+        15.0,
+        1.5
+      ]
+    },
+    {
+      "path": "/World/farm_framechanged/Rail_00",
+      "type": "Xform",
+      "xyz": [
+        8.0,
+        0.0,
+        3.0
+      ]
+    },
+    {
+      "path": "/World/farm_framechanged/Rail_01",
+      "type": "Xform",
+      "xyz": [
+        5.656854152679443,
+        0.0,
+        4.41421365737915
+      ]
+    },
+    {
+      "path": "/World/farm_framechanged/Rail_02",
+      "type": "Xform",
+      "xyz": [
+        4.898587410340671e-16,
+        0.0,
+        5.0
+      ]
+    },
+    {
+      "path": "/World/farm_framechanged/Rail_03",
+      "type": "Xform",
+      "xyz": [
+        -5.656854152679443,
+        0.0,
+        4.41421365737915
+      ]
+    },
+    {
+      "path": "/World/farm_framechanged/Rail_04",
+      "type": "Xform",
+      "xyz": [
+        -8.0,
+        0.0,
+        3.0
+      ]
+    },
+    {
+      "path": "/World/farm_framechanged/Entry_Post",
+      "type": "Xform",
+      "xyz": [
+        -2.0399999618530273,
+        -15.0,
+        1.25
+      ]
+    },
+    {
+      "path": "/World/farm_framechanged/Entry_Post_001",
+      "type": "Xform",
+      "xyz": [
+        2.0399999618530273,
+        -15.0,
+        1.25
+      ]
+    },
+    {
+      "path": "/World/farm_framechanged/Entry_Header",
+      "type": "Xform",
+      "xyz": [
+        0.0,
+        -15.0,
+        2.5
+      ]
+    },
+    {
+      "path": "/World/farm_framechanged/Entry_Post_002",
+      "type": "Xform",
+      "xyz": [
+        -2.0399999618530273,
+        15.0,
+        1.25
+      ]
+    },
+    {
+      "path": "/World/farm_framechanged/Entry_Post_003",
+      "type": "Xform",
+      "xyz": [
+        2.0399999618530273,
+        15.0,
+        1.25
+      ]
+    },
+    {
+      "path": "/World/farm_framechanged/Entry_Header_001",
+      "type": "Xform",
+      "xyz": [
+        0.0,
+        15.0,
+        2.5
+      ]
+    },
+    {
+      "path": "/World/farm_framechanged/Arch_continuous_00",
+      "type": "Xform",
+      "xyz": [
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "path": "/World/farm_framechanged/Arch_continuous_01",
+      "type": "Xform",
+      "xyz": [
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "path": "/World/farm_framechanged/Arch_continuous_02",
+      "type": "Xform",
+      "xyz": [
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "path": "/World/farm_framechanged/Arch_continuous_03",
+      "type": "Xform",
+      "xyz": [
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "path": "/World/farm_framechanged/Frame_00_Post__1",
+      "type": "Xform",
+      "xyz": [
+        -8.0,
+        -15.0,
+        1.5
+      ]
+    },
+    {
+      "path": "/World/farm_framechanged/Frame_01_Post__1",
+      "type": "Xform",
+      "xyz": [
+        -8.0,
+        -13.0,
+        1.5
+      ]
+    },
+    {
+      "path": "/World/farm_framechanged/Frame_02_Post__1",
+      "type": "Xform",
+      "xyz": [
+        -8.0,
+        -11.0,
+        1.5
+      ]
+    },
+    {
+      "path": "/World/farm_framechanged/Frame_03_Post__1",
+      "type": "Xform",
+      "xyz": [
+        -8.0,
+        -9.0,
+        1.5
+      ]
+    },
+    {
+      "path": "/World/farm_framechanged/Frame_04_Post__1",
+      "type": "Xform",
+      "xyz": [
+        -8.0,
+        -7.0,
+        1.5
+      ]
+    },
+    {
+      "path": "/World/farm_framechanged/Frame_05_Post__1",
+      "type": "Xform",
+      "xyz": [
+        -8.0,
+        -5.0,
+        1.5
+      ]
+    },
+    {
+      "path": "/World/farm_framechanged/Frame_06_Post__1",
+      "type": "Xform",
+      "xyz": [
+        -8.0,
+        -3.0,
+        1.5
+      ]
+    },
+    {
+      "path": "/World/farm_framechanged/Arch_continuous_04",
+      "type": "Xform",
+      "xyz": [
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "path": "/World/farm_framechanged/Arch_continuous_05",
+      "type": "Xform",
+      "xyz": [
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "path": "/World/farm_framechanged/Arch_continuous_06",
+      "type": "Xform",
+      "xyz": [
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "path": "/World/farm_framechanged/Arch_continuous_07",
+      "type": "Xform",
+      "xyz": [
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "path": "/World/farm_framechanged/Arch_continuous_08",
+      "type": "Xform",
+      "xyz": [
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "path": "/World/farm_framechanged/Arch_continuous_09",
+      "type": "Xform",
+      "xyz": [
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "path": "/World/farm_framechanged/Arch_continuous_10",
+      "type": "Xform",
+      "xyz": [
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "path": "/World/farm_framechanged/Arch_continuous_11",
+      "type": "Xform",
+      "xyz": [
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "path": "/World/farm_framechanged/Arch_continuous_12",
+      "type": "Xform",
+      "xyz": [
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "path": "/World/farm_framechanged/Arch_continuous_13",
+      "type": "Xform",
+      "xyz": [
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "path": "/World/farm_framechanged/Arch_continuous_14",
+      "type": "Xform",
+      "xyz": [
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "path": "/World/farm_framechanged/Arch_continuous_15",
+      "type": "Xform",
+      "xyz": [
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "path": "/World/farm_framechanged/Cover_Roof_soft_film",
+      "type": "Xform",
+      "xyz": [
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "path": "/World/farm_framechanged/Cover_Side_soft_film__1",
+      "type": "Xform",
+      "xyz": [
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "path": "/World/farm_framechanged/Cover_Side_soft_film_1",
+      "type": "Xform",
+      "xyz": [
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "path": "/World/farm_framechanged/Floor_CollisionCandidate",
+      "type": "Xform",
+      "xyz": [
+        0.0,
+        0.0,
+        -0.05999999865889549
+      ]
+    },
+    {
+      "path": "/World/farm_framechanged/GrowBed_01",
+      "type": "Xform",
+      "xyz": [
+        -5.0,
+        -6.0,
+        0.14000000059604645
+      ]
+    },
+    {
+      "path": "/World/farm_framechanged/GrowBed_02",
+      "type": "Xform",
+      "xyz": [
+        -5.0,
+        6.0,
+        0.14000000059604645
+      ]
+    },
+    {
+      "path": "/World/farm_framechanged/GrowBed_03",
+      "type": "Xform",
+      "xyz": [
+        -2.0,
+        -6.0,
+        0.14000000059604645
+      ]
+    },
+    {
+      "path": "/World/farm_framechanged/GrowBed_04",
+      "type": "Xform",
+      "xyz": [
+        -2.0,
+        6.0,
+        0.14000000059604645
+      ]
+    },
+    {
+      "path": "/World/farm_framechanged/GrowBed_05",
+      "type": "Xform",
+      "xyz": [
+        2.0,
+        -6.0,
+        0.14000000059604645
+      ]
+    },
+    {
+      "path": "/World/farm_framechanged/GrowBed_06",
+      "type": "Xform",
+      "xyz": [
+        2.0,
+        6.0,
+        0.14000000059604645
+      ]
+    },
+    {
+      "path": "/World/farm_framechanged/GrowBed_07",
+      "type": "Xform",
+      "xyz": [
+        5.0,
+        -6.0,
+        0.14000000059604645
+      ]
+    },
+    {
+      "path": "/World/farm_framechanged/GrowBed_08",
+      "type": "Xform",
+      "xyz": [
+        5.0,
+        6.0,
+        0.14000000059604645
+      ]
+    },
+    {
+      "path": "/World/farm_framechanged/Outdoor_Terrain",
+      "type": "Xform",
+      "xyz": [
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "path": "/World/farm_framechanged/Access_Track",
+      "type": "Xform",
+      "xyz": [
+        0.0,
+        -25.0,
+        -0.10000000149011612
+      ]
+    },
+    {
+      "path": "/World/farm_framechanged/Exterior_Grass",
+      "type": "Xform",
+      "xyz": [
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "path": "/World/farm_framechanged/Fence_Post",
+      "type": "Xform",
+      "xyz": [
+        -12.0,
+        -14.0,
+        0.6499999761581421
+      ]
+    },
+    {
+      "path": "/World/farm_framechanged/Fence_Post_001",
+      "type": "Xform",
+      "xyz": [
+        -12.0,
+        -11.0,
+        0.6499999761581421
+      ]
+    },
+    {
+      "path": "/World/farm_framechanged/Fence_Post_002",
+      "type": "Xform",
+      "xyz": [
+        -12.0,
+        -8.0,
+        0.6499999761581421
+      ]
+    },
+    {
+      "path": "/World/farm_framechanged/Fence_Post_003",
+      "type": "Xform",
+      "xyz": [
+        -12.0,
+        -5.0,
+        0.6499999761581421
+      ]
+    },
+    {
+      "path": "/World/farm_framechanged/Fence_Post_004",
+      "type": "Xform",
+      "xyz": [
+        -12.0,
+        -2.0,
+        0.6499999761581421
+      ]
+    },
+    {
+      "path": "/World/farm_framechanged/Fence_Post_005",
+      "type": "Xform",
+      "xyz": [
+        -12.0,
+        1.0,
+        0.6499999761581421
+      ]
+    },
+    {
+      "path": "/World/farm_framechanged/Fence_Post_006",
+      "type": "Xform",
+      "xyz": [
+        -12.0,
+        4.0,
+        0.6499999761581421
+      ]
+    },
+    {
+      "path": "/World/farm_framechanged/Fence_Post_007",
+      "type": "Xform",
+      "xyz": [
+        -12.0,
+        7.0,
+        0.6499999761581421
+      ]
+    },
+    {
+      "path": "/World/farm_framechanged/Fence_Post_008",
+      "type": "Xform",
+      "xyz": [
+        -12.0,
+        10.0,
+        0.6499999761581421
+      ]
+    },
+    {
+      "path": "/World/farm_framechanged/Fence_Post_009",
+      "type": "Xform",
+      "xyz": [
+        -12.0,
+        13.0,
+        0.6499999761581421
+      ]
+    },
+    {
+      "path": "/World/farm_framechanged/Fence_Post_010",
+      "type": "Xform",
+      "xyz": [
+        -12.0,
+        16.0,
+        0.6499999761581421
+      ]
+    },
+    {
+      "path": "/World/farm_framechanged/Fence_Rail",
+      "type": "Xform",
+      "xyz": [
+        -12.0,
+        2.0,
+        0.44999998807907104
+      ]
+    },
+    {
+      "path": "/World/farm_framechanged/Fence_Rail_001",
+      "type": "Xform",
+      "xyz": [
+        -12.0,
+        2.0,
+        1.100000023841858
+      ]
+    },
+    {
+      "path": "/World/farm_framechanged/Fence_Post_011",
+      "type": "Xform",
+      "xyz": [
+        12.0,
+        -14.0,
+        0.6499999761581421
+      ]
+    },
+    {
+      "path": "/World/farm_framechanged/Fence_Post_012",
+      "type": "Xform",
+      "xyz": [
+        12.0,
+        -11.0,
+        0.6499999761581421
+      ]
+    },
+    {
+      "path": "/World/farm_framechanged/Fence_Post_013",
+      "type": "Xform",
+      "xyz": [
+        12.0,
+        -8.0,
+        0.6499999761581421
+      ]
+    },
+    {
+      "path": "/World/farm_framechanged/Fence_Post_014",
+      "type": "Xform",
+      "xyz": [
+        12.0,
+        -5.0,
+        0.6499999761581421
+      ]
+    },
+    {
+      "path": "/World/farm_framechanged/Fence_Post_015",
+      "type": "Xform",
+      "xyz": [
+        12.0,
+        -2.0,
+        0.6499999761581421
+      ]
+    },
+    {
+      "path": "/World/farm_framechanged/Fence_Post_016",
+      "type": "Xform",
+      "xyz": [
+        12.0,
+        1.0,
+        0.6499999761581421
+      ]
+    },
+    {
+      "path": "/World/farm_framechanged/Fence_Post_017",
+      "type": "Xform",
+      "xyz": [
+        12.0,
+        4.0,
+        0.6499999761581421
+      ]
+    },
+    {
+      "path": "/World/farm_framechanged/Fence_Post_018",
+      "type": "Xform",
+      "xyz": [
+        12.0,
+        7.0,
+        0.6499999761581421
+      ]
+    },
+    {
+      "path": "/World/farm_framechanged/Fence_Post_019",
+      "type": "Xform",
+      "xyz": [
+        12.0,
+        10.0,
+        0.6499999761581421
+      ]
+    },
+    {
+      "path": "/World/farm_framechanged/Fence_Post_020",
+      "type": "Xform",
+      "xyz": [
+        12.0,
+        13.0,
+        0.6499999761581421
+      ]
+    },
+    {
+      "path": "/World/farm_framechanged/Fence_Post_021",
+      "type": "Xform",
+      "xyz": [
+        12.0,
+        16.0,
+        0.6499999761581421
+      ]
+    },
+    {
+      "path": "/World/farm_framechanged/Fence_Rail_002",
+      "type": "Xform",
+      "xyz": [
+        12.0,
+        2.0,
+        0.44999998807907104
+      ]
+    },
+    {
+      "path": "/World/farm_framechanged/Fence_Rail_003",
+      "type": "Xform",
+      "xyz": [
+        12.0,
+        2.0,
+        1.100000023841858
+      ]
+    },
+    {
+      "path": "/World/farm_framechanged/Irrigation_Water_Tank",
+      "type": "Xform",
+      "xyz": [
+        10.0,
+        7.0,
+        0.8500000238418579
+      ]
+    },
+    {
+      "path": "/World/farm_framechanged/Water_Feed",
+      "type": "Xform",
+      "xyz": [
+        9.0,
+        7.0,
+        0.30000001192092896
+      ]
+    },
+    {
+      "path": "/World/farm_framechanged/Bed_Edge_1__1",
+      "type": "Xform",
+      "xyz": [
+        -5.474999904632568,
+        -6.0,
+        0.14000000059604645
+      ]
+    },
+    {
+      "path": "/World/farm_framechanged/Drip_Hose_1__1",
+      "type": "Xform",
+      "xyz": [
+        -5.210000038146973,
+        -6.0,
+        0.33000001311302185
+      ]
+    },
+    {
+      "path": "/World/farm_framechanged/Bed_Edge_1_1",
+      "type": "Xform",
+      "xyz": [
+        -4.525000095367432,
+        -6.0,
+        0.14000000059604645
+      ]
+    },
+    {
+      "path": "/World/farm_framechanged/Drip_Hose_1_1",
+      "type": "Xform",
+      "xyz": [
+        -4.789999961853027,
+        -6.0,
+        0.33000001311302185
+      ]
+    },
+    {
+      "path": "/World/farm_framechanged/Trellis_Frame_01",
+      "type": "Xform",
+      "xyz": [
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "path": "/World/farm_framechanged/Trellis_Net_01",
+      "type": "Xform",
+      "xyz": [
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "path": "/World/farm_framechanged/Bed_Edge_2__1",
+      "type": "Xform",
+      "xyz": [
+        -5.474999904632568,
+        6.0,
+        0.14000000059604645
+      ]
+    },
+    {
+      "path": "/World/farm_framechanged/Drip_Hose_2__1",
+      "type": "Xform",
+      "xyz": [
+        -5.210000038146973,
+        6.0,
+        0.33000001311302185
+      ]
+    },
+    {
+      "path": "/World/farm_framechanged/Bed_Edge_2_1",
+      "type": "Xform",
+      "xyz": [
+        -4.525000095367432,
+        6.0,
+        0.14000000059604645
+      ]
+    },
+    {
+      "path": "/World/farm_framechanged/Drip_Hose_2_1",
+      "type": "Xform",
+      "xyz": [
+        -4.789999961853027,
+        6.0,
+        0.33000001311302185
+      ]
+    },
+    {
+      "path": "/World/farm_framechanged/Trellis_Frame_02",
+      "type": "Xform",
+      "xyz": [
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "path": "/World/farm_framechanged/Trellis_Net_02",
+      "type": "Xform",
+      "xyz": [
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "path": "/World/farm_framechanged/Bed_Edge_3__1",
+      "type": "Xform",
+      "xyz": [
+        -2.4749999046325684,
+        -6.0,
+        0.14000000059604645
+      ]
+    },
+    {
+      "path": "/World/farm_framechanged/Drip_Hose_3__1",
+      "type": "Xform",
+      "xyz": [
+        -2.2100000381469727,
+        -6.0,
+        0.33000001311302185
+      ]
+    },
+    {
+      "path": "/World/farm_framechanged/Bed_Edge_3_1",
+      "type": "Xform",
+      "xyz": [
+        -1.524999976158142,
+        -6.0,
+        0.14000000059604645
+      ]
+    },
+    {
+      "path": "/World/farm_framechanged/Drip_Hose_3_1",
+      "type": "Xform",
+      "xyz": [
+        -1.7899999618530273,
+        -6.0,
+        0.33000001311302185
+      ]
+    },
+    {
+      "path": "/World/farm_framechanged/Trellis_Frame_03",
+      "type": "Xform",
+      "xyz": [
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "path": "/World/farm_framechanged/Trellis_Net_03",
+      "type": "Xform",
+      "xyz": [
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "path": "/World/farm_framechanged/Bed_Edge_4__1",
+      "type": "Xform",
+      "xyz": [
+        -2.4749999046325684,
+        6.0,
+        0.14000000059604645
+      ]
+    },
+    {
+      "path": "/World/farm_framechanged/Drip_Hose_4__1",
+      "type": "Xform",
+      "xyz": [
+        -2.2100000381469727,
+        6.0,
+        0.33000001311302185
+      ]
+    },
+    {
+      "path": "/World/farm_framechanged/Bed_Edge_4_1",
+      "type": "Xform",
+      "xyz": [
+        -1.524999976158142,
+        6.0,
+        0.14000000059604645
+      ]
+    },
+    {
+      "path": "/World/farm_framechanged/Drip_Hose_4_1",
+      "type": "Xform",
+      "xyz": [
+        -1.7899999618530273,
+        6.0,
+        0.33000001311302185
+      ]
+    },
+    {
+      "path": "/World/farm_framechanged/Trellis_Frame_04",
+      "type": "Xform",
+      "xyz": [
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "path": "/World/farm_framechanged/Trellis_Net_04",
+      "type": "Xform",
+      "xyz": [
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "path": "/World/farm_framechanged/Bed_Edge_5__1",
+      "type": "Xform",
+      "xyz": [
+        1.524999976158142,
+        -6.0,
+        0.14000000059604645
+      ]
+    },
+    {
+      "path": "/World/farm_framechanged/Drip_Hose_5__1",
+      "type": "Xform",
+      "xyz": [
+        1.7899999618530273,
+        -6.0,
+        0.33000001311302185
+      ]
+    },
+    {
+      "path": "/World/farm_framechanged/Bed_Edge_5_1",
+      "type": "Xform",
+      "xyz": [
+        2.4749999046325684,
+        -6.0,
+        0.14000000059604645
+      ]
+    },
+    {
+      "path": "/World/farm_framechanged/Drip_Hose_5_1",
+      "type": "Xform",
+      "xyz": [
+        2.2100000381469727,
+        -6.0,
+        0.33000001311302185
+      ]
+    },
+    {
+      "path": "/World/farm_framechanged/Trellis_Frame_05",
+      "type": "Xform",
+      "xyz": [
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "path": "/World/farm_framechanged/Trellis_Net_05",
+      "type": "Xform",
+      "xyz": [
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "path": "/World/farm_framechanged/Bed_Edge_6__1",
+      "type": "Xform",
+      "xyz": [
+        1.524999976158142,
+        6.0,
+        0.14000000059604645
+      ]
+    },
+    {
+      "path": "/World/farm_framechanged/Drip_Hose_6__1",
+      "type": "Xform",
+      "xyz": [
+        1.7899999618530273,
+        6.0,
+        0.33000001311302185
+      ]
+    },
+    {
+      "path": "/World/farm_framechanged/Bed_Edge_6_1",
+      "type": "Xform",
+      "xyz": [
+        2.4749999046325684,
+        6.0,
+        0.14000000059604645
+      ]
+    },
+    {
+      "path": "/World/farm_framechanged/Drip_Hose_6_1",
+      "type": "Xform",
+      "xyz": [
+        2.2100000381469727,
+        6.0,
+        0.33000001311302185
+      ]
+    },
+    {
+      "path": "/World/farm_framechanged/Trellis_Frame_06",
+      "type": "Xform",
+      "xyz": [
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "path": "/World/farm_framechanged/Trellis_Net_06",
+      "type": "Xform",
+      "xyz": [
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "path": "/World/farm_framechanged/Bed_Edge_7__1",
+      "type": "Xform",
+      "xyz": [
+        4.525000095367432,
+        -6.0,
+        0.14000000059604645
+      ]
+    },
+    {
+      "path": "/World/farm_framechanged/Drip_Hose_7__1",
+      "type": "Xform",
+      "xyz": [
+        4.789999961853027,
+        -6.0,
+        0.33000001311302185
+      ]
+    },
+    {
+      "path": "/World/farm_framechanged/Bed_Edge_7_1",
+      "type": "Xform",
+      "xyz": [
+        5.474999904632568,
+        -6.0,
+        0.14000000059604645
+      ]
+    },
+    {
+      "path": "/World/farm_framechanged/Drip_Hose_7_1",
+      "type": "Xform",
+      "xyz": [
+        5.210000038146973,
+        -6.0,
+        0.33000001311302185
+      ]
+    },
+    {
+      "path": "/World/farm_framechanged/Trellis_Frame_07",
+      "type": "Xform",
+      "xyz": [
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "path": "/World/farm_framechanged/Trellis_Net_07",
+      "type": "Xform",
+      "xyz": [
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "path": "/World/farm_framechanged/Bed_Edge_8__1",
+      "type": "Xform",
+      "xyz": [
+        4.525000095367432,
+        6.0,
+        0.14000000059604645
+      ]
+    },
+    {
+      "path": "/World/farm_framechanged/Drip_Hose_8__1",
+      "type": "Xform",
+      "xyz": [
+        4.789999961853027,
+        6.0,
+        0.33000001311302185
+      ]
+    },
+    {
+      "path": "/World/farm_framechanged/Bed_Edge_8_1",
+      "type": "Xform",
+      "xyz": [
+        5.474999904632568,
+        6.0,
+        0.14000000059604645
+      ]
+    },
+    {
+      "path": "/World/farm_framechanged/Drip_Hose_8_1",
+      "type": "Xform",
+      "xyz": [
+        5.210000038146973,
+        6.0,
+        0.33000001311302185
+      ]
+    },
+    {
+      "path": "/World/farm_framechanged/Trellis_Frame_08",
+      "type": "Xform",
+      "xyz": [
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "path": "/World/farm_framechanged/Trellis_Net_08",
+      "type": "Xform",
+      "xyz": [
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "path": "/World/farm_framechanged/Soil_Surface_1",
+      "type": "Xform",
+      "xyz": [
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "path": "/World/farm_framechanged/Soil_Surface_2",
+      "type": "Xform",
+      "xyz": [
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "path": "/World/farm_framechanged/Soil_Surface_3",
+      "type": "Xform",
+      "xyz": [
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "path": "/World/farm_framechanged/Soil_Surface_4",
+      "type": "Xform",
+      "xyz": [
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "path": "/World/farm_framechanged/Soil_Surface_5",
+      "type": "Xform",
+      "xyz": [
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "path": "/World/farm_framechanged/Soil_Surface_6",
+      "type": "Xform",
+      "xyz": [
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "path": "/World/farm_framechanged/Soil_Surface_7",
+      "type": "Xform",
+      "xyz": [
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "path": "/World/farm_framechanged/Soil_Surface_8",
+      "type": "Xform",
+      "xyz": [
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "path": "/World/farm_framechanged/Soil_small_clods",
+      "type": "Xform",
+      "xyz": [
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "path": "/World/GroundPlane",
+      "type": "Xform",
+      "xyz": [
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "path": "/World/Vegetation",
+      "type": "Xform",
+      "xyz": [
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "path": "/World/Vegetation/Bed_01",
+      "type": "Xform",
+      "xyz": [
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "path": "/World/Vegetation/Bed_02",
+      "type": "Xform",
+      "xyz": [
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "path": "/World/Vegetation/Bed_03",
+      "type": "Xform",
+      "xyz": [
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "path": "/World/Vegetation/Bed_04",
+      "type": "Xform",
+      "xyz": [
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "path": "/World/Vegetation/Bed_05",
+      "type": "Xform",
+      "xyz": [
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "path": "/World/Vegetation/Bed_06",
+      "type": "Xform",
+      "xyz": [
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "path": "/World/Vegetation/Bed_07",
+      "type": "Xform",
+      "xyz": [
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "path": "/World/Vegetation/Bed_08",
+      "type": "Xform",
+      "xyz": [
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "path": "/World/scout_robot_camera_fixed",
+      "type": "Xform",
+      "xyz": [
+        -6.284215450286865,
+        12.061124801635742,
+        -6.433325872023943e-09
+      ]
+    },
+    {
+      "path": "/World/scout_robot_camera_fixed/base_footprint",
+      "type": "Xform",
+      "xyz": [
+        -6.284215450286865,
+        12.061124801635742,
+        -6.433325872023943e-09
+      ]
+    },
+    {
+      "path": "/World/scout_robot_camera_fixed/base_link",
+      "type": "Xform",
+      "xyz": [
+        -6.284215450286865,
+        12.061124801635742,
+        0.00999999334315671
+      ]
+    },
+    {
+      "path": "/World/scout_robot_camera_fixed/caster_back_link",
+      "type": "Xform",
+      "xyz": [
+        -6.284215450286865,
+        12.14212480187416,
+        0.005999993153166905
+      ]
+    },
+    {
+      "path": "/World/scout_robot_camera_fixed/base_scan",
+      "type": "Xform",
+      "xyz": [
+        -6.284215450286865,
+        12.09312480315566,
+        0.1819999991844119
+      ]
+    },
+    {
+      "path": "/World/scout_robot_camera_fixed/wheel_left_link",
+      "type": "Xform",
+      "xyz": [
+        -6.204215452075005,
+        12.061124801635742,
+        0.032999993387860194
+      ]
+    },
+    {
+      "path": "/World/scout_robot_camera_fixed/wheel_right_link",
+      "type": "Xform",
+      "xyz": [
+        -6.364215448498726,
+        12.061124801635742,
+        0.032999993387860194
+      ]
+    },
+    {
+      "path": "/World/harvest_robot",
+      "type": "Xform",
+      "xyz": [
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "path": "/World/harvest_robot/base_footprint",
+      "type": "Xform",
+      "xyz": [
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "path": "/World/harvest_robot/base_link",
+      "type": "Xform",
+      "xyz": [
+        0.0,
+        0.0,
+        0.08699999749660492
+      ]
+    },
+    {
+      "path": "/World/harvest_robot/front_left_caster",
+      "type": "Xform",
+      "xyz": [
+        0.24400000274181366,
+        0.09399999678134918,
+        0.04349999874830246
+      ]
+    },
+    {
+      "path": "/World/harvest_robot/front_left_post",
+      "type": "Xform",
+      "xyz": [
+        0.2849999964237213,
+        0.23499999940395355,
+        0.4455000013113022
+      ]
+    },
+    {
+      "path": "/World/harvest_robot/front_right_caster",
+      "type": "Xform",
+      "xyz": [
+        0.24400000274181366,
+        -0.09399999678134918,
+        0.04349999874830246
+      ]
+    },
+    {
+      "path": "/World/harvest_robot/front_right_post",
+      "type": "Xform",
+      "xyz": [
+        0.2849999964237213,
+        -0.23499999940395355,
+        0.4455000013113022
+      ]
+    },
+    {
+      "path": "/World/harvest_robot/left_wheel",
+      "type": "Xform",
+      "xyz": [
+        0.0,
+        0.21439999341964722,
+        0.08219999726861715
+      ]
+    },
+    {
+      "path": "/World/harvest_robot/lidar_mount",
+      "type": "Xform",
+      "xyz": [
+        0.1850000023841858,
+        0.0,
+        0.2069999948143959
+      ]
+    },
+    {
+      "path": "/World/harvest_robot/lower_rail_front",
+      "type": "Xform",
+      "xyz": [
+        0.2849999964237213,
+        0.0,
+        0.20499999821186066
+      ]
+    },
+    {
+      "path": "/World/harvest_robot/lower_rail_left",
+      "type": "Xform",
+      "xyz": [
+        0.0,
+        0.23499999940395355,
+        0.20499999821186066
+      ]
+    },
+    {
+      "path": "/World/harvest_robot/lower_rail_rear",
+      "type": "Xform",
+      "xyz": [
+        -0.2849999964237213,
+        0.0,
+        0.20499999821186066
+      ]
+    },
+    {
+      "path": "/World/harvest_robot/lower_rail_right",
+      "type": "Xform",
+      "xyz": [
+        0.0,
+        -0.23499999940395355,
+        0.20499999821186066
+      ]
+    },
+    {
+      "path": "/World/harvest_robot/rear_left_caster",
+      "type": "Xform",
+      "xyz": [
+        -0.24400000274181366,
+        0.09399999678134918,
+        0.04349999874830246
+      ]
+    },
+    {
+      "path": "/World/harvest_robot/rear_left_post",
+      "type": "Xform",
+      "xyz": [
+        -0.2849999964237213,
+        0.23499999940395355,
+        0.4455000013113022
+      ]
+    },
+    {
+      "path": "/World/harvest_robot/rear_right_caster",
+      "type": "Xform",
+      "xyz": [
+        -0.24400000274181366,
+        -0.09399999678134918,
+        0.04349999874830246
+      ]
+    },
+    {
+      "path": "/World/harvest_robot/rear_right_post",
+      "type": "Xform",
+      "xyz": [
+        -0.2849999964237213,
+        -0.23499999940395355,
+        0.4455000013113022
+      ]
+    },
+    {
+      "path": "/World/harvest_robot/right_wheel",
+      "type": "Xform",
+      "xyz": [
+        0.0,
+        -0.21439999341964722,
+        0.08219999726861715
+      ]
+    },
+    {
+      "path": "/World/harvest_robot/top_deck",
+      "type": "Xform",
+      "xyz": [
+        0.0,
+        0.0,
+        0.7029999941587448
+      ]
+    },
+    {
+      "path": "/World/harvest_robot/arm_1_mount",
+      "type": "Xform",
+      "xyz": [
+        0.1899999976158142,
+        -0.1850000023841858,
+        0.7089999942108989
+      ]
+    },
+    {
+      "path": "/World/harvest_robot/arm_1_base_link",
+      "type": "Xform",
+      "xyz": [
+        0.1899999976158142,
+        -0.1850000023841858,
+        0.7129999944008887
+      ]
+    },
+    {
+      "path": "/World/harvest_robot/arm_1_shoulder_link",
+      "type": "Xform",
+      "xyz": [
+        0.1899999886392445,
+        -0.2238353006541729,
+        0.7753999927081168
+      ]
+    },
+    {
+      "path": "/World/harvest_robot/arm_1_upper_arm_link",
+      "type": "Xform",
+      "xyz": [
+        0.1717221285893744,
+        -0.25423454656715255,
+        0.829599947431362
+      ]
+    },
+    {
+      "path": "/World/harvest_robot/arm_1_lower_arm_link",
+      "type": "Xform",
+      "xyz": [
+        0.17172202270144568,
+        -0.28223413814001186,
+        0.9421700519103179
+      ]
+    },
+    {
+      "path": "/World/harvest_robot/arm_1_wrist_link",
+      "type": "Xform",
+      "xyz": [
+        0.1717228423051406,
+        -0.41713414175059876,
+        0.9473700534438977
+      ]
+    },
+    {
+      "path": "/World/harvest_robot/arm_1_gripper_link",
+      "type": "Xform",
+      "xyz": [
+        0.18982322027415327,
+        -0.4782340287056879,
+        0.9473703204047415
+      ]
+    },
+    {
+      "path": "/World/harvest_robot/arm_1_moving_jaw_so101_v1_link",
+      "type": "Xform",
+      "xyz": [
+        0.20761818716184263,
+        -0.5016337211038503,
+        0.9684613961820967
+      ]
+    },
+    {
+      "path": "/World/harvest_robot/arm_1_gripper_frame_link",
+      "type": "Xform",
+      "xyz": [
+        0.18999074827094783,
+        -0.5763614795716734,
+        0.9394696883666864
+      ]
+    },
+    {
+      "path": "/World/harvest_robot/arm_1_wrist_camera_mount_link",
+      "type": "Xform",
+      "xyz": [
+        0.19138031164152647,
+        -0.4662342162278343,
+        0.9154081542273971
+      ]
+    },
+    {
+      "path": "/World/harvest_robot/arm_1_wrist_camera_link",
+      "type": "Xform",
+      "xyz": [
+        0.1725825874438047,
+        -0.4662339069248793,
+        0.9929922218489344
+      ]
+    },
+    {
+      "path": "/World/harvest_robot/arm_2_mount",
+      "type": "Xform",
+      "xyz": [
+        -0.1899999976158142,
+        -0.1850000023841858,
+        0.7089999942108989
+      ]
+    },
+    {
+      "path": "/World/harvest_robot/arm_2_base_link",
+      "type": "Xform",
+      "xyz": [
+        -0.1899999976158142,
+        -0.1850000023841858,
+        0.7129999944008887
+      ]
+    },
+    {
+      "path": "/World/harvest_robot/arm_2_shoulder_link",
+      "type": "Xform",
+      "xyz": [
+        -0.19000000659238392,
+        -0.2238353006541729,
+        0.7753999927081168
+      ]
+    },
+    {
+      "path": "/World/harvest_robot/arm_2_upper_arm_link",
+      "type": "Xform",
+      "xyz": [
+        -0.208277866642254,
+        -0.25423454656715255,
+        0.829599947431362
+      ]
+    },
+    {
+      "path": "/World/harvest_robot/arm_2_lower_arm_link",
+      "type": "Xform",
+      "xyz": [
+        -0.20827797253018274,
+        -0.28223413814001186,
+        0.9421700519103179
+      ]
+    },
+    {
+      "path": "/World/harvest_robot/arm_2_wrist_link",
+      "type": "Xform",
+      "xyz": [
+        -0.20827715292648782,
+        -0.41713414175059876,
+        0.9473700534438977
+      ]
+    },
+    {
+      "path": "/World/harvest_robot/arm_2_gripper_link",
+      "type": "Xform",
+      "xyz": [
+        -0.19017677495747515,
+        -0.4782340287056879,
+        0.9473703204047415
+      ]
+    },
+    {
+      "path": "/World/harvest_robot/arm_2_moving_jaw_so101_v1_link",
+      "type": "Xform",
+      "xyz": [
+        -0.17238180806978579,
+        -0.5016337211038503,
+        0.9684613961820967
+      ]
+    },
+    {
+      "path": "/World/harvest_robot/arm_2_gripper_frame_link",
+      "type": "Xform",
+      "xyz": [
+        -0.19000924696068058,
+        -0.5763614795716734,
+        0.9394696883666864
+      ]
+    },
+    {
+      "path": "/World/harvest_robot/arm_2_wrist_camera_mount_link",
+      "type": "Xform",
+      "xyz": [
+        -0.18861968359010195,
+        -0.4662342162278343,
+        0.9154081542273971
+      ]
+    },
+    {
+      "path": "/World/harvest_robot/arm_2_wrist_camera_link",
+      "type": "Xform",
+      "xyz": [
+        -0.20741740778782372,
+        -0.4662339069248793,
+        0.9929922218489344
+      ]
+    },
+    {
+      "path": "/World/harvest_robot/overhead_base_link",
+      "type": "Xform",
+      "xyz": [
+        0.0,
+        -0.1850000023841858,
+        0.7079999940469861
+      ]
+    },
+    {
+      "path": "/World/harvest_robot/overhead_riser_link",
+      "type": "Xform",
+      "xyz": [
+        0.0,
+        -0.1850000023841858,
+        0.7173249945044518
+      ]
+    },
+    {
+      "path": "/World/harvest_robot/overhead_post_link",
+      "type": "Xform",
+      "xyz": [
+        0.0,
+        -0.1850000023841858,
+        0.7236499944701791
+      ]
+    },
+    {
+      "path": "/World/harvest_robot/overhead_adapter_link",
+      "type": "Xform",
+      "xyz": [
+        0.0,
+        -0.1850000023841858,
+        0.7894999915733933
+      ]
+    },
+    {
+      "path": "/World/harvest_robot/top_camera_link",
+      "type": "Xform",
+      "xyz": [
+        0.0,
+        -0.1850000023841858,
+        0.8049999913200736
+      ]
+    },
+    {
+      "path": "/World/harvest_robot/upper_rail_front",
+      "type": "Xform",
+      "xyz": [
+        0.2849999964237213,
+        0.0,
+        0.6859999746084213
+      ]
+    },
+    {
+      "path": "/World/harvest_robot/upper_rail_left",
+      "type": "Xform",
+      "xyz": [
+        0.0,
+        0.23499999940395355,
+        0.6859999746084213
+      ]
+    },
+    {
+      "path": "/World/harvest_robot/upper_rail_rear",
+      "type": "Xform",
+      "xyz": [
+        -0.2849999964237213,
+        0.0,
+        0.6859999746084213
+      ]
+    },
+    {
+      "path": "/World/harvest_robot/upper_rail_right",
+      "type": "Xform",
+      "xyz": [
+        0.0,
+        -0.23499999940395355,
+        0.6859999746084213
+      ]
+    },
+    {
+      "path": "/World/harvest_robot/box_front_wall",
+      "type": "Xform",
+      "xyz": [
+        -5.811452652437765e-09,
+        -0.44749999046325684,
+        0.6034999638795853
+      ]
+    },
+    {
+      "path": "/World/harvest_robot/box_left_wall",
+      "type": "Xform",
+      "xyz": [
+        0.09749998897314072,
+        -0.3500000089406967,
+        0.6034999638795853
+      ]
+    },
+    {
+      "path": "/World/harvest_robot/box_rear_wall",
+      "type": "Xform",
+      "xyz": [
+        5.811452652437765e-09,
+        -0.2525000125169754,
+        0.6034999638795853
+      ]
+    },
+    {
+      "path": "/World/harvest_robot/box_right_wall",
+      "type": "Xform",
+      "xyz": [
+        -0.09749998897314072,
+        -0.3499999940395355,
+        0.6034999638795853
+      ]
+    },
+    {
+      "path": "/World/harvest_robot/harvest_lid_fixed",
+      "type": "Xform",
+      "xyz": [
+        0.0,
+        -0.3500000014901161,
+        0.4949999749660492
+      ]
+    },
+    {
+      "path": "/World/harvest_robot/box_bottom_left",
+      "type": "Xform",
+      "xyz": [
+        0.0,
+        -0.3500000014901161,
+        0.4949999749660492
+      ]
+    },
+    {
+      "path": "/World/harvest_robot/box_bottom_right",
+      "type": "Xform",
+      "xyz": [
+        0.0,
+        -0.3500000014901161,
+        0.4949999749660492
+      ]
+    },
+    {
+      "path": "/World/harvest_robot/harvest_lid_gear",
+      "type": "Xform",
+      "xyz": [
+        0.0,
+        -0.3500000014901161,
+        0.5889999717473984
+      ]
+    },
+    {
+      "path": "/World/transport_robot",
+      "type": "Xform",
+      "xyz": [
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "path": "/World/transport_robot/base_footprint",
+      "type": "Xform",
+      "xyz": [
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "path": "/World/transport_robot/base_link",
+      "type": "Xform",
+      "xyz": [
+        0.0,
+        0.0,
+        0.009999999776482582
+      ]
+    },
+    {
+      "path": "/World/transport_robot/cargo_box",
+      "type": "Xform",
+      "xyz": [
+        0.0860000029206276,
+        0.0,
+        0.25500000454485416
+      ]
+    },
+    {
+      "path": "/World/transport_robot/lid_drive_mount",
+      "type": "Xform",
+      "xyz": [
+        -0.23899998515844345,
+        0.0,
+        0.3810000065714121
+      ]
+    },
+    {
+      "path": "/World/transport_robot/top_mg996r",
+      "type": "Xform",
+      "xyz": [
+        -0.28699998557567596,
+        0.0,
+        0.3810000065714121
+      ]
+    },
+    {
+      "path": "/World/transport_robot/lid_pinion",
+      "type": "Xform",
+      "xyz": [
+        -0.23899998515844345,
+        0.0,
+        0.3810000065714121
+      ]
+    },
+    {
+      "path": "/World/transport_robot/side_lid",
+      "type": "Xform",
+      "xyz": [
+        0.0860000029206276,
+        0.0,
+        0.4450000021606684
+      ]
+    },
+    {
+      "path": "/World/transport_robot/side_mg996r",
+      "type": "Xform",
+      "xyz": [
+        0.06600000336766243,
+        -0.16500000655651093,
+        0.4250000063329935
+      ]
+    },
+    {
+      "path": "/World/transport_robot/top_lid_left",
+      "type": "Xform",
+      "xyz": [
+        0.0860000029206276,
+        0.0,
+        0.25500000454485416
+      ]
+    },
+    {
+      "path": "/World/transport_robot/top_lid_right",
+      "type": "Xform",
+      "xyz": [
+        0.0860000029206276,
+        0.0,
+        0.25500000454485416
+      ]
+    },
+    {
+      "path": "/World/transport_robot/cargo_support",
+      "type": "Xform",
+      "xyz": [
+        0.0,
+        0.0,
+        0.009999999776482582
+      ]
+    },
+    {
+      "path": "/World/transport_robot/tilt_motor_5840_31zy",
+      "type": "Xform",
+      "xyz": [
+        0.0860000029206276,
+        0.1850000023841858,
+        0.25500000454485416
+      ]
+    },
+    {
+      "path": "/World/transport_robot/caster_back_left_link",
+      "type": "Xform",
+      "xyz": [
+        -0.1770000010728836,
+        0.06400000303983688,
+        0.005999999586492777
+      ]
+    },
+    {
+      "path": "/World/transport_robot/caster_back_right_link",
+      "type": "Xform",
+      "xyz": [
+        -0.1770000010728836,
+        -0.06400000303983688,
+        0.005999999586492777
+      ]
+    },
+    {
+      "path": "/World/transport_robot/base_scan",
+      "type": "Xform",
+      "xyz": [
+        -0.06400000303983688,
+        0.0,
+        0.1320000011473894
+      ]
+    },
+    {
+      "path": "/World/transport_robot/wheel_left_link",
+      "type": "Xform",
+      "xyz": [
+        0.0,
+        0.14399999380111694,
+        0.032999999821186066
+      ]
+    },
+    {
+      "path": "/World/transport_robot/wheel_right_link",
+      "type": "Xform",
+      "xyz": [
+        0.0,
+        -0.14399999380111694,
+        0.032999999821186066
+      ]
+    },
+    {
+      "path": "/World/HCRStation",
+      "type": "Xform",
+      "xyz": [
+        -7.204447723212479,
+        14.2870536684691,
+        0.0
+      ]
+    },
+    {
+      "path": "/World/HCRStation/SimDockingMarker_40",
+      "type": "Xform",
+      "xyz": [
+        -7.06905094731583,
+        13.600258428413632,
+        0.106
+      ]
+    },
+    {
+      "path": "/World/HCRRobot",
+      "type": "Xform",
+      "xyz": [
+        -7.204447723212479,
+        14.2870536684691,
+        0.04
+      ]
+    },
+    {
+      "path": "/World/HCRRobot/base",
+      "type": "Xform",
+      "xyz": [
+        -7.204447723212479,
+        14.2870536684691,
+        0.04
+      ]
+    },
+    {
+      "path": "/World/HCRRobot/link1",
+      "type": "Xform",
+      "xyz": [
+        -7.204447723212479,
+        14.2870536684691,
+        0.34000001192092894
+      ]
+    },
+    {
+      "path": "/World/HCRRobot/link2",
+      "type": "Xform",
+      "xyz": [
+        -7.204447723212479,
+        14.2870536684691,
+        0.34000001192092894
+      ]
+    },
+    {
+      "path": "/World/HCRRobot/link3",
+      "type": "Xform",
+      "xyz": [
+        -7.1425533180383205,
+        13.973096540774094,
+        0.34000001192092894
+      ]
+    },
+    {
+      "path": "/World/HCRRobot/link4",
+      "type": "Xform",
+      "xyz": [
+        -7.084527309584818,
+        13.67876171528531,
+        0.34000001192092894
+      ]
+    },
+    {
+      "path": "/World/HCRRobot/link5",
+      "type": "Xform",
+      "xyz": [
+        -7.084527309584818,
+        13.67876171528531,
+        0.34000001192092894
+      ]
+    },
+    {
+      "path": "/World/HCRRobot/link6",
+      "type": "Xform",
+      "xyz": [
+        -7.0748563084160825,
+        13.629705912255496,
+        0.34000001192092894
+      ]
+    },
+    {
+      "path": "/World/HCRRobot/tcp",
+      "type": "Xform",
+      "xyz": [
+        -7.038106504983654,
+        13.443293865859111,
+        0.34000001192092894
+      ]
+    },
+    {
+      "path": "/World/HCRRobot/tool",
+      "type": "Xform",
+      "xyz": [
+        -7.070987908092698,
+        13.610083591774556,
+        0.34000001192092894
+      ]
+    },
+    {
+      "path": "/World/HCRRobot/left_finger",
+      "type": "Xform",
+      "xyz": [
+        -7.032724381510144,
+        13.617626972729402,
+        0.34000001192092894
+      ]
+    },
+    {
+      "path": "/World/HCRRobot/left_pad",
+      "type": "Xform",
+      "xyz": [
+        -7.032724381510144,
+        13.617626972729402,
+        0.34000001192092894
+      ]
+    },
+    {
+      "path": "/World/HCRRobot/right_finger",
+      "type": "Xform",
+      "xyz": [
+        -7.109251434675251,
+        13.60254021081971,
+        0.34000001192092894
+      ]
+    },
+    {
+      "path": "/World/HCRRobot/right_pad",
+      "type": "Xform",
+      "xyz": [
+        -7.109251434675251,
+        13.60254021081971,
+        0.34000001192092894
+      ]
+    },
+    {
+      "path": "/World/AprilTags",
+      "type": "Xform",
+      "xyz": [
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "path": "/World/StudentSensors/WristVisuals",
+      "type": "Xform",
+      "xyz": [
+        -0.19017677495747515,
+        -0.4782340287056879,
+        0.9473703204047415
+      ]
+    },
+    {
+      "path": "/World/PresentationFruits",
+      "type": "Xform",
+      "xyz": [
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "path": "/World/PresentationFruits/Handoff_01",
+      "type": "Xform",
+      "xyz": [
+        -2.5274622931343202,
+        4.44564563639666,
+        0.8385000002714366
+      ]
+    },
+    {
+      "path": "/World/PresentationFruits/Handoff_02",
+      "type": "Xform",
+      "xyz": [
+        1.473075717655791,
+        -6.291573713813416,
+        0.8385000002714369
+      ]
+    },
+    {
+      "path": "/World/PresentationFruits/Handoff_03",
+      "type": "Xform",
+      "xyz": [
+        4.500011822843133,
+        5.078861791083966,
+        0.8385000002714366
+      ]
+    },
+    {
+      "path": "/World/PresentationFruits/Handoff_04",
+      "type": "Xform",
+      "xyz": [
+        1.4996900088324037,
+        8.730421793765645,
+        0.9014764522551262
+      ]
+    },
+    {
+      "path": "/World/PresentationFruits/Handoff_05",
+      "type": "Xform",
+      "xyz": [
+        2.500127719366221,
+        9.436430991810923,
+        1.0167888563141965
+      ]
+    },
+    {
+      "path": "/World/PresentationFruits/Handoff_06",
+      "type": "Xform",
+      "xyz": [
+        -2.501244596246262,
+        9.46808505008471,
+        0.9906252452292255
+      ]
+    },
+    {
+      "path": "/World/PresentationFruits/Handoff_07",
+      "type": "Xform",
+      "xyz": [
+        5.503377219792766,
+        -7.6400716875624495,
+        0.912128553194521
+      ]
+    },
+    {
+      "path": "/Environment",
+      "type": "Xform",
+      "xyz": [
+        0.0,
+        0.0,
+        0.0
+      ]
+    }
+  ]
+}

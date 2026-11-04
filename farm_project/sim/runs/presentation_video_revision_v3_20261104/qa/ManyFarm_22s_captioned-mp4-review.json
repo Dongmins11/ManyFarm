@@ -1,0 +1,28 @@
+{
+  "source": "ManyFarm_22s_captioned.mp4",
+  "source_sha256": "8fd77cf1b64fb9e3a595a22c78f86b38390c0f80a578c76b74f2da809227ca46",
+  "reviewer": "Codex direct visual inspection of 13 ffmpeg-extracted MP4 frames and full-resolution 02/05/06/07 stills",
+  "reviewed_frames": [
+    45,
+    135,
+    225,
+    269,
+    270,
+    315,
+    405,
+    480,
+    555,
+    615,
+    636,
+    648,
+    659
+  ],
+  "findings": [
+    "02 실제 검출 예시와 로봇·태그·자막이 겹치지 않는다.",
+    "05/07 수정 문구를 포함한 한글 자막과 민트 색상 라벨이 읽힌다.",
+    "06 자막은 로봇 바퀴 아래·왼쪽 바닥에 있고 07 자막은 설비 왼쪽 바닥에 있어 피사체를 가리지 않는다.",
+    "03→04는 269/270 프레임 직접 컷이며 과실·집게 자세는 메타데이터로 동일함을 검증했다.",
+    "20.5초 자막이 사라지는 동안 안착 장면을 유지하고 21.2초 이후 전체가 어두워져 659프레임은 완전한 검정이다."
+  ],
+  "passed": true
+}

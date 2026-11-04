@@ -1,0 +1,35 @@
+{
+  "clone_paths": [
+    "/World/PresentationFruits/Handoff_01",
+    "/World/PresentationFruits/Handoff_02",
+    "/World/PresentationFruits/Handoff_03",
+    "/World/PresentationFruits/Handoff_04",
+    "/World/PresentationFruits/Handoff_05",
+    "/World/PresentationFruits/Handoff_06",
+    "/World/PresentationFruits/Handoff_07"
+  ],
+  "floor_paths": [
+    "/World/harvest_robot/box_bottom_left/PresentationRestoredFloor",
+    "/World/harvest_robot/box_bottom_right/PresentationRestoredFloor"
+  ],
+  "diagnostics": {
+    "floor_asset": "/home/ysy/main/farm_project/sim/assets/robots/harvest_physics/box_floor_v3.usd",
+    "floor_mode": "existing_plus_minus_mesh_reference",
+    "panel_travel_m": 0.105,
+    "panel_thickness_m": 0.006,
+    "panel_local_raise_m": 0.005,
+    "source_mesh_missing": {
+      "/World/harvest_robot/box_bottom_left": true,
+      "/World/harvest_robot/box_bottom_right": true
+    },
+    "fruit_sources": [
+      "/World/Vegetation/Bed_04/Fruits/Pepper_0005_red",
+      "/World/Vegetation/Bed_05/Fruits/Pepper_0035_yellow",
+      "/World/Vegetation/Bed_08/Fruits/Pepper_0002_red",
+      "/World/Vegetation/Bed_06/Fruits/Pepper_0029_yellow",
+      "/World/Vegetation/Bed_06/Fruits/Pepper_0026_red",
+      "/World/Vegetation/Bed_04/Fruits/Pepper_0003_yellow",
+      "/World/Vegetation/Bed_07/Fruits/Pepper_0007_red"
+    ]
+  }
+}

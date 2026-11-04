@@ -1,0 +1,61 @@
+{
+  "scope": "Direct inspection of actual Isaac GUI rendered PNGs; final MP4 checks follow",
+  "01": {
+    "chosen": "01_overview_wide",
+    "checked_frames": [
+      0,
+      149
+    ],
+    "reason": "35deg/14mm shows actual arches, film, nearby four-bed corridor and tags. Eye path unchanged, fixed height and pitch. Narrow candidate showed only house shadows and was rejected."
+  },
+  "02": {
+    "chosen": "02_scout",
+    "checked_frames": [
+      0,
+      149
+    ],
+    "reason": "Full wheels, mast, sensor visible; actual house roof/film/posts and bed tags present. Insert card clears sensor at finalframe; source real observation metadata."
+  },
+  "07": {
+    "chosen": "07_sorting_low_refined",
+    "checked_frames": [
+      0,
+      78,
+      90,
+      105,
+      120,
+      209
+    ],
+    "reason": "18.366deg/28.5mm fits all arm poses, gripper, multiple bins and floor bases; actual side film, posts and bed tags visible. Previous high camera lacked visible house; 32mm candidate cut left base, replaced with 28.5mm."
+  },
+  "house_invariant": "stage_portfolio_photos.inspect_request asserts active and visibility against original house baseline at every saved preview and final capture inspection.",
+  "04": {
+    "chosen": "04_deposit",
+    "checked_frames": [
+      0,
+      75,
+      99,
+      103,
+      149
+    ],
+    "reason": "Original 44deg camera and 03 continuity preserved. Opaque gray moving floor restored, top aligned to original wall bottom at z=.506m. Fruit mesh bottom settles on floor."
+  },
+  "05": {
+    "chosen": "05_handoff_high",
+    "checked_frames": [
+      0,
+      48,
+      149
+    ],
+    "reason": "Higher oblique view shows both basket interiors, moving floor panels and gap while keeping wheels and basket edges in frame. Seven source-sized red/yellow fruit tracked in baked motion."
+  },
+  "06": {
+    "chosen": "06_transport_house",
+    "checked_frames": [
+      0,
+      60,
+      119
+    ],
+    "reason": "Lower camera from east aisle shows actual west side film/posts with full loaded transport and relocated station. Previous northward view mainly showed ground and was rejected."
+  }
+}

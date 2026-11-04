@@ -1,0 +1,4854 @@
+{
+  "name": "04_deposit",
+  "fps": 30,
+  "duration_s": 5,
+  "preview_only": true,
+  "base": {
+    "show": [
+      "/World/harvest_robot",
+      "/World/StudentSensors"
+    ],
+    "hide": [
+      "/World/harvest_robot/arm_2_gripper_frame_link",
+      "/World/transport_robot",
+      "/World/HCRRobot",
+      "/World/HCRStation",
+      "/World/scout_robot_camera_fixed"
+    ],
+    "placements": {
+      "/World/harvest_robot": {
+        "xyz": [
+          -6,
+          7.8228,
+          0
+        ],
+        "yaw": 1.5707963267948966
+      },
+      "/World/Vegetation/Bed_02/Fruits/Pepper_0003_red": {
+        "matrix": [
+          [
+            0.1877261361440342,
+            -0.7304134257182608,
+            -6.899643575201259e-05,
+            -5.566154261928133
+          ],
+          [
+            0.7304134281619027,
+            0.1877261317313874,
+            5.336205876228248e-05,
+            7.63275313458762
+          ],
+          [
+            -3.4507550713764115e-05,
+            -8.010771751578577e-05,
+            0.7541517564877406,
+            1.0365000009554481
+          ],
+          [
+            0.0,
+            0.0,
+            0.0,
+            1.0
+          ]
+        ]
+      }
+    },
+    "joints": {
+      "arm_1_shoulder_pan": 0.0,
+      "arm_1_shoulder_lift": -1.6,
+      "arm_1_elbow_flex": 1.2,
+      "arm_1_wrist_flex": -1.5,
+      "arm_1_wrist_roll": 0.04879632679489654,
+      "arm_1_gripper": 1.1,
+      "arm_2_shoulder_pan": -0.001774780394198966,
+      "arm_2_shoulder_lift": -0.9267255045651129,
+      "arm_2_elbow_flex": 0.3327536981747994,
+      "arm_2_wrist_flex": 0.5249768983259967,
+      "arm_2_wrist_roll": 0.04950305171305576,
+      "arm_2_gripper": 0.65,
+      "box_bottom_left_joint": 0.0,
+      "box_bottom_right_joint": 0.0,
+      "harvest_lid_pinion_joint": 0.0
+    },
+    "eye": [
+      -6.465549565627148,
+      7.114587825779639,
+      1.8708656678189268
+    ],
+    "target": [
+      -5.665549565627148,
+      7.714587825779638,
+      0.9051768930118528
+    ],
+    "focal_mm": 31.0,
+    "fill_intensity": 800,
+    "attach_fruits": [
+      {
+        "fruit": "/World/Vegetation/Bed_02/Fruits/Pepper_0003_red",
+        "link": "/World/harvest_robot/arm_2_gripper_link",
+        "matrix": [
+          [
+            -0.01246786583624865,
+            0.05041168622870753,
+            0.7523616774096286,
+            0.02709753350850086
+          ],
+          [
+            0.7300877329737887,
+            0.18898799732583377,
+            -0.0005643133236602307,
+            -0.00026493108764746864
+          ],
+          [
+            -0.18857712985472522,
+            0.7283454387719549,
+            -0.051927520039042,
+            -0.08504733199627346
+          ],
+          [
+            0.0,
+            0.0,
+            0.0,
+            1.0
+          ]
+        ]
+      }
+    ],
+    "inspect": [
+      "/World/Vegetation/Bed_02/Fruits/Pepper_0003_red",
+      "/World/harvest_robot/arm_2_gripper_link",
+      "/World/harvest_robot/box_front_wall",
+      "/World/harvest_robot/box_bottom_left"
+    ]
+  },
+  "keyframes": [
+    {
+      "time": 0.0,
+      "state": {
+        "joints": {
+          "arm_1_shoulder_pan": 0.0,
+          "arm_1_shoulder_lift": -1.6,
+          "arm_1_elbow_flex": 1.2,
+          "arm_1_wrist_flex": -1.5,
+          "arm_1_wrist_roll": 0.04879632679489654,
+          "arm_1_gripper": 1.1,
+          "arm_2_shoulder_pan": -0.001774780394198966,
+          "arm_2_shoulder_lift": -0.9267255045651129,
+          "arm_2_elbow_flex": 0.3327536981747994,
+          "arm_2_wrist_flex": 0.5249768983259967,
+          "arm_2_wrist_roll": 0.04950305171305576,
+          "arm_2_gripper": 0.65
+        }
+      }
+    },
+    {
+      "time": 0.03333333333333333,
+      "state": {
+        "joints": {
+          "arm_1_shoulder_pan": 0.0,
+          "arm_2_wrist_roll": 0.04950305171305576,
+          "arm_2_shoulder_lift": -0.9267255045651129,
+          "arm_1_shoulder_lift": -1.6,
+          "arm_1_elbow_flex": 1.2,
+          "arm_1_gripper": 1.1,
+          "arm_1_wrist_roll": 0.04879632679489653,
+          "arm_2_wrist_flex": 0.5249768983259967,
+          "arm_2_gripper": 0.65,
+          "arm_2_elbow_flex": 0.3327536981747994,
+          "arm_2_shoulder_pan": -0.001774780394198966,
+          "arm_1_wrist_flex": -1.5
+        }
+      }
+    },
+    {
+      "time": 0.06666666666666667,
+      "state": {
+        "joints": {
+          "arm_1_shoulder_pan": 0.0,
+          "arm_2_wrist_roll": 0.04950305171305576,
+          "arm_2_shoulder_lift": -0.9267255045651129,
+          "arm_1_shoulder_lift": -1.6000000000000003,
+          "arm_1_elbow_flex": 1.2,
+          "arm_1_gripper": 1.1000000000000003,
+          "arm_1_wrist_roll": 0.04879632679489654,
+          "arm_2_wrist_flex": 0.5249768983259967,
+          "arm_2_gripper": 0.65,
+          "arm_2_elbow_flex": 0.3327536981747994,
+          "arm_2_shoulder_pan": -0.0017747803941989661,
+          "arm_1_wrist_flex": -1.5
+        }
+      }
+    },
+    {
+      "time": 0.1,
+      "state": {
+        "joints": {
+          "arm_1_shoulder_pan": 0.0,
+          "arm_2_wrist_roll": 0.04950305171305576,
+          "arm_2_shoulder_lift": -0.9267255045651129,
+          "arm_1_shoulder_lift": -1.6,
+          "arm_1_elbow_flex": 1.2,
+          "arm_1_gripper": 1.1,
+          "arm_1_wrist_roll": 0.04879632679489654,
+          "arm_2_wrist_flex": 0.5249768983259967,
+          "arm_2_gripper": 0.65,
+          "arm_2_elbow_flex": 0.3327536981747994,
+          "arm_2_shoulder_pan": -0.001774780394198966,
+          "arm_1_wrist_flex": -1.5
+        }
+      }
+    },
+    {
+      "time": 0.13333333333333333,
+      "state": {
+        "joints": {
+          "arm_1_shoulder_pan": 0.0,
+          "arm_2_wrist_roll": 0.04950305171305576,
+          "arm_2_shoulder_lift": -0.9267255045651128,
+          "arm_1_shoulder_lift": -1.6,
+          "arm_1_elbow_flex": 1.2,
+          "arm_1_gripper": 1.1,
+          "arm_1_wrist_roll": 0.04879632679489654,
+          "arm_2_wrist_flex": 0.5249768983259967,
+          "arm_2_gripper": 0.65,
+          "arm_2_elbow_flex": 0.3327536981747994,
+          "arm_2_shoulder_pan": -0.001774780394198966,
+          "arm_1_wrist_flex": -1.5
+        }
+      }
+    },
+    {
+      "time": 0.16666666666666666,
+      "state": {
+        "joints": {
+          "arm_1_shoulder_pan": 0.0,
+          "arm_2_wrist_roll": 0.04950305171305576,
+          "arm_2_shoulder_lift": -0.9267255045651129,
+          "arm_1_shoulder_lift": -1.6,
+          "arm_1_elbow_flex": 1.2,
+          "arm_1_gripper": 1.1,
+          "arm_1_wrist_roll": 0.04879632679489654,
+          "arm_2_wrist_flex": 0.5249768983259967,
+          "arm_2_gripper": 0.65,
+          "arm_2_elbow_flex": 0.3327536981747994,
+          "arm_2_shoulder_pan": -0.001774780394198966,
+          "arm_1_wrist_flex": -1.5
+        }
+      }
+    },
+    {
+      "time": 0.2,
+      "state": {
+        "joints": {
+          "arm_1_shoulder_pan": 0.0,
+          "arm_2_wrist_roll": 0.049503051713055767,
+          "arm_2_shoulder_lift": -0.9267255045651129,
+          "arm_1_shoulder_lift": -1.6000000000000003,
+          "arm_1_elbow_flex": 1.2,
+          "arm_1_gripper": 1.1,
+          "arm_1_wrist_roll": 0.04879632679489654,
+          "arm_2_wrist_flex": 0.5249768983259967,
+          "arm_2_gripper": 0.65,
+          "arm_2_elbow_flex": 0.3327536981747994,
+          "arm_2_shoulder_pan": -0.0017747803941989661,
+          "arm_1_wrist_flex": -1.5
+        }
+      }
+    },
+    {
+      "time": 0.23333333333333334,
+      "state": {
+        "joints": {
+          "arm_1_shoulder_pan": 0.0,
+          "arm_2_wrist_roll": 0.049503051713055767,
+          "arm_2_shoulder_lift": -0.926725504565113,
+          "arm_1_shoulder_lift": -1.6,
+          "arm_1_elbow_flex": 1.2,
+          "arm_1_gripper": 1.1,
+          "arm_1_wrist_roll": 0.04879632679489654,
+          "arm_2_wrist_flex": 0.5249768983259967,
+          "arm_2_gripper": 0.65,
+          "arm_2_elbow_flex": 0.3327536981747994,
+          "arm_2_shoulder_pan": -0.0017747803941989661,
+          "arm_1_wrist_flex": -1.5
+        }
+      }
+    },
+    {
+      "time": 0.26666666666666666,
+      "state": {
+        "joints": {
+          "arm_1_shoulder_pan": 0.0,
+          "arm_2_wrist_roll": 0.04950305171305576,
+          "arm_2_shoulder_lift": -0.9267255045651128,
+          "arm_1_shoulder_lift": -1.6,
+          "arm_1_elbow_flex": 1.2,
+          "arm_1_gripper": 1.1,
+          "arm_1_wrist_roll": 0.04879632679489654,
+          "arm_2_wrist_flex": 0.5249768983259967,
+          "arm_2_gripper": 0.6499999999999999,
+          "arm_2_elbow_flex": 0.3327536981747994,
+          "arm_2_shoulder_pan": -0.001774780394198966,
+          "arm_1_wrist_flex": -1.4999999999999998
+        }
+      }
+    },
+    {
+      "time": 0.3,
+      "state": {
+        "joints": {
+          "arm_1_shoulder_pan": 0.0,
+          "arm_2_wrist_roll": 0.04950305171305576,
+          "arm_2_shoulder_lift": -0.926725504565113,
+          "arm_1_shoulder_lift": -1.6,
+          "arm_1_elbow_flex": 1.2,
+          "arm_1_gripper": 1.1,
+          "arm_1_wrist_roll": 0.04879632679489654,
+          "arm_2_wrist_flex": 0.5249768983259967,
+          "arm_2_gripper": 0.65,
+          "arm_2_elbow_flex": 0.3327536981747994,
+          "arm_2_shoulder_pan": -0.0017747803941989661,
+          "arm_1_wrist_flex": -1.5000000000000002
+        }
+      }
+    },
+    {
+      "time": 0.3333333333333333,
+      "state": {
+        "joints": {
+          "arm_1_shoulder_pan": 0.0,
+          "arm_2_wrist_roll": 0.04950305171305575,
+          "arm_2_shoulder_lift": -0.9267255045651129,
+          "arm_1_shoulder_lift": -1.5999999999999999,
+          "arm_1_elbow_flex": 1.2,
+          "arm_1_gripper": 1.1,
+          "arm_1_wrist_roll": 0.04879632679489654,
+          "arm_2_wrist_flex": 0.5249768983259967,
+          "arm_2_gripper": 0.6499999999999999,
+          "arm_2_elbow_flex": 0.3327536981747994,
+          "arm_2_shoulder_pan": -0.0017747803941989657,
+          "arm_1_wrist_flex": -1.5
+        }
+      }
+    },
+    {
+      "time": 0.36666666666666664,
+      "state": {
+        "joints": {
+          "arm_1_shoulder_pan": 0.0,
+          "arm_2_wrist_roll": 0.04950305171305576,
+          "arm_2_shoulder_lift": -0.9267255045651129,
+          "arm_1_shoulder_lift": -1.5999999999999999,
+          "arm_1_elbow_flex": 1.2,
+          "arm_1_gripper": 1.1,
+          "arm_1_wrist_roll": 0.04879632679489654,
+          "arm_2_wrist_flex": 0.5249768983259967,
+          "arm_2_gripper": 0.6499999999999999,
+          "arm_2_elbow_flex": 0.3327536981747994,
+          "arm_2_shoulder_pan": -0.0017747803941989657,
+          "arm_1_wrist_flex": -1.4999999999999998
+        }
+      }
+    },
+    {
+      "time": 0.4,
+      "state": {
+        "joints": {
+          "arm_1_shoulder_pan": 0.0,
+          "arm_2_wrist_roll": 0.04950305171305576,
+          "arm_2_shoulder_lift": -0.9267255045651128,
+          "arm_1_shoulder_lift": -1.6,
+          "arm_1_elbow_flex": 1.2,
+          "arm_1_gripper": 1.1,
+          "arm_1_wrist_roll": 0.04879632679489654,
+          "arm_2_wrist_flex": 0.5249768983259967,
+          "arm_2_gripper": 0.65,
+          "arm_2_elbow_flex": 0.3327536981747994,
+          "arm_2_shoulder_pan": -0.001774780394198966,
+          "arm_1_wrist_flex": -1.5
+        }
+      }
+    },
+    {
+      "time": 0.43333333333333335,
+      "state": {
+        "joints": {
+          "arm_1_shoulder_pan": 0.0,
+          "arm_2_wrist_roll": 0.04950305171305576,
+          "arm_2_shoulder_lift": -0.9267255045651128,
+          "arm_1_shoulder_lift": -1.6,
+          "arm_1_elbow_flex": 1.2,
+          "arm_1_gripper": 1.1,
+          "arm_1_wrist_roll": 0.04879632679489654,
+          "arm_2_wrist_flex": 0.5249768983259967,
+          "arm_2_gripper": 0.65,
+          "arm_2_elbow_flex": 0.3327536981747994,
+          "arm_2_shoulder_pan": -0.0017747803941989657,
+          "arm_1_wrist_flex": -1.5
+        }
+      }
+    },
+    {
+      "time": 0.4666666666666667,
+      "state": {
+        "joints": {
+          "arm_1_shoulder_pan": 0.0,
+          "arm_2_wrist_roll": 0.04950305171305576,
+          "arm_2_shoulder_lift": -0.926725504565113,
+          "arm_1_shoulder_lift": -1.6,
+          "arm_1_elbow_flex": 1.2,
+          "arm_1_gripper": 1.1,
+          "arm_1_wrist_roll": 0.04879632679489654,
+          "arm_2_wrist_flex": 0.5249768983259967,
+          "arm_2_gripper": 0.65,
+          "arm_2_elbow_flex": 0.3327536981747994,
+          "arm_2_shoulder_pan": -0.001774780394198966,
+          "arm_1_wrist_flex": -1.5
+        }
+      }
+    },
+    {
+      "time": 0.5,
+      "state": {
+        "joints": {
+          "arm_1_shoulder_pan": 0.0,
+          "arm_2_wrist_roll": 0.04950305171305576,
+          "arm_2_shoulder_lift": -0.9267255045651129,
+          "arm_1_shoulder_lift": -1.6,
+          "arm_1_elbow_flex": 1.2,
+          "arm_1_gripper": 1.1,
+          "arm_1_wrist_roll": 0.04879632679489654,
+          "arm_2_wrist_flex": 0.5249768983259967,
+          "arm_2_gripper": 0.65,
+          "arm_2_elbow_flex": 0.3327536981747994,
+          "arm_2_shoulder_pan": -0.001774780394198966,
+          "arm_1_wrist_flex": -1.5
+        }
+      }
+    },
+    {
+      "time": 0.5333333333333333,
+      "state": {
+        "joints": {
+          "arm_1_shoulder_pan": 0.0,
+          "arm_2_wrist_roll": 0.04950305171305576,
+          "arm_2_shoulder_lift": -0.926725504565113,
+          "arm_1_shoulder_lift": -1.6,
+          "arm_1_elbow_flex": 1.2,
+          "arm_1_gripper": 1.1,
+          "arm_1_wrist_roll": 0.04879632679489654,
+          "arm_2_wrist_flex": 0.5249768983259967,
+          "arm_2_gripper": 0.65,
+          "arm_2_elbow_flex": 0.3327536981747994,
+          "arm_2_shoulder_pan": -0.001774780394198966,
+          "arm_1_wrist_flex": -1.5
+        }
+      }
+    },
+    {
+      "time": 0.5666666666666667,
+      "state": {
+        "joints": {
+          "arm_1_shoulder_pan": 0.0,
+          "arm_2_wrist_roll": 0.04950305171305576,
+          "arm_2_shoulder_lift": -0.9267255045651128,
+          "arm_1_shoulder_lift": -1.6,
+          "arm_1_elbow_flex": 1.2,
+          "arm_1_gripper": 1.1,
+          "arm_1_wrist_roll": 0.04879632679489654,
+          "arm_2_wrist_flex": 0.5249768983259967,
+          "arm_2_gripper": 0.65,
+          "arm_2_elbow_flex": 0.3327536981747994,
+          "arm_2_shoulder_pan": -0.0017747803941989657,
+          "arm_1_wrist_flex": -1.5
+        }
+      }
+    },
+    {
+      "time": 0.6,
+      "state": {
+        "joints": {
+          "arm_1_shoulder_pan": 0.0,
+          "arm_2_wrist_roll": 0.04950305171305576,
+          "arm_2_shoulder_lift": -0.9267255045651129,
+          "arm_1_shoulder_lift": -1.6,
+          "arm_1_elbow_flex": 1.2,
+          "arm_1_gripper": 1.1,
+          "arm_1_wrist_roll": 0.04879632679489654,
+          "arm_2_wrist_flex": 0.5249768983259967,
+          "arm_2_gripper": 0.65,
+          "arm_2_elbow_flex": 0.3327536981747994,
+          "arm_2_shoulder_pan": -0.0017747803941989661,
+          "arm_1_wrist_flex": -1.5
+        }
+      }
+    },
+    {
+      "time": 0.6333333333333333,
+      "state": {
+        "joints": {
+          "arm_1_shoulder_pan": 0.0,
+          "arm_2_wrist_roll": 0.04950305171305576,
+          "arm_2_shoulder_lift": -0.926725504565113,
+          "arm_1_shoulder_lift": -1.6,
+          "arm_1_elbow_flex": 1.2,
+          "arm_1_gripper": 1.1,
+          "arm_1_wrist_roll": 0.04879632679489654,
+          "arm_2_wrist_flex": 0.5249768983259967,
+          "arm_2_gripper": 0.65,
+          "arm_2_elbow_flex": 0.3327536981747994,
+          "arm_2_shoulder_pan": -0.001774780394198966,
+          "arm_1_wrist_flex": -1.5
+        }
+      }
+    },
+    {
+      "time": 0.6666666666666666,
+      "state": {
+        "joints": {
+          "arm_1_shoulder_pan": 0.0,
+          "arm_2_wrist_roll": 0.04950305171305576,
+          "arm_2_shoulder_lift": -0.9267255045651129,
+          "arm_1_shoulder_lift": -1.6,
+          "arm_1_elbow_flex": 1.2,
+          "arm_1_gripper": 1.1,
+          "arm_1_wrist_roll": 0.04879632679489654,
+          "arm_2_wrist_flex": 0.5249768983259967,
+          "arm_2_gripper": 0.65,
+          "arm_2_elbow_flex": 0.3327536981747994,
+          "arm_2_shoulder_pan": -0.001774780394198966,
+          "arm_1_wrist_flex": -1.5
+        }
+      }
+    },
+    {
+      "time": 0.7,
+      "state": {
+        "joints": {
+          "arm_1_shoulder_pan": 0.0,
+          "arm_2_wrist_roll": 0.04950305171305576,
+          "arm_2_shoulder_lift": -0.9267255045651129,
+          "arm_1_shoulder_lift": -1.6,
+          "arm_1_elbow_flex": 1.2,
+          "arm_1_gripper": 1.1,
+          "arm_1_wrist_roll": 0.04879632679489654,
+          "arm_2_wrist_flex": 0.5249768983259967,
+          "arm_2_gripper": 0.65,
+          "arm_2_elbow_flex": 0.3327536981747994,
+          "arm_2_shoulder_pan": -0.001774780394198966,
+          "arm_1_wrist_flex": -1.5
+        }
+      }
+    },
+    {
+      "time": 0.7333333333333333,
+      "state": {
+        "joints": {
+          "arm_1_shoulder_pan": 0.0,
+          "arm_2_wrist_roll": 0.04950305171305576,
+          "arm_2_shoulder_lift": -0.9267255045651128,
+          "arm_1_shoulder_lift": -1.6,
+          "arm_1_elbow_flex": 1.2,
+          "arm_1_gripper": 1.1,
+          "arm_1_wrist_roll": 0.04879632679489654,
+          "arm_2_wrist_flex": 0.5249768983259967,
+          "arm_2_gripper": 0.6499999999999999,
+          "arm_2_elbow_flex": 0.3327536981747994,
+          "arm_2_shoulder_pan": -0.001774780394198966,
+          "arm_1_wrist_flex": -1.5
+        }
+      }
+    },
+    {
+      "time": 0.7666666666666667,
+      "state": {
+        "joints": {
+          "arm_1_shoulder_pan": 0.0,
+          "arm_2_wrist_roll": 0.04950305171305576,
+          "arm_2_shoulder_lift": -0.9267255045651129,
+          "arm_1_shoulder_lift": -1.6,
+          "arm_1_elbow_flex": 1.2,
+          "arm_1_gripper": 1.1,
+          "arm_1_wrist_roll": 0.04879632679489654,
+          "arm_2_wrist_flex": 0.5249768983259967,
+          "arm_2_gripper": 0.65,
+          "arm_2_elbow_flex": 0.3327536981747994,
+          "arm_2_shoulder_pan": -0.001774780394198966,
+          "arm_1_wrist_flex": -1.5
+        }
+      }
+    },
+    {
+      "time": 0.8,
+      "state": {
+        "joints": {
+          "arm_1_shoulder_pan": 0.0,
+          "arm_2_wrist_roll": 0.04950305171305576,
+          "arm_2_shoulder_lift": -0.9267255045651129,
+          "arm_1_shoulder_lift": -1.6,
+          "arm_1_elbow_flex": 1.2,
+          "arm_1_gripper": 1.1,
+          "arm_1_wrist_roll": 0.04879632679489654,
+          "arm_2_wrist_flex": 0.5249768983259967,
+          "arm_2_gripper": 0.65,
+          "arm_2_elbow_flex": 0.3327536981747994,
+          "arm_2_shoulder_pan": -0.0017747803941989657,
+          "arm_1_wrist_flex": -1.5
+        }
+      }
+    },
+    {
+      "time": 0.8333333333333334,
+      "state": {
+        "joints": {
+          "arm_1_shoulder_pan": 0.0,
+          "arm_2_wrist_roll": 0.04950305171305576,
+          "arm_2_shoulder_lift": -0.9267255045651129,
+          "arm_1_shoulder_lift": -1.6,
+          "arm_1_elbow_flex": 1.2,
+          "arm_1_gripper": 1.1,
+          "arm_1_wrist_roll": 0.04879632679489654,
+          "arm_2_wrist_flex": 0.5249768983259967,
+          "arm_2_gripper": 0.65,
+          "arm_2_elbow_flex": 0.3327536981747994,
+          "arm_2_shoulder_pan": -0.001774780394198966,
+          "arm_1_wrist_flex": -1.5
+        }
+      }
+    },
+    {
+      "time": 0.8666666666666667,
+      "state": {
+        "joints": {
+          "arm_1_shoulder_pan": 0.0,
+          "arm_2_wrist_roll": 0.04950305171305576,
+          "arm_2_shoulder_lift": -0.9267255045651129,
+          "arm_1_shoulder_lift": -1.6,
+          "arm_1_elbow_flex": 1.2,
+          "arm_1_gripper": 1.1,
+          "arm_1_wrist_roll": 0.04879632679489654,
+          "arm_2_wrist_flex": 0.5249768983259967,
+          "arm_2_gripper": 0.65,
+          "arm_2_elbow_flex": 0.3327536981747994,
+          "arm_2_shoulder_pan": -0.001774780394198966,
+          "arm_1_wrist_flex": -1.5
+        }
+      }
+    },
+    {
+      "time": 0.9,
+      "state": {
+        "joints": {
+          "arm_1_shoulder_pan": 0.0,
+          "arm_2_wrist_roll": 0.04950305171305576,
+          "arm_2_shoulder_lift": -0.9267255045651129,
+          "arm_1_shoulder_lift": -1.6,
+          "arm_1_elbow_flex": 1.2,
+          "arm_1_gripper": 1.1,
+          "arm_1_wrist_roll": 0.04879632679489654,
+          "arm_2_wrist_flex": 0.5249768983259967,
+          "arm_2_gripper": 0.65,
+          "arm_2_elbow_flex": 0.3327536981747994,
+          "arm_2_shoulder_pan": -0.001774780394198966,
+          "arm_1_wrist_flex": -1.5
+        }
+      }
+    },
+    {
+      "time": 0.9333333333333333,
+      "state": {
+        "joints": {
+          "arm_1_shoulder_pan": 0.0,
+          "arm_2_wrist_roll": 0.04950305171305576,
+          "arm_2_shoulder_lift": -0.9267255045651129,
+          "arm_1_shoulder_lift": -1.6,
+          "arm_1_elbow_flex": 1.2,
+          "arm_1_gripper": 1.1,
+          "arm_1_wrist_roll": 0.04879632679489654,
+          "arm_2_wrist_flex": 0.5249768983259967,
+          "arm_2_gripper": 0.65,
+          "arm_2_elbow_flex": 0.3327536981747994,
+          "arm_2_shoulder_pan": -0.0017747803941989661,
+          "arm_1_wrist_flex": -1.5
+        }
+      }
+    },
+    {
+      "time": 0.9666666666666667,
+      "state": {
+        "joints": {
+          "arm_1_shoulder_pan": 0.0,
+          "arm_2_wrist_roll": 0.04950305171305576,
+          "arm_2_shoulder_lift": -0.9267255045651129,
+          "arm_1_shoulder_lift": -1.6,
+          "arm_1_elbow_flex": 1.2,
+          "arm_1_gripper": 1.1,
+          "arm_1_wrist_roll": 0.04879632679489654,
+          "arm_2_wrist_flex": 0.5249768983259967,
+          "arm_2_gripper": 0.65,
+          "arm_2_elbow_flex": 0.3327536981747994,
+          "arm_2_shoulder_pan": -0.001774780394198966,
+          "arm_1_wrist_flex": -1.5
+        }
+      }
+    },
+    {
+      "time": 1.0,
+      "state": {
+        "joints": {
+          "arm_1_shoulder_pan": 0.0,
+          "arm_2_wrist_roll": 0.04950305171305576,
+          "arm_2_shoulder_lift": -0.9267255045651129,
+          "arm_1_shoulder_lift": -1.6,
+          "arm_1_elbow_flex": 1.2,
+          "arm_1_gripper": 1.1,
+          "arm_1_wrist_roll": 0.04879632679489654,
+          "arm_2_wrist_flex": 0.5249768983259967,
+          "arm_2_gripper": 0.65,
+          "arm_2_elbow_flex": 0.3327536981747994,
+          "arm_2_shoulder_pan": -0.001774780394198966,
+          "arm_1_wrist_flex": -1.5
+        }
+      }
+    },
+    {
+      "time": 1.0333333333333334,
+      "state": {
+        "joints": {
+          "arm_1_shoulder_pan": 0.0,
+          "arm_2_wrist_roll": 0.050037588904561295,
+          "arm_2_shoulder_lift": -0.9282575071058412,
+          "arm_1_shoulder_lift": -1.6,
+          "arm_1_elbow_flex": 1.2,
+          "arm_1_gripper": 1.1,
+          "arm_1_wrist_roll": 0.04879632679489653,
+          "arm_2_wrist_flex": 0.5259550714958615,
+          "arm_2_gripper": 0.65,
+          "arm_2_elbow_flex": 0.3329336129815128,
+          "arm_2_shoulder_pan": -0.004223030896942157,
+          "arm_1_wrist_flex": -1.5
+        }
+      }
+    },
+    {
+      "time": 1.0666666666666667,
+      "state": {
+        "joints": {
+          "arm_1_shoulder_pan": 0.0,
+          "arm_2_wrist_roll": 0.051565513797094786,
+          "arm_2_shoulder_lift": -0.9326365940142948,
+          "arm_1_shoulder_lift": -1.6,
+          "arm_1_elbow_flex": 1.2,
+          "arm_1_gripper": 1.1,
+          "arm_1_wrist_roll": 0.04879632679489654,
+          "arm_2_wrist_flex": 0.5287510886097226,
+          "arm_2_gripper": 0.65,
+          "arm_2_elbow_flex": 0.3334478827387557,
+          "arm_2_shoulder_pan": -0.011221127466730152,
+          "arm_1_wrist_flex": -1.5
+        }
+      }
+    },
+    {
+      "time": 1.1,
+      "state": {
+        "joints": {
+          "arm_1_shoulder_pan": 0.0,
+          "arm_2_wrist_roll": 0.05397329636768164,
+          "arm_2_shoulder_lift": -0.9395373842198761,
+          "arm_1_shoulder_lift": -1.6,
+          "arm_1_elbow_flex": 1.2,
+          "arm_1_gripper": 1.0999999999999999,
+          "arm_1_wrist_roll": 0.04879632679489653,
+          "arm_2_wrist_flex": 0.5331571960739806,
+          "arm_2_gripper": 0.65,
+          "arm_2_elbow_flex": 0.3342582954521818,
+          "arm_2_shoulder_pan": -0.022249087695900775,
+          "arm_1_wrist_flex": -1.5
+        }
+      }
+    },
+    {
+      "time": 1.1333333333333333,
+      "state": {
+        "joints": {
+          "arm_1_shoulder_pan": 0.0,
+          "arm_2_wrist_roll": 0.0571474065933472,
+          "arm_2_shoulder_lift": -0.9486344966519885,
+          "arm_1_shoulder_lift": -1.6,
+          "arm_1_elbow_flex": 1.2,
+          "arm_1_gripper": 1.1,
+          "arm_1_wrist_roll": 0.04879632679489654,
+          "arm_2_wrist_flex": 0.5389656402950358,
+          "arm_2_gripper": 0.65,
+          "arm_2_elbow_flex": 0.33532663912744487,
+          "arm_2_shoulder_pan": -0.036786929176791626,
+          "arm_1_wrist_flex": -1.5
+        }
+      }
+    },
+    {
+      "time": 1.1666666666666667,
+      "state": {
+        "joints": {
+          "arm_1_shoulder_pan": 0.0,
+          "arm_2_wrist_roll": 0.06097431445111688,
+          "arm_2_shoulder_lift": -0.9596025502400346,
+          "arm_1_shoulder_lift": -1.6,
+          "arm_1_elbow_flex": 1.2000000000000002,
+          "arm_1_gripper": 1.1,
+          "arm_1_wrist_roll": 0.048796326794896545,
+          "arm_2_wrist_flex": 0.5459686676792888,
+          "arm_2_gripper": 0.65,
+          "arm_2_elbow_flex": 0.3366147017701987,
+          "arm_2_shoulder_pan": -0.0543146695017406,
+          "arm_1_wrist_flex": -1.5
+        }
+      }
+    },
+    {
+      "time": 1.2,
+      "state": {
+        "joints": {
+          "arm_1_shoulder_pan": 0.0,
+          "arm_2_wrist_roll": 0.065340489918016,
+          "arm_2_shoulder_lift": -0.972116163913417,
+          "arm_1_shoulder_lift": -1.6,
+          "arm_1_elbow_flex": 1.2,
+          "arm_1_gripper": 1.1,
+          "arm_1_wrist_roll": 0.04879632679489654,
+          "arm_2_wrist_flex": 0.5539585246331397,
+          "arm_2_gripper": 0.6500000000000001,
+          "arm_2_elbow_flex": 0.3380842713860971,
+          "arm_2_shoulder_pan": -0.07431232626308522,
+          "arm_1_wrist_flex": -1.5
+        }
+      }
+    },
+    {
+      "time": 1.2333333333333334,
+      "state": {
+        "joints": {
+          "arm_1_shoulder_pan": 0.0,
+          "arm_2_wrist_roll": 0.07013240297106998,
+          "arm_2_shoulder_lift": -0.9858499566015388,
+          "arm_1_shoulder_lift": -1.5999999999999999,
+          "arm_1_elbow_flex": 1.2,
+          "arm_1_gripper": 1.1,
+          "arm_1_wrist_roll": 0.04879632679489654,
+          "arm_2_wrist_flex": 0.562727457562989,
+          "arm_2_gripper": 0.6499999999999999,
+          "arm_2_elbow_flex": 0.33969713598079376,
+          "arm_2_shoulder_pan": -0.09625991705316352,
+          "arm_1_wrist_flex": -1.5
+        }
+      }
+    },
+    {
+      "time": 1.2666666666666666,
+      "state": {
+        "joints": {
+          "arm_1_shoulder_pan": 0.0,
+          "arm_2_wrist_roll": 0.07523652358730418,
+          "arm_2_shoulder_lift": -1.000478547233803,
+          "arm_1_shoulder_lift": -1.6,
+          "arm_1_elbow_flex": 1.2,
+          "arm_1_gripper": 1.1,
+          "arm_1_wrist_roll": 0.04879632679489654,
+          "arm_2_wrist_flex": 0.5720677128752373,
+          "arm_2_gripper": 0.65,
+          "arm_2_elbow_flex": 0.34141508355994254,
+          "arm_2_shoulder_pan": -0.11963745946431288,
+          "arm_1_wrist_flex": -1.5
+        }
+      }
+    },
+    {
+      "time": 1.3,
+      "state": {
+        "joints": {
+          "arm_1_shoulder_pan": 0.0,
+          "arm_2_wrist_roll": 0.080539321743744,
+          "arm_2_shoulder_lift": -1.015676554739612,
+          "arm_1_shoulder_lift": -1.6,
+          "arm_1_elbow_flex": 1.2,
+          "arm_1_gripper": 1.1,
+          "arm_1_wrist_roll": 0.04879632679489654,
+          "arm_2_wrist_flex": 0.581771536976285,
+          "arm_2_gripper": 0.6500000000000001,
+          "arm_2_elbow_flex": 0.34319990212919727,
+          "arm_2_shoulder_pan": -0.14392497108887134,
+          "arm_1_wrist_flex": -1.5
+        }
+      }
+    },
+    {
+      "time": 1.3333333333333333,
+      "state": {
+        "joints": {
+          "arm_1_shoulder_pan": 0.0,
+          "arm_2_wrist_roll": 0.08592726741741473,
+          "arm_2_shoulder_lift": -1.0311185980483688,
+          "arm_1_shoulder_lift": -1.6,
+          "arm_1_elbow_flex": 1.2,
+          "arm_1_gripper": 1.1,
+          "arm_1_wrist_roll": 0.04879632679489654,
+          "arm_2_wrist_flex": 0.5916311762725321,
+          "arm_2_gripper": 0.65,
+          "arm_2_elbow_flex": 0.3450133796942116,
+          "arm_2_shoulder_pan": -0.16860246951917635,
+          "arm_1_wrist_flex": -1.5
+        }
+      }
+    },
+    {
+      "time": 1.3666666666666667,
+      "state": {
+        "joints": {
+          "arm_1_shoulder_pan": 0.0,
+          "arm_2_wrist_roll": 0.09128683058534184,
+          "arm_2_shoulder_lift": -1.0464792960894767,
+          "arm_1_shoulder_lift": -1.6,
+          "arm_1_elbow_flex": 1.2,
+          "arm_1_gripper": 1.1,
+          "arm_1_wrist_roll": 0.04879632679489654,
+          "arm_2_wrist_flex": 0.6014388771703796,
+          "arm_2_gripper": 0.65,
+          "arm_2_elbow_flex": 0.3468173042606394,
+          "arm_2_shoulder_pan": -0.19314997234756592,
+          "arm_1_wrist_flex": -1.5
+        }
+      }
+    },
+    {
+      "time": 1.4,
+      "state": {
+        "joints": {
+          "arm_1_shoulder_pan": 0.0,
+          "arm_2_wrist_roll": 0.09650448122455066,
+          "arm_2_shoulder_lift": -1.0614332677923377,
+          "arm_1_shoulder_lift": -1.6,
+          "arm_1_elbow_flex": 1.2,
+          "arm_1_gripper": 1.1,
+          "arm_1_wrist_roll": 0.04879632679489654,
+          "arm_2_wrist_flex": 0.6109868860762273,
+          "arm_2_gripper": 0.65,
+          "arm_2_elbow_flex": 0.3485734638341344,
+          "arm_2_shoulder_pan": -0.21704749716637753,
+          "arm_1_wrist_flex": -1.5
+        }
+      }
+    },
+    {
+      "time": 1.4333333333333333,
+      "state": {
+        "joints": {
+          "arm_1_shoulder_pan": 0.0,
+          "arm_2_wrist_roll": 0.1014666893120666,
+          "arm_2_shoulder_lift": -1.0756551320863554,
+          "arm_1_shoulder_lift": -1.6,
+          "arm_1_elbow_flex": 1.2,
+          "arm_1_gripper": 1.1,
+          "arm_1_wrist_roll": 0.04879632679489654,
+          "arm_2_wrist_flex": 0.6200674493964762,
+          "arm_2_gripper": 0.65,
+          "arm_2_elbow_flex": 0.35024364642035044,
+          "arm_2_shoulder_pan": -0.23977506156794923,
+          "arm_1_wrist_flex": -1.5
+        }
+      }
+    },
+    {
+      "time": 1.4666666666666666,
+      "state": {
+        "joints": {
+          "arm_1_shoulder_pan": 0.0,
+          "arm_2_wrist_roll": 0.10605992482491497,
+          "arm_2_shoulder_lift": -1.0888195079009322,
+          "arm_1_shoulder_lift": -1.6,
+          "arm_1_elbow_flex": 1.2,
+          "arm_1_gripper": 1.1,
+          "arm_1_wrist_roll": 0.04879632679489654,
+          "arm_2_wrist_flex": 0.6284728135375264,
+          "arm_2_gripper": 0.65,
+          "arm_2_elbow_flex": 0.3517896400249413,
+          "arm_2_shoulder_pan": -0.2608126831446184,
+          "arm_1_wrist_flex": -1.5
+        }
+      }
+    },
+    {
+      "time": 1.5,
+      "state": {
+        "joints": {
+          "arm_1_shoulder_pan": 0.0,
+          "arm_2_wrist_roll": 0.11017065774012122,
+          "arm_2_shoulder_lift": -1.1006010141654712,
+          "arm_1_shoulder_lift": -1.6,
+          "arm_1_elbow_flex": 1.2,
+          "arm_1_gripper": 1.1,
+          "arm_1_wrist_roll": 0.04879632679489654,
+          "arm_2_wrist_flex": 0.6359952249057782,
+          "arm_2_gripper": 0.65,
+          "arm_2_elbow_flex": 0.35317323265356065,
+          "arm_2_shoulder_pan": -0.2796403794887231,
+          "arm_1_wrist_flex": -1.5
+        }
+      }
+    },
+    {
+      "time": 1.5333333333333334,
+      "state": {
+        "joints": {
+          "arm_1_shoulder_pan": 0.0,
+          "arm_2_wrist_roll": 0.11368535803471067,
+          "arm_2_shoulder_lift": -1.110674269809375,
+          "arm_1_shoulder_lift": -1.6,
+          "arm_1_elbow_flex": 1.2,
+          "arm_1_gripper": 1.1,
+          "arm_1_wrist_roll": 0.04879632679489654,
+          "arm_2_wrist_flex": 0.6424269299076323,
+          "arm_2_gripper": 0.65,
+          "arm_2_elbow_flex": 0.3543562123118624,
+          "arm_2_shoulder_pan": -0.2957381681926008,
+          "arm_1_wrist_flex": -1.5
+        }
+      }
+    },
+    {
+      "time": 1.5666666666666667,
+      "state": {
+        "joints": {
+          "arm_1_shoulder_pan": 0.0,
+          "arm_2_wrist_roll": 0.11649049568570868,
+          "arm_2_shoulder_lift": -1.1187138937620464,
+          "arm_1_shoulder_lift": -1.6,
+          "arm_1_elbow_flex": 1.2,
+          "arm_1_gripper": 1.1,
+          "arm_1_wrist_roll": 0.04879632679489654,
+          "arm_2_wrist_flex": 0.6475601749494888,
+          "arm_2_gripper": 0.65,
+          "arm_2_elbow_flex": 0.35530036700550016,
+          "arm_2_shoulder_pan": -0.3085860668485893,
+          "arm_1_wrist_flex": -1.5
+        }
+      }
+    },
+    {
+      "time": 1.6,
+      "state": {
+        "joints": {
+          "arm_1_shoulder_pan": 0.0,
+          "arm_2_wrist_roll": 0.11847254067014068,
+          "arm_2_shoulder_lift": -1.1243945049528885,
+          "arm_1_shoulder_lift": -1.6,
+          "arm_1_elbow_flex": 1.2,
+          "arm_1_gripper": 1.1,
+          "arm_1_wrist_roll": 0.04879632679489654,
+          "arm_2_wrist_flex": 0.6511872064377483,
+          "arm_2_gripper": 0.65,
+          "arm_2_elbow_flex": 0.35596748474012796,
+          "arm_2_shoulder_pan": -0.3176640930490263,
+          "arm_1_wrist_flex": -1.5
+        }
+      }
+    },
+    {
+      "time": 1.6333333333333333,
+      "state": {
+        "joints": {
+          "arm_1_shoulder_pan": 0.0,
+          "arm_2_wrist_roll": 0.11951796296503203,
+          "arm_2_shoulder_lift": -1.127390722311304,
+          "arm_1_shoulder_lift": -1.6,
+          "arm_1_elbow_flex": 1.2,
+          "arm_1_gripper": 1.1,
+          "arm_1_wrist_roll": 0.04879632679489654,
+          "arm_2_wrist_flex": 0.6531002707788113,
+          "arm_2_gripper": 0.65,
+          "arm_2_elbow_flex": 0.35631935352139943,
+          "arm_2_shoulder_pan": -0.32245226438624974,
+          "arm_1_wrist_flex": -1.5
+        }
+      }
+    },
+    {
+      "time": 1.6666666666666667,
+      "state": {
+        "joints": {
+          "arm_1_shoulder_pan": 0.0,
+          "arm_2_wrist_roll": 0.11966169509493799,
+          "arm_2_shoulder_lift": -1.127862994234437,
+          "arm_1_shoulder_lift": -1.6,
+          "arm_1_elbow_flex": 1.1999999999999997,
+          "arm_1_gripper": 1.0999999999999999,
+          "arm_1_wrist_roll": 0.04879632679489654,
+          "arm_2_wrist_flex": 0.653286184478089,
+          "arm_2_gripper": 0.65,
+          "arm_2_elbow_flex": 0.3570500287207748,
+          "arm_2_shoulder_pan": -0.32394137171260856,
+          "arm_1_wrist_flex": -1.5
+        }
+      }
+    },
+    {
+      "time": 1.7,
+      "state": {
+        "joints": {
+          "arm_1_shoulder_pan": 0.0,
+          "arm_2_wrist_roll": 0.11972146303980798,
+          "arm_2_shoulder_lift": -1.1285006055583835,
+          "arm_1_shoulder_lift": -1.6000000000000003,
+          "arm_1_elbow_flex": 1.2,
+          "arm_1_gripper": 1.1000000000000003,
+          "arm_1_wrist_roll": 0.04879632679489654,
+          "arm_2_wrist_flex": 0.6527995633407916,
+          "arm_2_gripper": 0.65,
+          "arm_2_elbow_flex": 0.3623438454582708,
+          "arm_2_shoulder_pan": -0.33063660225692765,
+          "arm_1_wrist_flex": -1.5
+        }
+      }
+    },
+    {
+      "time": 1.7333333333333334,
+      "state": {
+        "joints": {
+          "arm_1_shoulder_pan": 0.0,
+          "arm_2_wrist_roll": 0.11983565004732225,
+          "arm_2_shoulder_lift": -1.1297187657142498,
+          "arm_1_shoulder_lift": -1.6,
+          "arm_1_elbow_flex": 1.1999999999999997,
+          "arm_1_gripper": 1.1,
+          "arm_1_wrist_roll": 0.04879632679489653,
+          "arm_2_wrist_flex": 0.6518698708177835,
+          "arm_2_gripper": 0.65,
+          "arm_2_elbow_flex": 0.37245771323302,
+          "arm_2_shoulder_pan": -0.34342787928907037,
+          "arm_1_wrist_flex": -1.5
+        }
+      }
+    },
+    {
+      "time": 1.7666666666666666,
+      "state": {
+        "joints": {
+          "arm_1_shoulder_pan": 0.0,
+          "arm_2_wrist_roll": 0.11999867467515826,
+          "arm_2_shoulder_lift": -1.1314579312320958,
+          "arm_1_shoulder_lift": -1.6,
+          "arm_1_elbow_flex": 1.1999999999999997,
+          "arm_1_gripper": 1.1,
+          "arm_1_wrist_roll": 0.04879632679489654,
+          "arm_2_wrist_flex": 0.6505425501281121,
+          "arm_2_gripper": 0.65,
+          "arm_2_elbow_flex": 0.3868972678360732,
+          "arm_2_shoulder_pan": -0.3616899672718239,
+          "arm_1_wrist_flex": -1.5
+        }
+      }
+    },
+    {
+      "time": 1.8,
+      "state": {
+        "joints": {
+          "arm_1_shoulder_pan": 0.0,
+          "arm_2_wrist_roll": 0.12020495548099361,
+          "arm_2_shoulder_lift": -1.1336585586419807,
+          "arm_1_shoulder_lift": -1.6,
+          "arm_1_elbow_flex": 1.2,
+          "arm_1_gripper": 1.1,
+          "arm_1_wrist_roll": 0.04879632679489654,
+          "arm_2_wrist_flex": 0.6488630444908248,
+          "arm_2_gripper": 0.65,
+          "arm_2_elbow_flex": 0.4051681450584816,
+          "arm_2_shoulder_pan": -0.3847976306679758,
+          "arm_1_wrist_flex": -1.5
+        }
+      }
+    },
+    {
+      "time": 1.8333333333333333,
+      "state": {
+        "joints": {
+          "arm_1_shoulder_pan": 0.0,
+          "arm_2_wrist_roll": 0.12044891102250574,
+          "arm_2_shoulder_lift": -1.136261104473964,
+          "arm_1_shoulder_lift": -1.6,
+          "arm_1_elbow_flex": 1.2,
+          "arm_1_gripper": 1.1,
+          "arm_1_wrist_roll": 0.04879632679489654,
+          "arm_2_wrist_flex": 0.6468767971249684,
+          "arm_2_gripper": 0.65,
+          "arm_2_elbow_flex": 0.4267759806912959,
+          "arm_2_shoulder_pan": -0.4121256339403131,
+          "arm_1_wrist_flex": -1.5
+        }
+      }
+    },
+    {
+      "time": 1.8666666666666667,
+      "state": {
+        "joints": {
+          "arm_1_shoulder_pan": 0.0,
+          "arm_2_wrist_roll": 0.1207249598573722,
+          "arm_2_shoulder_lift": -1.1392060252581053,
+          "arm_1_shoulder_lift": -1.6,
+          "arm_1_elbow_flex": 1.2,
+          "arm_1_gripper": 1.1,
+          "arm_1_wrist_roll": 0.04879632679489654,
+          "arm_2_wrist_flex": 0.6446292512495906,
+          "arm_2_gripper": 0.65,
+          "arm_2_elbow_flex": 0.4512264105255674,
+          "arm_2_shoulder_pan": -0.44304874155162344,
+          "arm_1_wrist_flex": -1.5
+        }
+      }
+    },
+    {
+      "time": 1.9,
+      "state": {
+        "joints": {
+          "arm_1_shoulder_pan": 0.0,
+          "arm_2_wrist_roll": 0.12102752054327046,
+          "arm_2_shoulder_lift": -1.1424337775244642,
+          "arm_1_shoulder_lift": -1.5999999999999999,
+          "arm_1_elbow_flex": 1.2,
+          "arm_1_gripper": 1.1,
+          "arm_1_wrist_roll": 0.04879632679489654,
+          "arm_2_wrist_flex": 0.6421658500837384,
+          "arm_2_gripper": 0.6499999999999999,
+          "arm_2_elbow_flex": 0.4780250703523466,
+          "arm_2_shoulder_pan": -0.47694171796469387,
+          "arm_1_wrist_flex": -1.5
+        }
+      }
+    },
+    {
+      "time": 1.9333333333333333,
+      "state": {
+        "joints": {
+          "arm_1_shoulder_pan": 0.0,
+          "arm_2_wrist_roll": 0.12135101163787808,
+          "arm_2_shoulder_lift": -1.1458848178031,
+          "arm_1_shoulder_lift": -1.6,
+          "arm_1_elbow_flex": 1.2,
+          "arm_1_gripper": 1.1,
+          "arm_1_wrist_roll": 0.04879632679489654,
+          "arm_2_wrist_flex": 0.639532036846459,
+          "arm_2_gripper": 0.65,
+          "arm_2_elbow_flex": 0.5066775959626849,
+          "arm_2_shoulder_pan": -0.513179327642312,
+          "arm_1_wrist_flex": -1.5
+        }
+      }
+    },
+    {
+      "time": 1.9666666666666666,
+      "state": {
+        "joints": {
+          "arm_1_shoulder_pan": 0.0,
+          "arm_2_wrist_roll": 0.12168985169887253,
+          "arm_2_shoulder_lift": -1.149499602624072,
+          "arm_1_shoulder_lift": -1.6,
+          "arm_1_elbow_flex": 1.2,
+          "arm_1_gripper": 1.1,
+          "arm_1_wrist_roll": 0.04879632679489654,
+          "arm_2_wrist_flex": 0.6367732547567998,
+          "arm_2_gripper": 0.65,
+          "arm_2_elbow_flex": 0.5366896231476329,
+          "arm_2_shoulder_pan": -0.5511363350472648,
+          "arm_1_wrist_flex": -1.5
+        }
+      }
+    },
+    {
+      "time": 2.0,
+      "state": {
+        "joints": {
+          "arm_1_shoulder_pan": 0.0,
+          "arm_2_wrist_roll": 0.12203845928393132,
+          "arm_2_shoulder_lift": -1.1532185885174402,
+          "arm_1_shoulder_lift": -1.6,
+          "arm_1_elbow_flex": 1.1999999999999997,
+          "arm_1_gripper": 1.1,
+          "arm_1_wrist_roll": 0.04879632679489654,
+          "arm_2_wrist_flex": 0.6339349470338078,
+          "arm_2_gripper": 0.65,
+          "arm_2_elbow_flex": 0.567566787698242,
+          "arm_2_shoulder_pan": -0.5901875046423399,
+          "arm_1_wrist_flex": -1.5
+        }
+      }
+    },
+    {
+      "time": 2.033333333333333,
+      "state": {
+        "joints": {
+          "arm_1_shoulder_pan": 0.0,
+          "arm_2_wrist_roll": 0.12239125295073203,
+          "arm_2_shoulder_lift": -1.1569822320132637,
+          "arm_1_shoulder_lift": -1.6,
+          "arm_1_elbow_flex": 1.2,
+          "arm_1_gripper": 1.1,
+          "arm_1_wrist_roll": 0.04879632679489654,
+          "arm_2_wrist_flex": 0.6310625568965305,
+          "arm_2_gripper": 0.65,
+          "arm_2_elbow_flex": 0.5988147254055625,
+          "arm_2_shoulder_pan": -0.6297076008903244,
+          "arm_1_wrist_flex": -1.5
+        }
+      }
+    },
+    {
+      "time": 2.066666666666667,
+      "state": {
+        "joints": {
+          "arm_1_shoulder_pan": 0.0,
+          "arm_2_wrist_roll": 0.12274265125695208,
+          "arm_2_shoulder_lift": -1.160730989641602,
+          "arm_1_shoulder_lift": -1.6,
+          "arm_1_elbow_flex": 1.2,
+          "arm_1_gripper": 1.1,
+          "arm_1_wrist_roll": 0.04879632679489654,
+          "arm_2_wrist_flex": 0.6282015275640149,
+          "arm_2_gripper": 0.65,
+          "arm_2_elbow_flex": 0.6299390720606461,
+          "arm_2_shoulder_pan": -0.6690713882540061,
+          "arm_1_wrist_flex": -1.5
+        }
+      }
+    },
+    {
+      "time": 2.1,
+      "state": {
+        "joints": {
+          "arm_1_shoulder_pan": 0.0,
+          "arm_2_wrist_roll": 0.123087072760269,
+          "arm_2_shoulder_lift": -1.1644053179325147,
+          "arm_1_shoulder_lift": -1.6,
+          "arm_1_elbow_flex": 1.2,
+          "arm_1_gripper": 1.1,
+          "arm_1_wrist_roll": 0.04879632679489654,
+          "arm_2_wrist_flex": 0.6253973022553084,
+          "arm_2_gripper": 0.65,
+          "arm_2_elbow_flex": 0.6604454634545432,
+          "arm_2_shoulder_pan": -0.7076536311961716,
+          "arm_1_wrist_flex": -1.5
+        }
+      }
+    },
+    {
+      "time": 2.1333333333333333,
+      "state": {
+        "joints": {
+          "arm_1_shoulder_pan": 0.0,
+          "arm_2_wrist_roll": 0.12341893601836035,
+          "arm_2_shoulder_lift": -1.1679456734160611,
+          "arm_1_shoulder_lift": -1.6,
+          "arm_1_elbow_flex": 1.2,
+          "arm_1_gripper": 1.1,
+          "arm_1_wrist_roll": 0.04879632679489654,
+          "arm_2_wrist_flex": 0.6226953241894583,
+          "arm_2_gripper": 0.65,
+          "arm_2_elbow_flex": 0.689839535378305,
+          "arm_2_shoulder_pan": -0.7448290941796085,
+          "arm_1_wrist_flex": -1.5
+        }
+      }
+    },
+    {
+      "time": 2.1666666666666665,
+      "state": {
+        "joints": {
+          "arm_1_shoulder_pan": 0.0,
+          "arm_2_wrist_roll": 0.1237326595889036,
+          "arm_2_shoulder_lift": -1.171292512622301,
+          "arm_1_shoulder_lift": -1.6,
+          "arm_1_elbow_flex": 1.2,
+          "arm_1_gripper": 1.1,
+          "arm_1_wrist_roll": 0.04879632679489654,
+          "arm_2_wrist_flex": 0.6201410365855116,
+          "arm_2_gripper": 0.65,
+          "arm_2_elbow_flex": 0.7176269236229823,
+          "arm_2_shoulder_pan": -0.7799725416671043,
+          "arm_1_wrist_flex": -1.5
+        }
+      }
+    },
+    {
+      "time": 2.2,
+      "state": {
+        "joints": {
+          "arm_1_shoulder_pan": 0.0,
+          "arm_2_wrist_roll": 0.12402266202957628,
+          "arm_2_shoulder_lift": -1.1743862920812937,
+          "arm_1_shoulder_lift": -1.6,
+          "arm_1_elbow_flex": 1.2,
+          "arm_1_gripper": 1.1,
+          "arm_1_wrist_roll": 0.04879632679489654,
+          "arm_2_wrist_flex": 0.6177798826625156,
+          "arm_2_gripper": 0.65,
+          "arm_2_elbow_flex": 0.7433132639796266,
+          "arm_2_shoulder_pan": -0.8124587381214465,
+          "arm_1_wrist_flex": -1.5
+        }
+      }
+    },
+    {
+      "time": 2.2333333333333334,
+      "state": {
+        "joints": {
+          "arm_1_shoulder_pan": 0.0,
+          "arm_2_wrist_roll": 0.12428336189805587,
+          "arm_2_shoulder_lift": -1.1771674683230988,
+          "arm_1_shoulder_lift": -1.6,
+          "arm_1_elbow_flex": 1.2,
+          "arm_1_gripper": 1.1,
+          "arm_1_wrist_roll": 0.04879632679489654,
+          "arm_2_wrist_flex": 0.6156573056395177,
+          "arm_2_gripper": 0.65,
+          "arm_2_elbow_flex": 0.7664041922392878,
+          "arm_2_shoulder_pan": -0.8416624480054219,
+          "arm_1_wrist_flex": -1.5
+        }
+      }
+    },
+    {
+      "time": 2.2666666666666666,
+      "state": {
+        "joints": {
+          "arm_1_shoulder_pan": 0.0,
+          "arm_2_wrist_roll": 0.12450917775201993,
+          "arm_2_shoulder_lift": -1.1795764978777754,
+          "arm_1_shoulder_lift": -1.6,
+          "arm_1_elbow_flex": 1.2,
+          "arm_1_gripper": 1.1,
+          "arm_1_wrist_roll": 0.04879632679489654,
+          "arm_2_wrist_flex": 0.613818748735565,
+          "arm_2_gripper": 0.65,
+          "arm_2_elbow_flex": 0.7864053441930178,
+          "arm_2_shoulder_pan": -0.8669584357818181,
+          "arm_1_wrist_flex": -1.5
+        }
+      }
+    },
+    {
+      "time": 2.3,
+      "state": {
+        "joints": {
+          "arm_1_shoulder_pan": 0.0,
+          "arm_2_wrist_roll": 0.12469452814914593,
+          "arm_2_shoulder_lift": -1.1815538372753833,
+          "arm_1_shoulder_lift": -1.6,
+          "arm_1_elbow_flex": 1.2,
+          "arm_1_gripper": 1.1,
+          "arm_1_wrist_roll": 0.04879632679489654,
+          "arm_2_wrist_flex": 0.6123096551697046,
+          "arm_2_gripper": 0.65,
+          "arm_2_elbow_flex": 0.8028223556318672,
+          "arm_2_shoulder_pan": -0.8877214659134223,
+          "arm_1_wrist_flex": -1.5
+        }
+      }
+    },
+    {
+      "time": 2.3333333333333335,
+      "state": {
+        "joints": {
+          "arm_1_shoulder_pan": 0.0,
+          "arm_2_wrist_roll": 0.12483383164711138,
+          "arm_2_shoulder_lift": -1.1830399430459821,
+          "arm_1_shoulder_lift": -1.6,
+          "arm_1_elbow_flex": 1.2,
+          "arm_1_gripper": 1.1,
+          "arm_1_wrist_roll": 0.04879632679489654,
+          "arm_2_wrist_flex": 0.611175468160984,
+          "arm_2_gripper": 0.6499999999999999,
+          "arm_2_elbow_flex": 0.8151608623468871,
+          "arm_2_shoulder_pan": -0.9033263028630221,
+          "arm_1_wrist_flex": -1.5
+        }
+      }
+    },
+    {
+      "time": 2.3666666666666667,
+      "state": {
+        "joints": {
+          "arm_1_shoulder_pan": 0.0,
+          "arm_2_wrist_roll": 0.12492150680359382,
+          "arm_2_shoulder_lift": -1.183975271719631,
+          "arm_1_shoulder_lift": -1.6,
+          "arm_1_elbow_flex": 1.2,
+          "arm_1_gripper": 1.1,
+          "arm_1_wrist_roll": 0.04879632679489654,
+          "arm_2_wrist_flex": 0.6104616309284503,
+          "arm_2_gripper": 0.65,
+          "arm_2_elbow_flex": 0.8229265001291283,
+          "arm_2_shoulder_pan": -0.9131477110934044,
+          "arm_1_wrist_flex": -1.5
+        }
+      }
+    },
+    {
+      "time": 2.4,
+      "state": {
+        "joints": {
+          "arm_1_shoulder_pan": 0.0,
+          "arm_2_wrist_roll": 0.12495197217627074,
+          "arm_2_shoulder_lift": -1.1843002798263897,
+          "arm_1_shoulder_lift": -1.6,
+          "arm_1_elbow_flex": 1.2,
+          "arm_1_gripper": 1.1,
+          "arm_1_wrist_roll": 0.04879632679489654,
+          "arm_2_wrist_flex": 0.6102135866911509,
+          "arm_2_gripper": 0.65,
+          "arm_2_elbow_flex": 0.8256249047696418,
+          "arm_2_shoulder_pan": -0.916560455067357,
+          "arm_1_wrist_flex": -1.5
+        }
+      }
+    },
+    {
+      "time": 2.433333333333333,
+      "state": {
+        "joints": {
+          "arm_1_shoulder_pan": 0.0,
+          "arm_2_wrist_roll": 0.12370012172212894,
+          "arm_2_shoulder_lift": -1.1820643574719019,
+          "arm_1_shoulder_lift": -1.6,
+          "arm_1_elbow_flex": 1.2,
+          "arm_1_gripper": 1.1,
+          "arm_1_wrist_roll": 0.04879632679489654,
+          "arm_2_wrist_flex": 0.6059041399003896,
+          "arm_2_gripper": 0.65,
+          "arm_2_elbow_flex": 0.830012257082392,
+          "arm_2_shoulder_pan": -0.9174850185562585,
+          "arm_1_wrist_flex": -1.5000000000000002
+        }
+      }
+    },
+    {
+      "time": 2.466666666666667,
+      "state": {
+        "joints": {
+          "arm_1_shoulder_pan": 0.0,
+          "arm_2_wrist_roll": 0.12017747276977632,
+          "arm_2_shoulder_lift": -1.1757725759627609,
+          "arm_1_shoulder_lift": -1.6,
+          "arm_1_elbow_flex": 1.2,
+          "arm_1_gripper": 1.1,
+          "arm_1_wrist_roll": 0.048796326794896545,
+          "arm_2_wrist_flex": 0.5937775570705724,
+          "arm_2_gripper": 0.65,
+          "arm_2_elbow_flex": 0.8423580624275733,
+          "arm_2_shoulder_pan": -0.9200866972110747,
+          "arm_1_wrist_flex": -1.5
+        }
+      }
+    },
+    {
+      "time": 2.5,
+      "state": {
+        "joints": {
+          "arm_1_shoulder_pan": 0.0,
+          "arm_2_wrist_roll": 0.11473337893432232,
+          "arm_2_shoulder_lift": -1.166048913630452,
+          "arm_1_shoulder_lift": -1.6,
+          "arm_1_elbow_flex": 1.2,
+          "arm_1_gripper": 1.1,
+          "arm_1_wrist_roll": 0.04879632679489654,
+          "arm_2_wrist_flex": 0.5750364745154009,
+          "arm_2_gripper": 0.65,
+          "arm_2_elbow_flex": 0.8614379434155802,
+          "arm_2_shoulder_pan": -0.9241074733139722,
+          "arm_1_wrist_flex": -1.5
+        }
+      }
+    },
+    {
+      "time": 2.533333333333333,
+      "state": {
+        "joints": {
+          "arm_1_shoulder_pan": 0.0,
+          "arm_2_wrist_roll": 0.10771719383087629,
+          "arm_2_shoulder_lift": -1.1535173488064607,
+          "arm_1_shoulder_lift": -1.6,
+          "arm_1_elbow_flex": 1.2,
+          "arm_1_gripper": 1.1,
+          "arm_1_wrist_roll": 0.04879632679489654,
+          "arm_2_wrist_flex": 0.5508835285485756,
+          "arm_2_gripper": 0.65,
+          "arm_2_elbow_flex": 0.8860275226568084,
+          "arm_2_shoulder_pan": -0.9292893291471184,
+          "arm_1_wrist_flex": -1.5
+        }
+      }
+    },
+    {
+      "time": 2.566666666666667,
+      "state": {
+        "joints": {
+          "arm_1_shoulder_pan": 0.0,
+          "arm_2_wrist_roll": 0.09947827107454744,
+          "arm_2_shoulder_lift": -1.1388018598222716,
+          "arm_1_shoulder_lift": -1.6,
+          "arm_1_elbow_flex": 1.2,
+          "arm_1_gripper": 1.1,
+          "arm_1_wrist_roll": 0.04879632679489654,
+          "arm_2_wrist_flex": 0.5225213554837967,
+          "arm_2_gripper": 0.65,
+          "arm_2_elbow_flex": 0.9149024227616536,
+          "arm_2_shoulder_pan": -0.93537424699268,
+          "arm_1_wrist_flex": -1.5
+        }
+      }
+    },
+    {
+      "time": 2.6,
+      "state": {
+        "joints": {
+          "arm_1_shoulder_pan": 0.0,
+          "arm_2_wrist_roll": 0.09036596428044533,
+          "arm_2_shoulder_lift": -1.1225264250093698,
+          "arm_1_shoulder_lift": -1.6,
+          "arm_1_elbow_flex": 1.1999999999999997,
+          "arm_1_gripper": 1.1,
+          "arm_1_wrist_roll": 0.04879632679489653,
+          "arm_2_wrist_flex": 0.4911525916347663,
+          "arm_2_gripper": 0.65,
+          "arm_2_elbow_flex": 0.9468382663405102,
+          "arm_2_shoulder_pan": -0.9421042091328241,
+          "arm_1_wrist_flex": -1.5
+        }
+      }
+    },
+    {
+      "time": 2.6333333333333333,
+      "state": {
+        "joints": {
+          "arm_1_shoulder_pan": 0.0,
+          "arm_2_wrist_roll": 0.0807296270636792,
+          "arm_2_shoulder_lift": -1.1053150226992405,
+          "arm_1_shoulder_lift": -1.6,
+          "arm_1_elbow_flex": 1.1999999999999997,
+          "arm_1_gripper": 1.1,
+          "arm_1_wrist_roll": 0.04879632679489654,
+          "arm_2_wrist_flex": 0.4579798733151846,
+          "arm_2_gripper": 0.65,
+          "arm_2_elbow_flex": 0.9806106760037737,
+          "arm_2_shoulder_pan": -0.9492211978497177,
+          "arm_1_wrist_flex": -1.5
+        }
+      }
+    },
+    {
+      "time": 2.6666666666666665,
+      "state": {
+        "joints": {
+          "arm_1_shoulder_pan": 0.0,
+          "arm_2_wrist_roll": 0.07091861303935841,
+          "arm_2_shoulder_lift": -1.0877916312233689,
+          "arm_1_shoulder_lift": -1.6,
+          "arm_1_elbow_flex": 1.2,
+          "arm_1_gripper": 1.1,
+          "arm_1_wrist_roll": 0.04879632679489654,
+          "arm_2_wrist_flex": 0.42420583683875246,
+          "arm_2_gripper": 0.65,
+          "arm_2_elbow_flex": 1.0149952743618398,
+          "arm_2_shoulder_pan": -0.9564671954255279,
+          "arm_1_wrist_flex": -1.5
+        }
+      }
+    },
+    {
+      "time": 2.7,
+      "state": {
+        "joints": {
+          "arm_1_shoulder_pan": 0.0,
+          "arm_2_wrist_roll": 0.06128227582259216,
+          "arm_2_shoulder_lift": -1.0705802289132393,
+          "arm_1_shoulder_lift": -1.6,
+          "arm_1_elbow_flex": 1.2,
+          "arm_1_gripper": 1.1,
+          "arm_1_wrist_roll": 0.04879632679489654,
+          "arm_2_wrist_flex": 0.39103311851917033,
+          "arm_2_gripper": 0.65,
+          "arm_2_elbow_flex": 1.048767684025104,
+          "arm_2_shoulder_pan": -0.9635841841424215,
+          "arm_1_wrist_flex": -1.5
+        }
+      }
+    },
+    {
+      "time": 2.7333333333333334,
+      "state": {
+        "joints": {
+          "arm_1_shoulder_pan": 0.0,
+          "arm_2_wrist_roll": 0.05216996902849007,
+          "arm_2_shoulder_lift": -1.0543047941003376,
+          "arm_1_shoulder_lift": -1.6,
+          "arm_1_elbow_flex": 1.2,
+          "arm_1_gripper": 1.1,
+          "arm_1_wrist_roll": 0.04879632679489654,
+          "arm_2_wrist_flex": 0.35966435467013985,
+          "arm_2_gripper": 0.65,
+          "arm_2_elbow_flex": 1.0807035276039605,
+          "arm_2_shoulder_pan": -0.9703141462825657,
+          "arm_1_wrist_flex": -1.5
+        }
+      }
+    },
+    {
+      "time": 2.7666666666666666,
+      "state": {
+        "joints": {
+          "arm_1_shoulder_pan": 0.0,
+          "arm_2_wrist_roll": 0.04393104627216132,
+          "arm_2_shoulder_lift": -1.0395893051161487,
+          "arm_1_shoulder_lift": -1.6,
+          "arm_1_elbow_flex": 1.2,
+          "arm_1_gripper": 1.1,
+          "arm_1_wrist_roll": 0.04879632679489654,
+          "arm_2_wrist_flex": 0.3313021816053615,
+          "arm_2_gripper": 0.65,
+          "arm_2_elbow_flex": 1.1095784277088052,
+          "arm_2_shoulder_pan": -0.9763990641281274,
+          "arm_1_wrist_flex": -1.5
+        }
+      }
+    },
+    {
+      "time": 2.8,
+      "state": {
+        "joints": {
+          "arm_1_shoulder_pan": 0.0,
+          "arm_2_wrist_roll": 0.036914861168715306,
+          "arm_2_shoulder_lift": -1.0270577402921575,
+          "arm_1_shoulder_lift": -1.6,
+          "arm_1_elbow_flex": 1.2,
+          "arm_1_gripper": 1.1,
+          "arm_1_wrist_roll": 0.04879632679489654,
+          "arm_2_wrist_flex": 0.3071492356385362,
+          "arm_2_gripper": 0.65,
+          "arm_2_elbow_flex": 1.1341680069500333,
+          "arm_2_shoulder_pan": -0.9815809199612735,
+          "arm_1_wrist_flex": -1.5
+        }
+      }
+    },
+    {
+      "time": 2.8333333333333335,
+      "state": {
+        "joints": {
+          "arm_1_shoulder_pan": 0.0,
+          "arm_2_wrist_roll": 0.031470767333261256,
+          "arm_2_shoulder_lift": -1.0173340779598485,
+          "arm_1_shoulder_lift": -1.6,
+          "arm_1_elbow_flex": 1.2,
+          "arm_1_gripper": 1.1,
+          "arm_1_wrist_roll": 0.04879632679489654,
+          "arm_2_wrist_flex": 0.28840815308336437,
+          "arm_2_gripper": 0.65,
+          "arm_2_elbow_flex": 1.1532478879380408,
+          "arm_2_shoulder_pan": -0.9856016960641711,
+          "arm_1_wrist_flex": -1.5
+        }
+      }
+    },
+    {
+      "time": 2.8666666666666667,
+      "state": {
+        "joints": {
+          "arm_1_shoulder_pan": 0.0,
+          "arm_2_wrist_roll": 0.02794811838090871,
+          "arm_2_shoulder_lift": -1.0110422964507078,
+          "arm_1_shoulder_lift": -1.6,
+          "arm_1_elbow_flex": 1.2,
+          "arm_1_gripper": 1.1,
+          "arm_1_wrist_roll": 0.04879632679489654,
+          "arm_2_wrist_flex": 0.2762815702535476,
+          "arm_2_gripper": 0.65,
+          "arm_2_elbow_flex": 1.1655936932832216,
+          "arm_2_shoulder_pan": -0.9882033747189872,
+          "arm_1_wrist_flex": -1.5
+        }
+      }
+    },
+    {
+      "time": 2.9,
+      "state": {
+        "joints": {
+          "arm_1_shoulder_pan": 0.0,
+          "arm_2_wrist_roll": 0.026696267926766885,
+          "arm_2_shoulder_lift": -1.0088063740962196,
+          "arm_1_shoulder_lift": -1.6,
+          "arm_1_elbow_flex": 1.2,
+          "arm_1_gripper": 1.1,
+          "arm_1_wrist_roll": 0.04879632679489654,
+          "arm_2_wrist_flex": 0.2719721234627862,
+          "arm_2_gripper": 0.65,
+          "arm_2_elbow_flex": 1.1699810455959718,
+          "arm_2_shoulder_pan": -0.9891279382078888,
+          "arm_1_wrist_flex": -1.5
+        }
+      }
+    },
+    {
+      "time": 2.933333333333333,
+      "state": {
+        "joints": {
+          "arm_1_shoulder_pan": 0.0,
+          "arm_2_wrist_roll": 0.026696267926766885,
+          "arm_2_shoulder_lift": -1.0088063740962196,
+          "arm_1_shoulder_lift": -1.6,
+          "arm_1_elbow_flex": 1.2,
+          "arm_1_gripper": 1.0999999999999999,
+          "arm_1_wrist_roll": 0.04879632679489654,
+          "arm_2_wrist_flex": 0.2719721234627862,
+          "arm_2_gripper": 0.6718666666666665,
+          "arm_2_elbow_flex": 1.1699810455959718,
+          "arm_2_shoulder_pan": -0.9891279382078887,
+          "arm_1_wrist_flex": -1.4999999999999998
+        }
+      }
+    },
+    {
+      "time": 2.966666666666667,
+      "state": {
+        "joints": {
+          "arm_1_shoulder_pan": 0.0,
+          "arm_2_wrist_roll": 0.026696267926766885,
+          "arm_2_shoulder_lift": -1.0088063740962196,
+          "arm_1_shoulder_lift": -1.6000000000000003,
+          "arm_1_elbow_flex": 1.2,
+          "arm_1_gripper": 1.1,
+          "arm_1_wrist_roll": 0.04879632679489654,
+          "arm_2_wrist_flex": 0.2719721234627862,
+          "arm_2_gripper": 0.7289333333333338,
+          "arm_2_elbow_flex": 1.1699810455959718,
+          "arm_2_shoulder_pan": -0.9891279382078888,
+          "arm_1_wrist_flex": -1.5
+        }
+      }
+    },
+    {
+      "time": 3.0,
+      "state": {
+        "joints": {
+          "arm_1_shoulder_pan": 0.0,
+          "arm_2_wrist_roll": 0.02669626792676688,
+          "arm_2_shoulder_lift": -1.0088063740962196,
+          "arm_1_shoulder_lift": -1.6,
+          "arm_1_elbow_flex": 1.1999999999999997,
+          "arm_1_gripper": 1.1,
+          "arm_1_wrist_roll": 0.04879632679489653,
+          "arm_2_wrist_flex": 0.2719721234627862,
+          "arm_2_gripper": 0.8084000000000002,
+          "arm_2_elbow_flex": 1.1699810455959718,
+          "arm_2_shoulder_pan": -0.9891279382078888,
+          "arm_1_wrist_flex": -1.5
+        }
+      }
+    },
+    {
+      "time": 3.033333333333333,
+      "state": {
+        "joints": {
+          "arm_1_shoulder_pan": 0.0,
+          "arm_2_wrist_roll": 0.026696267926766885,
+          "arm_2_shoulder_lift": -1.0088063740962196,
+          "arm_1_shoulder_lift": -1.6,
+          "arm_1_elbow_flex": 1.2,
+          "arm_1_gripper": 1.1,
+          "arm_1_wrist_roll": 0.04879632679489654,
+          "arm_2_wrist_flex": 0.2719721234627862,
+          "arm_2_gripper": 0.8974666666666666,
+          "arm_2_elbow_flex": 1.1699810455959718,
+          "arm_2_shoulder_pan": -0.9891279382078888,
+          "arm_1_wrist_flex": -1.5
+        }
+      }
+    },
+    {
+      "time": 3.066666666666667,
+      "state": {
+        "joints": {
+          "arm_1_shoulder_pan": 0.0,
+          "arm_2_wrist_roll": 0.02669626792676688,
+          "arm_2_shoulder_lift": -1.0088063740962196,
+          "arm_1_shoulder_lift": -1.6,
+          "arm_1_elbow_flex": 1.2,
+          "arm_1_gripper": 1.1,
+          "arm_1_wrist_roll": 0.04879632679489654,
+          "arm_2_wrist_flex": 0.2719721234627862,
+          "arm_2_gripper": 0.9833333333333341,
+          "arm_2_elbow_flex": 1.1699810455959718,
+          "arm_2_shoulder_pan": -0.9891279382078888,
+          "arm_1_wrist_flex": -1.5
+        }
+      }
+    },
+    {
+      "time": 3.1,
+      "state": {
+        "joints": {
+          "arm_1_shoulder_pan": 0.0,
+          "arm_2_wrist_roll": 0.026696267926766885,
+          "arm_2_shoulder_lift": -1.0088063740962196,
+          "arm_1_shoulder_lift": -1.6,
+          "arm_1_elbow_flex": 1.2,
+          "arm_1_gripper": 1.1,
+          "arm_1_wrist_roll": 0.04879632679489654,
+          "arm_2_wrist_flex": 0.2719721234627862,
+          "arm_2_gripper": 1.0532000000000004,
+          "arm_2_elbow_flex": 1.1699810455959718,
+          "arm_2_shoulder_pan": -0.9891279382078888,
+          "arm_1_wrist_flex": -1.5
+        }
+      }
+    },
+    {
+      "time": 3.1333333333333333,
+      "state": {
+        "joints": {
+          "arm_1_shoulder_pan": 0.0,
+          "arm_2_wrist_roll": 0.026696267926766885,
+          "arm_2_shoulder_lift": -1.0088063740962196,
+          "arm_1_shoulder_lift": -1.6,
+          "arm_1_elbow_flex": 1.2,
+          "arm_1_gripper": 1.1,
+          "arm_1_wrist_roll": 0.04879632679489654,
+          "arm_2_wrist_flex": 0.2719721234627862,
+          "arm_2_gripper": 1.094266666666667,
+          "arm_2_elbow_flex": 1.1699810455959718,
+          "arm_2_shoulder_pan": -0.9891279382078888,
+          "arm_1_wrist_flex": -1.5
+        }
+      }
+    },
+    {
+      "time": 3.15,
+      "state": {
+        "joints": {
+          "arm_1_shoulder_pan": 0.0,
+          "arm_2_wrist_roll": 0.026696267926766885,
+          "arm_2_shoulder_lift": -1.0088063740962196,
+          "arm_1_shoulder_lift": -1.6,
+          "arm_1_elbow_flex": 1.2,
+          "arm_1_gripper": 1.1,
+          "arm_1_wrist_roll": 0.04879632679489654,
+          "arm_2_wrist_flex": 0.2719721234627862,
+          "arm_2_gripper": 1.1,
+          "arm_2_elbow_flex": 1.1699810455959718,
+          "arm_2_shoulder_pan": -0.9891279382078888,
+          "arm_1_wrist_flex": -1.5
+        },
+        "attach_fruits": [],
+        "placements": {
+          "/World/Vegetation/Bed_02/Fruits/Pepper_0003_red": {
+            "matrix": [
+              [
+                -0.5152434728119215,
+                -0.5075715371476696,
+                0.21363561927689992,
+                -5.649993607064245
+              ],
+              [
+                0.5454438477749155,
+                -0.43004173285835445,
+                0.2937686102125963,
+                7.822791896268376
+              ],
+              [
+                -0.0758950068895657,
+                0.3552184146399194,
+                0.6609120253494387,
+                0.8600054961925857
+              ],
+              [
+                0.0,
+                0.0,
+                0.0,
+                1.0
+              ]
+            ]
+          }
+        }
+      }
+    },
+    {
+      "time": 3.1666666666666665,
+      "state": {
+        "joints": {
+          "arm_1_shoulder_pan": 0.0,
+          "arm_2_wrist_roll": 0.026696267926766885,
+          "arm_2_shoulder_lift": -1.0088063740962196,
+          "arm_1_shoulder_lift": -1.6,
+          "arm_1_elbow_flex": 1.2,
+          "arm_1_gripper": 1.1,
+          "arm_1_wrist_roll": 0.04879632679489654,
+          "arm_2_wrist_flex": 0.2719721234627862,
+          "arm_2_gripper": 1.1,
+          "arm_2_elbow_flex": 1.1699810455959718,
+          "arm_2_shoulder_pan": -0.9891279382078888,
+          "arm_1_wrist_flex": -1.5
+        },
+        "attach_fruits": [],
+        "placements": {
+          "/World/Vegetation/Bed_02/Fruits/Pepper_0003_red": {
+            "matrix": [
+              [
+                -0.5152434728119215,
+                -0.5075715371476696,
+                0.21363561927689992,
+                -5.649993607064245
+              ],
+              [
+                0.5454438477749155,
+                -0.43004173285835445,
+                0.2937686102125963,
+                7.822791896268376
+              ],
+              [
+                -0.0758950068895657,
+                0.3552184146399194,
+                0.6609120253494387,
+                0.8586429961925857
+              ],
+              [
+                0.0,
+                0.0,
+                0.0,
+                1.0
+              ]
+            ]
+          }
+        }
+      }
+    },
+    {
+      "time": 3.2,
+      "state": {
+        "joints": {
+          "arm_1_shoulder_pan": 0.0,
+          "arm_2_wrist_roll": 0.026696267926766885,
+          "arm_2_shoulder_lift": -1.0088063740962196,
+          "arm_1_shoulder_lift": -1.6,
+          "arm_1_elbow_flex": 1.2,
+          "arm_1_gripper": 1.1,
+          "arm_1_wrist_roll": 0.04879632679489654,
+          "arm_2_wrist_flex": 0.2719721234627862,
+          "arm_2_gripper": 1.1,
+          "arm_2_elbow_flex": 1.1699810455959718,
+          "arm_2_shoulder_pan": -0.9891279382078888,
+          "arm_1_wrist_flex": -1.5
+        },
+        "attach_fruits": [],
+        "placements": {
+          "/World/Vegetation/Bed_02/Fruits/Pepper_0003_red": {
+            "matrix": [
+              [
+                -0.5152434728119215,
+                -0.5075715371476696,
+                0.21363561927689992,
+                -5.649993607064245
+              ],
+              [
+                0.5454438477749155,
+                -0.43004173285835445,
+                0.2937686102125963,
+                7.822791896268376
+              ],
+              [
+                -0.0758950068895657,
+                0.3552184146399194,
+                0.6609120253494387,
+                0.8477429961925855
+              ],
+              [
+                0.0,
+                0.0,
+                0.0,
+                1.0
+              ]
+            ]
+          }
+        }
+      }
+    },
+    {
+      "time": 3.2333333333333334,
+      "state": {
+        "joints": {
+          "arm_1_shoulder_pan": 0.0,
+          "arm_2_wrist_roll": 0.026696267926766885,
+          "arm_2_shoulder_lift": -1.0088063740962196,
+          "arm_1_shoulder_lift": -1.6,
+          "arm_1_elbow_flex": 1.2,
+          "arm_1_gripper": 1.1,
+          "arm_1_wrist_roll": 0.04879632679489654,
+          "arm_2_wrist_flex": 0.2719721234627862,
+          "arm_2_gripper": 1.1,
+          "arm_2_elbow_flex": 1.1699810455959718,
+          "arm_2_shoulder_pan": -0.9891279382078888,
+          "arm_1_wrist_flex": -1.5
+        },
+        "attach_fruits": [],
+        "placements": {
+          "/World/Vegetation/Bed_02/Fruits/Pepper_0003_red": {
+            "matrix": [
+              [
+                -0.5152434728119215,
+                -0.5075715371476696,
+                0.21363561927689992,
+                -5.649993607064245
+              ],
+              [
+                0.5454438477749155,
+                -0.43004173285835445,
+                0.2937686102125963,
+                7.822791896268376
+              ],
+              [
+                -0.0758950068895657,
+                0.3552184146399194,
+                0.6609120253494387,
+                0.8259429961925856
+              ],
+              [
+                0.0,
+                0.0,
+                0.0,
+                1.0
+              ]
+            ]
+          }
+        }
+      }
+    },
+    {
+      "time": 3.2666666666666666,
+      "state": {
+        "joints": {
+          "arm_1_shoulder_pan": 0.0,
+          "arm_2_wrist_roll": 0.026696267926766885,
+          "arm_2_shoulder_lift": -1.0088063740962196,
+          "arm_1_shoulder_lift": -1.6,
+          "arm_1_elbow_flex": 1.2,
+          "arm_1_gripper": 1.1,
+          "arm_1_wrist_roll": 0.04879632679489654,
+          "arm_2_wrist_flex": 0.2719721234627862,
+          "arm_2_gripper": 1.1,
+          "arm_2_elbow_flex": 1.1699810455959718,
+          "arm_2_shoulder_pan": -0.9891279382078888,
+          "arm_1_wrist_flex": -1.5
+        },
+        "attach_fruits": [],
+        "placements": {
+          "/World/Vegetation/Bed_02/Fruits/Pepper_0003_red": {
+            "matrix": [
+              [
+                -0.5152434728119215,
+                -0.5075715371476696,
+                0.21363561927689992,
+                -5.649993607064245
+              ],
+              [
+                0.5454438477749155,
+                -0.43004173285835445,
+                0.2937686102125963,
+                7.822791896268376
+              ],
+              [
+                -0.0758950068895657,
+                0.3552184146399194,
+                0.6609120253494387,
+                0.7932429961925856
+              ],
+              [
+                0.0,
+                0.0,
+                0.0,
+                1.0
+              ]
+            ]
+          }
+        }
+      }
+    },
+    {
+      "time": 3.3,
+      "state": {
+        "joints": {
+          "arm_1_shoulder_pan": 0.0,
+          "arm_2_wrist_roll": 0.026696267926766885,
+          "arm_2_shoulder_lift": -1.0088063740962196,
+          "arm_1_shoulder_lift": -1.6,
+          "arm_1_elbow_flex": 1.2,
+          "arm_1_gripper": 1.1,
+          "arm_1_wrist_roll": 0.04879632679489654,
+          "arm_2_wrist_flex": 0.2719721234627862,
+          "arm_2_gripper": 1.1,
+          "arm_2_elbow_flex": 1.1699810455959718,
+          "arm_2_shoulder_pan": -0.9891279382078888,
+          "arm_1_wrist_flex": -1.5
+        },
+        "attach_fruits": [],
+        "placements": {
+          "/World/Vegetation/Bed_02/Fruits/Pepper_0003_red": {
+            "matrix": [
+              [
+                -0.5152434728119215,
+                -0.5075715371476696,
+                0.21363561927689992,
+                -5.649993607064245
+              ],
+              [
+                0.5454438477749155,
+                -0.43004173285835445,
+                0.2937686102125963,
+                7.822791896268376
+              ],
+              [
+                -0.0758950068895657,
+                0.3552184146399194,
+                0.6609120253494387,
+                0.7496429961925859
+              ],
+              [
+                0.0,
+                0.0,
+                0.0,
+                1.0
+              ]
+            ]
+          }
+        }
+      }
+    },
+    {
+      "time": 3.3333333333333335,
+      "state": {
+        "joints": {
+          "arm_1_shoulder_pan": 0.0,
+          "arm_2_wrist_roll": 0.026696267926766885,
+          "arm_2_shoulder_lift": -1.0088063740962196,
+          "arm_1_shoulder_lift": -1.6,
+          "arm_1_elbow_flex": 1.2,
+          "arm_1_gripper": 1.1,
+          "arm_1_wrist_roll": 0.04879632679489654,
+          "arm_2_wrist_flex": 0.2719721234627862,
+          "arm_2_gripper": 1.1,
+          "arm_2_elbow_flex": 1.1699810455959718,
+          "arm_2_shoulder_pan": -0.9891279382078888,
+          "arm_1_wrist_flex": -1.5
+        },
+        "attach_fruits": [],
+        "placements": {
+          "/World/Vegetation/Bed_02/Fruits/Pepper_0003_red": {
+            "matrix": [
+              [
+                -0.5152434728119215,
+                -0.5075715371476696,
+                0.21363561927689992,
+                -5.649993607064245
+              ],
+              [
+                0.5454438477749155,
+                -0.43004173285835445,
+                0.2937686102125963,
+                7.822791896268376
+              ],
+              [
+                -0.0758950068895657,
+                0.3552184146399194,
+                0.6609120253494387,
+                0.6951429961925852
+              ],
+              [
+                0.0,
+                0.0,
+                0.0,
+                1.0
+              ]
+            ]
+          }
+        }
+      }
+    },
+    {
+      "time": 3.3666666666666667,
+      "state": {
+        "joints": {
+          "arm_1_shoulder_pan": 0.0,
+          "arm_2_wrist_roll": 0.026696267926766885,
+          "arm_2_shoulder_lift": -1.0088063740962196,
+          "arm_1_shoulder_lift": -1.6,
+          "arm_1_elbow_flex": 1.2,
+          "arm_1_gripper": 1.1,
+          "arm_1_wrist_roll": 0.04879632679489654,
+          "arm_2_wrist_flex": 0.2719721234627862,
+          "arm_2_gripper": 1.1,
+          "arm_2_elbow_flex": 1.1699810455959718,
+          "arm_2_shoulder_pan": -0.9891279382078888,
+          "arm_1_wrist_flex": -1.5
+        },
+        "attach_fruits": [],
+        "placements": {
+          "/World/Vegetation/Bed_02/Fruits/Pepper_0003_red": {
+            "matrix": [
+              [
+                -0.5152434728119215,
+                -0.5075715371476696,
+                0.21363561927689992,
+                -5.649993607064245
+              ],
+              [
+                0.5454438477749155,
+                -0.43004173285835445,
+                0.2937686102125963,
+                7.822791896268376
+              ],
+              [
+                -0.0758950068895657,
+                0.3552184146399194,
+                0.6609120253494387,
+                0.6297429961925854
+              ],
+              [
+                0.0,
+                0.0,
+                0.0,
+                1.0
+              ]
+            ]
+          }
+        }
+      }
+    },
+    {
+      "time": 3.4,
+      "state": {
+        "joints": {
+          "arm_1_shoulder_pan": 0.0,
+          "arm_2_wrist_roll": 0.026696267926766885,
+          "arm_2_shoulder_lift": -1.0088063740962196,
+          "arm_1_shoulder_lift": -1.6,
+          "arm_1_elbow_flex": 1.2,
+          "arm_1_gripper": 1.1,
+          "arm_1_wrist_roll": 0.04879632679489654,
+          "arm_2_wrist_flex": 0.2719721234627862,
+          "arm_2_gripper": 1.1,
+          "arm_2_elbow_flex": 1.1699810455959718,
+          "arm_2_shoulder_pan": -0.9891279382078888,
+          "arm_1_wrist_flex": -1.5
+        },
+        "attach_fruits": [],
+        "placements": {
+          "/World/Vegetation/Bed_02/Fruits/Pepper_0003_red": {
+            "matrix": [
+              [
+                -0.5152434728119215,
+                -0.5075715371476696,
+                0.21363561927689992,
+                -5.649993607064245
+              ],
+              [
+                0.5454438477749155,
+                -0.43004173285835445,
+                0.2937686102125963,
+                7.822791896268376
+              ],
+              [
+                -0.0758950068895657,
+                0.3552184146399194,
+                0.6609120253494387,
+                0.5534429961925857
+              ],
+              [
+                0.0,
+                0.0,
+                0.0,
+                1.0
+              ]
+            ]
+          }
+        }
+      }
+    },
+    {
+      "time": 3.400260095623703,
+      "state": {
+        "joints": {
+          "arm_1_shoulder_pan": 0.0,
+          "arm_2_wrist_roll": 0.026696267926766885,
+          "arm_2_shoulder_lift": -1.0088063740962196,
+          "arm_1_shoulder_lift": -1.6,
+          "arm_1_elbow_flex": 1.2,
+          "arm_1_gripper": 1.1,
+          "arm_1_wrist_roll": 0.04879632679489654,
+          "arm_2_wrist_flex": 0.2719721234627862,
+          "arm_2_gripper": 1.1,
+          "arm_2_elbow_flex": 1.1699810455959718,
+          "arm_2_shoulder_pan": -0.9891279382078888,
+          "arm_1_wrist_flex": -1.5
+        },
+        "attach_fruits": [],
+        "placements": {
+          "/World/Vegetation/Bed_02/Fruits/Pepper_0003_red": {
+            "matrix": [
+              [
+                -0.5152434728119215,
+                -0.5075715371476696,
+                0.21363561927689992,
+                -5.649993607064245
+              ],
+              [
+                0.5454438477749155,
+                -0.43004173285835445,
+                0.2937686102125963,
+                7.822791896268376
+              ],
+              [
+                -0.0758950068895657,
+                0.3552184146399194,
+                0.6609120253494387,
+                0.5528047798535115
+              ],
+              [
+                0.0,
+                0.0,
+                0.0,
+                1.0
+              ]
+            ]
+          }
+        }
+      }
+    },
+    {
+      "time": 3.433333333333333,
+      "state": {
+        "joints": {
+          "arm_1_shoulder_pan": 0.0,
+          "arm_2_wrist_roll": 0.026696267926766885,
+          "arm_2_shoulder_lift": -1.0088063740962194,
+          "arm_1_shoulder_lift": -1.6,
+          "arm_1_elbow_flex": 1.2,
+          "arm_1_gripper": 1.1,
+          "arm_1_wrist_roll": 0.04879632679489654,
+          "arm_2_wrist_flex": 0.2719721234627862,
+          "arm_2_gripper": 1.1,
+          "arm_2_elbow_flex": 1.1699810455959716,
+          "arm_2_shoulder_pan": -0.9891279382078887,
+          "arm_1_wrist_flex": -1.5
+        },
+        "attach_fruits": [],
+        "placements": {
+          "/World/Vegetation/Bed_02/Fruits/Pepper_0003_red": {
+            "matrix": [
+              [
+                -0.5152434728119215,
+                -0.5075715371476696,
+                0.21363561927689992,
+                -5.649993607064245
+              ],
+              [
+                0.5454438477749155,
+                -0.43004173285835445,
+                0.2937686102125963,
+                7.822791896268376
+              ],
+              [
+                -0.0758950068895657,
+                0.3552184146399194,
+                0.6609120253494387,
+                0.5528047798535115
+              ],
+              [
+                0.0,
+                0.0,
+                0.0,
+                1.0
+              ]
+            ]
+          }
+        }
+      }
+    },
+    {
+      "time": 3.466666666666667,
+      "state": {
+        "joints": {
+          "arm_1_shoulder_pan": 0.0,
+          "arm_2_wrist_roll": 0.026696267926766885,
+          "arm_2_shoulder_lift": -1.0088063740962196,
+          "arm_1_shoulder_lift": -1.6,
+          "arm_1_elbow_flex": 1.2,
+          "arm_1_gripper": 1.1,
+          "arm_1_wrist_roll": 0.04879632679489654,
+          "arm_2_wrist_flex": 0.2719721234627862,
+          "arm_2_gripper": 1.1,
+          "arm_2_elbow_flex": 1.1699810455959718,
+          "arm_2_shoulder_pan": -0.9891279382078887,
+          "arm_1_wrist_flex": -1.5
+        },
+        "attach_fruits": [],
+        "placements": {
+          "/World/Vegetation/Bed_02/Fruits/Pepper_0003_red": {
+            "matrix": [
+              [
+                -0.5152434728119215,
+                -0.5075715371476696,
+                0.21363561927689992,
+                -5.649993607064245
+              ],
+              [
+                0.5454438477749155,
+                -0.43004173285835445,
+                0.2937686102125963,
+                7.822791896268376
+              ],
+              [
+                -0.0758950068895657,
+                0.3552184146399194,
+                0.6609120253494387,
+                0.5528047798535115
+              ],
+              [
+                0.0,
+                0.0,
+                0.0,
+                1.0
+              ]
+            ]
+          }
+        }
+      }
+    },
+    {
+      "time": 3.5,
+      "state": {
+        "joints": {
+          "arm_1_shoulder_pan": 0.0,
+          "arm_2_wrist_roll": 0.026696267926766885,
+          "arm_2_shoulder_lift": -1.0088063740962196,
+          "arm_1_shoulder_lift": -1.6,
+          "arm_1_elbow_flex": 1.2,
+          "arm_1_gripper": 1.1,
+          "arm_1_wrist_roll": 0.04879632679489654,
+          "arm_2_wrist_flex": 0.2719721234627862,
+          "arm_2_gripper": 1.1,
+          "arm_2_elbow_flex": 1.1699810455959718,
+          "arm_2_shoulder_pan": -0.9891279382078888,
+          "arm_1_wrist_flex": -1.5
+        },
+        "attach_fruits": [],
+        "placements": {
+          "/World/Vegetation/Bed_02/Fruits/Pepper_0003_red": {
+            "matrix": [
+              [
+                -0.5152434728119215,
+                -0.5075715371476696,
+                0.21363561927689992,
+                -5.649993607064245
+              ],
+              [
+                0.5454438477749155,
+                -0.43004173285835445,
+                0.2937686102125963,
+                7.822791896268376
+              ],
+              [
+                -0.0758950068895657,
+                0.3552184146399194,
+                0.6609120253494387,
+                0.5528047798535115
+              ],
+              [
+                0.0,
+                0.0,
+                0.0,
+                1.0
+              ]
+            ]
+          }
+        }
+      }
+    },
+    {
+      "time": 3.533333333333333,
+      "state": {
+        "joints": {
+          "arm_1_shoulder_pan": 0.0,
+          "arm_2_wrist_roll": 0.026696267926766885,
+          "arm_2_shoulder_lift": -1.0088063740962196,
+          "arm_1_shoulder_lift": -1.6,
+          "arm_1_elbow_flex": 1.2,
+          "arm_1_gripper": 1.1,
+          "arm_1_wrist_roll": 0.04879632679489654,
+          "arm_2_wrist_flex": 0.2719721234627862,
+          "arm_2_gripper": 1.1,
+          "arm_2_elbow_flex": 1.1699810455959718,
+          "arm_2_shoulder_pan": -0.9891279382078888,
+          "arm_1_wrist_flex": -1.5
+        },
+        "attach_fruits": [],
+        "placements": {
+          "/World/Vegetation/Bed_02/Fruits/Pepper_0003_red": {
+            "matrix": [
+              [
+                -0.5152434728119215,
+                -0.5075715371476696,
+                0.21363561927689992,
+                -5.649993607064245
+              ],
+              [
+                0.5454438477749155,
+                -0.43004173285835445,
+                0.2937686102125963,
+                7.822791896268376
+              ],
+              [
+                -0.0758950068895657,
+                0.3552184146399194,
+                0.6609120253494387,
+                0.5528047798535115
+              ],
+              [
+                0.0,
+                0.0,
+                0.0,
+                1.0
+              ]
+            ]
+          }
+        }
+      }
+    },
+    {
+      "time": 3.566666666666667,
+      "state": {
+        "joints": {
+          "arm_1_shoulder_pan": 0.0,
+          "arm_2_wrist_roll": 0.026696267926766885,
+          "arm_2_shoulder_lift": -1.0088063740962196,
+          "arm_1_shoulder_lift": -1.6,
+          "arm_1_elbow_flex": 1.1999999999999997,
+          "arm_1_gripper": 1.1,
+          "arm_1_wrist_roll": 0.04879632679489653,
+          "arm_2_wrist_flex": 0.2719721234627862,
+          "arm_2_gripper": 1.1,
+          "arm_2_elbow_flex": 1.1699810455959718,
+          "arm_2_shoulder_pan": -0.9891279382078888,
+          "arm_1_wrist_flex": -1.4999999999999998
+        },
+        "attach_fruits": [],
+        "placements": {
+          "/World/Vegetation/Bed_02/Fruits/Pepper_0003_red": {
+            "matrix": [
+              [
+                -0.5152434728119215,
+                -0.5075715371476696,
+                0.21363561927689992,
+                -5.649993607064245
+              ],
+              [
+                0.5454438477749155,
+                -0.43004173285835445,
+                0.2937686102125963,
+                7.822791896268376
+              ],
+              [
+                -0.0758950068895657,
+                0.3552184146399194,
+                0.6609120253494387,
+                0.5528047798535115
+              ],
+              [
+                0.0,
+                0.0,
+                0.0,
+                1.0
+              ]
+            ]
+          }
+        }
+      }
+    },
+    {
+      "time": 3.6,
+      "state": {
+        "joints": {
+          "arm_1_shoulder_pan": 0.0,
+          "arm_2_wrist_roll": 0.026696267926766885,
+          "arm_2_shoulder_lift": -1.0088063740962196,
+          "arm_1_shoulder_lift": -1.6,
+          "arm_1_elbow_flex": 1.2,
+          "arm_1_gripper": 1.1,
+          "arm_1_wrist_roll": 0.04879632679489653,
+          "arm_2_wrist_flex": 0.2719721234627862,
+          "arm_2_gripper": 1.1,
+          "arm_2_elbow_flex": 1.1699810455959718,
+          "arm_2_shoulder_pan": -0.9891279382078888,
+          "arm_1_wrist_flex": -1.5
+        },
+        "attach_fruits": [],
+        "placements": {
+          "/World/Vegetation/Bed_02/Fruits/Pepper_0003_red": {
+            "matrix": [
+              [
+                -0.5152434728119215,
+                -0.5075715371476696,
+                0.21363561927689992,
+                -5.649993607064245
+              ],
+              [
+                0.5454438477749155,
+                -0.43004173285835445,
+                0.2937686102125963,
+                7.822791896268376
+              ],
+              [
+                -0.0758950068895657,
+                0.3552184146399194,
+                0.6609120253494387,
+                0.5528047798535115
+              ],
+              [
+                0.0,
+                0.0,
+                0.0,
+                1.0
+              ]
+            ]
+          }
+        }
+      }
+    },
+    {
+      "time": 3.6333333333333333,
+      "state": {
+        "joints": {
+          "arm_1_shoulder_pan": 0.0,
+          "arm_2_wrist_roll": 0.026696267926766885,
+          "arm_2_shoulder_lift": -1.0088063740962196,
+          "arm_1_shoulder_lift": -1.6,
+          "arm_1_elbow_flex": 1.1999999999999997,
+          "arm_1_gripper": 1.0999999999999999,
+          "arm_1_wrist_roll": 0.04879632679489654,
+          "arm_2_wrist_flex": 0.2719721234627862,
+          "arm_2_gripper": 1.0999999999999999,
+          "arm_2_elbow_flex": 1.1699810455959718,
+          "arm_2_shoulder_pan": -0.9891279382078888,
+          "arm_1_wrist_flex": -1.5
+        },
+        "attach_fruits": [],
+        "placements": {
+          "/World/Vegetation/Bed_02/Fruits/Pepper_0003_red": {
+            "matrix": [
+              [
+                -0.5152434728119215,
+                -0.5075715371476696,
+                0.21363561927689992,
+                -5.649993607064245
+              ],
+              [
+                0.5454438477749155,
+                -0.43004173285835445,
+                0.2937686102125963,
+                7.822791896268376
+              ],
+              [
+                -0.0758950068895657,
+                0.3552184146399194,
+                0.6609120253494387,
+                0.5528047798535115
+              ],
+              [
+                0.0,
+                0.0,
+                0.0,
+                1.0
+              ]
+            ]
+          }
+        }
+      }
+    },
+    {
+      "time": 3.6666666666666665,
+      "state": {
+        "joints": {
+          "arm_1_shoulder_pan": 0.0,
+          "arm_2_wrist_roll": 0.026696267926766885,
+          "arm_2_shoulder_lift": -1.0088063740962196,
+          "arm_1_shoulder_lift": -1.6,
+          "arm_1_elbow_flex": 1.2,
+          "arm_1_gripper": 1.1,
+          "arm_1_wrist_roll": 0.04879632679489654,
+          "arm_2_wrist_flex": 0.2719721234627862,
+          "arm_2_gripper": 1.1,
+          "arm_2_elbow_flex": 1.1699810455959718,
+          "arm_2_shoulder_pan": -0.9891279382078888,
+          "arm_1_wrist_flex": -1.5
+        },
+        "attach_fruits": [],
+        "placements": {
+          "/World/Vegetation/Bed_02/Fruits/Pepper_0003_red": {
+            "matrix": [
+              [
+                -0.5152434728119215,
+                -0.5075715371476696,
+                0.21363561927689992,
+                -5.649993607064245
+              ],
+              [
+                0.5454438477749155,
+                -0.43004173285835445,
+                0.2937686102125963,
+                7.822791896268376
+              ],
+              [
+                -0.0758950068895657,
+                0.3552184146399194,
+                0.6609120253494387,
+                0.5528047798535115
+              ],
+              [
+                0.0,
+                0.0,
+                0.0,
+                1.0
+              ]
+            ]
+          }
+        }
+      }
+    },
+    {
+      "time": 3.7,
+      "state": {
+        "joints": {
+          "arm_1_shoulder_pan": 0.0,
+          "arm_2_wrist_roll": 0.02669626792676688,
+          "arm_2_shoulder_lift": -1.0088063740962196,
+          "arm_1_shoulder_lift": -1.6,
+          "arm_1_elbow_flex": 1.2,
+          "arm_1_gripper": 1.1,
+          "arm_1_wrist_roll": 0.04879632679489654,
+          "arm_2_wrist_flex": 0.2719721234627862,
+          "arm_2_gripper": 1.1,
+          "arm_2_elbow_flex": 1.1699810455959718,
+          "arm_2_shoulder_pan": -0.9891279382078888,
+          "arm_1_wrist_flex": -1.5
+        },
+        "attach_fruits": [],
+        "placements": {
+          "/World/Vegetation/Bed_02/Fruits/Pepper_0003_red": {
+            "matrix": [
+              [
+                -0.5152434728119215,
+                -0.5075715371476696,
+                0.21363561927689992,
+                -5.649993607064245
+              ],
+              [
+                0.5454438477749155,
+                -0.43004173285835445,
+                0.2937686102125963,
+                7.822791896268376
+              ],
+              [
+                -0.0758950068895657,
+                0.3552184146399194,
+                0.6609120253494387,
+                0.5528047798535115
+              ],
+              [
+                0.0,
+                0.0,
+                0.0,
+                1.0
+              ]
+            ]
+          }
+        }
+      }
+    },
+    {
+      "time": 3.7333333333333334,
+      "state": {
+        "joints": {
+          "arm_1_shoulder_pan": 0.0,
+          "arm_2_wrist_roll": 0.026696267926766885,
+          "arm_2_shoulder_lift": -1.0088063740962196,
+          "arm_1_shoulder_lift": -1.6000000000000003,
+          "arm_1_elbow_flex": 1.2,
+          "arm_1_gripper": 1.1,
+          "arm_1_wrist_roll": 0.04879632679489654,
+          "arm_2_wrist_flex": 0.2719721234627862,
+          "arm_2_gripper": 1.1,
+          "arm_2_elbow_flex": 1.1699810455959718,
+          "arm_2_shoulder_pan": -0.9891279382078889,
+          "arm_1_wrist_flex": -1.5
+        },
+        "attach_fruits": [],
+        "placements": {
+          "/World/Vegetation/Bed_02/Fruits/Pepper_0003_red": {
+            "matrix": [
+              [
+                -0.5152434728119215,
+                -0.5075715371476696,
+                0.21363561927689992,
+                -5.649993607064245
+              ],
+              [
+                0.5454438477749155,
+                -0.43004173285835445,
+                0.2937686102125963,
+                7.822791896268376
+              ],
+              [
+                -0.0758950068895657,
+                0.3552184146399194,
+                0.6609120253494387,
+                0.5528047798535115
+              ],
+              [
+                0.0,
+                0.0,
+                0.0,
+                1.0
+              ]
+            ]
+          }
+        }
+      }
+    },
+    {
+      "time": 3.7666666666666666,
+      "state": {
+        "joints": {
+          "arm_1_shoulder_pan": 0.0,
+          "arm_2_wrist_roll": 0.026696267926766885,
+          "arm_2_shoulder_lift": -1.0088063740962196,
+          "arm_1_shoulder_lift": -1.6,
+          "arm_1_elbow_flex": 1.2,
+          "arm_1_gripper": 1.1,
+          "arm_1_wrist_roll": 0.04879632679489654,
+          "arm_2_wrist_flex": 0.2719721234627862,
+          "arm_2_gripper": 1.1,
+          "arm_2_elbow_flex": 1.1699810455959718,
+          "arm_2_shoulder_pan": -0.9891279382078889,
+          "arm_1_wrist_flex": -1.5000000000000002
+        },
+        "attach_fruits": [],
+        "placements": {
+          "/World/Vegetation/Bed_02/Fruits/Pepper_0003_red": {
+            "matrix": [
+              [
+                -0.5152434728119215,
+                -0.5075715371476696,
+                0.21363561927689992,
+                -5.649993607064245
+              ],
+              [
+                0.5454438477749155,
+                -0.43004173285835445,
+                0.2937686102125963,
+                7.822791896268376
+              ],
+              [
+                -0.0758950068895657,
+                0.3552184146399194,
+                0.6609120253494387,
+                0.5528047798535115
+              ],
+              [
+                0.0,
+                0.0,
+                0.0,
+                1.0
+              ]
+            ]
+          }
+        }
+      }
+    },
+    {
+      "time": 3.8,
+      "state": {
+        "joints": {
+          "arm_1_shoulder_pan": 0.0,
+          "arm_2_wrist_roll": 0.02669626792676688,
+          "arm_2_shoulder_lift": -1.0088063740962196,
+          "arm_1_shoulder_lift": -1.6,
+          "arm_1_elbow_flex": 1.2,
+          "arm_1_gripper": 1.1,
+          "arm_1_wrist_roll": 0.04879632679489654,
+          "arm_2_wrist_flex": 0.2719721234627862,
+          "arm_2_gripper": 1.1,
+          "arm_2_elbow_flex": 1.1699810455959718,
+          "arm_2_shoulder_pan": -0.9891279382078888,
+          "arm_1_wrist_flex": -1.4999999999999998
+        },
+        "attach_fruits": [],
+        "placements": {
+          "/World/Vegetation/Bed_02/Fruits/Pepper_0003_red": {
+            "matrix": [
+              [
+                -0.5152434728119215,
+                -0.5075715371476696,
+                0.21363561927689992,
+                -5.649993607064245
+              ],
+              [
+                0.5454438477749155,
+                -0.43004173285835445,
+                0.2937686102125963,
+                7.822791896268376
+              ],
+              [
+                -0.0758950068895657,
+                0.3552184146399194,
+                0.6609120253494387,
+                0.5528047798535115
+              ],
+              [
+                0.0,
+                0.0,
+                0.0,
+                1.0
+              ]
+            ]
+          }
+        }
+      }
+    },
+    {
+      "time": 3.8333333333333335,
+      "state": {
+        "joints": {
+          "arm_1_shoulder_pan": 0.0,
+          "arm_2_wrist_roll": 0.026696267926766885,
+          "arm_2_shoulder_lift": -1.0088063740962196,
+          "arm_1_shoulder_lift": -1.6000000000000003,
+          "arm_1_elbow_flex": 1.2,
+          "arm_1_gripper": 1.1,
+          "arm_1_wrist_roll": 0.04879632679489654,
+          "arm_2_wrist_flex": 0.2719721234627862,
+          "arm_2_gripper": 1.1,
+          "arm_2_elbow_flex": 1.1699810455959718,
+          "arm_2_shoulder_pan": -0.9891279382078888,
+          "arm_1_wrist_flex": -1.5
+        },
+        "attach_fruits": [],
+        "placements": {
+          "/World/Vegetation/Bed_02/Fruits/Pepper_0003_red": {
+            "matrix": [
+              [
+                -0.5152434728119215,
+                -0.5075715371476696,
+                0.21363561927689992,
+                -5.649993607064245
+              ],
+              [
+                0.5454438477749155,
+                -0.43004173285835445,
+                0.2937686102125963,
+                7.822791896268376
+              ],
+              [
+                -0.0758950068895657,
+                0.3552184146399194,
+                0.6609120253494387,
+                0.5528047798535115
+              ],
+              [
+                0.0,
+                0.0,
+                0.0,
+                1.0
+              ]
+            ]
+          }
+        }
+      }
+    },
+    {
+      "time": 3.8666666666666667,
+      "state": {
+        "joints": {
+          "arm_1_shoulder_pan": 0.0,
+          "arm_2_wrist_roll": 0.02669626792676688,
+          "arm_2_shoulder_lift": -1.0088063740962196,
+          "arm_1_shoulder_lift": -1.6,
+          "arm_1_elbow_flex": 1.1999999999999997,
+          "arm_1_gripper": 1.1,
+          "arm_1_wrist_roll": 0.04879632679489654,
+          "arm_2_wrist_flex": 0.2719721234627862,
+          "arm_2_gripper": 1.1,
+          "arm_2_elbow_flex": 1.1699810455959718,
+          "arm_2_shoulder_pan": -0.9891279382078888,
+          "arm_1_wrist_flex": -1.5
+        },
+        "attach_fruits": [],
+        "placements": {
+          "/World/Vegetation/Bed_02/Fruits/Pepper_0003_red": {
+            "matrix": [
+              [
+                -0.5152434728119215,
+                -0.5075715371476696,
+                0.21363561927689992,
+                -5.649993607064245
+              ],
+              [
+                0.5454438477749155,
+                -0.43004173285835445,
+                0.2937686102125963,
+                7.822791896268376
+              ],
+              [
+                -0.0758950068895657,
+                0.3552184146399194,
+                0.6609120253494387,
+                0.5528047798535115
+              ],
+              [
+                0.0,
+                0.0,
+                0.0,
+                1.0
+              ]
+            ]
+          }
+        }
+      }
+    },
+    {
+      "time": 3.9,
+      "state": {
+        "joints": {
+          "arm_1_shoulder_pan": 0.0,
+          "arm_2_wrist_roll": 0.026696267926766885,
+          "arm_2_shoulder_lift": -1.0088063740962196,
+          "arm_1_shoulder_lift": -1.6,
+          "arm_1_elbow_flex": 1.2,
+          "arm_1_gripper": 1.1,
+          "arm_1_wrist_roll": 0.04879632679489654,
+          "arm_2_wrist_flex": 0.2719721234627862,
+          "arm_2_gripper": 1.1,
+          "arm_2_elbow_flex": 1.1699810455959718,
+          "arm_2_shoulder_pan": -0.9891279382078888,
+          "arm_1_wrist_flex": -1.5
+        },
+        "attach_fruits": [],
+        "placements": {
+          "/World/Vegetation/Bed_02/Fruits/Pepper_0003_red": {
+            "matrix": [
+              [
+                -0.5152434728119215,
+                -0.5075715371476696,
+                0.21363561927689992,
+                -5.649993607064245
+              ],
+              [
+                0.5454438477749155,
+                -0.43004173285835445,
+                0.2937686102125963,
+                7.822791896268376
+              ],
+              [
+                -0.0758950068895657,
+                0.3552184146399194,
+                0.6609120253494387,
+                0.5528047798535115
+              ],
+              [
+                0.0,
+                0.0,
+                0.0,
+                1.0
+              ]
+            ]
+          }
+        }
+      }
+    },
+    {
+      "time": 3.933333333333333,
+      "state": {
+        "joints": {
+          "arm_1_shoulder_pan": 0.0,
+          "arm_2_wrist_roll": 0.02669626792676688,
+          "arm_2_shoulder_lift": -1.0088063740962196,
+          "arm_1_shoulder_lift": -1.5999999999999999,
+          "arm_1_elbow_flex": 1.2,
+          "arm_1_gripper": 1.1,
+          "arm_1_wrist_roll": 0.04879632679489654,
+          "arm_2_wrist_flex": 0.2719721234627862,
+          "arm_2_gripper": 1.1,
+          "arm_2_elbow_flex": 1.1699810455959718,
+          "arm_2_shoulder_pan": -0.9891279382078887,
+          "arm_1_wrist_flex": -1.5
+        },
+        "attach_fruits": [],
+        "placements": {
+          "/World/Vegetation/Bed_02/Fruits/Pepper_0003_red": {
+            "matrix": [
+              [
+                -0.5152434728119215,
+                -0.5075715371476696,
+                0.21363561927689992,
+                -5.649993607064245
+              ],
+              [
+                0.5454438477749155,
+                -0.43004173285835445,
+                0.2937686102125963,
+                7.822791896268376
+              ],
+              [
+                -0.0758950068895657,
+                0.3552184146399194,
+                0.6609120253494387,
+                0.5528047798535115
+              ],
+              [
+                0.0,
+                0.0,
+                0.0,
+                1.0
+              ]
+            ]
+          }
+        }
+      }
+    },
+    {
+      "time": 3.966666666666667,
+      "state": {
+        "joints": {
+          "arm_1_shoulder_pan": 0.0,
+          "arm_2_wrist_roll": 0.02669626792676688,
+          "arm_2_shoulder_lift": -1.0088063740962196,
+          "arm_1_shoulder_lift": -1.6,
+          "arm_1_elbow_flex": 1.2,
+          "arm_1_gripper": 1.1,
+          "arm_1_wrist_roll": 0.04879632679489654,
+          "arm_2_wrist_flex": 0.2719721234627862,
+          "arm_2_gripper": 1.1,
+          "arm_2_elbow_flex": 1.1699810455959718,
+          "arm_2_shoulder_pan": -0.9891279382078888,
+          "arm_1_wrist_flex": -1.4999999999999998
+        },
+        "attach_fruits": [],
+        "placements": {
+          "/World/Vegetation/Bed_02/Fruits/Pepper_0003_red": {
+            "matrix": [
+              [
+                -0.5152434728119215,
+                -0.5075715371476696,
+                0.21363561927689992,
+                -5.649993607064245
+              ],
+              [
+                0.5454438477749155,
+                -0.43004173285835445,
+                0.2937686102125963,
+                7.822791896268376
+              ],
+              [
+                -0.0758950068895657,
+                0.3552184146399194,
+                0.6609120253494387,
+                0.5528047798535115
+              ],
+              [
+                0.0,
+                0.0,
+                0.0,
+                1.0
+              ]
+            ]
+          }
+        }
+      }
+    },
+    {
+      "time": 4.0,
+      "state": {
+        "joints": {
+          "arm_1_shoulder_pan": 0.0,
+          "arm_2_wrist_roll": 0.026696267926766885,
+          "arm_2_shoulder_lift": -1.0088063740962196,
+          "arm_1_shoulder_lift": -1.6,
+          "arm_1_elbow_flex": 1.2000000000000002,
+          "arm_1_gripper": 1.1,
+          "arm_1_wrist_roll": 0.048796326794896545,
+          "arm_2_wrist_flex": 0.2719721234627862,
+          "arm_2_gripper": 1.1,
+          "arm_2_elbow_flex": 1.1699810455959718,
+          "arm_2_shoulder_pan": -0.9891279382078889,
+          "arm_1_wrist_flex": -1.5
+        },
+        "attach_fruits": [],
+        "placements": {
+          "/World/Vegetation/Bed_02/Fruits/Pepper_0003_red": {
+            "matrix": [
+              [
+                -0.5152434728119215,
+                -0.5075715371476696,
+                0.21363561927689992,
+                -5.649993607064245
+              ],
+              [
+                0.5454438477749155,
+                -0.43004173285835445,
+                0.2937686102125963,
+                7.822791896268376
+              ],
+              [
+                -0.0758950068895657,
+                0.3552184146399194,
+                0.6609120253494387,
+                0.5528047798535115
+              ],
+              [
+                0.0,
+                0.0,
+                0.0,
+                1.0
+              ]
+            ]
+          }
+        }
+      }
+    },
+    {
+      "time": 4.033333333333333,
+      "state": {
+        "joints": {
+          "arm_1_shoulder_pan": 0.0,
+          "arm_2_wrist_roll": 0.026696267926766885,
+          "arm_2_shoulder_lift": -1.0088063740962196,
+          "arm_1_shoulder_lift": -1.6,
+          "arm_1_elbow_flex": 1.2,
+          "arm_1_gripper": 1.1,
+          "arm_1_wrist_roll": 0.04879632679489654,
+          "arm_2_wrist_flex": 0.2719721234627862,
+          "arm_2_gripper": 1.1,
+          "arm_2_elbow_flex": 1.1699810455959718,
+          "arm_2_shoulder_pan": -0.9891279382078888,
+          "arm_1_wrist_flex": -1.5
+        },
+        "attach_fruits": [],
+        "placements": {
+          "/World/Vegetation/Bed_02/Fruits/Pepper_0003_red": {
+            "matrix": [
+              [
+                -0.5152434728119215,
+                -0.5075715371476696,
+                0.21363561927689992,
+                -5.649993607064245
+              ],
+              [
+                0.5454438477749155,
+                -0.43004173285835445,
+                0.2937686102125963,
+                7.822791896268376
+              ],
+              [
+                -0.0758950068895657,
+                0.3552184146399194,
+                0.6609120253494387,
+                0.5528047798535115
+              ],
+              [
+                0.0,
+                0.0,
+                0.0,
+                1.0
+              ]
+            ]
+          }
+        }
+      }
+    },
+    {
+      "time": 4.066666666666666,
+      "state": {
+        "joints": {
+          "arm_1_shoulder_pan": 0.0,
+          "arm_2_wrist_roll": 0.026696267926766885,
+          "arm_2_shoulder_lift": -1.0088063740962196,
+          "arm_1_shoulder_lift": -1.6,
+          "arm_1_elbow_flex": 1.2,
+          "arm_1_gripper": 1.1,
+          "arm_1_wrist_roll": 0.04879632679489654,
+          "arm_2_wrist_flex": 0.2719721234627862,
+          "arm_2_gripper": 1.1,
+          "arm_2_elbow_flex": 1.1699810455959718,
+          "arm_2_shoulder_pan": -0.9891279382078888,
+          "arm_1_wrist_flex": -1.5
+        },
+        "attach_fruits": [],
+        "placements": {
+          "/World/Vegetation/Bed_02/Fruits/Pepper_0003_red": {
+            "matrix": [
+              [
+                -0.5152434728119215,
+                -0.5075715371476696,
+                0.21363561927689992,
+                -5.649993607064245
+              ],
+              [
+                0.5454438477749155,
+                -0.43004173285835445,
+                0.2937686102125963,
+                7.822791896268376
+              ],
+              [
+                -0.0758950068895657,
+                0.3552184146399194,
+                0.6609120253494387,
+                0.5528047798535115
+              ],
+              [
+                0.0,
+                0.0,
+                0.0,
+                1.0
+              ]
+            ]
+          }
+        }
+      }
+    },
+    {
+      "time": 4.1,
+      "state": {
+        "joints": {
+          "arm_1_shoulder_pan": 0.0,
+          "arm_2_wrist_roll": 0.026696267926766885,
+          "arm_2_shoulder_lift": -1.0088063740962196,
+          "arm_1_shoulder_lift": -1.6,
+          "arm_1_elbow_flex": 1.2,
+          "arm_1_gripper": 1.1,
+          "arm_1_wrist_roll": 0.04879632679489654,
+          "arm_2_wrist_flex": 0.2719721234627862,
+          "arm_2_gripper": 1.1,
+          "arm_2_elbow_flex": 1.1699810455959718,
+          "arm_2_shoulder_pan": -0.9891279382078888,
+          "arm_1_wrist_flex": -1.5
+        },
+        "attach_fruits": [],
+        "placements": {
+          "/World/Vegetation/Bed_02/Fruits/Pepper_0003_red": {
+            "matrix": [
+              [
+                -0.5152434728119215,
+                -0.5075715371476696,
+                0.21363561927689992,
+                -5.649993607064245
+              ],
+              [
+                0.5454438477749155,
+                -0.43004173285835445,
+                0.2937686102125963,
+                7.822791896268376
+              ],
+              [
+                -0.0758950068895657,
+                0.3552184146399194,
+                0.6609120253494387,
+                0.5528047798535115
+              ],
+              [
+                0.0,
+                0.0,
+                0.0,
+                1.0
+              ]
+            ]
+          }
+        }
+      }
+    },
+    {
+      "time": 4.133333333333334,
+      "state": {
+        "joints": {
+          "arm_1_shoulder_pan": 0.0,
+          "arm_2_wrist_roll": 0.026696267926766885,
+          "arm_2_shoulder_lift": -1.0088063740962196,
+          "arm_1_shoulder_lift": -1.6,
+          "arm_1_elbow_flex": 1.2,
+          "arm_1_gripper": 1.1,
+          "arm_1_wrist_roll": 0.04879632679489654,
+          "arm_2_wrist_flex": 0.2719721234627862,
+          "arm_2_gripper": 1.1,
+          "arm_2_elbow_flex": 1.1699810455959718,
+          "arm_2_shoulder_pan": -0.9891279382078888,
+          "arm_1_wrist_flex": -1.5
+        },
+        "attach_fruits": [],
+        "placements": {
+          "/World/Vegetation/Bed_02/Fruits/Pepper_0003_red": {
+            "matrix": [
+              [
+                -0.5152434728119215,
+                -0.5075715371476696,
+                0.21363561927689992,
+                -5.649993607064245
+              ],
+              [
+                0.5454438477749155,
+                -0.43004173285835445,
+                0.2937686102125963,
+                7.822791896268376
+              ],
+              [
+                -0.0758950068895657,
+                0.3552184146399194,
+                0.6609120253494387,
+                0.5528047798535115
+              ],
+              [
+                0.0,
+                0.0,
+                0.0,
+                1.0
+              ]
+            ]
+          }
+        }
+      }
+    },
+    {
+      "time": 4.166666666666667,
+      "state": {
+        "joints": {
+          "arm_1_shoulder_pan": 0.0,
+          "arm_2_wrist_roll": 0.026696267926766885,
+          "arm_2_shoulder_lift": -1.0088063740962196,
+          "arm_1_shoulder_lift": -1.6,
+          "arm_1_elbow_flex": 1.2,
+          "arm_1_gripper": 1.1,
+          "arm_1_wrist_roll": 0.04879632679489654,
+          "arm_2_wrist_flex": 0.2719721234627862,
+          "arm_2_gripper": 1.1,
+          "arm_2_elbow_flex": 1.1699810455959718,
+          "arm_2_shoulder_pan": -0.9891279382078888,
+          "arm_1_wrist_flex": -1.5
+        },
+        "attach_fruits": [],
+        "placements": {
+          "/World/Vegetation/Bed_02/Fruits/Pepper_0003_red": {
+            "matrix": [
+              [
+                -0.5152434728119215,
+                -0.5075715371476696,
+                0.21363561927689992,
+                -5.649993607064245
+              ],
+              [
+                0.5454438477749155,
+                -0.43004173285835445,
+                0.2937686102125963,
+                7.822791896268376
+              ],
+              [
+                -0.0758950068895657,
+                0.3552184146399194,
+                0.6609120253494387,
+                0.5528047798535115
+              ],
+              [
+                0.0,
+                0.0,
+                0.0,
+                1.0
+              ]
+            ]
+          }
+        }
+      }
+    },
+    {
+      "time": 4.2,
+      "state": {
+        "joints": {
+          "arm_1_shoulder_pan": 0.0,
+          "arm_2_wrist_roll": 0.026696267926766885,
+          "arm_2_shoulder_lift": -1.0088063740962196,
+          "arm_1_shoulder_lift": -1.6,
+          "arm_1_elbow_flex": 1.2,
+          "arm_1_gripper": 1.1,
+          "arm_1_wrist_roll": 0.04879632679489654,
+          "arm_2_wrist_flex": 0.2719721234627862,
+          "arm_2_gripper": 1.1,
+          "arm_2_elbow_flex": 1.1699810455959718,
+          "arm_2_shoulder_pan": -0.9891279382078888,
+          "arm_1_wrist_flex": -1.5
+        },
+        "attach_fruits": [],
+        "placements": {
+          "/World/Vegetation/Bed_02/Fruits/Pepper_0003_red": {
+            "matrix": [
+              [
+                -0.5152434728119215,
+                -0.5075715371476696,
+                0.21363561927689992,
+                -5.649993607064245
+              ],
+              [
+                0.5454438477749155,
+                -0.43004173285835445,
+                0.2937686102125963,
+                7.822791896268376
+              ],
+              [
+                -0.0758950068895657,
+                0.3552184146399194,
+                0.6609120253494387,
+                0.5528047798535115
+              ],
+              [
+                0.0,
+                0.0,
+                0.0,
+                1.0
+              ]
+            ]
+          }
+        }
+      }
+    },
+    {
+      "time": 4.233333333333333,
+      "state": {
+        "joints": {
+          "arm_1_shoulder_pan": 0.0,
+          "arm_2_wrist_roll": 0.026696267926766885,
+          "arm_2_shoulder_lift": -1.0088063740962196,
+          "arm_1_shoulder_lift": -1.6,
+          "arm_1_elbow_flex": 1.2,
+          "arm_1_gripper": 1.1,
+          "arm_1_wrist_roll": 0.04879632679489654,
+          "arm_2_wrist_flex": 0.2719721234627862,
+          "arm_2_gripper": 1.1,
+          "arm_2_elbow_flex": 1.1699810455959718,
+          "arm_2_shoulder_pan": -0.9891279382078888,
+          "arm_1_wrist_flex": -1.5
+        },
+        "attach_fruits": [],
+        "placements": {
+          "/World/Vegetation/Bed_02/Fruits/Pepper_0003_red": {
+            "matrix": [
+              [
+                -0.5152434728119215,
+                -0.5075715371476696,
+                0.21363561927689992,
+                -5.649993607064245
+              ],
+              [
+                0.5454438477749155,
+                -0.43004173285835445,
+                0.2937686102125963,
+                7.822791896268376
+              ],
+              [
+                -0.0758950068895657,
+                0.3552184146399194,
+                0.6609120253494387,
+                0.5528047798535115
+              ],
+              [
+                0.0,
+                0.0,
+                0.0,
+                1.0
+              ]
+            ]
+          }
+        }
+      }
+    },
+    {
+      "time": 4.266666666666667,
+      "state": {
+        "joints": {
+          "arm_1_shoulder_pan": 0.0,
+          "arm_2_wrist_roll": 0.026696267926766885,
+          "arm_2_shoulder_lift": -1.0088063740962196,
+          "arm_1_shoulder_lift": -1.6,
+          "arm_1_elbow_flex": 1.2,
+          "arm_1_gripper": 1.1,
+          "arm_1_wrist_roll": 0.04879632679489654,
+          "arm_2_wrist_flex": 0.2719721234627862,
+          "arm_2_gripper": 1.1,
+          "arm_2_elbow_flex": 1.1699810455959718,
+          "arm_2_shoulder_pan": -0.9891279382078888,
+          "arm_1_wrist_flex": -1.5
+        },
+        "attach_fruits": [],
+        "placements": {
+          "/World/Vegetation/Bed_02/Fruits/Pepper_0003_red": {
+            "matrix": [
+              [
+                -0.5152434728119215,
+                -0.5075715371476696,
+                0.21363561927689992,
+                -5.649993607064245
+              ],
+              [
+                0.5454438477749155,
+                -0.43004173285835445,
+                0.2937686102125963,
+                7.822791896268376
+              ],
+              [
+                -0.0758950068895657,
+                0.3552184146399194,
+                0.6609120253494387,
+                0.5528047798535115
+              ],
+              [
+                0.0,
+                0.0,
+                0.0,
+                1.0
+              ]
+            ]
+          }
+        }
+      }
+    },
+    {
+      "time": 4.3,
+      "state": {
+        "joints": {
+          "arm_1_shoulder_pan": 0.0,
+          "arm_2_wrist_roll": 0.02669626792676688,
+          "arm_2_shoulder_lift": -1.0088063740962196,
+          "arm_1_shoulder_lift": -1.6,
+          "arm_1_elbow_flex": 1.2,
+          "arm_1_gripper": 1.1,
+          "arm_1_wrist_roll": 0.04879632679489654,
+          "arm_2_wrist_flex": 0.2719721234627862,
+          "arm_2_gripper": 1.1,
+          "arm_2_elbow_flex": 1.1699810455959718,
+          "arm_2_shoulder_pan": -0.9891279382078888,
+          "arm_1_wrist_flex": -1.5
+        },
+        "attach_fruits": [],
+        "placements": {
+          "/World/Vegetation/Bed_02/Fruits/Pepper_0003_red": {
+            "matrix": [
+              [
+                -0.5152434728119215,
+                -0.5075715371476696,
+                0.21363561927689992,
+                -5.649993607064245
+              ],
+              [
+                0.5454438477749155,
+                -0.43004173285835445,
+                0.2937686102125963,
+                7.822791896268376
+              ],
+              [
+                -0.0758950068895657,
+                0.3552184146399194,
+                0.6609120253494387,
+                0.5528047798535115
+              ],
+              [
+                0.0,
+                0.0,
+                0.0,
+                1.0
+              ]
+            ]
+          }
+        }
+      }
+    },
+    {
+      "time": 4.333333333333333,
+      "state": {
+        "joints": {
+          "arm_1_shoulder_pan": 0.0,
+          "arm_2_wrist_roll": 0.02669626792676688,
+          "arm_2_shoulder_lift": -1.0088063740962196,
+          "arm_1_shoulder_lift": -1.6,
+          "arm_1_elbow_flex": 1.2,
+          "arm_1_gripper": 1.1,
+          "arm_1_wrist_roll": 0.04879632679489654,
+          "arm_2_wrist_flex": 0.2719721234627862,
+          "arm_2_gripper": 1.1,
+          "arm_2_elbow_flex": 1.1699810455959718,
+          "arm_2_shoulder_pan": -0.9891279382078888,
+          "arm_1_wrist_flex": -1.5
+        },
+        "attach_fruits": [],
+        "placements": {
+          "/World/Vegetation/Bed_02/Fruits/Pepper_0003_red": {
+            "matrix": [
+              [
+                -0.5152434728119215,
+                -0.5075715371476696,
+                0.21363561927689992,
+                -5.649993607064245
+              ],
+              [
+                0.5454438477749155,
+                -0.43004173285835445,
+                0.2937686102125963,
+                7.822791896268376
+              ],
+              [
+                -0.0758950068895657,
+                0.3552184146399194,
+                0.6609120253494387,
+                0.5528047798535115
+              ],
+              [
+                0.0,
+                0.0,
+                0.0,
+                1.0
+              ]
+            ]
+          }
+        }
+      }
+    },
+    {
+      "time": 4.366666666666666,
+      "state": {
+        "joints": {
+          "arm_1_shoulder_pan": 0.0,
+          "arm_2_wrist_roll": 0.02669626792676688,
+          "arm_2_shoulder_lift": -1.0088063740962196,
+          "arm_1_shoulder_lift": -1.6,
+          "arm_1_elbow_flex": 1.2,
+          "arm_1_gripper": 1.1,
+          "arm_1_wrist_roll": 0.04879632679489654,
+          "arm_2_wrist_flex": 0.2719721234627862,
+          "arm_2_gripper": 1.1,
+          "arm_2_elbow_flex": 1.1699810455959718,
+          "arm_2_shoulder_pan": -0.9891279382078888,
+          "arm_1_wrist_flex": -1.5
+        },
+        "attach_fruits": [],
+        "placements": {
+          "/World/Vegetation/Bed_02/Fruits/Pepper_0003_red": {
+            "matrix": [
+              [
+                -0.5152434728119215,
+                -0.5075715371476696,
+                0.21363561927689992,
+                -5.649993607064245
+              ],
+              [
+                0.5454438477749155,
+                -0.43004173285835445,
+                0.2937686102125963,
+                7.822791896268376
+              ],
+              [
+                -0.0758950068895657,
+                0.3552184146399194,
+                0.6609120253494387,
+                0.5528047798535115
+              ],
+              [
+                0.0,
+                0.0,
+                0.0,
+                1.0
+              ]
+            ]
+          }
+        }
+      }
+    },
+    {
+      "time": 4.4,
+      "state": {
+        "joints": {
+          "arm_1_shoulder_pan": 0.0,
+          "arm_2_wrist_roll": 0.026696267926766885,
+          "arm_2_shoulder_lift": -1.0088063740962196,
+          "arm_1_shoulder_lift": -1.6,
+          "arm_1_elbow_flex": 1.2,
+          "arm_1_gripper": 1.1,
+          "arm_1_wrist_roll": 0.04879632679489654,
+          "arm_2_wrist_flex": 0.2719721234627862,
+          "arm_2_gripper": 1.1,
+          "arm_2_elbow_flex": 1.1699810455959718,
+          "arm_2_shoulder_pan": -0.9891279382078888,
+          "arm_1_wrist_flex": -1.5
+        },
+        "attach_fruits": [],
+        "placements": {
+          "/World/Vegetation/Bed_02/Fruits/Pepper_0003_red": {
+            "matrix": [
+              [
+                -0.5152434728119215,
+                -0.5075715371476696,
+                0.21363561927689992,
+                -5.649993607064245
+              ],
+              [
+                0.5454438477749155,
+                -0.43004173285835445,
+                0.2937686102125963,
+                7.822791896268376
+              ],
+              [
+                -0.0758950068895657,
+                0.3552184146399194,
+                0.6609120253494387,
+                0.5528047798535115
+              ],
+              [
+                0.0,
+                0.0,
+                0.0,
+                1.0
+              ]
+            ]
+          }
+        }
+      }
+    },
+    {
+      "time": 4.433333333333334,
+      "state": {
+        "joints": {
+          "arm_1_shoulder_pan": 0.0,
+          "arm_2_wrist_roll": 0.026696267926766885,
+          "arm_2_shoulder_lift": -1.0088063740962196,
+          "arm_1_shoulder_lift": -1.6,
+          "arm_1_elbow_flex": 1.2,
+          "arm_1_gripper": 1.1,
+          "arm_1_wrist_roll": 0.04879632679489654,
+          "arm_2_wrist_flex": 0.2719721234627862,
+          "arm_2_gripper": 1.1,
+          "arm_2_elbow_flex": 1.1699810455959718,
+          "arm_2_shoulder_pan": -0.9891279382078888,
+          "arm_1_wrist_flex": -1.5
+        },
+        "attach_fruits": [],
+        "placements": {
+          "/World/Vegetation/Bed_02/Fruits/Pepper_0003_red": {
+            "matrix": [
+              [
+                -0.5152434728119215,
+                -0.5075715371476696,
+                0.21363561927689992,
+                -5.649993607064245
+              ],
+              [
+                0.5454438477749155,
+                -0.43004173285835445,
+                0.2937686102125963,
+                7.822791896268376
+              ],
+              [
+                -0.0758950068895657,
+                0.3552184146399194,
+                0.6609120253494387,
+                0.5528047798535115
+              ],
+              [
+                0.0,
+                0.0,
+                0.0,
+                1.0
+              ]
+            ]
+          }
+        }
+      }
+    },
+    {
+      "time": 4.466666666666667,
+      "state": {
+        "joints": {
+          "arm_1_shoulder_pan": 0.0,
+          "arm_2_wrist_roll": 0.026696267926766885,
+          "arm_2_shoulder_lift": -1.0088063740962196,
+          "arm_1_shoulder_lift": -1.6,
+          "arm_1_elbow_flex": 1.2,
+          "arm_1_gripper": 1.1,
+          "arm_1_wrist_roll": 0.04879632679489654,
+          "arm_2_wrist_flex": 0.2719721234627862,
+          "arm_2_gripper": 1.1,
+          "arm_2_elbow_flex": 1.1699810455959718,
+          "arm_2_shoulder_pan": -0.9891279382078888,
+          "arm_1_wrist_flex": -1.5
+        },
+        "attach_fruits": [],
+        "placements": {
+          "/World/Vegetation/Bed_02/Fruits/Pepper_0003_red": {
+            "matrix": [
+              [
+                -0.5152434728119215,
+                -0.5075715371476696,
+                0.21363561927689992,
+                -5.649993607064245
+              ],
+              [
+                0.5454438477749155,
+                -0.43004173285835445,
+                0.2937686102125963,
+                7.822791896268376
+              ],
+              [
+                -0.0758950068895657,
+                0.3552184146399194,
+                0.6609120253494387,
+                0.5528047798535115
+              ],
+              [
+                0.0,
+                0.0,
+                0.0,
+                1.0
+              ]
+            ]
+          }
+        }
+      }
+    },
+    {
+      "time": 4.5,
+      "state": {
+        "joints": {
+          "arm_1_shoulder_pan": 0.0,
+          "arm_2_wrist_roll": 0.026696267926766885,
+          "arm_2_shoulder_lift": -1.0088063740962196,
+          "arm_1_shoulder_lift": -1.6,
+          "arm_1_elbow_flex": 1.2,
+          "arm_1_gripper": 1.1,
+          "arm_1_wrist_roll": 0.04879632679489654,
+          "arm_2_wrist_flex": 0.2719721234627862,
+          "arm_2_gripper": 1.1,
+          "arm_2_elbow_flex": 1.1699810455959718,
+          "arm_2_shoulder_pan": -0.9891279382078888,
+          "arm_1_wrist_flex": -1.5
+        },
+        "attach_fruits": [],
+        "placements": {
+          "/World/Vegetation/Bed_02/Fruits/Pepper_0003_red": {
+            "matrix": [
+              [
+                -0.5152434728119215,
+                -0.5075715371476696,
+                0.21363561927689992,
+                -5.649993607064245
+              ],
+              [
+                0.5454438477749155,
+                -0.43004173285835445,
+                0.2937686102125963,
+                7.822791896268376
+              ],
+              [
+                -0.0758950068895657,
+                0.3552184146399194,
+                0.6609120253494387,
+                0.5528047798535115
+              ],
+              [
+                0.0,
+                0.0,
+                0.0,
+                1.0
+              ]
+            ]
+          }
+        }
+      }
+    },
+    {
+      "time": 4.533333333333333,
+      "state": {
+        "joints": {
+          "arm_1_shoulder_pan": 0.0,
+          "arm_2_wrist_roll": 0.026696267926766885,
+          "arm_2_shoulder_lift": -1.0088063740962196,
+          "arm_1_shoulder_lift": -1.6,
+          "arm_1_elbow_flex": 1.2,
+          "arm_1_gripper": 1.1,
+          "arm_1_wrist_roll": 0.04879632679489654,
+          "arm_2_wrist_flex": 0.2719721234627862,
+          "arm_2_gripper": 1.1,
+          "arm_2_elbow_flex": 1.1699810455959718,
+          "arm_2_shoulder_pan": -0.9891279382078888,
+          "arm_1_wrist_flex": -1.5
+        },
+        "attach_fruits": [],
+        "placements": {
+          "/World/Vegetation/Bed_02/Fruits/Pepper_0003_red": {
+            "matrix": [
+              [
+                -0.5152434728119215,
+                -0.5075715371476696,
+                0.21363561927689992,
+                -5.649993607064245
+              ],
+              [
+                0.5454438477749155,
+                -0.43004173285835445,
+                0.2937686102125963,
+                7.822791896268376
+              ],
+              [
+                -0.0758950068895657,
+                0.3552184146399194,
+                0.6609120253494387,
+                0.5528047798535115
+              ],
+              [
+                0.0,
+                0.0,
+                0.0,
+                1.0
+              ]
+            ]
+          }
+        }
+      }
+    },
+    {
+      "time": 4.566666666666666,
+      "state": {
+        "joints": {
+          "arm_1_shoulder_pan": 0.0,
+          "arm_2_wrist_roll": 0.026696267926766885,
+          "arm_2_shoulder_lift": -1.0088063740962196,
+          "arm_1_shoulder_lift": -1.6,
+          "arm_1_elbow_flex": 1.2,
+          "arm_1_gripper": 1.1,
+          "arm_1_wrist_roll": 0.04879632679489654,
+          "arm_2_wrist_flex": 0.2719721234627862,
+          "arm_2_gripper": 1.1,
+          "arm_2_elbow_flex": 1.1699810455959718,
+          "arm_2_shoulder_pan": -0.9891279382078888,
+          "arm_1_wrist_flex": -1.5
+        },
+        "attach_fruits": [],
+        "placements": {
+          "/World/Vegetation/Bed_02/Fruits/Pepper_0003_red": {
+            "matrix": [
+              [
+                -0.5152434728119215,
+                -0.5075715371476696,
+                0.21363561927689992,
+                -5.649993607064245
+              ],
+              [
+                0.5454438477749155,
+                -0.43004173285835445,
+                0.2937686102125963,
+                7.822791896268376
+              ],
+              [
+                -0.0758950068895657,
+                0.3552184146399194,
+                0.6609120253494387,
+                0.5528047798535115
+              ],
+              [
+                0.0,
+                0.0,
+                0.0,
+                1.0
+              ]
+            ]
+          }
+        }
+      }
+    },
+    {
+      "time": 4.6,
+      "state": {
+        "joints": {
+          "arm_1_shoulder_pan": 0.0,
+          "arm_2_wrist_roll": 0.026696267926766885,
+          "arm_2_shoulder_lift": -1.0088063740962196,
+          "arm_1_shoulder_lift": -1.6,
+          "arm_1_elbow_flex": 1.2,
+          "arm_1_gripper": 1.1,
+          "arm_1_wrist_roll": 0.04879632679489654,
+          "arm_2_wrist_flex": 0.2719721234627862,
+          "arm_2_gripper": 1.1,
+          "arm_2_elbow_flex": 1.1699810455959718,
+          "arm_2_shoulder_pan": -0.9891279382078888,
+          "arm_1_wrist_flex": -1.5
+        },
+        "attach_fruits": [],
+        "placements": {
+          "/World/Vegetation/Bed_02/Fruits/Pepper_0003_red": {
+            "matrix": [
+              [
+                -0.5152434728119215,
+                -0.5075715371476696,
+                0.21363561927689992,
+                -5.649993607064245
+              ],
+              [
+                0.5454438477749155,
+                -0.43004173285835445,
+                0.2937686102125963,
+                7.822791896268376
+              ],
+              [
+                -0.0758950068895657,
+                0.3552184146399194,
+                0.6609120253494387,
+                0.5528047798535115
+              ],
+              [
+                0.0,
+                0.0,
+                0.0,
+                1.0
+              ]
+            ]
+          }
+        }
+      }
+    },
+    {
+      "time": 4.633333333333334,
+      "state": {
+        "joints": {
+          "arm_1_shoulder_pan": 0.0,
+          "arm_2_wrist_roll": 0.026696267926766885,
+          "arm_2_shoulder_lift": -1.0088063740962196,
+          "arm_1_shoulder_lift": -1.6,
+          "arm_1_elbow_flex": 1.2,
+          "arm_1_gripper": 1.1,
+          "arm_1_wrist_roll": 0.04879632679489654,
+          "arm_2_wrist_flex": 0.2719721234627862,
+          "arm_2_gripper": 1.1,
+          "arm_2_elbow_flex": 1.1699810455959718,
+          "arm_2_shoulder_pan": -0.9891279382078888,
+          "arm_1_wrist_flex": -1.5
+        },
+        "attach_fruits": [],
+        "placements": {
+          "/World/Vegetation/Bed_02/Fruits/Pepper_0003_red": {
+            "matrix": [
+              [
+                -0.5152434728119215,
+                -0.5075715371476696,
+                0.21363561927689992,
+                -5.649993607064245
+              ],
+              [
+                0.5454438477749155,
+                -0.43004173285835445,
+                0.2937686102125963,
+                7.822791896268376
+              ],
+              [
+                -0.0758950068895657,
+                0.3552184146399194,
+                0.6609120253494387,
+                0.5528047798535115
+              ],
+              [
+                0.0,
+                0.0,
+                0.0,
+                1.0
+              ]
+            ]
+          }
+        }
+      }
+    },
+    {
+      "time": 4.666666666666667,
+      "state": {
+        "joints": {
+          "arm_1_shoulder_pan": 0.0,
+          "arm_2_wrist_roll": 0.026696267926766885,
+          "arm_2_shoulder_lift": -1.0088063740962196,
+          "arm_1_shoulder_lift": -1.6,
+          "arm_1_elbow_flex": 1.2,
+          "arm_1_gripper": 1.1,
+          "arm_1_wrist_roll": 0.04879632679489654,
+          "arm_2_wrist_flex": 0.2719721234627862,
+          "arm_2_gripper": 1.1,
+          "arm_2_elbow_flex": 1.1699810455959718,
+          "arm_2_shoulder_pan": -0.9891279382078888,
+          "arm_1_wrist_flex": -1.5
+        },
+        "attach_fruits": [],
+        "placements": {
+          "/World/Vegetation/Bed_02/Fruits/Pepper_0003_red": {
+            "matrix": [
+              [
+                -0.5152434728119215,
+                -0.5075715371476696,
+                0.21363561927689992,
+                -5.649993607064245
+              ],
+              [
+                0.5454438477749155,
+                -0.43004173285835445,
+                0.2937686102125963,
+                7.822791896268376
+              ],
+              [
+                -0.0758950068895657,
+                0.3552184146399194,
+                0.6609120253494387,
+                0.5528047798535115
+              ],
+              [
+                0.0,
+                0.0,
+                0.0,
+                1.0
+              ]
+            ]
+          }
+        }
+      }
+    },
+    {
+      "time": 4.7,
+      "state": {
+        "joints": {
+          "arm_1_shoulder_pan": 0.0,
+          "arm_2_wrist_roll": 0.026696267926766885,
+          "arm_2_shoulder_lift": -1.0088063740962196,
+          "arm_1_shoulder_lift": -1.6,
+          "arm_1_elbow_flex": 1.2,
+          "arm_1_gripper": 1.1,
+          "arm_1_wrist_roll": 0.04879632679489654,
+          "arm_2_wrist_flex": 0.2719721234627862,
+          "arm_2_gripper": 1.1,
+          "arm_2_elbow_flex": 1.1699810455959718,
+          "arm_2_shoulder_pan": -0.9891279382078888,
+          "arm_1_wrist_flex": -1.5
+        },
+        "attach_fruits": [],
+        "placements": {
+          "/World/Vegetation/Bed_02/Fruits/Pepper_0003_red": {
+            "matrix": [
+              [
+                -0.5152434728119215,
+                -0.5075715371476696,
+                0.21363561927689992,
+                -5.649993607064245
+              ],
+              [
+                0.5454438477749155,
+                -0.43004173285835445,
+                0.2937686102125963,
+                7.822791896268376
+              ],
+              [
+                -0.0758950068895657,
+                0.3552184146399194,
+                0.6609120253494387,
+                0.5528047798535115
+              ],
+              [
+                0.0,
+                0.0,
+                0.0,
+                1.0
+              ]
+            ]
+          }
+        }
+      }
+    },
+    {
+      "time": 4.733333333333333,
+      "state": {
+        "joints": {
+          "arm_1_shoulder_pan": 0.0,
+          "arm_2_wrist_roll": 0.026696267926766885,
+          "arm_2_shoulder_lift": -1.0088063740962196,
+          "arm_1_shoulder_lift": -1.6,
+          "arm_1_elbow_flex": 1.2,
+          "arm_1_gripper": 1.1,
+          "arm_1_wrist_roll": 0.04879632679489654,
+          "arm_2_wrist_flex": 0.2719721234627862,
+          "arm_2_gripper": 1.1,
+          "arm_2_elbow_flex": 1.1699810455959718,
+          "arm_2_shoulder_pan": -0.9891279382078888,
+          "arm_1_wrist_flex": -1.5
+        },
+        "attach_fruits": [],
+        "placements": {
+          "/World/Vegetation/Bed_02/Fruits/Pepper_0003_red": {
+            "matrix": [
+              [
+                -0.5152434728119215,
+                -0.5075715371476696,
+                0.21363561927689992,
+                -5.649993607064245
+              ],
+              [
+                0.5454438477749155,
+                -0.43004173285835445,
+                0.2937686102125963,
+                7.822791896268376
+              ],
+              [
+                -0.0758950068895657,
+                0.3552184146399194,
+                0.6609120253494387,
+                0.5528047798535115
+              ],
+              [
+                0.0,
+                0.0,
+                0.0,
+                1.0
+              ]
+            ]
+          }
+        }
+      }
+    },
+    {
+      "time": 4.766666666666667,
+      "state": {
+        "joints": {
+          "arm_1_shoulder_pan": 0.0,
+          "arm_2_wrist_roll": 0.026696267926766885,
+          "arm_2_shoulder_lift": -1.0088063740962196,
+          "arm_1_shoulder_lift": -1.6,
+          "arm_1_elbow_flex": 1.2,
+          "arm_1_gripper": 1.1,
+          "arm_1_wrist_roll": 0.04879632679489654,
+          "arm_2_wrist_flex": 0.2719721234627862,
+          "arm_2_gripper": 1.1,
+          "arm_2_elbow_flex": 1.1699810455959718,
+          "arm_2_shoulder_pan": -0.9891279382078888,
+          "arm_1_wrist_flex": -1.5
+        },
+        "attach_fruits": [],
+        "placements": {
+          "/World/Vegetation/Bed_02/Fruits/Pepper_0003_red": {
+            "matrix": [
+              [
+                -0.5152434728119215,
+                -0.5075715371476696,
+                0.21363561927689992,
+                -5.649993607064245
+              ],
+              [
+                0.5454438477749155,
+                -0.43004173285835445,
+                0.2937686102125963,
+                7.822791896268376
+              ],
+              [
+                -0.0758950068895657,
+                0.3552184146399194,
+                0.6609120253494387,
+                0.5528047798535115
+              ],
+              [
+                0.0,
+                0.0,
+                0.0,
+                1.0
+              ]
+            ]
+          }
+        }
+      }
+    },
+    {
+      "time": 4.8,
+      "state": {
+        "joints": {
+          "arm_1_shoulder_pan": 0.0,
+          "arm_2_wrist_roll": 0.026696267926766885,
+          "arm_2_shoulder_lift": -1.0088063740962196,
+          "arm_1_shoulder_lift": -1.6,
+          "arm_1_elbow_flex": 1.2,
+          "arm_1_gripper": 1.1,
+          "arm_1_wrist_roll": 0.04879632679489654,
+          "arm_2_wrist_flex": 0.2719721234627862,
+          "arm_2_gripper": 1.1,
+          "arm_2_elbow_flex": 1.1699810455959718,
+          "arm_2_shoulder_pan": -0.9891279382078888,
+          "arm_1_wrist_flex": -1.5
+        },
+        "attach_fruits": [],
+        "placements": {
+          "/World/Vegetation/Bed_02/Fruits/Pepper_0003_red": {
+            "matrix": [
+              [
+                -0.5152434728119215,
+                -0.5075715371476696,
+                0.21363561927689992,
+                -5.649993607064245
+              ],
+              [
+                0.5454438477749155,
+                -0.43004173285835445,
+                0.2937686102125963,
+                7.822791896268376
+              ],
+              [
+                -0.0758950068895657,
+                0.3552184146399194,
+                0.6609120253494387,
+                0.5528047798535115
+              ],
+              [
+                0.0,
+                0.0,
+                0.0,
+                1.0
+              ]
+            ]
+          }
+        }
+      }
+    },
+    {
+      "time": 4.833333333333333,
+      "state": {
+        "joints": {
+          "arm_1_shoulder_pan": 0.0,
+          "arm_2_wrist_roll": 0.026696267926766885,
+          "arm_2_shoulder_lift": -1.0088063740962196,
+          "arm_1_shoulder_lift": -1.6,
+          "arm_1_elbow_flex": 1.2,
+          "arm_1_gripper": 1.1,
+          "arm_1_wrist_roll": 0.04879632679489654,
+          "arm_2_wrist_flex": 0.2719721234627862,
+          "arm_2_gripper": 1.1,
+          "arm_2_elbow_flex": 1.1699810455959718,
+          "arm_2_shoulder_pan": -0.9891279382078888,
+          "arm_1_wrist_flex": -1.5
+        },
+        "attach_fruits": [],
+        "placements": {
+          "/World/Vegetation/Bed_02/Fruits/Pepper_0003_red": {
+            "matrix": [
+              [
+                -0.5152434728119215,
+                -0.5075715371476696,
+                0.21363561927689992,
+                -5.649993607064245
+              ],
+              [
+                0.5454438477749155,
+                -0.43004173285835445,
+                0.2937686102125963,
+                7.822791896268376
+              ],
+              [
+                -0.0758950068895657,
+                0.3552184146399194,
+                0.6609120253494387,
+                0.5528047798535115
+              ],
+              [
+                0.0,
+                0.0,
+                0.0,
+                1.0
+              ]
+            ]
+          }
+        }
+      }
+    },
+    {
+      "time": 4.866666666666666,
+      "state": {
+        "joints": {
+          "arm_1_shoulder_pan": 0.0,
+          "arm_2_wrist_roll": 0.026696267926766885,
+          "arm_2_shoulder_lift": -1.0088063740962196,
+          "arm_1_shoulder_lift": -1.6,
+          "arm_1_elbow_flex": 1.2,
+          "arm_1_gripper": 1.1,
+          "arm_1_wrist_roll": 0.04879632679489654,
+          "arm_2_wrist_flex": 0.2719721234627862,
+          "arm_2_gripper": 1.1,
+          "arm_2_elbow_flex": 1.1699810455959718,
+          "arm_2_shoulder_pan": -0.9891279382078888,
+          "arm_1_wrist_flex": -1.5
+        },
+        "attach_fruits": [],
+        "placements": {
+          "/World/Vegetation/Bed_02/Fruits/Pepper_0003_red": {
+            "matrix": [
+              [
+                -0.5152434728119215,
+                -0.5075715371476696,
+                0.21363561927689992,
+                -5.649993607064245
+              ],
+              [
+                0.5454438477749155,
+                -0.43004173285835445,
+                0.2937686102125963,
+                7.822791896268376
+              ],
+              [
+                -0.0758950068895657,
+                0.3552184146399194,
+                0.6609120253494387,
+                0.5528047798535115
+              ],
+              [
+                0.0,
+                0.0,
+                0.0,
+                1.0
+              ]
+            ]
+          }
+        }
+      }
+    },
+    {
+      "time": 4.9,
+      "state": {
+        "joints": {
+          "arm_1_shoulder_pan": 0.0,
+          "arm_2_wrist_roll": 0.026696267926766885,
+          "arm_2_shoulder_lift": -1.0088063740962196,
+          "arm_1_shoulder_lift": -1.6,
+          "arm_1_elbow_flex": 1.2,
+          "arm_1_gripper": 1.1,
+          "arm_1_wrist_roll": 0.04879632679489654,
+          "arm_2_wrist_flex": 0.2719721234627862,
+          "arm_2_gripper": 1.1,
+          "arm_2_elbow_flex": 1.1699810455959718,
+          "arm_2_shoulder_pan": -0.9891279382078888,
+          "arm_1_wrist_flex": -1.5
+        },
+        "attach_fruits": [],
+        "placements": {
+          "/World/Vegetation/Bed_02/Fruits/Pepper_0003_red": {
+            "matrix": [
+              [
+                -0.5152434728119215,
+                -0.5075715371476696,
+                0.21363561927689992,
+                -5.649993607064245
+              ],
+              [
+                0.5454438477749155,
+                -0.43004173285835445,
+                0.2937686102125963,
+                7.822791896268376
+              ],
+              [
+                -0.0758950068895657,
+                0.3552184146399194,
+                0.6609120253494387,
+                0.5528047798535115
+              ],
+              [
+                0.0,
+                0.0,
+                0.0,
+                1.0
+              ]
+            ]
+          }
+        }
+      }
+    },
+    {
+      "time": 4.933333333333334,
+      "state": {
+        "joints": {
+          "arm_1_shoulder_pan": 0.0,
+          "arm_2_wrist_roll": 0.026696267926766885,
+          "arm_2_shoulder_lift": -1.0088063740962196,
+          "arm_1_shoulder_lift": -1.6,
+          "arm_1_elbow_flex": 1.2,
+          "arm_1_gripper": 1.1,
+          "arm_1_wrist_roll": 0.04879632679489654,
+          "arm_2_wrist_flex": 0.2719721234627862,
+          "arm_2_gripper": 1.1,
+          "arm_2_elbow_flex": 1.1699810455959718,
+          "arm_2_shoulder_pan": -0.9891279382078888,
+          "arm_1_wrist_flex": -1.5
+        },
+        "attach_fruits": [],
+        "placements": {
+          "/World/Vegetation/Bed_02/Fruits/Pepper_0003_red": {
+            "matrix": [
+              [
+                -0.5152434728119215,
+                -0.5075715371476696,
+                0.21363561927689992,
+                -5.649993607064245
+              ],
+              [
+                0.5454438477749155,
+                -0.43004173285835445,
+                0.2937686102125963,
+                7.822791896268376
+              ],
+              [
+                -0.0758950068895657,
+                0.3552184146399194,
+                0.6609120253494387,
+                0.5528047798535115
+              ],
+              [
+                0.0,
+                0.0,
+                0.0,
+                1.0
+              ]
+            ]
+          }
+        }
+      }
+    },
+    {
+      "time": 4.966666666666667,
+      "state": {
+        "joints": {
+          "arm_1_shoulder_pan": 0.0,
+          "arm_2_wrist_roll": 0.026696267926766885,
+          "arm_2_shoulder_lift": -1.0088063740962196,
+          "arm_1_shoulder_lift": -1.6,
+          "arm_1_elbow_flex": 1.2,
+          "arm_1_gripper": 1.1,
+          "arm_1_wrist_roll": 0.04879632679489654,
+          "arm_2_wrist_flex": 0.2719721234627862,
+          "arm_2_gripper": 1.1,
+          "arm_2_elbow_flex": 1.1699810455959718,
+          "arm_2_shoulder_pan": -0.9891279382078888,
+          "arm_1_wrist_flex": -1.5
+        },
+        "attach_fruits": [],
+        "placements": {
+          "/World/Vegetation/Bed_02/Fruits/Pepper_0003_red": {
+            "matrix": [
+              [
+                -0.5152434728119215,
+                -0.5075715371476696,
+                0.21363561927689992,
+                -5.649993607064245
+              ],
+              [
+                0.5454438477749155,
+                -0.43004173285835445,
+                0.2937686102125963,
+                7.822791896268376
+              ],
+              [
+                -0.0758950068895657,
+                0.3552184146399194,
+                0.6609120253494387,
+                0.5528047798535115
+              ],
+              [
+                0.0,
+                0.0,
+                0.0,
+                1.0
+              ]
+            ]
+          }
+        }
+      }
+    },
+    {
+      "time": 5.0,
+      "state": {
+        "joints": {
+          "arm_1_shoulder_pan": 0.0,
+          "arm_2_wrist_roll": 0.026696267926766885,
+          "arm_2_shoulder_lift": -1.0088063740962196,
+          "arm_1_shoulder_lift": -1.6,
+          "arm_1_elbow_flex": 1.2,
+          "arm_1_gripper": 1.1,
+          "arm_1_wrist_roll": 0.04879632679489654,
+          "arm_2_wrist_flex": 0.2719721234627862,
+          "arm_2_gripper": 1.1,
+          "arm_2_elbow_flex": 1.1699810455959718,
+          "arm_2_shoulder_pan": -0.9891279382078888,
+          "arm_1_wrist_flex": -1.5
+        },
+        "attach_fruits": [],
+        "placements": {
+          "/World/Vegetation/Bed_02/Fruits/Pepper_0003_red": {
+            "matrix": [
+              [
+                -0.5152434728119215,
+                -0.5075715371476696,
+                0.21363561927689992,
+                -5.649993607064245
+              ],
+              [
+                0.5454438477749155,
+                -0.43004173285835445,
+                0.2937686102125963,
+                7.822791896268376
+              ],
+              [
+                -0.0758950068895657,
+                0.3552184146399194,
+                0.6609120253494387,
+                0.5528047798535115
+              ],
+              [
+                0.0,
+                0.0,
+                0.0,
+                1.0
+              ]
+            ]
+          }
+        }
+      }
+    }
+  ],
+  "evidence": "GUI staged animation; positions based on existing project assets, not autonomous test result",
+  "preview_frames": [
+    0,
+    75,
+    99,
+    103,
+    149
+  ],
+  "preview_warmup_frames": 48,
+  "easing": "linear",
+  "provenance": {
+    "scope": "촬영 세션 애니메이션, 자율 시험 결과 아님",
+    "source": "sim/runs/presentation_video_retake_20261104/settings/candidates/04_deposit_a_refined.json",
+    "03_to_04_grip_and_joint_continuity": "unchanged",
+    "camera_pitch_deg": 44,
+    "floor_top_z_m": 0.506000022,
+    "fruit_rest_root_z_m": 0.5528047798535115,
+    "actual_mesh_bottom_at_rest_m": 0.506000022,
+    "release_time_s": 3.15,
+    "impact_time_s": 3.400260095623703,
+    "drop": "9.81 m/s² ballistic, per-render-frame bake; actual mesh lowest vertex on restored floor",
+    "limits": "낙하 메시-바닥 최저점 검증. 전체 팔/과실 충돌 물리 시험 아님."
+  }
+}

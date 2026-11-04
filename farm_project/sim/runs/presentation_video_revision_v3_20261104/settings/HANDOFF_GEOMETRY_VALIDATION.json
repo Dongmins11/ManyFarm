@@ -1,0 +1,51 @@
+{
+  "all_7_present_every_05_frame": true,
+  "frames_05": 151,
+  "panel_travel_m": [
+    0.0,
+    0.105
+  ],
+  "max_upper_inner_wall_bound_excess_m": 0.0,
+  "max_lower_inner_wall_bound_excess_m": 0.0,
+  "max_lower_floor_penetration_m": 4.8138687993026785e-06,
+  "max_original_scale_error": 3.3306690738754696e-16,
+  "max_pair_AABB_overlap_m": 0.0,
+  "seven_relative_poses_identical_05_to_06": true,
+  "color_counts": {
+    "red": 4,
+    "yellow": 3
+  },
+  "settling": [
+    {
+      "clone": "/World/PresentationFruits/Handoff_01",
+      "translation_drift_last_half_second_before_hold_m": 0.0
+    },
+    {
+      "clone": "/World/PresentationFruits/Handoff_02",
+      "translation_drift_last_half_second_before_hold_m": 0.0
+    },
+    {
+      "clone": "/World/PresentationFruits/Handoff_03",
+      "translation_drift_last_half_second_before_hold_m": 0.0
+    },
+    {
+      "clone": "/World/PresentationFruits/Handoff_04",
+      "translation_drift_last_half_second_before_hold_m": 0.0
+    },
+    {
+      "clone": "/World/PresentationFruits/Handoff_05",
+      "translation_drift_last_half_second_before_hold_m": 0.0
+    },
+    {
+      "clone": "/World/PresentationFruits/Handoff_06",
+      "translation_drift_last_half_second_before_hold_m": 0.0
+    },
+    {
+      "clone": "/World/PresentationFruits/Handoff_07",
+      "translation_drift_last_half_second_before_hold_m": 0.0
+    }
+  ],
+  "scope": "Offline mesh-coordinate checks only. Root handles final GUI frame inspection.",
+  "upper_floor_top_z_m": 0.506000022,
+  "upper_floor_wall_gap_m": 0.0
+}

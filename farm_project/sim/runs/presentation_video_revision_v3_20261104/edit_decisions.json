@@ -1,0 +1,121 @@
+{
+  "fps": 30,
+  "frames": 660,
+  "duration_s": 22,
+  "core_boundaries_frames": [
+    0,
+    90,
+    180,
+    270,
+    360,
+    450,
+    510,
+    660
+  ],
+  "source_trims_with_handles": [
+    {
+      "clip": "01_overview",
+      "start_frame": 30,
+      "end_frame_exclusive": 123,
+      "sha256": "e65bee9b64c4cbf5e2d4b13b80870e86156934b2f7aa54f1e25d5cdc55386d91"
+    },
+    {
+      "clip": "02_scout",
+      "start_frame": 27,
+      "end_frame_exclusive": 123,
+      "sha256": "63d878d752f8c91a187f3c1d667e542a12156d32d5f562a1af1a272008e61bd4"
+    },
+    {
+      "clip": "03_grasp",
+      "start_frame": 27,
+      "end_frame_exclusive": 120,
+      "sha256": "f2b3f141f2b90aaae628e42176d4e9e7171bf126920cdbc6e45455aa2b90cd7a"
+    },
+    {
+      "clip": "04_deposit",
+      "start_frame": 30,
+      "end_frame_exclusive": 123,
+      "sha256": "a06ee144e928fd1e0861b440cfd548d916dab466c75f76286ec5be18effcbe26"
+    },
+    {
+      "clip": "05_handoff",
+      "start_frame": 27,
+      "end_frame_exclusive": 123,
+      "sha256": "73e4b3c655349ba1f8d79e56b4bd0f53511839b36820b06de8a689f079028548"
+    },
+    {
+      "clip": "06_transport",
+      "start_frame": 27,
+      "end_frame_exclusive": 93,
+      "sha256": "4dfcd71c229c82acb0c8613e5c08fe0a7891802191bda2b97ce60659a6e3aa63"
+    },
+    {
+      "clip": "07_sorting",
+      "start_frame": 27,
+      "end_frame_exclusive": 180,
+      "sha256": "f117bc380ca066967c7e68f32c0160a72604a0782d722bc574f7acf8f8d806b7"
+    }
+  ],
+  "transitions": {
+    "dissolve_duration_frames": 6,
+    "centres_frames": [
+      90,
+      180,
+      360,
+      450,
+      510
+    ],
+    "direct_cut_03_to_04_frame": 270
+  },
+  "ending": {
+    "stable_hold_start_frame": 600,
+    "fade_start_frame": 636,
+    "fade_duration_frames": 24
+  },
+  "inset": {
+    "image_path": "assets/02_scout_detection_example.png",
+    "rect_px": [
+      730,
+      104,
+      520,
+      312
+    ],
+    "rect_definition": "Image rectangle in the 1920x1080 final frame, maintaining the original 5:3 aspect ratio. Header and footer are outside this rectangle.",
+    "panel_rect_px": [
+      720,
+      46,
+      540,
+      416
+    ],
+    "title": "예찰 이미지 예시",
+    "description": "작물 검출 → 수확 태스크 생성",
+    "time_basis": "Seconds within the edited 02 segment, whose raw source core is [1,4) seconds",
+    "start_s": 0.3,
+    "end_s": 2.8,
+    "fade_s": 0.15,
+    "source": "sim/runs/presentation_stills_20261031/delivery/evidence/scout-observation-2",
+    "source_metadata": "assets/02_scout_detection_provenance.json",
+    "placement_status": "verified on final V3 start, middle and end",
+    "placement_review": {
+      "frames": [
+        0,
+        75,
+        149
+      ],
+      "image_width_px": 520,
+      "sensor_clearance_end_px_approx": 25,
+      "caption_region_px": [
+        80,
+        810,
+        570,
+        180
+      ],
+      "observations": "The image card occupies upper central background. The mast/sensor/robot, near crops and bed AprilTags remain unobstructed in all three inspected frames. Static placement previews intentionally show the card even outside its timed appearance."
+    }
+  },
+  "raw_sources_unchanged": true,
+  "outputs": {
+    "ManyFarm_22s_clean.mp4": "e36ec4a124968bef5815581243070473606702e2d7c07e39989526b13427a321",
+    "ManyFarm_22s_captioned.mp4": "8fd77cf1b64fb9e3a595a22c78f86b38390c0f80a578c76b74f2da809227ca46"
+  }
+}

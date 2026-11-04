@@ -1,0 +1,41 @@
+{
+  "image_path": "assets/02_scout_detection_example.png",
+  "rect_px": [
+    730,
+    104,
+    520,
+    312
+  ],
+  "rect_definition": "Image rectangle in the 1920x1080 final frame, maintaining the original 5:3 aspect ratio. Header and footer are outside this rectangle.",
+  "panel_rect_px": [
+    720,
+    46,
+    540,
+    416
+  ],
+  "title": "예찰 이미지 예시",
+  "description": "작물 검출 → 수확 태스크 생성",
+  "time_basis": "Seconds within the edited 02 segment, whose raw source core is [1,4) seconds",
+  "start_s": 0.3,
+  "end_s": 2.8,
+  "fade_s": 0.15,
+  "source": "sim/runs/presentation_stills_20261031/delivery/evidence/scout-observation-2",
+  "source_metadata": "assets/02_scout_detection_provenance.json",
+  "placement_status": "verified on final V3 start, middle and end",
+  "placement_review": {
+    "frames": [
+      0,
+      75,
+      149
+    ],
+    "image_width_px": 520,
+    "sensor_clearance_end_px_approx": 25,
+    "caption_region_px": [
+      80,
+      810,
+      570,
+      180
+    ],
+    "observations": "The image card occupies upper central background. The mast/sensor/robot, near crops and bed AprilTags remain unobstructed in all three inspected frames. Static placement previews intentionally show the card even outside its timed appearance."
+  }
+}

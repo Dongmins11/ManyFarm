@@ -1,0 +1,375 @@
+{
+  "name": "02_scout",
+  "fps": 30,
+  "duration_s": 5,
+  "preview_only": false,
+  "base": {
+    "show": [
+      "/World/scout_robot_camera_fixed",
+      "/World/farm_framechanged",
+      "/World/farm_framechanged/Frame_07_Post__1",
+      "/World/farm_framechanged/_materials",
+      "/World/farm_framechanged/Frame_08_Post__1",
+      "/World/farm_framechanged/Frame_09_Post__1",
+      "/World/farm_framechanged/Frame_10_Post__1",
+      "/World/farm_framechanged/Frame_11_Post__1",
+      "/World/farm_framechanged/Frame_12_Post__1",
+      "/World/farm_framechanged/Frame_13_Post__1",
+      "/World/farm_framechanged/Frame_14_Post__1",
+      "/World/farm_framechanged/Frame_15_Post__1",
+      "/World/farm_framechanged/Rail_00",
+      "/World/farm_framechanged/Rail_01",
+      "/World/farm_framechanged/Rail_02",
+      "/World/farm_framechanged/Rail_03",
+      "/World/farm_framechanged/Rail_04",
+      "/World/farm_framechanged/Entry_Post",
+      "/World/farm_framechanged/Entry_Post_001",
+      "/World/farm_framechanged/Entry_Header",
+      "/World/farm_framechanged/Entry_Post_002",
+      "/World/farm_framechanged/Entry_Post_003",
+      "/World/farm_framechanged/Entry_Header_001",
+      "/World/farm_framechanged/Arch_continuous_00",
+      "/World/farm_framechanged/Arch_continuous_01",
+      "/World/farm_framechanged/Arch_continuous_02",
+      "/World/farm_framechanged/Arch_continuous_03",
+      "/World/farm_framechanged/Frame_00_Post__1",
+      "/World/farm_framechanged/Frame_01_Post__1",
+      "/World/farm_framechanged/Frame_02_Post__1",
+      "/World/farm_framechanged/Frame_03_Post__1",
+      "/World/farm_framechanged/Frame_04_Post__1",
+      "/World/farm_framechanged/Frame_05_Post__1",
+      "/World/farm_framechanged/Frame_06_Post__1",
+      "/World/farm_framechanged/Arch_continuous_04",
+      "/World/farm_framechanged/Arch_continuous_05",
+      "/World/farm_framechanged/Arch_continuous_06",
+      "/World/farm_framechanged/Arch_continuous_07",
+      "/World/farm_framechanged/Arch_continuous_08",
+      "/World/farm_framechanged/Arch_continuous_09",
+      "/World/farm_framechanged/Arch_continuous_10",
+      "/World/farm_framechanged/Arch_continuous_11",
+      "/World/farm_framechanged/Arch_continuous_12",
+      "/World/farm_framechanged/Arch_continuous_13",
+      "/World/farm_framechanged/Arch_continuous_14",
+      "/World/farm_framechanged/Arch_continuous_15",
+      "/World/farm_framechanged/Cover_Roof_soft_film",
+      "/World/farm_framechanged/Cover_Side_soft_film__1",
+      "/World/farm_framechanged/Cover_Side_soft_film_1",
+      "/World/farm_framechanged/Floor_CollisionCandidate",
+      "/World/farm_framechanged/GrowBed_01",
+      "/World/farm_framechanged/GrowBed_02",
+      "/World/farm_framechanged/GrowBed_03",
+      "/World/farm_framechanged/GrowBed_04",
+      "/World/farm_framechanged/GrowBed_05",
+      "/World/farm_framechanged/GrowBed_06",
+      "/World/farm_framechanged/GrowBed_07",
+      "/World/farm_framechanged/GrowBed_08",
+      "/World/farm_framechanged/Outdoor_Terrain",
+      "/World/farm_framechanged/Access_Track",
+      "/World/farm_framechanged/Exterior_Grass",
+      "/World/farm_framechanged/Fence_Post",
+      "/World/farm_framechanged/Fence_Post_001",
+      "/World/farm_framechanged/Fence_Post_002",
+      "/World/farm_framechanged/Fence_Post_003",
+      "/World/farm_framechanged/Fence_Post_004",
+      "/World/farm_framechanged/Fence_Post_005",
+      "/World/farm_framechanged/Fence_Post_006",
+      "/World/farm_framechanged/Fence_Post_007",
+      "/World/farm_framechanged/Fence_Post_008",
+      "/World/farm_framechanged/Fence_Post_009",
+      "/World/farm_framechanged/Fence_Post_010",
+      "/World/farm_framechanged/Fence_Rail",
+      "/World/farm_framechanged/Fence_Rail_001",
+      "/World/farm_framechanged/Fence_Post_011",
+      "/World/farm_framechanged/Fence_Post_012",
+      "/World/farm_framechanged/Fence_Post_013",
+      "/World/farm_framechanged/Fence_Post_014",
+      "/World/farm_framechanged/Fence_Post_015",
+      "/World/farm_framechanged/Fence_Post_016",
+      "/World/farm_framechanged/Fence_Post_017",
+      "/World/farm_framechanged/Fence_Post_018",
+      "/World/farm_framechanged/Fence_Post_019",
+      "/World/farm_framechanged/Fence_Post_020",
+      "/World/farm_framechanged/Fence_Post_021",
+      "/World/farm_framechanged/Fence_Rail_002",
+      "/World/farm_framechanged/Fence_Rail_003",
+      "/World/farm_framechanged/Irrigation_Water_Tank",
+      "/World/farm_framechanged/Water_Feed",
+      "/World/farm_framechanged/Bed_Edge_1__1",
+      "/World/farm_framechanged/Drip_Hose_1__1",
+      "/World/farm_framechanged/Bed_Edge_1_1",
+      "/World/farm_framechanged/Drip_Hose_1_1",
+      "/World/farm_framechanged/Trellis_Frame_01",
+      "/World/farm_framechanged/Trellis_Net_01",
+      "/World/farm_framechanged/Bed_Edge_2__1",
+      "/World/farm_framechanged/Drip_Hose_2__1",
+      "/World/farm_framechanged/Bed_Edge_2_1",
+      "/World/farm_framechanged/Drip_Hose_2_1",
+      "/World/farm_framechanged/Trellis_Frame_02",
+      "/World/farm_framechanged/Trellis_Net_02",
+      "/World/farm_framechanged/Bed_Edge_3__1",
+      "/World/farm_framechanged/Drip_Hose_3__1",
+      "/World/farm_framechanged/Bed_Edge_3_1",
+      "/World/farm_framechanged/Drip_Hose_3_1",
+      "/World/farm_framechanged/Trellis_Frame_03",
+      "/World/farm_framechanged/Trellis_Net_03",
+      "/World/farm_framechanged/Bed_Edge_4__1",
+      "/World/farm_framechanged/Drip_Hose_4__1",
+      "/World/farm_framechanged/Bed_Edge_4_1",
+      "/World/farm_framechanged/Drip_Hose_4_1",
+      "/World/farm_framechanged/Trellis_Frame_04",
+      "/World/farm_framechanged/Trellis_Net_04",
+      "/World/farm_framechanged/Bed_Edge_5__1",
+      "/World/farm_framechanged/Drip_Hose_5__1",
+      "/World/farm_framechanged/Bed_Edge_5_1",
+      "/World/farm_framechanged/Drip_Hose_5_1",
+      "/World/farm_framechanged/Trellis_Frame_05",
+      "/World/farm_framechanged/Trellis_Net_05",
+      "/World/farm_framechanged/Bed_Edge_6__1",
+      "/World/farm_framechanged/Drip_Hose_6__1",
+      "/World/farm_framechanged/Bed_Edge_6_1",
+      "/World/farm_framechanged/Drip_Hose_6_1",
+      "/World/farm_framechanged/Trellis_Frame_06",
+      "/World/farm_framechanged/Trellis_Net_06",
+      "/World/farm_framechanged/Bed_Edge_7__1",
+      "/World/farm_framechanged/Drip_Hose_7__1",
+      "/World/farm_framechanged/Bed_Edge_7_1",
+      "/World/farm_framechanged/Drip_Hose_7_1",
+      "/World/farm_framechanged/Trellis_Frame_07",
+      "/World/farm_framechanged/Trellis_Net_07",
+      "/World/farm_framechanged/Bed_Edge_8__1",
+      "/World/farm_framechanged/Drip_Hose_8__1",
+      "/World/farm_framechanged/Bed_Edge_8_1",
+      "/World/farm_framechanged/Drip_Hose_8_1",
+      "/World/farm_framechanged/Trellis_Frame_08",
+      "/World/farm_framechanged/Trellis_Net_08",
+      "/World/farm_framechanged/Soil_Surface_1",
+      "/World/farm_framechanged/Soil_Surface_2",
+      "/World/farm_framechanged/Soil_Surface_3",
+      "/World/farm_framechanged/Soil_Surface_4",
+      "/World/farm_framechanged/Soil_Surface_5",
+      "/World/farm_framechanged/Soil_Surface_6",
+      "/World/farm_framechanged/Soil_Surface_7",
+      "/World/farm_framechanged/Soil_Surface_8",
+      "/World/farm_framechanged/Soil_small_clods",
+      "/World/AprilTags"
+    ],
+    "hide": [
+      "/World/harvest_robot",
+      "/World/transport_robot",
+      "/World/HCRRobot",
+      "/World/HCRStation",
+      "/World/StudentSensors/WristVisuals",
+      "/World/harvest_robot/arm_2_gripper_frame_link"
+    ],
+    "placements": {
+      "/World/scout_robot_camera_fixed": {
+        "xyz": [
+          -6.655,
+          9.044947,
+          0.0
+        ],
+        "yaw": -1.5707963267948966
+      },
+      "/World/harvest_robot": {
+        "xyz": [
+          -2.0,
+          13.25,
+          0.0
+        ],
+        "yaw": -1.5707963267948966
+      },
+      "/World/transport_robot": {
+        "xyz": [
+          2.0,
+          13.25,
+          0.0
+        ],
+        "yaw": -1.5707963267948966
+      }
+    },
+    "joints": {
+      "arm_1_shoulder_pan": 0.0,
+      "arm_1_shoulder_lift": -1.6,
+      "arm_1_elbow_flex": 1.2,
+      "arm_1_wrist_flex": -1.5,
+      "arm_1_wrist_roll": 0.04879632679489654,
+      "arm_1_gripper": 1.1,
+      "arm_2_shoulder_pan": 0.0,
+      "arm_2_shoulder_lift": -1.6,
+      "arm_2_elbow_flex": 1.2,
+      "arm_2_wrist_flex": -1.5,
+      "arm_2_wrist_roll": 0.04879632679489654,
+      "arm_2_gripper": 1.1,
+      "joint1": -7.355699155272922e-19,
+      "joint2": -1.6755398318121864,
+      "joint3": 2.009182906548714,
+      "joint4": 6.707244813412473e-19,
+      "joint5": 1.237153252066073,
+      "joint6": -1.0446705034601612e-18,
+      "wheel_left_joint": 0,
+      "wheel_right_joint": 0,
+      "left_wheel_joint": 0,
+      "right_wheel_joint": 0,
+      "top_lid_left_joint": 0,
+      "top_lid_right_joint": 0,
+      "lid_pinion_joint": 0,
+      "side_lid_joint": 0,
+      "box_tilt_joint": 0
+    },
+    "fruit_positions": {},
+    "attach_fruits": [],
+    "up": [
+      0,
+      0,
+      1
+    ],
+    "fill_intensity": 160,
+    "eye": [
+      -6.05,
+      10.2,
+      0.65
+    ],
+    "target": [
+      -6.25,
+      9.05,
+      0.4
+    ],
+    "focal_mm": 25,
+    "inspect": [
+      "/World/scout_robot_camera_fixed/base_link/scout_mount/bmany_camera_link",
+      "/World/scout_robot_camera_fixed/base_link/scout_mount/camera_color_optical_frame",
+      "/World/scout_robot_camera_fixed/base_link/scout_camera",
+      "/World/scout_robot_camera_fixed/base_link/scout_mount/scout_mast_link"
+    ]
+  },
+  "keyframes": [
+    {
+      "time": 0,
+      "state": {}
+    },
+    {
+      "time": 1,
+      "state": {}
+    },
+    {
+      "time": 4,
+      "state": {
+        "placements": {
+          "/World/scout_robot_camera_fixed": {
+            "xyz": [
+              -6.655,
+              8.644947,
+              0.0
+            ]
+          }
+        },
+        "joints": {
+          "wheel_left_joint": 12.121212121212121,
+          "wheel_right_joint": 12.121212121212121
+        },
+        "eye": [
+          -6.05,
+          9.92,
+          0.65
+        ],
+        "target": [
+          -6.25,
+          8.77,
+          0.4
+        ]
+      }
+    },
+    {
+      "time": 5,
+      "state": {}
+    }
+  ],
+  "provenance": {
+    "scope": "Isaac Sim GUI 재촬영 후보; 렌더 검수 전",
+    "route_source": "sim/ros_ws/src/farm_sim_config/maps/graph.geojson",
+    "edge_id": 30128,
+    "node_ids": [
+      10101,
+      10102
+    ],
+    "wheel_radius_m": 0.033,
+    "wheel_axis": "USD physics:axis Z in joint-local frame; config wheel_signs [1,1]",
+    "wheel_rotation_rad": 12.121212121212121,
+    "scout_camera_mount": "기존 scout_mount 유지; left/+mapX 카메라 시선",
+    "framing_revision": "eye[-6.00,10.40,.65], target[-6.22,9.05,.38],29mm. 센서높이에서 얕은 하향 사선. 초기 전체높이 약65.8%, 종료약60.7% 기하투영 추정.",
+    "candidate": "aisle_front_refined",
+    "camera_reason": "Actual A/B/C and D probe GUI montage review: preserve probe aisle viewpoint and sensor front; pan target west by 0.15 m and up by 0.02 m to move robot left without crossing bed wall.",
+    "camera_tracking_fraction": 0.7,
+    "robot_travel_m": 0.4,
+    "camera_travel_m": 0.28,
+    "source_settings": "sim/runs/presentation_video_20261104/settings/02_scout.json",
+    "sensor_center_base_m": [
+      -0.049,
+      0.055,
+      0.595
+    ],
+    "sensor_center_start_world_m": [
+      -6.6000000000000005,
+      9.093947,
+      0.595
+    ],
+    "sensor_optical_axis_base": [
+      0.0,
+      0.9998476951563913,
+      -0.01745240643728351
+    ],
+    "sensor_optical_axis_world": [
+      0.9998476951563913,
+      0.0,
+      -0.01745240643728351
+    ],
+    "sensor_visual_prim": "/World/scout_robot_camera_fixed/base_link/scout_mount/bmany_camera_link/visual_0",
+    "sensor_visual_type": "회색 Cube, 실제 렌즈 메시 없음",
+    "sensor_visual_dimensions_m": [
+      0.02505,
+      0.09,
+      0.025
+    ],
+    "sensor_geometry_source": "sim/assets/robots/scout_robot/scout_mount_20261013.usda",
+    "geometric_projection_estimate": {
+      "scope": "Conservative chassis/mast projection at 1920x1080, horizontal aperture 36 mm; not final GUI image validation.",
+      "start_bbox_px": [
+        1190,
+        288,
+        1570,
+        1002
+      ],
+      "mid_bbox_px": [
+        1172,
+        286,
+        1531,
+        967
+      ],
+      "end_bbox_px": [
+        1156,
+        285,
+        1495,
+        936
+      ],
+      "robot_height_fraction": [
+        0.661,
+        0.63,
+        0.602
+      ],
+      "minimum_bottom_margin_fraction": 0.0722,
+      "bed_occlusion_note": "Camera x=-6.05 and robot x=-6.655 both remain west of bed02 west wall x≈-5.475; camera-to-robot line does not cross bed wall.",
+      "comparison": "D probe rendered; refined changes target only from probe and is pending GUI validation."
+    }
+  },
+  "preview_frames": [
+    0,
+    75,
+    149
+  ],
+  "preview_warmup_frames": 48,
+  "v3_evidence": {
+    "camera": "D refined camera and original 0.4 m route / 70% tracking preserved",
+    "greenhouse_hidden": false,
+    "visual_review": "pending GUI"
+  }
+}

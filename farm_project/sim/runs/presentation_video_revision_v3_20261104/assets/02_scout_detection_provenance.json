@@ -1,0 +1,67 @@
+{
+  "source": "sim/runs/presentation_stills_20261031/delivery/evidence/scout-observation-2",
+  "type": "actual recorded simulation observation; relabelled presentation derivative",
+  "section_id": "SEC01",
+  "segment_id": "SEC01_G02",
+  "source_image_size": [
+    640,
+    384
+  ],
+  "annotation": "Only accepted mask_box_original_xyxy rectangles and short colour labels are drawn. No new detections or mask pixels are generated.",
+  "limitation": "Source contains mask bounding boxes and mask pixel counts, not a per-pixel mask bitmap. Boxes are visualized without reconstructing masks.",
+  "source_files": {
+    "02_scout_rgb.png": "cdc5fdc850d7deb04e7d9cf6af593b949d58392bb9847ef66bbe960d76f8e487",
+    "02_scout_observation.json": "621a184b495af19dde8962fa85ae203ce7965422323e2ef1e553b3ba0b95d4f1",
+    "02_scout_map_detections.json": "43ec249dff5f8641564f0bf6813a19daa0c5d7adba5d2110df3e3865e2532694"
+  },
+  "detections": [
+    {
+      "class_name": "Yellow",
+      "confidence": 0.9159528613090515,
+      "mask_box_original_xyxy": [
+        351.45,
+        76.8360655737705,
+        371.25,
+        100.27868852459017
+      ],
+      "source_index": 0,
+      "stamp_ns": 69700003635
+    },
+    {
+      "class_name": "Yellow",
+      "confidence": 0.9156384468078613,
+      "mask_box_original_xyxy": [
+        55.349999999999994,
+        94.8688524590164,
+        82.35,
+        120.11475409836065
+      ],
+      "source_index": 1,
+      "stamp_ns": 69700003635
+    },
+    {
+      "class_name": "Red",
+      "confidence": 0.9115564227104187,
+      "mask_box_original_xyxy": [
+        481.95,
+        87.65573770491804,
+        503.54999999999995,
+        110.1967213114754
+      ],
+      "source_index": 2,
+      "stamp_ns": 69700003635
+    },
+    {
+      "class_name": "Red",
+      "confidence": 0.9044862389564514,
+      "mask_box_original_xyxy": [
+        284.85,
+        39.868852459016395,
+        305.55,
+        65.11475409836066
+      ],
+      "source_index": 3,
+      "stamp_ns": 69700003635
+    }
+  ]
+}

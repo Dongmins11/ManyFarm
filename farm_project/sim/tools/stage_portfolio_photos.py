@@ -40,10 +40,16 @@ def main() -> None:
         sys.path.insert(0, str(ROOT/'sim/ros_ws/src/farm_sim_runtime'))
         sys.path.insert(0, str(ROOT/'sim/ros_ws/src/farm_sim_devices'))
         fleet = json.loads((args.runtime/'fleet.json').read_text())
+        is_v3 = fleet.get('presentation_revision') == 'v3'
         configs = [json.loads((ROOT/p).read_text()) for p in fleet['device_configs']]
         open_stage(str(ROOT/'sim/assets'/configs[0]['scene']))
         stage = omni.usd.get_context().get_stage()
         stage.SetEditTarget(stage.GetSessionLayer())
+        house_baseline = {str(p.GetPath()): {
+            'active': p.IsActive(),
+            'visibility': UsdGeom.Imageable(p).GetVisibilityAttr().Get()}
+            for p in stage.TraverseAll()
+            if str(p.GetPath()).startswith('/World/farm_framechanged') and p.IsA(UsdGeom.Imageable)} if is_v3 else {}
         # 먼 베드만 끄고, 줄기 등이 참조하는 공용 Looks 재질은 유지한다.
         for prim in list(stage.GetPrimAtPath('/World/Vegetation').GetChildren()):
             if not args.all_beds and prim.GetName().startswith('Bed_') and prim.GetName() not in ('Bed_01', 'Bed_02'):
@@ -91,6 +97,20 @@ def main() -> None:
         (out/'sorting_poses.json').write_text(json.dumps(sorting_poses, indent=2)+'\n')
         from farm_sim_runtime.docking_marker_scene import install_docking_markers
         install_docking_markers(stage, ROOT, fleet.get('docking_markers'))
+        # 운영 배치표를 그대로 설치한다. 이미 있는 불완전 태그 root는 성공으로 넘기지 않는다.
+        from farm_sim_runtime.apriltag_scene import install_tags
+        tag_config = next((cfg for cfg in configs if cfg.get('apriltag_map')), None) if is_v3 else None
+        if tag_config:
+            tag_data = json.loads((ROOT/tag_config['apriltag_map']).read_text())
+            installed = install_tags(stage, ROOT, tag_config)
+            expected = [f"/World/AprilTags/{t['section_id']}/Tag_{t['id']}" for t in tag_data['tags']]
+            missing = [p for p in expected if not stage.GetPrimAtPath(p)]
+            if missing:
+                raise RuntimeError(f'AprilTag 배치 누락: {missing}')
+            (out/'apriltag_installation.json').write_text(json.dumps(dict(
+                map_id=tag_data['map_id'], source=tag_config['apriltag_map'],
+                expected=len(expected), installed_now=installed, verified_paths=expected,
+                pattern_count=sum(bool(stage.GetPrimAtPath(p+'/Pattern')) for p in expected)),indent=2)+'\n')
         alignment = json.loads((ROOT/'sim/ros_ws/src/farm_sim_config/config/robotarm_physics.json').read_text())['teacher_alignment']
         for name in alignment['merged_fixed_bodies']:
             UsdGeom.Imageable(stage.GetPrimAtPath(roots['harvest_01']+'/'+name)).MakeInvisible()
@@ -122,6 +142,13 @@ def main() -> None:
         for path in ('/World/HarvestCountPreview', '/World/HCRRobot', '/World/HCRStation'):
             if stage.GetPrimAtPath(path):
                 UsdGeom.Imageable(stage.GetPrimAtPath(path)).MakeInvisible()
+
+        presentation_assets = {}
+        if is_v3:
+            from presentation_scene_v3 import install_handoff_assets
+            presentation_assets = install_handoff_assets(stage, ROOT, roots['harvest_01'])
+            (out/'handoff_assets.json').write_text(json.dumps(presentation_assets,indent=2)+'\n')
+            (out/'house_visibility_baseline.json').write_text(json.dumps(house_baseline,indent=2)+'\n')
 
         # 물리 연결을 끈 별도 촬영 stage. 모든 변화는 세션 layer에만 존재한다.
         joints = []
@@ -211,6 +238,8 @@ def main() -> None:
         camera.set_horizontal_aperture(36.)
         def apply_request(request: dict) -> None:
             for path in request.get('hide', []):
+                if is_v3 and (path == '/World' or path.startswith('/World/farm_framechanged') or path.startswith('/World/AprilTags')):
+                    raise ValueError('촬영 중 하우스와 베드 태그 숨김은 허용하지 않습니다: '+path)
                 # 센서 외형만 숨긴다. 공유 팔 재질이 있는 상위 Scope는 유지한다.
                 if path == '/World/StudentSensors':
                     path += '/WristVisuals'
@@ -276,7 +305,14 @@ def main() -> None:
                 side_key.CreateWidthAttr(float(key.get('width',2.)))
                 side_key.CreateHeightAttr(float(key.get('height',2.)))
 
-        baseline_fruits = {p:matrix(p).copy() for p in info['fruit_paths']}
+        def inspect_request(request: dict) -> dict:
+            for path, expected in house_baseline.items():
+                prim = stage.GetPrimAtPath(path)
+                if prim.IsActive() != expected['active'] or UsdGeom.Imageable(prim).GetVisibilityAttr().Get() != expected['visibility']:
+                    raise RuntimeError('원본 하우스 표시 상태 변경: '+path)
+            return {p:matrix(p).tolist() for p in request.get('inspect',[])}
+
+        baseline_fruits = {p:matrix(p).copy() for p in set(info['fruit_paths']) | set(presentation_assets.get('clone_paths',[]))}
         baseline_visibility = {str(p.GetPath()):UsdGeom.Imageable(p).GetVisibilityAttr().Get()
                                for p in stage.Traverse() if p.IsA(UsdGeom.Imageable)}
         baseline_roots = {p:matrix(p).copy() for p in [*roots.values(), '/World/HCRRobot', '/World/HCRStation']}
@@ -287,9 +323,12 @@ def main() -> None:
             for path, transform in baseline_roots.items():set_world(path, transform)
             apply_angles({j['name']:0. for j in joints})
             for path, transform in baseline_fruits.items():set_world(path, transform)
+            fill.GetIntensityAttr().Set(200.)
+            side_key.GetIntensityAttr().Set(0.)
+            settings.set('/rtx/post/tonemap/fNumber',4.)
 
         last = None
-        deadline = time.monotonic()+3600
+        deadline = time.monotonic()+10800
         (out/'ready.json').write_text(json.dumps({'ready':True, 'scope':'staged poses, no ROS or dynamics'})+'\n')
         print('PORTFOLIO_READY', flush=True)
         while app.is_running() and time.monotonic() < deadline:
@@ -314,8 +353,9 @@ def main() -> None:
                     importlib.reload(presentation_video_frames)
                     reset_clip()
                     presentation_video_frames.capture(request, out, app, camera, apply_request,
-                            lambda r: {p:matrix(p).tolist() for p in r.get('inspect',[])})
+                            inspect_request)
                     continue
+                reset_clip()
                 apply_request(request)
                 for _ in range(request.get('warmup_frames',48)):
                     app.update()
@@ -325,7 +365,7 @@ def main() -> None:
                 Image.fromarray(rgb.astype(np.uint8)).save(out/(name+'.png'))
                 request.update(scope='staged illustration using project USD assets; not an autonomous test result',
                     resolution=[1920,1080], gui=args.gui, all_beds=args.all_beds, joint_positions=angles,
-                    inspected={p:matrix(p).tolist() for p in request.get('inspect',[])})
+                    inspected=inspect_request(request))
                 (out/(name+'.json')).write_text(json.dumps(request,indent=2)+'\n')
                 print('SAVED '+name, flush=True)
             except Exception as exc:

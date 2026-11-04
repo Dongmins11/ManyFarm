@@ -1,0 +1,72 @@
+{
+  "source": "05_handoff.mp4",
+  "source_sha256": "73e4b3c655349ba1f8d79e56b4bd0f53511839b36820b06de8a689f079028548",
+  "extraction": "ffmpeg select by decoded MP4 frame number; no GUI preview substitution",
+  "fps": 30,
+  "frames": [
+    {
+      "requested_time_s": 1.0,
+      "frame": 30,
+      "actual_time_s": 1.0,
+      "file": "qa/05_handoff-mp4-frame-0030.png",
+      "sha256": "586186a8c11c10f1a4337d0c44ac14162bcb5e4cf815811c30e76d093ef48615"
+    },
+    {
+      "requested_time_s": 1.35,
+      "frame": 41,
+      "actual_time_s": 1.3666666666666667,
+      "file": "qa/05_handoff-mp4-frame-0041.png",
+      "sha256": "5028520c0e3199a84bb95e0c8eeb0251109f039a74b98f23fbc4fd9800f66b43"
+    },
+    {
+      "requested_time_s": 1.5,
+      "frame": 45,
+      "actual_time_s": 1.5,
+      "file": "qa/05_handoff-mp4-frame-0045.png",
+      "sha256": "6ebc63fe00ece29ce8de62801e8331c9a1e28fbfd374c4d4899c630b29c4bf1a"
+    },
+    {
+      "requested_time_s": 1.8,
+      "frame": 54,
+      "actual_time_s": 1.8,
+      "file": "qa/05_handoff-mp4-frame-0054.png",
+      "sha256": "34818a4df7affccf427fb5ab60f2b8522b8cf0a56b75082a99ba713224bfaf99"
+    },
+    {
+      "requested_time_s": 2.1,
+      "frame": 63,
+      "actual_time_s": 2.1,
+      "file": "qa/05_handoff-mp4-frame-0063.png",
+      "sha256": "4727236febeab66fbc024217d63986d8915b25d999f9b34e069c62ef35f8db9d"
+    },
+    {
+      "requested_time_s": 2.5,
+      "frame": 75,
+      "actual_time_s": 2.5,
+      "file": "qa/05_handoff-mp4-frame-0075.png",
+      "sha256": "f67870f1978de2c4933b4161119372a7d86d8ed20db3c7c25ed8862b9d46ad49"
+    },
+    {
+      "requested_time_s": 3.4,
+      "frame": 102,
+      "actual_time_s": 3.4,
+      "file": "qa/05_handoff-mp4-frame-0102.png",
+      "sha256": "4a25df36037ffcda8f26256899db70b8521aab7ae5343d14ac9d63bdec2bf5b7"
+    },
+    {
+      "requested_time_s": 4.0,
+      "frame": 120,
+      "actual_time_s": 4.0,
+      "file": "qa/05_handoff-mp4-frame-0120.png",
+      "sha256": "6d9998289abc8f92c00499a7252302df5de96a3341fad9fc9fb31736ceaea557"
+    },
+    {
+      "requested_time_s": null,
+      "frame": 149,
+      "actual_time_s": 4.966666666666667,
+      "file": "qa/05_handoff-mp4-frame-0149.png",
+      "sha256": "d379807d199000663f2f4695e200edb56cd265016297e456cbe3983e1cf7f1b6"
+    }
+  ],
+  "contact_sheet": "qa/05_handoff-mp4-keyphases.jpg"
+}

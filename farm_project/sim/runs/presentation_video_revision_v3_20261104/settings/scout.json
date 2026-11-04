@@ -1,0 +1,201 @@
+{
+  "schema_version": 1,
+  "robot_id": "scout_01",
+  "map_id": "farm_map_v1",
+  "frame_id": "map",
+  "scene": "envs/output/farm_with_plants_v5.usd",
+  "map_yaml": "maps/count_test_farm_map.yaml",
+  "route": "maps/graph.geojson",
+  "use_sim_time": true,
+  "bed_1": {
+    "section_id": "SEC01",
+    "route_node_ids": [
+      "SEC01_START",
+      10101,
+      10102,
+      10103,
+      10104,
+      10105,
+      "SEC01_END"
+    ],
+    "expected_heading_rad": -1.5707963267948966,
+    "camera_look_direction_map": "+X",
+    "camera_side_robot": "left",
+    "camera_to_bed_edge_m": 1.14,
+    "segment_definition": "config/scout_patrol.json"
+  },
+  "scene_binding": {
+    "robot_prim": "/World/scout_robot_camera_fixed",
+    "articulation_relative": "base_footprint",
+    "base_link_relative": "base_link",
+    "camera_relative": "base_link/scout_camera",
+    "lidar_relative": "base_scan",
+    "tag_camera_relative": "base_link/scout_mount/picam_optical_frame/Camera"
+  },
+  "notes": [
+    "1.14m는 경로 기준점에서 화단까지의 거리입니다. 카메라의 측면 오프셋을 경로 거리에서 다시 빼지 않습니다.",
+    "map_id는 PDF 예시 기반 임시값입니다. 실 관제 지도 ID와 대조해야 합니다.",
+    "odom은 바퀴 엔코더를 적분합니다. map→odom은 AMCL이 발행합니다.",
+    "task.yaml에서 생성한 station_spawn.json으로 시작 시 예찰로봇을 배치합니다. AMCL 초기 pose도 같은 station 값을 사용하며 odom은 바퀴 적분을 유지합니다.",
+    "2026-10-09 장착 PDF: D435 렌즈 base_footprint 기준 [-0.049,0.055,0.595]m, 왼쪽/하향1도(C). 장착 USD 세션 적용; 영상 조건 유지. 1.14m는 경로 기준 거리."
+  ],
+  "base": {
+    "wheel_joints": [
+      "wheel_left_joint",
+      "wheel_right_joint"
+    ],
+    "wheel_signs": [
+      1,
+      1
+    ],
+    "wheel_radius_m": 0.033,
+    "wheel_separation_m": 0.16,
+    "max_linear_mps": 0.22,
+    "max_angular_rps": 1.5,
+    "command_timeout_s": 0.5
+  },
+  "runtime": {
+    "state_clock_delay_s": 0.1,
+    "physics_hz": 60,
+    "render_hz": 30,
+    "realtime": true,
+    "command_port": 17600,
+    "telemetry_port": 17601,
+    "telemetry_hz": 30,
+    "transport_timeout_s": 2.0,
+    "drop_limit_m": 0.25,
+    "robotarm_physics_config": "sim/ros_ws/src/farm_sim_config/config/robotarm_physics.json"
+  },
+  "frames": {
+    "odom": "scout_01/odom",
+    "base_footprint": "scout_01/base_footprint",
+    "base_link": "scout_01/base_link",
+    "scan": "scout_01/base_scan",
+    "camera_optical": "scout_01/camera_optical_frame",
+    "tag_camera_optical": "scout_01/picam_optical_frame"
+  },
+  "camera": {
+    "enabled": true,
+    "width": 640,
+    "height": 384,
+    "fps": 15,
+    "shm_name": "farm_scout_01_rgbd",
+    "depth_min_m": 0.1,
+    "depth_max_m": 5.0,
+    "odom_frame": "scout_01/odom"
+  },
+  "lidar": {
+    "enabled": true,
+    "fps": 10,
+    "samples": 360,
+    "range_min_m": 0.12,
+    "range_max_m": 12.0
+  },
+  "station_spawn": {
+    "enabled": true,
+    "config": "station_spawn.json"
+  },
+  "publish_clock": false,
+  "apriltag_map": "sim/ros_ws/src/farm_sim_config/config/apriltag_map.json",
+  "scout_mount_asset": "sim/assets/robots/scout_robot/scout_mount_20261013.usda",
+  "tag_camera": {
+    "enabled": true,
+    "width": 1280,
+    "height": 720,
+    "fps": 10,
+    "shm_name": "farm_scout_01_apriltag",
+    "depth_min_m": 0.1,
+    "depth_max_m": 5.0,
+    "odom_frame": "scout_01/odom",
+    "render_rgb_only": true,
+    "publish_ros": true,
+    "ros_image_topic": "apriltag_camera/image_raw",
+    "ros_info_topic": "apriltag_camera/camera_info",
+    "T_base_optical": [
+      [
+        1.0,
+        0.0,
+        0.0,
+        -0.032
+      ],
+      [
+        0.0,
+        0.0,
+        1.0,
+        0.063
+      ],
+      [
+        0.0,
+        -1.0,
+        0.0,
+        0.117
+      ],
+      [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ]
+    ],
+    "camera_info": {
+      "width": 1280,
+      "height": 720,
+      "distortion_model": "plumb_bob",
+      "k": [
+        1049.686473614098,
+        0.0,
+        631.4064932131716,
+        0.0,
+        1049.6045471847024,
+        371.5007152003926,
+        0.0,
+        0.0,
+        1.0
+      ],
+      "d": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "r": [
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ],
+      "p": [
+        1049.686473614098,
+        0.0,
+        631.4064932131716,
+        0.0,
+        0.0,
+        1049.6045471847024,
+        371.5007152003926,
+        0.0,
+        0.0,
+        0.0,
+        1.0,
+        0.0
+      ],
+      "binning": [
+        0,
+        0
+      ],
+      "roi": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "frame_id": "scout_01/picam_optical_frame"
+    },
+    "calibration_source": "수확 시뮬 카메라의 K를 재사용한 무왜곡 pinhole 모델. 실물 파이캠 보정값이 아니며 실측 교정 전 실물에 사용하지 않는다."
+  }
+}

@@ -1,0 +1,168 @@
+{
+  "name": "00_apriltag_closeup",
+  "eye": [
+    -6.05,
+    9.97,
+    0.38
+  ],
+  "target": [
+    -5.501,
+    9.968,
+    0.264
+  ],
+  "focal_mm": 55,
+  "fill_intensity": 35,
+  "inspect": [
+    "/World/AprilTags/SEC01/Tag_100",
+    "/World/AprilTags/SEC01/Tag_100/Pattern"
+  ],
+  "preview_only": false,
+  "scope": "staged illustration using project USD assets; not an autonomous test result",
+  "resolution": [
+    1920,
+    1080
+  ],
+  "gui": true,
+  "all_beds": true,
+  "joint_positions": {
+    "base_joint": 0.0,
+    "caster_back_joint": 0.0,
+    "scan_joint": 0.0,
+    "wheel_left_joint": 0.0,
+    "wheel_right_joint": 0.0,
+    "base_link_fixed_joint": 0.0,
+    "front_left_caster_joint": 0.0,
+    "front_left_post_joint": 0.0,
+    "front_right_caster_joint": 0.0,
+    "front_right_post_joint": 0.0,
+    "left_wheel_joint": 0.0,
+    "lidar_mount_fixed_joint": 0.0,
+    "lower_rail_front_joint": 0.0,
+    "lower_rail_left_joint": 0.0,
+    "lower_rail_rear_joint": 0.0,
+    "lower_rail_right_joint": 0.0,
+    "rear_left_caster_joint": 0.0,
+    "rear_left_post_joint": 0.0,
+    "rear_right_caster_joint": 0.0,
+    "rear_right_post_joint": 0.0,
+    "right_wheel_joint": 0.0,
+    "top_deck_joint": 0.0,
+    "arm_1_mount_joint": 0.0,
+    "arm_1_attachment": 0.0,
+    "arm_1_shoulder_pan": 0.0,
+    "arm_1_shoulder_lift": 0.0,
+    "arm_1_elbow_flex": 0.0,
+    "arm_1_wrist_flex": 0.0,
+    "arm_1_wrist_roll": 0.0,
+    "arm_1_gripper": 0.0,
+    "arm_1_gripper_frame_joint": 0.0,
+    "arm_1_wrist_camera_mount_link_joint": 0.0,
+    "arm_1_wrist_camera_joint": 0.0,
+    "arm_2_mount_joint": 0.0,
+    "arm_2_attachment": 0.0,
+    "arm_2_shoulder_pan": 0.0,
+    "arm_2_shoulder_lift": 0.0,
+    "arm_2_elbow_flex": 0.0,
+    "arm_2_wrist_flex": 0.0,
+    "arm_2_wrist_roll": 0.0,
+    "arm_2_gripper": 0.0,
+    "arm_2_gripper_frame_joint": 0.0,
+    "arm_2_wrist_camera_mount_link_joint": 0.0,
+    "arm_2_wrist_camera_joint": 0.0,
+    "overhead_base_link_joint": 0.0,
+    "overhead_riser_link_joint": 0.0,
+    "overhead_post_link_joint": 0.0,
+    "overhead_adapter_link_joint": 0.0,
+    "top_camera_joint": 0.0,
+    "upper_rail_front_joint": 0.0,
+    "upper_rail_left_joint": 0.0,
+    "upper_rail_rear_joint": 0.0,
+    "upper_rail_right_joint": 0.0,
+    "box_front_wall_joint": 0.0,
+    "box_left_wall_joint": 0.0,
+    "box_rear_wall_joint": 0.0,
+    "box_right_wall_joint": 0.0,
+    "harvest_lid_mount": 0.0,
+    "box_bottom_left_joint": 0.0,
+    "box_bottom_right_joint": 0.0,
+    "harvest_lid_pinion_joint": 0.0,
+    "box_tilt_joint": 0.0,
+    "lid_drive_mount_joint": 0.0,
+    "top_mg996r_joint": 0.0,
+    "lid_pinion_joint": 0.0,
+    "side_lid_joint": 0.0,
+    "side_mg996r_joint": 0.0,
+    "top_lid_left_joint": 0.0,
+    "top_lid_right_joint": 0.0,
+    "cargo_support_joint": 0.0,
+    "tilt_motor_mount": 0.0,
+    "caster_back_left_joint": 0.0,
+    "caster_back_right_joint": 0.0,
+    "joint1": 0.0,
+    "joint2": 0.0,
+    "joint3": 0.0,
+    "joint4": 0.0,
+    "joint5": 0.0,
+    "joint6": 0.0,
+    "tcp_mount": 0.0,
+    "tool_mount": 0.0,
+    "left_jaw": 0.0,
+    "left_pad_mount": 0.0,
+    "right_jaw": 0.0,
+    "right_pad_mount": 0.0
+  },
+  "inspected": {
+    "/World/AprilTags/SEC01/Tag_100": [
+      [
+        1.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      [
+        0.0,
+        1.0,
+        0.0,
+        0.0
+      ],
+      [
+        0.0,
+        0.0,
+        1.0,
+        0.0
+      ],
+      [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ]
+    ],
+    "/World/AprilTags/SEC01/Tag_100/Pattern": [
+      [
+        1.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      [
+        0.0,
+        1.0,
+        0.0,
+        0.0
+      ],
+      [
+        0.0,
+        0.0,
+        1.0,
+        0.0
+      ],
+      [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ]
+    ]
+  }
+}

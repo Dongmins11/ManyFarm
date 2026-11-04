@@ -1,0 +1,91 @@
+{
+  "passed": true,
+  "method": "Direct visual inspection of Isaac GUI rendered PNGs and decoded final MP4 frames by Codex; full MP4 decode/specification checks recorded separately.",
+  "specification": "origin/main@1ee8fbe663f414bf1d7bd1afcab25ce6a7071867:farm_project/sim/docs/PRESENTATION_VIDEO_REVISION_V3_20261104.md",
+  "source_preservation": {
+    "checked_files": 358,
+    "changed": 0,
+    "missing": 0,
+    "report": "validation.txt"
+  },
+  "house": {
+    "baseline_prims": 304,
+    "active_visibility_unchanged": true,
+    "actual_background_confirmed": [
+      "01",
+      "02",
+      "06",
+      "07"
+    ],
+    "no_film_opacity_or_clipping_workaround": true
+  },
+  "apriltags": {
+    "registered": 240,
+    "installed_patterns": 240,
+    "actual_closeup": "../00_apriltag_closeup.png",
+    "review": "apriltag_review.json"
+  },
+  "cuts": {
+    "01": {
+      "passed": true,
+      "camera_review": "camera_review.json",
+      "finding": "Near four beds and centre aisle under restored arches/film; camera eye+target translate 2.4m at fixed 35deg pitch, height and 14mm lens. Different depth planes produce parallax."
+    },
+    "02": {
+      "passed": true,
+      "finding": "Body/wheels/mast/sensor remain visible. Actual 4-box observation example preserves RGB proportions and does not cover robot, close tags or main caption. Start/middle/end composite inspected.",
+      "evidence": [
+        "02_scout-inset-placement-0000.png",
+        "02_scout-inset-placement-0075.png",
+        "02_scout-inset-placement-0149.png"
+      ]
+    },
+    "03": {
+      "passed": true,
+      "finding": "Existing source MP4 reused byte-for-byte; no rendering. 03 final and 04 initial fruit/gripper world matrices and prior joints match exactly.",
+      "sha256": "f2b3f141f2b90aaae628e42176d4e9e7171bf126920cdbc6e45455aa2b90cd7a"
+    },
+    "04": {
+      "passed": true,
+      "finding": "Original 44deg camera and arm motion retained. Opaque gray floor is visible around fruit; source floor raised 5mm to meet original wall bottom. Actual mesh lowest point lands on floor z=.506m."
+    },
+    "05": {
+      "passed": true,
+      "finding": "Gray panels visibly slide apart. Actual MP4 shows staggered fruit exit and rotation, empty upper basket, fruit settled below. Final continuous capture has no discernible fruit left in upper basket. Red4/yellow3 IDs/scales/poses tracked in saved motion.",
+      "evidence": [
+        "05_handoff-mp4-keyphases.jpg",
+        "05_handoff-mp4-review.json"
+      ],
+      "limits": "Basket walls obscure some fruit during descent and after settling; seven-object count is supported by geometry/pose records, not unobstructed visual counting in every frame."
+    },
+    "06": {
+      "passed": true,
+      "finding": "Full transport/wheels/basket and station fit, west-side film/posts visible. Same seven cargo-relative poses/colours/scales as05; world location and facing change for transport shot. Maximum relative-matrix difference9.31e-09."
+    },
+    "07": {
+      "passed": true,
+      "finding": "All arm positions/gripper and multiple bins fit with house film/posts/tags in background. Actual MP4 shows release, accelerated drop, slope contact, changing orientation during roll, settling and stable final hold.",
+      "evidence": [
+        "07_sorting-mp4-keyphases.jpg",
+        "07_sorting-mp4-review.json"
+      ],
+      "limits": "Final red fruit lower portion is hidden by original bin lip; red top remains visible."
+    }
+  },
+  "edit": {
+    "passed": true,
+    "files": {
+      "ManyFarm_22s_clean.mp4": "e36ec4a124968bef5815581243070473606702e2d7c07e39989526b13427a321",
+      "ManyFarm_22s_captioned.mp4": "8fd77cf1b64fb9e3a595a22c78f86b38390c0f80a578c76b74f2da809227ca46"
+    },
+    "frames": 660,
+    "duration_s": 22,
+    "review": "ManyFarm_22s_captioned-mp4-keyphases.jpg",
+    "finding": "Actual 13-frame edit sheet and full-size 02/05/06/07 frames inspected. Captions clear robot/fruit/station.03→04 is direct cut; other cuts short dissolves. Stable hold after20s, final0.8s fade, frame659 black."
+  },
+  "limits": [
+    "Keyframed presentation animation, not autonomous mission/performance evidence.",
+    "05 uses baked gravity/rotating-mesh conservative AABB contact; not a full PhysX collision validation.",
+    "07 rolling follows measured station slope and fruit geometry; not an operational sorting test."
+  ]
+}
