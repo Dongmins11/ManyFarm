@@ -55,6 +55,10 @@ def capture(request: dict, out: Path, app: object, camera: object, apply_state, 
     count=round(fps*duration); previews=out/'preview';previews.mkdir(exist_ok=True)
     preview_only=request.get('preview_only',False)
     indices=sorted({0,count//2,count-1} | {min(count-1,round(f['time']*fps)) for f in request['keyframes']}) if preview_only else range(count)
+    if preview_only and 'preview_frames' in request:
+        indices=sorted(set(request['preview_frames']))
+        if not indices or any(not isinstance(i,int) or not 0 <= i < count for i in indices):
+            raise ValueError('preview_frames must contain valid frame indices')
     apply_state(state_at(request,0))
     for _ in range(80):app.update()
     def render_id():
@@ -71,7 +75,7 @@ def capture(request: dict, out: Path, app: object, camera: object, apply_state, 
             before=render_id()
             apply_state(state)
             # 자세 적용 전 프레임을 저장하지 않도록 동기 렌더를 진행한다.
-            for _ in range(6):app.update()
+            for _ in range(int(request.get('preview_warmup_frames',48)) if preview_only else 6):app.update()
             frame=camera.get_current_frame(); after=render_id()
             if after <= before:raise RuntimeError(f'new rendered frame missing: {index} {before}->{after}')
             rgb=np.asarray(camera.get_rgb(),dtype=np.uint8)

@@ -1,0 +1,143 @@
+{
+  "schema_version": 1,
+  "capture_complete_utc": "2026-11-04T09:00:22.970995+00:00",
+  "scope": "GUI staged animation, not an autonomous test result",
+  "gui": true,
+  "headless": false,
+  "renderer": "RayTracedLighting",
+  "isaac_sim": "5.1",
+  "display": ":20.0",
+  "capture_order": [
+    "04_deposit",
+    "07_sorting",
+    "02_scout"
+  ],
+  "git": {
+    "capture_head": "3bb5d0f48b3ff3674bebc48da1f9031a55b75374",
+    "capture_branch": "integration/fleet-sim-clock-20261102",
+    "preexisting_dirty_work_preserved": true,
+    "review_source_commit": "524a193901a2b4884825fab9bbdea861dd0b559d",
+    "publication_target": "main"
+  },
+  "clips": [
+    {
+      "file": "04_deposit.mp4",
+      "sha256": "86cc01f12aebf31791cc5aa96cb85826555b21e6293e3a1117eed04e8abe45bc",
+      "frames": 150,
+      "fps": 30,
+      "width": 1920,
+      "height": 1080,
+      "duration_s": 5,
+      "bytes": 2355760,
+      "camera": {
+        "focal_mm": 31.0,
+        "eye": [
+          -6.465549565627148,
+          7.114587825779639,
+          1.8708656678189268
+        ],
+        "fill_intensity": 800,
+        "target": [
+          -5.665549565627148,
+          7.714587825779638,
+          0.9051768930118528
+        ]
+      },
+      "settings": "settings/04_deposit.json",
+      "settings_sha256": "59fa5fcbe63a165e07478c32b99e1d3fd382fb20f94e1da4428e07147ae55855"
+    },
+    {
+      "file": "07_sorting.mp4",
+      "sha256": "b21a5cc42eb59f08eb623c696735327bdb4603be970b29c98c465c4c3ed76f2a",
+      "frames": 150,
+      "fps": 30,
+      "width": 1920,
+      "height": 1080,
+      "duration_s": 5,
+      "bytes": 2046592,
+      "camera": {
+        "side_key": {
+          "eye": [
+            -8.891686123907864,
+            14.018457949432907,
+            2.25
+          ],
+          "target": [
+            -7.262473729360235,
+            14.581388482262067,
+            0.65
+          ],
+          "intensity": 600,
+          "width": 1.4,
+          "height": 1.4
+        },
+        "focal_mm": 42,
+        "eye": [
+          -9.060715949544148,
+          15.451323192914248,
+          2.0004150764194195
+        ],
+        "fill_intensity": 65,
+        "exposure_fnumber": 4.6,
+        "target": [
+          -7.276293449664991,
+          14.54808660047292,
+          0.6
+        ]
+      },
+      "settings": "settings/07_sorting.json",
+      "settings_sha256": "1575a24451abd44d14649e7700fe41afd25b4e60268dd59bb82d66c084fe9837"
+    },
+    {
+      "file": "02_scout.mp4",
+      "sha256": "d092966087303462f74199b57f2b83482097e91f7c93ecb2feaa1ea30a9d2a57",
+      "frames": 150,
+      "fps": 30,
+      "width": 1920,
+      "height": 1080,
+      "duration_s": 5,
+      "bytes": 4255420,
+      "camera": {
+        "up": [
+          0,
+          0,
+          1
+        ],
+        "focal_mm": 25,
+        "eye": [
+          -6.05,
+          10.2,
+          0.65
+        ],
+        "fill_intensity": 160,
+        "target": [
+          -6.25,
+          9.05,
+          0.4
+        ]
+      },
+      "settings": "settings/02_scout.json",
+      "settings_sha256": "fc255911e16431a82b57729c0bc99580af1e137584b5b003f49590006b93af4a"
+    }
+  ],
+  "capture_tools": {
+    "capture_tools/presentation_video_frames.py": "190b407bfa9f4f4de204dea9955c8b9be2613ba8d7f013ec183be7c53cc0ee95",
+    "capture_tools/request_presentation_capture.py": "0999890c339f656eb3a8da64e91b846500949d66e87ed020f726285737da3994",
+    "capture_tools/stage_portfolio_photos.py": "182146becdf427130f21135828538197664f926c60f507fa4a55935ea07db481"
+  },
+  "original_preservation": {
+    "hash_file": "original_hashes.json",
+    "files_checked": 179,
+    "changed": 0
+  },
+  "motion_unchanged": true,
+  "subtitle_safe_zone_px": [
+    80,
+    810,
+    650,
+    990
+  ],
+  "source_hashes": "source_hashes.json",
+  "visual_review": "qa/visual_review.json",
+  "validation": "validation.txt"
+}

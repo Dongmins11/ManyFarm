@@ -1,0 +1,70 @@
+{
+  "04_deposit": {
+    "candidate_comparison": "04_deposit-candidates.jpg",
+    "selected": "04_deposit_a_refined",
+    "viewing_angle_deg": 44,
+    "reviewed": [
+      "3 candidates x start/mid/end",
+      "refined start/mid/end",
+      "final MP4 frames 0,30,60,75,90,99,105,119,149"
+    ],
+    "reason": "서남 사선에서 장착부·상판·손목·투입구·안착한 과실 윗부분을 함께 확인. 서북은 왼팔, 동북은 작물이 가림.",
+    "limitations": "깊은 바구니 벽 때문에 안착 과실의 아래쪽은 가려진다. 원본 벽/과실/동작을 유지.",
+    "subtitle_safe_zone_px": [
+      80,
+      810,
+      650,
+      990
+    ],
+    "critical_subjects_in_safe_zone": false,
+    "settled_visible_until_s": 5,
+    "settled_from_s": 3.405023133084578
+  },
+  "07_sorting": {
+    "candidate_comparison": "07_sorting-candidates.jpg",
+    "selected": "07_sorting_a",
+    "viewing_angle_deg": 35,
+    "reviewed": [
+      "3 candidates x start/mid/end",
+      "selected start/end full resolution",
+      "final MP4 frames 0,30,60,75,78,82,86,105,149"
+    ],
+    "reason": "A는 높은 팔 전체와 두 분류함을 담고 착지 과실이 B보다 덜 가림. 측면광으로 회색 팔과 흰 판넬의 명암을 구분.",
+    "limitations": "기존 HCR USD의 단순한 회색 표면/흰 분류함은 유지. 신규 재질·기구 추가 없음.",
+    "subtitle_safe_zone_px": [
+      80,
+      810,
+      650,
+      990
+    ],
+    "critical_subjects_in_safe_zone": false,
+    "settled_from_s": 3.5,
+    "settled_visible_until_s": 5
+  },
+  "02_scout": {
+    "candidate_comparison": "02_scout-candidates.jpg",
+    "selected": "02_scout_d_refined",
+    "reviewed": [
+      "3 directions x start/mid/end",
+      "D probe start/mid/end",
+      "D refined start/mid/end and full-resolution start",
+      "final MP4 frames 0,30,60,75,90,99,105,119,149"
+    ],
+    "reason": "기존후보A빈배경/B센서뒷면/C끝프레임바퀴가림을제외. 통로북동D에서센서전면과광학축앞의작물열,마스트와바퀴전체가보임.",
+    "limitations": "작물은왼쪽에배치,통로바닥/외곽배경일부유지. 센서는원래직육면체외형이며렌즈추가없음.",
+    "robot_motion_m": 0.4,
+    "camera_tracking_fraction": 0.7,
+    "conservative_robot_height_percent": [
+      60,
+      66
+    ],
+    "conservative_bottom_margin_percent": 7,
+    "subtitle_safe_zone_px": [
+      80,
+      810,
+      650,
+      990
+    ],
+    "critical_subjects_in_safe_zone": false
+  }
+}

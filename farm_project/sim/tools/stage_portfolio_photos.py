@@ -194,6 +194,9 @@ def main() -> None:
         fill.CreateHeightAttr(1.)
         fill.CreateIntensityAttr(200.)
         fill.CreateColorAttr(Gf.Vec3f(1., .98, .95))
+        side_key = UsdLux.RectLight.Define(stage, '/World/PortfolioSideKey')
+        side_key.CreateIntensityAttr(0.)
+        side_key.CreateColorAttr(Gf.Vec3f(1., .98, .95))
         for prim in stage.Traverse():
             if prim.IsA(UsdGeom.BasisCurves) and 'beam_' in str(prim.GetPath()):
                 UsdGeom.Imageable(prim).MakeInvisible()
@@ -258,6 +261,20 @@ def main() -> None:
                 light_t[:3,3] = eye+np.array([0.,0.,.3])
                 set_world('/World/PortfolioFill',light_t)
                 fill.GetIntensityAttr().Set(request.get('fill_intensity',200.))
+            settings.set('/rtx/post/tonemap/fNumber', float(request.get('exposure_fnumber',4.)))
+            key = request.get('side_key')
+            side_key.GetIntensityAttr().Set(float(key.get('intensity',0.)) if key else 0.)
+            if key:
+                eye = np.asarray(key['eye'], dtype=float)
+                f = np.asarray(key['target'], dtype=float)-eye
+                f /= np.linalg.norm(f)
+                right = np.cross(f, [0.,0.,1.]); right /= np.linalg.norm(right)
+                light_t = np.eye(4)
+                light_t[:3,:3] = np.column_stack((right,np.cross(right,f),-f))
+                light_t[:3,3] = eye
+                set_world('/World/PortfolioSideKey', light_t)
+                side_key.CreateWidthAttr(float(key.get('width',2.)))
+                side_key.CreateHeightAttr(float(key.get('height',2.)))
 
         baseline_fruits = {p:matrix(p).copy() for p in info['fruit_paths']}
         baseline_visibility = {str(p.GetPath()):UsdGeom.Imageable(p).GetVisibilityAttr().Get()

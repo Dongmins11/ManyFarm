@@ -1,0 +1,252 @@
+{
+  "frame": 149,
+  "time_s": 4.966666666666667,
+  "state": {
+    "focal_mm": 25.0,
+    "attach_fruits": [],
+    "eye": [
+      -6.05,
+      9.92,
+      0.65
+    ],
+    "up": [
+      0.0,
+      0.0,
+      1.0
+    ],
+    "placements": {
+      "/World/scout_robot_camera_fixed": {
+        "xyz": [
+          -6.655,
+          8.644947,
+          0.0
+        ],
+        "yaw": -1.5707963267948966
+      },
+      "/World/harvest_robot": {
+        "xyz": [
+          -2.0,
+          13.25,
+          0.0
+        ],
+        "yaw": -1.5707963267948966
+      },
+      "/World/transport_robot": {
+        "xyz": [
+          2.0,
+          13.25,
+          0.0
+        ],
+        "yaw": -1.5707963267948966
+      }
+    },
+    "joints": {
+      "box_tilt_joint": 0.0,
+      "arm_2_shoulder_pan": 0.0,
+      "arm_1_wrist_roll": 0.04879632679489654,
+      "arm_2_wrist_roll": 0.04879632679489654,
+      "arm_1_gripper": 1.1,
+      "arm_1_elbow_flex": 1.2,
+      "top_lid_left_joint": 0.0,
+      "arm_2_shoulder_lift": -1.6,
+      "arm_2_elbow_flex": 1.2,
+      "left_wheel_joint": 0.0,
+      "side_lid_joint": 0.0,
+      "joint2": -1.6755398318121864,
+      "arm_2_gripper": 1.1,
+      "joint3": 2.009182906548714,
+      "lid_pinion_joint": 0.0,
+      "joint5": 1.237153252066073,
+      "wheel_left_joint": 12.121212121212121,
+      "arm_1_wrist_flex": -1.5,
+      "wheel_right_joint": 12.121212121212121,
+      "joint6": -1.0446705034601612e-18,
+      "arm_1_shoulder_pan": 0.0,
+      "right_wheel_joint": 0.0,
+      "arm_1_shoulder_lift": -1.6,
+      "arm_2_wrist_flex": -1.5,
+      "joint4": 6.707244813412473e-19,
+      "joint1": -7.355699155272922e-19,
+      "top_lid_right_joint": 0.0
+    },
+    "hide": [
+      "/World/farm_framechanged/Frame_07_Post__1",
+      "/World/farm_framechanged/Frame_08_Post__1",
+      "/World/farm_framechanged/Frame_09_Post__1",
+      "/World/farm_framechanged/Frame_10_Post__1",
+      "/World/farm_framechanged/Frame_11_Post__1",
+      "/World/farm_framechanged/Frame_12_Post__1",
+      "/World/farm_framechanged/Frame_13_Post__1",
+      "/World/farm_framechanged/Frame_14_Post__1",
+      "/World/farm_framechanged/Frame_15_Post__1",
+      "/World/farm_framechanged/Rail_00",
+      "/World/farm_framechanged/Rail_01",
+      "/World/farm_framechanged/Rail_02",
+      "/World/farm_framechanged/Rail_03",
+      "/World/farm_framechanged/Rail_04",
+      "/World/farm_framechanged/Entry_Post",
+      "/World/farm_framechanged/Entry_Post_001",
+      "/World/farm_framechanged/Entry_Header",
+      "/World/farm_framechanged/Entry_Post_002",
+      "/World/farm_framechanged/Entry_Post_003",
+      "/World/farm_framechanged/Entry_Header_001",
+      "/World/farm_framechanged/Arch_continuous_00",
+      "/World/farm_framechanged/Arch_continuous_01",
+      "/World/farm_framechanged/Arch_continuous_02",
+      "/World/farm_framechanged/Arch_continuous_03",
+      "/World/farm_framechanged/Frame_00_Post__1",
+      "/World/farm_framechanged/Frame_01_Post__1",
+      "/World/farm_framechanged/Frame_02_Post__1",
+      "/World/farm_framechanged/Frame_03_Post__1",
+      "/World/farm_framechanged/Frame_04_Post__1",
+      "/World/farm_framechanged/Frame_05_Post__1",
+      "/World/farm_framechanged/Frame_06_Post__1",
+      "/World/farm_framechanged/Arch_continuous_04",
+      "/World/farm_framechanged/Arch_continuous_05",
+      "/World/farm_framechanged/Arch_continuous_06",
+      "/World/farm_framechanged/Arch_continuous_07",
+      "/World/farm_framechanged/Arch_continuous_08",
+      "/World/farm_framechanged/Arch_continuous_09",
+      "/World/farm_framechanged/Arch_continuous_10",
+      "/World/farm_framechanged/Arch_continuous_11",
+      "/World/farm_framechanged/Arch_continuous_12",
+      "/World/farm_framechanged/Arch_continuous_13",
+      "/World/farm_framechanged/Arch_continuous_14",
+      "/World/farm_framechanged/Arch_continuous_15",
+      "/World/farm_framechanged/Cover_Roof_soft_film",
+      "/World/farm_framechanged/Cover_Side_soft_film__1",
+      "/World/farm_framechanged/Cover_Side_soft_film_1",
+      "/World/farm_framechanged/Fence_Rail_001",
+      "/World/farm_framechanged/Fence_Rail_002",
+      "/World/farm_framechanged/Fence_Rail_003",
+      "/World/harvest_robot",
+      "/World/transport_robot",
+      "/World/HCRRobot",
+      "/World/HCRStation",
+      "/World/StudentSensors/WristVisuals",
+      "/World/harvest_robot/arm_2_gripper_frame_link"
+    ],
+    "target": [
+      -6.25,
+      8.77,
+      0.4
+    ],
+    "fruit_positions": {},
+    "inspect": [
+      "/World/scout_robot_camera_fixed/base_link/scout_mount/bmany_camera_link",
+      "/World/scout_robot_camera_fixed/base_link/scout_mount/camera_color_optical_frame",
+      "/World/scout_robot_camera_fixed/base_link/scout_camera",
+      "/World/scout_robot_camera_fixed/base_link/scout_mount/scout_mast_link"
+    ],
+    "show": [
+      "/World/scout_robot_camera_fixed"
+    ],
+    "fill_intensity": 160.0
+  },
+  "inspected": {
+    "/World/scout_robot_camera_fixed/base_link/scout_mount/bmany_camera_link": [
+      [
+        0.9998476951563903,
+        -1.0363359816003225e-13,
+        0.01745240643734021,
+        -6.6000000000000005
+      ],
+      [
+        1.0361781426107178e-13,
+        1.0,
+        1.808655675652875e-15,
+        8.693947
+      ],
+      [
+        -0.01745240643734021,
+        0.0,
+        0.9998476951563903,
+        0.595
+      ],
+      [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ]
+    ],
+    "/World/scout_robot_camera_fixed/base_link/scout_mount/camera_color_optical_frame": [
+      [
+        2.377946854166789e-16,
+        -0.017452406437443606,
+        0.9998476951563885,
+        -6.6000000000000005
+      ],
+      [
+        -1.0,
+        -1.808655675652897e-15,
+        2.062607059643692e-16,
+        8.693947
+      ],
+      [
+        1.804780462960505e-15,
+        -0.9998476951563885,
+        -0.017452406437443606,
+        0.595
+      ],
+      [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ]
+    ],
+    "/World/scout_robot_camera_fixed/base_link/scout_camera": [
+      [
+        2.377946854166789e-16,
+        0.017452406437443606,
+        -0.9998476951563885,
+        -6.6000000000000005
+      ],
+      [
+        -1.0,
+        1.808655675652897e-15,
+        -2.062607059643692e-16,
+        8.693947
+      ],
+      [
+        1.804780462960505e-15,
+        0.9998476951563885,
+        0.017452406437443606,
+        0.595
+      ],
+      [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ]
+    ],
+    "/World/scout_robot_camera_fixed/base_link/scout_mount/scout_mast_link": [
+      [
+        2.220446049250313e-16,
+        1.0,
+        0.0,
+        -6.655
+      ],
+      [
+        -1.0,
+        2.220446049250313e-16,
+        0.0,
+        8.676947
+      ],
+      [
+        0.0,
+        0.0,
+        1.0,
+        0.41
+      ],
+      [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ]
+    ]
+  }
+}
