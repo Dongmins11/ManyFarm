@@ -1,0 +1,409 @@
+{
+  "name": "03_grasp",
+  "fps": 30,
+  "duration_s": 5,
+  "preview_only": false,
+  "base": {
+    "show": [
+      "/World/harvest_robot",
+      "/World/StudentSensors"
+    ],
+    "hide": [
+      "/World/harvest_robot/arm_2_gripper_frame_link",
+      "/World/transport_robot",
+      "/World/HCRRobot",
+      "/World/HCRStation",
+      "/World/scout_robot_camera_fixed"
+    ],
+    "placements": {
+      "/World/harvest_robot": {
+        "xyz": [
+          -6,
+          7.8228,
+          0
+        ],
+        "yaw": 1.5707963267948966
+      },
+      "/World/Vegetation/Bed_02/Fruits/Pepper_0003_red": {
+        "matrix": [
+          [
+            0.18798730954544102,
+            -0.7303462540955684,
+            0.0,
+            -5.511154265602804
+          ],
+          [
+            0.7303462540955684,
+            0.18798730954544102,
+            0.0,
+            7.632753138421099
+          ],
+          [
+            0.0,
+            0.0,
+            0.7541517615318298,
+            1.0244999997285635
+          ],
+          [
+            0.0,
+            0.0,
+            0.0,
+            1.0
+          ]
+        ]
+      }
+    },
+    "joints": {
+      "arm_1_shoulder_pan": 0.0,
+      "arm_1_shoulder_lift": -1.6,
+      "arm_1_elbow_flex": 1.2,
+      "arm_1_wrist_flex": -1.5,
+      "arm_1_wrist_roll": 0.04879632679489654,
+      "arm_1_gripper": 1.1,
+      "arm_2_shoulder_pan": -0.0018610190279024258,
+      "arm_2_shoulder_lift": -1.0582081746246577,
+      "arm_2_elbow_flex": 0.478929793210944,
+      "arm_2_wrist_flex": 0.5104042428037147,
+      "arm_2_wrist_roll": 0.049522591310035606,
+      "arm_2_gripper": 1.1
+    },
+    "eye": [
+      -6.0,
+      7.0,
+      1.25
+    ],
+    "target": [
+      -5.57,
+      7.63,
+      1.02
+    ],
+    "focal_mm": 43,
+    "fill_intensity": 1100,
+    "attach_fruits": [],
+    "inspect": [
+      "/World/Vegetation/Bed_02/Fruits/Pepper_0003_red",
+      "/World/harvest_robot/arm_2_gripper_link",
+      "/World/harvest_robot/box_front_wall",
+      "/World/harvest_robot/box_bottom_left"
+    ]
+  },
+  "keyframes": [
+    {
+      "time": 0,
+      "state": {}
+    },
+    {
+      "time": 1,
+      "state": {}
+    },
+    {
+      "time": 2.3,
+      "state": {
+        "joints": {
+          "arm_2_shoulder_pan": -0.0014122941448851908,
+          "arm_2_shoulder_lift": -0.5567509979497131,
+          "arm_2_elbow_flex": 0.23621741005018163,
+          "arm_2_wrist_flex": 0.2516300414221054,
+          "arm_2_wrist_roll": 0.04943196243572641,
+          "arm_2_gripper": 1.1
+        }
+      }
+    },
+    {
+      "time": 2.8,
+      "state": {
+        "joints": {
+          "arm_2_shoulder_pan": -0.0014122941448851908,
+          "arm_2_shoulder_lift": -0.5567509979497131,
+          "arm_2_elbow_flex": 0.23621741005018163,
+          "arm_2_wrist_flex": 0.2516300414221054,
+          "arm_2_wrist_roll": 0.04943196243572641,
+          "arm_2_gripper": 0.65
+        },
+        "attach_fruits": [
+          {
+            "fruit": "/World/Vegetation/Bed_02/Fruits/Pepper_0003_red",
+            "link": "/World/harvest_robot/arm_2_gripper_link",
+            "matrix": [
+              [
+                -0.01246786583624865,
+                0.05041168622870753,
+                0.7523616774096286,
+                0.02709753350850086
+              ],
+              [
+                0.7300877329737887,
+                0.18898799732583377,
+                -0.0005643133236602307,
+                -0.00026493108764746864
+              ],
+              [
+                -0.18857712985472522,
+                0.7283454387719549,
+                -0.051927520039042,
+                -0.08504733199627346
+              ],
+              [
+                0.0,
+                0.0,
+                0.0,
+                1.0
+              ]
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "time": 3.7,
+      "state": {
+        "joints": {
+          "arm_2_shoulder_pan": -0.001774780394198966,
+          "arm_2_shoulder_lift": -0.9267255045651129,
+          "arm_2_elbow_flex": 0.3327536981747994,
+          "arm_2_wrist_flex": 0.5249768983259967,
+          "arm_2_wrist_roll": 0.04950305171305576,
+          "arm_2_gripper": 0.65
+        }
+      }
+    },
+    {
+      "time": 5,
+      "state": {}
+    }
+  ],
+  "evidence": "GUI staged animation; positions based on existing project assets, not autonomous test result",
+  "scope": "GUI staged animation; no autonomous performance claim",
+  "resolution": [
+    1920,
+    1080
+  ],
+  "frames": 150,
+  "expected_frames": 150,
+  "previews": [
+    "03_grasp-0000.png",
+    "03_grasp-0075.png",
+    "03_grasp-0149.png"
+  ],
+  "final_state": {
+    "focal_mm": 43.0,
+    "inspect": [
+      "/World/Vegetation/Bed_02/Fruits/Pepper_0003_red",
+      "/World/harvest_robot/arm_2_gripper_link",
+      "/World/harvest_robot/box_front_wall",
+      "/World/harvest_robot/box_bottom_left"
+    ],
+    "show": [
+      "/World/harvest_robot",
+      "/World/StudentSensors"
+    ],
+    "joints": {
+      "arm_2_shoulder_lift": -0.9267255045651129,
+      "arm_2_elbow_flex": 0.3327536981747994,
+      "arm_2_wrist_flex": 0.5249768983259967,
+      "arm_1_elbow_flex": 1.2,
+      "arm_1_wrist_roll": 0.04879632679489654,
+      "arm_1_shoulder_pan": 0.0,
+      "arm_1_shoulder_lift": -1.6,
+      "arm_2_wrist_roll": 0.04950305171305576,
+      "arm_1_gripper": 1.1,
+      "arm_2_shoulder_pan": -0.001774780394198966,
+      "arm_2_gripper": 0.65,
+      "arm_1_wrist_flex": -1.5
+    },
+    "placements": {
+      "/World/harvest_robot": {
+        "yaw": 1.5707963267948966,
+        "xyz": [
+          -6.0,
+          7.8228,
+          0.0
+        ]
+      },
+      "/World/Vegetation/Bed_02/Fruits/Pepper_0003_red": {
+        "matrix": [
+          [
+            0.1879873095454411,
+            -0.7303462540955685,
+            0.0,
+            -5.511154265602804
+          ],
+          [
+            0.7303462540955685,
+            0.1879873095454411,
+            0.0,
+            7.632753138421099
+          ],
+          [
+            0.0,
+            0.0,
+            0.7541517615318298,
+            1.0244999997285635
+          ],
+          [
+            0.0,
+            0.0,
+            0.0,
+            1.0
+          ]
+        ]
+      }
+    },
+    "target": [
+      -5.57,
+      7.63,
+      1.02
+    ],
+    "fill_intensity": 1100.0,
+    "attach_fruits": [
+      {
+        "fruit": "/World/Vegetation/Bed_02/Fruits/Pepper_0003_red",
+        "link": "/World/harvest_robot/arm_2_gripper_link",
+        "matrix": [
+          [
+            -0.01246786583624865,
+            0.05041168622870753,
+            0.7523616774096286,
+            0.02709753350850086
+          ],
+          [
+            0.7300877329737887,
+            0.18898799732583377,
+            -0.0005643133236602307,
+            -0.00026493108764746864
+          ],
+          [
+            -0.18857712985472522,
+            0.7283454387719549,
+            -0.051927520039042,
+            -0.08504733199627346
+          ],
+          [
+            0.0,
+            0.0,
+            0.0,
+            1.0
+          ]
+        ]
+      }
+    ],
+    "eye": [
+      -6.0,
+      7.0,
+      1.25
+    ],
+    "hide": [
+      "/World/harvest_robot/arm_2_gripper_frame_link",
+      "/World/transport_robot",
+      "/World/HCRRobot",
+      "/World/HCRStation",
+      "/World/scout_robot_camera_fixed"
+    ]
+  },
+  "inspected": {
+    "/World/Vegetation/Bed_02/Fruits/Pepper_0003_red": [
+      [
+        0.18772632922614327,
+        -0.730413376104987,
+        -6.887491372773585e-05,
+        -5.566154253068326
+      ],
+      [
+        0.7304133785299233,
+        0.1877263248056303,
+        5.3488650226843465e-05,
+        7.632753140513181
+      ],
+      [
+        -3.466038601695337e-05,
+        -8.002154138265355e-05,
+        0.7541517564898804,
+        1.0364999862406712
+      ],
+      [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ]
+    ],
+    "/World/harvest_robot/arm_2_gripper_link": [
+      [
+        -0.06894784794490687,
+        -0.0017277204848760645,
+        -0.9976187694934825,
+        -5.649131208869994
+      ],
+      [
+        0.0006982874034288239,
+        0.9999981718148754,
+        -0.0017801015721649635,
+        7.6328477563607775
+      ],
+      [
+        0.9976200211796405,
+        -0.00081935879268559,
+        -0.06894651545002564,
+        1.0036030100249238
+      ],
+      [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ]
+    ],
+    "/World/harvest_robot/box_front_wall": [
+      [
+        0.9999999999999998,
+        2.2204460492503126e-16,
+        0.0,
+        -5.552500009536743
+      ],
+      [
+        -2.2204460492503126e-16,
+        0.9999999999999998,
+        0.0,
+        7.822799994188548
+      ],
+      [
+        0.0,
+        0.0,
+        0.9999999999999998,
+        0.6034999638795853
+      ],
+      [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ]
+    ],
+    "/World/harvest_robot/box_bottom_left": [
+      [
+        0.9999999999999998,
+        2.2204460492503126e-16,
+        0.0,
+        -5.649999998509884
+      ],
+      [
+        -2.2204460492503126e-16,
+        0.9999999999999998,
+        0.0,
+        7.822800000000001
+      ],
+      [
+        0.0,
+        0.0,
+        0.9999999999999998,
+        0.4949999749660492
+      ],
+      [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ]
+    ]
+  }
+}

@@ -1,0 +1,240 @@
+{
+  "schema_version": 1,
+  "dictionary": "DICT_4X4_50",
+  "source_commit": "9686aca909cb52191862ee3500c62fadf7a8ed38",
+  "status": "PROVISIONAL_NOT_MEASURED",
+  "notes": [
+    "위치는 실측 아님. 원본 제어 목표/판정/속도/timeout 변경 없음. 실측 답변 후 이 배치표만 교체.",
+    "좌표는 명시 reference_prim의 USD 자산축 기준 m. harvest의 논리 주행축과 pi 회전 차이 있음.",
+    "높이 추정은 저장된 운송 base→marker 높이를 참고. 실물 수확 base→marker 장착 측정값이 아님.",
+    "표면 렌더만 추가: 질량/충돌/라이다 반사판을 만들지 않음. 제어 입력에 정답 좌표를 보내지 않음.",
+    "선별장 기존 world(-7,14), 운송 그래프8004(5,13.25) 위치 불일치 유지. 전체 주행 연결 전 별도 정합 필요."
+  ],
+  "markers": [
+    {
+      "id": 42,
+      "status": "PROVISIONAL_NOT_MEASURED",
+      "parent_prim": "/World/harvest_robot/base_link",
+      "reference_prim": "/World/harvest_robot/base_footprint",
+      "center_m": [
+        0.34,
+        -0.06,
+        0.081
+      ],
+      "right": [
+        0,
+        1,
+        0
+      ],
+      "up": [
+        0,
+        0,
+        1
+      ],
+      "black_edge_m": 0.05,
+      "paper_edge_m": 0.07,
+      "pattern_cells": [
+        [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          1,
+          1,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          1,
+          0,
+          0
+        ],
+        [
+          0,
+          1,
+          0,
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          1,
+          1,
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ]
+      ],
+      "texture": "sim/assets/docking_markers/DICT_4X4_50_42_50mm.png",
+      "basis": "Existing SEC01 handoff trial provisional mounting; not measured hardware"
+    },
+    {
+      "id": 41,
+      "status": "PROVISIONAL_NOT_MEASURED",
+      "parent_prim": "/World/harvest_robot/base_link",
+      "reference_prim": "/World/harvest_robot/base_footprint",
+      "center_m": [
+        0,
+        -0.251,
+        0.081
+      ],
+      "right": [
+        1,
+        0,
+        0
+      ],
+      "up": [
+        0,
+        0,
+        1
+      ],
+      "black_edge_m": 0.05,
+      "paper_edge_m": 0.07,
+      "pattern_cells": [
+        [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          1,
+          0,
+          0
+        ],
+        [
+          0,
+          1,
+          0,
+          1,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          1,
+          0,
+          0
+        ],
+        [
+          0,
+          1,
+          0,
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ]
+      ],
+      "texture": "sim/assets/docking_markers/DICT_4X4_50_41_50mm.png",
+      "basis": "임시 배치 보정: 라이다가 관측한 차체 면 Y=-0.25m 바깥 1mm. 기존 -0.455m는 라이다 면과 약20cm 불일치. 실측 장착값 아님."
+    },
+    {
+      "id": 40,
+      "status": "PROVISIONAL_NOT_MEASURED",
+      "parent_prim": "/World/HCRStation",
+      "reference_prim": "/World/HCRStation",
+      "center_m": [
+        0.7000142774872937,
+        0.0,
+        0.106
+      ],
+      "right": [
+        0,
+        1,
+        0
+      ],
+      "up": [
+        0,
+        0,
+        1
+      ],
+      "black_edge_m": 0.05,
+      "paper_edge_m": 0.07,
+      "pattern_cells": [
+        [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          1,
+          0
+        ],
+        [
+          0,
+          0,
+          1,
+          1,
+          1,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          1,
+          0
+        ],
+        [
+          0,
+          1,
+          0,
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ]
+      ],
+      "texture": "sim/assets/docking_markers/DICT_4X4_50_40_50mm.png",
+      "basis": "HCR 기존 IntakeSupport 전면; 접근 edge와 직교, 원본 후진 종료 거리와 URDF 센서 offset을 반영한 배치; 실측아님"
+    }
+  ]
+}

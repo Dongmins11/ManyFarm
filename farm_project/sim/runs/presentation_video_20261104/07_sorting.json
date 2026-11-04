@@ -1,0 +1,451 @@
+{
+  "name": "07_sorting",
+  "fps": 30,
+  "duration_s": 5,
+  "preview_only": false,
+  "base": {
+    "show": [
+      "/World/HCRRobot",
+      "/World/HCRStation"
+    ],
+    "hide": [
+      "/World/harvest_robot",
+      "/World/StudentSensors/WristVisuals",
+      "/World/transport_robot",
+      "/World/scout_robot_camera_fixed",
+      "/World/farm_framechanged/Frame_15_Post__1",
+      "/World/farm_framechanged/Cover_Side_soft_film__1",
+      "/World/farm_framechanged/Cover_Side_soft_film_1"
+    ],
+    "joints": {
+      "arm_1_shoulder_pan": 0.0,
+      "arm_1_shoulder_lift": -1.6,
+      "arm_1_elbow_flex": 1.2,
+      "arm_1_wrist_flex": -1.5,
+      "arm_1_wrist_roll": 0.04879632679489654,
+      "arm_1_gripper": 1.1,
+      "arm_2_shoulder_pan": -0.0014122941448851908,
+      "arm_2_shoulder_lift": -0.5567509979497131,
+      "arm_2_elbow_flex": 0.23621741005018163,
+      "arm_2_wrist_flex": 0.2516300414221054,
+      "arm_2_wrist_roll": 0.04943196243572641,
+      "arm_2_gripper": 0.65,
+      "joint1": 0.6982408888431635,
+      "joint2": -1.8148714076003463,
+      "joint3": 1.2932560491264131,
+      "joint4": -1.0350243481526875,
+      "joint5": -2.2971010739026005,
+      "joint6": -3.9829144049125786,
+      "left_jaw": 0.004,
+      "right_jaw": 0.004
+    },
+    "placements": {
+      "/World/Vegetation/Bed_02/Fruits/Pepper_0003_red": {
+        "matrix": [
+          [
+            0.18798730954544102,
+            -0.7303462540955684,
+            0.0,
+            -7.108508589859486
+          ],
+          [
+            0.7303462540955684,
+            0.18798730954544102,
+            0.0,
+            14.407892125474628
+          ],
+          [
+            0.0,
+            0.0,
+            0.7541517615318298,
+            0.8
+          ],
+          [
+            0.0,
+            0.0,
+            0.0,
+            1.0
+          ]
+        ]
+      }
+    },
+    "attach_fruits": [
+      {
+        "fruit": "/World/Vegetation/Bed_02/Fruits/Pepper_0003_red",
+        "link": "/World/HCRRobot/tcp",
+        "matrix": [
+          [
+            0.6801939197474198,
+            0.32570095326879656,
+            2.5952101633307457e-15,
+            0.0
+          ],
+          [
+            -0.32570095326879644,
+            0.6801939197474198,
+            7.535489847428265e-16,
+            -8.881784197001252e-16
+          ],
+          [
+            -2.017175197916528e-15,
+            -1.8942091479169692e-15,
+            0.7541517615318301,
+            1.887379141862766e-15
+          ],
+          [
+            0.0,
+            0.0,
+            0.0,
+            1.0
+          ]
+        ]
+      }
+    ],
+    "eye": [
+      -8.022053772155285,
+      15.07376857790716,
+      1.45
+    ],
+    "target": [
+      -7.2406368893655,
+      14.677425727219658,
+      0.62
+    ],
+    "focal_mm": 34,
+    "fill_intensity": 450,
+    "inspect": [
+      "/World/Vegetation/Bed_02/Fruits/Pepper_0003_red",
+      "/World/HCRRobot/tcp",
+      "/World/HCRStation/RedBinFloor"
+    ]
+  },
+  "keyframes": [
+    {
+      "time": 0,
+      "state": {}
+    },
+    {
+      "time": 1,
+      "state": {}
+    },
+    {
+      "time": 2.3,
+      "state": {
+        "joints": {
+          "joint1": -0.6334258829693399,
+          "joint2": -2.584968457565461,
+          "joint3": 1.2606049499855851,
+          "joint4": 0.6481265829465146,
+          "joint5": -1.7687074317126488,
+          "joint6": -2.9937862720443573,
+          "left_jaw": 0.004,
+          "right_jaw": 0.004
+        }
+      }
+    },
+    {
+      "time": 2.55,
+      "state": {
+        "joints": {
+          "joint1": -0.6334258829693399,
+          "joint2": -2.584968457565461,
+          "joint3": 1.2606049499855851,
+          "joint4": 0.6481265829465146,
+          "joint5": -1.7687074317126488,
+          "joint6": -2.9937862720443573,
+          "left_jaw": 0.01,
+          "right_jaw": 0.01
+        }
+      }
+    },
+    {
+      "time": 2.6,
+      "state": {
+        "attach_fruits": [],
+        "placements": {
+          "/World/Vegetation/Bed_02/Fruits/Pepper_0003_red": {
+            "matrix": [
+              [
+                0.18798730954532025,
+                -0.7303462540955998,
+                1.267643799294635e-13,
+                -7.166534596007256
+              ],
+              [
+                0.7303462540955998,
+                0.18798730954532036,
+                -2.410786130740783e-13,
+                14.702226939267547
+              ],
+              [
+                2.0183883303169606e-13,
+                1.8281834963470563e-13,
+                0.7541517615318303,
+                0.7999999999999445
+              ],
+              [
+                0.0,
+                0.0,
+                0.0,
+                1.0
+              ]
+            ]
+          }
+        }
+      }
+    },
+    {
+      "time": 2.85,
+      "state": {
+        "placements": {
+          "/World/Vegetation/Bed_02/Fruits/Pepper_0003_red": {
+            "matrix": [
+              [
+                0.18798730954532025,
+                -0.7303462540955998,
+                1.267643799294635e-13,
+                -7.166534596007242
+              ],
+              [
+                0.7303462540955998,
+                0.18798730954532036,
+                -2.410786130740783e-13,
+                14.702226939267595
+              ],
+              [
+                2.0183883303169606e-13,
+                1.8281834963470563e-13,
+                0.7541517615318303,
+                0.6121324865405188
+              ],
+              [
+                0.0,
+                0.0,
+                0.0,
+                1.0
+              ]
+            ]
+          }
+        }
+      }
+    },
+    {
+      "time": 3.5,
+      "state": {
+        "placements": {
+          "/World/Vegetation/Bed_02/Fruits/Pepper_0003_red": {
+            "matrix": [
+              [
+                0.18798730954532025,
+                -0.7303462540955998,
+                1.267643799294635e-13,
+                -7.221691526587021
+              ],
+              [
+                0.7303462540955998,
+                0.18798730954532036,
+                -2.410786130740783e-13,
+                14.98200847119401
+              ],
+              [
+                2.0183883303169606e-13,
+                1.8281834963470563e-13,
+                0.7541517615318303,
+                0.511
+              ],
+              [
+                0.0,
+                0.0,
+                0.0,
+                1.0
+              ]
+            ]
+          }
+        }
+      }
+    },
+    {
+      "time": 5,
+      "state": {}
+    }
+  ],
+  "evidence": "GUI staged animation; positions based on existing project assets, not autonomous test result",
+  "camera_revision_note": "\ud504\ub9ac\ubdf0\uc5d0\uc11c \uc2dc\uc57c\ub97c \uac00\ub9b0 \uc88c\ud45c(-8,15)\uc758 Frame_15_Post \ubc0f \uce21\uba74\ud544\ub984\ub9cc \uc138\uc158 \uc228\uae40. \uc120\ubcc4\uc7a5 \uad6c\uc870 \uc720\uc9c0.",
+  "scope": "GUI staged animation; no autonomous performance claim",
+  "resolution": [
+    1920,
+    1080
+  ],
+  "frames": 150,
+  "expected_frames": 150,
+  "previews": [
+    "07_sorting-0000.png",
+    "07_sorting-0075.png",
+    "07_sorting-0149.png"
+  ],
+  "final_state": {
+    "focal_mm": 34.0,
+    "inspect": [
+      "/World/Vegetation/Bed_02/Fruits/Pepper_0003_red",
+      "/World/HCRRobot/tcp",
+      "/World/HCRStation/RedBinFloor"
+    ],
+    "show": [
+      "/World/HCRRobot",
+      "/World/HCRStation"
+    ],
+    "joints": {
+      "arm_2_shoulder_lift": -0.5567509979497131,
+      "arm_2_elbow_flex": 0.23621741005018163,
+      "arm_2_wrist_flex": 0.2516300414221054,
+      "arm_1_elbow_flex": 1.2,
+      "joint6": -2.9937862720443573,
+      "arm_1_shoulder_lift": -1.6,
+      "arm_1_gripper": 1.1,
+      "joint5": -1.7687074317126488,
+      "right_jaw": 0.01,
+      "left_jaw": 0.01,
+      "arm_1_wrist_flex": -1.5,
+      "joint2": -2.584968457565461,
+      "arm_1_wrist_roll": 0.04879632679489654,
+      "arm_1_shoulder_pan": 0.0,
+      "arm_2_wrist_roll": 0.04943196243572641,
+      "joint3": 1.2606049499855851,
+      "arm_2_shoulder_pan": -0.0014122941448851908,
+      "arm_2_gripper": 0.65,
+      "joint1": -0.6334258829693399,
+      "joint4": 0.6481265829465146
+    },
+    "placements": {
+      "/World/Vegetation/Bed_02/Fruits/Pepper_0003_red": {
+        "matrix": [
+          [
+            0.18798730954532036,
+            -0.7303462540956,
+            1.2676524658743294e-13,
+            -7.221691526587021
+          ],
+          [
+            0.7303462540956,
+            0.18798730954532036,
+            -2.410473412174076e-13,
+            14.98200847119401
+          ],
+          [
+            2.0183969968966556e-13,
+            1.8284962149137647e-13,
+            0.7541517615318305,
+            0.511
+          ],
+          [
+            0.0,
+            0.0,
+            0.0,
+            1.0
+          ]
+        ]
+      }
+    },
+    "target": [
+      -7.2406368893655,
+      14.677425727219658,
+      0.62
+    ],
+    "fill_intensity": 450.0,
+    "attach_fruits": [],
+    "eye": [
+      -8.022053772155285,
+      15.07376857790716,
+      1.4500000000000002
+    ],
+    "hide": [
+      "/World/harvest_robot",
+      "/World/StudentSensors/WristVisuals",
+      "/World/transport_robot",
+      "/World/scout_robot_camera_fixed",
+      "/World/farm_framechanged/Frame_15_Post__1",
+      "/World/farm_framechanged/Cover_Side_soft_film__1",
+      "/World/farm_framechanged/Cover_Side_soft_film_1"
+    ]
+  },
+  "inspected": {
+    "/World/Vegetation/Bed_02/Fruits/Pepper_0003_red": [
+      [
+        0.18798730954532036,
+        -0.7303462540956,
+        1.2676524658743294e-13,
+        -7.221691526587021
+      ],
+      [
+        0.7303462540956,
+        0.18798730954532036,
+        -2.410473412174076e-13,
+        14.98200847119401
+      ],
+      [
+        2.0183969968966556e-13,
+        1.8284962149137647e-13,
+        0.7541517615318305,
+        0.511
+      ],
+      [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ]
+    ],
+    "/World/HCRRobot/tcp": [
+      [
+        -0.19342002049268545,
+        -0.9811160459765245,
+        1.698086116164177e-13,
+        -7.166534599505613
+      ],
+      [
+        0.9811160459765245,
+        -0.19342002049268564,
+        -3.227973444097643e-13,
+        14.702226929529226
+      ],
+      [
+        3.4958147487884617e-13,
+        1.0416667528545531e-13,
+        1.0000000000000002,
+        0.8000000197027942
+      ],
+      [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ]
+    ],
+    "/World/HCRStation/RedBinFloor": [
+      [
+        0.042552404277779975,
+        0.23056227021970008,
+        0.0,
+        -7.221691526587021
+      ],
+      [
+        -0.215845528945261,
+        0.0454537047004551,
+        0.0,
+        14.98200847119401
+      ],
+      [
+        0.0,
+        0.0,
+        0.004999999888241291,
+        0.46749999999999997
+      ],
+      [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ]
+    ]
+  }
+}

@@ -1,0 +1,20 @@
+[Script Info]
+ScriptType: v4.00+
+PlayResX: 1920
+PlayResY: 1080
+ScaledBorderAndShadow: yes
+
+[V4+ Styles]
+Format: Name, Fontname, Fontsize, PrimaryColour, SecondaryColour, OutlineColour, BackColour, Bold, Italic, Underline, StrikeOut, ScaleX, ScaleY, Spacing, Angle, BorderStyle, Outline, Shadow, Alignment, MarginL, MarginR, MarginV, Encoding
+Style: Caption,Noto Sans CJK KR,44,&H00FFFFFF,&H00FFFFFF,&H80301E12,&H80301E12,-1,0,0,0,100,100,0,0,3,14,0,1,70,70,65,1
+Style: Title,Noto Sans CJK KR,66,&H00FFFFFF,&H00FFFFFF,&H80301E12,&H80301E12,-1,0,0,0,100,100,0,0,3,16,0,7,70,70,65,1
+
+[Events]
+Format: Layer, Start, End, Style, Name, MarginL, MarginR, MarginV, Effect, Text
+Dialogue: 0,0:00:00.00,0:00:03.00,Title,,0,0,0,,ManyFarm\N{\fs34}시뮬레이션 연출 영상
+Dialogue: 0,0:00:03.00,0:00:06.00,Caption,,0,0,0,,작물 예찰
+Dialogue: 0,0:00:06.00,0:00:09.00,Caption,,0,0,0,,과실 수확 · 파지
+Dialogue: 0,0:00:09.00,0:00:12.00,Caption,,0,0,0,,과실 수확 · 바구니 투입
+Dialogue: 0,0:00:12.00,0:00:15.00,Caption,,0,0,0,,수확물 인계
+Dialogue: 0,0:00:15.00,0:00:17.00,Caption,,0,0,0,,선별장 운송
+Dialogue: 0,0:00:17.00,0:00:20.00,Caption,,0,0,0,,색상별 선별

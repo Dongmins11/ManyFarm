@@ -1,0 +1,469 @@
+{
+  "name": "06_transport",
+  "fps": 30,
+  "duration_s": 4,
+  "preview_only": false,
+  "base": {
+    "show": [
+      "/World/transport_robot",
+      "/World/HCRRobot",
+      "/World/HCRStation"
+    ],
+    "hide": [
+      "/World/farm_framechanged/Frame_07_Post__1",
+      "/World/farm_framechanged/Frame_08_Post__1",
+      "/World/farm_framechanged/Frame_09_Post__1",
+      "/World/farm_framechanged/Frame_10_Post__1",
+      "/World/farm_framechanged/Frame_11_Post__1",
+      "/World/farm_framechanged/Frame_12_Post__1",
+      "/World/farm_framechanged/Frame_13_Post__1",
+      "/World/farm_framechanged/Frame_14_Post__1",
+      "/World/farm_framechanged/Frame_15_Post__1",
+      "/World/farm_framechanged/Rail_00",
+      "/World/farm_framechanged/Rail_01",
+      "/World/farm_framechanged/Rail_02",
+      "/World/farm_framechanged/Rail_03",
+      "/World/farm_framechanged/Rail_04",
+      "/World/farm_framechanged/Entry_Post",
+      "/World/farm_framechanged/Entry_Post_001",
+      "/World/farm_framechanged/Entry_Header",
+      "/World/farm_framechanged/Entry_Post_002",
+      "/World/farm_framechanged/Entry_Post_003",
+      "/World/farm_framechanged/Entry_Header_001",
+      "/World/farm_framechanged/Arch_continuous_00",
+      "/World/farm_framechanged/Arch_continuous_01",
+      "/World/farm_framechanged/Arch_continuous_02",
+      "/World/farm_framechanged/Arch_continuous_03",
+      "/World/farm_framechanged/Frame_00_Post__1",
+      "/World/farm_framechanged/Frame_01_Post__1",
+      "/World/farm_framechanged/Frame_02_Post__1",
+      "/World/farm_framechanged/Frame_03_Post__1",
+      "/World/farm_framechanged/Frame_04_Post__1",
+      "/World/farm_framechanged/Frame_05_Post__1",
+      "/World/farm_framechanged/Frame_06_Post__1",
+      "/World/farm_framechanged/Arch_continuous_04",
+      "/World/farm_framechanged/Arch_continuous_05",
+      "/World/farm_framechanged/Arch_continuous_06",
+      "/World/farm_framechanged/Arch_continuous_07",
+      "/World/farm_framechanged/Arch_continuous_08",
+      "/World/farm_framechanged/Arch_continuous_09",
+      "/World/farm_framechanged/Arch_continuous_10",
+      "/World/farm_framechanged/Arch_continuous_11",
+      "/World/farm_framechanged/Arch_continuous_12",
+      "/World/farm_framechanged/Arch_continuous_13",
+      "/World/farm_framechanged/Arch_continuous_14",
+      "/World/farm_framechanged/Arch_continuous_15",
+      "/World/farm_framechanged/Cover_Roof_soft_film",
+      "/World/farm_framechanged/Cover_Side_soft_film__1",
+      "/World/farm_framechanged/Cover_Side_soft_film_1",
+      "/World/farm_framechanged/Fence_Rail_001",
+      "/World/farm_framechanged/Fence_Rail_002",
+      "/World/farm_framechanged/Fence_Rail_003",
+      "/World/scout_robot_camera_fixed",
+      "/World/harvest_robot",
+      "/World/StudentSensors/WristVisuals",
+      "/World/harvest_robot/arm_2_gripper_frame_link"
+    ],
+    "placements": {
+      "/World/scout_robot_camera_fixed": {
+        "xyz": [
+          -5.0,
+          13.25,
+          0.0
+        ],
+        "yaw": -1.5707963267948966
+      },
+      "/World/harvest_robot": {
+        "xyz": [
+          -2.0,
+          13.25,
+          0.0
+        ],
+        "yaw": -1.5707963267948966
+      },
+      "/World/transport_robot": {
+        "xyz": [
+          -6.1,
+          11.5,
+          0.0
+        ],
+        "yaw": 3.141592653589793
+      }
+    },
+    "joints": {
+      "arm_1_shoulder_pan": 0.0,
+      "arm_1_shoulder_lift": -1.6,
+      "arm_1_elbow_flex": 1.2,
+      "arm_1_wrist_flex": -1.5,
+      "arm_1_wrist_roll": 0.04879632679489654,
+      "arm_1_gripper": 1.1,
+      "arm_2_shoulder_pan": 0.0,
+      "arm_2_shoulder_lift": -1.6,
+      "arm_2_elbow_flex": 1.2,
+      "arm_2_wrist_flex": -1.5,
+      "arm_2_wrist_roll": 0.04879632679489654,
+      "arm_2_gripper": 1.1,
+      "joint1": -7.355699155272922e-19,
+      "joint2": -1.6755398318121864,
+      "joint3": 2.009182906548714,
+      "joint4": 6.707244813412473e-19,
+      "joint5": 1.237153252066073,
+      "joint6": -1.0446705034601612e-18,
+      "wheel_left_joint": 0,
+      "wheel_right_joint": 0,
+      "left_wheel_joint": 0,
+      "right_wheel_joint": 0,
+      "top_lid_left_joint": 0.155,
+      "top_lid_right_joint": 0.155,
+      "lid_pinion_joint": 3.1,
+      "side_lid_joint": 0,
+      "box_tilt_joint": 0
+    },
+    "fruit_positions": {},
+    "attach_fruits": [
+      {
+        "fruit": "/World/Vegetation/Bed_01/Fruits/Pepper_0006_red",
+        "link": "/World/transport_robot/cargo_box",
+        "offset": [
+          -0.23,
+          -0.05,
+          0.043
+        ]
+      },
+      {
+        "fruit": "/World/Vegetation/Bed_01/Fruits/Pepper_0007_yellow",
+        "link": "/World/transport_robot/cargo_box",
+        "offset": [
+          -0.23,
+          0.05,
+          0.043
+        ]
+      },
+      {
+        "fruit": "/World/Vegetation/Bed_01/Fruits/Pepper_0008_yellow",
+        "link": "/World/transport_robot/cargo_box",
+        "offset": [
+          -0.15,
+          -0.05,
+          0.043
+        ]
+      },
+      {
+        "fruit": "/World/Vegetation/Bed_01/Fruits/Pepper_0009_red",
+        "link": "/World/transport_robot/cargo_box",
+        "offset": [
+          -0.15,
+          0.05,
+          0.043
+        ]
+      },
+      {
+        "fruit": "/World/Vegetation/Bed_01/Fruits/Pepper_0011_red",
+        "link": "/World/transport_robot/cargo_box",
+        "offset": [
+          -0.07,
+          -0.05,
+          0.043
+        ]
+      },
+      {
+        "fruit": "/World/Vegetation/Bed_01/Fruits/Pepper_0012_red",
+        "link": "/World/transport_robot/cargo_box",
+        "offset": [
+          -0.07,
+          0.05,
+          0.043
+        ]
+      }
+    ],
+    "up": [
+      0,
+      0,
+      1
+    ],
+    "fill_intensity": 220,
+    "eye": [
+      -7.05,
+      10.6,
+      1.2
+    ],
+    "target": [
+      -6.35,
+      11.75,
+      0.5
+    ],
+    "focal_mm": 23
+  },
+  "keyframes": [
+    {
+      "time": 0,
+      "state": {}
+    },
+    {
+      "time": 1,
+      "state": {}
+    },
+    {
+      "time": 3,
+      "state": {
+        "placements": {
+          "/World/transport_robot": {
+            "xyz": [
+              -6.449999999999999,
+              11.5,
+              0.0
+            ]
+          }
+        },
+        "joints": {
+          "wheel_left_joint": 10.606060606060606,
+          "wheel_right_joint": 10.606060606060606
+        },
+        "eye": [
+          -7.4,
+          10.6,
+          1.2
+        ],
+        "target": [
+          -6.7,
+          11.75,
+          0.5
+        ]
+      }
+    },
+    {
+      "time": 4,
+      "state": {}
+    }
+  ],
+  "provenance": {
+    "scope": "Isaac GUI \uc801\uc7ac \uc6b4\uc1a1 \uc5f0\ucd9c",
+    "route_source": "sim/ros_ws/src/farm_sim_config/maps/transport_graph.geojson",
+    "edge_id": 30001,
+    "node_ids": [
+      9002,
+      9001
+    ],
+    "travel_distance_m": 0.35,
+    "wheel_radius_m": 0.033,
+    "wheel_rotation_rad": 10.606060606060606,
+    "cargo_geometry_source": "sim/assets/robots/transport_robot/urdf/transport_robot.urdf:cargo_box",
+    "cargo_internal_box_m": {
+      "x": [
+        -0.297,
+        -0.003
+      ],
+      "y": [
+        -0.147,
+        0.147
+      ],
+      "floor_z": 0.003
+    },
+    "cargo_note": "\uacfc\uc2e4 \uc6d0\ubcf86\uac1c\ub97c cargo_box \uae30\uc900 \uace0\uc815\ud558\uc5ec \ubbf8\ub044\ub7ec\uc9d0/\uc21c\uac04\uc774\ub3d9 \ubc29\uc9c0. \ubc14\ub2e5 \uc9c0\uc9c0\uc640 \ud654\uba74\uc0c1 \uac00\ub9bc\uc740 GUI preview \uac80\uc218 \ud544\uc694",
+    "framing_revision": "\ud568 \uc548 \uacfc\uc2e4\uacfc \ucc28\uccb4 \ud558\ub2e8\uc744 \ubaa8\ub450 \ud45c\uc2dc\ud558\ub3c4\ub85d eye 1.2m/\ud6c4\ubc29 .2m \uc870\uc815. \uc120\ubcc4\uc7a5 \ubc30\uacbd \uc720\uc9c0. \uc6d0\ub798 \uacbd\ub85c/\ubc30\uce58/\uacfc\uc2e4\uace0\uc815 \ubcf4\uc874."
+  },
+  "scope": "GUI staged animation; no autonomous performance claim",
+  "resolution": [
+    1920,
+    1080
+  ],
+  "frames": 120,
+  "expected_frames": 120,
+  "previews": [
+    "06_transport-0000.png",
+    "06_transport-0060.png",
+    "06_transport-0119.png"
+  ],
+  "final_state": {
+    "focal_mm": 23.0,
+    "show": [
+      "/World/transport_robot",
+      "/World/HCRRobot",
+      "/World/HCRStation"
+    ],
+    "joints": {
+      "arm_2_shoulder_lift": -1.6,
+      "arm_2_elbow_flex": 1.2,
+      "arm_2_wrist_flex": -1.5,
+      "arm_1_elbow_flex": 1.2,
+      "joint6": -1.0446705034601612e-18,
+      "arm_1_shoulder_lift": -1.6,
+      "arm_1_gripper": 1.1,
+      "joint5": 1.237153252066073,
+      "right_wheel_joint": 0.0,
+      "arm_1_wrist_flex": -1.5,
+      "wheel_right_joint": 10.606060606060606,
+      "lid_pinion_joint": 3.1,
+      "box_tilt_joint": 0.0,
+      "joint2": -1.6755398318121864,
+      "arm_1_wrist_roll": 0.04879632679489654,
+      "arm_1_shoulder_pan": 0.0,
+      "arm_2_wrist_roll": 0.04879632679489654,
+      "joint3": 2.009182906548714,
+      "wheel_left_joint": 10.606060606060606,
+      "arm_2_shoulder_pan": 0.0,
+      "arm_2_gripper": 1.1,
+      "top_lid_right_joint": 0.155,
+      "joint1": -7.355699155272922e-19,
+      "side_lid_joint": 0.0,
+      "top_lid_left_joint": 0.155,
+      "left_wheel_joint": 0.0,
+      "joint4": 6.707244813412473e-19
+    },
+    "fruit_positions": {},
+    "placements": {
+      "/World/transport_robot": {
+        "yaw": 3.141592653589793,
+        "xyz": [
+          -6.449999999999999,
+          11.5,
+          0.0
+        ]
+      },
+      "/World/harvest_robot": {
+        "yaw": -1.5707963267948966,
+        "xyz": [
+          -2.0,
+          13.25,
+          0.0
+        ]
+      },
+      "/World/scout_robot_camera_fixed": {
+        "yaw": -1.5707963267948966,
+        "xyz": [
+          -5.0,
+          13.25,
+          0.0
+        ]
+      }
+    },
+    "fill_intensity": 220.0,
+    "target": [
+      -6.7,
+      11.75,
+      0.5
+    ],
+    "attach_fruits": [
+      {
+        "fruit": "/World/Vegetation/Bed_01/Fruits/Pepper_0006_red",
+        "link": "/World/transport_robot/cargo_box",
+        "offset": [
+          -0.23,
+          -0.05,
+          0.043
+        ]
+      },
+      {
+        "fruit": "/World/Vegetation/Bed_01/Fruits/Pepper_0007_yellow",
+        "link": "/World/transport_robot/cargo_box",
+        "offset": [
+          -0.23,
+          0.05,
+          0.043
+        ]
+      },
+      {
+        "fruit": "/World/Vegetation/Bed_01/Fruits/Pepper_0008_yellow",
+        "link": "/World/transport_robot/cargo_box",
+        "offset": [
+          -0.15,
+          -0.05,
+          0.043
+        ]
+      },
+      {
+        "fruit": "/World/Vegetation/Bed_01/Fruits/Pepper_0009_red",
+        "link": "/World/transport_robot/cargo_box",
+        "offset": [
+          -0.15,
+          0.05,
+          0.043
+        ]
+      },
+      {
+        "fruit": "/World/Vegetation/Bed_01/Fruits/Pepper_0011_red",
+        "link": "/World/transport_robot/cargo_box",
+        "offset": [
+          -0.07,
+          -0.05,
+          0.043
+        ]
+      },
+      {
+        "fruit": "/World/Vegetation/Bed_01/Fruits/Pepper_0012_red",
+        "link": "/World/transport_robot/cargo_box",
+        "offset": [
+          -0.07,
+          0.05,
+          0.043
+        ]
+      }
+    ],
+    "up": [
+      0.0,
+      0.0,
+      1.0
+    ],
+    "eye": [
+      -7.4,
+      10.6,
+      1.2
+    ],
+    "hide": [
+      "/World/farm_framechanged/Frame_07_Post__1",
+      "/World/farm_framechanged/Frame_08_Post__1",
+      "/World/farm_framechanged/Frame_09_Post__1",
+      "/World/farm_framechanged/Frame_10_Post__1",
+      "/World/farm_framechanged/Frame_11_Post__1",
+      "/World/farm_framechanged/Frame_12_Post__1",
+      "/World/farm_framechanged/Frame_13_Post__1",
+      "/World/farm_framechanged/Frame_14_Post__1",
+      "/World/farm_framechanged/Frame_15_Post__1",
+      "/World/farm_framechanged/Rail_00",
+      "/World/farm_framechanged/Rail_01",
+      "/World/farm_framechanged/Rail_02",
+      "/World/farm_framechanged/Rail_03",
+      "/World/farm_framechanged/Rail_04",
+      "/World/farm_framechanged/Entry_Post",
+      "/World/farm_framechanged/Entry_Post_001",
+      "/World/farm_framechanged/Entry_Header",
+      "/World/farm_framechanged/Entry_Post_002",
+      "/World/farm_framechanged/Entry_Post_003",
+      "/World/farm_framechanged/Entry_Header_001",
+      "/World/farm_framechanged/Arch_continuous_00",
+      "/World/farm_framechanged/Arch_continuous_01",
+      "/World/farm_framechanged/Arch_continuous_02",
+      "/World/farm_framechanged/Arch_continuous_03",
+      "/World/farm_framechanged/Frame_00_Post__1",
+      "/World/farm_framechanged/Frame_01_Post__1",
+      "/World/farm_framechanged/Frame_02_Post__1",
+      "/World/farm_framechanged/Frame_03_Post__1",
+      "/World/farm_framechanged/Frame_04_Post__1",
+      "/World/farm_framechanged/Frame_05_Post__1",
+      "/World/farm_framechanged/Frame_06_Post__1",
+      "/World/farm_framechanged/Arch_continuous_04",
+      "/World/farm_framechanged/Arch_continuous_05",
+      "/World/farm_framechanged/Arch_continuous_06",
+      "/World/farm_framechanged/Arch_continuous_07",
+      "/World/farm_framechanged/Arch_continuous_08",
+      "/World/farm_framechanged/Arch_continuous_09",
+      "/World/farm_framechanged/Arch_continuous_10",
+      "/World/farm_framechanged/Arch_continuous_11",
+      "/World/farm_framechanged/Arch_continuous_12",
+      "/World/farm_framechanged/Arch_continuous_13",
+      "/World/farm_framechanged/Arch_continuous_14",
+      "/World/farm_framechanged/Arch_continuous_15",
+      "/World/farm_framechanged/Cover_Roof_soft_film",
+      "/World/farm_framechanged/Cover_Side_soft_film__1",
+      "/World/farm_framechanged/Cover_Side_soft_film_1",
+      "/World/farm_framechanged/Fence_Rail_001",
+      "/World/farm_framechanged/Fence_Rail_002",
+      "/World/farm_framechanged/Fence_Rail_003",
+      "/World/scout_robot_camera_fixed",
+      "/World/harvest_robot",
+      "/World/StudentSensors/WristVisuals",
+      "/World/harvest_robot/arm_2_gripper_frame_link"
+    ]
+  },
+  "inspected": {}
+}

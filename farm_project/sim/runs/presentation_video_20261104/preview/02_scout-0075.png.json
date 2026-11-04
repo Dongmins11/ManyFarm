@@ -1,0 +1,141 @@
+{
+  "frame": 75,
+  "time_s": 2.5,
+  "state": {
+    "focal_mm": 25.0,
+    "show": [
+      "/World/scout_robot_camera_fixed"
+    ],
+    "joints": {
+      "arm_2_shoulder_lift": -1.6,
+      "arm_2_elbow_flex": 1.2,
+      "arm_2_wrist_flex": -1.5,
+      "arm_1_elbow_flex": 1.2,
+      "joint6": -1.0446705034601612e-18,
+      "arm_1_shoulder_lift": -1.6,
+      "arm_1_gripper": 1.1,
+      "joint5": 1.237153252066073,
+      "right_wheel_joint": 0.0,
+      "arm_1_wrist_flex": -1.5,
+      "wheel_right_joint": 6.0606060606060606,
+      "lid_pinion_joint": 0.0,
+      "box_tilt_joint": 0.0,
+      "joint2": -1.6755398318121864,
+      "arm_1_wrist_roll": 0.04879632679489654,
+      "arm_1_shoulder_pan": 0.0,
+      "arm_2_wrist_roll": 0.04879632679489654,
+      "joint3": 2.009182906548714,
+      "wheel_left_joint": 6.0606060606060606,
+      "arm_2_shoulder_pan": 0.0,
+      "arm_2_gripper": 1.1,
+      "top_lid_right_joint": 0.0,
+      "joint1": -7.355699155272922e-19,
+      "side_lid_joint": 0.0,
+      "top_lid_left_joint": 0.0,
+      "left_wheel_joint": 0.0,
+      "joint4": 6.707244813412473e-19
+    },
+    "fruit_positions": {},
+    "placements": {
+      "/World/transport_robot": {
+        "yaw": -1.5707963267948966,
+        "xyz": [
+          2.0,
+          13.25,
+          0.0
+        ]
+      },
+      "/World/harvest_robot": {
+        "yaw": -1.5707963267948966,
+        "xyz": [
+          -2.0,
+          13.25,
+          0.0
+        ]
+      },
+      "/World/scout_robot_camera_fixed": {
+        "yaw": -1.5707963267948966,
+        "xyz": [
+          -6.655,
+          8.844947000000001,
+          0.0
+        ]
+      }
+    },
+    "fill_intensity": 180.0,
+    "target": [
+      -6.22,
+      8.664947000000002,
+      0.28
+    ],
+    "attach_fruits": [],
+    "up": [
+      0.0,
+      0.0,
+      1.0
+    ],
+    "eye": [
+      -7.6,
+      9.694946999999999,
+      0.84
+    ],
+    "hide": [
+      "/World/farm_framechanged/Frame_07_Post__1",
+      "/World/farm_framechanged/Frame_08_Post__1",
+      "/World/farm_framechanged/Frame_09_Post__1",
+      "/World/farm_framechanged/Frame_10_Post__1",
+      "/World/farm_framechanged/Frame_11_Post__1",
+      "/World/farm_framechanged/Frame_12_Post__1",
+      "/World/farm_framechanged/Frame_13_Post__1",
+      "/World/farm_framechanged/Frame_14_Post__1",
+      "/World/farm_framechanged/Frame_15_Post__1",
+      "/World/farm_framechanged/Rail_00",
+      "/World/farm_framechanged/Rail_01",
+      "/World/farm_framechanged/Rail_02",
+      "/World/farm_framechanged/Rail_03",
+      "/World/farm_framechanged/Rail_04",
+      "/World/farm_framechanged/Entry_Post",
+      "/World/farm_framechanged/Entry_Post_001",
+      "/World/farm_framechanged/Entry_Header",
+      "/World/farm_framechanged/Entry_Post_002",
+      "/World/farm_framechanged/Entry_Post_003",
+      "/World/farm_framechanged/Entry_Header_001",
+      "/World/farm_framechanged/Arch_continuous_00",
+      "/World/farm_framechanged/Arch_continuous_01",
+      "/World/farm_framechanged/Arch_continuous_02",
+      "/World/farm_framechanged/Arch_continuous_03",
+      "/World/farm_framechanged/Frame_00_Post__1",
+      "/World/farm_framechanged/Frame_01_Post__1",
+      "/World/farm_framechanged/Frame_02_Post__1",
+      "/World/farm_framechanged/Frame_03_Post__1",
+      "/World/farm_framechanged/Frame_04_Post__1",
+      "/World/farm_framechanged/Frame_05_Post__1",
+      "/World/farm_framechanged/Frame_06_Post__1",
+      "/World/farm_framechanged/Arch_continuous_04",
+      "/World/farm_framechanged/Arch_continuous_05",
+      "/World/farm_framechanged/Arch_continuous_06",
+      "/World/farm_framechanged/Arch_continuous_07",
+      "/World/farm_framechanged/Arch_continuous_08",
+      "/World/farm_framechanged/Arch_continuous_09",
+      "/World/farm_framechanged/Arch_continuous_10",
+      "/World/farm_framechanged/Arch_continuous_11",
+      "/World/farm_framechanged/Arch_continuous_12",
+      "/World/farm_framechanged/Arch_continuous_13",
+      "/World/farm_framechanged/Arch_continuous_14",
+      "/World/farm_framechanged/Arch_continuous_15",
+      "/World/farm_framechanged/Cover_Roof_soft_film",
+      "/World/farm_framechanged/Cover_Side_soft_film__1",
+      "/World/farm_framechanged/Cover_Side_soft_film_1",
+      "/World/farm_framechanged/Fence_Rail_001",
+      "/World/farm_framechanged/Fence_Rail_002",
+      "/World/farm_framechanged/Fence_Rail_003",
+      "/World/harvest_robot",
+      "/World/transport_robot",
+      "/World/HCRRobot",
+      "/World/HCRStation",
+      "/World/StudentSensors/WristVisuals",
+      "/World/harvest_robot/arm_2_gripper_frame_link"
+    ]
+  },
+  "inspected": {}
+}

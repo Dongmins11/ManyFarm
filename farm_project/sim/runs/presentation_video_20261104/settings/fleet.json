@@ -1,0 +1,23 @@
+{
+  "schema_version": 1,
+  "docking_markers": "sim/runs/presentation_video_20261104/settings/cycle_layout.json",
+  "station_config": "sim/runs/presentation_video_20261104/settings/stations.json",
+  "device_configs": [
+    "sim/runs/presentation_video_20261104/settings/scout.json",
+    "sim/runs/presentation_video_20261104/settings/harvest.json",
+    "sim/runs/presentation_video_20261104/settings/transport.json"
+  ],
+  "evaluation_config": "sim/ros_ws/src/farm_sim_config/config/harvest_audit.json",
+  "clock": {
+    "command_port": 17690,
+    "telemetry_port": 17691
+  },
+  "basket_alignment": {
+    "evaluation_config": "sim/ros_ws/src/farm_sim_config/config/docking/basket_alignment_evaluation.json",
+    "robots": {
+      "harvest": "harvest_01",
+      "transport": "transport_01"
+    }
+  },
+  "sorter_config": "sim/runs/presentation_video_20261104/settings/sorter.json"
+}

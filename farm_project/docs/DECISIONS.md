@@ -623,3 +623,7 @@ D-026 반복 검증 보완(2026-10-14): CPU/GPU 각2회 추가에서 둘 다1성
 ### 2026-11-01 — 공통 운송 인계 경로의 후방 진입 보장
 
 사용자 실물·시뮬 공통 수정 명시 승인. farm_navigation/route.py 선택적 방향 제한 + transport_robot/navigation_adapter.py 및 harvest_approach.py에 인계 전용 적용. 목표와 같은 방향으로 진입하고 해당 직선 통로 역방향/목표 초과 통과는 금지. 경로 없음은 거절, 일반 운송/도킹 판정·수치 불변. 공통·SEC01~16 경로 검사33개 통과. 설치3개 Python 파일 교체; 8차를 적용 목적 중단으로 기록하고 캠페인 감독기로 SEC02 재시작. 실물 및 수정 후 도킹 성공 미검증, Nav2 충돌 미검출 별도 과제. 상세 docs/changes/TRANSPORT_REAR_APPROACH_20261101.md, 경로·설치 증거 sim/runs/rear_approach_fix_20261101. 미커밋·미푸시.
+
+### 발표 영상의 독립 GUI 키프레임 촬영 — 2026-11-04
+
+사용자의 7종 GUI 촬영 요청과 `PRESENTATION_VIDEO_STORYBOARD_20261104.md`에 따라 기존 정지 이미지 도구에 독립 키프레임 영상 모드를 추가한다. 실제 ROS/정책 이벤트 대기는 연결하지 않고, 원본 USD를 저장하지 않는 세션 layer에서만 연출한다. 30fps의 각 자세 적용 후 새 렌더를 확인하고 저장하며, 연출 메타데이터·재촬영 설정·검수 결과를 함께 남긴다. 운영 코드와 기존 PNG 촬영 방식은 유지한다. 결과와 검증 범위는 `sim/runs/presentation_video_20261104/README.md` 참조.

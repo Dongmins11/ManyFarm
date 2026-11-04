@@ -1,0 +1,257 @@
+{
+  "scope": "GUI staged animation for presentation; not an autonomous trial",
+  "gui": true,
+  "headless": false,
+  "isaac_version": "5.1.0",
+  "renderer": "RayTracedLighting",
+  "display": ":20.0",
+  "git": {
+    "branch": "integration/fleet-sim-clock-20261102",
+    "head": "3bb5d0f48b3ff3674bebc48da1f9031a55b75374",
+    "origin_main": "4861193471f485522779c760e08e3f17c6e2d10f",
+    "storyboard_commit": "5ebbb1f",
+    "dirty": true,
+    "existing_uncommitted_work_preserved": true,
+    "commit_push_performed": false
+  },
+  "source_tools": {
+    "sim/tools/stage_portfolio_photos.py": "e5284eee4fa39b84ab40fe2b2a77ddf902bd9a06c49a2386947cabfdebc7a677",
+    "sim/tools/presentation_video_frames.py": "71f71658a13599b52eaacf6fd77117cd9e0727c51f56b99f686257ba6ef13df8",
+    "sim/tools/request_presentation_capture.py": "0999890c339f656eb3a8da64e91b846500949d66e87ed020f726285737da3994"
+  },
+  "videos": [
+    {
+      "file": "01_overview.mp4",
+      "bytes": 5834757,
+      "sha256": "1d346633994d1827da7b9a75287af4013b1189b7ea01637824449397cf5ad563",
+      "stream": {
+        "codec_name": "h264",
+        "width": 1920,
+        "height": 1080,
+        "pix_fmt": "yuv420p",
+        "r_frame_rate": "30/1",
+        "duration": "5.000000",
+        "nb_read_frames": "150"
+      },
+      "full_decode_errors": 0,
+      "fresh_render_frames": 150,
+      "unique_rgb_hashes": 150,
+      "settings": "settings/01_overview.json",
+      "settings_sha256": "38c65ef2e2442b8062079fcde33d19a1e846a5f7a6f3207125f3233f0ee27b1d",
+      "visual_check": "start/middle/end and action interval samples reviewed",
+      "contact_sheet": "qa/01_overview-contact.jpg"
+    },
+    {
+      "file": "02_scout.mp4",
+      "bytes": 7085162,
+      "sha256": "b46beb903a8ced737a4e2edbf1e685abdd6ac3ab72f1315da1fde2e696cf78eb",
+      "stream": {
+        "codec_name": "h264",
+        "width": 1920,
+        "height": 1080,
+        "pix_fmt": "yuv420p",
+        "r_frame_rate": "30/1",
+        "duration": "5.000000",
+        "nb_read_frames": "150"
+      },
+      "full_decode_errors": 0,
+      "fresh_render_frames": 150,
+      "unique_rgb_hashes": 150,
+      "settings": "settings/02_scout.json",
+      "settings_sha256": "1af0ef58f96654f14587b7812548b066163c8dd62e6ddbc02a7ab62592dc7749",
+      "visual_check": "start/middle/end and action interval samples reviewed",
+      "contact_sheet": "qa/02_scout-contact.jpg"
+    },
+    {
+      "file": "03_grasp.mp4",
+      "bytes": 2406171,
+      "sha256": "f2b3f141f2b90aaae628e42176d4e9e7171bf126920cdbc6e45455aa2b90cd7a",
+      "stream": {
+        "codec_name": "h264",
+        "width": 1920,
+        "height": 1080,
+        "pix_fmt": "yuv420p",
+        "r_frame_rate": "30/1",
+        "duration": "5.000000",
+        "nb_read_frames": "150"
+      },
+      "full_decode_errors": 0,
+      "fresh_render_frames": 150,
+      "unique_rgb_hashes": 150,
+      "settings": "settings/03_grasp.json",
+      "settings_sha256": "e4ab8aa6d18929c60913fb824cc1db2db047f993740761cdf84d877bb8d9b97c",
+      "visual_check": "start/middle/end and action interval samples reviewed",
+      "contact_sheet": "qa/03_grasp-contact.jpg"
+    },
+    {
+      "file": "04_deposit.mp4",
+      "bytes": 2025585,
+      "sha256": "0f6256f9959cd637d31a198ef9dd529b24af78c1292192ca789d8d26431fc51f",
+      "stream": {
+        "codec_name": "h264",
+        "width": 1920,
+        "height": 1080,
+        "pix_fmt": "yuv420p",
+        "r_frame_rate": "30/1",
+        "duration": "5.000000",
+        "nb_read_frames": "150"
+      },
+      "full_decode_errors": 0,
+      "fresh_render_frames": 150,
+      "unique_rgb_hashes": 150,
+      "settings": "settings/04_deposit.json",
+      "settings_sha256": "feebf207c1cd6942ddf6e843a6251e0a48d24fddfa82cf09727532feec12dd14",
+      "visual_check": "start/middle/end and action interval samples reviewed",
+      "contact_sheet": "qa/04_deposit-contact.jpg"
+    },
+    {
+      "file": "05_handoff.mp4",
+      "bytes": 2307161,
+      "sha256": "f8762bd5f4e1af716dd2b19049320bf88257d7066e44f624b757a040ea6d6e40",
+      "stream": {
+        "codec_name": "h264",
+        "width": 1920,
+        "height": 1080,
+        "pix_fmt": "yuv420p",
+        "r_frame_rate": "30/1",
+        "duration": "5.000000",
+        "nb_read_frames": "150"
+      },
+      "full_decode_errors": 0,
+      "fresh_render_frames": 150,
+      "unique_rgb_hashes": 150,
+      "settings": "settings/05_handoff.json",
+      "settings_sha256": "4c3104f850e971543a3c6aa6558bc202747faaec1d08ca9e158bbe866cacf3f4",
+      "visual_check": "start/middle/end and action interval samples reviewed",
+      "contact_sheet": "qa/05_handoff-contact.jpg"
+    },
+    {
+      "file": "06_transport.mp4",
+      "bytes": 1789346,
+      "sha256": "58aedca36c0593d9214a91610a20ccf749ad8bcd8a96e1372336bfbab6f1d8da",
+      "stream": {
+        "codec_name": "h264",
+        "width": 1920,
+        "height": 1080,
+        "pix_fmt": "yuv420p",
+        "r_frame_rate": "30/1",
+        "duration": "4.000000",
+        "nb_read_frames": "120"
+      },
+      "full_decode_errors": 0,
+      "fresh_render_frames": 120,
+      "unique_rgb_hashes": 120,
+      "settings": "settings/06_transport.json",
+      "settings_sha256": "d91208a42da0955755d73816a28d8605a48cc7ab1c8467fa5b477cfd7c15d953",
+      "visual_check": "start/middle/end and action interval samples reviewed",
+      "contact_sheet": "qa/06_transport-contact.jpg"
+    },
+    {
+      "file": "07_sorting.mp4",
+      "bytes": 1863907,
+      "sha256": "1b91180137f000938a7956776a07d767d670c447b8293155bad264b16d318f87",
+      "stream": {
+        "codec_name": "h264",
+        "width": 1920,
+        "height": 1080,
+        "pix_fmt": "yuv420p",
+        "r_frame_rate": "30/1",
+        "duration": "5.000000",
+        "nb_read_frames": "150"
+      },
+      "full_decode_errors": 0,
+      "fresh_render_frames": 150,
+      "unique_rgb_hashes": 150,
+      "settings": "settings/07_sorting.json",
+      "settings_sha256": "9f86caa07bacdc790c0bb48919807516d3854a7e14f8267488ebad179263218a",
+      "visual_check": "start/middle/end and action interval samples reviewed",
+      "contact_sheet": "qa/07_sorting-contact.jpg"
+    },
+    {
+      "file": "ManyFarm_20s_clean.mp4",
+      "bytes": 17177638,
+      "sha256": "b9396835d6aa6ef26d27433d1f0aaef9aeed9ebc824148c497f1882b33d64a10",
+      "stream": {
+        "codec_name": "h264",
+        "width": 1920,
+        "height": 1080,
+        "pix_fmt": "yuv420p",
+        "r_frame_rate": "30/1",
+        "duration": "20.000000",
+        "nb_read_frames": "600"
+      },
+      "full_decode_errors": 0
+    },
+    {
+      "file": "ManyFarm_20s_captioned.mp4",
+      "bytes": 16019837,
+      "sha256": "8712a2d3adc0d30ddf31e2702f77aeebb1a3e2baee3dc39e8d25ad941c31ecd2",
+      "stream": {
+        "codec_name": "h264",
+        "width": 1920,
+        "height": 1080,
+        "pix_fmt": "yuv420p",
+        "r_frame_rate": "30/1",
+        "duration": "20.000000",
+        "nb_read_frames": "600"
+      },
+      "full_decode_errors": 0
+    }
+  ],
+  "continuity_03_to_04_max_abs_matrix_difference": {
+    "/World/Vegetation/Bed_02/Fruits/Pepper_0003_red": 0.0,
+    "/World/harvest_robot/box_front_wall": 0.0,
+    "/World/harvest_robot/box_bottom_left": 0.0,
+    "/World/harvest_robot/arm_2_gripper_link": 0.0
+  },
+  "checks": {
+    "visual_samples": "all seven clips",
+    "sorting_preview_ghost": "not visible in final continuous render end frame",
+    "joint_limits": "03/04 sampled 30fps frames checked; see ARM_SHOT_NOTES.md",
+    "full_mesh_collision": "not performed",
+    "physics_or_policy_success": "not evaluated"
+  },
+  "notes": [
+    "원본 MP4는 무자막이며 20초 편집본은 무자막·한글 자막을 각각 제공한다.",
+    "All source USD changes are session-layer-only.",
+    "05 shows alignment, not payload release; 06 cargo is staged independently.",
+    "Only the storyboard was brought from latest main; local integration work was preserved."
+  ],
+  "reproduction_runtime": {
+    "note": "촬영 당시 사용한 설정 내용을 그대로 동봉했다. fleet의 경로만 동봉본으로 연결했으며 원래 fleet도 보존했다. 실제 재촬영은 프로젝트 USD와 Isaac 설치가 필요하다.",
+    "files": [
+      {
+        "source": "sim/ros_ws/src/farm_sim_config/config/scout_fleet.json",
+        "file": "settings/scout.json",
+        "sha256": "cbfff5aebc5ef157458ce2fe60a5d4fae56c64ac1d9edacbc0c75decaee0eb94"
+      },
+      {
+        "source": "sim/runs/section_full_cycle_return_20261031_155740/attempt_001/runtime/harvest.json",
+        "file": "settings/harvest.json",
+        "sha256": "27ddffcc7c9770d786b7befd132e82b37bc7e6fe1926d10b0b990d16bfe9edf0"
+      },
+      {
+        "source": "sim/runs/section_full_cycle_return_20261031_155740/attempt_001/runtime/transport.json",
+        "file": "settings/transport.json",
+        "sha256": "4971b856e0989d01feab266b33be8366ae867c2fb4cfaa5a0bd675be2b3f93b6"
+      },
+      {
+        "source": "sim/runs/section_full_cycle_return_20261031_155740/attempt_001/runtime/cycle_layout.json",
+        "file": "settings/cycle_layout.json",
+        "sha256": "b2e8a3681201b7aa16f3fc21eba6c4af8546a885a9d4a8b2e28f8b6c7059855b"
+      },
+      {
+        "source": "sim/runs/section_full_cycle_return_20261031_155740/attempt_001/runtime/stations.json",
+        "file": "settings/stations.json",
+        "sha256": "f2040fb0c7069f3fe1481d7b6f35282e680082d02f894f3b05e0470788758c37"
+      }
+    ],
+    "original_fleet": "settings/fleet.capture-original.json"
+  },
+  "publication": {
+    "target_branch": "main",
+    "capture_git_metadata_is_historical": true,
+    "packaging_changes": "Runtime JSON files bundled; verifier validates stored evidence without rewriting capture provenance.",
+    "zip_in_git": false
+  }
+}

@@ -107,6 +107,15 @@ def main() -> None:
                 _fixed_path=roots['harvest_01']+'/arm_2_gripper_link'),
             kin=ArmKinematics(reference_urdf(camera_cfg)), config=camera_cfg)
         FarmD435Rig.install_visuals(wrist_visual)
+        # 촬영 중 visibility를 전환해도 원본 검은 팔 외형의 상속 바인딩을 유지한다.
+        from pxr import UsdShade
+        black_material = UsdShade.Material(stage.GetPrimAtPath('/World/StudentSensors/ArmAppearance'))
+        for prim in list(Usd.PrimRange(stage.GetPrimAtPath(roots['harvest_01']))):
+            if '/arm_' in str(prim.GetPath()) and prim.IsInstance():
+                prim.SetInstanceable(False)
+        for prim in Usd.PrimRange(stage.GetPrimAtPath(roots['harvest_01'])):
+            if '/arm_' in str(prim.GetPath()) and prim.IsA(UsdGeom.Mesh):
+                UsdShade.MaterialBindingAPI.Apply(prim).Bind(black_material, bindingStrength=UsdShade.Tokens.strongerThanDescendants)
         for prim in stage.Traverse():
             if prim.GetName().startswith('arm_2_wrist_camera') and prim.GetChild('visuals'):
                 UsdGeom.Imageable(prim.GetChild('visuals')).MakeInvisible()
@@ -197,6 +206,71 @@ def main() -> None:
             get_active_viewport().camera_path = '/World/PortfolioCloseup'
         camera.set_clipping_range(.01, 100.)
         camera.set_horizontal_aperture(36.)
+        def apply_request(request: dict) -> None:
+            for path in request.get('hide', []):
+                # 센서 외형만 숨긴다. 공유 팔 재질이 있는 상위 Scope는 유지한다.
+                if path == '/World/StudentSensors':
+                    path += '/WristVisuals'
+                UsdGeom.Imageable(stage.GetPrimAtPath(path)).MakeInvisible()
+            for path in request.get('show', []):
+                if path == '/World/StudentSensors':
+                    path += '/WristVisuals'
+                UsdGeom.Imageable(stage.GetPrimAtPath(path)).MakeVisible()
+            for path, placement in request.get('placements', {}).items():
+                t = np.asarray(placement['matrix']) if 'matrix' in placement else pose(placement['xyz'], placement.get('yaw',0.))
+                set_world(path, t)
+            apply_angles(request.get('joints', {}))
+            for path, value in request.get('fruit_positions', {}).items():
+                t = matrix(path)
+                t[:3, 3] = value
+                set_world(path, t)
+            # 기존 링크의 관절 범위 안에서 촬영용 IK만 계산한다.
+            if request.get('ik'):
+                from scipy.optimize import least_squares
+                spec = request['ik']
+                names = spec['joints']
+                seed = np.array([angles.get(n, 0.) for n in names])
+                def residual(q: np.ndarray) -> np.ndarray:
+                    t = fk(spec['link'], dict(angles, **dict(zip(names, q))))
+                    p = t[:3, 3]+t[:3, :3]@np.asarray(spec['offset'])
+                    return np.r_[(p-spec['target'])*5, .002*(q-seed)]
+                fit = least_squares(residual, seed, bounds=(spec['lower'],spec['upper']), max_nfev=500)
+                apply_angles(dict(zip(names, fit.x)))
+                request['ik_result'] = dict(q=fit.x.tolist(), residual=residual(fit.x).tolist())
+            for item in request.get('attach_fruits', []):
+                t = matrix(item['fruit'])
+                link = matrix(item['link'])
+                if 'matrix' in item:
+                    t = link @ np.asarray(item['matrix'])
+                else:
+                    t[:3, 3] = link[:3, 3]+link[:3, :3]@np.asarray(item['offset'])
+                set_world(item['fruit'], t)
+            if 'eye' in request:
+                eye, target = np.array(request['eye'], dtype=float), np.array(request['target'], dtype=float)
+                f = target-eye; f /= np.linalg.norm(f)
+                right = np.cross(f,request.get('up',[0.,0.,1.])); right /= np.linalg.norm(right)
+                up = np.cross(right, f)
+                q = Rotation.from_matrix(np.column_stack((right,up,-f))).as_quat()[[3,0,1,2]]
+                camera.set_world_pose(eye,q,camera_axes='usd')
+                camera.set_focal_length(request.get('focal_mm',32.))
+                light_t = np.eye(4)
+                light_t[:3,:3] = np.column_stack((right,up,-f))
+                light_t[:3,3] = eye+np.array([0.,0.,.3])
+                set_world('/World/PortfolioFill',light_t)
+                fill.GetIntensityAttr().Set(request.get('fill_intensity',200.))
+
+        baseline_fruits = {p:matrix(p).copy() for p in info['fruit_paths']}
+        baseline_visibility = {str(p.GetPath()):UsdGeom.Imageable(p).GetVisibilityAttr().Get()
+                               for p in stage.Traverse() if p.IsA(UsdGeom.Imageable)}
+        baseline_roots = {p:matrix(p).copy() for p in [*roots.values(), '/World/HCRRobot', '/World/HCRStation']}
+        def reset_clip() -> None:
+            for path, value in baseline_visibility.items():
+                if value is not None:
+                    UsdGeom.Imageable(stage.GetPrimAtPath(path)).GetVisibilityAttr().Set(value)
+            for path, transform in baseline_roots.items():set_world(path, transform)
+            apply_angles({j['name']:0. for j in joints})
+            for path, transform in baseline_fruits.items():set_world(path, transform)
+
         last = None
         deadline = time.monotonic()+3600
         (out/'ready.json').write_text(json.dumps({'ready':True, 'scope':'staged poses, no ROS or dynamics'})+'\n')
@@ -215,54 +289,17 @@ def main() -> None:
             if Path(name).name != name:
                 raise ValueError('단일 출력 파일명 필요')
             try:
-                for path in request.get('hide', []):
-                    # 센서 외형만 숨긴다. 공유 팔 재질이 있는 상위 Scope는 유지한다.
-                    if path == '/World/StudentSensors':
-                        path += '/WristVisuals'
-                    UsdGeom.Imageable(stage.GetPrimAtPath(path)).MakeInvisible()
-                for path in request.get('show', []):
-                    if path == '/World/StudentSensors':
-                        path += '/WristVisuals'
-                    UsdGeom.Imageable(stage.GetPrimAtPath(path)).MakeVisible()
-                for path, placement in request.get('placements', {}).items():
-                    t = np.asarray(placement['matrix']) if 'matrix' in placement else pose(placement['xyz'], placement.get('yaw',0.))
-                    set_world(path, t)
-                apply_angles(request.get('joints', {}))
-                for path, value in request.get('fruit_positions', {}).items():
-                    t = matrix(path)
-                    t[:3, 3] = value
-                    set_world(path, t)
-                # 기존 링크의 관절 범위 안에서 촬영용 IK만 계산한다.
-                if request.get('ik'):
-                    from scipy.optimize import least_squares
-                    spec = request['ik']
-                    names = spec['joints']
-                    seed = np.array([angles.get(n, 0.) for n in names])
-                    def residual(q: np.ndarray) -> np.ndarray:
-                        t = fk(spec['link'], dict(angles, **dict(zip(names, q))))
-                        p = t[:3, 3]+t[:3, :3]@np.asarray(spec['offset'])
-                        return np.r_[(p-spec['target'])*5, .002*(q-seed)]
-                    fit = least_squares(residual, seed, bounds=(spec['lower'],spec['upper']), max_nfev=500)
-                    apply_angles(dict(zip(names, fit.x)))
-                    request['ik_result'] = dict(q=fit.x.tolist(), residual=residual(fit.x).tolist())
-                for item in request.get('attach_fruits', []):
-                    t = matrix(item['fruit'])
-                    link = matrix(item['link'])
-                    t[:3, 3] = link[:3, 3]+link[:3, :3]@np.asarray(item['offset'])
-                    set_world(item['fruit'], t)
-                if 'eye' in request:
-                    eye, target = np.array(request['eye'], dtype=float), np.array(request['target'], dtype=float)
-                    f = target-eye; f /= np.linalg.norm(f)
-                    right = np.cross(f,request.get('up',[0.,0.,1.])); right /= np.linalg.norm(right)
-                    up = np.cross(right, f)
-                    q = Rotation.from_matrix(np.column_stack((right,up,-f))).as_quat()[[3,0,1,2]]
-                    camera.set_world_pose(eye,q,camera_axes='usd')
-                    camera.set_focal_length(request.get('focal_mm',32.))
-                    light_t = np.eye(4)
-                    light_t[:3,:3] = np.column_stack((right,up,-f))
-                    light_t[:3,3] = eye+np.array([0.,0.,.3])
-                    set_world('/World/PortfolioFill',light_t)
-                    fill.GetIntensityAttr().Set(request.get('fill_intensity',200.))
+                if 'keyframes' in request:
+                    if not args.gui:
+                        raise ValueError('발표 영상은 --gui가 필요합니다.')
+                    import importlib
+                    import presentation_video_frames
+                    importlib.reload(presentation_video_frames)
+                    reset_clip()
+                    presentation_video_frames.capture(request, out, app, camera, apply_request,
+                            lambda r: {p:matrix(p).tolist() for p in r.get('inspect',[])})
+                    continue
+                apply_request(request)
                 for _ in range(request.get('warmup_frames',48)):
                     app.update()
                 rgb = np.asarray(camera.get_rgb())
