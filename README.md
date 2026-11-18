@@ -1,190 +1,279 @@
 <div align="center">
 
-# MANYFARM · 매니팜
+# 🌱 ManyFarm | 매니팜
 
-### 파프리카 예찰부터 수확·운송·선별까지, 로봇이 이어가는 농작업
+### 예찰부터 수확·운송·선별까지 연결하는 다중 로봇 스마트팜
 
-**AI 비전 · 자율주행 · 로봇팔 · 다중 로봇 협업 · 농장 시뮬레이션**
+**실제 로봇 · 웹 관제 · Isaac Sim 가상 농장**
 
-[프로젝트 소개](#프로젝트-소개) · [주요 기능](#주요-기능) · [검증 결과](#검증-결과) · [코드와 문서](#코드와-문서)
+[프로젝트 소개](#overview) · [실물 시연](#demo) · [웹 관제](#dashboard) · [시뮬레이션](#simulation) · [아키텍처](#architecture) · [핵심 기술](#technologies) · [팀 구성](#team)
 
-<img src="docs/readme/assets/farm-overview.png" alt="8개 재배 베드와 예찰·수확·운송 로봇, 선별장을 배치한 매니팜 가상 농장 전경" width="960">
-
-*Isaac Sim으로 구성한 가상 농장. 시스템 배치를 보여주는 연출 화면입니다.*
+<img src="docs/readme/assets/farm-overview.png" alt="ManyFarm Isaac Sim 가상 농장 전경" width="900">
 
 </div>
 
-## 프로젝트 소개
+<br>
 
-**매니팜은 파프리카의 상태를 관찰하고, 수확할 위치를 찾아, 수확물을 운반하고 색상별로 선별하는 협업 로봇 프로젝트입니다.** 예찰로봇이 만든 작업 정보를 수확로봇에 전달하고, 운송로봇과 선별장이 후속 작업을 맡도록 연결합니다.
+<a id="overview"></a>
+## 📌 Overview
 
-반복적인 관찰·수확·운반 작업의 부담을 줄이는 것을 목표로, 각 로봇의 동작과 작업 인계 과정을 개발합니다. 실제 장비 시험과 Isaac Sim 기반 가상 농장 시험을 함께 진행하며, 공통 로봇 제어 코드에 환경별 지도·센서·장치 설정을 연결합니다.
+ManyFarm은 **파프리카의 상태를 관찰하고, 수확할 위치를 찾아, 수확물을 운반하고 색상별로 선별하는 협업 로봇 프로젝트**입니다.
 
-### 팸플릿용 소개 문구
+예찰로봇이 만든 작업 정보를 수확로봇에 전달하고, 운송로봇과 선별장이 후속 작업을 이어갑니다. 웹 관제에서 작업과 진행 상태를 확인하며, 실제 장비와 Isaac Sim 가상 농장에서 동작을 시험합니다.
 
-> 매니팜(MANYFARM)은 AI 비전과 자율주행 로봇을 활용해 파프리카의 예찰·수확·운송·선별을 연결하는 스마트 농업 프로젝트입니다. 예찰로봇이 수확 대상을 찾고, 수확로봇이 과실을 따서 담으면, 운송로봇이 선별장으로 옮기고 협동로봇이 색상별로 분류합니다. 실제 로봇과 가상 농장에서 작업 흐름을 구현·검증하며 농작업 자동화를 연구합니다.
+한 로봇의 기능 구현을 넘어 **관측 결과가 다음 로봇의 작업으로 이어지는 전체 공정**을 만드는 데 초점을 두었습니다.
 
-## 작업 흐름
-
-**예찰 → 작업 배정 → 수확 → 운송 인계 → 선별장 하역 → 색상별 선별**
-
-| 단계 | 담당 | 주요 역할 |
-|---|---|---|
-| 01 · 예찰 | 예찰로봇 | 재배 구역을 이동하며 카메라로 빨강·노랑 파프리카를 검출하고 수확 작업 위치를 생성 |
-| 02 · 작업 배정 | 관제 | 작업 요청을 전달하고 로봇의 진행 상태와 결과를 관리 |
-| 03 · 수확 | 수확로봇 | 지정 위치로 이동·정차한 뒤 로봇팔로 과실을 집어 수확 박스에 적재 |
-| 04 · 인계·운송 | 수확로봇 + 운송로봇 | 인계 자세와 도킹 상태를 확인하고 과실을 받아 선별장으로 이동 |
-| 05 · 선별 | HCR-3A 선별장 | 카메라로 구역과 색상을 판정하고 과실을 색상별 보관부로 분류 |
-| 06 · 다음 작업·복귀 | 각 로봇 | 작업 결과를 보고하고 다음 요청을 수행하거나 스테이션으로 복귀 |
-
-위 표는 전체 운영 흐름입니다. 단계별 구현·시험 결과와 전체 연속 실행의 검증 범위는 아래에서 구분합니다.
-
-## 주요 기능
-
-### 1. 예찰 · 수확할 위치를 찾는 로봇
-
-RGB-D 카메라와 YOLO 기반 비전으로 파프리카를 검출하고 위치 정보를 정리합니다. 재배 구역을 관측한 결과를 로봇팔이 작업할 수 있는 **수확 작업 구간(Window)**으로 나누어 후속 작업에 전달합니다.
-
-- 지도와 경로 그래프를 이용한 구역 이동 및 정차 관측
-- 빨강·노랑 과실 검출과 관측 위치 기반 과실 등록
-- 작업 위치·예상 수량을 포함한 수확 태스크 생성
-
-<p align="center">
-  <img src="docs/readme/assets/scout-detection.png" alt="시뮬레이션 예찰 카메라에서 빨강·노랑 파프리카를 검출한 화면" width="760">
-</p>
-
-*시뮬레이션 예찰 검출 기록. 예찰 예상 수량과 실제 수확 수량은 별도로 집계합니다.*
-
-### 2. 수확 · 이동과 로봇팔 작업의 연결
-
-수확로봇은 화단 진입, 작업 위치 이동, 실제 정지 확인을 거쳐 로봇팔의 수확 동작을 요청합니다. 카메라 기반 과실 관측과 파지 보정을 적용하고, 수확 박스에 담은 과실을 운송로봇에 인계하도록 구성했습니다.
-
-- Nav2 기반 경로 추종과 작업 구간별 이동
-- AprilTag 관측과 AMCL을 연결한 위치 추정 보조
-- Teacher–Student 학습과 BC·DAgger를 활용한 수확 정책 연구
-- 카메라·관절 관측을 이용한 정렬·파지·운반 단계 제어
-- 인계 후 작업 자세 복구, 스테이션 복귀 및 라이다 기반 정밀 도킹
-
-<table>
-  <tr>
-    <td align="center" width="50%"><img src="docs/readme/assets/harvest-sim.png" alt="가상 농장에서 로봇팔이 파프리카에 접근한 시뮬레이션 장면" width="460"><br><sub>시뮬레이션 파지 자세</sub></td>
-    <td align="center" width="50%"><img src="docs/readme/assets/harvest-real.jpeg" alt="파프리카 모형과 로봇팔, 수확 박스를 배치한 실물 시험 장면" width="460"><br><sub>실물 수확 시험 장치</sub></td>
-  </tr>
-</table>
-
-학습한 정책과 카메라 기반 시험의 보조제어는 구분합니다. 아래 그림은 학습 과정과 실제 팔 명령을 만드는 제어 흐름을 설명합니다.
-
-<p align="center">
-  <img src="docs/readme/assets/learning-control.png" alt="Teacher–Student 학습 과정과 카메라·관절 관측 기반 보조제어 흐름" width="860">
-</p>
-
-### 3. 운송 · 로봇 사이의 과실 인계
-
-운송로봇은 수확로봇에 접근해 과실을 인수하고 선별장으로 옮기는 역할을 맡습니다. 수납·개폐·배출 기구와 자율주행을 연결하고, 마커·라이다를 이용한 정밀 접근과 도킹을 구성합니다.
-
-인계는 **수확 측 준비 → 운송 도킹 확인 → 배출 결과 확인 → 운송 이격 → 수확 자세 복구** 순서로 처리합니다. 작업 요청과 물리 동작 완료를 구분하고, 작업 식별자로 이벤트의 순서와 중복을 확인합니다.
-
-<table>
-  <tr>
-    <td align="center" width="50%"><img src="docs/readme/assets/transport-real.jpg" alt="수납 박스와 개폐 기구를 장착한 실제 운송로봇" width="360"><br><sub>운송로봇 실물</sub></td>
-    <td align="center" width="50%"><img src="docs/readme/assets/transport-dump-cad.jpg" alt="운송로봇의 박스 배출 자세를 표현한 CAD 모델" width="460"><br><sub>배출 기구 CAD 설계</sub></td>
-  </tr>
-</table>
-
-### 4. 선별 · 색상을 판정하고 분류하는 협동로봇
-
-HCR-3A 협동로봇과 카메라를 연결해 선별장 A–D 구역의 과실을 확인합니다. PC가 색상·구역에 따른 작업을 Modbus TCP로 요청하고, 로봇이 티칭된 집기·운반·놓기 동작을 수행합니다. 작업 번호와 완료 응답을 대조해 처리 수량을 집계합니다.
-
-<table>
-  <tr>
-    <td align="center" width="50%"><img src="docs/readme/assets/sorting-real.jpeg" alt="4개 레인과 HCR-3A 협동로봇으로 구성한 실물 선별장" width="360"><br><sub>HCR-3A 실물 선별장</sub></td>
-    <td align="center" width="50%"><img src="docs/readme/assets/sorting-result.jpeg" alt="노랑·빨강 파프리카 모형을 분리해 담은 실물 선별 결과" width="360"><br><sub>색상별 분류 결과</sub></td>
-  </tr>
-</table>
-
-### 5. 시뮬레이션 · 가상 농장에서의 개발과 검증
-
-Isaac Sim에 재배 베드, 로봇, 카메라, 라이다와 선별장을 구성했습니다. 가상 농장에서 예찰·수확·인계 동작을 시험하고, 영상과 작업 로그를 비교해 단계별 문제를 분석합니다.
-
-- **농장 환경:** 8개 물리 베드와 양쪽 면을 나눈 16개 예찰 구역
-- **공통 제어:** 실물·시뮬레이션에서 공통 업무 로직을 사용하고 장치·지도 설정을 분리
-- **합성 데이터:** 과실 라벨과 RGB 영상을 생성하고 밝기·노이즈·블러 후처리 적용
-- **결과 분석:** 예찰 예상량, 실제 바구니 적재량, 선별 처리량을 구분해 손실 원인 추적
-
-## 핵심 기술
-
-| 분야 | 사용 기술·구성 |
+| 항목 | 내용 |
 |---|---|
-| 로봇 통신·실행 | ROS 2 Jazzy, Action·Topic·Service, 비동기 상태 전환 |
-| 자율주행·위치 추정 | Nav2, AMCL, AprilTag, LiDAR, GeoJSON 경로 그래프 |
-| 비전 | RGB-D 카메라, Intel RealSense D435, YOLO, OpenCV |
-| 수확 학습·제어 | PPO, Teacher–Student, BC·DAgger, 단계별 보조제어 |
-| 시뮬레이션·데이터 | NVIDIA Isaac Sim, USD 로봇·농장 자산, 합성 영상·라벨 생성 |
-| 선별장 연동 | HCR-3A, 카메라 색상 판정, Modbus TCP |
-| 시스템 구성 | 관제 요청·결과 연동, 공통 로봇 로직, 환경별 설정·장치 어댑터 |
+| 개발 기간 | 2026.09 시작 · 2026.11 최종 발표 |
+| 팀 구성 | 7명 · 로봇 주행·기구·로봇팔·비전·관제·시뮬레이션 |
+| 대상 작업 | 파프리카 예찰 → 수확 → 인계·운송 → 하역·선별 |
+| 실물 환경 | 예찰·수확·운송 이동 로봇, 모형 작물 화단, HCR-3A 선별장 |
+| 가상 환경 | Isaac Sim · 8개 재배 베드 · 16개 작업 구역 |
 
-## 검증 결과
+### 🛠️ Stack
 
-아래는 **제공된 발표 자료와 저장소에 기록된 개별 시험 결과**입니다. 서로 다른 날짜·장치·환경의 결과이므로 하나의 전체 시스템 성공률로 합산하지 않습니다.
+![ROS 2](https://img.shields.io/badge/ROS_2_Jazzy-22314E?style=flat-square&logo=ros&logoColor=white)
+![Python](https://img.shields.io/badge/Python-3776AB?style=flat-square&logo=python&logoColor=white)
+![Nav2](https://img.shields.io/badge/Nav2-168AAD?style=flat-square)
+![Vision](https://img.shields.io/badge/RGB--D_%C2%B7_YOLO_%C2%B7_OpenCV-5C3EE8?style=flat-square)
+![React](https://img.shields.io/badge/React_%C2%B7_TypeScript-149ECA?style=flat-square&logo=react&logoColor=white)
+![FastAPI](https://img.shields.io/badge/FastAPI-009688?style=flat-square&logo=fastapi&logoColor=white)
+![Isaac Sim](https://img.shields.io/badge/NVIDIA_Isaac_Sim-76B900?style=flat-square&logo=nvidia&logoColor=white)
 
-| 시험 | 확인한 결과 | 시험 조건·해석 범위 |
-|---|---|---|
-| 단일 팔 카메라 기반 수확 | 과실 수확·박스 안착 **10/10**, 박스 카메라 신규 과실 확인 **10/10**, 장면 완료 **5/5** | 시뮬레이션 5개 장면, 장면당 목표 2개, 단계별 보조제어 적용 |
-| AprilTag 보정 연동 | 전송한 보정 요청 **10건 모두 AMCL 적용** | 2026-10-10 실물 주행. 모든 영상 관측의 채택률이나 주행 정확도를 의미하지 않음 |
-| 인계 후 자세 복구 | 인계·복구 후 다음 Window 작업 성공 | 2026-10-27 실제 차체 + PC 더미 시험 |
-| 배출 요청·응답 | 실제 Jetson 배출 단계 최종 `SUCCEEDED` 확인 | 2026-10-28 개별 배출 연동 시험 |
-| 스테이션 복귀·도킹 | 실물 복귀 및 두 벽 기준 도킹 성공 회차 확보 | 2026-10-30 팔 상태를 생략한 차체 시험 |
+<br>
+
+## 🔄 System Workflow
+
+<img src="docs/readme/assets/workflow.png" alt="ManyFarm 작업 흐름: 예찰 → 수확 → 운송 → 선별, 전체 흐름을 연결하는 웹 관제" width="1000">
+
+**관측 결과를 작업으로 연결하고, 인계 후 수확과 운송을 병행합니다.**
+
+### 함께 일하는 로봇
+
+<table>
+<tr><th width="225">예찰로봇</th><th width="225">수확로봇</th><th width="225">운송로봇</th><th width="225">선별장 협동로봇</th></tr>
+<tr><td align="center"><img src="docs/readme/assets/scout-photo.png" alt="예찰로봇" height="220"></td><td align="center"><img src="docs/readme/assets/harvest-photo.png" alt="수확로봇" height="220"></td><td align="center"><img src="docs/readme/assets/transport-photo.png" alt="운송로봇" height="220"></td><td align="center"><img src="docs/readme/assets/sorting-photo.png" alt="한화로보틱스 HCR-3A 공식 제품 이미지" height="220"></td></tr>
+<tr><td align="center"><b>TurtleBot3 Burger</b></td><td align="center"><b>Vic Pinky + SO-ARM101</b></td><td align="center"><b>TurtleBot3 Waffle Pi</b></td><td align="center"><b>Hanwha HCR-3A</b></td></tr>
+<tr><td><b>화단 관측</b><br>과실을 찾아 수확할 영역과 정차 위치를 정합니다.</td><td><b>과실 수확</b><br>작업 위치로 이동해 과실을 따고 상자에 담습니다.</td><td><b>인계·운반·하역</b><br>수확물을 받아 선별장으로 옮기고 내려놓습니다.</td><td><b>색상별 선별</b><br>HCR-3A가 과실을 집어 색상별로 분류합니다.</td></tr>
+</table>
+
+<sub>선별장 협동로봇 제품 이미지: <a href="https://hanwharobotics.com/kr/product/view?menuSeq=2&amp;prdtSeq=75">한화로보틱스</a></sub>
 
 <details>
-<summary>단일 팔 수확 시험 결과 보기</summary>
+<summary><b>하드웨어 상세 구성</b></summary>
 
-<img src="docs/readme/assets/harvest-result.png" alt="시뮬레이션 5개 장면, 목표 10개 과실의 단일 팔 수확 시험 결과" width="900">
+| 로봇 | 주요 하드웨어 | 하는 일 |
+|---|---|---|
+| **예찰** | TurtleBot3 Burger · Raspberry Pi 4 · OpenCR · LiDAR/IMU | 이동·위치 추정·영상 처리 |
+| | Intel RealSense D435 · 카메라 지지대 | RGB 영상과 깊이로 과실 위치 관측 |
+| **수확** | Vic Pinky · LiDAR · 태그 관측 카메라 | 작업점 이동·위치 보정·복귀 |
+| | SO-ARM101 두 팔 · 그리퍼 · 고정 프레임 | 과실 파지·분리·상자 적재 |
+| | Jetson · 깊이 카메라 · U20 손목 RGB 카메라 | 수확 제어·3D 위치 추정·근접 영상 보정 |
+| | 수확 상자 · 박스 관측 카메라 · 배출 기구 | 투입 확인·수량 기록·운송 인계 |
+| **운송** | TurtleBot3 Waffle Pi · Raspberry Pi · OpenCR · LDS LiDAR · Pi Camera V2 | 경로 주행·마커 기반 도킹 |
+| | MG996R 서보 ×2 · 랙·피니언 슬라이딩 덮개 · 앞문 | 상부 덮개와 배출문 개폐 |
+| | 리니어 액추에이터 · L298N 드라이버 | 바구니를 기울여 하역 |
+| | HW-316F(XL4015) DC-DC · 주행/기구 분리 배터리 | 기구 전원 공급 |
+| **선별** | HCR-3A 협동로봇 · 그리퍼 · 카메라 · 선별 기구 | 색상 판정·집기·분류 위치에 놓기 |
 
-원본 발표 도식의 설명까지 함께 확인할 수 있습니다.
+수확 로봇은 양팔 구성으로 모델링·조립했으며, 제어·학습 검증은 **한 팔 중심**으로 진행했습니다.
+
+[하드웨어 구성](https://robot3final.atlassian.net/wiki/spaces/3/pages/622669) · [수확 URDF](https://github.com/Robot3FinalProject/robotarm/blob/main/src/smartfarm_description/urdf/harvest_robot.urdf) · [예찰 구성](https://robot3final.atlassian.net/wiki/spaces/3/pages/33128456) · [운송 실물 구성](https://robot3final.atlassian.net/wiki/spaces/3/pages/47087617) · [운송 기구·배선](https://robot3final.atlassian.net/wiki/spaces/3/pages/34766939)
 
 </details>
 
-### 현재 개선 과제
+### 시험 공간과 로봇 배치
 
-예찰·수확·운송·선별의 개별 기능과 연계 시험을 바탕으로 전체 흐름의 반복 안정성을 개선하고 있습니다. 저장소의 수량 분석에서는 예찰 중복 등록, 작업영역·가림에 따른 미수확, 파지 실패·낙하, 선별 카메라의 미검출과 조기 종료 사례를 구분했습니다.
+<img src="docs/readme/assets/farm-layout.png" alt="매니팜 맵: 실물 사진 기반 3D 공간과 로봇 배치" width="950">
 
-- 실제 팔·운송로봇을 포함한 전체 연속 실행 및 반복 검증
-- 예찰 과실 중복 등록과 수확·선별 단계의 수량 손실 개선
-- 수확로봇 후진·코너 추종과 로봇 간 인계 안정성 개선
-- AprilTag 위치 보정의 예찰로봇 적용 확대
-- 양팔 분담과 승강 구조를 활용한 다높이 수확으로 확장
 
-양팔 분담·승강 수확은 향후 개발 구상입니다. 수량 차이에 대한 분석 결과는 [예찰–수확–선별 손실 분석](farm_project/sim/docs/SCOUT_TO_SORT_LOSS_ANALYSIS.md)에서 확인할 수 있습니다.
 
-## 코드와 문서
+<br>
 
-```text
-main/
-├── README.md                    # 프로젝트 소개
-├── docs/readme/                  # 소개용 이미지와 자료 출처
-└── farm_project/
-    ├── control/                 # 관제 연결 시험 도구
-    ├── robot/
-    │   ├── config/              # 실물 환경·장치·지도 설정
-    │   ├── models/              # 모델 자산
-    │   └── ros_ws/src/          # 공통 제어·로봇별 패키지
-    ├── sim/                     # 가상 장치·농장 자산·시험 도구
-    ├── scripts/                 # 빌드·환경 설정 스크립트
-    ├── tests/                   # 공통 시험
-    └── docs/                    # 상태·설계·변경 기록
-```
+<a id="demo"></a>
+## 🎬 Real Robot Demo
 
-| 확인할 내용 | 문서·코드 |
+### 01 · 예찰 — 화단을 살펴 수확 위치 정하기
+
+**이동 → 멈춰서 관측 → 수확할 영역과 정차 위치 결정**
+
+<table>
+<tr><th width="300">화단을 따라 이동하며 관측</th><th width="620">관측한 화면에서 수확 영역으로</th></tr>
+<tr>
+<td align="center" valign="middle"><img src="docs/readme/assets/scout-real.gif" alt="예찰 이동·정지에 맞춰 작업창과 수확 정차점을 표시한 시연 영상" height="380"></td>
+<td valign="middle">
+<b>카메라로 본 화단</b><br>
+<img src="docs/readme/assets/scout-observation.png" alt="저장된 RGB 카메라 관측 결과: 화단의 파프리카" width="620"><br>
+<b>↓ 수확할 영역 나누기</b><br>
+<img src="docs/readme/assets/scout-windows.png" alt="관측 결과에 W003부터 W006까지 작업창과 과실 수량을 표시한 화면" width="620">
+</td>
+</tr>
+</table>
+
+**작업창(Window)**은 로봇팔이 수확할 영역입니다. 관측 결과를 작업창으로 묶고, 위치·예상 수량과 수확로봇의 정차점을 다음 작업에 연결합니다.
+
+#### YOLO11n-seg · RGB-D 과실 위치 추정
+
+<img src="docs/readme/assets/ai-field-comparison.jpg" alt="Slack 비전 채널 공유 자료: 실제 화단 원본 영상과 YOLO11n-seg 과실 분할 결과" width="960">
+
+**과실 마스크 → 깊이 결합 → 지도 좌표 변환 → 작업창·정차점 생성**
+
+빨강·노랑 과실을 분리하고, RGB-D와 TF로 수확 위치를 계산합니다.
+
+### 02 · 수확 — 작업점으로 이동하고, 따서 담기
+
+<p align="center"><img src="docs/readme/assets/harvest-real.gif" alt="수확로봇이 작업 위치로 이동·정차한 뒤 과실을 수확해 상자에 넣는 동작" width="720"></p>
+
+**작업점 이동 → 정차 → 과실 파지·분리 → 상자 적재**
+
+#### PPO 강화학습 · 카메라 기반 수확 제어
+
+<table>
+<tr><th width="460">수확 동작 학습</th><th width="460">카메라 기반 수확 실행</th></tr>
+<tr><td align="center"><img src="docs/readme/assets/harvest-learning.png" alt="발표자료의 PPO Teacher 학습과 BC DAgger Student 연결 구조" width="440" height="330"></td><td align="center"><img src="docs/readme/assets/harvest-camera-control.png" alt="Isaac Sim의 실제 수확 실행 화면과 카메라 입력" width="440" height="330"></td></tr>
+<tr><td><b>잡기 → 당기기 → 옮기기 → 놓기</b><br>Isaac Lab·PPO로 단계별 동작을 학습하고, 시연을 카메라 기반 정책 학습에 연결했습니다.</td><td><b>과실 위치 확인 → 접근 보정 → 상자 투입</b><br>화면의 카메라 기반 시험과 실물 수확에는 단계별 보조제어를 사용했습니다.</td></tr>
+</table>
+
+#### AprilTag · AMCL 위치 보정
+
+<p align="center"><img src="docs/readme/assets/apriltag-driving.gif" alt="발표자료에 수록된 수확로봇 실물 주행 비교 영상" width="760"></p>
+
+**벽의 태그 관측 → 촬영 시각·위치 편향 보정 → AMCL 위치 갱신 → 경로 추종**
+
+실물 주행에서 태그 관측의 AMCL 반영을 확인했습니다.
+
+### 03 · 운송 — 인계부터 선별장 하역까지
+
+<table>
+<tr><th width="460">01 · 도킹·인계</th><th width="460">02 · 선별장 하역</th></tr>
+<tr><td align="center"><img src="docs/readme/assets/handoff-real.gif" alt="운송로봇 도킹과 수확물 인계" height="300"></td><td align="center"><img src="docs/readme/assets/unload-real.gif" alt="선별장에 도착한 운송로봇의 과실 하역" width="440" height="300"></td></tr>
+<tr><td>수확로봇에 접근해 수확물을 받습니다.</td><td>선별장으로 운반하고 적재함을 기울여 전달합니다.</td></tr>
+</table>
+
+### 04 · 선별 — 과실을 색상별로
+
+<table>
+<tr><td align="center"><img src="docs/readme/assets/sorting-real.gif" alt="협동로봇이 과실을 집어 분류하는 동작" width="440" height="300"></td><td align="center"><img src="docs/readme/assets/sorting-vertical.gif" alt="선별장에서 과실을 색상별로 옮기는 동작" height="300"></td></tr>
+</table>
+
+카메라로 **과실의 색상을 구분**하고, 협동로봇이 색상별 분류 위치로 옮깁니다. 선별 결과와 처리 수량은 관제에 기록합니다.
+
+<br>
+
+<a id="dashboard"></a>
+## 🖥️ Web Dashboard
+
+작업을 시작하고, 지도 위 로봇과 공정 진행 상태를 한눈에 확인합니다.
+
+<p align="center"><img src="docs/readme/assets/control-pages.gif" alt="실물 테스트·파이널·시뮬레이션 관제 화면 소개" width="780"></p>
+
+**위치·상태 모니터링 · 작업 요청·취소 · 인계·하역 조율 · 결과 조회**
+
+<details>
+<summary>작업 결과 화면</summary>
+
+<img src="docs/readme/assets/control-result.png" alt="하역·선별 진행 및 처리 수량을 보여주는 관제 화면" width="900">
+
+</details>
+
+<br>
+
+<a id="simulation"></a>
+## 🌐 Simulation · Sim-to-Real
+
+**실물과 시뮬레이션에 공통 업무 로직을 적용**하고, 물체의 물성과 물리 동작을 실제 환경에 가깝게 조정하며 **Sim-to-Real**을 진행했습니다.
+
+<p align="center"><img src="docs/readme/assets/simulation.gif" alt="Isaac Sim 농장에서 예찰·수확·운송·선별 시연" width="900"></p>
+
+**공통 로직 연결 → 물리 조건 조정 → 시뮬레이션 시험 → 실물 로봇 확인**
+
+Isaac Sim의 **8개 베드·16개 작업 구역**에서 협업 공정을 시험하고, 실제 로봇에서도 동작을 확인했습니다. 가상 센서·구동부 연동과 합성 데이터 생성에도 같은 개발 환경을 활용했습니다.
+
+### 시뮬레이션에서 확인한 결과
+
+| 시험 | 결과 | 시험 범위 |
+|---|---|---|
+| **16구역 예찰·수확** | **137개 작업창 완료** · 실제 대상의 **94.27%**를 작업창에 포함 | 10/23–24, 19회 시도 중 구역 성공 16회·실패 2회·외부 중단 1회. 창 포함 181/192개 |
+| **수확량 추적** | **125개** 레이저 통과 집계 | 같은 시험의 대상 192개 대비 65.10%. 작업 완료와 실제 수확량을 따로 평가 |
+| **운송 → 선별 → 복귀** | **10개 전량 선별** · 잔류 0 · 두 로봇 복귀 | 10/30 단회 시험. 기존 예찰·수확 결과를 재사용 |
+
+[시험 결과와 조건](https://robot3final.atlassian.net/wiki/spaces/3/pages/54362169)
+
+<details>
+<summary>시뮬레이션 농장 지도</summary>
+
+<img src="docs/readme/assets/sim-map.png" alt="시뮬레이션 농장 지도" width="900">
+
+</details>
+
+<br>
+
+<a id="architecture"></a>
+## 🏗️ System Architecture
+
+![ManyFarm 전체 시스템 구조](docs/readme/assets/architecture.png)
+
+**웹 관제 ↔ 관제 서버 ↔ ROS 2 공통 인터페이스 ↔ 실물·시뮬레이션**
+
+HTTP·WebSocket으로 작업과 상태를 연결하고, ROS 2와 Zenoh를 통해 로봇 실행부를 연동합니다.
+
+<br>
+
+<a id="technologies"></a>
+## 🔑 Core Technologies
+
+<table>
+<tr><th width="460">YOLO11n-seg · RGB-D · TF</th><th width="460">Nav2 · GeoJSON · AprilTag · AMCL</th></tr>
+<tr><td><b>과실 인식·3D 위치 추정</b><br>과실 마스크와 깊이를 지도 좌표로 변환하고, 팔 작업 범위에 맞춰 작업창·정차점을 생성합니다.</td><td><b>경로 주행·위치 보정</b><br>GeoJSON 경로를 Nav2로 추종하고, AprilTag 관측의 시각·편향을 보정해 AMCL에 반영합니다.</td></tr>
+<tr><th>Isaac Lab · PPO · BC/DAgger</th><th>ROS 2 · FSM · DDS/Zenoh</th></tr>
+<tr><td><b>수확 동작 학습</b><br>PPO로 접근·파지·운반·놓기를 단계별 학습하고, Teacher 시연을 카메라 기반 Student 학습에 연결했습니다. 실물 수확은 단계별 보조제어로 수행했습니다.</td><td><b>다중 로봇 작업 조율</b><br>Action·Service·Topic으로 작업·상태·결과를 교환하고, 상태머신으로 수확·인계·하역·복귀를 연결합니다.</td></tr>
+<tr><th>OpenCR · UART · Modbus TCP</th><th>Isaac Sim · Sim-to-Real</th></tr>
+<tr><td><b>운송 기구·선별장 제어</b><br>OpenCR로 덮개·앞문·틸트를 제어하고, HCR-3A의 티칭 동작을 색상 판정·선별 요청과 연결합니다.</td><td><b>공통 코드·가상 장치 연동</b><br>업무 로직과 장치 어댑터를 분리하고, 카메라·접촉·물성 조건을 조정하며 시뮬레이션과 실물에서 시험했습니다.</td></tr>
+</table>
+
+<br>
+
+<a id="team"></a>
+## 👥 Team
+
+| 팀원 | 주요 담당 |
 |---|---|
-| 구현 상태와 날짜별 시험 기록 | [PROJECT_STATE](farm_project/docs/PROJECT_STATE.md) |
-| 실물·시뮬레이션 실행 절차 | [실행 가이드](farm_project/docs/RUN_GUIDE_20261002.md) · [시뮬레이션 실행 가이드](farm_project/sim/docs/RUN_GUIDE_20261006.md) |
-| 공통 메시지·액션 | [farm_interfaces](farm_project/robot/ros_ws/src/farm_interfaces) |
-| 로봇별 구현 | [예찰](farm_project/robot/ros_ws/src/scout_robot) · [수확](farm_project/robot/ros_ws/src/harvest_robot) · [운송](farm_project/robot/ros_ws/src/transport_robot) · [선별](farm_project/robot/ros_ws/src/hcr_sorting) |
-| 합성 학습 데이터 생성 | [데이터셋 가이드](farm_project/SCOUT_DATASET_README_KO.md) |
-| 이미지 출처와 시험 근거 | [자료 안내](docs/readme/SOURCES.md) |
+| 최은비 | PM·발표, 수확로봇 차체 제어·인계·복귀 |
+| 신동민 | 예찰·운송로봇 주행, 정밀 도킹 |
+| 채윤식 | 운송로봇 기구·펌웨어 |
+| 조병현 | 팀장, 수확 팔·기구, HCR 선별 |
+| 황은하 | Vision AI, 수확 상자 검사 |
+| 전민석 | 중앙 관제, 작업 관리 |
+| 양시영 | 시뮬레이션, 공통 코드 통합 |
 
-실행 문서는 작성 시점의 환경과 명령을 설명합니다. 실제 실행 전 최신 상태·변경 기록과 사용하는 장치의 설정을 함께 확인하세요. 이 저장소의 `control/`은 관제 연결 시험 도구이며 외부 관제 프로그램 전체를 포함하지 않습니다.
+<br>
+
+## 📂 Repositories & Documents
+
+| 저장소 | 확인할 내용 |
+|---|---|
+| [main](https://github.com/Robot3FinalProject/main) | 프로젝트 소개, 공통 로봇 코드, 환경 설정, Isaac Sim 자산·시험 도구 |
+| [Frontend](https://github.com/Robot3FinalProject/Frontend) | 웹 관제, 서버, 작업 관리와 실행 기록 |
+| [Control](https://github.com/Robot3FinalProject/Control) | 터미널 관제·인터페이스 및 연동 시험 도구 |
+| [robotarm](https://github.com/Robot3FinalProject/robotarm) | 로봇 모델과 로봇팔 관련 자산·구현 |
+| [sorting](https://github.com/Robot3FinalProject/sorting) | HCR-3A 선별장과 관련 제어·운영 문서 |
+| [vision_paprika_detection](https://github.com/Robot3FinalProject/vision_paprika_detection) | 파프리카 비전 관련 구현 |
+
+실행 방법과 상세 기술 문서는 각 저장소에서 확인할 수 있습니다.
+
+**팀 내부 문서:** [전체 시퀀스](https://robot3final.atlassian.net/wiki/spaces/3/pages/53903361) · [시스템 아키텍처 기준](https://robot3final.atlassian.net/wiki/spaces/3/pages/819281)
+
+<details>
+<summary>기술 설명·그림의 원본 자료</summary>
+
+- AI 화단 비교: [Slack 공유 원본](https://3-jub1429.slack.com/archives/C0C0AHCJMKR/p1793591712597089) · [개발 기록](https://robot3final.atlassian.net/wiki/spaces/3/pages/48431150)
+- 수확 학습·실행 화면: 로봇팔 발표자료 및 [학습·실물 수확 기록](https://robot3final.atlassian.net/wiki/spaces/3/pages/43384914)
+- AprilTag 주행 화면: 최종 발표자료 및 [실물 위치 보정 시험](https://robot3final.atlassian.net/wiki/spaces/3/pages/33194086)
+- 시뮬레이션 시험: [실행 범위와 결과](https://robot3final.atlassian.net/wiki/spaces/3/pages/54362169)
+
+</details>
 
 ---
 
-**MANYFARM · 매니팜** · 파프리카 예찰·수확·운송·선별 협업 로봇 프로젝트
+**ManyFarm · 매니팜** — 관측한 정보를 다음 로봇의 작업으로 연결합니다.
