@@ -126,7 +126,7 @@ HTTP·WebSocket으로 작업과 상태를 연결하고, ROS 2와 Zenoh를 통해
 <a id="demo"></a>
 ## 🎬 Real Robot Demo
 
-### 01 · 예찰 — 화단을 살펴 수확 위치 정하기
+### 🔍 01 · 예찰 — 화단을 살펴 수확 위치 정하기
 
 **이동 → 멈춰서 관측 → 수확할 영역과 정차 위치 결정**
 
@@ -153,7 +153,9 @@ HTTP·WebSocket으로 작업과 상태를 연결하고, ROS 2와 Zenoh를 통해
 
 빨강·노랑 과실을 분리하고, RGB-D와 TF로 수확 위치를 계산합니다.
 
-### 02 · 수확 — 작업점으로 이동하고, 따서 담기
+---
+
+### 🦾 02 · 수확 — 작업점으로 이동하고, 따서 담기
 
 <p align="center"><img src="docs/readme/assets/harvest-real.gif" alt="수확로봇이 작업 위치로 이동·정차한 뒤 과실을 수확해 상자에 넣는 동작" width="720"></p>
 
@@ -175,7 +177,9 @@ HTTP·WebSocket으로 작업과 상태를 연결하고, ROS 2와 Zenoh를 통해
 
 실물 주행에서 태그 관측의 AMCL 반영을 확인했습니다.
 
-### 03 · 운송 — 인계부터 선별장 하역까지
+---
+
+### 🚚 03 · 운송 — 인계부터 선별장 하역까지
 
 <table>
 <tr><th width="460">01 · 도킹·인계</th><th width="460">02 · 선별장 하역</th></tr>
@@ -183,7 +187,9 @@ HTTP·WebSocket으로 작업과 상태를 연결하고, ROS 2와 Zenoh를 통해
 <tr><td>수확로봇에 접근해 수확물을 받습니다.</td><td>선별장으로 운반하고 적재함을 기울여 전달합니다.</td></tr>
 </table>
 
-### 04 · 선별 — 과실을 색상별로
+---
+
+### 🎨 04 · 선별 — 과실을 색상별로
 
 <table>
 <tr><td align="center"><img src="docs/readme/assets/sorting-real.gif" alt="협동로봇이 과실을 집어 분류하는 동작" width="440" height="300"></td><td align="center"><img src="docs/readme/assets/sorting-vertical.gif" alt="선별장에서 과실을 색상별로 옮기는 동작" height="300"></td></tr>
