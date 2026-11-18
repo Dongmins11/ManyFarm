@@ -20,7 +20,7 @@
 ![TypeScript](https://img.shields.io/badge/TypeScript-3178C6?style=flat-square&logo=typescript&logoColor=white)
 ![FastAPI](https://img.shields.io/badge/FastAPI-009688?style=flat-square&logo=fastapi&logoColor=white)
 
-[프로젝트 소개](#overview) · [실물 시연](#demo) · [웹 관제](#dashboard) · [시뮬레이션](#simulation) · [아키텍처](#architecture) · [핵심 기술](#technologies) · [팀 구성](#team)
+[프로젝트 소개](#overview) · [아키텍처](#architecture) · [실물 시연](#demo) · [웹 관제](#dashboard) · [시뮬레이션](#simulation) · [핵심 기술](#technologies) · [팀 구성](#team)
 
 <img src="docs/readme/assets/farm-overview.png" alt="ManyFarm Isaac Sim 가상 농장 전경" width="900">
 
@@ -44,6 +44,17 @@ ManyFarm은 **파프리카의 상태를 관찰하고, 수확할 위치를 찾아
 | 대상 작업 | 파프리카 예찰 → 수확 → 인계·운송 → 하역·선별 |
 | 실물 환경 | 예찰·수확·운송 이동 로봇, 모형 작물 화단, HCR-3A 선별장 |
 | 가상 환경 | Isaac Sim · 8개 재배 베드 · 16개 작업 구역 |
+
+<br>
+
+<a id="architecture"></a>
+## 🏗️ System Architecture
+
+![ManyFarm 전체 시스템 구조](docs/readme/assets/architecture.png)
+
+**웹 관제 ↔ 관제 서버 ↔ ROS 2 공통 인터페이스 ↔ 실물·시뮬레이션**
+
+HTTP·WebSocket으로 작업과 상태를 연결하고, ROS 2와 Zenoh를 통해 로봇 실행부를 연동합니다.
 
 <br>
 
@@ -224,17 +235,6 @@ Isaac Sim의 **8개 베드·16개 작업 구역**에서 협업 공정을 시험�
 <img src="docs/readme/assets/sim-map.png" alt="시뮬레이션 농장 지도" width="900">
 
 </details>
-
-<br>
-
-<a id="architecture"></a>
-## 🏗️ System Architecture
-
-![ManyFarm 전체 시스템 구조](docs/readme/assets/architecture.png)
-
-**웹 관제 ↔ 관제 서버 ↔ ROS 2 공통 인터페이스 ↔ 실물·시뮬레이션**
-
-HTTP·WebSocket으로 작업과 상태를 연결하고, ROS 2와 Zenoh를 통해 로봇 실행부를 연동합니다.
 
 <br>
 
