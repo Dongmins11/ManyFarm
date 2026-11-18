@@ -1,5 +1,12 @@
 # 시뮬레이션 통합 변경 이력
 
+## DOCS-CLEANUP-20261119 — 과거 배포 안내와 영상 제작 지시 정리
+
+- 사용자 요청: 조직 전체의 불필요한 Markdown 정리. 초기 v0.2–v0.5 안내와 완료된 영상 제작 지시 14개를 활성 문서에서 제거하고, 기존 참조는 정리 전 커밋의 원문 링크로 연결했다.
+- 내용이 같은 HARVEST_COMMON_MIGRATION_20261002.md는 HARVEST_RUN_GUIDE_20261002.md로 통합했다. 원본 촬영 산출물과 그 원문 참조(V3–V5), 소개 및 README, 현행 실행 가이드, AGENTS, 설계·검증 결과, 코드·설정·자산은 유지했다.
+- 검증: Markdown 변경 범위와 새 문서 링크 정적 검사. 로봇·ROS·Isaac 실행은 문서 정리 범위가 아니므로 수행하지 않았다. 사용자 요청에 따라 GitHub 기본 브랜치에 반영할 문서 정리다.
+- 복원: 각 삭제 파일은 정리 전 커밋 0a8af2521fe0c502033e040970ea27a5ddc4c88f 및 2026-11-18 원본 백업에 보존되어 있다.
+
 ## PRESENTATION-GUI-V5-20261104 — 전량 인계·선별장 이동·삽입 없는25초 편집
 
 - 승인/기준: 사용자 최신 V5 확인·GUI 재촬영·직접 검수·main 커밋/푸시 요청, `origin/main@4a5da37`. 기존 V4와 미커밋 통합 작업을 보존하고 별도 main worktree에서 이번 결과만 게시한다.
@@ -28,13 +35,13 @@
 - 이번 직접 확인: V3 새 원본6개와 자막22초 편집본 다운로드/SHA 대조, 원본6개 전체 디코딩·규격, 각 컷과05/07 동작 및 편집본의 실제 추출 프레임 시각 검토. 현재06은 상부 덮개 열림,07은 이미 잡힌 과실1개로 시작한다. 실제 Isaac 재실행/실물 시험은 하지 않았다.
 - 확정 요구 인계: 닫힌 덮개 도킹→앞문 개방/바구니 기울임/빨강3·노랑3 배출→혼합3+3 자연스러운 구름·안착→팔 집기/색상선별의 연속 약8초. 기구 동작은 약4초 이내로 연출. 하우스·태그·마지막2초 유지/페이드를 보존한다.
 - 편집 설계: 05 기존7개와 새6개 불연속을 연결용05로 수정,01~04 원본 유지. 통합 원본12초(동작8+엔딩2+앞뒤여유2), 최종 약25초. 8초 내 선별은 색별1개씩을 명확히 보여주는 기본안이며 잔량을 보존한다.
-- 산출물: `PRESENTATION_VIDEO_REVISION_V4_20261104.md`, V3 최신 지시 연결. **문서만 변경했으며 V4 구현·촬영·편집은 아직 미실행**이다. 후속 로컬 Codex 촬영도 sim 세션에 한정한다.
+- 산출물: [PRESENTATION_VIDEO_REVISION_V4_20261104.md](https://github.com/Robot3FinalProject/main/blob/0a8af2521fe0c502033e040970ea27a5ddc4c88f/farm_project/sim/docs/PRESENTATION_VIDEO_REVISION_V4_20261104.md), V3 최신 지시 연결. **문서만 변경했으며 V4 구현·촬영·편집은 아직 미실행**이다. 후속 로컬 Codex 촬영도 sim 세션에 한정한다.
 - 실물 영향/복원: 공통 로봇 제어·펌웨어·지도·원본USD·기존V3 영상 변경 없음. 이번 문서 변경만 되돌리면 이전 안내로 복원된다.
 
 
 ## PRESENTATION-GUI-V3-20261104 — 하우스·태그 복원, 인계 낙하·선별 구름과22초 편집
 
-- 승인/기준: 사용자 최신 V3 문서 우선·GUI 재촬영·직접 검수·Git 게시 지시. `git fetch origin main` 후 `1ee8fbe`의 `PRESENTATION_VIDEO_REVISION_V3_20261104.md`와 카메라 참조 이미지를 읽었다. 기존 통합 브랜치·미커밋 작업·두 원본 촬영 폴더를 보존하고 최신main의 별도 worktree에 이번 변경만 준비했다.
+- 승인/기준: 사용자 최신 V3 문서 우선·GUI 재촬영·직접 검수·Git 게시 지시. `git fetch origin main` 후 `1ee8fbe`의 [PRESENTATION_VIDEO_REVISION_V3_20261104.md](https://github.com/Robot3FinalProject/main/blob/0a8af2521fe0c502033e040970ea27a5ddc4c88f/farm_project/sim/docs/PRESENTATION_VIDEO_REVISION_V3_20261104.md)와 카메라 참조 이미지를 읽었다. 기존 통합 브랜치·미커밋 작업·두 원본 촬영 폴더를 보존하고 최신main의 별도 worktree에 이번 변경만 준비했다.
 - 변경: 촬영 도구에 V3에서만 운영 AprilTag240개 설치/Pattern 확인·원본 하우스304prim 표시 검사, 세션 바닥·과실 준비/reset,7초 지원을 추가했다. 이전 V2 숨김 설정 재생은 보존한다. 촬영은 `--gui --all-beds`, 원본 USD 저장 없이 session layer에만 적용했다.
 - 촬영: 01은 네 베드 중앙 통로 안에서2.4m 전진, 02는 기존 구도와 실제 관측4개 검출 박스 예시, 04는 기존44도 구도·팔/03연결과 불투명 회색 바닥, 05는 기존 개폐 관절로 두 패널 개방 및 원래 크기의 빨강4/노랑3 과실 낙하·회전·접촉 감쇠, 06은 같은 적재 상대 자세와 측면 필름 배경, 07은 선별장/팔 동시 강체이동 및 실제 경사면 구름·안착·2초 유지다. 03 MP4는 원본 그대로 사용했다.
 - 재검수/수정: 01/06/07의 하우스가 잘 안 보이거나 설비가 잘리는 후보는 카메라로 수정했다. 바닥 메시 visibility 복원에서 숨긴 부모의 형제가 숨겨지는 문제를 국소 속성 설정으로 고쳤다. 바닥 윗면을 기존 벽 하단에5mm 맞췄다. 촬영용 과실 복제의 하위 인스턴스를 풀고 최종 연속 MP4에서 상부가 비워지는 것을 확인했다. 원본 로봇·과실 자산은 변경하지 않았다.
@@ -49,14 +56,14 @@
 ## PRESENTATION-VIDEO-V3-PLAN-20261104 — 사용자 촬영 피드백과 참조 이미지 인계
 
 - 승인/기준: 사용자 후속 피드백, 확인한 main `981b794`. 본 항목은 확정 촬영 설계 기록이며 구현·재촬영 완료 기록이 아니다.
-- 대상: `PRESENTATION_VIDEO_REVISION_V3_20261104.md`, `presentation_video_revision_v3_20261104/01_drone_camera_reference.jpg`, 이전 리뷰의 최신 지시 연결.
+- 대상: [PRESENTATION_VIDEO_REVISION_V3_20261104.md](https://github.com/Robot3FinalProject/main/blob/0a8af2521fe0c502033e040970ea27a5ddc4c88f/farm_project/sim/docs/PRESENTATION_VIDEO_REVISION_V3_20261104.md), `presentation_video_revision_v3_20261104/01_drone_camera_reference.jpg`, 이전 리뷰의 최신 지시 연결.
 - 변경: 비닐하우스 전체와 등록 베드 AprilTag 복원,01 중앙 통로 드론 전진,02 실제 검출 이미지 예시,03 원본 유지,04 회색 바닥,05 바닥 개방과 약7개 낙하·회전,06 하우스 배경,07 촬영용 설비 이동·과실 구름,2초 여유를 더한 약22초 엔딩.
 - 근거/검증: 촬영 설정의 하우스 hide 목록, 태그 설치 함수와240개 배치, 기존 예찰 검출 이미지, 보간 방식과4/5초 길이 제한을 원격 소스에서 확인했다. 사용자 그림을 직접 확인하고 형상을 바꾸지 않은 JPEG 참조로 함께 게시한다. 이번 단계에서 Isaac 실행·새 연출 검증은 하지 않았다.
 - 실물 영향/복원: 현재는 문서·참조 이미지만 변경한다. 후속 구현도 sim 촬영 도구·session layer에 한정하며 공통/실물 설정과 원본 USD는 보존한다. 본 문서 커밋을 되돌리면 계획 안내만 복원된다.
 
 ## PRESENTATION-RETAKE-20261104 — 리뷰에 따른 04·07·02 GUI 재촬영
 
-- 승인/기준: 사용자 `git fetch origin main` 후 리뷰를 읽고04→07→02재촬영·원본보존·직접검수·Git게시 지시. 원격main `524a193`의 `PRESENTATION_VIDEO_REVIEW_20261104.md`를 사용했다.
+- 승인/기준: 사용자 `git fetch origin main` 후 리뷰를 읽고04→07→02재촬영·원본보존·직접검수·Git게시 지시. 원격main `524a193`의 [PRESENTATION_VIDEO_REVIEW_20261104.md](https://github.com/Robot3FinalProject/main/blob/0a8af2521fe0c502033e040970ea27a5ddc4c88f/farm_project/sim/docs/PRESENTATION_VIDEO_REVIEW_20261104.md)를 사용했다.
 - 대상: 촬영 도구 `stage_portfolio_photos.py`의 선택적 세션 측면광/f-number, `presentation_video_frames.py`의 프리뷰 프레임 지정/렌더 안정화(프리뷰 대기6→48회, 최종MP4는6회 유지). 기존 도구·runtime을 재사용하고 업무코드/실물설정/원본USD는 변경하지 않았다.
 - 전후:04의약78°수직뷰를44°서남사선으로,07의팔잘림·낮은대비를35°전방사선/측면광으로,02의센서뒷면·바닥위주뷰를센서높이통로사선/70%추적으로 개선했다. 원본 모션·관절·과실부착은 모두 같다.
 - 검수: 컷별 서로 다른3방향×시작/중간/끝9장을 실제로 열어 비교했다.04/02추가미세조정과최종각9프레임도확인했다.03→04과실·집게월드행렬차이0. 세MP4각150프레임/5초/1080p30/무음 전체디코딩·SHA·렌더기록통과. 원본179파일해시일치.
@@ -444,7 +451,7 @@
 - 전후: sim 서버가 평가 함수를 호출 → 공통 서버는 Action/주행 처리와 환경 독립 task_events 진단 발행만 담당, sim 평가 노드는 비동기 구독하여 비교 로그 생성. 서버에서 sim import/Isaac snapshot 접근/평가 대기 제거.
 - 실물 영향: real 설정과 외부 드라이버가 있으면 devices=false로 같은 서버 실행 가능. 미구현 실물 장치 기본 분기는 오류. 실물 맵/드라이버/팔 작업을 가짜 구현하지 않음. 공통 workspace 재빌드 필요.
 - 검증: 오프라인 31개, 기존 경로 371개, 수확 내부 좌표 경로 48개 통과. sim/real 동일 서버, 시간 선택, 평가 분리, 중복 launch 없음 확인. 실제 ROS/Isaac/colcon/실물 미실행.
-- 전달/원복: HARVEST_COMMON_MIGRATION_20261002.md. 이전 수확 패치를 대체하는 합본 패치, 이관 도구로 옛 서버만 백업 후 제거. 결과 로그는 보존.
+- 전달/원복: [HARVEST_RUN_GUIDE_20261002.md](HARVEST_RUN_GUIDE_20261002.md). 이전 수확 패치를 대체하는 합본 패치, 이관 도구로 옛 서버만 백업 후 제거. 결과 로그는 보존.
 
 ## SIM-FLEET-20261002-010 — Isaac fleet 진입점 누락 수정
 

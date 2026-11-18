@@ -9,4 +9,4 @@ real/sim 공통 예찰 로봇 코드입니다.
 
 현재 범위는 1번 베드 주행입니다. 관제 ScoutArea 서버, 정차 관측 계획,
 YOLO, 수확 작업 생성은 다음 단계이며 구현된 것으로 간주하면 안 됩니다.
-실행법은 프로젝트 `docs/navigation_stage.md`를 보세요.
+실행법은 프로젝트 [docs/navigation_stage.md](https://github.com/Robot3FinalProject/main/blob/0a8af2521fe0c502033e040970ea27a5ddc4c88f/farm_project/docs/navigation_stage.md)를 보세요.
