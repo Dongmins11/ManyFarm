@@ -76,7 +76,7 @@ HTTP·WebSocket으로 작업과 상태를 연결하고, ROS 2와 Zenoh를 통해
 <sub>선별장 협동로봇 제품 이미지: <a href="https://hanwharobotics.com/kr/product/view?menuSeq=2&amp;prdtSeq=75">한화로보틱스</a></sub>
 
 <details>
-<summary><h3>하드웨어 상세 구성</h3></summary>
+<summary><h3>🔧 하드웨어 상세 구성</h3></summary>
 
 <table>
 <tr><th width="120">로봇</th><th width="520">주요 하드웨어</th><th width="280">역할</th></tr>
@@ -114,7 +114,9 @@ HTTP·WebSocket으로 작업과 상태를 연결하고, ROS 2와 Zenoh를 통해
 
 </details>
 
-### 시험 공간과 로봇 배치
+---
+
+### 🗺️ 시험 공간과 로봇 배치
 
 <img src="docs/readme/assets/farm-layout.png" alt="매니팜 맵: 실물 사진 기반 3D 공간과 로봇 배치" width="950">
 
