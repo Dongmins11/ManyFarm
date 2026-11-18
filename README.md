@@ -6,31 +6,25 @@
 
 **실제 로봇 · 웹 관제 · Isaac Sim 가상 농장**
 
-[기술 스택](#stack) · [프로젝트 소개](#overview) · [실물 시연](#demo) · [웹 관제](#dashboard) · [시뮬레이션](#simulation) · [아키텍처](#architecture) · [핵심 기술](#technologies) · [팀 구성](#team)
+![ROS 2 Jazzy](https://img.shields.io/badge/ROS%202%20Jazzy-22314E?style=flat-square&logo=ros&logoColor=white)
+![Python](https://img.shields.io/badge/Python-3776AB?style=flat-square&logo=python&logoColor=white)
+![C++](https://img.shields.io/badge/C%2B%2B-00599C?style=flat-square&logo=cplusplus&logoColor=white)
+![Nav2](https://img.shields.io/badge/Nav2-168AAD?style=flat-square)
+![AprilTag](https://img.shields.io/badge/AprilTag-374151?style=flat-square)
+![YOLO11](https://img.shields.io/badge/YOLO11-111F68?style=flat-square)
+![OpenCV](https://img.shields.io/badge/OpenCV-5C3EE8?style=flat-square&logo=opencv&logoColor=white)
+![PyTorch](https://img.shields.io/badge/PyTorch-EE4C2C?style=flat-square&logo=pytorch&logoColor=white)
+![Isaac Sim](https://img.shields.io/badge/Isaac%20Sim-76B900?style=flat-square&logo=nvidia&logoColor=white)
+![Isaac Lab](https://img.shields.io/badge/Isaac%20Lab-76B900?style=flat-square&logo=nvidia&logoColor=white)
+![React](https://img.shields.io/badge/React-149ECA?style=flat-square&logo=react&logoColor=white)
+![TypeScript](https://img.shields.io/badge/TypeScript-3178C6?style=flat-square&logo=typescript&logoColor=white)
+![FastAPI](https://img.shields.io/badge/FastAPI-009688?style=flat-square&logo=fastapi&logoColor=white)
+
+[프로젝트 소개](#overview) · [실물 시연](#demo) · [웹 관제](#dashboard) · [시뮬레이션](#simulation) · [아키텍처](#architecture) · [핵심 기술](#technologies) · [팀 구성](#team)
 
 <img src="docs/readme/assets/farm-overview.png" alt="ManyFarm Isaac Sim 가상 농장 전경" width="900">
 
 </div>
-
-<br>
-
-<a id="stack"></a>
-### 🛠️ Stack
-
-| 분야 | 사용 기술 |
-|---|---|
-| **언어 · 실행 환경** | Python · C++ · TypeScript · JavaScript · Bash · Ubuntu · Node.js |
-| **ROS 2 · 로봇 통신** | ROS 2 Jazzy · rclpy · rclcpp · ROS 2 Action / Service / Topic · Lifecycle Node · TF2 · Cyclone DDS · Zenoh Bridge |
-| **자율주행 · 위치 추정** | Nav2 · AMCL · NavFn · Regulated Pure Pursuit · FollowPath · Route Graph · GeoJSON · Costmap 2D · Behavior Tree · Velocity Smoother · AprilTag / apriltag_ros |
-| **비전 · 과실 인식** | Ultralytics YOLO11n-seg · Instance Segmentation · RGB-D · OpenCV · cv_bridge · image_proc · HSV · NCNN · FP16 |
-| **AI · 로봇팔 학습** | PyTorch · TorchVision · Isaac Lab · RSL-RL · PPO · Teacher–Student · Behavior Cloning · DAgger · CUDA · cuDNN |
-| **시뮬레이션 · 모델링** | NVIDIA Isaac Sim · PhysX · USD · URDF · ROS 2 Bridge · 가상 RGB-D / LiDAR · Sim-to-Real |
-| **웹 프론트엔드** | React · React DOM · TypeScript · Vite · Lucide React · HTML · CSS |
-| **관제 백엔드 · API** | FastAPI · Uvicorn · HTTP REST API · WebSocket · websockets · ROS 2 Action Worker · FSM |
-| **데이터 · 수치 처리** | NumPy · Pillow · Matplotlib · Polars · NetworkX · SymPy · PyYAML · JSON / JSONL · YAML · SQLite · PGM |
-| **장치 · 선별장 제어** | OpenCR · Arduino IDE · GPIO · PWM · UART · Modbus TCP · HCR Rodi · 로봇 티칭 |
-| **로봇 · 센서 플랫폼** | TurtleBot3 Burger / Waffle Pi · Vic Pinky · SO-ARM101 · HCR-3A · Raspberry Pi 4 · Jetson · Intel RealSense D435 · LiDAR · IMU · Pi Camera V2 |
-| **빌드 · 개발 · 검증** | Git · GitHub · pnpm · colcon · ament_cmake / ament_python · CMake · rosidl · pluginlib · Eigen · nlohmann/json · RViz2 · pytest · GoogleTest · ament_lint |
 
 <br>
 
