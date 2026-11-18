@@ -79,14 +79,13 @@ ManyFarm은 **파프리카의 상태를 관찰하고, 수확할 위치를 찾아
 
 수확 로봇은 양팔 구성으로 모델링·조립했으며, 제어·학습 검증은 **한 팔 중심**으로 진행했습니다.
 
-[하드웨어 구성](https://robot3final.atlassian.net/wiki/spaces/3/pages/622669) · [수확 URDF](https://github.com/Robot3FinalProject/robotarm/blob/main/src/smartfarm_description/urdf/harvest_robot.urdf) · [예찰 구성](https://robot3final.atlassian.net/wiki/spaces/3/pages/33128456) · [운송 실물 구성](https://robot3final.atlassian.net/wiki/spaces/3/pages/47087617) · [운송 기구·배선](https://robot3final.atlassian.net/wiki/spaces/3/pages/34766939)
+[수확 URDF](https://github.com/Robot3FinalProject/robotarm/blob/main/src/smartfarm_description/urdf/harvest_robot.urdf)
 
 </details>
 
 ### 시험 공간과 로봇 배치
 
 <img src="docs/readme/assets/farm-layout.png" alt="매니팜 맵: 실물 사진 기반 3D 공간과 로봇 배치" width="950">
-
 
 
 <br>
@@ -198,7 +197,6 @@ Isaac Sim의 **8개 베드·16개 작업 구역**에서 협업 공정을 시험�
 | **수확량 추적** | **125개** 레이저 통과 집계 | 같은 시험의 대상 192개 대비 65.10%. 작업 완료와 실제 수확량을 따로 평가 |
 | **운송 → 선별 → 복귀** | **10개 전량 선별** · 잔류 0 · 두 로봇 복귀 | 10/30 단회 시험. 기존 예찰·수확 결과를 재사용 |
 
-[시험 결과와 조건](https://robot3final.atlassian.net/wiki/spaces/3/pages/54362169)
 
 <details>
 <summary>시뮬레이션 농장 지도</summary>
@@ -249,7 +247,7 @@ HTTP·WebSocket으로 작업과 상태를 연결하고, ROS 2와 Zenoh를 통해
 
 <br>
 
-## 📂 Repositories & Documents
+## 📂 Repositories
 
 | 저장소 | 확인할 내용 |
 |---|---|
@@ -257,22 +255,9 @@ HTTP·WebSocket으로 작업과 상태를 연결하고, ROS 2와 Zenoh를 통해
 | [Frontend](https://github.com/Robot3FinalProject/Frontend) | 웹 관제, 서버, 작업 관리와 실행 기록 |
 | [Control](https://github.com/Robot3FinalProject/Control) | 터미널 관제·인터페이스 및 연동 시험 도구 |
 | [robotarm](https://github.com/Robot3FinalProject/robotarm) | 로봇 모델과 로봇팔 관련 자산·구현 |
-| [sorting](https://github.com/Robot3FinalProject/sorting) | HCR-3A 선별장과 관련 제어·운영 문서 |
+| [sorting](https://github.com/Robot3FinalProject/sorting) | HCR-3A 선별장 제어 |
 | [vision_paprika_detection](https://github.com/Robot3FinalProject/vision_paprika_detection) | 파프리카 비전 관련 구현 |
 
-실행 방법과 상세 기술 문서는 각 저장소에서 확인할 수 있습니다.
-
-**팀 내부 문서:** [전체 시퀀스](https://robot3final.atlassian.net/wiki/spaces/3/pages/53903361) · [시스템 아키텍처 기준](https://robot3final.atlassian.net/wiki/spaces/3/pages/819281)
-
-<details>
-<summary>기술 설명·그림의 원본 자료</summary>
-
-- AI 화단 비교: [Slack 공유 원본](https://3-jub1429.slack.com/archives/C0C0AHCJMKR/p1793591712597089) · [개발 기록](https://robot3final.atlassian.net/wiki/spaces/3/pages/48431150)
-- 수확 학습·실행 화면: 로봇팔 발표자료 및 [학습·실물 수확 기록](https://robot3final.atlassian.net/wiki/spaces/3/pages/43384914)
-- AprilTag 주행 화면: 최종 발표자료 및 [실물 위치 보정 시험](https://robot3final.atlassian.net/wiki/spaces/3/pages/33194086)
-- 시뮬레이션 시험: [실행 범위와 결과](https://robot3final.atlassian.net/wiki/spaces/3/pages/54362169)
-
-</details>
 
 ---
 
