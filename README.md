@@ -67,19 +67,35 @@ ManyFarm은 **파프리카의 상태를 관찰하고, 수확할 위치를 찾아
 <details>
 <summary><h3>하드웨어 상세 구성</h3></summary>
 
-| 로봇 | 주요 하드웨어 | 하는 일 |
-|---|---|---|
-| **예찰** | TurtleBot3 Burger · Raspberry Pi 4 · OpenCR · LiDAR/IMU | 이동·위치 추정·영상 처리 |
-| | Intel RealSense D435 · 카메라 지지대 | RGB 영상과 깊이로 과실 위치 관측 |
-| **수확** | Vic Pinky · LiDAR · 태그 관측 카메라 | 작업점 이동·위치 보정·복귀 |
-| | SO-ARM101 두 팔 · 그리퍼 · 고정 프레임 | 과실 파지·분리·상자 적재 |
-| | Jetson · 깊이 카메라 · U20 손목 RGB 카메라 | 수확 제어·3D 위치 추정·근접 영상 보정 |
-| | 수확 상자 · 박스 관측 카메라 · 배출 기구 | 투입 확인·수량 기록·운송 인계 |
-| **운송** | TurtleBot3 Waffle Pi · Raspberry Pi · OpenCR · LDS LiDAR · Pi Camera V2 | 경로 주행·마커 기반 도킹 |
-| | MG996R 서보 ×2 · 랙·피니언 슬라이딩 덮개 · 앞문 | 상부 덮개와 배출문 개폐 |
-| | 리니어 액추에이터 · L298N 드라이버 | 바구니를 기울여 하역 |
-| | HW-316F(XL4015) DC-DC · 주행/기구 분리 배터리 | 기구 전원 공급 |
-| **선별** | HCR-3A 협동로봇 · 그리퍼 · 카메라 · 선별 기구 | 색상 판정·집기·분류 위치에 놓기 |
+<table>
+<tr><th width="120">로봇</th><th width="520">주요 하드웨어</th><th width="280">역할</th></tr>
+<tr>
+<th rowspan="2" align="center">예&#8288;찰&#8288;로&#8288;봇</th>
+<td>TurtleBot3 Burger · Raspberry Pi 4 · OpenCR · LiDAR/IMU</td><td>이동·위치 추정·영상 처리</td></tr>
+<tr>
+<td>Intel RealSense D435 · 카메라 지지대</td><td>RGB 영상과 깊이로 과실 위치 관측</td></tr>
+<tr>
+<th rowspan="4" align="center">수&#8288;확&#8288;로&#8288;봇</th>
+<td>Vic Pinky · LiDAR · 태그 관측 카메라</td><td>작업점 이동·위치 보정·복귀</td></tr>
+<tr>
+<td>SO-ARM101 두 팔 · 그리퍼 · 고정 프레임</td><td>과실 파지·분리·상자 적재</td></tr>
+<tr>
+<td>Jetson · 깊이 카메라 · U20 손목 RGB 카메라</td><td>수확 제어·3D 위치 추정·근접 영상 보정</td></tr>
+<tr>
+<td>수확 상자 · 박스 관측 카메라 · 배출 기구</td><td>투입 확인·수량 기록·운송 인계</td></tr>
+<tr>
+<th rowspan="4" align="center">운&#8288;송&#8288;로&#8288;봇</th>
+<td>TurtleBot3 Waffle Pi · Raspberry Pi · OpenCR · LDS LiDAR · Pi Camera V2</td><td>경로 주행·마커 기반 도킹</td></tr>
+<tr>
+<td>MG996R 서보 ×2 · 랙·피니언 슬라이딩 덮개 · 앞문</td><td>상부 덮개와 배출문 개폐</td></tr>
+<tr>
+<td>리니어 액추에이터 · L298N 드라이버</td><td>바구니를 기울여 하역</td></tr>
+<tr>
+<td>HW-316F(XL4015) DC-DC · 주행/기구 분리 배터리</td><td>기구 전원 공급</td></tr>
+<tr>
+<th rowspan="1" align="center">선&#8288;별&#8288;로&#8288;봇</th>
+<td>HCR-3A 협동로봇 · 그리퍼 · 카메라 · 선별 기구</td><td>색상 판정·집기·분류 위치에 놓기</td></tr>
+</table>
 
 수확 로봇은 양팔 구성으로 모델링·조립했으며, 제어·학습 검증은 **한 팔 중심**으로 진행했습니다.
 
