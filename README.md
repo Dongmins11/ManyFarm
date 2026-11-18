@@ -65,7 +65,7 @@ ManyFarm은 **파프리카의 상태를 관찰하고, 수확할 위치를 찾아
 <sub>선별장 협동로봇 제품 이미지: <a href="https://hanwharobotics.com/kr/product/view?menuSeq=2&amp;prdtSeq=75">한화로보틱스</a></sub>
 
 <details>
-<summary><b>하드웨어 상세 구성</b></summary>
+<summary><h3>하드웨어 상세 구성</h3></summary>
 
 | 로봇 | 주요 하드웨어 | 하는 일 |
 |---|---|---|
