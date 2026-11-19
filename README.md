@@ -24,7 +24,15 @@
 
 [프로젝트 소개](#overview) · [아키텍처](#architecture) · [실물 시연](#demo) · [웹 관제](#dashboard) · [시뮬레이션](#simulation) · [핵심 기술](#technologies) · [팀 구성](#team)
 
-<img src="docs/readme/assets/farm-overview.png" alt="ManyFarm Isaac Sim 가상 농장 전경" width="900">
+### 🎬 실물 전체 공정 · 90초
+
+<a href="https://youtu.be/r52cahu3Ylk"><img src="https://dongmins11.github.io/portfolio/assets/home/real.jpg" alt="ManyFarm 실물 전체 공정 영상 — 클릭하여 YouTube에서 재생" width="900"></a>
+
+**[▶ 전체 공정 영상 보기](https://youtu.be/r52cahu3Ylk)** · 예찰 → 수확 → 운송 → 선별
+
+<img src="docs/readme/assets/farm-overview.png" alt="ManyFarm Isaac Sim 가상 농장 전경" width="420">
+
+<sub>Isaac Sim 가상 농장</sub>
 
 </div>
 
@@ -225,7 +233,7 @@ HTTP·WebSocket으로 작업과 상태를 연결하고, ROS 2와 Zenoh를 통해
 
 **실물과 시뮬레이션에 공통 업무 로직을 적용**하고, 물체의 물성과 물리 동작을 실제 환경에 가깝게 조정하며 **Sim-to-Real**을 진행했습니다.
 
-<p align="center"><img src="docs/readme/assets/simulation.gif" alt="Isaac Sim 농장에서 예찰·수확·운송·선별 시연" width="900"></p>
+<p align="center"><img src="docs/readme/assets/simulation.gif" alt="Isaac Sim 농장에서 예찰·수확·운송·선별 시연" width="560"></p>
 
 **공통 로직 연결 → 물리 조건 조정 → 시뮬레이션 시험 → 실물 로봇 확인**
 
