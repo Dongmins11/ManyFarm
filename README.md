@@ -26,13 +26,9 @@
 
 ### 🎬 실물 전체 공정 · 90초
 
-<a href="https://youtu.be/r52cahu3Ylk"><img src="https://dongmins11.github.io/portfolio/assets/home/real.jpg" alt="ManyFarm 실물 전체 공정 영상 — 클릭하여 YouTube에서 재생" width="900"></a>
+https://github.com/user-attachments/assets/006040f1-f68a-4406-b406-d98f46f3e756
 
-**[▶ 전체 공정 영상 보기](https://youtu.be/r52cahu3Ylk)** · 예찰 → 수확 → 운송 → 선별
-
-<img src="docs/readme/assets/farm-overview.png" alt="ManyFarm Isaac Sim 가상 농장 전경" width="420">
-
-<sub>Isaac Sim 가상 농장</sub>
+**예찰 → 수확 → 운송 → 선별**
 
 </div>
 
